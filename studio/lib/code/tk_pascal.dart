@@ -419,9 +419,11 @@ end.
 program app;
 
 {\$mode objfpc}{\$H+}
+{\$IFDEF DARWIN}{\$modeswitch objectivec1}{\$ENDIF}
 
 uses
   {\$IFDEF UNIX}cthreads,{\$ENDIF}
+  {\$IFDEF DARWIN}CocoaAll,{\$ENDIF}
   Interfaces, Forms, dms, design, ${d.name};
 
 var
@@ -433,6 +435,12 @@ begin
   Application.Title := ${str(d.title)};
   Application.Initialize;
   Application.CreateForm(T${d.name}, F);
+  {\$IFDEF DARWIN}
+  // Sin paquete .app, macOS la abriría en segundo plano y sin ventana
+  // al frente: es una aplicación normal y se pone delante.
+  NSApp.setActivationPolicy(NSApplicationActivationPolicyRegular);
+  NSApp.activateIgnoringOtherApps(True);
+  {\$ENDIF}
   Application.Run;
 end.
 ''';
@@ -548,6 +556,11 @@ type
 
   { La ventana: form_create al abrir y form_close al cerrar. }
   TDmsForm = class(TForm)
+  private
+    FShown: Boolean;
+    procedure DmsFront(Data: PtrInt);
+  protected
+    procedure DoShow; override;
   public
     { La última tecla pulsada (en el evento de teclado de la ventana). }
     LastKey: Char;
@@ -602,6 +615,21 @@ end;
 
 procedure TDmsForm.form_create;
 begin
+end;
+
+{ Al abrirse, delante de las demás ventanas (ya con el bucle en marcha). }
+procedure TDmsForm.DoShow;
+begin
+  inherited DoShow;
+  if FShown then Exit;
+  FShown := True;
+  Application.QueueAsyncCall(@DmsFront, 0);
+end;
+
+procedure TDmsForm.DmsFront(Data: PtrInt);
+begin
+  Application.BringToFront;
+  BringToFront;
 end;
 
 procedure TDmsForm.form_close;

@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.30 — 2026-11-05
+
+- Pascal en macOS: la aplicación compilada se abría en segundo plano, sin
+  ventana visible ni icono en el Dock, y el estudio parecía quedarse en
+  «Compilando…». Ahora es una aplicación normal que se pone delante al abrir.
+- Pascal y C++: tras compilar, la Salida avisa de que la aplicación está
+  abierta y de cómo terminarla.
+
 ## 1.0.29 — 2026-11-05
 
 - **Destino Pascal con Lazarus**: aplicaciones de escritorio nativas en

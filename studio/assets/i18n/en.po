@@ -1630,6 +1630,10 @@ msgid "No se pudo instalar Lazarus: {0}"
 msgstr "Could not install Lazarus: {0}"
 
 #: lib/code/tk_run_io.dart
+msgid "Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar)."
+msgstr "Compiled: the application is open (close it or press Stop to finish)."
+
+#: lib/code/tk_run_io.dart
 msgid "Compilando…"
 msgstr "Compiling…"
 

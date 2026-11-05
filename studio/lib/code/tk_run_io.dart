@@ -670,6 +670,11 @@ class TkRunner {
           workingDirectory: prepared.id,
         );
         proc = started;
+        run.add(
+          tr(
+            'Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar).',
+          ),
+        );
         final done = [
           for (final s in [started.stdout, started.stderr])
             s
@@ -732,6 +737,11 @@ class TkRunner {
           workingDirectory: prepared.id,
         );
         proc = started;
+        run.add(
+          tr(
+            'Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar).',
+          ),
+        );
         final done = [
           for (final s in [started.stdout, started.stderr])
             s

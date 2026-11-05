@@ -24,6 +24,8 @@ Trabajando
 
 Pendiente
 =========
+36. Aplicaciones de consola: Python, C/C++ y Pascal (entrada y salida en la pestaña Salida) | ⏳ |
+37. Next.js: página web adaptable de verdad, no el formulario pintado | ⏳ |
 16. Flutter (escritorio ) | ⏳ |
 17. Flutter (movil ) | ⏳ | 
 18. React Native (móvil) | ⏳ |

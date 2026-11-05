@@ -43,6 +43,7 @@ export const en: Content = {
       { name: "Next.js", sub: "JavaScript · web", icon: "next" },
       { name: "C++", sub: "FLTK · native", icon: "cpp" },
       { name: "Pascal", sub: "Lazarus · native", icon: "lazarus" },
+      { name: "Console", sub: "Python · C · C++ · Pascal", icon: "console" },
     ],
     backendsLabel: "Backends",
     backends: [
@@ -84,6 +85,7 @@ export const en: Content = {
       { seed: "chrome_words", name: "Word counter (Chrome)", text: "An extension that reads the open page and counts its words." },
       { seed: "next_tasks", name: "Task list (Next.js)", text: "A Next.js page with tasks saved in the browser." },
       { seed: "cpp_calculator", name: "Calculator (C++)", text: "The calculator as a native C++ app with FLTK." },
+      { seed: "console_animals", name: "Animal management (console)", text: "Registrations, removals and vaccines from a Python console menu." },
       { seed: "pascal_calculator", name: "Calculator (Pascal)", text: "The native calculator in Object Pascal with Lazarus, keyboard included." },
       { seed: "web_crm", name: "CRM web", text: "Opportunities by stage and pipeline value, in Flask." },
       { seed: "web_invoicing", name: "Invoicing web", text: "Invoices with VAT, numbering and download." },
@@ -156,6 +158,7 @@ export const en: Content = {
       { name: "Electron + React", icon: "electron", status: "ready", text: "Desktop apps with Electron and React, with the event code in JavaScript." },
       { name: "C++ (FLTK)", icon: "cpp", status: "ready", text: "Native C++ apps with FLTK: the studio compiles and opens them." },
       { name: "Pascal (Lazarus)", icon: "lazarus", status: "ready", text: "Native Object Pascal apps with the LCL components: the studio compiles them with Lazarus and opens them." },
+      { name: "Console", icon: "console", status: "ready", text: "Programs without a window in Python, C, C++ or Pascal: input and output in the studio's Output tab." },
       { name: "Next.js", icon: "next", status: "ready", text: "Next.js web pages with React: the design is the page, ready for npm or Vercel." },
       { name: "Chrome extensions", icon: "chrome", status: "ready", text: "The design is the extension popup: storage, the active tab and code in the page." },
     ],

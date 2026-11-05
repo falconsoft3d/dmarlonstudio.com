@@ -841,6 +841,50 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------ consola
+    {
+      slug: "consola",
+      title: "Aplicaciones de consola",
+      summary: "Programas sin ventana en Python, C, C++ o Pascal, con la entrada y la salida en la pestaña Salida.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear un programa de consola",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear el proyecto, elija **Consola** y el lenguaje: **Python**, **C**, **C++** o **Pascal**. No hay diseño: el proyecto es un solo archivo (`main.py`, `main.c`, `main.cpp` o `main.pas`) que se edita en la pestaña **Código**, con resaltado, autocompletado y ayuda (F1).",
+            },
+            {
+              type: "code",
+              code: "name = input(\"¿Cómo se llama? \")\nprint(f\"Hola, {name}.\")",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** compila si hace falta y arranca el programa. Lo que escribe (`print`, `printf`, `std::cout`, `WriteLn`) sale en la pestaña **Salida**.",
+                "Cuando el programa pide algo (`input`, `scanf`, `std::cin`, `ReadLn`), escriba la respuesta en el campo de abajo de la Salida y pulse **Intro**: aparece detrás de la pregunta, como en un terminal.",
+                "C y C++ se compilan con el compilador del equipo; Pascal, con Free Pascal (`fpc`), sin Lazarus. Los errores salen con su línea, como `main.c:2:3: error: …`.",
+                "**Exportar el programa** guarda el archivo tal cual.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "ejemplos",
+          title: "Ejemplos",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Gestión de animales (consola)**: en Python, con menú para dar de alta y de baja animales y llevar sus vacunas (las próximas dosis y las pendientes de los próximos 30 días). Guarda los datos en `animales.json`, en la carpeta del proyecto.",
+                "**Adivina el número**, en Python, C, C++ y Pascal: el programa piensa un número entre 1 y 100 y usted lo adivina con las pistas «Más alto» y «Más bajo».",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",

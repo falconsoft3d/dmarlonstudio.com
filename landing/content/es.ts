@@ -43,6 +43,7 @@ export const es: Content = {
       { name: "Next.js", sub: "JavaScript · web", icon: "next" },
       { name: "C++", sub: "FLTK · nativo", icon: "cpp" },
       { name: "Pascal", sub: "Lazarus · nativo", icon: "lazarus" },
+      { name: "Consola", sub: "Python · C · C++ · Pascal", icon: "console" },
     ],
     backendsLabel: "Backends",
     backends: [
@@ -84,6 +85,7 @@ export const es: Content = {
       { seed: "chrome_words", name: "Contador de palabras (Chrome)", text: "Una extensión que lee la página abierta y cuenta sus palabras." },
       { seed: "next_tasks", name: "Lista de tareas (Next.js)", text: "Una página de Next.js con tareas guardadas en el navegador." },
       { seed: "cpp_calculator", name: "Calculadora (C++)", text: "La calculadora como aplicación nativa en C++ con FLTK." },
+      { seed: "console_animals", name: "Gestión de animales (consola)", text: "Altas, bajas y vacunas desde un menú de consola en Python." },
       { seed: "pascal_calculator", name: "Calculadora (Pascal)", text: "La calculadora nativa en Object Pascal con Lazarus, también con el teclado." },
       { seed: "web_crm", name: "CRM web", text: "Oportunidades por etapas y valor del embudo, en Flask." },
       { seed: "web_invoicing", name: "Facturador web", text: "Facturas con IVA, numeración y descarga." },
@@ -156,6 +158,7 @@ export const es: Content = {
       { name: "Electron + React", icon: "electron", status: "ready", text: "Aplicaciones de escritorio con Electron y React, con el código de los eventos en JavaScript." },
       { name: "C++ (FLTK)", icon: "cpp", status: "ready", text: "Aplicaciones nativas en C++ con FLTK: el estudio las compila y las abre." },
       { name: "Pascal (Lazarus)", icon: "lazarus", status: "ready", text: "Aplicaciones nativas en Object Pascal con los componentes de la LCL: el estudio las compila con Lazarus y las abre." },
+      { name: "Consola", icon: "console", status: "ready", text: "Programas sin ventana en Python, C, C++ o Pascal: la entrada y la salida, en la pestaña Salida del estudio." },
       { name: "Next.js", icon: "next", status: "ready", text: "Páginas web de Next.js con React: el diseño es la página, listas para npm o Vercel." },
       { name: "Extensiones de Chrome", icon: "chrome", status: "ready", text: "El diseño es la ventana emergente de la extensión: almacenamiento, pestaña activa y código en la página." },
     ],

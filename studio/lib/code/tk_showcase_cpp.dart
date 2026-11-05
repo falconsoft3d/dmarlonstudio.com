@@ -30,10 +30,10 @@ public:
     first = 0;
     op = 0;
     typing = false;
-    show();
+    refresh();
   }
 
-  void show() { Display->text(shown); }
+  void refresh() { Display->text(shown); }
 
   void digit(const std::string& d) {
     if (shown == "Error") clear();
@@ -43,7 +43,7 @@ public:
     } else if (shown.size() < 15) {
       shown += d;
     }
-    show();
+    refresh();
   }
 
   void dot() {
@@ -53,7 +53,7 @@ public:
       typing = true;
     }
     if (shown.find('.') == std::string::npos) shown += ".";
-    show();
+    refresh();
   }
 
   void compute() {
@@ -68,7 +68,7 @@ public:
     op = 0;
     typing = false;
     shown = std::isfinite(r) ? str(r) : "Error";
-    show();
+    refresh();
   }
 
   void operate(char o) {
@@ -86,14 +86,14 @@ $digits
   void BtnSign_click() override {
     if (shown == "Error" || shown == "0") return;
     shown = shown[0] == '-' ? shown.substr(1) : "-" + shown;
-    show();
+    refresh();
   }
 
   void BtnPercent_click() override {
     if (shown == "Error") return;
     shown = str(std::stod(shown) / 100);
     typing = false;
-    show();
+    refresh();
   }
 
   void BtnAdd_click() override { operate('+'); }

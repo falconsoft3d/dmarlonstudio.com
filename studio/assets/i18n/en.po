@@ -241,6 +241,42 @@ msgstr "The code must define “class {0} extends FormDesign”."
 msgid "Falta {0} en el entorno de React."
 msgstr "{0} is missing from the React environment."
 
+#: lib/code/tk_console.dart
+msgid "Aplicación de consola en C++. Lo que escribe std::cout sale en la pestaña Salida; std::cin y std::getline leen lo que escriba abajo."
+msgstr "Console application in C++. What std::cout writes shows in the Output tab; std::cin and std::getline read what you type below."
+
+#: lib/code/tk_console.dart
+msgid "Aplicación de consola en C. Lo que escribe printf sale en la pestaña Salida; scanf y fgets leen lo que escriba abajo."
+msgstr "Console application in C. What printf writes shows in the Output tab; scanf and fgets read what you type below."
+
+#: lib/code/tk_console.dart
+msgid "Aplicación de consola en Pascal. Lo que escribe WriteLn sale en la pestaña Salida; ReadLn lee lo que escriba abajo."
+msgstr "Console application in Pascal. What WriteLn writes shows in the Output tab; ReadLn reads what you type below."
+
+#: lib/code/tk_console.dart
+msgid "Aplicación de consola en Python. Lo que escribe print sale en la pestaña Salida; input lee lo que escriba abajo."
+msgstr "Console application in Python. What print writes shows in the Output tab; input reads what you type below."
+
+#: lib/code/tk_console.dart
+msgid "Falta Free Pascal"
+msgstr "Free Pascal is missing"
+
+#: lib/code/tk_console.dart
+msgid "Hola, "
+msgstr "Hello, "
+
+#: lib/code/tk_console.dart
+msgid "Hola, %s."
+msgstr "Hello, %s."
+
+#: lib/code/tk_console.dart
+msgid "Las aplicaciones de consola de Pascal se compilan con Free Pascal (fpc)."
+msgstr "Pascal console applications are compiled with Free Pascal (fpc)."
+
+#: lib/code/tk_console.dart
+msgid "¿Cómo se llama? "
+msgstr "What is your name? "
+
 #: lib/code/tk_cpp.dart
 msgid "El código debe definir «class {0} : public FormDesign»."
 msgstr "The code must define “class {0} : public FormDesign”."
@@ -769,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -1052,6 +1088,22 @@ msgstr "Connection"
 #: lib/code/tk_model.dart
 msgid "Conexión de datos"
 msgstr "Data connection"
+
+#: lib/code/tk_model.dart
+msgid "Consola (C)"
+msgstr "Console (C)"
+
+#: lib/code/tk_model.dart
+msgid "Consola (C++)"
+msgstr "Console (C++)"
+
+#: lib/code/tk_model.dart
+msgid "Consola (Pascal)"
+msgstr "Console (Pascal)"
+
+#: lib/code/tk_model.dart
+msgid "Consola (Python)"
+msgstr "Console (Python)"
 
 #: lib/code/tk_model.dart
 msgid "Consulta SQL"
@@ -2305,6 +2357,154 @@ msgstr "positive"
 msgid "teléfono"
 msgstr "phone"
 
+#: lib/code/tk_showcase_animals.dart
+msgid "=== Gestión de animales ==="
+msgstr "=== Animal management ==="
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Cancelado."
+msgstr "Cancelled."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Dado de alta con el número"
+msgstr "Registered with number"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Dar de alta un animal"
+msgstr "Register an animal"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Dar de baja un animal"
+msgstr "Remove an animal"
+
+#: lib/code/tk_showcase_animals.dart lib/code/tk_showcase_console.dart
+msgid "Escriba un número."
+msgstr "Enter a number."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Especie (perro, gato, vaca…): "
+msgstr "Species (dog, cat, cow…): "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Este dato es obligatorio."
+msgstr "This field is required."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Fecha de aplicación"
+msgstr "Date given"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Fecha de nacimiento"
+msgstr "Date of birth"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Fecha no válida. Ejemplo: 2026-03-15"
+msgstr "Invalid date. Example: 2026-03-15"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Gestión de animales (consola)"
+msgstr "Animal management (console)"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Gestión de animales: altas, bajas y vacunas. Los datos se guardan en animales.json, en la carpeta del proyecto."
+msgstr "Animal management: registrations, removals and vaccines. The data is saved in animales.json, in the project folder."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Hasta luego."
+msgstr "Goodbye."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Listar los animales"
+msgstr "List the animals"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Motivo de la baja: "
+msgstr "Reason for removal: "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "No hay animales dados de alta."
+msgstr "No animals registered."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "No hay ningún animal activo con ese número."
+msgstr "There is no active animal with that number."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "No hay vacunas pendientes en los próximos 30 días."
+msgstr "No vaccines due in the next 30 days."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Nombre: "
+msgstr "Name: "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Nº   Nombre          Especie      Nacimiento   Vacunas"
+msgstr "No.  Name            Species      Born         Vaccines"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Número del animal: "
+msgstr "Animal number: "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Opción no válida."
+msgstr "Invalid option."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Opción: "
+msgstr "Option: "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Próxima dosis (vacío si no hay)"
+msgstr "Next dose (empty if none)"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Registrar una vacuna"
+msgstr "Record a vaccine"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Sin vacunas registradas."
+msgstr "No vaccines recorded."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Una aplicación de consola en Python con menú: dar de alta y de baja animales y llevar sus vacunas, con las próximas dosis y las pendientes. Guarda los datos en animales.json."
+msgstr "A Python console application with a menu: register and remove animals and keep track of their vaccines, with next doses and those due. It saves the data in animales.json."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "VENCIDA"
+msgstr "OVERDUE"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Vacuna registrada para {0}."
+msgstr "Vaccine recorded for {0}."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Vacuna: "
+msgstr "Vaccine: "
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Vacunas pendientes (30 días)"
+msgstr "Vaccines due (30 days)"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "Ver las vacunas de un animal"
+msgstr "See an animal's vaccines"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "pronto"
+msgstr "soon"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "próxima:"
+msgstr "next:"
+
+#: lib/code/tk_showcase_animals.dart
+msgid "{0} queda dado de baja."
+msgstr "{0} has been removed."
+
+#: lib/code/tk_showcase_animals.dart
+msgid "¿Dar de baja a {0}? (s/n): "
+msgstr "Remove {0}? (y/n): "
+
 #: lib/code/tk_showcase_chrome.dart
 msgid "Abra una web y pulse el botón."
 msgstr "Open a website and press the button."
@@ -2380,6 +2580,50 @@ msgstr "A note for every website, saved in the extension storage."
 #: lib/code/tk_showcase_chrome.dart
 msgid "Veces"
 msgstr "Times"
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivina el número ({0})"
+msgstr "Guess the number ({0})"
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivina el número: ReadLn lee lo que escribe en la pestaña Salida."
+msgstr "Guess the number: ReadLn reads what you type in the Output tab."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivina el número: input() lee lo que escribe en la pestaña Salida."
+msgstr "Guess the number: input() reads what you type in the Output tab."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivina el número: scanf lee lo que escribe en la pestaña Salida."
+msgstr "Guess the number: scanf reads what you type in the Output tab."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivina el número: std::cin lee lo que escribe en la pestaña Salida."
+msgstr "Guess the number: std::cin reads what you type in the Output tab."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Adivine el número entre 1 y 100."
+msgstr "Guess the number between 1 and 100."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Más alto."
+msgstr "Higher."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Más bajo."
+msgstr "Lower."
+
+#: lib/code/tk_showcase_console.dart
+msgid "Su número: "
+msgstr "Your number: "
+
+#: lib/code/tk_showcase_console.dart
+msgid "Un juego de consola: el programa piensa un número y usted lo adivina escribiendo en la pestaña Salida."
+msgstr "A console game: the program thinks of a number and you guess it by typing in the Output tab."
+
+#: lib/code/tk_showcase_console.dart
+msgid "¡Correcto! En {0} intentos."
+msgstr "Correct! In {0} tries."
 
 #: lib/code/tk_showcase_cpp.dart
 msgid "Calculadora (C++)"
@@ -6060,6 +6304,10 @@ msgid "Inicie la depuración con «Depurar» (Mayús+F9). Ponga puntos de parada
 msgstr "Start debugging with “Debug” (Shift+F9). Set breakpoints by clicking to the left of the line numbers in the Code tab (F5 on the cursor line)."
 
 #: lib/ui/screens/tk_debug_panel.dart
+msgid "Las aplicaciones de consola aún no tienen depurador: use print, printf, std::cout o WriteLn, que salen en la pestaña Salida. «Depurar» compila C, C++ y Pascal con información de depuración (-g) para lldb o gdb."
+msgstr "Console applications have no debugger yet: use print, printf, std::cout or WriteLn, which show in the Output tab. “Debug” compiles C, C++ and Pascal with debug information (-g) for lldb or gdb."
+
+#: lib/ui/screens/tk_debug_panel.dart
 msgid "Las no controladas"
 msgstr "Uncaught ones"
 
@@ -6316,6 +6564,10 @@ msgid "Chat con Claude Code"
 msgstr "Chat with Claude Code"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Consola"
+msgstr "Console"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Continuar (F9)"
 msgstr "Continue (F9)"
 
@@ -6396,12 +6648,20 @@ msgid "En marcha en {0}: solo en este equipo, sin publicar."
 msgstr "Running at {0}: on this computer only, not published."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "En marcha: escriba abajo y pulse Intro para responder."
+msgstr "Running: type below and press Enter to answer."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Entrar (F7)"
 msgstr "Step into (F7)"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Enviar al fondo"
 msgstr "Send to back"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Escriba la entrada del programa y pulse Intro"
+msgstr "Type the program input and press Enter"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Escribe el código de este botón: …"
@@ -6446,6 +6706,10 @@ msgstr "Export here"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el archivo .py"
 msgstr "Export the .py file"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el programa ({0})"
+msgstr "Export the program ({0})"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de C++ (con Makefile)"
@@ -6638,6 +6902,10 @@ msgstr "Bring to front"
 #: lib/ui/screens/tk_designer.dart
 msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
 msgstr "A PNG (ideally 256 × 256 or larger). It is copied to the project images folder and used by the window, the extension or the web page depending on the target."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Un programa de consola, sin ventana: un solo archivo con su main. Lo que escribe sale en la pestaña Salida y lo que usted escribe abajo le llega como entrada. Python no se compila; C y C++ necesitan un compilador; Pascal, Free Pascal. El destino no se puede cambiar después."
+msgstr "A console program, without a window: a single file with its main. What it writes shows in the Output tab and what you type below reaches it as input. Python is not compiled; C and C++ need a compiler; Pascal, Free Pascal. The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Un proyecto puede tener partes con su propio destino: por ejemplo, «Odoo» con «bd» (Python) y «front» (Next.js). Cada subproyecto es una carpeta dentro de la del proyecto."

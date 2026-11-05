@@ -18,6 +18,8 @@ Hechos
 16. Pascal (escritorio, Lazarus/LCL) | ✅ |
 17. Bases de datos FalconDatabase (y Firebase en el módulo) | ✅ |
 27. Flask (Web) | ✅ |
+36. Aplicaciones de consola: Python, C, C++ y Pascal | ✅ |
+
 
 Trabajando
 =========
@@ -26,9 +28,8 @@ Trabajando
 
 Pendiente
 =========
-36. Aplicaciones de consola: Python, C/C++ y Pascal (entrada y salida en la pestaña Salida) | ⏳ |
-16. Flutter (escritorio ) | ⏳ |
-17. Flutter (movil ) | ⏳ | 
+16. Flutter (móvil) — siguiente: inspirado en FlutterFlow, interfaz móvil de verdad; demos: una app de envíos y otra de tareas | ⏳ |
+17. Flutter (escritorio) — con el mismo editor inspirado en FlutterFlow | ⏳ |
 18. React Native (móvil) | ⏳ |
 19. React (Web) | ⏳ |
 20. HTML (Web) | ⏳ |

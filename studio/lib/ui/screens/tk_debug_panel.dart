@@ -295,6 +295,7 @@ class TkDebugPanel extends StatefulWidget {
     this.electron = false,
     this.cpp = false,
     this.pascal = false,
+    this.console = false,
   });
 
   /// Proyecto de C++: se depura con lldb o gdb.
@@ -302,6 +303,9 @@ class TkDebugPanel extends StatefulWidget {
 
   /// Proyecto de Pascal: se depura en Lazarus.
   final bool pascal;
+
+  /// Aplicación de consola: sin depurador por ahora.
+  final bool console;
 
   /// Proyecto de Electron: se depura con las herramientas de Chromium.
   final bool electron;
@@ -438,7 +442,11 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
     style: _text,
     child: widget.electron && widget.tab != TkDebugTab.breakpoints
         ? _hint(
-            widget.pascal
+            widget.console
+                ? tr(
+                    'Las aplicaciones de consola aún no tienen depurador: use print, printf, std::cout o WriteLn, que salen en la pestaña Salida. «Depurar» compila C, C++ y Pascal con información de depuración (-g) para lldb o gdb.',
+                  )
+                : widget.pascal
                 ? tr(
                     'En Pascal, la aplicación se compila con lazbuild y se abre; para depurar paso a paso, abra build/pascal/app.lpi en Lazarus. Lo que escribe WriteLn sale en la pestaña Salida.',
                   )

@@ -17,6 +17,8 @@ part 'tk_showcase_chrome.dart';
 part 'tk_showcase_next.dart';
 part 'tk_showcase_cpp.dart';
 part 'tk_showcase_pascal.dart';
+part 'tk_showcase_console.dart';
+part 'tk_showcase_animals.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.

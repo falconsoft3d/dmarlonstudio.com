@@ -19,6 +19,7 @@ import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
+import '../../code/tk_console.dart';
 import '../../code/tk_pascal.dart';
 import '../../code/tk_pascal_run.dart';
 import '../../code/tk_debug.dart';
@@ -927,7 +928,9 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isCpp
+  IconData _targetIcon(TkDesign x) => x.isConsole
+      ? LucideIcons.squareTerminal
+      : x.isCpp
       ? LucideIcons.cpu
       : x.isPascal
       ? LucideIcons.feather
@@ -1018,6 +1021,8 @@ class _TkEditorState extends State<_TkEditor> {
     super.initState();
     _shownDirty = doc.dirty;
     _shownDesign = doc.design;
+    // Consola: no hay diseño, solo el código.
+    if (doc.design.isConsole) _tab = 1;
     TkProject.changes.addListener(_onProject);
     _attach(TkRunner.runOf(doc.id));
     _attachTests(TkRunner.testsOf(doc.id));
@@ -1072,6 +1077,8 @@ class _TkEditorState extends State<_TkEditor> {
     _generatedFind.dispose();
     _generatedCode.dispose();
     _codeFocus.dispose();
+    _consoleText.dispose();
+    _consoleFocus.dispose();
     _outScroll.dispose();
     super.dispose();
   }
@@ -1741,6 +1748,7 @@ class _TkEditorState extends State<_TkEditor> {
   }
 
   void _setTab(int i) {
+    if (d.isConsole && i != 1) return;
     if (i == 2) _regenerate();
     setState(() => _tab = i);
   }
@@ -2195,6 +2203,22 @@ class _TkEditorState extends State<_TkEditor> {
     });
   }
 
+  /// Consola: el programa tal cual (main.py, main.c…).
+  Future<void> _exportConsole() => runAction(context, () async {
+    final lang = d.consoleLang!;
+    await saveBytes(
+      utf8.encode(_code.text),
+      suggestedName: 'main',
+      typeLabel: switch (lang) {
+        'c' => 'C',
+        'cpp' => 'C++',
+        'pas' => 'Pascal',
+        _ => 'Python',
+      },
+      extension: TkConsole.ext(lang),
+    );
+  });
+
   Future<void> _export() => runAction(context, () async {
     final src = TkCodegen.generate(d, _code.text);
     await saveBytes(
@@ -2415,7 +2439,9 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isCpp
+              d.isConsole
+                  ? tr('Exportar el programa ({0})', [TkConsole.file(d)])
+                  : d.isCpp
                   ? tr('Exportar el proyecto de C++ (con Makefile)')
                   : d.isPascal
                   ? tr('Exportar el proyecto de Lazarus')
@@ -2426,7 +2452,9 @@ class _TkEditorState extends State<_TkEditor> {
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isCpp
+              d.isConsole
+                  ? _exportConsole
+                  : d.isCpp
                   ? _exportCpp
                   : d.isPascal
                   ? _exportPascal
@@ -2495,68 +2523,70 @@ class _TkEditorState extends State<_TkEditor> {
                 height: 14,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-            const VerticalDivider(width: 12),
-            _tool(
-              LucideIcons.alignStartVertical,
-              tr('Alinear a la izquierda'),
-              al('left'),
-            ),
-            _tool(
-              LucideIcons.alignCenterVertical,
-              tr('Centrar en horizontal'),
-              al('center'),
-            ),
-            _tool(
-              LucideIcons.alignEndVertical,
-              tr('Alinear a la derecha'),
-              al('right'),
-            ),
-            _tool(
-              LucideIcons.alignStartHorizontal,
-              tr('Alinear arriba'),
-              al('top'),
-            ),
-            _tool(
-              LucideIcons.alignCenterHorizontal,
-              tr('Centrar en vertical'),
-              al('middle'),
-            ),
-            _tool(
-              LucideIcons.alignEndHorizontal,
-              tr('Alinear abajo'),
-              al('bottom'),
-            ),
-            _tool(
-              LucideIcons.stretchHorizontal,
-              tr('Igualar el ancho'),
-              al('width'),
-            ),
-            _tool(
-              LucideIcons.stretchVertical,
-              tr('Igualar el alto'),
-              al('height'),
-            ),
-            _tool(
-              LucideIcons.alignHorizontalJustifyCenter,
-              tr('Centrar en la ventana (horizontal)'),
-              _selection.isEmpty
-                  ? null
-                  : () => _centerInParent(horizontal: true),
-            ),
-            _tool(
-              LucideIcons.alignVerticalJustifyCenter,
-              tr('Centrar en la ventana (vertical)'),
-              _selection.isEmpty
-                  ? null
-                  : () => _centerInParent(horizontal: false),
-            ),
-            const VerticalDivider(width: 12),
-            _tool(
-              LucideIcons.grid3x3,
-              tr('Ajustar a la rejilla'),
-              () => setState(() => _snap = !_snap),
-              on: _snap,
-            ),
+            if (!d.isConsole) ...[
+              const VerticalDivider(width: 12),
+              _tool(
+                LucideIcons.alignStartVertical,
+                tr('Alinear a la izquierda'),
+                al('left'),
+              ),
+              _tool(
+                LucideIcons.alignCenterVertical,
+                tr('Centrar en horizontal'),
+                al('center'),
+              ),
+              _tool(
+                LucideIcons.alignEndVertical,
+                tr('Alinear a la derecha'),
+                al('right'),
+              ),
+              _tool(
+                LucideIcons.alignStartHorizontal,
+                tr('Alinear arriba'),
+                al('top'),
+              ),
+              _tool(
+                LucideIcons.alignCenterHorizontal,
+                tr('Centrar en vertical'),
+                al('middle'),
+              ),
+              _tool(
+                LucideIcons.alignEndHorizontal,
+                tr('Alinear abajo'),
+                al('bottom'),
+              ),
+              _tool(
+                LucideIcons.stretchHorizontal,
+                tr('Igualar el ancho'),
+                al('width'),
+              ),
+              _tool(
+                LucideIcons.stretchVertical,
+                tr('Igualar el alto'),
+                al('height'),
+              ),
+              _tool(
+                LucideIcons.alignHorizontalJustifyCenter,
+                tr('Centrar en la ventana (horizontal)'),
+                _selection.isEmpty
+                    ? null
+                    : () => _centerInParent(horizontal: true),
+              ),
+              _tool(
+                LucideIcons.alignVerticalJustifyCenter,
+                tr('Centrar en la ventana (vertical)'),
+                _selection.isEmpty
+                    ? null
+                    : () => _centerInParent(horizontal: false),
+              ),
+              const VerticalDivider(width: 12),
+              _tool(
+                LucideIcons.grid3x3,
+                tr('Ajustar a la rejilla'),
+                () => setState(() => _snap = !_snap),
+                on: _snap,
+              ),
+            ],
             if (TkRunner.supported)
               _tool(
                 LucideIcons.panelBottom,
@@ -2830,62 +2860,65 @@ class _TkEditorState extends State<_TkEditor> {
           ),
           style: TextStyle(fontSize: 11.5, color: t.hintColor),
         ),
-        label(tr('Icono de la aplicación')),
-        Row(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                border: Border.all(color: t.dividerColor),
-                borderRadius: BorderRadius.circular(6),
+        // Sin ventana, no hay icono.
+        if (!d.isConsole) ...[
+          label(tr('Icono de la aplicación')),
+          Row(
+            children: [
+              Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  border: Border.all(color: t.dividerColor),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: iconFile != null && iconFile.existsSync()
+                    ? Image.file(
+                        iconFile,
+                        key: ValueKey(iconFile.lastModifiedSync()),
+                        fit: BoxFit.contain,
+                      )
+                    : Icon(LucideIcons.image, color: t.hintColor),
               ),
-              clipBehavior: Clip.antiAlias,
-              child: iconFile != null && iconFile.existsSync()
-                  ? Image.file(
-                      iconFile,
-                      key: ValueKey(iconFile.lastModifiedSync()),
-                      fit: BoxFit.contain,
-                    )
-                  : Icon(LucideIcons.image, color: t.hintColor),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Wrap(
-                spacing: 4,
-                children: [
-                  FilledButton.tonal(
-                    key: const ValueKey('tk-project-icon'),
-                    onPressed: _chooseIcon,
-                    child: Text(tr('Elegir…')),
-                  ),
-                  TextButton.icon(
-                    key: const ValueKey('tk-project-icon-ai'),
-                    onPressed: _iconWithAi,
-                    icon: const Icon(LucideIcons.sparkles, size: 15),
-                    label: Text(tr('Generar con IA')),
-                  ),
-                  if (icon != null)
-                    TextButton(
-                      onPressed: () => setState(() {
-                        _begin();
-                        d.appIcon = null;
-                        _changed();
-                      }),
-                      child: Text(tr('Quitar')),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Wrap(
+                  spacing: 4,
+                  children: [
+                    FilledButton.tonal(
+                      key: const ValueKey('tk-project-icon'),
+                      onPressed: _chooseIcon,
+                      child: Text(tr('Elegir…')),
                     ),
-                ],
+                    TextButton.icon(
+                      key: const ValueKey('tk-project-icon-ai'),
+                      onPressed: _iconWithAi,
+                      icon: const Icon(LucideIcons.sparkles, size: 15),
+                      label: Text(tr('Generar con IA')),
+                    ),
+                    if (icon != null)
+                      TextButton(
+                        onPressed: () => setState(() {
+                          _begin();
+                          d.appIcon = null;
+                          _changed();
+                        }),
+                        child: Text(tr('Quitar')),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 6),
-        Text(
-          tr(
-            'Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino.',
+            ],
           ),
-          style: TextStyle(fontSize: 11.5, color: t.hintColor),
-        ),
+          const SizedBox(height: 6),
+          Text(
+            tr(
+              'Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino.',
+            ),
+            style: TextStyle(fontSize: 11.5, color: t.hintColor),
+          ),
+        ],
       ],
     );
   }
@@ -2940,15 +2973,17 @@ class _TkEditorState extends State<_TkEditor> {
                     ),
                   ),
                 ),
-              _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
-              for (final w in d.widgets)
-                _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
+              if (!d.isConsole) ...[
+                _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
+                for (final w in d.widgets)
+                  _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
+              ],
             ],
           ),
         ),
         Divider(height: 1, color: t.dividerColor),
         Expanded(
-          child: _project && _selection.isEmpty
+          child: d.isConsole || _project && _selection.isEmpty
               ? _projectPanel(t)
               : TkInspector(
                   design: d,
@@ -2987,30 +3022,35 @@ class _TkEditorState extends State<_TkEditor> {
                   ? tr('JavaScript generado')
                   : tr('Python generado'),
             ].indexed)
-              InkWell(
-                key: ValueKey('tk-tab-$i'),
-                onTap: () => _setTab(i),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        width: 2,
-                        color: _tab == i
-                            ? t.colorScheme.primary
-                            : Colors.transparent,
+              if (!d.isConsole || i == 1)
+                InkWell(
+                  key: ValueKey('tk-tab-$i'),
+                  onTap: () => _setTab(i),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 2,
+                          color: _tab == i
+                              ? t.colorScheme.primary
+                              : Colors.transparent,
+                        ),
                       ),
                     ),
+                    child: Text(label, style: const TextStyle(fontSize: 12.5)),
                   ),
-                  child: Text(label, style: const TextStyle(fontSize: 12.5)),
                 ),
-              ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 10),
               child: Text(
-                _tab == 0 ? tr('F12: código') : tr('F12: diseño'),
+                d.isConsole
+                    ? tkTargetLabel(d.target)
+                    : _tab == 0
+                    ? tr('F12: código')
+                    : tr('F12: diseño'),
                 style: TextStyle(fontSize: 11, color: t.hintColor),
               ),
             ),
@@ -3031,9 +3071,9 @@ class _TkEditorState extends State<_TkEditor> {
                 editorKey: const ValueKey('tk-code'),
                 controller: _code,
                 focusNode: _codeFocus,
-                javascript: d.isJs,
-                cpp: d.isCpp,
-                pascal: d.isPascal,
+                javascript: d.codeLang == 'js',
+                cpp: d.codeLang == 'cpp',
+                pascal: d.codeLang == 'pas',
                 findController: _codeFind,
                 completion: _completion,
                 project: doc.id,
@@ -3052,9 +3092,9 @@ class _TkEditorState extends State<_TkEditor> {
                     editorKey: const ValueKey('tk-generated'),
                     controller: _generatedCode,
                     readOnly: true,
-                    javascript: d.isJs,
-                    cpp: d.isCpp,
-                    pascal: d.isPascal,
+                    javascript: d.codeLang == 'js',
+                    cpp: d.codeLang == 'cpp',
+                    pascal: d.codeLang == 'pas',
                     findController: _generatedFind,
                   ),
           ],
@@ -3115,6 +3155,8 @@ class _TkEditorState extends State<_TkEditor> {
         ? tr('En marcha en {0}: solo en este equipo, sin publicar.', [
             run.address,
           ])
+        : run.input != null
+        ? tr('En marcha: escriba abajo y pulse Intro para responder.')
         : tr('En ejecución en su propia ventana.');
     final output =
         _panelTab == TkDebugTab.output || _panelTab == TkDebugTab.tests;
@@ -3164,7 +3206,14 @@ class _TkEditorState extends State<_TkEditor> {
           ),
       ],
       child: _panelTab == TkDebugTab.output
-          ? _outputList(run)
+          ? (run?.input != null && run!.running
+                ? Column(
+                    children: [
+                      Expanded(child: _outputList(run)),
+                      _consoleInput(run),
+                    ],
+                  )
+                : _outputList(run))
           : _panelTab == TkDebugTab.tests
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -3192,7 +3241,54 @@ class _TkEditorState extends State<_TkEditor> {
     electron: !d.isPython,
     cpp: d.isCpp,
     pascal: d.isPascal,
+    console: d.isConsole,
   );
+
+  /// Consola: lo que se escribe aquí le llega al programa (Intro).
+  Widget _consoleInput(TkRun run) => Container(
+    decoration: const BoxDecoration(
+      border: Border(top: BorderSide(color: Color(0xFF333333))),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+    child: Row(
+      children: [
+        const Text(
+          '›',
+          style: TextStyle(color: Color(0xFF4EC9B0), fontSize: 14),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: TextField(
+            key: const ValueKey('tk-console-input'),
+            controller: _consoleText,
+            focusNode: _consoleFocus,
+            autofocus: true,
+            style: const TextStyle(
+              color: Color(0xFFD4D4D4),
+              fontFamily: _mono,
+              fontFamilyFallback: _monoFallback,
+              fontSize: 12,
+            ),
+            cursorColor: const Color(0xFFD4D4D4),
+            decoration: InputDecoration(
+              isDense: true,
+              border: InputBorder.none,
+              hintText: tr('Escriba la entrada del programa y pulse Intro'),
+              hintStyle: const TextStyle(color: _editorDim, fontSize: 12),
+            ),
+            onSubmitted: (v) {
+              run.send(v);
+              _consoleText.clear();
+              _consoleFocus.requestFocus();
+            },
+          ),
+        ),
+      ],
+    ),
+  );
+
+  final _consoleText = TextEditingController();
+  final _consoleFocus = FocusNode();
 
   Widget _outputList(TkRun? run) => ListView.builder(
     key: const ValueKey('tk-output'),
@@ -3242,7 +3338,7 @@ class _TkEditorState extends State<_TkEditor> {
         child: Column(
           children: [
             _toolbar(t),
-            _palette(t),
+            if (!d.isConsole) _palette(t),
             Expanded(
               child: Row(
                 children: [
@@ -3251,9 +3347,9 @@ class _TkEditorState extends State<_TkEditor> {
                   if (_help)
                     TkHelpPanel(
                       lang: tkHelpLang(
-                        js: d.isJs,
-                        cpp: d.isCpp,
-                        pascal: d.isPascal,
+                        js: d.codeLang == 'js',
+                        cpp: d.codeLang == 'cpp',
+                        pascal: d.codeLang == 'pas',
                       ),
                       query: _helpQuery,
                       onClose: () => setState(() => _help = false),
@@ -3353,20 +3449,53 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                   ),
                   (tkTargetCpp, tr('C++ (FLTK)'), LucideIcons.cpu),
                   (tkTargetPascal, tr('Pascal (Lazarus)'), LucideIcons.feather),
+                  ('console', tr('Consola'), LucideIcons.squareTerminal),
                 ])
                   ChoiceChip(
                     key: ValueKey('tk-new-target-$value'),
                     avatar: Icon(icon, size: 16),
                     label: Text(label),
-                    selected: _target == value,
+                    selected: value == 'console'
+                        ? tkConsoleTargets.contains(_target)
+                        : _target == value,
                     showCheckmark: false,
-                    onSelected: (_) => setState(() => _target = value),
+                    onSelected: (_) => setState(
+                      () => _target = value == 'console'
+                          ? tkTargetConsolePy
+                          : value,
+                    ),
                   ),
               ],
             ),
+            // Consola: el lenguaje.
+            if (tkConsoleTargets.contains(_target)) ...[
+              const SizedBox(height: 12),
+              SegmentedButton<String>(
+                key: const ValueKey('tk-new-console-lang'),
+                showSelectedIcon: false,
+                segments: [
+                  for (final (v, l) in [
+                    (tkTargetConsolePy, 'Python'),
+                    (tkTargetConsoleC, 'C'),
+                    (tkTargetConsoleCpp, 'C++'),
+                    (tkTargetConsolePas, 'Pascal'),
+                  ])
+                    ButtonSegment(
+                      value: v,
+                      label: Text(l, key: ValueKey('tk-new-console-$v')),
+                    ),
+                ],
+                selected: {_target},
+                onSelectionChanged: (v) => setState(() => _target = v.first),
+              ),
+            ],
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetPascal
+              tkConsoleTargets.contains(_target)
+                  ? tr(
+                      'Un programa de consola, sin ventana: un solo archivo con su main. Lo que escribe sale en la pestaña Salida y lo que usted escribe abajo le llega como entrada. Python no se compila; C y C++ necesitan un compilador; Pascal, Free Pascal. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetPascal
                   ? tr(
                       'Una aplicación de escritorio nativa en Object Pascal con Lazarus: los componentes son los de la LCL (TLabel, TButton, TEdit…) y el código de los eventos, Pascal. Ejecutar la compila y la abre. Necesita Lazarus (el estudio ofrece instalarlo). El destino no se puede cambiar después.',
                     )

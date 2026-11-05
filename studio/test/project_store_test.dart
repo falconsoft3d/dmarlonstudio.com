@@ -182,6 +182,24 @@ void main() {
     await ProjectStore.delete(dir);
   });
 
+  test('un proyecto de consola: main.c y build/console', () async {
+    final dir = await ProjectStore.create(
+      'Mi consola',
+      design: TkDesign(target: tkTargetConsoleC),
+    );
+    expect(
+      File(p.join(dir, 'main.c')).readAsStringSync(),
+      contains('int main(void)'),
+    );
+    final prepared = await ProjectStore.prepareRun(dir);
+    expect(prepared.console, 'c');
+    expect(
+      File(p.join(dir, 'build', 'console', 'main.c')).existsSync(),
+      isTrue,
+    );
+    await ProjectStore.delete(dir);
+  });
+
   test('un proyecto de Pascal: Form1.pas y build/pascal', () async {
     final dir = await ProjectStore.create(
       'Mi Pascal',

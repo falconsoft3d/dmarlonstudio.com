@@ -10,6 +10,7 @@ import '../i18n/tr.dart';
 import 'tk_debug.dart';
 import 'tk_chrome.dart';
 import 'tk_cpp_run.dart';
+import 'tk_console.dart';
 import 'tk_pascal_run.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
@@ -433,6 +434,9 @@ class TkRunner {
       if (prepared.next) return await _launchNext(prepared, key, devtools);
       if (prepared.cpp) return await _launchCpp(prepared, key, devtools);
       if (prepared.pascal) return await _launchPascal(prepared, key);
+      if (prepared.console != null) {
+        return await _launchConsole(prepared, key, devtools);
+      }
       if (prepared.electron) {
         return await _launchElectron(prepared, key, devtools);
       }
@@ -687,6 +691,96 @@ class TkRunner {
         await Future.wait(
           done,
         ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// Compila (si hace falta) la aplicación de consola de build/console y la
+  /// ejecuta con la entrada abierta: lo que se escribe en la Salida le llega
+  /// por stdin.
+  static Future<TkRun> _launchConsole(
+    TkPrepared prepared,
+    String key,
+    bool debug,
+  ) async {
+    final lang = prepared.console!;
+    final dir = File(prepared.file).parent.path;
+    final exe = p.join(dir, Platform.isWindows ? 'app.exe' : 'app');
+    (String, List<String>)? python;
+    if (lang == 'py') {
+      final py = (await detect()).web;
+      if (py.command == null) throw UserError(py.help);
+      python = (py.command!, [...py.args, '-u', prepared.file]);
+    }
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        var command = python;
+        if (command == null) {
+          run.add(tr('Compilando…'));
+          final (cc, args) = (await TkConsole.compile(
+            lang,
+            dir,
+            exe,
+            debug: debug,
+          ))!;
+          final build = await Process.run(cc, args, workingDirectory: dir);
+          for (final l in TkConsole.messages(
+            '${build.stdout}${build.stderr}',
+            dir,
+          )) {
+            run.add(l);
+          }
+          if (build.exitCode != 0 || !File(exe).existsSync()) {
+            run.add(tr('No se pudo compilar.'));
+            return run.finish(build.exitCode == 0 ? 1 : build.exitCode);
+          }
+          command = (exe, const <String>[]);
+        }
+        if (stopped) return run.finish(-1);
+        final started = await Process.start(
+          command.$1,
+          command.$2,
+          workingDirectory: prepared.id,
+          environment: const {'PYTHONIOENCODING': 'utf-8'},
+        );
+        proc = started;
+        run.input = (line) {
+          try {
+            started.stdin.write('$line\n');
+          } on Object {
+            // El programa ya no lee.
+          }
+        };
+        final done = [
+          started.stdout
+              .transform(const Utf8Decoder(allowMalformed: true))
+              .listen(run.addText)
+              .asFuture<void>(),
+          started.stderr
+              .transform(const Utf8Decoder(allowMalformed: true))
+              .listen(run.addText)
+              .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.input = null;
         run.finish(code);
       } on UserError catch (e) {
         run.add(e.message);

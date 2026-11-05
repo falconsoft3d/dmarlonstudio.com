@@ -111,7 +111,12 @@ class TkPrepared {
     this.next = false,
     this.cpp = false,
     this.pascal = false,
+    this.console,
   });
+
+  /// Aplicación de consola: py, c, cpp o pas; [file] es su main en
+  /// build/console.
+  final String? console;
 
   /// Pascal con Lazarus: [file] es su Form1.pas en build/pascal.
   final bool pascal;
@@ -191,9 +196,57 @@ class TkRun extends ChangeNotifier {
   bool stopped = false;
 
   void add(String line) {
+    _partial = false;
     lines.add(line);
-    if (lines.length > maxLines) lines.removeRange(0, lines.length - maxLines);
+    _trim();
     notifyListeners();
+  }
+
+  void _trim() {
+    if (lines.length > maxLines) lines.removeRange(0, lines.length - maxLines);
+  }
+
+  /// Consola: la última línea aún no terminó (una pregunta sin salto).
+  bool _partial = false;
+
+  /// Consola: escribe una línea en la entrada del programa (null: esta
+  /// ejecución no la lee).
+  void Function(String line)? input;
+
+  /// Consola: texto tal como llega (con o sin salto de línea al final).
+  void addText(String chunk) {
+    final parts = chunk.replaceAll('\r\n', '\n').split('\n');
+    for (final (i, part) in parts.indexed) {
+      final last = i == parts.length - 1;
+      if (last && part.isEmpty) {
+        // Terminaba en salto de línea.
+        _partial = false;
+        break;
+      }
+      if (_partial && lines.isNotEmpty) {
+        lines[lines.length - 1] += part;
+      } else {
+        lines.add(part);
+      }
+      _partial = last;
+    }
+    _trim();
+    notifyListeners();
+  }
+
+  /// Consola: envía [line] al programa y la deja en la salida, detrás de
+  /// la pregunta, como en un terminal.
+  void send(String line) {
+    final f = input;
+    if (f == null || !running) return;
+    if (_partial && lines.isNotEmpty) {
+      lines[lines.length - 1] += line;
+      _partial = false;
+      notifyListeners();
+    } else {
+      add(line);
+    }
+    f(line);
   }
 
   void finish(int code) {

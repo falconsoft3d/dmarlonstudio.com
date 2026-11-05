@@ -85,7 +85,7 @@ export function Home({ lang }: { lang: Lang }) {
         {/* Entornos: un diseño, siete destinos */}
         <section aria-label={hero.targetsLabel} className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:pb-20">
           <p className="text-center text-xs font-medium tracking-[0.14em] text-muted uppercase">{hero.targetsLabel}</p>
-          <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+          <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
             {hero.targets.map((t) => (
               <TargetCard key={t.name} t={t} />
             ))}

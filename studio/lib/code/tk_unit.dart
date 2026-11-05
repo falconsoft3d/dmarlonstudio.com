@@ -38,7 +38,13 @@ abstract class TkUnitLang {
 }
 
 /// El lenguaje del código de [d].
-TkUnitLang tkUnitOf(TkDesign d) => d.isCpp
+TkUnitLang tkUnitOf(TkDesign d) => d.isConsole
+    ? switch (d.codeLang) {
+        'cpp' => const CppUnit(),
+        'pas' => const PascalUnit(),
+        _ => const PyUnit(),
+      }
+    : d.isCpp
     ? const CppUnit()
     : d.isPascal
     ? const PascalUnit()

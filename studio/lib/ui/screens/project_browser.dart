@@ -254,7 +254,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.isCpp
+                        a.design.isConsole
+                            ? LucideIcons.squareTerminal
+                            : a.isCpp
                             ? LucideIcons.cpu
                             : a.isPascal
                             ? LucideIcons.feather

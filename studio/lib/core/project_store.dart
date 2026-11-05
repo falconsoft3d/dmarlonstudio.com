@@ -8,6 +8,7 @@ import '../ai/assistant.dart';
 import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_cpp.dart';
+import '../code/tk_console.dart';
 import '../code/tk_pascal.dart';
 import '../code/tk_pascal_run.dart';
 import '../code/tk_electron.dart';
@@ -164,14 +165,15 @@ class ProjectStore {
       p.join(dir, unitName(design));
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
-  static String unitName(TkDesign design) =>
-      '${design.name}.${design.isCpp
-          ? 'cpp'
-          : design.isPascal
-          ? 'pas'
-          : design.isJs
-          ? 'js'
-          : 'py'}';
+  static String unitName(TkDesign design) => design.isConsole
+      ? TkConsole.file(design)
+      : '${design.name}.${design.isCpp
+            ? 'cpp'
+            : design.isPascal
+            ? 'pas'
+            : design.isJs
+            ? 'js'
+            : 'py'}';
 
   /// Lee el proyecto de la carpeta [dir] (null si ya no existe).
   static Future<StudioProject?> get(String dir) async {
@@ -311,6 +313,7 @@ class ProjectStore {
     await _writeAtomic(
       File(unitPath(dir, d)),
       code ??
+          (d.isConsole ? TkConsole.template(d.consoleLang!) : null) ??
           tkUnitOf(d).template(
             d.name,
             tkUnitComment(
@@ -508,6 +511,7 @@ class ProjectStore {
       ...tkNextExamples(tr),
       ...tkCppExamples(tr),
       ...tkPascalExamples(tr),
+      ...tkConsoleExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -662,6 +666,23 @@ class ProjectStore {
     );
   }
 
+  /// Escribe la aplicación de consola en build/console.
+  static Future<TkPrepared> _prepareConsole(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'console');
+    final name = TkConsole.file(x.design);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, {name: unit});
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, name),
+      console: x.design.consoleLang,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe [files] (nombre → contenido) en [dir].
   static Future<void> writeFiles(String dir, Map<String, String> files) async {
     await Directory(dir).create(recursive: true);
@@ -732,6 +753,7 @@ class ProjectStore {
     if (x.isNext) return _prepareNext(x);
     if (x.isCpp) return _prepareCpp(x);
     if (x.isPascal) return _preparePascal(x);
+    if (x.design.isConsole) return _prepareConsole(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

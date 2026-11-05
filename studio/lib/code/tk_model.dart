@@ -96,6 +96,19 @@ const tkTargetPascal = 'pascal';
 /// Componentes que ya tiene el destino Pascal: los de C++.
 const tkPascalKinds = tkCppKinds;
 
+/// Aplicación de consola, sin ventana: un solo archivo (main.py, main.c,
+/// main.cpp o main.pas) con la entrada y la salida en la pestaña Salida.
+const tkTargetConsolePy = 'console_py';
+const tkTargetConsoleC = 'console_c';
+const tkTargetConsoleCpp = 'console_cpp';
+const tkTargetConsolePas = 'console_pas';
+const tkConsoleTargets = {
+  tkTargetConsolePy,
+  tkTargetConsoleC,
+  tkTargetConsoleCpp,
+  tkTargetConsolePas,
+};
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -104,6 +117,10 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetNext => tr('Web (Next.js)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
+  tkTargetConsolePy => tr('Consola (Python)'),
+  tkTargetConsoleC => tr('Consola (C)'),
+  tkTargetConsoleCpp => tr('Consola (C++)'),
+  tkTargetConsolePas => tr('Consola (Pascal)'),
   _ => tr('Escritorio (Python)'),
 };
 
@@ -1988,6 +2005,28 @@ class TkDesign {
   bool get isCpp => target == tkTargetCpp;
   bool get isPascal => target == tkTargetPascal;
 
+  /// Aplicación de consola (sin ventana ni diseño).
+  bool get isConsole => tkConsoleTargets.contains(target);
+
+  /// Lenguaje de la consola: py, c, cpp o pas (null: no es de consola).
+  String? get consoleLang => isConsole ? target.substring(8) : null;
+
+  /// Lenguaje del código para el editor, la ayuda y el autocompletado: py,
+  /// js, cpp o pas (C usa lo de C++).
+  String get codeLang => switch (consoleLang) {
+    'py' => 'py',
+    'c' || 'cpp' => 'cpp',
+    'pas' => 'pas',
+    _ =>
+      isJs
+          ? 'js'
+          : isCpp
+          ? 'cpp'
+          : isPascal
+          ? 'pas'
+          : 'py',
+  };
+
   /// El código es JavaScript (Electron y extensiones de Chrome).
   bool get isJs => isElectron || isChrome || isNext;
 
@@ -2007,7 +2046,7 @@ class TkDesign {
   }
 
   /// El código es Python (tkinter o Flask).
-  bool get isPython => !isJs && !isCpp && !isPascal;
+  bool get isPython => !isJs && !isCpp && !isPascal && !isConsole;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2282,6 +2321,7 @@ class TkDesign {
       tkTargetNext => tkTargetNext,
       tkTargetCpp => tkTargetCpp,
       tkTargetPascal => tkTargetPascal,
+      final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },
     width: _int(j['width'], 80),

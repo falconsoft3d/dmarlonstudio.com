@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../code/tk_cpp_run.dart';
+import '../code/tk_console.dart';
 import '../code/tk_pascal_run.dart';
 import '../code/tk_debug.dart';
 import '../code/tk_run.dart';
@@ -63,6 +64,17 @@ Future<TkRun?> launchTkApp(
   if (prepared.cpp) {
     if (tests) return null;
     for (final need in TkCppTools.needs()) {
+      if (!context.mounted) return null;
+      final go = await showTkInstall(context, const TkPython(help: ''), need);
+      if (!go) return null;
+    }
+    if (!context.mounted) return null;
+    return runAction(context, () => TkRunner.start(prepared, devtools: debug));
+  }
+  // Consola: el compilador del lenguaje (Python ya está).
+  if (prepared.console != null) {
+    if (tests) return null;
+    for (final need in TkConsole.needs(prepared.console!)) {
       if (!context.mounted) return null;
       final go = await showTkInstall(context, const TkPython(help: ''), need);
       if (!go) return null;

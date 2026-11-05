@@ -16,7 +16,8 @@ export type TargetIcon =
   | "mysql"
   | "mongodb"
   | "api"
-  | "falcon";
+  | "falcon"
+  | "console";
 export type Target = { name: string; sub: string; icon: TargetIcon };
 export type Step = { name: string; status: StepStatus; text: string; icon?: TargetIcon };
 export type PlatformNotes = { requirements: string; steps: string[] };

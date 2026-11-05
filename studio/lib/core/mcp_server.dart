@@ -266,6 +266,10 @@ class McpServer {
               'nextjs',
               'cpp',
               'pascal',
+              'console_py',
+              'console_c',
+              'console_cpp',
+              'console_pas',
             ],
           },
           'description': {'type': 'string'},
@@ -483,6 +487,7 @@ class McpServer {
           'nextjs' => tkTargetNext,
           'cpp' => tkTargetCpp,
           'pascal' => tkTargetPascal,
+          final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };
         final dir = await ProjectStore.create(

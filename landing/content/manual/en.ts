@@ -841,6 +841,50 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------ consola
+    {
+      slug: "consola",
+      title: "Console applications",
+      summary: "Programs without a window in Python, C, C++ or Pascal, with input and output in the Output tab.",
+      sections: [
+        {
+          id: "crear",
+          title: "Create a console program",
+          blocks: [
+            {
+              type: "p",
+              text: "When creating the project, choose **Console** and the language: **Python**, **C**, **C++** or **Pascal**. There is no design: the project is a single file (`main.py`, `main.c`, `main.cpp` or `main.pas`) edited in the **Code** tab, with highlighting, autocomplete and help (F1).",
+            },
+            {
+              type: "code",
+              code: "name = input(\"What is your name? \")\nprint(f\"Hello, {name}.\")",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** compiles if needed and starts the program. What it writes (`print`, `printf`, `std::cout`, `WriteLn`) shows in the **Output** tab.",
+                "When the program asks for something (`input`, `scanf`, `std::cin`, `ReadLn`), type the answer in the field at the bottom of Output and press **Enter**: it shows after the question, as in a terminal.",
+                "C and C++ are compiled with the computer's compiler; Pascal with Free Pascal (`fpc`), without Lazarus. Errors show with their line, such as `main.c:2:3: error: …`.",
+                "**Export the program** saves the file as it is.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "ejemplos",
+          title: "Examples",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Animal management (console)**: in Python, with a menu to register and remove animals and keep track of their vaccines (next doses and those due in the next 30 days). It saves the data in `animales.json`, in the project folder.",
+                "**Guess the number**, in Python, C, C++ and Pascal: the program thinks of a number between 1 and 100 and you guess it with the hints “Higher” and “Lower”.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ai-in-the-designer",

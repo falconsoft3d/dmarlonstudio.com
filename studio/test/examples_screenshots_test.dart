@@ -61,6 +61,7 @@ const carousel = [
   'next_tasks',
   'cpp_calculator',
   'pascal_calculator',
+  'console_animals',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

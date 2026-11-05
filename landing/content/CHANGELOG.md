@@ -3,6 +3,20 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.32 — 2026-11-05
+
+- **Aplicaciones de consola** en Python, C, C++ y Pascal: un programa sin
+  ventana en un solo archivo (`main.py`, `main.c`, `main.cpp` o `main.pas`).
+  Ejecutar compila si hace falta (Pascal con Free Pascal, sin Lazarus) y lo
+  que escribe el programa sale en la pestaña Salida; cuando pide algo, se
+  responde en el campo de abajo y la respuesta queda detrás de la pregunta,
+  como en un terminal.
+- Ejemplos de consola: **Gestión de animales** (altas, bajas y vacunas, con
+  las próximas dosis y las pendientes, guardado en `animales.json`) y
+  **Adivina el número** en los cuatro lenguajes.
+- El ejemplo de C++ ya no da el aviso de `show()` al compilar.
+- Web y manual: la consola entre los entornos.
+
 ## 1.0.31 — 2026-11-05
 
 - **FalconDatabase** en el módulo Bases de datos: con la referencia del

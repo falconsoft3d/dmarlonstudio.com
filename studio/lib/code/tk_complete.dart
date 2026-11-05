@@ -19,13 +19,7 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
   /// Ctrl+Espacio: completar aunque no se haya escrito nada.
   bool force = false;
 
-  String get _lang => design().isPascal
-      ? 'pas'
-      : design().isCpp
-      ? 'cpp'
-      : design().isJs
-      ? 'js'
-      : 'py';
+  String get _lang => design().codeLang;
 
   static final _ident = RegExp(r'[A-Za-z0-9_$]');
 
@@ -159,7 +153,7 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
       if (lang == 'js' || lang == 'cpp') const CodeKeywordPrompt(word: 'this'),
       // En C++ y en Pascal los componentes se usan sin this-> ni Self.
       if (lang == 'cpp' || lang == 'pas') ..._components(),
-      if (lang == 'cpp' || lang == 'pas') ..._form(),
+      if ((lang == 'cpp' || lang == 'pas') && !design().isConsole) ..._form(),
       ..._methods(),
       for (final k in _keywords[lang]!) CodeKeywordPrompt(word: k),
     ];

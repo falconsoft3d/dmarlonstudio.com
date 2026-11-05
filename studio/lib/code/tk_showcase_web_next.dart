@@ -163,3 +163,19 @@ TkExample _rnStore(String Function(String) t) {
     ),
   );
 }
+
+/// La misma tienda como web de React (Vite).
+TkExample _reactStore(String Function(String) t) {
+  final web = _webStore(t);
+  return TkExample(
+    'react_store',
+    t(markTr('Tienda web (React)')),
+    t(
+      markTr(
+        'La tienda como web de React (Vite): las mismas pantallas y la misma lógica, publicable como archivos estáticos.',
+      ),
+    ),
+    TkDesign.fromJson({...web.design.toJson(), 'target': tkTargetWebReact}),
+    web.code,
+  );
+}

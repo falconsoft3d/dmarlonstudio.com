@@ -905,7 +905,7 @@ msgstr "Column"
 msgid "Contenedor"
 msgstr "Container"
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "El menú nombra la pantalla «{0}», que no existe."
 msgstr "The menu names the screen “{0}”, which does not exist."
 
@@ -929,7 +929,7 @@ msgstr "Row"
 msgid "Fila de lista"
 msgstr "List tile"
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "Hay dos pantallas llamadas «{0}»."
 msgstr "There are two screens called “{0}”."
 
@@ -945,7 +945,7 @@ msgstr "Image"
 msgid "Interruptor"
 msgstr "Switch"
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "La app no tiene pantallas."
 msgstr "The app has no screens."
 
@@ -977,7 +977,7 @@ msgstr "Card"
 msgid "Widget desconocido: {0}"
 msgstr "Unknown widget: {0}"
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr "“{0}” is not a valid screen name."
 
@@ -2237,6 +2237,10 @@ msgstr "Web (Next.js)"
 msgid "Web (Next.js, formulario)"
 msgstr "Web (Next.js, form)"
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (React)"
+msgstr "Web (React)"
+
 #: lib/code/tk_model.dart
 msgid "«{0}» está en un marco que no existe."
 msgstr "“{0}” is in a frame that does not exist."
@@ -2310,12 +2314,28 @@ msgid "Instalando React Native y Expo (solo la primera vez)…"
 msgstr "Installing React Native and Expo (only the first time)…"
 
 #: lib/code/tk_rn_run.dart
+msgid "Instalando Vite y React (solo la primera vez)…"
+msgstr "Installing Vite and React (only the first time)…"
+
+#: lib/code/tk_rn_run.dart
 msgid "Las apps de React Native necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
 msgstr "React Native apps need Node.js. Install it from nodejs.org and try again."
 
 #: lib/code/tk_rn_run.dart
+msgid "Las webs de React necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
+msgstr "React websites need Node.js. Install it from nodejs.org and try again."
+
+#: lib/code/tk_rn_run.dart
 msgid "No se pudo instalar React Native: {0}"
 msgstr "Could not install React Native: {0}"
+
+#: lib/code/tk_rn_run.dart
+msgid "No se pudo instalar Vite: {0}"
+msgstr "Could not install Vite: {0}"
+
+#: lib/code/tk_run_io.dart
+msgid "Abierta en el navegador: {0}"
+msgstr "Open in the browser: {0}"
 
 #: lib/code/tk_run_io.dart
 msgid "Abierta en el simulador: {0}"
@@ -5120,6 +5140,10 @@ msgid "{0} marcada como pagada."
 msgstr "{0} marked as paid."
 
 #: lib/code/tk_showcase_web_next.dart
+msgid "La tienda como web de React (Vite): las mismas pantallas y la misma lógica, publicable como archivos estáticos."
+msgstr "The shop as a React (Vite) website: the same screens and the same logic, publishable as static files."
+
+#: lib/code/tk_showcase_web_next.dart
 msgid "Tienda (React Native)"
 msgstr "Shop (React Native)"
 
@@ -5130,6 +5154,10 @@ msgstr "Shop (React Native): users, products, cart and orders. The screens use i
 #: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web (Next.js)"
 msgstr "Web shop (Next.js)"
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web (React)"
+msgstr "Web shop (React)"
 
 #: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
@@ -5278,6 +5306,10 @@ msgstr "What is your name?"
 #: lib/code/tk_showcase_windows.dart
 msgid "¿Guardar los cambios antes de salir?"
 msgstr "Save changes before leaving?"
+
+#: lib/code/tk_web_react.dart
+msgid "Web de React (Vite) creada con DMarlon Studio."
+msgstr "React (Vite) website created with DMarlon Studio."
 
 #: lib/code/workspace.dart
 msgid "(diferencias recortadas)"
@@ -7684,6 +7716,10 @@ msgid "Exportado en {0}. Para abrirlo: npm install y npm run dev (o súbalo a Ve
 msgstr "Exported to {0}. To open it: npm install and npm run dev (or upload it to Vercel)."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Para abrirlo: npm install y npm run dev; npm run build deja la web en dist para cualquier hosting."
+msgstr "Exported to {0}. To open it: npm install and npm run dev; npm run build leaves the website in dist for any hosting."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportado en {0}. Para abrirlo: npm install y npx expo start (con Expo Go en el teléfono)."
 msgstr "Exported to {0}. To open it: npm install and npx expo start (with Expo Go on the phone)."
 
@@ -7714,6 +7750,10 @@ msgstr "Export the Lazarus project"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Next.js"
 msgstr "Export the Next.js project"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de React (Vite)"
+msgstr "Export the React (Vite) project"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de React Native (Expo)"
@@ -7950,6 +7990,10 @@ msgstr "A system window with tkinter. The target cannot be changed later."
 #: lib/ui/screens/tk_designer.dart
 msgid "Una web de Next.js de verdad, con el mismo editor de pantallas que Flutter: cada pantalla es una página adaptable (escritorio y móvil) hecha en React, con menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Node.js. El destino no se puede cambiar después."
 msgstr "A real Next.js website, with the same screen editor as Flutter: each screen is a responsive page (desktop and mobile) made in React, with menu, templates and the logic in JavaScript (lib/app.js). Run starts the server and opens the browser; saving reloads it. It needs Node.js. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una web de React (Vite), con el mismo editor de pantallas que Flutter: páginas adaptables a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (src/lib/app.js). Se publica como archivos estáticos en cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. Necesita Node.js (Vite se instala solo la primera vez). El destino no se puede cambiar después."
+msgstr "A React (Vite) website, with the same screen editor as Flutter: pages responsive for desktop and mobile, with menu, templates and the logic in JavaScript (src/lib/app.js). It is published as static files on any hosting. Run opens the browser and saving reloads it. It needs Node.js (Vite installs itself the first time). The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Usar esta carpeta"

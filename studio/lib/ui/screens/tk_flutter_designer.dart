@@ -338,7 +338,10 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
             screen: _cur,
             node: _sel == null ? null : _node(_sel!),
             onEdit: _edit,
-            web: widget.design.isWebNext || widget.design.isReactNative,
+            web:
+                widget.design.isWebNext ||
+                widget.design.isReactNative ||
+                widget.design.isWebReact,
           ),
         ),
       ],
@@ -569,7 +572,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
               runSpacing: 2,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                if (widget.design.isWebNext)
+                if (widget.design.isWebNext || widget.design.isWebReact)
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: SegmentedButton<bool>(
@@ -618,9 +621,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, box) {
+                final web = widget.design.isWebNext || widget.design.isWebReact;
                 final desktop =
-                    widget.design.isFlutterDesktop ||
-                    widget.design.isWebNext && !_mobile;
+                    widget.design.isFlutterDesktop || web && !_mobile;
                 final size = FlPhone.sizeOf(desktop: desktop);
                 final scale = [
                   (box.maxHeight - 32) / size.height,
@@ -638,6 +641,8 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                         desktop: desktop,
                         url: widget.design.isWebNext
                             ? 'localhost${TkWebNext.route(_app, _cur.name)}'
+                            : widget.design.isWebReact
+                            ? 'localhost/#${TkWebNext.route(_app, _cur.name)}'
                             : null,
                         back: _screen > 0,
                         sel: _sel,

@@ -25,6 +25,7 @@ Hechos
 17. Flutter (escritorio): ventana nativa, menú lateral y demo de inventario | ✅ |
 18a. Next.js con el editor de pantallas de Flutter (web adaptable) | ✅ |
 18. React Native (móvil): editor de pantallas, Expo, simulador y Expo Go | ✅ |
+19. React (Web): editor de pantallas, Vite, web estática | ✅ |
 
 
 Trabajando
@@ -34,14 +35,7 @@ Trabajando
 
 Pendiente
 =========
-19. React (Web) | ⏳ |
-20. HTML (Web) | ⏳ |
-21. Node.js (Web) | ⏳ |
-22. Django (Web) | ⏳ |
-23. PHP (Web) | ⏳ |
-24. Ruby on Rails (Web) | ⏳ |
-25. Laravel (Web) | ⏳ |
 30. Go (Web) | ⏳ |
-31. Rust (Web) | ⏳ |
-35. Vue.js (Web) | ⏳ |
+32. Vue.js (Web) | ⏳ |
+
 

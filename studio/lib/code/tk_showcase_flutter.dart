@@ -9,6 +9,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _flutterInventory(t),
   _webStore(t),
   _rnStore(t),
+  _reactStore(t),
   _flutterShipping(t),
   _flutterTodo(t),
 ];

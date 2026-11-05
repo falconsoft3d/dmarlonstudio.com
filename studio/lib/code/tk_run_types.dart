@@ -115,7 +115,12 @@ class TkPrepared {
     this.flutter = false,
     this.desktop = false,
     this.reactNative = false,
+    this.react = false,
   });
+
+  /// Web de React (Vite): [file] es su src/lib/app.js en build/react; se
+  /// abre en el navegador.
+  final bool react;
 
   /// React Native: [file] es su lib/app.js en build/reactnative; se abre en
   /// el simulador del estudio (Expo para la web).

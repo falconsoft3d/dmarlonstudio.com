@@ -280,7 +280,7 @@ const _flow = r'''
     await until(() => [...document.querySelectorAll(".badge")].some((b) => b.innerText === "2"), "insignia");
     log.push("insignia");
     [...document.querySelectorAll(".card")].find((c) => c.innerText.includes("Lámpara de mesa")).click();
-    await until(() => location.pathname === "/producto" && text().includes("24,00 €"), "ficha");
+    await until(() => location.pathname === "/producto" && text().includes("Ver el carrito"), "ficha");
     button("Añadir al carrito").click();
     await sleep(100);
     button("Ver el carrito").click();

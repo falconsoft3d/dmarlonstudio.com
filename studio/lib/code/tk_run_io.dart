@@ -438,6 +438,7 @@ class TkRunner {
       if (prepared.pascal) return await _launchPascal(prepared, key);
       if (prepared.flutter) return await _launchFlutter(prepared, key);
       if (prepared.reactNative) return await _launchReactNative(prepared, key);
+      if (prepared.react) return await _launchWebReact(prepared, key);
       if (prepared.console != null) {
         return await _launchConsole(prepared, key, devtools);
       }
@@ -694,6 +695,77 @@ class TkRunner {
                 .transform(const Utf8Decoder(allowMalformed: true))
                 .transform(const LineSplitter())
                 .listen(run.add)
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// La web de React de build/react: `vite` con el entorno compartido (se
+  /// recarga sola al cambiar los archivos, al guardar).
+  static Future<TkRun> _launchWebReact(TkPrepared prepared, String key) async {
+    var root = p.dirname(prepared.file);
+    while (!File(p.join(root, 'package.json')).existsSync() &&
+        p.dirname(root) != root) {
+      root = p.dirname(root);
+    }
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        final node = await TkViteRuntime.ensure(run.add);
+        if (stopped) return run.finish(-1);
+        final modules = p.join(root, 'node_modules');
+        if (!Link(modules).existsSync() && !Directory(modules).existsSync()) {
+          await Link(modules).create(await TkViteRuntime.nodeModules());
+        }
+        final port = await TkFlutterTools.freePort();
+        final started = await Process.start(
+          node.node,
+          [
+            await TkViteRuntime.vite(),
+            '--port',
+            '$port',
+            '--strictPort',
+            '--host',
+            '127.0.0.1',
+          ],
+          workingDirectory: root,
+          environment: TkElectronRuntime.environment(node),
+          includeParentEnvironment: false,
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen((l) {
+                  final clean = l.replaceAll(RegExp(r'\x1B\[[0-9;]*m'), '');
+                  if (run.url == null && clean.contains('Local:')) {
+                    run.url = run.address = 'http://127.0.0.1:$port/';
+                    run.add(tr('Abierta en el navegador: {0}', [run.url]));
+                    return;
+                  }
+                  if (clean.trim().isNotEmpty) run.add(clean);
+                })
                 .asFuture<void>(),
         ];
         final code = await started.exitCode;

@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.40 — 2026-11-06
+
+- **Web (React)** con el editor de pantallas: las mismas pantallas y la
+  misma lógica que Next.js, como web de una sola página con React y Vite
+  (rutas tras `#`), publicable como archivos estáticos en cualquier hosting.
+  Vite se instala solo la primera vez. Ejemplo **Tienda web (React)**: se
+  compila con Vite y se recorre en Chrome de verdad en cada versión.
+
 ## 1.0.39 — 2026-11-05
 
 - **React Native (móvil)** con el editor de pantallas: las mismas pantallas,

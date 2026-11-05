@@ -123,6 +123,9 @@ const tkTargetWebNext = 'nextjs_web';
 /// React Native (Expo) con el editor de pantallas: la lógica en JavaScript.
 const tkTargetReactNative = 'react_native';
 
+/// Web de React (Vite) con el editor de pantallas: una página estática.
+const tkTargetWebReact = 'react_web';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -131,6 +134,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetNext => tr('Web (Next.js, formulario)'),
   tkTargetWebNext => tr('Web (Next.js)'),
   tkTargetReactNative => tr('React Native (móvil)'),
+  tkTargetWebReact => tr('Web (React)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
@@ -2035,7 +2039,10 @@ class TkDesign {
 
   /// Se diseña con el editor de pantallas (Flutter, la web de Next.js o
   /// React Native).
-  bool get isScreens => isFlutter || isWebNext || isReactNative;
+  bool get isScreens => isFlutter || isWebNext || isReactNative || isWebReact;
+
+  /// Web de React (Vite) hecha con pantallas.
+  bool get isWebReact => target == tkTargetWebReact;
 
   /// Flutter de escritorio: ventana del sistema en lugar de teléfono.
   bool get isFlutterDesktop => target == tkTargetFlutterDesktop;
@@ -2053,7 +2060,7 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isWebNext || isReactNative
+      isWebNext || isReactNative || isWebReact
           ? 'js'
           : isFlutter
           ? 'dart'
@@ -2092,7 +2099,8 @@ class TkDesign {
       !isConsole &&
       !isFlutter &&
       !isWebNext &&
-      !isReactNative;
+      !isReactNative &&
+      !isWebReact;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2371,6 +2379,7 @@ class TkDesign {
       tkTargetFlutterDesktop => tkTargetFlutterDesktop,
       tkTargetWebNext => tkTargetWebNext,
       tkTargetReactNative => tkTargetReactNative,
+      tkTargetWebReact => tkTargetWebReact,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

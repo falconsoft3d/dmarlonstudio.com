@@ -270,6 +270,7 @@ class McpServer {
               'flutter_desktop',
               'nextjs_web',
               'react_native',
+              'react_web',
               'console_py',
               'console_c',
               'console_cpp',
@@ -495,6 +496,7 @@ class McpServer {
           'flutter_desktop' => tkTargetFlutterDesktop,
           'nextjs_web' => tkTargetWebNext,
           'react_native' => tkTargetReactNative,
+          'react_web' => tkTargetWebReact,
           final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };

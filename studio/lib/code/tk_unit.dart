@@ -38,7 +38,8 @@ abstract class TkUnitLang {
 }
 
 /// El lenguaje del código de [d].
-TkUnitLang tkUnitOf(TkDesign d) => d.isWebNext || d.isReactNative
+TkUnitLang tkUnitOf(TkDesign d) =>
+    d.isWebNext || d.isReactNative || d.isWebReact
     ? const JsUnit()
     : d.isFlutter
     ? const DartUnit()

@@ -738,6 +738,20 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "react",
+          title: "A React (Vite) website",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (React)** uses the same screen editor and the same logic (`src/lib/app.js`), but generates a single-page website with React and Vite: routes go after `#` (`#/catalogo`) and `npm run build` leaves static files in `dist/` for any hosting, with no server.",
+                "**Run (F9)** starts Vite and opens the browser; saving reloads the page. Vite installs itself the first time (about 40 MB, shared).",
+                "Example: **Web shop (React)**, the same shop as in Next.js and React Native.",
+              ],
+            },
+          ],
+        },
+        {
           id: "create",
           title: "Creating a Next.js page",
           blocks: [

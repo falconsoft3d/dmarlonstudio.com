@@ -254,7 +254,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.design.isReactNative
+                        a.design.isWebReact
+                            ? LucideIcons.atom
+                            : a.design.isReactNative
                             ? LucideIcons.tabletSmartphone
                             : a.design.isWebNext
                             ? LucideIcons.panelsTopLeft

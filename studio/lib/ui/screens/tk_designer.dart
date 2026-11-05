@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/cpp.dart';
+import 'package:re_highlight/languages/delphi.dart';
 import 'package:re_highlight/languages/javascript.dart';
 import 'package:re_highlight/languages/python.dart';
 import 'package:re_highlight/styles/vs.dart';
@@ -18,6 +19,8 @@ import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
+import '../../code/tk_pascal.dart';
+import '../../code/tk_pascal_run.dart';
 import '../../code/tk_debug.dart';
 import '../../code/tk_help.dart';
 import '../../code/tk_electron_run.dart';
@@ -658,6 +661,7 @@ class _PythonEditor extends StatelessWidget {
     this.onCondition,
     this.javascript = false,
     this.cpp = false,
+    this.pascal = false,
     this.findController,
     this.completion,
   });
@@ -667,6 +671,9 @@ class _PythonEditor extends StatelessWidget {
 
   /// Resaltado de C++.
   final bool cpp;
+
+  /// Resaltado de Pascal (Delphi).
+  final bool pascal;
 
   /// Buscador del editor (el Diseñador lo abre con ⌘F / Ctrl+F).
   final CodeFindController? findController;
@@ -725,7 +732,9 @@ class _PythonEditor extends StatelessWidget {
             : const Color(0xFFF5F5F5),
         chunkIndicatorColor: _editorDim,
         codeTheme: CodeHighlightTheme(
-          languages: cpp
+          languages: pascal
+              ? {'delphi': CodeHighlightThemeMode(mode: langDelphi)}
+              : cpp
               ? {'cpp': CodeHighlightThemeMode(mode: langCpp)}
               : javascript
               ? {'javascript': CodeHighlightThemeMode(mode: langJavascript)}
@@ -920,6 +929,8 @@ class _TkEditorState extends State<_TkEditor> {
 
   IconData _targetIcon(TkDesign x) => x.isCpp
       ? LucideIcons.cpu
+      : x.isPascal
+      ? LucideIcons.feather
       : x.isNext
       ? LucideIcons.panelsTopLeft
       : x.isChrome
@@ -1955,6 +1966,46 @@ class _TkEditorState extends State<_TkEditor> {
     );
   }
 
+  /// Exporta el proyecto de Lazarus (app.lpi y las unidades): se abre en
+  /// el IDE de Lazarus o se compila con lazbuild.
+  Future<void> _exportPascal() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      await out.create(recursive: true);
+      final files = TkPascal.files(
+        d,
+        _code.text,
+        options: await TkPascalTools.options(),
+      );
+      for (final e in files.entries) {
+        await File(
+          '${out.path}${Platform.pathSeparator}${e.key}',
+        ).writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportada en {0}. Ábrala en Lazarus (app.lpi) o compílela con: lazbuild app.lpi',
+              [out.path],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
   /// Exporta el proyecto de C++ (fuentes y Makefile).
   Future<void> _exportCpp() async {
     final parent = await getDirectoryPath(
@@ -2366,6 +2417,8 @@ class _TkEditorState extends State<_TkEditor> {
               LucideIcons.fileDown,
               d.isCpp
                   ? tr('Exportar el proyecto de C++ (con Makefile)')
+                  : d.isPascal
+                  ? tr('Exportar el proyecto de Lazarus')
                   : d.isNext
                   ? tr('Exportar el proyecto de Next.js')
                   : d.isChrome
@@ -2375,6 +2428,8 @@ class _TkEditorState extends State<_TkEditor> {
                   : tr('Exportar el archivo .py'),
               d.isCpp
                   ? _exportCpp
+                  : d.isPascal
+                  ? _exportPascal
                   : d.isNext
                   ? _exportNext
                   : d.isChrome
@@ -2926,6 +2981,8 @@ class _TkEditorState extends State<_TkEditor> {
               tr('Código'),
               d.isCpp
                   ? tr('C++ generado')
+                  : d.isPascal
+                  ? tr('Pascal generado')
                   : d.isJs
                   ? tr('JavaScript generado')
                   : tr('Python generado'),
@@ -2976,6 +3033,7 @@ class _TkEditorState extends State<_TkEditor> {
                 focusNode: _codeFocus,
                 javascript: d.isJs,
                 cpp: d.isCpp,
+                pascal: d.isPascal,
                 findController: _codeFind,
                 completion: _completion,
                 project: doc.id,
@@ -2996,6 +3054,7 @@ class _TkEditorState extends State<_TkEditor> {
                     readOnly: true,
                     javascript: d.isJs,
                     cpp: d.isCpp,
+                    pascal: d.isPascal,
                     findController: _generatedFind,
                   ),
           ],
@@ -3132,6 +3191,7 @@ class _TkEditorState extends State<_TkEditor> {
     hasTests: _hasTests,
     electron: !d.isPython,
     cpp: d.isCpp,
+    pascal: d.isPascal,
   );
 
   Widget _outputList(TkRun? run) => ListView.builder(
@@ -3190,7 +3250,11 @@ class _TkEditorState extends State<_TkEditor> {
                   Expanded(child: _center(t)),
                   if (_help)
                     TkHelpPanel(
-                      lang: tkHelpLang(js: d.isJs, cpp: d.isCpp),
+                      lang: tkHelpLang(
+                        js: d.isJs,
+                        cpp: d.isCpp,
+                        pascal: d.isPascal,
+                      ),
                       query: _helpQuery,
                       onClose: () => setState(() => _help = false),
                       onInsert: (text) {
@@ -3288,6 +3352,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                     LucideIcons.panelsTopLeft,
                   ),
                   (tkTargetCpp, tr('C++ (FLTK)'), LucideIcons.cpu),
+                  (tkTargetPascal, tr('Pascal (Lazarus)'), LucideIcons.feather),
                 ])
                   ChoiceChip(
                     key: ValueKey('tk-new-target-$value'),
@@ -3301,7 +3366,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ),
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetCpp
+              _target == tkTargetPascal
+                  ? tr(
+                      'Una aplicación de escritorio nativa en Object Pascal con Lazarus: los componentes son los de la LCL (TLabel, TButton, TEdit…) y el código de los eventos, Pascal. Ejecutar la compila y la abre. Necesita Lazarus (el estudio ofrece instalarlo). El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetCpp
                   ? tr(
                       'Una aplicación de escritorio nativa en C++ con FLTK: el código de los eventos, en C++. Ejecutar la compila y la abre. Necesita un compilador de C++ y FLTK (el estudio ofrece instalarlo). El destino no se puede cambiar después.',
                     )

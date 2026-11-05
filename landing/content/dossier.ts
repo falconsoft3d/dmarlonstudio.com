@@ -83,8 +83,13 @@ const es: DossierText = {
     rows: [
       ["Escritorio", "Python + tkinter", "Disponible"],
       ["Web", "Python + Flask", "Disponible"],
+      ["Escritorio", "JavaScript + Electron + React", "Disponible"],
+      ["Extensión", "JavaScript + Chrome (Manifest V3)", "Disponible"],
+      ["Web", "JavaScript + Next.js", "Disponible"],
+      ["Escritorio nativo", "C++ + FLTK", "Disponible"],
+      ["Escritorio nativo", "Object Pascal + Lazarus (LCL)", "Disponible"],
     ],
-    note: "Hoy, el archivo generado funciona sin el estudio con cualquier Python 3 con tkinter, o con Flask para la web.",
+    note: "Lo generado funciona sin el estudio: el .py con Python 3, Electron y Next.js con npm, la extensión en Chrome, C++ con make y Pascal con lazbuild o el IDE de Lazarus.",
   },
   ai: {
     eyebrow: "Inteligencia artificial",
@@ -170,8 +175,13 @@ const en: DossierText = {
     rows: [
       ["Desktop", "Python + tkinter", "Available"],
       ["Web", "Python + Flask", "Available"],
+      ["Desktop", "JavaScript + Electron + React", "Available"],
+      ["Extension", "JavaScript + Chrome (Manifest V3)", "Available"],
+      ["Web", "JavaScript + Next.js", "Available"],
+      ["Native desktop", "C++ + FLTK", "Available"],
+      ["Native desktop", "Object Pascal + Lazarus (LCL)", "Available"],
     ],
-    note: "Today, the generated file runs without the studio on any Python 3 with tkinter, or with Flask for the web.",
+    note: "The output runs without the studio: the .py with Python 3, Electron and Next.js with npm, the extension in Chrome, C++ with make and Pascal with lazbuild or the Lazarus IDE.",
   },
   ai: {
     eyebrow: "Artificial intelligence",

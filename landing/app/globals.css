@@ -217,3 +217,16 @@ body {
     break-after: auto;
   }
 }
+
+/* Logotipos de los entornos: en oscuro, los colores de marca muy oscuros se aclaran. */
+.brand-logo {
+  fill: var(--brand);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-logo {
+    fill: color-mix(in srgb, var(--brand) 60%, white);
+  }
+}
+:root[data-theme="dark"] .brand-logo {
+  fill: color-mix(in srgb, var(--brand) 60%, white);
+}

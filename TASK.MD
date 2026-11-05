@@ -15,14 +15,15 @@ Hechos
 13. Chrome Extensions | ✅ |
 14. Web con Next.js | ✅ |
 15. C++ (escritorio, FLTK) | ✅ |
+16. Pascal (escritorio, Lazarus/LCL) | ✅ |
 
 Trabajando
 =========
+17. Bases de datos FalconDatabase y Firebase | ⏳ |
 
 
 Pendiente
 =========
-15. Pascal (escritorio, Lazarus/LCL) | ⏳ |
 16. Flutter (escritorio ) | ⏳ |
 17. Flutter (movil ) | ⏳ | 
 18. React Native (móvil) | ⏳ |

@@ -8,6 +8,8 @@ import '../ai/assistant.dart';
 import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_cpp.dart';
+import '../code/tk_pascal.dart';
+import '../code/tk_pascal_run.dart';
 import '../code/tk_electron.dart';
 import '../code/tk_next.dart';
 import '../code/tk_unit.dart';
@@ -58,6 +60,7 @@ class StudioProject {
   bool get isChrome => design.isChrome;
   bool get isNext => design.isNext;
   bool get isCpp => design.isCpp;
+  bool get isPascal => design.isPascal;
 }
 
 /// Proyectos en carpetas del disco: el área de trabajo, los recientes de
@@ -164,6 +167,8 @@ class ProjectStore {
   static String unitName(TkDesign design) =>
       '${design.name}.${design.isCpp
           ? 'cpp'
+          : design.isPascal
+          ? 'pas'
           : design.isJs
           ? 'js'
           : 'py'}';
@@ -314,6 +319,7 @@ class ProjectStore {
               chrome: d.isChrome,
               next: d.isNext,
               cpp: d.isCpp,
+              pascal: d.isPascal,
             ),
           ),
     );
@@ -501,6 +507,7 @@ class ProjectStore {
       ...tkChromeExamples(tr),
       ...tkNextExamples(tr),
       ...tkCppExamples(tr),
+      ...tkPascalExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -632,6 +639,29 @@ class ProjectStore {
     );
   }
 
+  /// Carpeta de la aplicación de Pascal generada.
+  static String pascalDir(String project) =>
+      p.join(project, buildDir, 'pascal');
+
+  /// Escribe la aplicación de Pascal (Lazarus) en build/pascal.
+  static Future<TkPrepared> _preparePascal(StudioProject x) async {
+    final out = pascalDir(x.path);
+    await writeFiles(
+      out,
+      TkPascal.files(x.design, x.code, options: await TkPascalTools.options()),
+    );
+    await _gitignore(x.path);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, '${x.design.name}.pas'),
+      pascal: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe [files] (nombre → contenido) en [dir].
   static Future<void> writeFiles(String dir, Map<String, String> files) async {
     await Directory(dir).create(recursive: true);
@@ -701,6 +731,7 @@ class ProjectStore {
     if (x.isChrome) return _prepareChrome(x);
     if (x.isNext) return _prepareNext(x);
     if (x.isCpp) return _prepareCpp(x);
+    if (x.isPascal) return _preparePascal(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

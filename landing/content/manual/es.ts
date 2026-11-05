@@ -595,7 +595,7 @@ export const manualEs: Manual = {
           blocks: [
             {
               type: "p",
-              text: "Cada evento del diseño es un método de la clase `Form1`, que hereda de `FormDesign`. Cada componente es `this.Nombre`, con propiedades al estilo de Delphi: al cambiarlas, la ventana se vuelve a pintar (con React).",
+              text: "Cada evento del diseño es un método de la clase `Form1`, que hereda de `FormDesign`. Cada componente es `this.Nombre`, con propiedades sencillas: al cambiarlas, la ventana se vuelve a pintar (con React).",
             },
             {
               type: "code",
@@ -746,7 +746,7 @@ export const manualEs: Manual = {
           blocks: [
             {
               type: "p",
-              text: "Al crear la aplicación, elija **C++ (FLTK)**. El código va en `Form1.cpp`: la clase `Form1` hereda de `FormDesign` y cada evento es un método con `override`. Cada componente es un puntero a una clase de FLTK con métodos al estilo de Delphi, sin perder la API de FLTK.",
+              text: "Al crear la aplicación, elija **C++ (FLTK)**. El código va en `Form1.cpp`: la clase `Form1` hereda de `FormDesign` y cada evento es un método con `override`. Cada componente es un puntero a una clase de FLTK con métodos sencillos (`text`, `checked`, `items`…), sin perder la API de FLTK.",
             },
             {
               type: "code",
@@ -780,6 +780,61 @@ export const manualEs: Manual = {
                 "Si falta FLTK o el compilador, el estudio lo dice y ofrece **Instalar** (en macOS, con Homebrew: `brew install fltk`).",
                 "**Depurar** compila con información de depuración (`-g`) para abrir `build/cpp/app` con lldb o gdb.",
                 "**Exportar el proyecto de C++** crea una carpeta con las fuentes y un `Makefile`: `make run`.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    // ------------------------------------------------------------- pascal
+    {
+      slug: "pascal",
+      title: "Pascal con Lazarus",
+      summary: "Aplicaciones de escritorio nativas en Object Pascal, con los componentes de la LCL.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear una aplicación de Pascal",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear la aplicación, elija **Pascal (Lazarus)**. El código va en la unidad `Form1.pas`: la clase `TForm1` hereda de `TFormDesign` y cada evento es un método que se declara en la clase con `override` y se escribe en `implementation`. El estudio añade las dos partes al crear un evento. Los componentes son los de la LCL de siempre.",
+            },
+            {
+              type: "code",
+              code: "type\n  TForm1 = class(TFormDesign)\n  public\n    procedure Button1_click; override;\n    procedure Scale1_change(Value: Double); override;\n  end;\n\nimplementation\n\nprocedure TForm1.Button1_click;\nbegin\n  Label1.Caption := 'Hola, ' + Entry1.Text;\n  Status.SimpleText := 'Saludado';\nend;\n\nprocedure TForm1.Scale1_change(Value: Double);\nbegin\n  Bar1.Position := Round(Value);\nend;",
+            },
+            {
+              type: "table",
+              head: ["Componente", "Clase de la LCL y lo más usado"],
+              rows: [
+                ["Etiqueta", "`TLabel`: `Caption`, `Font`, `Color`"],
+                ["Botón", "`TButton` (o `TDmsButton` si tiene color o es alto): `Caption`, `Enabled`"],
+                ["Entrada, Contraseña", "`TEdit`: `Text`, `Clear`, `SetFocus`"],
+                ["Texto", "`TMemo`: `Text`, `Lines.Add`, `Lines.LoadFromFile`"],
+                ["Casilla, Opción", "`TCheckBox`, `TRadioButton`: `Checked`"],
+                ["Lista, Combo", "`TListBox`, `TComboBox`: `Items`, `ItemIndex`"],
+                ["Escala, Barra de progreso", "`TTrackBar`, `TProgressBar`: `Position`, `Max`"],
+                ["Marco, Control de páginas", "`TPanel`, `TPageControl` (cada página, `Pages1_page0`…)"],
+                ["Barra de estado", "`TStatusBar`: `SimpleText`"],
+                ["Menú, Temporizador", "`TMainMenu`, `TTimer`: `Enabled`, `Interval`"],
+                ["Diálogos Abrir y Guardar", "`TOpenDialog`, `TSaveDialog`: `Execute`, `FileName`"],
+                ["La ventana y el estudio", "`Caption`, `Close`, `ShowMessage(texto)`, `Ask(pregunta)`, `NumToStr(x)`, `ReadText`, `WriteText`, `LastKey` (en el evento de teclado)"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "compilar",
+          title: "Compilar, ejecutar y exportar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** compila con `lazbuild` y abre la aplicación. Los errores salen en la pestaña Salida con su línea de `Form1.pas`, como `Form1.pas(22,3) Error: Identifier not found`.",
+                "Si falta Lazarus, el estudio lo dice y ofrece **Instalar** (en macOS, con Homebrew: `brew install fpc` y `brew install --cask lazarus`). En un Mac con Apple Silicon se compila para arm64.",
+                "Lo que escribe `WriteLn` sale en la pestaña Salida. Para depurar paso a paso, abra `build/pascal/app.lpi` en el IDE de Lazarus.",
+                "**Exportar el proyecto de Lazarus** crea una carpeta con `app.lpi` y las unidades: se abre en Lazarus o se compila con `lazbuild app.lpi`.",
               ],
             },
           ],

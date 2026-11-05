@@ -3,6 +3,35 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.29 — 2026-11-05
+
+- **Destino Pascal con Lazarus**: aplicaciones de escritorio nativas en
+  Object Pascal con los componentes de la LCL de siempre (`TLabel`,
+  `TButton`, `TEdit`, `TMemo`…). El código va en la unidad `Form1.pas`
+  (`TForm1 = class(TFormDesign)`): al crear un evento, el estudio declara el
+  método en la clase y lo escribe en `implementation`. Ejecutar compila con
+  `lazbuild` y abre la aplicación; los errores llevan su línea de
+  `Form1.pas`. Si falta Lazarus, ofrece instalarlo. Resaltado,
+  autocompletado y ayuda de Pascal, exportar el proyecto de Lazarus y el
+  ejemplo «Calculadora (Pascal)», que también funciona con el teclado.
+- **Ayuda**: muchos más conceptos en Python (`pass`, `return`, `elif`,
+  `lambda`, `with`, listas por comprensión, `json`, `datetime`…), JavaScript,
+  C++ y Pascal.
+- **MySQL 8**: el módulo Bases de datos ya conecta con la autenticación por
+  defecto de MySQL 8 (`caching_sha2_password`), repitiendo con conexión
+  cifrada cuando el servidor lo pide. SQLite, PostgreSQL, MySQL y MongoDB se
+  prueban contra servidores reales.
+- Web: entornos, backends y bases de datos con sus logotipos en la portada.
+
+## 1.0.28 — 2026-11-05
+
+- **Ayuda en el código**: clic derecho sobre una palabra → **Ayuda** (o
+  **F1**) abre un panel a la derecha con la firma, la explicación y un ejemplo
+  de cada comando, en Python, JavaScript y C++ (también lo propio del estudio:
+  `self.Label1.text`, `storage`, `dms_run`…). Se busca cualquier comando, se
+  cambia de lenguaje y el ejemplo se copia o se inserta en el cursor. El menú
+  del clic derecho también copia, corta y pega.
+
 ## 1.0.27 — 2026-11-05
 
 - **Subproyectos**: un proyecto puede tener partes, cada una con su propio
@@ -38,7 +67,7 @@ con `node scripts/version.mjs <versión|patch|minor|major>`.
 - Nuevo destino **C++ (FLTK)**: aplicaciones de escritorio nativas con el
   mismo Diseñador. El código va en `Form1.cpp` (`class Form1 : public
   FormDesign`, con los eventos como métodos `override`) y cada componente es
-  una clase de FLTK con métodos al estilo de Delphi (`Label1->text("Hola")`).
+  una clase de FLTK con métodos sencillos (`Label1->text("Hola")`).
   - **Ejecutar** compila con el compilador del equipo y FLTK y abre la
     aplicación; los errores salen con su línea de `Form1.cpp`.
   - Si falta FLTK o el compilador, el estudio ofrece **Instalar** (Homebrew
@@ -90,7 +119,7 @@ con `node scripts/version.mjs <versión|patch|minor|major>`.
 - Nuevo destino **Electron + React** (escritorio), en la misma app: al crear
   la aplicación se elige entre Escritorio (Python), Web (Flask) y Electron +
   React. El mismo Diseñador; el código de los eventos, en **JavaScript**
-  (`Form1.js`), con componentes de propiedades al estilo de Delphi
+  (`Form1.js`), con componentes de propiedades sencillas
   (`this.Label1.text = "Hola"`) que React vuelve a pintar.
   - Componentes: etiqueta, botón, entrada, contraseña, imagen, texto,
     casilla, opción, lista, combo, escala, marco, vista HTML, tabla, barra de

@@ -182,6 +182,33 @@ void main() {
     await ProjectStore.delete(dir);
   });
 
+  test('un proyecto de Pascal: Form1.pas y build/pascal', () async {
+    final dir = await ProjectStore.create(
+      'Mi Pascal',
+      design: TkDesign(target: tkTargetPascal),
+    );
+    expect(
+      File(p.join(dir, 'Form1.pas')).readAsStringSync(),
+      contains('TForm1 = class(TFormDesign)'),
+    );
+    final prepared = await ProjectStore.prepareRun(dir);
+    expect(prepared.pascal, isTrue);
+    for (final f in [
+      'dms.pas',
+      'design.pas',
+      'Form1.pas',
+      'app.lpr',
+      'app.lpi',
+    ]) {
+      expect(
+        File(p.join(dir, 'build', 'pascal', f)).existsSync(),
+        isTrue,
+        reason: f,
+      );
+    }
+    await ProjectStore.delete(dir);
+  });
+
   test('subproyectos: dentro de su proyecto, no sueltos en la lista', () async {
     final odoo = await ProjectStore.create('Odoo');
     final bd = await ProjectStore.create('bd', parent: odoo, sub: true);

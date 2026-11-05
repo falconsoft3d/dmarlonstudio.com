@@ -256,6 +256,8 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                       Icon(
                         a.isCpp
                             ? LucideIcons.cpu
+                            : a.isPascal
+                            ? LucideIcons.feather
                             : a.isNext
                             ? LucideIcons.panelsTopLeft
                             : a.isChrome

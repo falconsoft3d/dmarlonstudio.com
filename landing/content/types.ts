@@ -2,7 +2,22 @@
 export type Feature = { title: string; text: string };
 export type Section = { id: string; eyebrow: string; title: string; intro: string; features: Feature[] };
 export type StepStatus = "ready" | "next" | "later";
-export type Step = { name: string; status: StepStatus; text: string };
+export type TargetIcon =
+  | "python"
+  | "flask"
+  | "electron"
+  | "chrome"
+  | "next"
+  | "cpp"
+  | "lazarus"
+  | "node"
+  | "sqlite"
+  | "postgres"
+  | "mysql"
+  | "mongodb"
+  | "api";
+export type Target = { name: string; sub: string; icon: TargetIcon };
+export type Step = { name: string; status: StepStatus; text: string; icon?: TargetIcon };
 export type PlatformNotes = { requirements: string; steps: string[] };
 
 export type Content = {
@@ -21,7 +36,11 @@ export type Content = {
     primary: string;
     secondary: string;
     targetsLabel: string;
-    targets: string[];
+    targets: Target[];
+    backendsLabel: string;
+    backends: Target[];
+    databasesLabel: string;
+    databases: Target[];
   };
   examples: {
     label: string;

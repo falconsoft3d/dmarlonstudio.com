@@ -44,15 +44,28 @@ Future<DevDb> openDevDb(String kind, Map<String, Object?> c) async {
           ),
         );
       case 'mysql':
-        final conn = await MySQLConnection.createConnection(
-          host: s('host', 'localhost'),
-          port: port(3306),
-          userName: s('user'),
-          password: '${c['password'] ?? ''}',
-          databaseName: s('database').isEmpty ? null : s('database'),
-          secure: c['ssl'] == true,
-        );
-        await conn.connect(timeoutMs: 15000);
+        Future<MySQLConnection> connect(bool secure) async {
+          final conn = await MySQLConnection.createConnection(
+            host: s('host', 'localhost'),
+            port: port(3306),
+            userName: s('user'),
+            password: '${c['password'] ?? ''}',
+            databaseName: s('database').isEmpty ? null : s('database'),
+            secure: secure,
+          );
+          await conn.connect(timeoutMs: 15000);
+          return conn;
+        }
+
+        MySQLConnection conn;
+        try {
+          conn = await connect(c['ssl'] == true);
+        } on Exception catch (e) {
+          // MySQL 8 (caching_sha2_password) pide una conexión cifrada:
+          // se repite con TLS.
+          if (c['ssl'] == true || !'$e'.contains('secure')) rethrow;
+          conn = await connect(true);
+        }
         return _MySql(conn, s('database'));
       case 'mongodb':
         final uri = s('uri').isNotEmpty

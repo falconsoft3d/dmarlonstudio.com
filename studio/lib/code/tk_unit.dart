@@ -40,6 +40,8 @@ abstract class TkUnitLang {
 /// El lenguaje del código de [d].
 TkUnitLang tkUnitOf(TkDesign d) => d.isCpp
     ? const CppUnit()
+    : d.isPascal
+    ? const PascalUnit()
     : d.isJs
     ? const JsUnit()
     : const PyUnit();
@@ -380,4 +382,260 @@ class CppUnit extends JsUnit {
   @override
   String renameForm(String code, String from, String to) =>
       JsUnit._replace(code, '(\\bclass\\s+)${RegExp.escape(from)}\\b', to);
+}
+
+/// Object Pascal (Lazarus): la unidad Form1 con
+/// `TForm1 = class(TFormDesign)`. Cada método se declara en la clase
+/// (`procedure Button1_click; override;`) y se escribe en implementation
+/// (`procedure TForm1.Button1_click; begin … end;`). Pascal no distingue
+/// mayúsculas.
+class PascalUnit extends TkUnitLang {
+  const PascalUnit();
+
+  @override
+  String get language => 'pascal';
+  @override
+  String get comment => '//';
+
+  /// Las unidades que usa el código del usuario.
+  static const uses =
+      'Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,\n'
+      '  ExtCtrls, ComCtrls, Menus, dms, design';
+
+  @override
+  String template(String form, String comment) =>
+      '$comment\nunit $form;\n\n{\$mode objfpc}{\$H+}\n\ninterface\n\n'
+      'uses\n  $uses;\n\ntype\n  T$form = class(TFormDesign)\n  public\n'
+      '    procedure form_create; override;\n  end;\n\nimplementation\n\n'
+      'procedure T$form.form_create;\nbegin\nend;\n\nend.\n';
+
+  /// El tipo del argumento de un evento.
+  static String typed(String param) => switch (param) {
+    'value' => 'Value: Double',
+    'path' => 'const Path: string',
+    'item' => 'const Item: string',
+    _ => '',
+  };
+
+  /// [code] con las cadenas y los comentarios cambiados por espacios (los
+  /// saltos de línea se quedan).
+  static String mask(String code) {
+    final out = StringBuffer();
+    var i = 0;
+    final n = code.length;
+    void blank(int from, int to) {
+      for (var k = from; k < to && k < n; k++) {
+        out.write(code[k] == '\n' ? '\n' : ' ');
+      }
+    }
+
+    while (i < n) {
+      final c = code[i];
+      int? to;
+      if (c == '/' && i + 1 < n && code[i + 1] == '/') {
+        final end = code.indexOf('\n', i);
+        to = end < 0 ? n : end;
+      } else if (c == '{') {
+        final end = code.indexOf('}', i + 1);
+        to = end < 0 ? n : end + 1;
+      } else if (c == '(' && i + 1 < n && code[i + 1] == '*') {
+        final end = code.indexOf('*)', i + 2);
+        to = end < 0 ? n : end + 2;
+      }
+      if (to != null) {
+        blank(i, to);
+        i = to;
+      } else if (c == "'") {
+        var k = i + 1;
+        while (k < n && code[k] != "'" && code[k] != '\n') {
+          k++;
+        }
+        out.write(c);
+        blank(i + 1, k);
+        if (k < n) out.write(code[k]);
+        i = k + 1;
+      } else {
+        out.write(c);
+        i++;
+      }
+    }
+    return out.toString();
+  }
+
+  static RegExp _ci(String pattern) =>
+      RegExp(pattern, caseSensitive: false, multiLine: true);
+
+  /// La clase: dónde empieza su cabecera y dónde está su «end;».
+  static (int, int)? _classRange(String code, String form) {
+    final m = mask(code);
+    final head = _ci(
+      '\\bT${RegExp.escape(form)}\\s*=\\s*class\\s*\\([^)]*\\)',
+    ).firstMatch(m);
+    if (head == null) return null;
+    final end = _ci(r'^[ \t]*end[ \t]*;').firstMatch(m.substring(head.end));
+    return end == null ? null : (head.end, head.end + end.start);
+  }
+
+  @override
+  bool hasClass(String code, String form) => _classRange(code, form) != null;
+
+  RegExp _impl(String method) => _ci(
+    '^[ \\t]*procedure[ \\t]+[A-Za-z_]\\w*[ \\t]*\\.[ \\t]*'
+    '${RegExp.escape(method)}[ \\t]*[(;]',
+  );
+
+  @override
+  int? lineOf(String code, String method) {
+    final lines = mask(code).split('\n');
+    final def = _impl(method);
+    for (var i = 0; i < lines.length; i++) {
+      if (def.hasMatch(lines[i])) return i;
+    }
+    return null;
+  }
+
+  static String _args(String param) {
+    final t = typed(param);
+    return t.isEmpty ? '' : '($t)';
+  }
+
+  static List<String> _indented(String body, String indent) => [
+    for (final l in body.replaceAll('\r\n', '\n').trimRight().split('\n'))
+      l.trim().isEmpty ? '' : '$indent$l',
+  ];
+
+  static String _body(String? body) =>
+      body == null || body.trim() == 'pass' ? '' : body;
+
+  @override
+  String ensureMethod(
+    String code,
+    String form,
+    String method, {
+    String param = '',
+    String? body,
+  }) {
+    if (lineOf(code, method) != null) return code;
+    var src = code;
+    if (_classRange(src, form) == null) {
+      final base = src.trimRight();
+      src = template(form, base.isEmpty ? comment : base);
+      if (lineOf(src, method) != null) {
+        return setMethodBody(src, form, method, _body(body), param: param);
+      }
+    }
+    final (start, end) = _classRange(src, form)!;
+    // La declaración, con la sangría de los demás miembros.
+    final members = src.substring(start, end).split('\n');
+    final first = members.firstWhere(
+      (l) =>
+          l.trim().isNotEmpty &&
+          !_ci(r'^\s*(public|private|protected|published)\s*$').hasMatch(l),
+      orElse: () => '',
+    );
+    final indent = first.isEmpty
+        ? '    '
+        : RegExp(r'^[ \t]*').stringMatch(first)!;
+    final decl = '${indent}procedure $method${_args(param)}; override;\n';
+    src = '${src.substring(0, end)}$decl${src.substring(end)}';
+    // La implementación, antes del «end.» final.
+    final inner = _body(body);
+    final impl = [
+      'procedure T$form.$method${_args(param)};',
+      'begin',
+      if (inner.isNotEmpty) ..._indented(inner, '  '),
+      'end;',
+    ].join('\n');
+    final last = _ci(r'^[ \t]*end[ \t]*\.').allMatches(mask(src)).lastOrNull;
+    if (last == null) return '${src.trimRight()}\n\n$impl\n';
+    final before = src.substring(0, last.start).trimRight();
+    return '$before\n\n$impl\n\n${src.substring(last.start)}';
+  }
+
+  /// Dónde está el «begin» del método de la línea [at] y su «end».
+  static (int, int)? _block(String code, int at) {
+    final m = mask(code);
+    var offset = 0;
+    final lines = code.split('\n');
+    for (var i = 0; i < at; i++) {
+      offset += lines[i].length + 1;
+    }
+    int? begin;
+    var depth = 0;
+    for (final t in RegExp(r'[A-Za-z_]\w*').allMatches(m, offset)) {
+      final w = t[0]!.toLowerCase();
+      if (begin == null) {
+        if (w == 'begin') {
+          begin = t.end;
+          depth = 1;
+        }
+        continue;
+      }
+      if (const {'begin', 'case', 'try', 'asm', 'record'}.contains(w)) {
+        depth++;
+      } else if (w == 'end') {
+        depth--;
+        if (depth == 0) return (begin, t.start);
+      }
+    }
+    return null;
+  }
+
+  @override
+  String setMethodBody(
+    String code,
+    String form,
+    String method,
+    String body, {
+    String param = '',
+  }) {
+    final at = lineOf(code, method);
+    if (at == null) {
+      return ensureMethod(code, form, method, param: param, body: body);
+    }
+    final block = _block(code, at);
+    if (block == null) return code;
+    final (open, close) = block;
+    final indent = RegExp(r'^[ \t]*').stringMatch(code.split('\n')[at])!;
+    final inner = _body(body);
+    final text = inner.isEmpty
+        ? '\n$indent'
+        : '\n${_indented(inner, '$indent  ').join('\n')}\n$indent';
+    return '${code.substring(0, open)}$text${code.substring(close)}';
+  }
+
+  static String _replace(String code, String pattern, String by) =>
+      code.replaceAllMapped(_ci(pattern), (m) => '${m[1] ?? ''}$by');
+
+  @override
+  String renameMethod(String code, String from, String to) {
+    final f = RegExp.escape(from);
+    var out = _replace(code, '(\\bprocedure[ \\t]+)$f\\b', to);
+    out = _replace(
+      out,
+      '(\\bprocedure[ \\t]+[A-Za-z_]\\w*[ \\t]*\\.)$f\\b',
+      to,
+    );
+    return _replace(out, '(\\bSelf\\.)$f\\b', to);
+  }
+
+  @override
+  String renameWidget(String code, String from, String to) {
+    final f = RegExp.escape(from);
+    return _replace(
+      _replace(code, '(\\bSelf\\.)$f\\b', to),
+      '(^|[^\\w.])$f(?=[ \\t]*\\.)',
+      to,
+    );
+  }
+
+  @override
+  String renameForm(String code, String from, String to) {
+    final f = RegExp.escape(from);
+    return _replace(
+      _replace(code, '(^[ \\t]*unit[ \\t]+)$f\\b', to),
+      '(^|[^\\w])T$f\\b',
+      'T$to',
+    );
+  }
 }

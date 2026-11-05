@@ -89,6 +89,13 @@ const tkCppKinds = {
   'SaveDialog',
 };
 
+/// Escritorio en Pascal con Lazarus (LCL): el código del usuario, en Object
+/// Pascal, con los componentes de siempre (TLabel, TButton, TEdit…).
+const tkTargetPascal = 'pascal';
+
+/// Componentes que ya tiene el destino Pascal: los de C++.
+const tkPascalKinds = tkCppKinds;
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -96,6 +103,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetChrome => tr('Extensión de Chrome'),
   tkTargetNext => tr('Web (Next.js)'),
   tkTargetCpp => tr('C++ (FLTK)'),
+  tkTargetPascal => tr('Pascal (Lazarus)'),
   _ => tr('Escritorio (Python)'),
 };
 
@@ -106,6 +114,8 @@ final tkChromeKinds = {...tkElectronKinds}..remove('Menu');
 /// Componentes que tiene el destino de [d] (null: todos).
 Set<String>? tkTargetKinds(TkDesign d) => d.isCpp
     ? tkCppKinds
+    : d.isPascal
+    ? tkPascalKinds
     : d.isChrome || d.isNext
     ? tkChromeKinds
     : d.isElectron
@@ -119,6 +129,11 @@ String? tkJsGap(TkDesign d, String kind) {
   if (kinds == null || kinds.contains(kind)) return null;
   if (d.isCpp) {
     return tr('«{0}» todavía no está disponible en C++.', [
+      tr(tkComponent(kind)?.label ?? kind),
+    ]);
+  }
+  if (d.isPascal) {
+    return tr('«{0}» todavía no está disponible en Pascal.', [
       tr(tkComponent(kind)?.label ?? kind),
     ]);
   }
@@ -168,6 +183,26 @@ const tkCppReserved = {
   'std',
   'Fl',
   'DmsForm',
+};
+
+/// Palabras de Pascal (en minúsculas: Pascal no distingue mayúsculas) y
+/// propiedades de la ventana de la LCL que no sirven como nombres.
+const tkPascalReserved = {
+  'and', 'array', 'as', 'asm', 'begin', 'case', 'class', 'const',
+  'constructor', 'destructor', 'div', 'do', 'downto', 'else', 'end',
+  'except', 'exports', 'file', 'finalization', 'finally', 'for', 'function',
+  'goto', 'if', 'implementation', 'in', 'inherited', 'initialization',
+  'inline', 'interface', 'is', 'label', 'library', 'mod', 'nil', 'not',
+  'object', 'of', 'on', 'operator', 'or', 'out', 'packed', 'procedure',
+  'program', 'property', 'raise', 'record', 'repeat', 'resourcestring',
+  'self', 'set', 'shl', 'shr', 'string', 'then', 'threadvar', 'to', 'try',
+  'type', 'unit', 'until', 'uses', 'var', 'while', 'with', 'xor', 'result',
+  'true', 'false', 'integer', 'boolean', 'double', 'char', 'application',
+  // De TForm: un componente con ese nombre los taparía.
+  'caption', 'color', 'font', 'width', 'height', 'left', 'top', 'name',
+  'tag', 'text', 'menu', 'hint', 'parent', 'owner', 'visible', 'enabled',
+  'close', 'show', 'hide', 'message', 'ask', 'title', 'design', 'dms',
+  'components', 'controls', 'canvas', 'align', 'icon', 'position',
 };
 
 /// Palabras reservadas de JavaScript: no sirven como nombres.
@@ -1951,6 +1986,7 @@ class TkDesign {
   bool get isChrome => target == tkTargetChrome;
   bool get isNext => target == tkTargetNext;
   bool get isCpp => target == tkTargetCpp;
+  bool get isPascal => target == tkTargetPascal;
 
   /// El código es JavaScript (Electron y extensiones de Chrome).
   bool get isJs => isElectron || isChrome || isNext;
@@ -1971,14 +2007,15 @@ class TkDesign {
   }
 
   /// El código es Python (tkinter o Flask).
-  bool get isPython => !isJs && !isCpp;
+  bool get isPython => !isJs && !isCpp && !isPascal;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
       tkValidName(s) &&
       !(isWeb && tkWebReserved.contains(s)) &&
       !((isJs || isCpp) && tkJsReserved.contains(s)) &&
-      !(isCpp && tkCppReserved.contains(s));
+      !(isCpp && tkCppReserved.contains(s)) &&
+      !(isPascal && tkPascalReserved.contains(s.toLowerCase()));
 
   /// En orden de creación, que es también el orden de apilado; un marco va
   /// siempre antes que sus componentes.
@@ -2244,6 +2281,7 @@ class TkDesign {
       tkTargetChrome => tkTargetChrome,
       tkTargetNext => tkTargetNext,
       tkTargetCpp => tkTargetCpp,
+      tkTargetPascal => tkTargetPascal,
       _ => tkTargetDesktop,
     },
     width: _int(j['width'], 80),

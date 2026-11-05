@@ -59,6 +59,8 @@ const carousel = [
   'chrome_notes',
   'chrome_words',
   'next_tasks',
+  'cpp_calculator',
+  'pascal_calculator',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

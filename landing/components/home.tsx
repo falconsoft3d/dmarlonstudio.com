@@ -3,8 +3,9 @@ import { Downloads } from "@/components/downloads";
 import { ExamplesCarousel } from "@/components/examples-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { TargetBadge } from "@/components/target-logo";
 import { contentOf } from "@/content";
-import type { Section, StepStatus } from "@/content/types";
+import type { Section, StepStatus, Target } from "@/content/types";
 import type { Lang } from "@/lib/i18n";
 
 function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
@@ -24,6 +25,17 @@ function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Un entorno, backend o base de datos: logotipo, nombre y una línea. */
+function TargetCard({ t }: { t: Target }) {
+  return (
+    <li className="flex flex-col items-center gap-2.5 rounded-2xl border border-line bg-surface px-3 py-5 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-md">
+      <TargetBadge icon={t.icon} size="size-14" logo="size-8" />
+      <span className="text-sm font-semibold">{t.name}</span>
+      <span className="-mt-1.5 text-xs text-muted">{t.sub}</span>
+    </li>
   );
 }
 
@@ -66,15 +78,33 @@ export function Home({ lang }: { lang: Lang }) {
                 <ArrowRight className="size-4" aria-hidden />
               </a>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-2 text-sm" aria-label={hero.targetsLabel}>
-              {hero.targets.map((t) => (
-                <li key={t} className="rounded-md bg-soft px-2.5 py-1 font-mono text-xs text-muted">
-                  {t}
-                </li>
-              ))}
-            </ul>
           </div>
           <ExamplesCarousel lang={lang} t={t.examples} />
+        </section>
+
+        {/* Entornos: un diseño, siete destinos */}
+        <section aria-label={hero.targetsLabel} className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:pb-20">
+          <p className="text-center text-xs font-medium tracking-[0.14em] text-muted uppercase">{hero.targetsLabel}</p>
+          <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+            {hero.targets.map((t) => (
+              <TargetCard key={t.name} t={t} />
+            ))}
+          </ul>
+          <div className="mt-10 grid gap-x-3 gap-y-8 lg:grid-cols-7">
+            {[
+              { label: hero.backendsLabel, items: hero.backends, span: "lg:col-span-3", cols: "grid-cols-3" },
+              { label: hero.databasesLabel, items: hero.databases, span: "lg:col-span-4", cols: "grid-cols-2 sm:grid-cols-4" },
+            ].map((g) => (
+              <div key={g.label} className={g.span}>
+                <p className="text-center text-xs font-medium tracking-[0.14em] text-muted uppercase">{g.label}</p>
+                <ul className={`mt-4 grid gap-3 ${g.cols}`} aria-label={g.label}>
+                  {g.items.map((t) => (
+                    <TargetCard key={t.name} t={t} />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         {sections.map((s, i) => (
@@ -90,7 +120,10 @@ export function Home({ lang }: { lang: Lang }) {
               {roadmap.steps.map((r) => (
                 <li key={r.name} className="rounded-xl border border-line bg-canvas p-5">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="font-semibold">{r.name}</h3>
+                    <h3 className="flex min-w-0 items-center gap-2.5 font-semibold">
+                      {r.icon && <TargetBadge icon={r.icon} size="size-8" />}
+                      <span>{r.name}</span>
+                    </h3>
                     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_CLASS[r.status]}`}>
                       {roadmap.status[r.status]}
                     </span>

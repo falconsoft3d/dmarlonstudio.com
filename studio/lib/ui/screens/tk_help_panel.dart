@@ -103,6 +103,7 @@ class _TkHelpPanelState extends State<TkHelpPanel> {
                   ('py', 'Python'),
                   ('js', 'JavaScript'),
                   ('cpp', 'C++'),
+                  ('pas', 'Pascal'),
                 ])
                   ChoiceChip(
                     key: ValueKey('tk-help-lang-$code'),

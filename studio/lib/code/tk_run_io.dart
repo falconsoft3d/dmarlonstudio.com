@@ -10,6 +10,7 @@ import '../i18n/tr.dart';
 import 'tk_debug.dart';
 import 'tk_chrome.dart';
 import 'tk_cpp_run.dart';
+import 'tk_pascal_run.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
 import 'tk_electron_run.dart';
@@ -431,6 +432,7 @@ class TkRunner {
     try {
       if (prepared.next) return await _launchNext(prepared, key, devtools);
       if (prepared.cpp) return await _launchCpp(prepared, key, devtools);
+      if (prepared.pascal) return await _launchPascal(prepared, key);
       if (prepared.electron) {
         return await _launchElectron(prepared, key, devtools);
       }
@@ -660,6 +662,68 @@ class TkRunner {
         if (build.exitCode != 0) {
           run.add(tr('No se pudo compilar.'));
           return run.finish(build.exitCode);
+        }
+        if (stopped) return run.finish(-1);
+        final started = await Process.start(
+          exe,
+          const [],
+          workingDirectory: prepared.id,
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen(run.add)
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// Compila con lazbuild la aplicación de Pascal de build/pascal (los
+  /// errores van a la salida, con las líneas de Form1.pas) y la abre.
+  static Future<TkRun> _launchPascal(TkPrepared prepared, String key) async {
+    final lazbuild = TkPascalTools.lazbuild();
+    if (lazbuild == null) {
+      throw UserError(TkPascalTools.needs().map((n) => n.why).join('\n'));
+    }
+    final dir = File(prepared.file).parent.path;
+    final exe = p.join(dir, Platform.isWindows ? 'app.exe' : 'app');
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        run.add(tr('Compilando…'));
+        final build = await Process.run(lazbuild, [
+          ...TkPascalTools.args(),
+          'app.lpi',
+        ], workingDirectory: dir);
+        final out = '${build.stdout}${build.stderr}';
+        for (final l in TkPascalTools.messages(out, dir)) {
+          run.add(l);
+        }
+        if (build.exitCode != 0 || !File(exe).existsSync()) {
+          run.add(tr('No se pudo compilar.'));
+          return run.finish(build.exitCode == 0 ? 1 : build.exitCode);
         }
         if (stopped) return run.finish(-1);
         final started = await Process.start(

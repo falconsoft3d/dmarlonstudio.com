@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../code/tk_cpp_run.dart';
+import '../code/tk_pascal_run.dart';
 import '../code/tk_debug.dart';
 import '../code/tk_run.dart';
 import '../core/errors.dart';
@@ -68,6 +69,17 @@ Future<TkRun?> launchTkApp(
     }
     if (!context.mounted) return null;
     return runAction(context, () => TkRunner.start(prepared, devtools: debug));
+  }
+  // Pascal: Lazarus (con «Instalar» si falta).
+  if (prepared.pascal) {
+    if (tests) return null;
+    for (final need in TkPascalTools.needs()) {
+      if (!context.mounted) return null;
+      final go = await showTkInstall(context, const TkPython(help: ''), need);
+      if (!go) return null;
+    }
+    if (!context.mounted) return null;
+    return runAction(context, () => TkRunner.start(prepared));
   }
   // Electron, Chrome y Next.js no usan Python: Node y el entorno compartido.
   if (prepared.electron || prepared.next) {

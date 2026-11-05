@@ -361,6 +361,18 @@ msgstr ""
 "// with Delphi-like properties: this.Label1.text = \"Hello\". Also\n"
 "// this.title, this.message(text), this.ask(question) and this.close()."
 
+#: lib/code/tk_examples.dart
+msgid ""
+"// Código de la ventana, en Object Pascal (Lazarus). Cada evento del diseño es\n"
+"// un método de esta clase (con override); cada componente es el de la LCL de\n"
+"// siempre: Label1.Caption := 'Hola', Edit1.Text, CheckBox1.Checked.\n"
+"// También ShowMessage(texto), Ask(pregunta), Close y NumToStr(número)."
+msgstr ""
+"// Window code, in Object Pascal (Lazarus). Each design event is a method of\n"
+"// this class (with override); each component is the usual LCL one:\n"
+"// Label1.Caption := 'Hello', Edit1.Text, CheckBox1.Checked.\n"
+"// Also ShowMessage(text), Ask(question), Close and NumToStr(number)."
+
 #: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr "Open"
@@ -1317,6 +1329,10 @@ msgstr "Sequence"
 msgid "Orientación"
 msgstr "Orientation"
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Pascal (Lazarus)"
+msgstr "Pascal (Lazarus)"
+
 #: lib/code/tk_model.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Paso"
 msgstr "Step"
@@ -1585,6 +1601,10 @@ msgstr "“{0}” is not available in C++ yet."
 msgid "«{0}» todavía no está disponible en Electron."
 msgstr "“{0}” is not available in Electron yet."
 
+#: lib/code/tk_model.dart
+msgid "«{0}» todavía no está disponible en Pascal."
+msgstr "“{0}” is not available in Pascal yet."
+
 #: lib/code/tk_model.dart lib/code/tk_showcase.dart
 msgid "Áreas"
 msgstr "Areas"
@@ -1592,6 +1612,22 @@ msgstr "Areas"
 #: lib/code/tk_next.dart
 msgid "Aplicación web de Next.js creada con DMarlon Studio."
 msgstr "Next.js web app created with DMarlon Studio."
+
+#: lib/code/tk_pascal.dart
+msgid "El código debe definir «T{0} = class(TFormDesign)»."
+msgstr "The code must define “T{0} = class(TFormDesign)”."
+
+#: lib/code/tk_pascal_run.dart
+msgid "Falta Lazarus"
+msgstr "Lazarus is missing"
+
+#: lib/code/tk_pascal_run.dart
+msgid "Las aplicaciones de Pascal se compilan con Lazarus y Free Pascal (lazbuild)."
+msgstr "Pascal applications are compiled with Lazarus and Free Pascal (lazbuild)."
+
+#: lib/code/tk_pascal_run.dart
+msgid "No se pudo instalar Lazarus: {0}"
+msgstr "Could not install Lazarus: {0}"
 
 #: lib/code/tk_run_io.dart
 msgid "Compilando…"
@@ -2540,6 +2576,22 @@ msgstr "A Next.js page with tasks saved in the browser: add, mark as done and re
 #: lib/code/tk_showcase_next.dart
 msgid "{0} pendientes de {1}"
 msgstr "{0} pending of {1}"
+
+#: lib/code/tk_showcase_pascal.dart
+msgid "Calculadora (Pascal)"
+msgstr "Calculator (Pascal)"
+
+#: lib/code/tk_showcase_pascal.dart
+msgid "Calculadora en Pascal con Lazarus: cada botón llama a su método."
+msgstr "Calculator in Pascal with Lazarus: each button calls its method."
+
+#: lib/code/tk_showcase_pascal.dart
+msgid "El teclado también sirve: números, + - * /, Intro y Esc."
+msgstr "The keyboard works too: digits, + - * /, Enter and Esc."
+
+#: lib/code/tk_showcase_pascal.dart
+msgid "La calculadora como aplicación nativa en Pascal con Lazarus: el mismo diseño, con el código en Object Pascal y los componentes de la LCL."
+msgstr "The calculator as a native Pascal application with Lazarus: the same design, with the code in Object Pascal and the LCL components."
 
 #: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Categoría"
@@ -5888,6 +5940,10 @@ msgid "En Electron y en las extensiones de Chrome, «Depurar» (Mayús+F9) abre 
 msgstr "In Electron and in Chrome extensions, “Debug” (Shift+F9) opens the app with Chromium’s developer tools: it stops at your breakpoints and there you have variables, the stack, the console, stepping and performance. What console.log writes goes to the Output tab."
 
 #: lib/ui/screens/tk_debug_panel.dart
+msgid "En Pascal, la aplicación se compila con lazbuild y se abre; para depurar paso a paso, abra build/pascal/app.lpi en Lazarus. Lo que escribe WriteLn sale en la pestaña Salida."
+msgstr "In Pascal, the application is compiled with lazbuild and opened; to step through it, open build/pascal/app.lpi in Lazarus. What WriteLn writes shows in the Output tab."
+
+#: lib/ui/screens/tk_debug_panel.dart
 msgid "En marcha…"
 msgstr "Running…"
 
@@ -6300,6 +6356,10 @@ msgid "Exportada en {0}. Ábrala con: npm install y npm start."
 msgstr "Exported to {0}. Open it with: npm install and npm start."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportada en {0}. Ábrala en Lazarus (app.lpi) o compílela con: lazbuild app.lpi"
+msgstr "Exported to {0}. Open it in Lazarus (app.lpi) or build it with: lazbuild app.lpi"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportada. Necesita Flask (pip install flask)."
 msgstr "Exported. It needs Flask (pip install flask)."
 
@@ -6318,6 +6378,10 @@ msgstr "Export the .py file"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de C++ (con Makefile)"
 msgstr "Export the C++ project (with a Makefile)"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de Lazarus"
+msgstr "Export the Lazarus project"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Next.js"
@@ -6424,6 +6488,10 @@ msgid "Pasar por encima (F8)"
 msgstr "Step over (F8)"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Pascal generado"
+msgstr "Generated Pascal"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Pausar"
 msgstr "Pause"
 
@@ -6510,6 +6578,10 @@ msgstr "A desktop app with Electron and React; event code in JavaScript. It need
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio nativa en C++ con FLTK: el código de los eventos, en C++. Ejecutar la compila y la abre. Necesita un compilador de C++ y FLTK (el estudio ofrece instalarlo). El destino no se puede cambiar después."
 msgstr "A native C++ desktop app with FLTK: event code in C++. Run compiles and opens it. It needs a C++ compiler and FLTK (the studio offers to install it). The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una aplicación de escritorio nativa en Object Pascal con Lazarus: los componentes son los de la LCL (TLabel, TButton, TEdit…) y el código de los eventos, Pascal. Ejecutar la compila y la abre. Necesita Lazarus (el estudio ofrece instalarlo). El destino no se puede cambiar después."
+msgstr "A native desktop application in Object Pascal with Lazarus: the components are the LCL ones (TLabel, TButton, TEdit…) and the event code is Pascal. Run compiles and opens it. It needs Lazarus (the studio offers to install it). The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación web de Next.js: el diseño es la página y el código, JavaScript (React). Ejecutar arranca el servidor de desarrollo y abre el navegador; exportar deja el proyecto listo para npm o Vercel. Necesita Node.js. El destino no se puede cambiar después."

@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../i18n/tr.dart';
 import 'tk_codegen.dart';
 import 'tk_model.dart';
+import 'tk_unit.dart';
 
 part 'tk_showcase.dart';
 part 'tk_showcase_web.dart';
@@ -15,6 +16,7 @@ part 'tk_showcase_electron.dart';
 part 'tk_showcase_chrome.dart';
 part 'tk_showcase_next.dart';
 part 'tk_showcase_cpp.dart';
+part 'tk_showcase_pascal.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
@@ -24,7 +26,15 @@ String tkUnitComment({
   bool chrome = false,
   bool next = false,
   bool cpp = false,
-}) => cpp
+  bool pascal = false,
+}) => pascal
+    ? tr(
+        '// Código de la ventana, en Object Pascal (Lazarus). Cada evento del diseño es\n'
+        '// un método de esta clase (con override); cada componente es el de la LCL de\n'
+        '// siempre: Label1.Caption := \'Hola\', Edit1.Text, CheckBox1.Checked.\n'
+        '// También ShowMessage(texto), Ask(pregunta), Close y NumToStr(número).',
+      )
+    : cpp
     ? tr(
         '// Código de la ventana, en C++ (FLTK). Cada evento del diseño es un método\n'
         '// de esta clase (con override); cada componente es un puntero con métodos\n'

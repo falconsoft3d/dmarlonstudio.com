@@ -10,12 +10,22 @@ void main() {
     expect(tkHelpFind('js', 'text').first.word, 'text');
     expect(tkHelpFind('cpp', 'std::cout').first.word, 'std::cout');
     expect(tkHelpFind('py', 'nada-de-esto'), isEmpty);
-    for (final lang in ['py', 'js', 'cpp']) {
+    expect(tkHelpLang(js: false, cpp: false, pascal: true), 'pas');
+    expect(tkHelpFind('py', 'pass').first.word, 'pass');
+    expect(tkHelpFind('pas', 'WriteLn').first.word, 'WriteLn');
+    for (final lang in ['py', 'js', 'cpp', 'pas']) {
+      final words = [for (final e in tkHelpFind(lang, '')) e.word];
+      expect(words.toSet().length, words.length, reason: '$lang repetidas');
+      expect(words.length, greaterThan(25), reason: lang);
       final all = tkHelpFind(lang, '');
       expect(all.length, greaterThan(10), reason: lang);
       expect(all.any((e) => e.studio), isTrue, reason: lang);
       for (final e in all) {
-        expect(e.es.isNotEmpty && e.en.isNotEmpty && e.example.isNotEmpty, isTrue, reason: e.word);
+        expect(
+          e.es.isNotEmpty && e.en.isNotEmpty && e.example.isNotEmpty,
+          isTrue,
+          reason: e.word,
+        );
       }
     }
   });

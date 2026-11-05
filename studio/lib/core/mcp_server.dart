@@ -258,7 +258,15 @@ class McpServer {
           'name': {'type': 'string'},
           'target': {
             'type': 'string',
-            'enum': ['desktop', 'web', 'electron', 'chrome', 'nextjs', 'cpp'],
+            'enum': [
+              'desktop',
+              'web',
+              'electron',
+              'chrome',
+              'nextjs',
+              'cpp',
+              'pascal',
+            ],
           },
           'description': {'type': 'string'},
         },
@@ -474,6 +482,7 @@ class McpServer {
           'chrome' => tkTargetChrome,
           'nextjs' => tkTargetNext,
           'cpp' => tkTargetCpp,
+          'pascal' => tkTargetPascal,
           _ => tkTargetDesktop,
         };
         final dir = await ProjectStore.create(

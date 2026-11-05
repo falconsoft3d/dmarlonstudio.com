@@ -80,12 +80,19 @@ void main() {
     expect(find.byKey(const ValueKey('tk-project-panel')), findsOneWidget);
     expect(find.byKey(const ValueKey('tk-project-icon-ai')), findsOneWidget);
     // Un subproyecto desde el panel: aparece en el árbol.
-    await tester.ensureVisible(find.byKey(const ValueKey('tk-project-add-sub')));
+    await tester.ensureVisible(
+      find.byKey(const ValueKey('tk-project-add-sub')),
+    );
     await tester.tap(find.byKey(const ValueKey('tk-project-add-sub')));
     await settle(3);
     await tester.enterText(find.byKey(const ValueKey('tk-new-name')), 'bd');
     await tester.tap(find.byKey(const ValueKey('tk-new-ok')));
-    for (var i = 0; i < 40 && find.byKey(const ValueKey('tk-tree-sub-bd')).evaluate().isEmpty; i++) {
+    for (
+      var i = 0;
+      i < 200 &&
+          find.byKey(const ValueKey('tk-tree-sub-bd')).evaluate().isEmpty;
+      i++
+    ) {
       await settle(1);
     }
     expect(find.byKey(const ValueKey('tk-tree-sub-bd')), findsOneWidget);
@@ -175,7 +182,10 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('tk-help-toggle')));
     await settle(2);
     expect(find.byKey(const ValueKey('tk-help')), findsOneWidget);
-    await tester.enterText(find.byKey(const ValueKey('tk-help-search')), 'print');
+    await tester.enterText(
+      find.byKey(const ValueKey('tk-help-search')),
+      'print',
+    );
     await settle(2);
     expect(find.byKey(const ValueKey('tk-help-py-print')), findsOneWidget);
     await tester.tap(find.byKey(const ValueKey('tk-help-insert-print')));

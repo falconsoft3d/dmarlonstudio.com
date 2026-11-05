@@ -110,7 +110,11 @@ class TkPrepared {
     this.chrome = false,
     this.next = false,
     this.cpp = false,
+    this.pascal = false,
   });
+
+  /// Pascal con Lazarus: [file] es su Form1.pas en build/pascal.
+  final bool pascal;
 
   /// C++ con FLTK: [file] es su Form1.cpp en build/cpp.
   final bool cpp;

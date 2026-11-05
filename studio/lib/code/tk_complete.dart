@@ -19,7 +19,9 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
   /// Ctrl+Espacio: completar aunque no se haya escrito nada.
   bool force = false;
 
-  String get _lang => design().isCpp
+  String get _lang => design().isPascal
+      ? 'pas'
+      : design().isCpp
       ? 'cpp'
       : design().isJs
       ? 'js'
@@ -86,11 +88,17 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
     final d = design();
     final names = {for (final w in d.widgets) w.name: w};
     final lang = _lang;
-    final self = lang == 'py' ? 'self' : 'this';
+    final self = switch (lang) {
+      'py' => 'self',
+      'pas' => 'Self',
+      _ => 'this',
+    };
     // Lo de un componente: self.X. / this.X. / X-> / this->X-> / X.
     final m = RegExp(
       lang == 'cpp'
           ? r'(?:this->)?([A-Za-z_]\w*)\s*(->|\.)$'
+          : lang == 'pas'
+          ? r'(?:Self\.)?([A-Za-z_]\w*)\.$'
           : '$self\\.([A-Za-z_]\\w*)\\.\$',
     ).firstMatch(head);
     if (m != null && names.containsKey(m[1])) {
@@ -127,6 +135,11 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
         r'^\s*(?:virtual\s+)?[\w:<>&*]+\s+([A-Za-z_]\w*)\s*\(',
         multiLine: true,
       ),
+      'pas' => RegExp(
+        r'^\s*(?:procedure|function)\s+([A-Za-z_]\w*)\s*[(;:]',
+        multiLine: true,
+        caseSensitive: false,
+      ),
       _ => RegExp(
         r'^\s+(?:async\s+)?([A-Za-z_$][\w$]*)\s*\([^)]*\)\s*\{',
         multiLine: true,
@@ -143,10 +156,10 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
     final lang = _lang;
     return [
       if (lang == 'py') const CodeKeywordPrompt(word: 'self'),
-      if (lang != 'py') const CodeKeywordPrompt(word: 'this'),
-      // En C++ los componentes se usan sin this->.
-      if (lang == 'cpp') ..._components(),
-      if (lang == 'cpp') ..._form(),
+      if (lang == 'js' || lang == 'cpp') const CodeKeywordPrompt(word: 'this'),
+      // En C++ y en Pascal los componentes se usan sin this-> ni Self.
+      if (lang == 'cpp' || lang == 'pas') ..._components(),
+      if (lang == 'cpp' || lang == 'pas') ..._form(),
       ..._methods(),
       for (final k in _keywords[lang]!) CodeKeywordPrompt(word: k),
     ];
@@ -295,6 +308,68 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
       'std::cout',
       'std::endl',
     ],
+    'pas': [
+      'begin',
+      'end',
+      'if',
+      'then',
+      'else',
+      'for',
+      'to',
+      'downto',
+      'do',
+      'while',
+      'repeat',
+      'until',
+      'case',
+      'of',
+      'var',
+      'const',
+      'procedure',
+      'function',
+      'override',
+      'Result',
+      'Self',
+      'True',
+      'False',
+      'nil',
+      'not',
+      'and',
+      'or',
+      'div',
+      'mod',
+      'string',
+      'Integer',
+      'Double',
+      'Boolean',
+      'Char',
+      'try',
+      'finally',
+      'except',
+      'raise',
+      'Exit',
+      'Inc',
+      'Dec',
+      'Length',
+      'Copy',
+      'Pos',
+      'Trim',
+      'UpperCase',
+      'LowerCase',
+      'IntToStr',
+      'StrToInt',
+      'StrToIntDef',
+      'FloatToStr',
+      'StrToFloat',
+      'Format',
+      'NumToStr',
+      'ShowMessage',
+      'WriteLn',
+      'ReadText',
+      'WriteText',
+      'FileExists',
+      'Application',
+    ],
   };
 
   static const _formApi = {
@@ -319,6 +394,15 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
       ('ask', 'método'),
       ('close', 'método'),
       ('bg', 'método'),
+    ],
+    'pas': [
+      ('Caption', 'propiedad'),
+      ('Color', 'propiedad'),
+      ('Ask', 'método'),
+      ('Close', 'método'),
+      ('LastKey', 'Char'),
+      ('Width', 'propiedad'),
+      ('Height', 'propiedad'),
     ],
   };
 
@@ -524,6 +608,66 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
         ('execute', 'método'),
         ('title', 'método'),
         ('filename', 'método'),
+      ],
+    },
+    // Las propiedades de la LCL de siempre.
+    'pas': {
+      '*': [
+        ('Enabled', 'propiedad'),
+        ('Visible', 'propiedad'),
+        ('Color', 'propiedad'),
+        ('Font', 'TFont'),
+        ('Hint', 'propiedad'),
+        ('SetFocus', 'método'),
+        ('Left', 'propiedad'),
+        ('Top', 'propiedad'),
+        ('Width', 'propiedad'),
+        ('Height', 'propiedad'),
+      ],
+      'Label': [('Caption', 'propiedad'), ('Alignment', 'propiedad')],
+      'Button': [('Caption', 'propiedad'), ('Click', 'método')],
+      'StatusBar': [('SimpleText', 'propiedad')],
+      'Entry': [('Text', 'propiedad'), ('Clear', 'método')],
+      'Password': [('Text', 'propiedad'), ('Clear', 'método')],
+      'Text': [
+        ('Text', 'propiedad'),
+        ('Lines', 'TStrings'),
+        ('Clear', 'método'),
+      ],
+      'Checkbutton': [('Checked', 'propiedad'), ('Caption', 'propiedad')],
+      'Radiobutton': [('Checked', 'propiedad'), ('Caption', 'propiedad')],
+      'Listbox': [
+        ('Items', 'TStrings'),
+        ('ItemIndex', 'propiedad'),
+        ('Clear', 'método'),
+        ('Count', 'propiedad'),
+      ],
+      'Combobox': [
+        ('Items', 'TStrings'),
+        ('ItemIndex', 'propiedad'),
+        ('Text', 'propiedad'),
+      ],
+      'Scale': [
+        ('Position', 'propiedad'),
+        ('Min', 'propiedad'),
+        ('Max', 'propiedad'),
+      ],
+      'Progressbar': [('Position', 'propiedad'), ('Max', 'propiedad')],
+      'PageControl': [('PageIndex', 'propiedad'), ('ActivePage', 'propiedad')],
+      'Image': [('Picture', 'TPicture'), ('Stretch', 'propiedad')],
+      'Frame': [('Caption', 'propiedad')],
+      'Timer': [('Enabled', 'propiedad'), ('Interval', 'propiedad')],
+      'OpenDialog': [
+        ('Execute', 'método'),
+        ('FileName', 'propiedad'),
+        ('Title', 'propiedad'),
+        ('Filter', 'propiedad'),
+      ],
+      'SaveDialog': [
+        ('Execute', 'método'),
+        ('FileName', 'propiedad'),
+        ('Title', 'propiedad'),
+        ('Filter', 'propiedad'),
       ],
     },
   };

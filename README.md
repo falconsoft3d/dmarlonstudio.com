@@ -64,6 +64,18 @@ npm run dev
 ## Hoja de ruta
 
 1. ✅ Separar la app «Código» de ERPSqlite: tkinter y Flask.
-2. ⏳ Generador para **Electron** con el mismo diseñador.
-3. Más entornos, proyectos con varios formularios, depurador y empaquetado de
-   las aplicaciones generadas.
+2. Varios formularios por proyecto (nodo «Proyecto») con el icono de la
+   aplicación.
+3. **Destinos de compilación**: el mismo diseñador genera la aplicación para
+   cada lenguaje o entorno elegido al crear el proyecto.
+
+| Destino | Estado |
+|---|---|
+| Python · tkinter (escritorio) | ✅ |
+| Python · Flask (web) | ✅ |
+| Electron + React (escritorio) | ⏳ |
+| Web con Next.js | ⏳ |
+| C++ (escritorio, FLTK) | ⏳ |
+| Pascal (escritorio, Lazarus/LCL) | ⏳ |
+| Flutter (escritorio y móvil) | ⏳ |
+| React Native (móvil) | ⏳ |

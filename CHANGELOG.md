@@ -3,6 +3,20 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.12 — 2026-11-05
+
+- Landing: **carrusel de ejemplos** en la portada con capturas reales del
+  estudio (14 ejemplos, en español e inglés), que avanza solo, se pausa y se
+  maneja con flechas o con el teclado.
+- Hoja de ruta con todos los destinos: tkinter, Flask, Electron + React,
+  Next.js, C++ (FLTK), Pascal (Lazarus), Flutter y React Native (también en el
+  README y en el manual).
+- Corregido el ejemplo **Correo**: su método `run` tapaba el que abre la
+  ventana (`TypeError: run() missing 3 required positional arguments`). Una
+  prueba nueva impide que un ejemplo redefina métodos de `FormDesign`.
+- Diseñador: la cabecera de las tablas ya no se sale cuando las columnas
+  suman más que la tabla, y los textos del gráfico usan Helvetica.
+
 ## 1.0.11 — 2026-11-05
 
 - Ejemplo **Correo**: recibir por IMAP, leer, responder y enviar por SMTP con

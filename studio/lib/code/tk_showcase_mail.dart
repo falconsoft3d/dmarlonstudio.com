@@ -386,7 +386,7 @@ class Form1(FormDesign):
         self.Status.set(T_SAVED, icon="check")
 
     # ----------------------------------------------- red en segundo plano
-    def run(self, label, work, done):
+    def background(self, label, work, done):
         """Ejecuta work() en un hilo y luego done(resultado) en la ventana."""
         account = self.account()
         if not account.ready:
@@ -419,7 +419,7 @@ class Form1(FormDesign):
 
     # ------------------------------------------------------------ recibir
     def BtnRefresh_click(self):
-        self.run(T_RECEIVING, lambda account: account.receive(), self.received)
+        self.background(T_RECEIVING, lambda account: account.receive(), self.received)
 
     def received(self, result):
         total, rows = result
@@ -475,7 +475,7 @@ class Form1(FormDesign):
         subject = self.Subject_var.get().strip()
         body = self.Body.get("1.0", "end-1c")
         files = list(self.attachments)
-        self.run(
+        self.background(
             T_SENDING,
             lambda account: account.send(to, subject, body, files),
             lambda result: self.sent(to),
@@ -490,7 +490,7 @@ class Form1(FormDesign):
         self.Status.set(T_SENT.format(to), icon="check")
 
     def BtnTest_click(self):
-        self.run(
+        self.background(
             T_TESTING,
             lambda account: account.test(),
             lambda result: self.Status.set(T_TEST_OK, icon="check"),

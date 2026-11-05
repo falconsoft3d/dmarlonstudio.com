@@ -1,6 +1,6 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Downloads } from "@/components/downloads";
-import { IdeMock } from "@/components/ide-mock";
+import { ExamplesCarousel } from "@/components/examples-carousel";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { contentOf } from "@/content";
@@ -42,7 +42,7 @@ export function Home({ lang }: { lang: Lang }) {
       <SiteHeader lang={lang} t={t} />
       <main id="inicio" className="flex-1">
         {/* Portada */}
-        <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:pt-20 lg:pb-24">
+        <section className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:pt-20 lg:pb-24">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted">
               <span className="size-1.5 rounded-full bg-success" />
@@ -74,7 +74,7 @@ export function Home({ lang }: { lang: Lang }) {
               ))}
             </ul>
           </div>
-          <IdeMock t={t.mock} />
+          <ExamplesCarousel lang={lang} t={t.examples} />
         </section>
 
         {sections.map((s, i) => (

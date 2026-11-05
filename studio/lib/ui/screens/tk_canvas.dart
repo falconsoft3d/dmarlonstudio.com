@@ -186,6 +186,8 @@ class TkPreview extends StatelessWidget {
     final size = (w.props['font_size'] as num?)?.toDouble() ?? 12;
     final style = TextStyle(
       fontFamily: (w.props['font_family'] as String?) ?? 'Helvetica',
+      // Símbolos que la fuente no tenga (▶, ■…).
+      fontFamilyFallback: const ['DejaVuSansMono'],
       fontSize: size,
       height: 1.15,
       color: fg,
@@ -383,15 +385,25 @@ class TkPreview extends StatelessWidget {
               Container(
                 height: 22,
                 color: _panel,
-                child: Row(
-                  children: [
-                    if (cols.isEmpty) const Spacer(),
-                    for (final (_, title, width) in cols)
-                      SizedBox(
-                        width: (width ?? 100).toDouble(),
-                        child: Padding(padding: pad, child: label(title, dark)),
-                      ),
-                  ],
+                // Las columnas pueden sumar más que la tabla: se recortan,
+                // como en Tk.
+                child: OverflowBox(
+                  alignment: Alignment.centerLeft,
+                  minWidth: 0,
+                  maxWidth: double.infinity,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (final (_, title, width) in cols)
+                        SizedBox(
+                          width: (width ?? 100).toDouble(),
+                          child: Padding(
+                            padding: pad,
+                            child: label(title, dark),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -763,6 +775,8 @@ class _ChartPreview extends CustomPainter {
       text: TextSpan(
         text: s,
         style: TextStyle(
+          fontFamily: 'Helvetica',
+          fontFamilyFallback: const ['DejaVuSansMono'],
           fontSize: size,
           color: color ?? _ink2,
           fontWeight: bold ? FontWeight.w600 : FontWeight.normal,

@@ -23,6 +23,15 @@ export type Content = {
     targetsLabel: string;
     targets: string[];
   };
+  examples: {
+    label: string;
+    previous: string;
+    next: string;
+    pause: string;
+    play: string;
+    goTo: string;
+    items: { seed: string; name: string; text: string }[];
+  };
   sections: Section[];
   roadmap: {
     id: string;

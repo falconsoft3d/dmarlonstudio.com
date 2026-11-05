@@ -43,6 +43,7 @@ import 'package:re_highlight/styles/vs2015.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../ai/assistant.dart';
+import '../../ai/attachments.dart';
 import '../../ai/claude_agent.dart';
 import '../../ai/text_diff.dart';
 import '../../code/github.dart';
@@ -53,6 +54,7 @@ import '../../core/settings.dart';
 import '../../core/errors.dart';
 import '../../i18n/i18n.dart';
 import '../tk_project.dart';
+import '../attachment_chips.dart';
 import '../bottom_panel.dart';
 import '../widgets.dart';
 import 'budget_screen.dart';
@@ -213,6 +215,7 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
   final _ask = TextEditingController();
   bool _aiBusy = false;
   final _aiScroll = ScrollController();
+  final _aiFiles = <ChatAttachment>[];
 
   /// Proyecto abierto en el Diseñador, con la misma regla que el Diseñador.
   TkProject? get _project => TkProject.current;
@@ -687,10 +690,16 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
 
   Future<void> _sendAi() async {
     final q = _ask.text.trim();
-    if (q.isEmpty || _aiBusy) return;
+    if ((q.isEmpty && _aiFiles.isEmpty) || _aiBusy) return;
     _ask.clear();
+    final files = [..._aiFiles];
+    _aiFiles.clear();
+    final question = q.isEmpty ? tr('Mira los archivos adjuntos.') : q;
     setState(() {
-      _Session.ai.add(('user', q));
+      _Session.ai.add((
+        'user',
+        [question, for (final f in files) '📎 ${f.name}'].join('\n'),
+      ));
       _aiBusy = true;
     });
     final d = _doc;
@@ -714,6 +723,13 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
       for (final (r, t) in _Session.ai.reversed.take(12).toList().reversed)
         {'role': r, 'content': t},
     ];
+    // Los adjuntos van solo en la última pregunta.
+    if (files.isNotEmpty) {
+      messages.last = {
+        'role': 'user',
+        'content': ChatAttachment.openAiContent(question, files),
+      };
+    }
     try {
       final config = await AiConfig.load();
       final answer = await AiUsage.track(
@@ -1380,11 +1396,25 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
           ],
         ),
       ),
+      AttachmentChips(
+        files: _aiFiles,
+        onRemove: (f) => setState(() => _aiFiles.remove(f)),
+      ),
       Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            _iconBtn(
+              LucideIcons.paperclip,
+              tr('Adjuntar imágenes o archivos'),
+              _aiBusy
+                  ? null
+                  : () async {
+                      await pickAttachments(context, _aiFiles);
+                      if (mounted) setState(() {});
+                    },
+            ),
             Expanded(
               child: CallbackShortcuts(
                 bindings: chatSendKeys(_ask, _sendAi),

@@ -2,6 +2,9 @@ import '../i18n/tr.dart';
 import 'tk_codegen.dart';
 import 'tk_model.dart';
 
+part 'tk_showcase.dart';
+part 'tk_showcase_web.dart';
+
 /// Comentario con el que empieza la unidad de una ventana nueva.
 String tkUnitComment({bool web = false}) => web
     ? tr(
@@ -62,6 +65,11 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _customer(t),
   _notes(t),
   _apiQuery(t),
+  _notepad(t),
+  _agenda(t),
+  _currency(t),
+  _snake(t),
+  _music(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
@@ -112,6 +120,10 @@ List<TkExample> tkWebExamples(String Function(String) t) => [
       markTr('La ficha de cliente con páginas, con el mismo código, en Flask.'),
     ),
   ),
+  _crm(t),
+  _invoicing(t),
+  _blog(t),
+  _shop(t),
 ];
 
 TkExample _web(

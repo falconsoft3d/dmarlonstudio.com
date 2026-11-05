@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../ai/attachments.dart';
 import '../../code/claude_code.dart';
 import '../../core/errors.dart';
 import '../../i18n/i18n.dart';
+import '../attachment_chips.dart';
 import '../theme.dart';
 import '../tk_project.dart';
 import '../widgets.dart';
@@ -37,6 +39,7 @@ class TkClaudePanel extends StatefulWidget {
 class _TkClaudePanelState extends State<TkClaudePanel> {
   final _ask = TextEditingController();
   final _scroll = ScrollController();
+  final _files = <ChatAttachment>[];
 
   ClaudeCode get _cc => ClaudeCode.of(widget.doc.id);
 
@@ -53,14 +56,17 @@ class _TkClaudePanelState extends State<TkClaudePanel> {
 
   Future<void> _send() async {
     final q = _ask.text.trim();
-    if (q.isEmpty || _cc.running) return;
+    if ((q.isEmpty && _files.isEmpty) || _cc.running) return;
     if (widget.doc.dirty && !await widget.onSave()) return;
     _ask.clear();
     setState(() {});
     var edited = false;
     try {
+      final files = [..._files];
+      _files.clear();
       final run = _cc.send(
-        q,
+        q.isEmpty ? tr('Mira los archivos adjuntos.') : q,
+        attachments: files,
         formName: widget.doc.design.name,
         unit: widget.doc.codeName,
         onStep: (_) {
@@ -192,11 +198,25 @@ class _TkClaudePanelState extends State<TkClaudePanel> {
                     ],
                   ),
           ),
+          AttachmentChips(
+            files: _files,
+            onRemove: (f) => setState(() => _files.remove(f)),
+          ),
           Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
+                IconButton(
+                  tooltip: tr('Adjuntar imágenes o archivos'),
+                  icon: const Icon(LucideIcons.paperclip, size: 18),
+                  onPressed: cc.running
+                      ? null
+                      : () async {
+                          await pickAttachments(context, _files);
+                          if (mounted) setState(() {});
+                        },
+                ),
                 Expanded(
                   child: CallbackShortcuts(
                     bindings: chatSendKeys(_ask, _send),

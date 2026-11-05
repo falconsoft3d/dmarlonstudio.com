@@ -28,6 +28,7 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
 
   final _claudeAsk = TextEditingController();
   final _claudeScroll = ScrollController();
+  final _claudeFiles = <ChatAttachment>[];
 
   @override
   void dispose() {
@@ -58,7 +59,11 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
   Future<void> _claudeSend() async {
     final q = _claudeAsk.text.trim();
     final ws = _ws;
-    if (q.isEmpty || _ClaudeSession.busy || ws == null) return;
+    if ((q.isEmpty && _claudeFiles.isEmpty) ||
+        _ClaudeSession.busy ||
+        ws == null) {
+      return;
+    }
     var agent = _agent;
     if (agent == null) {
       try {
@@ -75,11 +80,19 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
       _ClaudeSession.steps.clear();
     }
     _claudeAsk.clear();
-    _ClaudeSession.steps.add(ClaudeStep('user', q));
+    final files = [..._claudeFiles];
+    _claudeFiles.clear();
+    final task = q.isEmpty ? tr('Mira los archivos adjuntos.') : q;
+    _ClaudeSession.steps.add(
+      ClaudeStep(
+        'user',
+        [task, for (final f in files) '📎 ${f.name}'].join('\n'),
+      ),
+    );
     setState(() => _ClaudeSession.busy = true);
     _claudeScrollDown();
     try {
-      await agent.run(q);
+      await agent.run(task, attachments: files);
     } on UserError catch (e) {
       _claudeStep(ClaudeStep('error', e.message));
     } on Object catch (e) {
@@ -349,11 +362,25 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
           ),
         ),
         if (agent != null && agent.changes.isNotEmpty) _claudeChanges(agent),
+        AttachmentChips(
+          files: _claudeFiles,
+          onRemove: (f) => setState(() => _claudeFiles.remove(f)),
+        ),
         Padding(
           padding: const EdgeInsets.all(8),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              _iconBtn(
+                LucideIcons.paperclip,
+                tr('Adjuntar imágenes o archivos'),
+                _ClaudeSession.busy || _ws == null
+                    ? null
+                    : () async {
+                        await pickAttachments(context, _claudeFiles);
+                        if (mounted) setState(() {});
+                      },
+              ),
               Expanded(
                 child: CallbackShortcuts(
                   bindings: chatSendKeys(_claudeAsk, _claudeSend),

@@ -68,16 +68,36 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
   bool _loading = true;
   String _workspace = '';
   TkPython? _python;
-  TkProject? _doc;
+
+  /// Editores abiertos, uno por pestaña (para cerrarlos con su pregunta de
+  /// guardar).
+  final _editors = <String, GlobalKey<_TkEditorState>>{};
 
   @override
   void initState() {
     super.initState();
-    _doc = TkProject.current;
+    TkProject.changes.addListener(_onProjects);
     _load();
     TkRunner.detect().then((p) {
       if (mounted) setState(() => _python = p);
     });
+  }
+
+  @override
+  void dispose() {
+    TkProject.changes.removeListener(_onProjects);
+    super.dispose();
+  }
+
+  /// Pestañas, cambios sin guardar y proyecto activo.
+  String _shown = '';
+  void _onProjects() {
+    if (!mounted) return;
+    final now = [
+      TkProject.current?.id,
+      for (final d in TkProject.opened) '${d.id}|${d.name}|${d.dirty}',
+    ].join(';');
+    if (now != _shown) setState(() => _shown = now);
   }
 
   Future<void> _load() async {
@@ -95,7 +115,7 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
     final r = await runAction(context, () => ProjectStore.get(id));
     if (!mounted) return;
     if (r == null) return _load();
-    setState(() => _doc = TkProject.open(r));
+    TkProject.open(r);
   }
 
   Future<void> _create() async {
@@ -120,7 +140,7 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
     if (dir == null || !mounted) return;
     final x = await runAction(context, () => ProjectStore.openFolder(dir));
     if (x == null || !mounted) return;
-    setState(() => _doc = TkProject.open(x));
+    TkProject.open(x);
   }
 
   Future<void> _changeWorkspace() async {
@@ -152,7 +172,9 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
       ok: tr('Eliminar'),
     );
     if (!ok || !mounted) return;
-    if (TkProject.current?.id == a.path) TkProject.close();
+    for (final d in TkProject.opened) {
+      if (d.id == a.path) TkProject.close(d);
+    }
     await runAction(context, () => ProjectStore.delete(a.path));
     await _load();
   }
@@ -420,22 +442,162 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
     ],
   );
 
+  /// Cierra la pestaña de [doc], preguntando si hay cambios sin guardar.
+  Future<void> _closeTab(TkProject doc) async {
+    final editor = _editors[doc.id]?.currentState;
+    if (editor != null) return editor._close();
+    TkProject.close(doc);
+  }
+
+  Widget _tab(
+    ThemeData t, {
+    required String label,
+    required IconData icon,
+    required bool active,
+    required VoidCallback onTap,
+    bool dirty = false,
+    VoidCallback? onClose,
+    Key? key,
+  }) => GestureDetector(
+    key: key,
+    // Clic central: cerrar, como en un navegador.
+    onTertiaryTapUp: onClose == null ? null : (_) => onClose(),
+    child: InkWell(
+      onTap: onTap,
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 220),
+        padding: EdgeInsets.only(left: 12, right: onClose == null ? 12 : 4),
+        decoration: BoxDecoration(
+          color: active ? t.colorScheme.surface : null,
+          border: Border(
+            top: BorderSide(
+              width: 2,
+              color: active ? t.colorScheme.primary : Colors.transparent,
+            ),
+            right: BorderSide(color: t.dividerColor),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: active ? t.colorScheme.primary : null),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 12.5,
+                  fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+                ),
+              ),
+            ),
+            if (dirty)
+              Padding(
+                padding: const EdgeInsets.only(left: 6),
+                child: Icon(
+                  Icons.circle,
+                  size: 7,
+                  color: t.colorScheme.primary,
+                ),
+              ),
+            if (onClose != null)
+              IconButton(
+                tooltip: tr('Cerrar'),
+                iconSize: 13,
+                visualDensity: VisualDensity.compact,
+                icon: const Icon(LucideIcons.x),
+                onPressed: onClose,
+              ),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  Widget _tabBar(ThemeData t) {
+    final current = TkProject.current;
+    return Container(
+      height: 34,
+      decoration: BoxDecoration(
+        color: t.colorScheme.surfaceContainerHigh,
+        border: Border(bottom: BorderSide(color: t.dividerColor)),
+      ),
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          _tab(
+            t,
+            key: const ValueKey('tk-tab-projects'),
+            label: tr('Proyectos'),
+            icon: LucideIcons.layoutGrid,
+            active: current == null,
+            onTap: () {
+              TkProject.activate(null);
+              _load();
+            },
+          ),
+          for (final d in TkProject.opened)
+            _tab(
+              t,
+              key: ValueKey('tk-tab-${d.id}'),
+              label: d.name,
+              icon: d.design.isWeb
+                  ? LucideIcons.globe
+                  : LucideIcons.appWindowMac,
+              active: identical(d, current),
+              dirty: d.dirty,
+              onTap: () => TkProject.activate(d),
+              onClose: () => _closeTab(d),
+            ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final doc = _doc;
-    if (doc != null) {
-      return _TkEditor(
-        key: ValueKey('tk-doc-${doc.id}'),
-        doc: doc,
-        python: _python,
-        onClose: () async {
-          TkProject.close();
-          setState(() => _doc = null);
-          await _load();
-        },
-      );
-    }
-    return _gallery(Theme.of(context));
+    final t = Theme.of(context);
+    final opened = TkProject.opened;
+    final current = TkProject.current;
+    _editors.removeWhere((id, _) => !opened.any((d) => d.id == id));
+    final index = current == null ? 0 : 1 + opened.indexOf(current);
+    return Column(
+      children: [
+        if (opened.isNotEmpty) _tabBar(t),
+        Expanded(
+          child: IndexedStack(
+            index: index,
+            children: [
+              _gallery(t),
+              for (final d in opened)
+                // Las pestañas ocultas siguen vivas, pero sin teclado.
+                ExcludeFocus(
+                  key: ValueKey('tk-doc-${d.id}'),
+                  excluding: !identical(d, current),
+                  child: TickerMode(
+                    enabled: identical(d, current),
+                    child: _TkEditor(
+                      key: _editors.putIfAbsent(d.id, GlobalKey.new),
+                      doc: d,
+                      python: _python,
+                      onBack: () {
+                        TkProject.activate(null);
+                        _load();
+                      },
+                      onClose: () async {
+                        TkProject.close(d);
+                        await _load();
+                      },
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -522,10 +684,14 @@ class _TkEditor extends StatefulWidget {
     super.key,
     required this.doc,
     required this.python,
+    required this.onBack,
     required this.onClose,
   });
   final TkProject doc;
   final TkPython? python;
+
+  /// Vuelve a la lista de proyectos sin cerrar la pestaña.
+  final VoidCallback onBack;
   final Future<void> Function() onClose;
 
   @override
@@ -1336,7 +1502,11 @@ class _TkEditorState extends State<_TkEditor> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            _tool(LucideIcons.arrowLeft, tr('Volver a los proyectos'), _close),
+            _tool(
+              LucideIcons.layoutGrid,
+              tr('Ver los proyectos (este sigue abierto)'),
+              widget.onBack,
+            ),
             TextButton(
               onPressed: _renameApp,
               child: Text('${doc.name}${doc.dirty ? ' •' : ''}'),

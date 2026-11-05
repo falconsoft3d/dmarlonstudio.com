@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.7 — 2026-11-05
+
+- Diseñador: **pestañas de proyectos**. Varios proyectos abiertos a la vez,
+  cada uno con sus cambios, deshacer y consola; punto en la pestaña con
+  cambios sin guardar; cerrar con ✕ o clic central.
+- **Adjuntos** (📎) en los chats de IA: imágenes y archivos de texto o código
+  para Claude Code, «Claude implementa» y el Chat con la IA.
+- Nueve ejemplos nuevos: **Bloc de notas**, **Agenda**, **Conversor de
+  moneda**, **La serpiente** y **Reproductor de música** (escritorio), y
+  **CRM web**, **Facturador web**, **Blog web** y **Tienda web**. Guardan sus
+  datos en la carpeta del proyecto y funcionan sin configurar nada.
+
 ## 1.0.6 — 2026-11-05
 
 - Diseñador, componentes nuevos (escritorio y web): **Cinta de opciones** al

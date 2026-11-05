@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import '../ai/attachments.dart';
 import '../core/ai_usage.dart';
 import '../core/errors.dart';
 import '../i18n/tr.dart';
@@ -88,6 +89,7 @@ When the user asks for interface changes, edit the design in project.dmsproj (ke
     required String formName,
     required String unit,
     required void Function(ClaudeCodeStep step) onStep,
+    List<ChatAttachment> attachments = const [],
   }) async {
     if (running) throw UserError(tr('Claude Code ya está trabajando.'));
     await AiUsage.check(project: dir);
@@ -104,7 +106,27 @@ When the user asks for interface changes, edit the design in project.dmsproj (ke
       onStep(s);
     }
 
-    add(ClaudeCodeStep('user', prompt));
+    add(
+      ClaudeCodeStep(
+        'user',
+        [prompt, for (final a in attachments) '📎 ${a.name}'].join('\n'),
+      ),
+    );
+    // Los adjuntos, en una carpeta aparte a la que Claude Code puede entrar
+    // (--add-dir): no ensucian el proyecto.
+    String? extra;
+    if (attachments.isNotEmpty) {
+      final tmp = await Directory.systemTemp.createTemp('dmstudio_adjuntos_');
+      extra = tmp.path;
+      final paths = <String>[];
+      for (final a in attachments) {
+        final f = File(p.join(tmp.path, a.name));
+        await f.writeAsBytes(a.bytes);
+        paths.add(f.path);
+      }
+      prompt =
+          '$prompt\n\nAttached files (read them with the Read tool): ${paths.join(', ')}';
+    }
     var edited = false;
     final Process proc;
     try {
@@ -125,6 +147,7 @@ When the user asks for interface changes, edit the design in project.dmsproj (ke
           '--append-system-prompt',
           _context(formName, unit),
           if (sessionId != null) ...['--resume', sessionId!],
+          if (extra != null) ...['--add-dir', extra],
         ],
         workingDirectory: dir,
         environment: {

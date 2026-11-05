@@ -29,28 +29,56 @@ class TkProject {
   static final changes = ValueNotifier(0);
   static void _notify() => changes.value++;
 
-  static TkProject? _open;
+  /// Proyectos abiertos en el Diseñador, en el orden de sus pestañas.
+  static final _opened = <TkProject>[];
+  static TkProject? _active;
 
   /// Proyectos con su código en una pestaña del Editor.
   static final _inEditor = <TkProject>{};
 
-  /// El proyecto abierto en el Diseñador.
-  static TkProject? get current => _open;
+  /// El proyecto de la pestaña activa del Diseñador (el que sigue el
+  /// Editor).
+  static TkProject? get current => _active;
 
-  /// Abre el proyecto [x]. Si el Editor conserva su código sin guardar de
-  /// una vez anterior, sigue siendo esa copia, y no una segunda.
+  /// Los abiertos, en el orden de sus pestañas.
+  static List<TkProject> get opened => List.unmodifiable(_opened);
+
+  /// Abre el proyecto [x] en una pestaña, o activa la suya si ya estaba
+  /// abierto (sin volver a leerlo: lo no guardado se conserva). Si el Editor
+  /// conserva su código sin guardar de una vez anterior, sigue siendo esa
+  /// copia, y no una segunda.
   static TkProject open(StudioProject x) {
     final id = p.normalize(x.path);
+    final already = _opened.where((e) => e.id == id).firstOrNull;
+    if (already != null) {
+      activate(already);
+      return already;
+    }
     final left = _inEditor.where((e) => e.id == id).firstOrNull;
     final project = left?._reload(x) ?? TkProject._from(x);
-    _open = project;
-    _notify();
+    _opened.add(project);
+    activate(project);
     return project;
   }
 
-  /// Deja de estar abierto. Lo pendiente en el Editor se queda en su pestaña.
-  static void close() {
-    _open = null;
+  /// Pasa a la pestaña de [project] (null = la lista de proyectos).
+  static void activate(TkProject? project) {
+    _active = project;
+    _notify();
+  }
+
+  /// Cierra la pestaña de [project] (la activa, sin él). Lo pendiente en el
+  /// Editor se queda en su pestaña.
+  static void close([TkProject? project]) {
+    final which = project ?? _active;
+    if (which == null) return;
+    final i = _opened.indexOf(which);
+    _opened.remove(which);
+    if (identical(_active, which)) {
+      _active = _opened.isEmpty
+          ? null
+          : _opened[(i - 1).clamp(0, _opened.length - 1)];
+    }
     _notify();
   }
 
@@ -96,7 +124,7 @@ class TkProject {
   int _savedAt = 0;
   bool _tab = false;
 
-  bool get isOpen => identical(_open, this);
+  bool get isOpen => _opened.contains(this);
 
   /// Hay cambios sin guardar, de quien sea.
   bool get dirty => _version != _savedAt;

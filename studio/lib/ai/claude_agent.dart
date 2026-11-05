@@ -8,6 +8,7 @@ import '../core/ai_usage.dart';
 import '../core/errors.dart';
 import '../i18n/tr.dart';
 import 'assistant.dart';
+import 'attachments.dart';
 
 /// Cambio propuesto por Claude a un archivo de la carpeta abierta.
 class ClaudeChange {
@@ -267,7 +268,10 @@ Work like a careful senior engineer:
   // --------------------------------------------------------------- bucle
   /// Pide a Claude [task] y lo deja trabajar hasta que termina. Devuelve su
   /// resumen final. Se puede llamar otra vez para seguir la conversación.
-  Future<String> run(String task) async {
+  Future<String> run(
+    String task, {
+    List<ChatAttachment> attachments = const [],
+  }) async {
     _cancelled = false;
     final note = _discarded.isEmpty
         ? ''
@@ -275,9 +279,7 @@ Work like a careful senior engineer:
     _discarded.clear();
     _messages.add({
       'role': 'user',
-      'content': [
-        {'type': 'text', 'text': '$note$task'},
-      ],
+      'content': ChatAttachment.anthropicBlocks('$note$task', attachments),
     });
     for (var step = 0; step < maxSteps; step++) {
       if (_cancelled) return tr('Detenido.');

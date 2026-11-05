@@ -5,7 +5,7 @@ export const en: Content = {
   meta: {
     title: "DMarlon Studio · Visual IDE for Python",
     description:
-      "A visual desktop IDE: design windows by dragging components, write the event code in Python or JavaScript and run them. For the desktop with tkinter or Electron + React, the web with Flask or Next.js, and Chrome extensions.",
+      "A visual desktop IDE: design windows by dragging components, write the event code in Python or JavaScript and run them. For the desktop with tkinter, Electron + React or C++ (FLTK), the web with Flask or Next.js, and Chrome extensions.",
   },
   header: {
     sectionsLabel: "Sections",
@@ -31,11 +31,11 @@ export const en: Content = {
   hero: {
     eyebrow: "Multi-target visual IDE",
     title: "Design windows by dragging. Program them in Python.",
-    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code and run it with F9. It builds desktop apps with tkinter (Python) or Electron + React (JavaScript), web apps with Flask or Next.js, and Chrome extensions.",
+    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code and run it with F9. It builds desktop apps with tkinter (Python), Electron + React (JavaScript) or C++ with FLTK, web apps with Flask or Next.js, and Chrome extensions.",
     primary: "Download",
     secondary: "See what's inside",
     targetsLabel: "Targets",
-    targets: ["tkinter", "Flask", "Electron + React", "Chrome", "Next.js"],
+    targets: ["tkinter", "Flask", "Electron + React", "Chrome", "Next.js", "C++"],
   },
   examples: {
     label: "Examples included in DMarlon Studio",
@@ -130,6 +130,7 @@ export const en: Content = {
       { name: "tkinter", status: "ready", text: "Python desktop windows, each in its own system window." },
       { name: "Flask", status: "ready", text: "The same designer builds web apps that run on a local server." },
       { name: "Electron + React", status: "ready", text: "Desktop apps with Electron and React, with the event code in JavaScript." },
+      { name: "C++ (FLTK)", status: "ready", text: "Native C++ apps with FLTK: the studio compiles and opens them." },
       { name: "Next.js", status: "ready", text: "Next.js web pages with React: the design is the page, ready for npm or Vercel." },
       { name: "Chrome extensions", status: "ready", text: "The design is the extension popup: storage, the active tab and code in the page." },
     ],
@@ -170,7 +171,7 @@ export const en: Content = {
       middle: "for desktop windows and",
       flask: "Flask",
       afterFlask: "for web apps",
-      electron: "Electron, Chrome extensions and Next.js need Node.js: Electron, React and Next.js install themselves the first time.",
+      electron: "Electron, Chrome extensions and Next.js need Node.js: Electron, React and Next.js install themselves the first time. C++ needs a compiler and FLTK (the studio offers to install it).",
       after: "The studio detects the installed Python and tells you what is missing. Previous versions and notes on",
       releases: "GitHub Releases",
     },

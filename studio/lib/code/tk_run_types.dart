@@ -53,7 +53,11 @@ class TkNeed {
     required this.packages,
     required this.command,
     this.optional = false,
+    this.installer,
   });
+
+  /// Cómo se instala si no es con pip (por ejemplo, Homebrew).
+  final Future<void> Function()? installer;
 
   final String title;
 
@@ -105,7 +109,11 @@ class TkPrepared {
     this.electron = false,
     this.chrome = false,
     this.next = false,
+    this.cpp = false,
   });
+
+  /// C++ con FLTK: [file] es su Form1.cpp en build/cpp.
+  final bool cpp;
 
   /// Web con Next.js: [file] es su app/dms/Form1.js en build/nextjs.
   final bool next;

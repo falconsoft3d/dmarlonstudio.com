@@ -3,6 +3,23 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.24 — 2026-11-05
+
+- Nuevo destino **C++ (FLTK)**: aplicaciones de escritorio nativas con el
+  mismo Diseñador. El código va en `Form1.cpp` (`class Form1 : public
+  FormDesign`, con los eventos como métodos `override`) y cada componente es
+  una clase de FLTK con métodos al estilo de Delphi (`Label1->text("Hola")`).
+  - **Ejecutar** compila con el compilador del equipo y FLTK y abre la
+    aplicación; los errores salen con su línea de `Form1.cpp`.
+  - Si falta FLTK o el compilador, el estudio ofrece **Instalar** (Homebrew
+    en macOS).
+  - **Depurar** compila con `-g`; **Exportar** crea las fuentes con un
+    `Makefile`.
+  - Ejemplo **Calculadora (C++)**.
+- **Ir a la carpeta** en el menú «…» de cada proyecto.
+- Landing: C++ entre los entornos disponibles. Manual: capítulo **C++ con
+  FLTK**.
+
 ## 1.0.23 — 2026-11-05
 
 - Nuevo destino **Web (Next.js)**: el diseño es la página de un proyecto de

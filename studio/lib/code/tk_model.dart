@@ -63,12 +63,39 @@ const tkTargetChrome = 'chrome';
 /// Web con Next.js: la página es el diseño, con el mismo código JavaScript.
 const tkTargetNext = 'nextjs';
 
+/// Escritorio en C++ con FLTK: el código del usuario, en C++.
+const tkTargetCpp = 'cpp';
+
+/// Componentes que ya tiene el destino C++ (FLTK).
+const tkCppKinds = {
+  'Label',
+  'Button',
+  'Entry',
+  'Password',
+  'Image',
+  'Text',
+  'Checkbutton',
+  'Radiobutton',
+  'Listbox',
+  'Combobox',
+  'Scale',
+  'Frame',
+  'Progressbar',
+  'PageControl',
+  'StatusBar',
+  'Menu',
+  'Timer',
+  'OpenDialog',
+  'SaveDialog',
+};
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
   tkTargetElectron => tr('Electron + React'),
   tkTargetChrome => tr('Extensión de Chrome'),
   tkTargetNext => tr('Web (Next.js)'),
+  tkTargetCpp => tr('C++ (FLTK)'),
   _ => tr('Escritorio (Python)'),
 };
 
@@ -77,7 +104,9 @@ String tkTargetLabel(String target) => switch (target) {
 final tkChromeKinds = {...tkElectronKinds}..remove('Menu');
 
 /// Componentes que tiene el destino de [d] (null: todos).
-Set<String>? tkTargetKinds(TkDesign d) => d.isChrome || d.isNext
+Set<String>? tkTargetKinds(TkDesign d) => d.isCpp
+    ? tkCppKinds
+    : d.isChrome || d.isNext
     ? tkChromeKinds
     : d.isElectron
     ? tkElectronKinds
@@ -88,6 +117,11 @@ Set<String>? tkTargetKinds(TkDesign d) => d.isChrome || d.isNext
 String? tkJsGap(TkDesign d, String kind) {
   final kinds = tkTargetKinds(d);
   if (kinds == null || kinds.contains(kind)) return null;
+  if (d.isCpp) {
+    return tr('«{0}» todavía no está disponible en C++.', [
+      tr(tkComponent(kind)?.label ?? kind),
+    ]);
+  }
   if (d.isNext) {
     return tr('«{0}» no está disponible en Next.js.', [
       tr(tkComponent(kind)?.label ?? kind),
@@ -106,6 +140,35 @@ String? tkElectronGap(String kind) => tkElectronKinds.contains(kind)
     : tr('«{0}» todavía no está disponible en Electron.', [
         tr(tkComponent(kind)?.label ?? kind),
       ]);
+
+/// Palabras de C++ (y de FLTK) que no sirven como nombres.
+const tkCppReserved = {
+  'auto',
+  'bool',
+  'char',
+  'double',
+  'float',
+  'int',
+  'long',
+  'namespace',
+  'operator',
+  'short',
+  'signed',
+  'sizeof',
+  'struct',
+  'template',
+  'typedef',
+  'typename',
+  'union',
+  'unsigned',
+  'using',
+  'virtual',
+  'volatile',
+  'main',
+  'std',
+  'Fl',
+  'DmsForm',
+};
 
 /// Palabras reservadas de JavaScript: no sirven como nombres.
 const tkJsReserved = {
@@ -1887,15 +1950,20 @@ class TkDesign {
   bool get isElectron => target == tkTargetElectron;
   bool get isChrome => target == tkTargetChrome;
   bool get isNext => target == tkTargetNext;
+  bool get isCpp => target == tkTargetCpp;
 
   /// El código es JavaScript (Electron y extensiones de Chrome).
   bool get isJs => isElectron || isChrome || isNext;
+
+  /// El código es Python (tkinter o Flask).
+  bool get isPython => !isJs && !isCpp;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
       tkValidName(s) &&
       !(isWeb && tkWebReserved.contains(s)) &&
-      !(isJs && tkJsReserved.contains(s));
+      !((isJs || isCpp) && tkJsReserved.contains(s)) &&
+      !(isCpp && tkCppReserved.contains(s));
 
   /// En orden de creación, que es también el orden de apilado; un marco va
   /// siempre antes que sus componentes.
@@ -2160,6 +2228,7 @@ class TkDesign {
       tkTargetElectron => tkTargetElectron,
       tkTargetChrome => tkTargetChrome,
       tkTargetNext => tkTargetNext,
+      tkTargetCpp => tkTargetCpp,
       _ => tkTargetDesktop,
     },
     width: _int(j['width'], 80),

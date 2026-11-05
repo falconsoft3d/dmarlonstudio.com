@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
+import 'package:re_highlight/languages/cpp.dart';
 import 'package:re_highlight/languages/javascript.dart';
 import 'package:re_highlight/languages/python.dart';
 import 'package:re_highlight/styles/vs.dart';
@@ -14,6 +15,7 @@ import 'package:re_highlight/styles/vs2015.dart';
 import '../../code/tk_ai.dart';
 import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
+import '../../code/tk_cpp.dart';
 import '../../code/tk_debug.dart';
 import '../../code/tk_electron_run.dart';
 import '../../code/tk_chrome.dart';
@@ -327,6 +329,7 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
                     tooltip: tr('Más acciones'),
                     icon: const Icon(LucideIcons.ellipsis, size: 18),
                     onSelected: (v) => switch (v) {
+                      'reveal' => revealInFiles(id),
                       'copy' => _duplicate(id),
                       'github' => showProjectGitHub(
                         context,
@@ -341,6 +344,11 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
                       _ => _delete(a),
                     },
                     itemBuilder: (_) => [
+                      PopupMenuItem(
+                        key: const ValueKey('tk-card-reveal'),
+                        value: 'reveal',
+                        child: Text(tr('Ir a la carpeta')),
+                      ),
                       PopupMenuItem(
                         value: 'github',
                         child: Text(tr('GitHub…')),
@@ -643,8 +651,12 @@ class _PythonEditor extends StatelessWidget {
     this.currentLine,
     this.onCondition,
     this.javascript = false,
+    this.cpp = false,
     this.findController,
   });
+
+  /// Resaltado de C++.
+  final bool cpp;
 
   /// Buscador del editor (el Diseñador lo abre con ⌘F / Ctrl+F).
   final CodeFindController? findController;
@@ -691,7 +703,9 @@ class _PythonEditor extends StatelessWidget {
             : const Color(0xFFF5F5F5),
         chunkIndicatorColor: _editorDim,
         codeTheme: CodeHighlightTheme(
-          languages: javascript
+          languages: cpp
+              ? {'cpp': CodeHighlightThemeMode(mode: langCpp)}
+              : javascript
               ? {'javascript': CodeHighlightThemeMode(mode: langJavascript)}
               : {'python': CodeHighlightThemeMode(mode: langPython)},
           theme: dark ? vs2015Theme : vsTheme,
@@ -1179,7 +1193,7 @@ class _TkEditorState extends State<_TkEditor> {
     for (final MapEntry(key: old, value: name) in methodNames.entries) {
       final m = clip.methods[old];
       // En JavaScript se pegan los métodos vacíos.
-      if (m == null || d.isJs) {
+      if (m == null || !d.isPython) {
         code = tkUnitOf(d).ensureMethod(code, d.name, name);
         continue;
       }
@@ -1450,7 +1464,7 @@ class _TkEditorState extends State<_TkEditor> {
       d.name,
       method,
       param: e.param,
-      body: d.isJs
+      body: !d.isPython
           ? null
           : tkFormEvents.contains(e) && e.key == 'close' && !d.isWeb
           ? 'self.root.destroy()'
@@ -1720,6 +1734,39 @@ class _TkEditorState extends State<_TkEditor> {
         ],
       ),
     );
+  }
+
+  /// Exporta el proyecto de C++ (fuentes y Makefile).
+  Future<void> _exportCpp() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      await out.create(recursive: true);
+      for (final e in TkCpp.files(d, _code.text).entries) {
+        await File(
+          '${out.path}${Platform.pathSeparator}${e.key}',
+        ).writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr('Exportada en {0}. Compílela con: make run (necesita FLTK).', [
+              out.path,
+            ]),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
   }
 
   /// Exporta el proyecto de Next.js (sin node_modules ni .next): listo
@@ -2098,14 +2145,18 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isNext
+              d.isCpp
+                  ? tr('Exportar el proyecto de C++ (con Makefile)')
+                  : d.isNext
                   ? tr('Exportar el proyecto de Next.js')
                   : d.isChrome
                   ? tr('Exportar la extensión (.zip para la Chrome Web Store)')
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isNext
+              d.isCpp
+                  ? _exportCpp
+                  : d.isNext
                   ? _exportNext
                   : d.isChrome
                   ? _exportChrome
@@ -2127,10 +2178,10 @@ class _TkEditorState extends State<_TkEditor> {
             ),
             _tool(
               LucideIcons.sparkles,
-              d.isJs
+              !d.isPython
                   ? tr('Pedir a la IA (pronto también en Electron)')
                   : tr('Pedir a la IA'),
-              _aiBusy || d.isJs ? null : _askAi,
+              _aiBusy || !d.isPython ? null : _askAi,
               key: const ValueKey('tk-ai'),
             ),
             _tool(
@@ -2380,7 +2431,11 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isJs ? tr('JavaScript generado') : tr('Python generado'),
+              d.isCpp
+                  ? tr('C++ generado')
+                  : d.isJs
+                  ? tr('JavaScript generado')
+                  : tr('Python generado'),
             ].indexed)
               InkWell(
                 key: ValueKey('tk-tab-$i'),
@@ -2422,6 +2477,7 @@ class _TkEditorState extends State<_TkEditor> {
               controller: _code,
               focusNode: _codeFocus,
               javascript: d.isJs,
+              cpp: d.isCpp,
               findController: _codeFind,
               project: doc.id,
               currentLine: _debug?.currentLine,
@@ -2439,6 +2495,7 @@ class _TkEditorState extends State<_TkEditor> {
                     controller: _generatedCode,
                     readOnly: true,
                     javascript: d.isJs,
+                    cpp: d.isCpp,
                     findController: _generatedFind,
                   ),
           ],
@@ -2572,7 +2629,8 @@ class _TkEditorState extends State<_TkEditor> {
     onRunTests: _runTests,
     onCreateTest: _createTest,
     hasTests: _hasTests,
-    electron: d.isJs,
+    electron: !d.isPython,
+    cpp: d.isCpp,
   );
 
   Widget _outputList(TkRun? run) => ListView.builder(
@@ -2711,6 +2769,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                     tr('Web (Next.js)'),
                     LucideIcons.panelsTopLeft,
                   ),
+                  (tkTargetCpp, tr('C++ (FLTK)'), LucideIcons.cpu),
                 ])
                   ChoiceChip(
                     key: ValueKey('tk-new-target-$value'),
@@ -2724,7 +2783,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ),
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetNext
+              _target == tkTargetCpp
+                  ? tr(
+                      'Una aplicación de escritorio nativa en C++ con FLTK: el código de los eventos, en C++. Ejecutar la compila y la abre. Necesita un compilador de C++ y FLTK (el estudio ofrece instalarlo). El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetNext
                   ? tr(
                       'Una aplicación web de Next.js: el diseño es la página y el código, JavaScript (React). Ejecutar arranca el servidor de desarrollo y abre el navegador; exportar deja el proyecto listo para npm o Vercel. Necesita Node.js. El destino no se puede cambiar después.',
                     )

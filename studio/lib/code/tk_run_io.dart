@@ -9,6 +9,7 @@ import '../core/errors.dart';
 import '../i18n/tr.dart';
 import 'tk_debug.dart';
 import 'tk_chrome.dart';
+import 'tk_cpp_run.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
 import 'tk_electron_run.dart';
@@ -429,6 +430,7 @@ class TkRunner {
     }
     try {
       if (prepared.next) return await _launchNext(prepared, key, devtools);
+      if (prepared.cpp) return await _launchCpp(prepared, key, devtools);
       if (prepared.electron) {
         return await _launchElectron(prepared, key, devtools);
       }
@@ -595,6 +597,83 @@ class TkRunner {
                   }
                   if (l.trim().isNotEmpty) run.add(l);
                 })
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// Compila la aplicación de C++ de build/cpp (los errores van a la
+  /// salida, con las líneas de Form1.cpp) y la abre. [debug]: con
+  /// información de depuración y sin optimizar.
+  static Future<TkRun> _launchCpp(
+    TkPrepared prepared,
+    String key,
+    bool debug,
+  ) async {
+    final cxx = TkCppTools.compiler();
+    if (cxx == null || TkCppTools.fltkConfig() == null) {
+      throw UserError(TkCppTools.needs().map((n) => n.why).join('\n'));
+    }
+    final dir = File(prepared.file).parent.path;
+    final exe = p.join(dir, Platform.isWindows ? 'app.exe' : 'app');
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        run.add(tr('Compilando…'));
+        final (cflags, ldflags) = await TkCppTools.flags();
+        final build = await Process.run(cxx, [
+          '-std=c++17',
+          if (debug) ...['-g', '-O0'] else '-O1',
+          ...cflags,
+          'main.cpp',
+          '-o',
+          exe,
+          ...ldflags,
+        ], workingDirectory: dir);
+        for (final l in '${build.stderr}${build.stdout}'.split('\n')) {
+          if (l.trim().isEmpty || l.startsWith('ld: warning')) continue;
+          run.add(
+            l
+                .replaceAll('$dir${Platform.pathSeparator}', '')
+                .replaceAllMapped(RegExp(r'(^|\s)\./'), (m) => m[1]!),
+          );
+        }
+        if (build.exitCode != 0) {
+          run.add(tr('No se pudo compilar.'));
+          return run.finish(build.exitCode);
+        }
+        if (stopped) return run.finish(-1);
+        final started = await Process.start(
+          exe,
+          const [],
+          workingDirectory: prepared.id,
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen(run.add)
                 .asFuture<void>(),
         ];
         final code = await started.exitCode;

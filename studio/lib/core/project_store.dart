@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import '../ai/assistant.dart';
 import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
+import '../code/tk_cpp.dart';
 import '../code/tk_electron.dart';
 import '../code/tk_next.dart';
 import '../code/tk_unit.dart';
@@ -56,6 +57,7 @@ class StudioProject {
   bool get isElectron => design.isElectron;
   bool get isChrome => design.isChrome;
   bool get isNext => design.isNext;
+  bool get isCpp => design.isCpp;
 }
 
 /// Proyectos en carpetas del disco: el área de trabajo, los recientes de
@@ -160,7 +162,11 @@ class ProjectStore {
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
   static String unitName(TkDesign design) =>
-      '${design.name}.${design.isJs ? 'js' : 'py'}';
+      '${design.name}.${design.isCpp
+          ? 'cpp'
+          : design.isJs
+          ? 'js'
+          : 'py'}';
 
   /// Lee el proyecto de la carpeta [dir] (null si ya no existe).
   static Future<StudioProject?> get(String dir) async {
@@ -277,6 +283,7 @@ class ProjectStore {
               electron: d.isElectron,
               chrome: d.isChrome,
               next: d.isNext,
+              cpp: d.isCpp,
             ),
           ),
     );
@@ -462,6 +469,7 @@ class ProjectStore {
       ...tkElectronExamples(tr),
       ...tkChromeExamples(tr),
       ...tkNextExamples(tr),
+      ...tkCppExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -567,6 +575,25 @@ class ProjectStore {
     );
   }
 
+  /// Carpeta de la aplicación de C++ generada.
+  static String cppDir(String project) => p.join(project, buildDir, 'cpp');
+
+  /// Escribe la aplicación de C++ en build/cpp.
+  static Future<TkPrepared> _prepareCpp(StudioProject x) async {
+    final out = cppDir(x.path);
+    await writeFiles(out, TkCpp.files(x.design, x.code));
+    await _gitignore(x.path);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, '${x.design.name}.cpp'),
+      cpp: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe [files] (nombre → contenido) en [dir].
   static Future<void> writeFiles(String dir, Map<String, String> files) async {
     await Directory(dir).create(recursive: true);
@@ -635,6 +662,7 @@ class ProjectStore {
     if (x.isElectron) return _prepareElectron(x);
     if (x.isChrome) return _prepareChrome(x);
     if (x.isNext) return _prepareNext(x);
+    if (x.isCpp) return _prepareCpp(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

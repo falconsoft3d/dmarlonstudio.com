@@ -29,8 +29,8 @@ void main() {
     expect(await ProjectStore.list(), hasLength(first.length));
     for (final x in first) {
       // Los de Electron son JavaScript: tienen su propia prueba.
-      if (x.design.isJs) {
-        expect(File(p.join(x.path, 'Form1.js')).existsSync(), isTrue);
+      if (!x.design.isPython) {
+        expect(File(ProjectStore.unitPath(x.path, x.design)).existsSync(), isTrue);
         continue;
       }
       final src = TkCodegen.generate(x.design, x.code);
@@ -128,6 +128,17 @@ void main() {
       expect(File(p.join(dir, 'build', 'extension', f)).existsSync(), isTrue, reason: f);
     }
     expect(File(p.join(dir, 'build', 'extension-preview', 'main.js')).existsSync(), isTrue);
+    await ProjectStore.delete(dir);
+  });
+
+  test('un proyecto de C++: Form1.cpp y build/cpp', () async {
+    final dir = await ProjectStore.create('Mi C++', design: TkDesign(target: tkTargetCpp));
+    expect(File(p.join(dir, 'Form1.cpp')).readAsStringSync(), contains('class Form1 : public FormDesign {'));
+    final prepared = await ProjectStore.prepareRun(dir);
+    expect(prepared.cpp, isTrue);
+    for (final f in ['dms.h', 'design.h', 'main.cpp', 'Form1.cpp', 'Makefile']) {
+      expect(File(p.join(dir, 'build', 'cpp', f)).existsSync(), isTrue, reason: f);
+    }
     await ProjectStore.delete(dir);
   });
 }

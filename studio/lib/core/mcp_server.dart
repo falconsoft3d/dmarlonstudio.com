@@ -252,13 +252,13 @@ class McpServer {
     {
       'name': 'create_project',
       'description':
-          'Creates a project in the workspace. target: "desktop" (tkinter, Python), "web" (Flask, Python) or "electron" (Electron + React, JavaScript code).',
+          'Creates a project in the workspace. target: "desktop" (tkinter, Python), "web" (Flask, Python), "electron" (Electron + React, JavaScript), "chrome" (Chrome extension popup, JavaScript), "nextjs" (Next.js page, JavaScript) or "cpp" (C++ with FLTK).',
       'inputSchema': _schema(
         {
           'name': {'type': 'string'},
           'target': {
             'type': 'string',
-            'enum': ['desktop', 'web', 'electron'],
+            'enum': ['desktop', 'web', 'electron', 'chrome', 'nextjs', 'cpp'],
           },
           'description': {'type': 'string'},
         },
@@ -471,6 +471,9 @@ class McpServer {
         final target = switch (a['target']) {
           'web' => tkTargetWeb,
           'electron' => tkTargetElectron,
+          'chrome' => tkTargetChrome,
+          'nextjs' => tkTargetNext,
+          'cpp' => tkTargetCpp,
           _ => tkTargetDesktop,
         };
         final dir = await ProjectStore.create(

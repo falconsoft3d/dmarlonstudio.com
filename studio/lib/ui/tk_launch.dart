@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../code/tk_cpp_run.dart';
 import '../code/tk_debug.dart';
 import '../code/tk_run.dart';
 import '../core/errors.dart';
@@ -57,6 +58,17 @@ Future<TkRun?> launchTkApp(
   }
   final prepared = await runAction(context, () => ProjectStore.prepareRun(id));
   if (prepared == null || !context.mounted) return null;
+  // C++: un compilador y FLTK (con «Instalar» si faltan).
+  if (prepared.cpp) {
+    if (tests) return null;
+    for (final need in TkCppTools.needs()) {
+      if (!context.mounted) return null;
+      final go = await showTkInstall(context, const TkPython(help: ''), need);
+      if (!go) return null;
+    }
+    if (!context.mounted) return null;
+    return runAction(context, () => TkRunner.start(prepared, devtools: debug));
+  }
   // Electron, Chrome y Next.js no usan Python: Node y el entorno compartido.
   if (prepared.electron || prepared.next) {
     if (tests) return null;
@@ -169,7 +181,12 @@ class _InstallDialogState extends State<_InstallDialog> {
       _error = null;
     });
     try {
-      await TkRunner.install(widget.py, widget.need.packages);
+      final own = widget.need.installer;
+      if (own != null) {
+        await own();
+      } else {
+        await TkRunner.install(widget.py, widget.need.packages);
+      }
       if (mounted) Navigator.pop(context, true);
     } on UserError catch (e) {
       if (mounted) setState(() => _error = e.message);

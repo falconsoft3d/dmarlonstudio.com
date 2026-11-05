@@ -14,6 +14,7 @@ part 'tk_showcase_sites.dart';
 part 'tk_showcase_electron.dart';
 part 'tk_showcase_chrome.dart';
 part 'tk_showcase_next.dart';
+part 'tk_showcase_cpp.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
@@ -22,7 +23,15 @@ String tkUnitComment({
   bool electron = false,
   bool chrome = false,
   bool next = false,
-}) => next
+  bool cpp = false,
+}) => cpp
+    ? tr(
+        '// Código de la ventana, en C++ (FLTK). Cada evento del diseño es un método\n'
+        '// de esta clase (con override); cada componente es un puntero con métodos\n'
+        '// como en Delphi: Label1->text("Hola"), Entry1->text(), Check1->checked().\n'
+        '// También title(), message(texto), ask(pregunta), close() y str(número).',
+      )
+    : next
     ? tr(
         '// Código de la página (Next.js), en JavaScript: corre en el navegador. Cada\n'
         '// evento del diseño es un método de esta clase; this.<Nombre> es cada\n'

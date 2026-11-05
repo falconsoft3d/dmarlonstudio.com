@@ -293,7 +293,11 @@ class TkDebugPanel extends StatefulWidget {
     required this.onCreateTest,
     required this.hasTests,
     this.electron = false,
+    this.cpp = false,
   });
+
+  /// Proyecto de C++: se depura con lldb o gdb.
+  final bool cpp;
 
   /// Proyecto de Electron: se depura con las herramientas de Chromium.
   final bool electron;
@@ -430,7 +434,11 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
     style: _text,
     child: widget.electron && widget.tab != TkDebugTab.breakpoints
         ? _hint(
-            widget.tab == TkDebugTab.tests
+            widget.cpp
+                ? tr(
+                    'En C++, «Depurar» (Mayús+F9) compila con información de depuración (-g): ábrala con lldb o gdb (build/cpp/app), o con su IDE. Lo que escribe std::cout sale en la pestaña Salida.',
+                  )
+                : widget.tab == TkDebugTab.tests
                 ? tr(
                     'Las pruebas de las aplicaciones de Electron llegarán en una próxima versión.',
                   )

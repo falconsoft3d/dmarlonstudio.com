@@ -38,7 +38,11 @@ abstract class TkUnitLang {
 }
 
 /// El lenguaje del código de [d].
-TkUnitLang tkUnitOf(TkDesign d) => d.isJs ? const JsUnit() : const PyUnit();
+TkUnitLang tkUnitOf(TkDesign d) => d.isCpp
+    ? const CppUnit()
+    : d.isJs
+    ? const JsUnit()
+    : const PyUnit();
 
 /// Python: lo de siempre (TkUnit).
 class PyUnit extends TkUnitLang {
@@ -191,14 +195,23 @@ class JsUnit extends TkUnitLang {
   @override
   bool hasClass(String code, String form) => _classRange(code, form) != null;
 
-  static RegExp _def(String method) => RegExp(
+  /// La cabecera de [method] en una línea (enmascarada).
+  RegExp defPattern(String method) => RegExp(
     '^[ \\t]*(?:async[ \\t]+)?${RegExp.escape(method)}[ \\t]*\\([^)]*\\)[ \\t]*\\{',
   );
+
+  /// La primera línea de un método nuevo.
+  String header(String method, String param) =>
+      '$method(${param.isEmpty ? '' : param}) {';
+
+  /// Una clase nueva con [stub] dentro.
+  String newClass(String form, String stub) =>
+      'class $form extends FormDesign {\n$stub\n}\n';
 
   @override
   int? lineOf(String code, String method) {
     final lines = mask(code).split('\n');
-    final def = _def(method);
+    final def = defPattern(method);
     for (var i = 0; i < lines.length; i++) {
       if (def.hasMatch(lines[i])) return i;
     }
@@ -223,24 +236,28 @@ class JsUnit extends TkUnitLang {
   }) {
     if (lineOf(code, method) != null) return code;
     final inner = _body(body);
-    final params = param.isEmpty ? '' : param;
     String stub(String indent) => [
-      '$indent$method($params) {',
+      '$indent${header(method, param)}',
       if (inner.isNotEmpty) ..._indented(inner, '$indent  '),
       '$indent}',
     ].join('\n');
     final range = _classRange(code, form);
     if (range == null) {
       final base = code.trimRight();
-      return '${base.isEmpty ? '' : '$base\n\n'}'
-          'class $form extends FormDesign {\n${stub('  ')}\n}\n';
+      return '${base.isEmpty ? '' : '$base\n\n'}${newClass(form, stub('  '))}';
     }
     final (open, close) = range;
     // La sangría de los métodos que ya hay (dos espacios si no hay).
     final members = code.substring(open + 1, close);
+    // (Sin contar «public:» y las demás etiquetas de acceso de C++.)
     final firstLine = members
         .split('\n')
-        .firstWhere((l) => l.trim().isNotEmpty, orElse: () => '');
+        .firstWhere(
+          (l) =>
+              l.trim().isNotEmpty &&
+              !RegExp(r'^\s*(public|private|protected)\s*:').hasMatch(l),
+          orElse: () => '',
+        );
     final indent = firstLine.isEmpty
         ? '  '
         : RegExp(r'^[ \t]*').stringMatch(firstLine)!;
@@ -303,4 +320,64 @@ class JsUnit extends TkUnitLang {
   @override
   String renameForm(String code, String from, String to) =>
       _replace(code, '(\\bclass\\s+)${RegExp.escape(from)}\\b', to);
+}
+
+/// C++ (FLTK): `class Form1 : public FormDesign { public: void X() override {…} };`.
+/// Las llaves, cadenas y comentarios se leen como en JavaScript.
+class CppUnit extends JsUnit {
+  const CppUnit();
+
+  @override
+  String get language => 'cpp';
+
+  @override
+  String template(String form, String comment) =>
+      '$comment\n\nclass $form : public FormDesign {\npublic:\n'
+      '  void form_create() override {\n  }\n};\n';
+
+  /// El tipo de C++ del argumento de un evento.
+  static String typed(String param) => switch (param) {
+    'value' => 'double value',
+    'path' => 'const std::string& path',
+    'item' => 'const std::string& item',
+    _ => '',
+  };
+
+  @override
+  RegExp defPattern(String method) => RegExp(
+    '^[ \\t]*(?:virtual[ \\t]+)?(?:[\\w:<>&*]+[ \\t]+)+${RegExp.escape(method)}'
+    '[ \\t]*\\([^)]*\\)[ \\t]*(?:const[ \\t]*)?(?:override[ \\t]*)?\\{',
+  );
+
+  @override
+  String header(String method, String param) =>
+      'void $method(${typed(param)}) override {';
+
+  @override
+  String newClass(String form, String stub) =>
+      'class $form : public FormDesign {\npublic:\n$stub\n};\n';
+
+  @override
+  String renameMethod(String code, String from, String to) {
+    final f = RegExp.escape(from);
+    return JsUnit._replace(
+      JsUnit._replace(code, '(\\bvoid[ \\t]+)$f(?=[ \\t]*\\()', to),
+      '(\\bthis->)$f\\b',
+      to,
+    );
+  }
+
+  @override
+  String renameWidget(String code, String from, String to) {
+    final f = RegExp.escape(from);
+    return JsUnit._replace(
+      JsUnit._replace(code, '(\\bthis->)$f\\b', to),
+      '(^|[^\\w.>:])$f(?=[ \\t]*(?:->|\\.))',
+      to,
+    );
+  }
+
+  @override
+  String renameForm(String code, String from, String to) =>
+      JsUnit._replace(code, '(\\bclass\\s+)${RegExp.escape(from)}\\b', to);
 }

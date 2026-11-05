@@ -241,6 +241,34 @@ msgstr "The code must define “class {0} extends FormDesign”."
 msgid "Falta {0} en el entorno de React."
 msgstr "{0} is missing from the React environment."
 
+#: lib/code/tk_cpp.dart
+msgid "El código debe definir «class {0} : public FormDesign»."
+msgstr "The code must define “class {0} : public FormDesign”."
+
+#: lib/code/tk_cpp_run.dart
+msgid "Falta FLTK"
+msgstr "FLTK is missing"
+
+#: lib/code/tk_cpp_run.dart
+msgid "Falta un compilador de C++"
+msgstr "A C++ compiler is missing"
+
+#: lib/code/tk_cpp_run.dart
+msgid "Las aplicaciones de C++ usan la biblioteca FLTK para sus ventanas."
+msgstr "C++ apps use the FLTK library for their windows."
+
+#: lib/code/tk_cpp_run.dart
+msgid "No se pudo instalar FLTK: {0}"
+msgstr "FLTK could not be installed: {0}"
+
+#: lib/code/tk_cpp_run.dart
+msgid "Para compilar C++ hace falta un compilador: en macOS, las herramientas de línea de órdenes de Xcode; en Linux, g++; en Windows, MSYS2."
+msgstr "Compiling C++ needs a compiler: on macOS, the Xcode command line tools; on Linux, g++; on Windows, MSYS2."
+
+#: lib/code/tk_cpp_run.dart
+msgid "Se abrió el instalador de Apple: termine la instalación y vuelva a ejecutar."
+msgstr "Apple’s installer opened: finish the installation and run again."
+
 #: lib/code/tk_electron_run.dart
 msgid "Electron instalado."
 msgstr "Electron installed."
@@ -308,6 +336,18 @@ msgstr ""
 "// is a method of this class; this.<Name> is each component\n"
 "// (this.Label1.text = \"Hello\"). Also: this.storage, await this.currentTab(),\n"
 "// this.openTab(url), await this.runInPage(function) and this.badge(text)."
+
+#: lib/code/tk_examples.dart
+msgid ""
+"// Código de la ventana, en C++ (FLTK). Cada evento del diseño es un método\n"
+"// de esta clase (con override); cada componente es un puntero con métodos\n"
+"// como en Delphi: Label1->text(\"Hola\"), Entry1->text(), Check1->checked().\n"
+"// También title(), message(texto), ask(pregunta), close() y str(número)."
+msgstr ""
+"// Window code, in C++ (FLTK). Every event of the design is a method\n"
+"// of this class (with override); every component is a pointer with\n"
+"// Delphi-like methods: Label1->text(\"Hello\"), Entry1->text(), Check1->checked().\n"
+"// Also title(), message(text), ask(question), close() and str(number)."
 
 #: lib/code/tk_examples.dart
 msgid ""
@@ -920,6 +960,10 @@ msgstr "Button to show the password"
 #: lib/code/tk_model.dart
 msgid "Básica (usuario y contraseña)"
 msgstr "Basic (user and password)"
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "C++ (FLTK)"
+msgstr "C++ (FLTK)"
 
 #: lib/code/tk_model.dart
 msgid "Cabecera de la clave"
@@ -1534,6 +1578,10 @@ msgid "«{0}» no tiene conexión: elija una de las guardadas en Bases de datos.
 msgstr "“{0}” has no connection: choose one of those saved in Databases."
 
 #: lib/code/tk_model.dart
+msgid "«{0}» todavía no está disponible en C++."
+msgstr "“{0}” is not available in C++ yet."
+
+#: lib/code/tk_model.dart
 msgid "«{0}» todavía no está disponible en Electron."
 msgstr "“{0}” is not available in Electron yet."
 
@@ -1544,6 +1592,10 @@ msgstr "Areas"
 #: lib/code/tk_next.dart
 msgid "Aplicación web de Next.js creada con DMarlon Studio."
 msgstr "Next.js web app created with DMarlon Studio."
+
+#: lib/code/tk_run_io.dart
+msgid "Compilando…"
+msgstr "Compiling…"
 
 #: lib/code/tk_run_io.dart
 msgid "El Asistente IA necesita el SDK de Anthropic en el Python de este equipo."
@@ -1628,6 +1680,10 @@ msgstr "Python windows only open on macOS, Windows or Linux."
 #: lib/code/tk_run_io.dart
 msgid "No se encontró Python en {0}."
 msgstr "Python was not found at {0}."
+
+#: lib/code/tk_run_io.dart
+msgid "No se pudo compilar."
+msgstr "It could not be compiled."
 
 #: lib/code/tk_run_io.dart
 msgid "No se pudo instalar {0}."
@@ -2284,6 +2340,18 @@ msgstr "A note for every website, saved in the extension storage."
 #: lib/code/tk_showcase_chrome.dart
 msgid "Veces"
 msgstr "Times"
+
+#: lib/code/tk_showcase_cpp.dart
+msgid "Calculadora (C++)"
+msgstr "Calculator (C++)"
+
+#: lib/code/tk_showcase_cpp.dart
+msgid "Calculadora en C++ con FLTK: cada botón llama a su método."
+msgstr "Calculator in C++ with FLTK: every button calls its method."
+
+#: lib/code/tk_showcase_cpp.dart
+msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
+msgstr "The calculator as a native C++ app with FLTK: the same design, with the code in C++."
 
 #: lib/code/tk_showcase_electron.dart
 msgid "Bloc de notas (Electron)"
@@ -5772,6 +5840,10 @@ msgid "El programa está en marcha. Se detendrá en un punto de parada, o pulse 
 msgstr "The program is running. It will stop at a breakpoint, or press Pause."
 
 #: lib/ui/screens/tk_debug_panel.dart
+msgid "En C++, «Depurar» (Mayús+F9) compila con información de depuración (-g): ábrala con lldb o gdb (build/cpp/app), o con su IDE. Lo que escribe std::cout sale en la pestaña Salida."
+msgstr "In C++, “Debug” (Shift+F9) compiles with debug information (-g): open it with lldb or gdb (build/cpp/app), or with your IDE. What std::cout writes goes to the Output tab."
+
+#: lib/ui/screens/tk_debug_panel.dart
 msgid "En Electron y en las extensiones de Chrome, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida."
 msgstr "In Electron and in Chrome extensions, “Debug” (Shift+F9) opens the app with Chromium’s developer tools: it stops at your breakpoints and there you have variables, the stack, the console, stepping and performance. What console.log writes goes to the Output tab."
 
@@ -6028,6 +6100,10 @@ msgid "Buscando Python…"
 msgstr "Looking for Python…"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "C++ generado"
+msgstr "Generated C++"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Cambiar…"
 msgstr "Change…"
 
@@ -6156,6 +6232,10 @@ msgid "Exportada en {0} y {1}. El .zip es el que se sube a la Chrome Web Store."
 msgstr "Exported to {0} and {1}. The .zip is the one you upload to the Chrome Web Store."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportada en {0}. Compílela con: make run (necesita FLTK)."
+msgstr "Exported to {0}. Build it with: make run (it needs FLTK)."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportada en {0}. Ábrala con: npm install y npm run dev."
 msgstr "Exported to {0}. Open it with: npm install and npm run dev."
 
@@ -6178,6 +6258,10 @@ msgstr "Export here"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el archivo .py"
 msgstr "Export the .py file"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de C++ (con Makefile)"
+msgstr "Export the C++ project (with a Makefile)"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Next.js"
@@ -6218,6 +6302,10 @@ msgstr "Same width"
 #: lib/ui/screens/tk_designer.dart
 msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
 msgstr "Installing Electron and React (first time only; about 100 MB)…"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Ir a la carpeta"
+msgstr "Go to folder"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "JavaScript generado"
@@ -6322,6 +6410,10 @@ msgstr "Bring to front"
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."
 msgstr "A desktop app with Electron and React; event code in JavaScript. It needs Node.js: Electron and React install themselves the first time. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una aplicación de escritorio nativa en C++ con FLTK: el código de los eventos, en C++. Ejecutar la compila y la abre. Necesita un compilador de C++ y FLTK (el estudio ofrece instalarlo). El destino no se puede cambiar después."
+msgstr "A native C++ desktop app with FLTK: event code in C++. Run compiles and opens it. It needs a C++ compiler and FLTK (the studio offers to install it). The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación web de Next.js: el diseño es la página y el código, JavaScript (React). Ejecutar arranca el servidor de desarrollo y abre el navegador; exportar deja el proyecto listo para npm o Vercel. Necesita Node.js. El destino no se puede cambiar después."

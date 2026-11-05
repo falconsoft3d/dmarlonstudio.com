@@ -14,6 +14,7 @@ Hechos
 12. Electron + React (escritorio) | ✅ |
 13. Chrome Extensions | ✅ |
 14. Web con Next.js | ✅ |
+15. C++ (escritorio, FLTK) | ✅ |
 
 Trabajando
 =========
@@ -21,7 +22,6 @@ Trabajando
 
 Pendiente
 =========
-14. C++ (escritorio, FLTK) | ⏳ |
 15. Pascal (escritorio, Lazarus/LCL) | ⏳ |
 16. Flutter (escritorio ) | ⏳ |
 17. Flutter (movil ) | ⏳ |

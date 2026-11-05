@@ -713,6 +713,58 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // ---------------------------------------------------------------- c++
+    {
+      slug: "cpp",
+      title: "C++ with FLTK",
+      summary: "Native desktop apps in C++: the same designer, compiled with FLTK.",
+      sections: [
+        {
+          id: "create",
+          title: "Creating a C++ app",
+          blocks: [
+            {
+              type: "p",
+              text: "When you create the app, choose **C++ (FLTK)**. The code goes in `Form1.cpp`: the `Form1` class inherits from `FormDesign` and every event is a method with `override`. Every component is a pointer to an FLTK class with Delphi-like methods, without losing the FLTK API.",
+            },
+            {
+              type: "code",
+              code: "class Form1 : public FormDesign {\npublic:\n  void Button1_click() override {\n    Label1->text(\"Hello, \" + Entry1->text());\n    Status->text(\"Greeted\");\n  }\n\n  void Scale1_change(double value) override {\n    Bar1->value(value);\n  }\n};",
+            },
+            {
+              type: "table",
+              head: ["Component", "Methods"],
+              rows: [
+                ["Label, Button, Status bar", "`text()`, `text(s)`, `enabled(bool)`, `visible(bool)`, `bg(color)`, `fg(color)`"],
+                ["Entry, Password, Text", "`text()`, `text(s)`"],
+                ["Check box, Radio button", "`checked()`, `checked(bool)`"],
+                ["List, Combo box", "`items({...})`, `add(s)`, `index()`, `index(i)`, `selected()`"],
+                ["Scale, Progress bar", "`value()`, `value(v)`"],
+                ["Page control", "`page()`, `page(i)`"],
+                ["Timer", "`Timer1.start()`, `Timer1.stop()`"],
+                ["Open and Save dialogs", "`OpenFile.execute()` (the path, or \"\" if cancelled)"],
+                ["The window", "`title(s)`, `message(text)`, `ask(question)`, `close()`; and `str(number)`, `readText(path)`, `writeText(path, text)`"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "build",
+          title: "Build, run and export",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** compiles with the computer's C++ compiler and FLTK, and opens the app. Errors go to the Output tab with their `Form1.cpp` line.",
+                "If FLTK or the compiler is missing, the studio says so and offers **Install** (on macOS, with Homebrew: `brew install fltk`).",
+                "**Debug** compiles with debug information (`-g`) so you can open `build/cpp/app` with lldb or gdb.",
+                "**Export the C++ project** creates a folder with the sources and a `Makefile`: `make run`.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ai-in-the-designer",

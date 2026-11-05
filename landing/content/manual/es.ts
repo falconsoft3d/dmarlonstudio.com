@@ -713,6 +713,58 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ---------------------------------------------------------------- c++
+    {
+      slug: "cpp",
+      title: "C++ con FLTK",
+      summary: "Aplicaciones de escritorio nativas en C++: el mismo diseñador, compiladas con FLTK.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear una aplicación de C++",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear la aplicación, elija **C++ (FLTK)**. El código va en `Form1.cpp`: la clase `Form1` hereda de `FormDesign` y cada evento es un método con `override`. Cada componente es un puntero a una clase de FLTK con métodos al estilo de Delphi, sin perder la API de FLTK.",
+            },
+            {
+              type: "code",
+              code: "class Form1 : public FormDesign {\npublic:\n  void Button1_click() override {\n    Label1->text(\"Hola, \" + Entry1->text());\n    Status->text(\"Saludado\");\n  }\n\n  void Scale1_change(double value) override {\n    Bar1->value(value);\n  }\n};",
+            },
+            {
+              type: "table",
+              head: ["Componente", "Métodos"],
+              rows: [
+                ["Etiqueta, Botón, Barra de estado", "`text()`, `text(s)`, `enabled(bool)`, `visible(bool)`, `bg(color)`, `fg(color)`"],
+                ["Entrada, Contraseña, Texto", "`text()`, `text(s)`"],
+                ["Casilla, Opción", "`checked()`, `checked(bool)`"],
+                ["Lista, Combo", "`items({...})`, `add(s)`, `index()`, `index(i)`, `selected()`"],
+                ["Escala, Barra de progreso", "`value()`, `value(v)`"],
+                ["Control de páginas", "`page()`, `page(i)`"],
+                ["Temporizador", "`Timer1.start()`, `Timer1.stop()`"],
+                ["Diálogos Abrir y Guardar", "`OpenFile.execute()` (la ruta, o \"\" si se cancela)"],
+                ["La ventana", "`title(s)`, `message(texto)`, `ask(pregunta)`, `close()`; y `str(número)`, `readText(ruta)`, `writeText(ruta, texto)`"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "compilar",
+          title: "Compilar, ejecutar y exportar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** compila con el compilador de C++ del equipo y FLTK, y abre la aplicación. Los errores salen en la pestaña Salida con su línea de `Form1.cpp`.",
+                "Si falta FLTK o el compilador, el estudio lo dice y ofrece **Instalar** (en macOS, con Homebrew: `brew install fltk`).",
+                "**Depurar** compila con información de depuración (`-g`) para abrir `build/cpp/app` con lldb o gdb.",
+                "**Exportar el proyecto de C++** crea una carpeta con las fuentes y un `Makefile`: `make run`.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",

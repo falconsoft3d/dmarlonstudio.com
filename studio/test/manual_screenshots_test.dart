@@ -273,6 +273,14 @@ void main() {
 
       // Diseñador: proyectos, un proyecto, su código y Claude Code.
       await tap(find.byKey(const ValueKey('nav-0')));
+      // La primera vez se copian todos los ejemplos: hasta que aparezca la
+      // lista.
+      for (var i = 0; i < 40; i++) {
+        if (find.byKey(const ValueKey('tk-search')).evaluate().isNotEmpty) {
+          break;
+        }
+        await settle(10);
+      }
       await shot(lang, 'designer-projects');
       await tap(find.byKey(ValueKey('tk-app-${p.normalize(calc)}')));
       if (find.byKey(const ValueKey('tk-tab-0')).evaluate().isEmpty) {

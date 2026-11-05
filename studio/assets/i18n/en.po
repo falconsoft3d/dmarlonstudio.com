@@ -257,7 +257,7 @@ msgstr ""
 "# self.root is the window and self.<Name> each component: they already exist\n"
 "# in __init__, and the window's \"On open\" event runs after it."
 
-#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr "Open"
 
@@ -581,7 +581,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -673,7 +673,7 @@ msgstr "Temperature"
 msgid "Texto"
 msgstr "Text"
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr "Type"
 
@@ -1045,7 +1045,7 @@ msgstr "Legend"
 msgid "Lienzo"
 msgstr "Canvas"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/project_browser.dart
 msgid "Lista"
 msgstr "List"
 
@@ -1549,7 +1549,7 @@ msgstr "Classic text editor with menus, open and save, undo and a status bar wit
 msgid "Elija la cita que quiere eliminar."
 msgstr "Choose the appointment to delete."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -3049,7 +3049,7 @@ msgstr "Minimize"
 msgid "Restaurar"
 msgstr "Restore"
 
-#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Actualizar"
 msgstr "Refresh"
 
@@ -3237,7 +3237,7 @@ msgstr "New conversation"
 msgid "Nuevo: {0}"
 msgstr "New: {0}"
 
-#: lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/code_claude.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Presupuesto de IA"
 msgstr "AI budget"
 
@@ -3769,7 +3769,7 @@ msgstr "Open a file to ask about it."
 msgid "Abrir carpeta"
 msgstr "Open folder"
 
-#: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Abrir carpeta…"
 msgstr "Open folder…"
 
@@ -4021,7 +4021,7 @@ msgstr "Body"
 msgid "Editar"
 msgstr "Edit"
 
-#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Ejecutar"
 msgstr "Run"
 
@@ -4493,6 +4493,82 @@ msgstr "{0} commits to push."
 msgid "{0} commits por traer."
 msgstr "{0} commits to pull."
 
+#: lib/ui/screens/project_browser.dart
+msgid "Agregar nuevo"
+msgstr "Add new"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Buscar proyectos"
+msgstr "Search projects"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Carpeta"
+msgstr "Folder"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Componentes"
+msgstr "Components"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Duplicar"
+msgstr "Duplicate"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Escritorio (Python)"
+msgstr "Desktop (Python)"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "GitHub…"
+msgstr "GitHub…"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Modificado"
+msgstr "Modified"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar la carpeta"
+msgstr "Show the folder"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Más acciones"
+msgstr "More actions"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Ningún proyecto coincide con la búsqueda."
+msgstr "No project matches the search."
+
+#: lib/ui/screens/project_browser.dart
+msgid "Por página"
+msgstr "Per page"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Proyecto de escritorio (Python)"
+msgstr "Desktop project (Python)"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Proyecto web (Flask)"
+msgstr "Web project (Flask)"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Página anterior"
+msgstr "Previous page"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Página siguiente"
+msgstr "Next page"
+
+#: lib/ui/screens/project_browser.dart
+msgid "Tarjetas"
+msgstr "Cards"
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Web (Flask)"
+msgstr "Web (Flask)"
+
+#: lib/ui/screens/project_browser.dart
+msgid "{0}–{1} de {2} proyectos"
+msgstr "{0}–{1} of {2} projects"
+
 #: lib/ui/screens/settings_screen.dart
 msgid "Ajustes de la IA guardados."
 msgstr "AI settings saved."
@@ -4650,10 +4726,6 @@ msgid "Diseño"
 msgstr "Design"
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Duplicar"
-msgstr "Duplicate"
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Ejecutar (F9)"
 msgstr "Run (F9)"
 
@@ -4693,10 +4765,6 @@ msgstr "Send to back"
 msgid "Escribe el código de este botón: …"
 msgstr "Write the code of this button: …"
 
-#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Escritorio (Python)"
-msgstr "Desktop (Python)"
-
 #: lib/ui/screens/tk_designer.dart
 msgid "Ese nombre ya existe."
 msgstr "That name already exists."
@@ -4726,10 +4794,6 @@ msgid "GitHub: publicar o subir los cambios"
 msgstr "GitHub: publish or push the changes"
 
 #: lib/ui/screens/tk_designer.dart
-msgid "GitHub…"
-msgstr "GitHub…"
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
 msgstr "Same height"
 
@@ -4750,16 +4814,8 @@ msgid "Mostrar"
 msgstr "Show"
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Mostrar la carpeta"
-msgstr "Show the folder"
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Mostrar la carpeta del proyecto"
 msgstr "Show the project folder"
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Más acciones"
-msgstr "More actions"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Métodos: {0}"
@@ -4852,10 +4908,6 @@ msgstr "Show the projects (this one stays open)"
 #: lib/ui/screens/tk_designer.dart
 msgid "Volver a buscar Python"
 msgstr "Look for Python again"
-
-#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Web (Flask)"
-msgstr "Web (Flask)"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "¿Guardar los cambios antes de cerrar?"

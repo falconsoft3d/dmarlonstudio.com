@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.13 — 2026-11-05
+
+- Diseñador: la lista de proyectos es un **explorador paginado** con columnas
+  que se ordenan (nombre, tipo, componentes, modificado y carpeta),
+  **buscador**, elección de 10, 15, 25 o 50 por página y **menú del botón
+  derecho**: sobre un proyecto, abrir, ejecutar, mostrar la carpeta, GitHub,
+  presupuesto de IA, duplicar y eliminar; sobre el fondo, **Agregar nuevo ›**
+  proyecto de escritorio, proyecto web o abrir carpeta. Sigue habiendo vista
+  de tarjetas.
+- Botones, menús y etiquetas con esquinas de 6 px en lugar de redondeados.
+- Manual y capturas actualizados.
+
 ## 1.0.12 — 2026-11-05
 
 - Landing: **carrusel de ejemplos** en la portada con capturas reales del

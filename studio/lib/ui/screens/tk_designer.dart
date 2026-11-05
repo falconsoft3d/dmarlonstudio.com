@@ -27,6 +27,7 @@ import '../theme.dart';
 import '../widgets.dart';
 import 'budget_screen.dart';
 import 'github_dialog.dart';
+import 'project_browser.dart';
 import 'tk_canvas.dart';
 import 'tk_claude_panel.dart';
 import 'tk_inspector.dart';
@@ -118,10 +119,10 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
     TkProject.open(r);
   }
 
-  Future<void> _create() async {
+  Future<void> _create([String initial = tkTargetDesktop]) async {
     final app = await showDialog<(String, String)>(
       context: context,
-      builder: (_) => const _NewAppDialog(),
+      builder: (_) => _NewAppDialog(target: initial),
     );
     if (app == null || !mounted) return;
     final (name, target) = app;
@@ -434,10 +435,26 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
           ),
         )
       else
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: [for (final a in _apps) _card(t, a)],
+        ProjectBrowser(
+          projects: _apps,
+          card: (a) => _card(t, a),
+          onOpen: (a) => _open(a.path),
+          onAdd: (what) => switch (what) {
+            'web' => _create(tkTargetWeb),
+            'folder' => _openFolder(),
+            'refresh' => _load(),
+            _ => _create(),
+          },
+          onAction: (a, action) => switch (action) {
+            'open' => _open(a.path),
+            'run' => launchTkApp(context, a.path),
+            'reveal' => revealInFiles(a.path),
+            'github' => showProjectGitHub(context, dir: a.path, name: a.name),
+            'budget' => showAiBudget(context, project: a.path, name: a.name),
+            'copy' => _duplicate(a.path),
+            'delete' => _delete(a),
+            _ => null,
+          },
         ),
     ],
   );
@@ -2006,7 +2023,10 @@ class _TkEditorState extends State<_TkEditor> {
 
 /// Nombre y destino de una aplicación nueva.
 class _NewAppDialog extends StatefulWidget {
-  const _NewAppDialog();
+  const _NewAppDialog({this.target = tkTargetDesktop});
+
+  /// Destino marcado al abrir.
+  final String target;
 
   @override
   State<_NewAppDialog> createState() => _NewAppDialogState();
@@ -2014,7 +2034,7 @@ class _NewAppDialog extends StatefulWidget {
 
 class _NewAppDialogState extends State<_NewAppDialog> {
   late final _name = TextEditingController(text: tr('Mi aplicación'));
-  String _target = tkTargetDesktop;
+  late String _target = widget.target;
 
   @override
   void dispose() {

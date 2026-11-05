@@ -68,6 +68,12 @@ final metroColors = <(int, String)>[
   (0xFF1D1D1D, markTr('Negro')),
 ];
 
+final _squared = ButtonStyle(
+  shape: WidgetStatePropertyAll(
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+  ),
+);
+
 /// Tema del estudio: denso, como un IDE de escritorio.
 ThemeData studioTheme(Brightness b) {
   final dark = b == Brightness.dark;
@@ -88,6 +94,22 @@ ThemeData studioTheme(Brightness b) {
     // Esquinas sobrias, como en un IDE de escritorio (Material 3 usa 28).
     dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
+    // Botones con esquinas de 6 px (Material 3 los hace de píldora).
+    filledButtonTheme: FilledButtonThemeData(style: _squared),
+    outlinedButtonTheme: OutlinedButtonThemeData(style: _squared),
+    textButtonTheme: TextButtonThemeData(style: _squared),
+    elevatedButtonTheme: ElevatedButtonThemeData(style: _squared),
+    iconButtonTheme: IconButtonThemeData(style: _squared),
+    segmentedButtonTheme: SegmentedButtonThemeData(style: _squared),
+    chipTheme: const ChipThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
+    ),
+    menuButtonTheme: MenuButtonThemeData(style: _squared),
+    popupMenuTheme: PopupMenuThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
     ),
     tooltipTheme: const TooltipThemeData(
       waitDuration: Duration(milliseconds: 400),

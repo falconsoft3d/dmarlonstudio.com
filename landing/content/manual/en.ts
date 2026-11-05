@@ -179,6 +179,10 @@ export const manualEn: Manual = {
               text: "The project list shows the workspace projects and those opened from other folders. At the top you see the Python found (Python and Tk versions) and the button to **Look for Python again**.",
             },
             {
+              type: "p",
+              text: "It is shown as a **list** with columns (**Name**, **Type**, **Components**, **Modified** and **Folder**) sorted by clicking their title, or as **Cards**. It has **Search projects** and is split into pages (**Per page**: 10, 15, 25 or 50). Double-click opens a project. Right-clicking a project offers **Open**, **Run**, **Show the folder**, **GitHub…**, **AI budget**, **Duplicate** and **Delete**; right-clicking the background, **Add new** › **Desktop project (Python)**, **Web project (Flask)** or **Open folder…**.",
+            },
+            {
               type: "ul",
               items: [
                 "**New project**: asks for the name and the target, **Desktop (Python)** or **Web (Flask)**. The target cannot be changed later.",

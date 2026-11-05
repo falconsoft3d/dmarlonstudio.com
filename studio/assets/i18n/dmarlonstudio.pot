@@ -249,7 +249,7 @@ msgid ""
 "# __init__, y el evento «Al abrir» de la ventana se ejecuta después de él."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -665,7 +665,7 @@ msgstr ""
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -1037,7 +1037,7 @@ msgstr ""
 msgid "Lienzo"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/project_browser.dart
 msgid "Lista"
 msgstr ""
 
@@ -1537,7 +1537,7 @@ msgstr ""
 msgid "Elija la cita que quiere eliminar."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Eliminar"
 msgstr ""
 
@@ -3025,7 +3025,7 @@ msgstr ""
 msgid "Restaurar"
 msgstr ""
 
-#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Actualizar"
 msgstr ""
 
@@ -3213,7 +3213,7 @@ msgstr ""
 msgid "Nuevo: {0}"
 msgstr ""
 
-#: lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/code_claude.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Presupuesto de IA"
 msgstr ""
 
@@ -3745,7 +3745,7 @@ msgstr ""
 msgid "Abrir carpeta"
 msgstr ""
 
-#: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Abrir carpeta…"
 msgstr ""
 
@@ -3997,7 +3997,7 @@ msgstr ""
 msgid "Editar"
 msgstr ""
 
-#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Ejecutar"
 msgstr ""
 
@@ -4467,6 +4467,82 @@ msgstr ""
 msgid "{0} commits por traer."
 msgstr ""
 
+#: lib/ui/screens/project_browser.dart
+msgid "Agregar nuevo"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Buscar proyectos"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Carpeta"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Componentes"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Duplicar"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Escritorio (Python)"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "GitHub…"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Modificado"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar la carpeta"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Más acciones"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Ningún proyecto coincide con la búsqueda."
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Por página"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Proyecto de escritorio (Python)"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Proyecto web (Flask)"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Página anterior"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Página siguiente"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "Tarjetas"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Web (Flask)"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart
+msgid "{0}–{1} de {2} proyectos"
+msgstr ""
+
 #: lib/ui/screens/settings_screen.dart
 msgid "Ajustes de la IA guardados."
 msgstr ""
@@ -4624,10 +4700,6 @@ msgid "Diseño"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Duplicar"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Ejecutar (F9)"
 msgstr ""
 
@@ -4667,10 +4739,6 @@ msgstr ""
 msgid "Escribe el código de este botón: …"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Escritorio (Python)"
-msgstr ""
-
 #: lib/ui/screens/tk_designer.dart
 msgid "Ese nombre ya existe."
 msgstr ""
@@ -4700,10 +4768,6 @@ msgid "GitHub: publicar o subir los cambios"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
-msgid "GitHub…"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
 msgstr ""
 
@@ -4724,15 +4788,7 @@ msgid "Mostrar"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Mostrar la carpeta"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Mostrar la carpeta del proyecto"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Más acciones"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -4825,10 +4881,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Volver a buscar Python"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Web (Flask)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

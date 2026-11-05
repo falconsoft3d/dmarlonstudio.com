@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -377,7 +377,7 @@ msgstr "Odoo / ERPSqlite contacts"
 msgid "Conversor de unidades"
 msgstr "Unit converter"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr "Email"
 
@@ -457,7 +457,7 @@ msgstr "Dates"
 msgid "Ficha con un control de páginas, listas desplegables, una lista y barra de estado."
 msgstr "Record with a page control, drop-down lists, a list and a status bar."
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_windows.dart
 msgid "Ficha de cliente"
 msgstr "Customer record"
 
@@ -485,7 +485,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -581,7 +581,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -2593,6 +2593,158 @@ msgstr "{0} marked as paid."
 msgid "¡Enhorabuena por el blog!"
 msgstr "Congratulations on the blog!"
 
+#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
+msgid "Aceptar"
+msgstr "OK"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Aviso"
+msgstr "Warning"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
+msgstr "Each button opens a dialog or another window; what they return goes to the log."
+
+#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Cerrar las notas"
+msgstr "Close the notes"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Elegir un archivo"
+msgstr "Choose a file"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Elegir un color"
+msgstr "Choose a color"
+
+#: lib/code/tk_showcase_windows.dart lib/ui/screens/dev_tools.dart
+msgid "Error"
+msgstr "Error"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Escriba aquí. Esta ventana no bloquea a las demás."
+msgstr "Type here. This window does not block the others."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Escriba un correo con @."
+msgstr "Enter an email address with @."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ficha de cliente…"
+msgstr "Customer record…"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Información"
+msgstr "Info"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Los datos se han guardado."
+msgstr "The data has been saved."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Mensajes"
+msgstr "Messages"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Modo oscuro"
+msgstr "Dark mode"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "No"
+msgstr "No"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "No se pudo conectar con el servidor."
+msgstr "Could not connect to the server."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Nota {0}"
+msgstr "Note {0}"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Nueva nota"
+msgstr "New note"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Opciones"
+msgstr "Options"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Opciones (modal)…"
+msgstr "Options (modal)…"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Otras ventanas"
+msgstr "Other windows"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir datos"
+msgstr "Ask for data"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir un nombre"
+msgstr "Ask for a name"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir un número"
+msgstr "Ask for a number"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pregunta Sí / No / Cancelar"
+msgstr "Yes / No / Cancel question"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Queda poco espacio en el disco."
+msgstr "The disk is running out of space."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Registro"
+msgstr "Log"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Sí"
+msgstr "Yes"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Tamaño de letra"
+msgstr "Text size"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ventanas que abren otras y todos los diálogos: mensajes, preguntas, pedir datos, una ficha que devuelve el resultado, un diálogo modal y notas no modales."
+msgstr "Windows that open others and every dialog: messages, questions, asking for data, a record that returns its result, a modal dialog and non-modal notes."
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ventanas y diálogos"
+msgstr "Windows and dialogs"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "cancelado"
+msgstr "cancelled"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "{0} notas abiertas"
+msgstr "{0} notes open"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "{0}: {1}"
+msgstr "{0}: {1}"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Cuántos años tiene?"
+msgstr "How old are you?"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Cómo se llama?"
+msgstr "What is your name?"
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Guardar los cambios antes de salir?"
+msgstr "Save changes before leaving?"
+
 #: lib/code/workspace.dart
 msgid "(diferencias recortadas)"
 msgstr "(diff truncated)"
@@ -3770,10 +3922,6 @@ msgid "Eliminar conexión"
 msgstr "Delete connection"
 
 #: lib/ui/screens/dev_tools.dart
-msgid "Error"
-msgstr "Error"
-
-#: lib/ui/screens/dev_tools.dart
 msgid "Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?"
 msgstr "This query changes the “{0}” database. Run it?"
 
@@ -4749,10 +4897,6 @@ msgstr "Purple"
 msgid "Ámbar"
 msgstr "Amber"
 
-#: lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
-msgstr "Cancel"
-
 #: lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Cerrar"
 msgstr "Close"
@@ -4804,10 +4948,6 @@ msgstr "Without them, the window works but without the icon."
 #: lib/ui/tk_launch.dart
 msgid "«{0}» terminó con un error: {1}"
 msgstr "“{0}” ended with an error: {1}"
-
-#: lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
-msgid "Aceptar"
-msgstr "OK"
 
 #: lib/ui/widgets.dart
 msgid "Buscar..."

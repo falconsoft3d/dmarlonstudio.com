@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.9 — 2026-11-05
+
+- Ejemplo **Ventanas y diálogos**: mensajes (información, aviso, error,
+  pregunta Sí/No/Cancelar), pedir un nombre, un número o un color, elegir un
+  archivo, una ficha en otra ventana que devuelve el resultado, un diálogo
+  modal propio y varias notas no modales a la vez.
+
 ## 1.0.8 — 2026-11-05
 
 - Diseñador: componente **Gráfico** (líneas, área, barras y velas) para

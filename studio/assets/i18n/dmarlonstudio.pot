@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Ficha con un control de páginas, listas desplegables, una lista y barra de estado."
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_windows.dart
 msgid "Ficha de cliente"
 msgstr ""
 
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -2569,6 +2569,158 @@ msgstr ""
 msgid "¡Enhorabuena por el blog!"
 msgstr ""
 
+#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
+msgid "Aceptar"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Aviso"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Cerrar las notas"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Elegir un archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Elegir un color"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart lib/ui/screens/dev_tools.dart
+msgid "Error"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Escriba aquí. Esta ventana no bloquea a las demás."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Escriba un correo con @."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ficha de cliente…"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Información"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Los datos se han guardado."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Mensajes"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Modo oscuro"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "No"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "No se pudo conectar con el servidor."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Nota {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Nueva nota"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Opciones"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Opciones (modal)…"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Otras ventanas"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir datos"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir un nombre"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pedir un número"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Pregunta Sí / No / Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Queda poco espacio en el disco."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Registro"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Sí"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Tamaño de letra"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ventanas que abren otras y todos los diálogos: mensajes, preguntas, pedir datos, una ficha que devuelve el resultado, un diálogo modal y notas no modales."
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "Ventanas y diálogos"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "cancelado"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "{0} notas abiertas"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "{0}: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Cuántos años tiene?"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Cómo se llama?"
+msgstr ""
+
+#: lib/code/tk_showcase_windows.dart
+msgid "¿Guardar los cambios antes de salir?"
+msgstr ""
+
 #: lib/code/workspace.dart
 msgid "(diferencias recortadas)"
 msgstr ""
@@ -3746,10 +3898,6 @@ msgid "Eliminar conexión"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
-msgid "Error"
-msgstr ""
-
-#: lib/ui/screens/dev_tools.dart
 msgid "Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?"
 msgstr ""
 
@@ -4723,10 +4871,6 @@ msgstr ""
 msgid "Ámbar"
 msgstr ""
 
-#: lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
-msgstr ""
-
 #: lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Cerrar"
 msgstr ""
@@ -4777,10 +4921,6 @@ msgstr ""
 
 #: lib/ui/tk_launch.dart
 msgid "«{0}» terminó con un error: {1}"
-msgstr ""
-
-#: lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
-msgid "Aceptar"
 msgstr ""
 
 #: lib/ui/widgets.dart

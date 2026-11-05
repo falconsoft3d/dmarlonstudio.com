@@ -4,6 +4,7 @@ import 'tk_model.dart';
 
 part 'tk_showcase.dart';
 part 'tk_showcase_web.dart';
+part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
 String tkUnitComment({bool web = false}) => web
@@ -72,6 +73,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _music(t),
   _lineChart(t),
   _stocks(t),
+  _windows(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

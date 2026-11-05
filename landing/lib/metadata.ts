@@ -33,3 +33,30 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "#141518" },
   ],
 };
+
+/** Metadatos de una página que existe en los dos idiomas. */
+export function pageMetadata(
+  lang: Lang,
+  page: { title: string; description: string; paths: Record<Lang, string>; noIndex?: boolean },
+): Metadata {
+  const { title, description, paths } = page;
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: paths[lang],
+      languages: { es: paths.es, en: paths.en, "x-default": paths.es },
+    },
+    openGraph: {
+      type: "article",
+      url: paths[lang],
+      siteName: "DMarlon Studio",
+      title: `${title} · DMarlon Studio`,
+      description,
+      locale: OG_LOCALE[lang],
+      alternateLocale: [OG_LOCALE[lang === "es" ? "en" : "es"]],
+    },
+    twitter: { card: "summary", title: `${title} · DMarlon Studio`, description },
+    ...(page.noIndex ? { robots: { index: false, follow: true } } : {}),
+  };
+}

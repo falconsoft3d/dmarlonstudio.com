@@ -4,17 +4,17 @@ import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Content } from "@/content";
 import { REPO_URL } from "@/lib/downloads";
-import type { Lang } from "@/lib/i18n";
+import { HOME, type Alternates, type Lang } from "@/lib/i18n";
 
-export function SiteHeader({ lang, t }: { lang: Lang; t: Content }) {
+export function SiteHeader({ lang, t, alternates }: { lang: Lang; t: Content; alternates?: Alternates }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur supports-[backdrop-filter]:bg-canvas/70">
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur supports-[backdrop-filter]:bg-canvas/70 print:hidden">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4 sm:px-6">
-        <a href="#inicio" className="flex items-center gap-2 font-semibold tracking-tight">
+        <a href={HOME[lang]} className="flex items-center gap-2 font-semibold tracking-tight">
           <Logo className="size-7" />
           <span>DMarlon Studio</span>
         </a>
-        <nav aria-label={t.header.sectionsLabel} className="ml-6 hidden items-center gap-5 text-sm text-muted md:flex">
+        <nav aria-label={t.header.sectionsLabel} className="ml-6 hidden items-center gap-5 text-sm text-muted lg:flex">
           {t.header.nav.map((n) => (
             <a key={n.href} href={n.href} className="transition-colors hover:text-ink">
               {n.label}
@@ -22,7 +22,7 @@ export function SiteHeader({ lang, t }: { lang: Lang; t: Content }) {
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
-          <LanguageSwitch lang={lang} label={t.header.languageLabel} />
+          <LanguageSwitch lang={lang} label={t.header.languageLabel} alternates={alternates} />
           <ThemeToggle labels={t.theme} />
           <a
             href={REPO_URL}
@@ -31,7 +31,7 @@ export function SiteHeader({ lang, t }: { lang: Lang; t: Content }) {
             GitHub
           </a>
           <a
-            href={`#${t.downloads.id}`}
+            href={`${HOME[lang]}#${t.downloads.id}`}
             className="inline-flex items-center gap-1.5 rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
           >
             <Download className="size-4" aria-hidden />

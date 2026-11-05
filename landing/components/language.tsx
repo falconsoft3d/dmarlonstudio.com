@@ -1,7 +1,18 @@
-import { HOME, LANGS, type Lang } from "@/lib/i18n";
+import { HOME, LANGS, type Alternates, type Lang } from "@/lib/i18n";
 
-/** Selector ES / EN de la cabecera: lleva a la portada en el otro idioma. */
-export function LanguageSwitch({ lang, label }: { lang: Lang; label: string }) {
+/**
+ * Selector ES / EN de la cabecera: lleva a la misma página en el otro
+ * idioma ([alternates]) o, si no se indica, a la portada.
+ */
+export function LanguageSwitch({
+  lang,
+  label,
+  alternates = HOME,
+}: {
+  lang: Lang;
+  label: string;
+  alternates?: Alternates;
+}) {
   return (
     <nav aria-label={label} className="flex shrink-0 items-center rounded-md border border-line p-0.5 text-xs font-medium">
       {LANGS.map((l) =>
@@ -12,7 +23,7 @@ export function LanguageSwitch({ lang, label }: { lang: Lang; label: string }) {
         ) : (
           <a
             key={l}
-            href={HOME[l]}
+            href={alternates[l]}
             hrefLang={l}
             lang={l}
             title={l === "en" ? "English" : "Español"}

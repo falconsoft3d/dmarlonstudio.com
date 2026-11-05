@@ -128,3 +128,92 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Impresión: el manual y el dossier se imprimen a PDF con Chrome      */
+/* (scripts/build-docs.mjs). A4, números de página y siempre en claro. */
+/* ------------------------------------------------------------------ */
+@page {
+  size: A4;
+  margin: 16mm 15mm 18mm;
+  @bottom-center {
+    content: counter(page);
+    font-size: 9pt;
+    color: #6b7280;
+  }
+}
+
+@page :first {
+  @bottom-center {
+    content: none;
+  }
+}
+
+/* Las hojas del dossier ocupan la página entera. */
+@page dossier {
+  size: A4;
+  margin: 0;
+  @bottom-center {
+    content: none;
+  }
+}
+
+@media print {
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]) {
+    --canvas: #f5f6f8;
+    --surface: #ffffff;
+    --soft: #eef0f3;
+    --line: #e1e3e8;
+    --ink: #1b1d22;
+    --muted: #4b5260;
+    --accent: #2b5fd9;
+    --accent-strong: #1f4bb8;
+    --on-accent: #ffffff;
+    --success: #2f9e44;
+    --warning: #b35c00;
+    --ide-bar: #e9ebef;
+    --ide-panel: #f7f8fa;
+    --ide-canvas: #eceef2;
+    --ide-form: #f0f0f0;
+    --ide-select: rgba(43, 95, 217, 0.14);
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    background: #ffffff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .manual-print .print-chapter {
+    break-before: page;
+  }
+
+  .manual-print h1,
+  .manual-print h2,
+  .manual-print h3 {
+    break-after: avoid;
+  }
+
+  .dossier-sheet {
+    page: dossier;
+    break-after: page;
+    width: 210mm;
+    max-width: none;
+    height: 297mm;
+    min-height: 0;
+    margin: 0;
+    box-shadow: none;
+    background: #ffffff;
+  }
+
+  .dossier-sheet:last-child {
+    break-after: auto;
+  }
+}

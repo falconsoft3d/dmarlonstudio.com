@@ -10,11 +10,13 @@ export const en: Content = {
   header: {
     sectionsLabel: "Sections",
     nav: [
-      { href: "#designer", label: "Designer" },
-      { href: "#editor", label: "Editor" },
-      { href: "#tools", label: "Tools" },
-      { href: "#ai", label: "AI" },
-      { href: "#roadmap", label: "Roadmap" },
+      { href: "/en#designer", label: "Designer" },
+      { href: "/en#editor", label: "Editor" },
+      { href: "/en#tools", label: "Tools" },
+      { href: "/en#ai", label: "AI" },
+      { href: "/en#roadmap", label: "Roadmap" },
+      { href: "/en/manual", label: "Manual" },
+      { href: "/en/dossier", label: "Dossier" },
     ],
     download: "Download",
     languageLabel: "Language",
@@ -144,6 +146,8 @@ export const en: Content = {
     linksLabel: "Links",
     versions: "Releases",
     download: "Download",
+    manual: "Manual",
+    dossier: "Dossier",
   },
   mock: {
     save: "Save",

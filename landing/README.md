@@ -60,3 +60,36 @@ texto nuevo se añade a `content/types.ts` y a los dos archivos de
    (el resto del monorepo es la app de Flutter en `studio/`).
 2. Framework: Next.js (se detecta solo). No necesita variables de entorno.
 3. Añada el dominio `dmarlonstudio.com` en *Settings → Domains*.
+
+## Manual y dossier
+
+| Página | Español | Inglés |
+|---|---|---|
+| Manual (índice) | `/manual` | `/en/manual` |
+| Capítulo | `/manual/<capítulo>` | `/en/manual/<chapter>` |
+| Manual para imprimir | `/manual/imprimir` | `/en/manual/print` |
+| Dossier | `/dosier` | `/en/dossier` |
+
+- Textos del manual: `content/manual/es.ts` y `content/manual/en.ts` (misma
+  forma, `content/manual/types.ts`; los capítulos van en el mismo orden en los
+  dos idiomas). En los textos, `**…**` marca un texto de la interfaz y
+  `` `…` `` código.
+- Textos del dossier: `content/dossier.ts`. Hojas A4 en `components/dossier.tsx`.
+- Capturas: `public/manual/{es,en}/*.jpg`, sacadas de la app de verdad:
+
+  ```bash
+  cd studio && DMS_SCREENSHOTS=1 flutter test test/manual_screenshots_test.dart
+  ```
+
+  La prueba deja PNG en `landing/public/manual`; el script de abajo los pasa a
+  JPEG.
+- PDF (`public/docs/DMarlonStudio-{Manual,Dossier}-{es,en}.pdf`): los imprime
+  Chrome sin ventana desde las páginas de arriba (A4, con números de página):
+
+  ```bash
+  node scripts/build-docs.mjs            # compila la landing y genera los PDF
+  node scripts/build-docs.mjs --no-build # con la compilación que ya hay
+  ```
+
+  Vuelva a generarlos cuando cambie el manual, el dossier o las capturas, y
+  súbalos con el resto de la web.

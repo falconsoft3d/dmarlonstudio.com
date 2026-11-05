@@ -51,7 +51,14 @@ export type Content = {
       releases: string;
     };
   };
-  footer: { changelogTitle: string; linksLabel: string; versions: string; download: string };
+  footer: {
+    changelogTitle: string;
+    linksLabel: string;
+    versions: string;
+    download: string;
+    manual: string;
+    dossier: string;
+  };
   mock: {
     save: string;
     properties: string;

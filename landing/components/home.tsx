@@ -1,13 +1,11 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Downloads } from "@/components/downloads";
 import { IdeMock } from "@/components/ide-mock";
-import { Logo } from "@/components/logo";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { contentOf } from "@/content";
 import type { Section, StepStatus } from "@/content/types";
-import { REPO_URL, RELEASES_URL } from "@/lib/downloads";
 import type { Lang } from "@/lib/i18n";
-import { VERSION } from "@/lib/version";
 
 function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
   return (
@@ -38,7 +36,7 @@ const STATUS_CLASS: Record<StepStatus, string> = {
 /** Portada, la misma en / (español) y en /en (inglés). */
 export function Home({ lang }: { lang: Lang }) {
   const t = contentOf(lang);
-  const { hero, sections, roadmap, downloads, footer } = t;
+  const { hero, sections, roadmap, downloads } = t;
   return (
     <>
       <SiteHeader lang={lang} t={t} />
@@ -117,32 +115,7 @@ export function Home({ lang }: { lang: Lang }) {
         </section>
       </main>
 
-      <footer className="border-t border-line bg-surface">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:px-6">
-          <div className="flex items-center gap-2">
-            <Logo className="size-5" />
-            <span>DMarlon Studio · © {new Date().getFullYear()} Marlon Falcón</span>
-            <a
-              href={`${REPO_URL}/blob/main/CHANGELOG.md`}
-              className="rounded border border-line px-1.5 py-0.5 font-mono text-xs hover:text-ink"
-              title={footer.changelogTitle}
-            >
-              v{VERSION}
-            </a>
-          </div>
-          <nav aria-label={footer.linksLabel} className="flex gap-5 sm:ml-auto">
-            <a href={REPO_URL} className="hover:text-ink">
-              GitHub
-            </a>
-            <a href={RELEASES_URL} className="hover:text-ink">
-              {footer.versions}
-            </a>
-            <a href={`#${downloads.id}`} className="hover:text-ink">
-              {footer.download}
-            </a>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} t={t} />
     </>
   );
 }

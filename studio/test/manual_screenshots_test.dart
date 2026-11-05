@@ -19,7 +19,9 @@ import 'package:dmarlon_studio/db/dev_tools.dart';
 import 'package:dmarlon_studio/db/diagrams.dart';
 import 'package:dmarlon_studio/dev/diagram.dart';
 import 'package:dmarlon_studio/i18n/i18n.dart';
+import 'package:dmarlon_studio/i18n/po.dart';
 import 'package:dmarlon_studio/main.dart';
+import 'package:dmarlon_studio/ui/tk_project.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -45,13 +47,16 @@ Future<void> _font(String family, List<String> assets) async {
 void main() {
   testWidgets('capturas del manual', (tester) async {
     late Directory tmp;
+    Directory? shared;
     late String calc;
     await tester.runAsync(() async {
       tmp = await Directory.systemTemp.createTemp('dms_shots_');
       StudioDb.dirOverride = p.join(tmp.path, 'support');
+      // Una ruta con aspecto normal en las capturas (no la temporal).
+      shared = Directory('/Users/Shared/DMarlon Studio');
+      if (shared!.existsSync()) shared = null;
       ProjectStore.workspaceOverride = p.join(
-        tmp.path,
-        'DMarlon Studio',
+        shared?.path ?? p.join(tmp.path, 'DMarlon Studio'),
         'Proyectos',
       );
       await StudioDb.open();
@@ -65,6 +70,37 @@ void main() {
           'assets/fonts/DejaVuSansMono.ttf',
           'assets/fonts/DejaVuSansMono-Bold.ttf',
         ]);
+      }
+      // Las fuentes de Material vienen con Flutter, junto al motor de pruebas.
+      var dir = File(Platform.resolvedExecutable).resolveSymbolicLinksSync();
+      while (!Directory(p.join(dir, 'material_fonts')).existsSync() &&
+          p.dirname(dir) != dir) {
+        dir = p.dirname(dir);
+      }
+      final material = p.join(dir, 'material_fonts');
+      Future<void> fileFont(String family, List<String> files) async {
+        final l = FontLoader(family);
+        for (final f in files) {
+          l.addFont(
+            File(
+              p.join(material, f),
+            ).readAsBytes().then((b) => ByteData.sublistView(b)),
+          );
+        }
+        await l.load();
+      }
+
+      await fileFont('MaterialIcons', ['MaterialIcons-Regular.otf']);
+      // El lienzo pinta los componentes con Helvetica (la de Tk) y algunos
+      // textos no piden familia: aquí, Roboto.
+      for (final f in [
+        'Roboto',
+        'Helvetica',
+        'Arial',
+        'TkDefaultFont',
+        'FlutterTest',
+      ]) {
+        await fileFont(f, ['Roboto-Regular.ttf', 'Roboto-Bold.ttf']);
       }
       await _font('packages/lucide_icons_flutter/Lucide', [
         'packages/lucide_icons_flutter/assets/lucide.ttf',
@@ -152,8 +188,8 @@ void main() {
           edges: [
             DEdge('a', 'b'),
             DEdge('b', 'c'),
-            DEdge('c', 'd', label: 'Sí'),
-            DEdge('c', 'e', label: 'No'),
+            DEdge('c', 'd'),
+            DEdge('c', 'e'),
             DEdge('d', 'f'),
           ],
         ),
@@ -166,22 +202,31 @@ void main() {
 
     final boundary = GlobalKey();
 
-    Future<void> settle([int ms = 400]) async {
-      for (var i = 0; i < 6; i++) {
+    // La app lee archivos y la base de verdad: se alterna tiempo real (para
+    // que lleguen) con fotogramas (para que se pinten).
+    Future<void> settle([int rounds = 25]) async {
+      for (var i = 0; i < rounds; i++) {
         await tester.runAsync(
-          () => Future<void>.delayed(Duration(milliseconds: ms ~/ 3)),
+          () => Future<void>.delayed(const Duration(milliseconds: 30)),
         );
-        await tester.pump(const Duration(milliseconds: 100));
+        await tester.pump(const Duration(milliseconds: 50));
       }
     }
 
-    Future<void> shot(String lang, String name) async {
+    Future<void> shot(String lang, String name, {double cropBottom = 0}) async {
       await settle();
       await tester.runAsync(() async {
         final ro =
             boundary.currentContext!.findRenderObject()!
                 as RenderRepaintBoundary;
-        final image = await ro.toImage(pixelRatio: 2);
+        var image = await ro.toImage(pixelRatio: 2);
+        if (cropBottom > 0) {
+          // Sin la franja de abajo (la barra de estado del Editor).
+          final rec = ui.PictureRecorder();
+          final h = (image.height - cropBottom * 2).round();
+          Canvas(rec).drawImage(image, Offset.zero, Paint());
+          image = await rec.endRecording().toImage(image.width, h);
+        }
         final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
         final f = File(p.join(_out, lang, '$name.png'));
         await f.parent.create(recursive: true);
@@ -199,12 +244,32 @@ void main() {
     }
 
     for (final lang in ['es', 'en']) {
-      await tester.runAsync(() => I18n.use(lang));
+      await tester.runAsync(() async {
+        await I18n.use(lang);
+        // La web no nombra a otros productos: en las capturas, estos dos
+        // textos sin la comparación (los demás, tal cual en la app).
+        final cat = lang == 'es'
+            ? <String, String>{}
+            : catalogOf(await rootBundle.loadString('assets/i18n/en.po'));
+        const studio =
+            'IDE visual al estilo de Delphi para crear aplicaciones de Python (tkinter y Flask). Próximamente, Electron.';
+        const designer =
+            'Diseñe ventanas de escritorio con tkinter arrastrando componentes, como en Delphi. Cada una se abre en su propia ventana del sistema y se ejecuta en este equipo con los permisos de su usuario. En macOS, los botones tienen el aspecto del sistema y no toman el color de fondo.';
+        cat[studio] = lang == 'es'
+            ? 'IDE visual para crear aplicaciones de Python (tkinter y Flask). Próximamente, Electron.'
+            : 'Visual IDE for building Python apps (tkinter and Flask). Electron coming soon.';
+        cat[designer] = lang == 'es'
+            ? 'Diseñe ventanas de escritorio con tkinter arrastrando componentes. Cada una se abre en su propia ventana del sistema y se ejecuta en este equipo con los permisos de su usuario. En macOS, los botones tienen el aspecto del sistema y no toman el color de fondo.'
+            : 'Design tkinter desktop windows by dragging components. Each one opens in its own system window and runs on this computer with your user’s permissions. On macOS, buttons use the system look and ignore the background color.';
+        setCatalog(cat);
+      });
+      // Cada idioma empieza en la lista de proyectos.
+      TkProject.close();
       await tester.pumpWidget(const SizedBox());
       await tester.pumpWidget(
         RepaintBoundary(key: boundary, child: const StudioApp()),
       );
-      await settle(900);
+      await settle(60);
 
       // Diseñador: proyectos, un proyecto, su código y Claude Code.
       await tap(find.byKey(const ValueKey('nav-0')));
@@ -227,7 +292,7 @@ void main() {
       await tap(find.byKey(const ValueKey('nav-1')));
       await tap(find.textContaining('calculadora'));
       await tap(find.text('Form1.py'));
-      await shot(lang, 'editor');
+      await shot(lang, 'editor', cropBottom: 24);
 
       // Herramientas.
       await tap(find.byKey(const ValueKey('nav-2')));
@@ -241,6 +306,10 @@ void main() {
       await tap(find.byKey(const ValueKey('nav-5')));
       await tap(find.text('Alta de cliente'));
       await shot(lang, 'diagrams');
+      // El diagrama se abre encima: se vuelve a la lista.
+      await tester.runAsync(() async {});
+      tester.state<NavigatorState>(find.byType(Navigator).last).maybePop();
+      await settle();
       await tap(find.byKey(const ValueKey('nav-6')));
       await shot(lang, 'settings');
     }
@@ -248,6 +317,9 @@ void main() {
     await tester.runAsync(() async {
       await StudioDb.close();
       await tmp.delete(recursive: true);
+      if (shared != null && shared!.existsSync()) {
+        await shared!.delete(recursive: true);
+      }
     });
   }, skip: !_on);
 }

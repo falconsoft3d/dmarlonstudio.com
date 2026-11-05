@@ -23,6 +23,7 @@ import '../tk_project.dart';
 import '../theme.dart';
 import '../widgets.dart';
 import 'tk_canvas.dart';
+import 'tk_claude_panel.dart';
 import 'tk_inspector.dart';
 
 /// Diseñador de interfaz: un diseñador visual de formularios, al estilo de
@@ -515,6 +516,9 @@ class _TkEditorState extends State<_TkEditor> {
   bool _snap = true;
   int _tab = 0;
   bool _output = false;
+
+  /// Panel de Claude Code a la derecha.
+  static bool _claude = false;
   bool _aiBusy = false;
   List<String> _connections = const [];
   String? _lastEdit;
@@ -1063,6 +1067,25 @@ class _TkEditorState extends State<_TkEditor> {
   }
 
   // ------------------------------------------------------------- acciones
+  /// Carga el diseño y el código que Claude Code dejó en el disco, como un
+  /// paso que se puede deshacer.
+  Future<void> _reloadFromClaude() async {
+    final x = await ProjectStore.get(doc.id);
+    if (x == null || !mounted) return;
+    _begin();
+    _lastEdit = null;
+    setState(() {
+      doc
+        ..design = x.design
+        ..touch();
+      _setCode(x.code);
+      _selection = _selection.where((n) => d.byName(n) != null).toSet();
+      if (_tab == 2) _regenerate();
+    });
+    // El disco ya tiene esto: queda guardado.
+    await _save();
+  }
+
   Future<bool> _save() async {
     final done = await runAction(context, () async {
       await doc.save();
@@ -1242,6 +1265,13 @@ class _TkEditorState extends State<_TkEditor> {
               tr('Pedir a la IA'),
               _aiBusy ? null : _askAi,
               key: const ValueKey('tk-ai'),
+            ),
+            _tool(
+              LucideIcons.bot,
+              tr('Chat con Claude Code'),
+              () => setState(() => _claude = !_claude),
+              key: const ValueKey('tk-claude'),
+              on: _claude,
             ),
             if (_aiBusy)
               const SizedBox(
@@ -1620,6 +1650,14 @@ class _TkEditorState extends State<_TkEditor> {
                 children: [
                   _leftPanel(t),
                   Expanded(child: _center(t)),
+                  if (_claude)
+                    TkClaudePanel(
+                      key: ValueKey('tk-claude-${doc.id}'),
+                      doc: doc,
+                      onSave: _save,
+                      onReload: _reloadFromClaude,
+                      onClose: () => setState(() => _claude = false),
+                    ),
                 ],
               ),
             ),

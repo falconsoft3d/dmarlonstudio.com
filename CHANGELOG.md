@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.4 — 2026-11-05
+
+- Diseñador: **chat con Claude Code** desplegable a la derecha (botón del
+  robot). Usa la sesión de Claude Code del equipo, sin clave de API: edita el
+  diseño y el código del proyecto, y el resultado se carga en el Diseñador
+  como un paso que se puede deshacer.
+
 ## 1.0.3 — 2026-11-05
 
 - Diseñador: ejecutar (▶, F9) en verde y detener (■) en rojo.

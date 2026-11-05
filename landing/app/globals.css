@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* dark: sigue al tema elegido (o al del sistema si no se eligió). */
+@custom-variant dark {
+  :root[data-theme="dark"] & {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) & {
+      @slot;
+    }
+  }
+}
+
 /* Paleta de DMarlon Studio: grafito de IDE con el azul de la marca. */
 :root {
   --canvas: #f5f6f8;
@@ -22,8 +34,10 @@
   --ide-select: rgba(43, 95, 217, 0.14);
 }
 
+/* Oscuro: el del sistema, salvo que el visitante elija claro; o forzado
+   con data-theme="dark" desde el selector de la cabecera. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --canvas: #141518;
     --surface: #1e1f22;
     --soft: #25272b;
@@ -42,6 +56,34 @@
     --ide-form: #2f3136;
     --ide-select: rgba(122, 162, 247, 0.2);
   }
+}
+
+:root[data-theme="dark"] {
+  --canvas: #141518;
+  --surface: #1e1f22;
+  --soft: #25272b;
+  --line: #34363c;
+  --ink: #e6e8eb;
+  --muted: #9aa0aa;
+  --accent: #7aa2f7;
+  --accent-strong: #9bb8fa;
+  --on-accent: #10131a;
+  --success: #4cc46a;
+  --warning: #f0a04b;
+
+  --ide-bar: #2b2d31;
+  --ide-panel: #1e1f22;
+  --ide-canvas: #18191c;
+  --ide-form: #2f3136;
+  --ide-select: rgba(122, 162, 247, 0.2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 @theme inline {

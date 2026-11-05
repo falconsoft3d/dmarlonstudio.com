@@ -3,8 +3,11 @@ import { Downloads } from "@/components/downloads";
 import { IdeMock } from "@/components/ide-mock";
 import { Logo } from "@/components/logo";
 import { SiteHeader } from "@/components/site-header";
-import { hero, roadmap, sections, type Section, type Step } from "@/content/es";
+import { contentOf } from "@/content";
+import type { Section, StepStatus } from "@/content/types";
 import { REPO_URL, RELEASES_URL } from "@/lib/downloads";
+import type { Lang } from "@/lib/i18n";
+import { VERSION } from "@/lib/version";
 
 function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
   return (
@@ -26,16 +29,19 @@ function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
   );
 }
 
-const STATUS: Record<Step["status"], { label: string; className: string }> = {
-  listo: { label: "Disponible", className: "bg-success/12 text-success" },
-  "en camino": { label: "En camino", className: "bg-accent/12 text-accent" },
-  idea: { label: "Más adelante", className: "bg-soft text-muted" },
+const STATUS_CLASS: Record<StepStatus, string> = {
+  ready: "bg-success/12 text-success",
+  next: "bg-accent/12 text-accent",
+  later: "bg-soft text-muted",
 };
 
-export default function Home() {
+/** Portada, la misma en / (español) y en /en (inglés). */
+export function Home({ lang }: { lang: Lang }) {
+  const t = contentOf(lang);
+  const { hero, sections, roadmap, downloads, footer } = t;
   return (
     <>
-      <SiteHeader />
+      <SiteHeader lang={lang} t={t} />
       <main id="inicio" className="flex-1">
         {/* Portada */}
         <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:pt-20 lg:pb-24">
@@ -48,21 +54,21 @@ export default function Home() {
             <p className="mt-5 text-lg leading-relaxed text-muted text-pretty">{hero.text}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#descargas"
+                href={`#${downloads.id}`}
                 className="inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 font-medium text-on-accent transition-colors hover:bg-accent-strong"
               >
                 <Download className="size-4" aria-hidden />
                 {hero.primary}
               </a>
               <a
-                href="#disenador"
+                href={`#${sections[0].id}`}
                 className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-5 py-2.5 font-medium transition-colors hover:border-accent hover:text-accent"
               >
                 {hero.secondary}
                 <ArrowRight className="size-4" aria-hidden />
               </a>
             </div>
-            <ul className="mt-8 flex flex-wrap gap-2 text-sm" aria-label="Entornos">
+            <ul className="mt-8 flex flex-wrap gap-2 text-sm" aria-label={hero.targetsLabel}>
               {hero.targets.map((t) => (
                 <li key={t} className="rounded-md bg-soft px-2.5 py-1 font-mono text-xs text-muted">
                   {t}
@@ -70,7 +76,7 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          <IdeMock />
+          <IdeMock t={t.mock} />
         </section>
 
         {sections.map((s, i) => (
@@ -78,17 +84,17 @@ export default function Home() {
         ))}
 
         {/* Hoja de ruta */}
-        <section id="hoja-de-ruta" className="border-t border-line bg-surface">
+        <section id={roadmap.id} className="border-t border-line bg-surface">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-            <p className="text-sm font-medium text-accent">Hoja de ruta</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Un diseño, varios entornos</h2>
+            <p className="text-sm font-medium text-accent">{roadmap.eyebrow}</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">{roadmap.title}</h2>
             <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {roadmap.map((r) => (
+              {roadmap.steps.map((r) => (
                 <li key={r.name} className="rounded-xl border border-line bg-canvas p-5">
                   <div className="flex items-center justify-between gap-2">
                     <h3 className="font-semibold">{r.name}</h3>
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS[r.status].className}`}>
-                      {STATUS[r.status].label}
+                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_CLASS[r.status]}`}>
+                      {roadmap.status[r.status]}
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{r.text}</p>
@@ -99,15 +105,13 @@ export default function Home() {
         </section>
 
         {/* Descargas */}
-        <section id="descargas" className="border-t border-line">
+        <section id={downloads.id} className="border-t border-line">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-            <p className="text-sm font-medium text-accent">Descargas</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Descargue DMarlon Studio</h2>
-            <p className="mt-3 max-w-2xl text-muted">
-              Gratis para macOS y Windows. Se compila automáticamente desde el repositorio con cada versión.
-            </p>
+            <p className="text-sm font-medium text-accent">{downloads.eyebrow}</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">{downloads.title}</h2>
+            <p className="mt-3 max-w-2xl text-muted">{downloads.intro}</p>
             <div className="mt-10">
-              <Downloads />
+              <Downloads t={downloads} />
             </div>
           </div>
         </section>
@@ -118,16 +122,23 @@ export default function Home() {
           <div className="flex items-center gap-2">
             <Logo className="size-5" />
             <span>DMarlon Studio · © {new Date().getFullYear()} Marlon Falcón</span>
+            <a
+              href={`${REPO_URL}/blob/main/CHANGELOG.md`}
+              className="rounded border border-line px-1.5 py-0.5 font-mono text-xs hover:text-ink"
+              title={footer.changelogTitle}
+            >
+              v{VERSION}
+            </a>
           </div>
-          <nav aria-label="Enlaces" className="flex gap-5 sm:ml-auto">
+          <nav aria-label={footer.linksLabel} className="flex gap-5 sm:ml-auto">
             <a href={REPO_URL} className="hover:text-ink">
               GitHub
             </a>
             <a href={RELEASES_URL} className="hover:text-ink">
-              Versiones
+              {footer.versions}
             </a>
-            <a href="#descargas" className="hover:text-ink">
-              Descargar
+            <a href={`#${downloads.id}`} className="hover:text-ink">
+              {footer.download}
             </a>
           </nav>
         </div>

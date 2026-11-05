@@ -1,0 +1,161 @@
+import type { Content } from "./types";
+
+/** Home page copy in English (/en). Same shape as content/es.ts. */
+export const en: Content = {
+  meta: {
+    title: "DMarlon Studio · Visual IDE for Python",
+    description:
+      "A visual desktop IDE: design windows by dragging components, write the event code in Python and run them. tkinter and Flask today; Electron coming next.",
+  },
+  header: {
+    sectionsLabel: "Sections",
+    nav: [
+      { href: "#designer", label: "Designer" },
+      { href: "#editor", label: "Editor" },
+      { href: "#tools", label: "Tools" },
+      { href: "#ai", label: "AI" },
+      { href: "#roadmap", label: "Roadmap" },
+    ],
+    download: "Download",
+    languageLabel: "Language",
+  },
+  theme: {
+    system: "Theme: system",
+    dark: "Theme: dark",
+    light: "Theme: light",
+    change: "Change theme",
+  },
+  hero: {
+    eyebrow: "Multi-target visual IDE",
+    title: "Design windows by dragging. Program them in Python.",
+    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code in Python and run it with F9. Today it builds desktop apps with tkinter and web apps with Flask; Electron is the next target.",
+    primary: "Download",
+    secondary: "See what's inside",
+    targetsLabel: "Targets",
+    targets: ["tkinter", "Flask", "Electron (coming)"],
+  },
+  sections: [
+    {
+      id: "designer",
+      eyebrow: "Visual designer",
+      title: "Forms with a palette, an inspector and events",
+      intro:
+        "The designer generates a readable Python file from the design and your code. You only write the event handlers; the studio maintains the rest.",
+      features: [
+        { title: "Component palette", text: "Labels, buttons, entries, checkboxes, lists, combo boxes, tables, frames, data connections and more: drag them onto the form or add them with a double click." },
+        { title: "Object inspector", text: "Properties and events of the selected component or of the window, with colors, fonts, references between components and name validation." },
+        { title: "Events in Python", text: "Double-clicking a component creates its method (Button1_click) and opens it in the code. Renaming a component renames its methods." },
+        { title: "Grid and alignment", text: "Snap to grid, align left, center or right, match width and height, bring to front and nudge with the arrow keys." },
+        { title: "Undo, copy and paste", text: "Every change can be undone; components are copied between windows along with their children." },
+        { title: "F9 runs, F12 toggles", text: "F9 launches the window with your local Python and shows its output; F12 switches between design and code. You can also export the .py file." },
+      ],
+    },
+    {
+      id: "editor",
+      eyebrow: "Code editor",
+      title: "A VS Code-style editor, inside the studio",
+      intro: "For the rest of your project, and for any folder on your computer.",
+      features: [
+        { title: "Explorer and tabs", text: "File tree with create, rename and delete; tabs with syntax highlighting for dozens of languages and line numbers." },
+        { title: "Find and replace", text: "In the open file and across every file in the folder." },
+        { title: "Terminal", text: "A terminal built into the working folder, without leaving the studio." },
+        { title: "Git and GitHub", text: "Changes, commit, push and pull; clone repositories from your GitHub account." },
+      ],
+    },
+    {
+      id: "tools",
+      eyebrow: "Tools",
+      title: "What you need around the code",
+      intro:
+        "Connections are stored in the studio, not in the code it generates: passwords reach your app through the environment when it runs.",
+      features: [
+        { title: "Databases", text: "A manager for SQLite, PostgreSQL, MySQL / MariaDB and MongoDB: schema, queries and results." },
+        { title: "API client", text: "Postman-style HTTP requests, with collections, history and {{like_this}} environment variables." },
+        { title: "FTP", text: "Browse, upload and download files on your FTP servers." },
+        { title: "Diagrams", text: "Flowcharts and entity-relationship diagrams, with PDF export." },
+      ],
+    },
+    {
+      id: "ai",
+      eyebrow: "Artificial intelligence",
+      title: "Ask it for a window, or for an event's code",
+      intro: "The AI proposes; you see the proposal and decide whether to apply it. It works with your own key.",
+      features: [
+        { title: "Designs windows", text: "Describe the window (or attach an image) and the AI returns the design and the code, validated against the component catalog." },
+        { title: "Writes handlers", text: "Select a component and say what its event should do: only that method changes." },
+        { title: "Several providers", text: "OpenAI, Anthropic and OpenAI-compatible APIs. Your key stays on your computer." },
+      ],
+    },
+  ],
+  roadmap: {
+    id: "roadmap",
+    eyebrow: "Roadmap",
+    title: "One design, many targets",
+    status: { ready: "Available", next: "Coming", later: "Later" },
+    steps: [
+      { name: "tkinter", status: "ready", text: "Python desktop windows, each in its own system window." },
+      { name: "Flask", status: "ready", text: "The same designer builds web apps that run on a local server." },
+      { name: "Electron", status: "next", text: "Desktop apps built with web technologies from the same design." },
+      { name: "More targets", status: "later", text: "One design, many destinations: the goal is to build for multiple environments." },
+    ],
+  },
+  downloads: {
+    id: "downloads",
+    eyebrow: "Downloads",
+    title: "Download DMarlon Studio",
+    intro: "Free for macOS and Windows. Built automatically from the repository with every release.",
+    yours: "Your system",
+    download: "Download",
+    soon: "Coming soon",
+    notes: {
+      macos: {
+        requirements: "macOS 10.15 or later · Apple Silicon and Intel",
+        steps: [
+          "Unzip the file and move “DMarlon Studio” to Applications.",
+          "The first time, right-click the app → Open: the app is not signed yet.",
+          "Confirm “Open” in the unidentified developer warning.",
+        ],
+      },
+      windows: {
+        requirements: "Windows 10 or 11, 64-bit",
+        steps: [
+          "Unzip the whole folder (for example, to the Desktop).",
+          "Open DMarlonStudio.exe.",
+          "If “Windows protected your PC” appears, click “More info” → “Run anyway”.",
+        ],
+      },
+      linux: {
+        requirements: "Coming soon",
+        steps: ["The Linux package is on its way. Meanwhile, you can build it from source with Flutter."],
+      },
+    },
+    requirement: {
+      before: "To run what you design you need",
+      python: "Python 3 with tkinter",
+      middle: "for desktop windows and",
+      flask: "Flask",
+      afterFlask: "for web apps",
+      after: "The studio detects the installed Python and tells you what is missing. Previous versions and notes on",
+      releases: "GitHub Releases",
+    },
+  },
+  footer: {
+    changelogTitle: "See what changed in this version",
+    linksLabel: "Links",
+    versions: "Releases",
+    download: "Download",
+  },
+  mock: {
+    save: "Save",
+    properties: "Properties",
+    events: "Events",
+    design: "Design",
+    code: "Code",
+    generated: "Generated Python",
+    window: "Contacts",
+    name: "Name",
+    email: "Email",
+    phone: "Phone",
+  },
+  notFound: { title: "This page does not exist", home: "Go to the home page" },
+};

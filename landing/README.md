@@ -22,10 +22,13 @@ npm run lint
 
 | Ruta | Contenido |
 |---|---|
-| `app/layout.tsx` | `<html lang="es">`, fuentes y metadatos (título, descripción, Open Graph) |
-| `app/page.tsx` | La portada: secciones, hoja de ruta, descargas y pie |
-| `app/robots.ts`, `app/sitemap.ts` | `robots.txt` y `sitemap.xml` |
-| `content/es.ts` | Todos los textos de la portada |
+| `app/(es)/` | Layout raíz y portada en español (`/`) |
+| `app/(en)/en/` | Layout raíz y portada en inglés (`/en`) |
+| `app/global-not-found.tsx` | 404 en los dos idiomas |
+| `app/robots.ts`, `app/sitemap.ts` | `robots.txt` y `sitemap.xml` (con hreflang) |
+| `components/home.tsx` | La portada, compartida por los dos idiomas |
+| `content/es.ts`, `content/en.ts` | Todos los textos, con la forma de `content/types.ts` |
+| `lib/i18n.ts`, `lib/metadata.ts` | Idiomas, rutas y metadatos por idioma |
 | `components/ide-mock.tsx` | Maqueta del diseñador en HTML y CSS (sin imágenes) |
 | `components/downloads.tsx` | Tarjetas de descarga; resalta el sistema del visitante |
 | `lib/downloads.ts` | Repositorio, etiqueta y nombres de los .zip |
@@ -43,11 +46,13 @@ Si cambian el repositorio, la etiqueta o los nombres de los archivos,
 edite solo `lib/downloads.ts`. Linux figura como «Próximamente»
 (`url: null`); al publicarlo, basta con darle su `url` y `file`.
 
-### Inglés (/en)
+### Idiomas
 
-Hoy solo hay español en `/`. Para añadir `/en`: traduzca `content/es.ts` a
-`content/en.ts` y pase a dos layouts raíz con grupos de rutas, `app/(es)` y
-`app/(en)`, cada uno con su `<html lang>`, como en la landing de ERPSqlite.
+Español en `/` e inglés en `/en`, con dos layouts raíz (`app/(es)` y
+`app/(en)/en`) para que cada uno tenga su `<html lang>`, como en la landing de
+ERPSqlite. El selector ES / EN de la cabecera lleva a la otra portada. Un
+texto nuevo se añade a `content/types.ts` y a los dos archivos de
+`content/`: TypeScript avisa si falta en alguno.
 
 ## Despliegue en Vercel
 

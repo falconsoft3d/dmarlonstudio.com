@@ -9,6 +9,8 @@ import '../core/errors.dart';
 import '../i18n/tr.dart';
 import 'tk_debug.dart';
 import 'tk_debug_agent.dart';
+import 'tk_electron.dart';
+import 'tk_electron_run.dart';
 import 'tk_run_types.dart';
 
 /// Lanza las ventanas de Python como procesos aparte, con el usuario del
@@ -412,6 +414,7 @@ class TkRunner {
   static Future<TkRun> start(
     TkPrepared prepared, {
     TkDebugSession? debug,
+    bool devtools = false,
   }) async {
     final key =
         p.normalize(prepared.id) + (debug?.tests ?? false ? '#tests' : '');
@@ -423,11 +426,94 @@ class TkRunner {
       );
     }
     try {
+      if (prepared.electron) {
+        return await _launchElectron(prepared, key, devtools);
+      }
       return await _launch(prepared, key, debug);
     } finally {
       _starting.remove(key);
     }
   }
+
+  /// Lanza la aplicación de Electron de build/electron con el entorno
+  /// compartido (instalándolo antes si falta). [devtools]: depurar, con las
+  /// herramientas de desarrollo y los puntos de parada como `debugger;`.
+  static Future<TkRun> _launchElectron(
+    TkPrepared prepared,
+    String key,
+    bool devtools,
+  ) async {
+    final node = await TkElectronRuntime.findNode();
+    if (node == null && await TkElectronRuntime.electron() == null) {
+      throw UserError(
+        tr(
+          'Las aplicaciones de Electron necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo.',
+        ),
+      );
+    }
+    final app = File(prepared.file).parent.path;
+    if (devtools) {
+      await File(prepared.file).writeAsString(
+        TkElectron.withBreakpoints(
+          prepared.source,
+          TkBreakpoints.of(prepared.id),
+        ),
+        flush: true,
+      );
+    }
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        final bin = await TkElectronRuntime.ensure(run.add);
+        if (stopped) return run.finish(-1);
+        final env = TkElectronRuntime.environment(node)
+          ..['DMSTUDIO_NODE_MODULES'] = await TkElectronRuntime.nodeModules();
+        if (devtools) env['DMSTUDIO_DEVTOOLS'] = '1';
+        final started = await Process.start(
+          bin,
+          [app],
+          workingDirectory: prepared.id,
+          environment: env,
+          includeParentEnvironment: false,
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen((l) {
+                  if (!_electronNoise(l)) run.add(l);
+                })
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// Avisos de Chromium que no dicen nada al usuario.
+  static bool _electronNoise(String l) =>
+      l.trim().isEmpty ||
+      l.contains('Electron Security Warning') ||
+      RegExp(r'^\[\d+:\d+/[\d.]+:(INFO|WARNING|VERBOSE)').hasMatch(l);
 
   /// Las pruebas en marcha (o las últimas) del proyecto [id].
   static TkRun? testsOf(String id) => _runs['${p.normalize(id)}#tests'];

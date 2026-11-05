@@ -156,7 +156,7 @@ class TkProject {
   }
 
   /// Archivo del código del usuario: la clase de la ventana.
-  String get codeName => '${design.name}.py';
+  String get codeName => ProjectStore.unitName(design);
 
   /// Ruta completa del archivo del código del usuario.
   String get codePath => ProjectStore.unitPath(id, design);

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import '../core/errors.dart';
 import 'tk_chart.dart';
+import 'tk_electron.dart';
 import 'tk_helpers.dart';
 import 'tk_html_view.dart';
 import 'tk_ai_component.dart';
@@ -1354,6 +1355,7 @@ class TkCodegen {
   /// un problema.
   static String generate(TkDesign d, String code) {
     if (d.isWeb) return TkWebCodegen.generate(d, code);
+    if (d.isElectron) return TkElectron.preview(d, code);
     final problems = d.problems();
     if (problems.isNotEmpty) throw UserError(problems.join('\n'));
     final unit = code.replaceAll('\r\n', '\n').trimRight();

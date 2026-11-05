@@ -102,7 +102,12 @@ class TkPrepared {
     this.anthropicKey,
     this.unitStart = 0,
     this.unitLines = 0,
+    this.electron = false,
   });
+
+  /// Aplicación de Electron: [file] es su Form1.js en build/electron y
+  /// [source], el código del usuario.
+  final bool electron;
 
   /// Líneas del archivo generado antes del código del usuario, y cuántas
   /// tiene ese código: el depurador solo se detiene ahí.

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
+import 'package:re_highlight/languages/javascript.dart';
 import 'package:re_highlight/languages/python.dart';
 import 'package:re_highlight/styles/vs.dart';
 import 'package:re_highlight/styles/vs2015.dart';
@@ -14,8 +15,10 @@ import '../../code/tk_ai.dart';
 import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/tk_debug.dart';
+import '../../code/tk_electron.dart';
 import '../../code/tk_model.dart';
 import '../../code/tk_run.dart';
+import '../../code/tk_unit.dart';
 import '../../core/errors.dart';
 import '../../core/ai_usage.dart';
 import '../../core/project_store.dart';
@@ -636,7 +639,11 @@ class _PythonEditor extends StatelessWidget {
     this.project,
     this.currentLine,
     this.onCondition,
+    this.javascript = false,
   });
+
+  /// Resaltado de JavaScript (Electron) en lugar de Python.
+  final bool javascript;
   final Key? editorKey;
   final CodeLineEditingController controller;
   final bool readOnly;
@@ -676,7 +683,9 @@ class _PythonEditor extends StatelessWidget {
             : const Color(0xFFF5F5F5),
         chunkIndicatorColor: _editorDim,
         codeTheme: CodeHighlightTheme(
-          languages: {'python': CodeHighlightThemeMode(mode: langPython)},
+          languages: javascript
+              ? {'javascript': CodeHighlightThemeMode(mode: langJavascript)}
+              : {'python': CodeHighlightThemeMode(mode: langPython)},
           theme: dark ? vs2015Theme : vsTheme,
         ),
       ),
@@ -1122,7 +1131,8 @@ class _TkEditorState extends State<_TkEditor> {
       var name = base;
       for (
         var i = 2;
-        TkUnit.lineOf(code, name) != null || methodNames.containsValue(name);
+        tkUnitOf(d).lineOf(code, name) != null ||
+            methodNames.containsValue(name);
         i++
       ) {
         name = '${base}_$i';
@@ -1143,8 +1153,9 @@ class _TkEditorState extends State<_TkEditor> {
     }
     for (final MapEntry(key: old, value: name) in methodNames.entries) {
       final m = clip.methods[old];
-      if (m == null) {
-        code = TkUnit.ensureMethod(code, d.name, name);
+      // En JavaScript se pegan los métodos vacíos.
+      if (m == null || d.isElectron) {
+        code = tkUnitOf(d).ensureMethod(code, d.name, name);
         continue;
       }
       var body = m.body;
@@ -1358,7 +1369,7 @@ class _TkEditorState extends State<_TkEditor> {
       if (d.byName(name) != null) return tr('Ese nombre ya existe.');
       _begin();
       _lastEdit = null;
-      _setCode(TkUnit.renameForm(_code.text, d.name, name));
+      _setCode(tkUnitOf(d).renameForm(_code.text, d.name, name));
       d.name = name;
       _changed();
       return null;
@@ -1369,12 +1380,12 @@ class _TkEditorState extends State<_TkEditor> {
     _begin();
     _lastEdit = null;
     final old = w.name;
-    var code = TkUnit.renameWidget(_code.text, old, name);
+    var code = tkUnitOf(d).renameWidget(_code.text, old, name);
     // Los métodos con el nombre de serie siguen al componente.
     for (final e in w.events.entries.toList()) {
       if (e.value.startsWith('${old}_')) {
         final m = '$name${e.value.substring(old.length)}';
-        code = TkUnit.renameMethod(code, e.value, m);
+        code = tkUnitOf(d).renameMethod(code, e.value, m);
         w.events[e.key] = m;
       }
     }
@@ -1409,12 +1420,14 @@ class _TkEditorState extends State<_TkEditor> {
   }
 
   void _ensure(String method, TkEvent e) => _setCode(
-    TkUnit.ensureMethod(
+    tkUnitOf(d).ensureMethod(
       _code.text,
       d.name,
       method,
       param: e.param,
-      body: tkFormEvents.contains(e) && e.key == 'close' && !d.isWeb
+      body: d.isElectron
+          ? null
+          : tkFormEvents.contains(e) && e.key == 'close' && !d.isWeb
           ? 'self.root.destroy()'
           : 'pass',
     ),
@@ -1446,7 +1459,7 @@ class _TkEditorState extends State<_TkEditor> {
     setState(() => _tab = 1);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      final line = TkUnit.lineOf(_code.text, method);
+      final line = tkUnitOf(d).lineOf(_code.text, method);
       if (line == null) return;
       final next = line + 1 < _code.lineCount ? line + 1 : line;
       _code.selection = CodeLineSelection.collapsed(
@@ -1585,6 +1598,65 @@ class _TkEditorState extends State<_TkEditor> {
     if (run == null || !mounted) return;
     _attach(run);
     setState(() => _output = true);
+  }
+
+  /// Exporta la aplicación de Electron a una carpeta lista para
+  /// `npm install` y `npm start`.
+  Future<void> _exportElectron() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = doc.name
+          .toLowerCase()
+          .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
+          .replaceAll(RegExp(r'^-+|-+$'), '');
+      final out = Directory(
+        '$parent${Platform.pathSeparator}${slug.isEmpty ? 'app' : slug}',
+      );
+      final files = TkElectron.files(
+        d,
+        _code.text,
+        name: doc.name,
+        standalone: true,
+      );
+      await out.create(recursive: true);
+      for (final e in files.entries) {
+        await File(
+          '${out.path}${Platform.pathSeparator}${e.key}',
+        ).writeAsString(e.value);
+      }
+      await File('${out.path}${Platform.pathSeparator}README.md').writeAsString(
+        '# ${doc.name}\n\n${tr('Aplicación de Electron + React creada con DMarlon Studio.')}\n\n'
+        '```\nnpm install\nnpm start\n```\n',
+      );
+      // Las imágenes del proyecto, junto a la aplicación.
+      final images = Directory('${doc.id}${Platform.pathSeparator}images');
+      if (images.existsSync()) {
+        for (final f in images.listSync(recursive: true).whereType<File>()) {
+          final rel = f.path.substring(doc.id.length + 1);
+          final dest = File('${out.path}${Platform.pathSeparator}$rel');
+          await dest.parent.create(recursive: true);
+          await f.copy(dest.path);
+        }
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr('Exportada en {0}. Ábrala con: npm install y npm start.', [
+              out.path,
+            ]),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
   }
 
   Future<void> _export() => runAction(context, () async {
@@ -1805,7 +1877,13 @@ class _TkEditorState extends State<_TkEditor> {
                   key: const ValueKey('tk-open'),
                 ),
             ],
-            _tool(LucideIcons.fileDown, tr('Exportar el archivo .py'), _export),
+            _tool(
+              LucideIcons.fileDown,
+              d.isElectron
+                  ? tr('Exportar la aplicación de Electron')
+                  : tr('Exportar el archivo .py'),
+              d.isElectron ? _exportElectron : _export,
+            ),
             _tool(
               LucideIcons.folderOpen,
               tr('Mostrar la carpeta del proyecto'),
@@ -1813,8 +1891,10 @@ class _TkEditorState extends State<_TkEditor> {
             ),
             _tool(
               LucideIcons.sparkles,
-              tr('Pedir a la IA'),
-              _aiBusy ? null : _askAi,
+              d.isElectron
+                  ? tr('Pedir a la IA (pronto también en Electron)')
+                  : tr('Pedir a la IA'),
+              _aiBusy || d.isElectron ? null : _askAi,
               key: const ValueKey('tk-ai'),
             ),
             _tool(
@@ -1936,38 +2016,39 @@ class _TkEditorState extends State<_TkEditor> {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       children: [
         for (final c in tkComponents)
-          Draggable<String>(
-            key: ValueKey('tk-palette-${c.kind}'),
-            data: c.kind,
-            dragAnchorStrategy: pointerDragAnchorStrategy,
-            feedback: Material(
-              elevation: 4,
-              color: t.colorScheme.primaryContainer,
-              child: SizedBox(
-                width: c.width.toDouble(),
-                height: c.height.toDouble(),
-                child: Center(child: Text(tr(c.label))),
+          if (!d.isElectron || tkElectronKinds.contains(c.kind))
+            Draggable<String>(
+              key: ValueKey('tk-palette-${c.kind}'),
+              data: c.kind,
+              dragAnchorStrategy: pointerDragAnchorStrategy,
+              feedback: Material(
+                elevation: 4,
+                color: t.colorScheme.primaryContainer,
+                child: SizedBox(
+                  width: c.width.toDouble(),
+                  height: c.height.toDouble(),
+                  child: Center(child: Text(tr(c.label))),
+                ),
+              ),
+              child: Tooltip(
+                richMessage: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: tr(c.label),
+                      style: const TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                    TextSpan(
+                      text:
+                          '\n${d.isWeb && tkWebGap(c.kind) != null ? tkWebGap(c.kind)! : tr('Arrástrelo a la ventana ({0})', [c.kind])}',
+                    ),
+                  ],
+                ),
+                child: _PaletteButton(
+                  icon: tkIcon(c.kind),
+                  onDoubleTap: () => _addAtFreeSpot(c.kind),
+                ),
               ),
             ),
-            child: Tooltip(
-              richMessage: TextSpan(
-                children: [
-                  TextSpan(
-                    text: tr(c.label),
-                    style: const TextStyle(fontWeight: FontWeight.w700),
-                  ),
-                  TextSpan(
-                    text:
-                        '\n${d.isWeb && tkWebGap(c.kind) != null ? tkWebGap(c.kind)! : tr('Arrástrelo a la ventana ({0})', [c.kind])}',
-                  ),
-                ],
-              ),
-              child: _PaletteButton(
-                icon: tkIcon(c.kind),
-                onDoubleTap: () => _addAtFreeSpot(c.kind),
-              ),
-            ),
-          ),
       ],
     ),
   );
@@ -2063,7 +2144,7 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              tr('Python generado'),
+              d.isElectron ? tr('JavaScript generado') : tr('Python generado'),
             ].indexed)
               InkWell(
                 key: ValueKey('tk-tab-$i'),
@@ -2104,6 +2185,7 @@ class _TkEditorState extends State<_TkEditor> {
               editorKey: const ValueKey('tk-code'),
               controller: _code,
               focusNode: _codeFocus,
+              javascript: d.isElectron,
               project: doc.id,
               currentLine: _debug?.currentLine,
               onCondition: _editCondition,
@@ -2119,6 +2201,7 @@ class _TkEditorState extends State<_TkEditor> {
                     editorKey: const ValueKey('tk-generated'),
                     controller: _generatedCode,
                     readOnly: true,
+                    javascript: d.isElectron,
                   ),
           ],
         ),
@@ -2251,6 +2334,7 @@ class _TkEditorState extends State<_TkEditor> {
     onRunTests: _runTests,
     onCreateTest: _createTest,
     hasTests: _hasTests,
+    electron: d.isElectron,
   );
 
   Widget _outputList(TkRun? run) => ListView.builder(
@@ -2350,7 +2434,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
       key: const ValueKey('tk-new-dialog'),
       title: Text(tr('Nuevo proyecto')),
       content: SizedBox(
-        width: 420,
+        width: 560,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2376,13 +2460,22 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                   label: Text(tr('Web (Flask)')),
                   icon: const Icon(LucideIcons.globe, size: 16),
                 ),
+                ButtonSegment(
+                  value: tkTargetElectron,
+                  label: Text(tr('Electron + React')),
+                  icon: const Icon(LucideIcons.atom, size: 16),
+                ),
               ],
               selected: {_target},
               onSelectionChanged: (v) => setState(() => _target = v.first),
             ),
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetWeb
+              _target == tkTargetElectron
+                  ? tr(
+                      'Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetWeb
                   ? tr(
                       'El mismo diseñador y el mismo Python: la página se abre en su navegador y el código corre en un servidor de este equipo. Necesita Flask. El destino no se puede cambiar después.',
                     )

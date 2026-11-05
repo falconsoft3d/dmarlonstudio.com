@@ -292,7 +292,11 @@ class TkDebugPanel extends StatefulWidget {
     required this.onRunTests,
     required this.onCreateTest,
     required this.hasTests,
+    this.electron = false,
   });
+
+  /// Proyecto de Electron: se depura con las herramientas de Chromium.
+  final bool electron;
 
   final TkDebugTab tab;
   final String project;
@@ -424,18 +428,28 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
   @override
   Widget build(BuildContext context) => DefaultTextStyle.merge(
     style: _text,
-    child: switch (widget.tab) {
-      TkDebugTab.output => const SizedBox.shrink(),
-      TkDebugTab.variables => _variables(),
-      TkDebugTab.stack => _stack(),
-      TkDebugTab.evaluate => _evaluate(),
-      TkDebugTab.breakpoints => _breakpoints(),
-      TkDebugTab.history => _historyView(),
-      TkDebugTab.flow => _flowView(),
-      TkDebugTab.performance => _performance(),
-      TkDebugTab.objects => _objectsView(),
-      TkDebugTab.tests => _testsView(),
-    },
+    child: widget.electron && widget.tab != TkDebugTab.breakpoints
+        ? _hint(
+            widget.tab == TkDebugTab.tests
+                ? tr(
+                    'Las pruebas de las aplicaciones de Electron llegarán en una próxima versión.',
+                  )
+                : tr(
+                    'En Electron, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida.',
+                  ),
+          )
+        : switch (widget.tab) {
+            TkDebugTab.output => const SizedBox.shrink(),
+            TkDebugTab.variables => _variables(),
+            TkDebugTab.stack => _stack(),
+            TkDebugTab.evaluate => _evaluate(),
+            TkDebugTab.breakpoints => _breakpoints(),
+            TkDebugTab.history => _historyView(),
+            TkDebugTab.flow => _flowView(),
+            TkDebugTab.performance => _performance(),
+            TkDebugTab.objects => _objectsView(),
+            TkDebugTab.tests => _testsView(),
+          },
   );
 
   Widget _hint(String text) => Center(
@@ -738,47 +752,48 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
     final x = s;
     return Column(
       children: [
-        _bar([
-          Text(tr('Detenerse en excepciones:'), style: _text),
-          const SizedBox(width: 8),
-          DropdownButton<String>(
-            key: const ValueKey('tk-dbg-exceptions'),
-            value: x?.exceptionMode ?? TkDebugDefaults.exceptionMode,
-            dropdownColor: const Color(0xFF252526),
-            style: _text,
-            underline: const SizedBox.shrink(),
-            isDense: true,
-            items: [
-              DropdownMenuItem(value: 'never', child: Text(tr('Nunca'))),
-              DropdownMenuItem(
-                value: 'uncaught',
-                child: Text(tr('Las no controladas')),
-              ),
-              DropdownMenuItem(
-                value: 'all',
-                child: Text(tr('Todas (también las controladas)')),
-              ),
-            ],
-            onChanged: (v) {
-              if (v == null) return;
-              TkDebugDefaults.exceptionMode = v;
-              x?.setExceptionMode(v);
-              setState(() {});
-            },
-          ),
-          const Spacer(),
-          _barButton(
-            LucideIcons.trash2,
-            tr('Quitar todos'),
-            points.isEmpty
-                ? null
-                : () {
-                    TkBreakpoints.clear(widget.project);
-                    s?.sendBreakpoints();
-                    setState(() {});
-                  },
-          ),
-        ]),
+        if (!widget.electron)
+          _bar([
+            Text(tr('Detenerse en excepciones:'), style: _text),
+            const SizedBox(width: 8),
+            DropdownButton<String>(
+              key: const ValueKey('tk-dbg-exceptions'),
+              value: x?.exceptionMode ?? TkDebugDefaults.exceptionMode,
+              dropdownColor: const Color(0xFF252526),
+              style: _text,
+              underline: const SizedBox.shrink(),
+              isDense: true,
+              items: [
+                DropdownMenuItem(value: 'never', child: Text(tr('Nunca'))),
+                DropdownMenuItem(
+                  value: 'uncaught',
+                  child: Text(tr('Las no controladas')),
+                ),
+                DropdownMenuItem(
+                  value: 'all',
+                  child: Text(tr('Todas (también las controladas)')),
+                ),
+              ],
+              onChanged: (v) {
+                if (v == null) return;
+                TkDebugDefaults.exceptionMode = v;
+                x?.setExceptionMode(v);
+                setState(() {});
+              },
+            ),
+            const Spacer(),
+            _barButton(
+              LucideIcons.trash2,
+              tr('Quitar todos'),
+              points.isEmpty
+                  ? null
+                  : () {
+                      TkBreakpoints.clear(widget.project);
+                      s?.sendBreakpoints();
+                      setState(() {});
+                    },
+            ),
+          ]),
         Expanded(
           child: points.isEmpty
               ? _hint(

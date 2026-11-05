@@ -548,6 +548,82 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // ----------------------------------------------------------- electron
+    {
+      slug: "electron",
+      title: "Electron + React",
+      summary: "Desktop apps with Electron and React: the same designer, with the code in JavaScript.",
+      sections: [
+        {
+          id: "create",
+          title: "Creating an Electron project",
+          blocks: [
+            {
+              type: "p",
+              text: "When you create the app, choose **Electron + React**. The Designer, the inspector and the events are the same; the code language changes: **JavaScript**, in the `Form1.js` file. The palette only shows the components Electron already has.",
+            },
+            {
+              type: "note",
+              text: "It needs **Node.js** (nodejs.org). The first time you run an Electron project, the studio installs Electron and React (about 100 MB) in its data folder; after that, every project shares them and starts at once.",
+            },
+          ],
+        },
+        {
+          id: "code",
+          title: "The code: components with properties",
+          blocks: [
+            {
+              type: "p",
+              text: "Every event of the design is a method of the `Form1` class, which extends `FormDesign`. Every component is `this.Name`, with Delphi-like properties: when you change them, the window repaints (with React).",
+            },
+            {
+              type: "code",
+              code: "class Form1 extends FormDesign {\n  form_create() {\n    this.List1.items = [\"Madrid\", \"Lima\", \"Bogotá\"];\n  }\n\n  Button1_click() {\n    this.Label1.text = \"Hello, \" + this.Entry1.text;\n    this.Status.set(\"Greeted\");\n  }\n\n  List1_select(event) {\n    this.title = \"Chosen: \" + this.List1.selected;\n  }\n}",
+            },
+            {
+              type: "table",
+              head: ["Component", "Properties and methods"],
+              rows: [
+                ["All", "`text`, `enabled`, `visible`, `bg`, `fg`, `x`, `y`, `width`, `height`, `focus()`, `configure({...})`"],
+                ["Entry, Text, Password", "`text` (also `value`), `readonly`"],
+                ["Check box, Radio button", "`checked`"],
+                ["List, Combo box", "`items`, `index`, `selected`, `selection` (several), `add(text)`, `clear()`, `remove(i)`"],
+                ["Data grid", "`columns`, `rows` (lists or objects), `addRow(row)`, `index`, `selectedRow`, `clear()`"],
+                ["Scale, Progress bar", "`value`, `maximum`; the indeterminate bar, `start()` and `stop()`"],
+                ["Page control", "`page` (the active page)"],
+                ["HTML view", "`html`, `setHtml(html, top)`; links and forms with `data-action` call its event"],
+                ["Status bar", "`text`, `icon`, `set(text, icon)`"],
+                ["Timer", "`interval`, `start()`, `stop()`"],
+                ["Open and Save dialogs", "`await execute()` (the path or null), `readText(path)`, `writeText(path, text)`"],
+                ["The window (`this`)", "`title`, `message(text)`, `ask(question)`, `notify(text)`, `after(ms, function)`, `close()`"],
+              ],
+            },
+            {
+              type: "p",
+              text: "The menu is the system's **native menu**: its event receives the chosen option, such as `\"File/Open…\"`. Node's `require` also works in the code (`fs`, `path`…).",
+            },
+          ],
+        },
+        {
+          id: "running",
+          title: "Run, debug and export",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** generates the app in `build/electron` and opens it in its own window. What `console.log` writes and the errors (with their `Form1.js` line) go to the **Output** tab.",
+                "**Debug (Shift+F9)** opens it with Chromium's **developer tools**: your breakpoints become `debugger;` on the same line, and there you have variables, the stack, the console, stepping and performance.",
+                "**Export the Electron app** creates a folder with its `package.json`: it opens on any computer with `npm install` and `npm start`.",
+              ],
+            },
+            {
+              type: "note",
+              text: "Not in Electron yet: the chart, the canvas, the ribbon, the API integration, the AI assistant, the reports, the tray icon and data connections. Nor “Ask the AI” or the Tests tab. They will come in future versions.",
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ai-in-the-designer",

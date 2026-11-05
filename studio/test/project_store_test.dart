@@ -28,6 +28,11 @@ void main() {
     expect(first, isNotEmpty);
     expect(await ProjectStore.list(), hasLength(first.length));
     for (final x in first) {
+      // Los de Electron son JavaScript: tienen su propia prueba.
+      if (x.isElectron) {
+        expect(File(p.join(x.path, 'Form1.js')).existsSync(), isTrue);
+        continue;
+      }
       final src = TkCodegen.generate(x.design, x.code);
       final f = File(p.join(tmp.path, '${ProjectStore.slug(x.name)}.py'));
       await f.writeAsString(src);
@@ -75,5 +80,22 @@ void main() {
       () => TkCodegen.generate(d, TkUnit.template(d.name, '')),
       throwsA(isA<UserError>()),
     );
+  });
+
+  test('un proyecto de Electron: Form1.js y la aplicación en build/electron', () async {
+    final dir = await ProjectStore.create(
+      'Mi Electron',
+      design: TkDesign(target: tkTargetElectron),
+    );
+    expect(File(p.join(dir, 'Form1.js')).readAsStringSync(),
+        contains('class Form1 extends FormDesign {'));
+    final x = (await ProjectStore.get(dir))!;
+    expect(x.isElectron, isTrue);
+    final prepared = await ProjectStore.prepareRun(dir);
+    expect(prepared.electron, isTrue);
+    for (final f in ['main.js', 'index.html', 'runtime.js', 'design.js', 'Form1.js', 'start.js', 'window.json']) {
+      expect(File(p.join(dir, 'build', 'electron', f)).existsSync(), isTrue, reason: f);
+    }
+    await ProjectStore.delete(dir);
   });
 }

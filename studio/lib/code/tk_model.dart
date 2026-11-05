@@ -27,6 +27,95 @@ const tkMinSize = 8;
 const tkTargetDesktop = 'desktop';
 const tkTargetWeb = 'web';
 
+/// Escritorio con Electron y React: el mismo diseño, con el código en
+/// JavaScript.
+const tkTargetElectron = 'electron';
+
+/// Componentes que ya tiene el destino Electron.
+const tkElectronKinds = {
+  'Label',
+  'Button',
+  'Entry',
+  'Password',
+  'Image',
+  'Text',
+  'Checkbutton',
+  'Radiobutton',
+  'Listbox',
+  'Combobox',
+  'Scale',
+  'Frame',
+  'HtmlView',
+  'Treeview',
+  'Progressbar',
+  'PageControl',
+  'StatusBar',
+  'Menu',
+  'Timer',
+  'OpenDialog',
+  'SaveDialog',
+};
+
+/// Por qué [kind] aún no está en Electron (null: sí está).
+String? tkElectronGap(String kind) => tkElectronKinds.contains(kind)
+    ? null
+    : tr('«{0}» todavía no está disponible en Electron.', [
+        tr(tkComponent(kind)?.label ?? kind),
+      ]);
+
+/// Palabras reservadas de JavaScript: no sirven como nombres.
+const tkJsReserved = {
+  'await',
+  'break',
+  'case',
+  'catch',
+  'class',
+  'const',
+  'continue',
+  'debugger',
+  'default',
+  'delete',
+  'do',
+  'else',
+  'enum',
+  'export',
+  'extends',
+  'false',
+  'finally',
+  'for',
+  'function',
+  'if',
+  'implements',
+  'import',
+  'in',
+  'instanceof',
+  'interface',
+  'let',
+  'new',
+  'null',
+  'package',
+  'private',
+  'protected',
+  'public',
+  'return',
+  'static',
+  'super',
+  'switch',
+  'this',
+  'throw',
+  'true',
+  'try',
+  'typeof',
+  'var',
+  'void',
+  'while',
+  'with',
+  'yield',
+  'FormDesign',
+  'React',
+  'h',
+};
+
 /// Propiedad de un componente. [option] es la opción de Tk que la recibe;
 /// sin ella, la trata el generador (texto inicial, variables, elementos…).
 class TkProp {
@@ -1751,10 +1840,13 @@ class TkDesign {
   final Map<String, String> events;
 
   bool get isWeb => target == tkTargetWeb;
+  bool get isElectron => target == tkTargetElectron;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
-      tkValidName(s) && !(isWeb && tkWebReserved.contains(s));
+      tkValidName(s) &&
+      !(isWeb && tkWebReserved.contains(s)) &&
+      !(isElectron && tkJsReserved.contains(s));
 
   /// En orden de creación, que es también el orden de apilado; un marco va
   /// siempre antes que sus componentes.
@@ -1950,6 +2042,9 @@ class TkDesign {
         out.add(tr('Componente desconocido: {0}.', [w.kind]));
         continue;
       }
+      if (isElectron && tkElectronGap(w.kind) != null) {
+        out.add(tkElectronGap(w.kind)!);
+      }
       if (!validName(w.name)) {
         out.add(
           tr('«{0}» no es un nombre válido para un componente.', [w.name]),
@@ -2001,7 +2096,7 @@ class TkDesign {
 
   Map<String, Object?> toJson() => {
     'name': name,
-    if (isWeb) 'target': target,
+    if (target != tkTargetDesktop) 'target': target,
     'width': width,
     'height': height,
     if (props.isNotEmpty) 'props': _sorted(props),
@@ -2013,7 +2108,11 @@ class TkDesign {
 
   static TkDesign fromJson(Map<String, Object?> j) => TkDesign(
     name: '${j['name'] ?? 'Form1'}',
-    target: j['target'] == tkTargetWeb ? tkTargetWeb : tkTargetDesktop,
+    target: switch (j['target']) {
+      tkTargetWeb => tkTargetWeb,
+      tkTargetElectron => tkTargetElectron,
+      _ => tkTargetDesktop,
+    },
     width: _int(j['width'], 80),
     height: _int(j['height'], 60),
     props: {...?(j['props'] as Map?)?.cast<String, Object?>()},

@@ -76,7 +76,7 @@ export function Downloads({ t }: { t: Content["downloads"] }) {
       <p className="text-sm text-muted md:col-span-3">
         {t.requirement.before} <strong className="text-ink">{t.requirement.python}</strong> {t.requirement.middle}{" "}
         <strong className="text-ink">{t.requirement.flask}</strong> {t.requirement.afterFlask} (
-        <code className="font-mono text-xs">pip install flask</code>). {t.requirement.after}{" "}
+        <code className="font-mono text-xs">pip install flask</code>). {t.requirement.electron} {t.requirement.after}{" "}
         <a href={RELEASES_URL} className="text-accent underline-offset-2 hover:underline">
           {t.requirement.releases}
         </a>

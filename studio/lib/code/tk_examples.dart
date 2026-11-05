@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../i18n/tr.dart';
 import 'tk_codegen.dart';
 import 'tk_model.dart';
@@ -9,10 +11,18 @@ part 'tk_showcase_ai.dart';
 part 'tk_showcase_mail.dart';
 part 'tk_showcase_reports.dart';
 part 'tk_showcase_sites.dart';
+part 'tk_showcase_electron.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
-String tkUnitComment({bool web = false}) => web
+String tkUnitComment({bool web = false, bool electron = false}) => electron
+    ? tr(
+        '// Código de la ventana, en JavaScript (Electron + React). Cada evento del\n'
+        '// diseño es un método de esta clase; this.<Nombre> es cada componente,\n'
+        '// con propiedades como en Delphi: this.Label1.text = "Hola". También\n'
+        '// this.title, this.message(texto), this.ask(pregunta) y this.close().',
+      )
+    : web
     ? tr(
         '# Código de la aplicación web: corre en el servidor, en Python. Cada evento\n'
         '# del diseño es un método de esta clase; self.root es la página y\n'

@@ -548,6 +548,82 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ----------------------------------------------------------- electron
+    {
+      slug: "electron",
+      title: "Electron + React",
+      summary: "Aplicaciones de escritorio con Electron y React: el mismo diseñador, con el código en JavaScript.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear un proyecto de Electron",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear la aplicación, elija **Electron + React**. El Diseñador, el inspector y los eventos son los mismos; cambia el lenguaje del código: **JavaScript**, en el archivo `Form1.js`. La paleta solo muestra los componentes que ya tiene Electron.",
+            },
+            {
+              type: "note",
+              text: "Necesita **Node.js** (nodejs.org). La primera vez que ejecute un proyecto de Electron, el estudio instala Electron y React (unos 100 MB) en su carpeta de datos; después, todos los proyectos los comparten y arrancan al momento.",
+            },
+          ],
+        },
+        {
+          id: "codigo",
+          title: "El código: componentes con propiedades",
+          blocks: [
+            {
+              type: "p",
+              text: "Cada evento del diseño es un método de la clase `Form1`, que hereda de `FormDesign`. Cada componente es `this.Nombre`, con propiedades al estilo de Delphi: al cambiarlas, la ventana se vuelve a pintar (con React).",
+            },
+            {
+              type: "code",
+              code: "class Form1 extends FormDesign {\n  form_create() {\n    this.List1.items = [\"Madrid\", \"Lima\", \"Bogotá\"];\n  }\n\n  Button1_click() {\n    this.Label1.text = \"Hola, \" + this.Entry1.text;\n    this.Status.set(\"Saludado\");\n  }\n\n  List1_select(event) {\n    this.title = \"Elegida: \" + this.List1.selected;\n  }\n}",
+            },
+            {
+              type: "table",
+              head: ["Componente", "Propiedades y métodos"],
+              rows: [
+                ["Todos", "`text`, `enabled`, `visible`, `bg`, `fg`, `x`, `y`, `width`, `height`, `focus()`, `configure({...})`"],
+                ["Entrada, Texto, Contraseña", "`text` (también `value`), `readonly`"],
+                ["Casilla, Opción", "`checked`"],
+                ["Lista, Combo", "`items`, `index`, `selected`, `selection` (varias), `add(texto)`, `clear()`, `remove(i)`"],
+                ["Tabla de datos", "`columns`, `rows` (listas u objetos), `addRow(fila)`, `index`, `selectedRow`, `clear()`"],
+                ["Escala, Barra de progreso", "`value`, `maximum`; la barra indeterminada, `start()` y `stop()`"],
+                ["Control de páginas", "`page` (la página activa)"],
+                ["Vista HTML", "`html`, `setHtml(html, arriba)`; los enlaces y formularios con `data-action` llaman a su evento"],
+                ["Barra de estado", "`text`, `icon`, `set(texto, icono)`"],
+                ["Temporizador", "`interval`, `start()`, `stop()`"],
+                ["Diálogos Abrir y Guardar", "`await execute()` (la ruta o null), `readText(ruta)`, `writeText(ruta, texto)`"],
+                ["La ventana (`this`)", "`title`, `message(texto)`, `ask(pregunta)`, `notify(texto)`, `after(ms, función)`, `close()`"],
+              ],
+            },
+            {
+              type: "p",
+              text: "El menú es el **menú nativo** del sistema: su evento recibe la opción elegida, como `\"Archivo/Abrir…\"`. En el código también funciona `require` de Node (`fs`, `path`…).",
+            },
+          ],
+        },
+        {
+          id: "ejecutar",
+          title: "Ejecutar, depurar y exportar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** genera la aplicación en `build/electron` y la abre en su propia ventana. Lo que escribe `console.log` y los errores (con su línea de `Form1.js`) salen en la pestaña **Salida**.",
+                "**Depurar (Mayús+F9)** la abre con las **herramientas de desarrollo** de Chromium: sus puntos de parada se convierten en `debugger;` en la misma línea, y allí tiene las variables, la pila, la consola, el paso a paso y el rendimiento.",
+                "**Exportar la aplicación de Electron** crea una carpeta con su `package.json`: se abre en cualquier equipo con `npm install` y `npm start`.",
+              ],
+            },
+            {
+              type: "note",
+              text: "Aún no están en Electron: el gráfico, el lienzo, la cinta de opciones, la integración API, el asistente IA, los informes, el icono de bandeja y las conexiones de datos. Tampoco «Pedir a la IA» ni la pestaña Pruebas. Llegarán en próximas versiones.",
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",

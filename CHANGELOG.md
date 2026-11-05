@@ -3,6 +3,28 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.21 — 2026-11-05
+
+- Nuevo destino **Electron + React** (escritorio), en la misma app: al crear
+  la aplicación se elige entre Escritorio (Python), Web (Flask) y Electron +
+  React. El mismo Diseñador; el código de los eventos, en **JavaScript**
+  (`Form1.js`), con componentes de propiedades al estilo de Delphi
+  (`this.Label1.text = "Hola"`) que React vuelve a pintar.
+  - Componentes: etiqueta, botón, entrada, contraseña, imagen, texto,
+    casilla, opción, lista, combo, escala, marco, vista HTML, tabla, barra de
+    progreso, páginas, barra de estado, menú nativo, temporizador y diálogos
+    de abrir y guardar.
+  - **Ejecutar** instala la primera vez Electron y React (con Node.js) y
+    los comparte entre proyectos; la salida y los errores, con su línea de
+    `Form1.js`, llegan a la pestaña Salida.
+  - **Depurar** abre las herramientas de desarrollo de Chromium con sus
+    puntos de parada.
+  - **Exportar** crea una carpeta lista para `npm install` y `npm start`.
+  - Ejemplos **Calculadora (Electron)** y **Bloc de notas (Electron)**.
+  - El servidor MCP y el panel de Claude Code también conocen el destino.
+- Landing: Electron + React entre los entornos probados y en el carrusel.
+- Manual: capítulo **Electron + React**.
+
 ## 1.0.20 — 2026-11-05
 
 - **Depurador** en el Diseñador, para proyectos de escritorio y web, sin

@@ -57,6 +57,13 @@ Future<TkRun?> launchTkApp(
   }
   final prepared = await runAction(context, () => ProjectStore.prepareRun(id));
   if (prepared == null || !context.mounted) return null;
+  // Electron no usa Python: Node y el entorno compartido.
+  if (prepared.electron) {
+    if (tests) return null;
+    await TkBreakpoints.load(id);
+    if (!context.mounted) return null;
+    return runAction(context, () => TkRunner.start(prepared, devtools: debug));
+  }
   final found = await TkRunner.detect();
   final py = prepared.web ? found.web : found;
   if (!context.mounted) return null;

@@ -72,8 +72,11 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
   }
 
   // ------------------------------------------------------------- datos
-  String _kind(StudioProject a) =>
-      a.isWeb ? tr('Web (Flask)') : tr('Escritorio (Python)');
+  String _kind(StudioProject a) => a.isElectron
+      ? tr('Electron + React')
+      : a.isWeb
+      ? tr('Web (Flask)')
+      : tr('Escritorio (Python)');
 
   String _folder(StudioProject a) => p.basename(p.dirname(a.path));
 
@@ -253,7 +256,11 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.isWeb ? LucideIcons.globe : LucideIcons.appWindowMac,
+                        a.isElectron
+                            ? LucideIcons.atom
+                            : a.isWeb
+                            ? LucideIcons.globe
+                            : LucideIcons.appWindowMac,
                         size: 18,
                         color: t.colorScheme.primary,
                       ),

@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 
 import '../ai/assistant.dart';
 import '../code/tk_codegen.dart';
+import '../code/tk_electron.dart';
+import '../code/tk_unit.dart';
 import '../code/tk_examples.dart';
 import '../code/tk_model.dart';
 import '../code/tk_run_types.dart';
@@ -49,6 +51,7 @@ class StudioProject {
   final String created, modified;
 
   bool get isWeb => design.isWeb;
+  bool get isElectron => design.isElectron;
 }
 
 /// Proyectos en carpetas del disco: el área de trabajo, los recientes de
@@ -149,7 +152,11 @@ class ProjectStore {
 
   /// Archivo del código del usuario de [design] en [dir].
   static String unitPath(String dir, TkDesign design) =>
-      p.join(dir, '${design.name}.py');
+      p.join(dir, unitName(design));
+
+  /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
+  static String unitName(TkDesign design) =>
+      '${design.name}.${design.isElectron ? 'js' : 'py'}';
 
   /// Lee el proyecto de la carpeta [dir] (null si ya no existe).
   static Future<StudioProject?> get(String dir) async {
@@ -158,7 +165,7 @@ class ProjectStore {
     final design = TkDesign.fromJson(
       ((j['design'] as Map?) ?? const {}).cast<String, Object?>(),
     );
-    final unit = File(p.join(dir, '${j['unit'] ?? '${design.name}.py'}'));
+    final unit = File(p.join(dir, '${j['unit'] ?? unitName(design)}'));
     final code = unit.existsSync() ? await unit.readAsString() : '';
     return StudioProject(
       path: dir,
@@ -230,7 +237,7 @@ class ProjectStore {
         'description': description,
       'target': design.target,
       'seed': ?seed,
-      'unit': '${design.name}.py',
+      'unit': unitName(design),
       'created': created ?? now,
       'modified': now,
       'design': design.toJson(),
@@ -258,7 +265,11 @@ class ProjectStore {
     await Directory(dir).create(recursive: true);
     await _writeAtomic(
       File(unitPath(dir, d)),
-      code ?? TkUnit.template(d.name, tkUnitComment(web: d.isWeb)),
+      code ??
+          tkUnitOf(d).template(
+            d.name,
+            tkUnitComment(web: d.isWeb, electron: d.isElectron),
+          ),
     );
     await _writeMeta(
       dir,
@@ -301,7 +312,7 @@ class ProjectStore {
       seed: old['seed'] as String?,
       created: old['created'] as String?,
     );
-    if (oldUnit.isNotEmpty && oldUnit != '${design.name}.py') {
+    if (oldUnit.isNotEmpty && oldUnit != unitName(design)) {
       final f = File(p.join(dir, oldUnit));
       if (f.existsSync()) await f.delete();
     }
@@ -314,7 +325,7 @@ class ProjectStore {
       ((j['design'] as Map?) ?? const {}).cast<String, Object?>(),
     );
     await _writeAtomic(
-      File(p.join(dir, '${j['unit'] ?? '${design.name}.py'}')),
+      File(p.join(dir, '${j['unit'] ?? unitName(design)}')),
       code,
     );
     j['modified'] = nowStr();
@@ -436,7 +447,11 @@ class ProjectStore {
         .toSet();
     final legacy = seeded.contains(ws);
     var changed = false;
-    for (final e in [...tkExamples(tr), ...tkWebExamples(tr)]) {
+    for (final e in [
+      ...tkExamples(tr),
+      ...tkWebExamples(tr),
+      ...tkElectronExamples(tr),
+    ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
         continue;
@@ -461,6 +476,31 @@ class ProjectStore {
   }
 
   // ------------------------------------------------------------ ejecución
+  /// Carpeta de la aplicación de Electron generada.
+  static String electronDir(String project) =>
+      p.join(project, buildDir, 'electron');
+
+  /// Escribe la aplicación de Electron en build/electron.
+  static Future<TkPrepared> _prepareElectron(StudioProject x) async {
+    final out = electronDir(x.path);
+    final files = TkElectron.files(x.design, x.code, name: x.name);
+    await Directory(out).create(recursive: true);
+    for (final e in files.entries) {
+      await _writeAtomic(File(p.join(out, e.key)), e.value);
+    }
+    await _gitignore(x.path);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, '${x.design.name}.js'),
+      electron: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
+  // ------------------------------------------------------------ Python
   /// Escribe el Python generado en `build/` y devuelve su ruta.
   static Future<String> writeBuild(StudioProject x, String source) async {
     final f = File(p.join(x.path, buildDir, '${slug(x.name)}.py'));
@@ -506,6 +546,7 @@ class ProjectStore {
   static Future<TkPrepared> prepareRun(String dir) async {
     final x = await get(dir);
     if (x == null) throw UserError(tr('El proyecto ya no existe.'));
+    if (x.isElectron) return _prepareElectron(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

@@ -128,7 +128,11 @@ class TkInspector extends StatelessWidget {
     _Row(
       label: tr('Destino'),
       child: Text(
-        design.isWeb ? tr('Web (Flask)') : tr('Escritorio (Python)'),
+        design.isElectron
+            ? tr('Electron + React')
+            : design.isWeb
+            ? tr('Web (Flask)')
+            : tr('Escritorio (Python)'),
         key: const ValueKey('tk-target'),
         style: const TextStyle(fontSize: 12),
       ),
@@ -179,6 +183,8 @@ class TkInspector extends StatelessWidget {
   List<Widget> _widgetProps(TkWidget w) => [
     if (design.isWeb && tkWebGap(w.kind) != null)
       _Note(key: ValueKey('tk-web-gap-${w.name}'), tkWebGap(w.kind)!),
+    if (design.isElectron && tkElectronGap(w.kind) != null)
+      _Note(key: ValueKey('tk-electron-gap-${w.name}'), tkElectronGap(w.kind)!),
     if (w.kind == 'RestClient')
       _Note(
         key: ValueKey('tk-api-note-${w.name}'),

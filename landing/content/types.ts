@@ -56,6 +56,7 @@ export type Content = {
       middle: string;
       flask: string;
       afterFlask: string;
+      electron: string;
       after: string;
       releases: string;
     };

@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -233,6 +233,30 @@ msgstr ""
 msgid "«{0}» ya tenía código: no se ha cambiado."
 msgstr ""
 
+#: lib/code/tk_electron.dart
+msgid "El código debe definir «class {0} extends FormDesign»."
+msgstr ""
+
+#: lib/code/tk_electron_run.dart
+msgid "Electron instalado."
+msgstr ""
+
+#: lib/code/tk_electron_run.dart
+msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
+msgstr ""
+
+#: lib/code/tk_electron_run.dart lib/code/tk_run_io.dart
+msgid "Las aplicaciones de Electron necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
+msgstr ""
+
+#: lib/code/tk_electron_run.dart
+msgid "No se pudo instalar Electron (npm terminó con el código {0})."
+msgstr ""
+
+#: lib/code/tk_electron_run.dart
+msgid "No se pudo instalar Electron."
+msgstr ""
+
 #: lib/code/tk_examples.dart
 msgid ""
 "# Código de la aplicación web: corre en el servidor, en Python. Cada evento\n"
@@ -249,6 +273,14 @@ msgid ""
 "# __init__, y el evento «Al abrir» de la ventana se ejecuta después de él."
 msgstr ""
 
+#: lib/code/tk_examples.dart
+msgid ""
+"// Código de la ventana, en JavaScript (Electron + React). Cada evento del\n"
+"// diseño es un método de esta clase; this.<Nombre> es cada componente,\n"
+"// con propiedades como en Delphi: this.Label1.text = \"Hola\". También\n"
+"// this.title, this.message(texto), this.ask(pregunta) y this.close()."
+msgstr ""
+
 #: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr ""
@@ -257,11 +289,11 @@ msgstr ""
 msgid "Abrir una nota"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/ui/screens/settings_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/ui/screens/settings_screen.dart
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -277,7 +309,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -485,7 +517,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -601,7 +633,7 @@ msgstr ""
 msgid "Notas"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr ""
 
@@ -645,7 +677,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -677,7 +709,7 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
 msgid "Texto"
 msgstr ""
 
@@ -1433,6 +1465,10 @@ msgstr ""
 msgid "«{0}» no tiene conexión: elija una de las guardadas en Bases de datos."
 msgstr ""
 
+#: lib/code/tk_model.dart
+msgid "«{0}» todavía no está disponible en Electron."
+msgstr ""
+
 #: lib/code/tk_model.dart lib/code/tk_showcase.dart
 msgid "Áreas"
 msgstr ""
@@ -1559,7 +1595,7 @@ msgstr ""
 msgid "Abrir un archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
 msgid "Abrir…"
 msgstr ""
 
@@ -1723,7 +1759,7 @@ msgstr ""
 msgid "Gráfico de líneas"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
 msgid "Guardar como…"
 msgstr ""
 
@@ -1819,7 +1855,7 @@ msgstr ""
 msgid "Sin conexión: tipos aproximados de reserva, no para operaciones reales."
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
 msgid "Sin título"
 msgstr ""
 
@@ -2089,6 +2125,42 @@ msgstr ""
 
 #: lib/code/tk_showcase_ai.dart
 msgid "teléfono"
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Bloc de notas (Electron)"
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Bloc de notas con Electron y React: menú nativo, abrir y guardar archivos con los diálogos del sistema."
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Bloc de notas en JavaScript: menú nativo, abrir y guardar con los diálogos del sistema."
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Calculadora (Electron)"
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Calculadora en JavaScript: cada botón llama a su método."
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Guardado."
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "La calculadora de escritorio hecha con Electron y React: el mismo diseño, con el código en JavaScript."
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Línea {0} · {1} caracteres"
+msgstr ""
+
+#: lib/code/tk_showcase_electron.dart
+msgid "Un bloc de notas hecho con DMarlon Studio, Electron y React."
 msgstr ""
 
 #: lib/code/tk_showcase_mail.dart
@@ -5311,6 +5383,10 @@ msgid "Duplicar"
 msgstr ""
 
 #: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Electron + React"
+msgstr ""
+
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Escritorio (Python)"
 msgstr ""
 
@@ -5467,6 +5543,10 @@ msgid "El programa está en marcha. Se detendrá en un punto de parada, o pulse 
 msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart
+msgid "En Electron, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
 msgid "En marcha…"
 msgstr ""
 
@@ -5512,6 +5592,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "Las no controladas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Las pruebas de las aplicaciones de Electron llegarán en una próxima versión."
 msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart
@@ -5675,6 +5759,10 @@ msgid "Alinear arriba"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Aplicación de Electron + React creada con DMarlon Studio."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Aplicación web con Flask"
 msgstr ""
 
@@ -5815,6 +5903,10 @@ msgid "Ese nombre ya existe."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportada en {0}. Ábrala con: npm install y npm start."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportada. Necesita Flask (pip install flask)."
 msgstr ""
 
@@ -5823,7 +5915,15 @@ msgid "Exportada. Necesita Flask, y sus conexiones de datos leen las variables D
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportar aquí"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportar el archivo .py"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar la aplicación de Electron"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5844,6 +5944,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el ancho"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "JavaScript generado"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5891,6 +5995,10 @@ msgid "Pedir a la IA"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Pedir a la IA (pronto también en Electron)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Propuesta de la IA"
 msgstr ""
 
@@ -5932,6 +6040,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Traer al frente"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

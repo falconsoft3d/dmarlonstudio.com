@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:path/path.dart' as p;
 
 import '../code/tk_codegen.dart';
+import '../code/tk_unit.dart';
 import '../code/tk_model.dart';
 import '../code/tk_run.dart';
 import '../ui/tk_project.dart';
@@ -251,13 +252,13 @@ class McpServer {
     {
       'name': 'create_project',
       'description':
-          'Creates a project in the workspace. target: "desktop" (tkinter) or "web" (Flask).',
+          'Creates a project in the workspace. target: "desktop" (tkinter, Python), "web" (Flask, Python) or "electron" (Electron + React, JavaScript code).',
       'inputSchema': _schema(
         {
           'name': {'type': 'string'},
           'target': {
             'type': 'string',
-            'enum': ['desktop', 'web'],
+            'enum': ['desktop', 'web', 'electron'],
           },
           'description': {'type': 'string'},
         },
@@ -418,7 +419,7 @@ class McpServer {
             {
               'name': x.name,
               'path': x.path,
-              'target': x.isWeb ? 'web' : 'desktop',
+              'target': x.design.target,
               'components': x.design.widgets.length,
               'modified': x.modified,
               if ((x.description ?? '').isNotEmpty)
@@ -431,7 +432,7 @@ class McpServer {
         return _pretty({
           'name': x.name,
           'path': x.path,
-          'target': x.isWeb ? 'web' : 'desktop',
+          'target': x.design.target,
           'design': x.design.toJson(),
           'code': x.code,
         });
@@ -467,13 +468,17 @@ class McpServer {
         ]);
 
       case 'create_project':
-        final web = a['target'] == 'web';
+        final target = switch (a['target']) {
+          'web' => tkTargetWeb,
+          'electron' => tkTargetElectron,
+          _ => tkTargetDesktop,
+        };
         final dir = await ProjectStore.create(
           '${a['name'] ?? ''}',
           description: a['description'] as String?,
-          design: TkDesign(target: web ? tkTargetWeb : tkTargetDesktop),
+          design: TkDesign(target: target),
         );
-        return 'Created ${web ? 'web' : 'desktop'} project at $dir';
+        return 'Created $target project at $dir';
 
       case 'add_component':
         final x = await _find(a['project']);
@@ -515,7 +520,7 @@ class McpServer {
             final e = c.events.where((e) => e.key == '$k').firstOrNull;
             if (e == null) throw UserError('Unknown event "$k" for $kind.');
             w.events['$k'] = '$v';
-            code = TkUnit.ensureMethod(code, d.name, '$v', param: e.param);
+            code = tkUnitOf(d).ensureMethod(code, d.name, '$v', param: e.param);
           });
         }
         d.widgets.add(w);
@@ -541,7 +546,9 @@ class McpServer {
               final e = tkFormEvents.where((e) => e.key == '$k').firstOrNull;
               if (e == null) throw UserError('Unknown window event "$k".');
               d.events['$k'] = '$v';
-              code = TkUnit.ensureMethod(code, d.name, '$v', param: e.param);
+              code = tkUnitOf(
+                d,
+              ).ensureMethod(code, d.name, '$v', param: e.param);
             });
           }
           await _save(x, d, code);
@@ -568,7 +575,9 @@ class McpServer {
               w.events.remove('$k');
             } else {
               w.events['$k'] = '$v';
-              code = TkUnit.ensureMethod(code, d.name, '$v', param: e.param);
+              code = tkUnitOf(
+                d,
+              ).ensureMethod(code, d.name, '$v', param: e.param);
             }
           });
         }

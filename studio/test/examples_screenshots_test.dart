@@ -53,9 +53,16 @@ const carousel = [
   'calculator',
   'web_crm',
   'web_invoicing',
-  'web_shop',
-  'web_blog',
+  // El blog y la tienda se ven como webs: sus capturas son de la página.
+  'electron_calculator',
+  'electron_notepad',
 ];
+
+/// DMS_SEEDS=a,b: solo esas capturas.
+final _only = (Platform.environment['DMS_SEEDS'] ?? '')
+    .split(',')
+    .where((s) => s.isNotEmpty)
+    .toSet();
 
 void main() {
   testWidgets('capturas de los ejemplos', (tester) async {
@@ -149,6 +156,7 @@ void main() {
       );
       await settle(60);
       for (final seed in carousel) {
+        if (_only.isNotEmpty && !_only.contains(seed)) continue;
         final path = paths[seed];
         if (path == null) {
           debugPrint('Sin el ejemplo $seed');
@@ -161,6 +169,11 @@ void main() {
         }
         TkProject.open(x!);
         await settle(30);
+        // El de Electron enseña su código en JavaScript.
+        if (seed == 'electron_notepad') {
+          await tester.tap(find.byKey(const ValueKey('tk-tab-1')));
+          await settle(10);
+        }
         await tester.runAsync(() async {
           final ro =
               boundary.currentContext!.findRenderObject()!

@@ -5,7 +5,7 @@ export const es: Content = {
   meta: {
     title: "DMarlon Studio · IDE visual para Python",
     description:
-      "IDE visual de escritorio: diseñe ventanas arrastrando componentes, escriba los eventos en Python y ejecútelas. Para escritorio con tkinter y para la web con Flask.",
+      "IDE visual de escritorio: diseñe ventanas arrastrando componentes, escriba los eventos en Python o JavaScript y ejecútelas. Para escritorio con tkinter o Electron + React, y para la web con Flask.",
   },
   header: {
     sectionsLabel: "Secciones",
@@ -31,11 +31,11 @@ export const es: Content = {
   hero: {
     eyebrow: "IDE visual multi-entorno",
     title: "Diseñe ventanas arrastrando. Prográmelas en Python.",
-    text: "DMarlon Studio es un IDE de escritorio: arrastre componentes a un formulario, ajuste sus propiedades en el inspector de objetos, escriba el código de cada evento en Python y ejecútelo con F9. Genera aplicaciones de escritorio con tkinter y aplicaciones web con Flask.",
+    text: "DMarlon Studio es un IDE de escritorio: arrastre componentes a un formulario, ajuste sus propiedades en el inspector de objetos, escriba el código de cada evento y ejecútelo con F9. Genera aplicaciones de escritorio con tkinter (Python) o con Electron + React (JavaScript), y aplicaciones web con Flask.",
     primary: "Descargar",
     secondary: "Ver qué incluye",
     targetsLabel: "Entornos",
-    targets: ["tkinter", "Flask"],
+    targets: ["tkinter", "Flask", "Electron + React"],
   },
   examples: {
     label: "Ejemplos incluidos en DMarlon Studio",
@@ -56,6 +56,8 @@ export const es: Content = {
       { seed: "music_player", name: "Reproductor de música", text: "Lista de reproducción, volumen y progreso." },
       { seed: "windows_dialogs", name: "Ventanas y diálogos", text: "Mensajes, preguntas, otra ventana y un diálogo modal." },
       { seed: "calculator", name: "Calculadora", text: "Botones, eventos y estado: el primer ejemplo." },
+      { seed: "electron_calculator", name: "Calculadora (Electron)", text: "La misma calculadora con Electron y React, con el código en JavaScript." },
+      { seed: "electron_notepad", name: "Bloc de notas (Electron)", text: "Menú nativo y diálogos de abrir y guardar, en JavaScript." },
       { seed: "web_crm", name: "CRM web", text: "Oportunidades por etapas y valor del embudo, en Flask." },
       { seed: "web_invoicing", name: "Facturador web", text: "Facturas con IVA, numeración y descarga." },
       { seed: "web_shop", name: "Tienda web", text: "Una tienda de verdad: ofertas, carrito, cuentas, pago simulado y panel de ventas." },
@@ -124,6 +126,7 @@ export const es: Content = {
     steps: [
       { name: "tkinter", status: "ready", text: "Ventanas de escritorio de Python con su propia ventana del sistema." },
       { name: "Flask", status: "ready", text: "El mismo diseñador genera aplicaciones web que corren en un servidor local." },
+      { name: "Electron + React", status: "ready", text: "Aplicaciones de escritorio con Electron y React, con el código de los eventos en JavaScript." },
     ],
   },
   downloads: {
@@ -164,6 +167,7 @@ export const es: Content = {
       middle: "para las ventanas de escritorio y",
       flask: "Flask",
       afterFlask: "para las aplicaciones web",
+      electron: "Las aplicaciones de Electron necesitan Node.js: Electron y React se instalan solos la primera vez.",
       after: "El estudio detecta el Python instalado y le dice qué falta. Versiones anteriores y notas en",
       releases: "GitHub Releases",
     },

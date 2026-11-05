@@ -1,31 +1,32 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
 
-type Theme = "system" | "light" | "dark";
+type Theme = "light" | "dark";
 
 const KEY = "theme";
-const NEXT: Record<Theme, Theme> = { system: "dark", dark: "light", light: "system" };
+
 /** Textos del botón en el idioma de la página. */
 export type ThemeLabels = { system: string; dark: string; light: string; change: string };
 
+const media = () => window.matchMedia("(prefers-color-scheme: dark)");
+
+/** El tema que se ve: el elegido o, sin elegir, el del sistema. */
 function read(): Theme {
   try {
     const v = localStorage.getItem(KEY);
-    return v === "light" || v === "dark" ? v : "system";
+    if (v === "light" || v === "dark") return v;
   } catch {
-    return "system";
+    // Sin almacenamiento: el del sistema.
   }
+  return media().matches ? "dark" : "light";
 }
 
 function apply(theme: Theme) {
-  const root = document.documentElement;
-  if (theme === "system") root.removeAttribute("data-theme");
-  else root.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-theme", theme);
   try {
-    if (theme === "system") localStorage.removeItem(KEY);
-    else localStorage.setItem(KEY, theme);
+    localStorage.setItem(KEY, theme);
   } catch {
     // Sin almacenamiento, el tema dura lo que la página.
   }
@@ -35,27 +36,36 @@ const listeners = new Set<() => void>();
 
 function subscribe(fn: () => void) {
   listeners.add(fn);
+  // También si cambia el del sistema y no se ha elegido otro.
+  const m = media();
+  m.addEventListener("change", fn);
   return () => {
     listeners.delete(fn);
+    m.removeEventListener("change", fn);
   };
 }
 
-/** Botón de la cabecera: sistema → oscuro → claro. */
+/**
+ * Interruptor claro / oscuro de la cabecera: cada clic pasa al contrario de
+ * lo que se ve. Hasta el primer clic sigue el tema del sistema.
+ */
 export function ThemeToggle({ labels }: { labels: ThemeLabels }) {
-  // En el servidor no se sabe: se pinta «sistema» y se corrige al hidratar.
-  const theme = useSyncExternalStore(subscribe, read, () => "system" as Theme);
-
-  const Icon = theme === "dark" ? Moon : theme === "light" ? Sun : Monitor;
+  // En el servidor no se sabe: se pinta «claro» y se corrige al hidratar.
+  const theme = useSyncExternalStore(subscribe, read, () => "light" as Theme);
+  const next: Theme = theme === "dark" ? "light" : "dark";
+  // Se muestra lo que hará el clic: la luna lleva al oscuro.
+  const Icon = next === "dark" ? Moon : Sun;
   return (
     <button
       type="button"
       onClick={() => {
-        apply(NEXT[theme]);
+        apply(next);
         listeners.forEach((fn) => fn());
       }}
-      title={labels[theme]}
-      aria-label={`${labels[theme]}. ${labels.change}`}
-      className="inline-flex size-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-soft hover:text-ink"
+      title={labels[next]}
+      aria-label={`${labels.change}: ${labels[next]}`}
+      aria-pressed={theme === "dark"}
+      className="inline-flex size-8 items-center justify-center rounded-md border border-line text-ink transition-colors hover:bg-soft"
     >
       <Icon className="size-4" aria-hidden />
     </button>

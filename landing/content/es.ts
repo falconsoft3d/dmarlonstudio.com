@@ -23,8 +23,8 @@ export const es: Content = {
   },
   theme: {
     system: "Tema: el del sistema",
-    dark: "Tema: oscuro",
-    light: "Tema: claro",
+    dark: "Modo oscuro",
+    light: "Modo claro",
     change: "Cambiar tema",
   },
   hero: {

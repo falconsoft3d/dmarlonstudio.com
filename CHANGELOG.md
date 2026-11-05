@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.10 — 2026-11-05
+
+- Landing: el selector de tema es un interruptor **claro / oscuro** visible
+  (luna o sol) que cambia a la primera; hasta el primer clic sigue el tema del
+  sistema.
+
 ## 1.0.9 — 2026-11-05
 
 - Ejemplo **Ventanas y diálogos**: mensajes (información, aviso, error,

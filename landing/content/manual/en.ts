@@ -738,6 +738,21 @@ export const manualEn: Manual = {
       summary: "Language, appearance and artificial intelligence.",
       sections: [
         {
+          id: "mcp",
+          title: "Connect to Claude (MCP)",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "In **Settings → Connect to Claude (MCP)** you turn on the **MCP server**: while DMarlon Studio is open, Claude (Claude Code or another MCP client) can work with your projects.",
+                "Tools: `list_projects`, `get_project`, `list_components`, `create_project`, `add_component`, `update_component`, `remove_component`, `update_code`, `generate_python`, `run_project`, `get_output` and `stop_project`.",
+                "It only answers on this computer (`127.0.0.1`) and with the **Token**. **Add to Claude Code** registers it in one click; you can also copy the `claude mcp add` command shown.",
+                "If a project is open in the Designer with no pending changes, it reloads by itself with what Claude does; with unsaved changes, Claude is told to save them first.",
+              ],
+            },
+          ],
+        },
+        {
           id: "ai",
           title: "Artificial intelligence",
           blocks: [

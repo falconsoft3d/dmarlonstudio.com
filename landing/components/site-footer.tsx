@@ -14,7 +14,7 @@ export function SiteFooter({ lang, t }: { lang: Lang; t: Content }) {
           <Logo className="size-5" />
           <span>DMarlon Studio · © {new Date().getFullYear()} Marlon Falcón</span>
           <a
-            href={`${REPO_URL}/blob/main/CHANGELOG.md`}
+            href={`${PATHS.changelog[lang]}#v${VERSION}`}
             className="rounded border border-line px-1.5 py-0.5 font-mono text-xs hover:text-ink"
             title={footer.changelogTitle}
           >

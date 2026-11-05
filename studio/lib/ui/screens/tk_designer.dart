@@ -745,6 +745,7 @@ class _TkEditorState extends State<_TkEditor> {
   void initState() {
     super.initState();
     _shownDirty = doc.dirty;
+    _shownDesign = doc.design;
     TkProject.changes.addListener(_onProject);
     _attach(TkRunner.runOf(doc.id));
     ProjectStore.savedConnections().then((c) {
@@ -765,10 +766,20 @@ class _TkEditorState extends State<_TkEditor> {
   /// Lo último que muestra la barra: el código también cambia desde el Editor.
   bool _shownDirty = false;
 
+  /// El diseño que se pintó por última vez: si otro (el MCP) lo cambia, se
+  /// vuelve a pintar.
+  TkDesign? _shownDesign;
+
   void _onProject() {
-    if (!mounted || (_tab != 2 && doc.dirty == _shownDirty)) return;
+    if (!mounted) return;
+    final redesigned = !identical(doc.design, _shownDesign);
+    if (!redesigned && _tab != 2 && doc.dirty == _shownDirty) return;
     setState(() {
       _shownDirty = doc.dirty;
+      _shownDesign = doc.design;
+      if (redesigned) {
+        _selection = _selection.where((n) => d.byName(n) != null).toSet();
+      }
       if (_tab == 2) _regenerate();
     });
   }

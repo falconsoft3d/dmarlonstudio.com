@@ -6,6 +6,7 @@ import '../../core/settings.dart';
 import '../../i18n/i18n.dart';
 import '../../version.dart';
 import '../widgets.dart';
+import 'mcp_settings.dart';
 
 /// Tema elegido: sistema, claro u oscuro. Se guarda en los ajustes.
 final themeMode = ValueNotifier<ThemeMode>(ThemeMode.system);
@@ -271,6 +272,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ]),
                       _aiSection(t),
+                      _section(t, tr('Conectar con Claude (MCP)'), [
+                        const McpSettings(),
+                      ]),
                       _section(t, tr('Acerca de'), [
                         Text('DMarlon Studio $appVersion'),
                         const SizedBox(height: 4),

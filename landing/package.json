@@ -1,12 +1,14 @@
 {
   "name": "dmarlonstudio-landing",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prebuild": "node scripts/sync-changelog.mjs",
+    "predev": "node scripts/sync-changelog.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.57.0",

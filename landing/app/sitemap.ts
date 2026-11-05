@@ -20,5 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...both(PATHS.manual, 0.8, "weekly"),
     ...manualOf("es").chapters.flatMap((_, i) => both(chapterAlternates(i), 0.7, "monthly")),
     ...both(PATHS.dossier, 0.7, "monthly"),
+    ...both(PATHS.changelog, 0.6, "weekly"),
   ];
 }

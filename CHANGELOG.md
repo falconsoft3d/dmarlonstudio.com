@@ -3,6 +3,17 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.18 — 2026-11-05
+
+- **Servidor MCP** para conectar DMarlon Studio con Claude (Ajustes →
+  Conectar con Claude): mientras la app está abierta, Claude Code u otro
+  cliente MCP puede listar, leer, crear y modificar proyectos (componentes,
+  eventos y código), generar el Python, ejecutarlos y leer su salida. Solo en
+  este equipo y con token; **Añadir a Claude Code** lo da de alta con un clic.
+  Las pestañas abiertas se recargan solas con los cambios.
+- Landing: página **Novedades** con el historial de versiones, generada a
+  partir de este CHANGELOG; la versión del pie lleva a ella.
+
 ## 1.0.17 — 2026-11-05
 
 - Componente **Asistente IA** (escritorio y web): Claude desde el código de

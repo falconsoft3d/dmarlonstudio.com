@@ -14,6 +14,7 @@ export const PATHS = {
   manual: { es: "/manual", en: "/en/manual" },
   manualPrint: { es: "/manual/imprimir", en: "/en/manual/print" },
   dossier: { es: "/dosier", en: "/en/dossier" },
+  changelog: { es: "/novedades", en: "/en/changelog" },
 } satisfies Record<string, Record<Lang, string>>;
 
 /** Las rutas de una misma página en cada idioma. */

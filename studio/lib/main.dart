@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'code/tk_run.dart';
+import 'core/mcp_server.dart';
 import 'core/studio_db.dart';
 import 'i18n/i18n.dart';
 import 'ui/screens/code_studio.dart';
@@ -19,6 +20,8 @@ Future<void> main() async {
   await StudioDb.open();
   await I18n.load();
   await loadThemeMode();
+  // El MCP para Claude, si está activado en Ajustes.
+  await McpServer.startFromSettings();
   runApp(const StudioApp());
 }
 

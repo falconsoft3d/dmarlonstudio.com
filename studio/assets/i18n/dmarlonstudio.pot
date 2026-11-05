@@ -433,7 +433,7 @@ msgstr ""
 msgid "Empresa"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/mcp_settings.dart
 msgid "En marcha"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Nuevo"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/mcp_settings.dart
 msgid "Parado"
 msgstr ""
 
@@ -1575,7 +1575,7 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
 msgid "Copiar"
 msgstr ""
 
@@ -2431,7 +2431,7 @@ msgstr ""
 msgid "Detenido"
 msgstr ""
 
-#: lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_web.dart lib/ui/screens/mcp_settings.dart
 msgid "Dirección"
 msgstr ""
 
@@ -3931,7 +3931,7 @@ msgstr ""
 msgid "Todos los archivos ({0})"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/mcp_settings.dart
 msgid "Token"
 msgstr ""
 
@@ -4745,6 +4745,50 @@ msgstr ""
 msgid "{0} commits por traer."
 msgstr ""
 
+#: lib/ui/screens/mcp_settings.dart
+msgid "Añadido a Claude Code: en una sesión nueva, Claude verá las herramientas de DMarlon Studio."
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Añadir a Claude Code"
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Cambiar el token"
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Claude (Claude Code u otro cliente MCP) puede listar, leer, crear y modificar sus proyectos, generar el Python y ejecutarlos mientras DMarlon Studio está abierto. Solo responde en este equipo y con el token."
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Claude Code"
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Copiado."
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Los clientes ya configurados dejarán de conectarse hasta que les dé el token nuevo."
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar"
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "No se encontró Claude Code. Instálelo desde https://claude.com/claude-code o copie la orden y ejecútela en una terminal."
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Ocultar"
+msgstr ""
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Servidor MCP activo"
+msgstr ""
+
 #: lib/ui/screens/project_browser.dart
 msgid "Agregar nuevo"
 msgstr ""
@@ -4831,6 +4875,10 @@ msgstr ""
 
 #: lib/ui/screens/settings_screen.dart
 msgid "Clave de la API"
+msgstr ""
+
+#: lib/ui/screens/settings_screen.dart
+msgid "Conectar con Claude (MCP)"
 msgstr ""
 
 #: lib/ui/screens/settings_screen.dart
@@ -5059,10 +5107,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Mi aplicación"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Mostrar"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

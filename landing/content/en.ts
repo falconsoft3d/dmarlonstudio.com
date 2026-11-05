@@ -17,6 +17,7 @@ export const en: Content = {
       { href: "/en#roadmap", label: "Targets" },
       { href: "/en/manual", label: "Manual" },
       { href: "/en/dossier", label: "Dossier" },
+      { href: "/en/changelog", label: "Changelog" },
     ],
     download: "Download",
     languageLabel: "Language",

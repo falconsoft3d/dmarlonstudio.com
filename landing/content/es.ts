@@ -17,6 +17,7 @@ export const es: Content = {
       { href: "/#hoja-de-ruta", label: "Entornos" },
       { href: "/manual", label: "Manual" },
       { href: "/dosier", label: "Dossier" },
+      { href: "/novedades", label: "Novedades" },
     ],
     download: "Descargar",
     languageLabel: "Idioma",

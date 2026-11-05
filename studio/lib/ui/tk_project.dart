@@ -82,6 +82,16 @@ class TkProject {
     _notify();
   }
 
+  /// Otro programa (el MCP) cambió [x] en el disco: si está abierto y sin
+  /// cambios pendientes, toma lo nuevo.
+  static void reloadFromDisk(StudioProject x) {
+    final id = p.normalize(x.path);
+    for (final e in [..._opened, ..._inEditor]) {
+      if (e.id == id && !e.dirty) e._reload(x);
+    }
+    _notify();
+  }
+
   /// ¿Tiene [id] código sin guardar en una pestaña del Editor?
   static bool pendingInEditor(String id) =>
       _inEditor.any((e) => e.id == p.normalize(id) && e.pending);

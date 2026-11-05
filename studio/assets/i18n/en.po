@@ -441,7 +441,7 @@ msgstr "The notes editor in Flask: saving downloads the file in the browser."
 msgid "Empresa"
 msgstr "Company"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/mcp_settings.dart
 msgid "En marcha"
 msgstr "Running"
 
@@ -613,7 +613,7 @@ msgstr "Notes"
 msgid "Nuevo"
 msgstr "New"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/mcp_settings.dart
 msgid "Parado"
 msgstr "Stopped"
 
@@ -1589,7 +1589,7 @@ msgstr "Currency converter"
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr "Converts currencies with ECB rates read from an API in the background, with an offline fallback table."
 
-#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
 msgid "Copiar"
 msgstr "Copy"
 
@@ -2453,7 +2453,7 @@ msgstr "Download"
 msgid "Detenido"
 msgstr "Stopped"
 
-#: lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_web.dart lib/ui/screens/mcp_settings.dart
 msgid "Dirección"
 msgstr "Address"
 
@@ -3957,7 +3957,7 @@ msgstr "All branches"
 msgid "Todos los archivos ({0})"
 msgstr "All files ({0})"
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/mcp_settings.dart
 msgid "Token"
 msgstr "Token"
 
@@ -4773,6 +4773,50 @@ msgstr "{0} commits to push."
 msgid "{0} commits por traer."
 msgstr "{0} commits to pull."
 
+#: lib/ui/screens/mcp_settings.dart
+msgid "Añadido a Claude Code: en una sesión nueva, Claude verá las herramientas de DMarlon Studio."
+msgstr "Added to Claude Code: in a new session, Claude will see the DMarlon Studio tools."
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Añadir a Claude Code"
+msgstr "Add to Claude Code"
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Cambiar el token"
+msgstr "Change the token"
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Claude (Claude Code u otro cliente MCP) puede listar, leer, crear y modificar sus proyectos, generar el Python y ejecutarlos mientras DMarlon Studio está abierto. Solo responde en este equipo y con el token."
+msgstr "Claude (Claude Code or another MCP client) can list, read, create and change your projects, generate the Python and run them while DMarlon Studio is open. It only answers on this computer and with the token."
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Claude Code"
+msgstr "Claude Code"
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Copiado."
+msgstr "Copied."
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Los clientes ya configurados dejarán de conectarse hasta que les dé el token nuevo."
+msgstr "Clients already set up will stop connecting until you give them the new token."
+
+#: lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar"
+msgstr "Show"
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "No se encontró Claude Code. Instálelo desde https://claude.com/claude-code o copie la orden y ejecútela en una terminal."
+msgstr "Claude Code was not found. Install it from https://claude.com/claude-code or copy the command and run it in a terminal."
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Ocultar"
+msgstr "Hide"
+
+#: lib/ui/screens/mcp_settings.dart
+msgid "Servidor MCP activo"
+msgstr "MCP server on"
+
 #: lib/ui/screens/project_browser.dart
 msgid "Agregar nuevo"
 msgstr "Add new"
@@ -4860,6 +4904,10 @@ msgstr "Appearance"
 #: lib/ui/screens/settings_screen.dart
 msgid "Clave de la API"
 msgstr "API key"
+
+#: lib/ui/screens/settings_screen.dart
+msgid "Conectar con Claude (MCP)"
+msgstr "Connect to Claude (MCP)"
 
 #: lib/ui/screens/settings_screen.dart
 msgid "Consultar modelos"
@@ -5088,10 +5136,6 @@ msgstr "Web apps use the same designer and the same Python, with Flask: the code
 #: lib/ui/screens/tk_designer.dart
 msgid "Mi aplicación"
 msgstr "My app"
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Mostrar"
-msgstr "Show"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Mostrar la carpeta del proyecto"

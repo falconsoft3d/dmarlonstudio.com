@@ -894,6 +894,30 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "base-de-datos",
+          title: "FalconDatabase and Firebase",
+          blocks: [
+            {
+              type: "p",
+              text: "In the app properties (with no widget selected), **Database → Connect to** chooses **FalconDatabase** (server, project reference and anon key) or **Firebase** (project ID and web key). The studio generates `lib/db.dart` with the same shape for both, and `App` uses it with `import 'db.dart';`.",
+            },
+            {
+              type: "code",
+              code: "Future<bool> signIn() async {\n  try {\n    await db.signIn(email, password);\n    notes = await db.table('notes').list(order: 'id.desc');\n    notifyListeners();\n    return true;\n  } on DbError catch (e) {\n    error = e.message;\n    notifyListeners();\n    return false;\n  }\n}",
+            },
+            {
+              type: "ul",
+              items: [
+                "`db.signIn(email, password)`, `db.signUp(…)`, `db.signOut()` and `db.user`: the session.",
+                "`db.table('t').list(where: {…}, order: 'field.desc', limit: 20)`, `get(id)`, `insert({…})`, `update(id, {…})` and `delete(id)`. In `where`, a value or an operator such as `gte.10`.",
+                "Actions can wait: `if (await app.signIn()) home:Notes`.",
+                "Only the public key (anon or the web key) goes inside the app; access rules are set by the database.",
+                "Example: **Cloud notes**, with login and the FalconDatabase `notas` table.",
+              ],
+            },
+          ],
+        },
+        {
           id: "simulador",
           title: "The simulator and export",
           blocks: [

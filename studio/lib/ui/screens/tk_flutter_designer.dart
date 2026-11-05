@@ -35,6 +35,8 @@ const flIcons = <String, IconData>{
   'storefront': Icons.storefront,
   'payments': Icons.payments,
   'checkroom': Icons.checkroom,
+  'cloud': Icons.cloud,
+  'sticky_note_2': Icons.sticky_note_2,
   'chair': Icons.chair,
   'headphones': Icons.headphones,
   'watch': Icons.watch,
@@ -1338,6 +1340,57 @@ class TkFlutterProps extends StatelessWidget {
                   lines: 3,
                   mono: true,
                 ),
+                section(tr('BASE DE DATOS')),
+                _choice(
+                  tr('Conectar con'),
+                  app.backend.kind,
+                  const ['falcon', 'firebase'],
+                  (v) => app.backend = app.backend.copyWith(kind: v),
+                  labels: const {
+                    'falcon': 'FalconDatabase',
+                    'firebase': 'Firebase',
+                  },
+                ),
+                if (app.backend.kind == 'falcon')
+                  _field(
+                    'db-url',
+                    tr('Servidor'),
+                    app.backend.url,
+                    (v) => app.backend = app.backend.copyWith(url: v.trim()),
+                    hint: 'https://falcondatabase.com',
+                  ),
+                if (app.backend.on) ...[
+                  _field(
+                    'db-project',
+                    app.backend.kind == 'falcon'
+                        ? tr('Proyecto (referencia)')
+                        : tr('ID del proyecto'),
+                    app.backend.project,
+                    (v) =>
+                        app.backend = app.backend.copyWith(project: v.trim()),
+                  ),
+                  _field(
+                    'db-key',
+                    app.backend.kind == 'falcon'
+                        ? tr('Clave anon (pública)')
+                        : tr('Clave web (apiKey)'),
+                    app.backend.key,
+                    (v) => app.backend = app.backend.copyWith(key: v.trim()),
+                    mono: true,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 4,
+                    ),
+                    child: Text(
+                      tr(
+                        "El estudio genera lib/db.dart: en App, await db.signIn(correo, clave), await db.table('productos').list(), insert, update y delete. Use solo la clave pública: va dentro de la app.",
+                      ),
+                      style: TextStyle(fontSize: 11.5, color: t.hintColor),
+                    ),
+                  ),
+                ],
                 _help(context),
               ]
             : [
@@ -1438,8 +1491,9 @@ class TkFlutterProps extends StatelessWidget {
     String label,
     String value,
     List<String> options,
-    void Function(String) set,
-  ) => Padding(
+    void Function(String) set, {
+    Map<String, String> labels = const {},
+  }) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
     child: DropdownButtonFormField<String>(
       initialValue: options.contains(value) ? value : '',
@@ -1452,7 +1506,8 @@ class TkFlutterProps extends StatelessWidget {
       ),
       items: [
         const DropdownMenuItem(value: '', child: Text('—')),
-        for (final o in options) DropdownMenuItem(value: o, child: Text(o)),
+        for (final o in options)
+          DropdownMenuItem(value: o, child: Text(labels[o] ?? o)),
       ],
       onChanged: (v) => onEdit(() => set(v ?? '')),
     ),

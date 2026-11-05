@@ -5,6 +5,7 @@ part of 'tk_examples.dart';
 /// Los ejemplos de Flutter.
 List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _flutterStore(t),
+  _flutterCloudNotes(t),
   _flutterShipping(t),
   _flutterTodo(t),
 ];

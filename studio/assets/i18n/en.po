@@ -453,7 +453,7 @@ msgstr "Base"
 msgid "Bolsa de valores web"
 msgstr "Stock market (web)"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart
 msgid "Borrar"
 msgstr "Clear"
 
@@ -533,7 +533,7 @@ msgstr "Odoo / ERPSqlite contacts"
 msgid "Conversor de unidades"
 msgstr "Unit converter"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr "Email"
 
@@ -645,7 +645,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -809,7 +809,7 @@ msgstr "Fill in server, database, user and key."
 msgid "Salir"
 msgstr "Exit"
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Servidor"
 msgstr "Server"
 
@@ -1201,7 +1201,7 @@ msgstr "Console (Python)"
 msgid "Consulta SQL"
 msgstr "SQL query"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr "Password"
 
@@ -2897,6 +2897,46 @@ msgstr "pending"
 msgid "¡Nada por hacer!"
 msgstr "Nothing to do!"
 
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Aún no hay notas."
+msgstr "No notes yet."
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "En FalconDatabase: active el login, cree un usuario y una tabla notas con la columna texto y el acceso «authenticated». Después ponga la referencia del proyecto y la clave anon en las propiedades de la app."
+msgstr "In FalconDatabase: turn on login, create a user and a notas table with a texto column and “authenticated” access. Then put the project reference and the anon key in the app properties."
+
+#: lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Entrar"
+msgstr "Log in"
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Escriba una nota"
+msgstr "Write a note"
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Falta la conexión: ponga la referencia del proyecto y la clave anon de FalconDatabase en las propiedades de la app (Base de datos)."
+msgstr "The connection is missing: put the FalconDatabase project reference and anon key in the app properties (Database)."
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Mis notas"
+msgstr "My notes"
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube"
+msgstr "Cloud notes"
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube (Flutter + FalconDatabase)"
+msgstr "Cloud notes (Flutter + FalconDatabase)"
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube: login y la tabla notas de FalconDatabase (con lib/db.dart)."
+msgstr "Cloud notes: login and the FalconDatabase notas table (with lib/db.dart)."
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Una app móvil con login y notas guardadas en FalconDatabase: ponga la conexión en las propiedades de la app."
+msgstr "A mobile app with login and notes saved in FalconDatabase: put the connection in the app properties."
+
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Algodón orgánico, corte recto. Tallas de la S a la XL."
 msgstr "Organic cotton, straight fit. Sizes S to XL."
@@ -2932,10 +2972,6 @@ msgstr "Your cart is empty."
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Electrónica"
 msgstr "Electronics"
-
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
-msgid "Entrar"
-msgstr "Log in"
 
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Entre para comprar"
@@ -5839,7 +5875,7 @@ msgstr "Parent folder"
 msgid "Carpeta vacía."
 msgstr "Empty folder."
 
-#: lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Clave web (apiKey)"
 msgstr "Web key (apiKey)"
 
@@ -5943,7 +5979,7 @@ msgstr "Save request"
 msgid "Guarde peticiones para tenerlas a mano."
 msgstr "Save requests to keep them handy."
 
-#: lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "ID del proyecto"
 msgstr "Project ID"
 
@@ -7364,6 +7400,10 @@ msgid "Añada widgets desde la paleta"
 msgstr "Add widgets from the palette"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "BASE DE DATOS"
+msgstr "DATABASE"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Bajar"
 msgstr "Move down"
 
@@ -7384,6 +7424,10 @@ msgid "Botón flotante: icono"
 msgstr "Floating button: icon"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Clave anon (pública)"
+msgstr "Anon key (public)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Color"
 msgstr "Color"
 
@@ -7400,12 +7444,20 @@ msgid "Con separadores"
 msgstr "With dividers"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Conectar con"
+msgstr "Connect to"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Eje cruzado"
 msgstr "Cross axis"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Eje principal"
 msgstr "Main axis"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "El estudio genera lib/db.dart: en App, await db.signIn(correo, clave), await db.table('productos').list(), insert, update y delete. Use solo la clave pública: va dentro de la app."
+msgstr "The studio generates lib/db.dart: in App, await db.signIn(email, password), await db.table('products').list(), insert, update and delete. Use only the public key: it goes inside the app."
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Elegida (expresión)"
@@ -7482,6 +7534,10 @@ msgstr "pub.dev packages (one per line)"
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Proporción"
 msgstr "Flex"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Proyecto (referencia)"
+msgstr "Project (reference)"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Radio de las esquinas"

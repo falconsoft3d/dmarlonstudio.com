@@ -3,6 +3,19 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.35 — 2026-11-05
+
+- **Flutter con FalconDatabase y Firebase**: en las propiedades de la app,
+  Base de datos → Conectar con. El estudio genera `lib/db.dart`, la misma
+  forma para los dos: `db.signIn`, `db.table('t').list/get/insert/update/
+  delete` y `DbError`. Probado contra FalconDatabase de verdad (tablas,
+  login, tabla con acceso solo con sesión); el de Firebase compila sin
+  avisos y queda pendiente de probar con un proyecto real.
+- Ejemplo **Notas en la nube (Flutter + FalconDatabase)**: login y notas en
+  una tabla de FalconDatabase.
+- Flutter: las acciones pueden esperar (`if (await app.entrar())
+  home:Notas`).
+
 ## 1.0.34 — 2026-11-05
 
 - Ejemplo de Flutter **Tienda con login**: entrar (con aviso si la clave es

@@ -425,7 +425,7 @@ msgstr ""
 msgid "Bolsa de valores web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart
 msgid "Borrar"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr ""
 msgid "Salir"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Servidor"
 msgstr ""
 
@@ -1173,7 +1173,7 @@ msgstr ""
 msgid "Consulta SQL"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr ""
 
@@ -2863,6 +2863,46 @@ msgstr ""
 msgid "¡Nada por hacer!"
 msgstr ""
 
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Aún no hay notas."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "En FalconDatabase: active el login, cree un usuario y una tabla notas con la columna texto y el acceso «authenticated». Después ponga la referencia del proyecto y la clave anon en las propiedades de la app."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Entrar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Escriba una nota"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Falta la conexión: ponga la referencia del proyecto y la clave anon de FalconDatabase en las propiedades de la app (Base de datos)."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Mis notas"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube (Flutter + FalconDatabase)"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Notas en la nube: login y la tabla notas de FalconDatabase (con lib/db.dart)."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_cloud.dart
+msgid "Una app móvil con login y notas guardadas en FalconDatabase: ponga la conexión en las propiedades de la app."
+msgstr ""
+
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Algodón orgánico, corte recto. Tallas de la S a la XL."
 msgstr ""
@@ -2897,10 +2937,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Electrónica"
-msgstr ""
-
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
-msgid "Entrar"
 msgstr ""
 
 #: lib/code/tk_showcase_flutter_store.dart
@@ -5760,7 +5796,7 @@ msgstr ""
 msgid "Carpeta vacía."
 msgstr ""
 
-#: lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Clave web (apiKey)"
 msgstr ""
 
@@ -5864,7 +5900,7 @@ msgstr ""
 msgid "Guarde peticiones para tenerlas a mano."
 msgstr ""
 
-#: lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "ID del proyecto"
 msgstr ""
 
@@ -7281,6 +7317,10 @@ msgid "Añada widgets desde la paleta"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "BASE DE DATOS"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Bajar"
 msgstr ""
 
@@ -7301,6 +7341,10 @@ msgid "Botón flotante: icono"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Clave anon (pública)"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Color"
 msgstr ""
 
@@ -7317,11 +7361,19 @@ msgid "Con separadores"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Conectar con"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Eje cruzado"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Eje principal"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "El estudio genera lib/db.dart: en App, await db.signIn(correo, clave), await db.table('productos').list(), insert, update y delete. Use solo la clave pública: va dentro de la app."
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
@@ -7398,6 +7450,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Proporción"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Proyecto (referencia)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

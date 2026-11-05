@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dmarlon_studio/code/tk_examples.dart';
 import 'package:dmarlon_studio/code/tk_flutter.dart';
+import 'package:dmarlon_studio/code/tk_flutter_db.dart';
 import 'package:dmarlon_studio/code/tk_flutter_run.dart';
 import 'package:dmarlon_studio/code/tk_model.dart';
 import 'package:dmarlon_studio/code/tk_run.dart';
@@ -56,6 +57,158 @@ void main() {
       expect(files['lib/app.dart'], e.code);
     }
   });
+
+  /// Escribe una app con [backend] y [test] en una carpeta temporal.
+  Future<Directory> appWith(FlBackend backend, {String? test}) async {
+    final tmp = await Directory.systemTemp.createTemp('dms_db_');
+    addTearDown(() => tmp.delete(recursive: true));
+    final d = TkDesign(target: tkTargetFlutter);
+    (TkFlutter.starter('Base')..backend = backend).saveTo(d);
+    final files = TkFlutter.files(
+      d,
+      TkFlutter.template('// app'),
+      name: 'base',
+    );
+    expect(files['pubspec.yaml'], contains('http: ^1.2.0'));
+    for (final f in files.entries) {
+      File(p.join(tmp.path, f.key))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          f.key == 'pubspec.yaml'
+              ? f.value.replaceFirst(
+                  'dev_dependencies:\n',
+                  'dev_dependencies:\n  flutter_test:\n    sdk: flutter\n',
+                )
+              : f.value,
+        );
+    }
+    if (test != null) {
+      File(p.join(tmp.path, 'test', 'db_test.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(test);
+    }
+    return tmp;
+  }
+
+  test(
+    'Firebase: el lib/db.dart generado compila sin avisos',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      if (flutter == null) return markTestSkipped('Sin Flutter.');
+      final dir = await appWith(
+        const FlBackend(kind: 'firebase', project: 'demo', key: 'AIza-demo'),
+      );
+      expect(
+        File(p.join(dir.path, 'lib', 'db.dart')).readAsStringSync(),
+        contains('firestore.googleapis.com'),
+      );
+      final r = await Process.run(flutter, [
+        'analyze',
+      ], workingDirectory: dir.path);
+      expect(
+        '${r.stdout}',
+        contains('No issues found'),
+        reason: '${r.stdout}${r.stderr}',
+      );
+    },
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
+
+  test(
+    'de verdad: lib/db.dart con FalconDatabase (tablas y sesión)',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      final falcon = Platform.environment['DMS_FALCON'];
+      final user = Platform.environment['DMS_FALCON_USER'];
+      if (flutter == null || falcon == null || user == null) {
+        return markTestSkipped('Sin Flutter, DMS_FALCON o DMS_FALCON_USER.');
+      }
+      final (ref, key) = (
+        falcon.split(':').first,
+        falcon.split(':').skip(1).join(':'),
+      );
+      final (email, pass) = (
+        user.split(':').first,
+        user.split(':').skip(1).join(':'),
+      );
+      final dir = await appWith(
+        FlBackend(kind: 'falcon', project: ref, key: key),
+        test: _falconTest.replaceAll('EMAIL', email).replaceAll('PASS', pass),
+      );
+      final r = await Process.run(flutter, [
+        'analyze',
+      ], workingDirectory: dir.path);
+      expect(
+        '${r.stdout}',
+        contains('No issues found'),
+        reason: '${r.stdout}${r.stderr}',
+      );
+      final t = await Process.run(flutter, [
+        'test',
+      ], workingDirectory: dir.path);
+      expect(t.exitCode, 0, reason: '${t.stdout}${t.stderr}');
+    },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
+
+  test(
+    'de verdad: el ejemplo de notas en la nube contra FalconDatabase',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      final falcon = Platform.environment['DMS_FALCON'];
+      final user = Platform.environment['DMS_FALCON_USER'];
+      if (flutter == null || falcon == null || user == null) {
+        return markTestSkipped('Sin Flutter, DMS_FALCON o DMS_FALCON_USER.');
+      }
+      final (ref, key) = (
+        falcon.split(':').first,
+        falcon.split(':').skip(1).join(':'),
+      );
+      final (email, pass) = (
+        user.split(':').first,
+        user.split(':').skip(1).join(':'),
+      );
+      final e = tkFlutterExamples(
+        id,
+      ).firstWhere((e) => e.seed == 'flutter_cloud_notes');
+      final d = TkDesign.fromJson(e.design.toJson());
+      final app = FlApp.of(d)
+        ..backend = FlBackend(kind: 'falcon', project: ref, key: key);
+      app.saveTo(d);
+      final tmp = await Directory.systemTemp.createTemp('dms_notes_');
+      addTearDown(() => tmp.delete(recursive: true));
+      for (final f in TkFlutter.files(d, e.code, name: 'notas').entries) {
+        File(p.join(tmp.path, f.key))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            f.key == 'pubspec.yaml'
+                ? f.value.replaceFirst(
+                    'dev_dependencies:\n',
+                    'dev_dependencies:\n  flutter_test:\n    sdk: flutter\n',
+                  )
+                : f.value,
+          );
+      }
+      File(p.join(tmp.path, 'test', 'notas_test.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(
+          _notesTest.replaceAll('EMAIL', email).replaceAll('PASS', pass),
+        );
+      final r = await Process.run(flutter, [
+        'analyze',
+      ], workingDirectory: tmp.path);
+      expect(
+        '${r.stdout}',
+        contains('No issues found'),
+        reason: '${r.stdout}${r.stderr}',
+      );
+      final t = await Process.run(flutter, [
+        'test',
+      ], workingDirectory: tmp.path);
+      expect(t.exitCode, 0, reason: '${t.stdout}${t.stderr}');
+    },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
 
   test(
     'de verdad: la tienda generada pasa su flujo (login, carrito y pago)',
@@ -228,6 +381,74 @@ void main() {
     await tester.tap(find.byIcon(Icons.logout));
     await tester.pumpAndSettle();
     expect(find.text('Entrar'), findsOneWidget);
+  });
+}
+''';
+
+/// Contra FalconDatabase de verdad: «productos» es pública y «notas» pide
+/// sesión.
+const _falconTest = r'''
+import 'package:base/db.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  test('tablas públicas', () async {
+    final rows = await db.table('productos').list(order: 'id');
+    expect(rows.first.keys, containsAll(['id', 'nombre', 'precio']));
+    final nuevo = await db.table('productos').insert({'nombre': 'Desde Flutter', 'precio': 3.5});
+    final id = nuevo['id'];
+    final cambiado = await db.table('productos').update(id, {'precio': 4.25});
+    expect(cambiado['precio'], 4.25);
+    final caros = await db.table('productos').list(where: {'nombre': 'Desde Flutter', 'precio': 'gte.4'});
+    expect(caros.map((r) => r['id']), contains(id));
+    expect((await db.table('productos').get(id))?['nombre'], 'Desde Flutter');
+    await db.table('productos').delete(id);
+    expect(await db.table('productos').get(id), isNull);
+  });
+
+  test('sesión', () async {
+    await expectLater(db.signIn('EMAIL', 'mala'), throwsA(isA<DbError>()));
+    expect(() => db.table('notas').list(), throwsA(isA<DbError>()));
+    final user = await db.signIn('EMAIL', 'PASS');
+    expect(user['email'], 'EMAIL');
+    final nota = await db.table('notas').insert({'texto': 'hola desde Flutter'});
+    final notas = await db.table('notas').list();
+    expect(notas.map((n) => n['texto']), contains('hola desde Flutter'));
+    await db.table('notas').delete(nota['id']);
+    db.signOut();
+    await expectLater(db.table('notas').list(), throwsA(isA<DbError>()));
+  });
+}
+''';
+
+/// La lógica del ejemplo de notas, contra FalconDatabase de verdad.
+const _notesTest = r'''
+import 'package:flutter_test/flutter_test.dart';
+import 'package:notas/app.dart';
+
+void main() {
+  test('login, guardar, listar, borrar y salir', () async {
+    final app = App();
+    expect(app.configurada, isTrue);
+    app.email = 'EMAIL';
+    app.clave = 'mala';
+    expect(await app.entrar(), isFalse);
+    expect(app.error, isNotEmpty);
+    app.clave = 'PASS';
+    expect(await app.entrar(), isTrue);
+    expect(app.usuario, 'EMAIL');
+    app.nueva = 'Nota de prueba DMS';
+    await app.agregar();
+    expect(app.nueva, '');
+    expect(app.notas.first['texto'], 'Nota de prueba DMS');
+    await app.cargar();
+    final nota = app.notas.firstWhere((n) => n['texto'] == 'Nota de prueba DMS');
+    expect(app.fecha(nota), isNotEmpty);
+    await app.borrar(nota);
+    await app.cargar();
+    expect(app.notas.where((n) => n['texto'] == 'Nota de prueba DMS'), isEmpty);
+    app.salir();
+    expect(app.usuario, '');
   });
 }
 ''';

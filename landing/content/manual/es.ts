@@ -894,6 +894,30 @@ export const manualEs: Manual = {
           ],
         },
         {
+          id: "base-de-datos",
+          title: "FalconDatabase y Firebase",
+          blocks: [
+            {
+              type: "p",
+              text: "En las propiedades de la app (sin ningún widget elegido), **Base de datos → Conectar con** elige **FalconDatabase** (servidor, referencia del proyecto y clave anon) o **Firebase** (ID del proyecto y clave web). El estudio genera `lib/db.dart` con la misma forma para los dos, y `App` lo usa con `import 'db.dart';`.",
+            },
+            {
+              type: "code",
+              code: "Future<bool> entrar() async {\n  try {\n    await db.signIn(email, clave);\n    notas = await db.table('notas').list(order: 'id.desc');\n    notifyListeners();\n    return true;\n  } on DbError catch (e) {\n    error = e.message;\n    notifyListeners();\n    return false;\n  }\n}",
+            },
+            {
+              type: "ul",
+              items: [
+                "`db.signIn(correo, clave)`, `db.signUp(…)`, `db.signOut()` y `db.user`: la sesión.",
+                "`db.table('t').list(where: {…}, order: 'campo.desc', limit: 20)`, `get(id)`, `insert({…})`, `update(id, {…})` y `delete(id)`. En `where` vale un valor o un operador como `gte.10`.",
+                "Las acciones pueden esperar: `if (await app.entrar()) home:Notas`.",
+                "Solo va dentro de la app la clave pública (anon o la clave web); las reglas de acceso las pone la base de datos.",
+                "Ejemplo: **Notas en la nube**, con login y la tabla `notas` de FalconDatabase.",
+              ],
+            },
+          ],
+        },
+        {
           id: "simulador",
           title: "El simulador y exportar",
           blocks: [

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import '../core/errors.dart';
 import '../i18n/tr.dart';
+import 'tk_flutter_db.dart';
 import 'tk_model.dart';
 
 /// Apps de Flutter al estilo de FlutterFlow: pantallas con un árbol de
@@ -111,6 +112,7 @@ class FlApp {
     this.dark = false,
     List<FlScreen>? screens,
     List<String>? packages,
+    this.backend = const FlBackend(),
   }) : screens = screens ?? [FlScreen(name: 'Inicio', title: 'Mi app')],
        packages = packages ?? [];
 
@@ -122,6 +124,9 @@ class FlApp {
   /// shared_preferences).
   final List<String> packages;
 
+  /// La base de datos (FalconDatabase o Firebase): lib/db.dart.
+  FlBackend backend;
+
   FlScreen? screen(String name) =>
       screens.where((s) => s.name == name).firstOrNull;
 
@@ -131,6 +136,7 @@ class FlApp {
     'dark': dark,
     'screens': [for (final s in screens) s.toJson()],
     if (packages.isNotEmpty) 'packages': packages,
+    if (backend.kind.isNotEmpty) 'backend': backend.toJson(),
   };
 
   static FlApp fromJson(Map j) => FlApp(
@@ -142,6 +148,7 @@ class FlApp {
         FlScreen.fromJson(s as Map),
     ],
     packages: [for (final p in (j['packages'] as List?) ?? const []) '$p'],
+    backend: FlBackend.fromJson(j['backend']),
   );
 
   /// La app del diseño [d] (guardada en sus propiedades).
@@ -314,7 +321,7 @@ class TkFlutter {
   }
 
   static String _cb(String a) =>
-      a.trim().isEmpty ? 'null' : '() { ${action(a)} }';
+      a.trim().isEmpty ? 'null' : '() async { ${action(a)} }';
 
   /// El código de [n]. [inFlex]: su padre es una fila o una columna.
   static String widget(
@@ -371,13 +378,13 @@ class TkFlutter {
       'TextField' => _field(n, g),
       'ListTile' => _tile(n),
       'Checkbox' =>
-        'Checkbox(value: ${_bool(p['value']) ?? 'false'}, onChanged: (v) { ${action(n.text('onChanged'))} })',
+        'Checkbox(value: ${_bool(p['value']) ?? 'false'}, onChanged: (v) async { ${action(n.text('onChanged'))} })',
       'Switch' =>
-        'Switch(value: ${_bool(p['value']) ?? 'false'}, onChanged: (v) { ${action(n.text('onChanged'))} })',
+        'Switch(value: ${_bool(p['value']) ?? 'false'}, onChanged: (v) async { ${action(n.text('onChanged'))} })',
       'Chip' when p['selected'] != null =>
         'ChoiceChip(label: Text(${str(n.text('text', 'Etiqueta'))}), '
             'selected: ${_bool(p['selected'])}, '
-            'onSelected: (_) { ${action(n.text('onTap'))} })',
+            'onSelected: (_) async { ${action(n.text('onTap'))} })',
       'Chip' =>
         'Chip(label: Text(${str(n.text('text', 'Etiqueta'))}), '
             '${n.text('icon').isEmpty ? '' : 'avatar: Icon(${_icon(n.text('icon'))}, size: 18), '}'
@@ -513,7 +520,7 @@ class TkFlutter {
         'keyboardType: $keyboard, '
         '${n.props['obscure'] == true ? 'obscureText: true, ' : ''}'
         '${_num(n.props['lines']) == null ? '' : 'maxLines: ${_num(n.props['lines'])}, '}'
-        '${submit.isEmpty ? '' : 'onSubmitted: (v) { ${action(submit)} }, '}'
+        '${submit.isEmpty ? '' : 'onSubmitted: (v) async { ${action(submit)} }, '}'
         'decoration: InputDecoration('
         '${n.text('label').isEmpty ? '' : 'labelText: ${str(n.text('label'))}, '}'
         '${n.text('hint').isEmpty ? '' : 'hintText: ${str(n.text('hint'))}, '}'
@@ -599,7 +606,7 @@ ${s.fabIcon.isEmpty ? '' : '      floatingActionButton: FloatingActionButton(onP
     final hex =
         RegExp(r'#?([0-9a-fA-F]{6})').firstMatch(app.primary)?[1] ?? '2B5FD9';
     return '''// Generado por DMarlon Studio a partir de las pantallas. No lo edite.
-// ignore_for_file: unused_local_variable, prefer_const_constructors, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
+// ignore_for_file: unused_local_variable, prefer_const_constructors, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, use_build_context_synchronously
 import 'package:flutter/material.dart';
 
 import 'app.dart';
@@ -708,6 +715,7 @@ class App extends ChangeNotifier {
       ),
       'lib/main.dart': main(app),
       'lib/app.dart': code.replaceAll('\r\n', '\n'),
+      if (app.backend.on) 'lib/db.dart': app.backend.file(),
       'analysis_options.yaml': 'include: package:flutter_lints/flutter.yaml\n',
     };
   }
@@ -724,7 +732,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-${[for (final p in app.packages) '  $p'].join('\n')}
+${[
+        for (final p in [...app.packages, if (app.backend.on && !app.packages.any((p) => p.startsWith('http:'))) FlBackend.package]) '  $p',
+      ].join('\n')}
 
 dev_dependencies:
   flutter_lints: ^5.0.0

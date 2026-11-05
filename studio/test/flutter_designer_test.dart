@@ -80,7 +80,10 @@ void main() {
     expect(app.screens.map((s) => s.name), ['Inicio', 'Pantalla2']);
     final main = TkFlutter.main(app);
     expect(main, contains("Text('Pulsaciones:'"));
-    expect(main, contains('FilledButton(onPressed: () { app.increment(); }'));
+    expect(
+      main,
+      contains('FilledButton(onPressed: () async { app.increment(); }'),
+    );
     expect(
       main,
       contains("'/Pantalla2': (context) => const Pantalla2Screen()"),

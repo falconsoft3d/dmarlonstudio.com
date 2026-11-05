@@ -6128,6 +6128,10 @@ msgid "Añade un campo de teléfono y alinea los botones"
 msgstr "Add a phone field and align the buttons"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Añadir subproyecto…"
+msgstr "Add subproject…"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Aún no hay proyectos. Cree uno con «Nuevo proyecto»."
 msgstr "No projects yet. Create one with “New project”."
 
@@ -6400,6 +6404,14 @@ msgid "Nuevo proyecto"
 msgstr "New project"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Nuevo subproyecto"
+msgstr "New subproject"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Parte de"
+msgstr "Part of"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Pasar por encima (F8)"
 msgstr "Step over (F8)"
 
@@ -6456,6 +6468,14 @@ msgid "Se ha restaurado el diseño, pero no el código: cambió a mano después 
 msgstr "The design was restored, but not the code: it was edited by hand after that step."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Subproyecto: {0}"
+msgstr "Subproject: {0}"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Subproyectos"
+msgstr "Subprojects"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Terminó con el código {0}."
 msgstr "Ended with code {0}."
 
@@ -6470,6 +6490,10 @@ msgstr "Bring to front"
 #: lib/ui/screens/tk_designer.dart
 msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
 msgstr "A PNG (ideally 256 × 256 or larger). It is copied to the project images folder and used by the window, the extension or the web page depending on the target."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Un proyecto puede tener partes con su propio destino: por ejemplo, «Odoo» con «bd» (Python) y «front» (Next.js). Cada subproyecto es una carpeta dentro de la del proyecto."
+msgstr "A project can have parts with their own target: for example, “Odoo” with “db” (Python) and “front” (Next.js). Each subproject is a folder inside the project folder."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."

@@ -461,6 +461,7 @@ export const manualEs: Manual = {
                 "**Elegir…** abre el diálogo de archivos: el PNG se copia a `images/` del proyecto.",
                 "**Generar con IA** dibuja el icono a partir de una descripción (con la IA de Ajustes) y lo guarda como PNG de 512 × 512. Antes de usarlo se ve y se puede pedir otra versión.",
                 "Cada destino lo usa: el icono de la ventana (tkinter, Electron, C++), el de la extensión de Chrome o el de la web de Next.js.",
+                "**Subproyectos**: un proyecto puede tener partes con su propio destino (por ejemplo, «Odoo» con «bd» en Python y «front» en Next.js). Se crean con **Añadir subproyecto…**, cuelgan del nodo Proyecto y un clic los abre en su pestaña; cada uno es una carpeta dentro de la del proyecto.",
                 "En el código, **Ctrl+Espacio** muestra lo que se puede escribir: tras `self.`, `this.` o `Label1->`, los componentes y lo de cada uno; también aparece solo al escribir. **⌘F / Ctrl+F** busca y reemplaza.",
               ],
             },

@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.27 — 2026-11-05
+
+- **Subproyectos**: un proyecto puede tener partes, cada una con su propio
+  destino (por ejemplo, «Odoo» con «bd» en Python y «front» en Next.js). Se
+  crean desde el panel del proyecto con **Añadir subproyecto…**, cuelgan del
+  nodo Proyecto del árbol y un clic los abre en su pestaña; desde un
+  subproyecto, «Parte de» vuelve al proyecto. Cada uno es una carpeta dentro
+  de la del proyecto y no aparece suelto en la lista.
+
 ## 1.0.26 — 2026-11-05
 
 - C++: arreglado el icono de la ventana, que impedía compilar las

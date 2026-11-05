@@ -6049,6 +6049,10 @@ msgid "Añade un campo de teléfono y alinea los botones"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Añadir subproyecto…"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Aún no hay proyectos. Cree uno con «Nuevo proyecto»."
 msgstr ""
 
@@ -6321,6 +6325,14 @@ msgid "Nuevo proyecto"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Nuevo subproyecto"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Parte de"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Pasar por encima (F8)"
 msgstr ""
 
@@ -6377,6 +6389,14 @@ msgid "Se ha restaurado el diseño, pero no el código: cambió a mano después 
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Subproyecto: {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Subproyectos"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Terminó con el código {0}."
 msgstr ""
 
@@ -6390,6 +6410,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Un proyecto puede tener partes con su propio destino: por ejemplo, «Odoo» con «bd» (Python) y «front» (Next.js). Cada subproyecto es una carpeta dentro de la del proyecto."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

@@ -798,6 +798,55 @@ class _TkEditorState extends State<_TkEditor> {
 
   /// El nodo Proyecto está elegido en el árbol.
   bool _project = false;
+
+  /// Subproyectos de este proyecto y el proyecto del que es parte.
+  List<StudioProject> _subs = const [];
+  StudioProject? _parent;
+
+  Future<void> _loadFamily() async {
+    final subs = await ProjectStore.subprojects(doc.id);
+    final parent = await ProjectStore.parentOf(doc.id);
+    if (!mounted) return;
+    setState(() {
+      _subs = subs;
+      _parent = parent;
+    });
+  }
+
+  /// Abre [x] (un subproyecto o el proyecto padre) en su pestaña.
+  void _openProject(StudioProject x) => TkProject.open(x);
+
+  Future<void> _addSubproject() async {
+    final app = await showDialog<(String, String)>(
+      context: context,
+      builder: (_) => _NewAppDialog(target: d.target, sub: true),
+    );
+    if (app == null || !mounted) return;
+    final (name, target) = app;
+    final dir = await runAction(
+      context,
+      () => ProjectStore.create(
+        name,
+        design: TkDesign(target: target),
+        parent: doc.id,
+        sub: true,
+      ),
+    );
+    if (dir == null) return;
+    await _loadFamily();
+  }
+
+  IconData _targetIcon(TkDesign x) => x.isCpp
+      ? LucideIcons.cpu
+      : x.isNext
+      ? LucideIcons.panelsTopLeft
+      : x.isChrome
+      ? LucideIcons.puzzle
+      : x.isElectron
+      ? LucideIcons.atom
+      : x.isWeb
+      ? LucideIcons.globe
+      : LucideIcons.appWindowMac;
   bool _snap = true;
   int _tab = 0;
   bool _output = false;
@@ -880,6 +929,7 @@ class _TkEditorState extends State<_TkEditor> {
     _attach(TkRunner.runOf(doc.id));
     _attachTests(TkRunner.testsOf(doc.id));
     TkBreakpoints.changes.addListener(_onBreakpoints);
+    _loadFamily();
     // Al cerrar el buscador, se sigue escribiendo en el código.
     _codeFind.addListener(() {
       if (_codeFind.value == null && _tab == 1) _codeFocus.requestFocus();
@@ -2595,6 +2645,46 @@ class _TkEditorState extends State<_TkEditor> {
             label: Text(tr('Ir a la carpeta')),
           ),
         ),
+        if (_parent != null) ...[
+          label(tr('Parte de')),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              key: const ValueKey('tk-project-parent'),
+              onPressed: () => _openProject(_parent!),
+              icon: const Icon(LucideIcons.folderKanban, size: 15),
+              label: Text(_parent!.name),
+            ),
+          ),
+        ],
+        label(tr('Subproyectos')),
+        for (final x in _subs)
+          ListTile(
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(_targetIcon(x.design), size: 16),
+            title: Text(x.name, style: const TextStyle(fontSize: 13)),
+            subtitle: Text(
+              tkTargetLabel(x.design.target),
+              style: const TextStyle(fontSize: 11),
+            ),
+            onTap: () => _openProject(x),
+          ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            key: const ValueKey('tk-project-add-sub'),
+            onPressed: _addSubproject,
+            icon: const Icon(LucideIcons.plus, size: 15),
+            label: Text(tr('Añadir subproyecto…')),
+          ),
+        ),
+        Text(
+          tr(
+            'Un proyecto puede tener partes con su propio destino: por ejemplo, «Odoo» con «bd» (Python) y «front» (Next.js). Cada subproyecto es una carpeta dentro de la del proyecto.',
+          ),
+          style: TextStyle(fontSize: 11.5, color: t.hintColor),
+        ),
         label(tr('Icono de la aplicación')),
         Row(
           children: [
@@ -2678,6 +2768,33 @@ class _TkEditorState extends State<_TkEditor> {
             padding: const EdgeInsets.symmetric(vertical: 4),
             children: [
               _projectRow(t),
+              for (final x in _subs)
+                InkWell(
+                  key: ValueKey('tk-tree-sub-${x.name}'),
+                  onTap: () => _openProject(x),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 22, top: 3, bottom: 3),
+                    child: Row(
+                      children: [
+                        Icon(_targetIcon(x.design), size: 13),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            tr('Subproyecto: {0}', [x.name]),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Text(
+                          tkTargetLabel(x.design.target),
+                          style: TextStyle(fontSize: 10.5, color: t.hintColor),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ),
+                ),
               _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
               for (final w in d.widgets)
                 _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
@@ -2994,7 +3111,10 @@ class _TkEditorState extends State<_TkEditor> {
 
 /// Nombre y destino de una aplicación nueva.
 class _NewAppDialog extends StatefulWidget {
-  const _NewAppDialog({this.target = tkTargetDesktop});
+  const _NewAppDialog({this.target = tkTargetDesktop, this.sub = false});
+
+  /// Un subproyecto (cambia el título).
+  final bool sub;
 
   /// Destino marcado al abrir.
   final String target;
@@ -3020,7 +3140,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
     final t = Theme.of(context);
     return AlertDialog(
       key: const ValueKey('tk-new-dialog'),
-      title: Text(tr('Nuevo proyecto')),
+      title: Text(widget.sub ? tr('Nuevo subproyecto') : tr('Nuevo proyecto')),
       content: SizedBox(
         width: 620,
         child: Column(

@@ -189,6 +189,33 @@ class ProjectStore {
     );
   }
 
+  /// Los subproyectos de [dir]: sus carpetas que son proyectos (por
+  /// ejemplo, «bd» y «front» de un proyecto «Odoo»), por nombre.
+  static Future<List<StudioProject>> subprojects(String dir) async {
+    final out = <StudioProject>[];
+    final root = Directory(dir);
+    if (!root.existsSync()) return out;
+    await for (final e in root.list(followLinks: false)) {
+      final name = p.basename(e.path);
+      if (e is! Directory || name.startsWith('.') || name == buildDir) continue;
+      if (!isProject(e.path)) continue;
+      try {
+        final x = await get(e.path);
+        if (x != null) out.add(x);
+      } on UserError {
+        // Uno dañado no impide ver los demás.
+      }
+    }
+    out.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    return out;
+  }
+
+  /// El proyecto del que [dir] es un subproyecto (null: ninguno).
+  static Future<StudioProject?> parentOf(String dir) async {
+    final up = p.dirname(p.normalize(dir));
+    return isProject(up) ? get(up) : null;
+  }
+
   /// Proyectos del área de trabajo y los recientes de otras carpetas, del
   /// último cambiado al más antiguo.
   static Future<List<StudioProject>> list() async {
@@ -206,6 +233,8 @@ class ProjectStore {
       if (isProject(r)) dirs.add(p.normalize(r));
     }
     final out = <StudioProject>[];
+    // Los subproyectos están dentro de su proyecto.
+    dirs.removeWhere((d) => isProject(p.dirname(d)));
     for (final d in dirs) {
       try {
         final x = await get(d);
@@ -267,6 +296,7 @@ class ProjectStore {
     String? code,
     String? seed,
     String? parent,
+    bool sub = false,
   }) async {
     if (name.trim().isEmpty) throw UserError(tr('Indique un nombre.'));
     final d = design ?? TkDesign();
@@ -295,7 +325,8 @@ class ProjectStore {
       seed: seed,
     );
     await _gitignore(dir);
-    if (parent != null) await addRecent(dir);
+    // Un subproyecto se ve dentro de su proyecto, no en la lista.
+    if (parent != null && !sub) await addRecent(dir);
     return dir;
   }
 

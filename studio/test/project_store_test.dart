@@ -181,4 +181,28 @@ void main() {
     }
     await ProjectStore.delete(dir);
   });
+
+  test('subproyectos: dentro de su proyecto, no sueltos en la lista', () async {
+    final odoo = await ProjectStore.create('Odoo');
+    final bd = await ProjectStore.create('bd', parent: odoo, sub: true);
+    await ProjectStore.create(
+      'front',
+      design: TkDesign(target: tkTargetNext),
+      parent: odoo,
+      sub: true,
+    );
+    expect(p.dirname(bd), odoo);
+    final subs = await ProjectStore.subprojects(odoo);
+    expect(subs.map((x) => x.name), ['bd', 'front']);
+    expect(subs.last.isNext, isTrue);
+    expect((await ProjectStore.parentOf(bd))?.name, 'Odoo');
+    expect(await ProjectStore.parentOf(odoo), isNull);
+    final listed = (await ProjectStore.list()).map((x) => x.name).toList();
+    expect(listed, contains('Odoo'));
+    expect(listed, isNot(contains('bd')));
+    // Ejecutar el proyecto no mezcla los de sus subproyectos.
+    final prepared = await ProjectStore.prepareRun(odoo);
+    expect(File(prepared.file).existsSync(), isTrue);
+    await ProjectStore.delete(odoo);
+  });
 }

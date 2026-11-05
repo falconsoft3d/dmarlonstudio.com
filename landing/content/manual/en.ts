@@ -461,6 +461,7 @@ export const manualEn: Manual = {
                 "**Choose…** opens the file dialog: the PNG is copied to the project's `images/`.",
                 "**Generate with AI** draws the icon from a description (with the AI from Settings) and saves it as a 512 × 512 PNG. You see it before using it and can ask for another version.",
                 "Every target uses it: the window icon (tkinter, Electron, C++), the Chrome extension icon or the Next.js web icon.",
+                "**Subprojects**: a project can have parts with their own target (for example, “Odoo” with “db” in Python and “front” in Next.js). Create them with **Add subproject…**; they hang from the Project node and a click opens them in their tab. Each one is a folder inside the project folder.",
                 "In the code, **Ctrl+Space** shows what you can write: after `self.`, `this.` or `Label1->`, the components and what each one has; it also appears by itself as you type. **⌘F / Ctrl+F** finds and replaces.",
               ],
             },

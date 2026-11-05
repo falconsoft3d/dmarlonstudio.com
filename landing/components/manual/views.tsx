@@ -134,12 +134,20 @@ export function ManualChapter({ lang, index }: { lang: Lang; index: number }) {
       <SiteHeader lang={lang} t={t} alternates={chapterAlternates(index)} />
       <main className="mx-auto grid w-full max-w-6xl flex-1 gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[250px_1fr]">
         <aside className="lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto">
-          <a href={PATHS.manual[lang]} className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink">
-            <ArrowLeft className="size-3.5" aria-hidden />
-            {m.ui.allChapters}
-          </a>
+          {/* En el móvil, el índice se despliega; en pantalla ancha, siempre a la vista. */}
+          <details className="rounded-lg border border-line bg-surface p-3 lg:hidden">
+            <summary className="cursor-pointer font-medium">
+              {m.ui.contents} · {index + 1}/{m.chapters.length}
+            </summary>
+            <div className="mt-3">
+              <Sidebar lang={lang} current={index} />
+            </div>
+          </details>
           <div className="hidden lg:block">
             <Sidebar lang={lang} current={index} />
+            <div className="mt-6">
+              <PdfButton lang={lang} label={m.ui.downloadPdf} />
+            </div>
           </div>
         </aside>
         <article className="min-w-0 max-w-3xl">

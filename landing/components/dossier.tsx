@@ -89,7 +89,7 @@ export function Dossier({ lang }: { lang: Lang }) {
             <div className={`${pad} space-y-6`}>
               <Shot lang={lang} name="designer" alt={d.modules.items[0].title} />
               <div className="flex flex-wrap gap-2 text-sm">
-                {["tkinter", "Flask", "Electron + React", "C++ · FLTK", "Pascal · Lazarus"].map((x, i) => (
+                {["tkinter", "Flask"].map((x, i) => (
                   <span
                     key={x}
                     className={`rounded-full px-3 py-1 font-mono text-xs ${

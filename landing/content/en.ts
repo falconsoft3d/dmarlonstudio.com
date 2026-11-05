@@ -5,7 +5,7 @@ export const en: Content = {
   meta: {
     title: "DMarlon Studio · Visual IDE for Python",
     description:
-      "A visual desktop IDE: design windows by dragging components, write the event code in Python and run them. tkinter and Flask today; Electron coming next.",
+      "A visual desktop IDE: design windows by dragging components, write the event code in Python and run them. For the desktop with tkinter and the web with Flask.",
   },
   header: {
     sectionsLabel: "Sections",
@@ -14,7 +14,7 @@ export const en: Content = {
       { href: "/en#editor", label: "Editor" },
       { href: "/en#tools", label: "Tools" },
       { href: "/en#ai", label: "AI" },
-      { href: "/en#roadmap", label: "Roadmap" },
+      { href: "/en#roadmap", label: "Targets" },
       { href: "/en/manual", label: "Manual" },
       { href: "/en/dossier", label: "Dossier" },
     ],
@@ -30,11 +30,11 @@ export const en: Content = {
   hero: {
     eyebrow: "Multi-target visual IDE",
     title: "Design windows by dragging. Program them in Python.",
-    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code in Python and run it with F9. Today it builds desktop apps with tkinter and web apps with Flask; Electron is the next target.",
+    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code in Python and run it with F9. It builds desktop apps with tkinter and web apps with Flask.",
     primary: "Download",
     secondary: "See what's inside",
     targetsLabel: "Targets",
-    targets: ["tkinter", "Flask", "Electron (coming)", "Next.js", "C++", "Pascal", "Flutter", "React Native"],
+    targets: ["tkinter", "Flask"],
   },
   examples: {
     label: "Examples included in DMarlon Studio",
@@ -115,18 +115,12 @@ export const en: Content = {
   ],
   roadmap: {
     id: "roadmap",
-    eyebrow: "Roadmap",
-    title: "One design, many targets",
+    eyebrow: "Targets",
+    title: "One design, desktop and web",
     status: { ready: "Available", next: "Coming", later: "Later" },
     steps: [
       { name: "tkinter", status: "ready", text: "Python desktop windows, each in its own system window." },
       { name: "Flask", status: "ready", text: "The same designer builds web apps that run on a local server." },
-      { name: "Electron + React", status: "next", text: "Desktop apps built with web technologies from the same design." },
-      { name: "Web with Next.js", status: "next", text: "The design turned into a modern web app with React and Next.js." },
-      { name: "C++ (FLTK)", status: "later", text: "Small, fast native executables with the FLTK library." },
-      { name: "Pascal (Lazarus)", status: "later", text: "Native desktop apps with Free Pascal and Lazarus's LCL." },
-      { name: "Flutter", status: "later", text: "One codebase for desktop and mobile with Flutter's UI." },
-      { name: "React Native", status: "later", text: "Mobile apps for iOS and Android from the same design." },
     ],
   },
   downloads: {

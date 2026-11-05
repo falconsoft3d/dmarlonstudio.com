@@ -5,7 +5,7 @@ export const es: Content = {
   meta: {
     title: "DMarlon Studio · IDE visual para Python",
     description:
-      "IDE visual de escritorio: diseñe ventanas arrastrando componentes, escriba los eventos en Python y ejecútelas. Hoy tkinter y Flask; próximamente Electron.",
+      "IDE visual de escritorio: diseñe ventanas arrastrando componentes, escriba los eventos en Python y ejecútelas. Para escritorio con tkinter y para la web con Flask.",
   },
   header: {
     sectionsLabel: "Secciones",
@@ -14,7 +14,7 @@ export const es: Content = {
       { href: "/#editor", label: "Editor" },
       { href: "/#herramientas", label: "Herramientas" },
       { href: "/#ia", label: "IA" },
-      { href: "/#hoja-de-ruta", label: "Hoja de ruta" },
+      { href: "/#hoja-de-ruta", label: "Entornos" },
       { href: "/manual", label: "Manual" },
       { href: "/dosier", label: "Dossier" },
     ],
@@ -30,11 +30,11 @@ export const es: Content = {
   hero: {
     eyebrow: "IDE visual multi-entorno",
     title: "Diseñe ventanas arrastrando. Prográmelas en Python.",
-    text: "DMarlon Studio es un IDE de escritorio: arrastre componentes a un formulario, ajuste sus propiedades en el inspector de objetos, escriba el código de cada evento en Python y ejecútelo con F9. Hoy genera aplicaciones de escritorio con tkinter y aplicaciones web con Flask; Electron es el siguiente entorno.",
+    text: "DMarlon Studio es un IDE de escritorio: arrastre componentes a un formulario, ajuste sus propiedades en el inspector de objetos, escriba el código de cada evento en Python y ejecútelo con F9. Genera aplicaciones de escritorio con tkinter y aplicaciones web con Flask.",
     primary: "Descargar",
     secondary: "Ver qué incluye",
     targetsLabel: "Entornos",
-    targets: ["tkinter", "Flask", "Electron (en camino)", "Next.js", "C++", "Pascal", "Flutter", "React Native"],
+    targets: ["tkinter", "Flask"],
   },
   examples: {
     label: "Ejemplos incluidos en DMarlon Studio",
@@ -115,18 +115,12 @@ export const es: Content = {
   ],
   roadmap: {
     id: "hoja-de-ruta",
-    eyebrow: "Hoja de ruta",
-    title: "Un diseño, varios entornos",
+    eyebrow: "Entornos",
+    title: "Un diseño, escritorio y web",
     status: { ready: "Disponible", next: "En camino", later: "Más adelante" },
     steps: [
       { name: "tkinter", status: "ready", text: "Ventanas de escritorio de Python con su propia ventana del sistema." },
       { name: "Flask", status: "ready", text: "El mismo diseñador genera aplicaciones web que corren en un servidor local." },
-      { name: "Electron + React", status: "next", text: "Aplicaciones de escritorio con tecnologías web a partir del mismo diseño." },
-      { name: "Web con Next.js", status: "next", text: "El diseño convertido en una aplicación web moderna con React y Next.js." },
-      { name: "C++ (FLTK)", status: "later", text: "Ejecutables nativos, pequeños y rápidos, con la biblioteca FLTK." },
-      { name: "Pascal (Lazarus)", status: "later", text: "Aplicaciones de escritorio nativas con Free Pascal y la LCL de Lazarus." },
-      { name: "Flutter", status: "later", text: "Una base de código para escritorio y móvil con la interfaz de Flutter." },
-      { name: "React Native", status: "later", text: "Aplicaciones móviles para iOS y Android a partir del mismo diseño." },
     ],
   },
   downloads: {

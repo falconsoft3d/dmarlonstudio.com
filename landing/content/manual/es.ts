@@ -886,11 +886,11 @@ export const manualEs: Manual = {
       sections: [
         {
           id: "destinos",
-          title: "Más destinos",
+          title: "Destinos",
           blocks: [
             {
               type: "p",
-              text: "El mismo diseñador generará y compilará aplicaciones para más entornos. Al crear un proyecto se elegirá el destino:",
+              text: "Al crear un proyecto se elige el destino; no se puede cambiar después:",
             },
             {
               type: "table",
@@ -898,12 +898,6 @@ export const manualEs: Manual = {
               rows: [
                 ["Python + tkinter (escritorio)", "Disponible"],
                 ["Python + Flask (web)", "Disponible"],
-                ["Electron + React", "En camino"],
-                ["C++ con FLTK", "En camino"],
-                ["Pascal con Lazarus (LCL)", "En camino"],
-                ["Web con Next.js", "En camino"],
-                ["Flutter (escritorio y móvil)", "Más adelante"],
-                ["React Native (móvil)", "Más adelante"],
               ],
             },
           ],

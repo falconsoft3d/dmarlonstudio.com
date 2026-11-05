@@ -43,7 +43,7 @@ const es: DossierText = {
   cover: {
     eyebrow: "Dossier de producto",
     title: "Diseñe ventanas arrastrando. Prográmelas en Python.",
-    text: "DMarlon Studio es un IDE visual de escritorio para crear aplicaciones con interfaz gráfica: escritorio con tkinter y web con Flask hoy; Electron, C++ y Pascal en camino.",
+    text: "DMarlon Studio es un IDE visual de escritorio para crear aplicaciones con interfaz gráfica: escritorio con tkinter y web con Flask.",
     version: "Versión",
   },
   what: {
@@ -83,9 +83,6 @@ const es: DossierText = {
     rows: [
       ["Escritorio", "Python + tkinter", "Disponible"],
       ["Web", "Python + Flask", "Disponible"],
-      ["Escritorio multiplataforma", "Electron + React", "En camino"],
-      ["Nativo", "C++ con FLTK", "En camino"],
-      ["Nativo", "Pascal con Lazarus (LCL)", "En camino"],
     ],
     note: "Hoy, el archivo generado funciona sin el estudio con cualquier Python 3 con tkinter, o con Flask para la web.",
   },
@@ -133,7 +130,7 @@ const en: DossierText = {
   cover: {
     eyebrow: "Product dossier",
     title: "Design windows by dragging. Program them in Python.",
-    text: "DMarlon Studio is a visual desktop IDE for building apps with a graphical interface: desktop with tkinter and web with Flask today; Electron, C++ and Pascal on the way.",
+    text: "DMarlon Studio is a visual desktop IDE for building apps with a graphical interface: desktop with tkinter and web with Flask.",
     version: "Version",
   },
   what: {
@@ -173,9 +170,6 @@ const en: DossierText = {
     rows: [
       ["Desktop", "Python + tkinter", "Available"],
       ["Web", "Python + Flask", "Available"],
-      ["Cross-platform desktop", "Electron + React", "On the way"],
-      ["Native", "C++ with FLTK", "On the way"],
-      ["Native", "Pascal with Lazarus (LCL)", "On the way"],
     ],
     note: "Today, the generated file runs without the studio on any Python 3 with tkinter, or with Flask for the web.",
   },

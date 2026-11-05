@@ -886,11 +886,11 @@ export const manualEn: Manual = {
       sections: [
         {
           id: "targets",
-          title: "More targets",
+          title: "Targets",
           blocks: [
             {
               type: "p",
-              text: "The same designer will generate and compile apps for more environments. You will choose the target when creating a project:",
+              text: "You choose the target when creating a project; it cannot be changed later:",
             },
             {
               type: "table",
@@ -898,12 +898,6 @@ export const manualEn: Manual = {
               rows: [
                 ["Python + tkinter (desktop)", "Available"],
                 ["Python + Flask (web)", "Available"],
-                ["Electron + React", "On the way"],
-                ["C++ with FLTK", "On the way"],
-                ["Pascal with Lazarus (LCL)", "On the way"],
-                ["Web with Next.js", "On the way"],
-                ["Flutter (desktop and mobile)", "Later"],
-                ["React Native (mobile)", "Later"],
               ],
             },
           ],

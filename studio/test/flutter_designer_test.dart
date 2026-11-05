@@ -69,15 +69,34 @@ void main() {
     );
     await settle(3);
 
-    // Una pantalla nueva.
+    // Una pantalla en blanco y otra desde la plantilla de inicio de sesión.
     await tester.tap(find.byKey(const ValueKey('fl-screen-add')));
     await settle(3);
-    expect(find.byKey(const ValueKey('fl-screen-Pantalla2')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('fl-template-blank')));
+    await settle(2);
+    await tester.tap(find.byKey(const ValueKey('fl-template-add')));
+    await settle(3);
+    expect(find.byKey(const ValueKey('fl-screen-Pantalla')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('fl-screen-add')));
+    await settle(3);
+    await tester.tap(find.byKey(const ValueKey('fl-template-login')));
+    await settle(2);
+    expect(find.text('Bienvenido'), findsWidgets);
+    await tester.tap(find.byKey(const ValueKey('fl-template-add')));
+    await settle(3);
+    expect(
+      find.byKey(const ValueKey('fl-screen-InicioDeSesion')),
+      findsOneWidget,
+    );
 
     // Todo queda en el diseño (y en el Dart que se genera).
     final d = TkProject.current!.design;
     final app = FlApp.of(d);
-    expect(app.screens.map((s) => s.name), ['Inicio', 'Pantalla2']);
+    expect(app.screens.map((s) => s.name), [
+      'Inicio',
+      'Pantalla',
+      'InicioDeSesion',
+    ]);
     final main = TkFlutter.main(app);
     expect(main, contains("Text('Pulsaciones:'"));
     expect(
@@ -86,7 +105,7 @@ void main() {
     );
     expect(
       main,
-      contains("'/Pantalla2': (context) => const Pantalla2Screen()"),
+      contains("'/InicioDeSesion': (context) => const InicioDeSesionScreen()"),
     );
     expect(TkProject.current!.dirty, isTrue);
 

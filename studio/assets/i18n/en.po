@@ -417,7 +417,7 @@ msgstr "Open"
 msgid "Abrir una nota"
 msgstr "Open a note"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/ui/screens/settings_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/ui/screens/settings_screen.dart
 msgid "Acerca de"
 msgstr "About"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -461,7 +461,7 @@ msgstr "Clear"
 msgid "Borrar todo"
 msgstr "Clear all"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr "Search"
 
@@ -489,7 +489,7 @@ msgstr "Loading…"
 msgid "Cargar"
 msgstr "Load"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
 msgid "Ciudad"
 msgstr "City"
 
@@ -521,7 +521,7 @@ msgstr "Looks up the contacts of an Odoo or ERPSqlite over XML-RPC."
 msgid "Consultar"
 msgstr "Look up"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart
 msgid "Contacto"
 msgstr "Contact"
 
@@ -533,7 +533,7 @@ msgstr "Odoo / ERPSqlite contacts"
 msgid "Conversor de unidades"
 msgstr "Unit converter"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr "Email"
 
@@ -605,7 +605,7 @@ msgstr "Type the customer's name."
 msgid "Escriba un número"
 msgstr "Enter a number"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr "Date"
 
@@ -645,7 +645,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -669,7 +669,7 @@ msgstr "Reports (web)"
 msgid "Iniciar"
 msgstr "Start"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
 msgid "Inicio"
 msgstr "Home"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -829,7 +829,7 @@ msgstr "Tasks"
 msgid "Tareas web"
 msgstr "Web tasks"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart
 msgid "Teléfono"
 msgstr "Phone"
 
@@ -945,7 +945,7 @@ msgstr "Switch"
 msgid "La app no tiene pantallas."
 msgstr "The app has no screens."
 
-#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/ui/screens/project_browser.dart
 msgid "Lista"
 msgstr "List"
 
@@ -965,7 +965,7 @@ msgstr "Fill"
 msgid "Separador"
 msgstr "Separator"
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart
 msgid "Tarjeta"
 msgstr "Card"
 
@@ -976,6 +976,530 @@ msgstr "Unknown widget: {0}"
 #: lib/code/tk_flutter.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr "“{0}” is not a valid screen name."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "3 en curso"
+msgstr "3 in progress"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "68 % conseguido"
+msgstr "68% achieved"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "A 1,2 km · abierto"
+msgstr "1.2 km away · open"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Abierto"
+msgstr "Open"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Acepto las condiciones de uso"
+msgstr "I accept the terms of use"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart
+msgid "Agenda"
+msgstr "Agenda"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Avisos recientes con su icono."
+msgstr "Recent alerts with their icon."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Ayer"
+msgstr "Yesterday"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Bienvenida"
+msgstr "Welcome"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Bienvenido"
+msgstr "Welcome"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Buscar en la ayuda"
+msgstr "Search help"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Búsqueda"
+msgstr "Search"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Búsqueda y una lista de elementos."
+msgstr "Search and a list of items."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Camiseta"
+msgstr "T-shirt"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Campo de búsqueda, filtros y resultados."
+msgstr "Search field, filters and results."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Carrito"
+msgstr "Cart"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Casa y trabajo"
+msgstr "Home and work"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+msgid "Categoría"
+msgstr "Category"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Cerca"
+msgstr "Nearby"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Cerrar sesión"
+msgstr "Log out"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Cifras clave y progreso."
+msgstr "Key figures and progress."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Clientes nuevos"
+msgstr "New customers"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Compras"
+msgstr "Purchase"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Confirmar el pago"
+msgstr "Confirm payment"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Contraseña"
+msgstr "Password"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Conversaciones con el último mensaje."
+msgstr "Conversations with the last message."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Conversación"
+msgstr "Conversation"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Correo, contraseña y entrar."
+msgstr "Email, password and sign in."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Crear la cuenta"
+msgstr "Create the account"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Crear una cuenta"
+msgstr "Create an account"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Descripción breve"
+msgstr "Short description"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Descubra lo nuevo de esta semana"
+msgstr "See what is new this week"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Detalle"
+msgstr "Detail"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Direcciones"
+msgstr "Addresses"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
+msgid "Dirección"
+msgstr "Address"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Dirección, tarjeta y resumen."
+msgstr "Address, card and summary."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Editar perfil"
+msgstr "Edit profile"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Elemento"
+msgstr "Item"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Elementos"
+msgstr "Items"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Empezar"
+msgstr "Start"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "En Perfil → Ajustes → Privacidad."
+msgstr "In Profile → Settings → Privacy."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Entrar"
+msgstr "Log in"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Entre 24 y 72 horas laborables."
+msgstr "Between 24 and 72 working hours."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Entre con su cuenta"
+msgstr "Sign in with your account"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
+msgid "Enviar"
+msgstr "Send"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Enviar el enlace"
+msgstr "Send the link"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Envía un enlace al correo."
+msgstr "Sends a link by email."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+msgid "Envío"
+msgstr "Shipping"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Equipo"
+msgstr "Team"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Escriba su correo y le enviaremos un enlace para crear una contraseña nueva."
+msgstr "Enter your email and we will send you a link to create a new password."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Escriba un mensaje"
+msgstr "Type a message"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Esta semana"
+msgstr "This week"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Formulario con los datos del usuario."
+msgstr "Form with the user details."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Formulario para escribirnos."
+msgstr "Form to write to us."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Foto, nombre y opciones de la cuenta."
+msgstr "Photo, name and account options."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Gorra"
+msgstr "Cap"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hablar con soporte"
+msgstr "Talk to support"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hace 1 hora"
+msgstr "1 hour ago"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hace 2 días"
+msgstr "2 days ago"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hace 5 minutos"
+msgstr "5 minutes ago"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hola, Ana"
+msgstr "Hi, Ana"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Hola, ¿cómo va todo?"
+msgstr "Hi, how is it going?"
+
+#: lib/code/tk_flutter_templates.dart lib/ui/screens/settings_screen.dart
+msgid "Idioma"
+msgstr "Language"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Imagen, título, datos y acción principal."
+msgstr "Image, title, details and main action."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Inicio de sesión"
+msgstr "Sign in"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Interruptores y opciones agrupadas."
+msgstr "Switches and grouped options."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "La reunión pasa a las 5"
+msgstr "The meeting moves to 5"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Llega mañana"
+msgstr "Arrives tomorrow"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Mejor valorado"
+msgstr "Best rated"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Mensaje"
+msgstr "Message"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Mensaje de éxito con el siguiente paso."
+msgstr "Success message with the next step."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_windows.dart
+msgid "Mensajes"
+msgstr "Messages"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Mensajes y un campo para escribir."
+msgstr "Messages and a field to type."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+msgid "Mis pedidos"
+msgstr "My orders"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Métodos de pago"
+msgstr "Payment methods"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Nombre, correo, contraseña y condiciones."
+msgstr "Name, email, password and terms."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Notificaciones"
+msgstr "Notifications"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Notificaciones y privacidad"
+msgstr "Notifications and privacy"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Novedades"
+msgstr "News"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Nueva función disponible"
+msgstr "New feature available"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Nuevo mensaje de Luis"
+msgstr "New message from Luis"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Número de la tarjeta"
+msgstr "Card number"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Objetivo del mes"
+msgstr "Goal of the month"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Oferta especial para usted"
+msgstr "Special offer for you"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Organice su día, encuentre lo que busca y compártalo con quien quiera."
+msgstr "Organise your day, find what you need and share it with anyone."
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart
+msgid "Pagar"
+msgstr "Payable"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Pago"
+msgstr "Payment"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Pago confirmado"
+msgstr "Payment confirmed"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+msgid "Panel"
+msgstr "Dashboard"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Pedido confirmado"
+msgstr "Order confirmed"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Pedido enviado"
+msgstr "Order shipped"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+msgid "Pedidos"
+msgstr "Orders"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Perfil"
+msgstr "Profile"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Preguntas frecuentes y contacto."
+msgstr "Frequently asked questions and contact."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Presentación de la app con un botón para empezar."
+msgstr "App introduction with a button to start."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Privacidad"
+msgstr "Privacy"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Productos, cantidades y total."
+msgstr "Products, quantities and total."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Recuperar contraseña"
+msgstr "Reset password"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_windows.dart
+msgid "Registro"
+msgstr "Log"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Repita la contraseña"
+msgstr "Repeat the password"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Reservar"
+msgstr "Book"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart
+msgid "Resultado"
+msgstr "Result"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Saludo, accesos rápidos y novedades."
+msgstr "Greeting, shortcuts and news."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Sobre mí"
+msgstr "About me"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Su pedido PED-1024 está confirmado. Le avisaremos cuando salga."
+msgstr "Your order PED-1024 is confirmed. We will let you know when it ships."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Su pedido está en camino"
+msgstr "Your order is on the way"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Sí, durante 30 días desde la entrega."
+msgstr "Yes, within 30 days of delivery."
+
+#: lib/code/tk_flutter_templates.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Tema oscuro"
+msgstr "Dark theme"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+msgid "Todo"
+msgstr "All"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Todo lo que necesita, en un solo lugar"
+msgstr "Everything you need, in one place"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+msgid "Total"
+msgstr "Total"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Título del elemento"
+msgstr "Item title"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Ubicación"
+msgstr "Location"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Una descripción con los detalles más importantes: qué es, para qué sirve y por qué le interesa."
+msgstr "A description with the key details: what it is, what it is for and why it matters to you."
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Valoración media"
+msgstr "Average rating"
+
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+msgid "Ventas"
+msgstr "Sales"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Ver el pedido"
+msgstr "View order"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Volver"
+msgstr "Back"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Volver al inicio"
+msgstr "Back to home"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "Ya tengo cuenta"
+msgstr "I already have an account"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¡Gracias!"
+msgstr "Thanks!"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¡Listo!"
+msgstr "Done!"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¡Muy bien! ¿Y tú?"
+msgstr "Great! And you?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Cuánto tarda un envío?"
+msgstr "How long does shipping take?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Cómo cambio mi contraseña?"
+msgstr "How do I change my password?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿En qué podemos ayudarle?"
+msgstr "How can we help you?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Nos vemos mañana?"
+msgstr "See you tomorrow?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Olvidó la contraseña?"
+msgstr "Forgot your password?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Puedo devolver un pedido?"
+msgstr "Can I return an order?"
+
+#: lib/code/tk_flutter_templates.dart
+msgid "¿Qué busca?"
+msgstr "What are you looking for?"
+
+#: lib/code/tk_flutter_templates.dart lib/ui/screens/budget_screen.dart
+msgid "Últimos 30 días"
+msgstr "Previous 30 days"
 
 #: lib/code/tk_model.dart
 msgid "Activo"
@@ -1200,10 +1724,6 @@ msgstr "Console (Python)"
 #: lib/code/tk_model.dart
 msgid "Consulta SQL"
 msgstr "SQL query"
-
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Contraseña"
-msgstr "Password"
 
 #: lib/code/tk_model.dart
 msgid "Control de páginas"
@@ -1945,10 +2465,6 @@ msgstr "Accessories"
 msgid "Actualizar los tipos"
 msgstr "Update the rates"
 
-#: lib/code/tk_showcase.dart
-msgid "Agenda"
-msgstr "Agenda"
-
 #: lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart
 msgid "Asunto"
 msgstr "Subject"
@@ -2389,10 +2905,6 @@ msgstr "Claude is thinking…"
 msgid "El componente Asistente IA (Claude): resumir, traducir, clasificar el sentimiento y extraer datos de un texto, y un chat con memoria, sin congelar la ventana."
 msgstr "The AI assistant component (Claude): summarize, translate, classify the sentiment and extract data from a text, and a chat with memory, without freezing the window."
 
-#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
-msgid "Enviar"
-msgstr "Send"
-
 #: lib/code/tk_showcase_ai.dart
 msgid "Extraer datos de contacto"
 msgstr "Extract contact details"
@@ -2416,10 +2928,6 @@ msgstr "Ask Claude"
 #: lib/code/tk_showcase_ai.dart
 msgid "Responde en español, de forma clara y breve."
 msgstr "Answer in English, clearly and briefly."
-
-#: lib/code/tk_showcase_ai.dart
-msgid "Resultado"
-msgstr "Result"
 
 #: lib/code/tk_showcase_ai.dart
 msgid "Resumir"
@@ -2797,10 +3305,6 @@ msgstr "Buy bread"
 msgid "Crear envío"
 msgstr "Create shipment"
 
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
-msgid "Dirección"
-msgstr "Address"
-
 #: lib/code/tk_showcase_flutter.dart
 msgid "En camino"
 msgstr "On the way"
@@ -2905,10 +3409,6 @@ msgstr "No notes yet."
 msgid "En FalconDatabase: active el login, cree un usuario y una tabla notas con la columna texto y el acceso «authenticated». Después ponga la referencia del proyecto y la clave anon en las propiedades de la app."
 msgstr "In FalconDatabase: turn on login, create a user and a notas table with a texto column and “authenticated” access. Then put the project reference and the anon key in the app properties."
 
-#: lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
-msgid "Entrar"
-msgstr "Log in"
-
 #: lib/code/tk_showcase_flutter_cloud.dart
 msgid "Escriba una nota"
 msgstr "Write a note"
@@ -2956,10 +3456,6 @@ msgstr "Search products"
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Camiseta básica"
 msgstr "Basic T-shirt"
-
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
-msgid "Carrito"
-msgstr "Cart"
 
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Correo o contraseña incorrectos."
@@ -3010,10 +3506,6 @@ msgid "No hay productos que coincidan."
 msgstr "No products match."
 
 #: lib/code/tk_showcase_flutter_store.dart
-msgid "Pagar"
-msgstr "Payable"
-
-#: lib/code/tk_showcase_flutter_store.dart
 msgid "Patas de haya y asiento acolchado."
 msgstr "Beech legs and padded seat."
 
@@ -3052,10 +3544,6 @@ msgstr "Shop with login (Flutter)"
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Tienda: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
 msgstr "Shop: users, products, cart and orders. The screens use it as app."
-
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
-msgid "Total"
-msgstr "Total"
 
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Una app móvil de venta: login, catálogo con búsqueda y categorías, ficha de producto, carrito con cantidades y pago."
@@ -3237,10 +3725,6 @@ msgstr "The keyboard works too: digits, + - * /, Enter and Esc."
 msgid "La calculadora como aplicación nativa en Pascal con Lazarus: el mismo diseño, con el código en Object Pascal y los componentes de la LCL."
 msgstr "The calculator as a native Pascal application with Lazarus: the same design, with the code in Object Pascal and the LCL components."
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
-msgid "Categoría"
-msgstr "Category"
-
 #: lib/code/tk_showcase_reports.dart
 msgid "Exportar a Excel…"
 msgstr "Export to Excel…"
@@ -3288,10 +3772,6 @@ msgstr "A sales table exported to PDF (with totals, a table by category and page
 #: lib/code/tk_showcase_reports.dart
 msgid "Unidades"
 msgstr "Units"
-
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
-msgid "Ventas"
-msgstr "Sales"
 
 #: lib/code/tk_showcase_reports.dart
 msgid "Ventas por producto"
@@ -3574,10 +4054,6 @@ msgid "Enviado"
 msgstr "Sent"
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Envío"
-msgstr "Shipping"
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Envío en 24/48 h"
 msgstr "Delivery in 24/48 h"
 
@@ -3752,10 +4228,6 @@ msgid "Mi cuenta"
 msgstr "My account"
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Mis pedidos"
-msgstr "My orders"
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Más vendidos"
 msgstr "Best selling"
 
@@ -3804,10 +4276,6 @@ msgid "Pago seguro"
 msgstr "Secure payment"
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Panel"
-msgstr "Dashboard"
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Panel de la tienda"
 msgstr "Shop dashboard"
 
@@ -3830,10 +4298,6 @@ msgstr "Role updated."
 #: lib/code/tk_showcase_sites.dart
 msgid "Pedido"
 msgstr "Order"
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Pedidos"
-msgstr "Orders"
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Plantillas, parches de HTML y una sola petición por evento: el motor web por dentro."
@@ -3974,10 +4438,6 @@ msgstr "Card (simulated)"
 #: lib/code/tk_showcase_sites.dart
 msgid "Tienda web"
 msgstr "Web shop"
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Todo"
-msgstr "All"
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Transferencia"
@@ -4531,7 +4991,7 @@ msgstr "Warning"
 msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
 msgstr "Each button opens a dialog or another window; what they return goes to the log."
 
-#: lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -4570,10 +5030,6 @@ msgstr "Info"
 #: lib/code/tk_showcase_windows.dart
 msgid "Los datos se han guardado."
 msgstr "The data has been saved."
-
-#: lib/code/tk_showcase_windows.dart
-msgid "Mensajes"
-msgstr "Messages"
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Modo oscuro"
@@ -4626,10 +5082,6 @@ msgstr "Yes / No / Cancel question"
 #: lib/code/tk_showcase_windows.dart
 msgid "Queda poco espacio en el disco."
 msgstr "The disk is running out of space."
-
-#: lib/code/tk_showcase_windows.dart
-msgid "Registro"
-msgstr "Log"
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Sí"
@@ -4851,7 +5303,7 @@ msgstr "The AI did not return a valid design."
 msgid "API"
 msgstr "API"
 
-#: lib/main.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_flutter_templates.dart lib/ui/screens/settings_screen.dart
 msgid "Ajustes"
 msgstr "Settings"
 
@@ -5074,10 +5526,6 @@ msgstr "{0} calls to other providers with no known pricing: only their tokens ar
 #: lib/ui/screens/budget_screen.dart
 msgid "Últimas llamadas"
 msgstr "Latest calls"
-
-#: lib/ui/screens/budget_screen.dart
-msgid "Últimos 30 días"
-msgstr "Previous 30 days"
 
 #: lib/ui/screens/code_claude.dart
 msgid "Abra una carpeta para que Claude trabaje en ella."
@@ -6532,10 +6980,6 @@ msgid "IDE visual al estilo de Delphi para crear aplicaciones de Python (tkinter
 msgstr "Delphi-style visual IDE for building Python apps (tkinter and Flask). Electron coming soon."
 
 #: lib/ui/screens/settings_screen.dart
-msgid "Idioma"
-msgstr "Language"
-
-#: lib/ui/screens/settings_screen.dart
 msgid "Inteligencia artificial"
 msgstr "Artificial intelligence"
 
@@ -7400,6 +7844,10 @@ msgid "Añada widgets desde la paleta"
 msgstr "Add widgets from the palette"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Añadir la pantalla"
+msgstr "Add the screen"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "BASE DE DATOS"
 msgstr "DATABASE"
 
@@ -7472,6 +7920,10 @@ msgid "Eliminar la pantalla"
 msgstr "Delete the screen"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "En blanco"
+msgstr "Blank"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
 msgstr "Style"
 
@@ -7508,6 +7960,10 @@ msgid "Nombre de cada elemento"
 msgstr "Name of each item"
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Nombre de la pantalla"
+msgstr "Screen name"
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Nueva pantalla"
 msgstr "New display"
 
@@ -7520,8 +7976,8 @@ msgid "PANTALLAS"
 msgstr "SCREENS"
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "Pantalla {0}"
-msgstr "Screen {0}"
+msgid "Pantalla"
+msgstr "Display"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Pantalla «{0}»"
@@ -7568,16 +8024,20 @@ msgid "Teclado"
 msgstr "Keyboard"
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "Tema oscuro"
-msgstr "Dark theme"
-
-#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto a la derecha"
 msgstr "Trailing text"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto si está vacía"
 msgstr "Text when empty"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Una columna vacía."
+msgstr "An empty column."
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Use letras y números, sin repetir otra pantalla."
+msgstr "Use letters and numbers, without repeating another screen."
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Vacío"

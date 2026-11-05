@@ -21,11 +21,11 @@ Hechos
 36. Aplicaciones de consola: Python, C, C++ y Pascal | ✅ |
 16. Flutter (móvil): editor al estilo de FlutterFlow, simulador propio, demos de envíos y tareas | ✅ |
 18b. Flutter con FalconDatabase (probado) y Firebase (compila; falta proyecto real) | ✅ |
+18c. Flutter: galería con las 20 pantallas más usadas | ✅ |
 
 
 Trabajando
 =========
-18c. Flutter: al añadir una pantalla, elegir entre 20 plantillas de las pantallas más usadas | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 

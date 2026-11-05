@@ -860,6 +860,7 @@ export const manualEn: Manual = {
               items: [
                 "A widget from the palette is added inside the selected one if it is a column, a row or a list; otherwise, after it. Select it by tapping it on the phone or in the tree; **Up**, **Down**, **Duplicate** and **Delete** are above the tree.",
                 "Widgets: column, row, list, card, container, padding, center, expanded, text, button, icon button, text field, list tile, check box, switch, chip, icon, image, progress, divider and spacer.",
+                "**+** in Screens opens the gallery: a **blank** screen or one of the **20 most used templates** (sign in, sign up, reset password, welcome, home, list, detail, profile, edit profile, settings, notifications, messages, chat, search, cart, checkout, order confirmed, dashboard, contact and help), with its preview. Their buttons write to Output (`debugPrint`) until you bind them to App.",
                 "Each screen has a name, a title, a top bar, a floating button and, if it is opened with something (a shipment, for example), the type it **receives**.",
               ],
             },

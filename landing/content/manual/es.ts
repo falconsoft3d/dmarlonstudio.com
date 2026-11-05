@@ -860,6 +860,7 @@ export const manualEs: Manual = {
               items: [
                 "Un widget de la paleta se añade dentro del elegido si es una columna, una fila o una lista; si no, detrás de él. Se elige tocándolo en el teléfono o en el árbol; **Subir**, **Bajar**, **Duplicar** y **Eliminar** están sobre el árbol.",
                 "Widgets: columna, fila, lista, tarjeta, contenedor, margen, centrado, expandido, texto, botón, botón de icono, campo de texto, fila de lista, casilla, interruptor, etiqueta, icono, imagen, progreso, separador y espacio.",
+                "**+** en Pantallas abre la galería: una pantalla **en blanco** o una de las **20 plantillas** más usadas (inicio de sesión, registro, recuperar contraseña, bienvenida, inicio, lista, detalle, perfil, editar perfil, ajustes, notificaciones, mensajes, conversación, búsqueda, carrito, pago, pedido confirmado, panel, contacto y ayuda), con su vista previa. Sus botones escriben en la Salida (`debugPrint`) hasta que se enlazan con App.",
                 "Cada pantalla tiene nombre, título, barra superior, un botón flotante y, si se abre con algo (por ejemplo, un envío), el tipo que **recibe**.",
               ],
             },

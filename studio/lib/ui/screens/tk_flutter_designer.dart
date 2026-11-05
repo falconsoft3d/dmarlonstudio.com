@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../code/tk_flutter.dart';
+import '../../code/tk_flutter_templates.dart';
 import '../../code/tk_model.dart';
 import '../../i18n/tr.dart';
 
@@ -28,6 +29,23 @@ class TkFlutterDesigner extends StatefulWidget {
 /// usa `Icons.nombre` y admite cualquiera).
 const flIcons = <String, IconData>{
   'add': Icons.add,
+  'person_add': Icons.person_add,
+  'lock_reset': Icons.lock_reset,
+  'waving_hand': Icons.waving_hand,
+  'rocket_launch': Icons.rocket_launch,
+  'dark_mode': Icons.dark_mode,
+  'language': Icons.language,
+  'done_all': Icons.done_all,
+  'forum': Icons.forum,
+  'sell': Icons.sell,
+  'credit_card': Icons.credit_card,
+  'location_city': Icons.location_city,
+  'receipt_long': Icons.receipt_long,
+  'insights': Icons.insights,
+  'group': Icons.group,
+  'mail': Icons.mail,
+  'help': Icons.help,
+  'crop_portrait': Icons.crop_portrait,
   'add_circle': Icons.add_circle,
   'add_circle_outline': Icons.add_circle_outline,
   'add_shopping_cart': Icons.add_shopping_cart,
@@ -171,9 +189,6 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
   /// cuerpo; null: la pantalla).
   List<int>? _sel;
 
-  /// El puntero que ya eligió un widget (el más profundo gana).
-  int? _claimed;
-
   @override
   void didUpdateWidget(TkFlutterDesigner old) {
     super.didUpdateWidget(old);
@@ -275,19 +290,15 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
     });
   }
 
-  void _addScreen() {
-    var i = _app.screens.length + 1;
-    while (_app.screen('Pantalla$i') != null) {
-      i++;
-    }
+  /// Nueva pantalla: en blanco o desde una de las plantillas.
+  Future<void> _addScreen() async {
+    final screen = await showDialog<FlScreen>(
+      context: context,
+      builder: (_) => FlTemplateGallery(app: _app),
+    );
+    if (screen == null || !mounted) return;
     _edit(() {
-      _app.screens.add(
-        FlScreen(
-          name: 'Pantalla$i',
-          title: tr('Pantalla {0}', [i]),
-          body: FlNode('Column', {'padding': 16, 'gap': 12}),
-        ),
-      );
+      _app.screens.add(screen);
       _screen = _app.screens.length - 1;
       _sel = null;
     });
@@ -577,7 +588,13 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                     child: OverflowBox(
                       maxHeight: h + 24,
                       maxWidth: w + 24,
-                      child: _phone(t, w, h),
+                      child: FlPhone(
+                        app: _app,
+                        screen: _cur,
+                        back: _screen > 0,
+                        sel: _sel,
+                        onPick: (p) => setState(() => _sel = p),
+                      ),
                     ),
                   ),
                 );
@@ -588,6 +605,43 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
       ),
     );
   }
+}
+
+/// El teléfono con la vista previa real de una pantalla: el editor (que
+/// elige widgets al tocarlos) y la galería de plantillas.
+class FlPhone extends StatefulWidget {
+  const FlPhone({
+    super.key,
+    required this.app,
+    required this.screen,
+    this.back = false,
+    this.sel,
+    this.onPick,
+  });
+
+  final FlApp app;
+  final FlScreen screen;
+
+  /// Con la flecha de volver en la barra (no es la primera pantalla).
+  final bool back;
+
+  /// El widget elegido (se ve con un marco) y al tocar uno.
+  final List<int>? sel;
+  final void Function(List<int>? path)? onPick;
+
+  @override
+  State<FlPhone> createState() => _FlPhoneState();
+}
+
+class _FlPhoneState extends State<FlPhone> {
+  /// El puntero que ya eligió un widget (el más profundo gana).
+  int? _claimed;
+
+  List<int>? get _sel => widget.sel;
+  FlApp get _app => widget.app;
+
+  @override
+  Widget build(BuildContext context) => _phone(Theme.of(context), 393, 852);
 
   Widget _phone(ThemeData t, double w, double h) {
     final seed = RegExp(r'#?([0-9a-fA-F]{6})').firstMatch(_app.primary)?[1];
@@ -595,7 +649,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
       colorSchemeSeed: Color(int.parse('FF${seed ?? '2B5FD9'}', radix: 16)),
       brightness: _app.dark ? Brightness.dark : Brightness.light,
     );
-    final s = _cur;
+    final s = widget.screen;
     return Container(
       key: const ValueKey('fl-phone'),
       padding: const EdgeInsets.all(12),
@@ -685,7 +739,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                             _template(s.title.isEmpty ? s.name : s.title),
                           ),
                           automaticallyImplyLeading: false,
-                          leading: _screen > 0
+                          leading: widget.back
                               ? const Icon(Icons.arrow_back)
                               : null,
                         ),
@@ -736,7 +790,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
   void _pick(int pointer, List<int>? path) {
     if (_claimed == pointer) return;
     _claimed = pointer;
-    setState(() => _sel = path);
+    widget.onPick?.call(path);
   }
 
   /// Una plantilla en la vista previa: `${item.titulo}` se ve como
@@ -1512,4 +1566,204 @@ class TkFlutterProps extends StatelessWidget {
       onChanged: (v) => onEdit(() => set(v ?? '')),
     ),
   );
+}
+
+/// La galería de plantillas: en blanco o una de las 20 pantallas más
+/// usadas, con su vista previa real.
+class FlTemplateGallery extends StatefulWidget {
+  const FlTemplateGallery({super.key, required this.app});
+
+  final FlApp app;
+
+  @override
+  State<FlTemplateGallery> createState() => _FlTemplateGalleryState();
+}
+
+class _FlTemplateGalleryState extends State<FlTemplateGallery> {
+  /// -1: en blanco.
+  int _pick = 0;
+  late final _name = TextEditingController(text: _suggest());
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
+
+  /// Un nombre de pantalla libre a partir del de la plantilla.
+  String _suggest() {
+    final base = _pick < 0 ? tr('Pantalla') : tr(flTemplates[_pick].name);
+    var id = base
+        .replaceAll(RegExp('[áàä]'), 'a')
+        .replaceAll(RegExp('[éèë]'), 'e')
+        .replaceAll(RegExp('[íìï]'), 'i')
+        .replaceAll(RegExp('[óòö]'), 'o')
+        .replaceAll(RegExp('[úùü]'), 'u')
+        .replaceAll('ñ', 'n')
+        .split(RegExp(r'[^A-Za-z0-9]+'))
+        .where((w) => w.isNotEmpty)
+        .map((w) => '${w[0].toUpperCase()}${w.substring(1)}')
+        .join();
+    if (id.isEmpty || RegExp(r'^\d').hasMatch(id)) id = 'Pantalla$id';
+    var name = id;
+    var i = 2;
+    while (widget.app.screen(name) != null) {
+      name = '$id${i++}';
+    }
+    return name;
+  }
+
+  FlScreen _build(String name) => _pick < 0
+      ? FlScreen(
+          name: name,
+          title: name,
+          body: FlNode('Column', {'padding': 16, 'gap': 12}),
+        )
+      : flTemplates[_pick].build(name, tr);
+
+  void _choose(int i) => setState(() {
+    _pick = i;
+    _name.text = _suggest();
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context);
+    final name = _name.text.trim();
+    final valid =
+        RegExp(r'^[A-Za-z]\w*$').hasMatch(name) &&
+        widget.app.screen(name) == null;
+    Widget item(int i, IconData icon, String title, String sub) => ListTile(
+      key: ValueKey('fl-template-${i < 0 ? 'blank' : flTemplates[i].id}'),
+      dense: true,
+      selected: _pick == i,
+      selectedTileColor: t.colorScheme.primary.withValues(alpha: .1),
+      leading: Icon(icon, size: 20),
+      title: Text(title),
+      subtitle: Text(sub, maxLines: 1, overflow: TextOverflow.ellipsis),
+      onTap: () => _choose(i),
+    );
+    return Dialog(
+      key: const ValueKey('fl-template-gallery'),
+      insetPadding: const EdgeInsets.all(24),
+      child: SizedBox(
+        width: 900,
+        height: 640,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: 320,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                    child: Text(
+                      tr('Nueva pantalla'),
+                      style: t.textTheme.titleLarge,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        item(
+                          -1,
+                          Icons.crop_portrait,
+                          tr('En blanco'),
+                          tr('Una columna vacía.'),
+                        ),
+                        const Divider(height: 8),
+                        for (final (i, tpl) in flTemplates.indexed)
+                          item(
+                            i,
+                            flIcons[tpl.icon] ?? Icons.smartphone,
+                            tr(tpl.name),
+                            tr(tpl.description),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            VerticalDivider(width: 1, color: t.dividerColor),
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ColoredBox(
+                      color: t.colorScheme.surfaceContainerLow,
+                      child: LayoutBuilder(
+                        builder: (context, box) {
+                          final scale = ((box.maxHeight - 24) / 876).clamp(
+                            .3,
+                            1.0,
+                          );
+                          return Center(
+                            child: Transform.scale(
+                              scale: scale,
+                              child: OverflowBox(
+                                maxHeight: 876,
+                                maxWidth: 417,
+                                child: IgnorePointer(
+                                  child: FlPhone(
+                                    key: ValueKey('fl-template-preview-$_pick'),
+                                    app: widget.app,
+                                    screen: _build(valid ? name : 'Pantalla'),
+                                    back: true,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            key: const ValueKey('fl-template-name'),
+                            controller: _name,
+                            decoration: InputDecoration(
+                              labelText: tr('Nombre de la pantalla'),
+                              errorText: valid
+                                  ? null
+                                  : tr(
+                                      'Use letras y números, sin repetir otra pantalla.',
+                                    ),
+                              isDense: true,
+                            ),
+                            onChanged: (_) => setState(() {}),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(tr('Cancelar')),
+                        ),
+                        const SizedBox(width: 6),
+                        FilledButton.icon(
+                          key: const ValueKey('fl-template-add'),
+                          onPressed: valid
+                              ? () => Navigator.pop(context, _build(name))
+                              : null,
+                          icon: const Icon(Icons.add, size: 18),
+                          label: Text(tr('Añadir la pantalla')),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

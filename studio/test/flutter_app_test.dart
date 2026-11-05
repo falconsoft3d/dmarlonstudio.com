@@ -4,6 +4,7 @@ import 'package:dmarlon_studio/code/tk_examples.dart';
 import 'package:dmarlon_studio/code/tk_flutter.dart';
 import 'package:dmarlon_studio/code/tk_flutter_db.dart';
 import 'package:dmarlon_studio/code/tk_flutter_run.dart';
+import 'package:dmarlon_studio/code/tk_flutter_templates.dart';
 import 'package:dmarlon_studio/code/tk_model.dart';
 import 'package:dmarlon_studio/code/tk_run.dart';
 import 'package:dmarlon_studio/core/project_store.dart';
@@ -89,6 +90,44 @@ void main() {
     }
     return tmp;
   }
+
+  test(
+    'de verdad: las 20 plantillas de pantalla compilan juntas',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      if (flutter == null) return markTestSkipped('Sin Flutter.');
+      expect(flTemplates, hasLength(20));
+      final d = TkDesign(target: tkTargetFlutter);
+      final app = FlApp(
+        title: 'Plantillas',
+        screens: [
+          for (final tpl in flTemplates)
+            tpl.build('P${tpl.id.replaceAll('_', '')}', id),
+        ],
+      );
+      app.saveTo(d);
+      final tmp = await Directory.systemTemp.createTemp('dms_tpl_');
+      addTearDown(() => tmp.delete(recursive: true));
+      for (final f in TkFlutter.files(
+        d,
+        TkFlutter.template('// app'),
+        name: 'plantillas',
+      ).entries) {
+        File(p.join(tmp.path, f.key))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(f.value);
+      }
+      final r = await Process.run(flutter, [
+        'analyze',
+      ], workingDirectory: tmp.path);
+      expect(
+        '${r.stdout}',
+        contains('No issues found'),
+        reason: '${r.stdout}${r.stderr}',
+      );
+    },
+    timeout: const Timeout(Duration(minutes: 3)),
+  );
 
   test(
     'Firebase: el lib/db.dart generado compila sin avisos',

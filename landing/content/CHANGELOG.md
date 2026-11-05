@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.36 — 2026-11-05
+
+- Flutter: **+** en Pantallas abre una galería con las **20 pantallas más
+  usadas** (inicio de sesión, registro, recuperar contraseña, bienvenida,
+  inicio, lista, detalle, perfil, editar perfil, ajustes, notificaciones,
+  mensajes, conversación, búsqueda, carrito, pago, pedido confirmado, panel,
+  contacto y ayuda) o una en blanco, con la vista previa real en el color de
+  la app. Las 20 juntas compilan sin avisos.
+
 ## 1.0.35 — 2026-11-05
 
 - **Flutter con FalconDatabase y Firebase**: en las propiedades de la app,

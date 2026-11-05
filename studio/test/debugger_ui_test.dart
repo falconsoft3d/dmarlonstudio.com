@@ -171,6 +171,17 @@ void main() {
     await settle();
     expect(find.byKey(const ValueKey('tk-dbg-continue')), findsNothing);
 
+    // Ayuda: el panel, buscar «print» e insertar su ejemplo.
+    await tester.tap(find.byKey(const ValueKey('tk-help-toggle')));
+    await settle(2);
+    expect(find.byKey(const ValueKey('tk-help')), findsOneWidget);
+    await tester.enterText(find.byKey(const ValueKey('tk-help-search')), 'print');
+    await settle(2);
+    expect(find.byKey(const ValueKey('tk-help-py-print')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('tk-help-insert-print')));
+    await settle(2);
+    expect(TkProject.current!.code.text, contains('print("Total:", total)'));
+
     debugDefaultTargetPlatformOverride = null;
     await tester.runAsync(() async {
       TkBreakpoints.clear(path);

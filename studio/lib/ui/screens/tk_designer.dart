@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -18,6 +19,7 @@ import '../../code/tk_codegen.dart';
 import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
 import '../../code/tk_debug.dart';
+import '../../code/tk_help.dart';
 import '../../code/tk_electron_run.dart';
 import '../../code/tk_chrome.dart';
 import '../../code/tk_electron.dart';
@@ -43,6 +45,7 @@ import 'project_browser.dart';
 import 'tk_canvas.dart';
 import 'tk_claude_panel.dart';
 import 'tk_debug_panel.dart';
+import 'tk_help_panel.dart';
 import 'tk_inspector.dart';
 
 /// Diseñador de interfaz: un diseñador visual de formularios, al estilo de
@@ -799,6 +802,85 @@ class _TkEditorState extends State<_TkEditor> {
   /// El nodo Proyecto está elegido en el árbol.
   bool _project = false;
 
+  /// Panel de ayuda a la derecha y lo que busca.
+  bool _help = false;
+  String _helpQuery = '';
+
+  /// La palabra seleccionada, o la del cursor.
+  String _wordAtCursor() {
+    final sel = _code.selection;
+    if (!sel.isCollapsed && sel.baseIndex == sel.extentIndex) {
+      final line = _code.codeLines[sel.extentIndex].text;
+      final a = sel.baseOffset < sel.extentOffset
+          ? sel.baseOffset
+          : sel.extentOffset;
+      final b = sel.baseOffset < sel.extentOffset
+          ? sel.extentOffset
+          : sel.baseOffset;
+      return line
+          .substring(a.clamp(0, line.length), b.clamp(0, line.length))
+          .trim();
+    }
+    final line = _code.codeLines[sel.extentIndex].text;
+    var a = sel.extentOffset.clamp(0, line.length), b = a;
+    final word = RegExp(r'[A-Za-z0-9_.:]');
+    while (a > 0 && word.hasMatch(line[a - 1])) {
+      a--;
+    }
+    while (b < line.length && word.hasMatch(line[b])) {
+      b++;
+    }
+    return line.substring(a, b);
+  }
+
+  /// Abre la ayuda de [word] (la palabra del cursor si no se da). De
+  /// «self.Label1.configure» se busca la última parte.
+  void _showHelp([String? word]) {
+    var w = (word ?? _wordAtCursor()).trim();
+    if (w.contains('(')) w = w.substring(0, w.indexOf('('));
+    if (!w.startsWith('std::') && w != 'console.log' && w != 'self.root') {
+      final parts = w.split(RegExp(r'\.|->'));
+      w = parts.last;
+    }
+    setState(() {
+      _help = true;
+      _helpQuery = w;
+    });
+  }
+
+  /// Clic derecho en el código: ayuda, copiar, cortar y pegar.
+  Future<void> _codeMenu(Offset at) async {
+    final word = _wordAtCursor();
+    final choice = await showMenu<String>(
+      context: context,
+      position: RelativeRect.fromLTRB(at.dx, at.dy, at.dx, at.dy),
+      items: [
+        PopupMenuItem(
+          key: const ValueKey('tk-code-menu-help'),
+          value: 'help',
+          child: Text(
+            word.isEmpty ? tr('Ayuda') : tr('Ayuda sobre «{0}»', [word]),
+          ),
+        ),
+        const PopupMenuDivider(),
+        PopupMenuItem(value: 'copy', child: Text(tr('Copiar'))),
+        PopupMenuItem(value: 'cut', child: Text(tr('Cortar'))),
+        PopupMenuItem(value: 'paste', child: Text(tr('Pegar'))),
+      ],
+    );
+    if (!mounted) return;
+    switch (choice) {
+      case 'help':
+        _showHelp(word);
+      case 'copy':
+        _code.copy();
+      case 'cut':
+        _code.cut();
+      case 'paste':
+        _code.paste();
+    }
+  }
+
   /// Subproyectos de este proyecto y el proyecto del que es parte.
   List<StudioProject> _subs = const [];
   StudioProject? _parent;
@@ -943,6 +1025,7 @@ class _TkEditorState extends State<_TkEditor> {
       final VoidCallback? action = switch (key) {
         LogicalKeyboardKey.space when keys.isControlPressed => _complete,
         LogicalKeyboardKey.f4 => _runToCursor,
+        LogicalKeyboardKey.f1 => () => _showHelp(),
         LogicalKeyboardKey.f5 => _toggleBreakpoint,
         LogicalKeyboardKey.f7 => () => _live?.stepInto(),
         LogicalKeyboardKey.f8 when keys.isShiftPressed =>
@@ -2338,6 +2421,13 @@ class _TkEditorState extends State<_TkEditor> {
               key: const ValueKey('tk-budget'),
             ),
             _tool(
+              LucideIcons.bookOpen,
+              tr('Ayuda (F1)'),
+              () => _help ? setState(() => _help = false) : _showHelp(''),
+              key: const ValueKey('tk-help-toggle'),
+              on: _help,
+            ),
+            _tool(
               LucideIcons.bot,
               tr('Chat con Claude Code'),
               () => setState(() => _claude = !_claude),
@@ -2875,17 +2965,23 @@ class _TkEditorState extends State<_TkEditor> {
           index: _tab,
           children: [
             _designSurface(t),
-            _PythonEditor(
-              editorKey: const ValueKey('tk-code'),
-              controller: _code,
-              focusNode: _codeFocus,
-              javascript: d.isJs,
-              cpp: d.isCpp,
-              findController: _codeFind,
-              completion: _completion,
-              project: doc.id,
-              currentLine: _debug?.currentLine,
-              onCondition: _editCondition,
+            // Clic derecho: ayuda sobre la palabra, copiar y pegar.
+            Listener(
+              onPointerDown: (e) {
+                if (e.buttons == kSecondaryMouseButton) _codeMenu(e.position);
+              },
+              child: _PythonEditor(
+                editorKey: const ValueKey('tk-code'),
+                controller: _code,
+                focusNode: _codeFocus,
+                javascript: d.isJs,
+                cpp: d.isCpp,
+                findController: _codeFind,
+                completion: _completion,
+                project: doc.id,
+                currentLine: _debug?.currentLine,
+                onCondition: _editCondition,
+              ),
             ),
             _genError != null
                 ? Center(
@@ -3064,6 +3160,8 @@ class _TkEditorState extends State<_TkEditor> {
           if (TkRunner.supported && !(_run?.running ?? false)) _debugApp();
         },
         const SingleActivator(LogicalKeyboardKey.f5): _toggleBreakpoint,
+        const SingleActivator(LogicalKeyboardKey.f1): () =>
+            _showHelp(_tab == 1 ? null : ''),
         const SingleActivator(LogicalKeyboardKey.keyF, meta: true): _find,
         const SingleActivator(LogicalKeyboardKey.space, control: true):
             _complete,
@@ -3090,6 +3188,16 @@ class _TkEditorState extends State<_TkEditor> {
                 children: [
                   _leftPanel(t),
                   Expanded(child: _center(t)),
+                  if (_help)
+                    TkHelpPanel(
+                      lang: tkHelpLang(js: d.isJs, cpp: d.isCpp),
+                      query: _helpQuery,
+                      onClose: () => setState(() => _help = false),
+                      onInsert: (text) {
+                        _setTab(1);
+                        _code.replaceSelection(text);
+                      },
+                    ),
                   if (_claude)
                     TkClaudePanel(
                       key: ValueKey('tk-claude-${doc.id}'),

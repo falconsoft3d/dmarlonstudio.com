@@ -365,7 +365,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -601,7 +601,7 @@ msgstr ""
 msgid "Inicio"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/tk_help_panel.dart
 msgid "Insertar"
 msgstr ""
 
@@ -1787,7 +1787,7 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
@@ -4116,7 +4116,7 @@ msgstr ""
 msgid "Restaurar"
 msgstr ""
 
-#: lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Cerrar"
 msgstr ""
 
@@ -6045,6 +6045,14 @@ msgid "Arrástrelo a la ventana ({0})"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Ayuda (F1)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Ayuda sobre «{0}»"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Añade un campo de teléfono y alinea los botones"
 msgstr ""
 
@@ -6482,6 +6490,18 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Área de trabajo: {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_help_panel.dart
+msgid "Buscar un comando"
+msgstr ""
+
+#: lib/ui/screens/tk_help_panel.dart
+msgid "Estudio"
+msgstr ""
+
+#: lib/ui/screens/tk_help_panel.dart
+msgid "No hay ayuda para «{0}» en este lenguaje."
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart

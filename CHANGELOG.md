@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.28 — 2026-11-05
+
+- **Ayuda en el código**: clic derecho sobre una palabra → **Ayuda** (o
+  **F1**) abre un panel a la derecha con la firma, la explicación y un ejemplo
+  de cada comando, en Python, JavaScript y C++ (también lo propio del estudio:
+  `self.Label1.text`, `storage`, `dms_run`…). Se busca cualquier comando, se
+  cambia de lenguaje y el ejemplo se copia o se inserta en el cursor. El menú
+  del clic derecho también copia, corta y pega.
+
 ## 1.0.27 — 2026-11-05
 
 - **Subproyectos**: un proyecto puede tener partes, cada una con su propio

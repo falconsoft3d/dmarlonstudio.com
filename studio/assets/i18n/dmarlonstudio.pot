@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -385,7 +385,7 @@ msgstr ""
 msgid "Cronómetro web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart
 msgid "De"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgstr ""
 msgid "Escriba un número"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr ""
 
@@ -669,7 +669,7 @@ msgstr ""
 msgid "Tipo"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr ""
 
@@ -897,7 +897,7 @@ msgstr ""
 msgid "Consulta SQL"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/ui/screens/dev_tools.dart
 msgid "Contraseña"
 msgstr ""
 
@@ -1433,7 +1433,7 @@ msgstr ""
 msgid "Agenda"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart
 msgid "Asunto"
 msgstr ""
 
@@ -1787,6 +1787,130 @@ msgstr ""
 
 #: lib/code/tk_showcase.dart
 msgid "▶ Iniciar"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "(sin asunto)"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Adjuntar un archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Adjuntar…"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Bandeja de entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Cliente de correo: recibir por IMAP, leer, responder y enviar por SMTP con adjuntos, sin congelar la ventana."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Configure primero la cuenta en la pestaña «Cuenta»."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Cuenta"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Cuenta guardada."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "El {0}, {1} escribió:"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Enviando…"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
+msgid "Enviar"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Error: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Escriba al menos un destinatario."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Guardar la cuenta"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "IMAP con SSL (puerto 993) para recibir y SMTP con STARTTLS (587) o SSL (465) para enviar. En Gmail y Outlook use una contraseña de aplicación. La contraseña solo se guarda si marca la casilla, en account.json dentro del proyecto: no lo suba a GitHub."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "IMAP y SMTP responden: la cuenta funciona."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Mensaje enviado a {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Para"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Probando la conexión…"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Probar la conexión"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Pulse «Recibir» para traer los últimos mensajes."
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Recibiendo…"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Recibir"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Recordar la contraseña en este equipo"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Redactar"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Responder"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Servidor IMAP"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Servidor SMTP"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "Sin adjuntos"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "{0} adjuntos: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_mail.dart
+msgid "{0} mensajes en la bandeja de entrada (se muestran los últimos {1})."
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -3071,10 +3195,6 @@ msgstr ""
 
 #: lib/ui/screens/code_claude.dart
 msgid "Describa el cambio (Intro para enviar)"
-msgstr ""
-
-#: lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
-msgid "Enviar"
 msgstr ""
 
 #: lib/ui/screens/code_claude.dart

@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.11 — 2026-11-05
+
+- Ejemplo **Correo**: recibir por IMAP, leer, responder y enviar por SMTP con
+  adjuntos, con la cuenta en la pestaña «Cuenta» y la red en segundo plano.
+- Manual ampliado (es/en): pestañas de proyectos, posición de la ventana,
+  centrar, copiar entre proyectos, componente Gráfico, lista de ejemplos,
+  adjuntos en los chats, presupuesto de IA y GitHub.
+
 ## 1.0.10 — 2026-11-05
 
 - Landing: el selector de tema es un interruptor **claro / oscuro** visible

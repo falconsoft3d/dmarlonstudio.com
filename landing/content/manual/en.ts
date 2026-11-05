@@ -184,12 +184,13 @@ export const manualEn: Manual = {
                 "**New project**: asks for the name and the target, **Desktop (Python)** or **Web (Flask)**. The target cannot be changed later.",
                 "**Open folder…**: opens a project stored in any other folder; it stays on the list as a recent one.",
                 "**Workspace**: **Show** opens it in Finder or Explorer and **Change…** picks another folder.",
-                "On each card: **Run**, **Show the folder** and, under **More actions**, **Duplicate** and **Delete** (moves the project to the workspace trash).",
+                "On each card: **Run**, **Show the folder** and, under **More actions**, **GitHub…**, **AI budget**, **Duplicate** and **Delete** (moves the project to the workspace trash).",
+                "**Tabs**: each open project has its tab at the top, with a dot when there are unsaved changes. Several can be open at once; the **Projects** tab goes back to the list without closing anything. Close them with the ✕ or a middle click; they ask whether to save.",
               ],
             },
             {
               type: "note",
-              text: "The first time, the studio copies some example projects (calculator, unit converter, tasks, stopwatch, customer form, Odoo contacts…), in desktop and web versions. They are good starting points.",
+              text: "The studio copies the example projects into the workspace (new ones also appear in existing workspaces). See the full list in **Included examples**.",
             },
           ],
         },
@@ -200,7 +201,8 @@ export const manualEn: Manual = {
             {
               type: "ul",
               items: [
-                "**Toolbar**: back to the projects, application name (click to rename it), **Save**, **Undo**, **Run (F9)** in green, **Stop** in red, **Open in browser** (web), **Show the project folder**, **Export the .py file**, **Ask the AI**, **Chat with Claude Code**, alignment, **Snap to grid** and **Show output**.",
+                "**Toolbar**: back to the projects, application name (click to rename it), **Save**, **Undo**, **Run (F9)** in green, **Stop** in red, **Open in browser** (web), **Show the project folder**, **Export the .py file**, **GitHub**, **AI budget**, **Ask the AI**, **Chat with Claude Code**, alignment and centering, **Snap to grid** and **Show output**.",
+                "**Output console**: at the bottom; drag its top edge to resize it, minimize it with the arrow, and **Copy the output** copies every message.",
                 "**Palette**: a bar of icons; hovering shows the component's name. Drag it onto the form or add it with a double click.",
                 "**Tree**: the window and its components, with those inside a frame or a page indented.",
                 "**Inspector**: **Properties** and **Events** of the selected component or, if none, of the window.",
@@ -246,12 +248,13 @@ export const manualEn: Manual = {
                 ["**Tray icon** (`TrayIcon`)", "Hover text, Image, Menu (one option per line). Non-visual", "**On icon click**, **On choosing a menu option**"],
                 ["**Open dialog** (`OpenDialog`)", "Title, Types (“Text|*.txt”), Default extension, Initial folder, Choose several files. Non-visual", "**On choosing a file**"],
                 ["**Save dialog** (`SaveDialog`)", "Title, Types, Default extension, Initial folder, File name, Ask before overwriting. Non-visual", "**On choosing a file**"],
+                ["**Chart** (`Chart`)", "Kind (line, area, bar or candles), Title, Axis titles, Legend, Grid, Decimals, Value prefix and suffix, Maximum points. From code: `set_series`, `add_point`, `set_candles`, `add_candle`, `clear`", "**On clicking a point**"],
                 ["**Data connection** (`Connection`)", "Connection (one of those saved in **Databases**). Non-visual", "—"],
               ],
             },
             {
               type: "note",
-              text: "Menu, Progress bar, Status bar, Timer and Page control arrive with version 1.0.5; Password, Image, Ribbon, API integration, Tray icon and the Open and Save dialogs, with 1.0.6. In a web app, components without an equivalent say so in the inspector.",
+              text: "Menu, Progress bar, Status bar, Timer and Page control arrive with version 1.0.5; Password, Image, Ribbon, API integration, Tray icon and the Open and Save dialogs, with 1.0.6; the Chart, with 1.0.8. In a web app, components without an equivalent say so in the inspector.",
             },
           ],
         },
@@ -265,9 +268,21 @@ export const manualEn: Manual = {
                 "Click selects; dragging moves; the handles resize. With **Snap to grid** on, everything fits the grid.",
                 "The arrow keys move the selection one grid step; with Alt (Option), one pixel; with Shift, they resize.",
                 "With two or more components selected, **Align left**, **Center horizontally**, **Align right**, **Align top**, **Center vertically**, **Align bottom**, **Same width** and **Same height** become available (relative to the first one selected).",
-                "Right-click offers **Cut**, **Copy**, **Paste**, **Delete**, **Bring to front** and **Send to back**. What you copy can be pasted in another window, children included.",
+                "With one or more selected, **Center in the window (horizontally)** and **Center in the window (vertically)** center them as a block in the window or in their frame.",
+                "Right-click offers **Cut**, **Copy**, **Paste**, **Delete**, **Bring to front** and **Send to back**.",
+                "**Copy between projects**: copied items go to the system clipboard, with their children and **the code of their events**. Paste them into another project (or after restarting the studio): components get free names and their methods are renamed with them, never overwriting an existing one. Helper methods called by those events must be copied by hand.",
                 "**Undo** (⌘Z / Ctrl+Z) reverts each design change. If the code was edited by hand after a step, that step restores the design but not the code, and you are told so.",
               ],
+            },
+          ],
+        },
+        {
+          id: "position",
+          title: "Window position",
+          blocks: [
+            {
+              type: "p",
+              text: "The window's **Position** property decides where it opens: **Centered on screen** (new projects), **Default** (the system decides) or **Manual**, with **Left** and **Top**.",
             },
           ],
         },
@@ -331,6 +346,40 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "examples",
+          title: "Included examples",
+          blocks: [
+            {
+              type: "p",
+              text: "They all keep their data in the project folder and work without any setup. Those marked (web) also exist as a Flask app.",
+            },
+            {
+              type: "table",
+              head: ["Example", "What it shows"],
+              rows: [
+                ["**Calculator** (web)", "Buttons, events and state"],
+                ["**Unit converter** (web)", "Drop-down lists and computing while typing"],
+                ["**Tasks** (web)", "A list with adding, removing and saving"],
+                ["**Stopwatch** (web)", "Timer, menu, progress and status bars"],
+                ["**Customer form** (web)", "Page control, lists and validation"],
+                ["**Notes editor** (web)", "Ribbon and the Open and Save dialogs"],
+                ["**API query** (web)", "Background API integration and a data table"],
+                ["**Notepad**", "Classic menu, open, save, undo and a status bar with line and column"],
+                ["**Diary**", "Contacts and appointments in SQLite, search and pages"],
+                ["**Currency converter**", "Real exchange rates (ECB) with API integration and an offline fallback"],
+                ["**The snake**", "A game on a canvas with a timer and a saved high score"],
+                ["**Music player**", "Playlist, volume and progress (best with `pygame`)"],
+                ["**Monthly sales** (web)", "Line, area or bar chart and a live mode"],
+                ["**Stock market** (web)", "Candles, moving average and volume with live simulated data"],
+                ["**Windows and dialogs**", "Messages, questions, asking for data, another window that returns a result, a modal dialog and non-modal windows"],
+                ["**Email**", "Receive over IMAP and send over SMTP with attachments, without freezing the window"],
+                ["**CRM web**, **Invoicing web**, **Blog web**, **Web shop**", "Complete web apps with SQLite"],
+                ["**Odoo / ERPSqlite contacts** (web)", "Connecting to an Odoo over XML-RPC"],
+              ],
+            },
+          ],
+        },
+        {
           id: "data",
           title: "Data connections",
           blocks: [
@@ -376,6 +425,7 @@ export const manualEn: Manual = {
                 "Before each message the studio saves the project. Claude Code reads and edits the design (`project.dmsproj`) and the window's code, without a terminal.",
                 "When it finishes, the new design and code are loaded into the Designer as a single step that can be undone.",
                 "The conversation continues between messages; the trash button starts a new one.",
+                "The 📎 clip attaches images (a sketch, a screenshot) or text files: Claude Code reads them without them entering the project.",
               ],
             },
             { type: "img", src: shot("designer-claude"), alt: "Claude Code panel in the Designer", caption: "The Claude Code panel, to the right of the form." },
@@ -400,6 +450,37 @@ export const manualEn: Manual = {
             {
               type: "p",
               text: "The answer arrives as an **AI proposal**: you review it before applying it and, once applied, it is undone in one step.",
+            },
+          ],
+        },
+        {
+          id: "budget",
+          title: "AI budget",
+          blocks: [
+            {
+              type: "p",
+              text: "The wallet button (**AI budget**) shows what the project has spent on Claude: by tool (Claude Code, Claude: implement, Ask the AI, chat), by model and by day, with the latest calls and their tokens.",
+            },
+            {
+              type: "ul",
+              items: [
+                "You can set a **Cap (US$)**, **Monthly** or **Total**. It warns at 80% and, with **Block when used up**, the AI stops answering in that project until you raise it.",
+                "Costs use Anthropic API pricing. With a Claude subscription, Claude Code's cost is its API equivalent, not what you are charged.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "github",
+          title: "GitHub",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "The Designer's **GitHub** button connects your account with a token (kept only on this computer).",
+                "**Publish on GitHub** creates the repository (private or public), makes the first commit and pushes it.",
+                "Once published: it lists the changes, asks for the **Commit message** and **Commit and push**; also **Pull changes** and **Open on GitHub**.",
+              ],
             },
           ],
         },
@@ -495,6 +576,7 @@ export const manualEn: Manual = {
                 "Nothing is written until you apply it: the **Proposed changes** list shows each file with its added and removed lines; a click opens the diff with **Apply** and **Discard**.",
                 "**Apply all** writes every change; if a file changed on disk while Claude was working, you are warned instead of it being overwritten.",
                 "It needs the Anthropic key in **Settings → Artificial intelligence**.",
+                "The 📎 clip attaches images and text or code files to the request; the wallet button opens the folder's **AI budget**.",
               ],
             },
           ],
@@ -506,6 +588,10 @@ export const manualEn: Manual = {
             {
               type: "p",
               text: "The **AI chat** answers about the open file with the provider from **Settings**. If it proposes the whole file, **Apply to the file** puts it in the tab (unsaved) and **Copy the code** copies it.",
+            },
+            {
+              type: "p",
+              text: "In all three chats Enter sends, Shift+Enter adds a line break and the 📎 clip attaches images (PNG, JPG, GIF or WebP up to 5 MB) and text files (up to 300 KB).",
             },
           ],
         },

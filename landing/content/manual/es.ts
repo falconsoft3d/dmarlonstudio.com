@@ -86,6 +86,40 @@ export const manualEs: Manual = {
           ],
         },
         {
+          id: "ejemplos",
+          title: "Ejemplos incluidos",
+          blocks: [
+            {
+              type: "p",
+              text: "Todos guardan sus datos en la carpeta del proyecto y funcionan sin configurar nada. Los marcados con (web) también existen como aplicación de Flask.",
+            },
+            {
+              type: "table",
+              head: ["Ejemplo", "Qué enseña"],
+              rows: [
+                ["**Calculadora** (web)", "Botones, eventos y estado"],
+                ["**Conversor de unidades** (web)", "Listas desplegables y cálculo al escribir"],
+                ["**Tareas** (web)", "Lista con altas, bajas y guardado"],
+                ["**Cronómetro** (web)", "Temporizador, menú, barra de progreso y de estado"],
+                ["**Ficha de cliente** (web)", "Control de páginas, listas y validación"],
+                ["**Editor de notas** (web)", "Cinta de opciones y diálogos Abrir y Guardar"],
+                ["**Consulta API** (web)", "Integración API en segundo plano y tabla de datos"],
+                ["**Bloc de notas**", "Menú clásico, abrir, guardar, deshacer y barra de estado con línea y columna"],
+                ["**Agenda**", "Contactos y citas en SQLite, búsqueda y páginas"],
+                ["**Conversor de moneda**", "Tipos de cambio reales (BCE) con Integración API y reserva sin red"],
+                ["**La serpiente**", "Juego en un lienzo con temporizador y récord guardado"],
+                ["**Reproductor de música**", "Lista de reproducción, volumen y progreso (mejor con `pygame`)"],
+                ["**Ventas mensuales** (web)", "Gráfico de líneas, área o barras y modo en vivo"],
+                ["**Bolsa de valores** (web)", "Velas, media móvil y volumen con datos simulados en vivo"],
+                ["**Ventanas y diálogos**", "Mensajes, preguntas, pedir datos, otra ventana que devuelve un resultado, un diálogo modal y ventanas no modales"],
+                ["**Correo**", "Recibir por IMAP y enviar por SMTP con adjuntos, sin congelar la ventana"],
+                ["**CRM web**, **Facturador web**, **Blog web**, **Tienda web**", "Aplicaciones web completas con SQLite"],
+                ["**Contactos de Odoo / ERPSqlite** (web)", "Conectarse a un Odoo por XML-RPC"],
+              ],
+            },
+          ],
+        },
+        {
           id: "datos",
           title: "Dónde se guarda cada cosa",
           blocks: [
@@ -184,12 +218,13 @@ export const manualEs: Manual = {
                 "**Nuevo proyecto**: pide el nombre y el destino, **Escritorio (Python)** o **Web (Flask)**. El destino no se puede cambiar después.",
                 "**Abrir carpeta…**: abre un proyecto que esté en cualquier otra carpeta; queda en la lista como reciente.",
                 "**Área de trabajo**: **Mostrar** la abre en el Finder o el Explorador y **Cambiar…** elige otra carpeta.",
-                "En cada tarjeta: **Ejecutar**, **Mostrar la carpeta** y, en **Más acciones**, **Duplicar** y **Eliminar** (lleva el proyecto a la papelera del área de trabajo).",
+                "En cada tarjeta: **Ejecutar**, **Mostrar la carpeta** y, en **Más acciones**, **GitHub…**, **Presupuesto de IA**, **Duplicar** y **Eliminar** (lleva el proyecto a la papelera del área de trabajo).",
+                "**Pestañas**: cada proyecto abierto tiene su pestaña arriba, con un punto si hay cambios sin guardar. Puede tener varios abiertos a la vez; la pestaña **Proyectos** vuelve a la lista sin cerrar nada. Se cierran con la ✕ o con clic central, y preguntan si guardar.",
               ],
             },
             {
               type: "note",
-              text: "La primera vez el estudio copia unos proyectos de ejemplo (calculadora, conversor de unidades, tareas, cronómetro, ficha de cliente, contactos de Odoo…), en versión de escritorio y web. Son buenos puntos de partida.",
+              text: "El estudio copia en el área de trabajo los proyectos de ejemplo (los nuevos aparecen también en áreas de trabajo ya creadas). Vea la lista completa en **Ejemplos incluidos**.",
             },
           ],
         },
@@ -200,7 +235,8 @@ export const manualEs: Manual = {
             {
               type: "ul",
               items: [
-                "**Barra de herramientas**: volver a los proyectos, nombre de la aplicación (clic para renombrarla), **Guardar**, **Deshacer**, **Ejecutar (F9)** en verde, **Detener** en rojo, **Abrir en el navegador** (web), **Mostrar la carpeta del proyecto**, **Exportar el archivo .py**, **Pedir a la IA**, **Chat con Claude Code**, alineación, **Ajustar a la rejilla** y **Ver la salida**.",
+                "**Barra de herramientas**: volver a los proyectos, nombre de la aplicación (clic para renombrarla), **Guardar**, **Deshacer**, **Ejecutar (F9)** en verde, **Detener** en rojo, **Abrir en el navegador** (web), **Mostrar la carpeta del proyecto**, **Exportar el archivo .py**, **GitHub**, **Presupuesto de IA**, **Pedir a la IA**, **Chat con Claude Code**, alineación y centrado, **Ajustar a la rejilla** y **Ver la salida**.",
+                "**Consola de salida**: abajo; se agranda o se reduce arrastrando su borde superior, se minimiza con la flecha y **Copiar la salida** copia todos los mensajes.",
                 "**Paleta**: una barra de iconos; al pasar el ratón sale el nombre del componente. Se arrastra al formulario o se añade con doble clic.",
                 "**Árbol**: la ventana y sus componentes, con los que están dentro de un marco o de una página sangrados.",
                 "**Inspector**: **Propiedades** y **Eventos** del componente seleccionado o, si no hay ninguno, de la ventana.",
@@ -246,12 +282,13 @@ export const manualEs: Manual = {
                 ["**Icono de bandeja** (`TrayIcon`)", "Texto al pasar el ratón, Imagen, Menú (una opción por línea). No visual", "**Al hacer clic en el icono**, **Al elegir una opción del menú**"],
                 ["**Diálogo Abrir** (`OpenDialog`)", "Título, Tipos («Texto|*.txt»), Extensión por defecto, Carpeta inicial, Elegir varios archivos. No visual", "**Al elegir un archivo**"],
                 ["**Diálogo Guardar** (`SaveDialog`)", "Título, Tipos, Extensión por defecto, Carpeta inicial, Nombre del archivo, Preguntar antes de sobrescribir. No visual", "**Al elegir un archivo**"],
+                ["**Gráfico** (`Chart`)", "Tipo (líneas, área, barras o velas), Título, Títulos de los ejes, Leyenda, Rejilla, Decimales, Prefijo y Sufijo de los valores, Puntos como máximo. Desde el código: `set_series`, `add_point`, `set_candles`, `add_candle`, `clear`", "**Al hacer clic en un punto**"],
                 ["**Conexión de datos** (`Connection`)", "Conexión (una de las guardadas en **Bases de datos**). No visual", "—"],
               ],
             },
             {
               type: "note",
-              text: "Menú, Barra de progreso, Barra de estado, Temporizador y Control de páginas llegan con la versión 1.0.5; Contraseña, Imagen, Cinta de opciones, Integración API, Icono de bandeja y los diálogos Abrir y Guardar, con la 1.0.6. En una aplicación web, los componentes sin equivalente lo indican en el inspector.",
+              text: "Menú, Barra de progreso, Barra de estado, Temporizador y Control de páginas llegan con la versión 1.0.5; Contraseña, Imagen, Cinta de opciones, Integración API, Icono de bandeja y los diálogos Abrir y Guardar, con la 1.0.6; el Gráfico, con la 1.0.8. En una aplicación web, los componentes sin equivalente lo indican en el inspector.",
             },
           ],
         },
@@ -265,9 +302,21 @@ export const manualEs: Manual = {
                 "Clic selecciona; arrastrar mueve; los tiradores cambian el tamaño. Con **Ajustar a la rejilla** activado todo encaja en la rejilla.",
                 "Las flechas mueven la selección un paso de rejilla; con Alt (Opción), un píxel; con Mayús, cambian el tamaño.",
                 "Con dos o más componentes seleccionados se activan **Alinear a la izquierda**, **Centrar en horizontal**, **Alinear a la derecha**, **Alinear arriba**, **Centrar en vertical**, **Alinear abajo**, **Igualar el ancho** e **Igualar el alto** (respecto al primero seleccionado).",
-                "El botón derecho ofrece **Cortar**, **Copiar**, **Pegar**, **Eliminar**, **Traer al frente** y **Enviar al fondo**. Lo copiado se puede pegar en otra ventana, con sus hijos.",
+                "Con uno o más seleccionados, **Centrar en la ventana (horizontal)** y **Centrar en la ventana (vertical)** los centran como un bloque en la ventana o en su marco.",
+                "El botón derecho ofrece **Cortar**, **Copiar**, **Pegar**, **Eliminar**, **Traer al frente** y **Enviar al fondo**.",
+                "**Copiar entre proyectos**: lo copiado va al portapapeles del sistema, con sus hijos y **el código de sus eventos**. Se pega en otro proyecto (o tras reiniciar el estudio): los componentes toman nombres libres y sus métodos se renombran con ellos, sin pisar ninguno que ya exista. Los métodos auxiliares que llamen sus eventos se copian a mano.",
                 "**Deshacer** (⌘Z / Ctrl+Z) vuelve atrás cada cambio del diseño. Si el código se cambió a mano después de un paso, ese paso restaura el diseño pero no el código, y se avisa.",
               ],
+            },
+          ],
+        },
+        {
+          id: "posicion",
+          title: "Posición de la ventana",
+          blocks: [
+            {
+              type: "p",
+              text: "La propiedad **Posición** de la ventana decide dónde se abre: **Centrada en la pantalla** (la de los proyectos nuevos), **Por defecto** (la decide el sistema) o **Manual**, con **Izquierda** y **Arriba**.",
             },
           ],
         },
@@ -376,6 +425,7 @@ export const manualEs: Manual = {
                 "Antes de cada mensaje el estudio guarda el proyecto. Claude Code lee y edita el diseño (`project.dmsproj`) y el código de la ventana, sin terminal.",
                 "Al terminar, el diseño y el código nuevos se cargan en el Diseñador como un solo paso que se puede deshacer.",
                 "La conversación sigue entre mensajes; la papelera empieza una nueva.",
+                "El clip 📎 adjunta imágenes (un boceto, una captura) o archivos de texto: Claude Code los lee sin que entren en el proyecto.",
               ],
             },
             { type: "img", src: shot("designer-claude"), alt: "Panel de Claude Code en el Diseñador", caption: "El panel de Claude Code, a la derecha del formulario." },
@@ -400,6 +450,37 @@ export const manualEs: Manual = {
             {
               type: "p",
               text: "La respuesta llega como **Propuesta de la IA**: se revisa antes de aplicarla y, una vez aplicada, se deshace en un paso.",
+            },
+          ],
+        },
+        {
+          id: "presupuesto",
+          title: "Presupuesto de IA",
+          blocks: [
+            {
+              type: "p",
+              text: "El botón de la cartera (**Presupuesto de IA**) muestra lo gastado en Claude en el proyecto: por herramienta (Claude Code, Claude implementa, Pedir a la IA, chat), por modelo y por día, con las últimas llamadas y sus tokens.",
+            },
+            {
+              type: "ul",
+              items: [
+                "Se puede poner un **Tope (US$)**, **Mensual** o **Total**. Avisa al 80 % y, con **Bloquear al agotarse**, la IA deja de responder en ese proyecto hasta que se suba.",
+                "Los costes usan la tarifa de la API de Anthropic. Con una suscripción de Claude, el de Claude Code es su equivalente en API, no lo que se cobra.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "github",
+          title: "GitHub",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "El botón **GitHub** del Diseñador conecta su cuenta con un token (se guarda solo en este equipo).",
+                "**Publicar en GitHub** crea el repositorio (privado o público), hace el primer commit y lo sube.",
+                "Ya publicado: lista los cambios, pide el **Mensaje del commit** y **Confirmar y subir**; también **Traer cambios** y **Abrir en GitHub**.",
+              ],
             },
           ],
         },
@@ -495,6 +576,7 @@ export const manualEs: Manual = {
                 "Nada se escribe hasta que usted lo aplica: la lista **Cambios propuestos** muestra cada archivo con sus líneas añadidas y quitadas; un clic abre el diff con **Aplicar** y **Descartar**.",
                 "**Aplicar todo** escribe todos los cambios; si un archivo cambió en el disco mientras Claude trabajaba, se avisa en lugar de pisarlo.",
                 "Necesita la clave de Anthropic en **Ajustes → Inteligencia artificial**.",
+                "El clip 📎 adjunta imágenes y archivos de texto o código a la petición; el botón de la cartera abre el **Presupuesto de IA** de la carpeta.",
               ],
             },
           ],
@@ -506,6 +588,10 @@ export const manualEs: Manual = {
             {
               type: "p",
               text: "El **Chat con la IA** responde sobre el archivo abierto con el proveedor de **Ajustes**. Si propone el archivo completo, **Aplicar al archivo** lo pone en la pestaña (sin guardar) y **Copiar el código** lo copia.",
+            },
+            {
+              type: "p",
+              text: "En los tres chats Intro envía, Mayús+Intro salta de línea y el clip 📎 adjunta imágenes (PNG, JPG, GIF o WebP de hasta 5 MB) y archivos de texto (hasta 300 KB).",
             },
           ],
         },

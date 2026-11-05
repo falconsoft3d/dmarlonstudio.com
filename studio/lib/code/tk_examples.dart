@@ -21,6 +21,7 @@ part 'tk_showcase_pascal.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
 part 'tk_showcase_flutter.dart';
+part 'tk_showcase_flutter_store.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.

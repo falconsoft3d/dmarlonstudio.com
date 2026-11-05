@@ -86,6 +86,7 @@ export const es: Content = {
       { seed: "chrome_words", name: "Contador de palabras (Chrome)", text: "Una extensión que lee la página abierta y cuenta sus palabras." },
       { seed: "next_tasks", name: "Lista de tareas (Next.js)", text: "Una página de Next.js con tareas guardadas en el navegador." },
       { seed: "cpp_calculator", name: "Calculadora (C++)", text: "La calculadora como aplicación nativa en C++ con FLTK." },
+      { seed: "flutter_store", name: "Tienda con login (Flutter)", text: "Login, catálogo con búsqueda, carrito y pago en una app móvil." },
       { seed: "flutter_shipping", name: "Envíos (Flutter)", text: "Una app móvil de envíos: resumen por estado, detalle con seguimiento y alta." },
       { seed: "flutter_todo", name: "Tareas (Flutter)", text: "Tareas con filtros, guardadas en el teléfono." },
       { seed: "console_animals", name: "Gestión de animales (consola)", text: "Altas, bajas y vacunas desde un menú de consola en Python." },

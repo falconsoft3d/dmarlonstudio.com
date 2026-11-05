@@ -55,10 +55,28 @@ class FlScreen {
     this.arg = '',
     this.fabIcon = '',
     this.fabAction = '',
+    this.bar = '',
     FlNode? body,
   }) : body = body ?? FlNode('Column');
 
   String name, title, arg, fabIcon, fabAction;
+
+  /// Botones de la barra superior, uno por línea: icono|acción|insignia
+  /// (la insignia, opcional, es un texto como `${app.unidades}`).
+  String bar;
+
+  List<(String, String, String)> get barButtons => [
+    for (final l in bar.split('\n'))
+      if (l.trim().isNotEmpty)
+        () {
+          final p = l.split('|');
+          return (
+            p[0].trim(),
+            p.length > 1 ? p[1].trim() : '',
+            p.length > 2 ? p.sublist(2).join('|').trim() : '',
+          );
+        }(),
+  ];
   bool appBar;
   FlNode body;
 
@@ -69,6 +87,7 @@ class FlScreen {
     if (arg.isNotEmpty) 'arg': arg,
     if (fabIcon.isNotEmpty) 'fabIcon': fabIcon,
     if (fabAction.isNotEmpty) 'fabAction': fabAction,
+    if (bar.isNotEmpty) 'bar': bar,
     'body': body.toJson(),
   };
 
@@ -79,6 +98,7 @@ class FlScreen {
     arg: '${j['arg'] ?? ''}',
     fabIcon: '${j['fabIcon'] ?? ''}',
     fabAction: '${j['fabAction'] ?? ''}',
+    bar: '${j['bar'] ?? ''}',
     body: j['body'] is Map ? FlNode.fromJson(j['body'] as Map) : null,
   );
 }
@@ -227,7 +247,32 @@ class TkFlutter {
     for (final raw in _split(a)) {
       final s = raw.trim();
       if (s.isEmpty) continue;
-      if (s == 'back') {
+      // if (condición) acción: la acción solo si se cumple.
+      if (RegExp(r'^if\s*\(').hasMatch(s)) {
+        final open = s.indexOf('(');
+        var depth = 0, close = -1;
+        for (var i = open; i < s.length; i++) {
+          if (s[i] == '(') depth++;
+          if (s[i] == ')' && --depth == 0) {
+            close = i;
+            break;
+          }
+        }
+        final rest = close < 0 ? '' : s.substring(close + 1).trim();
+        if (rest.isNotEmpty && !rest.startsWith('{')) {
+          out.add(
+            'if ${s.substring(open, close + 1)} { ${action(rest, context: context)} }',
+          );
+          continue;
+        }
+      }
+      if (s.startsWith('home:')) {
+        final m = RegExp(r'^home:\s*(\w+)$').firstMatch(s);
+        if (m == null) throw UserError(tr('Acción no válida: {0}', [s]));
+        out.add(
+          "Navigator.of($context).pushNamedAndRemoveUntil('/${m[1]}', (r) => false);",
+        );
+      } else if (s == 'back') {
         out.add('Navigator.of($context).maybePop();');
       } else if (s.startsWith('go:')) {
         final m = RegExp(r'^go:\s*(\w+)\s*(?:\((.*)\))?$').firstMatch(s);
@@ -292,6 +337,10 @@ class TkFlutter {
     }
 
     final code = switch (n.type) {
+      'Row' when p['wrap'] == true => pad(
+        'Wrap(spacing: ${_num(p['gap']) ?? 8}, runSpacing: ${_num(p['gap']) ?? 8}, '
+        'crossAxisAlignment: WrapCrossAlignment.center, children: [\n${kids()}$i2])',
+      ),
       'Column' || 'Row' => pad(
         '${n.type}(\n'
         '${i2}mainAxisAlignment: MainAxisAlignment.${n.text('main', 'start')},\n'
@@ -540,7 +589,7 @@ ${g.fields()}
   @override
   Widget build(BuildContext context) {
 $argLine${g.syncs()}    return Scaffold(
-${s.appBar ? '      appBar: AppBar(title: Text(${str(s.title.isEmpty ? s.name : s.title)})),\n' : ''}      body: SafeArea(
+${s.appBar ? '      appBar: AppBar(title: Text(${str(s.title.isEmpty ? s.name : s.title)})${_barActions(s)}),\n' : ''}      body: SafeArea(
         child: $body,
       ),
 ${s.fabIcon.isEmpty ? '' : '      floatingActionButton: FloatingActionButton(onPressed: ${_cb(s.fabAction)}, child: Icon(${_icon(s.fabIcon)})),\n'}    );
@@ -586,6 +635,13 @@ ${[for (final s in app.screens) "        '/${s.name}': (context) => const ${_cls
 }
 
 $screens''';
+  }
+
+  /// Los botones de la barra superior (con su insignia).
+  static String _barActions(FlScreen s) {
+    final b = s.barButtons;
+    if (b.isEmpty) return '';
+    return ', actions: [${[for (final (icon, act, badge) in b) 'IconButton(onPressed: ${_cb(act)}, icon: ${badge.isEmpty ? 'Icon(${_icon(icon)})' : "Badge(isLabelVisible: ${str(badge)} != '0' && ${str(badge)}.isNotEmpty, label: Text(${str(badge)}), child: Icon(${_icon(icon)}))"})'].join(', ')}]';
   }
 
   static String _cls(String screen) =>
@@ -689,16 +745,27 @@ class FlGen {
   String controller(String bind) =>
       _binds.putIfAbsent(bind, () => '_text${_binds.length}');
 
+  /// Los campos de la pantalla y su ciclo de vida: escucha a App para
+  /// volver a dibujarse cuando cambia (notifyListeners).
   String fields() => [
     for (final c in _binds.values) '  final $c = TextEditingController();',
-    if (_binds.isNotEmpty) ...[
-      '',
-      '  @override',
-      '  void dispose() {',
-      for (final c in _binds.values) '    $c.dispose();',
-      '    super.dispose();',
-      '  }',
-    ],
+    '',
+    '  @override',
+    '  void initState() {',
+    '    super.initState();',
+    '    app.addListener(_refresh);',
+    '  }',
+    '',
+    '  void _refresh() {',
+    '    if (mounted) setState(() {});',
+    '  }',
+    '',
+    '  @override',
+    '  void dispose() {',
+    '    app.removeListener(_refresh);',
+    for (final c in _binds.values) '    $c.dispose();',
+    '    super.dispose();',
+    '  }',
   ].join('\n');
 
   /// En cada dibujo, los campos muestran el valor de App (si lo cambió la

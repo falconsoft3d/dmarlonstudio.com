@@ -505,7 +505,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -1173,7 +1173,7 @@ msgstr ""
 msgid "Consulta SQL"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr ""
 
@@ -2863,6 +2863,142 @@ msgstr ""
 msgid "¡Nada por hacer!"
 msgstr ""
 
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Algodón orgánico, corte recto. Tallas de la S a la XL."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Auriculares"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Añadir al carrito"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Buscar productos"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Camiseta básica"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Carrito"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Correo o contraseña incorrectos."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "El carrito está vacío."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Electrónica"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Entrar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Entre para comprar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "GPS, pulso y resistente al agua."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Hogar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Hola, {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Inalámbricos, con cancelación de ruido y 30 h de batería."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Interior afelpado y bolsillo canguro."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Luz cálida regulable, base de madera."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Lámpara de mesa"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "No hay productos que coincidan."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Pagar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Patas de haya y asiento acolchado."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Pruebe con demo@tienda.com y 1234"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Reloj deportivo"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Ropa"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "Seguir comprando"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Silla nórdica"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Sudadera con capucha"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Tienda"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Tienda con login (Flutter)"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Tienda: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+msgid "Total"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Una app móvil de venta: login, catálogo con búsqueda y categorías, ficha de producto, carrito con cantidades y pago."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "Ver el carrito"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_store.dart
+msgid "¡Gracias por su compra, {0}!"
+msgstr ""
+
 #: lib/code/tk_showcase_mail.dart
 msgid "(sin asunto)"
 msgstr ""
@@ -3075,10 +3211,6 @@ msgstr ""
 msgid "Resumen"
 msgstr ""
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
-msgid "Total"
-msgstr ""
-
 #: lib/code/tk_showcase_reports.dart
 msgid "Una tabla de ventas exportada a PDF (con totales, tabla por categoría y número de página) y a Excel (con varias hojas), sin instalar nada."
 msgstr ""
@@ -3140,10 +3272,6 @@ msgid "Auriculares inalámbricos con cancelación de ruido y 40 horas de autonom
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Añadir al carrito"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Aún no has hecho ningún pedido."
 msgstr ""
 
@@ -3199,10 +3327,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart
 msgid "Cambiar"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Carrito"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -3351,10 +3475,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Entradas"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Entrar"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -3545,10 +3665,6 @@ msgid "No hay entradas que coincidan."
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "No hay productos que coincidan."
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Nombre y apellidos"
 msgstr ""
 
@@ -3686,10 +3802,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Revise sus datos: nombre, un correo válido, dirección, ciudad y código postal."
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Seguir comprando"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -7141,6 +7253,10 @@ msgid "Activo (expresión)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Ajustar (varias líneas)"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Al cambiar (v: el valor nuevo)"
 msgstr ""
 
@@ -7170,6 +7286,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Barra superior"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Botones de la barra (icono|acción|insignia)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

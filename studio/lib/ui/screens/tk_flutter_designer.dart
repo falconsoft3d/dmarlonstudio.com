@@ -29,6 +29,16 @@ class TkFlutterDesigner extends StatefulWidget {
 const flIcons = <String, IconData>{
   'add': Icons.add,
   'add_circle': Icons.add_circle,
+  'add_circle_outline': Icons.add_circle_outline,
+  'add_shopping_cart': Icons.add_shopping_cart,
+  'remove_circle_outline': Icons.remove_circle_outline,
+  'storefront': Icons.storefront,
+  'payments': Icons.payments,
+  'checkroom': Icons.checkroom,
+  'chair': Icons.chair,
+  'headphones': Icons.headphones,
+  'watch': Icons.watch,
+  'shopping_bag': Icons.shopping_bag,
   'arrow_back': Icons.arrow_back,
   'arrow_forward': Icons.arrow_forward,
   'calendar_today': Icons.calendar_today,
@@ -658,6 +668,17 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                       Listener(
                         onPointerDown: (e) => _pick(e.pointer, null),
                         child: AppBar(
+                          actions: [
+                            for (final (icon, _, badge) in s.barButtons)
+                              IconButton(
+                                onPressed: () {},
+                                icon: Badge(
+                                  isLabelVisible: badge.isNotEmpty,
+                                  label: Text(_template(badge)),
+                                  child: Icon(_iconOf(icon)),
+                                ),
+                              ),
+                          ],
                           title: Text(
                             _template(s.title.isEmpty ? s.name : s.title),
                           ),
@@ -770,6 +791,12 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
           : child(0);
       final tt = Theme.of(context).textTheme;
       Widget w = switch (n.type) {
+        'Row' when p['wrap'] == true => Wrap(
+          spacing: _num(p['gap']) ?? 8,
+          runSpacing: _num(p['gap']) ?? 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [for (var i = 0; i < n.children.length; i++) child(i)],
+        ),
         'Column' || 'Row' => Flex(
           direction: n.type == 'Column' ? Axis.vertical : Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.values.firstWhere(
@@ -1079,6 +1106,8 @@ const _styles = [
 List<FlProp> flProps(String type) => [
   ...switch (type) {
     'Column' || 'Row' => <FlProp>[
+      if (type == 'Row')
+        ('wrap', markTr('Ajustar (varias líneas)'), 'bool', <String>[]),
       ('main', markTr('Eje principal'), 'choice', _main),
       ('cross', markTr('Eje cruzado'), 'choice', _cross),
       ('gap', markTr('Separación'), 'num', []),
@@ -1241,6 +1270,15 @@ class TkFlutterProps extends StatelessWidget {
                   tr('Título'),
                   screen.title,
                   (v) => screen.title = v,
+                ),
+                _field(
+                  'screen-bar',
+                  tr('Botones de la barra (icono|acción|insignia)'),
+                  screen.bar,
+                  (v) => screen.bar = v,
+                  hint: r'shopping_cart|go:Carrito|${app.unidades}',
+                  lines: 2,
+                  mono: true,
                 ),
                 _switch(
                   tr('Barra superior'),

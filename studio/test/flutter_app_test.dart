@@ -58,6 +58,43 @@ void main() {
   });
 
   test(
+    'de verdad: la tienda generada pasa su flujo (login, carrito y pago)',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      if (flutter == null) return markTestSkipped('Sin Flutter.');
+      final tmp = await Directory.systemTemp.createTemp('dms_store_');
+      addTearDown(() => tmp.delete(recursive: true));
+      final e = tkFlutterExamples(
+        id,
+      ).firstWhere((e) => e.seed == 'flutter_store');
+      for (final f in TkFlutter.files(
+        e.design,
+        e.code,
+        name: 'tienda',
+      ).entries) {
+        File(p.join(tmp.path, f.key))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            f.key == 'pubspec.yaml'
+                ? f.value.replaceFirst(
+                    'dev_dependencies:\n',
+                    'dev_dependencies:\n  flutter_test:\n    sdk: flutter\n',
+                  )
+                : f.value,
+          );
+      }
+      File(p.join(tmp.path, 'test', 'flujo_test.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(_storeFlow);
+      final r = await Process.run(flutter, [
+        'test',
+      ], workingDirectory: tmp.path);
+      expect(r.exitCode, 0, reason: '${r.stdout}${r.stderr}');
+    },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
+
+  test(
     'de verdad: la demo de tareas en el simulador, y se recompila',
     () async {
       if (TkFlutterTools.flutter() == null) {
@@ -119,3 +156,78 @@ void main() {
     timeout: const Timeout(Duration(minutes: 8)),
   );
 }
+
+/// El recorrido de la tienda: se ejecuta dentro de la app generada.
+const _storeFlow = r'''import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:tienda/main.dart';
+
+void main() {
+  testWidgets('login, carrito y pago', (tester) async {
+    tester.view.physicalSize = const Size(393 * 3, 852 * 3);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(const DmsApp());
+    await tester.pumpAndSettle();
+
+    // Clave mala: se queda y avisa.
+    await tester.enterText(find.byType(TextField).at(0), 'demo@tienda.com');
+    await tester.enterText(find.byType(TextField).at(1), 'mala');
+    await tester.tap(find.text('Entrar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Correo o contraseña incorrectos.'), findsOneWidget);
+
+    // Clave buena: al catálogo, sin vuelta atrás al login.
+    await tester.enterText(find.byType(TextField).at(1), '1234');
+    await tester.tap(find.text('Entrar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Hola, Ana'), findsOneWidget);
+    expect(find.text('Camiseta básica'), findsOneWidget);
+
+    // Buscar y filtrar.
+    await tester.enterText(find.byType(TextField).first, 'auri');
+    await tester.pumpAndSettle();
+    expect(find.text('Auriculares'), findsOneWidget);
+    expect(find.text('Camiseta básica'), findsNothing);
+    await tester.enterText(find.byType(TextField).first, '');
+    await tester.tap(find.widgetWithText(ChoiceChip, 'Hogar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Silla nórdica'), findsOneWidget);
+    expect(find.text('Auriculares'), findsNothing);
+    await tester.tap(find.widgetWithText(ChoiceChip, 'Hogar'));
+    await tester.pumpAndSettle();
+
+    // Dos al carrito desde la lista y la ficha de uno.
+    await tester.tap(find.byTooltip('Añadir al carrito').first);
+    await tester.tap(find.byTooltip('Añadir al carrito').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Lámpara de mesa'));
+    await tester.pumpAndSettle();
+    expect(find.text('24,00 €'), findsOneWidget);
+    await tester.tap(find.text('Añadir al carrito'));
+    await tester.tap(find.text('Ver el carrito'));
+    await tester.pumpAndSettle();
+
+    // Carrito: 2 camisetas + 1 lámpara = 49,80 €; quitar una camiseta.
+    expect(find.text('2 × 12,90 €'), findsOneWidget);
+    expect(find.text('49,80 €'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.remove_circle_outline).first);
+    await tester.pumpAndSettle();
+    expect(find.text('36,90 €'), findsWidgets);
+
+    // Pagar.
+    await tester.tap(find.text('Pagar'));
+    await tester.pumpAndSettle();
+    expect(find.text('¡Gracias por su compra, Ana!'), findsOneWidget);
+    expect(find.text('PED-1001 · 36,90 €'), findsOneWidget);
+    await tester.tap(find.text('Seguir comprando'));
+    await tester.pumpAndSettle();
+    expect(find.text('Hola, Ana'), findsOneWidget);
+
+    // Salir: vuelve al login.
+    await tester.tap(find.byIcon(Icons.logout));
+    await tester.pumpAndSettle();
+    expect(find.text('Entrar'), findsOneWidget);
+  });
+}
+''';

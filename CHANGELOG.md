@@ -3,6 +3,20 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.34 — 2026-11-05
+
+- Ejemplo de Flutter **Tienda con login**: entrar (con aviso si la clave es
+  mala), catálogo con búsqueda y categorías, ficha de producto, carrito con
+  cantidades y total, pago y salir. Su recorrido completo se prueba en cada
+  versión dentro de la app generada.
+- Flutter: las pantallas abiertas se vuelven a dibujar en cuanto App avisa
+  de un cambio (antes, a veces, una lista no se actualizaba al quitar un
+  filtro).
+- Flutter: acciones con condición (`if (app.entrar()) home:Catalogo`),
+  `home:Pantalla` para empezar de nuevo desde una pantalla, botones en la
+  barra superior con insignia (el carrito con su cantidad) y filas que
+  pasan a varias líneas si no caben.
+
 ## 1.0.33 — 2026-11-05
 
 - **Apps móviles con Flutter**, al estilo de FlutterFlow: la pestaña Diseño

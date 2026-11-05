@@ -4,6 +4,7 @@ part of 'tk_examples.dart';
 
 /// Los ejemplos de Flutter.
 List<TkExample> tkFlutterExamples(String Function(String) t) => [
+  _flutterStore(t),
   _flutterShipping(t),
   _flutterTodo(t),
 ];
@@ -428,7 +429,7 @@ class App extends ChangeNotifier {
             [
               _n(
                 'Row',
-                {'gap': 8},
+                {'gap': 8, 'wrap': true},
                 [
                   chip('todas', t(markTr('Todas'))),
                   chip('pendientes', t(markTr('Pendientes'))),

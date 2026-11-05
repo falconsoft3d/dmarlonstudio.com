@@ -85,6 +85,10 @@ ThemeData studioTheme(Brightness b) {
         ? const Color(0xFF1E1F22)
         : const Color(0xFFF7F8FA),
     dividerColor: dark ? const Color(0xFF393B40) : const Color(0xFFE1E3E8),
+    // Esquinas sobrias, como en un IDE de escritorio (Material 3 usa 28).
+    dialogTheme: DialogThemeData(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ),
     tooltipTheme: const TooltipThemeData(
       waitDuration: Duration(milliseconds: 400),
     ),

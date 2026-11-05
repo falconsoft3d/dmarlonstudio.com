@@ -44,13 +44,13 @@ class TkWebCodegen {
     },
     'Listbox': {'items'},
     'Menu': {'items'},
+    'Ribbon': {'items', 'active'},
     'PageControl': {'pages', 'active'},
+    'StatusBar': {'icon'},
   };
 
   /// Opciones de un menú como lista de Python para la plantilla.
-  static String _tree(List<TkMenuItem> items) =>
-      '[${[for (final i in items) i.separator ? '{"sep": True}' : '{"label": ${TkPy.str(i.label)}, "path": ${TkPy.str(i.path)}, '
-                  '"items": ${_tree(i.items)}}'].join(', ')}]';
+  static String _tree(List<TkMenuItem> items) => TkCodegen.menuTree(items);
 
   /// [v] como literal de Python, según su tipo (null: no se escribe).
   static String? _literal(TkProp p, Object? v) {
@@ -112,10 +112,15 @@ class TkWebCodegen {
         ]);
       case 'Menu':
         out['tree'] = _tree(tkMenuItems(w.text('items')));
+      case 'Ribbon':
+        out['tabs'] = TkCodegen.ribbonTabs(w);
+        out['active'] = '${d.ribbonTab(w)}';
       case 'PageControl':
         out['pages'] = TkPy.list(tkPages(w));
         out['active'] = '${d.activePage(w)}';
       case 'StatusBar':
+        final icon = tkRibbonGlyph(w.text('icon'));
+        if (icon.isNotEmpty) out['icon'] = TkPy.str(icon);
         final bg = TkCodegen.color(w.props['bg']) ?? '#e4e5e7';
         out['bg'] = TkPy.str(bg);
         if (TkCodegen.color(w.props['fg']) == null) {
@@ -135,7 +140,7 @@ class TkWebCodegen {
   static void _variable(StringBuffer b, TkDesign d, TkWidget w) {
     final self = 'self.${w.name}';
     switch (w.kind) {
-      case 'Entry' || 'Combobox':
+      case 'Entry' || 'Combobox' || 'Password':
         b.writeln(
           '$_in${self}_var = WebVar(self, str, ${TkPy.str(w.text('text'))})',
         );
@@ -161,7 +166,11 @@ class TkWebCodegen {
   }
 
   static String? _var(TkWidget w) => switch (w.kind) {
-    'Entry' || 'Combobox' || 'Checkbutton' || 'Scale' => 'self.${w.name}_var',
+    'Entry' ||
+    'Combobox' ||
+    'Password' ||
+    'Checkbutton' ||
+    'Scale' => 'self.${w.name}_var',
     'Radiobutton' => 'self.${TkCodegen.group(w)}_var',
     _ => null,
   };
@@ -170,6 +179,20 @@ class TkWebCodegen {
     b.writeln('$_in# ${w.name}');
     if (w.kind == 'Timer') {
       b.writeln(TkCodegen.timer(w));
+      return;
+    }
+    if (w.kind == 'RestClient') {
+      b.writeln(TkCodegen.api(w));
+      return;
+    }
+    // Una página no tiene icono de bandeja: sus llamadas no hacen nada.
+    if (w.kind == 'TrayIcon') {
+      b.writeln('${_in}self.${w.name} = WebNoTray()');
+      return;
+    }
+    // Abrir no existe en una página; Guardar es una descarga.
+    if (w.kind == 'OpenDialog' || w.kind == 'SaveDialog') {
+      b.writeln(TkCodegen.dialog(w, web: true));
       return;
     }
     if (w.kind == 'Connection') {
@@ -190,6 +213,7 @@ class TkWebCodegen {
       // Pegada abajo, de lado a lado.
       'StatusBar' => '(0, ${d.height - w.height}, ${d.width}, ${w.height})',
       'Menu' => '(0, 0, ${d.width}, 0)',
+      'Ribbon' => '(0, 0, ${d.width}, ${w.height})',
       _ => '($x, $y, ${w.width}, ${w.height})',
     };
     final args = [
@@ -258,6 +282,15 @@ class TkWebCodegen {
     if (d.widgets.any((w) => w.kind == 'Timer')) {
       b.write(TkHelpers.designTimer);
     }
+    if (d.widgets.any((w) => w.kind == 'RestClient')) {
+      b.write(TkHelpers.apiClient);
+    }
+    if (d.widgets.any((w) => w.kind == 'StatusBar')) {
+      b.write(TkCodegen.glyphTable());
+    }
+    if (d.widgets.any((w) => w.kind == 'Image')) {
+      b.write(TkHelpers.projectFile);
+    }
     b
       ..write(TkWebRuntime.templates)
       ..write(TkWebRuntime.classes)
@@ -287,6 +320,11 @@ class TkWebCodegen {
         '${d.width}, ${d.height}, ${TkPy.str(bg)})',
       )
       ..writeln('${_in}self._build()');
+    if (d.prop(tkFormPosition) == 'manual') {
+      final left = TkPy.integer(d.prop(tkFormLeft) ?? 0);
+      final top = TkPy.integer(d.prop(tkFormTop) ?? 0);
+      b.writeln('${_in}self.root.place_at = ($left, $top)');
+    }
     final key = d.events['key'];
     if (key != null) {
       b.writeln('${_in}self._on("", ${TkPy.str('key')}, self.$key)');
@@ -315,6 +353,7 @@ class TkWebCodegen {
     for (final g in grids) {
       TkCodegen.gridMethods(b, d, g);
     }
+    TkCodegen.helperMethods(b, d);
     // Métodos sin código todavía: la clase de abajo los sustituye.
     for (final m in TkCodegen.handlers(d)) {
       b

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' show PointMode;
 
@@ -5,9 +6,11 @@ import 'package:flutter/gestures.dart' show kSecondaryButton;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:path/path.dart' as p;
 
 import '../../code/tk_codegen.dart';
 import '../../code/tk_model.dart';
+import '../tk_project.dart';
 
 /// Rejilla del diseñador, en píxeles.
 const tkGrid = 8;
@@ -31,7 +34,14 @@ IconData tkIcon(String kind) => switch (kind) {
   'PageControl' => LucideIcons.panelsTopLeft,
   'StatusBar' => LucideIcons.panelBottom,
   'Menu' => LucideIcons.menu,
+  'Ribbon' => LucideIcons.panelTop,
   'Timer' => LucideIcons.timer,
+  'RestClient' => LucideIcons.plugZap,
+  'TrayIcon' => LucideIcons.bellRing,
+  'Password' => LucideIcons.keyRound,
+  'Image' => LucideIcons.image,
+  'OpenDialog' => LucideIcons.folderOpen,
+  'SaveDialog' => LucideIcons.save,
   _ => LucideIcons.box,
 };
 
@@ -53,9 +63,38 @@ List<Rect> tkTabRects(TkWidget w) {
   return out;
 }
 
+/// Alto de la fila de pestañas de la cinta de opciones.
+const tkRibbonTabsHeight = 24.0;
+
+/// Pestañas de una cinta de opciones, relativas a su esquina: las mismas
+/// para dibujarlas y para saber cuál se pulsa.
+List<Rect> tkRibbonTabRects(TkWidget w) {
+  final out = <Rect>[];
+  var x = 4.0;
+  for (final tab in tkRibbonTabs(w.text('items'))) {
+    final tp = TextPainter(
+      text: TextSpan(text: tab.label, style: const TextStyle(fontSize: 12)),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    final width = tp.width + 24;
+    out.add(Rect.fromLTWH(x, 1, width, tkRibbonTabsHeight - 1));
+    x += width;
+  }
+  return out;
+}
+
 /// Dónde se dibuja [w] en la ventana: la barra de estado va siempre abajo
-/// y de lado a lado.
+/// y de lado a lado, y la cinta de opciones arriba (bajo el menú, si hay).
 Rect tkRectOf(TkDesign d, TkWidget w) {
+  if (w.kind == 'Ribbon') {
+    return Rect.fromLTWH(
+      0,
+      d.menu == null ? 0 : tkMenuBarHeight,
+      d.width.toDouble(),
+      w.height.toDouble(),
+    );
+  }
   if (w.kind == 'StatusBar') {
     return Rect.fromLTWH(
       0,
@@ -357,6 +396,189 @@ class TkPreview extends StatelessWidget {
             ],
           ),
         );
+      case 'Ribbon':
+        const line = Color(0xFFD6D6D6), accent = Color(0xFF2B579A);
+        final tabs = tkRibbonTabs(w.text('items'));
+        final active = design.ribbonTab(w);
+        final rects = tkRibbonTabRects(w);
+        const plain = TextStyle(
+          fontSize: 12,
+          color: Color(0xFF262626),
+          decoration: TextDecoration.none,
+        );
+        return ClipRect(
+          child: Stack(
+            children: [
+              Positioned.fill(child: Container(color: const Color(0xFFF3F3F3))),
+              Positioned.fill(
+                top: tkRibbonTabsHeight,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      top: BorderSide(color: line),
+                      bottom: BorderSide(color: line),
+                    ),
+                  ),
+                  child: tabs.isEmpty
+                      ? null
+                      : Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            for (final g in tabs[active].groups)
+                              Container(
+                                padding: const EdgeInsets.fromLTRB(4, 2, 4, 1),
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(color: line),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          for (final b in g.buttons)
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 5,
+                                                  ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  if (b.glyph.isNotEmpty)
+                                                    Text(
+                                                      b.glyph,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                        height: 1.1,
+                                                        color: accent,
+                                                        decoration:
+                                                            TextDecoration.none,
+                                                      ),
+                                                    ),
+                                                  Text(
+                                                    b.label,
+                                                    maxLines: 1,
+                                                    style: plain.copyWith(
+                                                      fontSize: 11,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      g.label,
+                                      maxLines: 1,
+                                      style: plain.copyWith(
+                                        fontSize: 10,
+                                        color: const Color(0xFF6E6E6E),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        ),
+                ),
+              ),
+              for (final (i, r) in rects.indexed)
+                Positioned.fromRect(
+                  rect: r,
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: i == active
+                        ? const BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                              top: BorderSide(color: line),
+                              left: BorderSide(color: line),
+                              right: BorderSide(color: line),
+                            ),
+                          )
+                        : null,
+                    child: Text(
+                      tabs[i].label,
+                      maxLines: 1,
+                      style: plain.copyWith(color: i == active ? accent : null),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+      case 'Password':
+        final hint = w.text('hint');
+        return _face(
+          color: ownBg ?? Colors.white,
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: pad,
+                  child: label(
+                    hint.isNotEmpty ? hint : '••••••',
+                    hint.isNotEmpty
+                        ? dark.copyWith(color: const Color(0xFF9096A0))
+                        : dark,
+                  ),
+                ),
+              ),
+              if (w.props['reveal'] != false)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(
+                    LucideIcons.eye,
+                    size: 13,
+                    color: Color(0xFF6E7480),
+                  ),
+                ),
+            ],
+          ),
+        );
+      case 'Image':
+        final file = w.text('file');
+        final dir = TkProject.current?.id;
+        final path = file.isEmpty || dir == null
+            ? null
+            : p.isAbsolute(file)
+            ? file
+            : p.join(dir, file);
+        final fit = switch (w.text('fit')) {
+          'none' => BoxFit.none,
+          'cover' => BoxFit.cover,
+          'stretch' => BoxFit.fill,
+          _ => BoxFit.contain,
+        };
+        Widget empty() => Center(
+          child: Icon(
+            LucideIcons.image,
+            size: 22,
+            color: _edge.withValues(alpha: .6),
+          ),
+        );
+        return Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            color: ownBg ?? bg,
+            border: w.props['border'] == true
+                ? Border.all(color: Colors.black)
+                : Border.all(color: _edge.withValues(alpha: .35)),
+          ),
+          child: path != null && File(path).existsSync()
+              ? Image.file(
+                  File(path),
+                  fit: fit,
+                  errorBuilder: (_, _, _) => empty(),
+                )
+              : empty(),
+        );
       case 'Connection':
         return Tooltip(
           message: w.name,
@@ -459,7 +681,12 @@ class TkPreview extends StatelessWidget {
             ),
           ),
         );
-      case 'Menu' || 'Timer':
+      case 'Menu' ||
+          'Timer' ||
+          'RestClient' ||
+          'TrayIcon' ||
+          'OpenDialog' ||
+          'SaveDialog':
         return Tooltip(
           message: w.name,
           child: Container(
@@ -722,16 +949,24 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
     return null;
   }
 
-  /// Pestaña de un control de páginas bajo [p]: (control, página).
+  /// Pestaña de un control de páginas o de una cinta de opciones bajo [p]:
+  /// (componente, pestaña).
   (TkWidget, int)? _tabAt(TkWidget? w, Offset p) {
-    if (w == null || w.kind != 'PageControl') return null;
-    final r = _rectOf(w);
-    final local = p - r.topLeft;
-    for (final (i, t) in tkTabRects(w).indexed) {
+    if (w == null) return null;
+    final rects = switch (w.kind) {
+      'PageControl' => tkTabRects(w),
+      'Ribbon' => tkRibbonTabRects(w),
+      _ => const <Rect>[],
+    };
+    final local = p - _rectOf(w).topLeft;
+    for (final (i, t) in rects.indexed) {
       if (t.contains(local)) return (w, i);
     }
     return null;
   }
+
+  int _shownTab(TkWidget w) =>
+      w.kind == 'Ribbon' ? d.ribbonTab(w) : d.activePage(w);
 
   bool get _shift =>
       HardwareKeyboard.instance.isShiftPressed ||
@@ -762,7 +997,7 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
     final w = _widgetAt(p);
     // Pulsar una pestaña muestra esa página (y selecciona el control).
     final tab = _tabAt(w, p);
-    if (tab != null && tab.$2 != d.activePage(tab.$1)) {
+    if (tab != null && tab.$2 != _shownTab(tab.$1)) {
       final (pc, page) = tab;
       widget.onBegin();
       pc.setProp(pc.component.prop('active')!, page);

@@ -128,13 +128,19 @@ Rules:
 - A Timer calls its command handler every interval milliseconds while enabled: self.<Timer>.enabled = False stops it, self.<Timer>.start(ms) restarts it.
 - A StatusBar is always docked at the bottom of the window, full width: only its height counts. Set its text with self.<StatusBar>.configure(text=...).
 - A Progressbar shows its value prop out of maximum: self.<Progressbar>.configure(value=40) or self.<Progressbar>["value"] = 40.
+- A Ribbon is an Office-style ribbon docked at the top of the window, full width (only its height counts; never inside a Frame or PageControl; at most one). Its items prop: lines without indentation are tabs, indented once are groups, indented twice are buttons "Label | icon" (icon names: new, open, save, print, cut, copy, paste, bold, italic, underline, table, image, chart, find, settings, help, info, undo, redo, refresh, delete, add, edit, user, mail, calendar, home, play, stop, star, check). Its command handler gets item = "Tab/Group/Button"; its change handler runs when the tab changes. self.<Ribbon>.select(i) shows a tab and self.<Ribbon>.enable("Tab/Group/Button", False) greys out a button. Place other components below its height.
+- A StatusBar can show an icon (icon prop, same names as the Ribbon): self.<StatusBar>.set("text", icon="save").
+- A RestClient calls an HTTP/JSON API with the standard library: self.<RestClient>.get(path, params), .post(path, data), .put, .patch and .delete return the parsed JSON (or text) and raise ApiError (with .status and .body) on failure; get_async(path), post_async(path, data)... run in the background and call its done handler with the result or its error handler with the ApiError. base_url and headers may contain {{name}}, the API variables of DMarlon Studio. Never put tokens or passwords in props or code: set auth and token_env (or password_env) to the name of a variable.
+- A Password is an entry that hides its text: self.<Password>.get() reads it (or self.<Password>_var), and self.<Password>_visible(True) shows it.
+- An Image shows a file of the project's images folder (file prop, e.g. "images/logo.png"; fit: none, contain, cover or stretch). self.<Image>_load("images/other.png") shows another one.
+- There is no TrayIcon or OpenDialog in a web app. A SaveDialog downloads a file in the browser: self.<SaveDialog>.write_text(text) or self.<SaveDialog>.download(name, data).
 - Put start-up code in the window's create event. Defining __init__ in the class is allowed (self.root and every component already exist there, with or without super().__init__()), and the create event runs after it.
-- Every handler receives what the event list shows: param is "", "event", "value" or "item".
+- Every handler receives what the event list shows: param is "", "event", "value", "item", "result", "error" or "path".
 - "body" holds only the Python statements of the method, without the def line, with no base indentation. Do not include methods that already exist unless asked.
 - User-visible text is in $lang.
 - Database data comes only through a Connection whose connection prop is one of the saved names (never empty): self.<Connection>.query(sql, params) and execute(sql, params), always with ? parameters, never by joining text into SQL. A Treeview shows them (its query prop), and self.<Grid>_refresh() reloads it. Without saved connections, do not add a Connection.
 - Saved connections: ${connections.isEmpty ? 'none' : connections.join(', ')}.
-- Never write passwords, tokens, keys, hosts or credentials in the code, and do not read them from the environment: the server receives what it needs.
+- Never write passwords, tokens, keys, hosts or credentials in the code, and do not read them from the environment: the server receives what it needs (a RestClient names its variables in token_env and password_env).
 - Keep the window name ${current.name}: it is the class name.''';
   }
 
@@ -156,13 +162,21 @@ Rules:
 - A Timer calls its command handler every interval milliseconds while enabled: self.<Timer>.enabled = False stops it, self.<Timer>.start(ms) restarts it.
 - A StatusBar is always docked at the bottom of the window, full width: only its height counts. Set its text with self.<StatusBar>.configure(text=...).
 - A Progressbar shows its value prop out of maximum: self.<Progressbar>.configure(value=40) or self.<Progressbar>["value"] = 40.
+- A Ribbon is an Office-style ribbon docked at the top of the window, full width (only its height counts; never inside a Frame or PageControl; at most one). Its items prop: lines without indentation are tabs, indented once are groups, indented twice are buttons "Label | icon" (icon names: new, open, save, print, cut, copy, paste, bold, italic, underline, table, image, chart, find, settings, help, info, undo, redo, refresh, delete, add, edit, user, mail, calendar, home, play, stop, star, check). Its command handler gets item = "Tab/Group/Button"; its change handler runs when the tab changes. self.<Ribbon>.select(i) shows a tab and self.<Ribbon>.enable("Tab/Group/Button", False) greys out a button. Place other components below its height.
+- A StatusBar can show an icon (icon prop, same names as the Ribbon): self.<StatusBar>.set("text", icon="save").
+- A RestClient calls an HTTP/JSON API with the standard library: self.<RestClient>.get(path, params), .post(path, data), .put, .patch and .delete return the parsed JSON (or text) and raise ApiError (with .status and .body) on failure; get_async(path), post_async(path, data)... run in the background and call its done handler with the result or its error handler with the ApiError. base_url and headers may contain {{name}}, the API variables of DMarlon Studio. Never put tokens or passwords in props or code: set auth and token_env (or password_env) to the name of a variable.
+- A Password is an entry that hides its text: self.<Password>.get() reads it (or self.<Password>_var), and self.<Password>_visible(True) shows it.
+- An Image shows a file of the project's images folder (file prop, e.g. "images/logo.png"; fit: none, contain, cover or stretch). self.<Image>_load("images/other.png") shows another one.
+- A TrayIcon puts an icon in the menu bar (macOS) or the notification area: its click handler runs on a click and its command handler gets item = the path of its menu option (items prop, like a Menu). self.<TrayIcon>.notify(title, message), .show() and .hide().
+- OpenDialog and SaveDialog are file dialogs: path = self.<OpenDialog>.execute() returns the path chosen or None (a list with multiple), and self.<OpenDialog>.read_text() returns (path, text) or None; self.<SaveDialog>.execute() returns the path (with the default extension) or None, and self.<SaveDialog>.write_text(text) asks and writes, returning the path or None. filter: one "Name|*.ext;*.ext2" per line.
+- The window's position prop: default, center or manual (with left and top).
 - Put start-up code in the window's create event. Defining __init__ in the class is allowed (self.root and every component already exist there, with or without super().__init__()), and the create event runs after it.
-- Every handler receives what the event list shows: param is "", "event", "value" or "item".
+- Every handler receives what the event list shows: param is "", "event", "value", "item", "result", "error" or "path".
 - "body" holds only the Python statements of the method, without the def line, with no base indentation. Do not include methods that already exist unless asked.
 - User-visible text is in $lang.
 - Database data comes only through a Connection whose connection prop is one of the saved names (never empty): self.<Connection>.query(sql, params) and execute(sql, params), always with ? parameters, never by joining text into SQL. A Treeview shows them (its query prop), and self.<Grid>_refresh() reloads it. Without saved connections, do not add a Connection.
 - Saved connections: ${connections.isEmpty ? 'none' : connections.join(', ')}.
-- Never write passwords, tokens, keys, hosts or credentials in the code, and do not read them from the environment: the window receives what it needs.
+- Never write passwords, tokens, keys, hosts or credentials in the code, and do not read them from the environment: the window receives what it needs (a RestClient names its variables in token_env and password_env).
 - Keep the window name ${current.name}: it is the class name.''';
   }
 

@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:path/path.dart' as p;
 
 import '../../code/tk_model.dart';
 import '../../i18n/i18n.dart';
 import '../theme.dart' show metroColors;
+import '../tk_project.dart';
 import 'tk_canvas.dart';
 
 /// Inspector de objetos: propiedades y eventos del componente seleccionado
@@ -153,11 +158,15 @@ class TkInspector extends StatelessWidget {
         },
       ),
     for (final p in tkFormProps)
-      if (!design.isWeb || !tkWebNoFormProps.contains(p.key))
+      if ((!design.isWeb || !tkWebNoFormProps.contains(p.key)) &&
+          (!tkFormManualProps.contains(p.key) ||
+              design.prop(tkFormPosition) == 'manual'))
         _PropRow(
           key: ValueKey('tk-form-${p.key}'),
           label: tr(p.label),
           type: p.type,
+          choices: p.choices,
+          labels: p.labels,
           value: design.prop(p),
           onChanged: (v) {
             onBegin('form.${p.key}');
@@ -170,6 +179,13 @@ class TkInspector extends StatelessWidget {
   List<Widget> _widgetProps(TkWidget w) => [
     if (design.isWeb && tkWebGap(w.kind) != null)
       _Note(key: ValueKey('tk-web-gap-${w.name}'), tkWebGap(w.kind)!),
+    if (w.kind == 'RestClient')
+      _Note(
+        key: ValueKey('tk-api-note-${w.name}'),
+        tr(
+          'No escriba tokens ni contraseñas aquí: guárdelos como variables en el módulo API (Variables) y ponga su nombre en «Variable con el token o la clave». En la URL y las cabeceras, {{nombre}} usa esas variables al ejecutar.',
+        ),
+      ),
     _NameRow(
       key: ValueKey('tk-name-${w.name}'),
       value: w.name,
@@ -187,8 +203,9 @@ class TkInspector extends StatelessWidget {
             (v) => w.height = v < 1 ? 1 : v,
           ),
         ])
-      // La barra de estado va abajo y de lado a lado: solo cuenta su alto.
-      if (w.kind != 'StatusBar' || key == 'height')
+      // La barra de estado va abajo y la cinta arriba, de lado a lado: solo
+      // cuenta su alto.
+      if (!const {'StatusBar', 'Ribbon'}.contains(w.kind) || key == 'height')
         _PropRow(
           key: ValueKey('tk-prop-${w.name}-$key'),
           label: label,
@@ -217,6 +234,15 @@ class TkInspector extends StatelessWidget {
           onChanged();
         },
       ),
+    if (w.kind == 'Image')
+      _ImagePick(
+        key: ValueKey('tk-image-pick-${w.name}'),
+        onPicked: (rel) {
+          onBegin('${w.name}.file');
+          w.setProp(w.component.prop('file')!, rel);
+          onChanged();
+        },
+      ),
     for (final p in w.component.props)
       _PropRow(
         key: ValueKey('tk-prop-${w.name}-${p.key}'),
@@ -231,6 +257,7 @@ class TkInspector extends StatelessWidget {
           ],
           _ => p.choices,
         },
+        labels: p.labels,
         blank: p.type == TkPropType.connection
             ? tr('Sin conexión (guárdela en Bases de datos)')
             : p.type == TkPropType.reference
@@ -367,11 +394,15 @@ class _PropRow extends StatefulWidget {
     required this.onChanged,
     this.choices = const [],
     this.blank,
+    this.labels = const {},
   });
   final String label;
   final TkPropType type;
   final Object? value;
   final List<String> choices;
+
+  /// Nombre de cada opción (sin traducir); sin él, la opción tal cual.
+  final Map<String, String> labels;
 
   /// Cómo se llama la opción vacía.
   final String? blank;
@@ -504,7 +535,11 @@ class _PropRowState extends State<_PropRow> {
             DropdownMenuItem(
               value: c,
               child: Text(
-                c.isEmpty ? widget.blank ?? tr('(de serie)') : c,
+                c.isEmpty
+                    ? widget.blank ?? tr('(de serie)')
+                    : widget.labels[c] == null
+                    ? c
+                    : tr(widget.labels[c]!),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: style,
@@ -645,6 +680,59 @@ class _EventRowState extends State<_EventRow> {
           onPressed: widget.onOpen,
         ),
       ],
+    ),
+  );
+}
+
+/// Elige una imagen del equipo, la copia en la carpeta `images` del
+/// proyecto y da su ruta relativa: así el proyecto se lleva sus imágenes.
+class _ImagePick extends StatelessWidget {
+  const _ImagePick({super.key, required this.onPicked});
+  final ValueChanged<String> onPicked;
+
+  static Future<String?> copyIntoProject(String dir, String from) async {
+    final images = Directory(p.join(dir, 'images'));
+    await images.create(recursive: true);
+    final source = File(from);
+    final base = p.basenameWithoutExtension(from);
+    final ext = p.extension(from);
+    var name = '$base$ext';
+    for (var i = 1; ; i++) {
+      final target = File(p.join(images.path, name));
+      if (!await target.exists()) {
+        await source.copy(target.path);
+        break;
+      }
+      // La misma imagen ya copiada: se reutiliza.
+      if (await target.length() == await source.length()) break;
+      name = '${base}_$i$ext';
+    }
+    return 'images/$name';
+  }
+
+  Future<void> _pick(BuildContext context) async {
+    final dir = TkProject.current?.id;
+    if (dir == null) return;
+    final file = await openFile(
+      acceptedTypeGroups: [
+        XTypeGroup(
+          label: tr('Imágenes'),
+          extensions: const ['png', 'gif', 'jpg', 'jpeg', 'webp', 'bmp'],
+        ),
+      ],
+    );
+    if (file == null) return;
+    final rel = await copyIntoProject(dir, file.path);
+    if (rel != null) onPicked(rel);
+  }
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    child: OutlinedButton.icon(
+      onPressed: TkProject.current == null ? null : () => _pick(context),
+      icon: const Icon(LucideIcons.imagePlus, size: 14),
+      label: Text(tr('Elegir imagen…'), style: const TextStyle(fontSize: 12)),
     ),
   );
 }

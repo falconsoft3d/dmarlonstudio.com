@@ -46,13 +46,16 @@ import '../../ai/assistant.dart';
 import '../../ai/claude_agent.dart';
 import '../../ai/text_diff.dart';
 import '../../code/github.dart';
+import '../../core/ai_usage.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/workspace.dart';
 import '../../core/settings.dart';
 import '../../core/errors.dart';
 import '../../i18n/i18n.dart';
 import '../tk_project.dart';
+import '../bottom_panel.dart';
 import '../widgets.dart';
+import 'budget_screen.dart';
 
 part 'code_claude.dart';
 part 'code_git.dart';
@@ -712,9 +715,12 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
         {'role': r, 'content': t},
     ];
     try {
-      final answer = await Assistant(
-        config: await AiConfig.load(),
-      ).chat(messages);
+      final config = await AiConfig.load();
+      final answer = await AiUsage.track(
+        _ws?.root,
+        'editor_chat',
+        () => Assistant(config: config).chat(messages),
+      );
       _Session.ai.add(('assistant', answer));
     } on UserError catch (e) {
       _Session.ai.add(('assistant', '⚠️ ${e.message}'));
@@ -1703,58 +1709,54 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
     }
   }
 
-  Widget _terminal() => Container(
-    height: 240,
-    decoration: BoxDecoration(
-      color: _bg,
-      border: Border(top: BorderSide(color: _line)),
+  Widget _terminal() => BottomPanel(
+    id: 'editor-terminal',
+    background: _bg,
+    iconColor: _text,
+    initialHeight: 240,
+    title: Row(
+      children: [
+        Text(
+          tr('TERMINAL'),
+          style: TextStyle(fontSize: 11, letterSpacing: .6, color: _text),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            _Session.termCwd ?? '',
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: _dim, fontSize: 11.5),
+          ),
+        ),
+      ],
     ),
+    actions: [
+      if (_proc != null)
+        _iconBtn(LucideIcons.square, tr('Detener'), () => _proc?.kill()),
+      _iconBtn(
+        LucideIcons.copy,
+        tr('Copiar la salida'),
+        _Session.termLines.isEmpty
+            ? null
+            : () {
+                Clipboard.setData(
+                  ClipboardData(text: _Session.termLines.join('\n')),
+                );
+                ScaffoldMessenger.maybeOf(
+                  context,
+                )?.showSnackBar(SnackBar(content: Text(tr('Salida copiada.'))));
+              },
+      ),
+      _iconBtn(
+        LucideIcons.trash2,
+        tr('Limpiar'),
+        () => setState(_Session.termLines.clear),
+      ),
+      _iconBtn(LucideIcons.x, tr('Cerrar'), _toggleTerminal),
+    ],
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          children: [
-            const SizedBox(width: 12),
-            Text(
-              tr('TERMINAL'),
-              style: const TextStyle(
-                fontSize: 11,
-                letterSpacing: .6,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                _Session.termCwd ?? '',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: _dim, fontSize: 11.5),
-              ),
-            ),
-            if (_proc != null)
-              _iconBtn(LucideIcons.square, tr('Detener'), () => _proc?.kill()),
-            _iconBtn(
-              LucideIcons.copy,
-              tr('Copiar la salida'),
-              _Session.termLines.isEmpty
-                  ? null
-                  : () {
-                      Clipboard.setData(
-                        ClipboardData(text: _Session.termLines.join('\n')),
-                      );
-                      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-                        SnackBar(content: Text(tr('Salida copiada.'))),
-                      );
-                    },
-            ),
-            _iconBtn(
-              LucideIcons.trash2,
-              tr('Limpiar'),
-              () => setState(_Session.termLines.clear),
-            ),
-            _iconBtn(LucideIcons.x, tr('Cerrar'), _toggleTerminal),
-          ],
-        ),
         Expanded(
           child: GestureDetector(
             onTap: () => _cmdFocus.requestFocus(),

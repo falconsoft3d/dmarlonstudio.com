@@ -11,17 +11,22 @@ import 'package:re_highlight/styles/vs.dart';
 import 'package:re_highlight/styles/vs2015.dart';
 
 import '../../code/tk_ai.dart';
+import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/tk_model.dart';
 import '../../code/tk_run.dart';
 import '../../core/errors.dart';
+import '../../core/ai_usage.dart';
 import '../../core/project_store.dart';
 import '../../i18n/i18n.dart';
 import '../save_file.dart';
 import '../tk_launch.dart';
 import '../tk_project.dart';
+import '../bottom_panel.dart';
 import '../theme.dart';
 import '../widgets.dart';
+import 'budget_screen.dart';
+import 'github_dialog.dart';
 import 'tk_canvas.dart';
 import 'tk_claude_panel.dart';
 import 'tk_inspector.dart';
@@ -290,9 +295,29 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
                   PopupMenuButton<String>(
                     tooltip: tr('Más acciones'),
                     icon: const Icon(LucideIcons.ellipsis, size: 18),
-                    onSelected: (v) =>
-                        v == 'copy' ? _duplicate(id) : _delete(a),
+                    onSelected: (v) => switch (v) {
+                      'copy' => _duplicate(id),
+                      'github' => showProjectGitHub(
+                        context,
+                        dir: id,
+                        name: a.name,
+                      ),
+                      'budget' => showAiBudget(
+                        context,
+                        project: id,
+                        name: a.name,
+                      ),
+                      _ => _delete(a),
+                    },
                     itemBuilder: (_) => [
+                      PopupMenuItem(
+                        value: 'github',
+                        child: Text(tr('GitHub…')),
+                      ),
+                      PopupMenuItem(
+                        value: 'budget',
+                        child: Text(tr('Presupuesto de IA')),
+                      ),
                       PopupMenuItem(value: 'copy', child: Text(tr('Duplicar'))),
                       PopupMenuItem(
                         value: 'delete',
@@ -531,7 +556,7 @@ class _TkEditorState extends State<_TkEditor> {
   final _outScroll = ScrollController();
 
   /// Componentes copiados (JSON): se pueden pegar en otra ventana.
-  static List<Map<String, Object?>> _clip = const [];
+  static ComponentClip? _clip;
 
   @override
   void initState() {
@@ -700,24 +725,81 @@ class _TkEditorState extends State<_TkEditor> {
     final s = _selected;
     if (s.isEmpty) return;
     final names = s.map((w) => w.name).toSet();
-    _clip = [
+    final widgets = [
       for (final w in d.widgets)
-        if (names.contains(w.name) || names.any((n) => d.isInside(w, n)))
-          w.toJson(),
+        if (names.contains(w.name) || names.any((n) => d.isInside(w, n))) w,
     ];
+    // Con el código de sus eventos: se pegan en otro proyecto tal cual.
+    final methods = <String, CopiedMethod>{
+      for (final w in widgets)
+        for (final m in w.events.values)
+          m: ?ComponentClip.methodOf(_code.text, m),
+    };
+    final clip = ComponentClip([for (final w in widgets) w.toJson()], methods);
+    _clip = clip;
+    Clipboard.setData(ClipboardData(text: clip.encode()));
   }
 
-  void _paste() {
-    if (_clip.isEmpty) return;
+  /// Pega lo copiado aquí, en otro proyecto o en otra ventana del estudio:
+  /// los componentes con nombres libres y el código de sus eventos.
+  Future<void> _paste() async {
+    final text = (await Clipboard.getData(Clipboard.kTextPlain))?.text;
+    final clip = ComponentClip.decode(text) ?? _clip;
+    if (clip == null || clip.widgets.isEmpty || !mounted) return;
     _begin();
     _lastEdit = null;
-    final copies = [for (final j in _clip) TkWidget.fromJson(j)];
+    final copies = [for (final j in clip.widgets) TkWidget.fromJson(j)];
     final renamed = <String, String>{};
     final taken = <String>{};
     for (final w in copies) {
       final n = d.freeName(w.kind, taken);
       taken.add(n);
       renamed[w.name] = n;
+    }
+    // Métodos: siguen al componente si llevan su nombre y nunca pisan uno
+    // que ya exista en este proyecto.
+    var code = _code.text;
+    final methodNames = <String, String>{};
+    String freeMethod(String base) {
+      var name = base;
+      for (
+        var i = 2;
+        TkUnit.lineOf(code, name) != null || methodNames.containsValue(name);
+        i++
+      ) {
+        name = '${base}_$i';
+      }
+      return name;
+    }
+
+    for (final w in copies) {
+      for (final e in w.events.entries.toList()) {
+        final old = e.value;
+        final m = methodNames[old] ??= freeMethod(
+          old.startsWith('${w.name}_')
+              ? '${renamed[w.name]}${old.substring(w.name.length)}'
+              : old,
+        );
+        w.events[e.key] = m;
+      }
+    }
+    for (final MapEntry(key: old, value: name) in methodNames.entries) {
+      final m = clip.methods[old];
+      if (m == null) {
+        code = TkUnit.ensureMethod(code, d.name, name);
+        continue;
+      }
+      var body = m.body;
+      for (final r in renamed.entries) {
+        body = TkUnit.renameWidget(body, r.key, r.value);
+      }
+      for (final r in methodNames.entries) {
+        body = TkUnit.renameMethod(body, r.key, r.value);
+      }
+      code = ComponentClip.addMethod(code, d.name, old, name, (
+        def: m.def,
+        body: body,
+      ));
     }
     final fresh = <String>{};
     for (final w in copies) {
@@ -735,6 +817,7 @@ class _TkEditorState extends State<_TkEditor> {
       }
     }
     d.widgets.addAll(copies);
+    _setCode(code);
     _selection = {
       for (final w in copies)
         if (w.parent == null || !fresh.contains(w.parent)) w.name,
@@ -748,6 +831,41 @@ class _TkEditorState extends State<_TkEditor> {
   }
 
   /// Alinea con el primero de la selección.
+  /// Centra lo seleccionado en la ventana (o en su marco), como un bloque
+  /// si comparten contenedor.
+  void _centerInParent({required bool horizontal}) {
+    final s = _selected;
+    if (s.isEmpty) return;
+    _begin();
+    _lastEdit = null;
+    final groups = <String?, List<TkWidget>>{};
+    for (final w in s) {
+      (groups[w.parent] ??= []).add(w);
+    }
+    for (final MapEntry(key: parent, value: ws) in groups.entries) {
+      final box = parent == null ? null : d.byName(parent);
+      final (cw, ch) = box == null
+          ? (d.width, d.height)
+          : (box.width, box.height);
+      final left = ws.map((w) => w.x).reduce((a, b) => a < b ? a : b);
+      final top = ws.map((w) => w.y).reduce((a, b) => a < b ? a : b);
+      final right = ws
+          .map((w) => w.x + w.width)
+          .reduce((a, b) => a > b ? a : b);
+      final bottom = ws
+          .map((w) => w.y + w.height)
+          .reduce((a, b) => a > b ? a : b);
+      final dx = horizontal ? (cw - (right - left)) ~/ 2 - left : 0;
+      final dy = horizontal ? 0 : (ch - (bottom - top)) ~/ 2 - top;
+      for (final w in ws) {
+        w
+          ..x += dx
+          ..y += dy;
+      }
+    }
+    _changed();
+  }
+
   void _align(String mode) {
     final s = _selected;
     if (s.length < 2) return;
@@ -1010,32 +1128,35 @@ class _TkEditorState extends State<_TkEditor> {
     if (req == null || !mounted) return;
     setState(() => _aiBusy = true);
     final before = _code.text;
-    final change = await runAction(context, () {
-      if (req.mode != 'code') {
-        return TkAi.change(
+    final change = await runAction(
+      context,
+      () => AiUsage.track(doc.id, 'designer_ai', () {
+        if (req.mode != 'code') {
+          return TkAi.change(
+            req.prompt,
+            current: d,
+            code: _code.text,
+            fresh: req.mode == 'new',
+            connections: _connections,
+            imageUrl: req.imageUrl,
+          );
+        }
+        // El método del evento principal, enlazado en la propuesta.
+        final e = target!.component.events.first;
+        final method = target.events[e.key] ?? '${target.name}_${e.suffix}';
+        final draft = d.clone();
+        draft.byName(target.name)!.events[e.key] = method;
+        return TkAi.handler(
           req.prompt,
-          current: d,
+          current: draft,
           code: _code.text,
-          fresh: req.mode == 'new',
+          method: method,
+          param: e.param,
+          event: '${tr(e.label)} (${target.name})',
           connections: _connections,
-          imageUrl: req.imageUrl,
         );
-      }
-      // El método del evento principal, enlazado en la propuesta.
-      final e = target!.component.events.first;
-      final method = target.events[e.key] ?? '${target.name}_${e.suffix}';
-      final draft = d.clone();
-      draft.byName(target.name)!.events[e.key] = method;
-      return TkAi.handler(
-        req.prompt,
-        current: draft,
-        code: _code.text,
-        method: method,
-        param: e.param,
-        event: '${tr(e.label)} (${target.name})',
-        connections: _connections,
-      );
-    });
+      }),
+    );
     if (!mounted) return;
     setState(() => _aiBusy = false);
     if (change == null) return;
@@ -1270,6 +1391,23 @@ class _TkEditorState extends State<_TkEditor> {
               key: const ValueKey('tk-ai'),
             ),
             _tool(
+              LucideIcons.gitFork,
+              tr('GitHub: publicar o subir los cambios'),
+              () => showProjectGitHub(
+                context,
+                dir: doc.id,
+                name: doc.name,
+                beforeGit: () async => !doc.dirty || await _save(),
+              ),
+              key: const ValueKey('tk-github'),
+            ),
+            _tool(
+              LucideIcons.wallet,
+              tr('Presupuesto de IA'),
+              () => showAiBudget(context, project: doc.id, name: doc.name),
+              key: const ValueKey('tk-budget'),
+            ),
+            _tool(
               LucideIcons.bot,
               tr('Chat con Claude Code'),
               () => setState(() => _claude = !_claude),
@@ -1322,6 +1460,20 @@ class _TkEditorState extends State<_TkEditor> {
               LucideIcons.stretchVertical,
               tr('Igualar el alto'),
               al('height'),
+            ),
+            _tool(
+              LucideIcons.alignHorizontalJustifyCenter,
+              tr('Centrar en la ventana (horizontal)'),
+              _selection.isEmpty
+                  ? null
+                  : () => _centerInParent(horizontal: true),
+            ),
+            _tool(
+              LucideIcons.alignVerticalJustifyCenter,
+              tr('Centrar en la ventana (vertical)'),
+              _selection.isEmpty
+                  ? null
+                  : () => _centerInParent(horizontal: false),
             ),
             const VerticalDivider(width: 12),
             _tool(
@@ -1586,70 +1738,55 @@ class _TkEditorState extends State<_TkEditor> {
             run.address,
           ])
         : tr('En ejecución en su propia ventana.');
-    return Container(
-      height: 160,
-      decoration: BoxDecoration(
-        color: _editorBg,
-        border: Border(top: BorderSide(color: t.dividerColor)),
+    return BottomPanel(
+      id: 'tk-output',
+      background: _editorBg,
+      iconColor: _editorDim,
+      initialHeight: 160,
+      title: Text(
+        [
+          state,
+          if (py != null && py.ok)
+            'Python ${py.version} · Tk ${py.tk} · ${py.command}',
+          if (py != null && py.oldTk) _oldTkWarning(py),
+        ].join('   ·   '),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(color: _editorDim, fontSize: 11.5),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 2, 4, 0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    [
-                      state,
-                      if (py != null && py.ok)
-                        'Python ${py.version} · Tk ${py.tk} · ${py.command}',
-                      if (py != null && py.oldTk) _oldTkWarning(py),
-                    ].join('   ·   '),
-                    style: const TextStyle(color: _editorDim, fontSize: 11.5),
-                  ),
-                ),
-                IconButton(
-                  key: const ValueKey('tk-output-copy'),
-                  tooltip: tr('Copiar la salida'),
-                  iconSize: 15,
-                  visualDensity: VisualDensity.compact,
-                  color: _editorDim,
-                  disabledColor: _editorDim.withValues(alpha: .35),
-                  icon: const Icon(LucideIcons.copy),
-                  onPressed: (run?.lines.isEmpty ?? true)
-                      ? null
-                      : () {
-                          Clipboard.setData(
-                            ClipboardData(text: run!.lines.join('\n')),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(tr('Salida copiada.'))),
-                          );
-                        },
-                ),
-              ],
-            ),
+      actions: [
+        IconButton(
+          key: const ValueKey('tk-output-copy'),
+          tooltip: tr('Copiar la salida'),
+          iconSize: 15,
+          visualDensity: VisualDensity.compact,
+          color: _editorDim,
+          disabledColor: _editorDim.withValues(alpha: .35),
+          icon: const Icon(LucideIcons.copy),
+          onPressed: (run?.lines.isEmpty ?? true)
+              ? null
+              : () {
+                  Clipboard.setData(ClipboardData(text: run!.lines.join('\n')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(tr('Salida copiada.'))),
+                  );
+                },
+        ),
+      ],
+      child: ListView.builder(
+        key: const ValueKey('tk-output'),
+        controller: _outScroll,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        itemCount: run?.lines.length ?? 0,
+        itemBuilder: (_, i) => SelectableText(
+          run!.lines[i],
+          style: const TextStyle(
+            color: Color(0xFFD4D4D4),
+            fontFamily: _mono,
+            fontFamilyFallback: _monoFallback,
+            fontSize: 12,
           ),
-          Expanded(
-            child: ListView.builder(
-              key: const ValueKey('tk-output'),
-              controller: _outScroll,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              itemCount: run?.lines.length ?? 0,
-              itemBuilder: (_, i) => SelectableText(
-                run!.lines[i],
-                style: const TextStyle(
-                  color: Color(0xFFD4D4D4),
-                  fontFamily: _mono,
-                  fontFamilyFallback: _monoFallback,
-                  fontSize: 12,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

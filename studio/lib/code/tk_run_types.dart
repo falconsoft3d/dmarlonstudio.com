@@ -69,6 +69,8 @@ class TkPrepared {
     required this.file,
     this.links = const [],
     this.web = false,
+    this.vars = const {},
+    this.tray = false,
   });
 
   /// Carpeta del proyecto.
@@ -84,6 +86,13 @@ class TkPrepared {
 
   /// Aplicación web de Flask, no una ventana.
   final bool web;
+
+  /// Variables del módulo API del estudio para las
+  /// integraciones API: llegan al proceso como `DMSTUDIO_ENV_<NOMBRE>`.
+  final Map<String, String> vars;
+
+  /// Lleva un icono de bandeja: necesita pystray y Pillow.
+  final bool tray;
 }
 
 /// Ventana lanzada: su proceso y lo que escribe.

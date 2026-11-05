@@ -229,6 +229,14 @@ msgid ""
 "# __init__, y el evento «Al abrir» de la ventana se ejecuta después de él."
 msgstr ""
 
+#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart
+msgid "Abrir"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Abrir una nota"
+msgstr ""
+
 #: lib/code/tk_examples.dart lib/ui/screens/settings_screen.dart
 msgid "Acerca de"
 msgstr ""
@@ -261,6 +269,10 @@ msgstr ""
 msgid "Borrar"
 msgstr ""
 
+#: lib/code/tk_examples.dart
+msgid "Borrar todo"
+msgstr ""
+
 #: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr ""
@@ -282,11 +294,35 @@ msgid "Cantidad"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Cargando…"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Cargar"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Ciudad"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Clave"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Clave (opcional)"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Cliente preferente"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Consulta API"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Consulta API web"
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -334,11 +370,31 @@ msgid "Decimales"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Edición"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Editor con cinta de opciones, diálogos Abrir y Guardar y barra de estado con icono."
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Editor de notas"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Editor de notas web"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Ejemplo de DMarlon Studio con menú, temporizador, barra de progreso y barra de estado."
 msgstr ""
 
 #: lib/code/tk_examples.dart
 msgid "El cronómetro de escritorio, con el mismo código, en Flask."
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "El editor de notas en Flask: guardar descarga el archivo en el navegador."
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -355,6 +411,14 @@ msgstr ""
 
 #: lib/code/tk_examples.dart
 msgid "Escriba un número"
+msgstr ""
+
+#: lib/code/tk_examples.dart lib/ui/screens/budget_screen.dart
+msgid "Fecha"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Fechas"
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -378,11 +442,19 @@ msgid "General"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Guardada: {0}"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Guardar la nota"
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -390,11 +462,27 @@ msgid "Hecha / pendiente"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Hora"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Iniciar"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Inicio"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Insertar"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "La calculadora de escritorio, con el mismo código, en Flask."
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "La consulta a una API, con el mismo código, en Flask."
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -403,6 +491,10 @@ msgstr ""
 
 #: lib/code/tk_examples.dart
 msgid "Lee los contactos de un Odoo o un ERPSqlite con su API XML-RPC (en ERPSqlite: Ajustes → API externa). La clave no se guarda."
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Lee una API JSON en segundo plano y la muestra en una tabla, con una clave opcional."
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -426,6 +518,18 @@ msgid "Magnitud"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Markdown"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Mayúsculas"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Minúsculas"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Mis tareas"
 msgstr ""
 
@@ -438,7 +542,15 @@ msgid "Nombre"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Nota nueva"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Notas"
+msgstr ""
+
+#: lib/code/tk_examples.dart lib/ui/screens/diagrams.dart
+msgid "Nuevo"
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -455,6 +567,10 @@ msgstr ""
 
 #: lib/code/tk_examples.dart
 msgid "Peso"
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Pulse Cargar para leer los usuarios."
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -486,6 +602,10 @@ msgid "Servidor"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Solo si la API la pide"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Superficie"
 msgstr ""
 
@@ -505,6 +625,10 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+msgid "Texto"
+msgstr ""
+
 #: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
 msgid "Tipo"
 msgstr ""
@@ -522,6 +646,10 @@ msgid "Volumen"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "nota.txt"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "{0} contactos"
 msgstr ""
 
@@ -529,8 +657,16 @@ msgstr ""
 msgid "{0} tareas, {1} pendientes"
 msgstr ""
 
+#: lib/code/tk_examples.dart
+msgid "{0} usuarios"
+msgstr ""
+
 #: lib/code/tk_model.dart
 msgid "Activo"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Ajuste"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -546,6 +682,10 @@ msgid "Al cambiar"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Al cambiar de pestaña"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Al cambiar de página"
 msgstr ""
 
@@ -558,7 +698,19 @@ msgid "Al cerrar"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Al elegir un archivo"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Al elegir una opción"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Al elegir una opción del menú"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Al hacer clic en el icono"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -566,7 +718,15 @@ msgid "Al pulsar"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Al pulsar un botón"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Al seleccionar"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Al terminar una llamada"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -574,7 +734,19 @@ msgid "Alineación"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Archivo (en la carpeta images del proyecto)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Arrastrar"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Arriba"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Autenticación"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -594,6 +766,22 @@ msgid "Botón"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Botón para ver la contraseña"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Básica (usuario y contraseña)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Cabecera de la clave"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Cabeceras (Nombre: valor; {{variable}})"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Cada intervalo"
 msgstr ""
 
@@ -610,7 +798,23 @@ msgid "Cargar al abrir"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Carpeta inicial (vacía = la última)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Casilla"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Centrada en la pantalla"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Cinta de opciones"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Clave en una cabecera"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -649,6 +853,10 @@ msgstr ""
 msgid "Consulta SQL"
 msgstr ""
 
+#: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+msgid "Contraseña"
+msgstr ""
+
 #: lib/code/tk_model.dart
 msgid "Control de páginas"
 msgstr ""
@@ -666,6 +874,14 @@ msgid "Deslizador"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Diálogo Abrir"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Diálogo Guardar"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Doble clic"
 msgstr ""
 
@@ -678,11 +894,23 @@ msgid "El nombre «{0}» está repetido."
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Elegir varios archivos"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Elementos (uno por línea)"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "En una aplicación web el código corre en el servidor y no puede abrir archivos del equipo del usuario: execute() devuelve None y avisa en la página."
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "En una aplicación web el lienzo no dibuja: se ve el recuadro vacío, porque el código corre en el servidor y sus métodos de dibujo no existen."
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Entera, sin deformar"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -694,7 +922,15 @@ msgid "Estado"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Estirar"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Etiqueta"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Extensión por defecto"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -714,7 +950,31 @@ msgid "Hasta"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Icono (nombre, como en la cinta, o un carácter)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Icono de bandeja"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Imagen"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Imagen (ruta en el proyecto; vacía = una de serie)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Integración API"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Intervalo (ms)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Izquierda"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -734,7 +994,15 @@ msgid "Lista desplegable"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Longitud máxima (0 = sin límite)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Límite"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Manual"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -747,6 +1015,10 @@ msgstr ""
 
 #: lib/code/tk_model.dart
 msgid "Menú"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Menú (una opción por línea; - = separador)"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -767,6 +1039,14 @@ msgstr ""
 
 #: lib/code/tk_model.dart
 msgid "Negrita"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+msgid "Ninguna"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Nombre del archivo"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -798,6 +1078,26 @@ msgid "Perder el foco"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Pestaña activa"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Pestañas, grupos y botones (sangría; «Botón | icono»)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Por defecto"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Posición"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Preguntar antes de sobrescribir"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Página activa"
 msgstr ""
 
@@ -818,11 +1118,19 @@ msgid "Relieve"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Rellenar, recortando"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Salir el ratón"
 msgstr ""
 
 #: lib/code/tk_model.dart
 msgid "Selección"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Si falla una llamada"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -846,6 +1154,10 @@ msgid "Tamaño de fuente"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Tamaño original"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Tecla Intro"
 msgstr ""
 
@@ -861,8 +1173,12 @@ msgstr ""
 msgid "Temporizador"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
-msgid "Texto"
+#: lib/code/tk_model.dart
+msgid "Texto al pasar el ratón"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Texto de ayuda (vacío)"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -874,7 +1190,31 @@ msgid "Texto largo"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Tiempo máximo (s)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Tipos (una línea: «Texto|*.txt» o «Imágenes|*.png;*.jpg»)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Token (Bearer)"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Token o clave (mejor en una variable)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Título"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "URL base"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Una página web no puede poner un icono en la barra del sistema: en una aplicación web este componente no hace nada."
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -882,7 +1222,23 @@ msgid "Una ventana solo puede tener un menú: sobra «{0}»."
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Una ventana solo puede tener una cinta de opciones: sobra «{0}»."
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Usuario (básica)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Valor"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Variable con el token o la clave"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Variable con la contraseña (básica)"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -1009,6 +1365,10 @@ msgstr ""
 msgid "«{0}» no es un nombre válido."
 msgstr ""
 
+#: lib/core/ai_usage.dart
+msgid "El presupuesto de IA de este proyecto está agotado ({0} de {1} US$). Súbalo en Presupuesto de IA."
+msgstr ""
+
 #: lib/core/project_store.dart
 msgid "El archivo {0} está dañado."
 msgstr ""
@@ -1117,6 +1477,142 @@ msgstr ""
 msgid "Oscuro"
 msgstr ""
 
+#: lib/ui/bottom_panel.dart
+msgid "Minimizar"
+msgstr ""
+
+#: lib/ui/bottom_panel.dart
+msgid "Restaurar"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
+msgid "Actualizar"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Agotado: la IA está bloqueada en este proyecto."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Agotado: se ha pasado del presupuesto."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Bloquear al agotarse"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Cerca del límite ({0} %)."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Coste"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Costes calculados con la tarifa de la API de Anthropic. Con una suscripción de Claude, el coste de Claude Code es su equivalente en API, no lo que se cobra."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Dentro del presupuesto ({0} %)."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Entrada"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Escriba un importe mayor que cero."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Gastado"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Gastado este mes"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Herramienta"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Hoy"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Llamadas"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Mensual"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/settings_screen.dart
+msgid "Modelo"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Por herramienta"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Por modelo"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Presupuesto"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Presupuesto de IA · {0}"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Presupuesto guardado."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Restante"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Salida"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Sin datos todavía."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Sin presupuesto: escriba un tope para recibir avisos al 80 % y, si quiere, bloquear la IA al agotarlo."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Tope (US$)"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Total"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "sin tope"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "{0} llamadas de otros proveedores sin tarifa conocida: solo se cuentan sus tokens."
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Últimas llamadas"
+msgstr ""
+
+#: lib/ui/screens/budget_screen.dart
+msgid "Últimos 30 días"
+msgstr ""
+
 #: lib/ui/screens/code_claude.dart
 msgid "Abra una carpeta para que Claude trabaje en ella."
 msgstr ""
@@ -1181,20 +1677,20 @@ msgstr ""
 msgid "Nuevo: {0}"
 msgstr ""
 
+#: lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+msgid "Presupuesto de IA"
+msgstr ""
+
 #: lib/ui/screens/code_git.dart
 msgid "Abrir el archivo"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Abrir en GitHub"
 msgstr ""
 
 #: lib/ui/screens/code_git.dart
 msgid "Acciones de la rama"
-msgstr ""
-
-#: lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
-msgid "Actualizar"
 msgstr ""
 
 #: lib/ui/screens/code_git.dart
@@ -1273,7 +1769,7 @@ msgstr ""
 msgid "Confirmar todo"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Confirmar y subir"
 msgstr ""
 
@@ -1341,7 +1837,7 @@ msgstr ""
 msgid "Descartar todos los cambios…"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Descripción"
 msgstr ""
 
@@ -1481,7 +1977,7 @@ msgstr ""
 msgid "Los {0} commit(s) posteriores salen de la rama."
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Mensaje del commit"
 msgstr ""
 
@@ -1505,11 +2001,11 @@ msgstr ""
 msgid "Nueva rama…"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Privado"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Publicado en {0}"
 msgstr ""
 
@@ -1517,7 +2013,7 @@ msgstr ""
 msgid "Publicar"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
 msgid "Publicar en GitHub"
 msgstr ""
 
@@ -1715,10 +2211,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "Abra un archivo para preguntar sobre él."
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "Abrir"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart
@@ -1982,10 +2474,6 @@ msgid "Conexión correcta: {0} tablas"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
-msgid "Contraseña"
-msgstr ""
-
-#: lib/ui/screens/dev_tools.dart
 msgid "Copiar como curl"
 msgstr ""
 
@@ -2067,10 +2555,6 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Modificar datos"
-msgstr ""
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Ninguna"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
@@ -2320,10 +2804,6 @@ msgid "Nota"
 msgstr ""
 
 #: lib/ui/screens/diagrams.dart
-msgid "Nuevo"
-msgstr ""
-
-#: lib/ui/screens/diagrams.dart
 msgid "Nuevo diagrama"
 msgstr ""
 
@@ -2399,6 +2879,90 @@ msgstr ""
 msgid "¿Qué debe mostrar?"
 msgstr ""
 
+#: lib/ui/screens/github_dialog.dart
+msgid "Cambios desde DMarlon Studio"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Conectado como @{0}"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Conectado como @{0}."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Conectar"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Conecte su cuenta con un token de GitHub (permiso «repo») para crear repositorios y subir sin contraseña. Se guarda solo en este equipo."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Crear un token en GitHub"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Desconectar"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "El proyecto aún no está en GitHub."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "El proyecto no tiene archivos que subir."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "El proyecto tiene git pero no está en GitHub."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "GitHub · {0}"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Nombre del repositorio"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Primera versión"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Sin cambios pendientes."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Subido."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Subir"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Token de GitHub"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "Traer cambios"
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "{0} archivos con cambios."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "{0} commits por subir."
+msgstr ""
+
+#: lib/ui/screens/github_dialog.dart
+msgid "{0} commits por traer."
+msgstr ""
+
 #: lib/ui/screens/settings_screen.dart
 msgid "Ajustes de la IA guardados."
 msgstr ""
@@ -2429,10 +2993,6 @@ msgstr ""
 
 #: lib/ui/screens/settings_screen.dart
 msgid "La IA diseña ventanas, escribe los manejadores de eventos, propone cambios en el Editor y dibuja diagramas. La clave se guarda solo en este equipo."
-msgstr ""
-
-#: lib/ui/screens/settings_screen.dart
-msgid "Modelo"
 msgstr ""
 
 #: lib/ui/screens/settings_screen.dart
@@ -2525,6 +3085,14 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Centrar en horizontal"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Centrar en la ventana (horizontal)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Centrar en la ventana (vertical)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -2632,15 +3200,19 @@ msgid "F12: diseño"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "GitHub: publicar o subir los cambios"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "GitHub…"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el ancho"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Imagen"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -2820,11 +3392,23 @@ msgid "Elegir color"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
+msgid "Elegir imagen…"
+msgstr ""
+
+#: lib/ui/screens/tk_inspector.dart
 msgid "Eventos"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
+msgstr ""
+
+#: lib/ui/screens/tk_inspector.dart
 msgid "Ir al código"
+msgstr ""
+
+#: lib/ui/screens/tk_inspector.dart
+msgid "No escriba tokens ni contraseñas aquí: guárdelos como variables en el módulo API (Variables) y ponga su nombre en «Variable con el token o la clave». En la URL y las cabeceras, {{nombre}} usa esas variables al ejecutar."
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
@@ -2915,12 +3499,24 @@ msgstr ""
 msgid "Ámbar"
 msgstr ""
 
-#: lib/ui/tk_launch.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_claude_panel.dart
+#: lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Cerrar"
 msgstr ""
 
 #: lib/ui/tk_launch.dart
 msgid "Después, vuelva a intentarlo."
+msgstr ""
+
+#: lib/ui/tk_launch.dart
+msgid "Ejecutar sin icono"
+msgstr ""
+
+#: lib/ui/tk_launch.dart
+msgid "El icono de bandeja necesita pystray y Pillow en el Python de este equipo. Instálelos con esta orden:"
 msgstr ""
 
 #: lib/ui/tk_launch.dart
@@ -2936,6 +3532,10 @@ msgid "Falta Python con tkinter"
 msgstr ""
 
 #: lib/ui/tk_launch.dart
+msgid "Faltan pystray y Pillow"
+msgstr ""
+
+#: lib/ui/tk_launch.dart
 msgid "Las aplicaciones web necesitan Flask en el Python de este equipo. Instálelo con esta orden:"
 msgstr ""
 
@@ -2948,6 +3548,10 @@ msgid "Se encontró {0}, pero no trae tkinter."
 msgstr ""
 
 #: lib/ui/tk_launch.dart
+msgid "Sin ellos, la ventana funciona pero sin el icono."
+msgstr ""
+
+#: lib/ui/tk_launch.dart
 msgid "«{0}» terminó con un error: {1}"
 msgstr ""
 
@@ -2957,10 +3561,6 @@ msgstr ""
 
 #: lib/ui/widgets.dart
 msgid "Buscar..."
-msgstr ""
-
-#: lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
 msgstr ""
 
 #: lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart

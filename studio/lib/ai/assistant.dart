@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../core/ai_usage.dart';
 import '../core/errors.dart';
 import '../core/settings.dart';
 import '../i18n/tr.dart';
@@ -306,6 +307,7 @@ class Assistant {
     bool json = false,
   }) async {
     if (!config.ready) throw UserError(config.missingKey);
+    await AiUsage.check();
     final provider = config.provider;
     // Sin modo JSON en la API, se pide en las indicaciones.
     final sent = json && !provider.jsonMode
@@ -373,7 +375,9 @@ class Assistant {
         tr('Error de la IA ({0}): {1}', [res.statusCode, _errorOf(body)]),
       );
     }
-    return '${AnthropicApi.reply(jsonDecode(body) as Map)['content']}'.trim();
+    final decoded = jsonDecode(body) as Map;
+    await AiUsage.recordAnthropic(decoded, fallbackModel: config.model);
+    return '${AnthropicApi.reply(decoded)['content']}'.trim();
   }
 
   Future<String> _chatOpenAi(
@@ -398,6 +402,7 @@ class Assistant {
         body = utf8.decode(res.bodyBytes);
       }
       if (res.statusCode == 200) {
+        await _recordOpenAi(body);
         return _text(_messageOf(body)['content']).trim();
       }
       final msg = _errorOf(body);
@@ -432,7 +437,23 @@ class Assistant {
         tr('Error de la IA ({0}): {1}', [res.statusCode, _errorOf(body)]),
       );
     }
+    await _recordOpenAi(body);
     return _responsesText(body).trim();
+  }
+
+  /// Apunta los tokens de una respuesta de formato OpenAI.
+  Future<void> _recordOpenAi(String body) async {
+    try {
+      final j = jsonDecode(body);
+      if (j is Map && j['usage'] is Map) {
+        await AiUsage.recordOpenAi(
+          '${j['model'] ?? config.model}',
+          j['usage'] as Map,
+        );
+      }
+    } on FormatException {
+      // Sin JSON no hay nada que apuntar.
+    }
   }
 
   /// El mensaje de una respuesta de /chat/completions.

@@ -3,6 +3,26 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.6 — 2026-11-05
+
+- Diseñador, componentes nuevos (escritorio y web): **Cinta de opciones** al
+  estilo Office, **Integración API** (REST con autenticación por variables de
+  entorno y llamadas en segundo plano), **Icono de bandeja** (pystray),
+  **Contraseña**, **Imagen** (se copia a `images/` del proyecto) y los
+  diálogos **Abrir** y **Guardar**. La Barra de estado admite un icono.
+- La ventana puede abrirse **centrada en la pantalla** (por defecto en las
+  nuevas), en su posición por defecto o en una posición manual.
+- Botones para **centrar** lo seleccionado en la ventana o en su marco.
+- **Copiar componentes entre proyectos**, con el código de sus eventos, por
+  el portapapeles del sistema.
+- **Presupuesto de IA** por proyecto: gasto en Claude por herramienta,
+  modelo y día, con tope mensual o total que avisa o bloquea.
+- **GitHub** desde el Diseñador: publicar el proyecto o confirmar y subir.
+- La consola del Diseñador y la terminal del Editor se **redimensionan** y se
+  **minimizan**.
+- Diálogos con esquinas menos redondeadas.
+- Ejemplos nuevos: «Editor de notas» y «Consulta API».
+
 ## 1.0.5 — 2026-11-05
 
 - Diseñador: componentes nuevos **Menú** (opciones por líneas, submenús con

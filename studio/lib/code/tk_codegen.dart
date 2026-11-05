@@ -558,6 +558,237 @@ class TkCodegen {
     ]);
   }
 
+  /// Diálogo Abrir o Guardar [w] ([web]: en una página).
+  static String dialog(TkWidget w, {bool web = false}) {
+    String? text(String key) {
+      final v = w.text(key);
+      return v.isEmpty ? null : '$key=${TkPy.str(v)}';
+    }
+
+    final open = w.kind == 'OpenDialog';
+    final cls = web
+        ? (open ? 'WebOpenDialog' : 'WebSaveDialog')
+        : (open ? 'DesignOpenDialog' : 'DesignSaveDialog');
+    return _call('self.${w.name} = $cls', [
+      web ? 'self' : 'self.root',
+      ?text('title'),
+      ?text('filter'),
+      ?text('defaultext'),
+      ?text('initialdir'),
+      if (open && w.props['multiple'] == true) 'multiple=True',
+      if (!open) ?text('filename'),
+      if (!open && w.props['overwrite'] == false) 'overwrite=False',
+      if (w.events['select'] case final m?) 'select=self.$m',
+    ]);
+  }
+
+  /// Enlaces de los eventos con secuencia de [w] (bind).
+  static void _binds(StringBuffer b, TkWidget w) {
+    for (final e in w.component.events) {
+      final m = w.events[e.key];
+      if (m == null || e.isCommand) continue;
+      for (final s in e.sequences) {
+        b.writeln('$_in${'self.${w.name}'}.bind(${TkPy.str(s)}, self.$m)');
+      }
+    }
+  }
+
+  /// Campo de contraseña.
+  static void _password(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
+    final max = TkPy.integer(w.props['maxlength'] ?? 0);
+    final bg = _color(w.props['bg']) ?? '#ffffff';
+    final fg = _color(w.props['fg']) ?? '#000000';
+    final state = w.text('state');
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln('$_in${self}_var = tk.StringVar()')
+      ..writeln(
+        _call('$self = DesignPassword', [
+          parentOf(d, w),
+          'textvariable=${self}_var',
+          if (w.props['reveal'] == false) 'reveal=False',
+          if (max > 0) 'maxlength=$max',
+          if (w.text('hint').isNotEmpty) 'hint=${TkPy.str(w.text('hint'))}',
+          if (state != 'normal' && state.isNotEmpty) 'state=${TkPy.str(state)}',
+          'bg=${TkPy.str(bg)}',
+          'fg=${TkPy.str(fg)}',
+          if (_font(w) case final f?) 'font=$f',
+        ]),
+      )
+      ..writeln(
+        '$_in$self.place(x=$x, y=$y, width=${w.width}, height=${w.height})',
+      );
+    _binds(b, w);
+  }
+
+  /// Imagen de un archivo del proyecto.
+  static void _image(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
+    final fit = w.text('fit');
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln(
+        _call('$self = DesignImage', [
+          parentOf(d, w),
+          if (w.text('file').isNotEmpty) 'file=${TkPy.str(w.text('file'))}',
+          if (fit != 'contain') 'fit=${TkPy.str(fit)}',
+          'width=${w.width}',
+          'height=${w.height}',
+          'bg=${TkPy.str(backgroundOf(d, w))}',
+          if (w.props['border'] == true) ...['bd=1', 'relief="solid"'],
+        ]),
+      )
+      ..writeln(
+        '$_in$self.place(x=$x, y=$y, width=${w.width}, height=${w.height})',
+      );
+    _binds(b, w);
+  }
+
+  /// Métodos de la ventana para los componentes que los tienen
+  /// (`Password1_visible`, `Image1_load`): iguales en los dos destinos.
+  static void helperMethods(StringBuffer b, TkDesign d) {
+    for (final w in d.widgets) {
+      switch (w.kind) {
+        case 'Password':
+          b
+            ..writeln()
+            ..writeln('    def ${w.name}_visible(self, on=True):')
+            ..writeln('$_in"""Show (True) or hide (False) the password."""')
+            ..writeln('${_in}self.${w.name}.visible(on)');
+        case 'Image':
+          b
+            ..writeln()
+            ..writeln('    def ${w.name}_load(self, path):')
+            ..writeln('$_in"""Show another image (path inside the project)."""')
+            ..writeln('${_in}self.${w.name}.load(path)');
+      }
+    }
+  }
+
+  /// Símbolos de los iconos por nombre, para cambiarlos desde el código
+  /// (`self.StatusBar1.set(icon="save")`).
+  static String glyphTable() {
+    final b = StringBuffer()
+      ..writeln()
+      ..writeln()
+      ..writeln('GLYPHS = {');
+    for (final e in tkRibbonGlyphs.entries) {
+      b.writeln('    ${TkPy.str(e.key)}: ${TkPy.str(e.value)},');
+    }
+    b
+      ..writeln('}')
+      ..writeln()
+      ..writeln()
+      ..writeln('def _glyph(icon):')
+      ..writeln('    """A glyph name of GLYPHS, or the character itself."""')
+      ..writeln('    icon = str(icon or "").strip()')
+      ..writeln(
+        '    return GLYPHS.get(icon.lower(), icon if len(icon) <= 2 else "")',
+      );
+    return b.toString();
+  }
+
+  /// Opciones de un menú como lista de Python (menú de la ventana en web y
+  /// menú del icono de bandeja).
+  static String menuTree(List<TkMenuItem> items) =>
+      '[${[for (final i in items) i.separator ? '{"sep": True}' : '{"label": ${TkPy.str(i.label)}, "path": ${TkPy.str(i.path)}, '
+                  '"items": ${menuTree(i.items)}}'].join(', ')}]';
+
+  /// Icono de bandeja [w]: solo en escritorio.
+  static String tray(TkWidget w) => _call('self.${w.name} = DesignTray', [
+    'self.root',
+    if (w.text('tooltip').isNotEmpty) 'tooltip=${TkPy.str(w.text('tooltip'))}',
+    if (w.text('icon').isNotEmpty) 'icon=${TkPy.str(w.text('icon'))}',
+    'items=${menuTree(tkMenuItems(w.text('items')))}',
+    if (w.events['click'] case final m?) 'click=self.$m',
+    if (w.events['command'] case final m?) 'command=self.$m',
+  ]);
+
+  /// Líneas que colocan la ventana según su propiedad Posición.
+  static void place(StringBuffer b, TkDesign d) {
+    switch (d.prop(tkFormPosition)) {
+      case 'center':
+        b
+          ..writeln('${_in}self.root.update_idletasks()')
+          ..writeln(
+            '${_in}left = max(0, (self.root.winfo_screenwidth() - ${d.width}) // 2)',
+          )
+          ..writeln(
+            '${_in}top = max(0, (self.root.winfo_screenheight() - ${d.height}) // 2)',
+          )
+          ..writeln(
+            '${_in}self.root.geometry("${d.width}x${d.height}+%d+%d" % (left, top))',
+          );
+      case 'manual':
+        final left = TkPy.integer(d.prop(tkFormLeft) ?? 0);
+        final top = TkPy.integer(d.prop(tkFormTop) ?? 0);
+        b.writeln(
+          '${_in}self.root.geometry("${d.width}x${d.height}+$left+$top")',
+        );
+    }
+  }
+
+  /// Pestañas de la cinta [w] como lista de Python (la misma en los dos
+  /// destinos).
+  static String ribbonTabs(TkWidget w) => _pyList([
+    for (final t in tkRibbonTabs(w.text('items')))
+      '{"label": ${TkPy.str(t.label)}, "groups": ${_pyList([
+        for (final g in t.groups) '{"label": ${TkPy.str(g.label)}, "buttons": ${_pyList([for (final b in g.buttons) '{"label": ${TkPy.str(b.label)}, "glyph": ${TkPy.str(b.glyph)}, '
+                '"path": ${TkPy.str(b.path)}}'])}}',
+      ])}}',
+  ]);
+
+  static String _pyList(List<String> items) => '[${items.join(', ')}]';
+
+  /// Línea que crea la integración API [w] (la misma en los dos destinos).
+  /// Los secretos no se escriben: solo el nombre de su variable de entorno,
+  /// salvo que el usuario haya puesto un token literal.
+  static String api(TkWidget w) {
+    String? text(String key) {
+      final p = w.component.prop(key)!;
+      final v = '${w.prop(p) ?? ''}';
+      return v == '${p.def ?? ''}' ? null : '$key=${TkPy.str(v)}';
+    }
+
+    final timeout = TkPy.integer(w.props['timeout'] ?? 30);
+    return _call('self.${w.name} = ApiClient', [
+      'self.root',
+      ?text('base_url'),
+      ?text('auth'),
+      ?text('token'),
+      ?text('token_env'),
+      ?text('user'),
+      ?text('password_env'),
+      ?text('header_name'),
+      ?text('headers'),
+      if (timeout != 30) 'timeout=${timeout < 1 ? 1 : timeout}',
+      if (w.events['done'] case final m?) 'done=self.$m',
+      if (w.events['error'] case final m?) 'error=self.$m',
+    ]);
+  }
+
+  /// Cinta de opciones de la ventana: pegada arriba, de lado a lado.
+  static void _ribbon(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final click = w.events['command'], change = w.events['change'];
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln(
+        _call('$self = DesignRibbon', [
+          'self.root',
+          ribbonTabs(w),
+          'active=${d.ribbonTab(w)}',
+          'height=${w.height}',
+          if (click != null) 'command=self.$click',
+          if (change != null) 'change=self.$change',
+        ]),
+      )
+      ..writeln('$_in$self.place(x=0, y=0, relwidth=1.0, height=${w.height})');
+  }
+
   /// Menú de la ventana: una opción llama al método con su ruta.
   static void _menu(StringBuffer b, TkWidget w) {
     final self = 'self.${w.name}';
@@ -625,7 +856,28 @@ class TkCodegen {
 
   static void _widget(StringBuffer b, TkDesign d, TkWidget w) {
     if (w.kind == 'Menu') return _menu(b, w);
+    if (w.kind == 'Ribbon') return _ribbon(b, d, w);
+    if (w.kind == 'Password') return _password(b, d, w);
+    if (w.kind == 'Image') return _image(b, d, w);
     if (w.kind == 'PageControl') return _pages(b, d, w);
+    if (w.kind == 'RestClient') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(api(w));
+      return;
+    }
+    if (w.kind == 'TrayIcon') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(tray(w));
+      return;
+    }
+    if (w.kind == 'OpenDialog' || w.kind == 'SaveDialog') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(dialog(w));
+      return;
+    }
     if (w.kind == 'Timer') {
       b
         ..writeln('$_in# ${w.name}')
@@ -690,6 +942,8 @@ class TkCodegen {
       if (bg == null) args.add('bg=${TkPy.str(own)}');
       if (fg == null) args.add('fg=${TkPy.str(contrast(own))}');
       args.addAll(['anchor="w"', 'relief="sunken"', 'bd=1', 'padx=6']);
+      final icon = tkRibbonGlyph(w.text('icon'));
+      if (icon.isNotEmpty) args.add('icon=${TkPy.str(icon)}');
     }
     if (!c.ttk &&
         w.kind != 'Label' &&
@@ -747,7 +1001,7 @@ class TkCodegen {
         : w.kind == 'Button'
         ? 'ColorButton'
         : w.kind == 'StatusBar'
-        ? 'tk.Label'
+        ? 'DesignStatus'
         : 'tk.${w.kind}';
     b.writeln(_call('$self = $cls', args));
     if (w.kind == 'StatusBar') {
@@ -827,6 +1081,33 @@ class TkCodegen {
     if (d.widgets.any((w) => w.kind == 'Timer')) {
       b.write(TkHelpers.designTimer);
     }
+    if (d.widgets.any((w) => w.kind == 'Ribbon')) {
+      b.write(TkHelpers.designRibbon);
+    }
+    if (d.widgets.any((w) => w.kind == 'StatusBar')) {
+      b
+        ..write(glyphTable())
+        ..write(TkHelpers.designStatus);
+    }
+    if (d.widgets.any((w) => w.kind == 'TrayIcon')) {
+      b.write(TkHelpers.designTray);
+    }
+    if (d.widgets.any((w) => w.kind == 'Password')) {
+      b.write(TkHelpers.designPassword);
+    }
+    if (d.widgets.any(
+      (w) => w.kind == 'OpenDialog' || w.kind == 'SaveDialog',
+    )) {
+      b.write(TkHelpers.designDialogs);
+    }
+    if (d.widgets.any((w) => w.kind == 'Image')) {
+      b
+        ..write(TkHelpers.projectFile)
+        ..write(TkHelpers.designImage);
+    }
+    if (d.widgets.any((w) => w.kind == 'RestClient')) {
+      b.write(TkHelpers.apiClient);
+    }
     if (data) b.write(TkHelpers.dataError);
     if (erp) b.write(TkHelpers.erpClient);
     if (sql) b.write(TkHelpers.sqlClient);
@@ -859,6 +1140,7 @@ class TkCodegen {
       ..writeln('${_in}self.root = tk.Tk()')
       ..writeln('${_in}self.root.title(${TkPy.str(d.title)})')
       ..writeln('${_in}self.root.geometry("${d.width}x${d.height}")');
+    place(b, d);
     final resizable = d.prop(tkFormResizable) == true ? 'True' : 'False';
     b
       ..writeln('${_in}self.root.resizable($resizable, $resizable)')
@@ -911,6 +1193,7 @@ class TkCodegen {
       ..writeln('    def run(self):')
       ..writeln('${_in}self._start()')
       ..writeln('${_in}self.root.mainloop()');
+    helperMethods(b, d);
     if (grids.isNotEmpty) b.write(TkHelpers.gridFill);
     for (final g in grids) {
       _gridMethods(b, d, g);

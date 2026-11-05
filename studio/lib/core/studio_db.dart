@@ -16,13 +16,15 @@ class StudioDb {
   /// Carpeta de la base en las pruebas.
   static String? dirOverride;
 
+  static bool get isOpen => _db != null;
+
   static Database get db {
     final d = _db;
     if (d == null) throw StateError('StudioDb.open() no se ha llamado.');
     return d;
   }
 
-  static const _version = 1;
+  static const _version = 2;
 
   static Future<void> open() async {
     if (_db != null) return;
@@ -34,8 +36,15 @@ class StudioDb {
       options: OpenDatabaseOptions(
         version: _version,
         onCreate: (db, _) async {
-          for (final s in _schema) {
+          for (final s in [..._schema, ..._v2]) {
             await db.execute(s);
+          }
+        },
+        onUpgrade: (db, from, _) async {
+          if (from < 2) {
+            for (final s in _v2) {
+              await db.execute(s);
+            }
           }
         },
       ),
@@ -46,6 +55,22 @@ class StudioDb {
     await _db?.close();
     _db = null;
   }
+
+  /// v2: gasto en IA por proyecto.
+  static const _v2 = [
+    '''CREATE TABLE ai_usage (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      project TEXT NOT NULL DEFAULT '',
+      tool TEXT NOT NULL,
+      model TEXT NOT NULL,
+      input_tokens INTEGER NOT NULL DEFAULT 0,
+      output_tokens INTEGER NOT NULL DEFAULT 0,
+      cache_read_tokens INTEGER NOT NULL DEFAULT 0,
+      cache_write_tokens INTEGER NOT NULL DEFAULT 0,
+      cost_usd REAL,
+      date TEXT NOT NULL)''',
+    'CREATE INDEX ai_usage_project ON ai_usage (project, date)',
+  ];
 
   static const _schema = [
     '''CREATE TABLE settings (

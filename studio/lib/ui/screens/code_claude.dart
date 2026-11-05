@@ -306,6 +306,16 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _header(tr('Claude implementa'), [
+          if (_ws != null)
+            _iconBtn(
+              LucideIcons.wallet,
+              tr('Presupuesto de IA'),
+              () => showAiBudget(
+                context,
+                project: _ws!.root,
+                name: p.basename(_ws!.root),
+              ),
+            ),
           if (_ClaudeSession.busy)
             _iconBtn(LucideIcons.square, tr('Detener'), () {
               _agent?.cancel();

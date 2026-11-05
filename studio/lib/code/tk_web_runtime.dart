@@ -23,7 +23,7 @@ import types
   static const flaskImports = r'''
 from collections import OrderedDict
 
-from flask import Flask, abort, g, jsonify, request
+from flask import Flask, abort, g, jsonify, request, send_from_directory
 from werkzeug.serving import make_server
 ''';
 
@@ -48,6 +48,13 @@ WIDGETS = r"""
 <button id="{{ w.name }}" type="button" class="tk" style="{{ w.style() }}" data-on="{{ w.on() }}"{% if w.disabled() %} disabled{% endif %}>{{ w.cget("text") }}</button>
 {%- elif w.kind == "Entry" -%}
 <input id="{{ w.name }}" type="{{ "password" if w.cget("show") else "text" }}" class="tk" style="{{ w.style() }}" data-on="{{ w.on() }}" data-value="text" value="{{ w.var.get() }}"{% if w.cget("state") == "readonly" %} readonly{% endif %}{% if w.disabled() %} disabled{% endif %}>
+{%- elif w.kind == "Password" -%}
+<div id="{{ w.name }}" class="tk tk-pass" style="{{ w.style() }}" data-on="{{ w.on() }}"><input type="{{ "text" if w.shown else "password" }}" data-value="text" value="{{ w.var.get() }}"{% if w.cget("maxlength") %} maxlength="{{ w.cget("maxlength") }}"{% endif %}{% if w.cget("hint") %} placeholder="{{ w.cget("hint") }}"{% endif %}{% if w.cget("state") == "readonly" %} readonly{% endif %}{% if w.disabled() %} disabled{% endif %}>
+{%- if w.cget("reveal") != False %}<button type="button" class="tk-eye" tabindex="-1" aria-label="show">{{ "\u25cb" if w.shown else "\u25c9" }}</button>{% endif -%}
+</div>
+{%- elif w.kind == "Image" -%}
+{%- if w.src() %}<img id="{{ w.name }}" class="tk tk-image" style="{{ w.style() }};object-fit:{{ w.object_fit() }}{% if w.cget("border") %};border:1px solid #000{% endif %}" src="{{ w.src() }}" alt="" data-on="{{ w.on() }}">
+{%- else %}<div id="{{ w.name }}" class="tk tk-image" style="{{ w.style() }}{% if w.cget("border") %};border:1px solid #000{% endif %}" data-on="{{ w.on() }}"></div>{% endif -%}
 {%- elif w.kind == "Text" -%}
 <textarea id="{{ w.name }}" class="tk" style="{{ w.style() }}" data-on="{{ w.on() }}" data-value="text" wrap="{{ "off" if w.cget("wrap") == "none" else "soft" }}"{% if w.disabled() %} disabled{% endif %}>
 {{ w.content }}</textarea>
@@ -75,8 +82,18 @@ WIDGETS = r"""
 </fieldset>
 {%- elif w.kind == "Menu" -%}
 <nav id="{{ w.name }}" class="tk-menu" style="width:{{ w.width }}px" data-on="{{ w.on() }}"><ul>{{ menu_items(w.cget("tree") or []) }}</ul></nav>
+{%- elif w.kind == "Ribbon" -%}
+<div id="{{ w.name }}" class="tk tk-ribbon" style="{{ w.style() }}" data-on="{{ w.on() }}" data-value="page" data-active="{{ w.active() }}"><div class="tk-rtabs" role="tablist">
+{%- for tab in w.tabs() %}<button type="button" role="tab" class="tk-rtab{% if loop.index0 == w.active() %} tk-on{% endif %}" data-page="{{ loop.index0 }}">{{ tab.label }}</button>{% endfor -%}
+</div>
+{%- for tab in w.tabs() %}<div class="tk-rbody" data-page="{{ loop.index0 }}"{% if loop.index0 != w.active() %} hidden{% endif %}>
+{%- for group in tab.groups %}<div class="tk-rgroup"><div class="tk-rbtns">
+{%- for b in group.buttons %}<button type="button" class="tk-rbtn" data-item="{{ b.path }}"{% if w.is_off(b.path) %} disabled{% endif %}>{% if b.glyph %}<span class="tk-rglyph">{{ b.glyph }}</span>{% endif %}<span>{{ b.label }}</span></button>{% endfor -%}
+</div><div class="tk-rcap">{{ group.label }}</div></div>{% endfor -%}
+</div>{% endfor -%}
+</div>
 {%- elif w.kind == "StatusBar" -%}
-<div id="{{ w.name }}" class="tk tk-status" style="{{ w.style() }}" data-on="{{ w.on() }}"><span>{{ w.cget("text") }}</span></div>
+<div id="{{ w.name }}" class="tk tk-status" style="{{ w.style() }}" data-on="{{ w.on() }}">{% if w.cget("icon") %}<span class="tk-sicon">{{ w.cget("icon") }}</span>{% endif %}<span>{{ w.cget("text") }}</span></div>
 {%- elif w.kind == "Progressbar" -%}
 <progress id="{{ w.name }}" class="tk tk-progress" style="{{ w.style() }}" data-on="{{ w.on() }}" max="{{ w.maximum() }}"{% if w.cget("mode") != "indeterminate" %} value="{{ w.current() }}"{% endif %}></progress>
 {%- elif w.kind == "PageControl" -%}
@@ -132,6 +149,12 @@ button.tk { cursor: pointer; padding: 0 6px; }
 .tk-grid tbody tr { cursor: pointer; }
 .tk-grid tr.tk-chosen td { background: #2b5797; color: #fff; }
 .tk-status { display: flex; align-items: center; padding: 0 6px; border-top: 1px solid #a8acb3; white-space: nowrap; overflow: hidden; }
+.tk-sicon { margin-right: 6px; }
+.tk-pass { display: flex; align-items: stretch; background: #fff; border: 1px solid #8a8f98; }
+.tk-pass input { flex: 1; min-width: 0; border: 0; padding: 2px 4px; font: inherit; background: transparent; color: inherit; }
+.tk-pass input:focus { outline: none; }
+.tk-eye { border: 0; background: none; padding: 0 6px; color: #6e7480; cursor: pointer; font: inherit; }
+.tk-image { display: block; }
 .tk-progress { padding: 0; }
 .tk-pages { border: 1px solid #8a8f98; background: inherit; }
 .tk-tabs { position: absolute; left: 0; top: 0; height: 24px; display: flex; gap: 2px; }
@@ -139,6 +162,20 @@ button.tk { cursor: pointer; padding: 0 6px; }
 .tk-tab.tk-on { background: #fff; font-weight: 600; }
 .tk-page { position: absolute; left: 0; right: 0; top: 24px; bottom: 0; border-top: 1px solid #8a8f98; }
 .tk-page[hidden] { display: none; }
+.tk-ribbon { background: #f3f3f3; border-bottom: 1px solid #d6d6d6; z-index: 10; }
+.tk-rtabs { display: flex; height: 24px; }
+.tk-rtab { font: inherit; padding: 0 12px; border: 0; background: none; color: #262626; cursor: pointer; }
+.tk-rtab.tk-on { background: #fff; color: #2b579a; border: 1px solid #d6d6d6; border-bottom-color: #fff; position: relative; top: 1px; }
+.tk-rbody { position: absolute; left: 0; right: 0; top: 24px; bottom: 0; display: flex; background: #fff; border-top: 1px solid #d6d6d6; overflow: hidden; }
+.tk-rbody[hidden] { display: none; }
+.tk-rgroup { display: flex; flex-direction: column; padding: 2px 4px 0; border-right: 1px solid #d6d6d6; }
+.tk-rbtns { flex: 1; display: flex; gap: 1px; }
+.tk-rbtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 44px; padding: 2px 6px; border: 1px solid transparent; background: none; font: inherit; color: #262626; cursor: pointer; }
+.tk-rbtn:hover:not(:disabled) { background: #e1ecfa; border-color: #c5d9f1; }
+.tk-rbtn:disabled { color: #a6a6a6; cursor: default; }
+.tk-rglyph { font-size: 20px; line-height: 1; color: #2b579a; }
+.tk-rbtn:disabled .tk-rglyph { color: #a6a6a6; }
+.tk-rcap { font-size: 11px; color: #6e6e6e; text-align: center; padding-bottom: 2px; }
 .tk-menu { margin: 0 auto; background: #f3f3f3; border-bottom: 1px solid #c8cbd0; position: relative; z-index: 20; }
 .tk-menu ul { list-style: none; margin: 0; padding: 0; }
 .tk-menu > ul { display: flex; }
@@ -155,7 +192,7 @@ button.tk { cursor: pointer; padding: 0 6px; }
 </head>
 <body style="background:{{ form.root.bg }}">
 {%- for w in form._menus() %}{{ widget(w) }}{% endfor -%}
-<main id="tk-form" class="tk-form" style="width:{{ form.root.width }}px;height:{{ form.root.height }}px;background:{{ form.root.bg }}" data-on="{{ form._keys("") }}">
+<main id="tk-form" class="tk-form" style="width:{{ form.root.width }}px;height:{{ form.root.height }}px;background:{{ form.root.bg }}{% if form.root.place_at %};margin:{{ form.root.place_at[1] }}px 0 0 {{ form.root.place_at[0] }}px{% endif %}" data-on="{{ form._keys("") }}">
 {%- for w in form._top() %}{{ widget(w) }}{% endfor -%}
 </main>
 <div id="tk-toast" role="alert" hidden></div>
@@ -246,6 +283,19 @@ button.tk { cursor: pointer; padding: 0 6px; }
     (reply.timers || []).forEach(function (t) {
       setTimeout(function () { post({ timer: t.id }); }, t.ms);
     });
+    (reply.downloads || []).forEach(function (file) {
+      var raw = atob(file.data);
+      var bytes = new Uint8Array(raw.length);
+      for (var i = 0; i < raw.length; i++) { bytes[i] = raw.charCodeAt(i); }
+      var url = URL.createObjectURL(new Blob([bytes], { type: file.type }));
+      var link = document.createElement("a");
+      link.href = url;
+      link.download = file.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
     (reply.notes || []).forEach(function (note) {
       say(typeof note === "string" ? note : text[note.key] || "");
     });
@@ -330,13 +380,36 @@ button.tk { cursor: pointer; padding: 0 6px; }
   });
 
   document.addEventListener("click", function (event) {
-    var choice = event.target.closest ? event.target.closest(".tk-menu [data-item]") : null;
+    var choice = event.target.closest ? event.target.closest(".tk-menu [data-item], .tk-ribbon [data-item]") : null;
     if (choice) {
-      var menu = choice.closest(".tk-menu");
+      var menu = choice.closest(".tk-menu, .tk-ribbon");
       if (document.activeElement) { document.activeElement.blur(); }
       if (has(menu, "command")) {
         post({ widget: menu.id, event: "command", data: { item: choice.dataset.item } });
       }
+      return;
+    }
+    var eye = event.target.closest ? event.target.closest(".tk-eye") : null;
+    if (eye) {
+      var secret = eye.parentNode.querySelector("input");
+      var reveal = secret.type === "password";
+      secret.type = reveal ? "text" : "password";
+      eye.textContent = reveal ? "\u25cb" : "\u25c9";
+      return;
+    }
+    var rtab = event.target.closest ? event.target.closest(".tk-rtab") : null;
+    if (rtab) {
+      var ribbon = rtab.closest(".tk-ribbon");
+      var shown = rtab.dataset.page;
+      if (ribbon.dataset.active === shown) { return; }
+      ribbon.dataset.active = shown;
+      ribbon.querySelectorAll(":scope > .tk-rtabs > .tk-rtab").forEach(function (t) {
+        t.classList.toggle("tk-on", t.dataset.page === shown);
+      });
+      ribbon.querySelectorAll(":scope > .tk-rbody").forEach(function (p) {
+        p.hidden = p.dataset.page !== shown;
+      });
+      fire(ribbon, "change", event);
       return;
     }
     var tab = event.target.closest ? event.target.closest(".tk-tab") : null;
@@ -462,6 +535,8 @@ class WebRoot:
         self.width = width
         self.height = height
         self.bg = css_color(bg)
+        # Posición manual (izquierda, arriba); sin ella, centrada.
+        self.place_at = None
 
     def title(self, text=None):
         if text is None:
@@ -880,6 +955,183 @@ class WebMenu(WebWidget):
         return found
 
 
+class WebRibbon(WebWidget):
+    """Office-style ribbon: tabs, groups and buttons at the top of the page."""
+
+    def tabs(self):
+        return list(self.options.get("tabs") or [])
+
+    def active(self):
+        index = self.options.get("active", 0)
+        count = len(self.tabs())
+        return index if isinstance(index, int) and 0 <= index < count else 0
+
+    def paths(self):
+        return [
+            b.get("path")
+            for t in self.tabs()
+            for g in t.get("groups", ())
+            for b in g.get("buttons", ())
+        ]
+
+    def select(self, index=None):
+        """With an index, show that tab; without one, the current index."""
+        if index is None:
+            return self.active()
+        self.options["active"] = int(index)
+        self.form._touch(self.name)
+        return self.active()
+
+    def enable(self, item, on=True):
+        """Grey out (False) or enable again (True) the button item."""
+        off = set(self.options.get("off") or ())
+        if on:
+            off.discard(item)
+        else:
+            off.add(item)
+        self.options["off"] = sorted(off)
+        self.form._touch(self.name)
+
+    def is_off(self, item):
+        return item in (self.options.get("off") or ())
+
+    def sync(self, value):
+        try:
+            index = int(value)
+        except (TypeError, ValueError):
+            return
+        if 0 <= index < len(self.tabs()):
+            self.options["active"] = index
+
+
+class WebStatus(WebWidget):
+    """Status bar: text and an optional icon at the left."""
+
+    def configure(self, **options):
+        if "icon" in options:
+            glyph = globals().get("_glyph")
+            icon = options["icon"]
+            options["icon"] = glyph(icon) if glyph else str(icon or "")
+        WebWidget.configure(self, **options)
+
+    config = configure
+
+    def set(self, text=None, icon=None):
+        """Change the text and/or the icon."""
+        options = {}
+        if text is not None:
+            options["text"] = text
+        if icon is not None:
+            options["icon"] = icon
+        self.configure(**options)
+
+
+class WebPassword(WebEntry):
+    """Password field: hidden text; visible(True) shows it."""
+
+    shown = False
+
+    def visible(self, on=True):
+        self.shown = bool(on)
+        self.form._touch(self.name)
+
+
+class WebImage(WebWidget):
+    """Image of the project's images folder (served by /images/...)."""
+
+    FITS = {"none": "none", "contain": "contain", "cover": "cover",
+            "stretch": "fill"}
+
+    def src(self):
+        path = str(self.options.get("file") or "").replace("\\", "/")
+        if not path.startswith("images/") or ".." in path.split("/"):
+            return ""
+        return "/" + path
+
+    def object_fit(self):
+        return self.FITS.get(self.options.get("fit") or "contain", "contain")
+
+    def load(self, path):
+        """Show another image (a path inside the project's images folder)."""
+        self.options["file"] = str(path)
+        self.form._touch(self.name)
+
+
+class WebSaveDialog:
+    """Saving from a page is a download: write_text(text), write_bytes(data)
+    or download(name, data) send the file to the browser. execute() cannot
+    ask for a place: it returns None.
+    """
+
+    def __init__(self, form, filename="", defaultext="", select=None,
+                 **options):
+        self.form = form
+        self.filename = filename or "file"
+        self.defaultext = defaultext
+        self.select = select
+
+    def with_extension(self, name):
+        ext = (self.defaultext or "").strip()
+        if ext and not ext.startswith("."):
+            ext = "." + ext
+        if ext and not os.path.splitext(name)[1]:
+            name += ext
+        return name
+
+    def download(self, name, data, type=None):
+        """Send data (str or bytes) to the browser as the file name."""
+        import base64
+
+        raw = data.encode("utf-8") if isinstance(data, str) else bytes(data)
+        name = self.with_extension(os.path.basename(str(name or self.filename)))
+        self.form._downloads.append({
+            "name": name,
+            "data": base64.b64encode(raw).decode("ascii"),
+            "type": type or "application/octet-stream",
+        })
+        if self.select:
+            self.select(name)
+        return name
+
+    def write_text(self, text, encoding="utf-8"):
+        return self.download(self.filename, str(text).encode(encoding))
+
+    def write_bytes(self, data):
+        return self.download(self.filename, data)
+
+    def execute(self):
+        self.form.notify(
+            "In a web app the browser downloads the file: use write_text() "
+            "or download()."
+        )
+        return None
+
+
+class WebOpenDialog:
+    """A page cannot open files of the user's computer from the server."""
+
+    filename = None
+    filenames = []
+
+    def __init__(self, form, **options):
+        self.form = form
+
+    def execute(self):
+        self.form.notify("Opening files is not available in a web app.")
+        return None
+
+    read_text = read_bytes = execute
+
+
+class WebNoTray:
+    """A page has no tray icon: every call does nothing."""
+
+    available = False
+
+    def __getattr__(self, name):
+        return lambda *args, **kwargs: None
+
+
 class WebProgress(WebWidget):
     """ttk.Progressbar: value, maximum, step, start and stop."""
 
@@ -951,6 +1203,10 @@ class WebPages(WebWidget):
 
 WEB_CLASSES = {
     "Menu": WebMenu,
+    "Ribbon": WebRibbon,
+    "StatusBar": WebStatus,
+    "Password": WebPassword,
+    "Image": WebImage,
     "Progressbar": WebProgress,
     "PageControl": WebPages,
     "Checkbutton": WebChoice,
@@ -1026,6 +1282,7 @@ class WebForm:
         self._notes = []
         self._timers = {}
         self._pending = []
+        self._downloads = []
         self._timer_id = 0
         self._render = None
 
@@ -1110,11 +1367,16 @@ class WebForm:
         key = str(data.get("event") or "")
         info = data.get("data") if isinstance(data.get("data"), dict) else {}
         widget = self._widgets.get(name)
-        if widget is not None and widget.kind == "Menu":
+        if widget is not None and widget.kind in ("Menu", "Ribbon"):
             item = str(info.get("item") or "")
             if key == "command" and item in widget.paths():
+                if widget.kind == "Ribbon" and widget.is_off(item):
+                    return self._reply()
                 for handler in self._handlers.get((name, key), ()):
                     self._call(handler, item)
+            elif key == "change" and widget.kind == "Ribbon":
+                for handler in self._handlers.get((name, key), ()):
+                    self._call(handler)
             return self._reply()
         for handler in self._handlers.get((name, key), ()):
             if key != "command":
@@ -1133,7 +1395,10 @@ class WebForm:
         }
         reply = dict(self._changes)
         reply.update(html=html, notes=self._notes, timers=self._pending)
+        if self._downloads:
+            reply["downloads"] = self._downloads
         self._dirty, self._changes, self._notes, self._pending = set(), {}, [], []
+        self._downloads = []
         return reply
 
     @staticmethod
@@ -1218,7 +1483,7 @@ def create_app(form_class):
         script = "script-src 'nonce-%s'; " % nonce if nonce else ""
         response.headers["Content-Security-Policy"] = (
             "default-src 'none'; " + script + "style-src 'unsafe-inline'; "
-            "img-src data:; connect-src 'self'; form-action 'none'; "
+            "img-src 'self' data:; connect-src 'self'; form-action 'none'; "
             "base-uri 'none'; frame-ancestors 'none'"
         )
         response.headers["X-Content-Type-Options"] = "nosniff"
@@ -1242,6 +1507,13 @@ def create_app(form_class):
         boot.update(width=form.root.width, height=form.root.height)
         g.nonce = secrets.token_urlsafe(16)
         return page.render(form=form, widget=render, boot=boot, nonce=g.nonce)
+
+    @app.get("/images/<path:name>")
+    def image(name):
+        """Only files of the project's images folder."""
+        find = globals().get("_project_file")
+        folder = find("images") if find else os.path.join(os.getcwd(), "images")
+        return send_from_directory(folder, name)
 
     @app.post("/event")
     def event():

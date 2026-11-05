@@ -39,6 +39,7 @@ class TkProp {
     this.choices = const [],
     this.always = false,
     this.refKind,
+    this.labels = const {},
   });
   final String key;
   final String label;
@@ -52,6 +53,10 @@ class TkProp {
 
   /// Clase de componente a la que apunta una referencia.
   final String? refKind;
+
+  /// Nombre que ve el usuario de cada opción de [choices] (marcado con
+  /// markTr; sin él, la opción tal cual).
+  final Map<String, String> labels;
 }
 
 /// Evento de un componente. Sin [sequences] es la opción `command`; con
@@ -114,7 +119,7 @@ class TkComponent {
 }
 
 /// Componentes que se pegan a un borde de la ventana: su posición no cuenta.
-const tkDocked = {'StatusBar', 'Menu'};
+const tkDocked = {'StatusBar', 'Menu', 'Ribbon'};
 
 /// Alto de la fila de pestañas de un control de páginas: los componentes de
 /// una página empiezan debajo.
@@ -172,6 +177,129 @@ List<TkMenuItem> tkMenuItems(String text) {
 List<String> tkMenuPaths(List<TkMenuItem> items) => [
   for (final i in items)
     if (!i.separator) ...(i.items.isEmpty ? [i.path] : tkMenuPaths(i.items)),
+];
+
+/// Botón de una cinta de opciones: [path] es la ruta que recibe el método
+/// (`Inicio/Portapapeles/Pegar`) y [glyph], el símbolo que lo ilustra.
+class TkRibbonButton {
+  const TkRibbonButton(this.label, this.glyph, this.path);
+  final String label, glyph, path;
+}
+
+/// Grupo de botones de una pestaña de la cinta.
+class TkRibbonGroup {
+  const TkRibbonGroup(this.label, this.buttons);
+  final String label;
+  final List<TkRibbonButton> buttons;
+}
+
+/// Pestaña de la cinta de opciones.
+class TkRibbonTab {
+  const TkRibbonTab(this.label, this.groups);
+  final String label;
+  final List<TkRibbonGroup> groups;
+}
+
+/// Símbolos de los botones de la cinta, por nombre. Todos del plano básico
+/// de Unicode: el Tk 8.6 no dibuja los emoji de fuera de él.
+const tkRibbonGlyphs = {
+  'new': '☐',
+  'open': '⏏',
+  'save': '⤓',
+  'print': '⎙',
+  'cut': '✂',
+  'copy': '⧉',
+  'paste': '⎘',
+  'clipboard': '⎘',
+  'bold': 'B',
+  'italic': 'I',
+  'underline': 'U',
+  'font': 'A',
+  'table': '▦',
+  'image': '▣',
+  'chart': '▥',
+  'find': '⌕',
+  'settings': '⚙',
+  'help': '?',
+  'info': 'ℹ',
+  'undo': '↶',
+  'redo': '↷',
+  'refresh': '⟳',
+  'delete': '✖',
+  'add': '✚',
+  'edit': '✎',
+  'user': '☺',
+  'mail': '✉',
+  'calendar': '▤',
+  'home': '⌂',
+  'play': '▶',
+  'stop': '■',
+  'star': '★',
+  'check': '✔',
+  'up': '▲',
+  'down': '▼',
+  'zoom': '⊕',
+  'left': '◀',
+  'right': '▶',
+};
+
+/// Símbolo de [icon]: un nombre de [tkRibbonGlyphs] o un carácter tal cual.
+String tkRibbonGlyph(String icon) {
+  final i = icon.trim();
+  if (i.isEmpty) return '';
+  return tkRibbonGlyphs[i.toLowerCase()] ?? (i.runes.length <= 2 ? i : '');
+}
+
+/// Pestañas de la cinta a partir de su texto: las líneas sin sangría son
+/// pestañas, con una sangría grupos y con más, botones (`Pegar | paste`).
+List<TkRibbonTab> tkRibbonTabs(String text) {
+  final tabs = <(String, List<(String, List<TkRibbonButton>)>)>[];
+  int? tabIndent, groupIndent;
+  String clean(String s) => s.trim().replaceAll('/', '-');
+  for (final raw in text.replaceAll('\t', '  ').split('\n')) {
+    if (raw.trim().isEmpty) continue;
+    final indent = raw.length - raw.trimLeft().length;
+    final line = raw.trim();
+    if (tabIndent == null || indent <= tabIndent) {
+      tabIndent = indent;
+      groupIndent = null;
+      tabs.add((clean(line), []));
+      continue;
+    }
+    final groups = tabs.last.$2;
+    if (groupIndent == null || indent <= groupIndent) {
+      groupIndent = indent;
+      groups.add((clean(line), []));
+      continue;
+    }
+    final bar = line.lastIndexOf('|');
+    final label = clean(bar < 0 ? line : line.substring(0, bar));
+    final glyph = bar < 0 ? '' : tkRibbonGlyph(line.substring(bar + 1));
+    if (label.isEmpty) continue;
+    final tab = tabs.last.$1;
+    final (group, buttons) = groups.last;
+    buttons.add(TkRibbonButton(label, glyph, '$tab/$group/$label'));
+  }
+  return [
+    for (final (label, groups) in tabs)
+      TkRibbonTab(label, [
+        for (final (g, buttons) in groups) TkRibbonGroup(g, buttons),
+      ]),
+  ];
+}
+
+/// Rutas de los botones de la cinta.
+List<String> tkRibbonPaths(List<TkRibbonTab> tabs) => [
+  for (final t in tabs)
+    for (final g in t.groups)
+      for (final b in g.buttons) b.path,
+];
+
+/// Cabeceras de una integración API: una por línea, `Nombre: valor`.
+List<(String, String)> tkApiHeaders(String text) => [
+  for (final l in text.split('\n'))
+    if (l.contains(':') && l.split(':').first.trim().isNotEmpty)
+      (l.split(':').first.trim(), l.substring(l.indexOf(':') + 1).trim()),
 ];
 
 /// Páginas de un control de páginas.
@@ -432,6 +560,66 @@ final tkComponents = <TkComponent>[
     ],
     [..._keyboard, ..._mouse],
   ),
+  TkComponent(
+    'Password',
+    markTr('Contraseña'),
+    152,
+    24,
+    [
+      TkProp(
+        'hint',
+        markTr('Texto de ayuda (vacío)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'reveal',
+        markTr('Botón para ver la contraseña'),
+        TkPropType.boolean,
+        def: true,
+      ),
+      TkProp(
+        'maxlength',
+        markTr('Longitud máxima (0 = sin límite)'),
+        TkPropType.integer,
+        def: 0,
+      ),
+      _bg,
+      _fg,
+      ..._font,
+      TkProp(
+        'state',
+        markTr('Estado'),
+        TkPropType.choice,
+        def: 'normal',
+        choices: const ['normal', 'disabled', 'readonly'],
+      ),
+    ],
+    [..._keyboard, ..._mouse],
+  ),
+  TkComponent('Image', markTr('Imagen'), 160, 120, [
+    TkProp(
+      'file',
+      markTr('Archivo (en la carpeta images del proyecto)'),
+      TkPropType.text,
+      def: '',
+    ),
+    TkProp(
+      'fit',
+      markTr('Ajuste'),
+      TkPropType.choice,
+      def: 'contain',
+      choices: const ['none', 'contain', 'cover', 'stretch'],
+      labels: {
+        'none': markTr('Tamaño original'),
+        'contain': markTr('Entera, sin deformar'),
+        'cover': markTr('Rellenar, recortando'),
+        'stretch': markTr('Estirar'),
+      },
+    ),
+    _bg,
+    TkProp('border', markTr('Borde'), TkPropType.boolean, def: false),
+  ], _mouse),
   TkComponent(
     'Text',
     markTr('Texto largo'),
@@ -751,10 +939,36 @@ final tkComponents = <TkComponent>[
   ),
   TkComponent('StatusBar', markTr('Barra de estado'), 400, 24, [
     _text,
+    TkProp(
+      'icon',
+      markTr('Icono (nombre, como en la cinta, o un carácter)'),
+      TkPropType.text,
+      def: '',
+    ),
     _bg,
     _fg,
     ..._font,
   ], _mouse),
+  TkComponent(
+    'Ribbon',
+    markTr('Cinta de opciones'),
+    400,
+    92,
+    [
+      TkProp(
+        'items',
+        markTr('Pestañas, grupos y botones (sangría; «Botón | icono»)'),
+        TkPropType.multiline,
+        def:
+            'Inicio\n  Portapapeles\n    Pegar | paste\n    Copiar | copy\n    Cortar | cut\n  Fuente\n    Negrita | bold\n    Cursiva | italic\nInsertar\n  Ilustraciones\n    Imagen | image\n    Gráfico | chart',
+      ),
+      TkProp('active', markTr('Pestaña activa'), TkPropType.integer, def: 0),
+    ],
+    [
+      TkEvent('command', markTr('Al pulsar un botón'), 'click', param: 'item'),
+      TkEvent('change', markTr('Al cambiar de pestaña'), 'change'),
+    ],
+  ),
   TkComponent(
     'Menu',
     markTr('Menú'),
@@ -793,6 +1007,201 @@ final tkComponents = <TkComponent>[
       TkProp('enabled', markTr('Activo'), TkPropType.boolean, def: true),
     ],
     [TkEvent('command', markTr('Cada intervalo'), 'timer')],
+    visual: false,
+  ),
+  TkComponent(
+    'RestClient',
+    markTr('Integración API'),
+    32,
+    32,
+    [
+      TkProp('base_url', markTr('URL base'), TkPropType.text, def: ''),
+      TkProp(
+        'auth',
+        markTr('Autenticación'),
+        TkPropType.choice,
+        def: 'none',
+        choices: const ['none', 'bearer', 'basic', 'header'],
+        labels: {
+          'none': markTr('Ninguna'),
+          'bearer': markTr('Token (Bearer)'),
+          'basic': markTr('Básica (usuario y contraseña)'),
+          'header': markTr('Clave en una cabecera'),
+        },
+      ),
+      TkProp(
+        'token_env',
+        markTr('Variable con el token o la clave'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'token',
+        markTr('Token o clave (mejor en una variable)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp('user', markTr('Usuario (básica)'), TkPropType.text, def: ''),
+      TkProp(
+        'password_env',
+        markTr('Variable con la contraseña (básica)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'header_name',
+        markTr('Cabecera de la clave'),
+        TkPropType.text,
+        def: 'X-API-Key',
+      ),
+      TkProp(
+        'headers',
+        markTr('Cabeceras (Nombre: valor; {{variable}})'),
+        TkPropType.multiline,
+        def: '',
+      ),
+      TkProp(
+        'timeout',
+        markTr('Tiempo máximo (s)'),
+        TkPropType.integer,
+        def: 30,
+      ),
+    ],
+    [
+      TkEvent(
+        'done',
+        markTr('Al terminar una llamada'),
+        'done',
+        param: 'result',
+      ),
+      TkEvent('error', markTr('Si falla una llamada'), 'error', param: 'error'),
+    ],
+    visual: false,
+  ),
+  TkComponent(
+    'TrayIcon',
+    markTr('Icono de bandeja'),
+    32,
+    32,
+    [
+      TkProp(
+        'tooltip',
+        markTr('Texto al pasar el ratón'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'icon',
+        markTr('Imagen (ruta en el proyecto; vacía = una de serie)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'items',
+        markTr('Menú (una opción por línea; - = separador)'),
+        TkPropType.multiline,
+        def: 'Mostrar\n-\nSalir',
+      ),
+    ],
+    [
+      TkEvent('click', markTr('Al hacer clic en el icono'), 'click'),
+      TkEvent(
+        'command',
+        markTr('Al elegir una opción del menú'),
+        'menu',
+        param: 'item',
+      ),
+    ],
+    visual: false,
+  ),
+  TkComponent(
+    'OpenDialog',
+    markTr('Diálogo Abrir'),
+    32,
+    32,
+    [
+      TkProp('title', markTr('Título'), TkPropType.text, def: ''),
+      TkProp(
+        'filter',
+        markTr('Tipos (una línea: «Texto|*.txt» o «Imágenes|*.png;*.jpg»)'),
+        TkPropType.multiline,
+        def: '',
+      ),
+      TkProp(
+        'defaultext',
+        markTr('Extensión por defecto'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'initialdir',
+        markTr('Carpeta inicial (vacía = la última)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'multiple',
+        markTr('Elegir varios archivos'),
+        TkPropType.boolean,
+        def: false,
+      ),
+    ],
+    [
+      TkEvent(
+        'select',
+        markTr('Al elegir un archivo'),
+        'select',
+        param: 'path',
+      ),
+    ],
+    visual: false,
+  ),
+  TkComponent(
+    'SaveDialog',
+    markTr('Diálogo Guardar'),
+    32,
+    32,
+    [
+      TkProp('title', markTr('Título'), TkPropType.text, def: ''),
+      TkProp(
+        'filter',
+        markTr('Tipos (una línea: «Texto|*.txt» o «Imágenes|*.png;*.jpg»)'),
+        TkPropType.multiline,
+        def: '',
+      ),
+      TkProp(
+        'defaultext',
+        markTr('Extensión por defecto'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'initialdir',
+        markTr('Carpeta inicial (vacía = la última)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'filename',
+        markTr('Nombre del archivo'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'overwrite',
+        markTr('Preguntar antes de sobrescribir'),
+        TkPropType.boolean,
+        def: true,
+      ),
+    ],
+    [
+      TkEvent(
+        'select',
+        markTr('Al elegir un archivo'),
+        'select',
+        param: 'path',
+      ),
+    ],
     visual: false,
   ),
   TkComponent(
@@ -855,7 +1264,40 @@ final tkFormTopmost = TkProp(
   TkPropType.boolean,
   def: false,
 );
-final tkFormProps = [tkFormTitle, tkFormBg, tkFormResizable, tkFormTopmost];
+
+/// Dónde se abre la ventana. Las ventanas nuevas se centran; las que ya
+/// existían siguen donde las ponga el sistema.
+final tkFormPosition = TkProp(
+  'position',
+  markTr('Posición'),
+  TkPropType.choice,
+  def: 'default',
+  choices: const ['default', 'center', 'manual'],
+  labels: {
+    'default': markTr('Por defecto'),
+    'center': markTr('Centrada en la pantalla'),
+    'manual': markTr('Manual'),
+  },
+);
+final tkFormLeft = TkProp(
+  'left',
+  markTr('Izquierda'),
+  TkPropType.integer,
+  def: 0,
+);
+final tkFormTop = TkProp('top', markTr('Arriba'), TkPropType.integer, def: 0);
+final tkFormProps = [
+  tkFormTitle,
+  tkFormBg,
+  tkFormPosition,
+  tkFormLeft,
+  tkFormTop,
+  tkFormResizable,
+  tkFormTopmost,
+];
+
+/// Propiedades de la ventana que solo cuentan con la posición manual.
+const tkFormManualProps = {'left', 'top'};
 
 /// Mensaje de una unidad sin la clase de la ventana.
 String tkMissingClass(String form) =>
@@ -907,6 +1349,16 @@ const tkReserved = {
   'FormDesign',
   'ColorButton',
   'DesignTimer',
+  'DesignRibbon',
+  'DesignStatus',
+  'DesignTray',
+  'DesignPassword',
+  'DesignImage',
+  'DesignOpenDialog',
+  'DesignSaveDialog',
+  'GLYPHS',
+  'ApiClient',
+  'ApiError',
 };
 
 /// ¿Sirve [s] como identificador en el archivo generado?
@@ -919,6 +1371,13 @@ const tkWebReserved = {
   'DesignTimer',
   'WebMenu',
   'WebPages',
+  'WebRibbon',
+  'WebStatus',
+  'WebNoTray',
+  'WebImage',
+  'WebSaveDialog',
+  'WebOpenDialog',
+  'GLYPHS',
   'WebProgress',
   'ErpClient',
   'Flask',
@@ -980,7 +1439,7 @@ const tkWebNoFormEvents = {'close', 'resize'};
 const tkWebNoFormProps = {'resizable', 'topmost'};
 
 /// Componentes sin equivalente en una página.
-const tkWebNoKinds = {'Canvas'};
+const tkWebNoKinds = {'Canvas', 'TrayIcon', 'OpenDialog'};
 
 /// ¿Tiene equivalente web el evento [e] de un componente ([form]: la ventana)?
 bool tkWebHasEvent(TkEvent e, {bool form = false}) =>
@@ -988,11 +1447,18 @@ bool tkWebHasEvent(TkEvent e, {bool form = false}) =>
 
 /// Por qué el componente [kind] no funciona igual en una aplicación web (null
 /// si funciona).
-String? tkWebGap(String kind) => tkWebNoKinds.contains(kind)
-    ? tr(
-        'En una aplicación web el lienzo no dibuja: se ve el recuadro vacío, porque el código corre en el servidor y sus métodos de dibujo no existen.',
-      )
-    : null;
+String? tkWebGap(String kind) => switch (kind) {
+  'Canvas' => tr(
+    'En una aplicación web el lienzo no dibuja: se ve el recuadro vacío, porque el código corre en el servidor y sus métodos de dibujo no existen.',
+  ),
+  'TrayIcon' => tr(
+    'Una página web no puede poner un icono en la barra del sistema: en una aplicación web este componente no hace nada.',
+  ),
+  'OpenDialog' => tr(
+    'En una aplicación web el código corre en el servidor y no puede abrir archivos del equipo del usuario: execute() devuelve None y avisa en la página.',
+  ),
+  _ => null,
+};
 
 /// Componente colocado en la ventana.
 class TkWidget {
@@ -1090,7 +1556,7 @@ class TkDesign {
     Map<String, Object?>? props,
     Map<String, String>? events,
     List<TkWidget>? widgets,
-  }) : props = props ?? {},
+  }) : props = props ?? {'position': 'center'},
        events = events ?? {},
        widgets = widgets ?? [];
 
@@ -1169,6 +1635,18 @@ class TkDesign {
 
   /// El menú de la ventana, si tiene.
   TkWidget? get menu => widgets.where((w) => w.kind == 'Menu').firstOrNull;
+
+  /// La cinta de opciones de la ventana, si tiene.
+  TkWidget? get ribbon => widgets.where((w) => w.kind == 'Ribbon').firstOrNull;
+
+  /// Pestaña que se ve de la cinta [w].
+  int ribbonTab(TkWidget w) {
+    final n = tkRibbonTabs(w.text('items')).length;
+    if (n == 0) return 0;
+    final a = w.props['active'];
+    final i = a is num ? a.toInt() : int.tryParse('${a ?? ''}') ?? 0;
+    return i.clamp(0, n - 1);
+  }
 
   /// El componente de la clase [kind] al que apunta la referencia [name].
   TkWidget? reference(String name, String kind) {
@@ -1307,6 +1785,14 @@ class TkDesign {
       if (w.kind == 'Menu' && menu != w) {
         out.add(
           tr('Una ventana solo puede tener un menú: sobra «{0}».', [w.name]),
+        );
+      }
+      if (w.kind == 'Ribbon' && ribbon != w) {
+        out.add(
+          tr(
+            'Una ventana solo puede tener una cinta de opciones: sobra «{0}».',
+            [w.name],
+          ),
         );
       }
       // En el estudio no hay un ERP detrás: cada conexión de datos lee de

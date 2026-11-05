@@ -264,6 +264,16 @@ class TkRunner {
   }
 
   /// Orden exacta para instalar Flask (null: ya está).
+  /// Orden exacta para instalar lo que necesita el icono de bandeja (null:
+  /// ya está).
+  static Future<String?> missingTray(TkPython py) async {
+    if (await _hasModule(py, 'pystray') && await _hasModule(py, 'PIL')) {
+      return null;
+    }
+    return '"${py.command}"${py.args.map((a) => ' $a').join()} '
+        '-m pip install pystray pillow';
+  }
+
   static Future<String?> missingFlask(TkPython py) async {
     if (await _hasModule(py, 'flask')) return null;
     return '"${py.command}"${py.args.map((a) => ' $a').join()} '
@@ -287,6 +297,10 @@ class TkRunner {
   /// Variables de entorno de la ventana: lo único por donde le llegan las
   /// contraseñas de sus conexiones. Nunca al archivo generado ni al diseño.
   static Map<String, String> environment(TkPrepared p) => {
+    for (final e in p.vars.entries)
+      if (e.key.trim().isNotEmpty)
+        'DMSTUDIO_ENV_${e.key.trim().replaceAll(RegExp(r'[^A-Za-z0-9_]'), '_').toUpperCase()}':
+            e.value,
     for (final l in p.links)
       ...() {
         final prefix = 'DMSTUDIO_DB_${l.component.toUpperCase()}_';

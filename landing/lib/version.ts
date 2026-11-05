@@ -1,2 +1,2 @@
 /** Versión publicada de DMarlon Studio (la cambia scripts/version.mjs). */
-export const VERSION = "1.0.5";
+export const VERSION = "1.0.6";

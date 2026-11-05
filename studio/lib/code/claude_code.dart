@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 
+import '../core/ai_usage.dart';
 import '../core/errors.dart';
 import '../i18n/tr.dart';
 
@@ -89,6 +90,7 @@ When the user asks for interface changes, edit the design in project.dmsproj (ke
     required void Function(ClaudeCodeStep step) onStep,
   }) async {
     if (running) throw UserError(tr('Claude Code ya está trabajando.'));
+    await AiUsage.check(project: dir);
     final exe = exeOverride ?? find();
     if (exe == null) {
       throw UserError(
@@ -192,6 +194,19 @@ When the user asks for interface changes, edit the design in project.dmsproj (ke
         case 'result':
           gotResult = true;
           final cost = e['total_cost_usd'];
+          final usage = (e['usage'] as Map?) ?? const {};
+          final models = (e['modelUsage'] as Map?)?.keys.toList() ?? [];
+          int n(String k) => (usage[k] as num?)?.toInt() ?? 0;
+          await AiUsage.record(
+            project: dir,
+            tool: 'claude_code',
+            model: models.isEmpty ? 'claude-code' : models.join(', '),
+            input: n('input_tokens'),
+            output: n('output_tokens'),
+            cacheRead: n('cache_read_input_tokens'),
+            cacheWrite: n('cache_creation_input_tokens'),
+            cost: cost is num ? cost.toDouble() : null,
+          );
           if (e['is_error'] == true) {
             add(
               ClaudeCodeStep(

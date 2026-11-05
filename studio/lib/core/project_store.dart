@@ -508,6 +508,8 @@ class ProjectStore {
     final source = TkCodegen.generate(x.design, x.code);
     final links = await _links(x.design);
     final file = await writeBuild(x, source);
+    // Solo las ventanas con una integración API reciben las variables.
+    final api = x.design.widgets.any((w) => w.kind == 'RestClient');
     return TkPrepared(
       id: dir,
       name: x.name,
@@ -515,6 +517,8 @@ class ProjectStore {
       file: file,
       links: links,
       web: x.isWeb,
+      vars: api ? await DevTools.env() : const {},
+      tray: !x.isWeb && x.design.widgets.any((w) => w.kind == 'TrayIcon'),
     );
   }
 }

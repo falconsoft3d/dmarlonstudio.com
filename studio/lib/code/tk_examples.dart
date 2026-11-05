@@ -60,6 +60,8 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _contacts(t),
   _stopwatch(t),
   _customer(t),
+  _notes(t),
+  _apiQuery(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
@@ -85,6 +87,22 @@ List<TkExample> tkWebExamples(String Function(String) t) => [
     'web_stopwatch',
     t(markTr('Cronómetro web')),
     t(markTr('El cronómetro de escritorio, con el mismo código, en Flask.')),
+  ),
+  _web(
+    _notes(t),
+    'web_notes',
+    t(markTr('Editor de notas web')),
+    t(
+      markTr(
+        'El editor de notas en Flask: guardar descarga el archivo en el navegador.',
+      ),
+    ),
+  ),
+  _web(
+    _apiQuery(t),
+    'web_api',
+    t(markTr('Consulta API web')),
+    t(markTr('La consulta a una API, con el mismo código, en Flask.')),
   ),
   _web(
     _customer(t),
@@ -1146,6 +1164,204 @@ TkExample _customer(String Function(String) t) {
     t(
       markTr(
         'Ficha con un control de páginas, listas desplegables, una lista y barra de estado.',
+      ),
+    ),
+    design,
+    code,
+  );
+}
+
+// ------------------------------------------------------- editor de notas
+TkExample _notes(String Function(String) t) {
+  final home = t(markTr('Inicio')), file = t(markTr('Archivo'));
+  final edit = t(markTr('Edición')), insert = t(markTr('Insertar'));
+  final dates = t(markTr('Fechas'));
+  final newDoc = t(markTr('Nuevo')), open = t(markTr('Abrir'));
+  final save = t(markTr('Guardar')), upper = t(markTr('Mayúsculas'));
+  final lower = t(markTr('Minúsculas')), clear = t(markTr('Borrar todo'));
+  final today = t(markTr('Fecha')), now = t(markTr('Hora'));
+  final items = [
+    home,
+    '  $file',
+    '    $newDoc | new',
+    '    $open | open',
+    '    $save | save',
+    '  $edit',
+    '    $upper | up',
+    '    $lower | down',
+    '    $clear | delete',
+    insert,
+    '  $dates',
+    '    $today | calendar',
+    '    $now | refresh',
+  ].join('\n');
+  final filter =
+      '${t(markTr('Texto'))}|*.txt\n'
+      '${t(markTr('Markdown'))}|*.md';
+  final design =
+      TkDesign(
+          width: 560,
+          height: 400,
+          props: {'title': t(markTr('Editor de notas')), 'position': 'center'},
+          events: {'create': 'form_create'},
+        )
+        ..widgets.addAll([
+          _w(
+            'Ribbon',
+            'Ribbon1',
+            0,
+            0,
+            560,
+            92,
+            {'items': items},
+            {'command': 'Ribbon1_click'},
+          ),
+          _w('Text', 'Note', 8, 100, 544, 268, {'wrap': 'word'}),
+          _w('OpenDialog', 'OpenNote', 520, 100, 32, 32, {
+            'title': t(markTr('Abrir una nota')),
+            'filter': filter,
+          }),
+          _w('SaveDialog', 'SaveNote', 520, 140, 32, 32, {
+            'title': t(markTr('Guardar la nota')),
+            'filter': filter,
+            'defaultext': '.txt',
+            'filename': t(markTr('nota.txt')),
+          }),
+          _w('StatusBar', 'Status', 0, 376, 560, 24, {
+            'text': t(markTr('Nota nueva')),
+            'icon': 'edit',
+          }),
+        ]);
+  String py(String s) => TkPy.str(s);
+  final code =
+      '''import datetime
+
+
+class Form1(FormDesign):
+    def form_create(self):
+        self.Note.focus_set()
+
+    def text(self):
+        return self.Note.get("1.0", "end-1c")
+
+    def set_text(self, text):
+        self.Note.delete("1.0", "end")
+        self.Note.insert("1.0", text)
+
+    def Ribbon1_click(self, item):
+        if item == ${py('$home/$file/$newDoc')}:
+            self.set_text("")
+            self.Status.set(${py(t(markTr('Nota nueva')))}, icon="new")
+        elif item == ${py('$home/$file/$open')}:
+            found = self.OpenNote.read_text()
+            if found:
+                path, text = found
+                self.set_text(text)
+                self.Status.set(path, icon="open")
+        elif item == ${py('$home/$file/$save')}:
+            path = self.SaveNote.write_text(self.text())
+            if path:
+                self.Status.set(${py(t(markTr('Guardada: {0}')))}.format(path), icon="check")
+        elif item == ${py('$home/$edit/$upper')}:
+            self.set_text(self.text().upper())
+        elif item == ${py('$home/$edit/$lower')}:
+            self.set_text(self.text().lower())
+        elif item == ${py('$home/$edit/$clear')}:
+            self.set_text("")
+        elif item == ${py('$insert/$dates/$today')}:
+            self.Note.insert("end", datetime.date.today().isoformat())
+        elif item == ${py('$insert/$dates/$now')}:
+            self.Note.insert("end", datetime.datetime.now().strftime("%H:%M"))
+''';
+  return TkExample(
+    'notes',
+    t(markTr('Editor de notas')),
+    t(
+      markTr(
+        'Editor con cinta de opciones, diálogos Abrir y Guardar y barra de estado con icono.',
+      ),
+    ),
+    design,
+    code,
+  );
+}
+
+// ---------------------------------------------------------- consulta API
+TkExample _apiQuery(String Function(String) t) {
+  final design =
+      TkDesign(
+          width: 560,
+          height: 400,
+          props: {'title': t(markTr('Consulta API')), 'position': 'center'},
+        )
+        ..widgets.addAll([
+          _w('Label', 'LblKey', 16, 16, 120, 24, {
+            'text': t(markTr('Clave (opcional)')),
+            'anchor': 'w',
+          }),
+          _w('Password', 'ApiKey', 136, 16, 200, 24, {
+            'hint': t(markTr('Solo si la API la pide')),
+          }),
+          _w(
+            'Button',
+            'BtnLoad',
+            352,
+            12,
+            120,
+            32,
+            {'text': t(markTr('Cargar'))},
+            {'command': 'BtnLoad_click'},
+          ),
+          _w('Treeview', 'Users', 16, 56, 528, 304, {
+            'columns': [
+              'id|#|40',
+              'name|${t(markTr('Nombre'))}|180',
+              'email|${t(markTr('Correo'))}|180',
+              'city|${t(markTr('Ciudad'))}|120',
+            ].join('\n'),
+          }),
+          _w(
+            'RestClient',
+            'Api',
+            496,
+            8,
+            32,
+            32,
+            {'base_url': 'https://jsonplaceholder.typicode.com', 'timeout': 15},
+            {'done': 'Api_done', 'error': 'Api_error'},
+          ),
+          _w('StatusBar', 'Status', 0, 376, 560, 24, {
+            'text': t(markTr('Pulse Cargar para leer los usuarios.')),
+            'icon': 'info',
+          }),
+        ]);
+  String py(String s) => TkPy.str(s);
+  final code =
+      '''class Form1(FormDesign):
+    def BtnLoad_click(self):
+        key = self.ApiKey.get().strip()
+        self.Api.headers = "X-Api-Key: " + key if key else ""
+        self.Status.set(${py(t(markTr('Cargando…')))}, icon="refresh")
+        self.Api.get_async("users")
+
+    def Api_done(self, result):
+        self.Users.delete(*self.Users.get_children())
+        for user in result or []:
+            city = (user.get("address") or {}).get("city", "")
+            self.Users.insert(
+                "", "end", values=(user.get("id"), user.get("name"), user.get("email"), city)
+            )
+        self.Status.set(${py(t(markTr('{0} usuarios')))}.format(len(result or [])), icon="check")
+
+    def Api_error(self, error):
+        self.Status.set(str(error), icon="delete")
+''';
+  return TkExample(
+    'api_query',
+    t(markTr('Consulta API')),
+    t(
+      markTr(
+        'Lee una API JSON en segundo plano y la muestra en una tabla, con una clave opcional.',
       ),
     ),
     design,

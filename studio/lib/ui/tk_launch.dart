@@ -64,6 +64,14 @@ Future<TkRun?> launchTkApp(BuildContext context, String id) async {
       return null;
     }
   }
+  if (prepared.tray) {
+    final install = await TkRunner.missingTray(py);
+    if (!context.mounted) return null;
+    if (install != null && !await showTkTrayMissing(context, install)) {
+      return null;
+    }
+    if (!context.mounted) return null;
+  }
   final messenger = ScaffoldMessenger.maybeOf(context);
   final run = await runAction(context, () => TkRunner.start(prepared));
   if (run == null) return null;
@@ -124,6 +132,50 @@ Future<void> showTkFlaskMissing(
     ],
   ),
 );
+
+/// Faltan pystray y Pillow para el icono de bandeja: la orden para
+/// instalarlos. Se puede ejecutar igualmente (sin icono). Devuelve si se
+/// ejecuta.
+Future<bool> showTkTrayMissing(BuildContext context, String install) async =>
+    await showDialog<bool>(
+      context: context,
+      builder: (c) => AlertDialog(
+        key: const ValueKey('tk-tray-missing'),
+        title: Text(tr('Faltan pystray y Pillow')),
+        content: SizedBox(
+          width: 460,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tr(
+                  'El icono de bandeja necesita pystray y Pillow en el Python de este equipo. Instálelos con esta orden:',
+                ),
+              ),
+              const SizedBox(height: 8),
+              SelectableText(
+                install,
+                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+              ),
+              const SizedBox(height: 8),
+              Text(tr('Sin ellos, la ventana funciona pero sin el icono.')),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(c, false),
+            child: Text(tr('Cancelar')),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(c, true),
+            child: Text(tr('Ejecutar sin icono')),
+          ),
+        ],
+      ),
+    ) ??
+    false;
 
 /// Falta Python o le falta tkinter: qué instalar.
 Future<void> showTkPythonMissing(

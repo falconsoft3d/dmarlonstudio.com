@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
+import '../core/ai_usage.dart';
 import '../core/errors.dart';
 import '../i18n/tr.dart';
 import 'assistant.dart';
@@ -244,7 +245,14 @@ Work like a careful senior engineer:
       }
       final text = utf8.decode(res.bodyBytes);
       if (res.statusCode == 200) {
-        return (jsonDecode(text) as Map).cast<String, Object?>();
+        final body = (jsonDecode(text) as Map).cast<String, Object?>();
+        await AiUsage.recordAnthropic(
+          body,
+          fallbackModel: model,
+          project: root,
+          tool: 'claude_agent',
+        );
+        return body;
       }
       final msg = aiErrorOf(text);
       // Una cuenta o un modelo sin fallbacks del servidor: sin ellos.
@@ -273,6 +281,7 @@ Work like a careful senior engineer:
     });
     for (var step = 0; step < maxSteps; step++) {
       if (_cancelled) return tr('Detenido.');
+      await AiUsage.check(project: root);
       final r = await _send();
       final content = ((r['content'] as List?) ?? const []).cast<Map>();
       final stop = r['stop_reason'];

@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.8 — 2026-11-05
+
+- Diseñador: componente **Gráfico** (líneas, área, barras y velas) para
+  escritorio y web, con leyenda, rejilla, formato de los números, tooltip al
+  pasar el ratón y puntos en vivo (`set_series`, `add_point`, `set_candles`).
+- Demos nuevas: **Ventas mensuales** (gráfico de líneas, área o barras, con
+  modo en vivo) y **Bolsa de valores** (velas, media móvil, volumen y
+  cotización en vivo con datos simulados), también en web.
+
 ## 1.0.7 — 2026-11-05
 
 - Diseñador: **pestañas de proyectos**. Varios proyectos abiertos a la vez,

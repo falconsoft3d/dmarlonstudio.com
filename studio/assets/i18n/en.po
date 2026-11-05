@@ -294,6 +294,10 @@ msgid "Base"
 msgstr "Base"
 
 #: lib/code/tk_examples.dart
+msgid "Bolsa de valores web"
+msgstr "Stock market (web)"
+
+#: lib/code/tk_examples.dart
 msgid "Borrar"
 msgstr "Clear"
 
@@ -393,7 +397,7 @@ msgstr "Web stopwatch"
 msgid "De"
 msgstr "From"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart
 msgid "Decimales"
 msgstr "Decimals"
 
@@ -469,6 +473,10 @@ msgstr "New record"
 msgid "General"
 msgstr "General"
 
+#: lib/code/tk_examples.dart
+msgid "Gráfico de líneas web"
+msgstr "Line chart (web)"
+
 #: lib/code/tk_examples.dart lib/code/tk_showcase_web.dart
 msgid "Guardada: {0}"
 msgstr "Saved: {0}"
@@ -516,6 +524,14 @@ msgstr "The API query, with the same code, in Flask."
 #: lib/code/tk_examples.dart
 msgid "La ficha de cliente con páginas, con el mismo código, en Flask."
 msgstr "The customer record with pages, with the same code, in Flask."
+
+#: lib/code/tk_examples.dart
+msgid "Las velas y la cotización simulada, con el mismo código, en Flask."
+msgstr "The candles and the simulated quote, with the same code, in Flask."
+
+#: lib/code/tk_examples.dart
+msgid "Las ventas mensuales, con el mismo código, en Flask."
+msgstr "The monthly sales, with the same code, in Flask."
 
 #: lib/code/tk_examples.dart
 msgid "Lee los contactos de un Odoo o un ERPSqlite con su API XML-RPC (en ERPSqlite: Ajustes → API externa). La clave no se guarda."
@@ -657,7 +673,7 @@ msgstr "Temperature"
 msgid "Texto"
 msgstr "Text"
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
 msgid "Tipo"
 msgstr "Type"
 
@@ -742,6 +758,10 @@ msgid "Al hacer clic en el icono"
 msgstr "On icon click"
 
 #: lib/code/tk_model.dart
+msgid "Al hacer clic en un punto"
+msgstr "On clicking a point"
+
+#: lib/code/tk_model.dart
 msgid "Al pulsar"
 msgstr "On press"
 
@@ -784,6 +804,10 @@ msgstr "Status bar"
 #: lib/code/tk_model.dart
 msgid "Barra de progreso"
 msgstr "Progress bar"
+
+#: lib/code/tk_model.dart lib/code/tk_showcase.dart
+msgid "Barras"
+msgstr "Bars"
 
 #: lib/code/tk_model.dart
 msgid "Borde"
@@ -974,6 +998,10 @@ msgid "Grupo"
 msgstr "Group"
 
 #: lib/code/tk_model.dart
+msgid "Gráfico"
+msgstr "Chart"
+
+#: lib/code/tk_model.dart
 msgid "Hasta"
 msgstr "Until"
 
@@ -1010,6 +1038,10 @@ msgid "Justificación"
 msgstr "Justification"
 
 #: lib/code/tk_model.dart
+msgid "Leyenda"
+msgstr "Legend"
+
+#: lib/code/tk_model.dart
 msgid "Lienzo"
 msgstr "Canvas"
 
@@ -1028,6 +1060,10 @@ msgstr "Maximum length (0 = no limit)"
 #: lib/code/tk_model.dart
 msgid "Límite"
 msgstr "Limit"
+
+#: lib/code/tk_model.dart lib/code/tk_showcase.dart
+msgid "Líneas"
+msgstr "Lines"
 
 #: lib/code/tk_model.dart
 msgid "Manual"
@@ -1122,8 +1158,16 @@ msgid "Posición"
 msgstr "Position"
 
 #: lib/code/tk_model.dart
+msgid "Prefijo de los valores"
+msgstr "Value prefix"
+
+#: lib/code/tk_model.dart
 msgid "Preguntar antes de sobrescribir"
 msgstr "Ask before overwriting"
+
+#: lib/code/tk_model.dart
+msgid "Puntos como máximo (0 = todos)"
+msgstr "Maximum points (0 = all)"
 
 #: lib/code/tk_model.dart
 msgid "Página activa"
@@ -1140,6 +1184,10 @@ msgstr "Focus in"
 #: lib/code/tk_model.dart
 msgid "Redimensionable"
 msgstr "Resizable"
+
+#: lib/code/tk_model.dart
+msgid "Rejilla"
+msgstr "Grid"
 
 #: lib/code/tk_model.dart
 msgid "Relieve"
@@ -1168,6 +1216,10 @@ msgstr "Always on top"
 #: lib/code/tk_model.dart
 msgid "Soltar el botón"
 msgstr "Button release"
+
+#: lib/code/tk_model.dart
+msgid "Sufijo de los valores (p. ej. « €»)"
+msgstr "Value suffix (e.g. “ €”)"
 
 #: lib/code/tk_model.dart
 msgid "Tabla de datos"
@@ -1238,6 +1290,14 @@ msgid "Título"
 msgstr "Title"
 
 #: lib/code/tk_model.dart
+msgid "Título del eje X"
+msgstr "X axis title"
+
+#: lib/code/tk_model.dart
+msgid "Título del eje Y"
+msgstr "Y axis title"
+
+#: lib/code/tk_model.dart
 msgid "URL base"
 msgstr "Base URL"
 
@@ -1270,6 +1330,10 @@ msgid "Variable con la contraseña (básica)"
 msgstr "Variable with the password (basic)"
 
 #: lib/code/tk_model.dart
+msgid "Velas (bolsa)"
+msgstr "Candles (stock market)"
+
+#: lib/code/tk_model.dart
 msgid "«{0}» está en un marco que no existe."
 msgstr "“{0}” is in a frame that does not exist."
 
@@ -1288,6 +1352,10 @@ msgstr "“{0}” is not a valid method name."
 #: lib/code/tk_model.dart
 msgid "«{0}» no tiene conexión: elija una de las guardadas en Bases de datos."
 msgstr "“{0}” has no connection: choose one of those saved in Databases."
+
+#: lib/code/tk_model.dart lib/code/tk_showcase.dart
+msgid "Áreas"
+msgstr "Areas"
 
 #: lib/code/tk_run_io.dart
 msgid ""
@@ -1342,6 +1410,18 @@ msgid "(sin contacto)"
 msgstr "(no contact)"
 
 #: lib/code/tk_showcase.dart
+msgid "1D"
+msgstr "1D"
+
+#: lib/code/tk_showcase.dart
+msgid "1M"
+msgstr "1M"
+
+#: lib/code/tk_showcase.dart
+msgid "1S"
+msgstr "1W"
+
+#: lib/code/tk_showcase.dart
 msgid "A"
 msgstr "To"
 
@@ -1352,6 +1432,10 @@ msgstr "Open a text file"
 #: lib/code/tk_showcase.dart
 msgid "Abrir…"
 msgstr "Open…"
+
+#: lib/code/tk_showcase.dart
+msgid "Accesorios"
+msgstr "Accessories"
 
 #: lib/code/tk_showcase.dart
 msgid "Actualizar los tipos"
@@ -1370,12 +1454,20 @@ msgid "Añadir cita"
 msgstr "Add appointment"
 
 #: lib/code/tk_showcase.dart
+msgid "Año"
+msgstr "Year"
+
+#: lib/code/tk_showcase.dart
 msgid "Bloc de notas"
 msgstr "Notepad"
 
 #: lib/code/tk_showcase.dart
 msgid "Bloc de notas de ejemplo de DMarlon Studio: menú, diálogos Abrir y Guardar y barra de estado."
 msgstr "DMarlon Studio sample notepad: menu, Open and Save dialogs and a status bar."
+
+#: lib/code/tk_showcase.dart
+msgid "Bolsa de valores"
+msgstr "Stock market"
 
 #: lib/code/tk_showcase.dart
 msgid "Cargando los tipos de cambio…"
@@ -1433,9 +1525,21 @@ msgstr "Cut"
 msgid "Cómo se juega"
 msgstr "How to play"
 
+#: lib/code/tk_showcase.dart
+msgid "Datos simulados · {0} · {1} · {2} velas"
+msgstr "Simulated data · {0} · {1} · {2} candles"
+
+#: lib/code/tk_showcase.dart
+msgid "Datos simulados: no son cotizaciones reales."
+msgstr "Simulated data: these are not real quotes."
+
 #: lib/code/tk_showcase.dart lib/ui/screens/tk_designer.dart
 msgid "Deshacer"
 msgstr "Undo"
+
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
+msgid "Detener"
+msgstr "Stop"
 
 #: lib/code/tk_showcase.dart
 msgid "Editor de texto clásico con menús, abrir y guardar, deshacer y una barra de estado con la línea y la columna."
@@ -1452,6 +1556,18 @@ msgstr "Delete"
 #: lib/code/tk_showcase.dart
 msgid "Eliminar cita"
 msgstr "Delete appointment"
+
+#: lib/code/tk_showcase.dart
+msgid "En vivo"
+msgstr "Live"
+
+#: lib/code/tk_showcase.dart
+msgid "En vivo: un punto nuevo por segundo, con los últimos 12."
+msgstr "Live: a new point every second, keeping the last 12."
+
+#: lib/code/tk_showcase.dart
+msgid "En vivo: una vela nueva por segundo."
+msgstr "Live: a new candle every second."
 
 #: lib/code/tk_showcase.dart
 msgid "Escriba el asunto de la cita."
@@ -1472,6 +1588,10 @@ msgstr "Game over"
 #: lib/code/tk_showcase.dart
 msgid "Flechas o WASD para moverse · Espacio: pausa · Intro: nueva partida"
 msgstr "Arrows or WASD to move · Space: pause · Enter: new game"
+
+#: lib/code/tk_showcase.dart
+msgid "Gráfico de líneas"
+msgstr "Line chart"
 
 #: lib/code/tk_showcase.dart
 msgid "Guardar como…"
@@ -1514,6 +1634,14 @@ msgid "Las citas de hoy salen resaltadas. Fecha: AAAA-MM-DD; hora: HH:MM."
 msgstr "Today’s appointments are highlighted. Date: YYYY-MM-DD; time: HH:MM."
 
 #: lib/code/tk_showcase.dart
+msgid "Media 20"
+msgstr "Average 20"
+
+#: lib/code/tk_showcase.dart
+msgid "Máx. {0}  ·  Mín. {1}  ·  Vol. {2}"
+msgstr "High {0}  ·  Low {1}  ·  Vol. {2}"
+
+#: lib/code/tk_showcase.dart
 msgid "Nueva partida"
 msgstr "New game"
 
@@ -1524,6 +1652,10 @@ msgstr "Pause"
 #: lib/code/tk_showcase.dart lib/ui/screens/tk_designer.dart
 msgid "Pegar"
 msgstr "Paste"
+
+#: lib/code/tk_showcase.dart
+msgid "Portátiles"
+msgstr "Laptops"
 
 #: lib/code/tk_showcase.dart
 msgid "Prefiere que la llamen por la tarde."
@@ -1562,8 +1694,80 @@ msgid "Sin título"
 msgstr "Untitled"
 
 #: lib/code/tk_showcase.dart
+msgid "Tabletas"
+msgstr "Tablets"
+
+#: lib/code/tk_showcase.dart
 msgid "Tipos del {0} (BCE)"
 msgstr "Rates of {0} (ECB)"
+
+#: lib/code/tk_showcase.dart
+msgid "Total {0}: {1}  ·  Mejor mes: {2} ({3})"
+msgstr "Total {0}: {1}  ·  Best month: {2} ({3})"
+
+#: lib/code/tk_showcase.dart
+msgid "Velas con media móvil y volumen, valores y periodos a elegir, y cotización en vivo con datos simulados."
+msgstr "Candles with a moving average and volume, selectable tickers and periods, and a live quote with simulated data."
+
+#: lib/code/tk_showcase.dart
+msgid "Ventas (€)"
+msgstr "Sales (€)"
+
+#: lib/code/tk_showcase.dart
+msgid "Ventas mensuales"
+msgstr "Monthly sales"
+
+#: lib/code/tk_showcase.dart
+msgid "Ventas mensuales de tres productos: elegir el año, ocultar series, líneas, áreas o barras, y un modo en vivo."
+msgstr "Monthly sales of three products: pick the year, hide series, lines, areas or bars, and a live mode."
+
+#: lib/code/tk_showcase.dart
+msgid "abr"
+msgstr "Apr"
+
+#: lib/code/tk_showcase.dart
+msgid "ago"
+msgstr "Aug"
+
+#: lib/code/tk_showcase.dart
+msgid "dic"
+msgstr "Dec"
+
+#: lib/code/tk_showcase.dart
+msgid "ene"
+msgstr "Jan"
+
+#: lib/code/tk_showcase.dart
+msgid "feb"
+msgstr "Feb"
+
+#: lib/code/tk_showcase.dart
+msgid "jul"
+msgstr "Jul"
+
+#: lib/code/tk_showcase.dart
+msgid "jun"
+msgstr "Jun"
+
+#: lib/code/tk_showcase.dart
+msgid "mar"
+msgstr "Mar"
+
+#: lib/code/tk_showcase.dart
+msgid "may"
+msgstr "May"
+
+#: lib/code/tk_showcase.dart
+msgid "nov"
+msgstr "Nov"
+
+#: lib/code/tk_showcase.dart
+msgid "oct"
+msgstr "Oct"
+
+#: lib/code/tk_showcase.dart
+msgid "sep"
+msgstr "Sep"
 
 #: lib/code/tk_showcase.dart
 msgid "sin_titulo.txt"
@@ -1588,6 +1792,14 @@ msgstr "Delete “{0}”? Their appointments will have no contact."
 #: lib/code/tk_showcase.dart lib/ui/screens/code_studio.dart
 msgid "¿Guardar los cambios de «{0}»?"
 msgstr "Save the changes to “{0}”?"
+
+#: lib/code/tk_showcase.dart
+msgid "■ Detener"
+msgstr "■ Stop"
+
+#: lib/code/tk_showcase.dart
+msgid "▶ Iniciar"
+msgstr "▶ Start"
 
 #: lib/code/tk_showcase_web.dart
 msgid ""
@@ -1808,10 +2020,6 @@ msgstr "Downloading {0}.html"
 #: lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Descargar"
 msgstr "Download"
-
-#: lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
-msgid "Detener"
-msgstr "Stop"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Detenido"

@@ -89,9 +89,9 @@ void main() {
       expect(tkWebHasEvent(c.events.single), isFalse);
       final opts = TkCodegen.chartOptions(chartDesign().widgets.single);
       expect(opts, {
-        'title': "'Ventas <b>'",
+        'title': '"Ventas <b>"',
         'decimals': '1',
-        'suffix': "' €'",
+        'suffix': '" €"',
       });
     },
   );
@@ -317,7 +317,8 @@ out["check_live"] = len(c.candles()) == 22 and c.candles()[-1][0] != last
 f.BtnStop_click()
 out["check_stopped"] = not f.Timer1.enabled
 c.redraw()
-out["check_volume"] = len(c.find_withtag("chart")) > 100
+# Mecha, cuerpo y barra de volumen de cada vela, además de los ejes.
+out["check_volume"] = len(c.find_withtag("chart")) > 3 * len(c.candles())
 ''';
 
 const _webHarness = r'''

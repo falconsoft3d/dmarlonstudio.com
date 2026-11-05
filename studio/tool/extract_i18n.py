@@ -126,8 +126,11 @@ def extract():
                 nxt = skip_space(src, lit[1])
                 if nxt >= len(src) or src[nxt] not in ',)':
                     continue
-                line = src.count('\n', 0, m.start()) + 1
-                msgs.setdefault((ctx, lit[0]), []).append(f'{rel}:{line}')
+                # Solo el archivo, sin la línea: así editar código que no
+                # toca textos no deja el catálogo desactualizado.
+                refs = msgs.setdefault((ctx, lit[0]), [])
+                if rel not in refs:
+                    refs.append(rel)
     return msgs
 
 

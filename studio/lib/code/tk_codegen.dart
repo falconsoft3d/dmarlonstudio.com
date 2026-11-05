@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import '../core/errors.dart';
+import 'tk_chart.dart';
 import 'tk_helpers.dart';
 import 'tk_model.dart';
 import 'tk_web_codegen.dart';
@@ -623,6 +624,37 @@ class TkCodegen {
     _binds(b, w);
   }
 
+  /// Opciones de un gráfico distintas de las de serie, como `clave=valor`
+  /// de Python (las mismas en los dos destinos).
+  static Map<String, String> chartOptions(TkWidget w) => {
+    for (final p in w.component.props)
+      if (w.prop(p) case final v? when v != p.def)
+        p.key: switch (p.type) {
+          TkPropType.boolean => v == true ? 'True' : 'False',
+          TkPropType.integer => '${TkPy.integer(v)}',
+          TkPropType.number => TkPy.number(v),
+          _ => TkPy.str('$v'),
+        },
+  };
+
+  /// Gráfico: un lienzo que se dibuja solo (DesignChart).
+  static void _chart(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln(
+        _call('$self = DesignChart', [
+          parentOf(d, w),
+          if (w.events['point'] case final m?) 'command=self.$m',
+          for (final e in chartOptions(w).entries) '${e.key}=${e.value}',
+        ]),
+      )
+      ..writeln(
+        '$_in$self.place(x=$x, y=$y, width=${w.width}, height=${w.height})',
+      );
+  }
+
   /// Imagen de un archivo del proyecto.
   static void _image(StringBuffer b, TkDesign d, TkWidget w) {
     final self = 'self.${w.name}';
@@ -859,6 +891,7 @@ class TkCodegen {
     if (w.kind == 'Ribbon') return _ribbon(b, d, w);
     if (w.kind == 'Password') return _password(b, d, w);
     if (w.kind == 'Image') return _image(b, d, w);
+    if (w.kind == 'Chart') return _chart(b, d, w);
     if (w.kind == 'PageControl') return _pages(b, d, w);
     if (w.kind == 'RestClient') {
       b
@@ -1107,6 +1140,11 @@ class TkCodegen {
     }
     if (d.widgets.any((w) => w.kind == 'RestClient')) {
       b.write(TkHelpers.apiClient);
+    }
+    if (d.widgets.any((w) => w.kind == 'Chart')) {
+      b
+        ..write(TkChart.core)
+        ..write(TkChart.designChart);
     }
     if (data) b.write(TkHelpers.dataError);
     if (erp) b.write(TkHelpers.erpClient);

@@ -94,6 +94,8 @@ WIDGETS = r"""
 </div>
 {%- elif w.kind == "StatusBar" -%}
 <div id="{{ w.name }}" class="tk tk-status" style="{{ w.style() }}" data-on="{{ w.on() }}">{% if w.cget("icon") %}<span class="tk-sicon">{{ w.cget("icon") }}</span>{% endif %}<span>{{ w.cget("text") }}</span></div>
+{%- elif w.kind == "Chart" -%}
+<div id="{{ w.name }}" class="tk tk-chart" style="{{ w.style() }}" data-on="{{ w.on() }}">{{ w.svg() | safe }}</div>
 {%- elif w.kind == "Progressbar" -%}
 <progress id="{{ w.name }}" class="tk tk-progress" style="{{ w.style() }}" data-on="{{ w.on() }}" max="{{ w.maximum() }}"{% if w.cget("mode") != "indeterminate" %} value="{{ w.current() }}"{% endif %}></progress>
 {%- elif w.kind == "PageControl" -%}
@@ -156,6 +158,8 @@ button.tk { cursor: pointer; padding: 0 6px; }
 .tk-eye { border: 0; background: none; padding: 0 6px; color: #6e7480; cursor: pointer; font: inherit; }
 .tk-image { display: block; }
 .tk-progress { padding: 0; }
+.tk-chart svg { display: block; }
+.tk-chart .hot:hover { fill: #1b1b1b; fill-opacity: .05; }
 .tk-pages { border: 1px solid #8a8f98; background: inherit; }
 .tk-tabs { position: absolute; left: 0; top: 0; height: 24px; display: flex; gap: 2px; }
 .tk-tab { font: inherit; padding: 0 10px; border: 1px solid #8a8f98; border-bottom: 0; background: #e4e5e7; color: #000; cursor: pointer; }

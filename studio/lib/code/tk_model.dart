@@ -830,6 +830,59 @@ final tkComponents = <TkComponent>[
     [..._mouse, ..._canvasMouse],
   ),
   TkComponent(
+    'Chart',
+    markTr('Gráfico'),
+    360,
+    220,
+    [
+      TkProp(
+        'kind',
+        markTr('Tipo'),
+        TkPropType.choice,
+        def: 'line',
+        choices: const ['line', 'area', 'bar', 'candles'],
+        labels: {
+          'line': markTr('Líneas'),
+          'area': markTr('Áreas'),
+          'bar': markTr('Barras'),
+          'candles': markTr('Velas (bolsa)'),
+        },
+      ),
+      TkProp('title', markTr('Título'), TkPropType.text, def: ''),
+      TkProp('xlabel', markTr('Título del eje X'), TkPropType.text, def: ''),
+      TkProp('ylabel', markTr('Título del eje Y'), TkPropType.text, def: ''),
+      TkProp('legend', markTr('Leyenda'), TkPropType.boolean, def: true),
+      TkProp('grid', markTr('Rejilla'), TkPropType.boolean, def: true),
+      TkProp('decimals', markTr('Decimales'), TkPropType.integer, def: 0),
+      TkProp(
+        'prefix',
+        markTr('Prefijo de los valores'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'suffix',
+        markTr('Sufijo de los valores (p. ej. « €»)'),
+        TkPropType.text,
+        def: '',
+      ),
+      TkProp(
+        'maxpoints',
+        markTr('Puntos como máximo (0 = todos)'),
+        TkPropType.integer,
+        def: 0,
+      ),
+    ],
+    [
+      TkEvent(
+        'point',
+        markTr('Al hacer clic en un punto'),
+        'point',
+        param: 'point',
+      ),
+    ],
+  ),
+  TkComponent(
     'Treeview',
     markTr('Tabla de datos'),
     320,
@@ -1430,7 +1483,7 @@ const tkWebReserved = {
 
 /// Eventos sin equivalente en una página: se envían al servidor uno a uno y
 /// arrastrar o mover el ratón serían cientos de peticiones por segundo.
-const tkWebNoEvents = {'drag', 'motion'};
+const tkWebNoEvents = {'drag', 'motion', 'point'};
 
 /// Eventos de la ventana sin equivalente en una página.
 const tkWebNoFormEvents = {'close', 'resize'};

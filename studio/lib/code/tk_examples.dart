@@ -70,6 +70,8 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _currency(t),
   _snake(t),
   _music(t),
+  _lineChart(t),
+  _stocks(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
@@ -124,6 +126,22 @@ List<TkExample> tkWebExamples(String Function(String) t) => [
   _invoicing(t),
   _blog(t),
   _shop(t),
+  _web(
+    _lineChart(t),
+    'web_line_chart',
+    t(markTr('Gráfico de líneas web')),
+    t(markTr('Las ventas mensuales, con el mismo código, en Flask.')),
+  ),
+  _web(
+    _stocks(t),
+    'web_stocks',
+    t(markTr('Bolsa de valores web')),
+    t(
+      markTr(
+        'Las velas y la cotización simulada, con el mismo código, en Flask.',
+      ),
+    ),
+  ),
 ];
 
 TkExample _web(

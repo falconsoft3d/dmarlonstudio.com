@@ -1198,3 +1198,521 @@ class Form1(FormDesign):
     code,
   );
 }
+
+// -------------------------------------------------------- gráfico de líneas
+TkExample _lineChart(String Function(String) t) {
+  final products = [
+    t(markTr('Portátiles')),
+    t(markTr('Tabletas')),
+    t(markTr('Accesorios')),
+  ];
+  final months = [
+    for (final m in [
+      markTr('ene'),
+      markTr('feb'),
+      markTr('mar'),
+      markTr('abr'),
+      markTr('may'),
+      markTr('jun'),
+      markTr('jul'),
+      markTr('ago'),
+      markTr('sep'),
+      markTr('oct'),
+      markTr('nov'),
+      markTr('dic'),
+    ])
+      t(m),
+  ];
+  Map<String, Object?> radio(String text, String value, {bool on = false}) => {
+    'text': text,
+    'group': 'Kind',
+    'value': value,
+    'checked': on,
+  };
+  final design =
+      TkDesign(
+          width: 780,
+          height: 560,
+          props: {
+            'title': t(markTr('Ventas mensuales')),
+            'bg': _paper,
+            'position': 'center',
+          },
+          events: {'create': 'form_create'},
+        )
+        ..widgets.addAll([
+          _w('Label', 'Title', 16, 12, 360, 32, {
+            ..._title(t(markTr('Ventas mensuales'))),
+            'bg': _paper,
+          }),
+          _w('Label', 'LblYear', 560, 16, 40, 24, {
+            ..._label(t(markTr('Año'))),
+            'bg': _paper,
+          }),
+          _w(
+            'Combobox',
+            'Year',
+            600,
+            16,
+            80,
+            24,
+            {'items': '2024\n2025\n2026', 'text': '2026', 'state': 'readonly'},
+            {'select': 'Year_select'},
+          ),
+          _w(
+            'Button',
+            'BtnLive',
+            688,
+            14,
+            76,
+            28,
+            {'text': t(markTr('En vivo'))},
+            {'command': 'BtnLive_click'},
+          ),
+          for (final (i, name) in products.indexed)
+            _w(
+              'Checkbutton',
+              ['ChkA', 'ChkB', 'ChkC'][i],
+              16 + i * 128,
+              56,
+              124,
+              24,
+              {'text': name, 'checked': true, 'bg': _paper},
+              {'command': 'series_toggle'},
+            ),
+          _w(
+            'Radiobutton',
+            'RadLine',
+            432,
+            56,
+            100,
+            24,
+            {...radio(t(markTr('Líneas')), 'line', on: true), 'bg': _paper},
+            {'command': 'kind_change'},
+          ),
+          _w(
+            'Radiobutton',
+            'RadArea',
+            536,
+            56,
+            100,
+            24,
+            {...radio(t(markTr('Áreas')), 'area'), 'bg': _paper},
+            {'command': 'kind_change'},
+          ),
+          _w(
+            'Radiobutton',
+            'RadBar',
+            640,
+            56,
+            100,
+            24,
+            {...radio(t(markTr('Barras')), 'bar'), 'bg': _paper},
+            {'command': 'kind_change'},
+          ),
+          _w('Chart', 'Chart1', 16, 92, 748, 432, {
+            'ylabel': t(markTr('Ventas (€)')),
+            'suffix': ' €',
+          }),
+          _w(
+            'Timer',
+            'Timer1',
+            16,
+            92,
+            32,
+            32,
+            {'interval': 1000, 'enabled': false},
+            {'command': 'Timer1_timer'},
+          ),
+          _w('StatusBar', 'Status', 0, 536, 780, 24, {
+            'text': '',
+            'icon': 'chart',
+          }),
+        ]);
+  final code =
+      '''import random
+
+PRODUCTS = ${TkPy.list(products)}
+MONTHS = ${TkPy.list(months)}
+BASE = (42000, 26000, 12000)
+# Cada mes vende distinto: más en otoño y en Navidad.
+SEASON = (0.85, 0.8, 0.95, 1.0, 1.05, 1.0, 0.9, 0.85, 1.05, 1.1, 1.25, 1.45)
+LIVE = ${_py(t(markTr('En vivo')))}
+STOP = ${_py(t(markTr('Detener')))}
+TOTAL = ${_py(t(markTr('Total {0}: {1}  ·  Mejor mes: {2} ({3})')))}
+LIVE_NOTE = ${_py(t(markTr('En vivo: un punto nuevo por segundo, con los últimos 12.')))}
+
+
+class Form1(FormDesign):
+    def form_create(self):
+        self.live = False
+        self.tick = 0
+        self.load_year()
+
+    # ------------------------------------------------------------- datos
+    def sales(self, year, product):
+        """Ventas de prueba, siempre las mismas para un año y un producto."""
+        r = random.Random(year * 10 + product)
+        base = BASE[product] * (1 + (year - 2024) * 0.08)
+        return [round(base * s * r.uniform(0.9, 1.1)) for s in SEASON]
+
+    def year(self):
+        try:
+            return int(self.Year_var.get())
+        except ValueError:
+            return 2026
+
+    def load_year(self):
+        self.stop_live()
+        self.Chart1.set_max_points(0)
+        self.Chart1.clear()
+        for i, name in enumerate(PRODUCTS):
+            self.Chart1.set_series(name, self.sales(self.year(), i), x=MONTHS)
+        self.series_toggle()
+        self.kind_change()
+
+    # ------------------------------------------------------------ vista
+    def visible(self):
+        checks = (self.ChkA_var, self.ChkB_var, self.ChkC_var)
+        return [name for name, var in zip(PRODUCTS, checks) if var.get()]
+
+    def series_toggle(self):
+        shown = self.visible()
+        for name in PRODUCTS:
+            self.Chart1.show_series(name, name in shown)
+        self.update_status()
+
+    def kind_change(self):
+        self.Chart1.set_kind(self.Kind_var.get() or "line")
+
+    def update_status(self):
+        if self.live:
+            self.Status.set(LIVE_NOTE, icon="play")
+            return
+        shown = self.visible()
+        months = self.Chart1.labels()
+        totals = [
+            sum(self.Chart1.values(name)[i] for name in shown)
+            for i in range(len(months))
+        ]
+        if not totals:
+            self.Status.set("", icon="chart")
+            return
+        best = max(range(len(totals)), key=totals.__getitem__)
+        self.Status.set(
+            TOTAL.format(self.year(), self.Chart1.fmt(sum(totals)), months[best], self.Chart1.fmt(totals[best])),
+            icon="chart",
+        )
+
+    # ---------------------------------------------------------- en vivo
+    def start_live(self):
+        self.live = True
+        self.tick = 0
+        self.Chart1.set_max_points(12)
+        self.BtnLive.configure(text=STOP)
+        self.Timer1.start()
+        self.update_status()
+
+    def stop_live(self):
+        if self.live:
+            self.live = False
+            self.Timer1.stop()
+            self.BtnLive.configure(text=LIVE)
+            self.update_status()
+
+    def Timer1_timer(self):
+        self.tick += 1
+        label = "+%d" % self.tick
+        for name in PRODUCTS:
+            last = (self.Chart1.values(name) or [1000])[-1]
+            self.Chart1.add_point(name, round(last * random.uniform(0.94, 1.07)), x=label)
+
+    # ----------------------------------------------------------- eventos
+    def Year_select(self, event=None):
+        self.load_year()
+
+    def BtnLive_click(self):
+        if self.live:
+            self.load_year()
+        else:
+            self.start_live()
+''';
+  return TkExample(
+    'line_chart',
+    t(markTr('Gráfico de líneas')),
+    t(
+      markTr(
+        'Ventas mensuales de tres productos: elegir el año, ocultar series, líneas, áreas o barras, y un modo en vivo.',
+      ),
+    ),
+    design,
+    code,
+  );
+}
+
+// --------------------------------------------------------- bolsa de valores
+TkExample _stocks(String Function(String) t) {
+  const up = '#006300', down = '#d03b3b', muted = '#52514e';
+  final frames = [
+    ('Btn1D', t(markTr('1D'))),
+    ('Btn1S', t(markTr('1S'))),
+    ('Btn1M', t(markTr('1M'))),
+  ];
+  final design =
+      TkDesign(
+          width: 840,
+          height: 600,
+          props: {
+            'title': t(markTr('Bolsa de valores')),
+            'bg': _paper,
+            'position': 'center',
+          },
+          events: {'create': 'form_create'},
+        )
+        ..widgets.addAll([
+          _w('Label', 'Title', 16, 10, 300, 32, {
+            ..._title(t(markTr('Bolsa de valores'))),
+            'bg': _paper,
+          }),
+          _w('Label', 'Simulated', 16, 40, 300, 20, {
+            ..._label(
+              t(markTr('Datos simulados: no son cotizaciones reales.')),
+            ),
+            'bg': _paper,
+            'fg': muted,
+            'font_size': 11,
+          }),
+          _w(
+            'Combobox',
+            'Ticker',
+            340,
+            16,
+            96,
+            26,
+            {
+              'items': 'DMS\nACME\nNOVA\nORBI',
+              'text': 'DMS',
+              'state': 'readonly',
+            },
+            {'select': 'Ticker_select'},
+          ),
+          for (final (i, (name, text)) in frames.indexed)
+            _w(
+              'Button',
+              name,
+              448 + i * 48,
+              15,
+              44,
+              28,
+              {'text': text},
+              {'command': '${name}_click'},
+            ),
+          _w(
+            'Button',
+            'BtnStart',
+            608,
+            15,
+            100,
+            28,
+            {'text': t(markTr('▶ Iniciar')), 'fg': up},
+            {'command': 'BtnStart_click'},
+          ),
+          _w(
+            'Button',
+            'BtnStop',
+            716,
+            15,
+            100,
+            28,
+            {'text': t(markTr('■ Detener')), 'fg': down, 'state': 'disabled'},
+            {'command': 'BtnStop_click'},
+          ),
+          _w('Label', 'Price', 16, 66, 180, 36, {
+            ..._label(''),
+            'bg': _paper,
+            'font_size': 24,
+            'font_bold': true,
+          }),
+          _w('Label', 'Change', 200, 72, 220, 28, {
+            ..._label(''),
+            'bg': _paper,
+            'font_size': 14,
+            'font_bold': true,
+          }),
+          _w('Label', 'Range', 432, 72, 392, 28, {
+            ..._label(''),
+            'bg': _paper,
+            'fg': muted,
+          }),
+          _w('Chart', 'Chart1', 16, 108, 808, 452, {
+            'kind': 'candles',
+            'decimals': 2,
+            'suffix': ' €',
+          }),
+          _w(
+            'Timer',
+            'Timer1',
+            16,
+            108,
+            32,
+            32,
+            {'interval': 1000, 'enabled': false},
+            {'command': 'Timer1_timer'},
+          ),
+          _w('StatusBar', 'Status', 0, 576, 840, 24, {
+            'text': '',
+            'icon': 'info',
+          }),
+        ]);
+  final code =
+      '''import datetime
+import math
+import random
+import zlib
+
+UP, DOWN = "$up", "$down"
+AVERAGE = ${_py(t(markTr('Media 20')))}
+STATUS = ${_py(t(markTr('Datos simulados · {0} · {1} · {2} velas')))}
+LIVE = ${_py(t(markTr('En vivo: una vela nueva por segundo.')))}
+RANGE = ${_py(t(markTr('Máx. {0}  ·  Mín. {1}  ·  Vol. {2}')))}
+START_PRICE = {"DMS": 84.0, "ACME": 152.0, "NOVA": 23.5, "ORBI": 310.0}
+# Velas de cada periodo: cuántas y qué etiqueta llevan.
+FRAMES = {
+    "1D": (66, datetime.timedelta(minutes=5), "%H:%M"),
+    "1S": (40, datetime.timedelta(hours=1), "%d/%m %Hh"),
+    "1M": (22, datetime.timedelta(days=1), "%d/%m"),
+}
+
+
+class Form1(FormDesign):
+    def form_create(self):
+        self.frame = "1D"
+        self.load()
+
+    # ------------------------------------------------------- simulación
+    def ticker(self):
+        return self.Ticker_var.get() or "DMS"
+
+    def next_candle(self, price):
+        """Una vela de un paseo aleatorio geométrico (cuatro pasos)."""
+        sigma = {"1D": 0.004, "1S": 0.009, "1M": 0.02}[self.frame]
+        open_ = price
+        path = [price]
+        for _ in range(4):
+            price *= math.exp(self.rand.gauss(0.0002, sigma))
+            path.append(price)
+        high = max(path) * (1 + abs(self.rand.gauss(0, sigma / 3)))
+        low = min(path) * (1 - abs(self.rand.gauss(0, sigma / 3)))
+        volume = int(self.rand.uniform(0.5, 1.5) * 1e5 * (1 + abs(price - open_) / open_ * 40))
+        return open_, high, low, price, volume
+
+    def label(self):
+        self.when += FRAMES[self.frame][1]
+        return self.when.strftime(FRAMES[self.frame][2])
+
+    def load(self):
+        """Historia del valor y del periodo elegidos (siempre la misma)."""
+        self.stop()
+        ticker = self.ticker()
+        count, step, _ = FRAMES[self.frame]
+        self.rand = random.Random(zlib.crc32(("%s|%s" % (ticker, self.frame)).encode()))
+        self.when = datetime.datetime(2026, 11, 2, 9, 25) - step * (count if self.frame != "1D" else 0)
+        price = START_PRICE.get(ticker, 100.0)
+        rows = []
+        for _ in range(count):
+            o, h, l, c, v = self.next_candle(price)
+            rows.append((self.label(), o, h, l, c, v))
+            price = c
+        self.Chart1.set_max_points(0)
+        self.Chart1.set_candles(rows)
+        self.Chart1.set_max_points(count)
+        self.update_average()
+        self.show_quote()
+        self.Status.set(STATUS.format(ticker, self.frame, count), icon="info")
+
+    def update_average(self, period=20):
+        candles = self.Chart1.candles()
+        closes = [c[4] for c in candles]
+        xs, values = [], []
+        for i in range(period - 1, len(closes)):
+            xs.append(candles[i][0])
+            values.append(sum(closes[i - period + 1:i + 1]) / period)
+        self.Chart1.set_series(AVERAGE, values, x=xs)
+
+    # ------------------------------------------------------------ vista
+    def show_quote(self):
+        candles = self.Chart1.candles()
+        if not candles:
+            return
+        first, last = candles[0], candles[-1]
+        change = last[4] - first[1]
+        pct = change / first[1] * 100 if first[1] else 0
+        rising = change >= 0
+        # Flecha y signo además del color: no solo el color dice si sube.
+        arrow = "▲" if rising else "▼"
+        self.Price.configure(text=self.Chart1.fmt(last[4]))
+        self.Change.configure(
+            text="%s %+.2f (%+.2f %%)" % (arrow, change, pct),
+            fg=UP if rising else DOWN,
+        )
+        self.Range.configure(text=RANGE.format(
+            self.Chart1.fmt(max(c[2] for c in candles)),
+            self.Chart1.fmt(min(c[3] for c in candles)),
+            "{:,}".format(sum(int(c[5] or 0) for c in candles)),
+        ))
+
+    # ---------------------------------------------------------- en vivo
+    def start(self):
+        self.Timer1.start()
+        self.BtnStart.configure(state="disabled")
+        self.BtnStop.configure(state="normal")
+        self.Status.set(LIVE, icon="play")
+
+    def stop(self):
+        self.Timer1.stop()
+        self.BtnStart.configure(state="normal")
+        self.BtnStop.configure(state="disabled")
+
+    def Timer1_timer(self):
+        price = self.Chart1.candles()[-1][4]
+        o, h, l, c, v = self.next_candle(price)
+        self.Chart1.add_candle(self.label(), o, h, l, c, v)
+        self.update_average()
+        self.show_quote()
+
+    # ----------------------------------------------------------- eventos
+    def Ticker_select(self, event=None):
+        self.load()
+
+    def set_frame(self, frame):
+        self.frame = frame
+        self.load()
+
+    def Btn1D_click(self):
+        self.set_frame("1D")
+
+    def Btn1S_click(self):
+        self.set_frame("1S")
+
+    def Btn1M_click(self):
+        self.set_frame("1M")
+
+    def BtnStart_click(self):
+        self.start()
+
+    def BtnStop_click(self):
+        self.stop()
+        self.Status.set(STATUS.format(self.ticker(), self.frame, len(self.Chart1.candles())), icon="info")
+''';
+  return TkExample(
+    'stocks',
+    t(markTr('Bolsa de valores')),
+    t(
+      markTr(
+        'Velas con media móvil y volumen, valores y periodos a elegir, y cotización en vivo con datos simulados.',
+      ),
+    ),
+    design,
+    code,
+  );
+}

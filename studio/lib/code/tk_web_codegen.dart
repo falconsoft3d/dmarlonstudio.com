@@ -1,4 +1,5 @@
 import '../core/errors.dart';
+import 'tk_chart.dart';
 import 'tk_codegen.dart';
 import 'tk_helpers.dart';
 import 'tk_model.dart';
@@ -47,6 +48,18 @@ class TkWebCodegen {
     'Ribbon': {'items', 'active'},
     'PageControl': {'pages', 'active'},
     'StatusBar': {'icon'},
+    'Chart': {
+      'kind',
+      'title',
+      'xlabel',
+      'ylabel',
+      'legend',
+      'grid',
+      'decimals',
+      'prefix',
+      'suffix',
+      'maxpoints',
+    },
   };
 
   /// Opciones de un menú como lista de Python para la plantilla.
@@ -118,6 +131,8 @@ class TkWebCodegen {
       case 'PageControl':
         out['pages'] = TkPy.list(tkPages(w));
         out['active'] = '${d.activePage(w)}';
+      case 'Chart':
+        out.addAll(TkCodegen.chartOptions(w));
       case 'StatusBar':
         final icon = tkRibbonGlyph(w.text('icon'));
         if (icon.isNotEmpty) out['icon'] = TkPy.str(icon);
@@ -294,7 +309,13 @@ class TkWebCodegen {
     b
       ..write(TkWebRuntime.templates)
       ..write(TkWebRuntime.classes)
-      ..write(TkWebRuntime.server)
+      ..write(TkWebRuntime.server);
+    if (d.widgets.any((w) => w.kind == 'Chart')) {
+      b
+        ..write(TkChart.core)
+        ..write(TkChart.webChart);
+    }
+    b
       ..writeln()
       ..writeln()
       ..writeln('class FormDesign(WebForm):')

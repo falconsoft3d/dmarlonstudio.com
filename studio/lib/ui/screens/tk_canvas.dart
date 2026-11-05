@@ -42,6 +42,7 @@ IconData tkIcon(String kind) => switch (kind) {
   'Image' => LucideIcons.image,
   'OpenDialog' => LucideIcons.folderOpen,
   'SaveDialog' => LucideIcons.save,
+  'Chart' => LucideIcons.chartLine,
   _ => LucideIcons.box,
 };
 
@@ -703,6 +704,15 @@ class TkPreview extends StatelessWidget {
             ),
           ),
         );
+      case 'Chart':
+        return CustomPaint(
+          painter: _ChartPreview(
+            kind: w.text('kind'),
+            title: w.text('title'),
+            legend: w.props['legend'] != false,
+            grid: w.props['grid'] != false,
+          ),
+        );
       case 'Canvas':
         return Container(
           decoration: BoxDecoration(
@@ -719,6 +729,180 @@ class TkPreview extends StatelessWidget {
     }
     return const SizedBox.shrink();
   }
+}
+
+/// Vista previa de un gráfico con datos de muestra, con los mismos colores
+/// que dibujará la aplicación.
+class _ChartPreview extends CustomPainter {
+  _ChartPreview({
+    required this.kind,
+    required this.title,
+    required this.legend,
+    required this.grid,
+  });
+  final String kind, title;
+  final bool legend, grid;
+
+  static const _colors = [Color(0xFF2A78D6), Color(0xFFEB6834)];
+  static const _up = Color(0xFF0CA30C), _down = Color(0xFFD03B3B);
+  static const _surface = Color(0xFFFCFCFB), _gridColor = Color(0xFFE1E0D9);
+  static const _axis = Color(0xFFC3C2B7), _ink2 = Color(0xFF52514E);
+
+  static const _a = [12.0, 15, 14, 18, 21, 19, 24, 27, 25, 30, 33, 36];
+  static const _b = [8.0, 9, 12, 11, 13, 16, 15, 17, 20, 19, 22, 24];
+
+  void _text(
+    Canvas c,
+    String s,
+    Offset at, {
+    double size = 10,
+    Color? color,
+    bool bold = false,
+  }) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: s,
+        style: TextStyle(
+          fontSize: size,
+          color: color ?? _ink2,
+          fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    tp.paint(c, at);
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final r = Offset.zero & size;
+    canvas.drawRect(r, Paint()..color = _surface);
+    canvas.drawRect(
+      r.deflate(.5),
+      Paint()
+        ..color = _gridColor
+        ..style = PaintingStyle.stroke,
+    );
+    var top = 8.0;
+    if (title.isNotEmpty) {
+      _text(
+        canvas,
+        title,
+        Offset(10, top),
+        size: 11,
+        color: Colors.black,
+        bold: true,
+      );
+      top += 18;
+    }
+    final candles = kind == 'candles';
+    if (legend && !candles) {
+      for (final (i, name) in ['A', 'B'].indexed) {
+        final x = 10.0 + i * 40;
+        canvas.drawLine(
+          Offset(x, top + 6),
+          Offset(x + 12, top + 6),
+          Paint()
+            ..color = _colors[i]
+            ..strokeWidth = 2,
+        );
+        _text(canvas, name, Offset(x + 16, top));
+      }
+      top += 16;
+    }
+    final plot = Rect.fromLTRB(36, top + 4, size.width - 12, size.height - 20);
+    if (plot.width < 20 || plot.height < 20) return;
+    const lo = 0.0, hi = 40.0;
+    double y(num v) => plot.bottom - (v - lo) / (hi - lo) * plot.height;
+    for (var t = 0; t <= 40; t += 10) {
+      if (grid) {
+        canvas.drawLine(
+          Offset(plot.left, y(t)),
+          Offset(plot.right, y(t)),
+          Paint()..color = _gridColor,
+        );
+      }
+      _text(canvas, '$t', Offset(plot.left - 22, y(t) - 7), size: 9);
+    }
+    canvas.drawLine(plot.bottomLeft, plot.bottomRight, Paint()..color = _axis);
+    final n = _a.length;
+    final band = plot.width / n;
+    double x(int i) => plot.left + (i + .5) * band;
+    if (candles) {
+      var price = 20.0;
+      for (var i = 0; i < n; i++) {
+        final open = price;
+        price += [3.0, -2, 4, -3, 2, 5, -4, 3, -1, 4, -2, 3][i];
+        final close = price;
+        final up = close >= open;
+        final color = up ? _up : _down;
+        canvas.drawLine(
+          Offset(x(i), y(([open, close].reduce((a, b) => a > b ? a : b)) + 2)),
+          Offset(x(i), y(([open, close].reduce((a, b) => a < b ? a : b)) - 2)),
+          Paint()..color = color,
+        );
+        final body = Rect.fromLTRB(
+          x(i) - band * .3,
+          y(up ? close : open),
+          x(i) + band * .3,
+          y(up ? open : close),
+        );
+        canvas.drawRect(body, Paint()..color = up ? _surface : color);
+        canvas.drawRect(
+          body,
+          Paint()
+            ..color = color
+            ..style = PaintingStyle.stroke,
+        );
+      }
+      return;
+    }
+    for (final (j, data) in [_a, _b].indexed) {
+      final color = _colors[j];
+      if (kind == 'bar') {
+        final group = band * .8, bw = (group - 2) / 2;
+        for (var i = 0; i < n; i++) {
+          final x0 = x(i) - group / 2 + j * (bw + 2);
+          canvas.drawRect(
+            Rect.fromLTRB(x0, y(data[i]), x0 + bw, y(0)),
+            Paint()..color = color,
+          );
+        }
+        continue;
+      }
+      final path = Path()..moveTo(x(0), y(data[0]));
+      for (var i = 1; i < n; i++) {
+        path.lineTo(x(i), y(data[i]));
+      }
+      if (kind == 'area') {
+        final fill = Path.from(path)
+          ..lineTo(x(n - 1), y(0))
+          ..lineTo(x(0), y(0))
+          ..close();
+        canvas.drawPath(fill, Paint()..color = color.withValues(alpha: .18));
+      }
+      canvas.drawPath(
+        path,
+        Paint()
+          ..color = color
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke,
+      );
+      canvas.drawCircle(
+        Offset(x(n - 1), y(data.last)),
+        4,
+        Paint()..color = color,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_ChartPreview o) =>
+      o.kind != kind ||
+      o.title != title ||
+      o.legend != legend ||
+      o.grid != grid;
 }
 
 class _ScalePainter extends CustomPainter {

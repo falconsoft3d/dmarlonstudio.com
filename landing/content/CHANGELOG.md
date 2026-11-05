@@ -3,6 +3,22 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.25 — 2026-11-05
+
+- **Autocompletado** en el código del Diseñador (Python, JavaScript y C++):
+  **Ctrl+Espacio** muestra lo que se puede escribir; tras `self.`, `this.` o
+  `Label1->`, los componentes de la ventana y lo de cada uno. También aparece
+  al escribir.
+- El árbol empieza por el nodo **Proyecto** (en todos los lenguajes): nombre,
+  descripción, destino, carpeta e **icono de la aplicación**, que se elige
+  con el diálogo de archivos o se **genera con IA** (SVG convertido a PNG de
+  512 × 512). Lo usan la ventana (tkinter, Electron, C++), la extensión de
+  Chrome y la web de Next.js.
+- Esc cierra el buscador y devuelve el cursor al código; F4, F5, F7, F8 y F9
+  funcionan también con el cursor en el código, y al detenerse el depurador
+  el cursor va a la línea.
+- Manual: el proyecto, su icono y el autocompletado.
+
 ## 1.0.24 — 2026-11-05
 
 - Nuevo destino **C++ (FLTK)**: aplicaciones de escritorio nativas con el

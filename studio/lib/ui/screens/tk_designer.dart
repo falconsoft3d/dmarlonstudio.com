@@ -15,6 +15,7 @@ import 'package:re_highlight/styles/vs2015.dart';
 import '../../code/tk_ai.dart';
 import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
+import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
 import '../../code/tk_debug.dart';
 import '../../code/tk_electron_run.dart';
@@ -31,7 +32,9 @@ import '../save_file.dart';
 import '../tk_launch.dart';
 import '../tk_project.dart';
 import '../bottom_panel.dart';
+import '../code_complete_view.dart';
 import '../code_find_panel.dart';
+import '../icon_ai.dart';
 import '../theme.dart';
 import '../widgets.dart';
 import 'budget_screen.dart';
@@ -653,7 +656,11 @@ class _PythonEditor extends StatelessWidget {
     this.javascript = false,
     this.cpp = false,
     this.findController,
+    this.completion,
   });
+
+  /// Autocompletado (Ctrl+Espacio y al escribir).
+  final TkCompletion? completion;
 
   /// Resaltado de C++.
   final bool cpp;
@@ -676,6 +683,18 @@ class _PythonEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
+    final editor = _editor(context, dark);
+    final c = completion;
+    if (c == null || readOnly) return editor;
+    return CodeAutocomplete(
+      viewBuilder: (context, notifier, onSelected) =>
+          CodeCompleteView(notifier: notifier, onSelected: onSelected),
+      promptsBuilder: c,
+      child: editor,
+    );
+  }
+
+  Widget _editor(BuildContext context, bool dark) {
     return CodeEditor(
       key: editorKey,
       controller: controller,
@@ -776,6 +795,9 @@ class _TkEditorState extends State<_TkEditor> {
   CodeLineEditingController get _code => doc.code;
 
   Set<String> _selection = {};
+
+  /// El nodo Proyecto está elegido en el árbol.
+  bool _project = false;
   bool _snap = true;
   int _tab = 0;
   bool _output = false;
@@ -799,6 +821,39 @@ class _TkEditorState extends State<_TkEditor> {
 
   final _generatedCode = CodeLineEditingController.fromText('');
   late final _codeFind = CodeFindController(_code);
+  late final _completion = TkCompletion(
+    design: () => d,
+    code: () => _code.text,
+  );
+
+  /// Ctrl+Espacio: la lista de lo que se puede escribir aquí.
+  void _complete() {
+    if (_tab != 1) return;
+    _completion.force = true;
+    // Sin tocar lo seleccionado: el cursor, al final de la selección.
+    final sel = _code.selection;
+    _code.selection = CodeLineSelection.collapsed(
+      index: sel.extentIndex,
+      offset: sel.extentOffset,
+    );
+    // La lista sale cuando el usuario escribe: se pone un espacio y se borra
+    // con la acción de borrar del editor (como la tecla).
+    _code.replaceSelection(' ');
+    final ctx = _codeFocus.context;
+    if (ctx == null ||
+        Actions.maybeInvoke<Intent>(
+              ctx,
+              const CodeShortcutDeleteIntent(false),
+            ) ==
+            null) {
+      _code.deleteBackward();
+    }
+    Future<void>.delayed(
+      const Duration(milliseconds: 300),
+      () => _completion.force = false,
+    );
+  }
+
   late final _generatedFind = CodeFindController(_generatedCode);
 
   /// ⌘F / Ctrl+F: buscar en el código o en el generado (el que se ve).
@@ -825,6 +880,35 @@ class _TkEditorState extends State<_TkEditor> {
     _attach(TkRunner.runOf(doc.id));
     _attachTests(TkRunner.testsOf(doc.id));
     TkBreakpoints.changes.addListener(_onBreakpoints);
+    // Al cerrar el buscador, se sigue escribiendo en el código.
+    _codeFind.addListener(() {
+      if (_codeFind.value == null && _tab == 1) _codeFocus.requestFocus();
+    });
+    // Las teclas llegan primero al editor: Ctrl+Espacio y las del depurador
+    // se atienden en su foco (si no, el editor se las queda).
+    _codeFocus.onKeyEvent = (node, event) {
+      if (event is! KeyDownEvent) return KeyEventResult.ignored;
+      final keys = HardwareKeyboard.instance;
+      final key = event.logicalKey;
+      final VoidCallback? action = switch (key) {
+        LogicalKeyboardKey.space when keys.isControlPressed => _complete,
+        LogicalKeyboardKey.f4 => _runToCursor,
+        LogicalKeyboardKey.f5 => _toggleBreakpoint,
+        LogicalKeyboardKey.f7 => () => _live?.stepInto(),
+        LogicalKeyboardKey.f8 when keys.isShiftPressed =>
+          () => _live?.stepOut(),
+        LogicalKeyboardKey.f8 => () => _live?.stepOver(),
+        LogicalKeyboardKey.f9 when keys.isShiftPressed => () {
+          if (TkRunner.supported && !(_run?.running ?? false)) _debugApp();
+        },
+        LogicalKeyboardKey.f9 => _f9,
+        LogicalKeyboardKey.f12 => () => _setTab(_tab == 0 ? 1 : 0),
+        _ => null,
+      };
+      if (action == null) return KeyEventResult.ignored;
+      action();
+      return KeyEventResult.handled;
+    };
     TkBreakpoints.load(doc.id).then((_) {
       if (mounted) setState(() {});
     });
@@ -925,6 +1009,8 @@ class _TkEditorState extends State<_TkEditor> {
       if (!mounted) return;
       _code.selection = CodeLineSelection.collapsed(index: line - 1, offset: 0);
       _code.makeCursorCenterIfInvisible();
+      // Las teclas del depurador (F7, F8, F9) van al código.
+      _codeFocus.requestFocus();
     });
   }
 
@@ -2347,10 +2433,15 @@ class _TkEditorState extends State<_TkEditor> {
     IconData icon,
     int depth,
   ) {
-    final on = name == null ? _selection.isEmpty : _selection.contains(name);
+    final on = name == null
+        ? _selection.isEmpty && !_project
+        : _selection.contains(name);
     return InkWell(
       key: ValueKey('tk-tree-${name ?? '#form'}'),
-      onTap: () => setState(() => _selection = name == null ? {} : {name}),
+      onTap: () => setState(() {
+        _project = false;
+        _selection = name == null ? {} : {name};
+      }),
       child: Container(
         color: on ? t.colorScheme.primary.withValues(alpha: .14) : null,
         padding: EdgeInsets.only(left: 8.0 + depth * 14, top: 3, bottom: 3),
@@ -2369,6 +2460,198 @@ class _TkEditorState extends State<_TkEditor> {
           ],
         ),
       ),
+    );
+  }
+
+  /// Primera fila del árbol: el proyecto (en todos los lenguajes).
+  Widget _projectRow(ThemeData t) => InkWell(
+    key: const ValueKey('tk-tree-#project'),
+    onTap: () => setState(() {
+      _project = true;
+      _selection = {};
+    }),
+    child: Container(
+      color: _project && _selection.isEmpty
+          ? t.colorScheme.primary.withValues(alpha: .14)
+          : null,
+      padding: const EdgeInsets.only(left: 8, top: 3, bottom: 3),
+      child: Row(
+        children: [
+          const Icon(LucideIcons.folderKanban, size: 13),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              tr('Proyecto: {0}', [doc.name]),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+
+  /// Elige el icono de la aplicación con el diálogo de archivos y lo copia a
+  /// images/ del proyecto (así viaja con él).
+  Future<void> _chooseIcon() async {
+    final file = await openFile(
+      acceptedTypeGroups: [
+        XTypeGroup(
+          label: tr('Imágenes'),
+          extensions: const ['png', 'jpg', 'jpeg', 'gif'],
+        ),
+      ],
+    );
+    if (file == null || !mounted) return;
+    await runAction(context, () async {
+      final ext = file.name.contains('.')
+          ? file.name.substring(file.name.lastIndexOf('.')).toLowerCase()
+          : '.png';
+      final rel = 'images/app_icon$ext';
+      final dest = File('${doc.id}${Platform.pathSeparator}$rel');
+      await dest.parent.create(recursive: true);
+      await dest.writeAsBytes(await file.readAsBytes());
+      _begin();
+      setState(() {
+        d.appIcon = rel;
+        _changed();
+      });
+      // Una imagen nueva con el mismo nombre: que no se vea la de antes.
+      imageCache.evict(FileImage(dest));
+    });
+  }
+
+  /// El icono de la aplicación, dibujado por la IA.
+  Future<void> _iconWithAi() async {
+    final rel = await showAiIconDialog(
+      context,
+      dir: doc.id,
+      suggestion: [
+        doc.name,
+        if ((doc.description ?? '').isNotEmpty) doc.description,
+      ].join(': '),
+    );
+    if (rel == null || !mounted) return;
+    imageCache.clear();
+    _begin();
+    setState(() {
+      d.appIcon = rel;
+      _changed();
+    });
+  }
+
+  /// El inspector del proyecto: nombre, descripción, destino, carpeta e
+  /// icono de la aplicación.
+  Widget _projectPanel(ThemeData t) {
+    final icon = d.appIcon;
+    final iconFile = icon == null
+        ? null
+        : File('${doc.id}${Platform.pathSeparator}$icon');
+    Widget label(String text) => Padding(
+      padding: const EdgeInsets.only(top: 12, bottom: 4),
+      child: Text(text, style: TextStyle(fontSize: 11.5, color: t.hintColor)),
+    );
+    return ListView(
+      key: const ValueKey('tk-project-panel'),
+      padding: const EdgeInsets.fromLTRB(12, 4, 12, 12),
+      children: [
+        label(tr('Nombre')),
+        TextFormField(
+          key: ValueKey('tk-project-name-${doc.id}'),
+          initialValue: doc.name,
+          style: const TextStyle(fontSize: 13),
+          decoration: const InputDecoration(isDense: true),
+          onChanged: (v) {
+            if (v.trim().isEmpty) return;
+            doc
+              ..name = v.trim()
+              ..touch();
+            setState(() {});
+          },
+        ),
+        label(tr('Descripción')),
+        TextFormField(
+          key: ValueKey('tk-project-description-${doc.id}'),
+          initialValue: doc.description ?? '',
+          maxLines: 3,
+          style: const TextStyle(fontSize: 13),
+          decoration: const InputDecoration(isDense: true),
+          onChanged: (v) {
+            doc
+              ..description = v
+              ..touch();
+          },
+        ),
+        label(tr('Destino')),
+        Text(tkTargetLabel(d.target), style: const TextStyle(fontSize: 13)),
+        label(tr('Carpeta')),
+        SelectableText(doc.id, style: const TextStyle(fontSize: 12)),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            onPressed: () => revealInFiles(doc.id),
+            icon: const Icon(LucideIcons.folderOpen, size: 15),
+            label: Text(tr('Ir a la carpeta')),
+          ),
+        ),
+        label(tr('Icono de la aplicación')),
+        Row(
+          children: [
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                border: Border.all(color: t.dividerColor),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: iconFile != null && iconFile.existsSync()
+                  ? Image.file(
+                      iconFile,
+                      key: ValueKey(iconFile.lastModifiedSync()),
+                      fit: BoxFit.contain,
+                    )
+                  : Icon(LucideIcons.image, color: t.hintColor),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Wrap(
+                spacing: 4,
+                children: [
+                  FilledButton.tonal(
+                    key: const ValueKey('tk-project-icon'),
+                    onPressed: _chooseIcon,
+                    child: Text(tr('Elegir…')),
+                  ),
+                  TextButton.icon(
+                    key: const ValueKey('tk-project-icon-ai'),
+                    onPressed: _iconWithAi,
+                    icon: const Icon(LucideIcons.sparkles, size: 15),
+                    label: Text(tr('Generar con IA')),
+                  ),
+                  if (icon != null)
+                    TextButton(
+                      onPressed: () => setState(() {
+                        _begin();
+                        d.appIcon = null;
+                        _changed();
+                      }),
+                      child: Text(tr('Quitar')),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          tr(
+            'Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino.',
+          ),
+          style: TextStyle(fontSize: 11.5, color: t.hintColor),
+        ),
+      ],
     );
   }
 
@@ -2394,25 +2677,28 @@ class _TkEditorState extends State<_TkEditor> {
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 4),
             children: [
-              _treeRow(t, null, d.name, LucideIcons.appWindowMac, 0),
+              _projectRow(t),
+              _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
               for (final w in d.widgets)
-                _treeRow(t, w.name, w.name, tkIcon(w.kind), 1 + _depth(w)),
+                _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
             ],
           ),
         ),
         Divider(height: 1, color: t.dividerColor),
         Expanded(
-          child: TkInspector(
-            design: d,
-            widgetName: _selection.length == 1 ? _selection.first : null,
-            count: _selection.length,
-            connections: _connections,
-            onBegin: _begin,
-            onChanged: _changed,
-            onRename: _rename,
-            onSetHandler: _setHandler,
-            onOpenHandler: _openHandler,
-          ),
+          child: _project && _selection.isEmpty
+              ? _projectPanel(t)
+              : TkInspector(
+                  design: d,
+                  widgetName: _selection.length == 1 ? _selection.first : null,
+                  count: _selection.length,
+                  connections: _connections,
+                  onBegin: _begin,
+                  onChanged: _changed,
+                  onRename: _rename,
+                  onSetHandler: _setHandler,
+                  onOpenHandler: _openHandler,
+                ),
         ),
       ],
     ),
@@ -2479,6 +2765,7 @@ class _TkEditorState extends State<_TkEditor> {
               javascript: d.isJs,
               cpp: d.isCpp,
               findController: _codeFind,
+              completion: _completion,
               project: doc.id,
               currentLine: _debug?.currentLine,
               onCondition: _editCondition,
@@ -2519,6 +2806,7 @@ class _TkEditorState extends State<_TkEditor> {
               snap: _snap,
               onSelect: (s) => setState(() {
                 _selection = s;
+                _project = false;
                 _lastEdit = null;
               }),
               onBegin: _begin,
@@ -2660,6 +2948,8 @@ class _TkEditorState extends State<_TkEditor> {
         },
         const SingleActivator(LogicalKeyboardKey.f5): _toggleBreakpoint,
         const SingleActivator(LogicalKeyboardKey.keyF, meta: true): _find,
+        const SingleActivator(LogicalKeyboardKey.space, control: true):
+            _complete,
         const SingleActivator(LogicalKeyboardKey.keyF, control: true): _find,
         const SingleActivator(LogicalKeyboardKey.f7): () => _live?.stepInto(),
         const SingleActivator(LogicalKeyboardKey.f8): () => _live?.stepOver(),

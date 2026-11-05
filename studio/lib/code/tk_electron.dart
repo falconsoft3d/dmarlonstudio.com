@@ -32,6 +32,7 @@ class TkElectron {
     'position': '${d.prop(tkFormPosition)}',
     'left': TkPy.integer(d.prop(tkFormLeft)),
     'top': TkPy.integer(d.prop(tkFormTop)),
+    'icon': ?d.appIcon,
   };
 
   /// Propiedades de [w] para el motor (con sus valores de serie).

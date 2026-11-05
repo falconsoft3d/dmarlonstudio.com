@@ -275,6 +275,7 @@ public:
 $members
   FormDesign() : DmsForm(${d.width}, ${d.height + top}, ${_s(d.title)}) {
     bg(${_s(bg)});
+${d.appIcon == null ? '' : '    app_icon(${_s(d.appIcon!)});\n'}
 ${d.prop(tkFormResizable) == true ? '    resizable(this);\n' : ''}${d.prop(tkFormPosition) == 'manual' ? '    position(${TkPy.integer(d.prop(tkFormLeft))}, ${TkPy.integer(d.prop(tkFormTop))});\n' : ''}    begin();
 $build    end();
 ${d.events['close'] == null ? '' : '    on_close([this] { ${d.events['close']}(); });\n'}${d.events['create'] == null ? '' : '    on_create([this] { ${d.events['create']}(); });\n'}  }
@@ -716,6 +717,13 @@ public:
   std::string title() const { return label() ? label() : ""; }
   void title(const std::string& s) { copy_label(s.c_str()); }
   void bg(const std::string& c) { color(dms_color(c)); redraw(); }
+  /// El icono de la ventana (un PNG o JPEG del proyecto).
+  void app_icon(const char* path) {
+    fl_register_images();
+    Fl_Shared_Image* img = Fl_Shared_Image::get(path);
+    if (!img) return;
+    if (auto* rgb = dynamic_cast<Fl_RGB_Image*>(img->image())) icon(rgb);
+  }
   void message(const std::string& text) { fl_message("%s", text.c_str()); }
   bool ask(const std::string& question) { return fl_choice("%s", "No", "Sí", nullptr, question.c_str()) == 1; }
   void close() { hide(); }

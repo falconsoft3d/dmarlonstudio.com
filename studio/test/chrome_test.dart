@@ -30,7 +30,8 @@ Future<String?> _node() async {
 
 /// Escribe la extensión de [e] (con React) y su vista previa en [root].
 Future<String> _write(TkExample e, String root, String runtime) async {
-  final ext = Directory(p.join(root, 'build', 'extension'))..createSync(recursive: true);
+  final ext = Directory(p.join(root, 'build', 'extension'))
+    ..createSync(recursive: true);
   for (final f in TkChrome.files(e.design, e.code, name: e.name).entries) {
     File(p.join(ext.path, f.key)).writeAsStringSync(f.value);
   }
@@ -39,9 +40,9 @@ Future<String> _write(TkExample e, String root, String runtime) async {
   for (final f in TkChrome.preview(e.design, e.name).entries) {
     File(p.join(preview.path, f.key)).writeAsStringSync(f.value);
   }
-  File(p.join(ext.path, 'react.js')).writeAsStringSync(
-    TkChrome.reactBundle(p.join(runtime, 'node_modules')),
-  );
+  File(
+    p.join(ext.path, 'react.js'),
+  ).writeAsStringSync(TkChrome.reactBundle(p.join(runtime, 'node_modules')));
   return ext.path;
 }
 
@@ -54,13 +55,24 @@ void main() {
       TkWidget(kind: 'Menu', name: 'Menu1', x: 0, y: 0, width: 24, height: 24),
     );
     expect(d.problems().single, contains('Chrome'));
-    expect(TkDesign.parse(TkDesign(target: tkTargetChrome).toJsonString()).isChrome, isTrue);
+    expect(
+      TkDesign.parse(TkDesign(target: tkTargetChrome).toJsonString()).isChrome,
+      isTrue,
+    );
     final e = example('chrome_notes');
-    final files = TkChrome.files(e.design, e.code, name: e.name, description: 'x');
+    final files = TkChrome.files(
+      e.design,
+      e.code,
+      name: e.name,
+      description: 'x',
+    );
     final manifest = jsonDecode(files['manifest.json']!) as Map;
     expect(manifest['manifest_version'], 3);
     expect(manifest['action']['default_popup'], 'popup.html');
-    expect(manifest['permissions'], containsAll(['storage', 'activeTab', 'scripting']));
+    expect(
+      manifest['permissions'],
+      containsAll(['storage', 'activeTab', 'scripting']),
+    );
     expect(files['popup.html'], contains('<script src="react.js"></script>'));
     expect(files['popup.html'], contains('width: 360px; height: 380px;'));
   });
@@ -75,7 +87,10 @@ void main() {
       if (node == null) continue;
       final all = {
         ...TkChrome.files(e.design, e.code, name: e.name),
-        ...{for (final f in TkChrome.preview(e.design, e.name).entries) 'preview_${f.key}': f.value},
+        ...{
+          for (final f in TkChrome.preview(e.design, e.name).entries)
+            'preview_${f.key}': f.value,
+        },
       };
       for (final f in all.entries.where((f) => f.key.endsWith('.js'))) {
         final path = p.join(tmp.path, '${e.seed}_${f.key}');
@@ -101,7 +116,8 @@ void main() {
       final r = await Process.run(node, ['--check', p.join(ext, 'react.js')]);
       expect(r.exitCode, 0, reason: '${r.stderr}');
     }
-    final script = File(p.join(tmp.path, 'check.js'))..writeAsStringSync('''
+    final script = File(p.join(tmp.path, 'check.js'))
+      ..writeAsStringSync('''
 (async () => {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const \$ = (id) => document.getElementById(id);
@@ -163,10 +179,13 @@ void main() {
     // El id de una extensión sin empaquetar sale de su ruta.
     final hash = sha256.convert(utf8.encode(real)).toString().substring(0, 32);
     final extId = String.fromCharCodes(
-      hash.codeUnits.map((c) => 'a'.codeUnitAt(0) + int.parse(String.fromCharCode(c), radix: 16)),
+      hash.codeUnits.map(
+        (c) => 'a'.codeUnitAt(0) + int.parse(String.fromCharCode(c), radix: 16),
+      ),
     );
     final cdp = File(p.join(tmp.path, 'cdp.mjs'))..writeAsStringSync(_cdp);
-    final check = File(p.join(tmp.path, 'check.js'))..writeAsStringSync('''
+    final check = File(p.join(tmp.path, 'check.js'))
+      ..writeAsStringSync('''
 (async () => {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   await wait(300);
@@ -196,10 +215,12 @@ void main() {
       'chrome-extension://$extId/popup.html',
       check.path,
     ]).timeout(const Duration(seconds: 60));
-    final line = '${r.stdout}'.split('\n').firstWhere(
-      (l) => l.startsWith('RESULT '),
-      orElse: () => '${r.stdout}${r.stderr}',
-    );
+    final line = '${r.stdout}'
+        .split('\n')
+        .firstWhere(
+          (l) => l.startsWith('RESULT '),
+          orElse: () => '${r.stdout}${r.stderr}',
+        );
     expect(line, startsWith('RESULT '));
     final out = jsonDecode(line.substring(7)) as Map;
     expect(out['host'], 'chrome');

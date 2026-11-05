@@ -37,7 +37,10 @@ void main() {
     final files = TkNext.files(e.design, e.code, name: e.name);
     final pkg = jsonDecode(files['package.json']!) as Map;
     expect(pkg['scripts']['dev'], 'next dev --webpack');
-    expect((pkg['dependencies'] as Map).keys, containsAll(['next', 'react', 'react-dom']));
+    expect(
+      (pkg['dependencies'] as Map).keys,
+      containsAll(['next', 'react', 'react-dom']),
+    );
     expect(files['app/page.js'], contains('ssr: false'));
     // El código del usuario conserva sus números de línea.
     final unit = files['app/dms/Form1.js']!.split('\n');
@@ -51,7 +54,12 @@ void main() {
     if (node == null) return;
     final tmp = await Directory.systemTemp.createTemp('dms_next_js_');
     addTearDown(() => tmp.delete(recursive: true));
-    for (final f in ['app/dms/runtime.js', 'app/dms/design.js', 'app/dms/Form1.js', 'app/dms/host.js']) {
+    for (final f in [
+      'app/dms/runtime.js',
+      'app/dms/design.js',
+      'app/dms/Form1.js',
+      'app/dms/host.js',
+    ]) {
       final path = p.join(tmp.path, '${p.basenameWithoutExtension(f)}.mjs');
       await File(path).writeAsString(files[f]!);
       final r = await Process.run(node, ['--check', path]);
@@ -63,9 +71,15 @@ void main() {
     final runtime = Platform.environment['DMS_ELECTRON_RUNTIME'];
     final chromium = Platform.environment['DMS_CHROMIUM'];
     final node = await _node();
-    if (runtime == null || chromium == null || node == null ||
-        !File(p.join(runtime, 'node_modules', 'next', 'package.json')).existsSync()) {
-      return markTestSkipped('Sin DMS_ELECTRON_RUNTIME (con Next.js) y DMS_CHROMIUM.');
+    if (runtime == null ||
+        chromium == null ||
+        node == null ||
+        !File(
+          p.join(runtime, 'node_modules', 'next', 'package.json'),
+        ).existsSync()) {
+      return markTestSkipped(
+        'Sin DMS_ELECTRON_RUNTIME (con Next.js) y DMS_CHROMIUM.',
+      );
     }
     TkElectronRuntime.dirOverride = runtime;
     final tmp = await Directory.systemTemp.createTemp('dms_next_run_');
@@ -92,7 +106,8 @@ void main() {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
     expect(run.url, isNotNull, reason: run.lines.join('\n'));
-    final check = File(p.join(tmp.path, 'check.js'))..writeAsStringSync('''
+    final check = File(p.join(tmp.path, 'check.js'))
+      ..writeAsStringSync('''
 (async () => {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   for (let i = 0; i < 100 && !document.getElementById("NewTask"); i++) await wait(200);
@@ -128,12 +143,18 @@ void main() {
       '--remote-debugging-port=$port',
     ]);
     addTearDown(browser.kill);
-    final r = await Process.run(node, [cdp.path, '$port', run.url!, check.path])
-        .timeout(const Duration(seconds: 90));
-    final line = '${r.stdout}'.split('\n').firstWhere(
-      (l) => l.startsWith('RESULT '),
-      orElse: () => '${r.stdout}${r.stderr}',
-    );
+    final r = await Process.run(node, [
+      cdp.path,
+      '$port',
+      run.url!,
+      check.path,
+    ]).timeout(const Duration(seconds: 90));
+    final line = '${r.stdout}'
+        .split('\n')
+        .firstWhere(
+          (l) => l.startsWith('RESULT '),
+          orElse: () => '${r.stdout}${r.stderr}',
+        );
     expect(line, startsWith('RESULT '));
     final out = jsonDecode(line.substring(7)) as Map;
     expect(out['host'], 'web');

@@ -31,6 +31,8 @@ Future<String?> _python() async {
 
 void main() {
   testWidgets('depurar desde el Diseñador', (tester) async {
+    // El editor de escritorio (con sus atajos), como en el Mac.
+    debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
     tester.view.physicalSize = const Size(1500, 1000);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
@@ -71,6 +73,15 @@ void main() {
     await tester.pumpWidget(const StudioApp());
     await settle(20);
 
+    // El árbol empieza por el proyecto; su panel tiene el icono.
+    expect(find.byKey(const ValueKey('tk-tree-#project')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('tk-tree-#project')));
+    await settle(2);
+    expect(find.byKey(const ValueKey('tk-project-panel')), findsOneWidget);
+    expect(find.byKey(const ValueKey('tk-project-icon-ai')), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('tk-tree-#form')));
+    await settle(2);
+
     // F5 en la pestaña Código pone un punto en la línea del cursor (la 1).
     await tester.tap(find.byKey(const ValueKey('tk-tab-1')));
     await settle();
@@ -97,6 +108,18 @@ void main() {
       tester.widget<Text>(find.byKey(const ValueKey('code-find-count'))).data,
       '1 / 1',
     );
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await settle(2);
+
+    // Ctrl+Espacio: autocompletar (aquí, una palabra del código no; las
+    // palabras clave y «self» sí).
+    await tester.tap(find.byKey(const ValueKey('tk-code')));
+    await settle(2);
+    await tester.sendKeyDownEvent(LogicalKeyboardKey.controlLeft);
+    await tester.sendKeyEvent(LogicalKeyboardKey.space);
+    await tester.sendKeyUpEvent(LogicalKeyboardKey.controlLeft);
+    await settle(3);
+    expect(find.byKey(const ValueKey('code-complete')), findsOneWidget);
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
     await settle(2);
 
@@ -138,6 +161,7 @@ void main() {
     await settle();
     expect(find.byKey(const ValueKey('tk-dbg-continue')), findsNothing);
 
+    debugDefaultTargetPlatformOverride = null;
     await tester.runAsync(() async {
       TkBreakpoints.clear(path);
       for (final d in [...TkProject.opened]) {

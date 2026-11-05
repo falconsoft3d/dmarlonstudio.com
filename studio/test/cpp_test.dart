@@ -23,14 +23,30 @@ void main() {
     code = cpp.ensureMethod(code, 'Form1', 'Scale1_change', param: 'value');
     expect(code, contains('void Scale1_change(double value) override {'));
     code = cpp.ensureMethod(code, 'Form1', 'Open_select', param: 'path');
-    expect(code, contains('void Open_select(const std::string& path) override {'));
-    code = cpp.setMethodBody(code, 'Form1', 'Button1_click', 'Label1->text("}");');
-    expect(code, contains('  void Button1_click() override {\n    Label1->text("}");\n  }'));
+    expect(
+      code,
+      contains('void Open_select(const std::string& path) override {'),
+    );
+    code = cpp.setMethodBody(
+      code,
+      'Form1',
+      'Button1_click',
+      'Label1->text("}");',
+    );
+    expect(
+      code,
+      contains(
+        '  void Button1_click() override {\n    Label1->text("}");\n  }',
+      ),
+    );
     code = cpp.renameWidget(code, 'Label1', 'Title');
     expect(code, contains('Title->text("}")'));
     code = cpp.renameMethod(code, 'Button1_click', 'Ok_click');
     expect(cpp.lineOf(code, 'Ok_click'), isNotNull);
-    expect(cpp.renameForm(code, 'Form1', 'Main'), contains('class Main : public'));
+    expect(
+      cpp.renameForm(code, 'Form1', 'Main'),
+      contains('class Main : public'),
+    );
     expect(tkUnitOf(TkDesign(target: tkTargetCpp)), isA<CppUnit>());
     final d = TkDesign(target: tkTargetCpp);
     expect(d.isCpp && !d.isPython && !d.isJs, isTrue);
@@ -40,7 +56,10 @@ void main() {
   test('design.h: métodos virtuales y menú', () {
     final e = tkCppExamples(id).single;
     final files = TkCpp.files(e.design, e.code);
-    expect(files.keys, containsAll(['dms.h', 'design.h', 'main.cpp', 'Form1.cpp', 'Makefile']));
+    expect(
+      files.keys,
+      containsAll(['dms.h', 'design.h', 'main.cpp', 'Form1.cpp', 'Makefile']),
+    );
     expect(files['design.h'], contains('virtual void BtnEquals_click() {}'));
     expect(files['main.cpp'], contains('#include "Form1.cpp"'));
     expect(files['Form1.cpp'], e.code);
@@ -80,16 +99,43 @@ void main() {
     }
     final tmp = await Directory.systemTemp.createTemp('dms_cpp_run_');
     addTearDown(() => tmp.delete(recursive: true));
-    final d = TkDesign(
-      width: 300,
-      height: 200,
-      target: tkTargetCpp,
-      events: {'create': 'form_create'},
-    )..widgets.addAll([
-        TkWidget(kind: 'Label', name: 'Label1', x: 10, y: 10, width: 200, height: 24, props: {'text': 'Hola'}),
-        TkWidget(kind: 'Listbox', name: 'List1', x: 10, y: 40, width: 200, height: 80, props: {'items': 'uno\ndos'}),
-        TkWidget(kind: 'Timer', name: 'Timer1', x: 0, y: 0, width: 24, height: 24, props: {'interval': 50}, events: {'command': 'Timer1_timer'}),
-      ]);
+    final d =
+        TkDesign(
+            width: 300,
+            height: 200,
+            target: tkTargetCpp,
+            events: {'create': 'form_create'},
+          )
+          ..widgets.addAll([
+            TkWidget(
+              kind: 'Label',
+              name: 'Label1',
+              x: 10,
+              y: 10,
+              width: 200,
+              height: 24,
+              props: {'text': 'Hola'},
+            ),
+            TkWidget(
+              kind: 'Listbox',
+              name: 'List1',
+              x: 10,
+              y: 40,
+              width: 200,
+              height: 80,
+              props: {'items': 'uno\ndos'},
+            ),
+            TkWidget(
+              kind: 'Timer',
+              name: 'Timer1',
+              x: 0,
+              y: 0,
+              width: 24,
+              height: 24,
+              props: {'interval': 50},
+              events: {'command': 'Timer1_timer'},
+            ),
+          ]);
     const code = '''#include <iostream>
 
 class Form1 : public FormDesign {
@@ -110,7 +156,8 @@ public:
   }
 };
 ''';
-    final dir = Directory(p.join(tmp.path, 'build', 'cpp'))..createSync(recursive: true);
+    final dir = Directory(p.join(tmp.path, 'build', 'cpp'))
+      ..createSync(recursive: true);
     for (final f in TkCpp.files(d, code).entries) {
       File(p.join(dir.path, f.key)).writeAsStringSync(f.value);
     }
@@ -138,18 +185,30 @@ public:
     final tmp = await Directory.systemTemp.createTemp('dms_cpp_err_');
     addTearDown(() => tmp.delete(recursive: true));
     final d = TkDesign(target: tkTargetCpp);
-    const code = 'class Form1 : public FormDesign {\npublic:\n  void form_create() override {\n    nope();\n  }\n};\n';
-    final dir = Directory(p.join(tmp.path, 'build', 'cpp'))..createSync(recursive: true);
+    const code =
+        'class Form1 : public FormDesign {\npublic:\n  void form_create() override {\n    nope();\n  }\n};\n';
+    final dir = Directory(p.join(tmp.path, 'build', 'cpp'))
+      ..createSync(recursive: true);
     for (final f in TkCpp.files(d, code).entries) {
       File(p.join(dir.path, f.key)).writeAsStringSync(f.value);
     }
     final run = await TkRunner.start(
-      TkPrepared(id: tmp.path, name: 'err', source: code, file: p.join(dir.path, 'Form1.cpp'), cpp: true),
+      TkPrepared(
+        id: tmp.path,
+        name: 'err',
+        source: code,
+        file: p.join(dir.path, 'Form1.cpp'),
+        cpp: true,
+      ),
     );
     while (run.running) {
       await Future<void>.delayed(const Duration(milliseconds: 100));
     }
     expect(run.exitCode, isNot(0));
-    expect(run.lines.any((l) => l.startsWith('Form1.cpp:4:')), isTrue, reason: run.lines.join('\n'));
+    expect(
+      run.lines.any((l) => l.startsWith('Form1.cpp:4:')),
+      isTrue,
+      reason: run.lines.join('\n'),
+    );
   });
 }

@@ -447,6 +447,25 @@ export const manualEn: Manual = {
             },
           ],
         },
+        {
+          id: "project",
+          title: "The project, its icon and the code",
+          blocks: [
+            {
+              type: "p",
+              text: "The tree starts with the **Project** node; below it, the window and its components. When you choose it, the inspector shows the name, the description, the target, the folder (**Go to folder**) and the **app icon**.",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Choose…** opens the file dialog: the PNG is copied to the project's `images/`.",
+                "**Generate with AI** draws the icon from a description (with the AI from Settings) and saves it as a 512 × 512 PNG. You see it before using it and can ask for another version.",
+                "Every target uses it: the window icon (tkinter, Electron, C++), the Chrome extension icon or the Next.js web icon.",
+                "In the code, **Ctrl+Space** shows what you can write: after `self.`, `this.` or `Label1->`, the components and what each one has; it also appears by itself as you type. **⌘F / Ctrl+F** finds and replaces.",
+              ],
+            },
+          ],
+        },
       ],
     },
     // ------------------------------------------------------------ debugging
@@ -1155,6 +1174,8 @@ export const manualEn: Manual = {
                 ["F4", "Run to cursor"],
                 ["Ctrl+F2", "Stop"],
                 ["F12", "Switch between design and code"],
+                ["Ctrl+Space", "Autocomplete in the code"],
+                ["⌘F / Ctrl+F", "Find (and replace) in the code"],
                 ["⌘S / Ctrl+S", "Save the project"],
                 ["⌘Z / Ctrl+Z", "Undo"],
                 ["⌘C, ⌘X, ⌘V (Ctrl on Windows)", "Copy, cut and paste components"],

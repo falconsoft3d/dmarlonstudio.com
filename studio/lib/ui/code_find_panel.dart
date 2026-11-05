@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 
@@ -82,6 +83,26 @@ class CodeFindPanel extends StatelessWidget implements PreferredSizeWidget {
       onPressed: onTap,
       icon: Icon(i),
     );
+    // Esc cierra el buscador (también desde sus campos).
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.escape): controller.close,
+      },
+      child: _panel(context, v, side, text, dim, accent, r, field, btn),
+    );
+  }
+
+  Widget _panel(
+    BuildContext context,
+    CodeFindValue v,
+    Color side,
+    Color text,
+    Color dim,
+    Color accent,
+    CodeFindResult? r,
+    Widget Function(TextEditingController, FocusNode, String, {Key? key}) field,
+    Widget Function(IconData, String, VoidCallback, {bool on, Key? key}) btn,
+  ) {
     return Container(
       color: side,
       padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),

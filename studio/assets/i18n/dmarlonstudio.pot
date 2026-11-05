@@ -3148,7 +3148,7 @@ msgstr ""
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Quitar"
 msgstr ""
 
@@ -3800,7 +3800,7 @@ msgstr ""
 msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
 msgstr ""
 
-#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr ""
 
@@ -4138,6 +4138,46 @@ msgstr ""
 
 #: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Sin resultados"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Aquí se verá el icono."
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Describa el icono"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Generar"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Generar el icono con IA"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "La IA no devolvió un icono válido. Pruebe otra vez."
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Lo dibuja la IA de Ajustes en SVG; se guarda como PNG de 512 × 512 en images/app_icon.png."
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "No se pudo dibujar el icono."
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Otra versión"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Por ejemplo: una calculadora azul, estilo plano"
+msgstr ""
+
+#: lib/ui/icon_ai.dart
+msgid "Usar este icono"
 msgstr ""
 
 #: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
@@ -4488,7 +4528,7 @@ msgstr ""
 msgid "Descartar todos los cambios…"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
 msgid "Descripción"
 msgstr ""
 
@@ -4508,7 +4548,7 @@ msgstr ""
 msgid "Elegir"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/tk_designer.dart
 msgid "Elegir…"
 msgstr ""
 
@@ -5602,7 +5642,7 @@ msgstr ""
 msgid "Buscar proyectos"
 msgstr ""
 
-#: lib/ui/screens/project_browser.dart
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Carpeta"
 msgstr ""
 
@@ -6080,6 +6120,10 @@ msgstr ""
 msgid "Depurar (Mayús+F9)"
 msgstr ""
 
+#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Destino"
+msgstr ""
+
 #: lib/ui/screens/tk_designer.dart
 msgid "Detener (Ctrl+F2)"
 msgstr ""
@@ -6205,6 +6249,10 @@ msgid "F12: diseño"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Generar con IA"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "GitHub: publicar o subir los cambios"
 msgstr ""
 
@@ -6213,11 +6261,19 @@ msgid "Guarde el proyecto."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Icono de la aplicación"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el ancho"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -6289,6 +6345,10 @@ msgid "Propuesta de la IA"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Proyecto: {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Proyectos"
 msgstr ""
 
@@ -6326,6 +6386,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Traer al frente"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -6413,10 +6477,6 @@ msgid "Color (#rrggbb o nombre de Tk)"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
-msgid "Destino"
-msgstr ""
-
-#: lib/ui/screens/tk_inspector.dart
 msgid "El código corre en Python, en el servidor. Solo se abre en este equipo: esta versión no publica ni escucha en la red. Siempre encima y Redimensionable no existen en una página."
 msgstr ""
 
@@ -6430,10 +6490,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "Eventos"
-msgstr ""
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "Imágenes"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart

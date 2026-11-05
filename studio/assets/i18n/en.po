@@ -3215,7 +3215,7 @@ msgstr "Post comment"
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr "Fitness band with sleep tracking and 14 days of battery."
 
-#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Quitar"
 msgstr "Remove"
 
@@ -3875,7 +3875,7 @@ msgstr "Warning"
 msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
 msgstr "Each button opens a dialog or another window; what they return goes to the log."
 
-#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -4214,6 +4214,46 @@ msgstr "Replace all"
 #: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Sin resultados"
 msgstr "No results"
+
+#: lib/ui/icon_ai.dart
+msgid "Aquí se verá el icono."
+msgstr "The icon will appear here."
+
+#: lib/ui/icon_ai.dart
+msgid "Describa el icono"
+msgstr "Describe the icon"
+
+#: lib/ui/icon_ai.dart
+msgid "Generar"
+msgstr "Generate"
+
+#: lib/ui/icon_ai.dart
+msgid "Generar el icono con IA"
+msgstr "Generate the icon with AI"
+
+#: lib/ui/icon_ai.dart
+msgid "La IA no devolvió un icono válido. Pruebe otra vez."
+msgstr "The AI did not return a valid icon. Try again."
+
+#: lib/ui/icon_ai.dart
+msgid "Lo dibuja la IA de Ajustes en SVG; se guarda como PNG de 512 × 512 en images/app_icon.png."
+msgstr "The AI from Settings draws it in SVG; it is saved as a 512 × 512 PNG in images/app_icon.png."
+
+#: lib/ui/icon_ai.dart
+msgid "No se pudo dibujar el icono."
+msgstr "The icon could not be drawn."
+
+#: lib/ui/icon_ai.dart
+msgid "Otra versión"
+msgstr "Another version"
+
+#: lib/ui/icon_ai.dart
+msgid "Por ejemplo: una calculadora azul, estilo plano"
+msgstr "For example: a blue calculator, flat style"
+
+#: lib/ui/icon_ai.dart
+msgid "Usar este icono"
+msgstr "Use this icon"
 
 #: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Actualizar"
@@ -4563,7 +4603,7 @@ msgstr "Discard all changes"
 msgid "Descartar todos los cambios…"
 msgstr "Discard all changes…"
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
 msgid "Descripción"
 msgstr "Description"
 
@@ -4583,7 +4623,7 @@ msgstr "Repository URL"
 msgid "Elegir"
 msgstr "Choose"
 
-#: lib/ui/screens/code_git.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/tk_designer.dart
 msgid "Elegir…"
 msgstr "Choose…"
 
@@ -5679,7 +5719,7 @@ msgstr "Add new"
 msgid "Buscar proyectos"
 msgstr "Search projects"
 
-#: lib/ui/screens/project_browser.dart
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Carpeta"
 msgstr "Folder"
 
@@ -6159,6 +6199,10 @@ msgstr "Debugging: running."
 msgid "Depurar (Mayús+F9)"
 msgstr "Debug (Shift+F9)"
 
+#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Destino"
+msgstr "Destination"
+
 #: lib/ui/screens/tk_designer.dart
 msgid "Detener (Ctrl+F2)"
 msgstr "Stop (Ctrl+F2)"
@@ -6284,6 +6328,10 @@ msgid "F12: diseño"
 msgstr "F12: design"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Generar con IA"
+msgstr "Generate with AI"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "GitHub: publicar o subir los cambios"
 msgstr "GitHub: publish or push the changes"
 
@@ -6292,12 +6340,20 @@ msgid "Guarde el proyecto."
 msgstr "Save the project."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Icono de la aplicación"
+msgstr "App icon"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
 msgstr "Same height"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el ancho"
 msgstr "Same width"
+
+#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
+msgstr "Images"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
@@ -6368,6 +6424,10 @@ msgid "Propuesta de la IA"
 msgstr "AI proposal"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Proyecto: {0}"
+msgstr "Project: {0}"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Proyectos"
 msgstr "Projects"
 
@@ -6406,6 +6466,10 @@ msgstr "Tk {0} is old and does not honor the colors of the design. {1}"
 #: lib/ui/screens/tk_designer.dart
 msgid "Traer al frente"
 msgstr "Bring to front"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
+msgstr "A PNG (ideally 256 × 256 or larger). It is copied to the project images folder and used by the window, the extension or the web page depending on the target."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."
@@ -6492,10 +6556,6 @@ msgid "Color (#rrggbb o nombre de Tk)"
 msgstr "Color (#rrggbb or Tk name)"
 
 #: lib/ui/screens/tk_inspector.dart
-msgid "Destino"
-msgstr "Destination"
-
-#: lib/ui/screens/tk_inspector.dart
 msgid "El código corre en Python, en el servidor. Solo se abre en este equipo: esta versión no publica ni escucha en la red. Siempre encima y Redimensionable no existen en una página."
 msgstr "The code runs in Python, on the server. It only opens on this computer: this version does not publish or listen on the network. Always on top and Resizable do not exist on a page."
 
@@ -6510,10 +6570,6 @@ msgstr "Choose image…"
 #: lib/ui/screens/tk_inspector.dart
 msgid "Eventos"
 msgstr "Events"
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "Imágenes"
-msgstr "Images"
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "Ir al código"

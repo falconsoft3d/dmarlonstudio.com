@@ -24,7 +24,7 @@ Pendiente
 =========
 15. Pascal (escritorio, Lazarus/LCL) | ⏳ |
 16. Flutter (escritorio ) | ⏳ |
-17. Flutter (movil ) | ⏳ |
+17. Flutter (movil ) | ⏳ | 
 18. React Native (móvil) | ⏳ |
 19. React (Web) | ⏳ |
 20. HTML (Web) | ⏳ |

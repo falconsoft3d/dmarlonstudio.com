@@ -1274,6 +1274,15 @@ class TkCodegen {
       ..writeln('${_in}self._started = False')
       ..writeln('${_in}self.root = tk.Tk()')
       ..writeln('${_in}self.root.title(${TkPy.str(d.title)})')
+      ..write(
+        d.appIcon == null
+            ? ''
+            : '${_in}try:\n'
+                  '$_in    self._app_icon = tk.PhotoImage(file=${TkPy.str(d.appIcon!)})\n'
+                  '$_in    self.root.iconphoto(True, self._app_icon)\n'
+                  '${_in}except tk.TclError:\n'
+                  '$_in    pass\n',
+      )
       ..writeln('${_in}self.root.geometry("${d.width}x${d.height}")');
     place(b, d);
     final resizable = d.prop(tkFormResizable) == true ? 'True' : 'False';

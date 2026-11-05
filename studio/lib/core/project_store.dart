@@ -563,6 +563,13 @@ class ProjectStore {
     final out = nextDir(x.path);
     await writeFiles(out, TkNext.files(x.design, x.code, name: x.name));
     await copyImages(x.path, p.join(out, 'public'));
+    // El icono de la aplicación: Next.js lo toma de app/icon.png.
+    final icon = x.design.appIcon;
+    if (icon != null && File(p.join(x.path, icon)).existsSync()) {
+      await File(
+        p.join(x.path, icon),
+      ).copy(p.join(out, 'app', 'icon${p.extension(icon)}'));
+    }
     await _gitignore(x.path);
     final unit = x.code.replaceAll('\r\n', '\n');
     return TkPrepared(

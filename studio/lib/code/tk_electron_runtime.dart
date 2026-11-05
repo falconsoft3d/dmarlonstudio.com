@@ -738,6 +738,7 @@ function create() {
     show: !testScript,
     webPreferences: { nodeIntegration: true, contextIsolation: false, sandbox: false },
   };
+  if (WINDOW.icon) options.icon = path.resolve(process.cwd(), WINDOW.icon);
   if (WINDOW.position === "manual") {
     options.x = WINDOW.left;
     options.y = WINDOW.top;

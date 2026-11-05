@@ -447,6 +447,25 @@ export const manualEs: Manual = {
             },
           ],
         },
+        {
+          id: "proyecto",
+          title: "El proyecto, su icono y el código",
+          blocks: [
+            {
+              type: "p",
+              text: "El árbol empieza por el nodo **Proyecto**; debajo, la ventana y sus componentes. Al elegirlo, el inspector muestra el nombre, la descripción, el destino, la carpeta (**Ir a la carpeta**) y el **icono de la aplicación**.",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Elegir…** abre el diálogo de archivos: el PNG se copia a `images/` del proyecto.",
+                "**Generar con IA** dibuja el icono a partir de una descripción (con la IA de Ajustes) y lo guarda como PNG de 512 × 512. Antes de usarlo se ve y se puede pedir otra versión.",
+                "Cada destino lo usa: el icono de la ventana (tkinter, Electron, C++), el de la extensión de Chrome o el de la web de Next.js.",
+                "En el código, **Ctrl+Espacio** muestra lo que se puede escribir: tras `self.`, `this.` o `Label1->`, los componentes y lo de cada uno; también aparece solo al escribir. **⌘F / Ctrl+F** busca y reemplaza.",
+              ],
+            },
+          ],
+        },
       ],
     },
     // ------------------------------------------------------------ depurar
@@ -1155,6 +1174,8 @@ export const manualEs: Manual = {
                 ["F4", "Ejecutar hasta el cursor"],
                 ["Ctrl+F2", "Detener"],
                 ["F12", "Pasar del diseño al código y vuelta"],
+                ["Ctrl+Espacio", "Autocompletar en el código"],
+                ["⌘F / Ctrl+F", "Buscar (y reemplazar) en el código"],
                 ["⌘S / Ctrl+S", "Guardar el proyecto"],
                 ["⌘Z / Ctrl+Z", "Deshacer"],
                 ["⌘C, ⌘X, ⌘V (Ctrl en Windows)", "Copiar, cortar y pegar componentes"],

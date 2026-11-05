@@ -1955,6 +1955,21 @@ class TkDesign {
   /// El código es JavaScript (Electron y extensiones de Chrome).
   bool get isJs => isElectron || isChrome || isNext;
 
+  /// Icono de la aplicación (ruta dentro del proyecto, como images/…), o
+  /// null. Se define en el nodo Proyecto.
+  String? get appIcon {
+    final v = props['app_icon'];
+    return v is String && v.isNotEmpty ? v : null;
+  }
+
+  set appIcon(String? v) {
+    if (v == null || v.isEmpty) {
+      props.remove('app_icon');
+    } else {
+      props['app_icon'] = v;
+    }
+  }
+
   /// El código es Python (tkinter o Flask).
   bool get isPython => !isJs && !isCpp;
 

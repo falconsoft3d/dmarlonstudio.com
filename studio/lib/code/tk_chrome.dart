@@ -80,7 +80,9 @@ class TkChrome {
         'action': {
           'default_popup': 'popup.html',
           'default_title': d.title.isEmpty ? name : d.title,
+          if (d.appIcon != null) 'default_icon': d.appIcon,
         },
+        if (d.appIcon != null) 'icons': {'48': d.appIcon, '128': d.appIcon},
         'permissions': ['storage', 'activeTab', 'scripting'],
       });
 

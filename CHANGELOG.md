@@ -3,6 +3,26 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.22 — 2026-11-05
+
+- Nuevo destino **Extensión de Chrome** (Manifest V3), en la misma app: el
+  diseño es la ventana emergente de la extensión y el código, JavaScript (el
+  mismo motor de React que Electron, empaquetado dentro de la extensión).
+  - Desde el código: `this.storage` (guardar datos), `this.currentTab()`,
+    `this.openTab(url)`, `this.runInPage(función)` (código en la página
+    abierta) y `this.badge(texto)`.
+  - **Ejecutar** abre una vista previa de la ventana emergente; **Depurar**,
+    con las herramientas de desarrollo; **Cargar en Chrome** la prepara y
+    abre `chrome://extensions` con los pasos; **Exportar** crea la carpeta y
+    el `.zip` para la Chrome Web Store.
+  - Ejemplos **Notas por sitio** y **Contador de palabras**, probados en un
+    Chromium de verdad.
+- **⌘F / Ctrl+F** en las pestañas Código y Generado del Diseñador: buscar
+  (con mayúsculas y expresiones regulares), ir de un resultado a otro y, en
+  el código, reemplazar.
+- Landing: las extensiones de Chrome, entre los entornos disponibles y en el
+  carrusel. Manual: capítulo **Extensiones de Chrome**.
+
 ## 1.0.21 — 2026-11-05
 
 - Nuevo destino **Electron + React** (escritorio), en la misma app: al crear

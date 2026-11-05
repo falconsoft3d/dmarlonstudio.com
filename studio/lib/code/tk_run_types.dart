@@ -103,7 +103,12 @@ class TkPrepared {
     this.unitStart = 0,
     this.unitLines = 0,
     this.electron = false,
+    this.chrome = false,
   });
+
+  /// Extensión de Chrome: [file] es su Form1.js en build/extension y se
+  /// abre la vista previa (con [electron] también verdadero).
+  final bool chrome;
 
   /// Aplicación de Electron: [file] es su Form1.js en build/electron y
   /// [source], el código del usuario.

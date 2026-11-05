@@ -58,7 +58,10 @@ void main() {
     expect(code, contains('this.Title.text'));
     code = js.renameMethod(code, 'Button1_click', 'BtnOk_click');
     expect(js.lineOf(code, 'BtnOk_click'), isNotNull);
-    expect(js.renameForm(code, 'Form1', 'Main'), contains('class Main extends'));
+    expect(
+      js.renameForm(code, 'Form1', 'Main'),
+      contains('class Main extends'),
+    );
     // Sin la clase, la crea.
     expect(
       js.ensureMethod('', 'Form1', 'x'),
@@ -75,7 +78,8 @@ void main() {
   });
 
   test('puntos de parada como debugger; en la misma línea', () {
-    const code = 'class Form1 extends FormDesign {\n'
+    const code =
+        'class Form1 extends FormDesign {\n'
         '  go(n) {\n'
         '    const x = {\n'
         '      a: 1,\n'
@@ -88,7 +92,11 @@ void main() {
         '  }\n'
         '}\n';
     final out = TkElectron.withBreakpoints(code, {
-      2: '', 3: '', 4: '', 7: 'n > 5', 8: '',
+      2: '',
+      3: '',
+      4: '',
+      7: 'n > 5',
+      8: '',
     });
     final lines = out.split('\n');
     expect(lines.length, code.split('\n').length);
@@ -102,11 +110,20 @@ void main() {
   test('el diseño: componentes que aún no hay y nombres de JavaScript', () {
     final d = TkDesign(target: tkTargetElectron)
       ..widgets.add(
-        TkWidget(kind: 'Chart', name: 'Chart1', x: 0, y: 0, width: 10, height: 10),
+        TkWidget(
+          kind: 'Chart',
+          name: 'Chart1',
+          x: 0,
+          y: 0,
+          width: 10,
+          height: 10,
+        ),
       );
     expect(d.problems().single, contains('Electron'));
     expect(TkDesign(target: tkTargetElectron).validName('class'), isFalse);
-    final round = TkDesign.parse(TkDesign(target: tkTargetElectron).toJsonString());
+    final round = TkDesign.parse(
+      TkDesign(target: tkTargetElectron).toJsonString(),
+    );
     expect(round.isElectron, isTrue);
   });
 
@@ -143,7 +160,8 @@ void main() {
     for (final f in TkElectron.files(e.design, e.code, name: e.name).entries) {
       File(p.join(out.path, f.key)).writeAsStringSync(f.value);
     }
-    final script = File(p.join(tmp.path, 'check.js'))..writeAsStringSync('''
+    final script = File(p.join(tmp.path, 'check.js'))
+      ..writeAsStringSync('''
 (async () => {
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   const click = (id) => document.getElementById(id).click();

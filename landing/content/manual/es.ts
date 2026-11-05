@@ -624,6 +624,68 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------- chrome
+    {
+      slug: "chrome",
+      title: "Extensiones de Chrome",
+      summary: "La ventana emergente de una extensión, diseñada igual, con el código en JavaScript.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear una extensión",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear la aplicación, elija **Extensión de Chrome**. El diseño es la **ventana emergente** que se abre al pulsar el icono de la extensión (800 × 600 como mucho) y el código es el mismo JavaScript de Electron, con los mismos componentes (todos menos el menú).",
+            },
+            {
+              type: "p",
+              text: "El estudio genera una extensión **Manifest V3** completa en `build/extension`: `manifest.json`, `popup.html` y React empaquetado dentro (una extensión no puede cargar código de fuera). Necesita **Node.js** la primera vez, como Electron.",
+            },
+          ],
+        },
+        {
+          id: "api",
+          title: "Lo propio de una extensión",
+          blocks: [
+            {
+              type: "table",
+              head: ["Desde el código", "Qué hace"],
+              rows: [
+                ["`await this.storage.get(clave, siNoHay)`", "Lee un dato guardado (`chrome.storage`)"],
+                ["`await this.storage.set(clave, valor)`", "Guarda un dato (texto, número, lista u objeto)"],
+                ["`await this.currentTab()`", "La pestaña activa: `{ id, url, title }`"],
+                ["`this.openTab(url)`", "Abre una dirección en una pestaña nueva"],
+                ["`await this.runInPage(función, ...args)`", "Ejecuta la función dentro de la página abierta y devuelve lo que devuelva"],
+                ["`this.badge(texto, color)`", "Pone texto en la insignia del icono"],
+              ],
+            },
+            {
+              type: "code",
+              code: "class Form1 extends FormDesign {\n  async Count_click() {\n    const text = await this.runInPage(() => document.body.innerText);\n    const words = text.split(/\\s+/).filter(Boolean).length;\n    this.Words.text = words + \" palabras\";\n    this.badge(String(words));\n  }\n}",
+            },
+            {
+              type: "note",
+              text: "La función de `runInPage` corre en la página, no en la extensión: solo ve lo que hay en la página y lo que reciba en `args`. Las páginas de Chrome (`chrome://…`) no se pueden leer.",
+            },
+          ],
+        },
+        {
+          id: "probar",
+          title: "Probar, cargar en Chrome y publicar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** abre una **vista previa** de la ventana emergente: los datos se guardan en la vista previa y la pestaña activa es una de ejemplo. **Depurar** la abre con las herramientas de desarrollo.",
+                "**Cargar en Chrome** prepara la extensión, copia su carpeta y abre `chrome://extensions`: active el **Modo de desarrollador**, pulse **Cargar extensión sin empaquetar** y elija esa carpeta. Tras cada cambio, guarde y pulse ↻ en la tarjeta de la extensión.",
+                "**Exportar la extensión** crea su carpeta y un `.zip`, que es lo que se sube a la Chrome Web Store.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",

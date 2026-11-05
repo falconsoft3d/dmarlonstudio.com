@@ -624,6 +624,68 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------- chrome
+    {
+      slug: "chrome",
+      title: "Chrome extensions",
+      summary: "An extension popup, designed the same way, with the code in JavaScript.",
+      sections: [
+        {
+          id: "create",
+          title: "Creating an extension",
+          blocks: [
+            {
+              type: "p",
+              text: "When you create the app, choose **Chrome extension**. The design is the **popup** that opens when you press the extension icon (800 × 600 at most) and the code is the same JavaScript as Electron, with the same components (all but the menu).",
+            },
+            {
+              type: "p",
+              text: "The studio generates a complete **Manifest V3** extension in `build/extension`: `manifest.json`, `popup.html` and React packed inside (an extension cannot load outside code). It needs **Node.js** the first time, like Electron.",
+            },
+          ],
+        },
+        {
+          id: "api",
+          title: "What an extension adds",
+          blocks: [
+            {
+              type: "table",
+              head: ["From code", "What it does"],
+              rows: [
+                ["`await this.storage.get(key, fallback)`", "Reads saved data (`chrome.storage`)"],
+                ["`await this.storage.set(key, value)`", "Saves data (text, number, list or object)"],
+                ["`await this.currentTab()`", "The active tab: `{ id, url, title }`"],
+                ["`this.openTab(url)`", "Opens an address in a new tab"],
+                ["`await this.runInPage(function, ...args)`", "Runs the function inside the open page and returns what it returns"],
+                ["`this.badge(text, color)`", "Puts text on the icon badge"],
+              ],
+            },
+            {
+              type: "code",
+              code: "class Form1 extends FormDesign {\n  async Count_click() {\n    const text = await this.runInPage(() => document.body.innerText);\n    const words = text.split(/\\s+/).filter(Boolean).length;\n    this.Words.text = words + \" words\";\n    this.badge(String(words));\n  }\n}",
+            },
+            {
+              type: "note",
+              text: "The `runInPage` function runs in the page, not in the extension: it only sees what is in the page and what it receives in `args`. Chrome pages (`chrome://…`) cannot be read.",
+            },
+          ],
+        },
+        {
+          id: "testing",
+          title: "Test, load in Chrome and publish",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** opens a **preview** of the popup: data is saved in the preview and the active tab is a sample one. **Debug** opens it with the developer tools.",
+                "**Load in Chrome** prepares the extension, copies its folder and opens `chrome://extensions`: turn on **Developer mode**, press **Load unpacked** and choose that folder. After every change, save and press ↻ on the extension card.",
+                "**Export the extension** creates its folder and a `.zip`, which is what you upload to the Chrome Web Store.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ai-in-the-designer",

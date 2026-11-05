@@ -15,6 +15,8 @@ import '../../code/tk_ai.dart';
 import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
 import '../../code/tk_debug.dart';
+import '../../code/tk_electron_run.dart';
+import '../../code/tk_chrome.dart';
 import '../../code/tk_electron.dart';
 import '../../code/tk_model.dart';
 import '../../code/tk_run.dart';
@@ -27,6 +29,7 @@ import '../save_file.dart';
 import '../tk_launch.dart';
 import '../tk_project.dart';
 import '../bottom_panel.dart';
+import '../code_find_panel.dart';
 import '../theme.dart';
 import '../widgets.dart';
 import 'budget_screen.dart';
@@ -640,7 +643,11 @@ class _PythonEditor extends StatelessWidget {
     this.currentLine,
     this.onCondition,
     this.javascript = false,
+    this.findController,
   });
+
+  /// Buscador del editor (el Diseñador lo abre con ⌘F / Ctrl+F).
+  final CodeFindController? findController;
 
   /// Resaltado de JavaScript (Electron) en lugar de Python.
   final bool javascript;
@@ -660,6 +667,7 @@ class _PythonEditor extends StatelessWidget {
     return CodeEditor(
       key: editorKey,
       controller: controller,
+      findController: findController,
       focusNode: focusNode,
       readOnly: readOnly,
       autofocus: false,
@@ -689,6 +697,9 @@ class _PythonEditor extends StatelessWidget {
           theme: dark ? vs2015Theme : vsTheme,
         ),
       ),
+      // ⌘F / Ctrl+F: buscar (y, si se puede escribir, reemplazar).
+      findBuilder: (context, controller, readOnly) =>
+          CodeFindPanel(controller: controller, readOnly: readOnly),
       indicatorBuilder: (context, editing, chunk, notifier) => Row(
         children: [
           if (project != null)
@@ -773,6 +784,18 @@ class _TkEditorState extends State<_TkEditor> {
   bool _wasPaused = false;
 
   final _generatedCode = CodeLineEditingController.fromText('');
+  late final _codeFind = CodeFindController(_code);
+  late final _generatedFind = CodeFindController(_generatedCode);
+
+  /// ⌘F / Ctrl+F: buscar en el código o en el generado (el que se ve).
+  void _find() {
+    if (_tab == 1) {
+      _codeFind.findMode();
+    } else if (_tab == 2) {
+      _generatedFind.findMode();
+    }
+  }
+
   final _codeFocus = FocusNode(debugLabel: 'tk-code');
   final _outScroll = ScrollController();
 
@@ -803,6 +826,8 @@ class _TkEditorState extends State<_TkEditor> {
     _testsRun?.removeListener(_onRun);
     _debug?.removeListener(_onDebug);
     TkBreakpoints.changes.removeListener(_onBreakpoints);
+    _codeFind.dispose();
+    _generatedFind.dispose();
     _generatedCode.dispose();
     _codeFocus.dispose();
     _outScroll.dispose();
@@ -1154,7 +1179,7 @@ class _TkEditorState extends State<_TkEditor> {
     for (final MapEntry(key: old, value: name) in methodNames.entries) {
       final m = clip.methods[old];
       // En JavaScript se pegan los métodos vacíos.
-      if (m == null || d.isElectron) {
+      if (m == null || d.isJs) {
         code = tkUnitOf(d).ensureMethod(code, d.name, name);
         continue;
       }
@@ -1425,7 +1450,7 @@ class _TkEditorState extends State<_TkEditor> {
       d.name,
       method,
       param: e.param,
-      body: d.isElectron
+      body: d.isJs
           ? null
           : tkFormEvents.contains(e) && e.key == 'close' && !d.isWeb
           ? 'self.root.destroy()'
@@ -1598,6 +1623,159 @@ class _TkEditorState extends State<_TkEditor> {
     if (run == null || !mounted) return;
     _attach(run);
     setState(() => _output = true);
+  }
+
+  /// La extensión completa en build/extension (con React): la que se carga
+  /// en Chrome o se exporta.
+  Future<String> _buildExtension() async {
+    if (doc.dirty && !await _save()) throw UserError(tr('Guarde el proyecto.'));
+    final prepared = await ProjectStore.prepareRun(doc.id);
+    final dir = File(prepared.file).parent.path;
+    final bin = await TkElectronRuntime.electron();
+    if (bin == null && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            tr(
+              'Instalando Electron y React (solo la primera vez; unos 100 MB)…',
+            ),
+          ),
+        ),
+      );
+    }
+    await TkElectronRuntime.ensure((_) {});
+    await File('$dir${Platform.pathSeparator}react.js').writeAsString(
+      TkChrome.reactBundle(await TkElectronRuntime.nodeModules()),
+    );
+    return dir;
+  }
+
+  /// Instalar la extensión en Chrome: Chrome solo deja cargar una carpeta
+  /// a mano, en chrome://extensions con el modo de desarrollador.
+  Future<void> _loadInChrome() async {
+    final dir = await runAction(context, _buildExtension);
+    if (dir == null || !mounted) return;
+    await Clipboard.setData(ClipboardData(text: dir));
+    try {
+      if (Platform.isMacOS) {
+        await Process.run('open', [
+          '-a',
+          'Google Chrome',
+          'chrome://extensions',
+        ]);
+      } else if (Platform.isWindows) {
+        await Process.run('cmd', [
+          '/c',
+          'start',
+          'chrome',
+          'chrome://extensions',
+        ]);
+      } else {
+        await Process.run('google-chrome', ['chrome://extensions']);
+      }
+    } on Object {
+      // Sin Chrome: los pasos siguen sirviendo.
+    }
+    if (!mounted) return;
+    await showDialog<void>(
+      context: context,
+      builder: (c) => AlertDialog(
+        key: const ValueKey('tk-chrome-steps'),
+        title: Text(tr('Cargar la extensión en Chrome')),
+        content: SizedBox(
+          width: 480,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tr(
+                  '1. En chrome://extensions, active «Modo de desarrollador» (arriba a la derecha).\n'
+                  '2. Pulse «Cargar extensión sin empaquetar» y elija esta carpeta (ya está copiada):',
+                ),
+              ),
+              const SizedBox(height: 8),
+              SelectableText(
+                dir,
+                style: const TextStyle(fontFamily: _mono, fontSize: 12),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                tr(
+                  '3. Fije la extensión con el icono del puzle y ábrala. Tras cada cambio, guarde aquí y pulse ↻ en la tarjeta de la extensión.',
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => revealInFiles(dir),
+            child: Text(tr('Mostrar la carpeta')),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(c),
+            child: Text(tr('Aceptar')),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Exporta la extensión a una carpeta y a un .zip (para publicarla).
+  Future<void> _exportChrome() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final dir = await _buildExtension();
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      if (out.existsSync()) await out.delete(recursive: true);
+      await out.create(recursive: true);
+      for (final f in Directory(
+        dir,
+      ).listSync(recursive: true).whereType<File>()) {
+        final rel = f.path.substring(dir.length + 1);
+        final to = File('${out.path}${Platform.pathSeparator}$rel');
+        await to.parent.create(recursive: true);
+        await f.copy(to.path);
+      }
+      final zip = '${out.path}.zip';
+      if (File(zip).existsSync()) await File(zip).delete();
+      final r = Platform.isWindows
+          ? await Process.run('powershell', [
+              '-NoProfile',
+              '-Command',
+              'Compress-Archive -Path "${out.path}\\*" -DestinationPath "$zip"',
+            ])
+          : await Process.run('zip', [
+              '-r',
+              '-q',
+              zip,
+              '.',
+            ], workingDirectory: out.path);
+      if (r.exitCode != 0) {
+        throw UserError(tr('No se pudo crear el .zip: {0}', ['${r.stderr}']));
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportada en {0} y {1}. El .zip es el que se sube a la Chrome Web Store.',
+              [out.path, zip],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
   }
 
   /// Exporta la aplicación de Electron a una carpeta lista para
@@ -1879,11 +2057,24 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isElectron
+              d.isChrome
+                  ? tr('Exportar la extensión (.zip para la Chrome Web Store)')
+                  : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isElectron ? _exportElectron : _export,
+              d.isChrome
+                  ? _exportChrome
+                  : d.isElectron
+                  ? _exportElectron
+                  : _export,
             ),
+            if (d.isChrome)
+              _tool(
+                LucideIcons.puzzle,
+                tr('Cargar en Chrome'),
+                _loadInChrome,
+                key: const ValueKey('tk-chrome-load'),
+              ),
             _tool(
               LucideIcons.folderOpen,
               tr('Mostrar la carpeta del proyecto'),
@@ -1891,10 +2082,10 @@ class _TkEditorState extends State<_TkEditor> {
             ),
             _tool(
               LucideIcons.sparkles,
-              d.isElectron
+              d.isJs
                   ? tr('Pedir a la IA (pronto también en Electron)')
                   : tr('Pedir a la IA'),
-              _aiBusy || d.isElectron ? null : _askAi,
+              _aiBusy || d.isJs ? null : _askAi,
               key: const ValueKey('tk-ai'),
             ),
             _tool(
@@ -2016,7 +2207,7 @@ class _TkEditorState extends State<_TkEditor> {
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       children: [
         for (final c in tkComponents)
-          if (!d.isElectron || tkElectronKinds.contains(c.kind))
+          if (tkTargetKinds(d)?.contains(c.kind) ?? true)
             Draggable<String>(
               key: ValueKey('tk-palette-${c.kind}'),
               data: c.kind,
@@ -2144,7 +2335,7 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isElectron ? tr('JavaScript generado') : tr('Python generado'),
+              d.isJs ? tr('JavaScript generado') : tr('Python generado'),
             ].indexed)
               InkWell(
                 key: ValueKey('tk-tab-$i'),
@@ -2185,7 +2376,8 @@ class _TkEditorState extends State<_TkEditor> {
               editorKey: const ValueKey('tk-code'),
               controller: _code,
               focusNode: _codeFocus,
-              javascript: d.isElectron,
+              javascript: d.isJs,
+              findController: _codeFind,
               project: doc.id,
               currentLine: _debug?.currentLine,
               onCondition: _editCondition,
@@ -2201,7 +2393,8 @@ class _TkEditorState extends State<_TkEditor> {
                     editorKey: const ValueKey('tk-generated'),
                     controller: _generatedCode,
                     readOnly: true,
-                    javascript: d.isElectron,
+                    javascript: d.isJs,
+                    findController: _generatedFind,
                   ),
           ],
         ),
@@ -2334,7 +2527,7 @@ class _TkEditorState extends State<_TkEditor> {
     onRunTests: _runTests,
     onCreateTest: _createTest,
     hasTests: _hasTests,
-    electron: d.isElectron,
+    electron: d.isJs,
   );
 
   Widget _outputList(TkRun? run) => ListView.builder(
@@ -2363,6 +2556,8 @@ class _TkEditorState extends State<_TkEditor> {
           if (TkRunner.supported && !(_run?.running ?? false)) _debugApp();
         },
         const SingleActivator(LogicalKeyboardKey.f5): _toggleBreakpoint,
+        const SingleActivator(LogicalKeyboardKey.keyF, meta: true): _find,
+        const SingleActivator(LogicalKeyboardKey.keyF, control: true): _find,
         const SingleActivator(LogicalKeyboardKey.f7): () => _live?.stepInto(),
         const SingleActivator(LogicalKeyboardKey.f8): () => _live?.stepOver(),
         const SingleActivator(LogicalKeyboardKey.f8, shift: true): () =>
@@ -2434,7 +2629,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
       key: const ValueKey('tk-new-dialog'),
       title: Text(tr('Nuevo proyecto')),
       content: SizedBox(
-        width: 560,
+        width: 720,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2465,13 +2660,22 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                   label: Text(tr('Electron + React')),
                   icon: const Icon(LucideIcons.atom, size: 16),
                 ),
+                ButtonSegment(
+                  value: tkTargetChrome,
+                  label: Text(tr('Extensión de Chrome')),
+                  icon: const Icon(LucideIcons.puzzle, size: 16),
+                ),
               ],
               selected: {_target},
               onSelectionChanged: (v) => setState(() => _target = v.first),
             ),
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetElectron
+              _target == tkTargetChrome
+                  ? tr(
+                      'Una extensión de Chrome: el diseño es su ventana emergente y el código, JavaScript, con this.storage, this.currentTab() y this.runInPage(). Ejecutar abre una vista previa; «Cargar en Chrome» la instala. Necesita Node.js la primera vez. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetElectron
                   ? tr(
                       'Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después.',
                     )

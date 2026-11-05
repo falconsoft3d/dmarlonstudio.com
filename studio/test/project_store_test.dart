@@ -29,7 +29,7 @@ void main() {
     expect(await ProjectStore.list(), hasLength(first.length));
     for (final x in first) {
       // Los de Electron son JavaScript: tienen su propia prueba.
-      if (x.isElectron) {
+      if (x.isElectron || x.isChrome) {
         expect(File(p.join(x.path, 'Form1.js')).existsSync(), isTrue);
         continue;
       }
@@ -82,20 +82,52 @@ void main() {
     );
   });
 
-  test('un proyecto de Electron: Form1.js y la aplicación en build/electron', () async {
+  test(
+    'un proyecto de Electron: Form1.js y la aplicación en build/electron',
+    () async {
+      final dir = await ProjectStore.create(
+        'Mi Electron',
+        design: TkDesign(target: tkTargetElectron),
+      );
+      expect(
+        File(p.join(dir, 'Form1.js')).readAsStringSync(),
+        contains('class Form1 extends FormDesign {'),
+      );
+      final x = (await ProjectStore.get(dir))!;
+      expect(x.isElectron, isTrue);
+      final prepared = await ProjectStore.prepareRun(dir);
+      expect(prepared.electron, isTrue);
+      for (final f in [
+        'main.js',
+        'index.html',
+        'runtime.js',
+        'design.js',
+        'Form1.js',
+        'start.js',
+        'window.json',
+      ]) {
+        expect(
+          File(p.join(dir, 'build', 'electron', f)).existsSync(),
+          isTrue,
+          reason: f,
+        );
+      }
+      await ProjectStore.delete(dir);
+    },
+  );
+
+  test('una extensión de Chrome: Form1.js, build/extension y su vista previa', () async {
     final dir = await ProjectStore.create(
-      'Mi Electron',
-      design: TkDesign(target: tkTargetElectron),
+      'Mi extensión',
+      design: TkDesign(target: tkTargetChrome),
     );
-    expect(File(p.join(dir, 'Form1.js')).readAsStringSync(),
-        contains('class Form1 extends FormDesign {'));
-    final x = (await ProjectStore.get(dir))!;
-    expect(x.isElectron, isTrue);
+    expect(File(p.join(dir, 'Form1.js')).readAsStringSync(), contains('this.storage'));
     final prepared = await ProjectStore.prepareRun(dir);
-    expect(prepared.electron, isTrue);
-    for (final f in ['main.js', 'index.html', 'runtime.js', 'design.js', 'Form1.js', 'start.js', 'window.json']) {
-      expect(File(p.join(dir, 'build', 'electron', f)).existsSync(), isTrue, reason: f);
+    expect(prepared.chrome && prepared.electron, isTrue);
+    for (final f in ['manifest.json', 'popup.html', 'host.js', 'runtime.js', 'design.js', 'Form1.js', 'start.js']) {
+      expect(File(p.join(dir, 'build', 'extension', f)).existsSync(), isTrue, reason: f);
     }
+    expect(File(p.join(dir, 'build', 'extension-preview', 'main.js')).existsSync(), isTrue);
     await ProjectStore.delete(dir);
   });
 }

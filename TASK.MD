@@ -12,6 +12,7 @@ Hechos
 10. Inspeccionar el estado de los objetos en memoria
 11. Realizar pruebas unitarias y de integración durante la depuración
 12. Electron + React (escritorio) | ✅ |
+13. Chrome Extensions | ✅ |
 
 Trabajando
 =========
@@ -19,7 +20,6 @@ Trabajando
 
 Pendiente
 =========
-13. Chrome Extensions | ⏳ |
 14. Web con Next.js | ⏳ |
 14. C++ (escritorio, FLTK) | ⏳ |
 15. Pascal (escritorio, Lazarus/LCL) | ⏳ |

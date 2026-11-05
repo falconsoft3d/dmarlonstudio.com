@@ -435,7 +435,7 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
                     'Las pruebas de las aplicaciones de Electron llegarán en una próxima versión.',
                   )
                 : tr(
-                    'En Electron, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida.',
+                    'En Electron y en las extensiones de Chrome, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida.',
                   ),
           )
         : switch (widget.tab) {

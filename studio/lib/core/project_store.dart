@@ -5,6 +5,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 import '../ai/assistant.dart';
+import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_electron.dart';
 import '../code/tk_unit.dart';
@@ -52,6 +53,7 @@ class StudioProject {
 
   bool get isWeb => design.isWeb;
   bool get isElectron => design.isElectron;
+  bool get isChrome => design.isChrome;
 }
 
 /// Proyectos en carpetas del disco: el área de trabajo, los recientes de
@@ -156,7 +158,7 @@ class ProjectStore {
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
   static String unitName(TkDesign design) =>
-      '${design.name}.${design.isElectron ? 'js' : 'py'}';
+      '${design.name}.${design.isJs ? 'js' : 'py'}';
 
   /// Lee el proyecto de la carpeta [dir] (null si ya no existe).
   static Future<StudioProject?> get(String dir) async {
@@ -268,7 +270,11 @@ class ProjectStore {
       code ??
           tkUnitOf(d).template(
             d.name,
-            tkUnitComment(web: d.isWeb, electron: d.isElectron),
+            tkUnitComment(
+              web: d.isWeb,
+              electron: d.isElectron,
+              chrome: d.isChrome,
+            ),
           ),
     );
     await _writeMeta(
@@ -451,6 +457,7 @@ class ProjectStore {
       ...tkExamples(tr),
       ...tkWebExamples(tr),
       ...tkElectronExamples(tr),
+      ...tkChromeExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -500,6 +507,60 @@ class ProjectStore {
     );
   }
 
+  /// Carpetas de la extensión de Chrome y de su vista previa.
+  static String chromeDir(String project) =>
+      p.join(project, buildDir, 'extension');
+  static String chromePreviewDir(String project) =>
+      p.join(project, buildDir, 'extension-preview');
+
+  /// Escribe la extensión de Chrome en build/extension (sin react.js, que
+  /// sale del entorno al lanzarla o exportarla) y su vista previa.
+  static Future<TkPrepared> _prepareChrome(StudioProject x) async {
+    final out = chromeDir(x.path);
+    final files = TkChrome.files(
+      x.design,
+      x.code,
+      name: x.name,
+      description: x.description ?? '',
+    );
+    await writeFiles(out, files);
+    await copyImages(x.path, out);
+    await writeFiles(
+      chromePreviewDir(x.path),
+      TkChrome.preview(x.design, x.name),
+    );
+    await _gitignore(x.path);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, '${x.design.name}.js'),
+      electron: true,
+      chrome: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
+  /// Escribe [files] (nombre → contenido) en [dir].
+  static Future<void> writeFiles(String dir, Map<String, String> files) async {
+    await Directory(dir).create(recursive: true);
+    for (final e in files.entries) {
+      await _writeAtomic(File(p.join(dir, e.key)), e.value);
+    }
+  }
+
+  /// Copia la carpeta images del proyecto a [dest]/images.
+  static Future<void> copyImages(String project, String dest) async {
+    final images = Directory(p.join(project, 'images'));
+    if (!images.existsSync()) return;
+    for (final f in images.listSync(recursive: true).whereType<File>()) {
+      final to = File(p.join(dest, p.relative(f.path, from: project)));
+      await to.parent.create(recursive: true);
+      await f.copy(to.path);
+    }
+  }
+
   // ------------------------------------------------------------ Python
   /// Escribe el Python generado en `build/` y devuelve su ruta.
   static Future<String> writeBuild(StudioProject x, String source) async {
@@ -547,6 +608,7 @@ class ProjectStore {
     final x = await get(dir);
     if (x == null) throw UserError(tr('El proyecto ya no existe.'));
     if (x.isElectron) return _prepareElectron(x);
+    if (x.isChrome) return _prepareChrome(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

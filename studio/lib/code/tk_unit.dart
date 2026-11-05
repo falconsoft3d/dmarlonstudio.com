@@ -38,8 +38,7 @@ abstract class TkUnitLang {
 }
 
 /// El lenguaje del código de [d].
-TkUnitLang tkUnitOf(TkDesign d) =>
-    d.isElectron ? const JsUnit() : const PyUnit();
+TkUnitLang tkUnitOf(TkDesign d) => d.isJs ? const JsUnit() : const PyUnit();
 
 /// Python: lo de siempre (TkUnit).
 class PyUnit extends TkUnitLang {

@@ -1355,7 +1355,7 @@ class TkCodegen {
   /// un problema.
   static String generate(TkDesign d, String code) {
     if (d.isWeb) return TkWebCodegen.generate(d, code);
-    if (d.isElectron) return TkElectron.preview(d, code);
+    if (d.isJs) return TkElectron.preview(d, code);
     final problems = d.problems();
     if (problems.isNotEmpty) throw UserError(problems.join('\n'));
     final unit = code.replaceAll('\r\n', '\n').trimRight();

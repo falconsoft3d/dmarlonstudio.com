@@ -56,6 +56,33 @@ const tkElectronKinds = {
   'SaveDialog',
 };
 
+/// Extensión de Chrome (Manifest V3): la ventana emergente se diseña igual
+/// y su código, en JavaScript, es el mismo de Electron.
+const tkTargetChrome = 'chrome';
+
+/// Componentes de una extensión de Chrome: los de Electron menos el menú
+/// (una ventana emergente no tiene barra de menús).
+final tkChromeKinds = {...tkElectronKinds}..remove('Menu');
+
+/// Componentes que tiene el destino de [d] (null: todos).
+Set<String>? tkTargetKinds(TkDesign d) => d.isChrome
+    ? tkChromeKinds
+    : d.isElectron
+    ? tkElectronKinds
+    : null;
+
+/// Por qué [kind] aún no está en el destino de JavaScript de [d] (null: sí
+/// está, o el destino es Python).
+String? tkJsGap(TkDesign d, String kind) {
+  final kinds = tkTargetKinds(d);
+  if (kinds == null || kinds.contains(kind)) return null;
+  return d.isChrome
+      ? tr('«{0}» no está disponible en las extensiones de Chrome.', [
+          tr(tkComponent(kind)?.label ?? kind),
+        ])
+      : tkElectronGap(kind);
+}
+
 /// Por qué [kind] aún no está en Electron (null: sí está).
 String? tkElectronGap(String kind) => tkElectronKinds.contains(kind)
     ? null
@@ -1841,12 +1868,16 @@ class TkDesign {
 
   bool get isWeb => target == tkTargetWeb;
   bool get isElectron => target == tkTargetElectron;
+  bool get isChrome => target == tkTargetChrome;
+
+  /// El código es JavaScript (Electron y extensiones de Chrome).
+  bool get isJs => isElectron || isChrome;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
       tkValidName(s) &&
       !(isWeb && tkWebReserved.contains(s)) &&
-      !(isElectron && tkJsReserved.contains(s));
+      !(isJs && tkJsReserved.contains(s));
 
   /// En orden de creación, que es también el orden de apilado; un marco va
   /// siempre antes que sus componentes.
@@ -2042,9 +2073,7 @@ class TkDesign {
         out.add(tr('Componente desconocido: {0}.', [w.kind]));
         continue;
       }
-      if (isElectron && tkElectronGap(w.kind) != null) {
-        out.add(tkElectronGap(w.kind)!);
-      }
+      if (tkJsGap(this, w.kind) case final gap?) out.add(gap);
       if (!validName(w.name)) {
         out.add(
           tr('«{0}» no es un nombre válido para un componente.', [w.name]),
@@ -2111,6 +2140,7 @@ class TkDesign {
     target: switch (j['target']) {
       tkTargetWeb => tkTargetWeb,
       tkTargetElectron => tkTargetElectron,
+      tkTargetChrome => tkTargetChrome,
       _ => tkTargetDesktop,
     },
     width: _int(j['width'], 80),

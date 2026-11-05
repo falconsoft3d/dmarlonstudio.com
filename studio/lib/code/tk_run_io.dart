@@ -8,6 +8,7 @@ import 'package:path/path.dart' as p;
 import '../core/errors.dart';
 import '../i18n/tr.dart';
 import 'tk_debug.dart';
+import 'tk_chrome.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
 import 'tk_electron_run.dart';
@@ -451,7 +452,11 @@ class TkRunner {
         ),
       );
     }
-    final app = File(prepared.file).parent.path;
+    final appCode = File(prepared.file).parent.path;
+    // Una extensión se abre en su vista previa (la carpeta de al lado).
+    final app = prepared.chrome
+        ? p.join(p.dirname(appCode), 'extension-preview')
+        : appCode;
     if (devtools) {
       await File(prepared.file).writeAsString(
         TkElectron.withBreakpoints(
@@ -472,6 +477,11 @@ class TkRunner {
       try {
         final bin = await TkElectronRuntime.ensure(run.add);
         if (stopped) return run.finish(-1);
+        if (prepared.chrome) {
+          await File(p.join(appCode, 'react.js')).writeAsString(
+            TkChrome.reactBundle(await TkElectronRuntime.nodeModules()),
+          );
+        }
         final env = TkElectronRuntime.environment(node)
           ..['DMSTUDIO_NODE_MODULES'] = await TkElectronRuntime.nodeModules();
         if (devtools) env['DMSTUDIO_DEVTOOLS'] = '1';

@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -233,15 +233,19 @@ msgstr "“{0}” was outside the window: it has been moved back."
 msgid "«{0}» ya tenía código: no se ha cambiado."
 msgstr "“{0}” already had code: it was left unchanged."
 
-#: lib/code/tk_electron.dart
+#: lib/code/tk_chrome.dart lib/code/tk_electron.dart
 msgid "El código debe definir «class {0} extends FormDesign»."
 msgstr "The code must define “class {0} extends FormDesign”."
+
+#: lib/code/tk_chrome.dart
+msgid "Falta {0} en el entorno de React."
+msgstr "{0} is missing from the React environment."
 
 #: lib/code/tk_electron_run.dart
 msgid "Electron instalado."
 msgstr "Electron installed."
 
-#: lib/code/tk_electron_run.dart
+#: lib/code/tk_electron_run.dart lib/ui/screens/tk_designer.dart
 msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
 msgstr "Installing Electron and React (first time only; about 100 MB)…"
 
@@ -280,6 +284,18 @@ msgstr ""
 "# Window code: each event of the design is a method of this class.\n"
 "# self.root is the window and self.<Name> each component: they already exist\n"
 "# in __init__, and the window's \"On open\" event runs after it."
+
+#: lib/code/tk_examples.dart
+msgid ""
+"// Código de la ventana emergente de la extensión, en JavaScript. Cada evento\n"
+"// del diseño es un método de esta clase; this.<Nombre> es cada componente\n"
+"// (this.Label1.text = \"Hola\"). Además: this.storage, await this.currentTab(),\n"
+"// this.openTab(url), await this.runInPage(función) y this.badge(texto)."
+msgstr ""
+"// Code of the extension popup, in JavaScript. Every event of the design\n"
+"// is a method of this class; this.<Name> is each component\n"
+"// (this.Label1.text = \"Hello\"). Also: this.storage, await this.currentTab(),\n"
+"// this.openTab(url), await this.runInPage(function) and this.badge(text)."
 
 #: lib/code/tk_examples.dart
 msgid ""
@@ -337,7 +353,7 @@ msgstr "Base"
 msgid "Bolsa de valores web"
 msgstr "Stock market (web)"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart
 msgid "Borrar"
 msgstr "Clear"
 
@@ -345,7 +361,7 @@ msgstr "Clear"
 msgid "Borrar todo"
 msgstr "Clear all"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr "Search"
 
@@ -529,7 +545,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -1474,6 +1490,10 @@ msgid "«{0}» no es un nombre válido para un método."
 msgstr "“{0}” is not a valid method name."
 
 #: lib/code/tk_model.dart
+msgid "«{0}» no está disponible en las extensiones de Chrome."
+msgstr "“{0}” is not available in Chrome extensions."
+
+#: lib/code/tk_model.dart
 msgid "«{0}» no tiene conexión: elija una de las guardadas en Bases de datos."
 msgstr "“{0}” has no connection: choose one of those saved in Databases."
 
@@ -2144,6 +2164,82 @@ msgstr "positive"
 #: lib/code/tk_showcase_ai.dart
 msgid "teléfono"
 msgstr "phone"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Abra una web y pulse el botón."
+msgstr "Open a website and press the button."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Caracteres: {0}"
+msgstr "Characters: {0}"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Contador de palabras"
+msgstr "Word counter"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Contador de palabras (Chrome)"
+msgstr "Word counter (Chrome)"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Contar las palabras de esta página"
+msgstr "Count the words on this page"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Extensión de Chrome: cuenta las palabras de la página abierta con this.runInPage(), el tiempo de lectura y las más repetidas."
+msgstr "Chrome extension: counts the words of the open page with this.runInPage(), the reading time and the most repeated ones."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Extensión de Chrome: una nota para cada web, guardada con this.storage, y la lista de sitios con nota en la insignia."
+msgstr "Chrome extension: a note for every website, saved with this.storage, and the number of sites with notes on the badge."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Lectura: {0} min"
+msgstr "Reading: {0} min"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Lee el texto de la página con this.runInPage() y lo cuenta en la ventana."
+msgstr "Reads the page text with this.runInPage() and counts it in the popup."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "No se puede leer esta página (las de Chrome están protegidas)."
+msgstr "This page cannot be read (Chrome pages are protected)."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Nota borrada."
+msgstr "Note deleted."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Nota guardada."
+msgstr "Note saved."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Notas por sitio"
+msgstr "Notes per site"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Notas por sitio (Chrome)"
+msgstr "Notes per site (Chrome)"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Palabra"
+msgstr "Word"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Palabras: {0}"
+msgstr "Words: {0}"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Sitios con nota (doble clic: abrir)"
+msgstr "Sites with a note (double-click: open)"
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Una nota por cada web, guardada en el almacenamiento de la extensión."
+msgstr "A note for every website, saved in the extension storage."
+
+#: lib/code/tk_showcase_chrome.dart
+msgid "Veces"
+msgstr "Times"
 
 #: lib/code/tk_showcase_electron.dart
 msgid "Bloc de notas (Electron)"
@@ -3247,7 +3343,7 @@ msgstr "Shuffle"
 msgid "Alojamiento anual"
 msgstr "Annual hosting"
 
-#: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Anterior"
 msgstr "Previous"
 
@@ -3583,7 +3679,7 @@ msgstr "Music player"
 msgid "Reservas web"
 msgstr "Web bookings"
 
-#: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Siguiente"
 msgstr "Next"
 
@@ -3623,7 +3719,7 @@ msgstr "{0} songs in the list."
 msgid "{0} marcada como pagada."
 msgstr "{0} marked as paid."
 
-#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
 msgstr "OK"
 
@@ -3950,6 +4046,30 @@ msgstr "Minimize"
 #: lib/ui/bottom_panel.dart
 msgid "Restaurar"
 msgstr "Restore"
+
+#: lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
+msgid "Cerrar"
+msgstr "Close"
+
+#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Distinguir mayúsculas"
+msgstr "Match case"
+
+#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Expresión regular"
+msgstr "Regular expression"
+
+#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Reemplazar"
+msgstr "Replace"
+
+#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Reemplazar todo"
+msgstr "Replace all"
+
+#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Sin resultados"
+msgstr "No results"
 
 #: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Actualizar"
@@ -4728,10 +4848,6 @@ msgid "Copiar la salida"
 msgstr "Copy the output"
 
 #: lib/ui/screens/code_studio.dart
-msgid "Distinguir mayúsculas"
-msgstr "Match case"
-
-#: lib/ui/screens/code_studio.dart
 msgid "Edite proyectos de este equipo con explorador, git, terminal e IA."
 msgstr "Edit projects on this computer with explorer, git, terminal and AI."
 
@@ -4746,10 +4862,6 @@ msgstr "Type a command, e.g. git status"
 #: lib/ui/screens/code_studio.dart
 msgid "Explorador"
 msgstr "Explorer"
-
-#: lib/ui/screens/code_studio.dart
-msgid "Expresión regular"
-msgstr "Regular expression"
 
 #: lib/ui/screens/code_studio.dart
 msgid "Hay archivos con cambios sin guardar. ¿Cerrarlos y abrir otra carpeta?"
@@ -4795,14 +4907,6 @@ msgstr "Project open in the Interface designer"
 msgid "Recientes"
 msgstr "Recent"
 
-#: lib/ui/screens/code_studio.dart
-msgid "Reemplazar"
-msgstr "Replace"
-
-#: lib/ui/screens/code_studio.dart
-msgid "Reemplazar todo"
-msgstr "Replace all"
-
 #: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Salida copiada."
 msgstr "Output copied."
@@ -4814,10 +4918,6 @@ msgstr "Generated from the design: it can't be edited here."
 #: lib/ui/screens/code_studio.dart
 msgid "Si no los guarda, se perderán."
 msgstr "If you don't save them, they will be lost."
-
-#: lib/ui/screens/code_studio.dart
-msgid "Sin resultados"
-msgstr "No results"
 
 #: lib/ui/screens/code_studio.dart
 msgid "Solo lectura"
@@ -5455,6 +5555,10 @@ msgstr "Electron + React"
 msgid "Escritorio (Python)"
 msgstr "Desktop (Python)"
 
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Extensión de Chrome"
+msgstr "Chrome extension"
+
 #: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "GitHub…"
 msgstr "GitHub…"
@@ -5608,8 +5712,8 @@ msgid "El programa está en marcha. Se detendrá en un punto de parada, o pulse 
 msgstr "The program is running. It will stop at a breakpoint, or press Pause."
 
 #: lib/ui/screens/tk_debug_panel.dart
-msgid "En Electron, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida."
-msgstr "In Electron, “Debug” (Shift+F9) opens the app with Chromium’s developer tools: it stops at your breakpoints and there you have variables, the stack, the console, stepping and performance. What console.log writes goes to the Output tab."
+msgid "En Electron y en las extensiones de Chrome, «Depurar» (Mayús+F9) abre la aplicación con las herramientas de desarrollo de Chromium: se detiene en sus puntos de parada y allí están las variables, la pila, la consola, el paso a paso y el rendimiento. Lo que escribe console.log sale en la pestaña Salida."
+msgstr "In Electron and in Chrome extensions, “Debug” (Shift+F9) opens the app with Chromium’s developer tools: it stops at your breakpoints and there you have variables, the stack, the console, stepping and performance. What console.log writes goes to the Output tab."
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "En marcha…"
@@ -5788,6 +5892,18 @@ msgid "{0}, línea {1}"
 msgstr "{0}, line {1}"
 
 #: lib/ui/screens/tk_designer.dart
+msgid ""
+"1. En chrome://extensions, active «Modo de desarrollador» (arriba a la derecha).\n"
+"2. Pulse «Cargar extensión sin empaquetar» y elija esta carpeta (ya está copiada):"
+msgstr ""
+"1. In chrome://extensions, turn on “Developer mode” (top right).\n"
+"2. Press “Load unpacked” and choose this folder (already copied):"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "3. Fije la extensión con el icono del puzle y ábrala. Tras cada cambio, guarde aquí y pulse ↻ en la tarjeta de la extensión."
+msgstr "3. Pin the extension with the puzzle icon and open it. After every change, save here and press ↻ on the extension card."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Abrir en el navegador"
 msgstr "Open in browser"
 
@@ -5854,6 +5970,14 @@ msgstr "Looking for Python…"
 #: lib/ui/screens/tk_designer.dart
 msgid "Cambiar…"
 msgstr "Change…"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Cargar en Chrome"
+msgstr "Load in Chrome"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Cargar la extensión en Chrome"
+msgstr "Load the extension in Chrome"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Centrar en horizontal"
@@ -5968,6 +6092,10 @@ msgid "Ese nombre ya existe."
 msgstr "That name already exists."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportada en {0} y {1}. El .zip es el que se sube a la Chrome Web Store."
+msgstr "Exported to {0} and {1}. The .zip is the one you upload to the Chrome Web Store."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportada en {0}. Ábrala con: npm install y npm start."
 msgstr "Exported to {0}. Open it with: npm install and npm start."
 
@@ -5992,6 +6120,10 @@ msgid "Exportar la aplicación de Electron"
 msgstr "Export the Electron app"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportar la extensión (.zip para la Chrome Web Store)"
+msgstr "Export the extension (.zip for the Chrome Web Store)"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "F12: código"
 msgstr "F12: code"
 
@@ -6002,6 +6134,10 @@ msgstr "F12: design"
 #: lib/ui/screens/tk_designer.dart
 msgid "GitHub: publicar o subir los cambios"
 msgstr "GitHub: publish or push the changes"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Guarde el proyecto."
+msgstr "Save the project."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el alto"
@@ -6034,6 +6170,10 @@ msgstr "Methods: {0}"
 #: lib/ui/screens/tk_designer.dart
 msgid "No se encontró Python."
 msgstr "Python was not found."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "No se pudo crear el .zip: {0}"
+msgstr "The .zip could not be created: {0}"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Nombre de la aplicación"
@@ -6110,6 +6250,10 @@ msgstr "Bring to front"
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."
 msgstr "A desktop app with Electron and React; event code in JavaScript. It needs Node.js: Electron and React install themselves the first time. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una extensión de Chrome: el diseño es su ventana emergente y el código, JavaScript, con this.storage, this.currentTab() y this.runInPage(). Ejecutar abre una vista previa; «Cargar en Chrome» la instala. Necesita Node.js la primera vez. El destino no se puede cambiar después."
+msgstr "A Chrome extension: the design is its popup and the code is JavaScript, with this.storage, this.currentTab() and this.runInPage(). Run opens a preview; “Load in Chrome” installs it. It needs Node.js the first time. The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una ventana de facturas con cliente, fecha, tabla de líneas y botón guardar"
@@ -6298,10 +6442,6 @@ msgstr "Purple"
 #: lib/ui/theme.dart
 msgid "Ámbar"
 msgstr "Amber"
-
-#: lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
-msgid "Cerrar"
-msgstr "Close"
 
 #: lib/ui/tk_launch.dart
 msgid "Copiar la orden"

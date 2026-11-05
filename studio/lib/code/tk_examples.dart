@@ -12,10 +12,22 @@ part 'tk_showcase_mail.dart';
 part 'tk_showcase_reports.dart';
 part 'tk_showcase_sites.dart';
 part 'tk_showcase_electron.dart';
+part 'tk_showcase_chrome.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
-String tkUnitComment({bool web = false, bool electron = false}) => electron
+String tkUnitComment({
+  bool web = false,
+  bool electron = false,
+  bool chrome = false,
+}) => chrome
+    ? tr(
+        '// Código de la ventana emergente de la extensión, en JavaScript. Cada evento\n'
+        '// del diseño es un método de esta clase; this.<Nombre> es cada componente\n'
+        '// (this.Label1.text = "Hola"). Además: this.storage, await this.currentTab(),\n'
+        '// this.openTab(url), await this.runInPage(función) y this.badge(texto).',
+      )
+    : electron
     ? tr(
         '// Código de la ventana, en JavaScript (Electron + React). Cada evento del\n'
         '// diseño es un método de esta clase; this.<Nombre> es cada componente,\n'

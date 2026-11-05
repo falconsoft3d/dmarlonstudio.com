@@ -56,6 +56,8 @@ const carousel = [
   // El blog y la tienda se ven como webs: sus capturas son de la página.
   'electron_calculator',
   'electron_notepad',
+  'chrome_notes',
+  'chrome_words',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.
@@ -170,7 +172,7 @@ void main() {
         TkProject.open(x!);
         await settle(30);
         // El de Electron enseña su código en JavaScript.
-        if (seed == 'electron_notepad') {
+        if (seed == 'electron_notepad' || seed == 'chrome_words') {
           await tester.tap(find.byKey(const ValueKey('tk-tab-1')));
           await settle(10);
         }

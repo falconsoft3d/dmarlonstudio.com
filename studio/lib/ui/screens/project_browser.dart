@@ -72,7 +72,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
   }
 
   // ------------------------------------------------------------- datos
-  String _kind(StudioProject a) => a.isElectron
+  String _kind(StudioProject a) => a.isChrome
+      ? tr('Extensión de Chrome')
+      : a.isElectron
       ? tr('Electron + React')
       : a.isWeb
       ? tr('Web (Flask)')
@@ -256,7 +258,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.isElectron
+                        a.isChrome
+                            ? LucideIcons.puzzle
+                            : a.isElectron
                             ? LucideIcons.atom
                             : a.isWeb
                             ? LucideIcons.globe

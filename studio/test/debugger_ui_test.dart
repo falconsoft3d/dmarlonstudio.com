@@ -7,6 +7,7 @@ import 'package:dmarlon_studio/core/project_store.dart';
 import 'package:dmarlon_studio/core/studio_db.dart';
 import 'package:dmarlon_studio/main.dart';
 import 'package:dmarlon_studio/ui/tk_project.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -77,6 +78,27 @@ void main() {
     await settle();
     expect(TkBreakpoints.of(path), {1: ''});
     expect(find.byKey(const ValueKey('tk-gutter')), findsOneWidget);
+
+    // Ctrl+F busca en el código y dice cuántas veces aparece.
+    await tester.tap(find.byKey(const ValueKey('tk-code')));
+    await settle(2);
+    // ⌘F en macOS; Ctrl+F en Windows y Linux.
+    final mod = defaultTargetPlatform == TargetPlatform.macOS
+        ? LogicalKeyboardKey.metaLeft
+        : LogicalKeyboardKey.controlLeft;
+    await tester.sendKeyDownEvent(mod);
+    await tester.sendKeyEvent(LogicalKeyboardKey.keyF);
+    await tester.sendKeyUpEvent(mod);
+    await settle(3);
+    expect(find.byKey(const ValueKey('code-find')), findsOneWidget);
+    await tester.enterText(find.byKey(const ValueKey('code-find')), 'LIMIT');
+    await settle(3);
+    expect(
+      tester.widget<Text>(find.byKey(const ValueKey('code-find-count'))).data,
+      '1 / 1',
+    );
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await settle(2);
 
     await tester.tap(find.byKey(const ValueKey('tk-debug')));
     await settle();

@@ -47,6 +47,7 @@ export const en: Content = {
       { seed: "notepad", name: "Notepad", text: "Classic menu, open, save and a status bar with line and column." },
       { seed: "line_chart", name: "Monthly sales", text: "Line, area or bar chart with a live mode." },
       { seed: "stocks", name: "Stock market", text: "Candles, moving average and volume with live simulated data." },
+      { seed: "viewer_3d", name: "3D viewer", text: "Cube, sphere and torus in 3D drawn with Python on a canvas." },
       { seed: "agenda", name: "Diary", text: "Contacts and appointments in SQLite, with search and pages." },
       { seed: "mail_client", name: "Email", text: "Receive over IMAP and send over SMTP with attachments." },
       { seed: "currency", name: "Currency converter", text: "Real ECB exchange rates through API integration." },

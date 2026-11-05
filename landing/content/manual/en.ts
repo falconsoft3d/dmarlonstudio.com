@@ -376,6 +376,7 @@ export const manualEn: Manual = {
                 ["**Monthly sales** (web)", "Line, area or bar chart and a live mode"],
                 ["**Stock market** (web)", "Candles, moving average and volume with live simulated data"],
                 ["**Windows and dialogs**", "Messages, questions, asking for data, another window that returns a result, a modal dialog and non-modal windows"],
+                ["**3D viewer**", "3D shapes drawn on a canvas: mouse rotation, animation, lighting and wireframe mode"],
                 ["**Email**", "Receive over IMAP and send over SMTP with attachments, without freezing the window"],
                 ["**CRM web**, **Invoicing web**, **Blog web**, **Web shop**", "Complete web apps with SQLite"],
                 ["**Odoo / ERPSqlite contacts** (web)", "Connecting to an Odoo over XML-RPC"],

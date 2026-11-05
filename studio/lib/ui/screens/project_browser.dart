@@ -48,7 +48,8 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
   bool _asc = false;
   int _page = 0;
   int _perPage = 15;
-  bool _cards = false;
+  // Por defecto, las tarjetas (se ve el diseño de cada proyecto).
+  bool _cards = true;
   String? _selected;
 
   final _menu = MenuController();
@@ -60,7 +61,7 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
     super.initState();
     if (!StudioDb.isOpen) return;
     Settings.get('designer.view').then((v) {
-      if (mounted) setState(() => _cards = v == 'cards');
+      if (mounted) setState(() => _cards = v != 'list');
     });
     Settings.get('designer.per_page').then((v) {
       final n = int.tryParse(v ?? '');
@@ -465,7 +466,7 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
               onSelectionChanged: (v) {
                 setState(() => _cards = v.first);
                 if (StudioDb.isOpen) {
-                  Settings.set('designer.view', _cards ? 'cards' : null);
+                  Settings.set('designer.view', _cards ? null : 'list');
                 }
               },
             ),

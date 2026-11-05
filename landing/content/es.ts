@@ -47,6 +47,7 @@ export const es: Content = {
       { seed: "notepad", name: "Bloc de notas", text: "Menú clásico, abrir, guardar y barra de estado con línea y columna." },
       { seed: "line_chart", name: "Ventas mensuales", text: "Gráfico de líneas, área o barras con modo en vivo." },
       { seed: "stocks", name: "Bolsa de valores", text: "Velas, media móvil y volumen con datos simulados en vivo." },
+      { seed: "viewer_3d", name: "Visor 3D", text: "Cubo, esfera y toro en 3D dibujados con Python en un lienzo." },
       { seed: "agenda", name: "Agenda", text: "Contactos y citas en SQLite, con búsqueda y páginas." },
       { seed: "mail_client", name: "Correo", text: "Recibir por IMAP y enviar por SMTP con adjuntos." },
       { seed: "currency", name: "Conversor de moneda", text: "Tipos de cambio reales del BCE con la Integración API." },

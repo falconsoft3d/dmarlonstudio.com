@@ -4,6 +4,7 @@ import 'tk_model.dart';
 
 part 'tk_showcase.dart';
 part 'tk_showcase_web.dart';
+part 'tk_showcase_3d.dart';
 part 'tk_showcase_mail.dart';
 part 'tk_showcase_windows.dart';
 
@@ -76,6 +77,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _stocks(t),
   _windows(t),
   _mail(t),
+  _viewer3d(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

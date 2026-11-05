@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -1800,6 +1800,70 @@ msgstr "■ Stop"
 #: lib/code/tk_showcase.dart
 msgid "▶ Iniciar"
 msgstr "▶ Start"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Alambre"
+msgstr "Wireframe"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Arrastre la figura con el ratón para girarla. Todo se dibuja con Python en un lienzo de tkinter: proyección en perspectiva, orden por profundidad y luz en cada cara."
+msgstr "Drag the shape with the mouse to rotate it. Everything is drawn with Python on a tkinter canvas: perspective projection, depth sorting and lighting on every face."
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Cubo"
+msgstr "Cube"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Dibujo"
+msgstr "Draw"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Esfera"
+msgstr "Sphere"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Figura"
+msgstr "Shape"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Figuras en 3D dibujadas con Python en un lienzo: cubo, pirámide, esfera y toro, giro con el ratón, animación, luz y modo alambre."
+msgstr "3D shapes drawn with Python on a canvas: cube, pyramid, sphere and torus, mouse rotation, animation, lighting and wireframe mode."
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Girar solo"
+msgstr "Auto-rotate"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Pirámide"
+msgstr "Pyramid"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Reiniciar la vista"
+msgstr "Reset the view"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Sólido"
+msgstr "Solid"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Toro"
+msgstr "Torus"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Velocidad"
+msgstr "Speed"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Visor 3D"
+msgstr "3D viewer"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Zoom (%)"
+msgstr "Zoom (%)"
+
+#: lib/code/tk_showcase_3d.dart
+msgid "{0} · {1} caras · {2} fps"
+msgstr "{0} · {1} faces · {2} fps"
 
 #: lib/code/tk_showcase_mail.dart
 msgid "(sin asunto)"

@@ -43,6 +43,7 @@ const carousel = [
   'notepad',
   'line_chart',
   'stocks',
+  'viewer_3d',
   'agenda',
   'mail_client',
   'currency',

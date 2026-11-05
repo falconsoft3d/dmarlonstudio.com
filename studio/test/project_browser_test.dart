@@ -38,6 +38,10 @@ void main() {
         ),
       ),
     );
+    // Empieza en tarjetas; la prueba usa la lista.
+    expect(find.text('card Proyecto 23'), findsOneWidget);
+    await tester.tap(find.byTooltip('Lista'));
+    await tester.pump();
     // 15 por página, los más recientes primero.
     expect(find.text('1–15 de 23 proyectos'), findsOneWidget);
     expect(find.text('Proyecto 23'), findsOneWidget);

@@ -112,6 +112,7 @@ export const manualEs: Manual = {
                 ["**Ventas mensuales** (web)", "Gráfico de líneas, área o barras y modo en vivo"],
                 ["**Bolsa de valores** (web)", "Velas, media móvil y volumen con datos simulados en vivo"],
                 ["**Ventanas y diálogos**", "Mensajes, preguntas, pedir datos, otra ventana que devuelve un resultado, un diálogo modal y ventanas no modales"],
+                ["**Visor 3D**", "Figuras en 3D dibujadas en un lienzo: giro con el ratón, animación, luz y modo alambre"],
                 ["**Correo**", "Recibir por IMAP y enviar por SMTP con adjuntos, sin congelar la ventana"],
                 ["**CRM web**, **Facturador web**, **Blog web**, **Tienda web**", "Aplicaciones web completas con SQLite"],
                 ["**Contactos de Odoo / ERPSqlite** (web)", "Conectarse a un Odoo por XML-RPC"],

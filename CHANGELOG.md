@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.15 — 2026-11-05
+
+- Ejemplo **Visor 3D**: cubo, pirámide, esfera y toro dibujados con Python en
+  un lienzo (perspectiva, orden por profundidad y luz por cara), giro con el
+  ratón, animación, zoom y modo alambre.
+- La lista de proyectos se abre en **tarjetas** (se ve el diseño de cada
+  uno); la vista de lista se recuerda si se elige.
+
 ## 1.0.14 — 2026-11-05
 
 - Landing: solo se anuncian los destinos que ya funcionan, **tkinter** y

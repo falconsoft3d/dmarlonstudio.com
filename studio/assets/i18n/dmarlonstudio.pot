@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -1787,6 +1787,70 @@ msgstr ""
 
 #: lib/code/tk_showcase.dart
 msgid "▶ Iniciar"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Alambre"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Arrastre la figura con el ratón para girarla. Todo se dibuja con Python en un lienzo de tkinter: proyección en perspectiva, orden por profundidad y luz en cada cara."
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Cubo"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Dibujo"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Esfera"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Figura"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Figuras en 3D dibujadas con Python en un lienzo: cubo, pirámide, esfera y toro, giro con el ratón, animación, luz y modo alambre."
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Girar solo"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Pirámide"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Reiniciar la vista"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Sólido"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Toro"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Velocidad"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Visor 3D"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "Zoom (%)"
+msgstr ""
+
+#: lib/code/tk_showcase_3d.dart
+msgid "{0} · {1} caras · {2} fps"
 msgstr ""
 
 #: lib/code/tk_showcase_mail.dart

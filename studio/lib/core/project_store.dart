@@ -10,6 +10,7 @@ import '../code/tk_codegen.dart';
 import '../code/tk_cpp.dart';
 import '../code/tk_console.dart';
 import '../code/tk_flutter.dart';
+import '../code/tk_web_next.dart';
 import '../code/tk_pascal.dart';
 import '../code/tk_pascal_run.dart';
 import '../code/tk_electron.dart';
@@ -166,7 +167,9 @@ class ProjectStore {
       p.join(dir, unitName(design));
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
-  static String unitName(TkDesign design) => design.isFlutter
+  static String unitName(TkDesign design) => design.isWebNext
+      ? 'app.js'
+      : design.isFlutter
       ? 'app.dart'
       : design.isConsole
       ? TkConsole.file(design)
@@ -312,7 +315,7 @@ class ProjectStore {
     final d = design ?? TkDesign();
     if (d.props['title'] == null) d.setProp(tkFormTitle, name.trim());
     // Flutter: las pantallas de partida.
-    if (d.isFlutter && d.props['flutter'] == null) {
+    if (d.isScreens && d.props['flutter'] == null) {
       TkFlutter.starter(name.trim(), desktop: d.isFlutterDesktop).saveTo(d);
     }
     final dir = _freeDir(parent ?? await workspaceDir(), name.trim());
@@ -321,7 +324,11 @@ class ProjectStore {
       File(unitPath(dir, d)),
       code ??
           (d.isConsole ? TkConsole.template(d.consoleLang!) : null) ??
-          (d.isFlutter
+          (d.isWebNext
+              ? TkWebNext.template(
+                  '// ${tr('Los datos y la lógica de la web. Las pantallas los usan como app.')}',
+                )
+              : d.isFlutter
               ? TkFlutter.template(
                   '// ${tr('Los datos y la lógica de la app. Las pantallas los usan como app.')}',
                 )
@@ -679,6 +686,22 @@ class ProjectStore {
     );
   }
 
+  /// Escribe la web de Next.js (hecha con pantallas) en build/nextjs.
+  static Future<TkPrepared> _prepareWebNext(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'nextjs');
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, TkWebNext.files(x.design, unit, name: x.name));
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'lib', 'app.js'),
+      next: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe el proyecto de Flutter en build/flutter (las carpetas de cada
   /// plataforma las crea `flutter create` al ejecutar la primera vez).
   static Future<TkPrepared> _prepareFlutter(StudioProject x) async {
@@ -785,6 +808,7 @@ class ProjectStore {
     if (x.isCpp) return _prepareCpp(x);
     if (x.isPascal) return _preparePascal(x);
     if (x.design.isConsole) return _prepareConsole(x);
+    if (x.design.isWebNext) return _prepareWebNext(x);
     if (x.design.isFlutter) return _prepareFlutter(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();

@@ -3,6 +3,23 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.38 — 2026-11-05
+
+- **Web (Next.js) con el editor de pantallas**: el mismo editor que Flutter
+  (pantallas, árbol de widgets, propiedades, menú y las 20 plantillas)
+  genera una web de verdad: cada pantalla es una página de React con HTML y
+  CSS adaptables (contenido centrado en escritorio; menú lateral o barra de
+  abajo según el ancho). La lógica va en `lib/app.js`. En el editor, la
+  vista previa se ve en escritorio o en móvil.
+- Ejemplo **Tienda web (Next.js)**: login, catálogo, ficha, carrito y pago.
+  Se compila con `next build` y se recorre en Chrome de verdad en cada
+  versión.
+- Las mismas pantallas valen para Flutter y para la web (`.isEmpty` y
+  `.isNotEmpty` se traducen), y en la web un botón dentro de una tarjeta ya
+  no abre también la tarjeta.
+- Los proyectos de Next.js anteriores siguen como «Web (Next.js,
+  formulario)».
+
 ## 1.0.37 — 2026-11-05
 
 - **Flutter (escritorio)**: el mismo editor al estilo de FlutterFlow, con la

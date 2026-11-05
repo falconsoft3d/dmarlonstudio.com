@@ -22,6 +22,7 @@ import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
 import '../../code/tk_console.dart';
 import '../../code/tk_flutter.dart';
+import '../../code/tk_web_next.dart';
 import '../../code/tk_pascal.dart';
 import '../../code/tk_pascal_run.dart';
 import '../../code/tk_debug.dart';
@@ -937,7 +938,9 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isFlutterDesktop
+  IconData _targetIcon(TkDesign x) => x.isWebNext
+      ? LucideIcons.panelsTopLeft
+      : x.isFlutterDesktop
       ? LucideIcons.monitor
       : x.isFlutter
       ? LucideIcons.smartphone
@@ -1878,6 +1881,13 @@ class _TkEditorState extends State<_TkEditor> {
     });
     if (done != true) return false;
     if (mounted) setState(() {});
+    // Web de Next.js en marcha: se reescribe y Next.js recarga la página.
+    final running = _run;
+    if (d.isWebNext && running != null && running.running) {
+      if (!mounted) return true;
+      await runAction(context, () => ProjectStore.prepareRun(doc.id));
+      return true;
+    }
     // Flutter en marcha: se vuelve a compilar y el simulador se recarga.
     final run = _run;
     if (d.isFlutter && run != null && run.running && run.input != null) {
@@ -2223,6 +2233,40 @@ class _TkEditorState extends State<_TkEditor> {
     });
   }
 
+  /// Web de Next.js hecha con pantallas: el proyecto, listo para
+  /// `npm install` y `npm run dev` (o Vercel).
+  Future<void> _exportWebNext() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      for (final e in TkWebNext.files(d, _code.text, name: doc.name).entries) {
+        final f = File('${out.path}${Platform.pathSeparator}${e.key}');
+        await f.parent.create(recursive: true);
+        await f.writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportado en {0}. Para abrirlo: npm install y npm run dev (o súbalo a Vercel).',
+              [out.path],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
   /// Flutter: el proyecto (pubspec, lib/main.dart y lib/app.dart), listo
   /// para `flutter create .` y `flutter run`.
   Future<void> _exportFlutter() async {
@@ -2493,7 +2537,9 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isFlutter
+              d.isWebNext
+                  ? tr('Exportar el proyecto de Next.js')
+                  : d.isFlutter
                   ? tr('Exportar el proyecto de Flutter')
                   : d.isConsole
                   ? tr('Exportar el programa ({0})', [TkConsole.file(d)])
@@ -2508,7 +2554,9 @@ class _TkEditorState extends State<_TkEditor> {
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isFlutter
+              d.isWebNext
+                  ? _exportWebNext
+                  : d.isFlutter
                   ? _exportFlutter
                   : d.isConsole
                   ? _exportConsole
@@ -2581,7 +2629,7 @@ class _TkEditorState extends State<_TkEditor> {
                 height: 14,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-            if (!d.isConsole && !d.isFlutter) ...[
+            if (!d.isConsole && !d.isScreens) ...[
               const VerticalDivider(width: 12),
               _tool(
                 LucideIcons.alignStartVertical,
@@ -2919,7 +2967,7 @@ class _TkEditorState extends State<_TkEditor> {
           style: TextStyle(fontSize: 11.5, color: t.hintColor),
         ),
         // Sin ventana, no hay icono.
-        if (!d.isConsole && !d.isFlutter) ...[
+        if (!d.isConsole && !d.isScreens) ...[
           label(tr('Icono de la aplicación')),
           Row(
             children: [
@@ -3031,7 +3079,7 @@ class _TkEditorState extends State<_TkEditor> {
                     ),
                   ),
                 ),
-              if (!d.isConsole && !d.isFlutter) ...[
+              if (!d.isConsole && !d.isScreens) ...[
                 _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
                 for (final w in d.widgets)
                   _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
@@ -3041,7 +3089,7 @@ class _TkEditorState extends State<_TkEditor> {
         ),
         Divider(height: 1, color: t.dividerColor),
         Expanded(
-          child: d.isConsole || d.isFlutter || _project && _selection.isEmpty
+          child: d.isConsole || d.isScreens || _project && _selection.isEmpty
               ? _projectPanel(t)
               : TkInspector(
                   design: d,
@@ -3072,7 +3120,9 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isFlutter
+              d.isWebNext
+                  ? tr('JavaScript generado')
+                  : d.isFlutter
                   ? tr('Dart generado')
                   : d.isCpp
                   ? tr('C++ generado')
@@ -3121,7 +3171,7 @@ class _TkEditorState extends State<_TkEditor> {
         child: IndexedStack(
           index: _tab,
           children: [
-            d.isFlutter
+            d.isScreens
                 ? TkFlutterDesigner(
                     key: ValueKey('fl-${doc.id}'),
                     design: d,
@@ -3408,12 +3458,12 @@ class _TkEditorState extends State<_TkEditor> {
         child: Column(
           children: [
             _toolbar(t),
-            if (!d.isConsole && !d.isFlutter) _palette(t),
+            if (!d.isConsole && !d.isScreens) _palette(t),
             Expanded(
               child: Row(
                 children: [
                   // Flutter trae su propio árbol en Diseño.
-                  if (!d.isFlutter || _tab != 0) _leftPanel(t),
+                  if (!d.isScreens || _tab != 0) _leftPanel(t),
                   Expanded(child: _center(t)),
                   if (_help)
                     TkHelpPanel(
@@ -3515,7 +3565,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                     LucideIcons.puzzle,
                   ),
                   (
-                    tkTargetNext,
+                    tkTargetWebNext,
                     tr('Web (Next.js)'),
                     LucideIcons.panelsTopLeft,
                   ),
@@ -3573,7 +3623,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ],
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetFlutterDesktop
+              _target == tkTargetWebNext
+                  ? tr(
+                      'Una web de Next.js de verdad, con el mismo editor de pantallas que Flutter: cada pantalla es una página adaptable (escritorio y móvil) hecha en React, con menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Node.js. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetFlutterDesktop
                   ? tr(
                       'Una app de escritorio con Flutter, con el mismo editor al estilo de FlutterFlow: pantallas con menú lateral y la lógica en Dart. Ejecutar la abre en su ventana (macOS, Windows o Linux) y al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después.',
                     )

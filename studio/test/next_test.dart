@@ -32,7 +32,7 @@ void main() {
     final d = TkDesign(target: tkTargetNext);
     expect(d.isNext && d.isJs, isTrue);
     expect(tkUnitOf(d), isA<JsUnit>());
-    expect(tkTargetLabel(tkTargetNext), 'Web (Next.js)');
+    expect(tkTargetLabel(tkTargetNext), 'Web (Next.js, formulario)');
     final e = example('next_tasks');
     final files = TkNext.files(e.design, e.code, name: e.name);
     final pkg = jsonDecode(files['package.json']!) as Map;

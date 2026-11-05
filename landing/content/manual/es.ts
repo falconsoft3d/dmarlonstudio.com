@@ -714,6 +714,30 @@ export const manualEs: Manual = {
       summary: "Páginas web de Next.js: el diseño es la página y el código, JavaScript con React.",
       sections: [
         {
+          id: "pantallas",
+          title: "Una web con pantallas (como Flutter)",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear el proyecto, **Web (Next.js)** usa el mismo editor de pantallas que Flutter: pantallas con su árbol de widgets, propiedades, menú y las 20 plantillas. Cada pantalla es una página de la web (la primera es `/`; las demás, `/su-nombre`), hecha en React con HTML y CSS adaptables: el contenido se centra en escritorio y el menú pasa de barra lateral a barra de abajo en el móvil. La lógica va en `lib/app.js`: una clase `App` que llama a `this.notify()` al cambiar.",
+            },
+            {
+              type: "code",
+              code: "export class App extends DmsApp {\n  tareas = [];\n  nueva = \"\";\n\n  agregar() {\n    this.tareas.unshift({ titulo: this.nueva, hecha: false });\n    this.nueva = \"\";\n    this.notify();\n  }\n}",
+            },
+            {
+              type: "ul",
+              items: [
+                "Las propiedades se escriben igual que en Flutter: `${…}` en los textos, `=expresión` (de JavaScript) y las acciones `go:Pantalla(item)`, `home:Pantalla`, `back` o código. `.isEmpty` y `.isNotEmpty` también valen.",
+                "En el editor, la vista previa se ve en el navegador de escritorio o en el móvil (el botón de la paleta).",
+                "**Ejecutar (F9)** arranca `next dev` y abre el navegador; al guardar, la página se recarga.",
+                "Ejemplo: **Tienda web**, con login, catálogo, ficha, carrito y pago.",
+                "Los proyectos de antes siguen funcionando como **Web (Next.js, formulario)**.",
+              ],
+            },
+          ],
+        },
+        {
           id: "crear",
           title: "Crear una página de Next.js",
           blocks: [

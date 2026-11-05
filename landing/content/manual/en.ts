@@ -714,6 +714,30 @@ export const manualEn: Manual = {
       summary: "Next.js web pages: the design is the page and the code is JavaScript with React.",
       sections: [
         {
+          id: "pantallas",
+          title: "A website with screens (like Flutter)",
+          blocks: [
+            {
+              type: "p",
+              text: "When creating the project, **Web (Next.js)** uses the same screen editor as Flutter: screens with their widget tree, properties, menu and the 20 templates. Each screen is a page of the website (the first is `/`; the others, `/its-name`), made in React with responsive HTML and CSS: content is centered on desktop and the menu turns from a side bar into a bottom bar on mobile. The logic goes in `lib/app.js`: an `App` class that calls `this.notify()` when it changes.",
+            },
+            {
+              type: "code",
+              code: "export class App extends DmsApp {\n  tasks = [];\n  newTask = \"\";\n\n  add() {\n    this.tasks.unshift({ title: this.newTask, done: false });\n    this.newTask = \"\";\n    this.notify();\n  }\n}",
+            },
+            {
+              type: "ul",
+              items: [
+                "Properties are written as in Flutter: `${…}` in texts, `=expression` (JavaScript) and the actions `go:Screen(item)`, `home:Screen`, `back` or code. `.isEmpty` and `.isNotEmpty` also work.",
+                "In the editor, the preview shows the desktop browser or the phone (the palette button).",
+                "**Run (F9)** starts `next dev` and opens the browser; saving reloads the page.",
+                "Example: **Web shop**, with login, catalog, product page, cart and checkout.",
+                "Earlier projects keep working as **Web (Next.js, form)**.",
+              ],
+            },
+          ],
+        },
+        {
           id: "create",
           title: "Creating a Next.js page",
           blocks: [

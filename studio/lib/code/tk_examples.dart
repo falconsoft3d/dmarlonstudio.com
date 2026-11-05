@@ -25,6 +25,7 @@ part 'tk_showcase_flutter.dart';
 part 'tk_showcase_flutter_store.dart';
 part 'tk_showcase_flutter_cloud.dart';
 part 'tk_showcase_flutter_desktop.dart';
+part 'tk_showcase_web_next.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.

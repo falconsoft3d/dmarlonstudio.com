@@ -64,6 +64,7 @@ const carousel = [
   'console_animals',
   'flutter_store',
   'flutter_inventory',
+  'web_next_store',
   'flutter_shipping',
   'flutter_todo',
 ];

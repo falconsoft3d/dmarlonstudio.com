@@ -547,8 +547,13 @@ class TkRunner {
         ),
       );
     }
-    final root = p.dirname(p.dirname(p.dirname(prepared.file)));
-    if (devtools) {
+    // La carpeta del proyecto: la que tiene el package.json.
+    var root = p.dirname(prepared.file);
+    while (!File(p.join(root, 'package.json')).existsSync() &&
+        p.dirname(root) != root) {
+      root = p.dirname(root);
+    }
+    if (devtools && p.basename(p.dirname(prepared.file)) == 'dms') {
       await File(prepared.file).writeAsString(
         TkNext.unitModule(
           prepared.source,

@@ -275,7 +275,7 @@ class TkFlutter {
   /// El código de una acción (sin llaves).
   static String action(String a, {String context = 'context'}) {
     final out = <String>[];
-    for (final raw in _split(a)) {
+    for (final raw in splitActions(a)) {
       final s = raw.trim();
       if (s.isEmpty) continue;
       // if (condición) acción: la acción solo si se cumple.
@@ -321,7 +321,7 @@ class TkFlutter {
   }
 
   /// Las acciones separadas por `;` (sin partir paréntesis ni cadenas).
-  static List<String> _split(String a) {
+  static List<String> splitActions(String a) {
     final out = <String>[];
     var depth = 0;
     String? quote;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../code/tk_flutter.dart';
+import '../../code/tk_web_next.dart';
 import '../../code/tk_flutter_templates.dart';
 import '../../code/tk_model.dart';
 import '../../i18n/tr.dart';
@@ -187,6 +188,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
   late FlApp _app = FlApp.of(widget.design);
   int _screen = 0;
 
+  /// Web: la vista previa en un teléfono en lugar de la ventana.
+  bool _mobile = false;
+
   /// El widget elegido: el camino de índices desde el cuerpo (vacío: el
   /// cuerpo; null: la pantalla).
   List<int>? _sel;
@@ -334,6 +338,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
             screen: _cur,
             node: _sel == null ? null : _node(_sel!),
             onEdit: _edit,
+            web: widget.design.isWebNext,
           ),
         ),
       ],
@@ -562,7 +567,37 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
             child: Wrap(
               spacing: 2,
               runSpacing: 2,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
+                if (widget.design.isWebNext)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: SegmentedButton<bool>(
+                      key: const ValueKey('fl-web-device'),
+                      showSelectedIcon: false,
+                      style: const ButtonStyle(
+                        visualDensity: VisualDensity.compact,
+                      ),
+                      segments: [
+                        ButtonSegment(
+                          value: false,
+                          icon: const Icon(
+                            Icons.desktop_windows_outlined,
+                            size: 16,
+                          ),
+                          tooltip: tr('Escritorio'),
+                        ),
+                        ButtonSegment(
+                          value: true,
+                          icon: const Icon(Icons.smartphone, size: 16),
+                          tooltip: tr('Móvil'),
+                        ),
+                      ],
+                      selected: {_mobile},
+                      onSelectionChanged: (v) =>
+                          setState(() => _mobile = v.first),
+                    ),
+                  ),
                 for (final MapEntry(key: type, value: (name, _))
                     in flWidgets.entries)
                   Tooltip(
@@ -583,7 +618,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, box) {
-                final desktop = widget.design.isFlutterDesktop;
+                final desktop =
+                    widget.design.isFlutterDesktop ||
+                    widget.design.isWebNext && !_mobile;
                 final size = FlPhone.sizeOf(desktop: desktop);
                 final scale = [
                   (box.maxHeight - 32) / size.height,
@@ -599,6 +636,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                         app: _app,
                         screen: _cur,
                         desktop: desktop,
+                        url: widget.design.isWebNext
+                            ? 'localhost${TkWebNext.route(_app, _cur.name)}'
+                            : null,
                         back: _screen > 0,
                         sel: _sel,
                         onPick: (p) => setState(() => _sel = p),
@@ -626,10 +666,14 @@ class FlPhone extends StatefulWidget {
     this.sel,
     this.onPick,
     this.desktop = false,
+    this.url,
   });
 
   final FlApp app;
   final FlScreen screen;
+
+  /// Web: la dirección que se ve en la barra (en lugar del título).
+  final String? url;
 
   /// Una ventana de escritorio en lugar de un teléfono.
   final bool desktop;
@@ -867,15 +911,34 @@ class _FlPhoneState extends State<FlPhone> {
                           dot(const Color(0xFFFEBC2E)),
                           dot(const Color(0xFF28C840)),
                           Expanded(
-                            child: Text(
-                              _app.title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w600,
-                                color: theme.colorScheme.onSurface,
-                              ),
-                            ),
+                            child: widget.url != null
+                                ? Center(
+                                    child: Container(
+                                      width: 420,
+                                      height: 22,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: theme.colorScheme.surface,
+                                        borderRadius: BorderRadius.circular(11),
+                                      ),
+                                      child: Text(
+                                        widget.url!,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: theme.colorScheme.onSurface,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    _app.title,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 12.5,
+                                      fontWeight: FontWeight.w600,
+                                      color: theme.colorScheme.onSurface,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(width: 60),
                         ],
@@ -1412,7 +1475,11 @@ class TkFlutterProps extends StatelessWidget {
     required this.screen,
     required this.node,
     required this.onEdit,
+    this.web = false,
   });
+
+  /// La web de Next.js: sin paquetes de pub.dev ni base de datos (aún).
+  final bool web;
 
   final FlApp app;
   final FlScreen screen;
@@ -1470,7 +1537,7 @@ class TkFlutterProps extends StatelessWidget {
                 ),
                 _field(
                   'screen-arg',
-                  tr('Recibe (tipo de Dart)'),
+                  web ? tr('Recibe (un dato)') : tr('Recibe (tipo de Dart)'),
                   screen.arg,
                   (v) => screen.arg = v.trim(),
                   hint: 'Envio',
@@ -1514,72 +1581,75 @@ class TkFlutterProps extends StatelessWidget {
                   lines: 3,
                   mono: true,
                 ),
-                _field(
-                  'app-packages',
-                  tr('Paquetes de pub.dev (uno por línea)'),
-                  app.packages.join('\n'),
-                  (v) => app.packages
-                    ..clear()
-                    ..addAll(
-                      v
-                          .split('\n')
-                          .map((s) => s.trim())
-                          .where((s) => s.isNotEmpty),
-                    ),
-                  hint: 'shared_preferences: ^2.3.0',
-                  lines: 3,
-                  mono: true,
-                ),
-                section(tr('BASE DE DATOS')),
-                _choice(
-                  tr('Conectar con'),
-                  app.backend.kind,
-                  const ['falcon', 'firebase'],
-                  (v) => app.backend = app.backend.copyWith(kind: v),
-                  labels: const {
-                    'falcon': 'FalconDatabase',
-                    'firebase': 'Firebase',
-                  },
-                ),
-                if (app.backend.kind == 'falcon')
+                if (!web)
                   _field(
-                    'db-url',
-                    tr('Servidor'),
-                    app.backend.url,
-                    (v) => app.backend = app.backend.copyWith(url: v.trim()),
-                    hint: 'https://falcondatabase.com',
-                  ),
-                if (app.backend.on) ...[
-                  _field(
-                    'db-project',
-                    app.backend.kind == 'falcon'
-                        ? tr('Proyecto (referencia)')
-                        : tr('ID del proyecto'),
-                    app.backend.project,
-                    (v) =>
-                        app.backend = app.backend.copyWith(project: v.trim()),
-                  ),
-                  _field(
-                    'db-key',
-                    app.backend.kind == 'falcon'
-                        ? tr('Clave anon (pública)')
-                        : tr('Clave web (apiKey)'),
-                    app.backend.key,
-                    (v) => app.backend = app.backend.copyWith(key: v.trim()),
+                    'app-packages',
+                    tr('Paquetes de pub.dev (uno por línea)'),
+                    app.packages.join('\n'),
+                    (v) => app.packages
+                      ..clear()
+                      ..addAll(
+                        v
+                            .split('\n')
+                            .map((s) => s.trim())
+                            .where((s) => s.isNotEmpty),
+                      ),
+                    hint: 'shared_preferences: ^2.3.0',
+                    lines: 3,
                     mono: true,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    child: Text(
-                      tr(
-                        "El estudio genera lib/db.dart: en App, await db.signIn(correo, clave), await db.table('productos').list(), insert, update y delete. Use solo la clave pública: va dentro de la app.",
-                      ),
-                      style: TextStyle(fontSize: 11.5, color: t.hintColor),
-                    ),
+                if (!web) ...[
+                  section(tr('BASE DE DATOS')),
+                  _choice(
+                    tr('Conectar con'),
+                    app.backend.kind,
+                    const ['falcon', 'firebase'],
+                    (v) => app.backend = app.backend.copyWith(kind: v),
+                    labels: const {
+                      'falcon': 'FalconDatabase',
+                      'firebase': 'Firebase',
+                    },
                   ),
+                  if (app.backend.kind == 'falcon')
+                    _field(
+                      'db-url',
+                      tr('Servidor'),
+                      app.backend.url,
+                      (v) => app.backend = app.backend.copyWith(url: v.trim()),
+                      hint: 'https://falcondatabase.com',
+                    ),
+                  if (app.backend.on) ...[
+                    _field(
+                      'db-project',
+                      app.backend.kind == 'falcon'
+                          ? tr('Proyecto (referencia)')
+                          : tr('ID del proyecto'),
+                      app.backend.project,
+                      (v) =>
+                          app.backend = app.backend.copyWith(project: v.trim()),
+                    ),
+                    _field(
+                      'db-key',
+                      app.backend.kind == 'falcon'
+                          ? tr('Clave anon (pública)')
+                          : tr('Clave web (apiKey)'),
+                      app.backend.key,
+                      (v) => app.backend = app.backend.copyWith(key: v.trim()),
+                      mono: true,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      child: Text(
+                        tr(
+                          "El estudio genera lib/db.dart: en App, await db.signIn(correo, clave), await db.table('productos').list(), insert, update y delete. Use solo la clave pública: va dentro de la app.",
+                        ),
+                        style: TextStyle(fontSize: 11.5, color: t.hintColor),
+                      ),
+                    ),
+                  ],
                 ],
                 _help(context),
               ]

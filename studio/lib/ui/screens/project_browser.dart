@@ -254,7 +254,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.design.isFlutterDesktop
+                        a.design.isWebNext
+                            ? LucideIcons.panelsTopLeft
+                            : a.design.isFlutterDesktop
                             ? LucideIcons.monitor
                             : a.design.isFlutter
                             ? LucideIcons.smartphone

@@ -23,6 +23,7 @@ Hechos
 18b. Flutter con FalconDatabase (probado) y Firebase (compila; falta proyecto real) | ✅ |
 18c. Flutter: galería con las 20 pantallas más usadas | ✅ |
 17. Flutter (escritorio): ventana nativa, menú lateral y demo de inventario | ✅ |
+18a. Next.js con el editor de pantallas de Flutter (web adaptable) | ✅ |
 
 
 Trabajando

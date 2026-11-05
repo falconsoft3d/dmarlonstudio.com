@@ -4,6 +4,7 @@ import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_cpp.dart';
 import 'tk_flutter.dart';
+import 'tk_web_next.dart';
 import 'tk_pascal.dart';
 import 'tk_electron.dart';
 import 'tk_helpers.dart';
@@ -1370,6 +1371,7 @@ class TkCodegen {
     if (d.isJs) return TkElectron.preview(d, code);
     if (d.isCpp) return TkCpp.preview(d, code);
     if (d.isPascal) return TkPascal.preview(d, code);
+    if (d.isWebNext) return TkWebNext.preview(d);
     if (d.isFlutter) return TkFlutter.preview(d);
     final problems = d.problems();
     if (problems.isNotEmpty) throw UserError(problems.join('\n'));

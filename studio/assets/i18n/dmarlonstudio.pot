@@ -845,7 +845,7 @@ msgstr ""
 msgid "{0} usuarios"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "Acción no válida: {0}"
 msgstr ""
 
@@ -877,7 +877,7 @@ msgstr ""
 msgid "Contenedor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "El menú nombra la pantalla «{0}», que no existe."
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Fila de lista"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "Hay dos pantallas llamadas «{0}»."
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Interruptor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "La app no tiene pantallas."
 msgstr ""
 
@@ -945,11 +945,11 @@ msgstr ""
 msgid "Tarjeta"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "Widget desconocido: {0}"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr ""
 
@@ -2202,6 +2202,10 @@ msgid "Web (Next.js)"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Web (Next.js, formulario)"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "«{0}» está en un marco que no existe."
 msgstr ""
 
@@ -2245,7 +2249,7 @@ msgstr ""
 msgid "Áreas"
 msgstr ""
 
-#: lib/code/tk_next.dart
+#: lib/code/tk_next.dart lib/code/tk_web_next.dart
 msgid "Aplicación web de Next.js creada con DMarlon Studio."
 msgstr ""
 
@@ -3527,11 +3531,11 @@ msgstr ""
 msgid "uds."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Algodón orgánico, corte recto. Tallas de la S a la XL."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Auriculares"
 msgstr ""
 
@@ -3543,11 +3547,11 @@ msgstr ""
 msgid "Buscar productos"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Camiseta básica"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Correo o contraseña incorrectos."
 msgstr ""
 
@@ -3555,7 +3559,7 @@ msgstr ""
 msgid "El carrito está vacío."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Electrónica"
 msgstr ""
 
@@ -3563,11 +3567,11 @@ msgstr ""
 msgid "Entre para comprar"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "GPS, pulso y resistente al agua."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Hogar"
 msgstr ""
 
@@ -3575,23 +3579,23 @@ msgstr ""
 msgid "Hola, {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Inalámbricos, con cancelación de ruido y 30 h de batería."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Interior afelpado y bolsillo canguro."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Luz cálida regulable, base de madera."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Lámpara de mesa"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Patas de haya y asiento acolchado."
 msgstr ""
 
@@ -3599,11 +3603,11 @@ msgstr ""
 msgid "Pruebe con demo@tienda.com y 1234"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Reloj deportivo"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Ropa"
 msgstr ""
 
@@ -3611,11 +3615,11 @@ msgstr ""
 msgid "Seguir comprando"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Silla nórdica"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
 msgid "Sudadera con capucha"
 msgstr ""
 
@@ -5008,6 +5012,18 @@ msgstr ""
 msgid "{0} marcada como pagada."
 msgstr ""
 
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web (Next.js)"
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Una web de verdad hecha con pantallas: login, catálogo con búsqueda y categorías, ficha, carrito y pago, adaptable a escritorio y móvil."
+msgstr ""
+
 #: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
 msgstr ""
@@ -5226,6 +5242,10 @@ msgstr ""
 
 #: lib/core/project_store.dart
 msgid "Los datos y la lógica de la app. Las pantallas los usan como app."
+msgstr ""
+
+#: lib/core/project_store.dart
+msgid "Los datos y la lógica de la web. Las pantallas los usan como app."
 msgstr ""
 
 #: lib/core/project_store.dart
@@ -7537,6 +7557,10 @@ msgid "Exportado en {0}. Para abrirlo: flutter create . y después flutter run (
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Para abrirlo: npm install y npm run dev (o súbalo a Vercel)."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportar aquí"
 msgstr ""
 
@@ -7789,6 +7813,10 @@ msgid "Una ventana del sistema con tkinter. El destino no se puede cambiar despu
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Una web de Next.js de verdad, con el mismo editor de pantallas que Flutter: cada pantalla es una página adaptable (escritorio y móvil) hecha en React, con menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Node.js. El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Usar esta carpeta"
 msgstr ""
 
@@ -7949,6 +7977,10 @@ msgid "En blanco"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
+msgid "Escritorio"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
 msgstr ""
 
@@ -7982,6 +8014,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Menú (Pantalla|icono|texto, una por línea)"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Móvil"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
@@ -8030,6 +8066,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Recibe (tipo de Dart)"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Recibe (un dato)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

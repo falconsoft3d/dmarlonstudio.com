@@ -7,6 +7,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _flutterStore(t),
   _flutterCloudNotes(t),
   _flutterInventory(t),
+  _webStore(t),
   _flutterShipping(t),
   _flutterTodo(t),
 ];

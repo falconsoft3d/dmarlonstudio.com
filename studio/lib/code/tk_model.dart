@@ -116,12 +116,17 @@ const tkTargetFlutter = 'flutter';
 /// La misma app de Flutter, para escritorio (macOS, Windows o Linux).
 const tkTargetFlutterDesktop = 'flutter_desktop';
 
+/// Web con Next.js hecha con el editor de pantallas (el de Flutter): rutas
+/// de React con HTML y CSS adaptables, y la lógica en JavaScript.
+const tkTargetWebNext = 'nextjs_web';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
   tkTargetElectron => tr('Electron + React'),
   tkTargetChrome => tr('Extensión de Chrome'),
-  tkTargetNext => tr('Web (Next.js)'),
+  tkTargetNext => tr('Web (Next.js, formulario)'),
+  tkTargetWebNext => tr('Web (Next.js)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
@@ -2018,6 +2023,12 @@ class TkDesign {
   bool get isFlutter =>
       target == tkTargetFlutter || target == tkTargetFlutterDesktop;
 
+  /// Web de Next.js hecha con pantallas.
+  bool get isWebNext => target == tkTargetWebNext;
+
+  /// Se diseña con el editor de pantallas (Flutter o la web de Next.js).
+  bool get isScreens => isFlutter || isWebNext;
+
   /// Flutter de escritorio: ventana del sistema en lugar de teléfono.
   bool get isFlutterDesktop => target == tkTargetFlutterDesktop;
 
@@ -2034,7 +2045,9 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isFlutter
+      isWebNext
+          ? 'js'
+          : isFlutter
           ? 'dart'
           : isJs
           ? 'js'
@@ -2064,7 +2077,8 @@ class TkDesign {
   }
 
   /// El código es Python (tkinter o Flask).
-  bool get isPython => !isJs && !isCpp && !isPascal && !isConsole && !isFlutter;
+  bool get isPython =>
+      !isJs && !isCpp && !isPascal && !isConsole && !isFlutter && !isWebNext;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2341,6 +2355,7 @@ class TkDesign {
       tkTargetPascal => tkTargetPascal,
       tkTargetFlutter => tkTargetFlutter,
       tkTargetFlutterDesktop => tkTargetFlutterDesktop,
+      tkTargetWebNext => tkTargetWebNext,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

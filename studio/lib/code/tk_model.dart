@@ -113,6 +113,9 @@ const tkConsoleTargets = {
 /// pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart).
 const tkTargetFlutter = 'flutter';
 
+/// La misma app de Flutter, para escritorio (macOS, Windows o Linux).
+const tkTargetFlutterDesktop = 'flutter_desktop';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -122,6 +125,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
+  tkTargetFlutterDesktop => tr('Flutter (escritorio)'),
   tkTargetConsolePy => tr('Consola (Python)'),
   tkTargetConsoleC => tr('Consola (C)'),
   tkTargetConsoleCpp => tr('Consola (C++)'),
@@ -2011,7 +2015,11 @@ class TkDesign {
   bool get isPascal => target == tkTargetPascal;
 
   /// App de Flutter: pantallas en lugar de una ventana.
-  bool get isFlutter => target == tkTargetFlutter;
+  bool get isFlutter =>
+      target == tkTargetFlutter || target == tkTargetFlutterDesktop;
+
+  /// Flutter de escritorio: ventana del sistema en lugar de teléfono.
+  bool get isFlutterDesktop => target == tkTargetFlutterDesktop;
 
   /// Aplicación de consola (sin ventana ni diseño).
   bool get isConsole => tkConsoleTargets.contains(target);
@@ -2332,6 +2340,7 @@ class TkDesign {
       tkTargetCpp => tkTargetCpp,
       tkTargetPascal => tkTargetPascal,
       tkTargetFlutter => tkTargetFlutter,
+      tkTargetFlutterDesktop => tkTargetFlutterDesktop,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

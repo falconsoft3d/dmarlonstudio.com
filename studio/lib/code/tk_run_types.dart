@@ -113,7 +113,12 @@ class TkPrepared {
     this.pascal = false,
     this.console,
     this.flutter = false,
+    this.desktop = false,
   });
+
+  /// Flutter de escritorio: se abre en una ventana del sistema, no en el
+  /// simulador.
+  final bool desktop;
 
   /// App de Flutter: [file] es su lib/app.dart en build/flutter; se abre
   /// en el simulador del estudio.

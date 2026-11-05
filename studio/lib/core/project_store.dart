@@ -313,7 +313,7 @@ class ProjectStore {
     if (d.props['title'] == null) d.setProp(tkFormTitle, name.trim());
     // Flutter: las pantallas de partida.
     if (d.isFlutter && d.props['flutter'] == null) {
-      TkFlutter.starter(name.trim()).saveTo(d);
+      TkFlutter.starter(name.trim(), desktop: d.isFlutterDesktop).saveTo(d);
     }
     final dir = _freeDir(parent ?? await workspaceDir(), name.trim());
     await Directory(dir).create(recursive: true);
@@ -692,6 +692,7 @@ class ProjectStore {
       source: unit,
       file: p.join(out, 'lib', 'app.dart'),
       flutter: true,
+      desktop: x.design.isFlutterDesktop,
       unitLines: '\n'.allMatches(unit).length + 1,
     );
   }

@@ -601,7 +601,7 @@ msgstr ""
 msgid "Ficha nueva"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter_desktop.dart
 msgid "General"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -878,6 +878,10 @@ msgid "Contenedor"
 msgstr ""
 
 #: lib/code/tk_flutter.dart
+msgid "El menú nombra la pantalla «{0}», que no existe."
+msgstr ""
+
+#: lib/code/tk_flutter.dart
 msgid "Espacio"
 msgstr ""
 
@@ -1017,7 +1021,7 @@ msgstr ""
 msgid "Casa y trabajo"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Categoría"
 msgstr ""
 
@@ -1301,7 +1305,7 @@ msgstr ""
 msgid "Pago confirmado"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart
 msgid "Panel"
 msgstr ""
 
@@ -1786,6 +1790,10 @@ msgid "Extensión por defecto"
 msgstr ""
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Flutter (escritorio)"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
 msgid "Flutter (móvil)"
 msgstr ""
 
@@ -2262,7 +2270,15 @@ msgid "Abierta en el simulador: {0}"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
+msgid "Abierta en su ventana: al guardar se vuelve a cargar."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
 msgid "Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar)."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "Compilando la app de escritorio…"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -2375,6 +2391,10 @@ msgstr ""
 
 #: lib/code/tk_run_io.dart
 msgid "Preparando los paquetes…"
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "Recargada."
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -3403,6 +3423,110 @@ msgstr ""
 msgid "Una app móvil con login y notas guardadas en FalconDatabase: ponga la conexión en las propiedades de la app."
 msgstr ""
 
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Buscar por nombre o categoría"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Cinta métrica"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Con poco stock"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Existencias"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Ferretería"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Guantes de trabajo"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Herramientas"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Inventario"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Inventario (Flutter escritorio)"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Inventario: productos, existencias y avisos de poco stock. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+msgid "No hay productos que coincidan."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Nuevo producto"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Pintura"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Pintura blanca 5 L"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Por debajo del mínimo ({0} uds.)"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Precio"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Productos"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Protección"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Taladro"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Todo en orden: nada por debajo del mínimo."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Tornillos M6"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Una app de escritorio con menú lateral: panel con cifras y avisos de poco stock, productos con búsqueda, ficha con existencias y alta."
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart
+msgid "Unidades"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "Valor del stock"
+msgstr ""
+
+#: lib/code/tk_showcase_flutter_desktop.dart
+msgid "uds."
+msgstr ""
+
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Algodón orgánico, corte recto. Tallas de la S a la XL."
 msgstr ""
@@ -3465,10 +3589,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Lámpara de mesa"
-msgstr ""
-
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
-msgid "No hay productos que coincidan."
 msgstr ""
 
 #: lib/code/tk_showcase_flutter_store.dart
@@ -3720,10 +3840,6 @@ msgid "Por categoría"
 msgstr ""
 
 #: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
-msgid "Precio"
-msgstr ""
-
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Producto"
 msgstr ""
 
@@ -3733,10 +3849,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_reports.dart
 msgid "Una tabla de ventas exportada a PDF (con totales, tabla por categoría y número de página) y a Excel (con varias hojas), sin instalar nada."
-msgstr ""
-
-#: lib/code/tk_showcase_reports.dart
-msgid "Unidades"
 msgstr ""
 
 #: lib/code/tk_showcase_reports.dart
@@ -4254,10 +4366,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Precio: de menor a mayor"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
-msgid "Productos"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -4910,10 +5018,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
-msgstr ""
-
-#: lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
 msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
@@ -7665,6 +7769,10 @@ msgid "Una aplicación web de Next.js: el diseño es la página y el código, Ja
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Una app de escritorio con Flutter, con el mismo editor al estilo de FlutterFlow: pantallas con menú lateral y la lógica en Dart. Ejecutar la abre en su ventana (macOS, Windows o Linux) y al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Una app móvil con Flutter, al estilo de FlutterFlow: varias pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart). Ejecutar la abre en el simulador del estudio, con marco de teléfono; al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después."
 msgstr ""
 
@@ -7870,6 +7978,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Líneas como máximo"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Menú (Pantalla|icono|texto, una por línea)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

@@ -29,6 +29,8 @@ class TkFlutterDesigner extends StatefulWidget {
 /// usa `Icons.nombre` y admite cualquiera).
 const flIcons = <String, IconData>{
   'add': Icons.add,
+  'all_inbox': Icons.all_inbox,
+  'remove': Icons.remove,
   'person_add': Icons.person_add,
   'lock_reset': Icons.lock_reset,
   'waving_hand': Icons.waving_hand,
@@ -294,7 +296,8 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
   Future<void> _addScreen() async {
     final screen = await showDialog<FlScreen>(
       context: context,
-      builder: (_) => FlTemplateGallery(app: _app),
+      builder: (_) =>
+          FlTemplateGallery(app: _app, desktop: widget.design.isFlutterDesktop),
     );
     if (screen == null || !mounted) return;
     _edit(() {
@@ -580,17 +583,22 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, box) {
-                const w = 393.0, h = 852.0;
-                final scale = ((box.maxHeight - 32) / (h + 24)).clamp(.3, 1.0);
+                final desktop = widget.design.isFlutterDesktop;
+                final size = FlPhone.sizeOf(desktop: desktop);
+                final scale = [
+                  (box.maxHeight - 32) / size.height,
+                  (box.maxWidth - 32) / size.width,
+                ].reduce((a, b) => a < b ? a : b).clamp(.25, 1.0);
                 return Center(
                   child: Transform.scale(
                     scale: scale,
                     child: OverflowBox(
-                      maxHeight: h + 24,
-                      maxWidth: w + 24,
+                      maxHeight: size.height,
+                      maxWidth: size.width,
                       child: FlPhone(
                         app: _app,
                         screen: _cur,
+                        desktop: desktop,
                         back: _screen > 0,
                         sel: _sel,
                         onPick: (p) => setState(() => _sel = p),
@@ -617,10 +625,18 @@ class FlPhone extends StatefulWidget {
     this.back = false,
     this.sel,
     this.onPick,
+    this.desktop = false,
   });
 
   final FlApp app;
   final FlScreen screen;
+
+  /// Una ventana de escritorio en lugar de un teléfono.
+  final bool desktop;
+
+  /// Lo que ocupa (con su marco).
+  static Size sizeOf({required bool desktop}) =>
+      desktop ? const Size(1100, 700) : const Size(417, 876);
 
   /// Con la flecha de volver en la barra (no es la primera pantalla).
   final bool back;
@@ -641,7 +657,9 @@ class _FlPhoneState extends State<FlPhone> {
   FlApp get _app => widget.app;
 
   @override
-  Widget build(BuildContext context) => _phone(Theme.of(context), 393, 852);
+  Widget build(BuildContext context) => widget.desktop
+      ? _window(Theme.of(context), 1100, 700)
+      : _phone(Theme.of(context), 393, 852);
 
   Widget _phone(ThemeData t, double w, double h) {
     final seed = RegExp(r'#?([0-9a-fA-F]{6})').firstMatch(_app.primary)?[1];
@@ -720,51 +738,9 @@ class _FlPhoneState extends State<FlPhone> {
                         ],
                       ),
                     ),
-                    if (s.appBar)
-                      Listener(
-                        onPointerDown: (e) => _pick(e.pointer, null),
-                        child: AppBar(
-                          actions: [
-                            for (final (icon, _, badge) in s.barButtons)
-                              IconButton(
-                                onPressed: () {},
-                                icon: Badge(
-                                  isLabelVisible: badge.isNotEmpty,
-                                  label: Text(_template(badge)),
-                                  child: Icon(_iconOf(icon)),
-                                ),
-                              ),
-                          ],
-                          title: Text(
-                            _template(s.title.isEmpty ? s.name : s.title),
-                          ),
-                          automaticallyImplyLeading: false,
-                          leading: widget.back
-                              ? const Icon(Icons.arrow_back)
-                              : null,
-                        ),
-                      ),
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Positioned.fill(
-                            child: _preview(s.body, const [], flex: false),
-                          ),
-                          if (s.fabIcon.isNotEmpty)
-                            Positioned(
-                              right: 16,
-                              bottom: 16,
-                              child: Listener(
-                                onPointerDown: (e) => _pick(e.pointer, null),
-                                child: FloatingActionButton(
-                                  onPressed: () {},
-                                  child: Icon(_iconOf(s.fabIcon)),
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
+                    ?_appBar(s),
+                    Expanded(child: _body(s)),
+                    if (_app.inNav(s.name)) _bottomNav(s),
                     Container(
                       height: 26,
                       alignment: Alignment.center,
@@ -776,6 +752,157 @@ class _FlPhoneState extends State<FlPhone> {
                           borderRadius: BorderRadius.circular(3),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  ThemeData get _theme {
+    final seed = RegExp(r'#?([0-9a-fA-F]{6})').firstMatch(_app.primary)?[1];
+    return ThemeData(
+      colorSchemeSeed: Color(int.parse('FF${seed ?? '2B5FD9'}', radix: 16)),
+      brightness: _app.dark ? Brightness.dark : Brightness.light,
+    );
+  }
+
+  /// La barra superior de la pantalla (null: no tiene).
+  Widget? _appBar(FlScreen s) => !s.appBar
+      ? null
+      : Listener(
+          onPointerDown: (e) => _pick(e.pointer, null),
+          child: AppBar(
+            actions: [
+              for (final (icon, _, badge) in s.barButtons)
+                IconButton(
+                  onPressed: () {},
+                  icon: Badge(
+                    isLabelVisible: badge.isNotEmpty,
+                    label: Text(_template(badge)),
+                    child: Icon(_iconOf(icon)),
+                  ),
+                ),
+            ],
+            title: Text(_template(s.title.isEmpty ? s.name : s.title)),
+            automaticallyImplyLeading: false,
+            leading: widget.back && !_app.inNav(s.name)
+                ? const Icon(Icons.arrow_back)
+                : null,
+          ),
+        );
+
+  /// El cuerpo, con el botón flotante.
+  Widget _body(FlScreen s) => Stack(
+    children: [
+      Positioned.fill(child: _preview(s.body, const [], flex: false)),
+      if (s.fabIcon.isNotEmpty)
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: Listener(
+            onPointerDown: (e) => _pick(e.pointer, null),
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(_iconOf(s.fabIcon)),
+            ),
+          ),
+        ),
+    ],
+  );
+
+  int _navIndex(FlScreen s) => _app.navItems.indexWhere((n) => n.$1 == s.name);
+
+  /// El menú abajo (teléfono).
+  Widget _bottomNav(FlScreen s) => NavigationBar(
+    selectedIndex: _navIndex(s),
+    destinations: [
+      for (final (_, icon, label) in _app.navItems)
+        NavigationDestination(icon: Icon(_iconOf(icon)), label: label),
+    ],
+  );
+
+  /// Escritorio: una ventana de macOS con su barra de título y, si la
+  /// pantalla está en el menú, la barra lateral.
+  Widget _window(ThemeData t, double w, double h) {
+    final theme = _theme;
+    final s = widget.screen;
+    Widget dot(Color c) => Container(
+      width: 12,
+      height: 12,
+      margin: const EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(color: c, shape: BoxShape.circle),
+    );
+    return Container(
+      key: const ValueKey('fl-window'),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0x33000000)),
+        boxShadow: const [BoxShadow(blurRadius: 40, color: Color(0x44000000))],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: SizedBox(
+          width: w,
+          height: h,
+          child: Theme(
+            data: theme,
+            child: Builder(
+              builder: (context) => Material(
+                color: theme.colorScheme.surface,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      height: 32,
+                      color: theme.colorScheme.surfaceContainerHigh,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        children: [
+                          dot(const Color(0xFFFF5F57)),
+                          dot(const Color(0xFFFEBC2E)),
+                          dot(const Color(0xFF28C840)),
+                          Expanded(
+                            child: Text(
+                              _app.title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 12.5,
+                                fontWeight: FontWeight.w600,
+                                color: theme.colorScheme.onSurface,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 60),
+                        ],
+                      ),
+                    ),
+                    ?_appBar(s),
+                    Expanded(
+                      child: _app.inNav(s.name)
+                          ? Row(
+                              children: [
+                                NavigationRail(
+                                  selectedIndex: _navIndex(s),
+                                  labelType: NavigationRailLabelType.all,
+                                  destinations: [
+                                    for (final (_, icon, label)
+                                        in _app.navItems)
+                                      NavigationRailDestination(
+                                        icon: Icon(_iconOf(icon)),
+                                        label: Text(label),
+                                      ),
+                                  ],
+                                ),
+                                const VerticalDivider(width: 1),
+                                Expanded(child: _body(s)),
+                              ],
+                            )
+                          : _body(s),
                     ),
                   ],
                 ),
@@ -1379,6 +1506,15 @@ class TkFlutterProps extends StatelessWidget {
                 ),
                 _switch(tr('Tema oscuro'), app.dark, (v) => app.dark = v),
                 _field(
+                  'app-nav',
+                  tr('Menú (Pantalla|icono|texto, una por línea)'),
+                  app.nav,
+                  (v) => app.nav = v,
+                  hint: 'Inicio|home|Inicio',
+                  lines: 3,
+                  mono: true,
+                ),
+                _field(
                   'app-packages',
                   tr('Paquetes de pub.dev (uno por línea)'),
                   app.packages.join('\n'),
@@ -1571,9 +1707,12 @@ class TkFlutterProps extends StatelessWidget {
 /// La galería de plantillas: en blanco o una de las 20 pantallas más
 /// usadas, con su vista previa real.
 class FlTemplateGallery extends StatefulWidget {
-  const FlTemplateGallery({super.key, required this.app});
+  const FlTemplateGallery({super.key, required this.app, this.desktop = false});
 
   final FlApp app;
+
+  /// Vista previa en una ventana de escritorio.
+  final bool desktop;
 
   @override
   State<FlTemplateGallery> createState() => _FlTemplateGalleryState();
@@ -1696,20 +1835,22 @@ class _FlTemplateGalleryState extends State<FlTemplateGallery> {
                       color: t.colorScheme.surfaceContainerLow,
                       child: LayoutBuilder(
                         builder: (context, box) {
-                          final scale = ((box.maxHeight - 24) / 876).clamp(
-                            .3,
-                            1.0,
-                          );
+                          final size = FlPhone.sizeOf(desktop: widget.desktop);
+                          final scale = [
+                            (box.maxHeight - 24) / size.height,
+                            (box.maxWidth - 24) / size.width,
+                          ].reduce((a, b) => a < b ? a : b).clamp(.25, 1.0);
                           return Center(
                             child: Transform.scale(
                               scale: scale,
                               child: OverflowBox(
-                                maxHeight: 876,
-                                maxWidth: 417,
+                                maxHeight: size.height,
+                                maxWidth: size.width,
                                 child: IgnorePointer(
                                   child: FlPhone(
                                     key: ValueKey('fl-template-preview-$_pick'),
                                     app: widget.app,
+                                    desktop: widget.desktop,
                                     screen: _build(valid ? name : 'Pantalla'),
                                     back: true,
                                   ),

@@ -267,6 +267,7 @@ class McpServer {
               'cpp',
               'pascal',
               'flutter',
+              'flutter_desktop',
               'console_py',
               'console_c',
               'console_cpp',
@@ -489,6 +490,7 @@ class McpServer {
           'cpp' => tkTargetCpp,
           'pascal' => tkTargetPascal,
           'flutter' => tkTargetFlutter,
+          'flutter_desktop' => tkTargetFlutterDesktop,
           final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };

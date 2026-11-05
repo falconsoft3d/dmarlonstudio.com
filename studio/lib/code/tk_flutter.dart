@@ -113,6 +113,7 @@ class FlApp {
     List<FlScreen>? screens,
     List<String>? packages,
     this.backend = const FlBackend(),
+    this.nav = '',
   }) : screens = screens ?? [FlScreen(name: 'Inicio', title: 'Mi app')],
        packages = packages ?? [];
 
@@ -127,6 +128,27 @@ class FlApp {
   /// La base de datos (FalconDatabase o Firebase): lib/db.dart.
   FlBackend backend;
 
+  /// El menú de la app, una línea por pantalla: Pantalla|icono|texto. En
+  /// una ventana ancha es una barra lateral (NavigationRail); en una
+  /// estrecha, la barra de abajo (NavigationBar).
+  String nav;
+
+  List<(String, String, String)> get navItems => [
+    for (final l in nav.split('\n'))
+      if (l.trim().isNotEmpty)
+        () {
+          final p = l.split('|');
+          final screen = p[0].trim();
+          return (
+            screen,
+            p.length > 1 && p[1].trim().isNotEmpty ? p[1].trim() : 'circle',
+            p.length > 2 && p[2].trim().isNotEmpty ? p[2].trim() : screen,
+          );
+        }(),
+  ];
+
+  bool inNav(String screen) => navItems.any((n) => n.$1 == screen);
+
   FlScreen? screen(String name) =>
       screens.where((s) => s.name == name).firstOrNull;
 
@@ -137,6 +159,7 @@ class FlApp {
     'screens': [for (final s in screens) s.toJson()],
     if (packages.isNotEmpty) 'packages': packages,
     if (backend.kind.isNotEmpty) 'backend': backend.toJson(),
+    if (nav.isNotEmpty) 'nav': nav,
   };
 
   static FlApp fromJson(Map j) => FlApp(
@@ -149,6 +172,7 @@ class FlApp {
     ],
     packages: [for (final p in (j['packages'] as List?) ?? const []) '$p'],
     backend: FlBackend.fromJson(j['backend']),
+    nav: '${j['nav'] ?? ''}',
   );
 
   /// La app del diseño [d] (guardada en sus propiedades).
@@ -595,7 +619,7 @@ class _${_cls(s.name)}State extends State<${_cls(s.name)}> {
 ${g.fields()}
   @override
   Widget build(BuildContext context) {
-$argLine${g.syncs()}    return Scaffold(
+$argLine${g.syncs()}    ${app.inNav(s.name) ? "return dmsNav(context, '${s.name}'," : 'return Scaffold('}
 ${s.appBar ? '      appBar: AppBar(title: Text(${str(s.title.isEmpty ? s.name : s.title)})${_barActions(s)}),\n' : ''}      body: SafeArea(
         child: $body,
       ),
@@ -641,7 +665,76 @@ ${[for (final s in app.screens) "        '/${s.name}': (context) => const ${_cls
   );
 }
 
-$screens''';
+${_navHelper(app)}$screens''';
+  }
+
+  /// El menú (si la app tiene uno): NavigationRail en ventanas anchas y
+  /// NavigationBar abajo en las estrechas.
+  static String _navHelper(FlApp app) {
+    final items = app.navItems;
+    if (items.isEmpty) return '';
+    for (final (screen, _, _) in items) {
+      if (app.screen(screen) == null) {
+        throw UserError(
+          tr('El menú nombra la pantalla «{0}», que no existe.', [screen]),
+        );
+      }
+    }
+    return '''/// El menú de la app.
+const _nav = <(String, IconData, String)>[
+${[for (final (screen, icon, label) in items) "  ('$screen', ${_icon(icon)}, ${str(label)}),"].join('\n')}
+];
+
+/// Una pantalla del menú: barra lateral en ventanas anchas, barra abajo en
+/// las estrechas.
+Widget dmsNav(
+  BuildContext context,
+  String current, {
+  PreferredSizeWidget? appBar,
+  required Widget body,
+  Widget? floatingActionButton,
+}) {
+  final i = _nav.indexWhere((n) => n.\$1 == current);
+  void go(int j) {
+    if (j != i) Navigator.of(context).pushReplacementNamed('/\${_nav[j].\$1}');
+  }
+
+  if (MediaQuery.sizeOf(context).width >= 700) {
+    return Scaffold(
+      appBar: appBar,
+      floatingActionButton: floatingActionButton,
+      body: Row(
+        children: [
+          NavigationRail(
+            selectedIndex: i,
+            labelType: NavigationRailLabelType.all,
+            onDestinationSelected: go,
+            destinations: [
+              for (final n in _nav)
+                NavigationRailDestination(icon: Icon(n.\$2), label: Text(n.\$3)),
+            ],
+          ),
+          const VerticalDivider(width: 1),
+          Expanded(child: body),
+        ],
+      ),
+    );
+  }
+  return Scaffold(
+    appBar: appBar,
+    floatingActionButton: floatingActionButton,
+    body: body,
+    bottomNavigationBar: NavigationBar(
+      selectedIndex: i,
+      onDestinationSelected: go,
+      destinations: [
+        for (final n in _nav) NavigationDestination(icon: Icon(n.\$2), label: n.\$3),
+      ],
+    ),
+  );
+}
+
+''';
   }
 
   /// Los botones de la barra superior (con su insignia).
@@ -673,32 +766,79 @@ class App extends ChangeNotifier {
 }
 ''';
 
-  /// Las pantallas de un proyecto nuevo.
-  static FlApp starter(String title) => FlApp(
-    title: title,
-    screens: [
-      FlScreen(
-        name: 'Inicio',
-        title: title,
-        fabIcon: 'add',
-        fabAction: 'app.increment()',
-        body: FlNode('Center', {}, [
-          FlNode(
-            'Column',
-            {'main': 'center', 'cross': 'center', 'gap': 8},
-            [
-              FlNode('Text', {'text': 'Ha pulsado el botón:'}),
-              FlNode('Text', {
-                'text': r'${app.counter}',
-                'style': 'displayMedium',
-                'color': 'primary',
-              }),
-            ],
-          ),
-        ]),
-      ),
-    ],
-  );
+  /// Las pantallas de un proyecto nuevo ([desktop]: con menú lateral).
+  static FlApp starter(String title, {bool desktop = false}) => desktop
+      ? FlApp(
+          title: title,
+          nav: 'Inicio|home|Inicio\nAjustes|settings|Ajustes',
+          screens: [
+            FlScreen(
+              name: 'Inicio',
+              title: title,
+              body: FlNode(
+                'Column',
+                {'padding': 24, 'gap': 16},
+                [
+                  FlNode('Text', {
+                    'text': 'Ha pulsado el botón \${app.counter} veces',
+                    'style': 'headlineSmall',
+                  }),
+                  FlNode(
+                    'Row',
+                    {'gap': 12},
+                    [
+                      FlNode('Button', {
+                        'text': 'Sumar',
+                        'icon': 'add',
+                        'onTap': 'app.increment()',
+                      }),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            FlScreen(
+              name: 'Ajustes',
+              title: 'Ajustes',
+              body: FlNode(
+                'Column',
+                {'padding': 24, 'gap': 8},
+                [
+                  FlNode('ListTile', {
+                    'title': 'Acerca de',
+                    'subtitle': title,
+                    'icon': 'info',
+                  }),
+                ],
+              ),
+            ),
+          ],
+        )
+      : FlApp(
+          title: title,
+          screens: [
+            FlScreen(
+              name: 'Inicio',
+              title: title,
+              fabIcon: 'add',
+              fabAction: 'app.increment()',
+              body: FlNode('Center', {}, [
+                FlNode(
+                  'Column',
+                  {'main': 'center', 'cross': 'center', 'gap': 8},
+                  [
+                    FlNode('Text', {'text': 'Ha pulsado el botón:'}),
+                    FlNode('Text', {
+                      'text': r'${app.counter}',
+                      'style': 'displayMedium',
+                      'color': 'primary',
+                    }),
+                  ],
+                ),
+              ]),
+            ),
+          ],
+        );
 
   /// Todos los archivos del proyecto de Flutter (sin las carpetas de cada
   /// plataforma, que crea `flutter create`).

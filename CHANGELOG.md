@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.37 — 2026-11-05
+
+- **Flutter (escritorio)**: el mismo editor al estilo de FlutterFlow, con la
+  vista previa en una ventana de macOS. Ejecutar abre la app en su ventana
+  nativa (macOS, Windows o Linux) y al guardar se recarga en caliente.
+- **Menú de la app** (Pantalla|icono|texto): barra lateral en ventanas
+  anchas y barra de abajo en las estrechas, en escritorio y en móvil.
+- Ejemplo **Inventario (Flutter escritorio)**: panel con cifras y avisos de
+  poco stock, productos con búsqueda, ficha con existencias y alta. Su
+  recorrido se prueba en cada versión, y la app de escritorio se abre de
+  verdad en su ventana y se recarga.
+
 ## 1.0.36 — 2026-11-05
 
 - Flutter: **+** en Pantallas abre una galería con las **20 pantallas más

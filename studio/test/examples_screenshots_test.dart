@@ -63,6 +63,7 @@ const carousel = [
   'pascal_calculator',
   'console_animals',
   'flutter_store',
+  'flutter_inventory',
   'flutter_shipping',
   'flutter_todo',
 ];

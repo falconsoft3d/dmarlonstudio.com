@@ -75,7 +75,7 @@ Future<TkRun?> launchTkApp(
   if (prepared.flutter) {
     if (tests) return null;
     final run = await runAction(context, () => TkRunner.start(prepared));
-    if (run != null) {
+    if (run != null && !prepared.desktop) {
       void ready() {
         if (run.url == null) return;
         run.removeListener(ready);

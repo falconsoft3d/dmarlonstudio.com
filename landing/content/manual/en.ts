@@ -895,6 +895,21 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "escritorio",
+          title: "Desktop",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "Choose **Flutter (desktop)** when creating the project: the same editor, with the preview in a macOS window.",
+                "**Menu** (app properties): one line per screen, `Screen|icon|text`. In a wide window it is a side bar (`NavigationRail`); in a narrow one, the bottom bar. It also works in mobile apps.",
+                "**Run (F9)** opens the app in its native window (macOS, Windows or Linux), and saving reloads it.",
+                "Example: **Inventory**, with a dashboard, products, a product page with stock and new products.",
+              ],
+            },
+          ],
+        },
+        {
           id: "base-de-datos",
           title: "FalconDatabase and Firebase",
           blocks: [

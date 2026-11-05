@@ -895,6 +895,21 @@ export const manualEs: Manual = {
           ],
         },
         {
+          id: "escritorio",
+          title: "Escritorio",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "Elija **Flutter (escritorio)** al crear el proyecto: el mismo editor, con la vista previa en una ventana de macOS.",
+                "**Menú** (propiedades de la app): una línea por pantalla, `Pantalla|icono|texto`. En una ventana ancha es una barra lateral (`NavigationRail`); en una estrecha, la barra de abajo. También sirve en las apps móviles.",
+                "**Ejecutar (F9)** abre la app en su ventana nativa (macOS, Windows o Linux) y al guardar se vuelve a cargar.",
+                "Ejemplo: **Inventario**, con panel, productos, ficha con existencias y alta.",
+              ],
+            },
+          ],
+        },
+        {
           id: "base-de-datos",
           title: "FalconDatabase y Firebase",
           blocks: [

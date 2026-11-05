@@ -771,17 +771,36 @@ class TkRunner {
           return run.finish(1);
         }
         if (stopped) return run.finish(-1);
-        run.add(tr('Compilando para el simulador…'));
+        final desktop = prepared.desktop;
+        run.add(
+          desktop
+              ? tr('Compilando la app de escritorio…')
+              : tr('Compilando para el simulador…'),
+        );
         final port = await TkFlutterTools.freePort();
-        final started = await Process.start(flutter, [
-          'run',
-          '-d',
-          'web-server',
-          '--web-hostname',
-          '127.0.0.1',
-          '--web-port',
-          '$port',
-        ], workingDirectory: dir);
+        final started = await Process.start(
+          flutter,
+          desktop
+              ? [
+                  'run',
+                  '-d',
+                  Platform.isMacOS
+                      ? 'macos'
+                      : Platform.isWindows
+                      ? 'windows'
+                      : 'linux',
+                ]
+              : [
+                  'run',
+                  '-d',
+                  'web-server',
+                  '--web-hostname',
+                  '127.0.0.1',
+                  '--web-port',
+                  '$port',
+                ],
+          workingDirectory: dir,
+        );
         proc = started;
         run.input = (line) => started.stdin.write('$line\n');
         void onLine(String l) {
@@ -797,10 +816,20 @@ class TkRunner {
             }());
             return;
           }
+          if (desktop && l.contains('Flutter run key commands')) {
+            run.add(
+              tr('Abierta en su ventana: al guardar se vuelve a cargar.'),
+            );
+            return;
+          }
           if (l.startsWith('Recompile complete') ||
               l.startsWith('Restarted application')) {
             sim?.version++;
-            run.add(tr('Recompilada: el simulador se recarga.'));
+            run.add(
+              desktop
+                  ? tr('Recargada.')
+                  : tr('Recompilada: el simulador se recarga.'),
+            );
             return;
           }
           if (!TkFlutterTools.noise(l)) run.add(l);

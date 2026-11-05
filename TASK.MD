@@ -22,6 +22,7 @@ Hechos
 16. Flutter (móvil): editor al estilo de FlutterFlow, simulador propio, demos de envíos y tareas | ✅ |
 18b. Flutter con FalconDatabase (probado) y Firebase (compila; falta proyecto real) | ✅ |
 18c. Flutter: galería con las 20 pantallas más usadas | ✅ |
+17. Flutter (escritorio): ventana nativa, menú lateral y demo de inventario | ✅ |
 
 
 Trabajando
@@ -31,7 +32,6 @@ Trabajando
 
 Pendiente
 =========
-17. Flutter (escritorio) — con el mismo editor inspirado en FlutterFlow | ⏳ |
 18. React Native (móvil) | ⏳ |
 19. React (Web) | ⏳ |
 20. HTML (Web) | ⏳ |

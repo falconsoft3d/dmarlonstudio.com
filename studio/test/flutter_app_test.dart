@@ -250,6 +250,120 @@ void main() {
   );
 
   test(
+    'de verdad: el inventario de escritorio pasa su flujo (menú lateral)',
+    () async {
+      final flutter = TkFlutterTools.flutter();
+      if (flutter == null) return markTestSkipped('Sin Flutter.');
+      final tmp = await Directory.systemTemp.createTemp('dms_inv_');
+      addTearDown(() => tmp.delete(recursive: true));
+      final e = tkFlutterExamples(
+        id,
+      ).firstWhere((e) => e.seed == 'flutter_inventory');
+      expect(e.design.isFlutterDesktop, isTrue);
+      for (final f in TkFlutter.files(
+        e.design,
+        e.code,
+        name: 'inventario',
+      ).entries) {
+        File(p.join(tmp.path, f.key))
+          ..createSync(recursive: true)
+          ..writeAsStringSync(
+            f.key == 'pubspec.yaml'
+                ? f.value.replaceFirst(
+                    'dev_dependencies:\n',
+                    'dev_dependencies:\n  flutter_test:\n    sdk: flutter\n',
+                  )
+                : f.value,
+          );
+      }
+      File(p.join(tmp.path, 'test', 'flujo_test.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync(_inventoryFlow);
+      final a = await Process.run(flutter, [
+        'analyze',
+      ], workingDirectory: tmp.path);
+      expect(
+        '${a.stdout}',
+        contains('No issues found'),
+        reason: '${a.stdout}${a.stderr}',
+      );
+      final r = await Process.run(flutter, [
+        'test',
+      ], workingDirectory: tmp.path);
+      expect(r.exitCode, 0, reason: '${r.stdout}${r.stderr}');
+    },
+    timeout: const Timeout(Duration(minutes: 5)),
+  );
+
+  test(
+    'de verdad: la app de escritorio se abre en su ventana y se recarga',
+    () async {
+      if (!Platform.isMacOS || TkFlutterTools.flutter() == null) {
+        return markTestSkipped('Solo en macOS con Flutter.');
+      }
+      final tmp = await Directory.systemTemp.createTemp('dms_fldesk_');
+      addTearDown(() => tmp.delete(recursive: true));
+      StudioDb.dirOverride = p.join(tmp.path, 'support');
+      ProjectStore.workspaceOverride = p.join(tmp.path, 'Proyectos');
+      await StudioDb.open();
+      final dir = await ProjectStore.create(
+        'Escritorio',
+        design: TkDesign(target: tkTargetFlutterDesktop),
+      );
+      final prepared = await ProjectStore.prepareRun(dir);
+      expect(prepared.desktop, isTrue);
+      final run = await TkRunner.start(prepared);
+      addTearDown(run.stop);
+      Future<void> until(bool Function() ok, {int seconds = 300}) async {
+        final end = DateTime.now().add(Duration(seconds: seconds));
+        while (!ok() && run.running && DateTime.now().isBefore(end)) {
+          await Future<void>.delayed(const Duration(milliseconds: 200));
+        }
+      }
+
+      await until(
+        () => run.lines.any((l) => l.contains('Abierta en su ventana')),
+      );
+      expect(
+        run.lines.any((l) => l.contains('Abierta en su ventana')),
+        isTrue,
+        reason: run.lines.join('\n'),
+      );
+      // La ventana existe (y no es un proceso en segundo plano).
+      final ps = await Process.run('pgrep', [
+        '-f',
+        'escritorio.app/Contents/MacOS',
+      ]);
+      final pid = '${ps.stdout}'.trim().split('\n').first;
+      expect(pid, isNotEmpty);
+      final w = await Process.run('osascript', [
+        '-e',
+        'tell application "System Events" to get {background only, count of windows} of (first process whose unix id is $pid)',
+      ]);
+      expect('${w.stdout}'.trim(), 'false, 1', reason: '${w.stderr}');
+      // Cambiar el código y recargar.
+      final app = File(prepared.file);
+      await app.writeAsString(
+        (await app.readAsString()).replaceFirst('counter++', 'counter += 2'),
+      );
+      run.input!('R');
+      await until(
+        () => run.lines.any((l) => l.contains('Recargada')),
+        seconds: 120,
+      );
+      expect(
+        run.lines.any((l) => l.contains('Recargada')),
+        isTrue,
+        reason: run.lines.join('\n'),
+      );
+      run.stop();
+      await until(() => !run.running, seconds: 30);
+      await StudioDb.close();
+    },
+    timeout: const Timeout(Duration(minutes: 8)),
+  );
+
+  test(
     'de verdad: la tienda generada pasa su flujo (login, carrito y pago)',
     () async {
       final flutter = TkFlutterTools.flutter();
@@ -488,6 +602,67 @@ void main() {
     expect(app.notas.where((n) => n['texto'] == 'Nota de prueba DMS'), isEmpty);
     app.salir();
     expect(app.usuario, '');
+  });
+}
+''';
+
+/// El recorrido del inventario: se ejecuta dentro de la app generada, en
+/// una ventana ancha (menú lateral).
+const _inventoryFlow = r'''
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:inventario/main.dart';
+
+void main() {
+  testWidgets('panel, productos, existencias y alta', (tester) async {
+    tester.view.physicalSize = const Size(1200, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(const DmsApp());
+    await tester.pumpAndSettle();
+
+    // Panel con el menú lateral: dos productos con poco stock.
+    expect(find.byType(NavigationRail), findsOneWidget);
+    expect(find.text('Taladro'), findsOneWidget);
+    expect(find.text('Guantes de trabajo'), findsOneWidget);
+    expect(find.text('Cinta métrica'), findsNothing);
+
+    // A Productos por el menú, y buscar.
+    await tester.tap(find.descendant(of: find.byType(NavigationRail), matching: find.text('Productos')));
+    await tester.pumpAndSettle();
+    expect(find.text('Cinta métrica'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).first, 'herram');
+    await tester.pumpAndSettle();
+    expect(find.text('Taladro'), findsOneWidget);
+    expect(find.text('Tornillos M6'), findsNothing);
+
+    // Ficha del taladro: +10 lo saca del aviso.
+    await tester.tap(find.text('Taladro'));
+    await tester.pumpAndSettle();
+    expect(find.text('Por debajo del mínimo (5 uds.)'), findsOneWidget);
+    await tester.tap(find.text('+10'));
+    await tester.pumpAndSettle();
+    expect(find.text('14'), findsOneWidget);
+    expect(find.text('Por debajo del mínimo (5 uds.)'), findsNothing);
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+
+    // Alta de un producto.
+    await tester.enterText(find.byType(TextField).first, '');
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.widgetWithText(TextField, 'Nombre'), 'Martillo');
+    await tester.enterText(find.widgetWithText(TextField, 'Existencias'), '2');
+    await tester.pump();
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(find.text('Martillo'), findsOneWidget);
+
+    // En el panel, el martillo (2 uds.) aparece con poco stock.
+    await tester.tap(find.descendant(of: find.byType(NavigationRail), matching: find.text('Panel')));
+    await tester.pumpAndSettle();
+    expect(find.text('Martillo'), findsOneWidget);
+    expect(find.text('Taladro'), findsNothing);
   });
 }
 ''';

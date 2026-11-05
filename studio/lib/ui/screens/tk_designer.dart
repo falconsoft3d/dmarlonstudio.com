@@ -937,7 +937,9 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isFlutter
+  IconData _targetIcon(TkDesign x) => x.isFlutterDesktop
+      ? LucideIcons.monitor
+      : x.isFlutter
       ? LucideIcons.smartphone
       : x.isConsole
       ? LucideIcons.squareTerminal
@@ -3524,6 +3526,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                     tr('Flutter (móvil)'),
                     LucideIcons.smartphone,
                   ),
+                  (
+                    tkTargetFlutterDesktop,
+                    tr('Flutter (escritorio)'),
+                    LucideIcons.monitor,
+                  ),
                   ('console', tr('Consola'), LucideIcons.squareTerminal),
                 ])
                   ChoiceChip(
@@ -3566,7 +3573,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ],
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetFlutter
+              _target == tkTargetFlutterDesktop
+                  ? tr(
+                      'Una app de escritorio con Flutter, con el mismo editor al estilo de FlutterFlow: pantallas con menú lateral y la lógica en Dart. Ejecutar la abre en su ventana (macOS, Windows o Linux) y al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetFlutter
                   ? tr(
                       'Una app móvil con Flutter, al estilo de FlutterFlow: varias pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart). Ejecutar la abre en el simulador del estudio, con marco de teléfono; al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después.',
                     )

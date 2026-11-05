@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.2 — 2026-11-05
+
+- Diseñador: la paleta de componentes es ahora una sola barra de iconos,
+  sin texto; el nombre y la ayuda salen al pasar el ratón.
+
 ## 1.0.1 — 2026-11-05
 
 Primera versión de DMarlon Studio, separada de la app «Código» de ERPSqlite.

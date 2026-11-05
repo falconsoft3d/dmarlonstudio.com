@@ -1298,54 +1298,49 @@ class _TkEditorState extends State<_TkEditor> {
     );
   }
 
+  /// Paleta de componentes: una barra de iconos juntos, como la de un IDE
+  /// visual. El nombre sale al pasar el ratón; se arrastran a la ventana o
+  /// se añaden con doble clic.
   Widget _palette(ThemeData t) => Container(
-    height: 40,
+    height: 34,
     decoration: BoxDecoration(
+      color: t.colorScheme.surfaceContainerLow,
       border: Border(bottom: BorderSide(color: t.dividerColor)),
     ),
     child: ListView(
       scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       children: [
         for (final c in tkComponents)
-          Padding(
-            padding: const EdgeInsets.only(right: 4),
-            child: Draggable<String>(
-              key: ValueKey('tk-palette-${c.kind}'),
-              data: c.kind,
-              dragAnchorStrategy: pointerDragAnchorStrategy,
-              feedback: Material(
-                elevation: 4,
-                color: t.colorScheme.primaryContainer,
-                child: SizedBox(
-                  width: c.width.toDouble(),
-                  height: c.height.toDouble(),
-                  child: Center(child: Text(tr(c.label))),
-                ),
+          Draggable<String>(
+            key: ValueKey('tk-palette-${c.kind}'),
+            data: c.kind,
+            dragAnchorStrategy: pointerDragAnchorStrategy,
+            feedback: Material(
+              elevation: 4,
+              color: t.colorScheme.primaryContainer,
+              child: SizedBox(
+                width: c.width.toDouble(),
+                height: c.height.toDouble(),
+                child: Center(child: Text(tr(c.label))),
               ),
-              child: GestureDetector(
-                onDoubleTap: () => _addAtFreeSpot(c.kind),
-                child: Tooltip(
-                  message: d.isWeb && tkWebGap(c.kind) != null
-                      ? tkWebGap(c.kind)!
-                      : tr('Arrástrelo a la ventana ({0})', [c.kind]),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    decoration: BoxDecoration(
-                      color: t.colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    alignment: Alignment.center,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(tkIcon(c.kind), size: 14),
-                        const SizedBox(width: 5),
-                        Text(tr(c.label), style: const TextStyle(fontSize: 12)),
-                      ],
-                    ),
+            ),
+            child: Tooltip(
+              richMessage: TextSpan(
+                children: [
+                  TextSpan(
+                    text: tr(c.label),
+                    style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
-                ),
+                  TextSpan(
+                    text:
+                        '\n${d.isWeb && tkWebGap(c.kind) != null ? tkWebGap(c.kind)! : tr('Arrástrelo a la ventana ({0})', [c.kind])}',
+                  ),
+                ],
+              ),
+              child: _PaletteButton(
+                icon: tkIcon(c.kind),
+                onDoubleTap: () => _addAtFreeSpot(c.kind),
               ),
             ),
           ),
@@ -1980,6 +1975,52 @@ class _AiPreview extends StatelessWidget {
           child: Text(tr('Aplicar')),
         ),
       ],
+    );
+  }
+}
+
+/// Botón de la paleta: solo el icono, resaltado al pasar el ratón.
+class _PaletteButton extends StatefulWidget {
+  const _PaletteButton({required this.icon, required this.onDoubleTap});
+  final IconData icon;
+  final VoidCallback onDoubleTap;
+
+  @override
+  State<_PaletteButton> createState() => _PaletteButtonState();
+}
+
+class _PaletteButtonState extends State<_PaletteButton> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context);
+    return MouseRegion(
+      cursor: SystemMouseCursors.grab,
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: GestureDetector(
+        onDoubleTap: widget.onDoubleTap,
+        child: Container(
+          width: 28,
+          height: 28,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: _hover ? t.colorScheme.primary.withValues(alpha: .14) : null,
+            border: Border.all(
+              color: _hover
+                  ? t.colorScheme.primary.withValues(alpha: .5)
+                  : Colors.transparent,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Icon(
+            widget.icon,
+            size: 16,
+            color: _hover ? t.colorScheme.primary : t.colorScheme.onSurface,
+          ),
+        ),
+      ),
     );
   }
 }

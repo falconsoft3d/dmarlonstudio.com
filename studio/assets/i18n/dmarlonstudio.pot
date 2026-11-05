@@ -927,11 +927,11 @@ msgstr ""
 msgid "Borrar: {0}"
 msgstr ""
 
-#: lib/ui/screens/code_claude.dart:434 lib/ui/screens/code_git.dart:456 lib/ui/screens/code_git.dart:592 lib/ui/screens/dev_tools.dart:227 lib/ui/screens/tk_designer.dart:1138 lib/ui/screens/tk_designer.dart:1975
+#: lib/ui/screens/code_claude.dart:434 lib/ui/screens/code_git.dart:456 lib/ui/screens/code_git.dart:592 lib/ui/screens/dev_tools.dart:227 lib/ui/screens/tk_designer.dart:1138 lib/ui/screens/tk_designer.dart:1970
 msgid "Descartar"
 msgstr ""
 
-#: lib/ui/screens/code_claude.dart:435 lib/ui/screens/tk_designer.dart:1980
+#: lib/ui/screens/code_claude.dart:435 lib/ui/screens/tk_designer.dart:1975
 msgid "Aplicar"
 msgstr ""
 
@@ -1071,7 +1071,7 @@ msgstr ""
 msgid "Quitar"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart:1294 lib/ui/screens/code_git.dart:1437 lib/ui/screens/dev_tools.dart:90 lib/ui/screens/dev_tools.dart:934 lib/ui/screens/diagrams.dart:123 lib/ui/screens/tk_designer.dart:1663 lib/ui/screens/tk_inspector.dart:330
+#: lib/ui/screens/code_git.dart:1294 lib/ui/screens/code_git.dart:1437 lib/ui/screens/dev_tools.dart:90 lib/ui/screens/dev_tools.dart:934 lib/ui/screens/diagrams.dart:123 lib/ui/screens/tk_designer.dart:1658 lib/ui/screens/tk_inspector.dart:330
 msgid "Nombre"
 msgstr ""
 
@@ -1523,7 +1523,7 @@ msgstr ""
 msgid "Pregunte o pida un cambio (⌘Intro)"
 msgstr ""
 
-#: lib/ui/screens/code_studio.dart:1415 lib/ui/screens/tk_designer.dart:1446
+#: lib/ui/screens/code_studio.dart:1415 lib/ui/screens/tk_designer.dart:1441
 msgid "Código"
 msgstr ""
 
@@ -1997,7 +1997,7 @@ msgstr ""
 msgid "p. ej. El proceso de login: pedir usuario y clave, validar y bloquear tras 3 intentos"
 msgstr ""
 
-#: lib/ui/screens/diagrams.dart:151 lib/ui/screens/diagrams.dart:222 lib/ui/screens/tk_designer.dart:1706
+#: lib/ui/screens/diagrams.dart:151 lib/ui/screens/diagrams.dart:222 lib/ui/screens/tk_designer.dart:1701
 msgid "Crear"
 msgstr ""
 
@@ -2273,7 +2273,7 @@ msgstr ""
 msgid "Mostrar la carpeta del proyecto"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1230 lib/ui/screens/tk_designer.dart:1778
+#: lib/ui/screens/tk_designer.dart:1230 lib/ui/screens/tk_designer.dart:1773
 msgid "Pedir a la IA"
 msgstr ""
 
@@ -2317,7 +2317,7 @@ msgstr ""
 msgid "Ver la salida"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1331
+#: lib/ui/screens/tk_designer.dart:1337
 msgid "Arrástrelo a la ventana ({0})"
 msgstr ""
 
@@ -2333,40 +2333,44 @@ msgstr ""
 msgid "¿Llevar «{0}» a la papelera del área de trabajo (carpeta {1})?"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1445
+#: lib/ui/screens/tk_designer.dart:1440
 msgid "Diseño"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1447
+#: lib/ui/screens/tk_designer.dart:1442
 msgid "Python generado"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1472
+#: lib/ui/screens/tk_designer.dart:1467
 msgid "F12: código"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1472
+#: lib/ui/screens/tk_designer.dart:1467
 msgid "F12: diseño"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1541
+#: lib/ui/screens/tk_designer.dart:1536
 msgid "Aún no se ha ejecutado."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1543
+#: lib/ui/screens/tk_designer.dart:1538
 msgid "Terminó con el código {0}."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1545
+#: lib/ui/screens/tk_designer.dart:1540
 msgid "En marcha en {0}: solo en este equipo, sin publicar."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1548
+#: lib/ui/screens/tk_designer.dart:1543
 msgid "En ejecución en su propia ventana."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1636
+#: lib/ui/screens/tk_designer.dart:1631
 msgid "Mi aplicación"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart:1667 lib/ui/screens/tk_inspector.dart:126
+msgid "Escritorio (Python)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart:167
@@ -2374,18 +2378,14 @@ msgid "Buscando Python…"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart:1672 lib/ui/screens/tk_inspector.dart:126
-msgid "Escritorio (Python)"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart:1677 lib/ui/screens/tk_inspector.dart:126
 msgid "Web (Flask)"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1687
+#: lib/ui/screens/tk_designer.dart:1682
 msgid "El mismo diseñador y el mismo Python: la página se abre en su navegador y el código corre en un servidor de este equipo. Necesita Flask. El destino no se puede cambiar después."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1690
+#: lib/ui/screens/tk_designer.dart:1685
 msgid "Una ventana del sistema con tkinter. El destino no se puede cambiar después."
 msgstr ""
 
@@ -2393,7 +2393,7 @@ msgstr ""
 msgid "Python {0} con Tk {1} ({2})"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1752
+#: lib/ui/screens/tk_designer.dart:1747
 msgid "Imagen"
 msgstr ""
 
@@ -2401,59 +2401,59 @@ msgstr ""
 msgid "No se encontró Python."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1802
+#: lib/ui/screens/tk_designer.dart:1797
 msgid "Cambiar"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1803
+#: lib/ui/screens/tk_designer.dart:1798
 msgid "Ventana nueva"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1807
+#: lib/ui/screens/tk_designer.dart:1802
 msgid "Código de {0}"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1823
+#: lib/ui/screens/tk_designer.dart:1818
 msgid "Una ventana de facturas con cliente, fecha, tabla de líneas y botón guardar"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1826
+#: lib/ui/screens/tk_designer.dart:1821
 msgid "Escribe el código de este botón: …"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1827
+#: lib/ui/screens/tk_designer.dart:1822
 msgid "Añade un campo de teléfono y alinea los botones"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1838
+#: lib/ui/screens/tk_designer.dart:1833
 msgid "Adjuntar un boceto"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1854
+#: lib/ui/screens/tk_designer.dart:1849
 msgid "Se envían el diseño y su código al proveedor de IA elegido, nunca contraseñas ni claves. Verá la propuesta antes de aplicarla."
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1879
+#: lib/ui/screens/tk_designer.dart:1874
 msgid "Pedir"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1913
+#: lib/ui/screens/tk_designer.dart:1908
 msgid "Propuesta de la IA"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1927
+#: lib/ui/screens/tk_designer.dart:1922
 msgid "Ahora"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1929
+#: lib/ui/screens/tk_designer.dart:1924
 msgid "Propuesta"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1934
+#: lib/ui/screens/tk_designer.dart:1929
 msgid "Métodos: {0}"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1939
+#: lib/ui/screens/tk_designer.dart:1934
 msgid "El código de la IA no se ejecuta solo: al ejecutar la ventana, pasa por la misma aprobación que cualquier otro."
 msgstr ""
 
@@ -2461,7 +2461,7 @@ msgstr ""
 msgid "Volver a buscar Python"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:1946
+#: lib/ui/screens/tk_designer.dart:1941
 msgid "Ver el código"
 msgstr ""
 
@@ -2485,7 +2485,7 @@ msgstr ""
 msgid "Diseñador de interfaz"
 msgstr ""
 
-#: lib/ui/screens/tk_designer.dart:319 lib/ui/screens/tk_designer.dart:1652
+#: lib/ui/screens/tk_designer.dart:319 lib/ui/screens/tk_designer.dart:1647
 msgid "Nuevo proyecto"
 msgstr ""
 
@@ -2701,7 +2701,7 @@ msgstr ""
 msgid "«{0}» terminó con un error: {1}"
 msgstr ""
 
-#: lib/ui/widgets.dart:102 lib/ui/widgets.dart:128 lib/ui/screens/code_git.dart:934 lib/ui/screens/code_git.dart:1455 lib/ui/screens/code_git.dart:1880 lib/ui/screens/code_studio.dart:481 lib/ui/screens/dev_tools.dart:949 lib/ui/screens/dev_tools.dart:1015 lib/ui/screens/diagrams.dart:147 lib/ui/screens/diagrams.dart:218 lib/ui/screens/diagrams.dart:549 lib/ui/screens/diagrams.dart:723 lib/ui/screens/tk_designer.dart:1134 lib/ui/screens/tk_designer.dart:1701 lib/ui/screens/tk_designer.dart:1865 lib/ui/screens/tk_inspector.dart:445
+#: lib/ui/widgets.dart:102 lib/ui/widgets.dart:128 lib/ui/screens/code_git.dart:934 lib/ui/screens/code_git.dart:1455 lib/ui/screens/code_git.dart:1880 lib/ui/screens/code_studio.dart:481 lib/ui/screens/dev_tools.dart:949 lib/ui/screens/dev_tools.dart:1015 lib/ui/screens/diagrams.dart:147 lib/ui/screens/diagrams.dart:218 lib/ui/screens/diagrams.dart:549 lib/ui/screens/diagrams.dart:723 lib/ui/screens/tk_designer.dart:1134 lib/ui/screens/tk_designer.dart:1696 lib/ui/screens/tk_designer.dart:1860 lib/ui/screens/tk_inspector.dart:445
 msgid "Cancelar"
 msgstr ""
 

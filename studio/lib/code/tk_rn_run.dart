@@ -10,6 +10,7 @@ import '../i18n/tr.dart';
 import 'tk_electron_run.dart';
 import 'tk_react_native.dart';
 import 'tk_web_react.dart';
+import 'tk_web_vue.dart';
 
 /// El entorno compartido de React Native: Expo, React Native y lo de la web
 /// (react-native-web), instalado una vez en el soporte de la app y enlazado
@@ -115,7 +116,17 @@ class TkViteRuntime {
   static Future<String> vite() async =>
       p.join(await nodeModules(), 'vite', 'bin', 'vite.js');
 
-  static Future<bool> ready() async => File(await vite()).existsSync();
+  /// Vite, React y Vue (si falta algo, se vuelve a instalar).
+  static Future<bool> ready() async {
+    final m = await nodeModules();
+    return File(await vite()).existsSync() &&
+        [
+          'react',
+          'vue',
+          '@vitejs/plugin-react',
+          '@vitejs/plugin-vue',
+        ].every((x) => File(p.join(m, x, 'package.json')).existsSync());
+  }
 
   /// Instala el entorno si falta (unos segundos, la primera vez).
   static Future<TkNode> ensure(void Function(String) log) async {
@@ -123,7 +134,7 @@ class TkViteRuntime {
     if (node == null) {
       throw UserError(
         tr(
-          'Las webs de React necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo.',
+          'Las webs de React y Vue necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo.',
         ),
       );
     }
@@ -137,10 +148,12 @@ class TkViteRuntime {
         'dependencies': {
           ...TkWebReact.dependencies,
           ...TkWebReact.devDependencies,
+          ...TkWebVue.dependencies,
+          ...TkWebVue.devDependencies,
         },
       }),
     );
-    log(tr('Instalando Vite y React (solo la primera vez)…'));
+    log(tr('Instalando Vite, React y Vue (solo la primera vez)…'));
     final r = await Process.run(
       node.npm,
       ['install', '--no-audit', '--no-fund', '--loglevel=error'],

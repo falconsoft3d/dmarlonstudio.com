@@ -3,6 +3,24 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.42 — 2026-11-06
+
+- **Web (Vue)** con el editor de pantallas: las mismas pantallas y la misma
+  lógica que las otras webs, pero cada pantalla es un componente `.vue` con
+  su plantilla (`v-for`, `v-if`, `@click`). Web de una sola página con Vue y
+  Vite (rutas tras `#`), publicable como archivos estáticos en cualquier
+  hosting. Vite y Vue se instalan solos la primera vez, compartidos con
+  React. Ejemplo **Tienda web (Vue)**: se compila con Vite y se recorre en
+  Chrome de verdad en cada versión.
+- **Web (Go)** con el editor de pantallas: las mismas pantallas y la misma
+  lógica, servidas por un servidor de Go (solo la biblioteca estándar) con
+  una API REST que guarda los datos en archivos JSON (`api.list`, `api.add`,
+  `api.update`, `api.remove`). `go build` deja un solo ejecutable con la web
+  dentro. Ejemplo **Tienda web (Go)**: los pedidos se guardan en el
+  servidor; se recorre en Chrome de verdad y los datos siguen al reiniciar.
+- El manual en PDF vuelve a incluir los capítulos nuevos (React Native,
+  React, HTML, Vue y Go).
+
 ## 1.0.41 — 2026-11-06
 
 - **Web (HTML)** con el editor de pantallas: las mismas pantallas y la misma

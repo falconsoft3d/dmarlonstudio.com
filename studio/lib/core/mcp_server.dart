@@ -272,6 +272,8 @@ class McpServer {
               'react_native',
               'react_web',
               'html_web',
+              'vue_web',
+              'go_web',
               'console_py',
               'console_c',
               'console_cpp',
@@ -499,6 +501,8 @@ class McpServer {
           'react_native' => tkTargetReactNative,
           'react_web' => tkTargetWebReact,
           'html_web' => tkTargetWebHtml,
+          'vue_web' => tkTargetWebVue,
+          'go_web' => tkTargetWebGo,
           final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };

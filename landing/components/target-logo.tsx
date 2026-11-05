@@ -4,6 +4,7 @@ import {
   siElectron,
   siFlutter,
   siFlask,
+  siGo,
   siGooglechrome,
   siHtml5,
   siLazarus,
@@ -15,6 +16,7 @@ import {
   siPython,
   siReact,
   siSqlite,
+  siVuedotjs,
 } from "simple-icons";
 import type { TargetIcon } from "@/content/types";
 
@@ -29,6 +31,8 @@ const ICONS: Record<TargetIcon, { path: string; hex: string }> = {
   flutter: siFlutter,
   react: siReact,
   html: siHtml5,
+  vue: siVuedotjs,
+  go: siGo,
   node: siNodedotjs,
   sqlite: siSqlite,
   postgres: siPostgresql,

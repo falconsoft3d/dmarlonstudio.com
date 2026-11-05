@@ -20,7 +20,9 @@ export type TargetIcon =
   | "console"
   | "flutter"
   | "react"
-  | "html";
+  | "html"
+  | "vue"
+  | "go";
 export type Target = { name: string; sub: string; icon: TargetIcon };
 export type Step = { name: string; status: StepStatus; text: string; icon?: TargetIcon };
 export type PlatformNotes = { requirements: string; steps: string[] };

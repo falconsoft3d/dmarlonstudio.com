@@ -10,6 +10,7 @@ import '../i18n/tr.dart';
 import 'tk_debug.dart';
 import 'tk_chrome.dart';
 import 'tk_cpp_run.dart';
+import 'tk_web_go.dart';
 import 'tk_console.dart';
 import 'tk_flutter_run.dart';
 import 'tk_rn_run.dart';
@@ -440,6 +441,7 @@ class TkRunner {
       if (prepared.reactNative) return await _launchReactNative(prepared, key);
       if (prepared.react) return await _launchWebReact(prepared, key);
       if (prepared.html) return await _launchWebHtml(prepared, key);
+      if (prepared.go) return await _launchWebGo(prepared, key);
       if (prepared.console != null) {
         return await _launchConsole(prepared, key, devtools);
       }
@@ -696,6 +698,88 @@ class TkRunner {
                 .transform(const Utf8Decoder(allowMalformed: true))
                 .transform(const LineSplitter())
                 .listen(run.add)
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// La web con servidor en Go de build/go: `go build` y el servidor (con
+  /// DMS_DEV=1 lee la web del disco y la recarga al guardar). Los datos de
+  /// la API van en la carpeta data del proyecto.
+  static Future<TkRun> _launchWebGo(TkPrepared prepared, String key) async {
+    final root = p.dirname(p.dirname(prepared.file));
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        final go = TkWebGo.goBinary();
+        if (go == null) {
+          throw UserError(
+            tr(
+              'Las webs con servidor en Go necesitan Go. Instálelo desde go.dev y vuelva a intentarlo.',
+            ),
+          );
+        }
+        run.add(tr('Compilando el servidor de Go…'));
+        final exe = p.join(
+          root,
+          Platform.isWindows ? 'dms-server.exe' : 'dms-server',
+        );
+        final build = await Process.run(
+          go,
+          await TkWebGo.buildArgs(go, exe),
+          workingDirectory: root,
+        );
+        if (build.exitCode != 0) {
+          for (final l in '${build.stdout}${build.stderr}'.split('\n')) {
+            if (l.trim().isNotEmpty) run.add(l);
+          }
+          return run.finish(build.exitCode);
+        }
+        if (stopped) return run.finish(-1);
+        final port = await TkFlutterTools.freePort();
+        final started = await Process.start(
+          exe,
+          [],
+          workingDirectory: root,
+          environment: {
+            'PORT': '$port',
+            'DMS_DEV': '1',
+            'DMS_DATA': p.join(prepared.id, 'data'),
+          },
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen((l) {
+                  if (run.url == null && l.contains('Escuchando en')) {
+                    run.url = run.address = 'http://127.0.0.1:$port/';
+                    run.add(tr('Abierta en el navegador: {0}', [run.url]));
+                    return;
+                  }
+                  if (l.trim().isNotEmpty) run.add(l);
+                })
                 .asFuture<void>(),
         ];
         final code = await started.exitCode;

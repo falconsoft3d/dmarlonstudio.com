@@ -342,7 +342,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                 widget.design.isWebNext ||
                 widget.design.isReactNative ||
                 widget.design.isWebReact ||
-                widget.design.isWebHtml,
+                (widget.design.isWebHtml ||
+                    widget.design.isWebVue ||
+                    widget.design.isWebGo),
           ),
         ),
       ],
@@ -575,7 +577,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
               children: [
                 if (widget.design.isWebNext ||
                     widget.design.isWebReact ||
-                    widget.design.isWebHtml)
+                    (widget.design.isWebHtml ||
+                        widget.design.isWebVue ||
+                        widget.design.isWebGo))
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: SegmentedButton<bool>(
@@ -627,7 +631,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                 final web =
                     widget.design.isWebNext ||
                     widget.design.isWebReact ||
-                    widget.design.isWebHtml;
+                    (widget.design.isWebHtml ||
+                        widget.design.isWebVue ||
+                        widget.design.isWebGo);
                 final desktop =
                     widget.design.isFlutterDesktop || web && !_mobile;
                 final size = FlPhone.sizeOf(desktop: desktop);
@@ -648,7 +654,8 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                         url: widget.design.isWebNext
                             ? 'localhost${TkWebNext.route(_app, _cur.name)}'
                             : widget.design.isWebReact ||
-                                  widget.design.isWebHtml
+                                  (widget.design.isWebHtml ||
+                                      widget.design.isWebVue)
                             ? 'localhost/#${TkWebNext.route(_app, _cur.name)}'
                             : null,
                         back: _screen > 0,

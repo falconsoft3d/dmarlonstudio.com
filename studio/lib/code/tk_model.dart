@@ -129,6 +129,12 @@ const tkTargetWebReact = 'react_web';
 /// Web en HTML, CSS y JavaScript (sin compilar) con el editor de pantallas.
 const tkTargetWebHtml = 'html_web';
 
+/// Web de Vue (Vite) con el editor de pantallas: una página estática.
+const tkTargetWebVue = 'vue_web';
+
+/// Web con servidor en Go (API REST y datos) y el editor de pantallas.
+const tkTargetWebGo = 'go_web';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -139,6 +145,8 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetReactNative => tr('React Native (móvil)'),
   tkTargetWebReact => tr('Web (React)'),
   tkTargetWebHtml => tr('Web (HTML)'),
+  tkTargetWebVue => tr('Web (Vue)'),
+  tkTargetWebGo => tr('Web (Go)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
@@ -2044,7 +2052,19 @@ class TkDesign {
   /// Se diseña con el editor de pantallas (Flutter, la web de Next.js o
   /// React Native).
   bool get isScreens =>
-      isFlutter || isWebNext || isReactNative || isWebReact || isWebHtml;
+      isFlutter ||
+      isWebNext ||
+      isReactNative ||
+      isWebReact ||
+      isWebHtml ||
+      isWebVue ||
+      isWebGo;
+
+  /// Web con servidor en Go hecha con pantallas.
+  bool get isWebGo => target == tkTargetWebGo;
+
+  /// Web de Vue (Vite) hecha con pantallas.
+  bool get isWebVue => target == tkTargetWebVue;
 
   /// Web en HTML, CSS y JavaScript hecha con pantallas.
   bool get isWebHtml => target == tkTargetWebHtml;
@@ -2068,7 +2088,12 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isWebNext || isReactNative || isWebReact || isWebHtml
+      isWebNext ||
+              isReactNative ||
+              isWebReact ||
+              isWebHtml ||
+              isWebVue ||
+              isWebGo
           ? 'js'
           : isFlutter
           ? 'dart'
@@ -2109,7 +2134,9 @@ class TkDesign {
       !isWebNext &&
       !isReactNative &&
       !isWebReact &&
-      !isWebHtml;
+      !isWebHtml &&
+      !isWebVue &&
+      !isWebGo;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2390,6 +2417,8 @@ class TkDesign {
       tkTargetReactNative => tkTargetReactNative,
       tkTargetWebReact => tkTargetWebReact,
       tkTargetWebHtml => tkTargetWebHtml,
+      tkTargetWebVue => tkTargetWebVue,
+      tkTargetWebGo => tkTargetWebGo,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

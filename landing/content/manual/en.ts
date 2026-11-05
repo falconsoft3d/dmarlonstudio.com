@@ -768,6 +768,38 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "vue",
+          title: "A Vue (Vite) website",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (Vue)** uses the same screen editor and the same logic (`src/lib/app.js`), but each screen is a Vue component (`src/screens/Screen.vue`) with its template: `v-for` for lists, `v-if` for what is shown or hidden and `@click` for actions.",
+                "`this.notify()` bumps a version the screens read, and Vue redraws them; the `App` class is the same as in Next.js, React and HTML.",
+                "Routes go after `#` and `npm run build` leaves static files in `dist/` for any hosting.",
+                "**Run (F9)** starts Vite and opens the browser; saving reloads the page. Vite and Vue install themselves the first time (shared with React).",
+                "Example: **Web shop (Vue)**, the same shop as in the other websites.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "go",
+          title: "A website with a Go server",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (Go)** uses the same screen editor and the same logic (`app.js`), served by a Go server (`main.go`, standard library only) that provides a **REST API** with the data saved in JSON files (`data/<collection>.json`).",
+                "From the logic: `await api.list(\"pedidos\")`, `api.list(\"pedidos\", { cliente: \"Ana\" })` (filter), `api.get(col, id)`, `api.add(col, row)` (returns the row with `id` and `created_at`), `api.update(col, id, changes)` and `api.remove(col, id)`.",
+                "**Run (F9)** builds the server and opens the browser; saving reloads the page. The data goes in the project's `data` folder and is still there after a restart.",
+                "**Export** leaves the Go project: `go run .` or `go build` (a single executable with the website inside). Needs Go (go.dev); on macOS, with Go older than 1.22, the studio links with the system linker.",
+                "Example: **Web shop (Go)**: orders are saved on the server and the numbering continues after restarting it.",
+              ],
+            },
+          ],
+        },
+        {
           id: "create",
           title: "Creating a Next.js page",
           blocks: [

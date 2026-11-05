@@ -27,6 +27,8 @@ Hechos
 18. React Native (móvil): editor de pantallas, Expo, simulador y Expo Go | ✅ |
 19. React (Web): editor de pantallas, Vite, web estática | ✅ |
 20. HTML (Web): editor de pantallas, sin compilar ni dependencias | ✅ |
+32. Vue.js (Web): editor de pantallas, componentes .vue, Vite | ✅ |
+30. Go (Web): servidor en Go, API REST con datos guardados, editor de pantallas | ✅ |
 
 
 Trabajando
@@ -36,7 +38,5 @@ Trabajando
 
 Pendiente
 =========
-30. Go (Web) | ⏳ |
-32. Vue.js (Web) | ⏳ |
 
 

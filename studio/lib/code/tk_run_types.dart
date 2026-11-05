@@ -117,14 +117,19 @@ class TkPrepared {
     this.reactNative = false,
     this.react = false,
     this.html = false,
+    this.go = false,
   });
+
+  /// Web con servidor en Go: [file] es su web/app.js en build/go; `go run .`
+  /// la sirve y se abre en el navegador.
+  final bool go;
 
   /// Web en HTML: [file] es su app.js en build/html; se sirve tal cual y se
   /// abre en el navegador.
   final bool html;
 
-  /// Web de React (Vite): [file] es su src/lib/app.js en build/react; se
-  /// abre en el navegador.
+  /// Web de Vite (React o Vue): [file] es su src/lib/app.js en build/react
+  /// o build/vue; se abre en el navegador.
   final bool react;
 
   /// React Native: [file] es su lib/app.js en build/reactnative; se abre en

@@ -877,7 +877,7 @@ msgstr ""
 msgid "Contenedor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart lib/code/tk_web_vue.dart
 msgid "El menú nombra la pantalla «{0}», que no existe."
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Fila de lista"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart lib/code/tk_web_vue.dart
 msgid "Hay dos pantallas llamadas «{0}»."
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Interruptor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart lib/code/tk_web_vue.dart
 msgid "La app no tiene pantallas."
 msgstr ""
 
@@ -945,11 +945,11 @@ msgstr ""
 msgid "Tarjeta"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_vue.dart
 msgid "Widget desconocido: {0}"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart lib/code/tk_web_vue.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr ""
 
@@ -2202,6 +2202,10 @@ msgid "Web (Flask)"
 msgstr ""
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (Go)"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
 msgid "Web (HTML)"
 msgstr ""
 
@@ -2215,6 +2219,10 @@ msgstr ""
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
 msgid "Web (React)"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (Vue)"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -2290,7 +2298,7 @@ msgid "Instalando React Native y Expo (solo la primera vez)…"
 msgstr ""
 
 #: lib/code/tk_rn_run.dart
-msgid "Instalando Vite y React (solo la primera vez)…"
+msgid "Instalando Vite, React y Vue (solo la primera vez)…"
 msgstr ""
 
 #: lib/code/tk_rn_run.dart
@@ -2298,7 +2306,7 @@ msgid "Las apps de React Native necesitan Node.js. Instálelo desde nodejs.org y
 msgstr ""
 
 #: lib/code/tk_rn_run.dart
-msgid "Las webs de React necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
+msgid "Las webs de React y Vue necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
 msgstr ""
 
 #: lib/code/tk_rn_run.dart
@@ -2327,6 +2335,10 @@ msgstr ""
 
 #: lib/code/tk_run_io.dart
 msgid "Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar)."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "Compilando el servidor de Go…"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -2427,6 +2439,10 @@ msgstr ""
 
 #: lib/code/tk_run_io.dart
 msgid "Las ventanas de Python solo se abren en macOS, Windows o Linux."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "Las webs con servidor en Go necesitan Go. Instálelo desde go.dev y vuelva a intentarlo."
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -5065,7 +5081,23 @@ msgid "{0} marcada como pagada."
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
+msgid "Al abrir: la numeración sigue a los pedidos guardados en el servidor."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Guarda el pedido en el servidor de Go (api.add)."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
 msgid "La tienda como web de React (Vite): las mismas pantallas y la misma lógica, publicable como archivos estáticos."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "La tienda como web de Vue (Vite): las mismas pantallas, como componentes .vue, y la misma lógica, publicable como archivos estáticos."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "La tienda con servidor en Go: las mismas pantallas y la misma lógica, y los pedidos guardados en el servidor con su API REST."
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
@@ -5081,6 +5113,10 @@ msgid "Tienda (React Native): usuarios, productos, carrito y pedidos. Las pantal
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web (Go)"
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web (HTML)"
 msgstr ""
 
@@ -5090,6 +5126,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web (React)"
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web (Vue)"
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
@@ -5240,12 +5280,24 @@ msgstr ""
 msgid "¿Guardar los cambios antes de salir?"
 msgstr ""
 
+#: lib/code/tk_web_go.dart
+msgid "En macOS, con Go anterior a 1.22: go build -ldflags=-linkmode=external"
+msgstr ""
+
+#: lib/code/tk_web_go.dart
+msgid "Web con servidor en Go creada con DMarlon Studio: la web está en web/ y la API REST guarda los datos en data/."
+msgstr ""
+
 #: lib/code/tk_web_html.dart
 msgid "Web en HTML, CSS y JavaScript creada con DMarlon Studio: abra index.html o súbala a cualquier hosting."
 msgstr ""
 
 #: lib/code/tk_web_react.dart
 msgid "Web de React (Vite) creada con DMarlon Studio."
+msgstr ""
+
+#: lib/code/tk_web_vue.dart
+msgid "Web de Vue (Vite) creada con DMarlon Studio."
 msgstr ""
 
 #: lib/code/workspace.dart
@@ -7649,6 +7701,10 @@ msgid "Exportado en {0}. Para abrirlo: flutter create . y después flutter run (
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Para abrirlo: go run . (o go build para un solo ejecutable con la web dentro)."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportado en {0}. Para abrirlo: npm install y npm run dev (o súbalo a Vercel)."
 msgstr ""
 
@@ -7681,6 +7737,10 @@ msgid "Exportar el proyecto de Flutter"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de Go (servidor y web)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Lazarus"
 msgstr ""
 
@@ -7694,6 +7754,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de React Native (Expo)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de Vue (Vite)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -7929,11 +7993,19 @@ msgid "Una ventana del sistema con tkinter. El destino no se puede cambiar despu
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Una web con servidor en Go, con el mismo editor de pantallas que Flutter: las páginas adaptables y la lógica en JavaScript (app.js), servidas por un servidor de Go con una API REST que guarda los datos (api.list, api.add, api.update, api.remove). go build deja un solo ejecutable con la web dentro. Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Go (go.dev). El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Una web de Next.js de verdad, con el mismo editor de pantallas que Flutter: cada pantalla es una página adaptable (escritorio y móvil) hecha en React, con menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Node.js. El destino no se puede cambiar después."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una web de React (Vite), con el mismo editor de pantallas que Flutter: páginas adaptables a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (src/lib/app.js). Se publica como archivos estáticos en cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. Necesita Node.js (Vite se instala solo la primera vez). El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una web de Vue (Vite), con el mismo editor de pantallas que Flutter: cada pantalla es un componente .vue adaptable a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (src/lib/app.js). Se publica como archivos estáticos en cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. Necesita Node.js (Vite y Vue se instalan solos la primera vez). El destino no se puede cambiar después."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

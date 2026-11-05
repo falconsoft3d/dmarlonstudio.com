@@ -12,8 +12,10 @@ import '../code/tk_console.dart';
 import '../code/tk_flutter.dart';
 import '../code/tk_react_native.dart';
 import '../code/tk_web_next.dart';
+import '../code/tk_web_go.dart';
 import '../code/tk_web_html.dart';
 import '../code/tk_web_react.dart';
+import '../code/tk_web_vue.dart';
 import '../code/tk_pascal.dart';
 import '../code/tk_pascal_run.dart';
 import '../code/tk_electron.dart';
@@ -174,7 +176,9 @@ class ProjectStore {
       design.isWebNext ||
           design.isReactNative ||
           design.isWebReact ||
-          design.isWebHtml
+          design.isWebHtml ||
+          design.isWebVue ||
+          design.isWebGo
       ? 'app.js'
       : design.isFlutter
       ? 'app.dart'
@@ -331,7 +335,12 @@ class ProjectStore {
       File(unitPath(dir, d)),
       code ??
           (d.isConsole ? TkConsole.template(d.consoleLang!) : null) ??
-          (d.isWebNext || d.isReactNative || d.isWebReact || d.isWebHtml
+          (d.isWebNext ||
+                  d.isReactNative ||
+                  d.isWebReact ||
+                  d.isWebHtml ||
+                  d.isWebVue ||
+                  d.isWebGo
               ? TkWebNext.template(
                   '// ${tr('Los datos y la lógica de la web. Las pantallas los usan como app.')}',
                 )
@@ -709,6 +718,38 @@ class ProjectStore {
     );
   }
 
+  /// Escribe la web con servidor en Go en build/go.
+  static Future<TkPrepared> _prepareWebGo(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'go');
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, TkWebGo.files(x.design, unit, name: x.name));
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'web', 'app.js'),
+      go: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
+  /// Escribe la web de Vue (Vite) en build/vue.
+  static Future<TkPrepared> _prepareWebVue(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'vue');
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, TkWebVue.files(x.design, unit, name: x.name));
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'src', 'lib', 'app.js'),
+      react: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe la web de React (Vite) en build/react.
   static Future<TkPrepared> _prepareWebReact(StudioProject x) async {
     final out = p.join(x.path, buildDir, 'react');
@@ -867,6 +908,8 @@ class ProjectStore {
     if (x.design.isReactNative) return _prepareReactNative(x);
     if (x.design.isWebReact) return _prepareWebReact(x);
     if (x.design.isWebHtml) return _prepareWebHtml(x);
+    if (x.design.isWebVue) return _prepareWebVue(x);
+    if (x.design.isWebGo) return _prepareWebGo(x);
     if (x.design.isFlutter) return _prepareFlutter(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();

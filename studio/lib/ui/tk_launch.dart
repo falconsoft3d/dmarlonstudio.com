@@ -76,7 +76,8 @@ Future<TkRun?> launchTkApp(
   if (prepared.flutter ||
       prepared.reactNative ||
       prepared.react ||
-      prepared.html) {
+      prepared.html ||
+      prepared.go) {
     if (tests) return null;
     final run = await runAction(context, () => TkRunner.start(prepared));
     if (run != null && !prepared.desktop) {

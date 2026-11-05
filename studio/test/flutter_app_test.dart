@@ -336,11 +336,30 @@ void main() {
       ]);
       final pid = '${ps.stdout}'.trim().split('\n').first;
       expect(pid, isNotEmpty);
-      final w = await Process.run('osascript', [
-        '-e',
-        'tell application "System Events" to get {background only, count of windows} of (first process whose unix id is $pid)',
-      ]);
-      expect('${w.stdout}'.trim(), 'false, 1', reason: '${w.stderr}');
+      // La ventana puede tardar un poco en aparecer tras el arranque.
+      ProcessResult w;
+      var tries = 0;
+      do {
+        if (tries++ > 0) {
+          await Future<void>.delayed(const Duration(milliseconds: 500));
+        }
+        w = await Process.run('osascript', [
+          '-e',
+          'tell application "System Events" to get {background only, count of windows} of (first process whose unix id is $pid)',
+        ]);
+      } while ('${w.stdout}'.trim() != 'false, 1' && tries < 30);
+      // Con la pantalla bloqueada, System Events no ve ventanas: no se puede
+      // comprobar.
+      final lock = await Process.run('ioreg', ['-n', 'Root', '-d1', '-a']);
+      final locked = RegExp(
+        r'CGSSessionScreenIsLocked</key>\s*<true/>',
+      ).hasMatch('${lock.stdout}');
+      if (locked) {
+        // ignore: avoid_print
+        print('Pantalla bloqueada: no se cuentan las ventanas.');
+      } else {
+        expect('${w.stdout}'.trim(), 'false, 1', reason: '${w.stderr}');
+      }
       // Cambiar el código y recargar.
       final app = File(prepared.file);
       await app.writeAsString(

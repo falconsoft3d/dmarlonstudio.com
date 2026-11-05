@@ -449,6 +449,7 @@ function dmsStart(App) {
     TkDesign d,
     String code, {
     required String name,
+    String api = '',
   }) {
     final app = FlApp.of(d);
     if (app.screens.isEmpty) throw UserError(tr('La app no tiene pantallas.'));
@@ -488,7 +489,7 @@ function dmsStart(App) {
           '    <script>dmsStart(App);</script>\n'
           '  </body>\n</html>\n',
       'style.css': TkWebNext.css(app),
-      'dms.js': dms(app),
+      'dms.js': dms(app) + api,
       'screens.js': screens(app),
       'app.js': script(code),
       'README.md':

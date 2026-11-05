@@ -254,7 +254,11 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.design.isWebHtml
+                        a.design.isWebGo
+                            ? LucideIcons.server
+                            : a.design.isWebVue
+                            ? LucideIcons.triangle
+                            : a.design.isWebHtml
                             ? LucideIcons.fileCode
                             : a.design.isWebReact
                             ? LucideIcons.atom

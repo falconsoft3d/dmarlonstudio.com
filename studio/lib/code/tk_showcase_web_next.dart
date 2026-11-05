@@ -195,3 +195,69 @@ TkExample _htmlStore(String Function(String) t) {
     web.code,
   );
 }
+
+/// La misma tienda como web de Vue (Vite).
+TkExample _vueStore(String Function(String) t) {
+  final web = _webStore(t);
+  return TkExample(
+    'vue_store',
+    t(markTr('Tienda web (Vue)')),
+    t(
+      markTr(
+        'La tienda como web de Vue (Vite): las mismas pantallas, como componentes .vue, y la misma lógica, publicable como archivos estáticos.',
+      ),
+    ),
+    TkDesign.fromJson({...web.design.toJson(), 'target': tkTargetWebVue}),
+    web.code,
+  );
+}
+
+/// La misma tienda como web con servidor en Go: los pedidos se guardan en
+/// el servidor (la API REST) y la numeración sigue al reiniciarlo.
+TkExample _goStore(String Function(String) t) {
+  final web = _webStore(t);
+  const pagar = '''  pagar() {
+    if (this.carrito.length === 0) return;
+    this.numero++;
+    this.ultimoPedido = "PED-" + this.numero + " · " + this.precio(this.total);
+    this.carrito = [];
+    this.notify();
+  }''';
+  final code = web.code
+      .replaceFirst(
+        'import { DmsApp } from "./dms";',
+        'import { DmsApp, api } from "./dms";',
+      )
+      .replaceFirst(
+        pagar,
+        '''  /// ${t(markTr('Al abrir: la numeración sigue a los pedidos guardados en el servidor.'))}
+  async start() {
+    this.numero = 1000 + (await api.list("pedidos")).length;
+    this.notify();
+  }
+
+  /// ${t(markTr('Guarda el pedido en el servidor de Go (api.add).'))}
+  async pagar() {
+    if (this.carrito.length === 0) return;
+    this.numero++;
+    const total = this.total;
+    const lineas = this.carrito.map((l) => ({ producto: l.producto.nombre, cantidad: l.cantidad }));
+    this.ultimoPedido = "PED-" + this.numero + " · " + this.precio(total);
+    this.carrito = [];
+    this.notify();
+    await api.add("pedidos", { numero: this.numero, cliente: this.usuario, total, lineas });
+  }''',
+      );
+  assert(code.contains('api.add'), 'pagar() de la tienda web cambió');
+  return TkExample(
+    'go_store',
+    t(markTr('Tienda web (Go)')),
+    t(
+      markTr(
+        'La tienda con servidor en Go: las mismas pantallas y la misma lógica, y los pedidos guardados en el servidor con su API REST.',
+      ),
+    ),
+    TkDesign.fromJson({...web.design.toJson(), 'target': tkTargetWebGo}),
+    code,
+  );
+}

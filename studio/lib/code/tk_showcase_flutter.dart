@@ -11,6 +11,8 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _rnStore(t),
   _reactStore(t),
   _htmlStore(t),
+  _vueStore(t),
+  _goStore(t),
   _flutterShipping(t),
   _flutterTodo(t),
 ];

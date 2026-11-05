@@ -24,8 +24,10 @@ import '../../code/tk_console.dart';
 import '../../code/tk_flutter.dart';
 import '../../code/tk_react_native.dart';
 import '../../code/tk_web_next.dart';
+import '../../code/tk_web_go.dart';
 import '../../code/tk_web_html.dart';
 import '../../code/tk_web_react.dart';
+import '../../code/tk_web_vue.dart';
 import '../../code/tk_pascal.dart';
 import '../../code/tk_pascal_run.dart';
 import '../../code/tk_debug.dart';
@@ -941,7 +943,11 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isWebHtml
+  IconData _targetIcon(TkDesign x) => x.isWebGo
+      ? LucideIcons.server
+      : x.isWebVue
+      ? LucideIcons.triangle
+      : x.isWebHtml
       ? LucideIcons.fileCode
       : x.isWebReact
       ? LucideIcons.atom
@@ -1892,7 +1898,12 @@ class _TkEditorState extends State<_TkEditor> {
     if (mounted) setState(() {});
     // Web de Next.js o React Native en marcha: se reescribe y se recarga.
     final running = _run;
-    if ((d.isWebNext || d.isReactNative || d.isWebReact || d.isWebHtml) &&
+    if ((d.isWebNext ||
+            d.isReactNative ||
+            d.isWebReact ||
+            d.isWebHtml ||
+            d.isWebVue ||
+            d.isWebGo) &&
         running != null &&
         running.running) {
       if (!mounted) return true;
@@ -2234,6 +2245,73 @@ class _TkEditorState extends State<_TkEditor> {
             tr('Exportada en {0}. Ábrala con: npm install y npm start.', [
               out.path,
             ]),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
+  /// Web con servidor en Go: el proyecto (go run . o go build).
+  Future<void> _exportWebGo() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      for (final e in TkWebGo.files(d, _code.text, name: doc.name).entries) {
+        final f = File('${out.path}${Platform.pathSeparator}${e.key}');
+        await f.parent.create(recursive: true);
+        await f.writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportado en {0}. Para abrirlo: go run . (o go build para un solo ejecutable con la web dentro).',
+              [out.path],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
+  /// Web de Vue: el proyecto de Vite, listo para `npm install` y
+  /// `npm run build` (la carpeta dist se sube a cualquier hosting).
+  Future<void> _exportWebVue() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      for (final e in TkWebVue.files(d, _code.text, name: doc.name).entries) {
+        final f = File('${out.path}${Platform.pathSeparator}${e.key}');
+        await f.parent.create(recursive: true);
+        await f.writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportado en {0}. Para abrirlo: npm install y npm run dev; npm run build deja la web en dist para cualquier hosting.',
+              [out.path],
+            ),
           ),
           action: SnackBarAction(
             label: tr('Mostrar'),
@@ -2654,7 +2732,11 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isWebHtml
+              d.isWebGo
+                  ? tr('Exportar el proyecto de Go (servidor y web)')
+                  : d.isWebVue
+                  ? tr('Exportar el proyecto de Vue (Vite)')
+                  : d.isWebHtml
                   ? tr('Exportar la web (HTML, CSS y JavaScript)')
                   : d.isWebReact
                   ? tr('Exportar el proyecto de React (Vite)')
@@ -2677,7 +2759,11 @@ class _TkEditorState extends State<_TkEditor> {
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isWebHtml
+              d.isWebGo
+                  ? _exportWebGo
+                  : d.isWebVue
+                  ? _exportWebVue
+                  : d.isWebHtml
                   ? _exportWebHtml
                   : d.isWebReact
                   ? _exportWebReact
@@ -3249,7 +3335,12 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isWebNext || d.isReactNative || d.isWebReact || d.isWebHtml
+              d.isWebNext ||
+                      d.isReactNative ||
+                      d.isWebReact ||
+                      d.isWebHtml ||
+                      d.isWebVue ||
+                      d.isWebGo
                   ? tr('JavaScript generado')
                   : d.isFlutter
                   ? tr('Dart generado')
@@ -3717,6 +3808,8 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                   ),
                   (tkTargetWebReact, tr('Web (React)'), LucideIcons.atom),
                   (tkTargetWebHtml, tr('Web (HTML)'), LucideIcons.fileCode),
+                  (tkTargetWebVue, tr('Web (Vue)'), LucideIcons.triangle),
+                  (tkTargetWebGo, tr('Web (Go)'), LucideIcons.server),
                   ('console', tr('Consola'), LucideIcons.squareTerminal),
                 ])
                   ChoiceChip(
@@ -3759,7 +3852,15 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ],
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetWebHtml
+              _target == tkTargetWebGo
+                  ? tr(
+                      'Una web con servidor en Go, con el mismo editor de pantallas que Flutter: las páginas adaptables y la lógica en JavaScript (app.js), servidas por un servidor de Go con una API REST que guarda los datos (api.list, api.add, api.update, api.remove). go build deja un solo ejecutable con la web dentro. Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Go (go.dev). El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetWebVue
+                  ? tr(
+                      'Una web de Vue (Vite), con el mismo editor de pantallas que Flutter: cada pantalla es un componente .vue adaptable a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (src/lib/app.js). Se publica como archivos estáticos en cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. Necesita Node.js (Vite y Vue se instalan solos la primera vez). El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetWebHtml
                   ? tr(
                       'Una web en HTML, CSS y JavaScript sin nada más (sin compilar ni instalar nada), con el mismo editor de pantallas que Flutter: páginas adaptables a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (app.js). Se abre con index.html o se sube a cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. El destino no se puede cambiar después.',
                     )

@@ -768,6 +768,38 @@ export const manualEs: Manual = {
           ],
         },
         {
+          id: "vue",
+          title: "Una web de Vue (Vite)",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (Vue)** usa el mismo editor de pantallas y la misma lógica (`src/lib/app.js`), pero cada pantalla es un componente de Vue (`src/screens/Pantalla.vue`) con su plantilla: `v-for` para las listas, `v-if` para lo que se muestra o no y `@click` para las acciones.",
+                "`this.notify()` sube una versión que leen las pantallas, y Vue las vuelve a dibujar; la clase `App` es la misma que en Next.js, React y HTML.",
+                "Las rutas van tras `#` y `npm run build` deja en `dist/` archivos estáticos para cualquier hosting.",
+                "**Ejecutar (F9)** arranca Vite y abre el navegador; al guardar, la página se recarga. Vite y Vue se instalan solos la primera vez (compartidos con React).",
+                "Ejemplo: **Tienda web (Vue)**, la misma tienda que en las otras webs.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "go",
+          title: "Una web con servidor en Go",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (Go)** usa el mismo editor de pantallas y la misma lógica (`app.js`), servidas por un servidor de Go (`main.go`, solo la biblioteca estándar) que da una **API REST** con los datos guardados en archivos JSON (`data/<colección>.json`).",
+                "Desde la lógica: `await api.list(\"pedidos\")`, `api.list(\"pedidos\", { cliente: \"Ana\" })` (filtro), `api.get(col, id)`, `api.add(col, registro)` (devuelve el registro con `id` y `created_at`), `api.update(col, id, cambios)` y `api.remove(col, id)`.",
+                "**Ejecutar (F9)** compila el servidor y abre el navegador; al guardar, la página se recarga. Los datos van en la carpeta `data` del proyecto y siguen ahí al reiniciar.",
+                "**Exportar** deja el proyecto de Go: `go run .` o `go build` (un solo ejecutable con la web dentro). Necesita Go (go.dev); en macOS, con Go anterior a 1.22, el estudio enlaza con el enlazador del sistema.",
+                "Ejemplo: **Tienda web (Go)**: los pedidos se guardan en el servidor y la numeración sigue al reiniciarlo.",
+              ],
+            },
+          ],
+        },
+        {
           id: "crear",
           title: "Crear una página de Next.js",
           blocks: [

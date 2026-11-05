@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_helpers.dart';
+import 'tk_reports.dart';
 import 'tk_model.dart';
 import 'tk_web_codegen.dart';
 
@@ -583,6 +584,28 @@ class TkCodegen {
     ]);
   }
 
+  /// Informe en PDF o en Excel (en una página web, se descarga).
+  static String report(TkWidget w, {bool web = false}) {
+    String? text(String key) {
+      final v = w.text(key);
+      return v.isEmpty ? null : '$key=${TkPy.str(v)}';
+    }
+
+    final pdf = w.kind == 'PdfReport';
+    return _call('self.${w.name} = ${pdf ? 'PdfReport' : 'ExcelReport'}', [
+      web ? 'self' : 'self.root',
+      if (web) 'web=True',
+      ?text('filename'),
+      if (pdf) ...[
+        ?text('title'),
+        ?text('author'),
+        if (w.text('orientation') == 'landscape') 'orientation="landscape"',
+        if (w.props['page_numbers'] == false) 'page_numbers=False',
+      ] else
+        ?text('sheet'),
+    ]);
+  }
+
   /// Enlaces de los eventos con secuencia de [w] (bind).
   static void _binds(StringBuffer b, TkWidget w) {
     for (final e in w.component.events) {
@@ -911,6 +934,12 @@ class TkCodegen {
         ..writeln(dialog(w));
       return;
     }
+    if (w.kind == 'PdfReport' || w.kind == 'ExcelReport') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(report(w));
+      return;
+    }
     if (w.kind == 'Timer') {
       b
         ..writeln('$_in# ${w.name}')
@@ -1140,6 +1169,11 @@ class TkCodegen {
     }
     if (d.widgets.any((w) => w.kind == 'RestClient')) {
       b.write(TkHelpers.apiClient);
+    }
+    if (d.widgets.any(
+      (w) => w.kind == 'PdfReport' || w.kind == 'ExcelReport',
+    )) {
+      b.write(tkReportsPython);
     }
     if (d.widgets.any((w) => w.kind == 'Chart')) {
       b

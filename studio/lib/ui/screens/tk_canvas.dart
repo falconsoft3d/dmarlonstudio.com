@@ -42,6 +42,8 @@ IconData tkIcon(String kind) => switch (kind) {
   'Image' => LucideIcons.image,
   'OpenDialog' => LucideIcons.folderOpen,
   'SaveDialog' => LucideIcons.save,
+  'PdfReport' => LucideIcons.fileText,
+  'ExcelReport' => LucideIcons.fileSpreadsheet,
   'Chart' => LucideIcons.chartLine,
   _ => LucideIcons.box,
 };
@@ -699,7 +701,9 @@ class TkPreview extends StatelessWidget {
           'RestClient' ||
           'TrayIcon' ||
           'OpenDialog' ||
-          'SaveDialog':
+          'SaveDialog' ||
+          'PdfReport' ||
+          'ExcelReport':
         return Tooltip(
           message: w.name,
           child: Container(

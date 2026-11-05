@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -502,6 +502,10 @@ msgid "Hora"
 msgstr "Time"
 
 #: lib/code/tk_examples.dart
+msgid "Informes web"
+msgstr "Reports (web)"
+
+#: lib/code/tk_examples.dart
 msgid "Iniciar"
 msgstr "Start"
 
@@ -556,6 +560,10 @@ msgstr "Length"
 #: lib/code/tk_examples.dart
 msgid "Longitud, peso, volumen, superficie y temperatura."
 msgstr "Length, weight, volume, area and temperature."
+
+#: lib/code/tk_examples.dart
+msgid "Los informes en Flask: el PDF y el Excel se descargan en el navegador."
+msgstr "The reports in Flask: the PDF and the Excel file are downloaded in the browser."
 
 #: lib/code/tk_examples.dart
 msgid "Magnitud"
@@ -798,6 +806,10 @@ msgid "Autenticación"
 msgstr "Authentication"
 
 #: lib/code/tk_model.dart
+msgid "Autor"
+msgstr "Author"
+
+#: lib/code/tk_model.dart
 msgid "Barra de estado"
 msgstr "Status bar"
 
@@ -1022,6 +1034,14 @@ msgid "Imagen (ruta en el proyecto; vacía = una de serie)"
 msgstr "Image (path in the project; empty = a default one)"
 
 #: lib/code/tk_model.dart
+msgid "Informe Excel"
+msgstr "Excel report"
+
+#: lib/code/tk_model.dart
+msgid "Informe PDF"
+msgstr "PDF report"
+
+#: lib/code/tk_model.dart
 msgid "Integración API"
 msgstr "API integration"
 
@@ -1114,6 +1134,10 @@ msgid "Nombre del archivo"
 msgstr "File name"
 
 #: lib/code/tk_model.dart
+msgid "Números de página"
+msgstr "Page numbers"
+
+#: lib/code/tk_model.dart
 msgid "Ocultar con"
 msgstr "Mask with"
 
@@ -1164,6 +1188,10 @@ msgstr "Value prefix"
 #: lib/code/tk_model.dart
 msgid "Preguntar antes de sobrescribir"
 msgstr "Ask before overwriting"
+
+#: lib/code/tk_model.dart
+msgid "Primera hoja"
+msgstr "First sheet"
 
 #: lib/code/tk_model.dart
 msgid "Puntos como máximo (0 = todos)"
@@ -1288,6 +1316,10 @@ msgstr "Token or key (better in a variable)"
 #: lib/code/tk_model.dart lib/code/tk_showcase_web.dart
 msgid "Título"
 msgstr "Title"
+
+#: lib/code/tk_model.dart
+msgid "Título del documento"
+msgstr "Document title"
 
 #: lib/code/tk_model.dart
 msgid "Título del eje X"
@@ -1433,7 +1465,7 @@ msgstr "Open a text file"
 msgid "Abrir…"
 msgstr "Open…"
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Accesorios"
 msgstr "Accessories"
 
@@ -1601,7 +1633,7 @@ msgstr "Save as…"
 msgid "Guardar el archivo de texto"
 msgstr "Save the text file"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
 msgid "Importe"
 msgstr "Amount"
 
@@ -1653,7 +1685,7 @@ msgstr "Pause"
 msgid "Pegar"
 msgstr "Paste"
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Portátiles"
 msgstr "Laptops"
 
@@ -1693,7 +1725,7 @@ msgstr "Offline: approximate fallback rates, not for real transactions."
 msgid "Sin título"
 msgstr "Untitled"
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Tabletas"
 msgstr "Tablets"
 
@@ -1989,6 +2021,82 @@ msgstr "{0} attachments: {1}"
 msgid "{0} mensajes en la bandeja de entrada (se muestran los últimos {1})."
 msgstr "{0} messages in the inbox (showing the latest {1})."
 
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Categoría"
+msgstr "Category"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exportar a Excel…"
+msgstr "Export to Excel…"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exportar a PDF…"
+msgstr "Export to PDF…"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exporte la tabla a PDF o a Excel con los componentes Informe PDF e Informe Excel: no hace falta instalar nada."
+msgstr "Export the table to PDF or Excel with the PDF report and Excel report components: nothing to install."
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Generado el {0} · {1} productos · {2} unidades"
+msgstr "Generated on {0} · {1} products · {2} units"
+
+#: lib/code/tk_showcase_reports.dart lib/ui/screens/dev_tools.dart
+msgid "Guardado en {0}"
+msgstr "Saved to {0}"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Informes"
+msgstr "Reports"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Por categoría"
+msgstr "By category"
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Precio"
+msgstr "Price"
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Producto"
+msgstr "Product"
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Resumen"
+msgstr "Overview"
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+msgid "Total"
+msgstr "Total"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Una tabla de ventas exportada a PDF (con totales, tabla por categoría y número de página) y a Excel (con varias hojas), sin instalar nada."
+msgstr "A sales table exported to PDF (with totals, a table by category and page numbers) and to Excel (with several sheets), with nothing to install."
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Unidades"
+msgstr "Units"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ventas"
+msgstr "Sales"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ventas por producto"
+msgstr "Sales by product"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ver el PDF"
+msgstr "View the PDF"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "ventas.pdf"
+msgstr "sales.pdf"
+
+#: lib/code/tk_showcase_reports.dart
+msgid "ventas.xlsx"
+msgstr "sales.xlsx"
+
 #: lib/code/tk_showcase_web.dart
 msgid ""
 "# Hola\n"
@@ -2136,10 +2244,6 @@ msgstr "Cart"
 #: lib/code/tk_showcase_web.dart
 msgid "Carrito: {0} artículos · {1}"
 msgstr "Cart: {0} items · {1}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Categoría"
-msgstr "Category"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Catálogo"
@@ -2606,20 +2710,12 @@ msgid "Perdido"
 msgstr "Lost"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Precio"
-msgstr "Price"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Preparar propuesta"
 msgstr "Prepare proposal"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Primera entrada del blog."
 msgstr "First post of the blog."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Producto"
-msgstr "Product"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Producto añadido: {0}"
@@ -2668,10 +2764,6 @@ msgstr "Music player"
 #: lib/code/tk_showcase_web.dart
 msgid "Reservas web"
 msgstr "Web bookings"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Resumen"
-msgstr "Overview"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Ropa"
@@ -2732,10 +2824,6 @@ msgstr "All"
 #: lib/code/tk_showcase_web.dart
 msgid "Todas las etapas"
 msgstr "All stages"
-
-#: lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
-msgid "Total"
-msgstr "Total"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Tutoriales"
@@ -4128,10 +4216,6 @@ msgstr "Filter tables"
 #: lib/ui/screens/dev_tools.dart
 msgid "Formulario"
 msgstr "Form"
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Guardado en {0}"
-msgstr "Saved to {0}"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Guardar como nueva…"

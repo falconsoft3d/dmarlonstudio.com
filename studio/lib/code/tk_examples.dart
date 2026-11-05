@@ -6,6 +6,7 @@ part 'tk_showcase.dart';
 part 'tk_showcase_web.dart';
 part 'tk_showcase_3d.dart';
 part 'tk_showcase_mail.dart';
+part 'tk_showcase_reports.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
@@ -78,11 +79,22 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _windows(t),
   _mail(t),
   _viewer3d(t),
+  _reports(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
 /// que es lo que hay que poder hacer con los de cualquier usuario.
 List<TkExample> tkWebExamples(String Function(String) t) => [
+  _web(
+    _reports(t),
+    'web_reports',
+    t(markTr('Informes web')),
+    t(
+      markTr(
+        'Los informes en Flask: el PDF y el Excel se descargan en el navegador.',
+      ),
+    ),
+  ),
   _web(
     _calculator(t),
     'web_calculator',

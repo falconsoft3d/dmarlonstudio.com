@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.16 — 2026-11-05
+
+- Componentes **Informe PDF** e **Informe Excel** (escritorio y web): títulos,
+  texto, tablas con totales y cabecera en cada página, imágenes JPEG y número
+  de página en PDF; libros .xlsx con varias hojas, tipos (números, fechas,
+  casillas), cabecera fija con filtro y columnas a medida. Solo la biblioteca
+  estándar de Python: no hay que instalar nada. En web se descargan.
+- Ejemplo **Informes** (también en web).
+
 ## 1.0.15 — 2026-11-05
 
 - Ejemplo **Visor 3D**: cubo, pirámide, esfera y toro dibujados con Python en

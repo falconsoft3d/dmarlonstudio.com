@@ -2,6 +2,7 @@ import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_codegen.dart';
 import 'tk_helpers.dart';
+import 'tk_reports.dart';
 import 'tk_model.dart';
 import 'tk_web_runtime.dart';
 
@@ -210,6 +211,11 @@ class TkWebCodegen {
       b.writeln(TkCodegen.dialog(w, web: true));
       return;
     }
+    // Un informe se descarga en el navegador.
+    if (w.kind == 'PdfReport' || w.kind == 'ExcelReport') {
+      b.writeln(TkCodegen.report(w, web: true));
+      return;
+    }
     if (w.kind == 'Connection') {
       final saved = w.text('connection');
       b.writeln(
@@ -299,6 +305,11 @@ class TkWebCodegen {
     }
     if (d.widgets.any((w) => w.kind == 'RestClient')) {
       b.write(TkHelpers.apiClient);
+    }
+    if (d.widgets.any(
+      (w) => w.kind == 'PdfReport' || w.kind == 'ExcelReport',
+    )) {
+      b.write(tkReportsPython);
     }
     if (d.widgets.any((w) => w.kind == 'StatusBar')) {
       b.write(TkCodegen.glyphTable());

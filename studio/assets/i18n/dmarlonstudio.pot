@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -494,6 +494,10 @@ msgid "Hora"
 msgstr ""
 
 #: lib/code/tk_examples.dart
+msgid "Informes web"
+msgstr ""
+
+#: lib/code/tk_examples.dart
 msgid "Iniciar"
 msgstr ""
 
@@ -547,6 +551,10 @@ msgstr ""
 
 #: lib/code/tk_examples.dart
 msgid "Longitud, peso, volumen, superficie y temperatura."
+msgstr ""
+
+#: lib/code/tk_examples.dart
+msgid "Los informes en Flask: el PDF y el Excel se descargan en el navegador."
 msgstr ""
 
 #: lib/code/tk_examples.dart
@@ -790,6 +798,10 @@ msgid "Autenticación"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Autor"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Barra de estado"
 msgstr ""
 
@@ -1014,6 +1026,14 @@ msgid "Imagen (ruta en el proyecto; vacía = una de serie)"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Informe Excel"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Informe PDF"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Integración API"
 msgstr ""
 
@@ -1106,6 +1126,10 @@ msgid "Nombre del archivo"
 msgstr ""
 
 #: lib/code/tk_model.dart
+msgid "Números de página"
+msgstr ""
+
+#: lib/code/tk_model.dart
 msgid "Ocultar con"
 msgstr ""
 
@@ -1155,6 +1179,10 @@ msgstr ""
 
 #: lib/code/tk_model.dart
 msgid "Preguntar antes de sobrescribir"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Primera hoja"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -1279,6 +1307,10 @@ msgstr ""
 
 #: lib/code/tk_model.dart lib/code/tk_showcase_web.dart
 msgid "Título"
+msgstr ""
+
+#: lib/code/tk_model.dart
+msgid "Título del documento"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -1421,7 +1453,7 @@ msgstr ""
 msgid "Abrir…"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Accesorios"
 msgstr ""
 
@@ -1589,7 +1621,7 @@ msgstr ""
 msgid "Guardar el archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
 msgid "Importe"
 msgstr ""
 
@@ -1641,7 +1673,7 @@ msgstr ""
 msgid "Pegar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Portátiles"
 msgstr ""
 
@@ -1681,7 +1713,7 @@ msgstr ""
 msgid "Sin título"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
 msgid "Tabletas"
 msgstr ""
 
@@ -1977,6 +2009,82 @@ msgstr ""
 msgid "{0} mensajes en la bandeja de entrada (se muestran los últimos {1})."
 msgstr ""
 
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Categoría"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exportar a Excel…"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exportar a PDF…"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Exporte la tabla a PDF o a Excel con los componentes Informe PDF e Informe Excel: no hace falta instalar nada."
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Generado el {0} · {1} productos · {2} unidades"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart lib/ui/screens/dev_tools.dart
+msgid "Guardado en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Informes"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Por categoría"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Precio"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Producto"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+msgid "Resumen"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+msgid "Total"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Una tabla de ventas exportada a PDF (con totales, tabla por categoría y número de página) y a Excel (con varias hojas), sin instalar nada."
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Unidades"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ventas"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ventas por producto"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "Ver el PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "ventas.pdf"
+msgstr ""
+
+#: lib/code/tk_showcase_reports.dart
+msgid "ventas.xlsx"
+msgstr ""
+
 #: lib/code/tk_showcase_web.dart
 msgid ""
 "# Hola\n"
@@ -2115,10 +2223,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Carrito: {0} artículos · {1}"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Categoría"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -2582,19 +2686,11 @@ msgid "Perdido"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Precio"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Preparar propuesta"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Primera entrada del blog."
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Producto"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -2643,10 +2739,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Reservas web"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Resumen"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -2707,10 +2799,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Todas las etapas"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
-msgid "Total"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -4103,10 +4191,6 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Formulario"
-msgstr ""
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Guardado en {0}"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart

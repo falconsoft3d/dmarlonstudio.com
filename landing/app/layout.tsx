@@ -7,7 +7,7 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 const description =
-  "IDE visual de escritorio al estilo de Delphi: diseñe ventanas arrastrando componentes, escriba los eventos en Python y ejecútelas. Hoy tkinter y Flask; próximamente Electron.";
+  "IDE visual de escritorio: diseñe ventanas arrastrando componentes, escriba los eventos en Python y ejecútelas. Hoy tkinter y Flask; próximamente Electron.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

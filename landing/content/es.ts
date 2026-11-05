@@ -8,7 +8,7 @@ export type Step = { name: string; status: "listo" | "en camino" | "idea"; text:
 
 export const hero = {
   eyebrow: "IDE visual multi-entorno",
-  title: "Diseñe ventanas como en Delphi. Prográmelas en Python.",
+  title: "Diseñe ventanas arrastrando. Prográmelas en Python.",
   text: "DMarlon Studio es un IDE de escritorio: arrastre componentes a un formulario, ajuste sus propiedades en el inspector de objetos, escriba el código de cada evento en Python y ejecútelo con F9. Hoy genera aplicaciones de escritorio con tkinter y aplicaciones web con Flask; Electron es el siguiente entorno.",
   primary: "Descargar",
   secondary: "Ver qué incluye",

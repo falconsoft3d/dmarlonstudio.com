@@ -20,6 +20,7 @@ import '../../i18n/i18n.dart';
 import '../save_file.dart';
 import '../tk_launch.dart';
 import '../tk_project.dart';
+import '../theme.dart';
 import '../widgets.dart';
 import 'tk_canvas.dart';
 import 'tk_inspector.dart';
@@ -272,7 +273,11 @@ class _TkDesignerScreenState extends State<TkDesignerScreen> {
                     IconButton(
                       key: ValueKey('tk-run-$id'),
                       tooltip: tr('Ejecutar'),
-                      icon: const Icon(LucideIcons.play, size: 18),
+                      icon: const Icon(
+                        LucideIcons.play,
+                        size: 18,
+                        color: AppColors.success,
+                      ),
                       onPressed: () => launchTkApp(context, id),
                     ),
                   IconButton(
@@ -1157,12 +1162,17 @@ class _TkEditorState extends State<_TkEditor> {
     VoidCallback? onTap, {
     Key? key,
     bool on = false,
+    Color? color,
   }) => IconButton(
     key: key,
     tooltip: tip,
     iconSize: 17,
     visualDensity: VisualDensity.compact,
     isSelected: on,
+    // Con color propio (ejecutar en verde, detener en rojo), atenuado si no
+    // se puede usar ahora.
+    color: color,
+    disabledColor: color?.withValues(alpha: .35),
     icon: Icon(icon),
     onPressed: onTap,
   );
@@ -1202,12 +1212,14 @@ class _TkEditorState extends State<_TkEditor> {
                 tr('Ejecutar (F9)'),
                 running ? null : _runApp,
                 key: const ValueKey('tk-run'),
+                color: AppColors.success,
               ),
               _tool(
                 LucideIcons.square,
                 tr('Detener'),
                 running ? () => _run?.stop() : null,
                 key: const ValueKey('tk-stop'),
+                color: AppColors.danger,
               ),
               if (d.isWeb)
                 _tool(

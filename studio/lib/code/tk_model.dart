@@ -60,12 +60,24 @@ const tkElectronKinds = {
 /// y su código, en JavaScript, es el mismo de Electron.
 const tkTargetChrome = 'chrome';
 
+/// Web con Next.js: la página es el diseño, con el mismo código JavaScript.
+const tkTargetNext = 'nextjs';
+
+/// Nombre del destino [target] para el usuario.
+String tkTargetLabel(String target) => switch (target) {
+  tkTargetWeb => tr('Web (Flask)'),
+  tkTargetElectron => tr('Electron + React'),
+  tkTargetChrome => tr('Extensión de Chrome'),
+  tkTargetNext => tr('Web (Next.js)'),
+  _ => tr('Escritorio (Python)'),
+};
+
 /// Componentes de una extensión de Chrome: los de Electron menos el menú
 /// (una ventana emergente no tiene barra de menús).
 final tkChromeKinds = {...tkElectronKinds}..remove('Menu');
 
 /// Componentes que tiene el destino de [d] (null: todos).
-Set<String>? tkTargetKinds(TkDesign d) => d.isChrome
+Set<String>? tkTargetKinds(TkDesign d) => d.isChrome || d.isNext
     ? tkChromeKinds
     : d.isElectron
     ? tkElectronKinds
@@ -76,6 +88,11 @@ Set<String>? tkTargetKinds(TkDesign d) => d.isChrome
 String? tkJsGap(TkDesign d, String kind) {
   final kinds = tkTargetKinds(d);
   if (kinds == null || kinds.contains(kind)) return null;
+  if (d.isNext) {
+    return tr('«{0}» no está disponible en Next.js.', [
+      tr(tkComponent(kind)?.label ?? kind),
+    ]);
+  }
   return d.isChrome
       ? tr('«{0}» no está disponible en las extensiones de Chrome.', [
           tr(tkComponent(kind)?.label ?? kind),
@@ -1869,9 +1886,10 @@ class TkDesign {
   bool get isWeb => target == tkTargetWeb;
   bool get isElectron => target == tkTargetElectron;
   bool get isChrome => target == tkTargetChrome;
+  bool get isNext => target == tkTargetNext;
 
   /// El código es JavaScript (Electron y extensiones de Chrome).
-  bool get isJs => isElectron || isChrome;
+  bool get isJs => isElectron || isChrome || isNext;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2141,6 +2159,7 @@ class TkDesign {
       tkTargetWeb => tkTargetWeb,
       tkTargetElectron => tkTargetElectron,
       tkTargetChrome => tkTargetChrome,
+      tkTargetNext => tkTargetNext,
       _ => tkTargetDesktop,
     },
     width: _int(j['width'], 80),

@@ -128,13 +128,7 @@ class TkInspector extends StatelessWidget {
     _Row(
       label: tr('Destino'),
       child: Text(
-        design.isChrome
-            ? tr('Extensión de Chrome')
-            : design.isElectron
-            ? tr('Electron + React')
-            : design.isWeb
-            ? tr('Web (Flask)')
-            : tr('Escritorio (Python)'),
+        tkTargetLabel(design.target),
         key: const ValueKey('tk-target'),
         style: const TextStyle(fontSize: 12),
       ),

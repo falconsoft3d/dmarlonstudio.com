@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../code/tk_model.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:path/path.dart' as p;
 
@@ -72,13 +74,7 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
   }
 
   // ------------------------------------------------------------- datos
-  String _kind(StudioProject a) => a.isChrome
-      ? tr('Extensión de Chrome')
-      : a.isElectron
-      ? tr('Electron + React')
-      : a.isWeb
-      ? tr('Web (Flask)')
-      : tr('Escritorio (Python)');
+  String _kind(StudioProject a) => tkTargetLabel(a.design.target);
 
   String _folder(StudioProject a) => p.basename(p.dirname(a.path));
 
@@ -258,7 +254,9 @@ class _ProjectBrowserState extends State<ProjectBrowser> {
                   child: Row(
                     children: [
                       Icon(
-                        a.isChrome
+                        a.isNext
+                            ? LucideIcons.panelsTopLeft
+                            : a.isChrome
                             ? LucideIcons.puzzle
                             : a.isElectron
                             ? LucideIcons.atom

@@ -3,6 +3,21 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.23 — 2026-11-05
+
+- Nuevo destino **Web (Next.js)**: el diseño es la página de un proyecto de
+  Next.js (app router) y el código, el mismo JavaScript con React que en
+  Electron, ahora en módulos (las líneas de su código no cambian).
+  - **Ejecutar** arranca `next dev` con los módulos del entorno compartido
+    (Next.js se instala una sola vez) y abre el navegador cuando está listo.
+  - `this.storage` guarda en el navegador; **Depurar** con las herramientas
+    del navegador; **Exportar** deja el proyecto listo para npm o Vercel.
+  - Ejemplos **Calculadora (Next.js)** y **Lista de tareas (Next.js)**,
+    probados con `next dev` y Chromium.
+- El diálogo «Nuevo proyecto» muestra los destinos en fichas.
+- Landing: Next.js entre los entornos disponibles. Manual: capítulo **Web
+  con Next.js**.
+
 ## 1.0.22 — 2026-11-05
 
 - Nuevo destino **Extensión de Chrome** (Manifest V3), en la misma app: el

@@ -29,7 +29,7 @@ void main() {
     expect(await ProjectStore.list(), hasLength(first.length));
     for (final x in first) {
       // Los de Electron son JavaScript: tienen su propia prueba.
-      if (x.isElectron || x.isChrome) {
+      if (x.design.isJs) {
         expect(File(p.join(x.path, 'Form1.js')).existsSync(), isTrue);
         continue;
       }

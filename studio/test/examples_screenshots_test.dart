@@ -58,6 +58,7 @@ const carousel = [
   'electron_notepad',
   'chrome_notes',
   'chrome_words',
+  'next_tasks',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

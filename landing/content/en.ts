@@ -5,7 +5,7 @@ export const en: Content = {
   meta: {
     title: "DMarlon Studio · Visual IDE for Python",
     description:
-      "A visual desktop IDE: design windows by dragging components, write the event code in Python or JavaScript and run them. For the desktop with tkinter or Electron + React, the web with Flask, and Chrome extensions.",
+      "A visual desktop IDE: design windows by dragging components, write the event code in Python or JavaScript and run them. For the desktop with tkinter or Electron + React, the web with Flask or Next.js, and Chrome extensions.",
   },
   header: {
     sectionsLabel: "Sections",
@@ -31,11 +31,11 @@ export const en: Content = {
   hero: {
     eyebrow: "Multi-target visual IDE",
     title: "Design windows by dragging. Program them in Python.",
-    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code and run it with F9. It builds desktop apps with tkinter (Python) or Electron + React (JavaScript), web apps with Flask, and Chrome extensions.",
+    text: "DMarlon Studio is a desktop IDE: drag components onto a form, set their properties in the object inspector, write each event's code and run it with F9. It builds desktop apps with tkinter (Python) or Electron + React (JavaScript), web apps with Flask or Next.js, and Chrome extensions.",
     primary: "Download",
     secondary: "See what's inside",
     targetsLabel: "Targets",
-    targets: ["tkinter", "Flask", "Electron + React", "Chrome"],
+    targets: ["tkinter", "Flask", "Electron + React", "Chrome", "Next.js"],
   },
   examples: {
     label: "Examples included in DMarlon Studio",
@@ -60,6 +60,7 @@ export const en: Content = {
       { seed: "electron_notepad", name: "Notepad (Electron)", text: "Native menu and open and save dialogs, in JavaScript." },
       { seed: "chrome_notes", name: "Notes per site (Chrome)", text: "A Chrome extension that keeps a note for every website." },
       { seed: "chrome_words", name: "Word counter (Chrome)", text: "An extension that reads the open page and counts its words." },
+      { seed: "next_tasks", name: "Task list (Next.js)", text: "A Next.js page with tasks saved in the browser." },
       { seed: "web_crm", name: "CRM web", text: "Opportunities by stage and pipeline value, in Flask." },
       { seed: "web_invoicing", name: "Invoicing web", text: "Invoices with VAT, numbering and download." },
       { seed: "web_shop", name: "Web shop", text: "A real-looking shop: deals, cart, accounts, simulated payment and a sales dashboard." },
@@ -129,6 +130,7 @@ export const en: Content = {
       { name: "tkinter", status: "ready", text: "Python desktop windows, each in its own system window." },
       { name: "Flask", status: "ready", text: "The same designer builds web apps that run on a local server." },
       { name: "Electron + React", status: "ready", text: "Desktop apps with Electron and React, with the event code in JavaScript." },
+      { name: "Next.js", status: "ready", text: "Next.js web pages with React: the design is the page, ready for npm or Vercel." },
       { name: "Chrome extensions", status: "ready", text: "The design is the extension popup: storage, the active tab and code in the page." },
     ],
   },
@@ -168,7 +170,7 @@ export const en: Content = {
       middle: "for desktop windows and",
       flask: "Flask",
       afterFlask: "for web apps",
-      electron: "Electron apps and Chrome extensions need Node.js: Electron and React install themselves the first time.",
+      electron: "Electron, Chrome extensions and Next.js need Node.js: Electron, React and Next.js install themselves the first time.",
       after: "The studio detects the installed Python and tells you what is missing. Previous versions and notes on",
       releases: "GitHub Releases",
     },

@@ -1722,6 +1722,47 @@ class _TkEditorState extends State<_TkEditor> {
     );
   }
 
+  /// Exporta el proyecto de Next.js (sin node_modules ni .next): listo
+  /// para `npm install` y `npm run dev`, o para Vercel.
+  Future<void> _exportNext() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      if (doc.dirty && !await _save()) return;
+      final prepared = await ProjectStore.prepareRun(doc.id);
+      final dir = ProjectStore.nextDir(prepared.id);
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      await out.create(recursive: true);
+      for (final f in Directory(
+        dir,
+      ).listSync(recursive: true, followLinks: false).whereType<File>()) {
+        final rel = f.path.substring(dir.length + 1);
+        if (rel.startsWith('node_modules') || rel.startsWith('.next')) continue;
+        final to = File('${out.path}${Platform.pathSeparator}$rel');
+        await to.parent.create(recursive: true);
+        await f.copy(to.path);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr('Exportada en {0}. Ábrala con: npm install y npm run dev.', [
+              out.path,
+            ]),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
   /// Exporta la extensión a una carpeta y a un .zip (para publicarla).
   Future<void> _exportChrome() async {
     final parent = await getDirectoryPath(
@@ -2045,7 +2086,7 @@ class _TkEditorState extends State<_TkEditor> {
                   key: const ValueKey('tk-dbg-cursor'),
                 ),
               ],
-              if (d.isWeb)
+              if (d.isWeb || d.isNext)
                 _tool(
                   LucideIcons.externalLink,
                   tr('Abrir en el navegador'),
@@ -2057,12 +2098,16 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isChrome
+              d.isNext
+                  ? tr('Exportar el proyecto de Next.js')
+                  : d.isChrome
                   ? tr('Exportar la extensión (.zip para la Chrome Web Store)')
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isChrome
+              d.isNext
+                  ? _exportNext
+                  : d.isChrome
                   ? _exportChrome
                   : d.isElectron
                   ? _exportElectron
@@ -2629,7 +2674,7 @@ class _NewAppDialogState extends State<_NewAppDialog> {
       key: const ValueKey('tk-new-dialog'),
       title: Text(tr('Nuevo proyecto')),
       content: SizedBox(
-        width: 720,
+        width: 620,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -2642,36 +2687,48 @@ class _NewAppDialogState extends State<_NewAppDialog> {
               onSubmitted: (_) => _ok(),
             ),
             const SizedBox(height: 14),
-            SegmentedButton<String>(
+            // Los destinos, en fichas: la lista crece con cada versión.
+            Wrap(
               key: const ValueKey('tk-new-target'),
-              segments: [
-                ButtonSegment(
-                  value: tkTargetDesktop,
-                  label: Text(tr('Escritorio (Python)')),
-                  icon: const Icon(LucideIcons.appWindowMac, size: 16),
-                ),
-                ButtonSegment(
-                  value: tkTargetWeb,
-                  label: Text(tr('Web (Flask)')),
-                  icon: const Icon(LucideIcons.globe, size: 16),
-                ),
-                ButtonSegment(
-                  value: tkTargetElectron,
-                  label: Text(tr('Electron + React')),
-                  icon: const Icon(LucideIcons.atom, size: 16),
-                ),
-                ButtonSegment(
-                  value: tkTargetChrome,
-                  label: Text(tr('Extensión de Chrome')),
-                  icon: const Icon(LucideIcons.puzzle, size: 16),
-                ),
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final (value, label, icon) in [
+                  (
+                    tkTargetDesktop,
+                    tr('Escritorio (Python)'),
+                    LucideIcons.appWindowMac,
+                  ),
+                  (tkTargetWeb, tr('Web (Flask)'), LucideIcons.globe),
+                  (tkTargetElectron, tr('Electron + React'), LucideIcons.atom),
+                  (
+                    tkTargetChrome,
+                    tr('Extensión de Chrome'),
+                    LucideIcons.puzzle,
+                  ),
+                  (
+                    tkTargetNext,
+                    tr('Web (Next.js)'),
+                    LucideIcons.panelsTopLeft,
+                  ),
+                ])
+                  ChoiceChip(
+                    key: ValueKey('tk-new-target-$value'),
+                    avatar: Icon(icon, size: 16),
+                    label: Text(label),
+                    selected: _target == value,
+                    showCheckmark: false,
+                    onSelected: (_) => setState(() => _target = value),
+                  ),
               ],
-              selected: {_target},
-              onSelectionChanged: (v) => setState(() => _target = v.first),
             ),
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetChrome
+              _target == tkTargetNext
+                  ? tr(
+                      'Una aplicación web de Next.js: el diseño es la página y el código, JavaScript (React). Ejecutar arranca el servidor de desarrollo y abre el navegador; exportar deja el proyecto listo para npm o Vercel. Necesita Node.js. El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetChrome
                   ? tr(
                       'Una extensión de Chrome: el diseño es su ventana emergente y el código, JavaScript, con this.storage, this.currentTab() y this.runInPage(). Ejecutar abre una vista previa; «Cargar en Chrome» la instala. Necesita Node.js la primera vez. El destino no se puede cambiar después.',
                     )

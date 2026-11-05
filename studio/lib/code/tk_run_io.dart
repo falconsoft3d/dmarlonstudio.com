@@ -12,6 +12,7 @@ import 'tk_chrome.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
 import 'tk_electron_run.dart';
+import 'tk_next.dart';
 import 'tk_run_types.dart';
 
 /// Lanza las ventanas de Python como procesos aparte, con el usuario del
@@ -427,6 +428,7 @@ class TkRunner {
       );
     }
     try {
+      if (prepared.next) return await _launchNext(prepared, key, devtools);
       if (prepared.electron) {
         return await _launchElectron(prepared, key, devtools);
       }
@@ -500,6 +502,98 @@ class TkRunner {
                 .transform(const LineSplitter())
                 .listen((l) {
                   if (!_electronNoise(l)) run.add(l);
+                })
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// Arranca el servidor de desarrollo de Next.js (con los módulos del
+  /// entorno compartido) y, cuando está listo, deja su dirección en el
+  /// TkRun. [devtools]: con los puntos de parada como `debugger;`.
+  static Future<TkRun> _launchNext(
+    TkPrepared prepared,
+    String key,
+    bool devtools,
+  ) async {
+    final node = await TkElectronRuntime.findNode();
+    if (node == null) {
+      throw UserError(
+        tr(
+          'Las aplicaciones de Next.js necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo.',
+        ),
+      );
+    }
+    final root = p.dirname(p.dirname(p.dirname(prepared.file)));
+    if (devtools) {
+      await File(prepared.file).writeAsString(
+        TkNext.unitModule(
+          prepared.source,
+          p.basenameWithoutExtension(prepared.file),
+          breakpoints: TkBreakpoints.of(prepared.id),
+        ),
+        flush: true,
+      );
+    }
+    Process? proc;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        await TkElectronRuntime.ensure(run.add, next: true);
+        if (stopped) return run.finish(-1);
+        // Los módulos del entorno, sin instalarlos en cada proyecto.
+        final modules = p.join(root, 'node_modules');
+        if (!Link(modules).existsSync() && !Directory(modules).existsSync()) {
+          await Link(modules).create(await TkElectronRuntime.nodeModules());
+        }
+        final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+        final port = server.port;
+        await server.close();
+        final env = TkElectronRuntime.environment(node)
+          ..['NEXT_TELEMETRY_DISABLED'] = '1'
+          ..['BROWSER'] = 'none';
+        final started = await Process.start(
+          node.node,
+          [
+            await TkElectronRuntime.nextBin(),
+            'dev',
+            '--webpack',
+            '-p',
+            '$port',
+          ],
+          workingDirectory: root,
+          environment: env,
+          includeParentEnvironment: false,
+        );
+        proc = started;
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen((l) {
+                  if (run.url == null && l.contains('Ready')) {
+                    run.url = run.address = 'http://localhost:$port';
+                  }
+                  if (l.trim().isNotEmpty) run.add(l);
                 })
                 .asFuture<void>(),
         ];

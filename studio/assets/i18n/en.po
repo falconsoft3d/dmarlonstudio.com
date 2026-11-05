@@ -233,7 +233,7 @@ msgstr "“{0}” was outside the window: it has been moved back."
 msgid "«{0}» ya tenía código: no se ha cambiado."
 msgstr "“{0}” already had code: it was left unchanged."
 
-#: lib/code/tk_chrome.dart lib/code/tk_electron.dart
+#: lib/code/tk_chrome.dart lib/code/tk_electron.dart lib/code/tk_next.dart
 msgid "El código debe definir «class {0} extends FormDesign»."
 msgstr "The code must define “class {0} extends FormDesign”."
 
@@ -245,9 +245,9 @@ msgstr "{0} is missing from the React environment."
 msgid "Electron instalado."
 msgstr "Electron installed."
 
-#: lib/code/tk_electron_run.dart lib/ui/screens/tk_designer.dart
-msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
-msgstr "Installing Electron and React (first time only; about 100 MB)…"
+#: lib/code/tk_electron_run.dart
+msgid "Instalando Electron, React y Next.js (solo la primera vez; unos 300 MB)…"
+msgstr "Installing Electron, React and Next.js (first time only; about 300 MB)…"
 
 #: lib/code/tk_electron_run.dart lib/code/tk_run_io.dart
 msgid "Las aplicaciones de Electron necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
@@ -284,6 +284,18 @@ msgstr ""
 "# Window code: each event of the design is a method of this class.\n"
 "# self.root is the window and self.<Name> each component: they already exist\n"
 "# in __init__, and the window's \"On open\" event runs after it."
+
+#: lib/code/tk_examples.dart
+msgid ""
+"// Código de la página (Next.js), en JavaScript: corre en el navegador. Cada\n"
+"// evento del diseño es un método de esta clase; this.<Nombre> es cada\n"
+"// componente (this.Label1.text = \"Hola\"). También this.title,\n"
+"// this.message(texto), this.storage y this.notify(texto)."
+msgstr ""
+"// Page code (Next.js), in JavaScript: it runs in the browser. Every\n"
+"// event of the design is a method of this class; this.<Name> is each\n"
+"// component (this.Label1.text = \"Hello\"). Also this.title,\n"
+"// this.message(text), this.storage and this.notify(text)."
 
 #: lib/code/tk_examples.dart
 msgid ""
@@ -341,7 +353,7 @@ msgstr "Notify by"
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -689,7 +701,7 @@ msgstr "Press Load to read the users."
 msgid "Página {0}"
 msgstr "Page {0}"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_next.dart
 msgid "Quitar las hechas"
 msgstr "Remove done tasks"
 
@@ -1029,6 +1041,10 @@ msgstr "The code must define the class {0}(FormDesign)."
 msgid "El nombre «{0}» está repetido."
 msgstr "The name “{0}” is used twice."
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Electron + React"
+msgstr "Electron + React"
+
 #: lib/code/tk_model.dart
 msgid "Elegir varios archivos"
 msgstr "Choose several files"
@@ -1053,6 +1069,10 @@ msgstr "Whole, without distortion"
 msgid "Entrar el ratón"
 msgstr "Mouse enter"
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Escritorio (Python)"
+msgstr "Desktop (Python)"
+
 #: lib/code/tk_model.dart
 msgid "Esfuerzo"
 msgstr "Effort"
@@ -1068,6 +1088,10 @@ msgstr "Stretch"
 #: lib/code/tk_model.dart
 msgid "Etiqueta"
 msgstr "Label"
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Extensión de Chrome"
+msgstr "Chrome extension"
 
 #: lib/code/tk_model.dart
 msgid "Extensión por defecto"
@@ -1473,6 +1497,14 @@ msgstr "Candles (stock market)"
 msgid "Vista HTML"
 msgstr "HTML view"
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (Flask)"
+msgstr "Web (Flask)"
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (Next.js)"
+msgstr "Web (Next.js)"
+
 #: lib/code/tk_model.dart
 msgid "«{0}» está en un marco que no existe."
 msgstr "“{0}” is in a frame that does not exist."
@@ -1490,6 +1522,10 @@ msgid "«{0}» no es un nombre válido para un método."
 msgstr "“{0}” is not a valid method name."
 
 #: lib/code/tk_model.dart
+msgid "«{0}» no está disponible en Next.js."
+msgstr "“{0}” is not available in Next.js."
+
+#: lib/code/tk_model.dart
 msgid "«{0}» no está disponible en las extensiones de Chrome."
 msgstr "“{0}” is not available in Chrome extensions."
 
@@ -1504,6 +1540,10 @@ msgstr "“{0}” is not available in Electron yet."
 #: lib/code/tk_model.dart lib/code/tk_showcase.dart
 msgid "Áreas"
 msgstr "Areas"
+
+#: lib/code/tk_next.dart
+msgid "Aplicación web de Next.js creada con DMarlon Studio."
+msgstr "Next.js web app created with DMarlon Studio."
 
 #: lib/code/tk_run_io.dart
 msgid "El Asistente IA necesita el SDK de Anthropic en el Python de este equipo."
@@ -1568,6 +1608,10 @@ msgstr "The web app did not start: {0}"
 #: lib/code/tk_run_io.dart
 msgid "La instalación tardó demasiado."
 msgstr "The installation took too long."
+
+#: lib/code/tk_run_io.dart
+msgid "Las aplicaciones de Next.js necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
+msgstr "Next.js apps need Node.js. Install it from nodejs.org and try again."
 
 #: lib/code/tk_run_io.dart
 msgid "Las aplicaciones web necesitan Flask en el Python de este equipo."
@@ -2396,6 +2440,38 @@ msgstr "{0} attachments: {1}"
 #: lib/code/tk_showcase_mail.dart
 msgid "{0} mensajes en la bandeja de entrada (se muestran los últimos {1})."
 msgstr "{0} messages in the inbox (showing the latest {1})."
+
+#: lib/code/tk_showcase_next.dart
+msgid "Calculadora (Next.js)"
+msgstr "Calculator (Next.js)"
+
+#: lib/code/tk_showcase_next.dart
+msgid "La calculadora como página de Next.js: el mismo diseño y el mismo JavaScript que la de Electron."
+msgstr "The calculator as a Next.js page: the same design and the same JavaScript as the Electron one."
+
+#: lib/code/tk_showcase_next.dart
+msgid "Lista de tareas"
+msgstr "Checklist"
+
+#: lib/code/tk_showcase_next.dart
+msgid "Lista de tareas (Next.js)"
+msgstr "Task list (Next.js)"
+
+#: lib/code/tk_showcase_next.dart
+msgid "Marcar como hecha"
+msgstr "Mark as done"
+
+#: lib/code/tk_showcase_next.dart
+msgid "Tareas guardadas en el navegador con this.storage."
+msgstr "Tasks saved in the browser with this.storage."
+
+#: lib/code/tk_showcase_next.dart
+msgid "Una página de Next.js con tareas que se guardan en el navegador: añadir, marcar como hecha y quitar las hechas."
+msgstr "A Next.js page with tasks saved in the browser: add, mark as done and remove the done ones."
+
+#: lib/code/tk_showcase_next.dart
+msgid "{0} pendientes de {1}"
+msgstr "{0} pending of {1}"
 
 #: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Categoría"
@@ -5547,18 +5623,6 @@ msgstr "Components"
 msgid "Duplicar"
 msgstr "Duplicate"
 
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Electron + React"
-msgstr "Electron + React"
-
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Escritorio (Python)"
-msgstr "Desktop (Python)"
-
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Extensión de Chrome"
-msgstr "Chrome extension"
-
 #: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "GitHub…"
 msgstr "GitHub…"
@@ -5602,10 +5666,6 @@ msgstr "Next page"
 #: lib/ui/screens/project_browser.dart
 msgid "Tarjetas"
 msgstr "Cards"
-
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Web (Flask)"
-msgstr "Web (Flask)"
 
 #: lib/ui/screens/project_browser.dart
 msgid "{0}–{1} de {2} proyectos"
@@ -6096,6 +6156,10 @@ msgid "Exportada en {0} y {1}. El .zip es el que se sube a la Chrome Web Store."
 msgstr "Exported to {0} and {1}. The .zip is the one you upload to the Chrome Web Store."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportada en {0}. Ábrala con: npm install y npm run dev."
+msgstr "Exported to {0}. Open it with: npm install and npm run dev."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportada en {0}. Ábrala con: npm install y npm start."
 msgstr "Exported to {0}. Open it with: npm install and npm start."
 
@@ -6114,6 +6178,10 @@ msgstr "Export here"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el archivo .py"
 msgstr "Export the .py file"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de Next.js"
+msgstr "Export the Next.js project"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar la aplicación de Electron"
@@ -6146,6 +6214,10 @@ msgstr "Same height"
 #: lib/ui/screens/tk_designer.dart
 msgid "Igualar el ancho"
 msgstr "Same width"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
+msgstr "Installing Electron and React (first time only; about 100 MB)…"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "JavaScript generado"
@@ -6250,6 +6322,10 @@ msgstr "Bring to front"
 #: lib/ui/screens/tk_designer.dart
 msgid "Una aplicación de escritorio con Electron y React; el código de los eventos, en JavaScript. Necesita Node.js: Electron y React se instalan solos la primera vez. El destino no se puede cambiar después."
 msgstr "A desktop app with Electron and React; event code in JavaScript. It needs Node.js: Electron and React install themselves the first time. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una aplicación web de Next.js: el diseño es la página y el código, JavaScript (React). Ejecutar arranca el servidor de desarrollo y abre el navegador; exportar deja el proyecto listo para npm o Vercel. Necesita Node.js. El destino no se puede cambiar después."
+msgstr "A Next.js web app: the design is the page and the code is JavaScript (React). Run starts the development server and opens the browser; export leaves the project ready for npm or Vercel. It needs Node.js. The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una extensión de Chrome: el diseño es su ventana emergente y el código, JavaScript, con this.storage, this.currentTab() y this.runInPage(). Ejecutar abre una vista previa; «Cargar en Chrome» la instala. Necesita Node.js la primera vez. El destino no se puede cambiar después."

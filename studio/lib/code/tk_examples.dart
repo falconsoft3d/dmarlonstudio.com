@@ -13,6 +13,7 @@ part 'tk_showcase_reports.dart';
 part 'tk_showcase_sites.dart';
 part 'tk_showcase_electron.dart';
 part 'tk_showcase_chrome.dart';
+part 'tk_showcase_next.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
@@ -20,7 +21,15 @@ String tkUnitComment({
   bool web = false,
   bool electron = false,
   bool chrome = false,
-}) => chrome
+  bool next = false,
+}) => next
+    ? tr(
+        '// Código de la página (Next.js), en JavaScript: corre en el navegador. Cada\n'
+        '// evento del diseño es un método de esta clase; this.<Nombre> es cada\n'
+        '// componente (this.Label1.text = "Hola"). También this.title,\n'
+        '// this.message(texto), this.storage y this.notify(texto).',
+      )
+    : chrome
     ? tr(
         '// Código de la ventana emergente de la extensión, en JavaScript. Cada evento\n'
         '// del diseño es un método de esta clase; this.<Nombre> es cada componente\n'

@@ -57,12 +57,26 @@ Future<TkRun?> launchTkApp(
   }
   final prepared = await runAction(context, () => ProjectStore.prepareRun(id));
   if (prepared == null || !context.mounted) return null;
-  // Electron no usa Python: Node y el entorno compartido.
-  if (prepared.electron) {
+  // Electron, Chrome y Next.js no usan Python: Node y el entorno compartido.
+  if (prepared.electron || prepared.next) {
     if (tests) return null;
     await TkBreakpoints.load(id);
     if (!context.mounted) return null;
-    return runAction(context, () => TkRunner.start(prepared, devtools: debug));
+    final run = await runAction(
+      context,
+      () => TkRunner.start(prepared, devtools: debug),
+    );
+    if (run != null && prepared.next) {
+      // El navegador se abre cuando Next.js está listo.
+      void ready() {
+        if (run.url == null) return;
+        run.removeListener(ready);
+        if (context.mounted) openTkWebApp(context, run);
+      }
+
+      run.addListener(ready);
+    }
+    return run;
   }
   final found = await TkRunner.detect();
   final py = prepared.web ? found.web : found;

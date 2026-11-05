@@ -104,7 +104,11 @@ class TkPrepared {
     this.unitLines = 0,
     this.electron = false,
     this.chrome = false,
+    this.next = false,
   });
+
+  /// Web con Next.js: [file] es su app/dms/Form1.js en build/nextjs.
+  final bool next;
 
   /// Extensión de Chrome: [file] es su Form1.js en build/extension y se
   /// abre la vista previa (con [electron] también verdadero).

@@ -9,6 +9,7 @@ import '../core/errors.dart';
 import '../core/studio_db.dart';
 import '../i18n/tr.dart';
 import 'tk_electron.dart';
+import 'tk_next.dart';
 
 /// Node.js del equipo: lo necesita npm para instalar Electron y React.
 class TkNode {
@@ -95,6 +96,15 @@ class TkElectronRuntime {
     return react.existsSync() && dom.existsSync() ? bin : null;
   }
 
+  /// ¿Está Next.js en el entorno?
+  static Future<bool> hasNext() async => File(
+    p.join(await dir(), 'node_modules', 'next', 'package.json'),
+  ).existsSync();
+
+  /// El script de next del entorno.
+  static Future<String> nextBin() async =>
+      p.join(await dir(), 'node_modules', 'next', 'dist', 'bin', 'next');
+
   static Future<String> nodeModules() async =>
       p.join(await dir(), 'node_modules');
 
@@ -115,9 +125,12 @@ class TkElectronRuntime {
 
   /// Instala el entorno si falta y devuelve el binario de Electron. [log]
   /// recibe lo que escribe npm.
-  static Future<String> ensure(void Function(String line) log) async {
+  static Future<String> ensure(
+    void Function(String line) log, {
+    bool next = false,
+  }) async {
     final ready = await electron();
-    if (ready != null) return ready;
+    if (ready != null && (!next || await hasNext())) return ready;
     final root = await dir();
     return _installing[root] ??= _install(
       root,
@@ -143,10 +156,15 @@ class TkElectronRuntime {
           'electron': TkElectron.electronVersion,
           'react': TkElectron.reactVersion,
           'react-dom': TkElectron.reactVersion,
+          'next': TkNext.nextVersion,
         },
       }),
     );
-    log(tr('Instalando Electron y React (solo la primera vez; unos 100 MB)…'));
+    log(
+      tr(
+        'Instalando Electron, React y Next.js (solo la primera vez; unos 300 MB)…',
+      ),
+    );
     Future<void> run(String exe, List<String> args) async {
       final proc = await Process.start(
         exe,

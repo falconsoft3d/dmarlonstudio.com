@@ -8,6 +8,7 @@ import '../ai/assistant.dart';
 import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_electron.dart';
+import '../code/tk_next.dart';
 import '../code/tk_unit.dart';
 import '../code/tk_examples.dart';
 import '../code/tk_model.dart';
@@ -54,6 +55,7 @@ class StudioProject {
   bool get isWeb => design.isWeb;
   bool get isElectron => design.isElectron;
   bool get isChrome => design.isChrome;
+  bool get isNext => design.isNext;
 }
 
 /// Proyectos en carpetas del disco: el área de trabajo, los recientes de
@@ -274,6 +276,7 @@ class ProjectStore {
               web: d.isWeb,
               electron: d.isElectron,
               chrome: d.isChrome,
+              next: d.isNext,
             ),
           ),
     );
@@ -458,6 +461,7 @@ class ProjectStore {
       ...tkWebExamples(tr),
       ...tkElectronExamples(tr),
       ...tkChromeExamples(tr),
+      ...tkNextExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -542,6 +546,27 @@ class ProjectStore {
     );
   }
 
+  /// Carpeta del proyecto de Next.js generado.
+  static String nextDir(String project) => p.join(project, buildDir, 'nextjs');
+
+  /// Escribe el proyecto de Next.js en build/nextjs (las imágenes, en
+  /// public/images).
+  static Future<TkPrepared> _prepareNext(StudioProject x) async {
+    final out = nextDir(x.path);
+    await writeFiles(out, TkNext.files(x.design, x.code, name: x.name));
+    await copyImages(x.path, p.join(out, 'public'));
+    await _gitignore(x.path);
+    final unit = x.code.replaceAll('\r\n', '\n');
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'app', 'dms', '${x.design.name}.js'),
+      next: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe [files] (nombre → contenido) en [dir].
   static Future<void> writeFiles(String dir, Map<String, String> files) async {
     await Directory(dir).create(recursive: true);
@@ -609,6 +634,7 @@ class ProjectStore {
     if (x == null) throw UserError(tr('El proyecto ya no existe.'));
     if (x.isElectron) return _prepareElectron(x);
     if (x.isChrome) return _prepareChrome(x);
+    if (x.isNext) return _prepareNext(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

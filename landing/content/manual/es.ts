@@ -686,6 +686,33 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------- next.js
+    {
+      slug: "nextjs",
+      title: "Web con Next.js",
+      summary: "Páginas web de Next.js: el diseño es la página y el código, JavaScript con React.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear una página de Next.js",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear la aplicación, elija **Web (Next.js)**. El diseño es la página y el código es el mismo JavaScript de Electron (corre en el navegador), con los mismos componentes (todos menos el menú). El estudio genera un proyecto de Next.js (app router) en `build/nextjs`.",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** arranca el servidor de desarrollo de Next.js y abre el navegador cuando está listo. Next.js, React y Electron se instalan una sola vez y los comparten todos los proyectos.",
+                "`this.storage` guarda datos en el navegador; `this.currentTab()` devuelve la propia página y `this.runInPage(función)` la ejecuta en ella.",
+                "**Depurar** convierte sus puntos de parada en `debugger;`: abra las herramientas del navegador (F12) y se detendrá en ellos.",
+                "**Exportar el proyecto de Next.js** crea una carpeta lista para `npm install` y `npm run dev`, o para publicarla en Vercel.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",

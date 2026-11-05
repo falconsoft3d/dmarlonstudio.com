@@ -1,0 +1,2738 @@
+# Traducción de DMarlon Studio.
+# Edite este archivo con Poedit o cualquier editor de texto y
+# ejecute «python3 tool/extract_i18n.py» tras cambiar textos del código.
+msgid ""
+msgstr ""
+"Project-Id-Version: DMarlon Studio\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/ai/anthropic.dart:179
+msgid "Claude ha rechazado esta petición por sus filtros de seguridad. Reformúlela o elija otro modelo."
+msgstr "Claude refused this request because of its safety filters. Rephrase it or choose another model."
+
+#: lib/ai/anthropic.dart:187
+msgid "La respuesta de la IA se cortó antes de terminar. Concrete un poco más la petición."
+msgstr "The AI response was cut off before it finished. Please make the request a bit more specific."
+
+#: lib/ai/assistant.dart:121
+msgid "{0} no transcribe voz. Elija quién la transcribe en Ajustes → Inteligencia artificial."
+msgstr "{0} does not transcribe voice. Choose who transcribes it in Settings → Artificial intelligence."
+
+#: lib/ai/assistant.dart:129
+msgid "Falta la clave de {0} para transcribir la voz. Escríbala en Ajustes → Inteligencia artificial."
+msgstr "The {0} key is missing to transcribe voice. Enter it in Settings → Artificial intelligence."
+
+#: lib/ai/assistant.dart:160 lib/ai/assistant.dart:296 lib/ai/assistant.dart:358
+msgid "No se pudo conectar con {0}: {1}"
+msgstr "Could not connect to {0}: {1}"
+
+#: lib/ai/assistant.dart:164 lib/ai/assistant.dart:373 lib/ai/assistant.dart:409 lib/ai/assistant.dart:432 lib/ai/assistant.dart:442 lib/ai/assistant.dart:456
+msgid "Error de la IA ({0}): {1}"
+msgstr "AI error ({0}): {1}"
+
+#: lib/ai/assistant.dart:190
+msgid "recomendado"
+msgstr "recommended"
+
+#: lib/ai/assistant.dart:196 lib/ai/assistant.dart:211
+msgid "razona más: más lento"
+msgstr "reasons more: slower"
+
+#: lib/ai/assistant.dart:198
+msgid "el más rápido y barato"
+msgstr "fastest and cheapest"
+
+#: lib/ai/assistant.dart:201
+msgid "rápido y barato"
+msgstr "fast and cheap"
+
+#: lib/ai/assistant.dart:207
+msgid "admite imágenes"
+msgstr "supports images"
+
+#: lib/ai/assistant.dart:77
+msgid "Configure la clave de {0} en Ajustes → Inteligencia artificial."
+msgstr "Set the {0} key in Settings → Artificial intelligence."
+
+#: lib/ai/claude_agent.dart:243
+msgid "No se pudo conectar con Anthropic: {0}"
+msgstr "Could not connect to Anthropic: {0}"
+
+#: lib/ai/claude_agent.dart:255
+msgid "Error de Claude ({0}): {1}"
+msgstr "Claude error ({0}): {1}"
+
+#: lib/ai/claude_agent.dart:275
+msgid "Detenido."
+msgstr "Stopped."
+
+#: lib/ai/claude_agent.dart:282
+msgid "Claude ha rechazado esta petición por sus filtros de seguridad. Reformúlela."
+msgstr "Claude refused this request because of its safety filters. Rephrase it."
+
+#: lib/ai/claude_agent.dart:305
+msgid "(La respuesta se cortó por su longitud: pida que continúe.)"
+msgstr "(The response was cut off for length: ask it to continue.)"
+
+#: lib/ai/claude_agent.dart:346
+msgid "Claude se ha detenido tras demasiados pasos. Los cambios propuestos hasta ahora se pueden revisar."
+msgstr "Claude stopped after too many steps. You can review the changes proposed so far."
+
+#: lib/ai/claude_agent.dart:430
+msgid "Explorando {0}"
+msgstr "Exploring {0}"
+
+#: lib/ai/claude_agent.dart:459
+msgid "Leyendo {0}"
+msgstr "Reading {0}"
+
+#: lib/ai/claude_agent.dart:484
+msgid "Buscando «{0}»"
+msgstr "Searching for “{0}”"
+
+#: lib/ai/claude_agent.dart:532
+msgid "Reescribiendo {0}"
+msgstr "Rewriting {0}"
+
+#: lib/ai/claude_agent.dart:533
+msgid "Creando {0}"
+msgstr "Creating {0}"
+
+#: lib/ai/claude_agent.dart:557
+msgid "Editando {0}"
+msgstr "Editing {0}"
+
+#: lib/ai/claude_agent.dart:569
+msgid "Borrando {0}"
+msgstr "Deleting {0}"
+
+#: lib/ai/claude_agent.dart:595
+msgid "«{0}» cambió en el disco mientras Claude trabajaba. Descarte ese cambio o pídalo de nuevo."
+msgstr "“{0}” changed on disk while Claude was working. Discard that change or ask for it again."
+
+#: lib/ai/claude_agent.dart:91
+msgid "Falta la clave de Anthropic. Escríbala en Ajustes → Inteligencia artificial (proveedor «Anthropic (Claude)»)."
+msgstr "The Anthropic key is missing. Enter it in Settings → Artificial intelligence (provider “Anthropic (Claude)”)."
+
+#: lib/ai/providers.dart:258
+msgid "Personalizada"
+msgstr "Custom"
+
+#: lib/ai/providers.dart:262
+msgid "la API personalizada"
+msgstr "the custom API"
+
+#: lib/code/github.dart:101
+msgid "GitHub no aceptó el token (revíselo o cree otro)."
+msgstr "GitHub did not accept the token (check it or create another one)."
+
+#: lib/code/github.dart:113
+msgid "GitHub respondió {0}: {1}"
+msgstr "GitHub answered {0}: {1}"
+
+#: lib/code/github.dart:123
+msgid "No se pudo conectar con GitHub: {0}"
+msgstr "Could not connect to GitHub: {0}"
+
+#: lib/code/github.dart:168
+msgid "Escriba el nombre del repositorio."
+msgstr "Enter the repository name."
+
+#: lib/code/github.dart:174
+msgid "GitHub no devolvió el repositorio."
+msgstr "GitHub did not return the repository."
+
+#: lib/code/github.dart:83
+msgid "Configure primero su token de GitHub."
+msgstr "Set up your GitHub token first."
+
+#: lib/code/tk_ai.dart:333
+msgid "«{0}» se salía de la ventana: se ha recolocado."
+msgstr "“{0}” was outside the window: it has been moved back."
+
+#: lib/code/tk_ai.dart:364
+msgid "«{0}» no sirve en una aplicación web: descartado."
+msgstr "«{0}» does not work in a web app: discarded."
+
+#: lib/code/tk_ai.dart:381
+msgid "«{0}» ya tenía código: no se ha cambiado."
+msgstr "“{0}” already had code: it was left unchanged."
+
+#: lib/code/tk_ai.dart:388 lib/code/tk_ai.dart:527
+msgid "«{0}» leía las credenciales: descartado."
+msgstr "“{0}” read the credentials: discarded."
+
+#: lib/code/tk_ai.dart:471
+msgid "La IA no devolvió una ventana válida."
+msgstr "The AI did not return a valid window."
+
+#: lib/code/tk_ai.dart:481
+msgid "Descartado: {0}"
+msgstr "Discarded: {0}"
+
+#: lib/code/tk_ai.dart:524
+msgid "La IA no devolvió el código."
+msgstr "The AI did not return the code."
+
+#: lib/code/tk_examples.dart:126 lib/code/tk_examples.dart:308
+msgid "Calculadora"
+msgstr "Calculator"
+
+#: lib/code/tk_examples.dart:13
+msgid ""
+"# Código de la ventana: cada evento del diseño es un método de esta clase.\n"
+"# self.root es la ventana y self.<Nombre>, cada componente."
+msgstr ""
+"# Window code: each event in the design is a method of this class.\n"
+"# self.root is the window and self.<Name> is each component."
+
+#: lib/code/tk_examples.dart:309
+msgid "Calculadora con teclado y números decimales exactos."
+msgstr "Calculator with keyboard input and exact decimal numbers."
+
+#: lib/code/tk_examples.dart:322 lib/code/tk_examples.dart:484
+msgid "Tareas"
+msgstr "Tasks"
+
+#: lib/code/tk_examples.dart:327
+msgid "Mis tareas"
+msgstr "My tasks"
+
+#: lib/code/tk_examples.dart:351 lib/ui/screens/dev_tools.dart:1379
+msgid "Añadir"
+msgstr "Add"
+
+#: lib/code/tk_examples.dart:371
+msgid "Hecha / pendiente"
+msgstr "Done / pending"
+
+#: lib/code/tk_examples.dart:381
+msgid "Borrar"
+msgstr "Clear"
+
+#: lib/code/tk_examples.dart:391
+msgid "Quitar las hechas"
+msgstr "Remove done tasks"
+
+#: lib/code/tk_examples.dart:396
+msgid "{0} tareas, {1} pendientes"
+msgstr "{0} tasks, {1} pending"
+
+#: lib/code/tk_examples.dart:485
+msgid "Lista de tareas que se guarda en un archivo de su carpeta."
+msgstr "To-do list saved to a file in your home folder."
+
+#: lib/code/tk_examples.dart:493
+msgid "Longitud"
+msgstr "Length"
+
+#: lib/code/tk_examples.dart:494
+msgid "Peso"
+msgstr "Weight"
+
+#: lib/code/tk_examples.dart:495
+msgid "Volumen"
+msgstr "Volume"
+
+#: lib/code/tk_examples.dart:496
+msgid "Superficie"
+msgstr "Area"
+
+#: lib/code/tk_examples.dart:497
+msgid "Temperatura"
+msgstr "Temperature"
+
+#: lib/code/tk_examples.dart:503 lib/code/tk_examples.dart:700
+msgid "Conversor de unidades"
+msgstr "Unit converter"
+
+#: lib/code/tk_examples.dart:508
+msgid "Magnitud"
+msgstr "Quantity type"
+
+#: lib/code/tk_examples.dart:526
+msgid "Cantidad"
+msgstr "Quantity"
+
+#: lib/code/tk_examples.dart:540
+msgid "De"
+msgstr "From"
+
+#: lib/code/tk_examples.dart:580
+msgid "Decimales"
+msgstr "Decimals"
+
+#: lib/code/tk_examples.dart:593
+msgid "Escriba un número"
+msgstr "Enter a number"
+
+#: lib/code/tk_examples.dart:67
+msgid "Calculadora web"
+msgstr "Web calculator"
+
+#: lib/code/tk_examples.dart:68
+msgid "La calculadora de escritorio, con el mismo código, en Flask."
+msgstr "The desktop calculator, with the same code, in Flask."
+
+#: lib/code/tk_examples.dart:7
+msgid ""
+"# Código de la aplicación web: corre en el servidor, en Python. Cada evento\n"
+"# del diseño es un método de esta clase; self.root es la página y\n"
+"# self.<Nombre>, cada componente, con las llamadas de tkinter. También\n"
+"# self.value(\"Nombre\"), self.value(\"Nombre\", valor) y self.notify(texto)."
+msgstr ""
+"# Web app code: it runs on the server, in Python. Each event of the\n"
+"# design is a method of this class; self.root is the page and\n"
+"# self.<Name>, each component, with the tkinter calls. Also\n"
+"# self.value(\"Name\"), self.value(\"Name\", value) and self.notify(text)."
+
+#: lib/code/tk_examples.dart:701
+msgid "Longitud, peso, volumen, superficie y temperatura."
+msgstr "Length, weight, volume, area and temperature."
+
+#: lib/code/tk_examples.dart:714 lib/code/tk_examples.dart:849
+msgid "Contactos de Odoo / ERPSqlite"
+msgstr "Odoo / ERPSqlite contacts"
+
+#: lib/code/tk_examples.dart:722
+msgid "Lee los contactos de un Odoo o un ERPSqlite con su API XML-RPC (en ERPSqlite: Ajustes → API externa). La clave no se guarda."
+msgstr "Reads the contacts of an Odoo or ERPSqlite through its XML-RPC API (in ERPSqlite: Settings → External API). The key is not saved."
+
+#: lib/code/tk_examples.dart:73
+msgid "Tareas web"
+msgstr "Web tasks"
+
+#: lib/code/tk_examples.dart:731 lib/ui/screens/dev_tools.dart:138
+msgid "Servidor"
+msgstr "Server"
+
+#: lib/code/tk_examples.dart:738
+msgid "Base"
+msgstr "Base"
+
+#: lib/code/tk_examples.dart:743 lib/ui/screens/dev_tools.dart:147 lib/ui/screens/dev_tools.dart:1484
+msgid "Usuario"
+msgstr "User"
+
+#: lib/code/tk_examples.dart:748
+msgid "Clave"
+msgstr "Key"
+
+#: lib/code/tk_examples.dart:75
+msgid "Lista de tareas en Flask, guardada en un archivo de su carpeta."
+msgstr "Task list in Flask, saved to a file in your folder."
+
+#: lib/code/tk_examples.dart:753 lib/ui/screens/code_studio.dart:822 lib/ui/screens/code_studio.dart:1170 lib/ui/screens/code_studio.dart:1932
+msgid "Buscar"
+msgstr "Search"
+
+#: lib/code/tk_examples.dart:766
+msgid "Consultar"
+msgstr "Look up"
+
+#: lib/code/tk_examples.dart:776
+msgid "Rellene servidor, base, usuario y clave."
+msgstr "Fill in server, database, user and key."
+
+#: lib/code/tk_examples.dart:778
+msgid "Usuario o clave incorrectos."
+msgstr "Wrong user or key."
+
+#: lib/code/tk_examples.dart:779
+msgid "{0} contactos"
+msgstr "{0} contacts"
+
+#: lib/code/tk_examples.dart:780
+msgid "No se pudo consultar: {0}"
+msgstr "Could not query: {0}"
+
+#: lib/code/tk_examples.dart:850
+msgid "Consulta los contactos de un Odoo o un ERPSqlite con XML-RPC."
+msgstr "Looks up the contacts of an Odoo or ERPSqlite over XML-RPC."
+
+#: lib/code/tk_model.dart:1047
+msgid "«{0}» no es un nombre válido para la ventana."
+msgstr "“{0}” is not a valid window name."
+
+#: lib/code/tk_model.dart:1053
+msgid "Componente desconocido: {0}."
+msgstr "Unknown component: {0}."
+
+#: lib/code/tk_model.dart:1058
+msgid "«{0}» no es un nombre válido para un componente."
+msgstr "“{0}” is not a valid component name."
+
+#: lib/code/tk_model.dart:1061
+msgid "El nombre «{0}» está repetido."
+msgstr "The name “{0}” is used twice."
+
+#: lib/code/tk_model.dart:1065
+msgid "«{0}» está en un marco que no existe."
+msgstr "“{0}” is in a frame that does not exist."
+
+#: lib/code/tk_model.dart:1072
+msgid "«{0}» no tiene conexión: elija una de las guardadas en Bases de datos."
+msgstr "“{0}” has no connection: choose one of those saved in Databases."
+
+#: lib/code/tk_model.dart:1080 lib/code/tk_model.dart:1086
+msgid "«{0}» no es un nombre válido para un método."
+msgstr "“{0}” is not a valid method name."
+
+#: lib/code/tk_model.dart:115 lib/code/tk_model.dart:655
+msgid "Color de fondo"
+msgstr "Background color"
+
+#: lib/code/tk_model.dart:122
+msgid "Color del texto"
+msgstr "Text color"
+
+#: lib/code/tk_model.dart:129
+msgid "Fuente"
+msgstr "Font"
+
+#: lib/code/tk_model.dart:135
+msgid "Tamaño de fuente"
+msgstr "Font size"
+
+#: lib/code/tk_model.dart:141
+msgid "Negrita"
+msgstr "Bold"
+
+#: lib/code/tk_model.dart:147
+msgid "Cursiva"
+msgstr "Italic"
+
+#: lib/code/tk_model.dart:154 lib/ui/screens/dev_tools.dart:1423 lib/ui/screens/diagrams.dart:889
+msgid "Texto"
+msgstr "Text"
+
+#: lib/code/tk_model.dart:161 lib/code/tk_model.dart:367
+msgid "Texto inicial"
+msgstr "Initial text"
+
+#: lib/code/tk_model.dart:167 lib/code/tk_model.dart:344 lib/code/tk_model.dart:383 lib/code/tk_model.dart:476
+msgid "Estado"
+msgstr "Status"
+
+#: lib/code/tk_model.dart:175
+msgid "Relieve"
+msgstr "Relief"
+
+#: lib/code/tk_model.dart:183
+msgid "Justificación"
+msgstr "Justification"
+
+#: lib/code/tk_model.dart:191
+msgid "Al pulsar"
+msgstr "On press"
+
+#: lib/code/tk_model.dart:195
+msgid "Clic"
+msgstr "Click"
+
+#: lib/code/tk_model.dart:202
+msgid "Doble clic"
+msgstr "Double click"
+
+#: lib/code/tk_model.dart:210
+msgid "Clic derecho"
+msgstr "Right click"
+
+#: lib/code/tk_model.dart:217
+msgid "Entrar el ratón"
+msgstr "Mouse enter"
+
+#: lib/code/tk_model.dart:224
+msgid "Salir el ratón"
+msgstr "Mouse leave"
+
+#: lib/code/tk_model.dart:233
+msgid "Recibir el foco"
+msgstr "Focus in"
+
+#: lib/code/tk_model.dart:240
+msgid "Perder el foco"
+msgstr "Focus out"
+
+#: lib/code/tk_model.dart:247 lib/code/tk_model.dart:632
+msgid "Tecla pulsada"
+msgstr "Key down"
+
+#: lib/code/tk_model.dart:254
+msgid "Tecla soltada"
+msgstr "Key up"
+
+#: lib/code/tk_model.dart:261
+msgid "Tecla Intro"
+msgstr "Enter key"
+
+#: lib/code/tk_model.dart:270
+msgid "Arrastrar"
+msgstr "Drag"
+
+#: lib/code/tk_model.dart:277
+msgid "Soltar el botón"
+msgstr "Button release"
+
+#: lib/code/tk_model.dart:284
+msgid "Mover el ratón"
+msgstr "Mouse move"
+
+#: lib/code/tk_model.dart:293
+msgid "Etiqueta"
+msgstr "Label"
+
+#: lib/code/tk_model.dart:300
+msgid "Alineación"
+msgstr "Alignment"
+
+#: lib/code/tk_model.dart:310 lib/code/tk_model.dart:373
+msgid "Ajuste de línea"
+msgstr "Line wrap"
+
+#: lib/code/tk_model.dart:318
+msgid "Botón"
+msgstr "Button"
+
+#: lib/code/tk_model.dart:326
+msgid "Campo de texto"
+msgstr "Text field"
+
+#: lib/code/tk_model.dart:337
+msgid "Ocultar con"
+msgstr "Mask with"
+
+#: lib/code/tk_model.dart:352
+msgid "Tabla enlazada"
+msgstr "Linked table"
+
+#: lib/code/tk_model.dart:357
+msgid "Campo enlazado"
+msgstr "Linked field"
+
+#: lib/code/tk_model.dart:363
+msgid "Texto largo"
+msgstr "Long text"
+
+#: lib/code/tk_model.dart:393
+msgid "Casilla"
+msgstr "Checkbox"
+
+#: lib/code/tk_model.dart:402 lib/code/tk_model.dart:419
+msgid "Marcada"
+msgstr "Checked"
+
+#: lib/code/tk_model.dart:408
+msgid "Opción"
+msgstr "Option"
+
+#: lib/code/tk_model.dart:417
+msgid "Grupo"
+msgstr "Group"
+
+#: lib/code/tk_model.dart:418 lib/code/tk_model.dart:524
+msgid "Valor"
+msgstr "Value"
+
+#: lib/code/tk_model.dart:425
+msgid "Lista"
+msgstr "List"
+
+#: lib/code/tk_model.dart:431 lib/code/tk_model.dart:467
+msgid "Elementos (uno por línea)"
+msgstr "Items (one per line)"
+
+#: lib/code/tk_model.dart:440
+msgid "Selección"
+msgstr "Selection"
+
+#: lib/code/tk_model.dart:450 lib/code/tk_model.dart:486 lib/code/tk_model.dart:602
+msgid "Al seleccionar"
+msgstr "On select"
+
+#: lib/code/tk_model.dart:461
+msgid "Lista desplegable"
+msgstr "Drop-down list"
+
+#: lib/code/tk_model.dart:498
+msgid "Deslizador"
+msgstr "Slider"
+
+#: lib/code/tk_model.dart:504 lib/code/tk_model.dart:649
+msgid "Título"
+msgstr "Title"
+
+#: lib/code/tk_model.dart:511
+msgid "Desde"
+msgstr "From"
+
+#: lib/code/tk_model.dart:516
+msgid "Hasta"
+msgstr "Until"
+
+#: lib/code/tk_model.dart:519
+msgid "Paso"
+msgstr "Step"
+
+#: lib/code/tk_model.dart:527
+msgid "Orientación"
+msgstr "Orientation"
+
+#: lib/code/tk_model.dart:536
+msgid "Mostrar el valor"
+msgstr "Show value"
+
+#: lib/code/tk_model.dart:545
+msgid "Al cambiar"
+msgstr "On change"
+
+#: lib/code/tk_model.dart:551
+msgid "Marco"
+msgstr "Frame"
+
+#: lib/code/tk_model.dart:557
+msgid "Borde"
+msgstr "Border"
+
+#: lib/code/tk_model.dart:564
+msgid "Lienzo"
+msgstr "Canvas"
+
+#: lib/code/tk_model.dart:572
+msgid "Tabla de datos"
+msgstr "Data table"
+
+#: lib/code/tk_model.dart:578
+msgid "Fuente de datos"
+msgstr "Data source"
+
+#: lib/code/tk_model.dart:583
+msgid "Consulta SQL"
+msgstr "SQL query"
+
+#: lib/code/tk_model.dart:586
+msgid "Columnas (campo|título|ancho)"
+msgstr "Columns (field|title|width)"
+
+#: lib/code/tk_model.dart:590
+msgid "Límite"
+msgstr "Limit"
+
+#: lib/code/tk_model.dart:591
+msgid "Orden"
+msgstr "Sequence"
+
+#: lib/code/tk_model.dart:594
+msgid "Cargar al abrir"
+msgstr "Load on open"
+
+#: lib/code/tk_model.dart:613
+msgid "Conexión de datos"
+msgstr "Data connection"
+
+#: lib/code/tk_model.dart:616 lib/ui/screens/dev_tools.dart:81
+msgid "Conexión"
+msgstr "Connection"
+
+#: lib/code/tk_model.dart:628
+msgid "Al abrir"
+msgstr "On open"
+
+#: lib/code/tk_model.dart:629
+msgid "Al cerrar"
+msgstr "On close"
+
+#: lib/code/tk_model.dart:639
+msgid "Al cambiar de tamaño"
+msgstr "On resize"
+
+#: lib/code/tk_model.dart:661
+msgid "Redimensionable"
+msgstr "Resizable"
+
+#: lib/code/tk_model.dart:667
+msgid "Siempre encima"
+msgstr "Always on top"
+
+#: lib/code/tk_model.dart:675
+msgid "El código debe definir la clase {0}(FormDesign)."
+msgstr "The code must define the class {0}(FormDesign)."
+
+#: lib/code/tk_model.dart:799
+msgid "En una aplicación web el lienzo no dibuja: se ve el recuadro vacío, porque el código corre en el servidor y sus métodos de dibujo no existen."
+msgstr "In a web app the canvas does not draw: you see the empty box, because the code runs on the server and its drawing methods do not exist."
+
+#: lib/code/tk_run_io.dart:187
+msgid "Las ventanas de Python solo se abren en macOS, Windows o Linux."
+msgstr "Python windows only open on macOS, Windows or Linux."
+
+#: lib/code/tk_run_io.dart:278
+msgid "«{0}» ya está abierta."
+msgstr "“{0}” is already open."
+
+#: lib/code/tk_run_io.dart:331
+msgid "No se encontró Python en {0}."
+msgstr "Python was not found at {0}."
+
+#: lib/code/tk_run_io.dart:336
+msgid ""
+"Falta Flask. Instálelo con:\n"
+"{0}"
+msgstr ""
+"Flask is missing. Install it with:\n"
+"{0}"
+
+#: lib/code/tk_run_io.dart:343
+msgid ""
+"«{0}» necesita un controlador de Python. Instálelo con:\n"
+"{1}"
+msgstr ""
+"“{0}” needs a Python driver. Install it with:\n"
+"{1}"
+
+#: lib/code/tk_run_io.dart:375
+msgid "No se pudo lanzar Python: {0}"
+msgstr "Could not launch Python: {0}"
+
+#: lib/code/tk_run_io.dart:411
+msgid "La aplicación web no arrancó: {0}"
+msgstr "The web app did not start: {0}"
+
+#: lib/code/tk_run_io.dart:47
+msgid "Instale Python con tkinter: «brew install python-tk» con Homebrew, o el instalador de python.org, que ya lo trae."
+msgstr "Install Python with tkinter: “brew install python-tk” with Homebrew, or the python.org installer, which includes it."
+
+#: lib/code/tk_run_io.dart:52
+msgid "Instale Python desde python.org con la opción «tcl/tk and IDLE» marcada."
+msgstr "Install Python from python.org with the “tcl/tk and IDLE” option ticked."
+
+#: lib/code/tk_run_io.dart:56
+msgid "Instale tkinter: «sudo apt install python3-tk» en Debian y Ubuntu, o «sudo dnf install python3-tkinter» en Fedora."
+msgstr "Install tkinter: “sudo apt install python3-tk” on Debian and Ubuntu, or “sudo dnf install python3-tkinter” on Fedora."
+
+#: lib/code/workspace.dart:144
+msgid "El archivo es demasiado grande para editarlo ({0} MB)."
+msgstr "The file is too large to edit ({0} MB)."
+
+#: lib/code/workspace.dart:151
+msgid "Es un archivo binario: no se puede editar aquí."
+msgstr "It is a binary file: it cannot be edited here."
+
+#: lib/code/workspace.dart:167 lib/code/workspace.dart:170 lib/code/workspace.dart:207 lib/ui/screens/tk_designer.dart:868 lib/ui/screens/tk_designer.dart:914
+msgid "Nombre no válido."
+msgstr "Invalid name."
+
+#: lib/code/workspace.dart:177 lib/code/workspace.dart:186 lib/code/workspace.dart:195
+msgid "Ya existe «{0}»."
+msgstr "“{0}” already exists."
+
+#: lib/code/workspace.dart:283 lib/code/workspace.dart:300
+msgid "No se encontró git en este equipo."
+msgstr "git was not found on this computer."
+
+#: lib/code/workspace.dart:302
+msgid "git no respondió a tiempo."
+msgstr "git did not respond in time."
+
+#: lib/code/workspace.dart:361 lib/code/workspace.dart:721
+msgid "git terminó con error ({0})."
+msgstr "git finished with an error ({0})."
+
+#: lib/code/workspace.dart:379
+msgid "Escriba el mensaje del commit."
+msgstr "Write the commit message."
+
+#: lib/code/workspace.dart:407
+msgid "Cambie a una rama para subir (HEAD separado)."
+msgstr "Switch to a branch to push (detached HEAD)."
+
+#: lib/code/workspace.dart:412
+msgid "El repositorio no tiene remoto: publíquelo en GitHub o añada uno."
+msgstr "The repository has no remote: publish it to GitHub or add one."
+
+#: lib/code/workspace.dart:443
+msgid "(diferencias recortadas)"
+msgstr "(diff truncated)"
+
+#: lib/code/workspace.dart:583
+msgid "«{0}» no es un nombre válido."
+msgstr "“{0}” is not a valid name."
+
+#: lib/code/workspace.dart:686
+msgid "Indique el nombre y la dirección del remoto."
+msgstr "Enter the remote name and URL."
+
+#: lib/code/workspace.dart:706
+msgid "Indique la dirección del repositorio."
+msgstr "Enter the repository URL."
+
+#: lib/code/workspace.dart:715
+msgid "La carpeta {0} ya existe y no está vacía."
+msgstr "The folder {0} already exists and is not empty."
+
+#: lib/core/project_store.dart:137
+msgid "«{0}» no es un proyecto de DMarlon Studio."
+msgstr "“{0}” is not a DMarlon Studio project."
+
+#: lib/core/project_store.dart:145
+msgid "El archivo {0} está dañado."
+msgstr "The file {0} is damaged."
+
+#: lib/core/project_store.dart:252 lib/core/project_store.dart:289 lib/db/dev_tools.dart:45 lib/db/dev_tools.dart:78 lib/db/diagrams.dart:23 lib/db/diagrams.dart:42
+msgid "Indique un nombre."
+msgstr "Enter a name."
+
+#: lib/core/project_store.dart:328 lib/core/project_store.dart:340 lib/core/project_store.dart:479
+msgid "El proyecto ya no existe."
+msgstr "The project no longer exists."
+
+#: lib/core/project_store.dart:330
+msgid "{0} (copia)"
+msgstr "{0} (copy)"
+
+#: lib/core/project_store.dart:401
+msgid "La carpeta no es un proyecto de DMarlon Studio: falta {0}."
+msgstr "The folder is not a DMarlon Studio project: {0} is missing."
+
+#: lib/core/project_store.dart:464
+msgid "«{0}» usa la conexión «{1}», que no existe en Bases de datos."
+msgstr "“{0}” uses the connection “{1}”, which does not exist in Databases."
+
+#: lib/db/dev_tools.dart:46 lib/dev/dev_client.dart:71
+msgid "Tipo no válido."
+msgstr "Invalid type."
+
+#: lib/dev/api_client.dart:142
+msgid "Indique la dirección."
+msgstr "Enter the address."
+
+#: lib/dev/api_client.dart:145
+msgid "Dirección no válida: {0}"
+msgstr "Invalid address: {0}"
+
+#: lib/dev/api_client.dart:222 lib/dev/dev_client.dart:69 lib/dev/dev_client.dart:374
+msgid "No se pudo conectar: {0}"
+msgstr "Could not connect: {0}"
+
+#: lib/dev/dev_client.dart:109 lib/dev/dev_client.dart:161 lib/dev/dev_client.dart:219 lib/dev/dev_client.dart:308 lib/dev/dev_client.dart:316 lib/dev/dev_client.dart:323
+msgid "{0} filas afectadas"
+msgstr "{0} rows affected"
+
+#: lib/dev/dev_client.dart:112 lib/ui/screens/dev_tools.dart:682
+msgid "Hecho"
+msgstr "Done"
+
+#: lib/dev/dev_client.dart:24
+msgid "No existe el archivo {0}."
+msgstr "The file {0} does not exist."
+
+#: lib/dev/dev_client.dart:274
+msgid "La consulta de MongoDB es un JSON: {\"collection\": \"clientes\", \"find\": {}}"
+msgstr "The MongoDB query is JSON: {\"collection\": \"customers\", \"find\": {}}"
+
+#: lib/dev/dev_client.dart:281
+msgid "Indique la colección («collection»)."
+msgstr "Enter the collection (“collection”)."
+
+#: lib/dev/dev_client.dart:392
+msgid "El servidor no permitió: {0}"
+msgstr "The server did not allow: {0}"
+
+#: lib/dev/diagram.dart:290
+msgid "La IA no devolvió un diseño válido."
+msgstr "The AI did not return a valid design."
+
+#: lib/main.dart:154 lib/ui/screens/settings_screen.dart:259
+msgid "Claro"
+msgstr "Light"
+
+#: lib/main.dart:155 lib/ui/screens/settings_screen.dart:264
+msgid "Oscuro"
+msgstr "Dark"
+
+#: lib/main.dart:58
+msgid "Diseñador"
+msgstr "Designer"
+
+#: lib/main.dart:63
+msgid "Editor"
+msgstr "Editor"
+
+#: lib/main.dart:68 lib/ui/screens/dev_tools.dart:602
+msgid "Bases de datos"
+msgstr "Databases"
+
+#: lib/main.dart:72
+msgid "API"
+msgstr "API"
+
+#: lib/main.dart:73 lib/ui/screens/dev_tools.dart:1763
+msgid "FTP"
+msgstr "FTP"
+
+#: lib/main.dart:75 lib/ui/screens/diagrams.dart:263 lib/ui/screens/diagrams.dart:668
+msgid "Diagramas"
+msgstr "Diagrams"
+
+#: lib/main.dart:80 lib/ui/screens/settings_screen.dart:219
+msgid "Ajustes"
+msgstr "Settings"
+
+#: lib/ui/screens/code_claude.dart:120
+msgid "Guarde o descarte primero los cambios sin guardar de: {0}"
+msgstr "First save or discard the unsaved changes in: {0}"
+
+#: lib/ui/screens/code_claude.dart:129
+msgid "Aplicado: {0}"
+msgstr "Applied: {0}"
+
+#: lib/ui/screens/code_claude.dart:218
+msgid "Cambios propuestos ({0})"
+msgstr "Proposed changes ({0})"
+
+#: lib/ui/screens/code_claude.dart:228 lib/ui/screens/code_git.dart:923
+msgid "Descartar todo"
+msgstr "Discard everything"
+
+#: lib/ui/screens/code_claude.dart:233
+msgid "Aplicar todo"
+msgstr "Apply all"
+
+#: lib/ui/screens/code_claude.dart:308 lib/ui/screens/code_studio.dart:829
+msgid "Claude implementa"
+msgstr "Claude: implement"
+
+#: lib/ui/screens/code_claude.dart:310 lib/ui/screens/code_studio.dart:1740 lib/ui/screens/tk_designer.dart:1208
+msgid "Detener"
+msgstr "Stop"
+
+#: lib/ui/screens/code_claude.dart:315 lib/ui/screens/code_studio.dart:1304
+msgid "Nueva conversación"
+msgstr "New conversation"
+
+#: lib/ui/screens/code_claude.dart:323
+msgid "Abra una carpeta para que Claude trabaje en ella."
+msgstr "Open a folder for Claude to work in."
+
+#: lib/ui/screens/code_claude.dart:324
+msgid "Claude lee la carpeta abierta y propone cambios. Nada se escribe hasta que los aplique."
+msgstr "Claude reads the open folder and proposes changes. Nothing is written until you apply them."
+
+#: lib/ui/screens/code_claude.dart:359
+msgid "Describa el cambio (⌘Intro)"
+msgstr "Describe the change (⌘Enter)"
+
+#: lib/ui/screens/code_claude.dart:366 lib/ui/screens/code_studio.dart:1397 lib/ui/screens/dev_tools.dart:1175
+msgid "Enviar"
+msgstr "Send"
+
+#: lib/ui/screens/code_claude.dart:399
+msgid "Nuevo: {0}"
+msgstr "New: {0}"
+
+#: lib/ui/screens/code_claude.dart:401
+msgid "Borrar: {0}"
+msgstr "Delete: {0}"
+
+#: lib/ui/screens/code_claude.dart:434 lib/ui/screens/code_git.dart:456 lib/ui/screens/code_git.dart:592 lib/ui/screens/dev_tools.dart:227 lib/ui/screens/tk_designer.dart:1138 lib/ui/screens/tk_designer.dart:1975
+msgid "Descartar"
+msgstr "Discard"
+
+#: lib/ui/screens/code_claude.dart:435 lib/ui/screens/tk_designer.dart:1980
+msgid "Aplicar"
+msgstr "Apply"
+
+#: lib/ui/screens/code_git.dart:1019
+msgid "sin remoto"
+msgstr "no remote"
+
+#: lib/ui/screens/code_git.dart:1023
+msgid "Acciones de la rama"
+msgstr "Branch actions"
+
+#: lib/ui/screens/code_git.dart:1032
+msgid "Cambiar a esta rama"
+msgstr "Switch to this branch"
+
+#: lib/ui/screens/code_git.dart:1037
+msgid "Fusionar en «{0}»"
+msgstr "Merge into “{0}”"
+
+#: lib/ui/screens/code_git.dart:1041
+msgid "Nueva rama desde aquí…"
+msgstr "New branch from here…"
+
+#: lib/ui/screens/code_git.dart:1044 lib/ui/screens/dev_tools.dart:1866 lib/ui/screens/diagrams.dart:398
+msgid "Renombrar…"
+msgstr "Rename…"
+
+#: lib/ui/screens/code_git.dart:1049
+msgid "Eliminar del remoto…"
+msgstr "Delete from remote…"
+
+#: lib/ui/screens/code_git.dart:1049
+msgid "Eliminar…"
+msgstr "Delete…"
+
+#: lib/ui/screens/code_git.dart:1060
+msgid "Cambiar a {0}"
+msgstr "Switch to {0}"
+
+#: lib/ui/screens/code_git.dart:1071 lib/ui/screens/code_git.dart:1073
+msgid "Fusionar"
+msgstr "Merge"
+
+#: lib/ui/screens/code_git.dart:1072
+msgid "¿Fusionar «{0}» en «{1}»?"
+msgstr "Merge “{0}” into “{1}”?"
+
+#: lib/ui/screens/code_git.dart:1086
+msgid "Renombrar la rama"
+msgstr "Rename branch"
+
+#: lib/ui/screens/code_git.dart:1088 lib/ui/screens/code_studio.dart:523 lib/ui/screens/code_studio.dart:1088
+msgid "Renombrar"
+msgstr "Rename"
+
+#: lib/ui/screens/code_git.dart:1097
+msgid "Eliminar del remoto"
+msgstr "Delete from remote"
+
+#: lib/ui/screens/code_git.dart:1098
+msgid "Se borra la rama «{0}» del servidor para todos. ¿Continuar?"
+msgstr "The branch “{0}” will be deleted from the server for everyone. Continue?"
+
+#: lib/ui/screens/code_git.dart:1102 lib/ui/screens/code_git.dart:1113 lib/ui/screens/code_git.dart:1127 lib/ui/screens/code_git.dart:1208 lib/ui/screens/code_git.dart:1214 lib/ui/screens/code_git.dart:1219 lib/ui/screens/code_studio.dart:544 lib/ui/screens/code_studio.dart:547 lib/ui/screens/code_studio.dart:1094 lib/ui/screens/dev_tools.dart:196 lib/ui/screens/dev_tools.dart:256 lib/ui/screens/dev_tools.dart:1259 lib/ui/screens/dev_tools.dart:1708 lib/ui/screens/dev_tools.dart:1712 lib/ui/screens/dev_tools.dart:1870 lib/ui/screens/diagrams.dart:388 lib/ui/screens/diagrams.dart:402 lib/ui/screens/tk_designer.dart:145 lib/ui/screens/tk_designer.dart:293 lib/ui/screens/tk_designer.dart:844
+msgid "Eliminar"
+msgstr "Delete"
+
+#: lib/ui/screens/code_git.dart:1110
+msgid "Eliminar la rama"
+msgstr "Delete branch"
+
+#: lib/ui/screens/code_git.dart:1111
+msgid "¿Eliminar la rama «{0}»?"
+msgstr "Delete the branch “{0}”?"
+
+#: lib/ui/screens/code_git.dart:1121
+msgid "La rama no está fusionada"
+msgstr "The branch is not merged"
+
+#: lib/ui/screens/code_git.dart:1122
+msgid "«{0}» tiene commits que no están en otra rama y se perderían. ¿Eliminarla igualmente?"
+msgstr "“{0}” has commits that are not in another branch and would be lost. Delete it anyway?"
+
+#: lib/ui/screens/code_git.dart:114
+msgid "Hay cambios sin confirmar"
+msgstr "There are uncommitted changes"
+
+#: lib/ui/screens/code_git.dart:1141
+msgid "Nueva rama"
+msgstr "New branch"
+
+#: lib/ui/screens/code_git.dart:1143
+msgid "Crear y cambiar"
+msgstr "Create and switch"
+
+#: lib/ui/screens/code_git.dart:115
+msgid "Tiene {0} archivo(s) con cambios. Si chocan con «{1}», git no lo hará; puede guardarlos aparte (stash) antes. ¿Continuar?"
+msgstr "You have {0} changed file(s). If they conflict with “{1}”, git will refuse; you can stash them first. Continue?"
+
+#: lib/ui/screens/code_git.dart:1160
+msgid "Guardar los cambios aparte…"
+msgstr "Stash changes…"
+
+#: lib/ui/screens/code_git.dart:1166
+msgid "Aparta los cambios sin confirmar para cambiar de rama o traer cambios, y recupérelos después."
+msgstr "Set aside uncommitted changes to switch branches or pull, and bring them back later."
+
+#: lib/ui/screens/code_git.dart:1191
+msgid "Recuperar y quitar de la lista"
+msgstr "Restore and remove from the list"
+
+#: lib/ui/screens/code_git.dart:1201
+msgid "Recuperar y conservar"
+msgstr "Restore and keep"
+
+#: lib/ui/screens/code_git.dart:1215
+msgid "¿Eliminar «{0}»? Sus cambios se pierden."
+msgstr "Delete “{0}”? Its changes will be lost."
+
+#: lib/ui/screens/code_git.dart:1234
+msgid "Guardar los cambios aparte"
+msgstr "Stash changes"
+
+#: lib/ui/screens/code_git.dart:1236 lib/ui/screens/code_git.dart:1405 lib/ui/screens/code_studio.dart:489 lib/ui/screens/code_studio.dart:1611 lib/ui/screens/dev_tools.dart:231 lib/ui/screens/dev_tools.dart:953 lib/ui/screens/dev_tools.dart:1019 lib/ui/screens/dev_tools.dart:1099 lib/ui/screens/settings_screen.dart:208 lib/ui/screens/tk_designer.dart:1142 lib/ui/screens/tk_designer.dart:1189
+msgid "Guardar"
+msgstr "Save"
+
+#: lib/ui/screens/code_git.dart:1254
+msgid "Remotos"
+msgstr "Remotes"
+
+#: lib/ui/screens/code_git.dart:1263
+msgid "Sin remotos: añada uno para subir y traer cambios."
+msgstr "No remotes: add one to push and pull changes."
+
+#: lib/ui/screens/code_git.dart:1278 lib/ui/screens/dev_tools.dart:1368 lib/ui/screens/diagrams.dart:1000
+msgid "Quitar"
+msgstr "Remove"
+
+#: lib/ui/screens/code_git.dart:1294 lib/ui/screens/code_git.dart:1437 lib/ui/screens/dev_tools.dart:90 lib/ui/screens/dev_tools.dart:934 lib/ui/screens/diagrams.dart:123 lib/ui/screens/tk_designer.dart:1663 lib/ui/screens/tk_inspector.dart:330
+msgid "Nombre"
+msgstr "Name"
+
+#: lib/ui/screens/code_git.dart:1302
+msgid "Dirección (URL)"
+msgstr "URL"
+
+#: lib/ui/screens/code_git.dart:1303 lib/ui/screens/code_git.dart:1842
+msgid "https://github.com/usuario/repo.git"
+msgstr "https://github.com/user/repo.git"
+
+#: lib/ui/screens/code_git.dart:133 lib/ui/screens/code_git.dart:213 lib/ui/screens/code_studio.dart:826
+msgid "Control de código"
+msgstr "Source control"
+
+#: lib/ui/screens/code_git.dart:1330
+msgid "Guardar el remoto"
+msgstr "Save remote"
+
+#: lib/ui/screens/code_git.dart:134 lib/ui/screens/code_studio.dart:976 lib/ui/screens/dev_tools.dart:1775
+msgid "Actualizar"
+msgstr "Refresh"
+
+#: lib/ui/screens/code_git.dart:1346
+msgid "Cuenta de GitHub"
+msgstr "GitHub account"
+
+#: lib/ui/screens/code_git.dart:1354
+msgid "Con un token personal, Código lista sus repositorios para clonarlos, publica repositorios nuevos y sube o trae cambios de github.com sin pedir la contraseña. Sin token, git usa las credenciales de este equipo."
+msgstr "With a personal token, Code lists your repositories to clone them, publishes new repositories and pushes or pulls from github.com without asking for the password. Without a token, git uses this computer's credentials."
+
+#: lib/ui/screens/code_git.dart:1362
+msgid "Crear un token en GitHub (permiso «repo»)"
+msgstr "Create a token on GitHub (“repo” scope)"
+
+#: lib/ui/screens/code_git.dart:1368 lib/ui/screens/dev_tools.dart:1477
+msgid "Token"
+msgstr "Token"
+
+#: lib/ui/screens/code_git.dart:137
+msgid "Buscar cambios en el remoto (fetch)"
+msgstr "Check the remote for changes (fetch)"
+
+#: lib/ui/screens/code_git.dart:1384
+msgid "Conectado como {0}."
+msgstr "Connected as {0}."
+
+#: lib/ui/screens/code_git.dart:1390
+msgid "Comprobar"
+msgstr "Check"
+
+#: lib/ui/screens/code_git.dart:1398
+msgid "Quitar el token"
+msgstr "Remove token"
+
+#: lib/ui/screens/code_git.dart:142
+msgid "Traer (pull)"
+msgstr "Pull"
+
+#: lib/ui/screens/code_git.dart:1428
+msgid "Publicar en GitHub"
+msgstr "Publish to GitHub"
+
+#: lib/ui/screens/code_git.dart:1441
+msgid "Descripción"
+msgstr "Description"
+
+#: lib/ui/screens/code_git.dart:1447
+msgid "Privado"
+msgstr "Private"
+
+#: lib/ui/screens/code_git.dart:1459
+msgid "Publicar"
+msgstr "Post"
+
+#: lib/ui/screens/code_git.dart:1470
+msgid "Haga primero un commit para tener algo que subir."
+msgstr "Make a commit first so there is something to push."
+
+#: lib/ui/screens/code_git.dart:1476
+msgid "Publicado en {0}"
+msgstr "Published at {0}"
+
+#: lib/ui/screens/code_git.dart:149
+msgid "Subir (push)"
+msgstr "Push"
+
+#: lib/ui/screens/code_git.dart:1515
+msgid "Sin diferencias de texto."
+msgstr "No text differences."
+
+#: lib/ui/screens/code_git.dart:157
+msgid "Mensaje del commit"
+msgstr "Commit message"
+
+#: lib/ui/screens/code_git.dart:1638
+msgid "Todos los archivos ({0})"
+msgstr "All files ({0})"
+
+#: lib/ui/screens/code_git.dart:173
+msgid "Confirmar todo"
+msgstr "Commit all"
+
+#: lib/ui/screens/code_git.dart:1774
+msgid "Clonar repositorio"
+msgstr "Clone repository"
+
+#: lib/ui/screens/code_git.dart:178
+msgid "Confirmar y subir"
+msgstr "Commit and push"
+
+#: lib/ui/screens/code_git.dart:1783
+msgid "Configure su token de GitHub (Control de código → Cuenta de GitHub) para elegir entre sus repositorios; o pegue la dirección."
+msgstr "Set up your GitHub token (Source control → GitHub account) to choose from your repositories; or paste the URL."
+
+#: lib/ui/screens/code_git.dart:1793
+msgid "Buscar en mis repositorios de GitHub"
+msgstr "Search my GitHub repositories"
+
+#: lib/ui/screens/code_git.dart:1841
+msgid "Dirección del repositorio"
+msgstr "Repository URL"
+
+#: lib/ui/screens/code_git.dart:1851
+msgid "Dentro de: {0}"
+msgstr "Inside: {0}"
+
+#: lib/ui/screens/code_git.dart:1859
+msgid "Elegir"
+msgstr "Choose"
+
+#: lib/ui/screens/code_git.dart:1864
+msgid "Elegir…"
+msgstr "Choose…"
+
+#: lib/ui/screens/code_git.dart:1871
+msgid "Carpeta nueva (opcional)"
+msgstr "New folder (optional)"
+
+#: lib/ui/screens/code_git.dart:1891
+msgid "Clonar y abrir"
+msgstr "Clone and open"
+
+#: lib/ui/screens/code_git.dart:220
+msgid "Esta carpeta no es un repositorio de git."
+msgstr "This folder is not a git repository."
+
+#: lib/ui/screens/code_git.dart:231
+msgid "Inicializar repositorio"
+msgstr "Initialize repository"
+
+#: lib/ui/screens/code_git.dart:238 lib/ui/screens/code_git.dart:422 lib/ui/screens/code_studio.dart:1459
+msgid "Clonar repositorio…"
+msgstr "Clone repository…"
+
+#: lib/ui/screens/code_git.dart:245 lib/ui/screens/code_git.dart:423
+msgid "Cuenta de GitHub…"
+msgstr "GitHub account…"
+
+#: lib/ui/screens/code_git.dart:310
+msgid "Sin commits todavía"
+msgstr "No commits yet"
+
+#: lib/ui/screens/code_git.dart:311
+msgid "HEAD separado en {0}"
+msgstr "Detached HEAD at {0}"
+
+#: lib/ui/screens/code_git.dart:323
+msgid "{0} por traer · {1} por subir"
+msgstr "{0} to pull · {1} to push"
+
+#: lib/ui/screens/code_git.dart:334
+msgid "La rama aún no está en el remoto"
+msgstr "The branch is not on the remote yet"
+
+#: lib/ui/screens/code_git.dart:379
+msgid "Cambios"
+msgstr "Changes"
+
+#: lib/ui/screens/code_git.dart:380 lib/ui/screens/dev_tools.dart:1216
+msgid "Historial"
+msgstr "History"
+
+#: lib/ui/screens/code_git.dart:381
+msgid "Ramas"
+msgstr "Branches"
+
+#: lib/ui/screens/code_git.dart:382
+msgid "Stash"
+msgstr "Stash"
+
+#: lib/ui/screens/code_git.dart:389
+msgid "Más acciones de git"
+msgstr "More git actions"
+
+#: lib/ui/screens/code_git.dart:395 lib/ui/screens/code_git.dart:976
+msgid "Nueva rama…"
+msgstr "New branch…"
+
+#: lib/ui/screens/code_git.dart:399
+msgid "Corregir el último commit"
+msgstr "Amend last commit"
+
+#: lib/ui/screens/code_git.dart:404 lib/ui/screens/code_git.dart:437
+msgid "Deshacer el último commit"
+msgstr "Undo last commit"
+
+#: lib/ui/screens/code_git.dart:409
+msgid "Guardar los cambios aparte (stash)…"
+msgstr "Stash changes…"
+
+#: lib/ui/screens/code_git.dart:414
+msgid "Descartar todos los cambios…"
+msgstr "Discard all changes…"
+
+#: lib/ui/screens/code_git.dart:417
+msgid "Remotos…"
+msgstr "Remotes…"
+
+#: lib/ui/screens/code_git.dart:419
+msgid "Publicar en GitHub…"
+msgstr "Publish to GitHub…"
+
+#: lib/ui/screens/code_git.dart:421
+msgid "Abrir en GitHub"
+msgstr "Open on GitHub"
+
+#: lib/ui/screens/code_git.dart:438
+msgid "«{0}» se quita del historial y sus cambios vuelven a quedar pendientes (no se pierde nada). Si ya lo subió, no lo haga."
+msgstr "“{0}” is removed from the history and its changes become pending again (nothing is lost). Don't do it if you already pushed it."
+
+#: lib/ui/screens/code_git.dart:450
+msgid "Descartar todos los cambios"
+msgstr "Discard all changes"
+
+#: lib/ui/screens/code_git.dart:451
+msgid "Se pierden los cambios de {0} archivo(s) y se borran los archivos nuevos. No se puede deshacer."
+msgstr "The changes in {0} file(s) are lost and new files are deleted. This cannot be undone."
+
+#: lib/ui/screens/code_git.dart:480
+msgid "No hay cambios pendientes."
+msgstr "No pending changes."
+
+#: lib/ui/screens/code_git.dart:516 lib/ui/screens/code_git.dart:563 lib/ui/screens/code_git.dart:620
+msgid "Abrir el archivo"
+msgstr "Open file"
+
+#: lib/ui/screens/code_git.dart:523 lib/ui/screens/code_git.dart:566 lib/ui/screens/code_git.dart:584 lib/ui/screens/code_git.dart:614
+msgid "Descartar los cambios"
+msgstr "Discard changes"
+
+#: lib/ui/screens/code_git.dart:561
+msgid "Ver los cambios"
+msgstr "View changes"
+
+#: lib/ui/screens/code_git.dart:586
+msgid "«{0}» es nuevo: se borrará. No se puede deshacer."
+msgstr "“{0}” is new: it will be deleted. This cannot be undone."
+
+#: lib/ui/screens/code_git.dart:587
+msgid "«{0}» vuelve a como estaba en el último commit. No se puede deshacer."
+msgstr "“{0}” goes back to how it was in the last commit. This cannot be undone."
+
+#: lib/ui/screens/code_git.dart:598
+msgid "Descartados los cambios de {0}."
+msgstr "Discarded the changes in {0}."
+
+#: lib/ui/screens/code_git.dart:651
+msgid "Todas las ramas"
+msgstr "All branches"
+
+#: lib/ui/screens/code_git.dart:661
+msgid "Aún no hay commits."
+msgstr "No commits yet."
+
+#: lib/ui/screens/code_git.dart:766
+msgid "ahora"
+msgstr "now"
+
+#: lib/ui/screens/code_git.dart:767
+msgid "hace {0} min"
+msgstr "{0} min ago"
+
+#: lib/ui/screens/code_git.dart:768
+msgid "hace {0} h"
+msgstr "{0} h ago"
+
+#: lib/ui/screens/code_git.dart:769
+msgid "hace {0} d"
+msgstr "{0} d ago"
+
+#: lib/ui/screens/code_git.dart:789
+msgid "Ver el commit"
+msgstr "View commit"
+
+#: lib/ui/screens/code_git.dart:790 lib/ui/screens/code_git.dart:815 lib/ui/screens/code_git.dart:824
+msgid "Ir a este commit"
+msgstr "Go to this commit"
+
+#: lib/ui/screens/code_git.dart:791
+msgid "Crear una rama aquí…"
+msgstr "Create a branch here…"
+
+#: lib/ui/screens/code_git.dart:792
+msgid "Volver la rama a este commit…"
+msgstr "Reset the branch to this commit…"
+
+#: lib/ui/screens/code_git.dart:793 lib/ui/screens/code_git.dart:837
+msgid "Revertir este commit"
+msgstr "Revert this commit"
+
+#: lib/ui/screens/code_git.dart:795
+msgid "Aplicar en la rama actual (cherry-pick)"
+msgstr "Apply to the current branch (cherry-pick)"
+
+#: lib/ui/screens/code_git.dart:796
+msgid "Etiquetar…"
+msgstr "Tag…"
+
+#: lib/ui/screens/code_git.dart:797
+msgid "Copiar el hash"
+msgstr "Copy hash"
+
+#: lib/ui/screens/code_git.dart:816
+msgid "Verá los archivos como estaban en «{0}» ({1}). La rama no cambia: para volver, cambie a una rama en «Ramas». Si quiere trabajar desde aquí, cree una rama."
+msgstr "You will see the files as they were at “{0}” ({1}). The branch does not change: to go back, switch to a branch under “Branches”. To work from here, create a branch."
+
+#: lib/ui/screens/code_git.dart:820
+msgid "Ir"
+msgstr "Go"
+
+#: lib/ui/screens/code_git.dart:830 lib/ui/screens/code_git.dart:1081
+msgid "Rama desde {0}"
+msgstr "Branch from {0}"
+
+#: lib/ui/screens/code_git.dart:838
+msgid "Se crea un commit nuevo que deshace los cambios de «{0}». El historial se conserva (es seguro aunque ya esté subido)."
+msgstr "A new commit is created that undoes the changes of “{0}”. The history is kept (safe even if it was already pushed)."
+
+#: lib/ui/screens/code_git.dart:842
+msgid "Revertir"
+msgstr "Revert"
+
+#: lib/ui/screens/code_git.dart:851
+msgid "Etiqueta para {0}"
+msgstr "Tag for {0}"
+
+#: lib/ui/screens/code_git.dart:853
+msgid "Etiquetar"
+msgstr "Tag"
+
+#: lib/ui/screens/code_git.dart:861
+msgid "Copiado: {0}"
+msgstr "Copied: {0}"
+
+#: lib/ui/screens/code_git.dart:870
+msgid "Cambie primero a una rama: con HEAD separado no hay rama que mover."
+msgstr "Switch to a branch first: with a detached HEAD there is no branch to move."
+
+#: lib/ui/screens/code_git.dart:892
+msgid "Volver «{0}» a {1}"
+msgstr "Reset “{0}” to {1}"
+
+#: lib/ui/screens/code_git.dart:904
+msgid "Los {0} commit(s) posteriores salen de la rama."
+msgstr "The {0} later commit(s) leave the branch."
+
+#: lib/ui/screens/code_git.dart:913
+msgid "Conservar los cambios"
+msgstr "Keep the changes"
+
+#: lib/ui/screens/code_git.dart:914
+msgid "Los cambios de esos commits quedan pendientes."
+msgstr "The changes of those commits stay pending."
+
+#: lib/ui/screens/code_git.dart:918
+msgid "Conservar los cambios preparados"
+msgstr "Keep the changes staged"
+
+#: lib/ui/screens/code_git.dart:919
+msgid "Como el anterior, listos para un nuevo commit."
+msgstr "Like the previous one, ready for a new commit."
+
+#: lib/ui/screens/code_git.dart:924
+msgid "Los archivos quedan exactamente como en ese commit: se pierden los commits posteriores y los cambios sin confirmar."
+msgstr "The files end up exactly as in that commit: later commits and uncommitted changes are lost."
+
+#: lib/ui/screens/code_git.dart:941
+msgid "Volver a este commit"
+msgstr "Reset to this commit"
+
+#: lib/ui/screens/code_git.dart:97
+msgid "Hecho."
+msgstr "Done."
+
+#: lib/ui/screens/code_git.dart:979
+msgid "LOCALES"
+msgstr "LOCAL"
+
+#: lib/ui/screens/code_git.dart:981
+msgid "REMOTAS"
+msgstr "REMOTE"
+
+#: lib/ui/screens/code_studio.dart:1028
+msgid "Solo lectura"
+msgstr "Read only"
+
+#: lib/ui/screens/code_studio.dart:1043
+msgid "Proyecto abierto en el Diseñador de interfaz"
+msgstr "Project open in the Interface designer"
+
+#: lib/ui/screens/code_studio.dart:1089
+msgid "Copiar la ruta"
+msgstr "Copy path"
+
+#: lib/ui/screens/code_studio.dart:1092
+msgid "Abrir en la terminal"
+msgstr "Open in terminal"
+
+#: lib/ui/screens/code_studio.dart:1178
+msgid "Buscar en los archivos"
+msgstr "Search in files"
+
+#: lib/ui/screens/code_studio.dart:1183 lib/ui/screens/code_studio.dart:1936
+msgid "Distinguir mayúsculas"
+msgstr "Match case"
+
+#: lib/ui/screens/code_studio.dart:1199
+msgid "{0} resultados en {1} archivos"
+msgstr "{0} results in {1} files"
+
+#: lib/ui/screens/code_studio.dart:1312
+msgid "Abra un archivo para preguntar sobre él."
+msgstr "Open a file to ask about it."
+
+#: lib/ui/screens/code_studio.dart:1313
+msgid "Contexto: {0}"
+msgstr "Context: {0}"
+
+#: lib/ui/screens/code_studio.dart:1357
+msgid "Aplicar al archivo"
+msgstr "Apply to the file"
+
+#: lib/ui/screens/code_studio.dart:1363
+msgid "Copiar el código"
+msgstr "Copy the code"
+
+#: lib/ui/screens/code_studio.dart:1392
+msgid "Pregunte o pida un cambio (⌘Intro)"
+msgstr "Ask or request a change (⌘Enter)"
+
+#: lib/ui/screens/code_studio.dart:1415 lib/ui/screens/tk_designer.dart:1446
+msgid "Código"
+msgstr "Code"
+
+#: lib/ui/screens/code_studio.dart:1423
+msgid "Edite proyectos de este equipo con explorador, git, terminal e IA."
+msgstr "Edit projects on this computer with explorer, git, terminal and AI."
+
+#: lib/ui/screens/code_studio.dart:1436 lib/ui/screens/tk_designer.dart:325
+msgid "Abrir carpeta…"
+msgstr "Open folder…"
+
+#: lib/ui/screens/code_studio.dart:1448
+msgid "Abrir {0}"
+msgstr "Open {0}"
+
+#: lib/ui/screens/code_studio.dart:1458
+msgid "Clonando {0}…"
+msgstr "Cloning {0}…"
+
+#: lib/ui/screens/code_studio.dart:1465
+msgid "Recientes"
+msgstr "Recent"
+
+#: lib/ui/screens/code_studio.dart:1589
+msgid "Se genera desde el diseño: aquí no se puede editar."
+msgstr "Generated from the design: it can't be edited here."
+
+#: lib/ui/screens/code_studio.dart:1593
+msgid "«{0}» ya no está abierto en el Diseñador. Al guardar, este código se escribe en el proyecto y la pestaña se cierra."
+msgstr "“{0}” is no longer open in the Designer. Saving writes this code to the project and closes the tab."
+
+#: lib/ui/screens/code_studio.dart:1612
+msgid "Buscar en el archivo"
+msgstr "Find in file"
+
+#: lib/ui/screens/code_studio.dart:1613
+msgid "Mostrar u ocultar la terminal"
+msgstr "Show or hide the terminal"
+
+#: lib/ui/screens/code_studio.dart:1724
+msgid "TERMINAL"
+msgstr "TERMINAL"
+
+#: lib/ui/screens/code_studio.dart:1743
+msgid "Limpiar"
+msgstr "Clear"
+
+#: lib/ui/screens/code_studio.dart:1808
+msgid "Escriba una orden, p. ej. git status"
+msgstr "Type a command, e.g. git status"
+
+#: lib/ui/screens/code_studio.dart:1809
+msgid "Ejecutando…"
+msgstr "Running…"
+
+#: lib/ui/screens/code_studio.dart:1849
+msgid "Ln {0}, Col {1}"
+msgstr "Ln {0}, Col {1}"
+
+#: lib/ui/screens/code_studio.dart:1942
+msgid "Expresión regular"
+msgstr "Regular expression"
+
+#: lib/ui/screens/code_studio.dart:1950
+msgid "Sin resultados"
+msgstr "No results"
+
+#: lib/ui/screens/code_studio.dart:1958
+msgid "Anterior"
+msgstr "Previous"
+
+#: lib/ui/screens/code_studio.dart:1961
+msgid "Siguiente"
+msgstr "Next"
+
+#: lib/ui/screens/code_studio.dart:1964 lib/ui/screens/code_studio.dart:1980 lib/ui/screens/code_studio.dart:1984
+msgid "Reemplazar"
+msgstr "Replace"
+
+#: lib/ui/screens/code_studio.dart:1989
+msgid "Reemplazar todo"
+msgstr "Replace all"
+
+#: lib/ui/screens/code_studio.dart:364
+msgid "Abrir"
+msgstr "Open"
+
+#: lib/ui/screens/code_studio.dart:371 lib/ui/screens/tk_designer.dart:1123
+msgid "Cambios sin guardar"
+msgstr "Unsaved changes"
+
+#: lib/ui/screens/code_studio.dart:372
+msgid "Hay archivos con cambios sin guardar. ¿Cerrarlos y abrir otra carpeta?"
+msgstr "There are files with unsaved changes. Close them and open another folder?"
+
+#: lib/ui/screens/code_studio.dart:475
+msgid "¿Guardar los cambios de «{0}»?"
+msgstr "Save the changes to “{0}”?"
+
+#: lib/ui/screens/code_studio.dart:477
+msgid "Si no los guarda, se perderán."
+msgstr "If you don't save them, they will be lost."
+
+#: lib/ui/screens/code_studio.dart:485
+msgid "No guardar"
+msgstr "Don't save"
+
+#: lib/ui/screens/code_studio.dart:508 lib/ui/screens/code_studio.dart:973 lib/ui/screens/code_studio.dart:1086 lib/ui/screens/dev_tools.dart:1791 lib/ui/screens/dev_tools.dart:1799
+msgid "Nueva carpeta"
+msgstr "New folder"
+
+#: lib/ui/screens/code_studio.dart:508 lib/ui/screens/code_studio.dart:968 lib/ui/screens/code_studio.dart:1085
+msgid "Nuevo archivo"
+msgstr "New file"
+
+#: lib/ui/screens/code_studio.dart:545
+msgid "¿Eliminar «{0}»? No se puede deshacer."
+msgstr "Delete “{0}”? This cannot be undone."
+
+#: lib/ui/screens/code_studio.dart:645
+msgid "No existe la carpeta: {0}"
+msgstr "The folder does not exist: {0}"
+
+#: lib/ui/screens/code_studio.dart:668
+msgid "[terminó con el código {0}]"
+msgstr "[exited with code {0}]"
+
+#: lib/ui/screens/code_studio.dart:821 lib/ui/screens/code_studio.dart:964
+msgid "Explorador"
+msgstr "Explorer"
+
+#: lib/ui/screens/code_studio.dart:830 lib/ui/screens/code_studio.dart:1301
+msgid "Chat con la IA"
+msgstr "AI chat"
+
+#: lib/ui/screens/code_studio.dart:833
+msgid "Terminal (⌘J)"
+msgstr "Terminal (⌘J)"
+
+#: lib/ui/screens/code_studio.dart:841
+msgid "Abrir carpeta"
+msgstr "Open folder"
+
+#: lib/ui/screens/code_studio.dart:979
+msgid "Contraer todo"
+msgstr "Collapse all"
+
+#: lib/ui/screens/dev_tools.dart:1006
+msgid ""
+"base_url=https://api.miempresa.com\n"
+"token=…"
+msgstr ""
+"base_url=https://api.example.com\n"
+"token=…"
+
+#: lib/ui/screens/dev_tools.dart:1050
+msgid "Orden curl copiada"
+msgstr "curl command copied"
+
+#: lib/ui/screens/dev_tools.dart:1082 lib/ui/screens/dev_tools.dart:1110
+msgid "Petición nueva"
+msgstr "New request"
+
+#: lib/ui/screens/dev_tools.dart:1094
+msgid "Variables ({0})"
+msgstr "Variables ({0})"
+
+#: lib/ui/screens/dev_tools.dart:111
+msgid "Archivo"
+msgstr "File"
+
+#: lib/ui/screens/dev_tools.dart:1114
+msgid "Guardar como nueva…"
+msgstr "Save as new…"
+
+#: lib/ui/screens/dev_tools.dart:1118
+msgid "Copiar como curl"
+msgstr "Copy as curl"
+
+#: lib/ui/screens/dev_tools.dart:1122
+msgid "Variables de entorno…"
+msgstr "Environment variables…"
+
+#: lib/ui/screens/dev_tools.dart:116
+msgid "Elegir archivo"
+msgstr "Choose file"
+
+#: lib/ui/screens/dev_tools.dart:1166
+msgid "https://… o {{base_url}}/ruta"
+msgstr "https://… or {{base_url}}/path"
+
+#: lib/ui/screens/dev_tools.dart:1215
+msgid "Colecciones"
+msgstr "Collections"
+
+#: lib/ui/screens/dev_tools.dart:1227
+msgid "Guarde peticiones para tenerlas a mano."
+msgstr "Save requests to keep them handy."
+
+#: lib/ui/screens/dev_tools.dart:1241
+msgid "Sin colección"
+msgstr "No collection"
+
+#: lib/ui/screens/dev_tools.dart:1303
+msgid "Error"
+msgstr "Error"
+
+#: lib/ui/screens/dev_tools.dart:131
+msgid "URI (opcional)"
+msgstr "URI (optional)"
+
+#: lib/ui/screens/dev_tools.dart:1323
+msgid "Borrar historial"
+msgstr "Clear history"
+
+#: lib/ui/screens/dev_tools.dart:1361
+msgid "valor"
+msgstr "value"
+
+#: lib/ui/screens/dev_tools.dart:1387
+msgid "Parámetros"
+msgstr "Parameters"
+
+#: lib/ui/screens/dev_tools.dart:1388
+msgid "Cabeceras"
+msgstr "Headers"
+
+#: lib/ui/screens/dev_tools.dart:1389 lib/ui/screens/dev_tools.dart:1541
+msgid "Cuerpo"
+msgstr "Body"
+
+#: lib/ui/screens/dev_tools.dart:1390
+msgid "Autorización"
+msgstr "Authorization"
+
+#: lib/ui/screens/dev_tools.dart:1412
+msgid "parámetro"
+msgstr "parameter"
+
+#: lib/ui/screens/dev_tools.dart:142
+msgid "Puerto"
+msgstr "Port"
+
+#: lib/ui/screens/dev_tools.dart:1421
+msgid "Ninguno"
+msgstr "None"
+
+#: lib/ui/screens/dev_tools.dart:1426
+msgid "Formulario"
+msgstr "Form"
+
+#: lib/ui/screens/dev_tools.dart:146 lib/ui/screens/diagrams.dart:193 lib/ui/screens/diagrams.dart:352
+msgid "Base de datos"
+msgstr "Database"
+
+#: lib/ui/screens/dev_tools.dart:1461
+msgid "Ninguna"
+msgstr "None"
+
+#: lib/ui/screens/dev_tools.dart:148 lib/ui/screens/dev_tools.dart:1489
+msgid "Contraseña"
+msgstr "Password"
+
+#: lib/ui/screens/dev_tools.dart:1515
+msgid "Pulse «Enviar» para ver la respuesta."
+msgstr "Press “Send” to see the response."
+
+#: lib/ui/screens/dev_tools.dart:152
+msgid "Conexión cifrada (SSL)"
+msgstr "Encrypted connection (SSL)"
+
+#: lib/ui/screens/dev_tools.dart:1547
+msgid "Cabeceras ({0})"
+msgstr "Headers ({0})"
+
+#: lib/ui/screens/dev_tools.dart:159
+msgid "Seguridad"
+msgstr "Security"
+
+#: lib/ui/screens/dev_tools.dart:163
+msgid "FTP (sin cifrar)"
+msgstr "FTP (unencrypted)"
+
+#: lib/ui/screens/dev_tools.dart:167
+msgid "FTPES (TLS explícito)"
+msgstr "FTPES (explicit TLS)"
+
+#: lib/ui/screens/dev_tools.dart:1702
+msgid "Nuevo nombre"
+msgstr "New name"
+
+#: lib/ui/screens/dev_tools.dart:171
+msgid "FTPS (TLS implícito)"
+msgstr "FTPS (implicit TLS)"
+
+#: lib/ui/screens/dev_tools.dart:1710
+msgid "¿Eliminar la carpeta «{0}» y su contenido?"
+msgstr "Delete the folder “{0}” and its contents?"
+
+#: lib/ui/screens/dev_tools.dart:1768
+msgid "Carpeta superior"
+msgstr "Parent folder"
+
+#: lib/ui/screens/dev_tools.dart:1784
+msgid "Subir archivos"
+msgstr "Upload files"
+
+#: lib/ui/screens/dev_tools.dart:1821
+msgid "Añada un servidor FTP con «+»."
+msgstr "Add an FTP server with “+”."
+
+#: lib/ui/screens/dev_tools.dart:1822
+msgid "Elija un servidor a la izquierda."
+msgstr "Choose a server on the left."
+
+#: lib/ui/screens/dev_tools.dart:1862
+msgid "Descargar"
+msgstr "Download"
+
+#: lib/ui/screens/dev_tools.dart:1879
+msgid "Carpeta vacía."
+msgstr "Empty folder."
+
+#: lib/ui/screens/dev_tools.dart:200
+msgid "Probando…"
+msgstr "Testing…"
+
+#: lib/ui/screens/dev_tools.dart:206
+msgid "Conexión correcta: {0}"
+msgstr "Connection OK: {0}"
+
+#: lib/ui/screens/dev_tools.dart:212
+msgid "Conexión correcta: {0} tablas"
+msgstr "Connection OK: {0} tables"
+
+#: lib/ui/screens/dev_tools.dart:223
+msgid "Probar conexión"
+msgstr "Test connection"
+
+#: lib/ui/screens/dev_tools.dart:254
+msgid "Eliminar conexión"
+msgstr "Delete connection"
+
+#: lib/ui/screens/dev_tools.dart:255 lib/ui/screens/dev_tools.dart:1711 lib/ui/screens/diagrams.dart:387
+msgid "¿Eliminar «{0}»?"
+msgstr "Delete “{0}”?"
+
+#: lib/ui/screens/dev_tools.dart:299
+msgid "Editar"
+msgstr "Edit"
+
+#: lib/ui/screens/dev_tools.dart:316 lib/ui/screens/diagrams.dart:1023
+msgid "Conexiones"
+msgstr "Connections"
+
+#: lib/ui/screens/dev_tools.dart:337
+msgid "Añada una conexión con «+»."
+msgstr "Add a connection with “+”."
+
+#: lib/ui/screens/dev_tools.dart:428
+msgid "Modificar datos"
+msgstr "Modify data"
+
+#: lib/ui/screens/dev_tools.dart:429
+msgid "Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?"
+msgstr "This query changes the “{0}” database. Run it?"
+
+#: lib/ui/screens/dev_tools.dart:432 lib/ui/screens/dev_tools.dart:610 lib/ui/screens/tk_designer.dart:274
+msgid "Ejecutar"
+msgstr "Run"
+
+#: lib/ui/screens/dev_tools.dart:471 lib/ui/screens/dev_tools.dart:1692
+msgid "Guardado en {0}"
+msgstr "Saved to {0}"
+
+#: lib/ui/screens/dev_tools.dart:511
+msgid "Filtrar tablas"
+msgstr "Filter tables"
+
+#: lib/ui/screens/dev_tools.dart:550
+msgid "Ver datos"
+msgstr "View data"
+
+#: lib/ui/screens/dev_tools.dart:617
+msgid "CSV"
+msgstr "CSV"
+
+#: lib/ui/screens/dev_tools.dart:650
+msgid "Elija una conexión a la izquierda."
+msgstr "Choose a connection on the left."
+
+#: lib/ui/screens/dev_tools.dart:651
+msgid "para ejecutar"
+msgstr "to run"
+
+#: lib/ui/screens/dev_tools.dart:696
+msgid "{0} filas"
+msgstr "{0} rows"
+
+#: lib/ui/screens/dev_tools.dart:697
+msgid "se muestran {0}"
+msgstr "showing {0}"
+
+#: lib/ui/screens/dev_tools.dart:81 lib/ui/screens/dev_tools.dart:325
+msgid "Nueva conexión"
+msgstr "New connection"
+
+#: lib/ui/screens/dev_tools.dart:925
+msgid "Guardar petición"
+msgstr "Save request"
+
+#: lib/ui/screens/dev_tools.dart:939
+msgid "Colección"
+msgstr "Collection"
+
+#: lib/ui/screens/dev_tools.dart:940
+msgid "p. ej. Mi API"
+msgstr "e.g. My API"
+
+#: lib/ui/screens/dev_tools.dart:96
+msgid "Tipo"
+msgstr "Type"
+
+#: lib/ui/screens/dev_tools.dart:985
+msgid "Variables de entorno"
+msgstr "Environment variables"
+
+#: lib/ui/screens/dev_tools.dart:993
+msgid "Una por línea: nombre=valor. Úselas como {{nombre}} en la dirección, los parámetros, las cabeceras, el cuerpo o la autorización."
+msgstr "One per line: name=value. Use them as {{name}} in the address, parameters, headers, body or authorization."
+
+#: lib/ui/screens/diagrams.dart:1017
+msgid "Añadir columna"
+msgstr "Add column"
+
+#: lib/ui/screens/diagrams.dart:1030
+msgid "Pulse → junto a la figura para conectarla con otra."
+msgstr "Press → next to the shape to connect it to another."
+
+#: lib/ui/screens/diagrams.dart:1056
+msgid "columna (p. ej. cliente_id)"
+msgstr "column (e.g. customer_id)"
+
+#: lib/ui/screens/diagrams.dart:1057
+msgid "etiqueta (p. ej. Sí)"
+msgstr "label (e.g. Yes)"
+
+#: lib/ui/screens/diagrams.dart:1083
+msgid "Quitar la conexión"
+msgstr "Remove the connection"
+
+#: lib/ui/screens/diagrams.dart:109
+msgid "De flujo"
+msgstr "Flowchart"
+
+#: lib/ui/screens/diagrams.dart:1103
+msgid "Quitar la figura"
+msgstr "Remove the shape"
+
+#: lib/ui/screens/diagrams.dart:114
+msgid "De base de datos"
+msgstr "Database"
+
+#: lib/ui/screens/diagrams.dart:131
+msgid "¿Qué debe mostrar?"
+msgstr "What should it show?"
+
+#: lib/ui/screens/diagrams.dart:133
+msgid "p. ej. Una tienda online con clientes, pedidos, líneas de pedido y productos"
+msgstr "e.g. An online shop with customers, orders, order lines and products"
+
+#: lib/ui/screens/diagrams.dart:136
+msgid "p. ej. El proceso de login: pedir usuario y clave, validar y bloquear tras 3 intentos"
+msgstr "e.g. The login process: ask for user and password, validate and lock after 3 attempts"
+
+#: lib/ui/screens/diagrams.dart:151 lib/ui/screens/diagrams.dart:222 lib/ui/screens/tk_designer.dart:1706
+msgid "Crear"
+msgstr "Create"
+
+#: lib/ui/screens/diagrams.dart:151 lib/ui/screens/diagrams.dart:553
+msgid "Diseñar"
+msgstr "Design"
+
+#: lib/ui/screens/diagrams.dart:175
+msgid "Primero añada una conexión en Bases de datos."
+msgstr "First add a connection in Databases."
+
+#: lib/ui/screens/diagrams.dart:184
+msgid "Diagrama desde una base de datos"
+msgstr "Diagram from a database"
+
+#: lib/ui/screens/diagrams.dart:206
+msgid "Solo las tablas que empiecen por (opcional)"
+msgstr "Only tables starting with (optional)"
+
+#: lib/ui/screens/diagrams.dart:229
+msgid "Leyendo las tablas…"
+msgstr "Reading the tables…"
+
+#: lib/ui/screens/diagrams.dart:23
+msgid "Inicio / fin"
+msgstr "Start / end"
+
+#: lib/ui/screens/diagrams.dart:24
+msgid "Proceso"
+msgstr "Process"
+
+#: lib/ui/screens/diagrams.dart:242
+msgid "No hay tablas que coincidan."
+msgstr "No tables match."
+
+#: lib/ui/screens/diagrams.dart:25
+msgid "Decisión"
+msgstr "Decision"
+
+#: lib/ui/screens/diagrams.dart:26
+msgid "Entrada / salida"
+msgstr "Input / output"
+
+#: lib/ui/screens/diagrams.dart:27 lib/ui/screens/diagrams.dart:660
+msgid "Nota"
+msgstr "Note"
+
+#: lib/ui/screens/diagrams.dart:275
+msgid "Nuevo"
+msgstr "New"
+
+#: lib/ui/screens/diagrams.dart:283 lib/ui/screens/diagrams.dart:561
+msgid "La IA está diseñando el diagrama…"
+msgstr "The AI is designing the diagram…"
+
+#: lib/ui/screens/diagrams.dart:287 lib/ui/screens/diagrams.dart:581
+msgid "Diagrama"
+msgstr "Diagram"
+
+#: lib/ui/screens/diagrams.dart:296
+msgid "Con IA"
+msgstr "With AI"
+
+#: lib/ui/screens/diagrams.dart:301
+msgid "Desde una base de datos"
+msgstr "From a database"
+
+#: lib/ui/screens/diagrams.dart:309
+msgid "Cree un diagrama de flujo o de base de datos."
+msgstr "Create a flowchart or a database diagram."
+
+#: lib/ui/screens/diagrams.dart:352
+msgid "Flujo"
+msgstr "Flow"
+
+#: lib/ui/screens/diagrams.dart:372
+msgid "Nombre del diagrama"
+msgstr "Diagram name"
+
+#: lib/ui/screens/diagrams.dart:386
+msgid "Eliminar diagrama"
+msgstr "Delete diagram"
+
+#: lib/ui/screens/diagrams.dart:528
+msgid "Cambiar el diagrama con IA"
+msgstr "Change the diagram with AI"
+
+#: lib/ui/screens/diagrams.dart:537
+msgid "p. ej. Añade una tabla de facturas relacionada con clientes"
+msgstr "e.g. Add an invoices table related to customers"
+
+#: lib/ui/screens/diagrams.dart:540
+msgid "p. ej. Añade un paso de enviar correo de confirmación al final"
+msgstr "e.g. Add a step that sends a confirmation email at the end"
+
+#: lib/ui/screens/diagrams.dart:627
+msgid "SQL del diagrama"
+msgstr "Diagram SQL"
+
+#: lib/ui/screens/diagrams.dart:633
+msgid "No hay tablas."
+msgstr "There are no tables."
+
+#: lib/ui/screens/diagrams.dart:659 lib/ui/screens/diagrams.dart:859
+msgid "Tabla"
+msgstr "Table"
+
+#: lib/ui/screens/diagrams.dart:674
+msgid "Añadir {0}"
+msgstr "Add {0}"
+
+#: lib/ui/screens/diagrams.dart:684
+msgid "Ordenar"
+msgstr "Arrange"
+
+#: lib/ui/screens/diagrams.dart:692
+msgid "Cambiar con IA"
+msgstr "Change with AI"
+
+#: lib/ui/screens/diagrams.dart:698
+msgid "SQL"
+msgstr "SQL"
+
+#: lib/ui/screens/diagrams.dart:703
+msgid "Exportar a PDF"
+msgstr "Export to PDF"
+
+#: lib/ui/screens/diagrams.dart:718
+msgid "Elija la figura de destino de la conexión."
+msgstr "Choose the target shape of the connection."
+
+#: lib/ui/screens/diagrams.dart:811
+msgid "Conectar con otra figura"
+msgstr "Connect to another shape"
+
+#: lib/ui/screens/diagrams.dart:888
+msgid "Nombre de la tabla"
+msgstr "Table name"
+
+#: lib/ui/screens/diagrams.dart:900
+msgid "Forma"
+msgstr "Shape"
+
+#: lib/ui/screens/diagrams.dart:951
+msgid "Columnas"
+msgstr "Columns"
+
+#: lib/ui/screens/diagrams.dart:959
+msgid "Clave primaria"
+msgstr "Primary key"
+
+#: lib/ui/screens/diagrams.dart:974
+msgid "columna"
+msgstr "column"
+
+#: lib/ui/screens/diagrams.dart:98
+msgid "Diagrama con IA"
+msgstr "Diagram with AI"
+
+#: lib/ui/screens/diagrams.dart:98
+msgid "Nuevo diagrama"
+msgstr "New diagram"
+
+#: lib/ui/screens/settings_screen.dart:127
+msgid "Inteligencia artificial"
+msgstr "Artificial intelligence"
+
+#: lib/ui/screens/settings_screen.dart:129
+msgid "La IA diseña ventanas, escribe los manejadores de eventos, propone cambios en el Editor y dibuja diagramas. La clave se guarda solo en este equipo."
+msgstr "The AI designs windows, writes event handlers, proposes changes in the Editor and draws diagrams. The key is stored only on this computer."
+
+#: lib/ui/screens/settings_screen.dart:137
+msgid "Proveedor"
+msgstr "Vendor"
+
+#: lib/ui/screens/settings_screen.dart:158
+msgid "Clave de la API"
+msgstr "API key"
+
+#: lib/ui/screens/settings_screen.dart:170
+msgid "URL base de la API"
+msgstr "API base URL"
+
+#: lib/ui/screens/settings_screen.dart:189
+msgid "Modelo"
+msgstr "Model"
+
+#: lib/ui/screens/settings_screen.dart:198
+msgid "Consultar modelos"
+msgstr "Fetch models"
+
+#: lib/ui/screens/settings_screen.dart:229
+msgid "Idioma"
+msgstr "Language"
+
+#: lib/ui/screens/settings_screen.dart:247
+msgid "Apariencia"
+msgstr "Appearance"
+
+#: lib/ui/screens/settings_screen.dart:254
+msgid "Sistema"
+msgstr "System"
+
+#: lib/ui/screens/settings_screen.dart:274
+msgid "Acerca de"
+msgstr "About"
+
+#: lib/ui/screens/settings_screen.dart:278
+msgid "IDE visual al estilo de Delphi para crear aplicaciones de Python (tkinter y Flask). Próximamente, Electron."
+msgstr "Delphi-style visual IDE for building Python apps (tkinter and Flask). Electron coming soon."
+
+#: lib/ui/screens/settings_screen.dart:86
+msgid "Ajustes de la IA guardados."
+msgstr "AI settings saved."
+
+#: lib/ui/screens/tk_designer.dart:1040
+msgid "El código ha cambiado"
+msgstr "The code has changed"
+
+#: lib/ui/screens/tk_designer.dart:1041
+msgid "El código ha cambiado mientras la IA trabajaba. ¿Reemplazarlo por la propuesta?"
+msgstr "The code changed while the AI was working. Replace it with the proposal?"
+
+#: lib/ui/screens/tk_designer.dart:1094
+msgid "Exportada. Necesita Flask (pip install flask)."
+msgstr "Exported. It needs Flask (pip install flask)."
+
+#: lib/ui/screens/tk_designer.dart:1095
+msgid "Exportada. Necesita Flask, y sus conexiones de datos leen las variables DMSTUDIO_DB_… del entorno."
+msgstr "Exported. It needs Flask, and its data connections read the DMSTUDIO_DB_… environment variables."
+
+#: lib/ui/screens/tk_designer.dart:110
+msgid "Abrir proyecto"
+msgstr "Open project"
+
+#: lib/ui/screens/tk_designer.dart:1107
+msgid "Nombre de la aplicación"
+msgstr "Application name"
+
+#: lib/ui/screens/tk_designer.dart:1126
+msgid "¿Guardar los cambios antes de cerrar? Si los descarta, se pierden los del diseño; el código sin guardar sigue en su pestaña del Editor."
+msgstr "Save the changes before closing? If you discard them, the design changes are lost; the unsaved code stays in its Editor tab."
+
+#: lib/ui/screens/tk_designer.dart:1129
+msgid "¿Guardar los cambios antes de cerrar?"
+msgstr "Save the changes before closing?"
+
+#: lib/ui/screens/tk_designer.dart:1182
+msgid "Volver a los proyectos"
+msgstr "Back to projects"
+
+#: lib/ui/screens/tk_designer.dart:1195
+msgid "Deshacer"
+msgstr "Undo"
+
+#: lib/ui/screens/tk_designer.dart:1202
+msgid "Ejecutar (F9)"
+msgstr "Run (F9)"
+
+#: lib/ui/screens/tk_designer.dart:121
+msgid "Usar esta carpeta"
+msgstr "Use this folder"
+
+#: lib/ui/screens/tk_designer.dart:1215
+msgid "Abrir en el navegador"
+msgstr "Open in browser"
+
+#: lib/ui/screens/tk_designer.dart:1222
+msgid "Exportar el archivo .py"
+msgstr "Export the .py file"
+
+#: lib/ui/screens/tk_designer.dart:1225
+msgid "Mostrar la carpeta del proyecto"
+msgstr "Show the project folder"
+
+#: lib/ui/screens/tk_designer.dart:1230 lib/ui/screens/tk_designer.dart:1778
+msgid "Pedir a la IA"
+msgstr "Ask the AI"
+
+#: lib/ui/screens/tk_designer.dart:1243
+msgid "Alinear a la izquierda"
+msgstr "Align left"
+
+#: lib/ui/screens/tk_designer.dart:1248
+msgid "Centrar en horizontal"
+msgstr "Center horizontally"
+
+#: lib/ui/screens/tk_designer.dart:1253
+msgid "Alinear a la derecha"
+msgstr "Align right"
+
+#: lib/ui/screens/tk_designer.dart:1258
+msgid "Alinear arriba"
+msgstr "Align top"
+
+#: lib/ui/screens/tk_designer.dart:1263
+msgid "Centrar en vertical"
+msgstr "Center vertically"
+
+#: lib/ui/screens/tk_designer.dart:1268
+msgid "Alinear abajo"
+msgstr "Align bottom"
+
+#: lib/ui/screens/tk_designer.dart:1273
+msgid "Igualar el ancho"
+msgstr "Same width"
+
+#: lib/ui/screens/tk_designer.dart:1278
+msgid "Igualar el alto"
+msgstr "Same height"
+
+#: lib/ui/screens/tk_designer.dart:1284
+msgid "Ajustar a la rejilla"
+msgstr "Snap to grid"
+
+#: lib/ui/screens/tk_designer.dart:1291
+msgid "Ver la salida"
+msgstr "Show output"
+
+#: lib/ui/screens/tk_designer.dart:1331
+msgid "Arrástrelo a la ventana ({0})"
+msgstr "Drag it onto the window ({0})"
+
+#: lib/ui/screens/tk_designer.dart:134
+msgid "Eliminar el proyecto"
+msgstr "Delete the project"
+
+#: lib/ui/screens/tk_designer.dart:136
+msgid "¿Llevar «{0}» a la papelera del área de trabajo? Se perderá su código sin guardar en el Editor."
+msgstr "Move “{0}” to the workspace trash? Its unsaved code in the Editor will be lost."
+
+#: lib/ui/screens/tk_designer.dart:140
+msgid "¿Llevar «{0}» a la papelera del área de trabajo (carpeta {1})?"
+msgstr "Move “{0}” to the workspace trash (folder {1})?"
+
+#: lib/ui/screens/tk_designer.dart:1445
+msgid "Diseño"
+msgstr "Design"
+
+#: lib/ui/screens/tk_designer.dart:1447
+msgid "Python generado"
+msgstr "Generated Python"
+
+#: lib/ui/screens/tk_designer.dart:1472
+msgid "F12: código"
+msgstr "F12: code"
+
+#: lib/ui/screens/tk_designer.dart:1472
+msgid "F12: diseño"
+msgstr "F12: design"
+
+#: lib/ui/screens/tk_designer.dart:1541
+msgid "Aún no se ha ejecutado."
+msgstr "It has not run yet."
+
+#: lib/ui/screens/tk_designer.dart:1543
+msgid "Terminó con el código {0}."
+msgstr "Ended with code {0}."
+
+#: lib/ui/screens/tk_designer.dart:1545
+msgid "En marcha en {0}: solo en este equipo, sin publicar."
+msgstr "Running at {0}: on this computer only, not published."
+
+#: lib/ui/screens/tk_designer.dart:1548
+msgid "En ejecución en su propia ventana."
+msgstr "Running in its own window."
+
+#: lib/ui/screens/tk_designer.dart:1636
+msgid "Mi aplicación"
+msgstr "My app"
+
+#: lib/ui/screens/tk_designer.dart:167
+msgid "Buscando Python…"
+msgstr "Looking for Python…"
+
+#: lib/ui/screens/tk_designer.dart:1672 lib/ui/screens/tk_inspector.dart:126
+msgid "Escritorio (Python)"
+msgstr "Desktop (Python)"
+
+#: lib/ui/screens/tk_designer.dart:1677 lib/ui/screens/tk_inspector.dart:126
+msgid "Web (Flask)"
+msgstr "Web (Flask)"
+
+#: lib/ui/screens/tk_designer.dart:1687
+msgid "El mismo diseñador y el mismo Python: la página se abre en su navegador y el código corre en un servidor de este equipo. Necesita Flask. El destino no se puede cambiar después."
+msgstr "The same designer and the same Python: the page opens in your browser and the code runs on a server on this computer. It needs Flask. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart:1690
+msgid "Una ventana del sistema con tkinter. El destino no se puede cambiar después."
+msgstr "A system window with tkinter. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart:172
+msgid "Python {0} con Tk {1} ({2})"
+msgstr "Python {0} with Tk {1} ({2})"
+
+#: lib/ui/screens/tk_designer.dart:1752
+msgid "Imagen"
+msgstr "Image"
+
+#: lib/ui/screens/tk_designer.dart:179
+msgid "No se encontró Python."
+msgstr "Python was not found."
+
+#: lib/ui/screens/tk_designer.dart:1802
+msgid "Cambiar"
+msgstr "Switch"
+
+#: lib/ui/screens/tk_designer.dart:1803
+msgid "Ventana nueva"
+msgstr "New window"
+
+#: lib/ui/screens/tk_designer.dart:1807
+msgid "Código de {0}"
+msgstr "Code of {0}"
+
+#: lib/ui/screens/tk_designer.dart:1823
+msgid "Una ventana de facturas con cliente, fecha, tabla de líneas y botón guardar"
+msgstr "An invoice window with customer, date, a table of lines and a save button"
+
+#: lib/ui/screens/tk_designer.dart:1826
+msgid "Escribe el código de este botón: …"
+msgstr "Write the code of this button: …"
+
+#: lib/ui/screens/tk_designer.dart:1827
+msgid "Añade un campo de teléfono y alinea los botones"
+msgstr "Add a phone field and align the buttons"
+
+#: lib/ui/screens/tk_designer.dart:1838
+msgid "Adjuntar un boceto"
+msgstr "Attach a sketch"
+
+#: lib/ui/screens/tk_designer.dart:1854
+msgid "Se envían el diseño y su código al proveedor de IA elegido, nunca contraseñas ni claves. Verá la propuesta antes de aplicarla."
+msgstr "The design and its code go to your chosen AI provider, never passwords or keys. You will see the proposal before applying it."
+
+#: lib/ui/screens/tk_designer.dart:1879
+msgid "Pedir"
+msgstr "Ask"
+
+#: lib/ui/screens/tk_designer.dart:1913
+msgid "Propuesta de la IA"
+msgstr "AI proposal"
+
+#: lib/ui/screens/tk_designer.dart:1927
+msgid "Ahora"
+msgstr "Now"
+
+#: lib/ui/screens/tk_designer.dart:1929
+msgid "Propuesta"
+msgstr "Proposal"
+
+#: lib/ui/screens/tk_designer.dart:1934
+msgid "Métodos: {0}"
+msgstr "Methods: {0}"
+
+#: lib/ui/screens/tk_designer.dart:1939
+msgid "El código de la IA no se ejecuta solo: al ejecutar la ventana, pasa por la misma aprobación que cualquier otro."
+msgstr "AI code never runs by itself: when you run the window, it goes through the same approval as any other code."
+
+#: lib/ui/screens/tk_designer.dart:194
+msgid "Volver a buscar Python"
+msgstr "Look for Python again"
+
+#: lib/ui/screens/tk_designer.dart:1946
+msgid "Ver el código"
+msgstr "View the code"
+
+#: lib/ui/screens/tk_designer.dart:245
+msgid "Aplicación web con Flask"
+msgstr "Web app with Flask"
+
+#: lib/ui/screens/tk_designer.dart:279
+msgid "Mostrar la carpeta"
+msgstr "Show the folder"
+
+#: lib/ui/screens/tk_designer.dart:285
+msgid "Más acciones"
+msgstr "More actions"
+
+#: lib/ui/screens/tk_designer.dart:290
+msgid "Duplicar"
+msgstr "Duplicate"
+
+#: lib/ui/screens/tk_designer.dart:314
+msgid "Diseñador de interfaz"
+msgstr "Interface designer"
+
+#: lib/ui/screens/tk_designer.dart:319 lib/ui/screens/tk_designer.dart:1652
+msgid "Nuevo proyecto"
+msgstr "New project"
+
+#: lib/ui/screens/tk_designer.dart:33
+msgid "Tk {0} es antiguo y no respeta los colores del diseño. {1}"
+msgstr "Tk {0} is old and does not honor the colors of the design. {1}"
+
+#: lib/ui/screens/tk_designer.dart:332
+msgid "Diseñe ventanas de escritorio con tkinter arrastrando componentes, como en Delphi. Cada una se abre en su propia ventana del sistema y se ejecuta en este equipo con los permisos de su usuario. En macOS, los botones tienen el aspecto del sistema y no toman el color de fondo."
+msgstr "Design tkinter desktop windows by dragging components, as in Delphi. Each one opens in its own system window and runs on this computer with your user’s permissions. On macOS, buttons use the system look and ignore the background color."
+
+#: lib/ui/screens/tk_designer.dart:339
+msgid "Las aplicaciones web usan el mismo diseñador y el mismo Python, con Flask: el código corre en un servidor de este equipo y la página se abre en su navegador. Solo se llega a ellas desde este equipo."
+msgstr "Web apps use the same designer and the same Python, with Flask: the code runs on a server on this computer and the page opens in your browser. They can only be reached from this computer."
+
+#: lib/ui/screens/tk_designer.dart:353
+msgid "Área de trabajo: {0}"
+msgstr "Workspace: {0}"
+
+#: lib/ui/screens/tk_designer.dart:361
+msgid "Mostrar"
+msgstr "Show"
+
+#: lib/ui/screens/tk_designer.dart:366
+msgid "Cambiar…"
+msgstr "Change…"
+
+#: lib/ui/screens/tk_designer.dart:378
+msgid "Aún no hay proyectos. Cree uno con «Nuevo proyecto»."
+msgstr "No projects yet. Create one with “New project”."
+
+#: lib/ui/screens/tk_designer.dart:603
+msgid "Se ha restaurado el diseño, pero no el código: cambió a mano después de ese paso."
+msgstr "The design was restored, but not the code: it was edited by hand after that step."
+
+#: lib/ui/screens/tk_designer.dart:841
+msgid "Cortar"
+msgstr "Cut"
+
+#: lib/ui/screens/tk_designer.dart:843
+msgid "Pegar"
+msgstr "Paste"
+
+#: lib/ui/screens/tk_designer.dart:846
+msgid "Traer al frente"
+msgstr "Bring to front"
+
+#: lib/ui/screens/tk_designer.dart:847
+msgid "Enviar al fondo"
+msgstr "Send to back"
+
+#: lib/ui/screens/tk_designer.dart:870 lib/ui/screens/tk_designer.dart:879
+msgid "Ese nombre ya existe."
+msgstr "That name already exists."
+
+#: lib/ui/screens/tk_inspector.dart:124
+msgid "Destino"
+msgstr "Destination"
+
+#: lib/ui/screens/tk_inspector.dart:134
+msgid "El código corre en Python, en el servidor. Solo se abre en este equipo: esta versión no publica ni escucha en la red. Siempre encima y Redimensionable no existen en una página."
+msgstr "The code runs in Python, on the server. It only opens on this computer: this version does not publish or listen on the network. Always on top and Resizable do not exist on a page."
+
+#: lib/ui/screens/tk_inspector.dart:140 lib/ui/screens/tk_inspector.dart:182
+msgid "Ancho"
+msgstr "Width"
+
+#: lib/ui/screens/tk_inspector.dart:141 lib/ui/screens/tk_inspector.dart:185
+msgid "Alto"
+msgstr "Height"
+
+#: lib/ui/screens/tk_inspector.dart:216
+msgid "Sin conexión (guárdela en Bases de datos)"
+msgstr "No connection (save one in Databases)"
+
+#: lib/ui/screens/tk_inspector.dart:218
+msgid "(ninguna)"
+msgstr "(none)"
+
+#: lib/ui/screens/tk_inspector.dart:395 lib/ui/screens/tk_inspector.dart:510
+msgid "Elegir color"
+msgstr "Choose colour"
+
+#: lib/ui/screens/tk_inspector.dart:431
+msgid "Color (#rrggbb o nombre de Tk)"
+msgstr "Color (#rrggbb or Tk name)"
+
+#: lib/ui/screens/tk_inspector.dart:441
+msgid "Sin color"
+msgstr "No color"
+
+#: lib/ui/screens/tk_inspector.dart:488
+msgid "(de serie)"
+msgstr "(default)"
+
+#: lib/ui/screens/tk_inspector.dart:58
+msgid "{0} componentes seleccionados"
+msgstr "{0} components selected"
+
+#: lib/ui/screens/tk_inspector.dart:622
+msgid "Ir al código"
+msgstr "Go to code"
+
+#: lib/ui/screens/tk_inspector.dart:72
+msgid "Propiedades"
+msgstr "Properties"
+
+#: lib/ui/screens/tk_inspector.dart:73
+msgid "Eventos"
+msgstr "Events"
+
+#: lib/ui/screens/tk_inspector.dart:92
+msgid "{0}: sin equivalente en una aplicación web."
+msgstr "{0}: no equivalent in a web app."
+
+#: lib/ui/theme.dart:53
+msgid "Azul"
+msgstr "Blue"
+
+#: lib/ui/theme.dart:54
+msgid "Azul oscuro"
+msgstr "Dark blue"
+
+#: lib/ui/theme.dart:55
+msgid "Turquesa"
+msgstr "Teal"
+
+#: lib/ui/theme.dart:56
+msgid "Verde oscuro"
+msgstr "Dark green"
+
+#: lib/ui/theme.dart:57
+msgid "Verde"
+msgstr "Green"
+
+#: lib/ui/theme.dart:58
+msgid "Lima"
+msgstr "Lime"
+
+#: lib/ui/theme.dart:59
+msgid "Ámbar"
+msgstr "Amber"
+
+#: lib/ui/theme.dart:60
+msgid "Naranja"
+msgstr "Orange"
+
+#: lib/ui/theme.dart:61
+msgid "Rojo"
+msgstr "Red"
+
+#: lib/ui/theme.dart:62
+msgid "Granate"
+msgstr "Crimson"
+
+#: lib/ui/theme.dart:63
+msgid "Magenta"
+msgstr "Magenta"
+
+#: lib/ui/theme.dart:64
+msgid "Púrpura"
+msgstr "Purple"
+
+#: lib/ui/theme.dart:65
+msgid "Violeta"
+msgstr "Purple"
+
+#: lib/ui/theme.dart:66
+msgid "Ciruela"
+msgstr "Plum"
+
+#: lib/ui/theme.dart:67
+msgid "Gris"
+msgstr "Gray"
+
+#: lib/ui/theme.dart:68
+msgid "Negro"
+msgstr "Black"
+
+#: lib/ui/tk_launch.dart:100
+msgid "Falta Flask"
+msgstr "Flask is missing"
+
+#: lib/ui/tk_launch.dart:108
+msgid "Las aplicaciones web necesitan Flask en el Python de este equipo. Instálelo con esta orden:"
+msgstr "Web apps need Flask in the Python on this computer. Install it with this command:"
+
+#: lib/ui/tk_launch.dart:118 lib/ui/tk_launch.dart:150
+msgid "Después, vuelva a intentarlo."
+msgstr "Then try again."
+
+#: lib/ui/tk_launch.dart:123 lib/ui/tk_launch.dart:160 lib/ui/screens/code_claude.dart:432 lib/ui/screens/code_git.dart:624 lib/ui/screens/code_git.dart:1315 lib/ui/screens/code_git.dart:1703 lib/ui/screens/code_studio.dart:1532 lib/ui/screens/code_studio.dart:1746 lib/ui/screens/code_studio.dart:1968 lib/ui/screens/diagrams.dart:646 lib/ui/screens/diagrams.dart:876
+msgid "Cerrar"
+msgstr "Close"
+
+#: lib/ui/tk_launch.dart:137
+msgid "Falta Python"
+msgstr "Python is missing"
+
+#: lib/ui/tk_launch.dart:137
+msgid "Falta Python con tkinter"
+msgstr "Python with tkinter is missing"
+
+#: lib/ui/tk_launch.dart:145 lib/ui/screens/tk_designer.dart:179
+msgid "Se encontró {0}, pero no trae tkinter."
+msgstr "Found {0}, but it does not include tkinter."
+
+#: lib/ui/tk_launch.dart:26
+msgid "No se pudo abrir el navegador."
+msgstr "The browser could not be opened."
+
+#: lib/ui/tk_launch.dart:79
+msgid "«{0}» terminó con un error: {1}"
+msgstr "“{0}” ended with an error: {1}"
+
+#: lib/ui/widgets.dart:102 lib/ui/widgets.dart:128 lib/ui/screens/code_git.dart:934 lib/ui/screens/code_git.dart:1455 lib/ui/screens/code_git.dart:1880 lib/ui/screens/code_studio.dart:481 lib/ui/screens/dev_tools.dart:949 lib/ui/screens/dev_tools.dart:1015 lib/ui/screens/diagrams.dart:147 lib/ui/screens/diagrams.dart:218 lib/ui/screens/diagrams.dart:549 lib/ui/screens/diagrams.dart:723 lib/ui/screens/tk_designer.dart:1134 lib/ui/screens/tk_designer.dart:1701 lib/ui/screens/tk_designer.dart:1865 lib/ui/screens/tk_inspector.dart:445
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: lib/ui/widgets.dart:236
+msgid "Buscar..."
+msgstr "Search..."
+
+#: lib/ui/widgets.dart:35
+msgid "Error inesperado"
+msgstr "Unexpected error"
+
+#: lib/ui/widgets.dart:35
+msgid "No se pudo hacer"
+msgstr "Could not be done"
+
+#: lib/ui/widgets.dart:44 lib/ui/screens/dev_tools.dart:1552 lib/ui/screens/diagrams.dart:642 lib/ui/screens/tk_designer.dart:842
+msgid "Copiar"
+msgstr "Copy"
+
+#: lib/ui/widgets.dart:48 lib/ui/widgets.dart:106 lib/ui/widgets.dart:135 lib/ui/screens/tk_inspector.dart:449
+msgid "Aceptar"
+msgstr "OK"

@@ -1,0 +1,96 @@
+name: build
+
+# Compila DMarlon Studio para macOS y Windows y publica los zips en la
+# release «latest», que es de donde los enlaza la landing (dmarlonstudio.com).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'studio/**'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: studio
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.4
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - run: flutter test
+
+  windows:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.4
+          channel: stable
+      - run: flutter build windows --release
+      - name: Empaquetar carpeta portable
+        shell: pwsh
+        run: |
+          $dist = "DMarlonStudio-Windows"
+          New-Item -ItemType Directory -Force $dist | Out-Null
+          Copy-Item -Recurse -Force build/windows/x64/runner/Release/* $dist/
+          # Runtime de Visual C++ (despliegue local junto al .exe).
+          foreach ($dll in 'msvcp140.dll', 'vcruntime140.dll', 'vcruntime140_1.dll') {
+            Copy-Item "$env:WINDIR/System32/$dll" $dist/
+          }
+          Copy-Item packaging/windows/LEEME.txt $dist/
+          Get-ChildItem -Recurse $dist | Select-Object FullName, Length
+          Compress-Archive -Path $dist -DestinationPath DMarlonStudio-Windows.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DMarlonStudio-Windows
+          path: studio/DMarlonStudio-Windows.zip
+
+  macos:
+    needs: test
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.4
+          channel: stable
+      - run: flutter build macos --release
+      - name: Empaquetar
+        run: ditto -c -k --keepParent "build/macos/Build/Products/Release/DMarlon Studio.app" DMarlonStudio-macOS.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DMarlonStudio-macOS
+          path: studio/DMarlonStudio-macOS.zip
+
+  release:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: DMarlon Studio (última compilación)
+          prerelease: true
+          make_latest: false
+          files: |
+            DMarlonStudio-Windows.zip
+            DMarlonStudio-macOS.zip

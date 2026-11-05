@@ -1,0 +1,36 @@
+DMarlon Studio (Windows x64)
+============================
+
+Cómo usarlo
+-----------
+1. Descomprima esta carpeta completa donde quiera (Escritorio, Documentos,
+   un pendrive...). No la ponga en "Archivos de programa".
+2. Ejecute DMarlonStudio.exe.
+   La primera vez Windows puede mostrar "Windows protegió su PC":
+   pulse "Más información" y luego "Ejecutar de todas formas"
+   (la aplicación no está firmada digitalmente).
+
+Requisitos
+----------
+- Python 3 desde python.org con la opción "tcl/tk and IDLE" marcada
+  (trae tkinter), para ejecutar las ventanas que diseñe.
+- Flask para las aplicaciones web:  py -3 -m pip install flask
+- git, si quiere usar el control de versiones del Editor.
+
+Dónde se guarda todo
+--------------------
+- Proyectos del Diseñador: Documentos\DMarlon Studio\Proyectos (una carpeta
+  por proyecto, que puede versionar con git).
+- Ajustes, conexiones, peticiones de API y diagramas: studio.sqlite, en la
+  carpeta de datos de la aplicación del usuario.
+
+Contenido
+---------
+DMarlonStudio.exe               Aplicación
+flutter_windows.dll, data\      Motor de la interfaz
+sqlite3.dll                     Motor SQLite
+msvcp140.dll, vcruntime140.dll, vcruntime140_1.dll
+                                Runtime de Visual C++ (incluido para que funcione
+                                sin instalar nada más)
+
+https://dmarlonstudio.com

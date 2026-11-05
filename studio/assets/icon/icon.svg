@@ -1,0 +1,27 @@
+<!-- DMarlon Studio: maestro del icono (rejilla de macOS, 1024 con margen de 100).
+     Una «D» seleccionada en el diseñador: caja discontinua y tiradores.
+     Los PNG y el .ico se generan con studio/tool/make_icon.py. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="100" y1="100" x2="924" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#487EFF"/>
+      <stop offset="0.5" stop-color="#2B5FD9"/>
+      <stop offset="1" stop-color="#34249E"/>
+    </linearGradient>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+  <rect x="252" y="250" width="520" height="524" fill="none" stroke="#fff" stroke-opacity="0.6" stroke-width="10" stroke-dasharray="34 22"/>
+  <path fill="#fff" fill-rule="evenodd" d="M302 300H510A212 212 0 0 1 510 724H302ZM390 388V636H510A124 124 0 0 0 510 388Z"/>
+  <g fill="#fff">
+    <rect x="222" y="220" width="60" height="60" rx="13"/>
+    <rect x="742" y="220" width="60" height="60" rx="13"/>
+    <rect x="222" y="744" width="60" height="60" rx="13"/>
+    <rect x="742" y="744" width="60" height="60" rx="13"/>
+  </g>
+  <g fill="#2B5FD9">
+    <rect x="237" y="235" width="30" height="30" rx="6"/>
+    <rect x="757" y="235" width="30" height="30" rx="6"/>
+    <rect x="237" y="759" width="30" height="30" rx="6"/>
+    <rect x="757" y="759" width="30" height="30" rx="6"/>
+  </g>
+</svg>

@@ -1,0 +1,492 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+
+import '../code/tk_codegen.dart';
+import '../code/tk_examples.dart';
+import '../code/tk_model.dart';
+import '../code/tk_run_types.dart';
+import '../db/dev_tools.dart';
+import '../i18n/tr.dart';
+import 'errors.dart';
+import 'settings.dart';
+
+/// Versión del estudio que se anota en cada proyecto.
+const studioVersion = '0.1.0';
+
+/// Proyecto del Diseñador de interfaz tal como está en el disco.
+///
+/// Un proyecto es una carpeta con:
+/// - `project.dmsproj`: JSON con el nombre, la descripción, el destino
+///   (escritorio o web), el diseño de la ventana y las fechas;
+/// - `<Ventana>.py`: el código del usuario (la «unidad», como en Delphi);
+/// - `build/<nombre>.py`: el archivo de Python generado al ejecutar o
+///   exportar (se puede borrar: se rehace de los otros dos).
+class StudioProject {
+  StudioProject({
+    required this.path,
+    required this.name,
+    this.description,
+    required this.design,
+    required this.code,
+    this.seed,
+    this.created = '',
+    this.modified = '',
+  });
+
+  /// Carpeta del proyecto: es su identificador.
+  final String path;
+  final String name;
+  final String? description;
+  final TkDesign design;
+  final String code;
+
+  /// Ejemplo del que salió (null = creado por el usuario).
+  final String? seed;
+  final String created, modified;
+
+  bool get isWeb => design.isWeb;
+}
+
+/// Proyectos en carpetas del disco: el área de trabajo, los recientes de
+/// fuera de ella, la papelera y los ejemplos de la primera vez.
+class ProjectStore {
+  ProjectStore._();
+
+  static const projectFile = 'project.dmsproj';
+  static const buildDir = 'build';
+  static const trashDir = '.papelera';
+  static const _format = 'dmarlonstudio.project';
+
+  static const _workspaceKey = 'workspace.dir';
+  static const _recentKey = 'projects.recent';
+  static const _seededKey = 'projects.seeded';
+
+  /// Carpeta del área de trabajo en las pruebas.
+  static String? workspaceOverride;
+
+  // --------------------------------------------------------- área de trabajo
+  /// Carpeta por defecto: `~/Documents/DMarlon Studio/Proyectos`.
+  static Future<String> defaultWorkspace() async {
+    String docs;
+    try {
+      docs = (await getApplicationDocumentsDirectory()).path;
+    } on Object {
+      docs = p.join(
+        Platform.environment['HOME'] ??
+            Platform.environment['USERPROFILE'] ??
+            Directory.systemTemp.path,
+        'Documents',
+      );
+    }
+    return p.join(docs, 'DMarlon Studio', 'Proyectos');
+  }
+
+  /// Carpeta del área de trabajo (se crea si no existe).
+  static Future<String> workspaceDir() async {
+    final dir =
+        workspaceOverride ??
+        await Settings.get(_workspaceKey) ??
+        await defaultWorkspace();
+    await Directory(dir).create(recursive: true);
+    return dir;
+  }
+
+  /// Cambia el área de trabajo (null vuelve a la de serie). Los ejemplos se
+  /// cargan también en la nueva la primera vez que se abra.
+  static Future<void> setWorkspaceDir(String? dir) async {
+    await Settings.set(_workspaceKey, dir?.trim().isEmpty ?? true ? null : dir);
+  }
+
+  static bool isProject(String dir) =>
+      File(p.join(dir, projectFile)).existsSync();
+
+  /// Nombre de archivo a partir de un nombre libre: `Mi ventana` → `mi_ventana`.
+  static String slug(String name) {
+    const from = 'áàäâãéèëêíìïîóòöôõúùüûñç';
+    const to = 'aaaaaeeeeiiiiooooouuuunc';
+    final lower = name.toLowerCase();
+    final b = StringBuffer();
+    for (final ch in lower.split('')) {
+      final i = from.indexOf(ch);
+      b.write(i < 0 ? ch : to[i]);
+    }
+    final s = b
+        .toString()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), '_')
+        .replaceAll(RegExp(r'^_+|_+$'), '');
+    return s.isEmpty ? 'proyecto' : s;
+  }
+
+  /// Carpeta libre dentro de [parent] para [name].
+  static String _freeDir(String parent, String name) {
+    final base = slug(name);
+    var dir = p.join(parent, base);
+    for (var i = 2; Directory(dir).existsSync(); i++) {
+      dir = p.join(parent, '${base}_$i');
+    }
+    return dir;
+  }
+
+  // -------------------------------------------------------------- lectura
+  static Future<Map<String, Object?>> _readMeta(String dir) async {
+    final f = File(p.join(dir, projectFile));
+    if (!f.existsSync()) {
+      throw UserError(tr('«{0}» no es un proyecto de DMarlon Studio.', [dir]));
+    }
+    try {
+      final j = jsonDecode(await f.readAsString());
+      if (j is Map) return j.cast<String, Object?>();
+    } on FormatException {
+      // Abajo.
+    }
+    throw UserError(tr('El archivo {0} está dañado.', [f.path]));
+  }
+
+  /// Archivo del código del usuario de [design] en [dir].
+  static String unitPath(String dir, TkDesign design) =>
+      p.join(dir, '${design.name}.py');
+
+  /// Lee el proyecto de la carpeta [dir] (null si ya no existe).
+  static Future<StudioProject?> get(String dir) async {
+    if (!isProject(dir)) return null;
+    final j = await _readMeta(dir);
+    final design = TkDesign.fromJson(
+      ((j['design'] as Map?) ?? const {}).cast<String, Object?>(),
+    );
+    final unit = File(p.join(dir, '${j['unit'] ?? '${design.name}.py'}'));
+    final code = unit.existsSync() ? await unit.readAsString() : '';
+    return StudioProject(
+      path: dir,
+      name: '${j['name'] ?? p.basename(dir)}',
+      description: j['description'] as String?,
+      design: design,
+      code: code.replaceAll('\r\n', '\n'),
+      seed: j['seed'] as String?,
+      created: '${j['created'] ?? ''}',
+      modified: '${j['modified'] ?? ''}',
+    );
+  }
+
+  /// Proyectos del área de trabajo y los recientes de otras carpetas, del
+  /// último cambiado al más antiguo.
+  static Future<List<StudioProject>> list() async {
+    await ensureSeed();
+    final ws = await workspaceDir();
+    final dirs = <String>{};
+    await for (final e in Directory(ws).list(followLinks: false)) {
+      if (e is Directory &&
+          !p.basename(e.path).startsWith('.') &&
+          isProject(e.path)) {
+        dirs.add(p.normalize(e.path));
+      }
+    }
+    for (final r in await recent()) {
+      if (isProject(r)) dirs.add(p.normalize(r));
+    }
+    final out = <StudioProject>[];
+    for (final d in dirs) {
+      try {
+        final x = await get(d);
+        if (x != null) out.add(x);
+      } on UserError {
+        // Un proyecto dañado no impide ver los demás.
+      }
+    }
+    out.sort((a, b) {
+      final c = b.modified.compareTo(a.modified);
+      return c != 0 ? c : a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
+    return out;
+  }
+
+  // ------------------------------------------------------------ escritura
+  static Future<void> _writeAtomic(File f, String text) async {
+    await f.parent.create(recursive: true);
+    final tmp = File('${f.path}.tmp');
+    await tmp.writeAsString(text, flush: true);
+    await tmp.rename(f.path);
+  }
+
+  static Future<void> _writeMeta(
+    String dir, {
+    required String name,
+    String? description,
+    required TkDesign design,
+    String? seed,
+    String? created,
+  }) async {
+    final now = nowStr();
+    final meta = <String, Object?>{
+      'format': _format,
+      'version': 1,
+      'studio': studioVersion,
+      'name': name,
+      if (description != null && description.isNotEmpty)
+        'description': description,
+      'target': design.target,
+      'seed': ?seed,
+      'unit': '${design.name}.py',
+      'created': created ?? now,
+      'modified': now,
+      'design': design.toJson(),
+    };
+    await _writeAtomic(
+      File(p.join(dir, projectFile)),
+      '${const JsonEncoder.withIndent('  ').convert(meta)}\n',
+    );
+  }
+
+  /// Crea un proyecto nuevo en el área de trabajo (o en [parent]) y devuelve
+  /// su carpeta.
+  static Future<String> create(
+    String name, {
+    String? description,
+    TkDesign? design,
+    String? code,
+    String? seed,
+    String? parent,
+  }) async {
+    if (name.trim().isEmpty) throw UserError(tr('Indique un nombre.'));
+    final d = design ?? TkDesign();
+    if (d.props['title'] == null) d.setProp(tkFormTitle, name.trim());
+    final dir = _freeDir(parent ?? await workspaceDir(), name.trim());
+    await Directory(dir).create(recursive: true);
+    await _writeAtomic(
+      File(unitPath(dir, d)),
+      code ?? TkUnit.template(d.name, tkUnitComment(web: d.isWeb)),
+    );
+    await _writeMeta(
+      dir,
+      name: name.trim(),
+      description: description,
+      design: d,
+      seed: seed,
+    );
+    await _gitignore(dir);
+    if (parent != null) await addRecent(dir);
+    return dir;
+  }
+
+  /// Lo generado no se versiona.
+  static Future<void> _gitignore(String dir) async {
+    final f = File(p.join(dir, '.gitignore'));
+    if (!f.existsSync()) await f.writeAsString('$buildDir/\n__pycache__/\n');
+  }
+
+  /// Guarda el diseño y el código. Si la ventana cambió de nombre, su
+  /// archivo .py cambia con ella.
+  static Future<void> save(
+    String dir, {
+    String? name,
+    String? description,
+    required TkDesign design,
+    required String code,
+  }) async {
+    if (name != null && name.trim().isEmpty) {
+      throw UserError(tr('Indique un nombre.'));
+    }
+    final old = await _readMeta(dir);
+    final oldUnit = '${old['unit'] ?? ''}';
+    await _writeAtomic(File(unitPath(dir, design)), code);
+    await _writeMeta(
+      dir,
+      name: name?.trim() ?? '${old['name'] ?? p.basename(dir)}',
+      description: description ?? old['description'] as String?,
+      design: design,
+      seed: old['seed'] as String?,
+      created: old['created'] as String?,
+    );
+    if (oldUnit.isNotEmpty && oldUnit != '${design.name}.py') {
+      final f = File(p.join(dir, oldUnit));
+      if (f.existsSync()) await f.delete();
+    }
+  }
+
+  /// Guarda solo el código, sin tocar el diseño del disco.
+  static Future<void> saveCode(String dir, String code) async {
+    final j = await _readMeta(dir);
+    final design = TkDesign.fromJson(
+      ((j['design'] as Map?) ?? const {}).cast<String, Object?>(),
+    );
+    await _writeAtomic(
+      File(p.join(dir, '${j['unit'] ?? '${design.name}.py'}')),
+      code,
+    );
+    j['modified'] = nowStr();
+    await _writeAtomic(
+      File(p.join(dir, projectFile)),
+      '${const JsonEncoder.withIndent('  ').convert(j)}\n',
+    );
+  }
+
+  /// Copia el proyecto junto al original y devuelve la carpeta nueva.
+  static Future<String> duplicate(String dir) async {
+    final x = await get(dir);
+    if (x == null) throw UserError(tr('El proyecto ya no existe.'));
+    return create(
+      tr('{0} (copia)', [x.name]),
+      description: x.description,
+      design: x.design.clone(),
+      code: x.code,
+      parent: p.dirname(dir),
+    );
+  }
+
+  /// Lleva el proyecto a la papelera del área de trabajo (no se borra).
+  static Future<String> delete(String dir) async {
+    if (!isProject(dir)) throw UserError(tr('El proyecto ya no existe.'));
+    final trash = p.join(await workspaceDir(), trashDir);
+    await Directory(trash).create(recursive: true);
+    final stamp = DateTime.now()
+        .toIso8601String()
+        .replaceAll(RegExp(r'[^0-9]'), '')
+        .substring(0, 14);
+    final to = p.join(trash, '${p.basename(dir)}_$stamp');
+    try {
+      await Directory(dir).rename(to);
+    } on FileSystemException {
+      // Otro disco: se copia y se borra.
+      await _copyDir(Directory(dir), Directory(to));
+      await Directory(dir).delete(recursive: true);
+    }
+    await removeRecent(dir);
+    return to;
+  }
+
+  static Future<void> _copyDir(Directory from, Directory to) async {
+    await to.create(recursive: true);
+    await for (final e in from.list(followLinks: false)) {
+      final target = p.join(to.path, p.basename(e.path));
+      if (e is Directory) {
+        await _copyDir(e, Directory(target));
+      } else if (e is File) {
+        await e.copy(target);
+      }
+    }
+  }
+
+  // -------------------------------------------------------------- recientes
+  /// Proyectos abiertos de fuera del área de trabajo.
+  static Future<List<String>> recent() async {
+    try {
+      final j = jsonDecode(await Settings.get(_recentKey) ?? '[]');
+      return j is List ? [for (final x in j) '$x'] : const [];
+    } on FormatException {
+      return const [];
+    }
+  }
+
+  static Future<void> addRecent(String dir) async {
+    final ws = p.normalize(await workspaceDir());
+    final d = p.normalize(dir);
+    if (p.dirname(d) == ws) return;
+    final all = [d, ...(await recent()).where((x) => x != d)];
+    await Settings.set(_recentKey, jsonEncode(all.take(20).toList()));
+  }
+
+  static Future<void> removeRecent(String dir) async {
+    final d = p.normalize(dir);
+    final all = (await recent()).where((x) => x != d).toList();
+    await Settings.set(_recentKey, jsonEncode(all));
+  }
+
+  /// Abre una carpeta de cualquier sitio: tiene que ser un proyecto.
+  static Future<StudioProject> openFolder(String dir) async {
+    final x = await get(dir);
+    if (x == null) {
+      throw UserError(
+        tr('La carpeta no es un proyecto de DMarlon Studio: falta {0}.', [
+          projectFile,
+        ]),
+      );
+    }
+    await addRecent(dir);
+    return x;
+  }
+
+  // -------------------------------------------------------------- ejemplos
+  /// Ejemplos: una vez por área de trabajo, la primera vez que se lista.
+  static Future<void> ensureSeed() async {
+    final ws = await workspaceDir();
+    final seeded = (await Settings.get(_seededKey) ?? '')
+        .split('\n')
+        .where((x) => x.isNotEmpty)
+        .toSet();
+    if (seeded.contains(ws)) return;
+    for (final e in [...tkExamples(tr), ...tkWebExamples(tr)]) {
+      // Los que necesitan una conexión no guardada no se pueden ejecutar.
+      if (e.design.connections.isNotEmpty) continue;
+      await create(
+        e.name,
+        description: e.description,
+        design: e.design,
+        code: e.code,
+        seed: e.seed,
+      );
+    }
+    seeded.add(ws);
+    await Settings.set(_seededKey, seeded.join('\n'));
+  }
+
+  // ------------------------------------------------------------ ejecución
+  /// Escribe el Python generado en `build/` y devuelve su ruta.
+  static Future<String> writeBuild(StudioProject x, String source) async {
+    final f = File(p.join(x.path, buildDir, '${slug(x.name)}.py'));
+    await _writeAtomic(f, source);
+    await _gitignore(x.path);
+    return f.path;
+  }
+
+  /// Motores que una ventana puede usar.
+  static const sqlKinds = {'sqlite', 'postgres', 'mysql'};
+
+  /// Conexiones guardadas, para el inspector (solo el nombre).
+  static Future<List<String>> savedConnections() async => [
+    for (final r in await DevTools.connections())
+      if (sqlKinds.contains(r['kind'])) '${r['name']}',
+  ];
+
+  /// Conexiones que necesita la ventana, leídas de las guardadas.
+  static Future<List<TkDbLink>> _links(TkDesign d) async {
+    final saved = await DevTools.connections();
+    final out = <TkDbLink>[];
+    for (final w in d.connections) {
+      final name = w.text('connection');
+      if (name.isEmpty) continue;
+      final row = saved
+          .where((r) => r['name'] == name && sqlKinds.contains(r['kind']))
+          .firstOrNull;
+      if (row == null) {
+        throw UserError(
+          tr('«{0}» usa la conexión «{1}», que no existe en Bases de datos.', [
+            w.name,
+            name,
+          ]),
+        );
+      }
+      out.add(TkDbLink(w.name, name, '${row['kind']}', DevTools.configOf(row)));
+    }
+    return out;
+  }
+
+  /// Lee el proyecto guardado, genera su Python en `build/` y lo deja listo
+  /// para lanzarse.
+  static Future<TkPrepared> prepareRun(String dir) async {
+    final x = await get(dir);
+    if (x == null) throw UserError(tr('El proyecto ya no existe.'));
+    final source = TkCodegen.generate(x.design, x.code);
+    final links = await _links(x.design);
+    final file = await writeBuild(x, source);
+    return TkPrepared(
+      id: dir,
+      name: x.name,
+      source: source,
+      file: file,
+      links: links,
+      web: x.isWeb,
+    );
+  }
+}

@@ -1,0 +1,76 @@
+name: dmarlon_studio
+description: "DMarlon Studio: IDE visual para crear aplicaciones de Python (tkinter y Flask) y, más adelante, Electron."
+publish_to: 'none'
+
+version: 1.0.1+1
+
+environment:
+  sdk: ^3.10.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Base y almacenamiento local del estudio.
+  sqflite_common_ffi: ^2.4.0+3
+  sqflite_common: ^2.5.8
+  path_provider: ^2.1.6
+  path: ^1.9.1
+
+  # Interfaz.
+  intl: ^0.20.2
+  lucide_icons_flutter: ^3.1.25
+  file_selector: ^1.1.0
+  url_launcher: ^6.3.2
+
+  # Editor de código.
+  re_editor: ^0.10.0
+  re_highlight: ^0.0.3
+
+  # Diagramas (PDF), IA, API y git remoto.
+  pdf: ^3.12.0
+  # 4.5.4 fija: las posteriores usan una API de archive que aún no existe.
+  image: 4.5.4
+  http: ^1.6.0
+  crypto: ^3.0.7
+
+  # Conexiones del gestor de bases de datos y FTP.
+  postgres: ^3.5.20
+  mysql_client: ^0.0.27
+  mongo_dart: ^0.10.10
+  ftpconnect: ^2.0.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/
+    - assets/i18n/en.po
+    - assets/icon/icon_256.png
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lato-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+    - family: DejaVuSansMono
+      fonts:
+        - asset: assets/fonts/DejaVuSansMono.ttf
+        - asset: assets/fonts/DejaVuSansMono-Bold.ttf
+          weight: 700
+
+# mysql_client con los BLOB corregidos (third_party/mysql_client/README.md).
+dependency_overrides:
+  mysql_client:
+    path: third_party/mysql_client

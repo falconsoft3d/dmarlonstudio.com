@@ -3,6 +3,23 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.33 — 2026-11-05
+
+- **Apps móviles con Flutter**, al estilo de FlutterFlow: la pestaña Diseño
+  tiene las pantallas y el árbol de widgets a la izquierda, la paleta y un
+  teléfono con la vista previa en el centro, y las propiedades a la derecha.
+  Los widgets se enlazan con la lógica de `lib/app.dart` (una clase `App`):
+  textos con `${…}`, expresiones con `=` y acciones como `app.agregar()`,
+  `go:Detalle(item)` o `back`.
+- **Simulador del estudio**: Ejecutar compila la app con Flutter para la web
+  y la abre dentro de un marco de teléfono (iPhone, Pixel, Galaxy o iPad
+  mini, girable), sin Xcode ni Android. Al guardar se vuelve a compilar y se
+  recarga solo.
+- Dos demos: **Envíos** (resumen por estado, lista con filtro, detalle con
+  seguimiento y alta) y **Tareas** (con filtros, guardadas en el teléfono).
+- Ayuda (F1) y autocompletado de Dart; exportar el proyecto de Flutter.
+- Web y manual: Flutter entre los entornos, con su capítulo.
+
 ## 1.0.32 — 2026-11-05
 
 - **Aplicaciones de consola** en Python, C, C++ y Pascal: un programa sin

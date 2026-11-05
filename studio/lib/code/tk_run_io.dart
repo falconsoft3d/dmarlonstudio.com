@@ -11,6 +11,7 @@ import 'tk_debug.dart';
 import 'tk_chrome.dart';
 import 'tk_cpp_run.dart';
 import 'tk_console.dart';
+import 'tk_flutter_run.dart';
 import 'tk_pascal_run.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
@@ -434,6 +435,7 @@ class TkRunner {
       if (prepared.next) return await _launchNext(prepared, key, devtools);
       if (prepared.cpp) return await _launchCpp(prepared, key, devtools);
       if (prepared.pascal) return await _launchPascal(prepared, key);
+      if (prepared.flutter) return await _launchFlutter(prepared, key);
       if (prepared.console != null) {
         return await _launchConsole(prepared, key, devtools);
       }
@@ -691,6 +693,133 @@ class TkRunner {
         await Future.wait(
           done,
         ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// La app de Flutter de build/flutter: la prepara la primera vez
+  /// (`flutter create`), la sirve con `flutter run -d web-server` y la abre
+  /// en el simulador del estudio. Lo que se escribe en la entrada le llega a
+  /// `flutter run` (R: volver a compilar).
+  static Future<TkRun> _launchFlutter(TkPrepared prepared, String key) async {
+    final flutter = TkFlutterTools.flutter();
+    if (flutter == null) {
+      throw UserError(
+        tr(
+          'Falta Flutter: instálelo desde flutter.dev (o con: brew install --cask flutter).',
+        ),
+      );
+    }
+    final dir = File(prepared.file).parent.parent.path;
+    Process? proc;
+    TkFlutterSim? sim;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+      sim?.close();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        Future<bool> step(List<String> args, String label) async {
+          run.add(label);
+          final r = await Process.run(flutter, args, workingDirectory: dir);
+          if (r.exitCode == 0) return true;
+          for (final l in '${r.stdout}${r.stderr}'.split('\n')) {
+            if (l.trim().isNotEmpty) run.add(l);
+          }
+          return false;
+        }
+
+        if (!Directory(p.join(dir, 'web')).existsSync()) {
+          // flutter create no toca lo que ya hay, pero por si acaso.
+          final keep = {
+            for (final f in ['pubspec.yaml', 'lib/main.dart', 'lib/app.dart'])
+              f: await File(p.join(dir, f)).readAsString(),
+          };
+          final name = RegExp(
+            r'^name:\s*(\S+)',
+            multiLine: true,
+          ).firstMatch(keep['pubspec.yaml']!)?[1];
+          if (!await step([
+            'create',
+            '--platforms',
+            'web,ios,android,macos',
+            '--org',
+            'com.dmarlonstudio',
+            if (name != null) ...['--project-name', name],
+            '.',
+          ], tr('Creando el proyecto de Flutter (solo la primera vez)…'))) {
+            return run.finish(1);
+          }
+          for (final e in keep.entries) {
+            await File(p.join(dir, e.key)).writeAsString(e.value);
+          }
+          final tests = Directory(p.join(dir, 'test'));
+          if (tests.existsSync()) await tests.delete(recursive: true);
+        }
+        if (!await step(['pub', 'get'], tr('Preparando los paquetes…'))) {
+          return run.finish(1);
+        }
+        if (stopped) return run.finish(-1);
+        run.add(tr('Compilando para el simulador…'));
+        final port = await TkFlutterTools.freePort();
+        final started = await Process.start(flutter, [
+          'run',
+          '-d',
+          'web-server',
+          '--web-hostname',
+          '127.0.0.1',
+          '--web-port',
+          '$port',
+        ], workingDirectory: dir);
+        proc = started;
+        run.input = (line) => started.stdin.write('$line\n');
+        void onLine(String l) {
+          final served = RegExp(
+            r'is being served at (http://\S+)',
+          ).firstMatch(l);
+          if (served != null && sim == null) {
+            unawaited(() async {
+              sim = await TkFlutterSim.start(served[1]!, prepared.name);
+              run.url = sim!.url;
+              run.address = sim!.url;
+              run.add(tr('Abierta en el simulador: {0}', [sim!.url]));
+            }());
+            return;
+          }
+          if (l.startsWith('Recompile complete') ||
+              l.startsWith('Restarted application')) {
+            sim?.version++;
+            run.add(tr('Recompilada: el simulador se recarga.'));
+            return;
+          }
+          if (!TkFlutterTools.noise(l)) run.add(l);
+        }
+
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen(onLine)
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.input = null;
+        await sim?.close();
         run.finish(code);
       } on UserError catch (e) {
         run.add(e.message);

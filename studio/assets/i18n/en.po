@@ -437,11 +437,11 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -453,7 +453,7 @@ msgstr "Base"
 msgid "Bolsa de valores web"
 msgstr "Stock market (web)"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart
 msgid "Borrar"
 msgstr "Clear"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -821,7 +821,7 @@ msgstr "Only if the API asks for it"
 msgid "Superficie"
 msgstr "Area"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart
 msgid "Tareas"
 msgstr "Tasks"
 
@@ -837,7 +837,7 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr "Text"
 
@@ -873,11 +873,115 @@ msgstr "{0} tasks, {1} pending"
 msgid "{0} usuarios"
 msgstr "{0} users"
 
+#: lib/code/tk_flutter.dart
+msgid "Acción no válida: {0}"
+msgstr "Invalid action: {0}"
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart
+msgid "Botón"
+msgstr "Button"
+
+#: lib/code/tk_flutter.dart
+msgid "Botón de icono"
+msgstr "Icon button"
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart
+msgid "Campo de texto"
+msgstr "Text field"
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart
+msgid "Casilla"
+msgstr "Checkbox"
+
+#: lib/code/tk_flutter.dart
+msgid "Centrado"
+msgstr "Center"
+
+#: lib/code/tk_flutter.dart
+msgid "Columna"
+msgstr "Column"
+
+#: lib/code/tk_flutter.dart
+msgid "Contenedor"
+msgstr "Container"
+
+#: lib/code/tk_flutter.dart
+msgid "Espacio"
+msgstr "Space"
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Etiqueta"
+msgstr "Label"
+
+#: lib/code/tk_flutter.dart
+msgid "Expandido"
+msgstr "Expanded"
+
+#: lib/code/tk_flutter.dart
+msgid "Fila"
+msgstr "Row"
+
+#: lib/code/tk_flutter.dart
+msgid "Fila de lista"
+msgstr "List tile"
+
+#: lib/code/tk_flutter.dart
+msgid "Hay dos pantallas llamadas «{0}»."
+msgstr "There are two screens called “{0}”."
+
+#: lib/code/tk_flutter.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Icono"
+msgstr "Icon"
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Imagen"
+msgstr "Image"
+
+#: lib/code/tk_flutter.dart
+msgid "Interruptor"
+msgstr "Switch"
+
+#: lib/code/tk_flutter.dart
+msgid "La app no tiene pantallas."
+msgstr "The app has no screens."
+
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/project_browser.dart
+msgid "Lista"
+msgstr "List"
+
+#: lib/code/tk_flutter.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Margen"
+msgstr "Margin"
+
+#: lib/code/tk_flutter.dart
+msgid "Progreso"
+msgstr "Progress"
+
+#: lib/code/tk_flutter.dart
+msgid "Relleno"
+msgstr "Fill"
+
+#: lib/code/tk_flutter.dart
+msgid "Separador"
+msgstr "Separator"
+
+#: lib/code/tk_flutter.dart
+msgid "Tarjeta"
+msgstr "Card"
+
+#: lib/code/tk_flutter.dart
+msgid "Widget desconocido: {0}"
+msgstr "Unknown widget: {0}"
+
+#: lib/code/tk_flutter.dart
+msgid "«{0}» no sirve como nombre de pantalla."
+msgstr "“{0}” is not a valid screen name."
+
 #: lib/code/tk_model.dart
 msgid "Activo"
 msgstr "Active"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Ajuste"
 msgstr "Snap"
 
@@ -933,7 +1037,7 @@ msgstr "On clicking a point"
 msgid "Al llegar la respuesta"
 msgstr "When the answer arrives"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Al pulsar"
 msgstr "On press"
 
@@ -953,7 +1057,7 @@ msgstr "On select"
 msgid "Al terminar una llamada"
 msgstr "On call finished"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Alineación"
 msgstr "Alignment"
 
@@ -998,10 +1102,6 @@ msgid "Borde"
 msgstr "Border"
 
 #: lib/code/tk_model.dart
-msgid "Botón"
-msgstr "Button"
-
-#: lib/code/tk_model.dart
 msgid "Botón para ver la contraseña"
 msgstr "Button to show the password"
 
@@ -1026,10 +1126,6 @@ msgid "Cada intervalo"
 msgstr "Every interval"
 
 #: lib/code/tk_model.dart
-msgid "Campo de texto"
-msgstr "Text field"
-
-#: lib/code/tk_model.dart
 msgid "Campo enlazado"
 msgstr "Linked field"
 
@@ -1040,10 +1136,6 @@ msgstr "Load on open"
 #: lib/code/tk_model.dart
 msgid "Carpeta inicial (vacía = la última)"
 msgstr "Initial folder (empty = the last one)"
-
-#: lib/code/tk_model.dart
-msgid "Casilla"
-msgstr "Checkbox"
 
 #: lib/code/tk_model.dart
 msgid "Centrada en la pantalla"
@@ -1109,7 +1201,7 @@ msgstr "Console (Python)"
 msgid "Consulta SQL"
 msgstr "SQL query"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr "Password"
 
@@ -1185,17 +1277,13 @@ msgstr "Desktop (Python)"
 msgid "Esfuerzo"
 msgstr "Effort"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr "Status"
 
 #: lib/code/tk_model.dart
 msgid "Estirar"
 msgstr "Stretch"
-
-#: lib/code/tk_model.dart
-msgid "Etiqueta"
-msgstr "Label"
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
 msgid "Extensión de Chrome"
@@ -1204,6 +1292,10 @@ msgstr "Chrome extension"
 #: lib/code/tk_model.dart
 msgid "Extensión por defecto"
 msgstr "Default extension"
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Flutter (móvil)"
+msgstr "Flutter (mobile)"
 
 #: lib/code/tk_model.dart
 msgid "Fuente"
@@ -1236,10 +1328,6 @@ msgstr "Icon (a name, as in the ribbon, or a character)"
 #: lib/code/tk_model.dart
 msgid "Icono de bandeja"
 msgstr "Tray icon"
-
-#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
-msgid "Imagen"
-msgstr "Image"
 
 #: lib/code/tk_model.dart
 msgid "Imagen (ruta en el proyecto; vacía = una de serie)"
@@ -1281,10 +1369,6 @@ msgstr "Legend"
 msgid "Lienzo"
 msgstr "Canvas"
 
-#: lib/code/tk_model.dart lib/ui/screens/project_browser.dart
-msgid "Lista"
-msgstr "List"
-
 #: lib/code/tk_model.dart
 msgid "Lista desplegable"
 msgstr "Drop-down list"
@@ -1301,7 +1385,7 @@ msgstr "Maximum answer length (tokens)"
 msgid "Límite"
 msgstr "Limit"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Líneas"
 msgstr "Lines"
 
@@ -1345,7 +1429,7 @@ msgstr "Mouse move"
 msgid "Máximo"
 msgstr "Maximum"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Negrita"
 msgstr "Bold"
 
@@ -1553,7 +1637,7 @@ msgstr "Token (Bearer)"
 msgid "Token o clave (mejor en una variable)"
 msgstr "Token or key (better in a variable)"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Título"
 msgstr "Title"
 
@@ -1682,12 +1766,24 @@ msgid "No se pudo instalar Lazarus: {0}"
 msgstr "Could not install Lazarus: {0}"
 
 #: lib/code/tk_run_io.dart
+msgid "Abierta en el simulador: {0}"
+msgstr "Open in the simulator: {0}"
+
+#: lib/code/tk_run_io.dart
 msgid "Compilada: la aplicación está abierta (ciérrela o pulse Detener para terminar)."
 msgstr "Compiled: the application is open (close it or press Stop to finish)."
 
 #: lib/code/tk_run_io.dart
+msgid "Compilando para el simulador…"
+msgstr "Compiling for the simulator…"
+
+#: lib/code/tk_run_io.dart
 msgid "Compilando…"
 msgstr "Compiling…"
+
+#: lib/code/tk_run_io.dart
+msgid "Creando el proyecto de Flutter (solo la primera vez)…"
+msgstr "Creating the Flutter project (only the first time)…"
 
 #: lib/code/tk_run_io.dart
 msgid "El Asistente IA necesita el SDK de Anthropic en el Python de este equipo."
@@ -1720,6 +1816,10 @@ msgid ""
 msgstr ""
 "Flask is missing. Install it with:\n"
 "{0}"
+
+#: lib/code/tk_run_io.dart
+msgid "Falta Flutter: instálelo desde flutter.dev (o con: brew install --cask flutter)."
+msgstr "Flutter is missing: install it from flutter.dev (or with: brew install --cask flutter)."
 
 #: lib/code/tk_run_io.dart
 msgid "Falta el SDK de Anthropic"
@@ -1784,6 +1884,14 @@ msgstr "{0} could not be installed."
 #: lib/code/tk_run_io.dart
 msgid "No se pudo lanzar Python: {0}"
 msgstr "Could not launch Python: {0}"
+
+#: lib/code/tk_run_io.dart
+msgid "Preparando los paquetes…"
+msgstr "Getting the packages…"
+
+#: lib/code/tk_run_io.dart
+msgid "Recompilada: el simulador se recarga."
+msgstr "Recompiled: the simulator reloads."
 
 #: lib/code/tk_run_io.dart
 msgid "«{0}» necesita un controlador de Python."
@@ -1945,7 +2053,7 @@ msgstr "Classic text editor with menus, open and save, undo and a status bar wit
 msgid "Elija la cita que quiere eliminar."
 msgstr "Choose the appointment to delete."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -2673,6 +2781,122 @@ msgstr "Line {0} · {1} characters"
 msgid "Un bloc de notas hecho con DMarlon Studio, Electron y React."
 msgstr "A notepad made with DMarlon Studio, Electron and React."
 
+#: lib/code/tk_showcase_flutter.dart
+msgid "Borrar las hechas"
+msgstr "Clear completed"
+
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Cliente"
+msgstr "Customer"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Comprar pan"
+msgstr "Buy bread"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Crear envío"
+msgstr "Create shipment"
+
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
+msgid "Dirección"
+msgstr "Address"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "En camino"
+msgstr "On the way"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Entregado"
+msgstr "Delivered"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Entregados"
+msgstr "Delivered"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Envíos"
+msgstr "Shipments"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Envíos (Flutter)"
+msgstr "Shipments (Flutter)"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Envíos: los datos y la lógica de la app. Las pantallas los usan como app."
+msgstr "Shipments: the app data and logic. The screens use them as app."
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Hechas"
+msgstr "Done"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Llamar al dentista"
+msgstr "Call the dentist"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Marcar como"
+msgstr "Mark as"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "No hay envíos con este estado."
+msgstr "No shipments with this status."
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Nueva tarea"
+msgstr "New task"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Nuevo envío"
+msgstr "New shipment"
+
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_web.dart
+msgid "Pendiente"
+msgstr "Pending"
+
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart
+msgid "Pendientes"
+msgstr "Pending"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Probar DMarlon Studio"
+msgstr "Try DMarlon Studio"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Registrado"
+msgstr "Registered"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Seguimiento"
+msgstr "Tracking"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Tareas (Flutter)"
+msgstr "Tasks (Flutter)"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Tareas: los datos y la lógica de la app. Se guardan en el teléfono con shared_preferences."
+msgstr "Tasks: the app data and logic. They are saved on the phone with shared_preferences."
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Todas"
+msgstr "All"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Una app móvil de envíos: resumen por estado, lista con filtro, detalle con seguimiento y alta de envíos."
+msgstr "A mobile shipping app: summary by status, filtered list, detail with tracking and new shipments."
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "Una app móvil de tareas: añadir, marcar como hechas, filtrar y borrar, guardadas en el teléfono."
+msgstr "A mobile task app: add, mark as done, filter and delete, saved on the phone."
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "pendientes"
+msgstr "pending"
+
+#: lib/code/tk_showcase_flutter.dart
+msgid "¡Nada por hacer!"
+msgstr "Nothing to do!"
+
 #: lib/code/tk_showcase_mail.dart
 msgid "(sin asunto)"
 msgstr "(no subject)"
@@ -3034,10 +3258,6 @@ msgid "Categorías"
 msgstr "Categories"
 
 #: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
-msgid "Cliente"
-msgstr "Customer"
-
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Clientes"
 msgstr "Customers"
 
@@ -3148,10 +3368,6 @@ msgstr "Too many attempts. Wait a minute and try again."
 #: lib/code/tk_showcase_sites.dart
 msgid "Devolución fácil"
 msgstr "Easy returns"
-
-#: lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
-msgid "Dirección"
-msgstr "Address"
 
 #: lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Editar"
@@ -3466,10 +3682,6 @@ msgstr "Order"
 #: lib/code/tk_showcase_sites.dart
 msgid "Pedidos"
 msgstr "Orders"
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Pendientes"
-msgstr "Pending"
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Plantillas, parches de HTML y una sola petición por evento: el motor web por dentro."
@@ -4072,10 +4284,6 @@ msgid "Pagada"
 msgstr "Paid"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Pendiente"
-msgstr "Pending"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Perdida"
 msgstr "Lost"
 
@@ -4390,6 +4598,10 @@ msgstr "Enter a name."
 #: lib/core/project_store.dart
 msgid "La carpeta no es un proyecto de DMarlon Studio: falta {0}."
 msgstr "The folder is not a DMarlon Studio project: {0} is missing."
+
+#: lib/core/project_store.dart
+msgid "Los datos y la lógica de la app. Las pantallas los usan como app."
+msgstr "The app data and logic. The screens use them as app."
 
 #: lib/core/project_store.dart
 msgid "{0} (copia)"
@@ -6011,7 +6223,7 @@ msgstr "No pending changes."
 msgid "Subido."
 msgstr "Pushed."
 
-#: lib/ui/screens/github_dialog.dart
+#: lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Subir"
 msgstr "Move up"
 
@@ -6095,7 +6307,7 @@ msgstr "Folder"
 msgid "Componentes"
 msgstr "Components"
 
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Duplicar"
 msgstr "Duplicate"
 
@@ -6306,6 +6518,10 @@ msgstr "Start debugging with “Debug” (Shift+F9). Set breakpoints by clicking
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "Las aplicaciones de consola aún no tienen depurador: use print, printf, std::cout o WriteLn, que salen en la pestaña Salida. «Depurar» compila C, C++ y Pascal con información de depuración (-g) para lldb o gdb."
 msgstr "Console applications have no debugger yet: use print, printf, std::cout or WriteLn, which show in the Output tab. “Debug” compiles C, C++ and Pascal with debug information (-g) for lldb or gdb."
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Las apps de Flutter se ven en el simulador del estudio (Ejecutar). Lo que escribe print o debugPrint sale en la pestaña Salida, y al guardar la app se vuelve a compilar y el simulador se recarga."
+msgstr "Flutter apps show in the studio simulator (Run). What print or debugPrint writes shows in the Output tab, and saving recompiles the app and reloads the simulator."
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "Las no controladas"
@@ -6576,6 +6792,10 @@ msgid "Código de {0}"
 msgstr "Code of {0}"
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Dart generado"
+msgstr "Generated Dart"
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Depurando: arrancando…"
 msgstr "Debugging: starting…"
 
@@ -6700,6 +6920,10 @@ msgid "Exportada. Necesita Flask, y sus conexiones de datos leen las variables D
 msgstr "Exported. It needs Flask, and its data connections read the DMSTUDIO_DB_… environment variables."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Para abrirlo: flutter create . y después flutter run (o ábralo en VS Code o Android Studio)."
+msgstr "Exported to {0}. To open it: flutter create . and then flutter run (or open it in VS Code or Android Studio)."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportar aquí"
 msgstr "Export here"
 
@@ -6714,6 +6938,10 @@ msgstr "Export the program ({0})"
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de C++ (con Makefile)"
 msgstr "Export the C++ project (with a Makefile)"
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de Flutter"
+msgstr "Export the Flutter project"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Lazarus"
@@ -6928,6 +7156,10 @@ msgid "Una aplicación web de Next.js: el diseño es la página y el código, Ja
 msgstr "A Next.js web app: the design is the page and the code is JavaScript (React). Run starts the development server and opens the browser; export leaves the project ready for npm or Vercel. It needs Node.js. The target cannot be changed later."
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Una app móvil con Flutter, al estilo de FlutterFlow: varias pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart). Ejecutar la abre en el simulador del estudio, con marco de teléfono; al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después."
+msgstr "A mobile app with Flutter, in the style of FlutterFlow: several screens with their widget tree and the logic in Dart (lib/app.dart). Run opens it in the studio simulator, with a phone frame; saving reloads it. It needs Flutter. The target cannot be changed later."
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Una extensión de Chrome: el diseño es su ventana emergente y el código, JavaScript, con this.storage, this.currentTab() y this.runInPage(). Ejecutar abre una vista previa; «Cargar en Chrome» la instala. Necesita Node.js la primera vez. El destino no se puede cambiar después."
 msgstr "A Chrome extension: the design is its popup and the code is JavaScript, with this.storage, this.currentTab() and this.runInPage(). Run opens a preview; “Load in Chrome” installs it. It needs Node.js the first time. The target cannot be changed later."
 
@@ -6983,6 +7215,214 @@ msgstr "Move “{0}” to the workspace trash? Its unsaved code in the Editor wi
 msgid "Área de trabajo: {0}"
 msgstr "Workspace: {0}"
 
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "APP"
+msgstr "APP"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Activo (expresión)"
+msgstr "Enabled (expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Al cambiar (v: el valor nuevo)"
+msgstr "On change (v: the new value)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Al pulsar Intro"
+msgstr "On Enter"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Al tocar"
+msgstr "On tap"
+
+#: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Alto"
+msgstr "Height"
+
+#: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Ancho"
+msgstr "Width"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Añada widgets desde la paleta"
+msgstr "Add widgets from the palette"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Bajar"
+msgstr "Move down"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Barra superior"
+msgstr "Top bar"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Botón flotante: acción"
+msgstr "Floating button: action"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Botón flotante: icono"
+msgstr "Floating button: icon"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Color"
+msgstr "Color"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Color del icono"
+msgstr "Icon color"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Color principal"
+msgstr "Primary color"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Con separadores"
+msgstr "With dividers"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Eje cruzado"
+msgstr "Cross axis"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Eje principal"
+msgstr "Main axis"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Elegida (expresión)"
+msgstr "Selected (expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Elementos (lista de App)"
+msgstr "Items (a list of App)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Eliminar la pantalla"
+msgstr "Delete the screen"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Estilo"
+msgstr "Style"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Guarda en (campo de App)"
+msgstr "Saves to (an App field)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Icono a la derecha"
+msgstr "Trailing icon"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Imagen (URL, assets/… o =expresión)"
+msgstr "Image (URL, assets/… or =expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Indicación"
+msgstr "Hint"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Lista vacía"
+msgstr "Empty list"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Los textos admiten ${…} (Hola ${app.nombre}); un valor con = es una expresión de Dart (=item.hecha); las acciones son código (app.guardar()), go:Pantalla, go:Pantalla(item) o back, separadas por «;». En una lista enlazada, cada elemento es item; en una pantalla que recibe algo, es arg."
+msgstr "Texts accept ${…} (Hello ${app.name}); a value with = is a Dart expression (=item.done); actions are code (app.save()), go:Screen, go:Screen(item) or back, separated by “;”. In a bound list, each element is item; in a screen that receives something, it is arg."
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Líneas como máximo"
+msgstr "Maximum lines"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Nombre de cada elemento"
+msgstr "Name of each item"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Nueva pantalla"
+msgstr "New display"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "PANTALLA"
+msgstr "SCREEN"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "PANTALLAS"
+msgstr "SCREENS"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Pantalla {0}"
+msgstr "Screen {0}"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Pantalla «{0}»"
+msgstr "Display “{0}”"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Paquetes de pub.dev (uno por línea)"
+msgstr "pub.dev packages (one per line)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Proporción"
+msgstr "Flex"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Radio de las esquinas"
+msgstr "Corner radius"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Recibe (tipo de Dart)"
+msgstr "Receives (Dart type)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Separación"
+msgstr "Spacing"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Subtítulo"
+msgstr "Subtitle"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Tachado (expresión)"
+msgstr "Strikethrough (expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Tamaño"
+msgstr "Size"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Teclado"
+msgstr "Keyboard"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Tema oscuro"
+msgstr "Dark theme"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Texto a la derecha"
+msgstr "Trailing text"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Texto si está vacía"
+msgstr "Text when empty"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Vacío"
+msgstr "Empty"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Valor (expresión)"
+msgstr "Value (expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Valor de 0 a 1"
+msgstr "Value from 0 to 1"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Visible si (expresión)"
+msgstr "Visible if (expression)"
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "WIDGETS"
+msgstr "WIDGETS"
+
 #: lib/ui/screens/tk_help_panel.dart
 msgid "Buscar un comando"
 msgstr "Search a command"
@@ -6998,14 +7438,6 @@ msgstr "There is no help for “{0}” in this language."
 #: lib/ui/screens/tk_inspector.dart
 msgid "(de serie)"
 msgstr "(default)"
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "Alto"
-msgstr "Height"
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "Ancho"
-msgstr "Width"
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "Color (#rrggbb o nombre de Tk)"

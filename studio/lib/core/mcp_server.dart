@@ -266,6 +266,7 @@ class McpServer {
               'nextjs',
               'cpp',
               'pascal',
+              'flutter',
               'console_py',
               'console_c',
               'console_cpp',
@@ -487,6 +488,7 @@ class McpServer {
           'nextjs' => tkTargetNext,
           'cpp' => tkTargetCpp,
           'pascal' => tkTargetPascal,
+          'flutter' => tkTargetFlutter,
           final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };

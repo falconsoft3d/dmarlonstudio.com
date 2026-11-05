@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:re_editor/re_editor.dart';
 import 'package:re_highlight/languages/cpp.dart';
+import 'package:re_highlight/languages/dart.dart';
 import 'package:re_highlight/languages/delphi.dart';
 import 'package:re_highlight/languages/javascript.dart';
 import 'package:re_highlight/languages/python.dart';
@@ -20,6 +21,7 @@ import '../../code/tk_codegen.dart';
 import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
 import '../../code/tk_console.dart';
+import '../../code/tk_flutter.dart';
 import '../../code/tk_pascal.dart';
 import '../../code/tk_pascal_run.dart';
 import '../../code/tk_debug.dart';
@@ -50,6 +52,7 @@ import 'tk_canvas.dart';
 import 'tk_claude_panel.dart';
 import 'tk_debug_panel.dart';
 import 'tk_help_panel.dart';
+import 'tk_flutter_designer.dart';
 import 'tk_inspector.dart';
 
 /// Diseñador de interfaz: un diseñador visual de formularios, al estilo de
@@ -663,6 +666,7 @@ class _PythonEditor extends StatelessWidget {
     this.javascript = false,
     this.cpp = false,
     this.pascal = false,
+    this.dart = false,
     this.findController,
     this.completion,
   });
@@ -675,6 +679,9 @@ class _PythonEditor extends StatelessWidget {
 
   /// Resaltado de Pascal (Delphi).
   final bool pascal;
+
+  /// Resaltado de Dart (Flutter).
+  final bool dart;
 
   /// Buscador del editor (el Diseñador lo abre con ⌘F / Ctrl+F).
   final CodeFindController? findController;
@@ -733,7 +740,9 @@ class _PythonEditor extends StatelessWidget {
             : const Color(0xFFF5F5F5),
         chunkIndicatorColor: _editorDim,
         codeTheme: CodeHighlightTheme(
-          languages: pascal
+          languages: dart
+              ? {'dart': CodeHighlightThemeMode(mode: langDart)}
+              : pascal
               ? {'delphi': CodeHighlightThemeMode(mode: langDelphi)}
               : cpp
               ? {'cpp': CodeHighlightThemeMode(mode: langCpp)}
@@ -928,7 +937,9 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isConsole
+  IconData _targetIcon(TkDesign x) => x.isFlutter
+      ? LucideIcons.smartphone
+      : x.isConsole
       ? LucideIcons.squareTerminal
       : x.isCpp
       ? LucideIcons.cpu
@@ -1865,6 +1876,13 @@ class _TkEditorState extends State<_TkEditor> {
     });
     if (done != true) return false;
     if (mounted) setState(() {});
+    // Flutter en marcha: se vuelve a compilar y el simulador se recarga.
+    final run = _run;
+    if (d.isFlutter && run != null && run.running && run.input != null) {
+      if (!mounted) return true;
+      await runAction(context, () => ProjectStore.prepareRun(doc.id));
+      run.input?.call('R');
+    }
     return true;
   }
 
@@ -2203,6 +2221,40 @@ class _TkEditorState extends State<_TkEditor> {
     });
   }
 
+  /// Flutter: el proyecto (pubspec, lib/main.dart y lib/app.dart), listo
+  /// para `flutter create .` y `flutter run`.
+  Future<void> _exportFlutter() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name);
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      for (final e in TkFlutter.files(d, _code.text, name: slug).entries) {
+        final f = File('${out.path}${Platform.pathSeparator}${e.key}');
+        await f.parent.create(recursive: true);
+        await f.writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportado en {0}. Para abrirlo: flutter create . y después flutter run (o ábralo en VS Code o Android Studio).',
+              [out.path],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
   /// Consola: el programa tal cual (main.py, main.c…).
   Future<void> _exportConsole() => runAction(context, () async {
     final lang = d.consoleLang!;
@@ -2439,7 +2491,9 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isConsole
+              d.isFlutter
+                  ? tr('Exportar el proyecto de Flutter')
+                  : d.isConsole
                   ? tr('Exportar el programa ({0})', [TkConsole.file(d)])
                   : d.isCpp
                   ? tr('Exportar el proyecto de C++ (con Makefile)')
@@ -2452,7 +2506,9 @@ class _TkEditorState extends State<_TkEditor> {
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isConsole
+              d.isFlutter
+                  ? _exportFlutter
+                  : d.isConsole
                   ? _exportConsole
                   : d.isCpp
                   ? _exportCpp
@@ -2523,7 +2579,7 @@ class _TkEditorState extends State<_TkEditor> {
                 height: 14,
                 child: CircularProgressIndicator(strokeWidth: 2),
               ),
-            if (!d.isConsole) ...[
+            if (!d.isConsole && !d.isFlutter) ...[
               const VerticalDivider(width: 12),
               _tool(
                 LucideIcons.alignStartVertical,
@@ -2861,7 +2917,7 @@ class _TkEditorState extends State<_TkEditor> {
           style: TextStyle(fontSize: 11.5, color: t.hintColor),
         ),
         // Sin ventana, no hay icono.
-        if (!d.isConsole) ...[
+        if (!d.isConsole && !d.isFlutter) ...[
           label(tr('Icono de la aplicación')),
           Row(
             children: [
@@ -2973,7 +3029,7 @@ class _TkEditorState extends State<_TkEditor> {
                     ),
                   ),
                 ),
-              if (!d.isConsole) ...[
+              if (!d.isConsole && !d.isFlutter) ...[
                 _treeRow(t, null, d.name, LucideIcons.appWindowMac, 1),
                 for (final w in d.widgets)
                   _treeRow(t, w.name, w.name, tkIcon(w.kind), 2 + _depth(w)),
@@ -2983,7 +3039,7 @@ class _TkEditorState extends State<_TkEditor> {
         ),
         Divider(height: 1, color: t.dividerColor),
         Expanded(
-          child: d.isConsole || _project && _selection.isEmpty
+          child: d.isConsole || d.isFlutter || _project && _selection.isEmpty
               ? _projectPanel(t)
               : TkInspector(
                   design: d,
@@ -3014,7 +3070,9 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isCpp
+              d.isFlutter
+                  ? tr('Dart generado')
+                  : d.isCpp
                   ? tr('C++ generado')
                   : d.isPascal
                   ? tr('Pascal generado')
@@ -3061,7 +3119,14 @@ class _TkEditorState extends State<_TkEditor> {
         child: IndexedStack(
           index: _tab,
           children: [
-            _designSurface(t),
+            d.isFlutter
+                ? TkFlutterDesigner(
+                    key: ValueKey('fl-${doc.id}'),
+                    design: d,
+                    onBegin: _begin,
+                    onChanged: _changed,
+                  )
+                : _designSurface(t),
             // Clic derecho: ayuda sobre la palabra, copiar y pegar.
             Listener(
               onPointerDown: (e) {
@@ -3074,6 +3139,7 @@ class _TkEditorState extends State<_TkEditor> {
                 javascript: d.codeLang == 'js',
                 cpp: d.codeLang == 'cpp',
                 pascal: d.codeLang == 'pas',
+                dart: d.codeLang == 'dart',
                 findController: _codeFind,
                 completion: _completion,
                 project: doc.id,
@@ -3095,6 +3161,7 @@ class _TkEditorState extends State<_TkEditor> {
                     javascript: d.codeLang == 'js',
                     cpp: d.codeLang == 'cpp',
                     pascal: d.codeLang == 'pas',
+                    dart: d.codeLang == 'dart',
                     findController: _generatedFind,
                   ),
           ],
@@ -3242,6 +3309,7 @@ class _TkEditorState extends State<_TkEditor> {
     cpp: d.isCpp,
     pascal: d.isPascal,
     console: d.isConsole,
+    flutter: d.isFlutter,
   );
 
   /// Consola: lo que se escribe aquí le llega al programa (Intro).
@@ -3338,11 +3406,12 @@ class _TkEditorState extends State<_TkEditor> {
         child: Column(
           children: [
             _toolbar(t),
-            if (!d.isConsole) _palette(t),
+            if (!d.isConsole && !d.isFlutter) _palette(t),
             Expanded(
               child: Row(
                 children: [
-                  _leftPanel(t),
+                  // Flutter trae su propio árbol en Diseño.
+                  if (!d.isFlutter || _tab != 0) _leftPanel(t),
                   Expanded(child: _center(t)),
                   if (_help)
                     TkHelpPanel(
@@ -3350,6 +3419,7 @@ class _TkEditorState extends State<_TkEditor> {
                         js: d.codeLang == 'js',
                         cpp: d.codeLang == 'cpp',
                         pascal: d.codeLang == 'pas',
+                        dart: d.codeLang == 'dart',
                       ),
                       query: _helpQuery,
                       onClose: () => setState(() => _help = false),
@@ -3449,6 +3519,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                   ),
                   (tkTargetCpp, tr('C++ (FLTK)'), LucideIcons.cpu),
                   (tkTargetPascal, tr('Pascal (Lazarus)'), LucideIcons.feather),
+                  (
+                    tkTargetFlutter,
+                    tr('Flutter (móvil)'),
+                    LucideIcons.smartphone,
+                  ),
                   ('console', tr('Consola'), LucideIcons.squareTerminal),
                 ])
                   ChoiceChip(
@@ -3491,7 +3566,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ],
             const SizedBox(height: 10),
             Text(
-              tkConsoleTargets.contains(_target)
+              _target == tkTargetFlutter
+                  ? tr(
+                      'Una app móvil con Flutter, al estilo de FlutterFlow: varias pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart). Ejecutar la abre en el simulador del estudio, con marco de teléfono; al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después.',
+                    )
+                  : tkConsoleTargets.contains(_target)
                   ? tr(
                       'Un programa de consola, sin ventana: un solo archivo con su main. Lo que escribe sale en la pestaña Salida y lo que usted escribe abajo le llega como entrada. Python no se compila; C y C++ necesitan un compilador; Pascal, Free Pascal. El destino no se puede cambiar después.',
                     )

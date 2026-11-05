@@ -14,7 +14,7 @@ class TkHelpEntry {
 
   final String word;
 
-  /// py, js, cpp o pas.
+  /// py, js, cpp, pas o dart.
   final String lang;
   final String signature;
   final String es;
@@ -28,8 +28,14 @@ class TkHelpEntry {
 }
 
 /// Lenguaje de la ayuda para un destino.
-String tkHelpLang({required bool js, required bool cpp, bool pascal = false}) =>
-    pascal
+String tkHelpLang({
+  required bool js,
+  required bool cpp,
+  bool pascal = false,
+  bool dart = false,
+}) => dart
+    ? 'dart'
+    : pascal
     ? 'pas'
     : cpp
     ? 'cpp'
@@ -1581,5 +1587,197 @@ const tkHelp = <TkHelpEntry>[
     'Puts the focus on a component.',
     'Edit1.Clear;\nEdit1.SetFocus;',
     studio: true,
+  ),
+  // --------------------------------------------------------------- Dart
+  TkHelpEntry(
+    'App',
+    'dart',
+    'class App extends ChangeNotifier',
+    'La lógica de la app (lib/app.dart): sus campos y métodos se usan en las pantallas como app.',
+    'The app logic (lib/app.dart): its fields and methods are used in the screens as app.',
+    'class App extends ChangeNotifier {\n  int contador = 0;\n  void sumar() {\n    contador++;\n    notifyListeners();\n  }\n}',
+    studio: true,
+  ),
+  TkHelpEntry(
+    'notifyListeners',
+    'dart',
+    'notifyListeners();',
+    'Avisa a las pantallas de que algo cambió: se vuelven a dibujar.',
+    'Tells the screens that something changed: they redraw.',
+    'void borrar(Tarea t) {\n  tareas.remove(t);\n  notifyListeners();\n}',
+    studio: true,
+  ),
+  TkHelpEntry(
+    'start',
+    'dart',
+    'Future<void> start() async',
+    'Se llama al arrancar la app: cargar datos guardados, por ejemplo.',
+    'Called when the app starts: load saved data, for example.',
+    'Future<void> start() async {\n  final prefs = await SharedPreferences.getInstance();\n  nombre = prefs.getString(\'nombre\') ?? \'\';\n  notifyListeners();\n}',
+    studio: true,
+  ),
+  TkHelpEntry(
+    '\${}',
+    'dart',
+    'Hola \${app.nombre}',
+    'En los textos de las pantallas, \${…} pone el valor de una expresión.',
+    'In screen texts, \${…} inserts the value of an expression.',
+    '\${item.titulo} · \${app.pendientes} pendientes',
+    studio: true,
+  ),
+  TkHelpEntry(
+    '=',
+    'dart',
+    '=item.hecha',
+    'Un valor que empieza por = es una expresión de Dart (colores, iconos, visible, casillas…).',
+    'A value starting with = is a Dart expression (colors, icons, visible, check boxes…).',
+    '=app.color(item.estado)',
+    studio: true,
+  ),
+  TkHelpEntry(
+    'go:',
+    'dart',
+    'go:Pantalla · go:Pantalla(item) · back',
+    'Acciones de navegación: abrir otra pantalla (con un argumento, que allí es arg) o volver.',
+    'Navigation actions: open another screen (with an argument, which there is arg) or go back.',
+    'app.crear(); back',
+    studio: true,
+  ),
+  TkHelpEntry(
+    'item',
+    'dart',
+    'item · arg',
+    'En una lista enlazada, cada elemento es item; en una pantalla que recibe algo, es arg.',
+    'In a bound list, each element is item; in a screen that receives something, it is arg.',
+    'go:Detalle(item)',
+    studio: true,
+  ),
+  TkHelpEntry(
+    'final',
+    'dart',
+    'final nombre = valor;',
+    'Una variable que no se vuelve a asignar.',
+    'A variable that is not reassigned.',
+    'final total = precios.fold(0.0, (s, p) => s + p);',
+  ),
+  TkHelpEntry(
+    'if',
+    'dart',
+    'if (condición) { … } else { … }',
+    'Hace algo solo si se cumple la condición.',
+    'Does something only if the condition holds.',
+    'if (nueva.trim().isEmpty) return;',
+  ),
+  TkHelpEntry(
+    'for',
+    'dart',
+    'for (final x in lista) { … }',
+    'Recorre una lista.',
+    'Iterates over a list.',
+    'for (final t in tareas) {\n  print(t.titulo);\n}',
+  ),
+  TkHelpEntry(
+    'switch',
+    'dart',
+    'switch (valor) { patrón => resultado }',
+    'Elige un resultado según un valor (expresión switch).',
+    'Picks a result by a value (switch expression).',
+    'Color color(Estado e) => switch (e) {\n  Estado.pendiente => Colors.orange,\n  Estado.entregado => Colors.green,\n  _ => Colors.blue,\n};',
+  ),
+  TkHelpEntry(
+    'enum',
+    'dart',
+    'enum Nombre { a, b, c }',
+    'Un conjunto fijo de valores con nombre.',
+    'A fixed set of named values.',
+    'enum Estado { pendiente, enCamino, entregado }',
+  ),
+  TkHelpEntry(
+    'class',
+    'dart',
+    'class Nombre { … }',
+    'Una clase: datos y métodos juntos.',
+    'A class: data and methods together.',
+    'class Tarea {\n  Tarea(this.titulo, {this.hecha = false});\n  String titulo;\n  bool hecha;\n}',
+  ),
+  TkHelpEntry(
+    'List',
+    'dart',
+    'List<T> · [a, b] · where · map · toList',
+    'Una lista: añadir, quitar, filtrar y transformar.',
+    'A list: add, remove, filter and transform.',
+    'final hechas = tareas.where((t) => t.hecha).toList();',
+  ),
+  TkHelpEntry(
+    'Map',
+    'dart',
+    'Map<K, V> · {clave: valor}',
+    'Un diccionario de claves y valores.',
+    'A dictionary of keys and values.',
+    'final precios = {\'pan\': 1.2, \'leche\': 0.9};',
+  ),
+  TkHelpEntry(
+    'async',
+    'dart',
+    'Future<T> f() async { await … }',
+    'Funciones que esperan algo (red, archivos, preferencias) sin bloquear la app.',
+    'Functions that wait for something (network, files, preferences) without blocking the app.',
+    'Future<void> cargar() async {\n  final r = await http.get(Uri.parse(url));\n  datos = jsonDecode(r.body);\n  notifyListeners();\n}',
+  ),
+  TkHelpEntry(
+    'String',
+    'dart',
+    'String · trim · toUpperCase · contains · split',
+    'Textos y sus operaciones.',
+    'Strings and their operations.',
+    'final ok = correo.trim().contains(\'@\');',
+  ),
+  TkHelpEntry(
+    'DateTime',
+    'dart',
+    'DateTime.now() · difference · add',
+    'Fechas y horas.',
+    'Dates and times.',
+    'final manana = DateTime.now().add(const Duration(days: 1));',
+  ),
+  TkHelpEntry(
+    'jsonEncode',
+    'dart',
+    'jsonEncode(x) · jsonDecode(s)',
+    'Convierte entre objetos de Dart y texto JSON (import \'dart:convert\').',
+    'Converts between Dart objects and JSON text (import \'dart:convert\').',
+    'prefs.setString(\'tareas\', jsonEncode([for (final t in tareas) t.toJson()]));',
+  ),
+  TkHelpEntry(
+    'print',
+    'dart',
+    'print(valor) · debugPrint(valor)',
+    'Escribe en la pestaña Salida del estudio.',
+    'Writes to the studio Output tab.',
+    'debugPrint(\'tareas: \${tareas.length}\');',
+  ),
+  TkHelpEntry(
+    'Colors',
+    'dart',
+    'Colors.blue · Color(0xFF2B5FD9)',
+    'Colores para devolver desde App y usar con =app.color(…).',
+    'Colors to return from App and use with =app.color(…).',
+    'Color fondo(bool activo) => activo ? Colors.green : Colors.grey;',
+  ),
+  TkHelpEntry(
+    'Icons',
+    'dart',
+    'Icons.local_shipping',
+    'Iconos de Material para devolver desde App y usar con =app.icono(…).',
+    'Material icons to return from App and use with =app.icono(…).',
+    'IconData icono(Tarea t) => t.hecha ? Icons.check_circle : Icons.circle_outlined;',
+  ),
+  TkHelpEntry(
+    'SharedPreferences',
+    'dart',
+    'SharedPreferences.getInstance()',
+    'Guarda datos sencillos en el teléfono. Añada shared_preferences en los paquetes de la app.',
+    'Saves simple data on the phone. Add shared_preferences to the app packages.',
+    'final prefs = await SharedPreferences.getInstance();\nawait prefs.setInt(\'contador\', contador);',
   ),
 ];

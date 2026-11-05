@@ -841,6 +841,75 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------- flutter
+    {
+      slug: "flutter",
+      title: "Mobile apps with Flutter",
+      summary: "Screens in the style of FlutterFlow, logic in Dart and a built-in phone simulator.",
+      sections: [
+        {
+          id: "crear",
+          title: "Create a Flutter app",
+          blocks: [
+            {
+              type: "p",
+              text: "When creating the project, choose **Flutter (mobile)**. The **Design** tab is an editor in the style of FlutterFlow: on the left, the **screens** and the **widget tree** of the selected one; in the middle, the **palette** and the **phone** with the preview; on the right, the **properties** of the selected widget (or of the screen and the app).",
+            },
+            {
+              type: "ul",
+              items: [
+                "A widget from the palette is added inside the selected one if it is a column, a row or a list; otherwise, after it. Select it by tapping it on the phone or in the tree; **Up**, **Down**, **Duplicate** and **Delete** are above the tree.",
+                "Widgets: column, row, list, card, container, padding, center, expanded, text, button, icon button, text field, list tile, check box, switch, chip, icon, image, progress, divider and spacer.",
+                "Each screen has a name, a title, a top bar, a floating button and, if it is opened with something (a shipment, for example), the type it **receives**.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "logica",
+          title: "Logic and bindings",
+          blocks: [
+            {
+              type: "p",
+              text: "The **Code** tab is `lib/app.dart`: an `App` class with the app data and methods. The screens use it as `app` and redraw when it calls `notifyListeners()`. **Generated Dart** shows `lib/main.dart`, which the studio writes from the screens.",
+            },
+            {
+              type: "code",
+              code: "class App extends ChangeNotifier {\n  final tasks = <Task>[];\n  String newTask = '';\n\n  void add() {\n    tasks.insert(0, Task(newTask));\n    newTask = '';\n    notifyListeners();\n  }\n}",
+            },
+            {
+              type: "table",
+              head: ["In the properties", "Example"],
+              rows: [
+                ["A text with values", "`${item.title}` · `Hello, ${app.name}`"],
+                ["An expression (with =)", "`=item.done` · `=app.color(item.status)`"],
+                ["An action", "`app.add()` · `go:Detail(item)` · `app.create(); back`"],
+                ["A bound list", "Items: `=app.tasks`; its first child repeats with `item`"],
+                ["A text field", "Saves to: `app.newTask`"],
+                ["Visible if", "`=app.tasks.isNotEmpty`"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "simulador",
+          title: "The simulator and export",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** compiles the app with Flutter for the web and opens it in the **studio simulator**: a phone frame (iPhone, Pixel, Galaxy or iPad mini) you can rotate. No Xcode or Android needed.",
+                "When you **save**, the app is recompiled and the simulator reloads by itself.",
+                "What `print` or `debugPrint` writes shows in the Output tab, and errors with their `lib/app.dart` line.",
+                "pub.dev packages (for example, `shared_preferences: ^2.3.0`) are added in the app properties.",
+                "**Export the Flutter project** leaves `pubspec.yaml`, `lib/main.dart` and `lib/app.dart`: with `flutter create .` and `flutter run` it opens on the phone, in Android Studio or in VS Code.",
+                "Examples: **Shipments** (summary by status, filtered list, detail with tracking and new shipments) and **Tasks** (add, check, filter and delete, saved on the phone).",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------ consola
     {
       slug: "consola",

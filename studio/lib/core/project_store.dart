@@ -9,6 +9,7 @@ import '../code/tk_chrome.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_cpp.dart';
 import '../code/tk_console.dart';
+import '../code/tk_flutter.dart';
 import '../code/tk_pascal.dart';
 import '../code/tk_pascal_run.dart';
 import '../code/tk_electron.dart';
@@ -165,7 +166,9 @@ class ProjectStore {
       p.join(dir, unitName(design));
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
-  static String unitName(TkDesign design) => design.isConsole
+  static String unitName(TkDesign design) => design.isFlutter
+      ? 'app.dart'
+      : design.isConsole
       ? TkConsole.file(design)
       : '${design.name}.${design.isCpp
             ? 'cpp'
@@ -308,12 +311,21 @@ class ProjectStore {
     if (name.trim().isEmpty) throw UserError(tr('Indique un nombre.'));
     final d = design ?? TkDesign();
     if (d.props['title'] == null) d.setProp(tkFormTitle, name.trim());
+    // Flutter: las pantallas de partida.
+    if (d.isFlutter && d.props['flutter'] == null) {
+      TkFlutter.starter(name.trim()).saveTo(d);
+    }
     final dir = _freeDir(parent ?? await workspaceDir(), name.trim());
     await Directory(dir).create(recursive: true);
     await _writeAtomic(
       File(unitPath(dir, d)),
       code ??
           (d.isConsole ? TkConsole.template(d.consoleLang!) : null) ??
+          (d.isFlutter
+              ? TkFlutter.template(
+                  '// ${tr('Los datos y la lógica de la app. Las pantallas los usan como app.')}',
+                )
+              : null) ??
           tkUnitOf(d).template(
             d.name,
             tkUnitComment(
@@ -512,6 +524,7 @@ class ProjectStore {
       ...tkCppExamples(tr),
       ...tkPascalExamples(tr),
       ...tkConsoleExamples(tr),
+      ...tkFlutterExamples(tr),
     ]) {
       final key = '$ws\t${e.seed}';
       if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
@@ -666,6 +679,23 @@ class ProjectStore {
     );
   }
 
+  /// Escribe el proyecto de Flutter en build/flutter (las carpetas de cada
+  /// plataforma las crea `flutter create` al ejecutar la primera vez).
+  static Future<TkPrepared> _prepareFlutter(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'flutter');
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, TkFlutter.files(x.design, unit, name: slug(x.name)));
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'lib', 'app.dart'),
+      flutter: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe la aplicación de consola en build/console.
   static Future<TkPrepared> _prepareConsole(StudioProject x) async {
     final out = p.join(x.path, buildDir, 'console');
@@ -754,6 +784,7 @@ class ProjectStore {
     if (x.isCpp) return _prepareCpp(x);
     if (x.isPascal) return _preparePascal(x);
     if (x.design.isConsole) return _prepareConsole(x);
+    if (x.design.isFlutter) return _prepareFlutter(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();
     final at = source.indexOf(unit);

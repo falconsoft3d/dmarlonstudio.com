@@ -38,7 +38,9 @@ abstract class TkUnitLang {
 }
 
 /// El lenguaje del código de [d].
-TkUnitLang tkUnitOf(TkDesign d) => d.isConsole
+TkUnitLang tkUnitOf(TkDesign d) => d.isFlutter
+    ? const DartUnit()
+    : d.isConsole
     ? switch (d.codeLang) {
         'cpp' => const CppUnit(),
         'pas' => const PascalUnit(),
@@ -644,4 +646,13 @@ class PascalUnit extends TkUnitLang {
       'T$to',
     );
   }
+}
+
+/// Dart (Flutter): las llaves, cadenas y comentarios se leen como en
+/// JavaScript; el código es la clase App de lib/app.dart.
+class DartUnit extends JsUnit {
+  const DartUnit();
+
+  @override
+  String get language => 'dart';
 }

@@ -2,6 +2,7 @@ import type React from "react";
 import {
   siCplusplus,
   siElectron,
+  siFlutter,
   siFlask,
   siGooglechrome,
   siLazarus,
@@ -23,6 +24,7 @@ const ICONS: Record<TargetIcon, { path: string; hex: string }> = {
   next: siNextdotjs,
   cpp: siCplusplus,
   lazarus: siLazarus,
+  flutter: siFlutter,
   node: siNodedotjs,
   sqlite: siSqlite,
   postgres: siPostgresql,

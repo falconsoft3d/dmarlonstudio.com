@@ -109,6 +109,10 @@ const tkConsoleTargets = {
   tkTargetConsolePas,
 };
 
+/// App de Flutter (móvil y escritorio), al estilo de FlutterFlow: varias
+/// pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart).
+const tkTargetFlutter = 'flutter';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -117,6 +121,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetNext => tr('Web (Next.js)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
+  tkTargetFlutter => tr('Flutter (móvil)'),
   tkTargetConsolePy => tr('Consola (Python)'),
   tkTargetConsoleC => tr('Consola (C)'),
   tkTargetConsoleCpp => tr('Consola (C++)'),
@@ -2005,6 +2010,9 @@ class TkDesign {
   bool get isCpp => target == tkTargetCpp;
   bool get isPascal => target == tkTargetPascal;
 
+  /// App de Flutter: pantallas en lugar de una ventana.
+  bool get isFlutter => target == tkTargetFlutter;
+
   /// Aplicación de consola (sin ventana ni diseño).
   bool get isConsole => tkConsoleTargets.contains(target);
 
@@ -2018,7 +2026,9 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isJs
+      isFlutter
+          ? 'dart'
+          : isJs
           ? 'js'
           : isCpp
           ? 'cpp'
@@ -2046,7 +2056,7 @@ class TkDesign {
   }
 
   /// El código es Python (tkinter o Flask).
-  bool get isPython => !isJs && !isCpp && !isPascal && !isConsole;
+  bool get isPython => !isJs && !isCpp && !isPascal && !isConsole && !isFlutter;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2321,6 +2331,7 @@ class TkDesign {
       tkTargetNext => tkTargetNext,
       tkTargetCpp => tkTargetCpp,
       tkTargetPascal => tkTargetPascal,
+      tkTargetFlutter => tkTargetFlutter,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

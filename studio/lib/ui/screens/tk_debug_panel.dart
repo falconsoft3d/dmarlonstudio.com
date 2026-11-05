@@ -296,6 +296,7 @@ class TkDebugPanel extends StatefulWidget {
     this.cpp = false,
     this.pascal = false,
     this.console = false,
+    this.flutter = false,
   });
 
   /// Proyecto de C++: se depura con lldb o gdb.
@@ -306,6 +307,9 @@ class TkDebugPanel extends StatefulWidget {
 
   /// Aplicación de consola: sin depurador por ahora.
   final bool console;
+
+  /// App de Flutter: se ve en el simulador del estudio.
+  final bool flutter;
 
   /// Proyecto de Electron: se depura con las herramientas de Chromium.
   final bool electron;
@@ -442,7 +446,11 @@ class _TkDebugPanelState extends State<TkDebugPanel> {
     style: _text,
     child: widget.electron && widget.tab != TkDebugTab.breakpoints
         ? _hint(
-            widget.console
+            widget.flutter
+                ? tr(
+                    'Las apps de Flutter se ven en el simulador del estudio (Ejecutar). Lo que escribe print o debugPrint sale en la pestaña Salida, y al guardar la app se vuelve a compilar y el simulador se recarga.',
+                  )
+                : widget.console
                 ? tr(
                     'Las aplicaciones de consola aún no tienen depurador: use print, printf, std::cout o WriteLn, que salen en la pestaña Salida. «Depurar» compila C, C++ y Pascal con información de depuración (-g) para lldb o gdb.',
                   )

@@ -62,6 +62,8 @@ const carousel = [
   'cpp_calculator',
   'pascal_calculator',
   'console_animals',
+  'flutter_shipping',
+  'flutter_todo',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

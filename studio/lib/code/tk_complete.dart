@@ -155,18 +155,19 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
       if (lang == 'cpp' || lang == 'pas') ..._components(),
       if ((lang == 'cpp' || lang == 'pas') && !design().isConsole) ..._form(),
       ..._methods(),
-      for (final k in _keywords[lang]!) CodeKeywordPrompt(word: k),
+      for (final k in _keywords[lang] ?? const <String>[])
+        CodeKeywordPrompt(word: k),
     ];
   }
 
   List<CodePrompt> _form() => [
-    for (final (word, type) in _formApi[_lang]!)
+    for (final (word, type) in _formApi[_lang] ?? const <(String, String)>[])
       CodeFieldPrompt(word: word, type: type),
   ];
 
   List<CodePrompt> _widget(TkWidget w) {
     final lang = _lang;
-    final api = _api[lang]!;
+    final api = _api[lang] ?? const <String, List<(String, String)>>{};
     return [
       for (final (word, type) in [...?api[w.kind], ...?api['*']])
         CodeFieldPrompt(word: word, type: type),
@@ -301,6 +302,52 @@ class TkCompletion implements CodeAutocompletePromptsBuilder {
       'std::vector',
       'std::cout',
       'std::endl',
+    ],
+    'dart': [
+      'final',
+      'var',
+      'const',
+      'if',
+      'else',
+      'for',
+      'in',
+      'while',
+      'switch',
+      'case',
+      'return',
+      'class',
+      'extends',
+      'void',
+      'Future',
+      'async',
+      'await',
+      'true',
+      'false',
+      'null',
+      'String',
+      'int',
+      'double',
+      'bool',
+      'List',
+      'Map',
+      'DateTime',
+      'notifyListeners',
+      'print',
+      'debugPrint',
+      'jsonEncode',
+      'jsonDecode',
+      'where',
+      'toList',
+      'isEmpty',
+      'isNotEmpty',
+      'length',
+      'trim',
+      'Colors',
+      'Icons',
+      'Color',
+      'IconData',
+      'ChangeNotifier',
+      'SharedPreferences',
     ],
     'pas': [
       'begin',

@@ -112,7 +112,12 @@ class TkPrepared {
     this.cpp = false,
     this.pascal = false,
     this.console,
+    this.flutter = false,
   });
+
+  /// App de Flutter: [file] es su lib/app.dart en build/flutter; se abre
+  /// en el simulador del estudio.
+  final bool flutter;
 
   /// Aplicación de consola: py, c, cpp o pas; [file] es su main en
   /// build/console.

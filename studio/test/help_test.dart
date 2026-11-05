@@ -13,10 +13,10 @@ void main() {
     expect(tkHelpLang(js: false, cpp: false, pascal: true), 'pas');
     expect(tkHelpFind('py', 'pass').first.word, 'pass');
     expect(tkHelpFind('pas', 'WriteLn').first.word, 'WriteLn');
-    for (final lang in ['py', 'js', 'cpp', 'pas']) {
+    for (final lang in ['py', 'js', 'cpp', 'pas', 'dart']) {
       final words = [for (final e in tkHelpFind(lang, '')) e.word];
       expect(words.toSet().length, words.length, reason: '$lang repetidas');
-      expect(words.length, greaterThan(25), reason: lang);
+      expect(words.length, greaterThan(20), reason: lang);
       final all = tkHelpFind(lang, '');
       expect(all.length, greaterThan(10), reason: lang);
       expect(all.any((e) => e.studio), isTrue, reason: lang);

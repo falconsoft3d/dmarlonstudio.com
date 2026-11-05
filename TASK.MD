@@ -19,16 +19,17 @@ Hechos
 17. Bases de datos FalconDatabase (y Firebase en el módulo) | ✅ |
 27. Flask (Web) | ✅ |
 36. Aplicaciones de consola: Python, C, C++ y Pascal | ✅ |
+16. Flutter (móvil): editor al estilo de FlutterFlow, simulador propio, demos de envíos y tareas | ✅ |
 
 
 Trabajando
 =========
+18b. Flutter: conectar las apps con FalconDatabase y Firebase | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 
 Pendiente
 =========
-16. Flutter (móvil) — siguiente: inspirado en FlutterFlow, interfaz móvil de verdad; demos: una app de envíos y otra de tareas | ⏳ |
 17. Flutter (escritorio) — con el mismo editor inspirado en FlutterFlow | ⏳ |
 18. React Native (móvil) | ⏳ |
 19. React (Web) | ⏳ |

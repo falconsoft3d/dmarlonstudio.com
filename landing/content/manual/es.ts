@@ -841,6 +841,75 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------- flutter
+    {
+      slug: "flutter",
+      title: "Apps móviles con Flutter",
+      summary: "Pantallas al estilo de FlutterFlow, lógica en Dart y un simulador de teléfono propio.",
+      sections: [
+        {
+          id: "crear",
+          title: "Crear una app de Flutter",
+          blocks: [
+            {
+              type: "p",
+              text: "Al crear el proyecto, elija **Flutter (móvil)**. La pestaña **Diseño** es un editor al estilo de FlutterFlow: a la izquierda, las **pantallas** y el **árbol de widgets** de la elegida; en el centro, la **paleta** y el **teléfono** con la vista previa; a la derecha, las **propiedades** del widget elegido (o de la pantalla y de la app).",
+            },
+            {
+              type: "ul",
+              items: [
+                "Un widget de la paleta se añade dentro del elegido si es una columna, una fila o una lista; si no, detrás de él. Se elige tocándolo en el teléfono o en el árbol; **Subir**, **Bajar**, **Duplicar** y **Eliminar** están sobre el árbol.",
+                "Widgets: columna, fila, lista, tarjeta, contenedor, margen, centrado, expandido, texto, botón, botón de icono, campo de texto, fila de lista, casilla, interruptor, etiqueta, icono, imagen, progreso, separador y espacio.",
+                "Cada pantalla tiene nombre, título, barra superior, un botón flotante y, si se abre con algo (por ejemplo, un envío), el tipo que **recibe**.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "logica",
+          title: "La lógica y los enlaces",
+          blocks: [
+            {
+              type: "p",
+              text: "La pestaña **Código** es `lib/app.dart`: una clase `App` con los datos y los métodos de la app. Las pantallas la usan como `app` y se vuelven a dibujar cuando llama a `notifyListeners()`. **Dart generado** muestra `lib/main.dart`, que el estudio escribe a partir de las pantallas.",
+            },
+            {
+              type: "code",
+              code: "class App extends ChangeNotifier {\n  final tareas = <Tarea>[];\n  String nueva = '';\n\n  void agregar() {\n    tareas.insert(0, Tarea(nueva));\n    nueva = '';\n    notifyListeners();\n  }\n}",
+            },
+            {
+              type: "table",
+              head: ["En las propiedades", "Ejemplo"],
+              rows: [
+                ["Un texto con valores", "`${item.titulo}` · `Hola, ${app.nombre}`"],
+                ["Una expresión (con =)", "`=item.hecha` · `=app.color(item.estado)`"],
+                ["Una acción", "`app.agregar()` · `go:Detalle(item)` · `app.crear(); back`"],
+                ["Una lista enlazada", "Elementos: `=app.tareas`; su primer hijo se repite con `item`"],
+                ["Un campo de texto", "Guarda en: `app.nueva`"],
+                ["Visible si", "`=app.tareas.isNotEmpty`"],
+              ],
+            },
+          ],
+        },
+        {
+          id: "simulador",
+          title: "El simulador y exportar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Ejecutar (F9)** compila la app con Flutter para la web y la abre en el **simulador del estudio**: un marco de teléfono (iPhone, Pixel, Galaxy o iPad mini) que se puede girar. No hace falta Xcode ni Android.",
+                "Al **guardar**, la app se vuelve a compilar y el simulador se recarga solo.",
+                "Lo que escribe `print` o `debugPrint` sale en la pestaña Salida, y los errores, con su línea de `lib/app.dart`.",
+                "Los paquetes de pub.dev (por ejemplo, `shared_preferences: ^2.3.0`) se añaden en las propiedades de la app.",
+                "**Exportar el proyecto de Flutter** deja `pubspec.yaml`, `lib/main.dart` y `lib/app.dart`: con `flutter create .` y `flutter run` se abre en el teléfono, en Android Studio o en VS Code.",
+                "Ejemplos: **Envíos** (resumen por estado, lista con filtro, detalle con seguimiento y alta) y **Tareas** (añadir, marcar, filtrar y borrar, guardadas en el teléfono).",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------ consola
     {
       slug: "consola",

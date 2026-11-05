@@ -71,6 +71,21 @@ Future<TkRun?> launchTkApp(
     if (!context.mounted) return null;
     return runAction(context, () => TkRunner.start(prepared, devtools: debug));
   }
+  // Flutter: el simulador del estudio se abre cuando la app está servida.
+  if (prepared.flutter) {
+    if (tests) return null;
+    final run = await runAction(context, () => TkRunner.start(prepared));
+    if (run != null) {
+      void ready() {
+        if (run.url == null) return;
+        run.removeListener(ready);
+        if (context.mounted) openTkWebApp(context, run);
+      }
+
+      run.addListener(ready);
+    }
+    return run;
+  }
   // Consola: el compilador del lenguaje (Python ya está).
   if (prepared.console != null) {
     if (tests) return null;

@@ -13,6 +13,7 @@ import 'package:re_highlight/styles/vs2015.dart';
 import '../../code/tk_ai.dart';
 import '../../code/component_clipboard.dart';
 import '../../code/tk_codegen.dart';
+import '../../code/tk_debug.dart';
 import '../../code/tk_model.dart';
 import '../../code/tk_run.dart';
 import '../../core/errors.dart';
@@ -30,6 +31,7 @@ import 'github_dialog.dart';
 import 'project_browser.dart';
 import 'tk_canvas.dart';
 import 'tk_claude_panel.dart';
+import 'tk_debug_panel.dart';
 import 'tk_inspector.dart';
 
 /// Diseñador de interfaz: un diseñador visual de formularios, al estilo de
@@ -631,11 +633,19 @@ class _PythonEditor extends StatelessWidget {
     required this.controller,
     this.readOnly = false,
     this.focusNode,
+    this.project,
+    this.currentLine,
+    this.onCondition,
   });
   final Key? editorKey;
   final CodeLineEditingController controller;
   final bool readOnly;
   final FocusNode? focusNode;
+
+  /// Con proyecto, el margen muestra (y pone) puntos de parada.
+  final String? project;
+  final int? currentLine;
+  final void Function(int line)? onCondition;
 
   @override
   Widget build(BuildContext context) {
@@ -658,7 +668,10 @@ class _PythonEditor extends StatelessWidget {
             ? const Color(0xFF264F78)
             : const Color(0xFFADD6FF),
         cursorColor: dark ? const Color(0xFFAEAFAD) : Colors.black,
-        cursorLineColor: dark
+        // Detenido en el depurador: la línea en curso, en amarillo.
+        cursorLineColor: currentLine != null
+            ? (dark ? const Color(0x55FFCC00) : const Color(0xAAFFE58F))
+            : dark
             ? const Color(0xFF282828)
             : const Color(0xFFF5F5F5),
         chunkIndicatorColor: _editorDim,
@@ -669,6 +682,14 @@ class _PythonEditor extends StatelessWidget {
       ),
       indicatorBuilder: (context, editing, chunk, notifier) => Row(
         children: [
+          if (project != null)
+            TkBreakpointGutter(
+              controller: editing,
+              notifier: notifier,
+              project: project!,
+              current: currentLine,
+              onCondition: onCondition,
+            ),
           DefaultCodeLineNumber(
             controller: editing,
             notifier: notifier,
@@ -734,6 +755,14 @@ class _TkEditorState extends State<_TkEditor> {
   String? _genError;
   TkRun? _run;
 
+  /// Sesión del depurador que manda (el programa o las pruebas depuradas).
+  TkDebugSession? _debug;
+
+  /// Las últimas pruebas.
+  TkRun? _testsRun;
+  TkDebugTab _panelTab = TkDebugTab.output;
+  bool _wasPaused = false;
+
   final _generatedCode = CodeLineEditingController.fromText('');
   final _codeFocus = FocusNode(debugLabel: 'tk-code');
   final _outScroll = ScrollController();
@@ -748,6 +777,11 @@ class _TkEditorState extends State<_TkEditor> {
     _shownDesign = doc.design;
     TkProject.changes.addListener(_onProject);
     _attach(TkRunner.runOf(doc.id));
+    _attachTests(TkRunner.testsOf(doc.id));
+    TkBreakpoints.changes.addListener(_onBreakpoints);
+    TkBreakpoints.load(doc.id).then((_) {
+      if (mounted) setState(() {});
+    });
     ProjectStore.savedConnections().then((c) {
       if (mounted) setState(() => _connections = c);
     });
@@ -757,6 +791,9 @@ class _TkEditorState extends State<_TkEditor> {
   void dispose() {
     TkProject.changes.removeListener(_onProject);
     _run?.removeListener(_onRun);
+    _testsRun?.removeListener(_onRun);
+    _debug?.removeListener(_onDebug);
+    TkBreakpoints.changes.removeListener(_onBreakpoints);
     _generatedCode.dispose();
     _codeFocus.dispose();
     _outScroll.dispose();
@@ -788,6 +825,133 @@ class _TkEditorState extends State<_TkEditor> {
     _run?.removeListener(_onRun);
     _run = run;
     run?.addListener(_onRun);
+    if (run?.debug != null) _follow(run!.debug);
+  }
+
+  void _attachTests(TkRun? run) {
+    _testsRun?.removeListener(_onRun);
+    _testsRun = run;
+    run?.addListener(_onRun);
+    if (run?.debug?.trace ?? false) _follow(run!.debug);
+  }
+
+  /// Sigue la sesión [s]: al detenerse, enseña la línea.
+  void _follow(TkDebugSession? s) {
+    _debug?.removeListener(_onDebug);
+    _debug = s;
+    _wasPaused = false;
+    s?.addListener(_onDebug);
+  }
+
+  void _onDebug() {
+    if (!mounted) return;
+    final s = _debug;
+    final paused = s?.paused ?? false;
+    if (paused && !_wasPaused) {
+      _output = true;
+      if (_panelTab == TkDebugTab.output || _panelTab == TkDebugTab.tests) {
+        _panelTab = s!.exception != null
+            ? TkDebugTab.stack
+            : TkDebugTab.variables;
+      }
+      final line = s!.currentLine;
+      if (line != null) _jumpTo(line);
+    }
+    _wasPaused = paused;
+    setState(() {});
+  }
+
+  /// Los puntos nuevos llegan al programa en marcha.
+  void _onBreakpoints() {
+    _live?.sendBreakpoints();
+    if (mounted) setState(() {});
+  }
+
+  /// La sesión del depurador, si sigue viva.
+  TkDebugSession? get _live => _debug != null && !_debug!.ended ? _debug : null;
+
+  void _jumpTo(int line) {
+    if (line < 1 || line > _code.lineCount) return;
+    setState(() => _tab = 1);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _code.selection = CodeLineSelection.collapsed(index: line - 1, offset: 0);
+      _code.makeCursorCenterIfInvisible();
+    });
+  }
+
+  String _lineText(int n) =>
+      n >= 1 && n <= _code.lineCount ? _code.codeLines[n - 1].text : '';
+
+  int get _cursorLine => _code.selection.extentIndex + 1;
+
+  void _toggleBreakpoint() {
+    if (_tab != 1) return;
+    TkBreakpoints.toggle(doc.id, _cursorLine);
+    _live?.sendBreakpoints();
+  }
+
+  Future<void> _editCondition(int line) async {
+    final current = TkBreakpoints.of(doc.id)[line] ?? '';
+    final c = await askBreakpointCondition(context, line, current);
+    if (c == null) return;
+    TkBreakpoints.setCondition(doc.id, line, c);
+    _live?.sendBreakpoints();
+  }
+
+  Future<void> _debugApp() async {
+    if (doc.dirty && !await _save()) return;
+    if (!mounted) return;
+    TkBreakpoints.trim(doc.id, _code.lineCount);
+    final run = await launchTkApp(context, doc.id, debug: true);
+    if (run == null || !mounted) return;
+    _attach(run);
+    setState(() {
+      _output = true;
+      if (_panelTab == TkDebugTab.tests) _panelTab = TkDebugTab.output;
+    });
+  }
+
+  bool get _hasTests {
+    final dir = Directory(TkRunner.testsDir(doc.id));
+    if (!dir.existsSync()) return false;
+    return dir.listSync().any(
+      (f) =>
+          f is File && RegExp(r'test.*\.py$').hasMatch(f.uri.pathSegments.last),
+    );
+  }
+
+  Future<void> _runTests({required bool debug}) async {
+    if (doc.dirty && !await _save()) return;
+    if (!mounted) return;
+    final run = await launchTkApp(context, doc.id, tests: true, debug: debug);
+    if (run == null || !mounted) return;
+    _attachTests(run);
+    setState(() {
+      _output = true;
+      _panelTab = TkDebugTab.tests;
+    });
+  }
+
+  Future<void> _createTest() async {
+    final dir = Directory(TkRunner.testsDir(doc.id));
+    final file = File('${dir.path}${Platform.pathSeparator}test_form1.py');
+    if (!file.existsSync()) {
+      await dir.create(recursive: true);
+      await file.writeAsString(tkTestTemplate(web: d.isWeb, form: d.name));
+    }
+    if (!mounted) return;
+    setState(() {});
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        key: const ValueKey('tk-test-created'),
+        content: Text(tr('Prueba en {0}', [file.path])),
+        action: SnackBarAction(
+          label: tr('Mostrar'),
+          onPressed: () => revealInFiles(dir.path),
+        ),
+      ),
+    );
   }
 
   void _onRun() {
@@ -1518,6 +1682,24 @@ class _TkEditorState extends State<_TkEditor> {
     onPressed: onTap,
   );
 
+  void _stopAll() {
+    _run?.stop();
+    _testsRun?.stop();
+  }
+
+  void _runToCursor() {
+    final s = _live;
+    if (s == null || !s.paused) return;
+    s.runTo(_cursorLine);
+  }
+
+  /// F9: continúa si está detenido; si no, ejecuta.
+  void _f9() {
+    final s = _live;
+    if (s != null && s.paused) return s.resume();
+    if (TkRunner.supported && !(_run?.running ?? false)) _runApp();
+  }
+
   Widget _toolbar(ThemeData t) {
     final running = _run?.running ?? false;
     final two = _selection.length > 1;
@@ -1560,12 +1742,59 @@ class _TkEditorState extends State<_TkEditor> {
                 color: AppColors.success,
               ),
               _tool(
+                LucideIcons.bug,
+                tr('Depurar (Mayús+F9)'),
+                running ? null : _debugApp,
+                key: const ValueKey('tk-debug'),
+                color: AppColors.warning,
+              ),
+              _tool(
                 LucideIcons.square,
-                tr('Detener'),
-                running ? () => _run?.stop() : null,
+                tr('Detener (Ctrl+F2)'),
+                running || (_testsRun?.running ?? false) ? _stopAll : null,
                 key: const ValueKey('tk-stop'),
                 color: AppColors.danger,
               ),
+              if (_live != null) ...[
+                const VerticalDivider(width: 12),
+                _tool(
+                  LucideIcons.play,
+                  tr('Continuar (F9)'),
+                  _live!.paused ? _live!.resume : null,
+                  key: const ValueKey('tk-dbg-continue'),
+                  color: AppColors.success,
+                ),
+                _tool(
+                  LucideIcons.pause,
+                  tr('Pausar'),
+                  _live!.paused ? null : _live!.pause,
+                  key: const ValueKey('tk-dbg-pause'),
+                ),
+                _tool(
+                  LucideIcons.arrowDownToLine,
+                  tr('Entrar (F7)'),
+                  _live!.paused ? _live!.stepInto : null,
+                  key: const ValueKey('tk-dbg-into'),
+                ),
+                _tool(
+                  LucideIcons.redo2,
+                  tr('Pasar por encima (F8)'),
+                  _live!.paused ? _live!.stepOver : null,
+                  key: const ValueKey('tk-dbg-over'),
+                ),
+                _tool(
+                  LucideIcons.arrowUpFromLine,
+                  tr('Salir de la función (Mayús+F8)'),
+                  _live!.paused ? _live!.stepOut : null,
+                  key: const ValueKey('tk-dbg-out'),
+                ),
+                _tool(
+                  LucideIcons.textCursorInput,
+                  tr('Ejecutar hasta el cursor (F4)'),
+                  _live!.paused ? _runToCursor : null,
+                  key: const ValueKey('tk-dbg-cursor'),
+                ),
+              ],
               if (d.isWeb)
                 _tool(
                   LucideIcons.externalLink,
@@ -1875,6 +2104,9 @@ class _TkEditorState extends State<_TkEditor> {
               editorKey: const ValueKey('tk-code'),
               controller: _code,
               focusNode: _codeFocus,
+              project: doc.id,
+              currentLine: _debug?.currentLine,
+              onCondition: _editCondition,
             ),
             _genError != null
                 ? Center(
@@ -1925,9 +2157,19 @@ class _TkEditorState extends State<_TkEditor> {
   );
 
   Widget _outputPanel(ThemeData t) {
-    final run = _run;
+    // La salida de las pruebas cuando se está en su pestaña.
+    final run = _panelTab == TkDebugTab.tests && _testsRun != null
+        ? _testsRun
+        : _run;
     final py = widget.python;
-    final state = run == null
+    final dbg = _live;
+    final state = dbg != null
+        ? (dbg.paused
+              ? tr('Depurando: detenido.')
+              : dbg.connected
+              ? tr('Depurando: en marcha.')
+              : tr('Depurando: arrancando…'))
+        : run == null
         ? tr('Aún no se ha ejecutado.')
         : !run.running
         ? tr('Terminó con el código {0}.', [run.exitCode])
@@ -1936,67 +2178,113 @@ class _TkEditorState extends State<_TkEditor> {
             run.address,
           ])
         : tr('En ejecución en su propia ventana.');
+    final output =
+        _panelTab == TkDebugTab.output || _panelTab == TkDebugTab.tests;
     return BottomPanel(
       id: 'tk-output',
       background: _editorBg,
       iconColor: _editorDim,
-      initialHeight: 160,
-      title: Text(
-        [
-          state,
-          if (py != null && py.ok)
-            'Python ${py.version} · Tk ${py.tk} · ${py.command}',
-          if (py != null && py.oldTk) _oldTkWarning(py),
-        ].join('   ·   '),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(color: _editorDim, fontSize: 11.5),
-      ),
-      actions: [
-        IconButton(
-          key: const ValueKey('tk-output-copy'),
-          tooltip: tr('Copiar la salida'),
-          iconSize: 15,
-          visualDensity: VisualDensity.compact,
-          color: _editorDim,
-          disabledColor: _editorDim.withValues(alpha: .35),
-          icon: const Icon(LucideIcons.copy),
-          onPressed: (run?.lines.isEmpty ?? true)
-              ? null
-              : () {
-                  Clipboard.setData(ClipboardData(text: run!.lines.join('\n')));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(tr('Salida copiada.'))),
-                  );
-                },
-        ),
-      ],
-      child: ListView.builder(
-        key: const ValueKey('tk-output'),
-        controller: _outScroll,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        itemCount: run?.lines.length ?? 0,
-        itemBuilder: (_, i) => SelectableText(
-          run!.lines[i],
-          style: const TextStyle(
-            color: Color(0xFFD4D4D4),
-            fontFamily: _mono,
-            fontFamilyFallback: _monoFallback,
-            fontSize: 12,
+      initialHeight: 220,
+      title: TkDebugTabs(
+        tab: _panelTab,
+        onTab: (tab) => setState(() => _panelTab = tab),
+        trailing: Text(
+          [
+            state,
+            if (py != null && py.ok)
+              'Python ${py.version} · Tk ${py.tk} · ${py.command}',
+            if (py != null && py.oldTk) _oldTkWarning(py),
+          ].join('   ·   '),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            color: dbg?.paused ?? false ? tkCurrentLineColor : _editorDim,
+            fontSize: 11.5,
           ),
         ),
       ),
+      actions: [
+        if (output)
+          IconButton(
+            key: const ValueKey('tk-output-copy'),
+            tooltip: tr('Copiar la salida'),
+            iconSize: 15,
+            visualDensity: VisualDensity.compact,
+            color: _editorDim,
+            disabledColor: _editorDim.withValues(alpha: .35),
+            icon: const Icon(LucideIcons.copy),
+            onPressed: (run?.lines.isEmpty ?? true)
+                ? null
+                : () {
+                    Clipboard.setData(
+                      ClipboardData(text: run!.lines.join('\n')),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(tr('Salida copiada.'))),
+                    );
+                  },
+          ),
+      ],
+      child: _panelTab == TkDebugTab.output
+          ? _outputList(run)
+          : _panelTab == TkDebugTab.tests
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(flex: 3, child: _debugPanel()),
+                const VerticalDivider(width: 1, color: Color(0xFF333333)),
+                Expanded(flex: 2, child: _outputList(run)),
+              ],
+            )
+          : _debugPanel(),
     );
   }
+
+  Widget _debugPanel() => TkDebugPanel(
+    key: const ValueKey('tk-debug-panel'),
+    tab: _panelTab,
+    project: doc.id,
+    session: _debug,
+    tests: _testsRun?.debug,
+    lineText: _lineText,
+    onJump: _jumpTo,
+    onRunTests: _runTests,
+    onCreateTest: _createTest,
+    hasTests: _hasTests,
+  );
+
+  Widget _outputList(TkRun? run) => ListView.builder(
+    key: const ValueKey('tk-output'),
+    controller: _outScroll,
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    itemCount: run?.lines.length ?? 0,
+    itemBuilder: (_, i) => SelectableText(
+      run!.lines[i],
+      style: const TextStyle(
+        color: Color(0xFFD4D4D4),
+        fontFamily: _mono,
+        fontFamilyFallback: _monoFallback,
+        fontSize: 12,
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context);
     return CallbackShortcuts(
       bindings: {
-        const SingleActivator(LogicalKeyboardKey.f9): () {
-          if (TkRunner.supported && !(_run?.running ?? false)) _runApp();
+        const SingleActivator(LogicalKeyboardKey.f9): _f9,
+        const SingleActivator(LogicalKeyboardKey.f9, shift: true): () {
+          if (TkRunner.supported && !(_run?.running ?? false)) _debugApp();
         },
+        const SingleActivator(LogicalKeyboardKey.f5): _toggleBreakpoint,
+        const SingleActivator(LogicalKeyboardKey.f7): () => _live?.stepInto(),
+        const SingleActivator(LogicalKeyboardKey.f8): () => _live?.stepOver(),
+        const SingleActivator(LogicalKeyboardKey.f8, shift: true): () =>
+            _live?.stepOut(),
+        const SingleActivator(LogicalKeyboardKey.f4): _runToCursor,
+        const SingleActivator(LogicalKeyboardKey.f2, control: true): _stopAll,
         const SingleActivator(LogicalKeyboardKey.f12): () =>
             _setTab(_tab == 0 ? 1 : 0),
         const SingleActivator(LogicalKeyboardKey.keyS, meta: true): _save,

@@ -637,7 +637,7 @@ msgstr ""
 msgid "Reiniciado"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Reiniciar"
 msgstr ""
 
@@ -1189,7 +1189,7 @@ msgstr ""
 msgid "Orientación"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Paso"
 msgstr ""
 
@@ -1502,6 +1502,10 @@ msgid "Las aplicaciones web necesitan Flask en el Python de este equipo."
 msgstr ""
 
 #: lib/code/tk_run_io.dart
+msgid "Las pruebas de «{0}» ya están en marcha."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
 msgid "Las ventanas de Python solo se abren en macOS, Windows o Linux."
 msgstr ""
 
@@ -1663,7 +1667,7 @@ msgstr ""
 msgid "Deshacer"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Detener"
 msgstr ""
 
@@ -2844,7 +2848,7 @@ msgstr ""
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr ""
 
@@ -3484,7 +3488,7 @@ msgstr ""
 msgid "{0} marcada como pagada."
 msgstr ""
 
-#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
 msgstr ""
 
@@ -3496,7 +3500,7 @@ msgstr ""
 msgid "Cada botón abre un diálogo u otra ventana; lo que devuelven queda en el registro."
 msgstr ""
 
-#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_windows.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr ""
 
@@ -3812,7 +3816,7 @@ msgstr ""
 msgid "Restaurar"
 msgstr ""
 
-#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Actualizar"
 msgstr ""
 
@@ -3868,7 +3872,7 @@ msgstr ""
 msgid "Hoy"
 msgstr ""
 
-#: lib/ui/screens/budget_screen.dart
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Llamadas"
 msgstr ""
 
@@ -3904,7 +3908,7 @@ msgstr ""
 msgid "Restante"
 msgstr ""
 
-#: lib/ui/screens/budget_screen.dart
+#: lib/ui/screens/budget_screen.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Salida"
 msgstr ""
 
@@ -4256,7 +4260,7 @@ msgstr ""
 msgid "Hecho."
 msgstr ""
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart
+#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Historial"
 msgstr ""
 
@@ -5418,6 +5422,222 @@ msgstr ""
 msgid "Pida un cambio (Intro para enviar)"
 msgstr ""
 
+#: lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_inspector.dart
+msgid "(ninguna)"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Aún no hay pruebas. «Crear una prueba de ejemplo» añade tests/test_form1.py al proyecto: pruebas de unittest que importan su programa con «from dms_app import Form1»."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Aún no se ha ejecutado ninguna función de su código."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Cada llamada a una función de su código y su vuelta, con lo que tardó."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Condición"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Condición del punto de parada (línea {0})"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Crear una prueba de ejemplo"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Depurar pruebas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Detenerse en excepciones:"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Ejecutar pruebas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "El programa está en marcha. Se detendrá en un punto de parada, o pulse Pausar."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "En marcha…"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "En pausa"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Error en la condición: {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Escriba una expresión (self.total, len(items)…) o una asignación (n = 5) y pulse Intro: se evalúa en el marco elegido en la pila."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Evaluar"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Excepción"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Expresión de Python"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Función"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Globales"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Hasta el cursor"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Inicie la depuración con «Depurar» (Mayús+F9). Ponga puntos de parada haciendo clic a la izquierda de los números de línea, en la pestaña Código (F5 en la línea del cursor)."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Las no controladas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Las pruebas están en la carpeta tests del proyecto (archivos test_*.py con unittest). Importan su programa con «from dms_app import Form1»."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Las últimas líneas de su código que se ejecutaron (la más reciente arriba)."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Locales"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Línea"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Líneas más ejecutadas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Media ms"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Máx. ms"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "No hay puntos de parada. Haga clic a la izquierda de un número de línea en la pestaña Código, o pulse F5 en la línea del cursor. Con clic derecho se le pone una condición."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Nunca"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Objetos"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Objetos vivos de las clases de su programa (y componentes de tkinter). Para ver su estado, despliéguelos en Variables."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Pila"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Pruebas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Punto de parada"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Puntos de parada"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Quitar todos"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Rendimiento"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Se puede evaluar cuando el programa está detenido."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Tiempo dentro de cada función de su código (sin contar las pausas del depurador). Se actualiza solo."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Todas (también las controladas)"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Total ms"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Traza"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Una expresión de Python: se detiene solo cuando es verdadera. Vacía: siempre."
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "Variables"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "hilo {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "línea {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "línea {0}: {1}"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "si {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "{0} ms"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "{0} pruebas · {1} fallos · {2} errores · {3} omitidas"
+msgstr ""
+
+#: lib/ui/screens/tk_debug_panel.dart
+msgid "{0}, línea {1}"
+msgstr ""
+
 #: lib/ui/screens/tk_designer.dart
 msgid "Abrir en el navegador"
 msgstr ""
@@ -5503,7 +5723,31 @@ msgid "Chat con Claude Code"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Continuar (F9)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Código de {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Depurando: arrancando…"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Depurando: detenido."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Depurando: en marcha."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Depurar (Mayús+F9)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Detener (Ctrl+F2)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5520,6 +5764,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Ejecutar (F9)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Ejecutar hasta el cursor (F4)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5548,6 +5796,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "En marcha en {0}: solo en este equipo, sin publicar."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Entrar (F7)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5623,6 +5875,14 @@ msgid "Nuevo proyecto"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Pasar por encima (F8)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Pausar"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Pedir"
 msgstr ""
 
@@ -5639,11 +5899,19 @@ msgid "Proyectos"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Prueba en {0}"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Python generado"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Python {0} con Tk {1} ({2})"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Salir de la función (Mayús+F8)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -5720,10 +5988,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "(de serie)"
-msgstr ""
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "(ninguna)"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart

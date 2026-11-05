@@ -449,6 +449,105 @@ export const manualEs: Manual = {
         },
       ],
     },
+    // ------------------------------------------------------------ depurar
+    {
+      slug: "depurar",
+      title: "Depurar",
+      summary: "Puntos de parada, paso a paso, variables, evaluar, excepciones, historial, rendimiento y pruebas.",
+      sections: [
+        {
+          id: "empezar",
+          title: "Puntos de parada y depurar",
+          blocks: [
+            {
+              type: "p",
+              text: "El depurador ejecuta su proyecto (de escritorio o web) y lo detiene en las líneas que usted elija de **su código**: el código que genera el diseño no se depura. No hay que instalar nada: usa la biblioteca estándar de Python.",
+            },
+            {
+              type: "ol",
+              items: [
+                "En la pestaña **Código**, haga clic a la izquierda de un número de línea para poner un **punto de parada** (un punto rojo); otro clic lo quita. **F5** lo pone en la línea del cursor.",
+                "Con **clic derecho** sobre el punto se le pone una **condición** (por ejemplo `qty == 4`): solo se detiene cuando es verdadera. Se ve con un punto blanco dentro.",
+                "Pulse **Depurar** (el bicho naranja, **Mayús+F9**). El programa arranca y, al llegar a un punto, se detiene: la flecha amarilla marca la línea y el panel inferior abre **Variables**.",
+              ],
+            },
+            { type: "img", src: shot("debugger"), alt: "El depurador detenido en un punto de parada", caption: "Detenido en la línea 4 cuando qty vale 4: las variables locales y globales, con las listas y los objetos desplegables." },
+          ],
+        },
+        {
+          id: "pasos",
+          title: "Paso a paso",
+          blocks: [
+            {
+              type: "table",
+              head: ["Botón", "Atajo", "Qué hace"],
+              rows: [
+                ["**Continuar**", "F9", "Sigue hasta el siguiente punto de parada"],
+                ["**Entrar**", "F7", "Ejecuta la línea y entra en las funciones de su código que llame"],
+                ["**Pasar por encima**", "F8", "Ejecuta la línea entera, sin entrar en las funciones"],
+                ["**Salir de la función**", "Mayús+F8", "Sigue hasta volver a quien llamó a esta función"],
+                ["**Ejecutar hasta el cursor**", "F4", "Sigue hasta la línea donde está el cursor"],
+                ["**Pausar**", "", "Detiene el programa en la próxima línea de su código que se ejecute"],
+                ["**Detener**", "Ctrl+F2", "Termina el programa"],
+              ],
+            },
+            {
+              type: "note",
+              text: "Mientras está detenido, la ventana (o la página web) no responde: es normal. Al continuar sigue donde estaba.",
+            },
+          ],
+        },
+        {
+          id: "inspeccionar",
+          title: "Variables, pila y evaluar",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Variables**: las locales y las globales del marco elegido. Las listas, los diccionarios y los objetos (como `self`) se despliegan para ver su estado.",
+                "**Pila**: la cadena de llamadas hasta la línea actual. Un clic en un marco lo elige: cambian las variables y el editor salta a su línea. Si se detuvo por un error, debajo está la traza completa.",
+                "**Evaluar**: escriba una expresión de Python (`self.total`, `len(items)`) y pulse Intro. También admite asignaciones (`n = 5`) para cambiar un valor antes de seguir.",
+                "**Puntos de parada**: todos los puntos con su línea y su condición; desde aquí se editan, se quitan, y se elige cuándo detenerse en las **excepciones**: nunca, en las no controladas (por defecto: un error en un evento detiene en su línea) o en todas, también las que su código controla con `try`.",
+              ],
+            },
+            { type: "img", src: shot("debugger-stack"), alt: "La pila de llamadas", caption: "La pila: total, llamada desde la línea 9 del módulo." },
+          ],
+        },
+        {
+          id: "analizar",
+          title: "Historial, llamadas, rendimiento y objetos",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Historial**: las últimas líneas de su código que se ejecutaron, con la hora y la función. Un clic lleva a la línea.",
+                "**Llamadas**: cada llamada a una función de su código y su vuelta, sangradas por profundidad y con lo que tardó: el flujo del programa.",
+                "**Rendimiento**: por cada función, cuántas veces se llamó y su tiempo total, medio y máximo (sin contar las pausas del depurador), y las líneas que más se ejecutan. Se actualiza solo; **Reiniciar** pone los contadores a cero.",
+                "**Objetos**: cuántos objetos vivos hay de cada clase de su programa (y componentes de tkinter): sirve para ver si algo se crea de más.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "pruebas",
+          title: "Pruebas",
+          blocks: [
+            {
+              type: "p",
+              text: "La pestaña **Pruebas** ejecuta las pruebas de `unittest` de la carpeta `tests` del proyecto (archivos `test_*.py`). **Crear una prueba de ejemplo** añade `tests/test_form1.py`: las pruebas importan su programa con `from dms_app import Form1` (en una web, `from dms_app import app` y su cliente de pruebas).",
+            },
+            {
+              type: "code",
+              code: "import unittest\n\nfrom dms_app import Form1\n\n\nclass TestForm1(unittest.TestCase):\n    def setUp(self):\n        self.form = Form1()\n        self.form.root.withdraw()\n\n    def tearDown(self):\n        self.form.root.destroy()\n\n    def test_title(self):\n        self.assertTrue(self.form.root.title())",
+            },
+            {
+              type: "p",
+              text: "**Ejecutar pruebas** muestra cada prueba en verde, en rojo (con su error al pulsarla) u omitida. **Depurar pruebas** las ejecuta con el depurador: se detienen en los puntos de parada de su código.",
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------------ 4
     {
       slug: "ia-disenador",
@@ -832,7 +931,12 @@ export const manualEs: Manual = {
               type: "table",
               head: ["Atajo", "Acción"],
               rows: [
-                ["F9", "Ejecutar"],
+                ["F9", "Ejecutar (depurando y detenido: continuar)"],
+                ["Mayús+F9", "Depurar"],
+                ["F5", "Poner o quitar un punto de parada en la línea del cursor"],
+                ["F7 / F8 / Mayús+F8", "Entrar / pasar por encima / salir de la función"],
+                ["F4", "Ejecutar hasta el cursor"],
+                ["Ctrl+F2", "Detener"],
                 ["F12", "Pasar del diseño al código y vuelta"],
                 ["⌘S / Ctrl+S", "Guardar el proyecto"],
                 ["⌘Z / Ctrl+Z", "Deshacer"],

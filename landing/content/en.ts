@@ -76,6 +76,7 @@ export const en: Content = {
         { title: "Grid and alignment", text: "Snap to grid, align left, center or right, match width and height, bring to front and nudge with the arrow keys." },
         { title: "Undo, copy and paste", text: "Every change can be undone; components are copied between windows along with their children." },
         { title: "F9 runs, F12 toggles", text: "F9 launches the window with your local Python and shows its output; F12 switches between design and code. You can also export the .py file." },
+        { title: "Debugger", text: "Conditional breakpoints, stepping (F7, F8), expandable variables and objects, call stack, expression evaluation, exceptions, history, per-function performance and unittest tests." },
       ],
     },
     {

@@ -3,6 +3,27 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.20 — 2026-11-05
+
+- **Depurador** en el Diseñador, para proyectos de escritorio y web, sin
+  instalar nada:
+  - **Puntos de parada** en el margen del código (clic o F5), con
+    **condición** (clic derecho).
+  - **Depurar** (Mayús+F9), **Continuar** (F9), **Entrar** (F7), **Pasar por
+    encima** (F8), **Salir de la función** (Mayús+F8), **Ejecutar hasta el
+    cursor** (F4), **Pausar** y **Detener** (Ctrl+F2); la línea en curso se
+    marca con una flecha amarilla.
+  - Pestañas **Variables** (con listas, diccionarios y objetos desplegables),
+    **Pila** (con la traza de los errores), **Evaluar** (también
+    asignaciones), **Puntos de parada** y cuándo detenerse en las
+    **excepciones**.
+  - **Historial** de las líneas ejecutadas, **Llamadas** (el flujo de
+    funciones con su duración), **Rendimiento** por función y **Objetos**
+    vivos de cada clase.
+  - **Pruebas**: ejecuta y depura las pruebas de `unittest` de la carpeta
+    `tests`, y crea una de ejemplo.
+- Manual: capítulo **Depurar** y atajos nuevos.
+
 ## 1.0.19 — 2026-11-05
 
 - Componente **Vista HTML** (escritorio y web): HTML escrito por el código,

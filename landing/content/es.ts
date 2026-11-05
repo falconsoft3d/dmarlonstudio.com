@@ -76,6 +76,7 @@ export const es: Content = {
         { title: "Rejilla y alineación", text: "Ajuste a la rejilla, alinear a izquierda, centro o derecha, igualar ancho y alto, traer al frente y mover con las flechas." },
         { title: "Deshacer, copiar y pegar", text: "Cada cambio se puede deshacer; los componentes se copian entre ventanas con sus hijos." },
         { title: "F9 ejecuta, F12 alterna", text: "F9 lanza la ventana con su Python local y muestra la salida; F12 cambia entre diseño y código. También se exporta el .py." },
+        { title: "Depurador", text: "Puntos de parada con condición, paso a paso (F7, F8), variables y objetos desplegables, pila, evaluar expresiones, excepciones, historial, rendimiento por función y pruebas de unittest." },
       ],
     },
     {

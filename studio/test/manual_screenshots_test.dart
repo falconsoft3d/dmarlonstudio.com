@@ -10,6 +10,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:dmarlon_studio/code/tk_debug.dart';
+import 'package:dmarlon_studio/code/tk_model.dart';
 import 'package:dmarlon_studio/code/tk_run_types.dart';
 import 'package:dmarlon_studio/code/tk_run_io.dart';
 import 'package:dmarlon_studio/core/project_store.dart';
@@ -49,6 +51,7 @@ void main() {
     late Directory tmp;
     Directory? shared;
     late String calc;
+    late String order;
     await tester.runAsync(() async {
       tmp = await Directory.systemTemp.createTemp('dms_shots_');
       StudioDb.dirOverride = p.join(tmp.path, 'support');
@@ -113,6 +116,15 @@ void main() {
       );
       final projects = await ProjectStore.list();
       calc = projects.firstWhere((x) => x.name.contains('Calcul')).path;
+      // Un proyecto para la captura del depurador: se detiene al importar,
+      // antes de abrir la ventana.
+      order = await ProjectStore.create(
+        'Pedido',
+        design: TkDesign(),
+        code: _orderCode,
+      );
+      TkBreakpoints.toggle(order, 4);
+      TkBreakpoints.setCondition(order, 4, 'qty == 4');
       await Settings.set('code.recent', jsonEncode([calc]));
 
       // Una base SQLite de ejemplo para Bases de datos y Diagramas.
@@ -296,6 +308,36 @@ void main() {
       await shot(lang, 'designer-claude');
       await tap(find.byKey(const ValueKey('tk-claude')));
 
+      // Depurador: detenido en un punto de parada con condición.
+      await tester.runAsync(() async {
+        TkProject.open((await ProjectStore.get(order))!);
+      });
+      await settle(10);
+      await tap(find.byKey(const ValueKey('tk-tab-1')));
+      // El depurador lanza Python de verdad: uno con tkinter.
+      final home = Platform.environment['HOME'] ?? '';
+      TkRunner.python = TkPython(
+        command: File('$home/micromamba/bin/python3').existsSync()
+            ? '$home/micromamba/bin/python3'
+            : '/usr/bin/python3',
+        version: '3.13.1',
+        tk: '8.6.15',
+        help: '',
+      );
+      await tap(find.byKey(const ValueKey('tk-debug')));
+      for (var i = 0; i < 200; i++) {
+        if (TkRunner.runOf(order)?.debug?.paused ?? false) break;
+        await settle(1);
+      }
+      await settle(10);
+      await shot(lang, 'debugger');
+      await tap(find.byKey(const ValueKey('tk-dbg-tab-stack')));
+      await shot(lang, 'debugger-stack');
+      await tap(find.byKey(const ValueKey('tk-dbg-tab-output')));
+      await tap(find.byKey(const ValueKey('tk-stop')));
+      await settle(10);
+      TkProject.close();
+
       // Editor con la carpeta del proyecto y su código.
       await tap(find.byKey(const ValueKey('nav-1')));
       await tap(find.textContaining('calculadora'));
@@ -331,3 +373,19 @@ void main() {
     });
   }, skip: !_on);
 }
+
+const _orderCode = '''def total(items):
+    result = 0
+    for price, qty in items:
+        result += price * qty
+    return result
+
+
+ORDER = [(9.5, 2), (4.25, 4), (12.0, 1)]
+TOTAL = total(ORDER)
+
+
+class Form1(FormDesign):
+    def form_create(self):
+        self.root.title("Total: %.2f" % TOTAL)
+''';

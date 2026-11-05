@@ -1447,7 +1447,11 @@ class WebForm:
             handler(*args)
         except DataError as error:
             self.notify(error)
-        except Exception:
+        except Exception as error:
+            # Con el depurador, se detiene en la línea del error.
+            hook = getattr(sys, "dmstudio_post_mortem", None)
+            if hook is not None:
+                hook(error, error.__traceback__)
             traceback.print_exc()
             self._notes.append({"key": "error"})
         finally:

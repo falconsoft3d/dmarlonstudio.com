@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../code/tk_debug.dart';
 import '../code/tk_run.dart';
 import '../core/errors.dart';
 import '../core/project_store.dart';
@@ -33,10 +34,15 @@ Future<void> openTkWebApp(BuildContext context, TkRun run) async {
 /// Ejecuta el proyecto de la carpeta [id] tal como está guardado: genera su
 /// Python en `build/`, comprueba el Python del equipo (y Flask, si es web),
 /// lo lanza y, si es web, abre el navegador.
-Future<TkRun?> launchTkApp(BuildContext context, String id) async {
+Future<TkRun?> launchTkApp(
+  BuildContext context,
+  String id, {
+  bool debug = false,
+  bool tests = false,
+}) async {
   // Ya en marcha, su secreto sigue valiendo: basta con volver a la página.
   final live = TkRunner.runOf(id);
-  if (live != null && live.running && live.url != null) {
+  if (!debug && !tests && live != null && live.running && live.url != null) {
     await openTkWebApp(context, live);
     return live;
   }
@@ -66,7 +72,23 @@ Future<TkRun?> launchTkApp(BuildContext context, String id) async {
   }
   if (!context.mounted) return null;
   final messenger = ScaffoldMessenger.maybeOf(context);
-  final run = await runAction(context, () => TkRunner.start(prepared));
+  TkDebugSession? session;
+  if (debug || tests) {
+    await TkBreakpoints.load(id);
+    session = TkDebugSession(
+      project: id,
+      unitStart: prepared.unitStart,
+      unitLines: prepared.unitLines,
+      tests: tests,
+      trace: debug,
+      exceptionMode: TkDebugDefaults.exceptionMode,
+    );
+  }
+  if (!context.mounted) return null;
+  final run = await runAction(
+    context,
+    () => TkRunner.start(prepared, debug: session),
+  );
   if (run == null) return null;
   if (run.url != null && context.mounted) await openTkWebApp(context, run);
   // Sin el panel de salida a la vista (desde la galería), si falla se avisa.
@@ -86,7 +108,8 @@ Future<TkRun?> launchTkApp(BuildContext context, String id) async {
     );
   }
 
-  run.addListener(ended);
+  // Las pruebas que fallan ya se ven en su pestaña.
+  if (!tests) run.addListener(ended);
   return run;
 }
 

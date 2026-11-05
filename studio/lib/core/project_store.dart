@@ -507,6 +507,8 @@ class ProjectStore {
     final x = await get(dir);
     if (x == null) throw UserError(tr('El proyecto ya no existe.'));
     final source = TkCodegen.generate(x.design, x.code);
+    final unit = x.code.replaceAll('\r\n', '\n').trimRight();
+    final at = source.indexOf(unit);
     final links = await _links(x.design);
     final file = await writeBuild(x, source);
     // Solo las ventanas con una integración API reciben las variables.
@@ -526,6 +528,8 @@ class ProjectStore {
       tray: !x.isWeb && x.design.widgets.any((w) => w.kind == 'TrayIcon'),
       ai: ai,
       anthropicKey: key == null || key.isEmpty ? null : key,
+      unitStart: at < 0 ? 0 : '\n'.allMatches(source.substring(0, at)).length,
+      unitLines: at < 0 ? 0 : '\n'.allMatches(unit).length + 1,
     );
   }
 }

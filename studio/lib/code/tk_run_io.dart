@@ -7,6 +7,8 @@ import 'package:path/path.dart' as p;
 
 import '../core/errors.dart';
 import '../i18n/tr.dart';
+import 'tk_debug.dart';
+import 'tk_debug_agent.dart';
 import 'tk_run_types.dart';
 
 /// Lanza las ventanas de Python como procesos aparte, con el usuario del
@@ -407,16 +409,58 @@ class TkRunner {
 
   /// Lanza la ventana [prepared]: el archivo generado en `build/` del
   /// proyecto, con su carpeta como carpeta de trabajo.
-  static Future<TkRun> start(TkPrepared prepared) async {
-    final key = p.normalize(prepared.id);
+  static Future<TkRun> start(
+    TkPrepared prepared, {
+    TkDebugSession? debug,
+  }) async {
+    final key =
+        p.normalize(prepared.id) + (debug?.tests ?? false ? '#tests' : '');
     if ((_runs[key]?.running ?? false) || !_starting.add(key)) {
-      throw UserError(tr('«{0}» ya está abierta.', [prepared.name]));
+      throw UserError(
+        debug?.tests ?? false
+            ? tr('Las pruebas de «{0}» ya están en marcha.', [prepared.name])
+            : tr('«{0}» ya está abierta.', [prepared.name]),
+      );
     }
     try {
-      return await _launch(prepared, key);
+      return await _launch(prepared, key, debug);
     } finally {
       _starting.remove(key);
     }
+  }
+
+  /// Las pruebas en marcha (o las últimas) del proyecto [id].
+  static TkRun? testsOf(String id) => _runs['${p.normalize(id)}#tests'];
+
+  /// Carpeta de las pruebas de un proyecto.
+  static String testsDir(String project) => p.join(project, 'tests');
+
+  /// Argumentos del agente del depurador para [prepared] (escribe el agente
+  /// en build/; con pruebas, también el programa como build/dms_app.py).
+  static Future<List<String>> _debugArgs(
+    TkPrepared prepared,
+    File file,
+    TkDebugSession debug,
+  ) async {
+    final build = file.parent.path;
+    final agent = File(p.join(build, 'dms_debug.py'));
+    await agent.writeAsString(tkDebugAgentPython, flush: true);
+    var target = file.path;
+    if (debug.tests) {
+      target = p.join(build, 'dms_app.py');
+      await File(target).writeAsString(prepared.source, flush: true);
+    }
+    return [
+      agent.path,
+      '--target',
+      target,
+      '--start',
+      '${prepared.unitStart + 1}',
+      '--end',
+      '${prepared.unitStart + prepared.unitLines}',
+      if (debug.tests) ...['--tests', testsDir(prepared.id)],
+      if (!debug.trace) '--nodebug',
+    ];
   }
 
   /// Variables de entorno de la ventana: lo único por donde le llegan las
@@ -461,16 +505,21 @@ class TkRunner {
     ).join();
   }
 
-  static Future<TkRun> _launch(TkPrepared prepared, String key) async {
+  static Future<TkRun> _launch(
+    TkPrepared prepared,
+    String key,
+    TkDebugSession? debug,
+  ) async {
     final found = await detect();
-    final web = prepared.web;
-    final py = web ? found.web : found;
+    // Las pruebas de una web usan su cliente de pruebas: no hay servidor.
+    final web = prepared.web && !(debug?.tests ?? false);
+    final py = prepared.web ? found.web : found;
     if (!py.ok) throw UserError(py.help);
     if (!launchable(py.command!)) {
       await forgetPython();
       throw UserError(tr('No se encontró Python en {0}.', [py.command]));
     }
-    if (web) {
+    if (prepared.web) {
       final install = await missingFlask(py);
       if (install != null) {
         throw UserError(tr('Falta Flask. Instálelo con:\n{0}', [install]));
@@ -505,11 +554,15 @@ class TkRunner {
       await file.parent.create(recursive: true);
       await file.writeAsString(prepared.source, flush: true);
     }
+    final script = debug == null
+        ? [file.path]
+        : await _debugArgs(prepared, file, debug);
+    final debugPort = debug == null ? null : await debug.listen();
     final Process proc;
     try {
       proc = await Process.start(
         py.command!,
-        [...py.args, '-u', file.path],
+        [...py.args, '-u', ...script],
         // La carpeta del proyecto: sus archivos se abren por su nombre.
         workingDirectory: p.dirname(p.dirname(file.path)),
         environment: {
@@ -519,13 +572,17 @@ class TkRunner {
           // El aviso del Tk de Apple no le dice nada al usuario.
           'TK_SILENCE_DEPRECATION': '1',
           'DMSTUDIO_WEB_SECRET': ?secret,
+          if (debug != null) ...{
+            'DMSTUDIO_DEBUG_PORT': '$debugPort',
+            'DMSTUDIO_DEBUG_TOKEN': debug.token,
+          },
           ...environment(prepared),
         },
       );
     } on ProcessException catch (e) {
       throw UserError(tr('No se pudo lanzar Python: {0}', [e.message]));
     }
-    final run = TkRun(prepared.id, prepared.name, proc.kill);
+    final run = TkRun(prepared.id, prepared.name, proc.kill)..debug = debug;
     _runs[key] = run;
     final ready = Completer<int?>();
     void line(String l) {

@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import 'tk_debug.dart';
+
 /// Python encontrado en este equipo.
 class TkPython {
   const TkPython({
@@ -98,7 +100,14 @@ class TkPrepared {
     this.tray = false,
     this.ai = false,
     this.anthropicKey,
+    this.unitStart = 0,
+    this.unitLines = 0,
   });
+
+  /// Líneas del archivo generado antes del código del usuario, y cuántas
+  /// tiene ese código: el depurador solo se detiene ahí.
+  final int unitStart;
+  final int unitLines;
 
   /// Carpeta del proyecto.
   final String id;
@@ -144,6 +153,9 @@ class TkRun extends ChangeNotifier {
   /// Aplicación web: la dirección sin el secreto.
   String? address;
 
+  /// Lanzada con el depurador.
+  TkDebugSession? debug;
+
   static const maxLines = 2000;
   final lines = <String>[];
   bool running = true;
@@ -161,6 +173,7 @@ class TkRun extends ChangeNotifier {
   void finish(int code) {
     running = false;
     exitCode = code;
+    debug?.finished();
     notifyListeners();
   }
 

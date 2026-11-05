@@ -604,6 +604,7 @@ button { font: inherit; color: inherit; }
 .center { display: flex; align-items: center; justify-content: center; flex: 1; }
 .list { display: flex; flex-direction: column; }
 .list.sep > .item + .item { border-top: 1px solid var(--line); }
+.list > .item > .card { margin: 4px 0; }
 .empty { padding: 24px; text-align: center; color: var(--muted); }
 .card { background: var(--surface-container); border-radius: var(--radius); border: 1px solid var(--line); }
 .box { overflow: hidden; }

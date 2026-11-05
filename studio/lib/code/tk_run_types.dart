@@ -116,7 +116,12 @@ class TkPrepared {
     this.desktop = false,
     this.reactNative = false,
     this.react = false,
+    this.html = false,
   });
+
+  /// Web en HTML: [file] es su app.js en build/html; se sirve tal cual y se
+  /// abre en el navegador.
+  final bool html;
 
   /// Web de React (Vite): [file] es su src/lib/app.js en build/react; se
   /// abre en el navegador.

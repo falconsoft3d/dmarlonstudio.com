@@ -6,6 +6,7 @@ import 'tk_cpp.dart';
 import 'tk_flutter.dart';
 import 'tk_react_native.dart';
 import 'tk_web_next.dart';
+import 'tk_web_html.dart';
 import 'tk_web_react.dart';
 import 'tk_pascal.dart';
 import 'tk_electron.dart';
@@ -1376,6 +1377,7 @@ class TkCodegen {
     if (d.isWebNext) return TkWebNext.preview(d);
     if (d.isReactNative) return TkReactNative.preview(d);
     if (d.isWebReact) return TkWebReact.preview(d);
+    if (d.isWebHtml) return TkWebHtml.preview(d);
     if (d.isFlutter) return TkFlutter.preview(d);
     final problems = d.problems();
     if (problems.isNotEmpty) throw UserError(problems.join('\n'));

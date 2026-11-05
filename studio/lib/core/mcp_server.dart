@@ -271,6 +271,7 @@ class McpServer {
               'nextjs_web',
               'react_native',
               'react_web',
+              'html_web',
               'console_py',
               'console_c',
               'console_cpp',
@@ -497,6 +498,7 @@ class McpServer {
           'nextjs_web' => tkTargetWebNext,
           'react_native' => tkTargetReactNative,
           'react_web' => tkTargetWebReact,
+          'html_web' => tkTargetWebHtml,
           final String t when tkConsoleTargets.contains(t) => t,
           _ => tkTargetDesktop,
         };

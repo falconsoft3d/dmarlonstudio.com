@@ -752,6 +752,22 @@ export const manualEs: Manual = {
           ],
         },
         {
+          id: "html",
+          title: "Una web en HTML",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (HTML)** usa el mismo editor de pantallas y la misma lógica (`app.js`), pero genera HTML, CSS y JavaScript sin nada más: no se compila, no necesita Node.js ni dependencias. `index.html` carga `dms.js` (un motor pequeño que dibuja la pantalla de la ruta tras `#`), `app.js` y `screens.js`.",
+                "La clase `App` es la misma que en Next.js y React; las líneas `import` y `export` se ignoran, así que la lógica pasa de un destino a otro sin cambios.",
+                "**Ejecutar (F9)** sirve la carpeta con el servidor propio del estudio y abre el navegador; al guardar, la página se recarga.",
+                "**Exportar** deja la carpeta lista: abra `index.html` o súbala a cualquier hosting.",
+                "Ejemplo: **Tienda web (HTML)**, la misma tienda que en Next.js y React.",
+              ],
+            },
+          ],
+        },
+        {
           id: "crear",
           title: "Crear una página de Next.js",
           blocks: [

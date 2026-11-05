@@ -3,6 +3,16 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.41 — 2026-11-06
+
+- **Web (HTML)** con el editor de pantallas: las mismas pantallas y la misma
+  lógica que Next.js y React, en HTML, CSS y JavaScript sin nada más (sin
+  compilar, sin Node.js ni dependencias). Ejecutar la sirve con un servidor
+  propio del estudio y se recarga al guardar; Exportar deja la carpeta lista
+  para abrir `index.html` o subirla a cualquier hosting. Ejemplo **Tienda
+  web (HTML)**: se recorre en Chrome de verdad en cada versión.
+- Webs con pantallas: las tarjetas de una lista se separan como en Flutter.
+
 ## 1.0.40 — 2026-11-06
 
 - **Web (React)** con el editor de pantallas: las mismas pantallas y la

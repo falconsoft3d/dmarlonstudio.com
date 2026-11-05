@@ -439,6 +439,7 @@ class TkRunner {
       if (prepared.flutter) return await _launchFlutter(prepared, key);
       if (prepared.reactNative) return await _launchReactNative(prepared, key);
       if (prepared.react) return await _launchWebReact(prepared, key);
+      if (prepared.html) return await _launchWebHtml(prepared, key);
       if (prepared.console != null) {
         return await _launchConsole(prepared, key, devtools);
       }
@@ -710,6 +711,87 @@ class TkRunner {
         run.finish(1);
       }
     }());
+    return run;
+  }
+
+  /// La web en HTML de build/html: un servidor propio (sin Node) que la
+  /// sirve tal cual. La página pregunta por /__dms_version y se recarga al
+  /// cambiar los archivos (al guardar).
+  static Future<TkRun> _launchWebHtml(TkPrepared prepared, String key) async {
+    final root = p.dirname(prepared.file);
+    HttpServer? server;
+    StreamSubscription<FileSystemEvent>? watch;
+    late final TkRun run;
+    run = TkRun(prepared.id, prepared.name, () {
+      watch?.cancel();
+      server?.close(force: true);
+      run.finish(-1);
+    });
+    _runs[key] = run;
+    try {
+      var version = 0;
+      watch = Directory(root).watch(recursive: true).listen((_) => version++);
+      server = await HttpServer.bind(InternetAddress.loopbackIPv4, 0);
+      const reload =
+          '<script>(() => { let v = null; setInterval(async () => { try { '
+          'const n = await (await fetch("/__dms_version")).text(); '
+          'if (v !== null && n !== v) location.reload(); v = n; } catch (_) {} }, 700); })();</script>';
+      server.listen((req) async {
+        final res = req.response;
+        try {
+          final path = Uri.decodeComponent(req.uri.path);
+          if (path == '/__dms_version') {
+            res.headers.contentType = ContentType.text;
+            res.headers.set('cache-control', 'no-store');
+            res.write('$version');
+            return;
+          }
+          final file = File(
+            p.normalize(
+              p.join(root, path == '/' ? 'index.html' : path.substring(1)),
+            ),
+          );
+          if (!p.isWithin(root, file.path) || !file.existsSync()) {
+            res.statusCode = HttpStatus.notFound;
+            res.write('404');
+            return;
+          }
+          res.headers.set('cache-control', 'no-store');
+          res.headers.contentType = switch (p.extension(file.path)) {
+            '.html' => ContentType.html,
+            '.js' => ContentType('text', 'javascript', charset: 'utf-8'),
+            '.css' => ContentType('text', 'css', charset: 'utf-8'),
+            '.json' => ContentType.json,
+            '.svg' => ContentType('image', 'svg+xml'),
+            '.png' => ContentType('image', 'png'),
+            '.jpg' || '.jpeg' => ContentType('image', 'jpeg'),
+            _ => ContentType.binary,
+          };
+          if (p.extension(file.path) == '.html') {
+            res.write(
+              (await file.readAsString()).replaceFirst(
+                '</body>',
+                '$reload\n</body>',
+              ),
+            );
+          } else {
+            await res.addStream(file.openRead());
+          }
+        } on Object catch (e) {
+          res.statusCode = HttpStatus.internalServerError;
+          res.write('$e');
+        } finally {
+          await res.close();
+        }
+      });
+      run.url = run.address = 'http://127.0.0.1:${server.port}/';
+      run.add(tr('Abierta en el navegador: {0}', [run.url]));
+    } on Object catch (e) {
+      run.add('$e');
+      await watch?.cancel();
+      await server?.close(force: true);
+      run.finish(1);
+    }
     return run;
   }
 

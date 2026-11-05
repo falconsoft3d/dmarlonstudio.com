@@ -73,7 +73,10 @@ Future<TkRun?> launchTkApp(
   }
   // Flutter, React Native y la web de React: el simulador (o el navegador)
   // se abre cuando la app está servida.
-  if (prepared.flutter || prepared.reactNative || prepared.react) {
+  if (prepared.flutter ||
+      prepared.reactNative ||
+      prepared.react ||
+      prepared.html) {
     if (tests) return null;
     final run = await runAction(context, () => TkRunner.start(prepared));
     if (run != null && !prepared.desktop) {

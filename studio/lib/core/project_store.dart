@@ -12,6 +12,7 @@ import '../code/tk_console.dart';
 import '../code/tk_flutter.dart';
 import '../code/tk_react_native.dart';
 import '../code/tk_web_next.dart';
+import '../code/tk_web_html.dart';
 import '../code/tk_web_react.dart';
 import '../code/tk_pascal.dart';
 import '../code/tk_pascal_run.dart';
@@ -170,7 +171,10 @@ class ProjectStore {
 
   /// Archivo del código: Form1.py (Python) o Form1.js (Electron).
   static String unitName(TkDesign design) =>
-      design.isWebNext || design.isReactNative || design.isWebReact
+      design.isWebNext ||
+          design.isReactNative ||
+          design.isWebReact ||
+          design.isWebHtml
       ? 'app.js'
       : design.isFlutter
       ? 'app.dart'
@@ -327,7 +331,7 @@ class ProjectStore {
       File(unitPath(dir, d)),
       code ??
           (d.isConsole ? TkConsole.template(d.consoleLang!) : null) ??
-          (d.isWebNext || d.isReactNative || d.isWebReact
+          (d.isWebNext || d.isReactNative || d.isWebReact || d.isWebHtml
               ? TkWebNext.template(
                   '// ${tr('Los datos y la lógica de la web. Las pantallas los usan como app.')}',
                 )
@@ -689,6 +693,22 @@ class ProjectStore {
     );
   }
 
+  /// Escribe la web en HTML en build/html.
+  static Future<TkPrepared> _prepareWebHtml(StudioProject x) async {
+    final out = p.join(x.path, buildDir, 'html');
+    final unit = x.code.replaceAll('\r\n', '\n');
+    await writeFiles(out, TkWebHtml.files(x.design, unit, name: x.name));
+    await _gitignore(x.path);
+    return TkPrepared(
+      id: x.path,
+      name: x.name,
+      source: unit,
+      file: p.join(out, 'app.js'),
+      html: true,
+      unitLines: '\n'.allMatches(unit).length + 1,
+    );
+  }
+
   /// Escribe la web de React (Vite) en build/react.
   static Future<TkPrepared> _prepareWebReact(StudioProject x) async {
     final out = p.join(x.path, buildDir, 'react');
@@ -846,6 +866,7 @@ class ProjectStore {
     if (x.design.isWebNext) return _prepareWebNext(x);
     if (x.design.isReactNative) return _prepareReactNative(x);
     if (x.design.isWebReact) return _prepareWebReact(x);
+    if (x.design.isWebHtml) return _prepareWebHtml(x);
     if (x.design.isFlutter) return _prepareFlutter(x);
     final source = TkCodegen.generate(x.design, x.code);
     final unit = x.code.replaceAll('\r\n', '\n').trimRight();

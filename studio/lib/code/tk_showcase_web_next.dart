@@ -179,3 +179,19 @@ TkExample _reactStore(String Function(String) t) {
     web.code,
   );
 }
+
+/// La misma tienda como web en HTML, CSS y JavaScript (sin compilar).
+TkExample _htmlStore(String Function(String) t) {
+  final web = _webStore(t);
+  return TkExample(
+    'html_store',
+    t(markTr('Tienda web (HTML)')),
+    t(
+      markTr(
+        'La tienda en HTML, CSS y JavaScript sin nada más: las mismas pantallas y la misma lógica; se abre con index.html o se sube a cualquier hosting.',
+      ),
+    ),
+    TkDesign.fromJson({...web.design.toJson(), 'target': tkTargetWebHtml}),
+    web.code,
+  );
+}

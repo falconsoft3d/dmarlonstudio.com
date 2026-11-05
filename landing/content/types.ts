@@ -19,7 +19,8 @@ export type TargetIcon =
   | "falcon"
   | "console"
   | "flutter"
-  | "react";
+  | "react"
+  | "html";
 export type Target = { name: string; sub: string; icon: TargetIcon };
 export type Step = { name: string; status: StepStatus; text: string; icon?: TargetIcon };
 export type PlatformNotes = { requirements: string; steps: string[] };

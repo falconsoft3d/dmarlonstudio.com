@@ -341,7 +341,8 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
             web:
                 widget.design.isWebNext ||
                 widget.design.isReactNative ||
-                widget.design.isWebReact,
+                widget.design.isWebReact ||
+                widget.design.isWebHtml,
           ),
         ),
       ],
@@ -572,7 +573,9 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
               runSpacing: 2,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                if (widget.design.isWebNext || widget.design.isWebReact)
+                if (widget.design.isWebNext ||
+                    widget.design.isWebReact ||
+                    widget.design.isWebHtml)
                   Padding(
                     padding: const EdgeInsets.only(right: 8),
                     child: SegmentedButton<bool>(
@@ -621,7 +624,10 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
           Expanded(
             child: LayoutBuilder(
               builder: (context, box) {
-                final web = widget.design.isWebNext || widget.design.isWebReact;
+                final web =
+                    widget.design.isWebNext ||
+                    widget.design.isWebReact ||
+                    widget.design.isWebHtml;
                 final desktop =
                     widget.design.isFlutterDesktop || web && !_mobile;
                 final size = FlPhone.sizeOf(desktop: desktop);
@@ -641,7 +647,8 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
                         desktop: desktop,
                         url: widget.design.isWebNext
                             ? 'localhost${TkWebNext.route(_app, _cur.name)}'
-                            : widget.design.isWebReact
+                            : widget.design.isWebReact ||
+                                  widget.design.isWebHtml
                             ? 'localhost/#${TkWebNext.route(_app, _cur.name)}'
                             : null,
                         back: _screen > 0,

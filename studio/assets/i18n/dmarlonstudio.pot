@@ -877,7 +877,7 @@ msgstr ""
 msgid "Contenedor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "El menú nombra la pantalla «{0}», que no existe."
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Fila de lista"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "Hay dos pantallas llamadas «{0}»."
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Interruptor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "La app no tiene pantallas."
 msgstr ""
 
@@ -945,11 +945,11 @@ msgstr ""
 msgid "Tarjeta"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart
 msgid "Widget desconocido: {0}"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_html.dart lib/code/tk_web_next.dart lib/code/tk_web_react.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr ""
 
@@ -2199,6 +2199,10 @@ msgstr ""
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
 msgid "Web (Flask)"
+msgstr ""
+
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "Web (HTML)"
 msgstr ""
 
 #: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
@@ -5065,11 +5069,19 @@ msgid "La tienda como web de React (Vite): las mismas pantallas y la misma lógi
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
+msgid "La tienda en HTML, CSS y JavaScript sin nada más: las mismas pantallas y la misma lógica; se abre con index.html o se sube a cualquier hosting."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
 msgid "Tienda (React Native)"
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
 msgid "Tienda (React Native): usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda web (HTML)"
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
@@ -5226,6 +5238,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
 msgid "¿Guardar los cambios antes de salir?"
+msgstr ""
+
+#: lib/code/tk_web_html.dart
+msgid "Web en HTML, CSS y JavaScript creada con DMarlon Studio: abra index.html o súbala a cualquier hosting."
 msgstr ""
 
 #: lib/code/tk_web_react.dart
@@ -7625,6 +7641,10 @@ msgid "Exportada. Necesita Flask, y sus conexiones de datos leen las variables D
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Abra index.html en el navegador o suba la carpeta a cualquier hosting."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportado en {0}. Para abrirlo: flutter create . y después flutter run (o ábralo en VS Code o Android Studio)."
 msgstr ""
 
@@ -7682,6 +7702,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar la extensión (.zip para la Chrome Web Store)"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar la web (HTML, CSS y JavaScript)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -7910,6 +7934,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una web de React (Vite), con el mismo editor de pantallas que Flutter: páginas adaptables a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (src/lib/app.js). Se publica como archivos estáticos en cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. Necesita Node.js (Vite se instala solo la primera vez). El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una web en HTML, CSS y JavaScript sin nada más (sin compilar ni instalar nada), con el mismo editor de pantallas que Flutter: páginas adaptables a escritorio y móvil, con menú, plantillas y la lógica en JavaScript (app.js). Se abre con index.html o se sube a cualquier hosting. Ejecutar abre el navegador y al guardar se recarga. El destino no se puede cambiar después."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

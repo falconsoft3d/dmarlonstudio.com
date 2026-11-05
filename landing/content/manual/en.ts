@@ -752,6 +752,22 @@ export const manualEn: Manual = {
           ],
         },
         {
+          id: "html",
+          title: "A plain HTML website",
+          blocks: [
+            {
+              type: "ul",
+              items: [
+                "**Web (HTML)** uses the same screen editor and the same logic (`app.js`), but generates plain HTML, CSS and JavaScript: nothing to build, no Node.js and no dependencies. `index.html` loads `dms.js` (a small engine that draws the screen of the route after `#`), `app.js` and `screens.js`.",
+                "The `App` class is the same as in Next.js and React; the `import` and `export` lines are ignored, so the logic can move between the three targets unchanged.",
+                "**Run (F9)** serves the folder with the studio's own server and opens the browser; saving reloads the page.",
+                "**Export** leaves the folder ready: open `index.html` or upload it to any hosting.",
+                "Example: **Web shop (HTML)**, the same shop as in Next.js and React.",
+              ],
+            },
+          ],
+        },
+        {
           id: "create",
           title: "Creating a Next.js page",
           blocks: [

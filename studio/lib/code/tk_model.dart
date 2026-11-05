@@ -126,6 +126,9 @@ const tkTargetReactNative = 'react_native';
 /// Web de React (Vite) con el editor de pantallas: una página estática.
 const tkTargetWebReact = 'react_web';
 
+/// Web en HTML, CSS y JavaScript (sin compilar) con el editor de pantallas.
+const tkTargetWebHtml = 'html_web';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -135,6 +138,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetWebNext => tr('Web (Next.js)'),
   tkTargetReactNative => tr('React Native (móvil)'),
   tkTargetWebReact => tr('Web (React)'),
+  tkTargetWebHtml => tr('Web (HTML)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
@@ -2039,7 +2043,11 @@ class TkDesign {
 
   /// Se diseña con el editor de pantallas (Flutter, la web de Next.js o
   /// React Native).
-  bool get isScreens => isFlutter || isWebNext || isReactNative || isWebReact;
+  bool get isScreens =>
+      isFlutter || isWebNext || isReactNative || isWebReact || isWebHtml;
+
+  /// Web en HTML, CSS y JavaScript hecha con pantallas.
+  bool get isWebHtml => target == tkTargetWebHtml;
 
   /// Web de React (Vite) hecha con pantallas.
   bool get isWebReact => target == tkTargetWebReact;
@@ -2060,7 +2068,7 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isWebNext || isReactNative || isWebReact
+      isWebNext || isReactNative || isWebReact || isWebHtml
           ? 'js'
           : isFlutter
           ? 'dart'
@@ -2100,7 +2108,8 @@ class TkDesign {
       !isFlutter &&
       !isWebNext &&
       !isReactNative &&
-      !isWebReact;
+      !isWebReact &&
+      !isWebHtml;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2380,6 +2389,7 @@ class TkDesign {
       tkTargetWebNext => tkTargetWebNext,
       tkTargetReactNative => tkTargetReactNative,
       tkTargetWebReact => tkTargetWebReact,
+      tkTargetWebHtml => tkTargetWebHtml,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

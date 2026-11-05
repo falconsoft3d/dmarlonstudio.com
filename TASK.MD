@@ -26,6 +26,7 @@ Hechos
 18a. Next.js con el editor de pantallas de Flutter (web adaptable) | ✅ |
 18. React Native (móvil): editor de pantallas, Expo, simulador y Expo Go | ✅ |
 19. React (Web): editor de pantallas, Vite, web estática | ✅ |
+20. HTML (Web): editor de pantallas, sin compilar ni dependencias | ✅ |
 
 
 Trabajando

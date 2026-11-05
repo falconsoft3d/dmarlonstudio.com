@@ -12,6 +12,7 @@ import {
   siNodedotjs,
   siPostgresql,
   siPython,
+  siReact,
   siSqlite,
 } from "simple-icons";
 import type { TargetIcon } from "@/content/types";
@@ -25,6 +26,7 @@ const ICONS: Record<TargetIcon, { path: string; hex: string }> = {
   cpp: siCplusplus,
   lazarus: siLazarus,
   flutter: siFlutter,
+  react: siReact,
   node: siNodedotjs,
   sqlite: siSqlite,
   postgres: siPostgresql,

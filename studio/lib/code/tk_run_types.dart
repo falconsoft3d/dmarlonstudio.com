@@ -114,7 +114,12 @@ class TkPrepared {
     this.console,
     this.flutter = false,
     this.desktop = false,
+    this.reactNative = false,
   });
+
+  /// React Native: [file] es su lib/app.js en build/reactnative; se abre en
+  /// el simulador del estudio (Expo para la web).
+  final bool reactNative;
 
   /// Flutter de escritorio: se abre en una ventana del sistema, no en el
   /// simulador.

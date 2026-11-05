@@ -120,6 +120,9 @@ const tkTargetFlutterDesktop = 'flutter_desktop';
 /// de React con HTML y CSS adaptables, y la lógica en JavaScript.
 const tkTargetWebNext = 'nextjs_web';
 
+/// React Native (Expo) con el editor de pantallas: la lógica en JavaScript.
+const tkTargetReactNative = 'react_native';
+
 /// Nombre del destino [target] para el usuario.
 String tkTargetLabel(String target) => switch (target) {
   tkTargetWeb => tr('Web (Flask)'),
@@ -127,6 +130,7 @@ String tkTargetLabel(String target) => switch (target) {
   tkTargetChrome => tr('Extensión de Chrome'),
   tkTargetNext => tr('Web (Next.js, formulario)'),
   tkTargetWebNext => tr('Web (Next.js)'),
+  tkTargetReactNative => tr('React Native (móvil)'),
   tkTargetCpp => tr('C++ (FLTK)'),
   tkTargetPascal => tr('Pascal (Lazarus)'),
   tkTargetFlutter => tr('Flutter (móvil)'),
@@ -2026,8 +2030,12 @@ class TkDesign {
   /// Web de Next.js hecha con pantallas.
   bool get isWebNext => target == tkTargetWebNext;
 
-  /// Se diseña con el editor de pantallas (Flutter o la web de Next.js).
-  bool get isScreens => isFlutter || isWebNext;
+  /// React Native (Expo) hecho con pantallas.
+  bool get isReactNative => target == tkTargetReactNative;
+
+  /// Se diseña con el editor de pantallas (Flutter, la web de Next.js o
+  /// React Native).
+  bool get isScreens => isFlutter || isWebNext || isReactNative;
 
   /// Flutter de escritorio: ventana del sistema en lugar de teléfono.
   bool get isFlutterDesktop => target == tkTargetFlutterDesktop;
@@ -2045,7 +2053,7 @@ class TkDesign {
     'c' || 'cpp' => 'cpp',
     'pas' => 'pas',
     _ =>
-      isWebNext
+      isWebNext || isReactNative
           ? 'js'
           : isFlutter
           ? 'dart'
@@ -2078,7 +2086,13 @@ class TkDesign {
 
   /// El código es Python (tkinter o Flask).
   bool get isPython =>
-      !isJs && !isCpp && !isPascal && !isConsole && !isFlutter && !isWebNext;
+      !isJs &&
+      !isCpp &&
+      !isPascal &&
+      !isConsole &&
+      !isFlutter &&
+      !isWebNext &&
+      !isReactNative;
 
   /// ¿Sirve [s] como nombre en el archivo de este destino?
   bool validName(String s) =>
@@ -2356,6 +2370,7 @@ class TkDesign {
       tkTargetFlutter => tkTargetFlutter,
       tkTargetFlutterDesktop => tkTargetFlutterDesktop,
       tkTargetWebNext => tkTargetWebNext,
+      tkTargetReactNative => tkTargetReactNative,
       final String t when tkConsoleTargets.contains(t) => t,
       _ => tkTargetDesktop,
     },

@@ -24,6 +24,7 @@ Hechos
 18c. Flutter: galería con las 20 pantallas más usadas | ✅ |
 17. Flutter (escritorio): ventana nativa, menú lateral y demo de inventario | ✅ |
 18a. Next.js con el editor de pantallas de Flutter (web adaptable) | ✅ |
+18. React Native (móvil): editor de pantallas, Expo, simulador y Expo Go | ✅ |
 
 
 Trabajando
@@ -33,7 +34,6 @@ Trabajando
 
 Pendiente
 =========
-18. React Native (móvil) | ⏳ |
 19. React (Web) | ⏳ |
 20. HTML (Web) | ⏳ |
 21. Node.js (Web) | ⏳ |

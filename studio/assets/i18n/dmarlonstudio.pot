@@ -877,7 +877,7 @@ msgstr ""
 msgid "Contenedor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
 msgid "El menú nombra la pantalla «{0}», que no existe."
 msgstr ""
 
@@ -901,7 +901,7 @@ msgstr ""
 msgid "Fila de lista"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
 msgid "Hay dos pantallas llamadas «{0}»."
 msgstr ""
 
@@ -917,7 +917,7 @@ msgstr ""
 msgid "Interruptor"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
 msgid "La app no tiene pantallas."
 msgstr ""
 
@@ -945,11 +945,11 @@ msgstr ""
 msgid "Tarjeta"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
 msgid "Widget desconocido: {0}"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_web_next.dart
+#: lib/code/tk_flutter.dart lib/code/tk_react_native.dart lib/code/tk_web_next.dart
 msgid "«{0}» no sirve como nombre de pantalla."
 msgstr ""
 
@@ -2021,6 +2021,10 @@ msgstr ""
 msgid "Páginas (una por línea)"
 msgstr ""
 
+#: lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+msgid "React Native (móvil)"
+msgstr ""
+
 #: lib/code/tk_model.dart
 msgid "Recibir el foco"
 msgstr ""
@@ -2269,12 +2273,32 @@ msgstr ""
 msgid "No se pudo instalar Lazarus: {0}"
 msgstr ""
 
+#: lib/code/tk_react_native.dart
+msgid "App de React Native (Expo) creada con DMarlon Studio."
+msgstr ""
+
+#: lib/code/tk_rn_run.dart
+msgid "Instalando React Native y Expo (solo la primera vez)…"
+msgstr ""
+
+#: lib/code/tk_rn_run.dart
+msgid "Las apps de React Native necesitan Node.js. Instálelo desde nodejs.org y vuelva a intentarlo."
+msgstr ""
+
+#: lib/code/tk_rn_run.dart
+msgid "No se pudo instalar React Native: {0}"
+msgstr ""
+
 #: lib/code/tk_run_io.dart
 msgid "Abierta en el simulador: {0}"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
 msgid "Abierta en su ventana: al guardar se vuelve a cargar."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "Arrancando Expo…"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -2309,6 +2333,10 @@ msgstr ""
 
 #: lib/code/tk_run_io.dart
 msgid "El icono de bandeja necesita pystray y Pillow. Sin ellos, la ventana funciona pero sin el icono."
+msgstr ""
+
+#: lib/code/tk_run_io.dart
+msgid "En su teléfono: abra Expo Go (en la misma red) e introduzca exp://{0}:{1}"
 msgstr ""
 
 #: lib/code/tk_run_io.dart
@@ -5013,11 +5041,23 @@ msgid "{0} marcada como pagada."
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
+msgid "Tienda (React Native)"
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Tienda (React Native): usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web (Next.js)"
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
 msgid "Tienda web: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app."
+msgstr ""
+
+#: lib/code/tk_showcase_web_next.dart
+msgid "Una app móvil de React Native hecha con pantallas: login, catálogo, ficha, carrito y pago. Se ve en el simulador del estudio y en el teléfono con Expo Go."
 msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
@@ -7561,6 +7601,10 @@ msgid "Exportado en {0}. Para abrirlo: npm install y npm run dev (o súbalo a Ve
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Exportado en {0}. Para abrirlo: npm install y npx expo start (con Expo Go en el teléfono)."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Exportar aquí"
 msgstr ""
 
@@ -7586,6 +7630,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Exportar el proyecto de Next.js"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Exportar el proyecto de React Native (Expo)"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -7798,6 +7846,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Una app móvil con Flutter, al estilo de FlutterFlow: varias pantallas con su árbol de widgets y la lógica en Dart (lib/app.dart). Ejecutar la abre en el simulador del estudio, con marco de teléfono; al guardar se recarga. Necesita Flutter. El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Una app móvil de React Native (Expo), con el mismo editor de pantallas que Flutter: componentes nativos (View, Text, TextInput…), menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar la abre en el simulador del estudio y le da la dirección para verla en su teléfono con Expo Go; al guardar se recarga. Necesita Node.js (React Native se instala solo la primera vez). El destino no se puede cambiar después."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

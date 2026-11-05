@@ -976,6 +976,33 @@ export const manualEn: Manual = {
         },
       ],
     },
+    // -------------------------------------------------------- react native
+    {
+      slug: "react-native",
+      title: "Mobile apps with React Native",
+      summary: "The screen editor with native React Native (Expo) components and the logic in JavaScript.",
+      sections: [
+        {
+          id: "crear",
+          title: "Create a React Native app",
+          blocks: [
+            {
+              type: "p",
+              text: "When creating the project, choose **React Native (mobile)**: the same screen editor as Flutter (screens, widget tree, properties, menu and the 20 templates). Each screen is generated with React Native components (`View`, `Text`, `Pressable`, `TextInput`, `ScrollView`, `Switch`…) and the logic goes in `lib/app.js`, the same `App` class as in the Next.js website (with `this.notify()`).",
+            },
+            {
+              type: "ul",
+              items: [
+                "**Run (F9)** starts Expo and opens the app in the studio phone simulator; saving reloads it. The first time it installs React Native and Expo (about 340 MB, shared by all projects).",
+                "The Output shows the `exp://…` address to open the app on your phone with **Expo Go** (on the same network).",
+                "**Export the React Native (Expo) project** leaves `package.json`, `App.js`, `screens/` and `lib/`: `npm install` and `npx expo start`.",
+                "Example: **Shop (React Native)**, with login, catalog, product page, cart and checkout.",
+              ],
+            },
+          ],
+        },
+      ],
+    },
     // ------------------------------------------------------------ consola
     {
       slug: "consola",

@@ -22,6 +22,7 @@ import '../../code/tk_complete.dart';
 import '../../code/tk_cpp.dart';
 import '../../code/tk_console.dart';
 import '../../code/tk_flutter.dart';
+import '../../code/tk_react_native.dart';
 import '../../code/tk_web_next.dart';
 import '../../code/tk_pascal.dart';
 import '../../code/tk_pascal_run.dart';
@@ -938,7 +939,9 @@ class _TkEditorState extends State<_TkEditor> {
     await _loadFamily();
   }
 
-  IconData _targetIcon(TkDesign x) => x.isWebNext
+  IconData _targetIcon(TkDesign x) => x.isReactNative
+      ? LucideIcons.tabletSmartphone
+      : x.isWebNext
       ? LucideIcons.panelsTopLeft
       : x.isFlutterDesktop
       ? LucideIcons.monitor
@@ -1881,9 +1884,11 @@ class _TkEditorState extends State<_TkEditor> {
     });
     if (done != true) return false;
     if (mounted) setState(() {});
-    // Web de Next.js en marcha: se reescribe y Next.js recarga la página.
+    // Web de Next.js o React Native en marcha: se reescribe y se recarga.
     final running = _run;
-    if (d.isWebNext && running != null && running.running) {
+    if ((d.isWebNext || d.isReactNative) &&
+        running != null &&
+        running.running) {
       if (!mounted) return true;
       await runAction(context, () => ProjectStore.prepareRun(doc.id));
       return true;
@@ -2233,6 +2238,44 @@ class _TkEditorState extends State<_TkEditor> {
     });
   }
 
+  /// React Native: el proyecto de Expo, listo para `npm install` y
+  /// `npx expo start` (Expo Go en el teléfono, o un emulador).
+  Future<void> _exportReactNative() async {
+    final parent = await getDirectoryPath(
+      confirmButtonText: tr('Exportar aquí'),
+    );
+    if (parent == null || !mounted) return;
+    await runAction(context, () async {
+      final slug = ProjectStore.slug(doc.name).replaceAll('_', '-');
+      final out = Directory('$parent${Platform.pathSeparator}$slug');
+      for (final e in TkReactNative.files(
+        d,
+        _code.text,
+        name: doc.name,
+      ).entries) {
+        final f = File('${out.path}${Platform.pathSeparator}${e.key}');
+        await f.parent.create(recursive: true);
+        await f.writeAsString(e.value);
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const ValueKey('tk-export-note'),
+          content: Text(
+            tr(
+              'Exportado en {0}. Para abrirlo: npm install y npx expo start (con Expo Go en el teléfono).',
+              [out.path],
+            ),
+          ),
+          action: SnackBarAction(
+            label: tr('Mostrar'),
+            onPressed: () => revealInFiles(out.path),
+          ),
+        ),
+      );
+    });
+  }
+
   /// Web de Next.js hecha con pantallas: el proyecto, listo para
   /// `npm install` y `npm run dev` (o Vercel).
   Future<void> _exportWebNext() async {
@@ -2537,7 +2580,9 @@ class _TkEditorState extends State<_TkEditor> {
             ],
             _tool(
               LucideIcons.fileDown,
-              d.isWebNext
+              d.isReactNative
+                  ? tr('Exportar el proyecto de React Native (Expo)')
+                  : d.isWebNext
                   ? tr('Exportar el proyecto de Next.js')
                   : d.isFlutter
                   ? tr('Exportar el proyecto de Flutter')
@@ -2554,7 +2599,9 @@ class _TkEditorState extends State<_TkEditor> {
                   : d.isElectron
                   ? tr('Exportar la aplicación de Electron')
                   : tr('Exportar el archivo .py'),
-              d.isWebNext
+              d.isReactNative
+                  ? _exportReactNative
+                  : d.isWebNext
                   ? _exportWebNext
                   : d.isFlutter
                   ? _exportFlutter
@@ -3120,7 +3167,7 @@ class _TkEditorState extends State<_TkEditor> {
             for (final (i, label) in [
               tr('Diseño'),
               tr('Código'),
-              d.isWebNext
+              d.isWebNext || d.isReactNative
                   ? tr('JavaScript generado')
                   : d.isFlutter
                   ? tr('Dart generado')
@@ -3581,6 +3628,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
                     tr('Flutter (escritorio)'),
                     LucideIcons.monitor,
                   ),
+                  (
+                    tkTargetReactNative,
+                    tr('React Native (móvil)'),
+                    LucideIcons.tabletSmartphone,
+                  ),
                   ('console', tr('Consola'), LucideIcons.squareTerminal),
                 ])
                   ChoiceChip(
@@ -3623,7 +3675,11 @@ class _NewAppDialogState extends State<_NewAppDialog> {
             ],
             const SizedBox(height: 10),
             Text(
-              _target == tkTargetWebNext
+              _target == tkTargetReactNative
+                  ? tr(
+                      'Una app móvil de React Native (Expo), con el mismo editor de pantallas que Flutter: componentes nativos (View, Text, TextInput…), menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar la abre en el simulador del estudio y le da la dirección para verla en su teléfono con Expo Go; al guardar se recarga. Necesita Node.js (React Native se instala solo la primera vez). El destino no se puede cambiar después.',
+                    )
+                  : _target == tkTargetWebNext
                   ? tr(
                       'Una web de Next.js de verdad, con el mismo editor de pantallas que Flutter: cada pantalla es una página adaptable (escritorio y móvil) hecha en React, con menú, plantillas y la lógica en JavaScript (lib/app.js). Ejecutar arranca el servidor y abre el navegador; al guardar se recarga. Necesita Node.js. El destino no se puede cambiar después.',
                     )

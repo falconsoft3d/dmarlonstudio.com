@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.39 — 2026-11-05
+
+- **React Native (móvil)** con el editor de pantallas: las mismas pantallas,
+  menú y plantillas que Flutter, generadas con los componentes de React
+  Native (Expo) y la lógica en JavaScript (`lib/app.js`). Ejecutar arranca
+  Expo y la abre en el simulador de teléfono del estudio (se recarga al
+  guardar) y da la dirección para verla en el teléfono con Expo Go. React
+  Native y Expo se instalan solos la primera vez, compartidos por todos los
+  proyectos.
+- Ejemplo **Tienda (React Native)**: se exporta y se recorre en Chrome de
+  verdad en cada versión.
+
 ## 1.0.38 — 2026-11-05
 
 - **Web (Next.js) con el editor de pantallas**: el mismo editor que Flutter

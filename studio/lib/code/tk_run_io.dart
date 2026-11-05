@@ -12,6 +12,7 @@ import 'tk_chrome.dart';
 import 'tk_cpp_run.dart';
 import 'tk_console.dart';
 import 'tk_flutter_run.dart';
+import 'tk_rn_run.dart';
 import 'tk_pascal_run.dart';
 import 'tk_debug_agent.dart';
 import 'tk_electron.dart';
@@ -436,6 +437,7 @@ class TkRunner {
       if (prepared.cpp) return await _launchCpp(prepared, key, devtools);
       if (prepared.pascal) return await _launchPascal(prepared, key);
       if (prepared.flutter) return await _launchFlutter(prepared, key);
+      if (prepared.reactNative) return await _launchReactNative(prepared, key);
       if (prepared.console != null) {
         return await _launchConsole(prepared, key, devtools);
       }
@@ -698,6 +700,106 @@ class TkRunner {
         await Future.wait(
           done,
         ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        run.finish(code);
+      } on UserError catch (e) {
+        run.add(e.message);
+        run.finish(1);
+      } on Object catch (e) {
+        run.add('$e');
+        run.finish(1);
+      }
+    }());
+    return run;
+  }
+
+  /// La app de React Native de build/reactnative: `expo start --web` con el
+  /// entorno compartido, dentro del simulador del estudio. Expo recarga la
+  /// app sola al cambiar los archivos (al guardar).
+  static Future<TkRun> _launchReactNative(
+    TkPrepared prepared,
+    String key,
+  ) async {
+    var root = p.dirname(prepared.file);
+    while (!File(p.join(root, 'package.json')).existsSync() &&
+        p.dirname(root) != root) {
+      root = p.dirname(root);
+    }
+    Process? proc;
+    TkFlutterSim? sim;
+    var stopped = false;
+    final run = TkRun(prepared.id, prepared.name, () {
+      stopped = true;
+      proc?.kill();
+      sim?.close();
+    });
+    _runs[key] = run;
+    unawaited(() async {
+      try {
+        final node = await TkRnRuntime.ensure(run.add);
+        if (stopped) return run.finish(-1);
+        final modules = p.join(root, 'node_modules');
+        if (!Link(modules).existsSync() && !Directory(modules).existsSync()) {
+          await Link(modules).create(await TkRnRuntime.nodeModules());
+        }
+        run.add(tr('Arrancando Expo…'));
+        final port = await TkFlutterTools.freePort();
+        final env = TkElectronRuntime.environment(node)
+          ..['EXPO_NO_TELEMETRY'] = '1'
+          ..['BROWSER'] = 'none';
+        final started = await Process.start(
+          node.node,
+          [await TkRnRuntime.expoCli(), 'start', '--web', '--port', '$port'],
+          workingDirectory: root,
+          environment: env,
+          includeParentEnvironment: false,
+        );
+        proc = started;
+        void onLine(String l) {
+          if (sim == null && l.contains('Waiting on http')) {
+            unawaited(() async {
+              sim = await TkFlutterSim.start(
+                'http://localhost:$port',
+                prepared.name,
+              );
+              run.url = sim!.url;
+              run.address = sim!.url;
+              run.add(tr('Abierta en el simulador: {0}', [sim!.url]));
+              final ip = await TkRnRuntime.lanAddress();
+              if (ip != null) {
+                run.add(
+                  tr(
+                    'En su teléfono: abra Expo Go (en la misma red) e introduzca exp://{0}:{1}',
+                    [ip, port],
+                  ),
+                );
+              }
+            }());
+            return;
+          }
+          final t = l.trim();
+          if (t.isEmpty ||
+              t.startsWith('Starting project at') ||
+              t.startsWith('Starting Metro') ||
+              t.startsWith('Waiting on') ||
+              t.startsWith('Logs for your project')) {
+            return;
+          }
+          run.add(l);
+        }
+
+        final done = [
+          for (final s in [started.stdout, started.stderr])
+            s
+                .transform(const Utf8Decoder(allowMalformed: true))
+                .transform(const LineSplitter())
+                .listen(onLine)
+                .asFuture<void>(),
+        ];
+        final code = await started.exitCode;
+        await Future.wait(
+          done,
+        ).timeout(const Duration(seconds: 2), onTimeout: () => const []);
+        await sim?.close();
         run.finish(code);
       } on UserError catch (e) {
         run.add(e.message);

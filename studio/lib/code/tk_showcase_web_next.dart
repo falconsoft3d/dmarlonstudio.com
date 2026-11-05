@@ -138,3 +138,28 @@ export class App extends DmsApp {
     code,
   );
 }
+
+/// La misma tienda como app de React Native (Expo).
+TkExample _rnStore(String Function(String) t) {
+  final web = _webStore(t);
+  return TkExample(
+    'rn_store',
+    t(markTr('Tienda (React Native)')),
+    t(
+      markTr(
+        'Una app móvil de React Native hecha con pantallas: login, catálogo, ficha, carrito y pago. Se ve en el simulador del estudio y en el teléfono con Expo Go.',
+      ),
+    ),
+    TkDesign.fromJson({...web.design.toJson(), 'target': tkTargetReactNative}),
+    web.code.replaceFirst(
+      t(
+        'Tienda web: usuarios, productos, carrito y pedidos. Las pantallas lo usan como app.',
+      ),
+      t(
+        markTr(
+          'Tienda (React Native): usuarios, productos, carrito y pedidos. Las pantallas lo usan como app.',
+        ),
+      ),
+    ),
+  );
+}

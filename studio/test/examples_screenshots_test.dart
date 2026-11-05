@@ -65,6 +65,7 @@ const carousel = [
   'flutter_store',
   'flutter_inventory',
   'web_next_store',
+  'rn_store',
   'flutter_shipping',
   'flutter_todo',
 ];

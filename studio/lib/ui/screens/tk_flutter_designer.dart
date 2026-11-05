@@ -338,7 +338,7 @@ class _TkFlutterDesignerState extends State<TkFlutterDesigner> {
             screen: _cur,
             node: _sel == null ? null : _node(_sel!),
             onEdit: _edit,
-            web: widget.design.isWebNext,
+            web: widget.design.isWebNext || widget.design.isReactNative,
           ),
         ),
       ],

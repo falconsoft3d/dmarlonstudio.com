@@ -5,6 +5,7 @@ import 'tk_model.dart';
 part 'tk_showcase.dart';
 part 'tk_showcase_web.dart';
 part 'tk_showcase_3d.dart';
+part 'tk_showcase_ai.dart';
 part 'tk_showcase_mail.dart';
 part 'tk_showcase_reports.dart';
 part 'tk_showcase_windows.dart';
@@ -80,11 +81,18 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _mail(t),
   _viewer3d(t),
   _reports(t),
+  _aiTexts(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
 /// que es lo que hay que poder hacer con los de cualquier usuario.
 List<TkExample> tkWebExamples(String Function(String) t) => [
+  _web(
+    _aiTexts(t),
+    'web_ai_texts',
+    t(markTr('Asistente de textos web')),
+    t(markTr('El asistente de textos con Claude, en Flask.')),
+  ),
   _web(
     _reports(t),
     'web_reports',

@@ -1258,6 +1258,55 @@ final tkComponents = <TkComponent>[
     visual: false,
   ),
   TkComponent(
+    'AiAssistant',
+    markTr('Asistente IA'),
+    32,
+    32,
+    [
+      TkProp(
+        'model',
+        markTr('Modelo de Claude'),
+        TkPropType.choice,
+        def: 'claude-opus-5-5',
+        choices: const [
+          'claude-opus-5-5',
+          'claude-sonnet-5-5',
+          'claude-haiku-5-5',
+          'claude-fable-5-1',
+        ],
+      ),
+      TkProp(
+        'system',
+        markTr('Instrucciones (cómo debe responder)'),
+        TkPropType.multiline,
+        def: '',
+      ),
+      TkProp(
+        'effort',
+        markTr('Esfuerzo'),
+        TkPropType.choice,
+        def: 'medium',
+        choices: const ['low', 'medium', 'high', 'xhigh'],
+      ),
+      TkProp(
+        'max_tokens',
+        markTr('Longitud máxima de la respuesta (tokens)'),
+        TkPropType.integer,
+        def: 16000,
+      ),
+    ],
+    [
+      TkEvent(
+        'done',
+        markTr('Al llegar la respuesta'),
+        'done',
+        param: 'result',
+      ),
+      TkEvent('error', markTr('Si falla la petición'), 'error', param: 'error'),
+    ],
+    visual: false,
+  ),
+  TkComponent(
     'PdfReport',
     markTr('Informe PDF'),
     32,

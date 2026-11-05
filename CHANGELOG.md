@@ -3,6 +3,17 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.17 — 2026-11-05
+
+- Componente **Asistente IA** (escritorio y web): Claude desde el código de
+  las apps con el SDK oficial de Anthropic: `ask`, `chat` con memoria,
+  `summarize`, `translate`, `classify`, `extract` (JSON con esquema) y sus
+  variantes `*_async` sin congelar la ventana. Claude Opus 5.5 por defecto,
+  con reintento en otro modelo si los filtros rechazan la petición. Al
+  ejecutar desde el estudio recibe la clave de Ajustes por el entorno, y el
+  estudio avisa si falta el SDK.
+- Ejemplo **Asistente de textos** (también en web).
+
 ## 1.0.16 — 2026-11-05
 
 - Componentes **Informe PDF** e **Informe Excel** (escritorio y web): títulos,

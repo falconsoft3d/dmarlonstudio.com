@@ -274,6 +274,13 @@ class TkRunner {
         '-m pip install pystray pillow';
   }
 
+  /// Orden exacta para instalar el SDK de Anthropic (null: ya está).
+  static Future<String?> missingAnthropic(TkPython py) async {
+    if (await _hasModule(py, 'anthropic')) return null;
+    return '"${py.command}"${py.args.map((a) => ' $a').join()} '
+        '-m pip install anthropic';
+  }
+
   static Future<String?> missingFlask(TkPython py) async {
     if (await _hasModule(py, 'flask')) return null;
     return '"${py.command}"${py.args.map((a) => ' $a').join()} '
@@ -297,6 +304,7 @@ class TkRunner {
   /// Variables de entorno de la ventana: lo único por donde le llegan las
   /// contraseñas de sus conexiones. Nunca al archivo generado ni al diseño.
   static Map<String, String> environment(TkPrepared p) => {
+    if (p.ai && p.anthropicKey != null) 'ANTHROPIC_API_KEY': p.anthropicKey!,
     for (final e in p.vars.entries)
       if (e.key.trim().isNotEmpty)
         'DMSTUDIO_ENV_${e.key.trim().replaceAll(RegExp(r'[^A-Za-z0-9_]'), '_').toUpperCase()}':
@@ -348,6 +356,17 @@ class TkRunner {
       final install = await missingFlask(py);
       if (install != null) {
         throw UserError(tr('Falta Flask. Instálelo con:\n{0}', [install]));
+      }
+    }
+    if (prepared.ai) {
+      final install = await missingAnthropic(py);
+      if (install != null) {
+        throw UserError(
+          tr(
+            'El Asistente IA necesita el SDK de Anthropic. Instálelo con:\n{0}',
+            [install],
+          ),
+        );
       }
     }
     for (final l in prepared.links) {

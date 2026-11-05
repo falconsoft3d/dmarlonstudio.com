@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -272,6 +272,10 @@ msgstr "About"
 #: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
+
+#: lib/code/tk_examples.dart
+msgid "Asistente de textos web"
+msgstr "Text assistant (web)"
 
 #: lib/code/tk_examples.dart
 msgid "Autónomo"
@@ -420,6 +424,10 @@ msgstr "Web notes editor"
 #: lib/code/tk_examples.dart
 msgid "Ejemplo de DMarlon Studio con menú, temporizador, barra de progreso y barra de estado."
 msgstr "DMarlon Studio example with a menu, timer, progress bar and status bar."
+
+#: lib/code/tk_examples.dart
+msgid "El asistente de textos con Claude, en Flask."
+msgstr "The text assistant with Claude, in Flask."
 
 #: lib/code/tk_examples.dart
 msgid "El cronómetro de escritorio, con el mismo código, en Flask."
@@ -677,7 +685,7 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
 msgid "Texto"
 msgstr "Text"
 
@@ -770,6 +778,10 @@ msgid "Al hacer clic en un punto"
 msgstr "On clicking a point"
 
 #: lib/code/tk_model.dart
+msgid "Al llegar la respuesta"
+msgstr "When the answer arrives"
+
+#: lib/code/tk_model.dart
 msgid "Al pulsar"
 msgstr "On press"
 
@@ -800,6 +812,10 @@ msgstr "Drag"
 #: lib/code/tk_model.dart
 msgid "Arriba"
 msgstr "Up"
+
+#: lib/code/tk_model.dart
+msgid "Asistente IA"
+msgstr "AI assistant"
 
 #: lib/code/tk_model.dart
 msgid "Autenticación"
@@ -981,6 +997,10 @@ msgstr "Whole, without distortion"
 msgid "Entrar el ratón"
 msgstr "Mouse enter"
 
+#: lib/code/tk_model.dart
+msgid "Esfuerzo"
+msgstr "Effort"
+
 #: lib/code/tk_model.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr "Status"
@@ -1042,6 +1062,10 @@ msgid "Informe PDF"
 msgstr "PDF report"
 
 #: lib/code/tk_model.dart
+msgid "Instrucciones (cómo debe responder)"
+msgstr "Instructions (how it should answer)"
+
+#: lib/code/tk_model.dart
 msgid "Integración API"
 msgstr "API integration"
 
@@ -1078,6 +1102,10 @@ msgid "Longitud máxima (0 = sin límite)"
 msgstr "Maximum length (0 = no limit)"
 
 #: lib/code/tk_model.dart
+msgid "Longitud máxima de la respuesta (tokens)"
+msgstr "Maximum answer length (tokens)"
+
+#: lib/code/tk_model.dart
 msgid "Límite"
 msgstr "Limit"
 
@@ -1104,6 +1132,10 @@ msgstr "Menu"
 #: lib/code/tk_model.dart
 msgid "Menú (una opción por línea; - = separador)"
 msgstr "Menu (one option per line; - = separator)"
+
+#: lib/code/tk_model.dart
+msgid "Modelo de Claude"
+msgstr "Claude model"
 
 #: lib/code/tk_model.dart
 msgid "Modo"
@@ -1232,6 +1264,10 @@ msgstr "Mouse leave"
 #: lib/code/tk_model.dart
 msgid "Selección"
 msgstr "Selection"
+
+#: lib/code/tk_model.dart
+msgid "Si falla la petición"
+msgstr "If the request fails"
 
 #: lib/code/tk_model.dart
 msgid "Si falla una llamada"
@@ -1388,6 +1424,14 @@ msgstr "“{0}” has no connection: choose one of those saved in Databases."
 #: lib/code/tk_model.dart lib/code/tk_showcase.dart
 msgid "Áreas"
 msgstr "Areas"
+
+#: lib/code/tk_run_io.dart
+msgid ""
+"El Asistente IA necesita el SDK de Anthropic. Instálelo con:\n"
+"{0}"
+msgstr ""
+"The AI assistant needs the Anthropic SDK. Install it with:\n"
+"{0}"
 
 #: lib/code/tk_run_io.dart
 msgid ""
@@ -1897,6 +1941,102 @@ msgstr "Zoom (%)"
 msgid "{0} · {1} caras · {2} fps"
 msgstr "{0} · {1} faces · {2} fps"
 
+#: lib/code/tk_showcase_ai.dart
+msgid "Asistente de textos"
+msgstr "Text assistant"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Chat"
+msgstr "Chat"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Clasificar el sentimiento"
+msgstr "Classify the sentiment"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Claude está pensando…"
+msgstr "Claude is thinking…"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "El componente Asistente IA (Claude): resumir, traducir, clasificar el sentimiento y extraer datos de un texto, y un chat con memoria, sin congelar la ventana."
+msgstr "The AI assistant component (Claude): summarize, translate, classify the sentiment and extract data from a text, and a chat with memory, without freezing the window."
+
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
+msgid "Enviar"
+msgstr "Send"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Extraer datos de contacto"
+msgstr "Extract contact details"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Hola, soy Laura Gómez, de Talleres Norte. Me encantó la demostración de ayer: el equipo está muy contento y queremos el plan anual. Escríbame a laura@talleresnorte.es o llámeme al 600 123 456."
+msgstr "Hi, I'm Laura Gómez from Talleres Norte. I loved yesterday's demo: the team is very happy and we want the annual plan. Email me at laura@talleresnorte.es or call me on 600 123 456."
+
+#: lib/code/tk_showcase_ai.dart
+msgid "No se pudo: {0}"
+msgstr "Could not do it: {0}"
+
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_web.dart
+msgid "Nueva"
+msgstr "New"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Pedir a Claude"
+msgstr "Ask Claude"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Responde en español, de forma clara y breve."
+msgstr "Answer in English, clearly and briefly."
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Resultado"
+msgstr "Result"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Resumir"
+msgstr "Summarize"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Textos"
+msgstr "Texts"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Traducir al inglés"
+msgstr "Translate to English"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "Usted"
+msgstr "You"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "correo"
+msgstr "email"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "empresa"
+msgstr "company"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "negativo"
+msgstr "negative"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "neutral"
+msgstr "neutral"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "nombre"
+msgstr "name"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "positivo"
+msgstr "positive"
+
+#: lib/code/tk_showcase_ai.dart
+msgid "teléfono"
+msgstr "phone"
+
 #: lib/code/tk_showcase_mail.dart
 msgid "(sin asunto)"
 msgstr "(no subject)"
@@ -1936,10 +2076,6 @@ msgstr "On {0}, {1} wrote:"
 #: lib/code/tk_showcase_mail.dart
 msgid "Enviando…"
 msgstr "Sending…"
-
-#: lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
-msgid "Enviar"
-msgstr "Send"
 
 #: lib/code/tk_showcase_mail.dart
 msgid "Error: {0}"
@@ -2632,10 +2768,6 @@ msgstr "Could not play {0}: {1}"
 #: lib/code/tk_showcase_web.dart
 msgid "Noticias"
 msgstr "News"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Nueva"
-msgstr "New"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Nueva factura"

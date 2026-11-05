@@ -71,6 +71,8 @@ class TkPrepared {
     this.web = false,
     this.vars = const {},
     this.tray = false,
+    this.ai = false,
+    this.anthropicKey,
   });
 
   /// Carpeta del proyecto.
@@ -90,6 +92,12 @@ class TkPrepared {
   /// Variables del módulo API del estudio para las
   /// integraciones API: llegan al proceso como `DMSTUDIO_ENV_<NOMBRE>`.
   final Map<String, String> vars;
+
+  /// Tiene un Asistente IA: necesita el SDK de Anthropic y su clave.
+  final bool ai;
+
+  /// Clave de Anthropic de Ajustes (null: la del entorno, si la hay).
+  final String? anthropicKey;
 
   /// Lleva un icono de bandeja: necesita pystray y Pillow.
   final bool tray;

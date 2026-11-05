@@ -11,9 +11,12 @@ class Diagrams {
   static Future<List<Map<String, Object?>>> all() =>
       StudioDb.db.query('dev_diagram', orderBy: 'write_date DESC');
 
-  static Future<Map<String, Object?>?> get(int id) async => (await StudioDb.db
-          .query('dev_diagram', where: 'id = ?', whereArgs: [id]))
-      .firstOrNull;
+  static Future<Map<String, Object?>?> get(int id) async =>
+      (await StudioDb.db.query(
+        'dev_diagram',
+        where: 'id = ?',
+        whereArgs: [id],
+      )).firstOrNull;
 
   static Future<int> create(
     String name,

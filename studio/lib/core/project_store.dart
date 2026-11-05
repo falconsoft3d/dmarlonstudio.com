@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import '../ai/assistant.dart';
 import '../code/tk_codegen.dart';
 import '../code/tk_examples.dart';
 import '../code/tk_model.dart';
@@ -510,6 +511,10 @@ class ProjectStore {
     final file = await writeBuild(x, source);
     // Solo las ventanas con una integración API reciben las variables.
     final api = x.design.widgets.any((w) => w.kind == 'RestClient');
+    // Con un Asistente IA, la clave de Anthropic de Ajustes le llega por el
+    // entorno (nunca al código ni al diseño).
+    final ai = x.design.widgets.any((w) => w.kind == 'AiAssistant');
+    final key = ai ? (await AiConfig.load()).keyOf(AiProvider.anthropic) : null;
     return TkPrepared(
       id: dir,
       name: x.name,
@@ -519,6 +524,8 @@ class ProjectStore {
       web: x.isWeb,
       vars: api ? await DevTools.env() : const {},
       tray: !x.isWeb && x.design.widgets.any((w) => w.kind == 'TrayIcon'),
+      ai: ai,
+      anthropicKey: key == null || key.isEmpty ? null : key,
     );
   }
 }

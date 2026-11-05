@@ -2,6 +2,7 @@ import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_codegen.dart';
 import 'tk_helpers.dart';
+import 'tk_ai_component.dart';
 import 'tk_reports.dart';
 import 'tk_model.dart';
 import 'tk_web_runtime.dart';
@@ -211,6 +212,10 @@ class TkWebCodegen {
       b.writeln(TkCodegen.dialog(w, web: true));
       return;
     }
+    if (w.kind == 'AiAssistant') {
+      b.writeln(TkCodegen.aiAssistant(w, web: true));
+      return;
+    }
     // Un informe se descarga en el navegador.
     if (w.kind == 'PdfReport' || w.kind == 'ExcelReport') {
       b.writeln(TkCodegen.report(w, web: true));
@@ -310,6 +315,9 @@ class TkWebCodegen {
       (w) => w.kind == 'PdfReport' || w.kind == 'ExcelReport',
     )) {
       b.write(tkReportsPython);
+    }
+    if (d.widgets.any((w) => w.kind == 'AiAssistant')) {
+      b.write(tkAiAssistantPython);
     }
     if (d.widgets.any((w) => w.kind == 'StatusBar')) {
       b.write(TkCodegen.glyphTable());

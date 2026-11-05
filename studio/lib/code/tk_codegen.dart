@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_helpers.dart';
+import 'tk_ai_component.dart';
 import 'tk_reports.dart';
 import 'tk_model.dart';
 import 'tk_web_codegen.dart';
@@ -584,6 +585,27 @@ class TkCodegen {
     ]);
   }
 
+  /// Asistente de IA (Claude, con el SDK oficial de Anthropic).
+  static String aiAssistant(TkWidget w, {bool web = false}) {
+    String? text(String key) {
+      final p = w.component.prop(key)!;
+      final v = '${w.prop(p) ?? ''}';
+      return v == '${p.def ?? ''}' || v.isEmpty ? null : '$key=${TkPy.str(v)}';
+    }
+
+    final max = TkPy.integer(w.props['max_tokens'] ?? 16000);
+    return _call('self.${w.name} = AiAssistant', [
+      web ? 'self' : 'self.root',
+      if (web) 'web=True',
+      ?text('model'),
+      ?text('system'),
+      ?text('effort'),
+      if (max != 16000) 'max_tokens=${max < 256 ? 256 : max}',
+      if (w.events['done'] case final m?) 'done=self.$m',
+      if (w.events['error'] case final m?) 'error=self.$m',
+    ]);
+  }
+
   /// Informe en PDF o en Excel (en una página web, se descarga).
   static String report(TkWidget w, {bool web = false}) {
     String? text(String key) {
@@ -940,6 +962,12 @@ class TkCodegen {
         ..writeln(report(w));
       return;
     }
+    if (w.kind == 'AiAssistant') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(aiAssistant(w));
+      return;
+    }
     if (w.kind == 'Timer') {
       b
         ..writeln('$_in# ${w.name}')
@@ -1174,6 +1202,9 @@ class TkCodegen {
       (w) => w.kind == 'PdfReport' || w.kind == 'ExcelReport',
     )) {
       b.write(tkReportsPython);
+    }
+    if (d.widgets.any((w) => w.kind == 'AiAssistant')) {
+      b.write(tkAiAssistantPython);
     }
     if (d.widgets.any((w) => w.kind == 'Chart')) {
       b

@@ -97,11 +97,8 @@ class DevTools {
       StudioDb.db.delete('dev_request', where: 'id = ?', whereArgs: [id]);
 
   /// Historial: las 100 últimas peticiones enviadas.
-  static Future<List<Map<String, Object?>>> history() => StudioDb.db.query(
-    'dev_request_history',
-    orderBy: 'id DESC',
-    limit: 100,
-  );
+  static Future<List<Map<String, Object?>>> history() =>
+      StudioDb.db.query('dev_request_history', orderBy: 'id DESC', limit: 100);
 
   static Future<void> addHistory(
     Map<String, Object?> request, {

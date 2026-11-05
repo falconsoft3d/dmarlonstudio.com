@@ -21,13 +21,12 @@ Hechos
 
 Trabajando
 =========
-17b. Firebase: probarlo con un proyecto real (o el emulador con Java 21) y ponerlo en la web | ⏳ |
+17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 
 Pendiente
 =========
 36. Aplicaciones de consola: Python, C/C++ y Pascal (entrada y salida en la pestaña Salida) | ⏳ |
-37. Next.js: página web adaptable de verdad, no el formulario pintado | ⏳ |
 16. Flutter (escritorio ) | ⏳ |
 17. Flutter (movil ) | ⏳ | 
 18. React Native (móvil) | ⏳ |
@@ -38,8 +37,6 @@ Pendiente
 23. PHP (Web) | ⏳ |
 24. Ruby on Rails (Web) | ⏳ |
 25. Laravel (Web) | ⏳ |
-28. Java (Web) | ⏳ |
-29. Spring Boot (Web) | ⏳ |
 30. Go (Web) | ⏳ |
 31. Rust (Web) | ⏳ |
 35. Vue.js (Web) | ⏳ |

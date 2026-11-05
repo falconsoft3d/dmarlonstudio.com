@@ -16,6 +16,8 @@ class DevTools {
     ('postgres', 'PostgreSQL'),
     ('mysql', 'MySQL / MariaDB'),
     ('mongodb', 'MongoDB'),
+    ('falcon', 'FalconDatabase'),
+    ('firebase', 'Firebase (Firestore)'),
     ('ftp', 'FTP'),
   ];
 

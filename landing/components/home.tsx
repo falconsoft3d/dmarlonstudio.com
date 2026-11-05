@@ -90,14 +90,14 @@ export function Home({ lang }: { lang: Lang }) {
               <TargetCard key={t.name} t={t} />
             ))}
           </ul>
-          <div className="mt-10 grid gap-x-3 gap-y-8 lg:grid-cols-7">
+          <div className="mt-10 grid gap-x-3 gap-y-8 lg:grid-cols-8">
             {[
               { label: hero.backendsLabel, items: hero.backends, span: "lg:col-span-3", cols: "grid-cols-3" },
-              { label: hero.databasesLabel, items: hero.databases, span: "lg:col-span-4", cols: "grid-cols-2 sm:grid-cols-4" },
+              { label: hero.databasesLabel, items: hero.databases, span: "lg:col-span-5", cols: "grid-cols-2 sm:grid-cols-5" },
             ].map((g) => (
-              <div key={g.label} className={g.span}>
+              <div key={g.label} className={`flex flex-col ${g.span}`}>
                 <p className="text-center text-xs font-medium tracking-[0.14em] text-muted uppercase">{g.label}</p>
-                <ul className={`mt-4 grid gap-3 ${g.cols}`} aria-label={g.label}>
+                <ul className={`mt-4 grid flex-1 auto-rows-fr gap-3 ${g.cols}`} aria-label={g.label}>
                   {g.items.map((t) => (
                     <TargetCard key={t.name} t={t} />
                   ))}

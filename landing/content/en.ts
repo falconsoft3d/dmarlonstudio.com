@@ -56,6 +56,7 @@ export const en: Content = {
       { name: "PostgreSQL", sub: "SQL server", icon: "postgres" },
       { name: "MySQL / MariaDB", sub: "SQL server", icon: "mysql" },
       { name: "MongoDB", sub: "Documents", icon: "mongodb" },
+      { name: "FalconDatabase", sub: "Cloud · API", icon: "falcon" },
     ],
   },
   examples: {

@@ -4183,7 +4183,7 @@ msgstr "The server did not allow: {0}"
 msgid "Hecho"
 msgstr "Done"
 
-#: lib/dev/dev_client.dart
+#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
 msgid "Indique la colección («collection»)."
 msgstr "Enter the collection (“collection”)."
 
@@ -4195,9 +4195,49 @@ msgstr "The MongoDB query is JSON: {\"collection\": \"customers\", \"find\": {}}
 msgid "No existe el archivo {0}."
 msgstr "The file {0} does not exist."
 
-#: lib/dev/dev_client.dart
+#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
 msgid "{0} filas afectadas"
 msgstr "{0} rows affected"
+
+#: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
+msgid "Clave de API"
+msgstr "API key"
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Clave web"
+msgstr "Web key"
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Falta «{0}»."
+msgstr "“{0}” is missing."
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Indique la tabla («table»)."
+msgstr "Give the table (“table”)."
+
+#: lib/dev/dev_cloud_db.dart
+msgid "La consulta es un JSON: {0}"
+msgstr "The query is a JSON: {0}"
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Operador no válido: {0}"
+msgstr "Invalid operator: {0}"
+
+#: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
+msgid "Proyecto"
+msgstr "Project"
+
+#: lib/dev/dev_cloud_db.dart
+msgid "{0} filas en total"
+msgstr "{0} rows in total"
+
+#: lib/dev/dev_cloud_db.dart
+msgid "«update» es {\"id\": \"…\", \"set\": {…}}."
+msgstr "“update” is {\"id\": \"…\", \"set\": {…}}."
+
+#: lib/dev/dev_cloud_db.dart
+msgid "«update» es {\"id\": 1, \"set\": {…}}."
+msgstr "“update” is {\"id\": 1, \"set\": {…}}."
 
 #: lib/dev/diagram.dart
 msgid "La IA no devolvió un diseño válido."
@@ -5204,6 +5244,10 @@ msgid "Base de datos"
 msgstr "Database"
 
 #: lib/ui/screens/dev_tools.dart
+msgid "Base de datos (opcional)"
+msgstr "Database (optional)"
+
+#: lib/ui/screens/dev_tools.dart
 msgid "Borrar historial"
 msgstr "Clear history"
 
@@ -5226,6 +5270,10 @@ msgstr "Parent folder"
 #: lib/ui/screens/dev_tools.dart
 msgid "Carpeta vacía."
 msgstr "Empty folder."
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Clave web (apiKey)"
+msgstr "Web key (apiKey)"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Colecciones"
@@ -5256,6 +5304,14 @@ msgid "Copiar como curl"
 msgstr "Copy as curl"
 
 #: lib/ui/screens/dev_tools.dart
+msgid "Correo (si las reglas piden sesión)"
+msgstr "Email (if the rules require sign-in)"
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Correo (si las tablas piden sesión)"
+msgstr "Email (if the tables require sign-in)"
+
+#: lib/ui/screens/dev_tools.dart
 msgid "Cuerpo"
 msgstr "Body"
 
@@ -5278,6 +5334,10 @@ msgstr "Choose a connection on the left."
 #: lib/ui/screens/dev_tools.dart
 msgid "Eliminar conexión"
 msgstr "Delete connection"
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Emulador (opcional)"
+msgstr "Emulator (optional)"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?"
@@ -5314,6 +5374,14 @@ msgstr "Save request"
 #: lib/ui/screens/dev_tools.dart
 msgid "Guarde peticiones para tenerlas a mano."
 msgstr "Save requests to keep them handy."
+
+#: lib/ui/screens/dev_tools.dart
+msgid "ID del proyecto"
+msgstr "Project ID"
+
+#: lib/ui/screens/dev_tools.dart
+msgid "La referencia de 20 letras"
+msgstr "The 20-letter reference"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Modificar datos"

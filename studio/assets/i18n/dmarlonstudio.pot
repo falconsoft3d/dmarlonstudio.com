@@ -4104,7 +4104,7 @@ msgstr ""
 msgid "Hecho"
 msgstr ""
 
-#: lib/dev/dev_client.dart
+#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
 msgid "Indique la colección («collection»)."
 msgstr ""
 
@@ -4116,8 +4116,48 @@ msgstr ""
 msgid "No existe el archivo {0}."
 msgstr ""
 
-#: lib/dev/dev_client.dart
+#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
 msgid "{0} filas afectadas"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
+msgid "Clave de API"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Clave web"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Falta «{0}»."
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Indique la tabla («table»)."
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "La consulta es un JSON: {0}"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "Operador no válido: {0}"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
+msgid "Proyecto"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "{0} filas en total"
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "«update» es {\"id\": \"…\", \"set\": {…}}."
+msgstr ""
+
+#: lib/dev/dev_cloud_db.dart
+msgid "«update» es {\"id\": 1, \"set\": {…}}."
 msgstr ""
 
 #: lib/dev/diagram.dart
@@ -5125,6 +5165,10 @@ msgid "Base de datos"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
+msgid "Base de datos (opcional)"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
 msgid "Borrar historial"
 msgstr ""
 
@@ -5146,6 +5190,10 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Carpeta vacía."
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Clave web (apiKey)"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
@@ -5177,6 +5225,14 @@ msgid "Copiar como curl"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
+msgid "Correo (si las reglas piden sesión)"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Correo (si las tablas piden sesión)"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
 msgid "Cuerpo"
 msgstr ""
 
@@ -5198,6 +5254,10 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Eliminar conexión"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "Emulador (opcional)"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
@@ -5234,6 +5294,14 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Guarde peticiones para tenerlas a mano."
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "ID del proyecto"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "La referencia de 20 letras"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart

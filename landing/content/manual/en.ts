@@ -1046,7 +1046,7 @@ export const manualEn: Manual = {
           blocks: [
             {
               type: "p",
-              text: "**+** adds a SQLite, PostgreSQL, MySQL / MariaDB or MongoDB connection, with server, port, database, user, password and **Encrypted connection (SSL)** depending on the type. **Test connection** checks it can be reached.",
+              text: "**+** adds a SQLite, PostgreSQL, MySQL / MariaDB, MongoDB, FalconDatabase or Firebase connection, with server, port, database, user, password and **Encrypted connection (SSL)** depending on the type. **Test connection** checks it can be reached.",
             },
             {
               type: "p",
@@ -1066,6 +1066,33 @@ export const manualEn: Manual = {
                 "**Run** executes the query in the editor and shows the result in a grid.",
                 "Anything that changes data asks for confirmation first.",
                 "**CSV** saves the full result to a file.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "nube",
+          title: "FalconDatabase and Firebase",
+          blocks: [
+            {
+              type: "p",
+              text: "It also connects to cloud databases through their API: **FalconDatabase** (PostgreSQL tables) and **Firebase** (Cloud Firestore). Their queries are a JSON, as in MongoDB.",
+            },
+            {
+              type: "table",
+              head: ["Type", "What it needs", "Sample query"],
+              rows: [
+                ["FalconDatabase", "Server (falcondatabase.com by default), the project reference and its key (`fdb_anon_…` or `fdb_service_…`); email and password if the tables require sign-in", "`{\"table\": \"products\", \"where\": {\"price\": \"gte.10\"}, \"order\": \"id.desc\", \"limit\": 100}`"],
+                ["Firebase", "The project ID, the web key (`apiKey`) and, if the rules require sign-in, a Firebase Authentication user; or a local emulator", "`{\"collection\": \"products\", \"where\": {\"price\": {\"gte\": 10}}, \"order\": \"price desc\"}`"],
+              ],
+            },
+            {
+              type: "ul",
+              items: [
+                "To change data: `\"insert\": {…}` or a list, `\"update\": {\"id\": …, \"set\": {…}}` and `\"delete\": id`. You are asked to confirm first.",
+                "FalconDatabase filters use its operators: `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `like`, `ilike`, `is` and `in`. Firebase: `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `in` and `contains`.",
+                "In Firebase every row has `_id`, the document identifier.",
+                "For now they are for the Databases module: the Designer's **Data connection** component uses SQLite, PostgreSQL and MySQL.",
               ],
             },
           ],

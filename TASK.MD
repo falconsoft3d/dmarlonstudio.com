@@ -16,10 +16,12 @@ Hechos
 14. Web con Next.js | ✅ |
 15. C++ (escritorio, FLTK) | ✅ |
 16. Pascal (escritorio, Lazarus/LCL) | ✅ |
+17. Bases de datos FalconDatabase (y Firebase en el módulo) | ✅ |
+27. Flask (Web) | ✅ |
 
 Trabajando
 =========
-17. Bases de datos FalconDatabase y Firebase | ⏳ |
+17b. Firebase: probarlo con un proyecto real (o el emulador con Java 21) y ponerlo en la web | ⏳ |
 
 
 Pendiente
@@ -36,7 +38,6 @@ Pendiente
 23. PHP (Web) | ⏳ |
 24. Ruby on Rails (Web) | ⏳ |
 25. Laravel (Web) | ⏳ |
-27. Flask (Web) | ⏳ |
 28. Java (Web) | ⏳ |
 29. Spring Boot (Web) | ⏳ |
 30. Go (Web) | ⏳ |

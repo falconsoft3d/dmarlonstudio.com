@@ -10,9 +10,11 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../core/errors.dart';
 import '../i18n/tr.dart';
+import 'dev_cloud_db.dart';
 import 'dev_types.dart';
 
-/// Abre una conexión: sqlite (archivo), postgres, mysql o mongodb.
+/// Abre una conexión: sqlite (archivo), postgres, mysql, mongodb, falcon
+/// (FalconDatabase) o firebase (Cloud Firestore).
 Future<DevDb> openDevDb(String kind, Map<String, Object?> c) async {
   String s(String k, [String d = '']) => '${c[k] ?? d}'.trim();
   int port(int d) => int.tryParse(s('port')) ?? d;
@@ -67,6 +69,10 @@ Future<DevDb> openDevDb(String kind, Map<String, Object?> c) async {
           conn = await connect(true);
         }
         return _MySql(conn, s('database'));
+      case 'falcon':
+        return await FalconDb.open(c);
+      case 'firebase':
+        return await FirebaseDb.open(c);
       case 'mongodb':
         final uri = s('uri').isNotEmpty
             ? s('uri')

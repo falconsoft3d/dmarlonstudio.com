@@ -1046,7 +1046,7 @@ export const manualEs: Manual = {
           blocks: [
             {
               type: "p",
-              text: "Con **+** se añade una conexión de tipo SQLite, PostgreSQL, MySQL / MariaDB o MongoDB, con servidor, puerto, base de datos, usuario, contraseña y **Conexión cifrada (SSL)** según el tipo. **Probar conexión** comprueba que se llega.",
+              text: "Con **+** se añade una conexión de tipo SQLite, PostgreSQL, MySQL / MariaDB, MongoDB, FalconDatabase o Firebase, con servidor, puerto, base de datos, usuario, contraseña y **Conexión cifrada (SSL)** según el tipo. **Probar conexión** comprueba que se llega.",
             },
             {
               type: "p",
@@ -1066,6 +1066,33 @@ export const manualEs: Manual = {
                 "**Ejecutar** lanza la consulta del editor y muestra el resultado en una rejilla.",
                 "Antes de ejecutar algo que cambia datos se pide confirmación.",
                 "**CSV** guarda el resultado completo en un archivo.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "nube",
+          title: "FalconDatabase y Firebase",
+          blocks: [
+            {
+              type: "p",
+              text: "También se conecta con bases de datos en la nube por su API: **FalconDatabase** (tablas de PostgreSQL) y **Firebase** (Cloud Firestore). Sus consultas son un JSON, como en MongoDB.",
+            },
+            {
+              type: "table",
+              head: ["Tipo", "Qué pide", "Consulta de ejemplo"],
+              rows: [
+                ["FalconDatabase", "Servidor (por defecto falcondatabase.com), la referencia del proyecto y su clave (`fdb_anon_…` o `fdb_service_…`); correo y contraseña si las tablas piden sesión", "`{\"table\": \"productos\", \"where\": {\"precio\": \"gte.10\"}, \"order\": \"id.desc\", \"limit\": 100}`"],
+                ["Firebase", "El ID del proyecto, la clave web (`apiKey`) y, si las reglas piden sesión, un usuario de Firebase Authentication; o un emulador local", "`{\"collection\": \"productos\", \"where\": {\"precio\": {\"gte\": 10}}, \"order\": \"precio desc\"}`"],
+              ],
+            },
+            {
+              type: "ul",
+              items: [
+                "Para cambiar datos: `\"insert\": {…}` o una lista, `\"update\": {\"id\": …, \"set\": {…}}` y `\"delete\": id`. Se pide confirmación antes.",
+                "En FalconDatabase los filtros usan sus operadores: `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `like`, `ilike`, `is` e `in`. En Firebase: `eq`, `neq`, `gt`, `gte`, `lt`, `lte`, `in` y `contains`.",
+                "En Firebase cada fila lleva `_id`, el identificador del documento.",
+                "Por ahora son para el módulo Bases de datos: el componente **Conexión de datos** del Diseñador usa SQLite, PostgreSQL y MySQL.",
               ],
             },
           ],

@@ -10,6 +10,7 @@ import '../../db/dev_tools.dart';
 import '../../core/errors.dart';
 import '../../dev/api_client.dart';
 import '../../dev/dev_client.dart';
+import '../../dev/dev_cloud_db.dart';
 import '../../dev/dev_types.dart';
 import '../../i18n/i18n.dart';
 import '../save_file.dart';
@@ -21,6 +22,8 @@ const _mono = TextStyle(fontFamily: 'Menlo', fontSize: 12.5);
 IconData _kindIcon(String kind) => switch (kind) {
   'ftp' => LucideIcons.folderTree,
   'mongodb' => LucideIcons.leaf,
+  'falcon' => LucideIcons.cloud,
+  'firebase' => LucideIcons.flame,
   _ => LucideIcons.database,
 };
 
@@ -47,6 +50,11 @@ Future<bool> _editConnection(
       'password',
       'path',
       'uri',
+      'url',
+      'project',
+      'key',
+      'email',
+      'emulator',
     ])
       k: TextEditingController(text: '${cfg[k] ?? ''}'),
   };
@@ -102,7 +110,46 @@ Future<bool> _editConnection(
                       onChanged: (v) => set(() => kind = v ?? kind),
                     ),
                   ],
-                  if (kind == 'sqlite')
+                  if (kind == 'falcon') ...[
+                    f(
+                      'url',
+                      tr('Servidor'),
+                      hint: 'https://falcondatabase.com',
+                    ),
+                    f(
+                      'project',
+                      tr('Proyecto'),
+                      hint: tr('La referencia de 20 letras'),
+                    ),
+                    f(
+                      'key',
+                      tr('Clave de API'),
+                      secret: true,
+                      hint: 'fdb_anon_… / fdb_service_…',
+                    ),
+                    f('email', tr('Correo (si las tablas piden sesión)')),
+                    f('password', tr('Contraseña'), secret: true),
+                  ] else if (kind == 'firebase') ...[
+                    f('project', tr('ID del proyecto'), hint: 'mi-app-1234'),
+                    f(
+                      'key',
+                      tr('Clave web (apiKey)'),
+                      secret: true,
+                      hint: 'AIza…',
+                    ),
+                    f('email', tr('Correo (si las reglas piden sesión)')),
+                    f('password', tr('Contraseña'), secret: true),
+                    f(
+                      'database',
+                      tr('Base de datos (opcional)'),
+                      hint: '(default)',
+                    ),
+                    f(
+                      'emulator',
+                      tr('Emulador (opcional)'),
+                      hint: 'localhost:8080',
+                    ),
+                  ] else if (kind == 'sqlite')
                     Row(
                       children: [
                         Expanded(
@@ -288,7 +335,13 @@ class _ConnectionList extends StatelessWidget {
         leading: Icon(
           _kindIcon('${r['kind']}'),
           size: 18,
-          color: biPalette(context)[r['kind'] == 'mongodb' ? 5 : 0],
+          color:
+              biPalette(context)[switch (r['kind']) {
+                'mongodb' => 5,
+                'firebase' => 3,
+                'falcon' => 1,
+                _ => 0,
+              }],
         ),
         title: Text('${r['name']}', overflow: TextOverflow.ellipsis),
         subtitle: Text(
@@ -416,7 +469,7 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
     final q = _query.text.trim();
     if (db == null || q.isEmpty || _busy) return;
     final kind = '${_current?['kind']}';
-    final read = kind == 'mongodb'
+    final read = const {'mongodb', 'falcon', 'firebase'}.contains(kind)
         ? !RegExp(r'"(insert|update|delete)"').hasMatch(q)
         : RegExp(
             r'^\s*(select|with|pragma|explain|values|show|describe|desc)\b',
@@ -646,6 +699,10 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
                         contentPadding: const EdgeInsets.all(10),
                         hintText: kind == 'mongodb'
                             ? '{"collection": "clientes", "find": {"ciudad": "Madrid"}, "sort": {"nombre": 1}, "limit": 50}'
+                            : kind == 'falcon'
+                            ? FalconDb.example
+                            : kind == 'firebase'
+                            ? FirebaseDb.example
                             : _db == null
                             ? tr('Elija una conexión a la izquierda.')
                             : 'SELECT … (⌘↵ ${tr('para ejecutar')})',

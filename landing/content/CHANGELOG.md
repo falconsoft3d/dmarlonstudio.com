@@ -3,6 +3,19 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.31 — 2026-11-05
+
+- **FalconDatabase** en el módulo Bases de datos: con la referencia del
+  proyecto y su clave (y correo y contraseña si las tablas piden sesión) se
+  ven las tablas con sus columnas y se consulta con un JSON:
+  `{"table": "productos", "where": {"precio": "gte.10"}, "order": "id.desc"}`,
+  con `insert`, `update` y `delete` para cambiar datos. Probado contra
+  FalconDatabase de verdad.
+- **Firebase (Cloud Firestore)**, también en Bases de datos: colecciones,
+  consultas con filtros y orden, y altas, cambios y bajas, con la clave web y
+  un usuario de Firebase Authentication, o con el emulador local.
+- Web: FalconDatabase entre las bases de datos de la portada.
+
 ## 1.0.30 — 2026-11-05
 
 - Pascal en macOS: la aplicación compilada se abría en segundo plano, sin

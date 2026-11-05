@@ -8,11 +8,13 @@ String tkUnitComment({bool web = false}) => web
         '# Código de la aplicación web: corre en el servidor, en Python. Cada evento\n'
         '# del diseño es un método de esta clase; self.root es la página y\n'
         '# self.<Nombre>, cada componente, con las llamadas de tkinter. También\n'
-        '# self.value("Nombre"), self.value("Nombre", valor) y self.notify(texto).',
+        '# self.value("Nombre"), self.value("Nombre", valor) y self.notify(texto).\n'
+        '# Ya existen en __init__; el evento «Al abrir» se ejecuta después de él.',
       )
     : tr(
         '# Código de la ventana: cada evento del diseño es un método de esta clase.\n'
-        '# self.root es la ventana y self.<Nombre>, cada componente.',
+        '# self.root es la ventana y self.<Nombre>, cada componente: ya existen en\n'
+        '# __init__, y el evento «Al abrir» de la ventana se ejecuta después de él.',
       );
 
 /// Ejemplo incluido en DMarlon Studio.
@@ -56,6 +58,8 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _tasks(t),
   _converter(t),
   _contacts(t),
+  _stopwatch(t),
+  _customer(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,
@@ -75,6 +79,20 @@ List<TkExample> tkWebExamples(String Function(String) t) => [
       markTr('Lista de tareas en Flask, guardada en un archivo de su carpeta.'),
     ),
     (code) => code.replaceAll('"tasks.json"', '"tasks_web.json"'),
+  ),
+  _web(
+    _stopwatch(t),
+    'web_stopwatch',
+    t(markTr('Cronómetro web')),
+    t(markTr('El cronómetro de escritorio, con el mismo código, en Flask.')),
+  ),
+  _web(
+    _customer(t),
+    'web_customer',
+    t(markTr('Ficha de cliente web')),
+    t(
+      markTr('La ficha de cliente con páginas, con el mismo código, en Flask.'),
+    ),
   ),
 ];
 
@@ -848,6 +866,288 @@ class Form1(FormDesign):
     'contacts',
     t(markTr('Contactos de Odoo / ERPSqlite')),
     t(markTr('Consulta los contactos de un Odoo o un ERPSqlite con XML-RPC.')),
+    design,
+    code,
+  );
+}
+
+// ------------------------------------------------------------ cronómetro
+TkExample _stopwatch(String Function(String) t) {
+  final file = t(markTr('Archivo')), help = t(markTr('Ayuda'));
+  final reset = t(markTr('Reiniciar')), quit = t(markTr('Salir'));
+  final about = t(markTr('Acerca de'));
+  final start = t(markTr('Iniciar')), stop = t(markTr('Parar'));
+  final design =
+      TkDesign(
+          width: 360,
+          height: 240,
+          props: {'title': t(markTr('Cronómetro')), 'bg': '#f4f5f7'},
+          events: {'create': 'form_create'},
+        )
+        ..widgets.addAll([
+          _w(
+            'Menu',
+            'Menu1',
+            320,
+            8,
+            32,
+            32,
+            {'items': '$file\n  $reset\n  -\n  $quit\n$help\n  $about'},
+            {'command': 'Menu1_click'},
+          ),
+          _w(
+            'Timer',
+            'Timer1',
+            320,
+            48,
+            32,
+            32,
+            {'interval': 100, 'enabled': false},
+            {'command': 'Timer1_timer'},
+          ),
+          _w('Label', 'Display', 16, 24, 296, 64, {
+            'text': '00:00.0',
+            'font_family': 'Helvetica',
+            'font_size': 40,
+            'font_bold': true,
+            'fg': '#2b5797',
+          }),
+          _w('Progressbar', 'Progress', 16, 104, 328, 16, {'maximum': 60}),
+          _w(
+            'Button',
+            'BtnStart',
+            16,
+            136,
+            160,
+            36,
+            {'text': start},
+            {'command': 'BtnStart_click'},
+          ),
+          _w(
+            'Button',
+            'BtnReset',
+            184,
+            136,
+            160,
+            36,
+            {'text': reset},
+            {'command': 'BtnReset_click'},
+          ),
+          _w('StatusBar', 'Status', 0, 216, 360, 24, {
+            'text': t(markTr('Listo')),
+          }),
+        ]);
+  String py(String s) => TkPy.str(s);
+  final code =
+      '''import time
+from tkinter import messagebox
+
+
+class Form1(FormDesign):
+    def form_create(self):
+        self.started = None
+        self.elapsed = 0.0
+        self.show()
+
+    def now(self):
+        running = time.monotonic() - self.started if self.started is not None else 0.0
+        return self.elapsed + running
+
+    def show(self):
+        minutes, seconds = divmod(self.now(), 60)
+        self.Display.configure(text="%02d:%04.1f" % (minutes, seconds))
+        self.Progress.configure(value=seconds)
+
+    def Timer1_timer(self):
+        self.show()
+
+    def BtnStart_click(self):
+        if self.started is None:
+            self.started = time.monotonic()
+            self.Timer1.start()
+            self.BtnStart.configure(text=${py(stop)})
+            self.Status.configure(text=${py(t(markTr('En marcha')))})
+        else:
+            self.elapsed = self.now()
+            self.started = None
+            self.Timer1.stop()
+            self.BtnStart.configure(text=${py(start)})
+            self.Status.configure(text=${py(t(markTr('Parado')))})
+        self.show()
+
+    def BtnReset_click(self):
+        self.elapsed = 0.0
+        if self.started is not None:
+            self.started = time.monotonic()
+        self.show()
+        self.Status.configure(text=${py(t(markTr('Reiniciado')))})
+
+    def Menu1_click(self, item):
+        if item == ${py('$file/$reset')}:
+            self.BtnReset_click()
+        elif item == ${py('$file/$quit')}:
+            self.root.destroy()
+        elif item == ${py('$help/$about')}:
+            messagebox.showinfo(
+                ${py(t(markTr('Cronómetro')))},
+                ${py(t(markTr('Ejemplo de DMarlon Studio con menú, temporizador, barra de progreso y barra de estado.')))},
+            )
+''';
+  return TkExample(
+    'stopwatch',
+    t(markTr('Cronómetro')),
+    t(
+      markTr(
+        'Cronómetro con menú, temporizador, barra de progreso y barra de estado.',
+      ),
+    ),
+    design,
+    code,
+  );
+}
+
+// ----------------------------------------------------- ficha de cliente
+TkExample _customer(String Function(String) t) {
+  const top = 40, gap = 40;
+  final pages = [
+    t(markTr('General')),
+    t(markTr('Contacto')),
+    t(markTr('Notas')),
+  ].join('\n');
+  TkWidget on(TkWidget w, int page) => w
+    ..parent = 'Pages'
+    ..page = page;
+  final design =
+      TkDesign(
+          width: 480,
+          height: 400,
+          props: {'title': t(markTr('Ficha de cliente')), 'bg': '#f4f5f7'},
+          events: {'create': 'form_create'},
+        )
+        ..widgets.addAll([
+          _w(
+            'PageControl',
+            'Pages',
+            16,
+            16,
+            448,
+            288,
+            {'pages': pages},
+            {'change': 'Pages_change'},
+          ),
+          on(
+            _w('Label', 'LblName', 16, top, 112, 24, {
+              'text': t(markTr('Nombre')),
+              'anchor': 'w',
+            }),
+            0,
+          ),
+          on(_w('Entry', 'CustName', 136, top, 280, 24), 0),
+          on(
+            _w('Label', 'LblKind', 16, top + gap, 112, 24, {
+              'text': t(markTr('Tipo')),
+              'anchor': 'w',
+            }),
+            0,
+          ),
+          on(
+            _w('Combobox', 'Kind', 136, top + gap, 200, 24, {
+              'items': [
+                t(markTr('Particular')),
+                t(markTr('Empresa')),
+                t(markTr('Autónomo')),
+              ].join('\n'),
+              'state': 'readonly',
+            }),
+            0,
+          ),
+          on(
+            _w('Checkbutton', 'Vip', 136, top + gap * 2, 200, 24, {
+              'text': t(markTr('Cliente preferente')),
+            }),
+            0,
+          ),
+          on(
+            _w('Label', 'LblEmail', 16, top, 112, 24, {
+              'text': t(markTr('Correo')),
+              'anchor': 'w',
+            }),
+            1,
+          ),
+          on(_w('Entry', 'Email', 136, top, 280, 24), 1),
+          on(
+            _w('Label', 'LblPhone', 16, top + gap, 112, 24, {
+              'text': t(markTr('Teléfono')),
+              'anchor': 'w',
+            }),
+            1,
+          ),
+          on(_w('Entry', 'Phone', 136, top + gap, 200, 24), 1),
+          on(
+            _w('Label', 'LblChannels', 16, top + gap * 2, 112, 24, {
+              'text': t(markTr('Avisar por')),
+              'anchor': 'w',
+            }),
+            1,
+          ),
+          on(
+            _w('Listbox', 'Channels', 136, top + gap * 2, 200, 88, {
+              'items': [
+                t(markTr('Correo')),
+                t(markTr('Teléfono')),
+                'WhatsApp',
+              ].join('\n'),
+              'selectmode': 'multiple',
+            }),
+            1,
+          ),
+          on(_w('Text', 'Notes', 16, top, 400, 216), 2),
+          _w(
+            'Button',
+            'BtnSave',
+            16,
+            320,
+            120,
+            32,
+            {'text': t(markTr('Guardar'))},
+            {'command': 'BtnSave_click'},
+          ),
+          _w('StatusBar', 'Status', 0, 376, 480, 24, {
+            'text': t(markTr('Ficha nueva')),
+          }),
+        ]);
+  String py(String s) => TkPy.str(s);
+  final code =
+      '''class Form1(FormDesign):
+    def form_create(self):
+        self.Kind.current(0)
+        self.CustName.focus_set()
+
+    def Pages_change(self, event=None):
+        page = self.Pages.index("current")
+        self.Status.configure(text=${py(t(markTr('Página {0}')))}.format(page + 1))
+
+    def BtnSave_click(self):
+        name = self.CustName_var.get().strip()
+        if not name:
+            self.Pages.select(0)
+            self.CustName.focus_set()
+            self.Status.configure(text=${py(t(markTr('Escriba el nombre del cliente.')))})
+            return
+        channels = [self.Channels.get(i) for i in self.Channels.curselection()]
+        text = ${py(t(markTr('Guardado: {0} ({1}), avisar por: {2}')))}
+        self.Status.configure(
+            text=text.format(name, self.Kind_var.get(), ", ".join(channels) or "-")
+        )
+''';
+  return TkExample(
+    'customer',
+    t(markTr('Ficha de cliente')),
+    t(
+      markTr(
+        'Ficha con un control de páginas, listas desplegables, una lista y barra de estado.',
+      ),
+    ),
     design,
     code,
   );

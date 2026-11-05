@@ -76,7 +76,7 @@ class ClaudeCode {
   static String _context(String formName, String unit) =>
       '''You are working inside DMarlon Studio, a visual desktop IDE. The current folder is a DMarlon Studio project:
 - project.dmsproj: JSON with the project metadata and "design": the window ("name", "props" such as title/width/height, "events") and "widgets" (each with "kind", "name", "x", "y", "width", "height", "parent", "props", "events" mapping an event key to a method name). The visual designer reads this file.
-- $unit: the user's Python code for the window class $formName. Event handlers are methods of that class named in the design's "events".
+- $unit: the user's Python code for the window class $formName (it subclasses the generated FormDesign, which creates self.root and every widget as self.<Name>). Event handlers are methods of that class named in the design's "events". Put startup logic in the form's create event handler; if you define __init__, call super().__init__() first.
 - build/: generated output. Never edit it.
 When the user asks for interface changes, edit the design in project.dmsproj (keep valid JSON, unique widget names, integer coordinates) and add or change the handler methods in $unit so every event in the design has its method. Keep changes minimal. Do not run commands. Reply briefly, in the language the user writes in, saying what you changed.''';
 

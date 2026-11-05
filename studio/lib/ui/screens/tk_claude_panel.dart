@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../code/claude_code.dart';
@@ -7,6 +6,7 @@ import '../../core/errors.dart';
 import '../../i18n/i18n.dart';
 import '../theme.dart';
 import '../tk_project.dart';
+import '../widgets.dart';
 
 /// Chat con Claude Code a la derecha del Diseñador. Antes de cada mensaje se
 /// guarda el proyecto (Claude Code trabaja sobre los archivos) y, si cambió
@@ -146,10 +146,7 @@ class _TkClaudePanelState extends State<TkClaudePanel> {
                 const Icon(LucideIcons.bot, size: 15),
                 const SizedBox(width: 6),
                 Expanded(
-                  child: Text(
-                    'Claude Code',
-                    style: t.textTheme.titleSmall,
-                  ),
+                  child: Text('Claude Code', style: t.textTheme.titleSmall),
                 ),
                 if (cc.running)
                   IconButton(
@@ -202,16 +199,7 @@ class _TkClaudePanelState extends State<TkClaudePanel> {
               children: [
                 Expanded(
                   child: CallbackShortcuts(
-                    bindings: {
-                      const SingleActivator(
-                        LogicalKeyboardKey.enter,
-                        meta: true,
-                      ): _send,
-                      const SingleActivator(
-                        LogicalKeyboardKey.enter,
-                        control: true,
-                      ): _send,
-                    },
+                    bindings: chatSendKeys(_ask, _send),
                     child: TextField(
                       controller: _ask,
                       minLines: 1,
@@ -219,7 +207,7 @@ class _TkClaudePanelState extends State<TkClaudePanel> {
                       style: const TextStyle(fontSize: 13),
                       decoration: InputDecoration(
                         isDense: true,
-                        hintText: tr('Pida un cambio (⌘Intro)'),
+                        hintText: tr('Pida un cambio (Intro para enviar)'),
                         border: const OutlineInputBorder(),
                       ),
                     ),

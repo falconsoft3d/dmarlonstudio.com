@@ -623,7 +623,7 @@ class _TkEditorState extends State<_TkEditor> {
   /// Marco más profundo bajo el punto (x, y) de la ventana.
   TkWidget? _frameAt(int x, int y) {
     for (final w in d.widgets.reversed) {
-      if (!w.component.container) continue;
+      if (!w.component.container || !d.shown(w)) continue;
       final (ax, ay) = d.absolute(w);
       if (x >= ax && y >= ay && x < ax + w.width && y < ay + w.height) return w;
     }
@@ -635,7 +635,8 @@ class _TkEditorState extends State<_TkEditor> {
     if (c == null) return;
     _begin();
     final name = d.freeName(kind);
-    final frame = _frameAt(x, y);
+    // El menú, la barra de estado y los no visuales van en la ventana.
+    final frame = c.nestable ? _frameAt(x, y) : null;
     final (px, py) = frame == null ? (0, 0) : d.absolute(frame);
     final w = TkWidget(
       kind: kind,
@@ -645,6 +646,8 @@ class _TkEditorState extends State<_TkEditor> {
       width: c.width,
       height: c.height,
       parent: frame?.name,
+      // En un control de páginas, en la página que se ve.
+      page: frame?.kind == 'PageControl' ? d.activePage(frame!) : null,
     );
     if (const {
       'Label',
@@ -1593,15 +1596,40 @@ class _TkEditorState extends State<_TkEditor> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 6, 10, 4),
-            child: Text(
-              [
-                state,
-                if (py != null && py.ok)
-                  'Python ${py.version} · Tk ${py.tk} · ${py.command}',
-                if (py != null && py.oldTk) _oldTkWarning(py),
-              ].join('   ·   '),
-              style: const TextStyle(color: _editorDim, fontSize: 11.5),
+            padding: const EdgeInsets.fromLTRB(10, 2, 4, 0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    [
+                      state,
+                      if (py != null && py.ok)
+                        'Python ${py.version} · Tk ${py.tk} · ${py.command}',
+                      if (py != null && py.oldTk) _oldTkWarning(py),
+                    ].join('   ·   '),
+                    style: const TextStyle(color: _editorDim, fontSize: 11.5),
+                  ),
+                ),
+                IconButton(
+                  key: const ValueKey('tk-output-copy'),
+                  tooltip: tr('Copiar la salida'),
+                  iconSize: 15,
+                  visualDensity: VisualDensity.compact,
+                  color: _editorDim,
+                  disabledColor: _editorDim.withValues(alpha: .35),
+                  icon: const Icon(LucideIcons.copy),
+                  onPressed: (run?.lines.isEmpty ?? true)
+                      ? null
+                      : () {
+                          Clipboard.setData(
+                            ClipboardData(text: run!.lines.join('\n')),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(tr('Salida copiada.'))),
+                          );
+                        },
+                ),
+              ],
             ),
           ),
           Expanded(

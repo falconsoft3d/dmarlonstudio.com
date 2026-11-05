@@ -43,7 +43,14 @@ class TkWebCodegen {
       'autoload',
     },
     'Listbox': {'items'},
+    'Menu': {'items'},
+    'PageControl': {'pages', 'active'},
   };
+
+  /// Opciones de un menú como lista de Python para la plantilla.
+  static String _tree(List<TkMenuItem> items) =>
+      '[${[for (final i in items) i.separator ? '{"sep": True}' : '{"label": ${TkPy.str(i.label)}, "path": ${TkPy.str(i.path)}, '
+                  '"items": ${_tree(i.items)}}'].join(', ')}]';
 
   /// [v] como literal de Python, según su tipo (null: no se escribe).
   static String? _literal(TkProp p, Object? v) {
@@ -103,6 +110,21 @@ class TkWebCodegen {
         out['columns'] = TkPy.list([
           for (final c in TkCodegen.gridColumns(w)) c.$1,
         ]);
+      case 'Menu':
+        out['tree'] = _tree(tkMenuItems(w.text('items')));
+      case 'PageControl':
+        out['pages'] = TkPy.list(tkPages(w));
+        out['active'] = '${d.activePage(w)}';
+      case 'StatusBar':
+        final bg = TkCodegen.color(w.props['bg']) ?? '#e4e5e7';
+        out['bg'] = TkPy.str(bg);
+        if (TkCodegen.color(w.props['fg']) == null) {
+          out['fg'] = TkPy.str(TkCodegen.contrast(bg));
+        }
+    }
+    // Componente de una página: la plantilla lo pone en la suya.
+    if (d.pageControlOf(w) != null && w.component.nestable) {
+      out['page'] = '${d.pageOf(w)}';
     }
     return out;
   }
@@ -146,6 +168,10 @@ class TkWebCodegen {
 
   static void _widget(StringBuffer b, TkDesign d, TkWidget w) {
     b.writeln('$_in# ${w.name}');
+    if (w.kind == 'Timer') {
+      b.writeln(TkCodegen.timer(w));
+      return;
+    }
     if (w.kind == 'Connection') {
       final saved = w.text('connection');
       b.writeln(
@@ -157,8 +183,15 @@ class TkWebCodegen {
     }
     _variable(b, d, w);
     final name = TkPy.str(w.name);
-    final parent = w.parent == null ? 'None' : TkPy.str(w.parent!);
-    final box = '(${w.x}, ${w.y}, ${w.width}, ${w.height})';
+    final nested = w.parent != null && w.component.nestable;
+    final parent = nested ? TkPy.str(w.parent!) : 'None';
+    final (x, y) = TkCodegen.placeOf(d, w);
+    final box = switch (w.kind) {
+      // Pegada abajo, de lado a lado.
+      'StatusBar' => '(0, ${d.height - w.height}, ${d.width}, ${w.height})',
+      'Menu' => '(0, 0, ${d.width}, 0)',
+      _ => '($x, $y, ${w.width}, ${w.height})',
+    };
     final args = [
       TkPy.str(w.kind),
       name,
@@ -222,6 +255,9 @@ class TkWebCodegen {
       ..write(TkHelpers.dataError);
     if (erp) b.write(TkHelpers.erpClient);
     if (sql) b.write(TkHelpers.sqlClient);
+    if (d.widgets.any((w) => w.kind == 'Timer')) {
+      b.write(TkHelpers.designTimer);
+    }
     b
       ..write(TkWebRuntime.templates)
       ..write(TkWebRuntime.classes)
@@ -229,9 +265,23 @@ class TkWebCodegen {
       ..writeln()
       ..writeln()
       ..writeln('class FormDesign(WebForm):')
-      ..writeln('    """Page built from the design."""')
+      ..writeln('    """Page built from the design.')
       ..writeln()
-      ..writeln('    def __init__(self):')
+      ..writeln('    The page and its components are created before __init__')
+      ..writeln('    runs, so the code of the page can define its own __init__')
+      ..writeln('    (with or without super().__init__()) and use them there.')
+      ..writeln('    The create event runs after __init__.')
+      ..writeln('    """')
+      ..writeln()
+      ..writeln('    def __new__(cls, *args, **kwargs):')
+      ..writeln('${_in}self = super().__new__(cls)')
+      ..writeln('${_in}FormDesign._setup(self)')
+      ..writeln('${_in}return self')
+      ..writeln()
+      ..writeln('    def __init__(self, *args, **kwargs):')
+      ..writeln('$_in"""Everything is ready: see _setup."""')
+      ..writeln()
+      ..writeln('    def _setup(self):')
       ..writeln(
         '${_in}WebForm.__init__(self, ${TkPy.str(d.title)}, '
         '${d.width}, ${d.height}, ${TkPy.str(bg)})',
@@ -246,14 +296,21 @@ class TkWebCodegen {
         b.writeln('${_in}self.root.after(100, self.${g.name}_refresh)');
       }
     }
-    final create = d.events['create'];
-    if (create != null) b.writeln('${_in}self._call(self.$create)');
     b
       ..writeln()
       ..writeln('    def _build(self):');
     if (d.widgets.isEmpty) b.writeln('${_in}pass');
     for (final w in d.widgets) {
       _widget(b, d, w);
+    }
+    // Al abrir la página: después del __init__ del usuario.
+    final create = d.events['create'];
+    if (create != null) {
+      b
+        ..writeln()
+        ..writeln('    def _start(self):')
+        ..writeln('$_in"""Once, after __init__: the create event."""')
+        ..writeln('${_in}self._call(self.$create)');
     }
     for (final g in grids) {
       TkCodegen.gridMethods(b, d, g);

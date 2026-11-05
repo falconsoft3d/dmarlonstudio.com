@@ -63,6 +63,7 @@ class ProjectStore {
   static const _workspaceKey = 'workspace.dir';
   static const _recentKey = 'projects.recent';
   static const _seededKey = 'projects.seeded';
+  static const _seedsKey = 'projects.seeds';
 
   /// Carpeta del área de trabajo en las pruebas.
   static String? workspaceOverride;
@@ -408,15 +409,39 @@ class ProjectStore {
   }
 
   // -------------------------------------------------------------- ejemplos
-  /// Ejemplos: una vez por área de trabajo, la primera vez que se lista.
+  /// Ejemplos que ya existían antes de llevar la cuenta de cada uno: en un
+  /// área de trabajo de entonces ya se crearon (o el usuario los borró).
+  static const _legacySeeds = {
+    'calculator',
+    'tasks',
+    'converter',
+    'contacts',
+    'web_calculator',
+    'web_tasks',
+  };
+
+  /// Cada ejemplo se crea una sola vez por área de trabajo, la primera vez
+  /// que se lista: los nuevos de una versión posterior también llegan, y uno
+  /// borrado no vuelve.
   static Future<void> ensureSeed() async {
     final ws = await workspaceDir();
     final seeded = (await Settings.get(_seededKey) ?? '')
         .split('\n')
         .where((x) => x.isNotEmpty)
         .toSet();
-    if (seeded.contains(ws)) return;
+    final done = (await Settings.get(_seedsKey) ?? '')
+        .split('\n')
+        .where((x) => x.isNotEmpty)
+        .toSet();
+    final legacy = seeded.contains(ws);
+    var changed = false;
     for (final e in [...tkExamples(tr), ...tkWebExamples(tr)]) {
+      final key = '$ws\t${e.seed}';
+      if (done.contains(key) || legacy && _legacySeeds.contains(e.seed)) {
+        continue;
+      }
+      done.add(key);
+      changed = true;
       // Los que necesitan una conexión no guardada no se pueden ejecutar.
       if (e.design.connections.isNotEmpty) continue;
       await create(
@@ -427,8 +452,11 @@ class ProjectStore {
         seed: e.seed,
       );
     }
-    seeded.add(ws);
-    await Settings.set(_seededKey, seeded.join('\n'));
+    if (changed) await Settings.set(_seedsKey, done.join('\n'));
+    if (!legacy) {
+      seeded.add(ws);
+      await Settings.set(_seededKey, seeded.join('\n'));
+    }
   }
 
   // ------------------------------------------------------------ ejecución

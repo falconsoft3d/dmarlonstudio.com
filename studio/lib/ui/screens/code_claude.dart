@@ -346,17 +346,10 @@ mixin _ClaudePanel on State<CodeStudioScreen> {
             children: [
               Expanded(
                 child: CallbackShortcuts(
-                  bindings: {
-                    const SingleActivator(LogicalKeyboardKey.enter, meta: true):
-                        _claudeSend,
-                    const SingleActivator(
-                      LogicalKeyboardKey.enter,
-                      control: true,
-                    ): _claudeSend,
-                  },
+                  bindings: chatSendKeys(_claudeAsk, _claudeSend),
                   child: _darkField(
                     _claudeAsk,
-                    tr('Describa el cambio (⌘Intro)'),
+                    tr('Describa el cambio (Intro para enviar)'),
                     maxLines: 6,
                   ),
                 ),

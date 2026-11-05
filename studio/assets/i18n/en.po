@@ -145,7 +145,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -218,20 +218,44 @@ msgid ""
 "# Código de la aplicación web: corre en el servidor, en Python. Cada evento\n"
 "# del diseño es un método de esta clase; self.root es la página y\n"
 "# self.<Nombre>, cada componente, con las llamadas de tkinter. También\n"
-"# self.value(\"Nombre\"), self.value(\"Nombre\", valor) y self.notify(texto)."
+"# self.value(\"Nombre\"), self.value(\"Nombre\", valor) y self.notify(texto).\n"
+"# Ya existen en __init__; el evento «Al abrir» se ejecuta después de él."
 msgstr ""
 "# Web app code: it runs on the server, in Python. Each event of the\n"
 "# design is a method of this class; self.root is the page and\n"
-"# self.<Name>, each component, with the tkinter calls. Also\n"
-"# self.value(\"Name\"), self.value(\"Name\", value) and self.notify(text)."
+"# self.<Name> each component, with the tkinter calls. Also\n"
+"# self.value(\"Name\"), self.value(\"Name\", value) and self.notify(text).\n"
+"# They already exist in __init__; the \"On open\" event runs after it."
 
 #: lib/code/tk_examples.dart
 msgid ""
 "# Código de la ventana: cada evento del diseño es un método de esta clase.\n"
-"# self.root es la ventana y self.<Nombre>, cada componente."
+"# self.root es la ventana y self.<Nombre>, cada componente: ya existen en\n"
+"# __init__, y el evento «Al abrir» de la ventana se ejecuta después de él."
 msgstr ""
-"# Window code: each event in the design is a method of this class.\n"
-"# self.root is the window and self.<Name> is each component."
+"# Window code: each event of the design is a method of this class.\n"
+"# self.root is the window and self.<Name> each component: they already exist\n"
+"# in __init__, and the window's \"On open\" event runs after it."
+
+#: lib/code/tk_examples.dart lib/ui/screens/settings_screen.dart
+msgid "Acerca de"
+msgstr "About"
+
+#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+msgid "Archivo"
+msgstr "File"
+
+#: lib/code/tk_examples.dart
+msgid "Autónomo"
+msgstr "Self-employed"
+
+#: lib/code/tk_examples.dart
+msgid "Avisar por"
+msgstr "Notify by"
+
+#: lib/code/tk_examples.dart
+msgid "Ayuda"
+msgstr "Help"
 
 #: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
@@ -270,12 +294,20 @@ msgid "Clave"
 msgstr "Key"
 
 #: lib/code/tk_examples.dart
+msgid "Cliente preferente"
+msgstr "Preferred customer"
+
+#: lib/code/tk_examples.dart
 msgid "Consulta los contactos de un Odoo o un ERPSqlite con XML-RPC."
 msgstr "Looks up the contacts of an Odoo or ERPSqlite over XML-RPC."
 
 #: lib/code/tk_examples.dart
 msgid "Consultar"
 msgstr "Look up"
+
+#: lib/code/tk_examples.dart
+msgid "Contacto"
+msgstr "Contact"
 
 #: lib/code/tk_examples.dart
 msgid "Contactos de Odoo / ERPSqlite"
@@ -286,6 +318,22 @@ msgid "Conversor de unidades"
 msgstr "Unit converter"
 
 #: lib/code/tk_examples.dart
+msgid "Correo"
+msgstr "Email"
+
+#: lib/code/tk_examples.dart
+msgid "Cronómetro"
+msgstr "Stopwatch"
+
+#: lib/code/tk_examples.dart
+msgid "Cronómetro con menú, temporizador, barra de progreso y barra de estado."
+msgstr "Stopwatch with a menu, timer, progress bar and status bar."
+
+#: lib/code/tk_examples.dart
+msgid "Cronómetro web"
+msgstr "Web stopwatch"
+
+#: lib/code/tk_examples.dart
 msgid "De"
 msgstr "From"
 
@@ -294,16 +342,72 @@ msgid "Decimales"
 msgstr "Decimals"
 
 #: lib/code/tk_examples.dart
+msgid "Ejemplo de DMarlon Studio con menú, temporizador, barra de progreso y barra de estado."
+msgstr "DMarlon Studio example with a menu, timer, progress bar and status bar."
+
+#: lib/code/tk_examples.dart
+msgid "El cronómetro de escritorio, con el mismo código, en Flask."
+msgstr "The desktop stopwatch, with the same code, in Flask."
+
+#: lib/code/tk_examples.dart
+msgid "Empresa"
+msgstr "Company"
+
+#: lib/code/tk_examples.dart
+msgid "En marcha"
+msgstr "Running"
+
+#: lib/code/tk_examples.dart
+msgid "Escriba el nombre del cliente."
+msgstr "Type the customer's name."
+
+#: lib/code/tk_examples.dart
 msgid "Escriba un número"
 msgstr "Enter a number"
+
+#: lib/code/tk_examples.dart
+msgid "Ficha con un control de páginas, listas desplegables, una lista y barra de estado."
+msgstr "Record with a page control, drop-down lists, a list and a status bar."
+
+#: lib/code/tk_examples.dart
+msgid "Ficha de cliente"
+msgstr "Customer record"
+
+#: lib/code/tk_examples.dart
+msgid "Ficha de cliente web"
+msgstr "Web customer record"
+
+#: lib/code/tk_examples.dart
+msgid "Ficha nueva"
+msgstr "New record"
+
+#: lib/code/tk_examples.dart
+msgid "General"
+msgstr "General"
+
+#: lib/code/tk_examples.dart
+msgid "Guardado: {0} ({1}), avisar por: {2}"
+msgstr "Saved: {0} ({1}), notify by: {2}"
+
+#: lib/code/tk_examples.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+msgid "Guardar"
+msgstr "Save"
 
 #: lib/code/tk_examples.dart
 msgid "Hecha / pendiente"
 msgstr "Done / pending"
 
 #: lib/code/tk_examples.dart
+msgid "Iniciar"
+msgstr "Start"
+
+#: lib/code/tk_examples.dart
 msgid "La calculadora de escritorio, con el mismo código, en Flask."
 msgstr "The desktop calculator, with the same code, in Flask."
+
+#: lib/code/tk_examples.dart
+msgid "La ficha de cliente con páginas, con el mismo código, en Flask."
+msgstr "The customer record with pages, with the same code, in Flask."
 
 #: lib/code/tk_examples.dart
 msgid "Lee los contactos de un Odoo o un ERPSqlite con su API XML-RPC (en ERPSqlite: Ajustes → API externa). La clave no se guarda."
@@ -337,17 +441,53 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
+#: lib/code/tk_examples.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Nombre"
+msgstr "Name"
+
+#: lib/code/tk_examples.dart
+msgid "Notas"
+msgstr "Notes"
+
+#: lib/code/tk_examples.dart
+msgid "Parado"
+msgstr "Stopped"
+
+#: lib/code/tk_examples.dart
+msgid "Parar"
+msgstr "Stop"
+
+#: lib/code/tk_examples.dart
+msgid "Particular"
+msgstr "Individual"
+
 #: lib/code/tk_examples.dart
 msgid "Peso"
 msgstr "Weight"
+
+#: lib/code/tk_examples.dart
+msgid "Página {0}"
+msgstr "Page {0}"
 
 #: lib/code/tk_examples.dart
 msgid "Quitar las hechas"
 msgstr "Remove done tasks"
 
 #: lib/code/tk_examples.dart
+msgid "Reiniciado"
+msgstr "Reset"
+
+#: lib/code/tk_examples.dart
+msgid "Reiniciar"
+msgstr "Reset"
+
+#: lib/code/tk_examples.dart
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
+
+#: lib/code/tk_examples.dart
+msgid "Salir"
+msgstr "Exit"
 
 #: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
 msgid "Servidor"
@@ -366,8 +506,16 @@ msgid "Tareas web"
 msgstr "Web tasks"
 
 #: lib/code/tk_examples.dart
+msgid "Teléfono"
+msgstr "Phone"
+
+#: lib/code/tk_examples.dart
 msgid "Temperatura"
 msgstr "Temperature"
+
+#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+msgid "Tipo"
+msgstr "Type"
 
 #: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
@@ -390,6 +538,10 @@ msgid "{0} tareas, {1} pendientes"
 msgstr "{0} tasks, {1} pending"
 
 #: lib/code/tk_model.dart
+msgid "Activo"
+msgstr "Active"
+
+#: lib/code/tk_model.dart
 msgid "Ajuste de línea"
 msgstr "Line wrap"
 
@@ -402,12 +554,20 @@ msgid "Al cambiar"
 msgstr "On change"
 
 #: lib/code/tk_model.dart
+msgid "Al cambiar de página"
+msgstr "On page change"
+
+#: lib/code/tk_model.dart
 msgid "Al cambiar de tamaño"
 msgstr "On resize"
 
 #: lib/code/tk_model.dart
 msgid "Al cerrar"
 msgstr "On close"
+
+#: lib/code/tk_model.dart
+msgid "Al elegir una opción"
+msgstr "On choosing an option"
 
 #: lib/code/tk_model.dart
 msgid "Al pulsar"
@@ -426,12 +586,24 @@ msgid "Arrastrar"
 msgstr "Drag"
 
 #: lib/code/tk_model.dart
+msgid "Barra de estado"
+msgstr "Status bar"
+
+#: lib/code/tk_model.dart
+msgid "Barra de progreso"
+msgstr "Progress bar"
+
+#: lib/code/tk_model.dart
 msgid "Borde"
 msgstr "Border"
 
 #: lib/code/tk_model.dart
 msgid "Botón"
 msgstr "Button"
+
+#: lib/code/tk_model.dart
+msgid "Cada intervalo"
+msgstr "Every interval"
 
 #: lib/code/tk_model.dart
 msgid "Campo de texto"
@@ -484,6 +656,10 @@ msgstr "Data connection"
 #: lib/code/tk_model.dart
 msgid "Consulta SQL"
 msgstr "SQL query"
+
+#: lib/code/tk_model.dart
+msgid "Control de páginas"
+msgstr "Page control"
 
 #: lib/code/tk_model.dart
 msgid "Cursiva"
@@ -546,6 +722,10 @@ msgid "Hasta"
 msgstr "Until"
 
 #: lib/code/tk_model.dart
+msgid "Intervalo (ms)"
+msgstr "Interval (ms)"
+
+#: lib/code/tk_model.dart
 msgid "Justificación"
 msgstr "Justification"
 
@@ -574,6 +754,14 @@ msgid "Marco"
 msgstr "Frame"
 
 #: lib/code/tk_model.dart
+msgid "Menú"
+msgstr "Menu"
+
+#: lib/code/tk_model.dart
+msgid "Modo"
+msgstr "Mode"
+
+#: lib/code/tk_model.dart
 msgid "Mostrar el valor"
 msgstr "Show value"
 
@@ -582,12 +770,20 @@ msgid "Mover el ratón"
 msgstr "Mouse move"
 
 #: lib/code/tk_model.dart
+msgid "Máximo"
+msgstr "Maximum"
+
+#: lib/code/tk_model.dart
 msgid "Negrita"
 msgstr "Bold"
 
 #: lib/code/tk_model.dart
 msgid "Ocultar con"
 msgstr "Mask with"
+
+#: lib/code/tk_model.dart
+msgid "Opciones (una por línea; sangría = submenú; - = separador)"
+msgstr "Options (one per line; indent = submenu; - = separator)"
 
 #: lib/code/tk_model.dart
 msgid "Opción"
@@ -608,6 +804,14 @@ msgstr "Step"
 #: lib/code/tk_model.dart
 msgid "Perder el foco"
 msgstr "Focus out"
+
+#: lib/code/tk_model.dart
+msgid "Página activa"
+msgstr "Active page"
+
+#: lib/code/tk_model.dart
+msgid "Páginas (una por línea)"
+msgstr "Pages (one per line)"
 
 #: lib/code/tk_model.dart
 msgid "Recibir el foco"
@@ -661,6 +865,10 @@ msgstr "Key down"
 msgid "Tecla soltada"
 msgstr "Key up"
 
+#: lib/code/tk_model.dart
+msgid "Temporizador"
+msgstr "Timer"
+
 #: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
 msgid "Texto"
 msgstr "Text"
@@ -676,6 +884,10 @@ msgstr "Long text"
 #: lib/code/tk_model.dart
 msgid "Título"
 msgstr "Title"
+
+#: lib/code/tk_model.dart
+msgid "Una ventana solo puede tener un menú: sobra «{0}»."
+msgstr "A window can only have one menu: remove \"{0}\"."
 
 #: lib/code/tk_model.dart
 msgid "Valor"
@@ -958,8 +1170,8 @@ msgid "Descartar todo"
 msgstr "Discard everything"
 
 #: lib/ui/screens/code_claude.dart
-msgid "Describa el cambio (⌘Intro)"
-msgstr "Describe the change (⌘Enter)"
+msgid "Describa el cambio (Intro para enviar)"
+msgstr "Describe the change (Enter to send)"
 
 #: lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Detener"
@@ -1209,10 +1421,6 @@ msgstr "Merge"
 msgid "Fusionar en «{0}»"
 msgstr "Merge into “{0}”"
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
-msgid "Guardar"
-msgstr "Save"
-
 #: lib/ui/screens/code_git.dart
 msgid "Guardar el remoto"
 msgstr "Save remote"
@@ -1296,10 +1504,6 @@ msgstr "More git actions"
 #: lib/ui/screens/code_git.dart
 msgid "No hay cambios pendientes."
 msgstr "No pending changes."
-
-#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Nombre"
-msgstr "Name"
 
 #: lib/ui/screens/code_git.dart
 msgid "Nueva rama"
@@ -1590,6 +1794,10 @@ msgid "Copiar la ruta"
 msgstr "Copy path"
 
 #: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+msgid "Copiar la salida"
+msgstr "Copy the output"
+
+#: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Código"
 msgstr "Code"
 
@@ -1650,8 +1858,8 @@ msgid "Nuevo archivo"
 msgstr "New file"
 
 #: lib/ui/screens/code_studio.dart
-msgid "Pregunte o pida un cambio (⌘Intro)"
-msgstr "Ask or request a change (⌘Enter)"
+msgid "Pregunte o pida un cambio (Intro para enviar)"
+msgstr "Ask or request a change (Enter to send)"
 
 #: lib/ui/screens/code_studio.dart
 msgid "Proyecto abierto en el Diseñador de interfaz"
@@ -1668,6 +1876,10 @@ msgstr "Replace"
 #: lib/ui/screens/code_studio.dart
 msgid "Reemplazar todo"
 msgstr "Replace all"
+
+#: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+msgid "Salida copiada."
+msgstr "Output copied."
 
 #: lib/ui/screens/code_studio.dart
 msgid "Se genera desde el diseño: aquí no se puede editar."
@@ -1716,10 +1928,6 @@ msgstr "Delete “{0}”? This cannot be undone."
 #: lib/ui/screens/code_studio.dart
 msgid "¿Guardar los cambios de «{0}»?"
 msgstr "Save the changes to “{0}”?"
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Archivo"
-msgstr "File"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Autorización"
@@ -1928,10 +2136,6 @@ msgstr "No collection"
 #: lib/ui/screens/dev_tools.dart
 msgid "Subir archivos"
 msgstr "Upload files"
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Tipo"
-msgstr "Type"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "URI (opcional)"
@@ -2210,10 +2414,6 @@ msgid "¿Qué debe mostrar?"
 msgstr "What should it show?"
 
 #: lib/ui/screens/settings_screen.dart
-msgid "Acerca de"
-msgstr "About"
-
-#: lib/ui/screens/settings_screen.dart
 msgid "Ajustes de la IA guardados."
 msgstr "AI settings saved."
 
@@ -2266,8 +2466,8 @@ msgid "Pida cambios en esta ventana: «añade un campo de correo debajo del nomb
 msgstr "Ask for changes to this window: “add an email field below the name and check it contains @ when saving”. Claude Code edits the project’s design and code; the result is loaded here and can be undone."
 
 #: lib/ui/screens/tk_claude_panel.dart
-msgid "Pida un cambio (⌘Intro)"
-msgstr "Ask for a change (⌘Enter)"
+msgid "Pida un cambio (Intro para enviar)"
+msgstr "Request a change (Enter to send)"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Abrir en el navegador"
@@ -2644,6 +2844,10 @@ msgstr "Go to code"
 #: lib/ui/screens/tk_inspector.dart
 msgid "Propiedades"
 msgstr "Properties"
+
+#: lib/ui/screens/tk_inspector.dart
+msgid "Página"
+msgstr "Page"
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "Sin color"

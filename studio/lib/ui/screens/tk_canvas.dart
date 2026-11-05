@@ -27,8 +27,54 @@ IconData tkIcon(String kind) => switch (kind) {
   'Canvas' => LucideIcons.brush,
   'Treeview' => LucideIcons.table,
   'Connection' => LucideIcons.database,
+  'Progressbar' => LucideIcons.chartNoAxesColumnIncreasing,
+  'PageControl' => LucideIcons.panelsTopLeft,
+  'StatusBar' => LucideIcons.panelBottom,
+  'Menu' => LucideIcons.menu,
+  'Timer' => LucideIcons.timer,
   _ => LucideIcons.box,
 };
+
+/// Pestañas de un control de páginas, relativas a su esquina: las mismas
+/// para dibujarlas y para saber cuál se pulsa.
+List<Rect> tkTabRects(TkWidget w) {
+  final out = <Rect>[];
+  var x = 2.0;
+  for (final title in tkPages(w)) {
+    final tp = TextPainter(
+      text: TextSpan(text: title, style: const TextStyle(fontSize: 12)),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    )..layout();
+    final width = tp.width + 20;
+    out.add(Rect.fromLTWH(x, 2, width, tkTabHeight - 2.0));
+    x += width + 2;
+  }
+  return out;
+}
+
+/// Dónde se dibuja [w] en la ventana: la barra de estado va siempre abajo
+/// y de lado a lado.
+Rect tkRectOf(TkDesign d, TkWidget w) {
+  if (w.kind == 'StatusBar') {
+    return Rect.fromLTWH(
+      0,
+      (d.height - w.height).toDouble(),
+      d.width.toDouble(),
+      w.height.toDouble(),
+    );
+  }
+  final (x, y) = d.absolute(w);
+  return Rect.fromLTWH(
+    x.toDouble(),
+    y.toDouble(),
+    w.width.toDouble(),
+    w.height.toDouble(),
+  );
+}
+
+/// Alto de la barra del menú en el diseño.
+const tkMenuBarHeight = 20.0;
 
 /// Color de Tk: hexadecimal o uno de los nombres habituales.
 Color tkColor(String? v, Color fallback) {
@@ -328,6 +374,108 @@ class TkPreview extends StatelessWidget {
             ),
           ),
         );
+      case 'Progressbar':
+        final top = (w.props['maximum'] as num?)?.toDouble() ?? 100;
+        final v = (w.props['value'] as num?)?.toDouble() ?? 0;
+        final at = top <= 0 ? 0.0 : (v / top).clamp(0.0, 1.0);
+        final vertical = w.text('orient') == 'vertical';
+        final indeterminate = w.text('mode') == 'indeterminate';
+        return Container(
+          decoration: BoxDecoration(
+            color: const Color(0xFFE6E7EA),
+            border: Border.all(color: _edge),
+          ),
+          padding: const EdgeInsets.all(1),
+          alignment: vertical ? Alignment.bottomCenter : Alignment.centerLeft,
+          child: FractionallySizedBox(
+            widthFactor: vertical ? 1 : (indeterminate ? .3 : at),
+            heightFactor: vertical ? (indeterminate ? .3 : at) : 1,
+            child: const ColoredBox(color: Color(0xFF2B7BE4)),
+          ),
+        );
+      case 'PageControl':
+        final pages = tkPages(w);
+        final active = design.activePage(w);
+        final tabs = tkTabRects(w);
+        return Stack(
+          clipBehavior: Clip.hardEdge,
+          children: [
+            Positioned.fill(
+              top: tkTabHeight.toDouble(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: bg,
+                  border: Border.all(color: _edge),
+                ),
+              ),
+            ),
+            for (final (i, r) in tabs.indexed)
+              Positioned.fromRect(
+                rect: i == active ? r.inflate(1) : r,
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: i == active ? bg : _panel,
+                    border: Border(
+                      top: const BorderSide(color: _edge),
+                      left: const BorderSide(color: _edge),
+                      right: const BorderSide(color: _edge),
+                      bottom: BorderSide(color: i == active ? bg : _edge),
+                    ),
+                  ),
+                  child: label(
+                    pages[i],
+                    dark.copyWith(
+                      fontSize: 12,
+                      fontWeight: i == active
+                          ? FontWeight.w600
+                          : FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        );
+      case 'StatusBar':
+        final own = ownBg ?? const Color(0xFFE4E5E7);
+        return Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          decoration: BoxDecoration(
+            color: own,
+            border: const Border(top: BorderSide(color: _edge)),
+          ),
+          child: label(
+            text,
+            style.copyWith(
+              color: w.props['fg'] == null
+                  ? tkColor(
+                      TkCodegen.contrast(
+                        TkCodegen.color(w.props['bg']) ?? '#e4e5e7',
+                      ),
+                      Colors.black,
+                    )
+                  : fg,
+            ),
+          ),
+        );
+      case 'Menu' || 'Timer':
+        return Tooltip(
+          message: w.name,
+          child: Container(
+            decoration: BoxDecoration(
+              color: _panel,
+              border: Border.all(color: _edge),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            alignment: Alignment.center,
+            child: Icon(
+              tkIcon(w.kind),
+              size: 16,
+              color: const Color(0xFF2B5797),
+            ),
+          ),
+        );
       case 'Canvas':
         return Container(
           decoration: BoxDecoration(
@@ -374,6 +522,36 @@ class _ScalePainter extends CustomPainter {
       o.at != at || o.vertical != vertical || o.color != color;
 }
 
+/// Barra del menú de la ventana, como se verá: sus opciones de primer nivel.
+class TkMenuBar extends StatelessWidget {
+  const TkMenuBar(this.menu, {super.key});
+  final TkWidget menu;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    height: tkMenuBarHeight,
+    color: const Color(0xFFF3F3F3),
+    padding: const EdgeInsets.symmetric(horizontal: 4),
+    child: Row(
+      children: [
+        for (final i in tkMenuItems(menu.text('items')))
+          if (!i.separator)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6),
+              child: Text(
+                i.label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ),
+      ],
+    ),
+  );
+}
+
 class _DotsPainter extends CustomPainter {
   const _DotsPainter(this.ink);
   final Color ink;
@@ -409,19 +587,14 @@ class TkFormThumbnail extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
+          if (design.menu case final m?)
+            Positioned(left: 0, top: 0, right: 0, child: TkMenuBar(m)),
           for (final w in design.widgets)
-            Builder(
-              builder: (_) {
-                final (x, y) = design.absolute(w);
-                return Positioned(
-                  left: x.toDouble(),
-                  top: y.toDouble(),
-                  width: w.width.toDouble(),
-                  height: w.height.toDouble(),
-                  child: TkPreview(design, w),
-                );
-              },
-            ),
+            if (w.component.visual && design.shown(w))
+              Positioned.fromRect(
+                rect: tkRectOf(design, w),
+                child: TkPreview(design, w),
+              ),
         ],
       ),
     ),
@@ -506,15 +679,7 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
 
   Offset _toForm(Offset local) => local - const Offset(_pad, _pad + _titleBar);
 
-  Rect _rectOf(TkWidget w) {
-    final (x, y) = d.absolute(w);
-    return Rect.fromLTWH(
-      x.toDouble(),
-      y.toDouble(),
-      w.width.toDouble(),
-      w.height.toDouble(),
-    );
-  }
+  Rect _rectOf(TkWidget w) => tkRectOf(d, w);
 
   /// Centros de los ocho tiradores: en el sentido de las agujas del reloj
   /// desde la esquina superior izquierda.
@@ -543,7 +708,27 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
 
   TkWidget? _widgetAt(Offset p) {
     for (final w in d.widgets.reversed) {
-      if (_rectOf(w).contains(p)) return w;
+      if (d.shown(w) && _rectOf(w).contains(p)) return w;
+    }
+    // La barra del menú, si no hay nada encima.
+    final menu = d.menu;
+    if (menu != null &&
+        p.dy >= 0 &&
+        p.dy < tkMenuBarHeight &&
+        p.dx >= 0 &&
+        p.dx < d.width) {
+      return menu;
+    }
+    return null;
+  }
+
+  /// Pestaña de un control de páginas bajo [p]: (control, página).
+  (TkWidget, int)? _tabAt(TkWidget? w, Offset p) {
+    if (w == null || w.kind != 'PageControl') return null;
+    final r = _rectOf(w);
+    final local = p - r.topLeft;
+    for (final (i, t) in tkTabRects(w).indexed) {
+      if (t.contains(local)) return (w, i);
     }
     return null;
   }
@@ -575,6 +760,17 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
       return;
     }
     final w = _widgetAt(p);
+    // Pulsar una pestaña muestra esa página (y selecciona el control).
+    final tab = _tabAt(w, p);
+    if (tab != null && tab.$2 != d.activePage(tab.$1)) {
+      final (pc, page) = tab;
+      widget.onBegin();
+      pc.setProp(pc.component.prop('active')!, page);
+      widget.onSelect({pc.name});
+      widget.onChanged(done: true);
+      _drag = _Drag.none;
+      return;
+    }
     final corner = Offset(d.width.toDouble(), d.height.toDouble());
     final onFormEdge =
         w == null &&
@@ -671,7 +867,7 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
         final band = Rect.fromPoints(_start, p);
         final inside = {
           for (final w in d.widgets)
-            if (_rectOf(w).overlaps(band)) w.name,
+            if (d.shown(w) && _rectOf(w).overlaps(band)) w.name,
         };
         setState(() => _band = band);
         widget.onSelect({..._bandBase, ...inside});
@@ -709,10 +905,15 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
     for (final n in _origin.keys) {
       final w = d.byName(n);
       if (w == null) continue;
+      if (!w.component.nestable) {
+        d.reparent(w, null);
+        continue;
+      }
       final c = _rectOf(w).center;
       TkWidget? frame;
       for (final o in d.widgets.reversed) {
         if (o.component.container &&
+            d.shown(o) &&
             o != w &&
             !d.isInside(o, w.name) &&
             !_origin.containsKey(o.name) &&
@@ -842,26 +1043,34 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
                     ),
                   ),
                 ),
-                for (final w in d.widgets)
+                if (d.menu case final m?)
                   _positioned(
-                    _rectOf(w),
-                    key: ValueKey('tk-w-${w.name}'),
-                    child: IgnorePointer(child: TkPreview(d, w)),
+                    Rect.fromLTWH(0, 0, fw, tkMenuBarHeight),
+                    key: const ValueKey('tk-menubar'),
+                    child: IgnorePointer(child: TkMenuBar(m)),
                   ),
+                for (final w in d.widgets)
+                  if (d.shown(w))
+                    _positioned(
+                      _rectOf(w),
+                      key: ValueKey('tk-w-${w.name}'),
+                      child: IgnorePointer(child: TkPreview(d, w)),
+                    ),
                 // Selección.
                 for (final w in selected)
-                  _positioned(
-                    _rectOf(w).inflate(1),
-                    child: IgnorePointer(
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: accent.withValues(alpha: .7),
+                  if (d.shown(w))
+                    _positioned(
+                      _rectOf(w).inflate(1),
+                      child: IgnorePointer(
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: accent.withValues(alpha: .7),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
                 if (_single != null)
                   for (final (i, c) in _handles(_rectOf(_single!)).indexed)
                     _positioned(

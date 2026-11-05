@@ -240,3 +240,24 @@ class SearchBox extends StatelessWidget {
     ),
   );
 }
+
+// ----------------------------------------------------------------- chats
+/// Atajos de la caja de un chat: Intro envía y Mayús+Intro salta de línea
+/// (⌘Intro y Ctrl+Intro también envían). Mientras se compone un carácter
+/// (acentos, chino…), Intro lo confirma y no envía.
+Map<ShortcutActivator, VoidCallback> chatSendKeys(
+  TextEditingController c,
+  VoidCallback send,
+) {
+  void go() {
+    if (c.value.composing.isValid) return;
+    send();
+  }
+
+  return {
+    const SingleActivator(LogicalKeyboardKey.enter): go,
+    const SingleActivator(LogicalKeyboardKey.numpadEnter): go,
+    const SingleActivator(LogicalKeyboardKey.enter, meta: true): go,
+    const SingleActivator(LogicalKeyboardKey.enter, control: true): go,
+  };
+}

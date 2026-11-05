@@ -3,6 +3,21 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.5 — 2026-11-05
+
+- Diseñador: componentes nuevos **Menú** (opciones por líneas, submenús con
+  sangría, un manejador `Menu1_click(item)`), **Barra de progreso**, **Barra
+  de estado** (abajo, a todo el ancho), **Temporizador** (cada N ms, con
+  `start`/`stop`) y **Control de páginas** (pestañas; cada componente en su
+  página). En escritorio (tkinter) y en web (Flask).
+- Ejemplos nuevos: «Cronómetro» y «Ficha de cliente» (también en web). Los
+  ejemplos nuevos aparecen en áreas de trabajo ya creadas.
+- Corregido `AttributeError: 'Form1' object has no attribute 'root'` cuando el
+  código define su propio `__init__`: la ventana se crea antes y el evento
+  «Al abrir» se ejecuta después.
+- Botón «Copiar la salida» en la consola del Diseñador y en la terminal.
+- En los chats, Intro envía y Mayús+Intro salta de línea.
+
 ## 1.0.4 — 2026-11-05
 
 - Diseñador: **chat con Claude Code** desplegable a la derecha (botón del

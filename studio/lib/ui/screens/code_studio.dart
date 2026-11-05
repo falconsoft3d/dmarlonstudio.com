@@ -362,7 +362,9 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
         path ??
         await getDirectoryPath(
           confirmButtonText: tr('Abrir'),
-          initialDirectory: Directory(suggested).existsSync() ? suggested : null,
+          initialDirectory: Directory(suggested).existsSync()
+              ? suggested
+              : null,
         );
     if (dir == null || !mounted) return;
     if (_docs.any((d) => d.dirty && d.project == null)) {
@@ -1379,17 +1381,10 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
           children: [
             Expanded(
               child: CallbackShortcuts(
-                bindings: {
-                  const SingleActivator(LogicalKeyboardKey.enter, meta: true):
-                      _sendAi,
-                  const SingleActivator(
-                    LogicalKeyboardKey.enter,
-                    control: true,
-                  ): _sendAi,
-                },
+                bindings: chatSendKeys(_ask, _sendAi),
                 child: _darkField(
                   _ask,
-                  tr('Pregunte o pida un cambio (⌘Intro)'),
+                  tr('Pregunte o pida un cambio (Intro para enviar)'),
                   maxLines: 5,
                 ),
               ),
@@ -1738,6 +1733,20 @@ class _CodeStudioScreenState extends State<CodeStudioScreen>
             ),
             if (_proc != null)
               _iconBtn(LucideIcons.square, tr('Detener'), () => _proc?.kill()),
+            _iconBtn(
+              LucideIcons.copy,
+              tr('Copiar la salida'),
+              _Session.termLines.isEmpty
+                  ? null
+                  : () {
+                      Clipboard.setData(
+                        ClipboardData(text: _Session.termLines.join('\n')),
+                      );
+                      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+                        SnackBar(content: Text(tr('Salida copiada.'))),
+                      );
+                    },
+            ),
             _iconBtn(
               LucideIcons.trash2,
               tr('Limpiar'),

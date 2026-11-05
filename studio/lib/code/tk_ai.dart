@@ -123,7 +123,13 @@ Rules:
 - Components answer to the usual tkinter calls: configure, cget, Entry get/insert/delete, Text get/insert/delete, Listbox insert/delete/get/size/curselection/selection_set, Combobox get/set/current, Scale get/set, Treeview insert/delete/get_children/selection, and self.root.title and self.root.after.
 - self.value("Name") reads a component and self.value("Name", x) sets it.
 - self.notify(text) shows a message on the page. Never import or use tkinter, messagebox or dialogs.
-- Every handler receives what the event list shows: param is "", "event" or "value".
+- A PageControl holds tabs (its pages prop, one caption per line). A child of a PageControl has parent = the PageControl's name and "page": the 0-based tab index; its x and y are relative to the PageControl, and y must be at least 24 (below the tabs). self.<PageControl>.select(i) shows a tab and self.<PageControl>.index("current") tells which one is shown.
+- A Menu (at most one per window, never inside a Frame or PageControl) lists its options in the items prop, one per line: indentation makes a submenu and "-" a separator. Choosing an option calls its command handler with item = the option path, e.g. "Archivo/Salir".
+- A Timer calls its command handler every interval milliseconds while enabled: self.<Timer>.enabled = False stops it, self.<Timer>.start(ms) restarts it.
+- A StatusBar is always docked at the bottom of the window, full width: only its height counts. Set its text with self.<StatusBar>.configure(text=...).
+- A Progressbar shows its value prop out of maximum: self.<Progressbar>.configure(value=40) or self.<Progressbar>["value"] = 40.
+- Put start-up code in the window's create event. Defining __init__ in the class is allowed (self.root and every component already exist there, with or without super().__init__()), and the create event runs after it.
+- Every handler receives what the event list shows: param is "", "event", "value" or "item".
 - "body" holds only the Python statements of the method, without the def line, with no base indentation. Do not include methods that already exist unless asked.
 - User-visible text is in $lang.
 - Database data comes only through a Connection whose connection prop is one of the saved names (never empty): self.<Connection>.query(sql, params) and execute(sql, params), always with ? parameters, never by joining text into SQL. A Treeview shows them (its query prop), and self.<Grid>_refresh() reloads it. Without saved connections, do not add a Connection.
@@ -145,7 +151,13 @@ Rules:
 - x, y, width and height are integers in pixels on an 8 pixel grid, inside the window. A child of a Frame (parent = the Frame's name) is positioned relative to the Frame, and a Frame comes before its children.
 - Names start with a letter, use only ASCII letters, digits and _, and are unique. Use descriptive names (BtnSave, Customer).
 - The user's code is a subclass of the generated window class: self.root is the window, self.<Name> each component, and self.<Name>_var the value of an Entry, Combobox, Checkbutton or Scale. A Radiobutton group shares self.<group>_var.
-- Every handler receives what the event list shows: param is "", "event" or "value".
+- A PageControl holds tabs (its pages prop, one caption per line). A child of a PageControl has parent = the PageControl's name and "page": the 0-based tab index; its x and y are relative to the PageControl, and y must be at least 24 (below the tabs). self.<PageControl>.select(i) shows a tab and self.<PageControl>.index("current") tells which one is shown.
+- A Menu (at most one per window, never inside a Frame or PageControl) lists its options in the items prop, one per line: indentation makes a submenu and "-" a separator. Choosing an option calls its command handler with item = the option path, e.g. "Archivo/Salir".
+- A Timer calls its command handler every interval milliseconds while enabled: self.<Timer>.enabled = False stops it, self.<Timer>.start(ms) restarts it.
+- A StatusBar is always docked at the bottom of the window, full width: only its height counts. Set its text with self.<StatusBar>.configure(text=...).
+- A Progressbar shows its value prop out of maximum: self.<Progressbar>.configure(value=40) or self.<Progressbar>["value"] = 40.
+- Put start-up code in the window's create event. Defining __init__ in the class is allowed (self.root and every component already exist there, with or without super().__init__()), and the create event runs after it.
+- Every handler receives what the event list shows: param is "", "event", "value" or "item".
 - "body" holds only the Python statements of the method, without the def line, with no base indentation. Do not include methods that already exist unless asked.
 - User-visible text is in $lang.
 - Database data comes only through a Connection whose connection prop is one of the saved names (never empty): self.<Connection>.query(sql, params) and execute(sql, params), always with ? parameters, never by joining text into SQL. A Treeview shows them (its query prop), and self.<Grid>_refresh() reloads it. Without saved connections, do not add a Connection.
@@ -286,7 +298,10 @@ Rules:
         for (final e in c.events)
           if (!web || tkWebHasEvent(e)) e,
       ], w.events);
-      parents[w] = x['parent'] is String ? x['parent'] as String : null;
+      if (x['page'] is num) w.page = (x['page'] as num).toInt();
+      parents[w] = x['parent'] is String && c.nestable
+          ? x['parent'] as String
+          : null;
       widgets.add(w);
     }
 
@@ -392,7 +407,7 @@ Rules:
           out,
           form,
           name,
-          param: const {'event', 'value'}.contains(param) ? param : '',
+          param: const {'event', 'value', 'item'}.contains(param) ? param : '',
           body: body.trim().isEmpty ? 'pass' : body,
         );
         added.add(name);

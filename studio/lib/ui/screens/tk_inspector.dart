@@ -187,14 +187,33 @@ class TkInspector extends StatelessWidget {
             (v) => w.height = v < 1 ? 1 : v,
           ),
         ])
+      // La barra de estado va abajo y de lado a lado: solo cuenta su alto.
+      if (w.kind != 'StatusBar' || key == 'height')
+        _PropRow(
+          key: ValueKey('tk-prop-${w.name}-$key'),
+          label: label,
+          type: TkPropType.integer,
+          value: get(),
+          onChanged: (v) {
+            onBegin('${w.name}.$key');
+            set(v is num ? v.toInt() : 0);
+            onChanged();
+          },
+        ),
+    if (design.pageControlOf(w) case final pc?)
       _PropRow(
-        key: ValueKey('tk-prop-${w.name}-$key'),
-        label: label,
-        type: TkPropType.integer,
-        value: get(),
+        key: ValueKey('tk-prop-${w.name}-page'),
+        label: tr('Página'),
+        type: TkPropType.choice,
+        choices: [for (final (i, t) in tkPages(pc).indexed) '${i + 1}. $t'],
+        value: '${design.pageOf(w) + 1}. ${tkPages(pc)[design.pageOf(w)]}',
         onChanged: (v) {
-          onBegin('${w.name}.$key');
-          set(v is num ? v.toInt() : 0);
+          final i = int.tryParse('$v'.split('.').first);
+          if (i == null) return;
+          onBegin('${w.name}.page');
+          w.page = i - 1;
+          // Se ve la página a la que va.
+          pc.setProp(pc.component.prop('active')!, i - 1);
           onChanged();
         },
       ),

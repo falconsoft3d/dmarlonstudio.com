@@ -66,6 +66,61 @@ class _MacColorButton(tk.Label):
 ColorButton = _MacColorButton if sys.platform == "darwin" else tk.Button
 ''';
 
+  /// Temporizador: el componente no visual que llama a un método cada
+  /// cierto número de milisegundos. Usa root.after, que existe igual en una
+  /// ventana y en una aplicación web.
+  static const designTimer = r'''
+
+
+class DesignTimer:
+    """Calls a method every interval milliseconds while enabled.
+
+    self.Timer1.enabled = False stops it and True starts it again;
+    self.Timer1.start(500) restarts it with another interval.
+    """
+
+    def __init__(self, root, interval, callback=None, enabled=True):
+        self.root = root
+        self.interval = max(1, int(interval))
+        self.callback = callback
+        self._job = None
+        self._on = False
+        self.enabled = enabled
+
+    @property
+    def enabled(self):
+        return self._on
+
+    @enabled.setter
+    def enabled(self, on):
+        on = bool(on)
+        if on == self._on:
+            return
+        self._on = on
+        if on:
+            self._job = self.root.after(self.interval, self._tick)
+        elif self._job is not None:
+            self.root.after_cancel(self._job)
+            self._job = None
+
+    def start(self, interval=None):
+        if interval is not None:
+            self.interval = max(1, int(interval))
+        self.stop()
+        self.enabled = True
+
+    def stop(self):
+        self.enabled = False
+
+    def _tick(self, *args):
+        self._job = None
+        if not self._on:
+            return
+        self._job = self.root.after(self.interval, self._tick)
+        if self.callback is not None:
+            self.callback()
+''';
+
   static const dataError = r'''
 
 

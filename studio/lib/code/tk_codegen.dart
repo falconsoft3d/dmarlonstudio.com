@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../core/errors.dart';
 import 'tk_helpers.dart';
 import 'tk_model.dart';
@@ -401,11 +403,13 @@ class TkCodegen {
   /// Tabla: cabeceras, barra de desplazamiento y lista de filas leídas.
   static void _treeview(
     StringBuffer b,
+    TkDesign d,
     TkWidget w,
     String parent,
     bool withBound,
   ) {
     final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
     final cols = gridColumns(w);
     b
       ..writeln('$_in# ${w.name}')
@@ -417,7 +421,7 @@ class TkCodegen {
         ]),
       )
       ..writeln(
-        '$_in$self.place(x=${w.x}, y=${w.y}, '
+        '$_in$self.place(x=$x, y=$y, '
         'width=${w.width - 16}, height=${w.height})',
       );
     for (final (field, title, width) in cols) {
@@ -434,7 +438,7 @@ class TkCodegen {
         ]),
       )
       ..writeln(
-        '$_in${self}_scroll.place(x=${w.x + w.width - 16}, y=${w.y}, '
+        '$_in${self}_scroll.place(x=${x + w.width - 16}, y=$y, '
         'width=16, height=${w.height})',
       )
       ..writeln('$_in$self.configure(yscrollcommand=${self}_scroll.set)')
@@ -523,7 +527,111 @@ class TkCodegen {
     }
   }
 
+  /// Dónde se crea [w]: la ventana, un marco o la página de un control de
+  /// páginas.
+  static String parentOf(TkDesign d, TkWidget w) {
+    final p = w.parent == null ? null : d.byName(w.parent!);
+    if (p == null || !w.component.nestable) return 'self.root';
+    if (p.kind == 'PageControl') return 'self.${p.name}_page${d.pageOf(w)}';
+    return 'self.${p.name}';
+  }
+
+  /// Posición de [w] dentro de lo que lo contiene: en una página, debajo de
+  /// las pestañas.
+  static (int, int) placeOf(TkDesign d, TkWidget w) =>
+      d.pageControlOf(w) == null || !w.component.nestable
+      ? (w.x, w.y)
+      : (w.x, w.y - tkTabHeight);
+
+  /// Intervalo de un temporizador, en milisegundos.
+  static int interval(TkWidget w) =>
+      math.max(1, TkPy.integer(w.props['interval'] ?? 1000));
+
+  /// Línea que crea el temporizador [w] (la misma en los dos destinos).
+  static String timer(TkWidget w) {
+    final m = w.events['command'];
+    return _call('self.${w.name} = DesignTimer', [
+      'self.root',
+      '${interval(w)}',
+      m == null ? 'None' : 'self.$m',
+      w.props['enabled'] == false ? 'False' : 'True',
+    ]);
+  }
+
+  /// Menú de la ventana: una opción llama al método con su ruta.
+  static void _menu(StringBuffer b, TkWidget w) {
+    final self = 'self.${w.name}';
+    final m = w.events['command'];
+    var n = 0;
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln('$_in$self = tk.Menu(self.root)');
+    void items(String menu, List<TkMenuItem> list) {
+      for (final i in list) {
+        if (i.separator) {
+          b.writeln('$_in$menu.add_separator()');
+        } else if (i.items.isNotEmpty) {
+          final sub = '${self}_m${n++}';
+          b
+            ..writeln('$_in$sub = tk.Menu($menu, tearoff=0)')
+            ..writeln(
+              _call('$menu.add_cascade', [
+                'label=${TkPy.str(i.label)}',
+                'menu=$sub',
+              ]),
+            );
+          items(sub, i.items);
+        } else {
+          b.writeln(
+            _call('$menu.add_command', [
+              'label=${TkPy.str(i.label)}',
+              if (m != null) 'command=lambda: self.$m(${TkPy.str(i.path)})',
+            ]),
+          );
+        }
+      }
+    }
+
+    items(self, tkMenuItems(w.text('items')));
+    b.writeln('${_in}self.root.config(menu=$self)');
+  }
+
+  /// Control de páginas: un ttk.Notebook con un marco por página.
+  static void _pages(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
+    final bg = TkPy.str(backgroundOf(d, w));
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln('$_in$self = ttk.Notebook(${parentOf(d, w)})')
+      ..writeln(
+        '$_in$self.place(x=$x, y=$y, width=${w.width}, height=${w.height})',
+      );
+    for (final (i, title) in tkPages(w).indexed) {
+      b
+        ..writeln('$_in${self}_page$i = tk.Frame($self, bg=$bg)')
+        ..writeln('$_in$self.add(${self}_page$i, text=${TkPy.str(title)})');
+    }
+    final active = d.activePage(w);
+    if (active > 0) b.writeln('$_in$self.select($active)');
+    for (final e in w.component.events) {
+      final m = w.events[e.key];
+      if (m == null) continue;
+      for (final s in e.sequences) {
+        b.writeln('$_in$self.bind(${TkPy.str(s)}, self.$m)');
+      }
+    }
+  }
+
   static void _widget(StringBuffer b, TkDesign d, TkWidget w) {
+    if (w.kind == 'Menu') return _menu(b, w);
+    if (w.kind == 'PageControl') return _pages(b, d, w);
+    if (w.kind == 'Timer') {
+      b
+        ..writeln('$_in# ${w.name}')
+        ..writeln(timer(w));
+      return;
+    }
     if (w.kind == 'Connection') {
       final saved = w.text('connection');
       b
@@ -536,18 +644,12 @@ class TkCodegen {
       return;
     }
     if (w.kind == 'Treeview') {
-      _treeview(
-        b,
-        w,
-        w.parent == null ? 'self.root' : 'self.${w.parent}',
-        _bound(d, w).isNotEmpty,
-      );
+      _treeview(b, d, w, parentOf(d, w), _bound(d, w).isNotEmpty);
       return;
     }
     final c = w.component;
     final self = 'self.${w.name}';
-    final parent = w.parent == null ? 'self.root' : 'self.${w.parent}';
-    final args = [parent];
+    final args = [parentOf(d, w)];
     b.writeln('$_in# ${w.name}');
     for (final p in c.props) {
       if (p.option == null) continue;
@@ -582,7 +684,17 @@ class TkCodegen {
       if (fg == null) args.add('fg="#000000"');
       args.add('disabledforeground="#9096a0"');
     }
-    if (!c.ttk && w.kind != 'Label' && w.kind != 'Frame') {
+    // Barra de estado: una etiqueta hundida pegada abajo.
+    if (w.kind == 'StatusBar') {
+      final own = bg ?? '#e4e5e7';
+      if (bg == null) args.add('bg=${TkPy.str(own)}');
+      if (fg == null) args.add('fg=${TkPy.str(contrast(own))}');
+      args.addAll(['anchor="w"', 'relief="sunken"', 'bd=1', 'padx=6']);
+    }
+    if (!c.ttk &&
+        w.kind != 'Label' &&
+        w.kind != 'Frame' &&
+        w.kind != 'StatusBar') {
       args.add('highlightbackground=${TkPy.str(parentBackground(d, w))}');
     }
     // Variables: el valor de un componente se lee con self.<Nombre>_var.
@@ -634,12 +746,22 @@ class TkCodegen {
         ? 'ttk.${w.kind}'
         : w.kind == 'Button'
         ? 'ColorButton'
+        : w.kind == 'StatusBar'
+        ? 'tk.Label'
         : 'tk.${w.kind}';
     b.writeln(_call('$self = $cls', args));
-    b.writeln(
-      '$_in$self.place(x=${w.x}, y=${w.y}, '
-      'width=${w.width}, height=${w.height})',
-    );
+    if (w.kind == 'StatusBar') {
+      b.writeln(
+        '$_in$self.place(relx=0, rely=1.0, anchor="sw", '
+        'relwidth=1.0, height=${w.height})',
+      );
+    } else {
+      final (x, y) = placeOf(d, w);
+      b.writeln(
+        '$_in$self.place(x=$x, y=$y, '
+        'width=${w.width}, height=${w.height})',
+      );
+    }
     if (w.kind == 'Listbox') {
       final items = _items(w);
       if (items.isNotEmpty) {
@@ -702,6 +824,9 @@ class TkCodegen {
     }
     b.writeln('from tkinter import ttk');
     if (buttons) b.write(TkHelpers.colorButton);
+    if (d.widgets.any((w) => w.kind == 'Timer')) {
+      b.write(TkHelpers.designTimer);
+    }
     if (data) b.write(TkHelpers.dataError);
     if (erp) b.write(TkHelpers.erpClient);
     if (sql) b.write(TkHelpers.sqlClient);
@@ -709,9 +834,28 @@ class TkCodegen {
       ..writeln()
       ..writeln()
       ..writeln('class FormDesign:')
-      ..writeln('    """Window built from the design."""')
+      ..writeln('    """Window built from the design.')
       ..writeln()
-      ..writeln('    def __init__(self):')
+      ..writeln('    The window and its components are created before __init__')
+      ..writeln(
+        '    runs, so the code of the window can define its own __init__',
+      )
+      ..writeln('    (with or without super().__init__()) and use them there.')
+      ..writeln(
+        '    The create event runs after __init__, before the window shows.',
+      )
+      ..writeln('    """')
+      ..writeln()
+      ..writeln('    def __new__(cls, *args, **kwargs):')
+      ..writeln('${_in}self = super().__new__(cls)')
+      ..writeln('${_in}FormDesign._setup(self)')
+      ..writeln('${_in}return self')
+      ..writeln()
+      ..writeln('    def __init__(self, *args, **kwargs):')
+      ..writeln('$_in"""Everything is ready: see _setup."""')
+      ..writeln()
+      ..writeln('    def _setup(self):')
+      ..writeln('${_in}self._started = False')
       ..writeln('${_in}self.root = tk.Tk()')
       ..writeln('${_in}self.root.title(${TkPy.str(d.title)})')
       ..writeln('${_in}self.root.geometry("${d.width}x${d.height}")');
@@ -744,8 +888,8 @@ class TkCodegen {
         b.writeln('${_in}self.root.after(100, self.${g.name}_refresh)');
       }
     }
-    final create = d.events['create'];
-    if (create != null) b.writeln('${_in}self.$create()');
+    // Al abrir: después del __init__ del usuario (aunque nadie llame a run).
+    b.writeln('${_in}self.root.after(0, self._start)');
     b
       ..writeln()
       ..writeln('    def _build(self):');
@@ -753,9 +897,19 @@ class TkCodegen {
     for (final w in d.widgets) {
       _widget(b, d, w);
     }
+    final create = d.events['create'];
+    b
+      ..writeln()
+      ..writeln('    def _start(self):')
+      ..writeln('$_in"""Once, after __init__: the create event."""')
+      ..writeln('${_in}if self._started:')
+      ..writeln('$_in    return')
+      ..writeln('${_in}self._started = True');
+    if (create != null) b.writeln('${_in}self.$create()');
     b
       ..writeln()
       ..writeln('    def run(self):')
+      ..writeln('${_in}self._start()')
       ..writeln('${_in}self.root.mainloop()');
     if (grids.isNotEmpty) b.write(TkHelpers.gridFill);
     for (final g in grids) {

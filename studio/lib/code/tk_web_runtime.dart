@@ -33,6 +33,14 @@ from werkzeug.serving import make_server
 
 
 WIDGETS = r"""
+{%- macro menu_items(items) -%}
+{%- for item in items -%}
+{%- if item.sep %}<li class="tk-sep" role="separator"></li>
+{%- elif item["items"] %}<li><span tabindex="0">{{ item.label }}</span><ul>{{ menu_items(item["items"]) }}</ul></li>
+{%- else %}<li><button type="button" data-item="{{ item.path }}">{{ item.label }}</button></li>
+{%- endif -%}
+{%- endfor -%}
+{%- endmacro -%}
 {%- macro widget(w) -%}
 {%- if w.kind == "Label" -%}
 <label id="{{ w.name }}" class="tk tk-label" style="{{ w.style() }}" data-on="{{ w.on() }}"><span>{{ w.cget("text") }}</span></label>
@@ -65,6 +73,20 @@ WIDGETS = r"""
 <fieldset id="{{ w.name }}" class="tk tk-frame" style="{{ w.style() }}" data-on="{{ w.on() }}">
 {%- for child in w.children() %}{{ widget(child) }}{% endfor -%}
 </fieldset>
+{%- elif w.kind == "Menu" -%}
+<nav id="{{ w.name }}" class="tk-menu" style="width:{{ w.width }}px" data-on="{{ w.on() }}"><ul>{{ menu_items(w.cget("tree") or []) }}</ul></nav>
+{%- elif w.kind == "StatusBar" -%}
+<div id="{{ w.name }}" class="tk tk-status" style="{{ w.style() }}" data-on="{{ w.on() }}"><span>{{ w.cget("text") }}</span></div>
+{%- elif w.kind == "Progressbar" -%}
+<progress id="{{ w.name }}" class="tk tk-progress" style="{{ w.style() }}" data-on="{{ w.on() }}" max="{{ w.maximum() }}"{% if w.cget("mode") != "indeterminate" %} value="{{ w.current() }}"{% endif %}></progress>
+{%- elif w.kind == "PageControl" -%}
+<div id="{{ w.name }}" class="tk tk-pages" style="{{ w.style() }}" data-on="{{ w.on() }}" data-value="page" data-active="{{ w.active() }}"><div class="tk-tabs" role="tablist">
+{%- for title in w.pages() %}<button type="button" role="tab" class="tk-tab{% if loop.index0 == w.active() %} tk-on{% endif %}" data-page="{{ loop.index0 }}">{{ title }}</button>{% endfor -%}
+</div>
+{%- for title in w.pages() %}<div class="tk-page" data-page="{{ loop.index0 }}"{% if loop.index0 != w.active() %} hidden{% endif %}>
+{%- for child in w.children_of(loop.index0) %}{{ widget(child) }}{% endfor -%}
+</div>{% endfor -%}
+</div>
 {%- elif w.kind == "Canvas" -%}
 <canvas id="{{ w.name }}" class="tk" width="{{ w.width }}" height="{{ w.height }}" style="{{ w.style() }}" data-on="{{ w.on() }}"></canvas>
 {%- elif w.kind == "Treeview" -%}
@@ -109,11 +131,30 @@ button.tk { cursor: pointer; padding: 0 6px; }
 .tk-grid th, .tk-grid td { padding: 3px 6px; border-bottom: 1px solid #dfe1e6; white-space: nowrap; }
 .tk-grid tbody tr { cursor: pointer; }
 .tk-grid tr.tk-chosen td { background: #2b5797; color: #fff; }
+.tk-status { display: flex; align-items: center; padding: 0 6px; border-top: 1px solid #a8acb3; white-space: nowrap; overflow: hidden; }
+.tk-progress { padding: 0; }
+.tk-pages { border: 1px solid #8a8f98; background: inherit; }
+.tk-tabs { position: absolute; left: 0; top: 0; height: 24px; display: flex; gap: 2px; }
+.tk-tab { font: inherit; padding: 0 10px; border: 1px solid #8a8f98; border-bottom: 0; background: #e4e5e7; color: #000; cursor: pointer; }
+.tk-tab.tk-on { background: #fff; font-weight: 600; }
+.tk-page { position: absolute; left: 0; right: 0; top: 24px; bottom: 0; border-top: 1px solid #8a8f98; }
+.tk-page[hidden] { display: none; }
+.tk-menu { margin: 0 auto; background: #f3f3f3; border-bottom: 1px solid #c8cbd0; position: relative; z-index: 20; }
+.tk-menu ul { list-style: none; margin: 0; padding: 0; }
+.tk-menu > ul { display: flex; }
+.tk-menu li { position: relative; }
+.tk-menu button, .tk-menu span { display: block; width: 100%; padding: 4px 12px; background: none; border: 0; font: inherit; color: inherit; text-align: left; white-space: nowrap; cursor: pointer; }
+.tk-menu li ul { display: none; position: absolute; left: 0; top: 100%; min-width: 160px; background: #fff; border: 1px solid #c8cbd0; box-shadow: 0 2px 6px rgba(0, 0, 0, .2); }
+.tk-menu li li ul { left: 100%; top: -1px; }
+.tk-menu li:hover > ul, .tk-menu li:focus-within > ul { display: block; }
+.tk-menu li:hover > span, .tk-menu button:hover, .tk-menu button:focus { background: #dce6f7; outline: none; }
+.tk-menu .tk-sep { border-top: 1px solid #d6d8dc; margin: 3px 0; }
 #tk-toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); max-width: 80%; padding: 8px 14px; border-radius: 6px; background: #323232; color: #fff; }
 #tk-toast[hidden] { display: none; }
 </style>
 </head>
 <body style="background:{{ form.root.bg }}">
+{%- for w in form._menus() %}{{ widget(w) }}{% endfor -%}
 <main id="tk-form" class="tk-form" style="width:{{ form.root.width }}px;height:{{ form.root.height }}px;background:{{ form.root.bg }}" data-on="{{ form._keys("") }}">
 {%- for w in form._top() %}{{ widget(w) }}{% endfor -%}
 </main>
@@ -168,6 +209,7 @@ button.tk { cursor: pointer; padding: 0 6px; }
         case "check": out[name] = el.checked ? 1 : 0; break;
         case "radio": out[name] = el.checked; break;
         case "grid": out[name] = el.dataset.selected; break;
+        case "page": out[name] = Number(el.dataset.active); break;
         case "list":
           out[name] = Array.prototype.map.call(el.selectedOptions, function (o) {
             return Number(o.value);
@@ -288,6 +330,30 @@ button.tk { cursor: pointer; padding: 0 6px; }
   });
 
   document.addEventListener("click", function (event) {
+    var choice = event.target.closest ? event.target.closest(".tk-menu [data-item]") : null;
+    if (choice) {
+      var menu = choice.closest(".tk-menu");
+      if (document.activeElement) { document.activeElement.blur(); }
+      if (has(menu, "command")) {
+        post({ widget: menu.id, event: "command", data: { item: choice.dataset.item } });
+      }
+      return;
+    }
+    var tab = event.target.closest ? event.target.closest(".tk-tab") : null;
+    if (tab) {
+      var pages = tab.closest(".tk-pages");
+      var page = tab.dataset.page;
+      if (pages.dataset.active === page) { return; }
+      pages.dataset.active = page;
+      pages.querySelectorAll(":scope > .tk-tabs > .tk-tab").forEach(function (t) {
+        t.classList.toggle("tk-on", t.dataset.page === page);
+      });
+      pages.querySelectorAll(":scope > .tk-page").forEach(function (p) {
+        p.hidden = p.dataset.page !== page;
+      });
+      fire(pages, "change", event);
+      return;
+    }
     var el = target(event);
     if (!el) { return; }
     if (el.tagName === "BUTTON") { fire(el, "command", event); return; }
@@ -795,7 +861,98 @@ class WebGrid(WebWidget):
         self.chosen = [str(value)] if str(value) in self.rows else []
 
 
+class WebMenu(WebWidget):
+    """The menu of the window: a bar at the top of the page."""
+
+    def paths(self):
+        found = []
+
+        def walk(items):
+            for item in items:
+                if item.get("sep"):
+                    continue
+                if item.get("items"):
+                    walk(item["items"])
+                else:
+                    found.append(item.get("path"))
+
+        walk(self.cget("tree") or [])
+        return found
+
+
+class WebProgress(WebWidget):
+    """ttk.Progressbar: value, maximum, step, start and stop."""
+
+    def maximum(self):
+        top = self.options.get("maximum", 100)
+        return top if isinstance(top, (int, float)) and top > 0 else 100
+
+    def current(self):
+        value = self.options.get("value", 0)
+        return value if isinstance(value, (int, float)) else 0
+
+    def step(self, amount=1.0):
+        value = self.current() + amount
+        if value >= self.maximum():
+            value -= self.maximum()
+        self.configure(value=value)
+
+    def start(self, interval=None):
+        """In a page the indeterminate bar moves by itself."""
+
+    def stop(self):
+        pass
+
+
+class WebPages(WebWidget):
+    """ttk.Notebook: one page of components per tab."""
+
+    def pages(self):
+        return list(self.options.get("pages") or [])
+
+    def active(self):
+        index = self.options.get("active", 0)
+        count = len(self.pages())
+        return index if isinstance(index, int) and 0 <= index < count else 0
+
+    def children_of(self, page):
+        return [
+            w
+            for w in self.form._visible()
+            if w.parent == self.name and int(w.options.get("page", 0)) == page
+        ]
+
+    def select(self, tab_id=None):
+        """With an index, show that page; without one, the current index."""
+        if tab_id is None:
+            return self.active()
+        self.options["active"] = int(tab_id)
+        self.form._touch(self.name)
+        return self.active()
+
+    def index(self, tab_id):
+        if tab_id in ("current", None):
+            return self.active()
+        if tab_id == "end":
+            return len(self.pages())
+        return int(tab_id)
+
+    def tabs(self):
+        return list(range(len(self.pages())))
+
+    def sync(self, value):
+        try:
+            index = int(value)
+        except (TypeError, ValueError):
+            return
+        if 0 <= index < len(self.pages()):
+            self.options["active"] = index
+
+
 WEB_CLASSES = {
+    "Menu": WebMenu,
+    "Progressbar": WebProgress,
+    "PageControl": WebPages,
     "Checkbutton": WebChoice,
     "Radiobutton": WebChoice,
     "Entry": WebEntry,
@@ -901,8 +1058,18 @@ class WebForm:
     def _visible(self):
         return list(self._widgets.values())
 
+    def _start(self):
+        """The create event of the design, once the form exists."""
+
     def _top(self):
-        return [w for w in self._widgets.values() if w.parent is None]
+        return [
+            w
+            for w in self._widgets.values()
+            if w.parent is None and w.kind != "Menu"
+        ]
+
+    def _menus(self):
+        return [w for w in self._widgets.values() if w.kind == "Menu"]
 
     def _touch(self, name):
         self._dirty.add(name)
@@ -943,6 +1110,12 @@ class WebForm:
         key = str(data.get("event") or "")
         info = data.get("data") if isinstance(data.get("data"), dict) else {}
         widget = self._widgets.get(name)
+        if widget is not None and widget.kind == "Menu":
+            item = str(info.get("item") or "")
+            if key == "command" and item in widget.paths():
+                for handler in self._handlers.get((name, key), ()):
+                    self._call(handler, item)
+            return self._reply()
         for handler in self._handlers.get((name, key), ()):
             if key != "command":
                 self._call(handler, WebEvent(widget, info))
@@ -1023,6 +1196,7 @@ def create_app(form_class):
     def open_form():
         form = form_class()
         form._render = render
+        form._start()
         return form, form._reply()
 
     @app.before_request

@@ -107,6 +107,80 @@ class TkComponent {
   final bool visual;
 
   TkProp? prop(String key) => props.where((p) => p.key == key).firstOrNull;
+
+  /// Puede ir dentro de un marco o de una página. Los no visuales, la barra
+  /// de estado y el menú son siempre de la ventana.
+  bool get nestable => visual && !tkDocked.contains(kind);
+}
+
+/// Componentes que se pegan a un borde de la ventana: su posición no cuenta.
+const tkDocked = {'StatusBar', 'Menu'};
+
+/// Alto de la fila de pestañas de un control de páginas: los componentes de
+/// una página empiezan debajo.
+const tkTabHeight = 24;
+
+/// Opción de un menú: [path] es la ruta que recibe el método
+/// (`Archivo/Abrir`); un separador no tiene ruta.
+class TkMenuItem {
+  const TkMenuItem(this.label, this.path, [this.items = const []]);
+  const TkMenuItem.separator() : label = '-', path = '', items = const [];
+  final String label;
+  final String path;
+  final List<TkMenuItem> items;
+
+  bool get separator => path.isEmpty;
+}
+
+/// Opciones del texto de un menú: una por línea, con sangría para los
+/// submenús y «-» para un separador.
+List<TkMenuItem> tkMenuItems(String text) {
+  final lines = <(int, String)>[
+    for (final raw in text.replaceAll('\t', '  ').split('\n'))
+      if (raw.trim().isNotEmpty)
+        (raw.length - raw.trimLeft().length, raw.trim()),
+  ];
+  var at = 0;
+  List<TkMenuItem> level(int indent, String prefix) {
+    final out = <TkMenuItem>[];
+    // Hasta que la sangría vuelve a un nivel superior o cambia.
+    while (at < lines.length && lines[at].$1 == indent) {
+      final (depth, label) = lines[at];
+      at++;
+      if (label == '-' || RegExp(r'^-{2,}$').hasMatch(label)) {
+        out.add(const TkMenuItem.separator());
+        continue;
+      }
+      final clean = label.replaceAll('/', '-');
+      final path = prefix.isEmpty ? clean : '$prefix/$clean';
+      final children = at < lines.length && lines[at].$1 > depth
+          ? level(lines[at].$1, path)
+          : <TkMenuItem>[];
+      out.add(TkMenuItem(clean, path, children));
+    }
+    return out;
+  }
+
+  final out = <TkMenuItem>[];
+  while (at < lines.length) {
+    out.addAll(level(lines[at].$1, ''));
+  }
+  return out;
+}
+
+/// Rutas de las opciones que se pueden elegir (las hojas del menú).
+List<String> tkMenuPaths(List<TkMenuItem> items) => [
+  for (final i in items)
+    if (!i.separator) ...(i.items.isEmpty ? [i.path] : tkMenuPaths(i.items)),
+];
+
+/// Páginas de un control de páginas.
+List<String> tkPages(TkWidget w) {
+  final pages = [
+    for (final l in w.text('pages').split('\n'))
+      if (l.trim().isNotEmpty) l.trim(),
+  ];
+  return pages.isEmpty ? const ['1'] : pages;
 }
 
 // ----------------------------------------------------------- propiedades
@@ -609,6 +683,119 @@ final tkComponents = <TkComponent>[
     ttk: true,
   ),
   TkComponent(
+    'Progressbar',
+    markTr('Barra de progreso'),
+    200,
+    20,
+    [
+      TkProp(
+        'value',
+        markTr('Valor'),
+        TkPropType.number,
+        option: 'value',
+        def: 0,
+      ),
+      TkProp(
+        'maximum',
+        markTr('Máximo'),
+        TkPropType.number,
+        option: 'maximum',
+        def: 100,
+      ),
+      TkProp(
+        'mode',
+        markTr('Modo'),
+        TkPropType.choice,
+        option: 'mode',
+        def: 'determinate',
+        choices: const ['determinate', 'indeterminate'],
+      ),
+      TkProp(
+        'orient',
+        markTr('Orientación'),
+        TkPropType.choice,
+        option: 'orient',
+        def: 'horizontal',
+        choices: const ['horizontal', 'vertical'],
+      ),
+    ],
+    _mouse,
+    ttk: true,
+  ),
+  TkComponent(
+    'PageControl',
+    markTr('Control de páginas'),
+    320,
+    200,
+    [
+      TkProp(
+        'pages',
+        markTr('Páginas (una por línea)'),
+        TkPropType.multiline,
+        def: 'Página 1\nPágina 2',
+      ),
+      TkProp('active', markTr('Página activa'), TkPropType.integer, def: 0),
+      _bg,
+    ],
+    [
+      TkEvent(
+        'change',
+        markTr('Al cambiar de página'),
+        'change',
+        sequences: const ['<<NotebookTabChanged>>'],
+        param: 'event',
+      ),
+      ..._mouse,
+    ],
+    container: true,
+  ),
+  TkComponent('StatusBar', markTr('Barra de estado'), 400, 24, [
+    _text,
+    _bg,
+    _fg,
+    ..._font,
+  ], _mouse),
+  TkComponent(
+    'Menu',
+    markTr('Menú'),
+    32,
+    32,
+    [
+      TkProp(
+        'items',
+        markTr('Opciones (una por línea; sangría = submenú; - = separador)'),
+        TkPropType.multiline,
+        def: 'Archivo\n  Salir\nAyuda\n  Acerca de',
+      ),
+    ],
+    [
+      TkEvent(
+        'command',
+        markTr('Al elegir una opción'),
+        'click',
+        param: 'item',
+      ),
+    ],
+    visual: false,
+  ),
+  TkComponent(
+    'Timer',
+    markTr('Temporizador'),
+    32,
+    32,
+    [
+      TkProp(
+        'interval',
+        markTr('Intervalo (ms)'),
+        TkPropType.integer,
+        def: 1000,
+      ),
+      TkProp('enabled', markTr('Activo'), TkPropType.boolean, def: true),
+    ],
+    [TkEvent('command', markTr('Cada intervalo'), 'timer')],
+    visual: false,
+  ),
+  TkComponent(
     'Connection',
     markTr('Conexión de datos'),
     32,
@@ -718,6 +905,8 @@ const tkReserved = {
   'root',
   'run',
   'FormDesign',
+  'ColorButton',
+  'DesignTimer',
 };
 
 /// ¿Sirve [s] como identificador en el archivo generado?
@@ -727,6 +916,10 @@ bool tkValidName(String s) =>
 /// Nombres que además usa el archivo de una aplicación web.
 const tkWebReserved = {
   'DataError',
+  'DesignTimer',
+  'WebMenu',
+  'WebPages',
+  'WebProgress',
   'ErpClient',
   'Flask',
   'KEY_CHARS',
@@ -811,12 +1004,17 @@ class TkWidget {
     required this.width,
     required this.height,
     this.parent,
+    this.page,
     Map<String, Object?>? props,
     Map<String, String>? events,
   }) : props = props ?? {},
        events = events ?? {};
 
   String kind, name;
+
+  /// Página del control de páginas que lo contiene (null = la activa al
+  /// colocarlo; solo cuenta si [parent] es un control de páginas).
+  int? page;
   int x, y, width, height;
 
   /// Nombre del marco que lo contiene (null = la ventana). [x] e [y] son
@@ -854,6 +1052,7 @@ class TkWidget {
     'width': width,
     'height': height,
     'parent': ?parent,
+    'page': ?page,
     if (props.isNotEmpty) 'props': _sorted(props),
     if (events.isNotEmpty) 'events': _sorted(events),
   };
@@ -866,6 +1065,7 @@ class TkWidget {
     width: _int(j['width'], 1),
     height: _int(j['height'], 1),
     parent: j['parent'] as String?,
+    page: j['page'] is num ? (j['page'] as num).toInt() : null,
     props: {...?(j['props'] as Map?)?.cast<String, Object?>()},
     events: {...?(j['events'] as Map?)?.map((k, v) => MapEntry('$k', '$v'))},
   );
@@ -932,6 +1132,43 @@ class TkDesign {
   /// Componentes que leen datos.
   Iterable<TkWidget> get connections =>
       widgets.where((w) => w.kind == 'Connection');
+
+  /// Página activa del control de páginas [w].
+  int activePage(TkWidget w) {
+    final n = tkPages(w).length;
+    final a = w.props['active'];
+    final i = a is num ? a.toInt() : int.tryParse('${a ?? ''}') ?? 0;
+    return i.clamp(0, n - 1);
+  }
+
+  /// El control de páginas que contiene directamente a [w] (null si no).
+  TkWidget? pageControlOf(TkWidget w) {
+    final p = w.parent == null ? null : byName(w.parent!);
+    return p?.kind == 'PageControl' ? p : null;
+  }
+
+  /// Página de [w] dentro de su control de páginas (0 si no está en uno).
+  int pageOf(TkWidget w) {
+    final pc = pageControlOf(w);
+    if (pc == null) return 0;
+    final n = tkPages(pc).length;
+    return (w.page ?? activePage(pc)).clamp(0, n - 1);
+  }
+
+  /// ¿Se ve [w] en el diseño? No, si está en una página que no es la activa
+  /// (o dentro de algo que lo está).
+  bool shown(TkWidget w) {
+    TkWidget? o = w;
+    for (var i = 0; o != null && i <= widgets.length; i++) {
+      final pc = pageControlOf(o);
+      if (pc != null && pageOf(o) != activePage(pc)) return false;
+      o = o.parent == null ? null : byName(o.parent!);
+    }
+    return true;
+  }
+
+  /// El menú de la ventana, si tiene.
+  TkWidget? get menu => widgets.where((w) => w.kind == 'Menu').firstOrNull;
 
   /// El componente de la clase [kind] al que apunta la referencia [name].
   TkWidget? reference(String name, String kind) {
@@ -1026,7 +1263,9 @@ class TkDesign {
     w
       ..parent = parent
       ..x = ax - px
-      ..y = ay - py;
+      ..y = ay - py
+      // En un control de páginas, va a la página que se ve.
+      ..page = target?.kind == 'PageControl' ? activePage(target!) : null;
     if (target != null) {
       // El marco debe crearse antes que sus componentes.
       final group = [
@@ -1065,6 +1304,11 @@ class TkDesign {
         out.add(tr('«{0}» está en un marco que no existe.', [w.name]));
       }
       position[w.name] = i;
+      if (w.kind == 'Menu' && menu != w) {
+        out.add(
+          tr('Una ventana solo puede tener un menú: sobra «{0}».', [w.name]),
+        );
+      }
       // En el estudio no hay un ERP detrás: cada conexión de datos lee de
       // una de las guardadas en Bases de datos.
       if (w.kind == 'Connection' && w.text('connection').trim().isEmpty) {

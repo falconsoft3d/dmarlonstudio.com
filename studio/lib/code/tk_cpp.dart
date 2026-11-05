@@ -722,7 +722,7 @@ public:
     fl_register_images();
     Fl_Shared_Image* img = Fl_Shared_Image::get(path);
     if (!img) return;
-    if (auto* rgb = dynamic_cast<Fl_RGB_Image*>(img->image())) icon(rgb);
+    if (auto* rgb = dynamic_cast<const Fl_RGB_Image*>(img->image())) icon(rgb);
   }
   void message(const std::string& text) { fl_message("%s", text.c_str()); }
   bool ask(const std::string& question) { return fl_choice("%s", "No", "Sí", nullptr, question.c_str()) == 1; }

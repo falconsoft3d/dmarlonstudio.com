@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.26 — 2026-11-05
+
+- C++: arreglado el icono de la ventana, que impedía compilar las
+  aplicaciones de FLTK en la 1.0.25.
+
 ## 1.0.25 — 2026-11-05
 
 - **Autocompletado** en el código del Diseñador (Python, JavaScript y C++):

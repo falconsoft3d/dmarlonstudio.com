@@ -58,8 +58,8 @@ export const es: Content = {
       { seed: "calculator", name: "Calculadora", text: "Botones, eventos y estado: el primer ejemplo." },
       { seed: "web_crm", name: "CRM web", text: "Oportunidades por etapas y valor del embudo, en Flask." },
       { seed: "web_invoicing", name: "Facturador web", text: "Facturas con IVA, numeración y descarga." },
-      { seed: "web_shop", name: "Tienda web", text: "Catálogo, carrito y pedidos con pago simulado." },
-      { seed: "web_blog", name: "Blog web", text: "Entradas, categorías, comentarios y editor." },
+      { seed: "web_shop", name: "Tienda web", text: "Una tienda de verdad: ofertas, carrito, cuentas, pago simulado y panel de ventas." },
+      { seed: "web_blog", name: "Blog web", text: "Un blog de verdad: portada, artículos, comentarios, cuentas y panel." },
     ],
   },
   sections: [

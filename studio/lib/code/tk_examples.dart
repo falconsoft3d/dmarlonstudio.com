@@ -8,6 +8,7 @@ part 'tk_showcase_3d.dart';
 part 'tk_showcase_ai.dart';
 part 'tk_showcase_mail.dart';
 part 'tk_showcase_reports.dart';
+part 'tk_showcase_sites.dart';
 part 'tk_showcase_windows.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
@@ -150,8 +151,8 @@ List<TkExample> tkWebExamples(String Function(String) t) => [
   ),
   _crm(t),
   _invoicing(t),
-  _blog(t),
-  _shop(t),
+  _siteBlog(t),
+  _siteShop(t),
   _web(
     _lineChart(t),
     'web_line_chart',

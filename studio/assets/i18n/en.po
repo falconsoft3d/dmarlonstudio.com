@@ -285,11 +285,11 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -309,7 +309,7 @@ msgstr "Clear"
 msgid "Borrar todo"
 msgstr "Clear all"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr "Search"
 
@@ -325,7 +325,7 @@ msgstr "Calculator with keyboard input and exact decimal numbers."
 msgid "Calculadora web"
 msgstr "Web calculator"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Cantidad"
 msgstr "Quantity"
 
@@ -337,7 +337,7 @@ msgstr "Loading…"
 msgid "Cargar"
 msgstr "Load"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart
 msgid "Ciudad"
 msgstr "City"
 
@@ -381,7 +381,7 @@ msgstr "Odoo / ERPSqlite contacts"
 msgid "Conversor de unidades"
 msgstr "Unit converter"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr "Email"
 
@@ -453,7 +453,7 @@ msgstr "Type the customer's name."
 msgid "Escriba un número"
 msgstr "Enter a number"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr "Date"
 
@@ -493,7 +493,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -517,7 +517,7 @@ msgstr "Reports (web)"
 msgid "Iniciar"
 msgstr "Start"
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart
 msgid "Inicio"
 msgstr "Home"
 
@@ -597,7 +597,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -609,7 +609,7 @@ msgstr "New note"
 msgid "Notas"
 msgstr "Notes"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr "New"
 
@@ -653,7 +653,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -693,7 +693,7 @@ msgstr "Text"
 msgid "Tipo"
 msgstr "Type"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr "User"
 
@@ -790,6 +790,10 @@ msgid "Al pulsar un botón"
 msgstr "On button press"
 
 #: lib/code/tk_model.dart
+msgid "Al pulsar un enlace o enviar un formulario"
+msgstr "On clicking a link or sending a form"
+
+#: lib/code/tk_model.dart
 msgid "Al seleccionar"
 msgstr "On select"
 
@@ -821,7 +825,7 @@ msgstr "AI assistant"
 msgid "Autenticación"
 msgstr "Authentication"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart
 msgid "Autor"
 msgstr "Author"
 
@@ -933,7 +937,7 @@ msgstr "Data connection"
 msgid "Consulta SQL"
 msgstr "SQL query"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
 msgid "Contraseña"
 msgstr "Password"
 
@@ -1001,7 +1005,7 @@ msgstr "Mouse enter"
 msgid "Esfuerzo"
 msgstr "Effort"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr "Status"
 
@@ -1032,6 +1036,10 @@ msgstr "Group"
 #: lib/code/tk_model.dart
 msgid "Gráfico"
 msgstr "Chart"
+
+#: lib/code/tk_model.dart
+msgid "HTML"
+msgstr "HTML"
 
 #: lib/code/tk_model.dart
 msgid "Hasta"
@@ -1234,6 +1242,10 @@ msgid "Página activa"
 msgstr "Active page"
 
 #: lib/code/tk_model.dart
+msgid "Página completa (web)"
+msgstr "Full page (web)"
+
+#: lib/code/tk_model.dart
 msgid "Páginas (una por línea)"
 msgstr "Pages (one per line)"
 
@@ -1297,6 +1309,10 @@ msgstr "Linked table"
 msgid "Tamaño de fuente"
 msgstr "Font size"
 
+#: lib/code/tk_model.dart lib/code/tk_showcase_windows.dart
+msgid "Tamaño de letra"
+msgstr "Text size"
+
 #: lib/code/tk_model.dart
 msgid "Tamaño original"
 msgstr "Original size"
@@ -1349,7 +1365,7 @@ msgstr "Token (Bearer)"
 msgid "Token o clave (mejor en una variable)"
 msgstr "Token or key (better in a variable)"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart
 msgid "Título"
 msgstr "Title"
 
@@ -1402,6 +1418,10 @@ msgid "Velas (bolsa)"
 msgstr "Candles (stock market)"
 
 #: lib/code/tk_model.dart
+msgid "Vista HTML"
+msgstr "HTML view"
+
+#: lib/code/tk_model.dart
 msgid "«{0}» está en un marco que no existe."
 msgstr "“{0}” is in a frame that does not exist."
 
@@ -1426,6 +1446,10 @@ msgid "Áreas"
 msgstr "Areas"
 
 #: lib/code/tk_run_io.dart
+msgid "El Asistente IA necesita el SDK de Anthropic en el Python de este equipo."
+msgstr "The AI Assistant needs the Anthropic SDK in this computer's Python."
+
+#: lib/code/tk_run_io.dart
 msgid ""
 "El Asistente IA necesita el SDK de Anthropic. Instálelo con:\n"
 "{0}"
@@ -1434,12 +1458,36 @@ msgstr ""
 "{0}"
 
 #: lib/code/tk_run_io.dart
+msgid "El icono de bandeja necesita pystray y Pillow. Sin ellos, la ventana funciona pero sin el icono."
+msgstr "The tray icon needs pystray and Pillow. Without them, the window works but without the icon."
+
+#: lib/code/tk_run_io.dart
+msgid "Este Python lo gestiona el sistema y no deja instalar paquetes con pip. Instale el Python de python.org y vuelva a intentarlo."
+msgstr "This Python is managed by the system and does not allow installing packages with pip. Install Python from python.org and try again."
+
+#: lib/code/tk_run_io.dart
+msgid "Falta Flask"
+msgstr "Flask is missing"
+
+#: lib/code/tk_run_io.dart
 msgid ""
 "Falta Flask. Instálelo con:\n"
 "{0}"
 msgstr ""
 "Flask is missing. Install it with:\n"
 "{0}"
+
+#: lib/code/tk_run_io.dart
+msgid "Falta el SDK de Anthropic"
+msgstr "The Anthropic SDK is missing"
+
+#: lib/code/tk_run_io.dart
+msgid "Falta un controlador de base de datos"
+msgstr "A database driver is missing"
+
+#: lib/code/tk_run_io.dart
+msgid "Faltan pystray y Pillow"
+msgstr "pystray and Pillow are missing"
 
 #: lib/code/tk_run_io.dart
 msgid "Instale Python con tkinter: «brew install python-tk» con Homebrew, o el instalador de python.org, que ya lo trae."
@@ -1458,6 +1506,14 @@ msgid "La aplicación web no arrancó: {0}"
 msgstr "The web app did not start: {0}"
 
 #: lib/code/tk_run_io.dart
+msgid "La instalación tardó demasiado."
+msgstr "The installation took too long."
+
+#: lib/code/tk_run_io.dart
+msgid "Las aplicaciones web necesitan Flask en el Python de este equipo."
+msgstr "Web apps need Flask in this computer's Python."
+
+#: lib/code/tk_run_io.dart
 msgid "Las ventanas de Python solo se abren en macOS, Windows o Linux."
 msgstr "Python windows only open on macOS, Windows or Linux."
 
@@ -1466,8 +1522,16 @@ msgid "No se encontró Python en {0}."
 msgstr "Python was not found at {0}."
 
 #: lib/code/tk_run_io.dart
+msgid "No se pudo instalar {0}."
+msgstr "{0} could not be installed."
+
+#: lib/code/tk_run_io.dart
 msgid "No se pudo lanzar Python: {0}"
 msgstr "Could not launch Python: {0}"
+
+#: lib/code/tk_run_io.dart
+msgid "«{0}» necesita un controlador de Python."
+msgstr "“{0}” needs a Python driver."
 
 #: lib/code/tk_run_io.dart
 msgid ""
@@ -1625,7 +1689,7 @@ msgstr "Classic text editor with menus, open and save, undo and a status bar wit
 msgid "Elija la cita que quiere eliminar."
 msgstr "Choose the appointment to delete."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -1729,7 +1793,7 @@ msgstr "Pause"
 msgid "Pegar"
 msgstr "Paste"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Portátiles"
 msgstr "Laptops"
 
@@ -2157,7 +2221,7 @@ msgstr "{0} attachments: {1}"
 msgid "{0} mensajes en la bandeja de entrada (se muestran los últimos {1})."
 msgstr "{0} messages in the inbox (showing the latest {1})."
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Categoría"
 msgstr "Category"
 
@@ -2189,19 +2253,19 @@ msgstr "Reports"
 msgid "Por categoría"
 msgstr "By category"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Precio"
 msgstr "Price"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
 msgid "Producto"
 msgstr "Product"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Resumen"
 msgstr "Overview"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Total"
 msgstr "Total"
 
@@ -2213,7 +2277,7 @@ msgstr "A sales table exported to PDF (with totals, a table by category and page
 msgid "Unidades"
 msgstr "Units"
 
-#: lib/code/tk_showcase_reports.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
 msgid "Ventas"
 msgstr "Sales"
 
@@ -2233,41 +2297,863 @@ msgstr "sales.pdf"
 msgid "ventas.xlsx"
 msgstr "sales.xlsx"
 
-#: lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_sites.dart
+msgid "2 años de garantía"
+msgstr "2-year warranty"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "30 días para pensarlo"
+msgstr "30 days to think it over"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Administración"
+msgstr "Administration"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Agotado"
+msgstr "Sold out"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ahorras {0}"
+msgstr "You save {0}"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Altavoz portátil resistente al agua con sonido de 360 grados."
+msgstr "Waterproof portable speaker with 360-degree sound."
+
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Audio"
+msgstr "Audio"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Auriculares inalámbricos con cancelación de ruido y 40 horas de autonomía."
+msgstr "Wireless noise-cancelling headphones with 40 hours of battery life."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Añadir al carrito"
+msgstr "Add to cart"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Aún no has hecho ningún pedido."
+msgstr "You have not placed any orders yet."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Aún no hay pedidos."
+msgstr "No orders yet."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Bitácora"
+msgstr "Logbook"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Blog web"
+msgstr "Web blog"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Borrador"
+msgstr "Draft"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Borradores"
+msgstr "Drafts"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Buscar productos…"
+msgstr "Search products…"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Buscar…"
+msgstr "Search…"
+
+#: lib/code/tk_showcase_sites.dart
 msgid ""
-"# Hola\n"
-"Este blog está hecho con **DMarlon Studio** y Flask.\n"
-"- Entradas con categorías\n"
-"- Comentarios\n"
-"- Editor sencillo"
+"Cada componente de una página tiene su estado en el servidor. Cuando el visitante pulsa algo, el navegador envía un evento pequeño y recibe solo el HTML de lo que ha cambiado.\n"
+"## Por qué así\n"
+"- El código de la aplicación es el mismo que en el escritorio\n"
+"- No hay que mantener dos modelos de datos\n"
+"- El navegador no ejecuta código de terceros\n"
+"Las plantillas escapan cada texto por defecto. Solo la Vista HTML pinta HTML tal cual, y por eso en los ejemplos todo lo que escribe el visitante pasa antes por `html.escape`."
 msgstr ""
-"# Hello\n"
-"This blog is made with **DMarlon Studio** and Flask.\n"
-"- Posts with categories\n"
-"- Comments\n"
-"- Simple editor"
+"Every component of a page keeps its state on the server. When the visitor clicks something, the browser sends a small event and receives only the HTML of what changed.\n"
+"## Why this way\n"
+"- The app code is the same as on the desktop\n"
+"- There are no two data models to keep in sync\n"
+"- The browser runs no third-party code\n"
+"Templates escape every text by default. Only the HTML view paints HTML as is, which is why in the examples everything the visitor writes goes through `html.escape` first."
 
-#: lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_sites.dart
 msgid ""
-"- Más componentes\n"
-"- Más destinos\n"
-"- Más ejemplos"
+"Cada mes recibimos proyectos que nos sorprenden. Estos son tres de los que más nos han gustado.\n"
+"## Turnos del taller\n"
+"Una tabla de datos, un calendario y un informe en PDF que se imprime cada lunes. Sin instalar nada más.\n"
+"## Catálogo de vinilos\n"
+"Una web con buscador y fichas de cada disco, hecha con la Vista HTML y una base de datos SQLite.\n"
+"## Memoria\n"
+"Un juego de parejas con temporizador y récords. Lo hizo una profesora para su clase de primaria.\n"
+"¿Quieres que tu proyecto aparezca aquí? Escríbenos y cuéntanos qué has hecho."
 msgstr ""
-"- More components\n"
-"- More targets\n"
-"- More examples"
+"Every month we receive projects that surprise us. These are three of our favourites.\n"
+"## Workshop shifts\n"
+"A data grid, a calendar and a PDF report printed every Monday. Nothing else to install.\n"
+"## Vinyl catalogue\n"
+"A website with search and a page for every record, made with the HTML view and an SQLite database.\n"
+"## Memory\n"
+"A matching-pairs game with a timer and high scores. A teacher made it for her primary school class.\n"
+"Want your project to appear here? Write to us and tell us what you built."
 
-#: lib/code/tk_showcase_web.dart
-msgid "350 ml, apta para lavavajillas."
-msgstr "350 ml, dishwasher safe."
+#: lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart
+msgid "Cambiar"
+msgstr "Switch"
 
-#: lib/code/tk_showcase_web.dart
-msgid "A5, 120 hojas de papel grueso."
-msgstr "A5, 120 sheets of heavy paper."
+#: lib/code/tk_showcase_sites.dart
+msgid "Carrito"
+msgstr "Cart"
 
-#: lib/code/tk_showcase_web.dart
-msgid "Abra en el editor la entrada que quiere eliminar."
-msgstr "Open the post you want to delete in the editor."
+#: lib/code/tk_showcase_sites.dart
+msgid "Categorías"
+msgstr "Categories"
+
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Cliente"
+msgstr "Customer"
+
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Clientes"
+msgstr "Customers"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comentario"
+msgstr "Comment"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comentario eliminado."
+msgstr "Comment deleted."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comentarios"
+msgstr "Comments"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comentarios ({0})"
+msgstr "Comments ({0})"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comentas como {0}."
+msgstr "You are commenting as {0}."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Compra por categoría"
+msgstr "Shop by category"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comprar ahora"
+msgstr "Buy now"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comprarás como {0} ({1})."
+msgstr "You will buy as {0} ({1})."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Comunidad"
+msgstr "Community"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Contenido"
+msgstr "Contents"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Contra reembolso"
+msgstr "Cash on delivery"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Correo electrónico"
+msgstr "Email"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Crea tu cuenta"
+msgstr "Create your account"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Crear cuenta"
+msgstr "Sign up"
+
+#: lib/code/tk_showcase_sites.dart
+msgid ""
+"Crear una aplicación web no debería empezar por configurar un servidor. En DMarlon Studio eliges **Web (Flask)** al crear el proyecto y ya tienes una página funcionando.\n"
+"## Los pasos\n"
+"- Arrastra una caja de texto, un botón y una tabla\n"
+"- Haz doble clic en el botón para escribir su evento\n"
+"- Pulsa el botón verde: la página se abre en el navegador\n"
+"El código de los eventos es Python normal. Lo que cambias en los componentes llega al navegador sin escribir JavaScript.\n"
+"## Y después\n"
+"Cuando quieras una web con aspecto propio, usa la **Vista HTML**: escribes el HTML y los enlaces llaman a tus eventos. Este mismo blog está hecho así."
+msgstr ""
+"Building a web app should not start with configuring a server. In DMarlon Studio you choose **Web (Flask)** when creating the project and you already have a working page.\n"
+"## The steps\n"
+"- Drag a text box, a button and a grid\n"
+"- Double-click the button to write its event\n"
+"- Press the green button: the page opens in the browser\n"
+"Event code is plain Python. What you change in the components reaches the browser without writing JavaScript.\n"
+"## And then\n"
+"When you want a website with its own look, use the **HTML view**: you write the HTML and its links call your events. This very blog is made that way."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Cámara compacta para viajar, con zoom de 10 aumentos."
+msgstr "Compact travel camera with 10x zoom."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Cámara sin espejo de 26 megapíxeles con vídeo 4K y estabilizador."
+msgstr "26-megapixel mirrorless camera with 4K video and stabilisation."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Código postal"
+msgstr "Postal code"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Cómo dibujamos las páginas en el servidor"
+msgstr "How we draw pages on the server"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Datos de envío"
+msgstr "Shipping details"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Del lienzo vacío a una página que guarda datos en SQLite: los pasos, uno a uno."
+msgstr "From an empty canvas to a page that stores data in SQLite: the steps, one by one."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Demasiados intentos. Espera un minuto y vuelve a probar."
+msgstr "Too many attempts. Wait a minute and try again."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Devolución fácil"
+msgstr "Easy returns"
+
+#: lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
+msgid "Dirección"
+msgstr "Address"
+
+#: lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+msgid "Editar"
+msgstr "Edit"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Editar entrada"
+msgstr "Edit post"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "El correo o la contraseña no son correctos."
+msgstr "The email or the password is not correct."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "En stock: {0} unidades"
+msgstr "In stock: {0} units"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "En todos los productos"
+msgstr "On every product"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entra con tu cuenta para continuar."
+msgstr "Log in with your account to continue."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entra en tu cuenta"
+msgstr "Log in to your account"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entrada eliminada."
+msgstr "Post deleted."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entrada guardada."
+msgstr "Post saved."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entradas"
+msgstr "Posts"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Entrar"
+msgstr "Log in"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Enviado"
+msgstr "Sent"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Envío"
+msgstr "Shipping"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Envío en 24/48 h"
+msgstr "Delivery in 24/48 h"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Envío gratis en pedidos de más de 50 € · Devolución en 30 días"
+msgstr "Free shipping on orders over €50 · 30-day returns"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Es una tienda de ejemplo: no se cobra nada."
+msgstr "This is a sample shop: nothing is charged."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Esa página es solo para administración."
+msgstr "That page is for administrators only."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Escribe el título y el contenido."
+msgstr "Write the title and the content."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Escribe tu nombre (2-60 letras) y un comentario (3-500 letras)."
+msgstr "Write your name (2-60 characters) and a comment (3-500 characters)."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Escribe tu nombre (2-60 letras)."
+msgstr "Write your name (2-60 characters)."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Escribe un correo válido."
+msgstr "Write a valid email."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Escribir"
+msgstr "Type"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Finalizar compra"
+msgstr "Checkout"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Forma de pago"
+msgstr "Payment method"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Formato sencillo: «## » para un subtítulo, «- » para una lista, **negrita** y `código`."
+msgstr "Simple format: “## ” for a subheading, “- ” for a list, **bold** and `code`."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Fotografía"
+msgstr "Photography"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Gaming"
+msgstr "Gaming"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Gracias por comentar."
+msgstr "Thanks for your comment."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Gratis"
+msgstr "Free"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Gratis desde 50 €"
+msgstr "Free from €50"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Has salido de tu cuenta."
+msgstr "You have logged out."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Hola, {0}."
+msgstr "Hello, {0}."
+
+#: lib/code/tk_showcase_sites.dart
+msgid ""
+"Hoy damos un paso que muchos nos pedíais: el componente **Asistente IA**. Se arrastra al formulario como un botón y desde el código basta una línea para pedirle algo a Claude.\n"
+"## Qué puede hacer\n"
+"- Resumir un texto largo en unas pocas frases\n"
+"- Traducir a cualquier idioma\n"
+"- Clasificar opiniones en positivas, neutras o negativas\n"
+"- Extraer datos (nombre, correo, teléfono) en un diccionario\n"
+"## Sin congelar la ventana\n"
+"Cada llamada tiene su versión `_async`: la aplicación sigue respondiendo y el resultado llega al evento **done**. En la web, la petición simplemente espera a la respuesta.\n"
+"La clave nunca va en el código: se lee de la variable de entorno, así que puedes compartir el proyecto sin miedo."
+msgstr ""
+"Today we take a step many of you asked for: the **AI Assistant** component. You drag it onto the form like a button, and from code one line is enough to ask Claude for something.\n"
+"## What it can do\n"
+"- Summarise a long text in a few sentences\n"
+"- Translate into any language\n"
+"- Classify opinions as positive, neutral or negative\n"
+"- Extract data (name, email, phone) into a dictionary\n"
+"## Without freezing the window\n"
+"Every call has its `_async` version: the app keeps responding and the result arrives in the **done** event. On the web, the request simply waits for the answer.\n"
+"The key never goes in the code: it is read from the environment, so you can share the project without worry."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ideas, guías y novedades para quien crea software."
+msgstr "Ideas, guides and news for people who build software."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Informes en PDF y Excel sin instalar nada"
+msgstr "PDF and Excel reports without installing anything"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ingeniería"
+msgstr "Engineering"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "La contraseña debe tener al menos 8 caracteres."
+msgstr "The password must be at least 8 characters long."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "La primera cuenta que se registra es la de administración."
+msgstr "The first account to sign up becomes the administrator."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "La página se genera al abrirla (form_create)."
+msgstr "The page is generated when it opens (form_create)."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Las contraseñas no coinciden."
+msgstr "The passwords do not match."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Llegan los componentes de inteligencia artificial"
+msgstr "The artificial intelligence components are here"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Lo esencial, bien hecho: batería para dos días y una cámara sorprendente."
+msgstr "The essentials, done well: two-day battery and a surprising camera."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Lo mejor de {0}, en tu correo"
+msgstr "The best of {0}, in your inbox"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Lo más vendido"
+msgstr "Best sellers"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Lo que construisteis este mes"
+msgstr "What you built this month"
+
+#: lib/code/tk_showcase_sites.dart
+msgid ""
+"Los componentes **Informe PDF** e **Informe Excel** escriben los archivos ellos mismos, sin bibliotecas externas.\n"
+"## Un informe en tres líneas\n"
+"- `pdf.title('Ventas')` para el título\n"
+"- `pdf.table(cabeceras, filas, totals=...)` para la tabla\n"
+"- `pdf.save_dialog()` para guardarlo\n"
+"En una aplicación web, guardar se convierte en una descarga: el mismo código sirve para las dos."
+msgstr ""
+"The **PDF report** and **Excel report** components write the files themselves, with no external libraries.\n"
+"## A report in three lines\n"
+"- `pdf.title('Sales')` for the title\n"
+"- `pdf.table(headers, rows, totals=...)` for the table\n"
+"- `pdf.save_dialog()` to save it\n"
+"In a web app, saving becomes a download: the same code works for both."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Mando inalámbrico con vibración y batería recargable para PC y móvil."
+msgstr "Wireless controller with rumble and a rechargeable battery for PC and mobile."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Marcar como enviado"
+msgstr "Mark as shipped"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Mi cuenta"
+msgstr "My account"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Mis pedidos"
+msgstr "My orders"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Más vendidos"
+msgstr "Best selling"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Móvil con triple cámara, pantalla de 120 Hz y carga rápida de 65 W."
+msgstr "Phone with a triple camera, 120 Hz display and 65 W fast charging."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Móviles"
+msgstr "Phones"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "No hay entradas que coincidan."
+msgstr "No posts match."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "No hay productos que coincidan."
+msgstr "No products match."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Nombre y apellidos"
+msgstr "Full name"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Novedad"
+msgstr "New"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Nueva entrada"
+msgstr "New entry"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Oferta"
+msgstr "Deal"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ofertas de la semana"
+msgstr "Deals of the week"
+
+#: lib/code/tk_showcase_sites.dart lib/ui/screens/diagrams.dart
+msgid "Ordenar"
+msgstr "Arrange"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pagar {0}"
+msgstr "Pay {0}"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pago seguro"
+msgstr "Secure payment"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Panel"
+msgstr "Dashboard"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Panel de la tienda"
+msgstr "Shop dashboard"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Panel del blog"
+msgstr "Blog dashboard"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pantalla de 14 pulgadas, 18 horas de batería y menos de 1,3 kg."
+msgstr "14-inch display, 18 hours of battery and under 1.3 kg."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Papel"
+msgstr "Paper"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Papel actualizado."
+msgstr "Role updated."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pedido"
+msgstr "Order"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pedidos"
+msgstr "Orders"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pendientes"
+msgstr "Pending"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Plantillas, parches de HTML y una sola petición por evento: el motor web por dentro."
+msgstr "Templates, HTML patches and a single request per event: the web engine inside."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Poco stock"
+msgstr "Low stock"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Política de contenido, protección contra peticiones falsas y sesiones aisladas, sin configurar nada."
+msgstr "Content policy, protection against forged requests and isolated sessions, with nothing to configure."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Portátil de 16 pulgadas para crear: pantalla de alta precisión y procesador de 12 núcleos."
+msgstr "16-inch laptop for creators: high-accuracy display and a 12-core processor."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Portátil ligero con pantalla de 14 pulgadas, 16 GB de memoria y 18 horas de batería."
+msgstr "Light laptop with a 14-inch display, 16 GB of memory and 18 hours of battery."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Precio: de mayor a menor"
+msgstr "Price: high to low"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Precio: de menor a mayor"
+msgstr "Price: low to high"
+
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+msgid "Productos"
+msgstr "Products"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Publicada"
+msgstr "Published"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Publicar comentario"
+msgstr "Post comment"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
+msgstr "Fitness band with sleep tracking and 14 days of battery."
+
+#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
+msgid "Quitar"
+msgstr "Remove"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Reloj inteligente con GPS, pulsómetro y pantalla siempre activa."
+msgstr "Smartwatch with GPS, heart-rate monitor and an always-on display."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Relojes"
+msgstr "Clocks"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Repite la contraseña"
+msgstr "Repeat the password"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Reponer"
+msgstr "Restock"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Resultados para «{0}»"
+msgstr "Results for “{0}”"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Resumir, traducir, clasificar y conversar desde tus propias aplicaciones, con un solo componente y sin congelar la ventana."
+msgstr "Summarise, translate, classify and chat from your own apps, with a single component and without freezing the window."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Revise sus datos: nombre, un correo válido, dirección, ciudad y código postal."
+msgstr "Check your details: name, a valid email, address, city and postcode."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Seguir comprando"
+msgstr "Continue shopping"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Seguridad por defecto en las aplicaciones web"
+msgstr "Security by default in web apps"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Sigue leyendo"
+msgstr "Keep reading"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Sobre Voltia"
+msgstr "About Voltia"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Sobre el blog"
+msgstr "About the blog"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Solo quedan {0} unidades de «{1}»."
+msgstr "Only {0} units of “{1}” left."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Stock"
+msgstr "Stock"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Stock actualizado."
+msgstr "Stock updated."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Su pedido n.º {0} está confirmado. Le enviaremos un correo a {1}."
+msgstr "Your order no. {0} is confirmed. We will send an email to {1}."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Suscribirme"
+msgstr "Subscribe"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Suscriptores"
+msgstr "Subscribers"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Sé el primero en comentar."
+msgstr "Be the first to comment."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tablas con totales, varias hojas y número de página, solo con la biblioteca estándar de Python."
+msgstr "Tables with totals, several sheets and page numbers, using only the Python standard library."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tableta de 11 pulgadas con lápiz, ideal para tomar notas y dibujar."
+msgstr "11-inch tablet with a pen, ideal for taking notes and drawing."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tarjeta (simulado)"
+msgstr "Card (simulated)"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tienda web"
+msgstr "Web shop"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Todo"
+msgstr "All"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Transferencia"
+msgstr "Transfer"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tu carrito"
+msgstr "Your cart"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tu carrito está vacío."
+msgstr "Your cart is empty."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tu correo electrónico"
+msgstr "Your email"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tu primera aplicación web en diez minutos"
+msgstr "Your first web app in ten minutes"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tus datos, cifrados"
+msgstr "Your data, encrypted"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Tutoriales"
+msgstr "Tutorials"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Un blog de ejemplo hecho con DMarlon Studio y Flask: las entradas, los comentarios y los suscriptores se guardan en SQLite."
+msgstr "A sample blog made with DMarlon Studio and Flask: posts, comments and subscribers are stored in SQLite."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Un blog que parece un blog: portada con entrada destacada, categorías, buscador, artículos con comentarios, boletín, cuentas con login y registro, y un panel para escribir y moderar, guardado en SQLite."
+msgstr "A blog that looks like a blog: home page with a featured post, categories, search, articles with comments, newsletter, accounts with login and sign-up, and a dashboard to write and moderate, stored in SQLite."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Un panel de turnos para un taller, un catálogo de vinilos y un juego de memoria: vuestros proyectos favoritos."
+msgstr "A shift board for a workshop, a vinyl catalogue and a memory game: your favourite projects."
+
+#: lib/code/tk_showcase_sites.dart
+msgid ""
+"Una aplicación web recién creada ya incluye varias defensas.\n"
+"## Lo que viene activado\n"
+"- Una política de contenido que solo permite los scripts del propio motor\n"
+"- Una cabecera secreta en cada evento contra las peticiones falsas\n"
+"- Una sesión distinta para cada visitante\n"
+"Nada de esto cambia cómo escribes el código: siguen siendo eventos de Python. Lo único que te pedimos es escapar con `html.escape` lo que escriba el visitante si lo muestras en una Vista HTML."
+msgstr ""
+"A freshly created web app already includes several defences.\n"
+"## What comes switched on\n"
+"- A content policy that only allows the engine's own scripts\n"
+"- A secret header on every event against forged requests\n"
+"- A separate session for every visitor\n"
+"None of this changes how you write code: they are still Python events. All we ask is that you escape with `html.escape` whatever the visitor writes if you show it in an HTML view."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Una tienda de ejemplo hecha con DMarlon Studio y Flask: el catálogo, los carritos y los pedidos se guardan en SQLite."
+msgstr "A sample shop made with DMarlon Studio and Flask: the catalogue, carts and orders are stored in SQLite."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Una tienda de electrónica que parece una tienda: portada con ofertas, categorías, buscador, ficha de producto, carrito, cuentas con login y registro, pago simulado, «Mi cuenta» con los pedidos y un panel de ventas y stock, guardado en SQLite."
+msgstr "An electronics shop that looks like a shop: home page with deals, categories, search, product page, cart, accounts with login and sign-up, simulated payment, “My account” with orders and a sales and stock dashboard, stored in SQLite."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Una vez al mes, sin ruido. Puedes darte de baja cuando quieras."
+msgstr "Once a month, no noise. You can unsubscribe whenever you want."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Usuarios"
+msgstr "Users"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Vendidos"
+msgstr "Sold"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ventas por categoría"
+msgstr "Sales by category"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ver detalles"
+msgstr "See details"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Ya hay una cuenta con ese correo."
+msgstr "There is already an account with that email."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic"
+msgstr "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "{0} entradas"
+msgstr "{0} posts"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "{0} min de lectura"
+msgstr "{0} min read"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "{0} opiniones"
+msgstr "{0} reviews"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "{0} productos"
+msgstr "{0} products"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "{0} uds."
+msgstr "{0} units"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¡Gracias, {0}!"
+msgstr "Thank you, {0}!"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¡Hecho! Te escribiremos pronto."
+msgstr "Done! We will write to you soon."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¡Muy útil, gracias! Lo pruebo esta tarde."
+msgstr "Very useful, thanks! I will try it this afternoon."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¡Solo quedan {0}!"
+msgstr "Only {0} left!"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "© {0} {1}. Todos los derechos reservados."
+msgstr "© {0} {1}. All rights reserved."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "«{0}» se ha añadido al carrito."
+msgstr "“{0}” has been added to the cart."
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¿Aún no tienes cuenta?"
+msgstr "No account yet?"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "¿Ya tienes cuenta?"
+msgstr "Already have an account?"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Últimas entradas"
+msgstr "Latest posts"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "Últimos comentarios"
+msgstr "Latest comments"
+
+#: lib/code/tk_showcase_sites.dart
+msgid "← Volver al inicio"
+msgstr "← Back to home"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Ahora está en «{0}»."
@@ -2278,24 +3164,12 @@ msgid "Aleatorio"
 msgstr "Shuffle"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Algodón orgánico, corte clásico."
-msgstr "Organic cotton, classic fit."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Alojamiento anual"
 msgstr "Annual hosting"
 
 #: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
 msgid "Anterior"
 msgstr "Previous"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Arrastre componentes desde la paleta y escriba solo el código de los eventos."
-msgstr "Drag components from the palette and write only the code of the events."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Audio"
-msgstr "Audio"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Avanzar etapa"
@@ -2308,14 +3182,6 @@ msgstr "Add at least one line."
 #: lib/code/tk_showcase_web.dart
 msgid "Añada canciones con Archivo → Añadir canciones…"
 msgstr "Add songs with File → Add songs…"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Añadido al carrito: {0}"
-msgstr "Added to the cart: {0}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Añadir al carrito"
-msgstr "Add to cart"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Añadir canciones"
@@ -2342,22 +3208,6 @@ msgid "Base imponible"
 msgstr "Untaxed amount"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Bienvenida"
-msgstr "Welcome"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Bienvenido a Mi Tienda"
-msgstr "Welcome to My Shop"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Blog"
-msgstr "Blog"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Blog web"
-msgstr "Web blog"
-
-#: lib/code/tk_showcase_web.dart
 msgid "CRM"
 msgstr "CRM"
 
@@ -2370,76 +3220,16 @@ msgid "Calificado"
 msgstr "Qualified"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Camiseta de algodón"
-msgstr "Cotton T-shirt"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Carrito"
-msgstr "Cart"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Carrito: {0} artículos · {1}"
-msgstr "Cart: {0} items · {1}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Catálogo"
-msgstr "Catalog"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Cliente"
-msgstr "Customer"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Cliente añadido: {0}"
 msgstr "Customer added: {0}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Clientes"
-msgstr "Customers"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Clientes y productos"
 msgstr "Customers and products"
 
-#: lib/code/tk_showcase_web.dart
-msgid "Comentar"
-msgstr "Comment"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Comentario"
-msgstr "Comment"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Comentarios"
-msgstr "Comments"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Confirmar pedido"
-msgstr "Place order"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Contenido"
-msgstr "Contents"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Cuaderno de bocetos"
-msgstr "Sketchbook"
-
 #: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Código"
 msgstr "Code"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Cómo se diseña una ventana arrastrando componentes."
-msgstr "How to design a window by dragging components."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Datos de envío"
-msgstr "Shipping details"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Del primer programa a las ventanas."
-msgstr "From your first program to windows."
 
 #: lib/code/tk_showcase_web.dart
 msgid "Descargando {0}.html"
@@ -2453,25 +3243,9 @@ msgstr "Download"
 msgid "Detenido"
 msgstr "Stopped"
 
-#: lib/code/tk_showcase_web.dart lib/ui/screens/mcp_settings.dart
-msgid "Dirección"
-msgstr "Address"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Diseñar sin código"
-msgstr "Designing without code"
-
 #: lib/code/tk_showcase_web.dart
 msgid "Diseño web"
 msgstr "Web design"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Editar la elegida"
-msgstr "Edit the selected one"
-
-#: lib/code/tk_showcase_web.dart
-msgid "El carrito está vacío."
-msgstr "Your cart is empty."
 
 #: lib/code/tk_showcase_web.dart
 msgid "El importe no es un número."
@@ -2486,40 +3260,12 @@ msgid "Elija el cliente."
 msgstr "Choose the client."
 
 #: lib/code/tk_showcase_web.dart
-msgid "Elija la entrada que quiere comentar."
-msgstr "Choose the post you want to comment on."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Elija la entrada que quiere editar."
-msgstr "Choose the post you want to edit."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Elija un pedido."
-msgstr "Choose an order."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Elija un producto"
-msgstr "Choose a product"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Elija un producto del catálogo."
-msgstr "Choose a product from the catalog."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Elija un producto."
 msgstr "Choose a product."
 
 #: lib/code/tk_showcase_web.dart
-msgid "Elija una entrada"
-msgstr "Choose a post"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Elija una factura de la lista."
 msgstr "Choose an invoice from the list."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Elija una línea del carrito."
-msgstr "Choose a line of the cart."
 
 #: lib/code/tk_showcase_web.dart
 msgid "Elija una oportunidad de la lista."
@@ -2534,26 +3280,6 @@ msgid "En pausa: {0}"
 msgstr "Paused: {0}"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Entrada eliminada."
-msgstr "Post deleted."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Entrada guardada: {0}"
-msgstr "Post saved: {0}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Entradas"
-msgstr "Posts"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Entradas con categorías, búsqueda, comentarios y un editor sencillo, guardadas en SQLite."
-msgstr "Posts with categories, search, comments and a simple editor, stored in SQLite."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Enviado"
-msgstr "Sent"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Enviar portafolio"
 msgstr "Send portfolio"
 
@@ -2566,20 +3292,8 @@ msgid "Escriba el código y el nombre del producto."
 msgstr "Type the product’s code and name."
 
 #: lib/code/tk_showcase_web.dart
-msgid "Escriba el título."
-msgstr "Type the title."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Escriba los datos de la nueva oportunidad."
 msgstr "Type the details of the new opportunity."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Escriba su nombre (2-60 letras) y un comentario (3-500 letras)."
-msgstr "Type your name (2-60 characters) and a comment (3-500 characters)."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Escriba su nombre, un correo válido y la dirección de envío."
-msgstr "Type your name, a valid email and the shipping address."
 
 #: lib/code/tk_showcase_web.dart
 msgid "Esta oportunidad ya está cerrada."
@@ -2588,10 +3302,6 @@ msgstr "This opportunity is already closed."
 #: lib/code/tk_showcase_web.dart
 msgid "Etapa"
 msgstr "Stage"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Existencias"
-msgstr "Stock"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Factura"
@@ -2630,32 +3340,12 @@ msgstr ""
 "New → Qualified → Proposal → Won."
 
 #: lib/code/tk_showcase_web.dart
-msgid "Felpa suave, bolsillo delantero."
-msgstr "Soft fleece, front pocket."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Formato sencillo: «# » para un título, «- » para una lista y **negrita**."
-msgstr "Simple format: “# ” for a heading, “- ” for a list and **bold**."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Ganada"
 msgstr "Won"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Ganado"
 msgstr "Won"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Gracias por comentar."
-msgstr "Thanks for your comment."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Guía de Python"
-msgstr "Python guide"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Hogar"
-msgstr "Home"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Hora de consultoría"
@@ -2670,20 +3360,12 @@ msgid "IVA %"
 msgstr "VAT %"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Ideas para la próxima versión"
-msgstr "Ideas for the next version"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Importe (€)"
 msgstr "Amount (€)"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Intranet"
 msgstr "Intranet"
-
-#: lib/code/tk_showcase_web.dart
-msgid "La cantidad debe ser un número entero mayor que cero."
-msgstr "The quantity must be a whole number greater than zero."
 
 #: lib/code/tk_showcase_web.dart
 msgid "La cantidad debe ser un número mayor que cero."
@@ -2698,10 +3380,6 @@ msgid "Libro técnico"
 msgstr "Technical book"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Libros"
-msgstr "Books"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Lista de reproducción"
 msgstr "Playlist"
 
@@ -2714,48 +3392,20 @@ msgid "Llamar para cerrar"
 msgstr "Call to close the deal"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Lo que viene."
-msgstr "What is coming."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Logotipo"
 msgstr "Logo"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Luz cálida regulable."
-msgstr "Dimmable warm light."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Lámpara de mesa"
-msgstr "Table lamp"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Mantenimiento anual"
 msgstr "Annual maintenance"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Marcar como enviado"
-msgstr "Mark as shipped"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Marcar como pagada"
 msgstr "Mark as paid"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Mi Tienda"
-msgstr "My Shop"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Mi blog"
-msgstr "My blog"
-
-#: lib/code/tk_showcase_web.dart
 msgid "NIF"
 msgstr "Tax ID"
-
-#: lib/code/tk_showcase_web.dart
-msgid "No hay existencias suficientes de {0}."
-msgstr "There is not enough stock of {0}."
 
 #: lib/code/tk_showcase_web.dart
 msgid "No hay forma de reproducir audio en este equipo. Instale pygame: {0}"
@@ -2764,10 +3414,6 @@ msgstr "There is no way to play audio on this computer. Install pygame: {0}"
 #: lib/code/tk_showcase_web.dart
 msgid "No se pudo reproducir {0}: {1}"
 msgstr "Could not play {0}: {1}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Noticias"
-msgstr "News"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Nueva factura"
@@ -2806,30 +3452,6 @@ msgid "Pagada"
 msgstr "Paid"
 
 #: lib/code/tk_showcase_web.dart
-msgid ""
-"Pago simulado: es un ejemplo,\n"
-"no se cobra nada."
-msgstr ""
-"Simulated payment: this is an example,\n"
-"nothing is charged."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Pedido"
-msgstr "Order"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Pedido marcado como enviado."
-msgstr "Order marked as shipped."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Pedido {0} confirmado (pago simulado). ¡Gracias!"
-msgstr "Order {0} confirmed (simulated payment). Thank you!"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Pedidos"
-msgstr "Orders"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Pendiente"
 msgstr "Pending"
 
@@ -2846,16 +3468,8 @@ msgid "Preparar propuesta"
 msgstr "Prepare proposal"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Primera entrada del blog."
-msgstr "First post of the blog."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Producto añadido: {0}"
 msgstr "Product added: {0}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Productos"
-msgstr "Products"
 
 #: lib/code/tk_showcase_web.dart lib/ui/screens/tk_designer.dart
 msgid "Propuesta"
@@ -2864,14 +3478,6 @@ msgstr "Proposal"
 #: lib/code/tk_showcase_web.dart
 msgid "Próxima acción"
 msgstr "Next action"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Publicada"
-msgstr "Published"
-
-#: lib/code/tk_showcase_web.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart
-msgid "Quitar"
-msgstr "Remove"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Quitar línea"
@@ -2897,14 +3503,6 @@ msgstr "Music player"
 msgid "Reservas web"
 msgstr "Web bookings"
 
-#: lib/code/tk_showcase_web.dart
-msgid "Ropa"
-msgstr "Clothing"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Ruta"
-msgstr "Route"
-
 #: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart
 msgid "Siguiente"
 msgstr "Next"
@@ -2914,52 +3512,16 @@ msgid "Sin pygame: pausa, volumen y posición limitados. Instálelo con: {0}"
 msgstr "Without pygame: limited pause, volume and position. Install it with: {0}"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Solo quedan {0} unidades."
-msgstr "Only {0} units left."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Sonando: {0}"
 msgstr "Playing: {0}"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Su nombre (2-60 letras) y su comentario (3-500 letras)."
-msgstr "Your name (2-60 characters) and your comment (3-500 characters)."
-
-#: lib/code/tk_showcase_web.dart
-msgid "Subtotal"
-msgstr "Subtotal"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Sudadera con capucha"
-msgstr "Hoodie"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Taza de cerámica"
-msgstr "Ceramic mug"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Tienda con catálogo por categorías, carrito con IVA, pedido con pago simulado y gestión de envíos."
-msgstr "Shop with a catalog by category, a cart with VAT, checkout with simulated payment and shipping management."
 
 #: lib/code/tk_showcase_web.dart
 msgid "Tienda online"
 msgstr "Online shop"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Tienda web"
-msgstr "Web shop"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Todas"
-msgstr "All"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Todas las etapas"
 msgstr "All stages"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Tutoriales"
-msgstr "Tutorials"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Vaciar"
@@ -2974,32 +3536,12 @@ msgid "Valor en curso: {0}"
 msgstr "Open pipeline: {0}"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Ya hay otra entrada con la ruta «{0}»."
-msgstr "Another post already uses the path “{0}”."
-
-#: lib/code/tk_showcase_web.dart
-msgid "borrador"
-msgstr "draft"
-
-#: lib/code/tk_showcase_web.dart
 msgid "{0} canciones en la lista."
 msgstr "{0} songs in the list."
 
 #: lib/code/tk_showcase_web.dart
-msgid "{0} en existencias · IVA {1} % incluido"
-msgstr "{0} in stock · {1} % VAT included"
-
-#: lib/code/tk_showcase_web.dart
-msgid "{0} entradas"
-msgstr "{0} posts"
-
-#: lib/code/tk_showcase_web.dart
 msgid "{0} marcada como pagada."
 msgstr "{0} marked as paid."
-
-#: lib/code/tk_showcase_web.dart
-msgid "¡Enhorabuena por el blog!"
-msgstr "Congratulations on the blog!"
 
 #: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
@@ -3116,10 +3658,6 @@ msgstr "Log"
 #: lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr "Yes"
-
-#: lib/code/tk_showcase_windows.dart
-msgid "Tamaño de letra"
-msgstr "Text size"
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Ventanas que abren otras y todos los diálogos: mensajes, preguntas, pedir datos, una ficha que devuelve el resultado, un diálogo modal y notas no modales."
@@ -3313,7 +3851,7 @@ msgstr "Diagrams"
 msgid "Diseñador"
 msgstr "Designer"
 
-#: lib/main.dart lib/code/tk_showcase_web.dart
+#: lib/main.dart
 msgid "Editor"
 msgstr "Editor"
 
@@ -4301,10 +4839,6 @@ msgstr "Copy as curl"
 msgid "Cuerpo"
 msgstr "Body"
 
-#: lib/ui/screens/dev_tools.dart
-msgid "Editar"
-msgstr "Edit"
-
 #: lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Ejecutar"
 msgstr "Run"
@@ -4616,10 +5150,6 @@ msgstr "Note"
 #: lib/ui/screens/diagrams.dart
 msgid "Nuevo diagrama"
 msgstr "New diagram"
-
-#: lib/ui/screens/diagrams.dart
-msgid "Ordenar"
-msgstr "Arrange"
 
 #: lib/ui/screens/diagrams.dart
 msgid "Primero añada una conexión en Bases de datos."
@@ -5010,10 +5540,6 @@ msgid "Buscando Python…"
 msgstr "Looking for Python…"
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Cambiar"
-msgstr "Switch"
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Cambiar…"
 msgstr "Change…"
 
@@ -5398,20 +5924,16 @@ msgid "Cerrar"
 msgstr "Close"
 
 #: lib/ui/tk_launch.dart
+msgid "Copiar la orden"
+msgstr "Copy the command"
+
+#: lib/ui/tk_launch.dart
 msgid "Después, vuelva a intentarlo."
 msgstr "Then try again."
 
 #: lib/ui/tk_launch.dart
-msgid "Ejecutar sin icono"
-msgstr "Run without the icon"
-
-#: lib/ui/tk_launch.dart
-msgid "El icono de bandeja necesita pystray y Pillow en el Python de este equipo. Instálelos con esta orden:"
-msgstr "The tray icon needs pystray and Pillow in this computer’s Python. Install them with this command:"
-
-#: lib/ui/tk_launch.dart
-msgid "Falta Flask"
-msgstr "Flask is missing"
+msgid "Ejecutar sin él"
+msgstr "Run without it"
 
 #: lib/ui/tk_launch.dart
 msgid "Falta Python"
@@ -5422,12 +5944,12 @@ msgid "Falta Python con tkinter"
 msgstr "Python with tkinter is missing"
 
 #: lib/ui/tk_launch.dart
-msgid "Faltan pystray y Pillow"
-msgstr "pystray and Pillow are missing"
+msgid "Instalando {0}…"
+msgstr "Installing {0}…"
 
 #: lib/ui/tk_launch.dart
-msgid "Las aplicaciones web necesitan Flask en el Python de este equipo. Instálelo con esta orden:"
-msgstr "Web apps need Flask in the Python on this computer. Install it with this command:"
+msgid "Instalar"
+msgstr "Install"
 
 #: lib/ui/tk_launch.dart
 msgid "No se pudo abrir el navegador."
@@ -5438,8 +5960,8 @@ msgid "Se encontró {0}, pero no trae tkinter."
 msgstr "Found {0}, but it does not include tkinter."
 
 #: lib/ui/tk_launch.dart
-msgid "Sin ellos, la ventana funciona pero sin el icono."
-msgstr "Without them, the window works but without the icon."
+msgid "Se puede instalar ahora, o a mano con esta orden:"
+msgstr "It can be installed now, or by hand with this command:"
 
 #: lib/ui/tk_launch.dart
 msgid "«{0}» terminó con un error: {1}"

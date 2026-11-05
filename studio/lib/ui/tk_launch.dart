@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../code/tk_run.dart';
+import '../core/errors.dart';
 import '../core/project_store.dart';
 import '../i18n/i18n.dart';
 import 'widgets.dart';
@@ -56,22 +58,13 @@ Future<TkRun?> launchTkApp(BuildContext context, String id) async {
     await showTkPythonMissing(context, py, web: prepared.web);
     return null;
   }
-  if (prepared.web) {
-    final install = await TkRunner.missingFlask(py);
+  final needs = await TkRunner.needs(prepared, py);
+  for (final need in needs) {
     if (!context.mounted) return null;
-    if (install != null) {
-      await showTkFlaskMissing(context, install);
-      return null;
-    }
+    final go = await showTkInstall(context, py, need);
+    if (!go) return null;
   }
-  if (prepared.tray) {
-    final install = await TkRunner.missingTray(py);
-    if (!context.mounted) return null;
-    if (install != null && !await showTkTrayMissing(context, install)) {
-      return null;
-    }
-    if (!context.mounted) return null;
-  }
+  if (!context.mounted) return null;
   final messenger = ScaffoldMessenger.maybeOf(context);
   final run = await runAction(context, () => TkRunner.start(prepared));
   if (run == null) return null;
@@ -97,85 +90,128 @@ Future<TkRun?> launchTkApp(BuildContext context, String id) async {
   return run;
 }
 
-/// Falta Flask en el Python de este equipo: la orden exacta para instalarlo.
-Future<void> showTkFlaskMissing(
+/// Le falta un paquete al Python de este equipo: lo instala con un botón
+/// (o se copia la orden). Devuelve si se sigue con la ejecución: instalado,
+/// o «Ejecutar sin él» si es opcional.
+Future<bool> showTkInstall(
   BuildContext context,
-  String install,
-) => showDialog<void>(
-  context: context,
-  builder: (c) => AlertDialog(
-    key: const ValueKey('tk-flask-missing'),
-    title: Text(tr('Falta Flask')),
-    content: SizedBox(
-      width: 460,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            tr(
-              'Las aplicaciones web necesitan Flask en el Python de este equipo. Instálelo con esta orden:',
-            ),
-          ),
-          const SizedBox(height: 8),
-          SelectableText(
-            install,
-            style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-          ),
-          const SizedBox(height: 8),
-          Text(tr('Después, vuelva a intentarlo.')),
-        ],
-      ),
-    ),
-    actions: [
-      TextButton(onPressed: () => Navigator.pop(c), child: Text(tr('Cerrar'))),
-    ],
-  ),
-);
-
-/// Faltan pystray y Pillow para el icono de bandeja: la orden para
-/// instalarlos. Se puede ejecutar igualmente (sin icono). Devuelve si se
-/// ejecuta.
-Future<bool> showTkTrayMissing(BuildContext context, String install) async =>
+  TkPython py,
+  TkNeed need,
+) async =>
     await showDialog<bool>(
       context: context,
-      builder: (c) => AlertDialog(
-        key: const ValueKey('tk-tray-missing'),
-        title: Text(tr('Faltan pystray y Pillow')),
-        content: SizedBox(
-          width: 460,
+      barrierDismissible: false,
+      builder: (c) => _InstallDialog(py: py, need: need),
+    ) ??
+    false;
+
+class _InstallDialog extends StatefulWidget {
+  const _InstallDialog({required this.py, required this.need});
+
+  final TkPython py;
+  final TkNeed need;
+
+  @override
+  State<_InstallDialog> createState() => _InstallDialogState();
+}
+
+class _InstallDialogState extends State<_InstallDialog> {
+  bool _busy = false;
+  String? _error;
+
+  Future<void> _install() async {
+    setState(() {
+      _busy = true;
+      _error = null;
+    });
+    try {
+      await TkRunner.install(widget.py, widget.need.packages);
+      if (mounted) Navigator.pop(context, true);
+    } on UserError catch (e) {
+      if (mounted) setState(() => _error = e.message);
+    } catch (e) {
+      if (mounted) setState(() => _error = '$e');
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final need = widget.need;
+    final mono = const TextStyle(fontFamily: 'monospace', fontSize: 12);
+    return AlertDialog(
+      key: const ValueKey('tk-install'),
+      title: Text(need.title),
+      content: SizedBox(
+        width: 500,
+        child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                tr(
-                  'El icono de bandeja necesita pystray y Pillow en el Python de este equipo. Instálelos con esta orden:',
+              Text(need.why),
+              const SizedBox(height: 10),
+              Text(tr('Se puede instalar ahora, o a mano con esta orden:')),
+              const SizedBox(height: 6),
+              SelectableText(need.command, style: mono),
+              if (_busy) ...[
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        tr('Instalando {0}…', [need.packages.join(', ')]),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 8),
-              SelectableText(
-                install,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-              ),
-              const SizedBox(height: 8),
-              Text(tr('Sin ellos, la ventana funciona pero sin el icono.')),
+              ],
+              if (_error != null) ...[
+                const SizedBox(height: 14),
+                SelectableText(
+                  _error!,
+                  key: const ValueKey('tk-install-error'),
+                  style: mono.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+              ],
             ],
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(c, false),
-            child: Text(tr('Cancelar')),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(c, true),
-            child: Text(tr('Ejecutar sin icono')),
-          ),
-        ],
       ),
-    ) ??
-    false;
+      actions: [
+        TextButton(
+          onPressed: _busy
+              ? null
+              : () => Clipboard.setData(ClipboardData(text: need.command)),
+          child: Text(tr('Copiar la orden')),
+        ),
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.pop(context, false),
+          child: Text(tr('Cancelar')),
+        ),
+        if (need.optional)
+          TextButton(
+            onPressed: _busy ? null : () => Navigator.pop(context, true),
+            child: Text(tr('Ejecutar sin él')),
+          ),
+        FilledButton(
+          key: const ValueKey('tk-install-go'),
+          onPressed: _busy ? null : _install,
+          child: Text(tr('Instalar')),
+        ),
+      ],
+    );
+  }
+}
 
 /// Falta Python o le falta tkinter: qué instalar.
 Future<void> showTkPythonMissing(

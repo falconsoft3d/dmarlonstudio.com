@@ -287,6 +287,124 @@ class TkRunner {
         '-m pip install flask';
   }
 
+  /// Orden de pip que instala [packages] en [py].
+  static String pipCommand(TkPython py, List<String> packages) =>
+      '"${py.command}"${py.args.map((a) => ' $a').join()} -m pip install '
+      '${packages.map((x) => x.contains('[') ? '"$x"' : x).join(' ')}';
+
+  /// Lo que le falta a [py] para lanzar [prepared], en el orden en que se
+  /// comprueba al lanzarlo.
+  static Future<List<TkNeed>> needs(TkPrepared prepared, TkPython py) async {
+    final out = <TkNeed>[];
+    TkNeed need(
+      String title,
+      String why,
+      List<String> packages, {
+      bool optional = false,
+    }) => TkNeed(
+      title: title,
+      why: why,
+      packages: packages,
+      command: pipCommand(py, packages),
+      optional: optional,
+    );
+    if (prepared.web && await missingFlask(py) != null) {
+      out.add(
+        need(
+          tr('Falta Flask'),
+          tr(
+            'Las aplicaciones web necesitan Flask en el Python de este equipo.',
+          ),
+          const ['flask'],
+        ),
+      );
+    }
+    if (prepared.ai && await missingAnthropic(py) != null) {
+      out.add(
+        need(
+          tr('Falta el SDK de Anthropic'),
+          tr(
+            'El Asistente IA necesita el SDK de Anthropic en el Python de este equipo.',
+          ),
+          const ['anthropic'],
+        ),
+      );
+    }
+    final drivers = <String>{};
+    for (final l in prepared.links) {
+      if (!drivers.add(l.kind) || await missingDriver(l.kind, py) == null) {
+        continue;
+      }
+      out.add(
+        need(
+          tr('Falta un controlador de base de datos'),
+          tr('«{0}» necesita un controlador de Python.', [l.name]),
+          [l.kind == 'postgres' ? 'psycopg[binary]' : 'pymysql[rsa]'],
+        ),
+      );
+    }
+    if (prepared.tray && await missingTray(py) != null) {
+      out.add(
+        need(
+          tr('Faltan pystray y Pillow'),
+          tr(
+            'El icono de bandeja necesita pystray y Pillow. Sin ellos, la ventana funciona pero sin el icono.',
+          ),
+          const ['pystray', 'pillow'],
+          optional: true,
+        ),
+      );
+    }
+    return out;
+  }
+
+  /// Para las pruebas: instala sin lanzar pip.
+  static Future<String> Function(TkPython py, List<String> packages)?
+  installOverride;
+
+  /// Instala [packages] con el pip de [py]. Devuelve lo que escribió pip;
+  /// si falla, un UserError con su salida.
+  static Future<String> install(TkPython py, List<String> packages) async {
+    final o = installOverride;
+    if (o != null) return o(py, packages);
+    final ProcessResult r;
+    try {
+      r = await Process.run(
+        py.command!,
+        [
+          ...py.args,
+          '-m',
+          'pip',
+          'install',
+          '--disable-pip-version-check',
+          ...packages,
+        ],
+        environment: const {'PYTHONIOENCODING': 'utf-8'},
+      ).timeout(const Duration(minutes: 10));
+    } on TimeoutException {
+      throw UserError(tr('La instalación tardó demasiado.'));
+    } on ProcessException catch (e) {
+      throw UserError(tr('No se pudo lanzar Python: {0}', [e.message]));
+    }
+    final output = '${r.stdout}\n${r.stderr}'.trim();
+    if (r.exitCode != 0) {
+      final managed = output.contains('externally-managed-environment');
+      throw UserError(
+        [
+          tr('No se pudo instalar {0}.', [packages.join(', ')]),
+          if (managed)
+            tr(
+              'Este Python lo gestiona el sistema y no deja instalar paquetes con pip. Instale el Python de python.org y vuelva a intentarlo.',
+            ),
+          output.length > 1500
+              ? output.substring(output.length - 1500)
+              : output,
+        ].join('\n\n'),
+      );
+    }
+    return output;
+  }
+
   /// Lanza la ventana [prepared]: el archivo generado en `build/` del
   /// proyecto, con su carpeta como carpeta de trabajo.
   static Future<TkRun> start(TkPrepared prepared) async {

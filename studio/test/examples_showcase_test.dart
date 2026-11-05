@@ -444,53 +444,80 @@ out["check_product"] = db.execute("SELECT price, vat FROM product WHERE code = '
 ''';
 
 const _blog = r'''
+def act(_action, arg="", **form):
+    body = {"sid": boot["sid"], "widget": "Site", "event": "action",
+            "data": {"action": _action, "arg": str(arg), "form": form}}
+    reply = client.post("/event", json=body, headers=headers).get_json()
+    assert reply["notes"] == [], reply["notes"]
+    return reply.get("html", {}).get("Site", "")
+out["check_page"] = "Bitácora" in page and "Últimas entradas" in page and "tk-full" in page
+import sqlite3
+h = act("dashboard")
+out["check_need_login"] = "Entra en tu cuenta" in h and "Entra con tu cuenta para continuar" in h
+h = act("register", name="Eva", email="eva@x.com", password="short", password2="short")
+out["check_short"] = "al menos 8" in h
+h = act("register", name="Eva", email="Eva@X.com", password="secreto123", password2="secreto123")
+out["check_admin_dash"] = "Panel del blog" in h and "Hola, Eva." in h   # vuelve al panel pedido
 db = sqlite3.connect("blog.sqlite")
-out["check_seeded"] = db.execute("SELECT COUNT(*) FROM post").fetchone()[0] == 3
-reply = event("Posts", "select", Posts="1")
-out["check_render"] = "• Comentarios" in html(reply) and "**" not in html(reply)
-reply = event("BtnComment", Posts="1", CommentName="A", CommentText="hi")
-out["check_validation"] = db.execute("SELECT COUNT(*) FROM comment").fetchone()[0] == 1
-reply = event("BtnComment", Posts="1", CommentName="Bea", CommentText="<b>Hola</b>")
-out["check_comment"] = db.execute("SELECT COUNT(*) FROM comment").fetchone()[0] == 2
-out["check_escaped"] = "<b>Hola</b>" not in html(reply) and "&lt;b&gt;Hola" in html(reply)
-event("BtnNewPost")
-today = datetime.date.today().isoformat()
-fields = dict(EdTitle="Nueva entrada", EdSlug="", EdCategory="Pruebas", EdDate=today,
-              EdSummary="Resumen", EdBody="# Título\n- uno")
-event("BtnSavePost", **fields)
-out["check_saved"] = db.execute("SELECT slug FROM post WHERE title = 'Nueva entrada'").fetchone() == ("nueva-entrada",)
-event("BtnNewPost")
-reply = event("BtnSavePost", **fields)
-out["check_unique"] = db.execute("SELECT COUNT(*) FROM post").fetchone()[0] == 4 and "nueva-entrada" in json.dumps(reply, ensure_ascii=False)
-reply = event("CategoryFilter", "select", CategoryFilter="Pruebas")
-out["check_filter"] = "Nueva entrada" in html(reply) and "Bienvenida" not in html(reply)
-pid = db.execute("SELECT id FROM post WHERE title = 'Nueva entrada'").fetchone()[0]
-event("Posts", "select", Posts=str(pid))
-event("BtnEdit")
-event("BtnDeletePost")
-out["check_deleted"] = db.execute("SELECT COUNT(*) FROM post").fetchone()[0] == 3
+row = db.execute("SELECT email, role, hash FROM account").fetchone()
+out["check_stored"] = row[0] == "eva@x.com" and row[1] == "admin" and "secreto" not in row[2]
+h = act("save", "", title="Nueva <b>", category="1", author="0", published="1", summary="r", body="## Hola\n- uno")
+out["check_saved"] = "Nueva &lt;b&gt;" in h and "<h2>Hola</h2>" in h
+h = act("logout")
+out["check_logout"] = "Has salido" in h and "Crear cuenta" in h
+h = act("register", name="Leo", email="leo@x.com", password="secreto123", password2="secreto123")
+out["check_user_role"] = db.execute("SELECT role FROM account WHERE email='leo@x.com'").fetchone()[0] == "user"
+h = act("dashboard")
+out["check_no_panel"] = "solo para administración" in h
+h = act("comment", 1, text="<i>hola</i>")
+out["check_comment_as_user"] = db.execute("SELECT name FROM comment ORDER BY id DESC").fetchone()[0] == "Leo" and "&lt;i&gt;hola" in h
+act("logout")
+for i in range(5):
+    h = act("signin", email="eva@x.com", password="mala")
+h = act("signin", email="eva@x.com", password="secreto123")
+out["check_locked"] = "Demasiados intentos" in h
 ''';
 
 const _shop = r'''
+def act(_action, arg="", **form):
+    body = {"sid": boot["sid"], "widget": "Site", "event": "action",
+            "data": {"action": _action, "arg": str(arg), "form": form}}
+    reply = client.post("/event", json=body, headers=headers).get_json()
+    assert reply["notes"] == [], reply["notes"]
+    return reply.get("html", {}).get("Site", "")
+out["check_page"] = "Voltia" in page and "Ofertas de la semana" in page
+import sqlite3
 db = sqlite3.connect("tienda.sqlite")
-out["check_seeded"] = db.execute("SELECT COUNT(*) FROM product").fetchone()[0] == 6
-out["check_placeholder"] = os.path.exists("images/tienda_placeholder.png")
-reply = event("Products", "select", Products="1")
-out["check_image"] = os.path.exists("images/tienda_ropa.png") and "tienda_ropa.png" in html(reply)
-out["check_price"] = "24,08 €" in html(reply)
-out["check_png"] = client.get("/images/tienda_ropa.png").status_code == 200
-reply = event("BtnAddToCart", Products="1", Qty="2")
-out["check_cart"] = "Carrito: 2" in html(reply)
-reply = event("BtnAddToCart", Products="1", Qty="99")
-out["check_stock_limit"] = "Solo quedan" in json.dumps(reply, ensure_ascii=False)
-reply = event("BtnCheckout", CustomerName="Eva", CustomerEmail="eva", CustomerAddress="Calle 1")
-out["check_email"] = db.execute("SELECT COUNT(*) FROM orders").fetchone()[0] == 0
-reply = event("BtnCheckout", CustomerName="Eva", CustomerEmail="eva@example.com", CustomerAddress="Calle 1")
-order = db.execute("SELECT id, total, status FROM orders").fetchone()
-out["check_order"] = order is not None and order[1] == "48.16" and order[2] == "new"
-out["check_stock"] = db.execute("SELECT stock FROM product WHERE id = 1").fetchone()[0] == 23
-out["check_empty_cart"] = "Carrito: 0" in html(reply)
-event("Orders", "select", Orders=str(order[0]))
-event("BtnShipped", Orders=str(order[0]))
+out["check_seeded"] = db.execute("SELECT COUNT(*) FROM product").fetchone()[0] == 12
+h = act("add", 6, qty="2")
+out["check_added"] = "se ha añadido" in h and "<span>2</span>" in h
+h = act("add", 6, qty="5")
+out["check_stock_limit"] = "Solo quedan 3" in h
+h = act("checkout")
+out["check_need_login"] = "Entra en tu cuenta" in h
+h = act("register", name="Ana", email="ana@x.com", password="secreto123", password2="secreto123")
+out["check_back_to_checkout"] = "Datos de envío" in h and "ana@x.com" in h and 'value="Ana"' in h
+h = act("pay", name="Ana", address="", city="", zip="")
+out["check_validation"] = "Revise sus datos" in h and db.execute("SELECT COUNT(*) FROM orders").fetchone()[0] == 0
+h = act("pay", name="Ana <b>", address="Calle 1", city="Sevilla", zip="41001", payment="cod")
+order = db.execute("SELECT id, total, user_id, payment, name FROM orders").fetchone()
+out["check_order"] = order is not None and order[1] == 49800 and order[2] == 1 and order[3] == "Contra reembolso"
+out["check_escaped"] = "Ana &lt;b&gt;" in h and "Ana <b>" not in h
+out["check_stock"] = db.execute("SELECT stock, sold FROM product WHERE id = 6").fetchone()[0] == 1
+h = act("account")
+out["check_my_orders"] = "Pulse ANC × 2" in h
+h = act("dashboard")
+out["check_admin_dash"] = "Panel de la tienda" in h and "498,00 €" in h
+h = act("ship", order[0])
 out["check_shipped"] = db.execute("SELECT status FROM orders").fetchone()[0] == "shipped"
+h = act("restock", 6, qty="20")
+out["check_restock"] = db.execute("SELECT stock FROM product WHERE id = 6").fetchone()[0] == 21
+act("logout")
+act("register", name="Bea", email="bea@x.com", password="secreto123", password2="secreto123")
+h = act("dashboard")
+out["check_not_admin"] = "solo para administración" in h
+h = act("restock", 6, qty="20")
+out["check_no_restock"] = db.execute("SELECT stock FROM product WHERE id = 6").fetchone()[0] == 21
+h = act("account")
+out["check_own_orders_only"] = "Aún no has hecho" in h
 ''';

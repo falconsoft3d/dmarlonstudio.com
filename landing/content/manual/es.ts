@@ -116,7 +116,9 @@ export const manualEs: Manual = {
                 ["**Informes** (web)", "Una tabla de ventas exportada a PDF y a Excel"],
                 ["**Visor 3D**", "Figuras en 3D dibujadas en un lienzo: giro con el ratón, animación, luz y modo alambre"],
                 ["**Correo**", "Recibir por IMAP y enviar por SMTP con adjuntos, sin congelar la ventana"],
-                ["**CRM web**, **Facturador web**, **Blog web**, **Tienda web**", "Aplicaciones web completas con SQLite"],
+                ["**CRM web**, **Facturador web**", "Aplicaciones web completas con SQLite"],
+                ["**Blog web**", "Una web de verdad con la Vista HTML: portada, artículos, comentarios, boletín, cuentas con login y registro, y panel"],
+                ["**Tienda web**", "Tienda de electrónica: ofertas, carrito, cuentas, pago simulado, «Mi cuenta» y panel de ventas y stock"],
                 ["**Contactos de Odoo / ERPSqlite** (web)", "Conectarse a un Odoo por XML-RPC"],
               ],
             },
@@ -385,6 +387,7 @@ export const manualEs: Manual = {
                 "**Detener** cierra la ventana o el servidor en marcha.",
                 "**Ver la salida** abre el panel con lo que la aplicación escribe (`print`, errores de Python) y el Python usado.",
                 "En una aplicación web, el estudio arranca el servidor de Flask en este equipo y abre el navegador; **Abrir en el navegador** vuelve a abrirla. Solo se llega a ella desde este equipo.",
+                "Si falta un paquete de Python (Flask, el SDK de Anthropic, un controlador de base de datos o pystray), el estudio lo dice antes de ejecutar y ofrece **Instalar**: lo instala con el pip del mismo Python que ejecuta el proyecto y después sigue. También puede **Copiar la orden** para hacerlo a mano.",
               ],
             },
           ],
@@ -409,6 +412,38 @@ export const manualEs: Manual = {
             {
               type: "note",
               text: "Las contraseñas no se escriben en el archivo generado: llegan al proceso en variables de entorno `DMSTUDIO_DB_…`. Un archivo exportado las lee del entorno.",
+            },
+          ],
+        },
+        {
+          id: "vista-html",
+          title: "Vista HTML: webs de verdad",
+          blocks: [
+            {
+              type: "p",
+              text: "La **Vista HTML** muestra HTML escrito por su código. Con **Página completa (web)** activada, la página entera es esa vista: sin el marco del formulario, con su propio CSS, como una web normal. Así están hechos los ejemplos **Blog web** y **Tienda web**.",
+            },
+            {
+              type: "ul",
+              items: [
+                "`self.Site.set_html(html, top=True)` cambia el contenido (`top` vuelve al principio de la página).",
+                "Un enlace o botón con `data-action=\"post\" data-arg=\"7\"` llama al evento **Al pulsar un enlace o enviar un formulario** con un `HtmlAction`: `action.name` es `post` y `action.arg` es `7`.",
+                "Un `<form data-action=\"buscar\">` envía sus campos: se leen con `action.get(\"q\")` o en `action.form`.",
+                "En el escritorio, la vista muestra el HTML sencillo (títulos, párrafos, listas, enlaces y formularios) en un texto; los estilos CSS solo se aplican en la web.",
+              ],
+            },
+            {
+              type: "code",
+              code: "import html\n\nclass Form1(FormDesign):\n    def form_create(self):\n        self.Site.set_html('<h1>Hola</h1><a href=\"#\" data-action=\"saludar\">Saludar</a>')\n\n    def Site_action(self, action):\n        if action.name == \"saludar\":\n            nombre = html.escape(action.get(\"nombre\", \"mundo\"))\n            self.Site.set_html(\"<h1>Hola, %s</h1>\" % nombre, top=True)",
+            },
+            {
+              type: "note",
+              tone: "warn",
+              text: "La Vista HTML pinta el HTML tal cual: escape siempre con `html.escape` lo que escriba el visitante. La página solo ejecuta los scripts del propio motor, así que un `<script>` dentro del HTML no se ejecuta.",
+            },
+            {
+              type: "p",
+              text: "El **Blog web** y la **Tienda web** traen cuentas de usuario: **Crear cuenta**, **Entrar** y **Salir**. Las contraseñas se guardan con PBKDF2 y sal, nunca en claro, y tras cinco intentos fallidos hay que esperar un minuto. La primera cuenta que se registra es la de administración y ve el **Panel**: en el blog, las entradas, los comentarios y los papeles de los usuarios; en la tienda, las ventas por categoría, los pedidos y el stock. En la tienda, cada cliente ve sus pedidos en **Mi cuenta**.",
             },
           ],
         },

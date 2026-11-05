@@ -46,6 +46,7 @@ IconData tkIcon(String kind) => switch (kind) {
   'PdfReport' => LucideIcons.fileText,
   'ExcelReport' => LucideIcons.fileSpreadsheet,
   'Chart' => LucideIcons.chartLine,
+  'HtmlView' => LucideIcons.codeXml,
   _ => LucideIcons.box,
 };
 
@@ -731,6 +732,8 @@ class TkPreview extends StatelessWidget {
             grid: w.props['grid'] != false,
           ),
         );
+      case 'HtmlView':
+        return _HtmlPreview(w: w, bg: ownBg);
       case 'Canvas':
         return Container(
           decoration: BoxDecoration(
@@ -1558,6 +1561,81 @@ class _TkFormCanvasState extends State<TkFormCanvas> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Vista previa de una Vista HTML: el texto de su HTML, sin etiquetas, con
+/// los títulos resaltados.
+class _HtmlPreview extends StatelessWidget {
+  const _HtmlPreview({required this.w, this.bg});
+
+  final TkWidget w;
+  final Color? bg;
+
+  static const _line = Color(0xFF8A8F98);
+
+  static final _skip = RegExp(
+    r'<(style|script|head|svg)[^>]*>.*?</\1>',
+    caseSensitive: false,
+    dotAll: true,
+  );
+  static final _block = RegExp(
+    r'<(?:/?(?:p|div|li|h[1-6]|br|tr|section|article|header|footer|nav|form)\b)[^>]*>',
+    caseSensitive: false,
+  );
+  static final _tag = RegExp(r'<[^>]+>');
+
+  static List<String> lines(String html) {
+    final plain = html
+        .replaceAll(_skip, '')
+        .replaceAll(_block, '\n')
+        .replaceAll(_tag, '')
+        .replaceAll('&amp;', '&')
+        .replaceAll('&lt;', '<')
+        .replaceAll('&gt;', '>')
+        .replaceAll('&nbsp;', ' ');
+    return [
+      for (final l in plain.split('\n'))
+        if (l.trim().isNotEmpty) l.trim().replaceAll(RegExp(r'\s+'), ' '),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = lines(w.text('html'));
+    return Container(
+      decoration: BoxDecoration(
+        color: bg ?? Colors.white,
+        border: Border.all(color: _line.withValues(alpha: .5)),
+      ),
+      padding: const EdgeInsets.all(10),
+      clipBehavior: Clip.hardEdge,
+      child: shown.isEmpty
+          ? Center(
+              child: Icon(
+                LucideIcons.codeXml,
+                size: 18,
+                color: _line.withValues(alpha: .6),
+              ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final (i, l) in shown.take(40).indexed)
+                  Text(
+                    l,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: i == 0 ? 16 : 11,
+                      fontWeight: i == 0 ? FontWeight.bold : FontWeight.normal,
+                      color: const Color(0xFF1F2328),
+                      height: 1.4,
+                    ),
+                  ),
+              ],
+            ),
     );
   }
 }

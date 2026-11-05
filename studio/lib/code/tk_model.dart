@@ -883,6 +883,36 @@ final tkComponents = <TkComponent>[
     ],
   ),
   TkComponent(
+    'HtmlView',
+    markTr('Vista HTML'),
+    420,
+    300,
+    [
+      TkProp('html', markTr('HTML'), TkPropType.multiline, def: ''),
+      TkProp(
+        'full_page',
+        markTr('Página completa (web)'),
+        TkPropType.boolean,
+        def: false,
+      ),
+      _bg,
+      TkProp(
+        'font_size',
+        markTr('Tamaño de letra'),
+        TkPropType.integer,
+        def: 0,
+      ),
+    ],
+    [
+      TkEvent(
+        'action',
+        markTr('Al pulsar un enlace o enviar un formulario'),
+        'action',
+        param: 'action',
+      ),
+    ],
+  ),
+  TkComponent(
     'Treeview',
     markTr('Tabla de datos'),
     320,

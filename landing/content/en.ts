@@ -58,8 +58,8 @@ export const en: Content = {
       { seed: "calculator", name: "Calculator", text: "Buttons, events and state: the first example." },
       { seed: "web_crm", name: "CRM web", text: "Opportunities by stage and pipeline value, in Flask." },
       { seed: "web_invoicing", name: "Invoicing web", text: "Invoices with VAT, numbering and download." },
-      { seed: "web_shop", name: "Web shop", text: "Catalog, cart and orders with simulated payment." },
-      { seed: "web_blog", name: "Blog web", text: "Posts, categories, comments and an editor." },
+      { seed: "web_shop", name: "Web shop", text: "A real-looking shop: deals, cart, accounts, simulated payment and a sales dashboard." },
+      { seed: "web_blog", name: "Web blog", text: "A real-looking blog: home page, articles, comments, accounts and a dashboard." },
     ],
   },
   sections: [

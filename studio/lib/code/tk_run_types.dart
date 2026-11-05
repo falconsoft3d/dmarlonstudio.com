@@ -43,6 +43,31 @@ class TkPython {
       : TkPython(command: serverCommand, args: serverArgs, help: help);
 }
 
+/// Paquete de Python que le falta a un proyecto para ejecutarse.
+class TkNeed {
+  const TkNeed({
+    required this.title,
+    required this.why,
+    required this.packages,
+    required this.command,
+    this.optional = false,
+  });
+
+  final String title;
+
+  /// Para qué hace falta.
+  final String why;
+
+  /// Lo que se le pasa a pip.
+  final List<String> packages;
+
+  /// La orden para instalarlo a mano.
+  final String command;
+
+  /// Se puede ejecutar sin él (con menos funciones).
+  final bool optional;
+}
+
 /// Conexión guardada que usa una ventana: los datos solo salen de aquí, al
 /// lanzarla, hacia el entorno de su proceso (nunca al archivo generado).
 class TkDbLink {

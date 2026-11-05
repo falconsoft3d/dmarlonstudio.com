@@ -348,6 +348,7 @@ export const manualEn: Manual = {
                 "**Stop** closes the running window or server.",
                 "**Show output** opens the panel with what the app writes (`print`, Python errors) and the Python used.",
                 "For a web app, the studio starts the Flask server on this computer and opens the browser; **Open in browser** opens it again. It can only be reached from this computer.",
+                "If a Python package is missing (Flask, the Anthropic SDK, a database driver or pystray), the studio says so before running and offers **Install**: it installs it with the pip of the same Python that runs the project and then carries on. You can also **Copy the command** to do it by hand.",
               ],
             },
           ],
@@ -383,7 +384,9 @@ export const manualEn: Manual = {
                 ["**Reports** (web)", "A sales table exported to PDF and Excel"],
                 ["**3D viewer**", "3D shapes drawn on a canvas: mouse rotation, animation, lighting and wireframe mode"],
                 ["**Email**", "Receive over IMAP and send over SMTP with attachments, without freezing the window"],
-                ["**CRM web**, **Invoicing web**, **Blog web**, **Web shop**", "Complete web apps with SQLite"],
+                ["**CRM web**, **Invoicing web**", "Complete web apps with SQLite"],
+                ["**Web blog**", "A real website made with the HTML view: home page, articles, comments, newsletter, accounts with login and sign-up, and a dashboard"],
+                ["**Web shop**", "Electronics shop: deals, cart, accounts, simulated payment, “My account” and a sales and stock dashboard"],
                 ["**Odoo / ERPSqlite contacts** (web)", "Connecting to an Odoo over XML-RPC"],
               ],
             },
@@ -409,6 +412,38 @@ export const manualEn: Manual = {
             {
               type: "note",
               text: "Passwords are never written to the generated file: they reach the process in `DMSTUDIO_DB_…` environment variables. An exported file reads them from the environment.",
+            },
+          ],
+        },
+        {
+          id: "html-view",
+          title: "HTML view: real websites",
+          blocks: [
+            {
+              type: "p",
+              text: "The **HTML view** shows HTML written by your code. With **Full page (web)** switched on, the whole page is that view: no form frame, its own CSS, like a normal website. The **Web blog** and **Web shop** examples are made this way.",
+            },
+            {
+              type: "ul",
+              items: [
+                "`self.Site.set_html(html, top=True)` changes the content (`top` goes back to the top of the page).",
+                "A link or button with `data-action=\"post\" data-arg=\"7\"` calls the **On clicking a link or sending a form** event with an `HtmlAction`: `action.name` is `post` and `action.arg` is `7`.",
+                "A `<form data-action=\"search\">` sends its fields: read them with `action.get(\"q\")` or in `action.form`.",
+                "On the desktop, the view shows simple HTML (headings, paragraphs, lists, links and forms) in a text box; CSS styles only apply on the web.",
+              ],
+            },
+            {
+              type: "code",
+              code: "import html\n\nclass Form1(FormDesign):\n    def form_create(self):\n        self.Site.set_html('<h1>Hello</h1><a href=\"#\" data-action=\"greet\">Greet</a>')\n\n    def Site_action(self, action):\n        if action.name == \"greet\":\n            name = html.escape(action.get(\"name\", \"world\"))\n            self.Site.set_html(\"<h1>Hello, %s</h1>\" % name, top=True)",
+            },
+            {
+              type: "note",
+              tone: "warn",
+              text: "The HTML view paints HTML as is: always escape what the visitor writes with `html.escape`. The page only runs the engine's own scripts, so a `<script>` inside the HTML does not run.",
+            },
+            {
+              type: "p",
+              text: "The **Web blog** and **Web shop** come with user accounts: **Sign up**, **Log in** and **Log out**. Passwords are stored with PBKDF2 and a salt, never in clear text, and after five failed attempts you have to wait a minute. The first account to sign up is the administrator and sees the **Dashboard**: in the blog, posts, comments and user roles; in the shop, sales by category, orders and stock. In the shop, every customer sees their orders in **My account**.",
             },
           ],
         },

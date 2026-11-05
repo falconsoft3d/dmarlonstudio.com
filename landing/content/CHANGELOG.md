@@ -3,6 +3,28 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.19 — 2026-11-05
+
+- Componente **Vista HTML** (escritorio y web): HTML escrito por el código,
+  con enlaces y formularios `data-action` que llaman al evento **Al pulsar un
+  enlace o enviar un formulario** con un `HtmlAction`. Con **Página completa
+  (web)** la página entera es la vista: una web normal, con su propio CSS.
+  En el escritorio muestra el HTML sencillo con enlaces y formularios.
+- **Blog web** y **Tienda web** rehechos como webs de verdad, con diseño
+  propio: portada, categorías, buscador, artículos con comentarios y boletín
+  en el blog; ofertas, ficha de producto, carrito, pago simulado y
+  confirmación en la tienda.
+- Los dos traen **cuentas**: crear cuenta, entrar y salir, con contraseñas en
+  PBKDF2 con sal y espera tras cinco fallos. La primera cuenta es la de
+  administración y ve el **Panel**: entradas, comentarios y papeles en el
+  blog; ventas por categoría, pedidos y stock en la tienda, donde cada
+  cliente ve sus pedidos en **Mi cuenta**.
+- Si a un proyecto le falta un paquete de Python (Flask, el SDK de
+  Anthropic, un controlador de base de datos o pystray), el estudio ofrece
+  **Instalar** con el pip del mismo Python que lo ejecuta, y después sigue.
+- Landing: el carrusel muestra el blog y la tienda tal como se ven en el
+  navegador.
+
 ## 1.0.18 — 2026-11-05
 
 - **Servidor MCP** para conectar DMarlon Studio con Claude (Ajustes →

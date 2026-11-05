@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import '../core/errors.dart';
 import 'tk_chart.dart';
 import 'tk_helpers.dart';
+import 'tk_html_view.dart';
 import 'tk_ai_component.dart';
 import 'tk_reports.dart';
 import 'tk_model.dart';
@@ -700,6 +701,31 @@ class TkCodegen {
       );
   }
 
+  /// Vista HTML: el HTML sencillo en un texto (DesignHtml). A página
+  /// completa ocupa toda la ventana.
+  static void _htmlView(StringBuffer b, TkDesign d, TkWidget w) {
+    final self = 'self.${w.name}';
+    final (x, y) = placeOf(d, w);
+    final size = w.props['font_size'];
+    final full = w.props['full_page'] == true && w.parent == null;
+    b
+      ..writeln('$_in# ${w.name}')
+      ..writeln(
+        _call('$self = DesignHtml', [
+          parentOf(d, w),
+          if (w.text('html').isNotEmpty) 'html=${TkPy.str(w.text('html'))}',
+          if (w.events['action'] case final m?) 'command=self.$m',
+          'bg=${TkPy.str(color(w.props['bg']) ?? '#ffffff')}',
+          if (size is int && size > 0) 'font_size=$size',
+        ]),
+      )
+      ..writeln(
+        full
+            ? '$_in$self.place(x=0, y=0, relwidth=1, relheight=1)'
+            : '$_in$self.place(x=$x, y=$y, width=${w.width}, height=${w.height})',
+      );
+  }
+
   /// Imagen de un archivo del proyecto.
   static void _image(StringBuffer b, TkDesign d, TkWidget w) {
     final self = 'self.${w.name}';
@@ -937,6 +963,7 @@ class TkCodegen {
     if (w.kind == 'Password') return _password(b, d, w);
     if (w.kind == 'Image') return _image(b, d, w);
     if (w.kind == 'Chart') return _chart(b, d, w);
+    if (w.kind == 'HtmlView') return _htmlView(b, d, w);
     if (w.kind == 'PageControl') return _pages(b, d, w);
     if (w.kind == 'RestClient') {
       b
@@ -1205,6 +1232,9 @@ class TkCodegen {
     }
     if (d.widgets.any((w) => w.kind == 'AiAssistant')) {
       b.write(tkAiAssistantPython);
+    }
+    if (d.widgets.any((w) => w.kind == 'HtmlView')) {
+      b.write(tkHtmlViewPython);
     }
     if (d.widgets.any((w) => w.kind == 'Chart')) {
       b

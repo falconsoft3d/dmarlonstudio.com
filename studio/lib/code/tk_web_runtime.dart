@@ -94,6 +94,8 @@ WIDGETS = r"""
 </div>
 {%- elif w.kind == "StatusBar" -%}
 <div id="{{ w.name }}" class="tk tk-status" style="{{ w.style() }}" data-on="{{ w.on() }}">{% if w.cget("icon") %}<span class="tk-sicon">{{ w.cget("icon") }}</span>{% endif %}<span>{{ w.cget("text") }}</span></div>
+{%- elif w.kind == "HtmlView" -%}
+<div id="{{ w.name }}" class="tk tk-html{% if w.full() %} tk-html-full{% endif %}"{% if not w.full() %} style="{{ w.style() }}"{% endif %} data-on="{{ w.on() }}">{{ w.content() | safe }}</div>
 {%- elif w.kind == "Chart" -%}
 <div id="{{ w.name }}" class="tk tk-chart" style="{{ w.style() }}" data-on="{{ w.on() }}">{{ w.svg() | safe }}</div>
 {%- elif w.kind == "Progressbar" -%}
@@ -133,6 +135,8 @@ html, body { margin: 0; padding: 0; }
 body { font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; color: #000; }
 .tk-form { position: relative; margin: 0 auto; overflow: hidden; transform-origin: top left; }
 .tk { position: absolute; box-sizing: border-box; margin: 0; font: inherit; }
+.tk-html { overflow: auto; }
+.tk-full, .tk-html-full { position: static; width: auto; height: auto; overflow: visible; }
 input.tk, textarea.tk, select.tk { background: #fff; color: #000; border: 1px solid #8a8f98; padding: 2px 4px; }
 textarea.tk { resize: none; }
 button.tk { cursor: pointer; padding: 0 6px; }
@@ -196,9 +200,15 @@ button.tk { cursor: pointer; padding: 0 6px; }
 </head>
 <body style="background:{{ form.root.bg }}">
 {%- for w in form._menus() %}{{ widget(w) }}{% endfor -%}
+{%- if form._full_page() %}
+<main id="tk-form" class="tk-full" data-on="{{ form._keys("") }}">
+{%- for w in form._full_page() %}{{ widget(w) }}{% endfor -%}
+</main>
+{%- else %}
 <main id="tk-form" class="tk-form" style="width:{{ form.root.width }}px;height:{{ form.root.height }}px;background:{{ form.root.bg }}{% if form.root.place_at %};margin:{{ form.root.place_at[1] }}px 0 0 {{ form.root.place_at[0] }}px{% endif %}" data-on="{{ form._keys("") }}">
 {%- for w in form._top() %}{{ widget(w) }}{% endfor -%}
 </main>
+{%- endif %}
 <div id="tk-toast" role="alert" hidden></div>
 <script type="application/json" id="tk-boot">{{ boot|tojson }}</script>
 <script nonce="{{ nonce }}">
@@ -228,6 +238,7 @@ button.tk { cursor: pointer; padding: 0 6px; }
   var hide = null;
 
   function fit() {
+    if (form.classList.contains("tk-full")) { return; }
     var scale = Math.min(1, document.documentElement.clientWidth / boot.width);
     form.style.transform = scale < 1 ? "scale(" + scale + ")" : "";
     document.body.style.height = scale < 1 ? boot.height * scale + "px" : "";
@@ -280,6 +291,7 @@ button.tk { cursor: pointer; padding: 0 6px; }
       }
     });
     if (reply.title) { document.title = reply.title; }
+    if (reply.scroll_top) { window.scrollTo(0, 0); }
     if (reply.bg) {
       form.style.background = reply.bg;
       document.body.style.background = reply.bg;
@@ -384,6 +396,15 @@ button.tk { cursor: pointer; padding: 0 6px; }
   });
 
   document.addEventListener("click", function (event) {
+    var act = event.target.closest ? event.target.closest(".tk-html [data-action]") : null;
+    if (act && act.tagName !== "FORM") {
+      var view = act.closest(".tk-html");
+      event.preventDefault();
+      if (has(view, "action")) {
+        post({ widget: view.id, event: "action", data: { action: act.dataset.action, arg: act.dataset.arg || "" } });
+      }
+      return;
+    }
     var choice = event.target.closest ? event.target.closest(".tk-menu [data-item], .tk-ribbon [data-item]") : null;
     if (choice) {
       var menu = choice.closest(".tk-menu, .tk-ribbon");
@@ -440,6 +461,21 @@ button.tk { cursor: pointer; padding: 0 6px; }
       row.classList.add("tk-chosen");
       el.dataset.selected = row.dataset.iid;
       fire(el, "select", event);
+    }
+  });
+
+  document.addEventListener("submit", function (event) {
+    var sent = event.target;
+    var view = sent.closest ? sent.closest(".tk-html") : null;
+    if (!view || !sent.dataset.action) { return; }
+    event.preventDefault();
+    var fields = {};
+    new FormData(sent).forEach(function (value, key) {
+      if (typeof value !== "string") { return; }
+      fields[key] = key in fields ? [].concat(fields[key], value) : value;
+    });
+    if (has(view, "action")) {
+      post({ widget: view.id, event: "action", data: { action: sent.dataset.action, arg: sent.dataset.arg || "", form: fields } });
     }
   });
 
@@ -1061,6 +1097,65 @@ class WebImage(WebWidget):
         self.form._touch(self.name)
 
 
+class HtmlAction:
+    """What a click on a link or a sent form of a Vista HTML brings: name
+    (its data-action), arg (its data-arg) and form (the fields sent).
+    """
+
+    def __init__(self, name, arg="", form=None):
+        self.name = name
+        self.arg = arg
+        self.form = form or {}
+
+    def get(self, key, default=""):
+        value = self.form.get(key, default)
+        if isinstance(value, list):
+            return value[-1] if value else default
+        return value
+
+    def __repr__(self):
+        return "HtmlAction(%r, %r)" % (self.name, self.arg)
+
+
+class WebHtml(WebWidget):
+    """Vista HTML: a piece of a page written in HTML. Links and forms with
+    data-action="..." call the action event with an HtmlAction. With
+    full_page, the page is only this view: a normal web.
+    """
+
+    def full(self):
+        return bool(self.options.get("full_page"))
+
+    def content(self):
+        return str(self.options.get("html") or "")
+
+    def set_html(self, html, top=False):
+        """Show other HTML. top=True goes back to the top of the page."""
+        self.options["html"] = str(html)
+        self.form._touch(self.name)
+        if top:
+            self.form._changes["scroll_top"] = True
+
+    def read(self):
+        return self.content()
+
+    def write(self, value):
+        self.set_html(value)
+
+    def action(self, info):
+        form = info.get("form")
+        fields = {}
+        if isinstance(form, dict):
+            for key, value in form.items():
+                if isinstance(value, list):
+                    fields[str(key)] = [str(v) for v in value]
+                else:
+                    fields[str(key)] = str(value)
+        return HtmlAction(
+            str(info.get("action") or ""), str(info.get("arg") or ""), fields
+        )
+
+
 class WebSaveDialog:
     """Saving from a page is a download: write_text(text), write_bytes(data)
     or download(name, data) send the file to the browser. execute() cannot
@@ -1221,6 +1316,7 @@ WEB_CLASSES = {
     "Listbox": WebListbox,
     "Scale": WebScale,
     "Treeview": WebGrid,
+    "HtmlView": WebHtml,
 }
 
 
@@ -1329,6 +1425,14 @@ class WebForm:
             if w.parent is None and w.kind != "Menu"
         ]
 
+    def _full_page(self):
+        """Vistas HTML a página completa: la página es solo eso."""
+        return [
+            w
+            for w in self._widgets.values()
+            if w.kind == "HtmlView" and w.parent is None and w.cget("full_page")
+        ]
+
     def _menus(self):
         return [w for w in self._widgets.values() if w.kind == "Menu"]
 
@@ -1381,6 +1485,11 @@ class WebForm:
             elif key == "change" and widget.kind == "Ribbon":
                 for handler in self._handlers.get((name, key), ()):
                     self._call(handler)
+            return self._reply()
+        if widget is not None and key == "action" and hasattr(widget, "action"):
+            act = widget.action(info)
+            for handler in self._handlers.get((name, key), ()):
+                self._call(handler, act)
             return self._reply()
         for handler in self._handlers.get((name, key), ()):
             if key != "command":

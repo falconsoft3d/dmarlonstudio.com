@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "set-unordered-map-y-deque",
+    "title": "set, unordered_map y deque",
+    "summary": "Elija el contenedor de C++ adecuado: std::set para valores únicos ordenados, std::unordered_map para contar visitas y std::deque para una cola.",
+    "body": [
+      "**`std::set`** guarda valores **únicos** y siempre **ordenados**: se insertan seis etiquetas, pero `cpp` y `linux` están repetidas y quedan cuatro, en orden alfabético. `count(\"gui\")` vale 1 si está y 0 si no (C++20 añade `contains`). Buscar en un `set` es rápido incluso con millones de elementos.",
+      "**`std::unordered_map`** es una **tabla hash**: como `std::map`, relaciona claves y valores, pero no las ordena, y a cambio busca en un tiempo casi constante. `++visits[page]` cuenta las visitas de cada página: los corchetes crean la clave con valor 0 si no existe.",
+      "El orden en que un `unordered_map` recorre sus elementos depende de la implementación, así que el programa no lo recorre: pregunta por cada página en un orden fijo con **`find`**, que devuelve `end()` si la clave no está y, a diferencia de los corchetes, no la añade. Por eso `/blog` da 0 sin crearse.",
+      "**`std::deque`** (*double-ended queue*) añade y quita rápido por los dos extremos: `push_back` pone «photo.png» al final y `push_front` cuela «URGENT.pdf» al principio. El bucle atiende la cola de impresión con `front()` y `pop_front()` hasta que `empty()` es verdadero."
+    ],
+    "points": [
+      "`std::set`: valores únicos y ordenados.",
+      "`std::unordered_map`: búsquedas muy rápidas, sin orden.",
+      "`m[clave]` crea la clave si no existe; `find` no.",
+      "No dependa del orden de un `unordered_map`: ordene antes de escribir.",
+      "`std::deque`: inserción y borrado rápidos por delante y por detrás."
+    ],
+    "exercise": "Copie las visitas a un `std::vector<std::pair<std::string, int>>`, ordénelo de más a menos visitas y escriba la clasificación de páginas."
+  },
+  "en": {
+    "slug": "set-unordered-map-and-deque",
+    "title": "set, unordered_map and deque",
+    "summary": "Choose the right C++ container: std::set for unique sorted values, std::unordered_map to count page visits and std::deque for a print queue.",
+    "body": [
+      "**`std::set`** stores **unique** values and keeps them **sorted**: six tags go in, but `cpp` and `linux` are repeated, so four remain, in alphabetical order. `count(\"gui\")` is 1 if it is there and 0 if not (C++20 adds `contains`). Looking things up in a `set` is fast even with millions of elements.",
+      "**`std::unordered_map`** is a **hash table**: like `std::map`, it links keys to values, but it does not sort them, and in exchange its look-ups take almost constant time. `++visits[page]` counts each page's visits: the square brackets create the key with a value of 0 if it is missing.",
+      "The order in which an `unordered_map` walks its elements depends on the implementation, so the program does not walk it: it asks for each page in a fixed order with **`find`**, which returns `end()` when the key is missing and, unlike the square brackets, does not add it. That is why `/blog` gives 0 without being created.",
+      "**`std::deque`** (*double-ended queue*) adds and removes quickly at both ends: `push_back` puts \"photo.png\" at the back and `push_front` lets \"URGENT.pdf\" jump the queue. The loop serves the print queue with `front()` and `pop_front()` until `empty()` is true."
+    ],
+    "points": [
+      "`std::set`: unique, sorted values.",
+      "`std::unordered_map`: very fast look-ups, no order.",
+      "`m[key]` creates the key if missing; `find` does not.",
+      "Do not rely on an `unordered_map`'s order: sort before printing.",
+      "`std::deque`: fast insertion and removal at the front and the back."
+    ],
+    "exercise": "Copy the visits into a `std::vector<std::pair<std::string, int>>`, sort it from most to fewest visits and print the page ranking."
+  }
+}

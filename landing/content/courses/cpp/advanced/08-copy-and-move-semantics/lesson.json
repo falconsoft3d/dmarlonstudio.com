@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "semantica-de-copia-y-movimiento",
+    "title": "Copiar y mover",
+    "summary": "Distinga entre copiar y mover en C++: la regla de los cinco, std::move y noexcept, con una imagen que gestiona su propia memoria.",
+    "body": [
+      "`Image` reserva sus píxeles con `new int[size]()` y los libera en el destructor. Una clase que gestiona memoria a mano necesita la **regla de los cinco**: si escribe el destructor, escriba también el constructor de copia, el de movimiento y las asignaciones de copia y de movimiento. Si no, la copia que genera el compilador copiaría solo el puntero, y las dos imágenes liberarían la misma memoria.",
+      "El **constructor de copia**, `Image(const Image& o)`, hace una copia **profunda**: reserva memoria nueva y copia cada píxel. Es lo que ocurre en `Image backup = photo;`, y cuesta copiar dos millones de valores.",
+      "El **constructor de movimiento**, `Image(Image&& o)`, recibe una **referencia a rvalue** (`&&`), un objeto que ya no se va a usar. En vez de copiar, se queda con su puntero y deja el original vacío pero válido (`nullptr` y tamaño 0). **`std::move(photo)`** no mueve nada por sí solo: solo indica que se puede robar de ahí, y después `photo.size()` vale 0. Se marca **`noexcept`** para que `std::vector` se atreva a mover en lugar de copiar cuando crece.",
+      "En `album.push_back(Image(640 * 480))` la imagen es un temporal, así que se mueve sin pedirlo; con `std::move(backup)` se mueve también una variable con nombre. `reserve(2)` evita que el vector se amplíe a mitad y mueva elementos de más.",
+      "La asignación usa el modismo **copiar e intercambiar**: `operator=(Image o)` recibe el parámetro por valor (copiado o movido, según lo que se le pase) y lo intercambia con `std::swap`; el destructor de `o` libera los píxeles viejos. Una sola función cubre las dos asignaciones. En la práctica, si usa `std::vector` o punteros inteligentes en lugar de `new`, no tendrá que escribir ninguna de las cinco: es la **regla del cero**."
+    ],
+    "points": [
+      "Copiar duplica los datos; mover traspasa los recursos y deja el original vacío.",
+      "`T(const T&)` copia y `T(T&&)` mueve.",
+      "`std::move(x)` convierte `x` en algo que se puede mover; no lo use después salvo para asignarle.",
+      "Marque el constructor de movimiento como `noexcept`.",
+      "Regla de los cinco si gestiona recursos a mano; regla del cero si no."
+    ],
+    "exercise": "Quite `album.reserve(2);` y vuelva a ejecutar el programa. Cuente los mensajes `move` de más que aparecen y explique de dónde salen."
+  },
+  "en": {
+    "slug": "copy-and-move-semantics",
+    "title": "Copy and move",
+    "summary": "Tell copying from moving in C++: the rule of five, std::move and noexcept, with an image class that manages its own memory.",
+    "body": [
+      "`Image` allocates its pixels with `new int[size]()` and frees them in the destructor. A class that manages memory by hand needs the **rule of five**: if you write the destructor, also write the copy constructor, the move constructor, and copy and move assignment. Otherwise the compiler-generated copy would copy just the pointer, and both images would free the same memory.",
+      "The **copy constructor**, `Image(const Image& o)`, makes a **deep** copy: it allocates new memory and copies every pixel. That is what happens in `Image backup = photo;`, and it means copying two million values.",
+      "The **move constructor**, `Image(Image&& o)`, takes an **rvalue reference** (`&&`), an object that is not going to be used again. Instead of copying, it takes over the pointer and leaves the original empty but valid (`nullptr` and size 0). **`std::move(photo)`** moves nothing by itself: it only says it is fine to steal from there, and afterwards `photo.size()` is 0. It is marked **`noexcept`** so that `std::vector` dares to move rather than copy when it grows.",
+      "In `album.push_back(Image(640 * 480))` the image is a temporary, so it is moved without asking; `std::move(backup)` moves a named variable too. `reserve(2)` stops the vector from growing halfway and moving extra elements.",
+      "Assignment uses the **copy-and-swap** idiom: `operator=(Image o)` takes its parameter by value (copied or moved, depending on what is passed) and swaps it in with `std::swap`; `o`'s destructor then frees the old pixels. One function covers both assignments. In practice, if you use `std::vector` or smart pointers instead of `new`, you need none of the five: that is the **rule of zero**."
+    ],
+    "points": [
+      "Copying duplicates the data; moving hands over the resources and leaves the source empty.",
+      "`T(const T&)` copies and `T(T&&)` moves.",
+      "`std::move(x)` makes `x` movable; do not use it afterwards except to assign to it.",
+      "Mark the move constructor `noexcept`.",
+      "Rule of five if you manage resources by hand; rule of zero otherwise."
+    ],
+    "exercise": "Remove `album.reserve(2);` and run the program again. Count the extra `move` messages and explain where they come from."
+  }
+}

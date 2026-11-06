@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "lambdas-y-capturas",
+    "title": "Lambdas y capturas",
+    "summary": "Escriba funciones en el sitio con las lambdas de C++: ordene tareas, capture variables por valor o por referencia y use mutable y auto.",
+    "body": [
+      "Una **lambda** es una función sin nombre escrita justo donde se necesita: `[capturas](parámetros) { cuerpo }`. `byPriority` compara dos tareas por prioridad y se pasa a `std::stable_sort`, que las ordena de mayor a menor y, a igual prioridad, respeta el orden original («Fix login» antes que «Review PR»).",
+      "Entre corchetes van las **capturas**, las variables de fuera que la lambda puede usar. `[budget, &planned]` captura `budget` **por valor** (una copia, que dentro no se puede cambiar) y `planned` **por referencia**, con `&`: cuando `fits` suma horas, cambia la variable de `main`. Así se planifican tareas hasta llenar las 4 horas, y «Write docs» se queda para más tarde.",
+      "Una lambda que captura por valor no puede modificar su copia, salvo que se marque **`mutable`**. `nextTicket` lleva su propio contador, que empieza en 100 y da 101 y 102, mientras el `ticket` de `main` sigue en 100. También existen `[=]` (todo por valor) y `[&]` (todo por referencia), aunque es más claro nombrar cada variable.",
+      "Con `auto` en los parámetros se obtiene una **lambda genérica**, que funciona como una plantilla: `twice(21)` da 42 y `twice(std::string(\"ha\"))` da «haha». Cada lambda tiene un tipo propio que solo conoce el compilador; por eso se guarda en una variable `auto`."
+    ],
+    "points": [
+      "Una lambda es `[capturas](parámetros) { cuerpo }`.",
+      "`[x]` copia la variable; `[&x]` trabaja con la original.",
+      "`mutable` deja cambiar la copia capturada por valor.",
+      "Con parámetros `auto`, la lambda es genérica.",
+      "Las lambdas son ideales para pasar criterios a `sort` y a los algoritmos."
+    ],
+    "exercise": "Cambie el presupuesto a 3 horas y añada una lambda `byHours` que ordene por horas, de menos a más. Planifique con ese orden y compare cuántas tareas caben ahora."
+  },
+  "en": {
+    "slug": "lambdas-and-captures",
+    "title": "Lambdas and captures",
+    "summary": "Write functions on the spot with C++ lambdas: sort tasks, capture variables by value or by reference, and use mutable and auto parameters.",
+    "body": [
+      "A **lambda** is an unnamed function written right where it is needed: `[captures](parameters) { body }`. `byPriority` compares two tasks by priority and is passed to `std::stable_sort`, which orders them from highest to lowest and keeps the original order for equal priorities (\"Fix login\" before \"Review PR\").",
+      "The square brackets hold the **captures**, the outside variables the lambda may use. `[budget, &planned]` captures `budget` **by value** (a copy, which cannot be changed inside) and `planned` **by reference**, with `&`: when `fits` adds hours, it changes the variable in `main`. That is how tasks are planned until the 4 hours are full, and \"Write docs\" is left for later.",
+      "A lambda that captures by value cannot modify its copy unless it is marked **`mutable`**. `nextTicket` keeps its own counter, starting at 100 and giving 101 and 102, while `main`'s `ticket` stays at 100. There are also `[=]` (everything by value) and `[&]` (everything by reference), although naming each variable is clearer.",
+      "With `auto` parameters you get a **generic lambda**, which behaves like a template: `twice(21)` gives 42 and `twice(std::string(\"ha\"))` gives \"haha\". Every lambda has its own type that only the compiler knows, which is why it is stored in an `auto` variable."
+    ],
+    "points": [
+      "A lambda is `[captures](parameters) { body }`.",
+      "`[x]` copies the variable; `[&x]` works on the original.",
+      "`mutable` lets a lambda change its by-value copy.",
+      "With `auto` parameters, the lambda is generic.",
+      "Lambdas are ideal for passing criteria to `sort` and other algorithms."
+    ],
+    "exercise": "Set the budget to 3 hours and add a `byHours` lambda that sorts from fewest to most hours. Plan with that order and compare how many tasks fit now."
+  }
+}

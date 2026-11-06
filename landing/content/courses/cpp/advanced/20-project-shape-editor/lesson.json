@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-editor-de-formas",
+    "title": "Proyecto: editor de formas",
+    "summary": "Proyecto final del curso avanzado de C++: un editor de formas con clases, polimorfismo, unique_ptr y algoritmos de la STL, listo para F9 en DMarlon Studio.",
+    "body": [
+      "Este proyecto reúne lo visto en el curso. `Shape` es la **interfaz** común: toda forma tiene un nombre y un `area()` virtual puro, y la base lleva un destructor virtual porque las formas se destruirán a través de punteros a `Shape`. `Circle` y `Rect` heredan de ella, construyen la parte común con `Shape(n)` en su lista de inicialización y calculan el área cada una a su manera.",
+      "El lienzo es un `std::vector<std::unique_ptr<Shape>>`: guarda formas de tipos distintos y **es su dueño**. Cada `std::make_unique<Rect>(...)` crea una forma y se la entrega. En todo el programa no hay ni un `delete`, y no se pierde memoria.",
+      "Las operaciones del editor son algoritmos de la STL con lambdas. `remove_if` con `erase` quita las formas de menos de una unidad de área (el punto «dot», de 0,2) y, al destruirse su `unique_ptr`, la forma se libera sola. `std::sort` ordena de mayor a menor área llamando a `area()`, que en cada forma ejecuta su propia versión. Las lambdas reciben `const auto&` porque un `unique_ptr` no se puede copiar.",
+      "El último bucle escribe cada forma y suma el área total: el banner (15), el logotipo (π · 1,5² ≈ 7,07) y el botón (3). Para ampliarlo, añada más tipos de forma: el resto del programa no cambia. En DMarlon Studio puede ejecutarlo con el destino Consola (F9) y, después, llevar estas mismas clases a una ventana de escritorio con FLTK."
+    ],
+    "points": [
+      "Una interfaz abstracta y varias clases derivadas modelan las formas.",
+      "`std::vector<std::unique_ptr<Base>>` guarda objetos polimórficos y los libera solo.",
+      "`remove_if` + `erase` y `sort` con lambdas hacen el trabajo del editor.",
+      "Añadir una forma nueva no obliga a cambiar el código que las usa.",
+      "Con RAII y punteros inteligentes no hace falta ningún `delete`."
+    ],
+    "exercise": "Añada una clase `Triangle` (base y altura) con su área, ponga en el lienzo un triángulo «arrow» de 4 × 2,5 y, al final, escriba cuántas formas de cada tipo hay usando un `std::map<std::string, int>` y un método virtual `kind()`."
+  },
+  "en": {
+    "slug": "project-shape-editor",
+    "title": "Project: shape editor",
+    "summary": "Final project of the advanced C++ course: a shape editor with classes, polymorphism, unique_ptr and STL algorithms, ready for F9 in DMarlon Studio.",
+    "body": [
+      "This project brings the course together. `Shape` is the common **interface**: every shape has a name and a pure virtual `area()`, and the base has a virtual destructor because shapes will be destroyed through `Shape` pointers. `Circle` and `Rect` derive from it, build the shared part with `Shape(n)` in their initializer lists and each work out the area in their own way.",
+      "The canvas is a `std::vector<std::unique_ptr<Shape>>`: it holds shapes of different types and **owns** them. Each `std::make_unique<Rect>(...)` creates a shape and hands it over. There is not a single `delete` in the program, and no memory leaks.",
+      "The editor's operations are STL algorithms with lambdas. `remove_if` with `erase` drops the shapes with an area under one unit (the \"dot\", at 0.2) and, as its `unique_ptr` is destroyed, the shape frees itself. `std::sort` orders them from largest to smallest by calling `area()`, which runs each shape's own version. The lambdas take `const auto&` because a `unique_ptr` cannot be copied.",
+      "The final loop prints each shape and adds up the total area: the banner (15), the logo (π · 1.5² ≈ 7.07) and the button (3). To extend it, add more kinds of shape: the rest of the program stays the same. In DMarlon Studio you can run it with the Console target (F9) and then bring these same classes into an FLTK desktop window."
+    ],
+    "points": [
+      "An abstract interface and several derived classes model the shapes.",
+      "`std::vector<std::unique_ptr<Base>>` holds polymorphic objects and frees them automatically.",
+      "`remove_if` + `erase` and `sort` with lambdas do the editor's work.",
+      "Adding a new shape does not require changing the code that uses them.",
+      "With RAII and smart pointers there is no need for any `delete`."
+    ],
+    "exercise": "Add a `Triangle` class (base and height) with its area, put an \"arrow\" triangle of 4 × 2.5 on the canvas and, at the end, print how many shapes of each kind there are using a `std::map<std::string, int>` and a virtual `kind()` method."
+  }
+}

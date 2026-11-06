@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "clases-abstractas-y-polimorfismo",
+    "title": "Clases abstractas y polimorfismo",
+    "summary": "Defina una interfaz con funciones virtuales puras en C++ y recorra objetos distintos con punteros a la base: métodos de pago y sus comisiones.",
+    "body": [
+      "`PaymentMethod` es una **clase abstracta**: `name()` y `fee()` son **virtuales puras** (terminan en `= 0`) y no tienen cuerpo. No se puede crear un objeto suyo (`PaymentMethod p;` no compila); sirve de **interfaz**, un contrato que cumplen las clases derivadas. Se usa `struct`, que es lo mismo que `class` pero con todo público por defecto.",
+      "Aun así, la clase abstracta puede tener código común: `total()` suma el importe y la comisión llamando a `fee()`, sin saber de qué método de pago se trata. `Card`, `PayPal` y `Transfer` solo dicen su nombre y cómo calculan la comisión. `Transfer` cobra una tarifa fija y no usa el importe, por eso su parámetro no tiene nombre.",
+      "El **polimorfismo** aparece con los **punteros a la base**: `methods` es un `std::vector<const PaymentMethod*>` con las direcciones de tres objetos de tipos distintos (`&card`, `&paypal`, `&transfer`). Con `m->name()` y `m->total(amount)` (la flecha `->` llama a un método a través de un puntero), cada objeto ejecuta su propia versión.",
+      "El bucle busca la opción más barata para cada importe guardando un puntero a la mejor: con 20 euros gana la tarjeta (0,30 de comisión) y con 80, la transferencia (1 euro fijo frente a 1,20). Para añadir otro método de pago bastaría con otra clase derivada: el bucle no cambia.",
+      "Aquí los objetos viven en `main` y los punteros solo los señalan. Cuando se crean con `new` y se borran a través de la base, el destructor virtual es imprescindible; en la lección 7 verá cómo los punteros inteligentes se encargan de liberarlos."
+    ],
+    "points": [
+      "Una función virtual pura (`= 0`) no tiene cuerpo y obliga a las derivadas a darle uno.",
+      "Una clase con alguna virtual pura es abstracta: no se pueden crear objetos suyos.",
+      "Un puntero a la base puede señalar a cualquier derivada.",
+      "`p->metodo()` ejecuta la versión del objeto real.",
+      "La base de una jerarquía polimórfica lleva un destructor virtual."
+    ],
+    "exercise": "Añada un método de pago `Cash` sin comisión cuyo nombre sea `\"Cash\"`, métalo en `methods` y compruebe que pasa a ser el más barato con los dos importes."
+  },
+  "en": {
+    "slug": "abstract-classes-and-polymorphism",
+    "title": "Abstract classes and polymorphism",
+    "summary": "Define an interface with pure virtual functions in C++ and handle different objects through base pointers: payment methods and their fees.",
+    "body": [
+      "`PaymentMethod` is an **abstract class**: `name()` and `fee()` are **pure virtual** (they end in `= 0`) and have no body. You cannot create an object of it (`PaymentMethod p;` does not compile); it acts as an **interface**, a contract the derived classes fulfil. It uses `struct`, which is the same as `class` except everything is public by default.",
+      "Even so, the abstract class can hold shared code: `total()` adds the amount and the fee by calling `fee()`, without knowing which payment method it is. `Card`, `PayPal` and `Transfer` only say their name and how they work out the fee. `Transfer` charges a flat fee and ignores the amount, so its parameter has no name.",
+      "**Polymorphism** shows up with **pointers to the base**: `methods` is a `std::vector<const PaymentMethod*>` holding the addresses of three objects of different types (`&card`, `&paypal`, `&transfer`). With `m->name()` and `m->total(amount)` (the arrow `->` calls a method through a pointer), each object runs its own version.",
+      "The loop finds the cheapest option for each amount by keeping a pointer to the best one: for 20 euros the card wins (a 0.30 fee) and for 80 the transfer does (a flat 1 euro against 1.20). Adding another payment method would only take another derived class: the loop stays the same.",
+      "Here the objects live in `main` and the pointers just refer to them. When objects are created with `new` and deleted through the base, the virtual destructor is essential; lesson 7 shows how smart pointers take care of freeing them."
+    ],
+    "points": [
+      "A pure virtual function (`= 0`) has no body and derived classes must provide one.",
+      "A class with any pure virtual function is abstract: no objects of it can exist.",
+      "A pointer to the base can point to any derived object.",
+      "`p->method()` runs the real object's version.",
+      "The base of a polymorphic hierarchy needs a virtual destructor."
+    ],
+    "exercise": "Add a fee-free `Cash` payment method named `\"Cash\"`, put it in `methods` and check that it becomes the cheapest for both amounts."
+  }
+}

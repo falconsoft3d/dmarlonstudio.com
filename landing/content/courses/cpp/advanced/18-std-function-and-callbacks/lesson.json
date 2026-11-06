@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "std-function-y-callbacks",
+    "title": "std::function y callbacks",
+    "summary": "Construya un sistema de eventos en C++ con std::function: registre lambdas, funciones y métodos como callbacks y llámelos al emitir cada evento.",
+    "body": [
+      "Un **callback** es una función que se entrega a otra parte del programa para que la llame cuando ocurra algo. Así funcionan los botones de una interfaz: en las aplicaciones de escritorio con FLTK que genera DMarlon Studio, cada pulsación llama a la función que se le ha asociado.",
+      "**`std::function<void(const std::string&)>`** puede guardar cualquier cosa que se pueda llamar con esa firma: una lambda, una función normal o un objeto con `operator()`. `using Handler = ...` le da un nombre, y `handlers_` relaciona cada nombre de evento con su lista de callbacks.",
+      "`on()` registra un callback para un evento y `emit()` llama, en orden, a todos los de ese evento. Para `click` hay dos: una lambda que cuenta los clics capturando `clicks` por referencia y la función libre `writeLog`, que encaja porque tiene la misma firma.",
+      "Para llamar a un método de un objeto se usa una lambda que lo captura: `[&cart](const std::string& p) { cart.add(p); }`. El carrito suma un artículo con cada `add`. Al emitir `close`, que no tiene callbacks, el bucle no encuentra nada y no ocurre nada más.",
+      "Cuidado con las capturas por referencia: el bus guarda las lambdas, así que `cart` y `clicks` tienen que seguir vivos mientras se puedan emitir eventos. Aquí todo vive en `main` y no hay problema."
+    ],
+    "points": [
+      "Un callback es una función que otro código llamará más tarde.",
+      "`std::function<R(Args...)>` guarda cualquier invocable con esa firma.",
+      "Lambdas, funciones libres y objetos con `operator()` valen igual.",
+      "Para un método, capture el objeto en una lambda.",
+      "Lo que captura por referencia debe vivir más que el callback."
+    ],
+    "exercise": "Añada un método `off(event)` que borre todos los callbacks de un evento. Llame a `bus.off(\"click\")` y emita otro clic para comprobar que ya no se escribe nada."
+  },
+  "en": {
+    "slug": "std-function-and-callbacks",
+    "title": "std::function and callbacks",
+    "summary": "Build an event system in C++ with std::function: register lambdas, functions and methods as callbacks and call them when each event fires.",
+    "body": [
+      "A **callback** is a function you hand to another part of the program so it can call it when something happens. That is how buttons in a user interface work: in the FLTK desktop apps that DMarlon Studio generates, each click calls the function attached to it.",
+      "**`std::function<void(const std::string&)>`** can hold anything that can be called with that signature: a lambda, a plain function or an object with `operator()`. `using Handler = ...` gives it a name, and `handlers_` maps each event name to its list of callbacks.",
+      "`on()` registers a callback for an event and `emit()` calls all of that event's callbacks, in order. `click` has two: a lambda that counts clicks by capturing `clicks` by reference, and the free function `writeLog`, which fits because it has the same signature.",
+      "To call a method on an object, use a lambda that captures it: `[&cart](const std::string& p) { cart.add(p); }`. The cart adds one item on each `add`. When `close` is emitted, there are no callbacks for it, so the loop finds nothing and nothing else happens.",
+      "Watch out for captures by reference: the bus stores the lambdas, so `cart` and `clicks` must stay alive for as long as events can be emitted. Here everything lives in `main`, so all is well."
+    ],
+    "points": [
+      "A callback is a function that some other code will call later.",
+      "`std::function<R(Args...)>` holds any callable with that signature.",
+      "Lambdas, free functions and objects with `operator()` all fit.",
+      "For a method, capture the object in a lambda.",
+      "Anything captured by reference must outlive the callback."
+    ],
+    "exercise": "Add an `off(event)` method that removes every callback for an event. Call `bus.off(\"click\")` and emit another click to check that nothing is printed any more."
+  }
+}

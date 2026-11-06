@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "jerarquias-de-excepciones-propias",
+    "title": "Jerarquías de excepciones",
+    "summary": "Cree sus propias excepciones en C++ derivando de std::runtime_error, con datos extra, y captúrelas de la más concreta a la más general.",
+    "body": [
+      "Las excepciones propias se crean **heredando** de las estándar. `AppError` deriva de `std::runtime_error` y, con `using std::runtime_error::runtime_error;`, hereda su constructor, que recibe el mensaje que luego devuelve `what()`. Todas las excepciones de la aplicación serán `AppError` y, por tanto, también `std::exception`.",
+      "Las derivadas añaden **información** útil: `ValidationError` guarda el campo que está mal (`field`) y `PaymentError`, el código que devuelve el banco (`code`). Así, quien captura el error no tiene que adivinarlo leyendo el mensaje.",
+      "`checkout` valida el pedido y lanza la excepción que corresponde: un correo sin `@`, un carrito vacío o un importe que el banco rechaza. Si todo va bien, cobra y escribe «OK». El bucle recorre los pedidos con *structured bindings* (`[email, amount]`) y cada `try` atiende uno, así que un fallo no detiene a los demás.",
+      "Los `catch` se prueban **en orden** y se queda el primero que encaja. Por eso van de lo más concreto a lo más general: si `catch (const AppError&)` fuera el primero, se llevaría también los errores de validación y de pago. Capture siempre por **referencia `const`**: evita copias y el recorte del objeto, y conserva el tipo real."
+    ],
+    "points": [
+      "Derive sus excepciones de `std::runtime_error` (o de otra estándar).",
+      "`using Base::Base;` hereda los constructores de la base.",
+      "Las excepciones pueden llevar datos además del mensaje.",
+      "Ordene los `catch` de la clase más derivada a la más general.",
+      "Capture por `const&`, nunca por valor."
+    ],
+    "exercise": "Cree `StockError`, derivada de `AppError`, con el nombre del producto agotado. Lánzela en `checkout` cuando el correo sea `ana@mail.com` y añada su `catch` en el lugar correcto."
+  },
+  "en": {
+    "slug": "custom-exception-hierarchies",
+    "title": "Custom exception hierarchies",
+    "summary": "Create your own C++ exceptions by deriving from std::runtime_error, with extra data, and catch them from the most specific to the most general.",
+    "body": [
+      "Custom exceptions are built by **inheriting** from the standard ones. `AppError` derives from `std::runtime_error` and, with `using std::runtime_error::runtime_error;`, inherits its constructor, which takes the message that `what()` later returns. Every exception in the app is an `AppError` and therefore also a `std::exception`.",
+      "The derived classes carry useful **information**: `ValidationError` keeps the field that is wrong (`field`) and `PaymentError` the code the bank sent back (`code`). That way, whoever catches the error does not have to guess it from the message.",
+      "`checkout` validates the order and throws the matching exception: an email with no `@`, an empty cart or an amount the bank declines. If all is well, it charges and prints \"OK\". The loop goes through the orders with structured bindings (`[email, amount]`) and each `try` handles one, so a failure does not stop the rest.",
+      "`catch` clauses are tried **in order** and the first one that matches wins. That is why they go from most specific to most general: if `catch (const AppError&)` came first, it would also swallow the validation and payment errors. Always catch by **`const` reference**: it avoids copies and slicing, and keeps the real type."
+    ],
+    "points": [
+      "Derive your exceptions from `std::runtime_error` (or another standard one).",
+      "`using Base::Base;` inherits the base constructors.",
+      "Exceptions can carry data besides the message.",
+      "Order the `catch` clauses from the most derived class to the most general.",
+      "Catch by `const&`, never by value."
+    ],
+    "exercise": "Create `StockError`, derived from `AppError`, holding the name of the product that is out of stock. Throw it in `checkout` when the email is `ana@mail.com` and add its `catch` in the right place."
+  }
+}

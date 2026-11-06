@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.56 — 2026-11-07
+
+- **Curso de C++ avanzado** (20 lecciones, español e inglés): clases y
+  encapsulación, herencia y polimorfismo, sobrecarga de operadores, RAII,
+  punteros inteligentes, mover y copiar, plantillas, lambdas, algoritmos e
+  iteradores de la STL, `optional`/`variant`, `enum class`, excepciones
+  propias, `std::function`, `constexpr` y un editor de formas como proyecto.
+
 ## 1.0.55 — 2026-11-07
 
 - **Curso de C++ básico** (20 lecciones, español e inglés): `cout` y

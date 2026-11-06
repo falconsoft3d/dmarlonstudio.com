@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "clases-constructores-y-metodos-const",
+    "title": "Clases y métodos const",
+    "summary": "Cree sus propias clases en C++: miembros, constructor y métodos const, con una cuenta bancaria que admite ingresos y reintegros.",
+    "body": [
+      "Una **clase** junta unos datos con las funciones que trabajan con ellos. `BankAccount` tiene dos **miembros**, `owner` y `balance`, y tres **métodos**: `deposit`, `withdraw` y `print`. Con `public:` todo queda accesible desde fuera (en la lección siguiente verá cómo ocultarlo). Cada variable de este tipo, como `ana` o `luis`, es un **objeto** con sus propios datos.",
+      "El **constructor** se llama igual que la clase y no devuelve nada: se ejecuta cada vez que se crea un objeto. `BankAccount ana(\"Ana\", 120.0);` lo llama con el titular y el saldo inicial, y dentro se guardan en los miembros.",
+      "Los métodos se llaman con un punto: `ana.deposit(30.5)` suma al saldo de Ana y no toca el de Luis. `withdraw` comprueba antes si hay dinero suficiente: Luis no puede sacar 60 de sus 40 euros (devuelve `false`), pero sí 25, y le quedan 15.",
+      "La palabra **`const`** detrás de `print()` promete que el método no cambia el objeto. Importa porque una referencia `const`, como `view`, solo deja llamar a métodos `const`: `view.print()` funciona, pero `view.deposit(5)` no compilaría. Marque como `const` todo método que solo lea.",
+      "En DMarlon Studio, C++ es el lenguaje de las aplicaciones de escritorio nativas con FLTK, y estas mismas clases son su base. Este programa se ejecuta tal cual con el destino Consola: pulse F9."
+    ],
+    "points": [
+      "Una clase agrupa miembros (datos) y métodos (funciones).",
+      "El constructor lleva el nombre de la clase y prepara cada objeto nuevo.",
+      "`objeto.metodo()` trabaja con los datos de ese objeto.",
+      "Un método `const` no cambia el objeto y se puede llamar desde una referencia `const`.",
+      "La clase termina con `};`: no olvide el punto y coma."
+    ],
+    "exercise": "Añada un método `transfer(BankAccount& to, double amount)` que use `withdraw` y, si sale bien, llame a `to.deposit(amount)`. Pase 50 euros de Ana a Luis y escriba las dos cuentas."
+  },
+  "en": {
+    "slug": "classes-constructors-and-const-methods",
+    "title": "Classes and const methods",
+    "summary": "Write your own C++ classes: members, a constructor and const methods, with a bank account that takes deposits and withdrawals.",
+    "body": [
+      "A **class** bundles some data with the functions that work on it. `BankAccount` has two **members**, `owner` and `balance`, and three **methods**: `deposit`, `withdraw` and `print`. With `public:` everything is reachable from outside (the next lesson shows how to hide it). Each variable of this type, such as `ana` or `luis`, is an **object** with its own data.",
+      "The **constructor** has the same name as the class and returns nothing: it runs every time an object is created. `BankAccount ana(\"Ana\", 120.0);` calls it with the owner and the opening balance, which it stores in the members.",
+      "Methods are called with a dot: `ana.deposit(30.5)` adds to Ana's balance and leaves Luis's alone. `withdraw` first checks there is enough money: Luis cannot take 60 out of his 40 euros (it returns `false`), but he can take 25, leaving 15.",
+      "The **`const`** after `print()` promises that the method does not change the object. That matters because a `const` reference such as `view` only lets you call `const` methods: `view.print()` works, while `view.deposit(5)` would not compile. Mark every method that only reads as `const`.",
+      "In DMarlon Studio, C++ is the language behind native desktop apps built with FLTK, and classes like this one are their foundation. This program runs as it is with the Console target: press F9."
+    ],
+    "points": [
+      "A class groups members (data) and methods (functions).",
+      "The constructor is named after the class and sets up each new object.",
+      "`object.method()` works on that object's own data.",
+      "A `const` method does not change the object and can be called through a `const` reference.",
+      "A class ends with `};`: do not forget the semicolon."
+    ],
+    "exercise": "Add a `transfer(BankAccount& to, double amount)` method that uses `withdraw` and, if it succeeds, calls `to.deposit(amount)`. Move 50 euros from Ana to Luis and print both accounts."
+  }
+}

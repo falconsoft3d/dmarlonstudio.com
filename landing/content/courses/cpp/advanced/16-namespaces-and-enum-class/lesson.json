@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "espacios-de-nombres-y-enum-class",
+    "title": "Espacios de nombres y enum class",
+    "summary": "Organice el código de C++ con namespaces, alias y using, y use enum class para estados con nombre y seguros: los pasos de un pedido.",
+    "body": [
+      "Un **espacio de nombres** (`namespace`) agrupa nombres para que no choquen con los de otras partes del programa o de otras bibliotecas: `shop::label` no se confunde con ningún otro `label`. Es lo que hace `std::` con toda la biblioteca estándar. Desde fuera se usa el nombre completo, con `::`.",
+      "Desde C++17, `namespace shop::tax` abre un espacio **anidado** en una sola línea, y `namespace tx = shop::tax;` crea un **alias** más corto. `using shop::OrderStatus;` trae solo ese nombre al bloque de `main`, que es más prudente que traer un espacio entero con `using namespace`.",
+      "**`enum class`** define un tipo con valores con nombre. A diferencia del `enum` clásico, sus nombres van dentro del tipo (`OrderStatus::Paid`) y no se convierten solos en enteros: `status == 2` no compilaría. Para pasar al paso siguiente hay que convertir a propósito, con `static_cast<int>` y de vuelta con `static_cast<OrderStatus>`; los valores empiezan en 0, así que «shipped» es el paso 2.",
+      "También se puede elegir el **tipo subyacente**: `Priority : char` guarda cada valor en un carácter, `'L'` o `'H'`. El `switch` de `label` cubre todos los estados; si se añade uno nuevo y se olvida aquí, `-Wall` avisa. `constexpr double vat` es una constante que el compilador conoce de antemano, como verá en la lección 19."
+    ],
+    "points": [
+      "`namespace nombre { ... }` agrupa código; se usa como `nombre::cosa`.",
+      "`namespace a::b` anida y `namespace x = a::b;` crea un alias.",
+      "`using a::cosa;` trae un solo nombre; evite `using namespace` en cabeceras.",
+      "`enum class` no se mezcla con enteros sin un `static_cast`.",
+      "`enum class E : char` elige el tipo con el que se guarda."
+    ],
+    "exercise": "Añada el estado `Cancelled` a `OrderStatus`, compile para ver el aviso del `switch` y complete `label` para que devuelva `\"cancelled\"`."
+  },
+  "en": {
+    "slug": "namespaces-and-enum-class",
+    "title": "Namespaces and enum class",
+    "summary": "Organise C++ code with namespaces, aliases and using, and use enum class for safe named states: the steps of an online order.",
+    "body": [
+      "A **namespace** groups names so they do not clash with names from other parts of the program or other libraries: `shop::label` cannot be confused with any other `label`. That is what `std::` does for the whole standard library. From outside, you use the full name with `::`.",
+      "Since C++17, `namespace shop::tax` opens a **nested** namespace in a single line, and `namespace tx = shop::tax;` creates a shorter **alias**. `using shop::OrderStatus;` brings just that one name into `main`'s block, which is safer than pulling in a whole namespace with `using namespace`.",
+      "**`enum class`** defines a type with named values. Unlike the classic `enum`, its names live inside the type (`OrderStatus::Paid`) and do not turn into integers on their own: `status == 2` would not compile. Moving to the next step needs a deliberate conversion, `static_cast<int>` and back with `static_cast<OrderStatus>`; values start at 0, so \"shipped\" is step 2.",
+      "You can also choose the **underlying type**: `Priority : char` stores each value as a character, `'L'` or `'H'`. The `switch` in `label` covers every status; add a new one and forget it here, and `-Wall` will warn you. `constexpr double vat` is a constant the compiler knows in advance, as you will see in lesson 19."
+    ],
+    "points": [
+      "`namespace name { ... }` groups code; use it as `name::thing`.",
+      "`namespace a::b` nests and `namespace x = a::b;` makes an alias.",
+      "`using a::thing;` brings in one name; avoid `using namespace` in headers.",
+      "`enum class` does not mix with integers without a `static_cast`.",
+      "`enum class E : char` chooses the type used for storage."
+    ],
+    "exercise": "Add a `Cancelled` status to `OrderStatus`, compile to see the `switch` warning, and complete `label` so it returns `\"cancelled\"`."
+  }
+}

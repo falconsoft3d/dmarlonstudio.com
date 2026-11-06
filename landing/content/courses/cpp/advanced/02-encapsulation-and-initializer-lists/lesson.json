@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "encapsulacion-y-listas-de-inicializacion",
+    "title": "Encapsulación e inicialización",
+    "summary": "Proteja los datos de una clase de C++ con private y getters, e inicialice sus miembros con una lista: un termostato que nunca sale de su rango.",
+    "body": [
+      "La **encapsulación** consiste en ocultar los datos y dejar que solo la propia clase los cambie. En una `class` todo es **privado** por defecto, así que `room_`, `target_`, `min_`, `max_` y `changes_` no se ven desde `main`: escribir `living.target_ = 99;` daría un error de compilación. El guion bajo final es una costumbre para reconocer los miembros.",
+      "Lo que va después de `public:` es la interfaz de la clase. `set()` es la única forma de cambiar la temperatura, y por eso puede garantizar que siempre esté entre `min_` y `max_`: los 35 grados del salón se quedan en 28 y los 10 del despacho suben a 18. `target()` es un **getter**: deja leer el valor, pero no cambiarlo.",
+      "El constructor usa una **lista de inicialización**: lo que va tras los dos puntos, `: room_(room), target_(target), min_(min), max_(max)`, construye cada miembro directamente con su valor, en vez de crearlo vacío y asignarlo después. Es obligatoria para los miembros `const`, como `min_` y `max_`, que no se pueden asignar en el cuerpo.",
+      "Los miembros se inicializan en el orden en que están **declarados**, no en el de la lista, así que conviene escribirla en ese mismo orden (con `-Wall`, el compilador avisa si no). `int changes_ = 0;` es un **inicializador por defecto** del miembro, válido para cualquier constructor que no diga otra cosa.",
+      "Los parámetros `min = 15` y `max = 28` tienen valores por defecto: el salón se crea con dos argumentos y usa ese rango, y el despacho pasa los cuatro para limitarse a 18–24."
+    ],
+    "points": [
+      "En una `class`, los miembros son privados salvo que se pongan tras `public:`.",
+      "Los datos privados solo se cambian con métodos que los validan.",
+      "Un getter `const` deja leer sin dejar modificar.",
+      "La lista de inicialización construye los miembros; es obligatoria para los `const`.",
+      "Escriba la lista en el mismo orden en que se declaran los miembros."
+    ],
+    "exercise": "Añada un método `warmer()` que suba medio grado usando `set(target_ + 0.5)` y llámelo veinte veces en el despacho. Compruebe que nunca pasa de 24."
+  },
+  "en": {
+    "slug": "encapsulation-and-initializer-lists",
+    "title": "Encapsulation and initializer lists",
+    "summary": "Protect a C++ class's data with private members and getters, and build its members with an initializer list: a thermostat that stays in range.",
+    "body": [
+      "**Encapsulation** means hiding the data and letting only the class itself change it. Everything in a `class` is **private** by default, so `room_`, `target_`, `min_`, `max_` and `changes_` are invisible from `main`: writing `living.target_ = 99;` would be a compile error. The trailing underscore is just a habit that makes members easy to spot.",
+      "Whatever comes after `public:` is the class's interface. `set()` is the only way to change the temperature, so it can guarantee the value always stays between `min_` and `max_`: 35 degrees in the living room becomes 28, and 10 in the office goes up to 18. `target()` is a **getter**: it lets you read the value but not change it.",
+      "The constructor uses a **member initializer list**: what follows the colon, `: room_(room), target_(target), min_(min), max_(max)`, builds each member directly with its value instead of creating it empty and assigning it later. It is required for `const` members such as `min_` and `max_`, which cannot be assigned in the body.",
+      "Members are initialized in the order they are **declared**, not the order of the list, so write the list in that same order (with `-Wall` the compiler warns you otherwise). `int changes_ = 0;` is a **default member initializer**, used by any constructor that does not say otherwise.",
+      "The parameters `min = 15` and `max = 28` have default values: the living room is created with two arguments and gets that range, while the office passes all four to limit itself to 18–24."
+    ],
+    "points": [
+      "In a `class`, members are private unless they come after `public:`.",
+      "Private data only changes through methods that validate it.",
+      "A `const` getter allows reading without allowing changes.",
+      "The initializer list builds the members; `const` members need it.",
+      "Write the list in the order the members are declared."
+    ],
+    "exercise": "Add a `warmer()` method that raises the target by half a degree with `set(target_ + 0.5)` and call it twenty times on the office. Check that it never goes above 24."
+  }
+}

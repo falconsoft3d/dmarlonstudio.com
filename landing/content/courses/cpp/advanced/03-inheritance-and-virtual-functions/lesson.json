@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "herencia-y-funciones-virtuales",
+    "title": "Herencia y funciones virtuales",
+    "summary": "Herede de una clase en C++ y sustituya sus métodos con virtual y override; descubra también el recorte de objetos, con una nómina de empleados.",
+    "body": [
+      "`class Manager : public Employee` dice que un jefe **es un** empleado: **hereda** su nombre, su sueldo base y el método `payslip()`, y añade lo suyo, `bonus_`. Los miembros **`protected`** se ven desde las clases derivadas, como `Manager`, pero no desde fuera.",
+      "El constructor de `Manager` llama primero al de la clase base en su lista de inicialización: `: Employee(name, base), bonus_(bonus)`. La parte de empleado siempre se construye antes que la de jefe.",
+      "Una función **`virtual`** puede tener otra versión en la clase derivada, marcada con **`override`** (así el compilador comprueba que de verdad sustituye a una de la base). `Manager::pay()` reutiliza la de la base con `Employee::pay()` y le suma la prima: 2800 + 650 = 3450.",
+      "Lo interesante es que `payslip()` solo está escrito en `Employee`, pero al llamarlo sobre `marc` usa `Manager::pay()` y `Manager::role()`: las llamadas virtuales se deciden al ejecutar, según el objeto real. Lo mismo ocurre con la referencia `const Employee& ref = marc`. La base lleva un **destructor virtual**, `virtual ~Employee() = default;`, para que destruir un jefe a través de la base sea seguro.",
+      "En cambio, `Employee copy = marc;` copia solo la parte de empleado: es el **recorte** (*slicing*). `copy` es un `Employee` de verdad, sin prima, y cobra 2800. Para aprovechar el polimorfismo hay que trabajar con referencias o punteros, como en la lección siguiente."
+    ],
+    "points": [
+      "`class B : public A` hace que B herede los miembros y métodos de A.",
+      "La lista de inicialización de la derivada construye primero la base.",
+      "`virtual` en la base y `override` en la derivada sustituyen un método.",
+      "Las llamadas virtuales usan el tipo real del objeto, también desde la base.",
+      "Copiar una derivada en una variable de la base la recorta."
+    ],
+    "exercise": "Cree una clase `Intern` que derive de `Employee`, cobre el 60 % del sueldo base y devuelva `\"Intern\"` en `role()`. Haga la nómina de una becaria con 1500 euros de base."
+  },
+  "en": {
+    "slug": "inheritance-and-virtual-functions",
+    "title": "Inheritance and virtual functions",
+    "summary": "Inherit from a C++ class and replace its methods with virtual and override, and see object slicing in action, with a staff payroll.",
+    "body": [
+      "`class Manager : public Employee` says a manager **is an** employee: it **inherits** the name, the base salary and the `payslip()` method, and adds its own `bonus_`. **`protected`** members are visible to derived classes such as `Manager`, but not to outside code.",
+      "`Manager`'s constructor calls the base constructor first, in its initializer list: `: Employee(name, base), bonus_(bonus)`. The employee part is always built before the manager part.",
+      "A **`virtual`** function can have a different version in a derived class, marked with **`override`** (so the compiler checks that it really replaces one in the base). `Manager::pay()` reuses the base version through `Employee::pay()` and adds the bonus: 2800 + 650 = 3450.",
+      "The interesting part is that `payslip()` is only written in `Employee`, yet calling it on `marc` uses `Manager::pay()` and `Manager::role()`: virtual calls are resolved at run time, from the real object. The same happens through the reference `const Employee& ref = marc`. The base has a **virtual destructor**, `virtual ~Employee() = default;`, so destroying a manager through the base is safe.",
+      "By contrast, `Employee copy = marc;` copies only the employee part: this is **slicing**. `copy` is a real `Employee`, with no bonus, and earns 2800. To get polymorphism you have to work with references or pointers, as in the next lesson."
+    ],
+    "points": [
+      "`class B : public A` makes B inherit A's members and methods.",
+      "A derived class's initializer list builds the base first.",
+      "`virtual` in the base and `override` in the derived class replace a method.",
+      "Virtual calls use the object's real type, even from inside the base.",
+      "Copying a derived object into a base variable slices it."
+    ],
+    "exercise": "Create an `Intern` class that derives from `Employee`, earns 60% of the base salary and returns `\"Intern\"` from `role()`. Print the payslip of an intern with a base of 1500 euros."
+  }
+}

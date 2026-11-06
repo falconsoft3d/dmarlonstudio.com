@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "raii-y-destructores",
+    "title": "RAII y destructores",
+    "summary": "Libere recursos sin olvidos con RAII y destructores en C++: una conexión que se cierra sola y una transacción que se deshace si hay una excepción.",
+    "body": [
+      "El **destructor** es el método que lleva el nombre de la clase precedido de `~`, como `~DbConnection()`. No tiene parámetros y C++ lo llama solo cuando el objeto deja de existir: al salir de su bloque `{ }`, al terminar la función o al destruirse el objeto que lo contiene.",
+      "**RAII** (*Resource Acquisition Is Initialization*) aprovecha esa garantía: el constructor adquiere un recurso (una conexión, un archivo, un bloqueo) y el destructor lo libera. Quien usa la clase no tiene que acordarse de cerrar nada: `DbConnection db(\"bank.db\");` abre, y el cierre llega solo. Así funcionan `std::ofstream`, `std::vector` o `std::lock_guard`.",
+      "`Transaction` va un paso más allá: su destructor mira `committed_` y, si nadie llamó a `commit()`, deshace los cambios. En `transfer(200)` todo sale bien: se confirma y luego se cierra la conexión. Los objetos locales se destruyen en **orden inverso** al de su creación: primero `tx`, después `db`.",
+      "En `transfer(900)` se lanza una excepción antes del `commit()`. Mientras la excepción sale de la función, C++ destruye los objetos locales (lo que se llama *stack unwinding*): la transacción se deshace, la conexión se cierra y solo entonces el `catch` de `main` escribe el error. Con RAII no hace falta repetir la limpieza en cada camino de salida.",
+      "Las aplicaciones de escritorio con FLTK que genera DMarlon Studio siguen este mismo patrón con ventanas y recursos. Este ejemplo, como todos los del curso, se ejecuta con el destino Consola pulsando F9."
+    ],
+    "points": [
+      "El destructor, `~Clase()`, se llama solo cuando el objeto deja de existir.",
+      "RAII: el constructor adquiere el recurso y el destructor lo libera.",
+      "Los objetos locales se destruyen en orden inverso al de creación.",
+      "Los destructores también se ejecutan cuando una excepción sale de la función.",
+      "Un destructor no debe lanzar excepciones."
+    ],
+    "exercise": "Añada una clase `FileLock` que escriba `lock` al crearse y `unlock` al destruirse, y cree uno en `transfer` antes de `db`. Mire en qué orden aparecen los mensajes en los dos casos."
+  },
+  "en": {
+    "slug": "raii-and-destructors",
+    "title": "RAII and destructors",
+    "summary": "Release resources without forgetting with RAII and destructors in C++: a connection that closes itself and a transaction that rolls back on errors.",
+    "body": [
+      "The **destructor** is the method named after the class with a `~` in front, such as `~DbConnection()`. It takes no parameters and C++ calls it automatically when the object stops existing: when its `{ }` block ends, when the function returns or when the object that contains it is destroyed.",
+      "**RAII** (*Resource Acquisition Is Initialization*) builds on that guarantee: the constructor acquires a resource (a connection, a file, a lock) and the destructor releases it. Code that uses the class never has to remember to close anything: `DbConnection db(\"bank.db\");` opens it, and the closing happens by itself. That is how `std::ofstream`, `std::vector` and `std::lock_guard` work.",
+      "`Transaction` goes one step further: its destructor checks `committed_` and, if nobody called `commit()`, rolls the changes back. In `transfer(200)` everything goes well: it commits and then the connection closes. Local objects are destroyed in **reverse order** of creation: first `tx`, then `db`.",
+      "In `transfer(900)` an exception is thrown before `commit()`. As the exception leaves the function, C++ destroys the local objects (this is called *stack unwinding*): the transaction rolls back, the connection closes and only then does the `catch` in `main` print the error. With RAII there is no need to repeat the clean-up on every way out.",
+      "The FLTK desktop apps that DMarlon Studio generates follow this same pattern for windows and resources. This example, like every one in the course, runs with the Console target by pressing F9."
+    ],
+    "points": [
+      "The destructor, `~Class()`, is called automatically when the object goes away.",
+      "RAII: the constructor acquires the resource and the destructor releases it.",
+      "Local objects are destroyed in reverse order of creation.",
+      "Destructors still run when an exception leaves the function.",
+      "A destructor should never throw."
+    ],
+    "exercise": "Add a `FileLock` class that prints `lock` when created and `unlock` when destroyed, and create one in `transfer` before `db`. Look at the order of the messages in both cases."
+  }
+}

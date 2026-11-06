@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "algoritmos-de-la-stl",
+    "title": "Algoritmos de la STL",
+    "summary": "Procese datos en C++ con transform, accumulate, count_if, find_if y remove_if con erase: las ventas de una tienda sin escribir bucles.",
+    "body": [
+      "Las cabeceras `<algorithm>` y `<numeric>` traen decenas de **algoritmos** que trabajan sobre un rango, de `begin()` a `end()`. Con lambdas, sustituyen a muchos bucles y dejan claro de un vistazo qué hace cada línea.",
+      "**`remove_if`** no borra nada: mueve al final los elementos que cumplen la condición (aquí la devolución, con importe negativo) y devuelve dónde empiezan. **`erase`** recorta desde ahí hasta el final. Las dos juntas forman el modismo *erase-remove*; si se olvida la segunda, el vector conserva su tamaño.",
+      "**`transform`** calcula un valor nuevo por cada elemento y lo escribe en otro rango: `withVat` se crea con el tamaño justo y recibe cada precio con el 21 % de IVA. El ratón, tercero de la lista tras quitar la devolución, pasa de 19,50 a 23,595.",
+      "**`accumulate`** reduce todo a un valor, empezando por el tercer argumento. Escriba `0.0` y no `0`: con un entero, la suma se haría con enteros y perdería los decimales. Con una lambda suma el campo `amount` de cada venta; sin ella, suma directamente los `double` de `withVat`.",
+      "**`count_if`** cuenta los elementos que cumplen una condición (dos ventas de 100 euros o más) y **`find_if`** devuelve un iterador al primero que la cumple, o `end()` si no hay ninguno; por eso se compara con `sales.end()` antes de usar `cheap->product`."
+    ],
+    "points": [
+      "Los algoritmos reciben un rango: `v.begin(), v.end()`.",
+      "`remove_if` + `erase` borran de verdad los elementos que cumplen una condición.",
+      "`transform` calcula un valor nuevo por elemento.",
+      "`accumulate(b, e, 0.0)` suma; el tipo del valor inicial manda.",
+      "`find_if` devuelve `end()` si no encuentra nada: compruébelo antes de usarlo."
+    ],
+    "exercise": "Use `std::max_element` con una lambda para encontrar la venta más alta y escriba su producto y su importe. Después, cuente con `count_if` las ventas de menos de 50 euros."
+  },
+  "en": {
+    "slug": "stl-algorithms",
+    "title": "STL algorithms",
+    "summary": "Process data in C++ with transform, accumulate, count_if, find_if and remove_if with erase: a shop's sales without writing loops.",
+    "body": [
+      "The `<algorithm>` and `<numeric>` headers provide dozens of **algorithms** that work on a range, from `begin()` to `end()`. Combined with lambdas, they replace many loops and make it clear at a glance what each line does.",
+      "**`remove_if`** erases nothing: it moves the elements that match the condition (here the refund, with a negative amount) to the end and returns where they start. **`erase`** then cuts from there to the end. Together they are the *erase-remove* idiom; forget the second step and the vector keeps its size.",
+      "**`transform`** computes a new value for each element and writes it to another range: `withVat` is created with exactly the right size and receives each price with 21% VAT. The mouse, third in the list once the refund is gone, goes from 19.50 to 23.595.",
+      "**`accumulate`** folds everything into one value, starting from the third argument. Write `0.0`, not `0`: with an integer, the sum would be done in integers and lose the decimals. With a lambda it adds up the `amount` of each sale; without one, it adds up the `double` values in `withVat` directly.",
+      "**`count_if`** counts the elements that match a condition (two sales of 100 euros or more) and **`find_if`** returns an iterator to the first match, or `end()` if there is none; that is why it is compared with `sales.end()` before `cheap->product` is used."
+    ],
+    "points": [
+      "Algorithms take a range: `v.begin(), v.end()`.",
+      "`remove_if` + `erase` really delete the elements that match a condition.",
+      "`transform` computes a new value per element.",
+      "`accumulate(b, e, 0.0)` adds up; the type of the initial value decides.",
+      "`find_if` returns `end()` when nothing matches: check before using it."
+    ],
+    "exercise": "Use `std::max_element` with a lambda to find the biggest sale and print its product and amount. Then use `count_if` to count the sales under 50 euros."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "optional-variant-y-visit",
+    "title": "optional, variant y visit",
+    "summary": "Represente en C++17 valores que pueden faltar con std::optional y valores de varios tipos con std::variant y std::visit: puertos y celdas.",
+    "body": [
+      "**`std::optional<int>`** es un `int` que puede no estar. `findPort` devuelve el puerto si el servicio aparece en la configuración y **`std::nullopt`** si no, sin recurrir a valores especiales como `-1`. El propio tipo de retorno avisa de que hay que comprobar el resultado.",
+      "Un `optional` vale `true` en una condición si tiene valor, y `*port` lo lee. **`value_or(25)`** da el valor o, si falta, el que se le pasa: el correo no está configurado y se usa el puerto 25.",
+      "**`std::variant<int, double, std::string>`** guarda **exactamente uno** de esos tipos cada vez, como una celda de una hoja de cálculo, que puede tener un entero, un decimal o un texto. `using Cell = ...` le da un nombre corto, y la fila `row` mezcla los tres tipos en un solo vector.",
+      "**`std::visit`** llama a la función adecuada según el tipo que guarde cada celda. `CellPrinter` es un **visitante**: un `struct` con un `operator()` para cada tipo. Si faltara alguno y no hubiera una conversión posible, el programa no compilaría, lo que evita olvidar casos.",
+      "Para preguntar por un tipo concreto está **`std::holds_alternative<double>`**, y **`std::get<std::string>`** saca el valor; si el tipo no coincide, lanza la excepción `std::bad_variant_access`."
+    ],
+    "points": [
+      "`std::optional<T>`: un `T` o nada (`std::nullopt`).",
+      "Compruebe el `optional` con `if` antes de leerlo con `*`, o use `value_or`.",
+      "`std::variant<A, B, C>` guarda uno de esos tipos cada vez.",
+      "`std::visit` con un visitante atiende todos los tipos del variant.",
+      "`std::get<T>` lanza una excepción si el variant no guarda un `T`."
+    ],
+    "exercise": "Añada `bool` a los tipos de `Cell` y una celda `true` a la fila. Verá que sale como `int    1`, porque el `bool` se convierte en `int` para llamar al visitante. Añada a `CellPrinter` un `operator()(bool)` que escriba `bool   yes`."
+  },
+  "en": {
+    "slug": "optional-variant-and-visit",
+    "title": "optional, variant and visit",
+    "summary": "Model values that may be missing with std::optional, and values of several types with std::variant and std::visit, in C++17: ports and cells.",
+    "body": [
+      "**`std::optional<int>`** is an `int` that may not be there. `findPort` returns the port if the service is in the configuration and **`std::nullopt`** otherwise, with no special values such as `-1`. The return type itself tells callers they have to check the result.",
+      "An `optional` is `true` in a condition when it holds a value, and `*port` reads it. **`value_or(25)`** gives the value or, if it is missing, the one you pass: mail is not configured, so port 25 is used.",
+      "**`std::variant<int, double, std::string>`** holds **exactly one** of those types at a time, like a spreadsheet cell that may contain a whole number, a decimal or some text. `using Cell = ...` gives it a short name, and `row` mixes all three types in a single vector.",
+      "**`std::visit`** calls the right function for whatever type each cell holds. `CellPrinter` is a **visitor**: a `struct` with one `operator()` per type. If one were missing and no conversion fitted, the program would not compile, so no case can be forgotten.",
+      "To ask about one particular type there is **`std::holds_alternative<double>`**, and **`std::get<std::string>`** takes the value out; if the type does not match, it throws `std::bad_variant_access`."
+    ],
+    "points": [
+      "`std::optional<T>`: a `T` or nothing (`std::nullopt`).",
+      "Check an `optional` with `if` before reading it with `*`, or use `value_or`.",
+      "`std::variant<A, B, C>` holds one of those types at a time.",
+      "`std::visit` with a visitor handles every type in the variant.",
+      "`std::get<T>` throws if the variant does not hold a `T`."
+    ],
+    "exercise": "Add `bool` to the types of `Cell` and a `true` cell to the row. It prints as `int    1`, because the `bool` is converted to `int` to call the visitor. Add an `operator()(bool)` to `CellPrinter` that prints `bool   yes`."
+  }
+}

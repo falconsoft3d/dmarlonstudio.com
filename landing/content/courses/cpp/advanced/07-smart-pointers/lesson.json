@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros-inteligentes-unique-ptr-y-shared-ptr",
+    "title": "unique_ptr y shared_ptr",
+    "summary": "Use los punteros inteligentes unique_ptr y shared_ptr de C++ para que la memoria se libere sola: canciones con uno o con varios dueños.",
+    "body": [
+      "Un **puntero inteligente** es un objeto que guarda un puntero y aplica RAII: cuando deja de existir, libera la memoria. Ya no hace falta `new` ni `delete`: `std::make_unique<Song>(\"Demo take\")` crea la canción y devuelve un **`std::unique_ptr`** que la posee. El destructor de `Song` escribe un mensaje para ver cuándo se libera cada una.",
+      "`unique_ptr` tiene **un solo dueño**, así que no se puede copiar, pero sí **mover**: `std::move(demo)` pasa la propiedad a `keeper` y deja `demo` vacío (en una condición, un puntero vacío vale `false`). `keeper.reset()` libera la canción en ese mismo momento; si no, se habría liberado al final de `main`. La flecha funciona como con un puntero normal: `demo->title`.",
+      "**`std::shared_ptr`** admite **varios dueños** y lleva la cuenta, que da `use_count()`. `hit` y las dos listas, `rock` y `party`, comparten la misma canción, así que hay 3 dueños. Al vaciar `rock` y hacer `hit.reset()` queda uno, y la canción sigue viva en `party`.",
+      "La canción se libera cuando desaparece su último dueño: el vector `party`, al terminar `main`. Por eso «(freed Summer Nights)» sale después de «End of main». Use `unique_ptr` por defecto, que no cuesta nada frente a un puntero normal, y `shared_ptr` solo cuando la propiedad sea compartida de verdad."
+    ],
+    "points": [
+      "Cree los objetos con `std::make_unique` y `std::make_shared`, no con `new`.",
+      "`unique_ptr`: un solo dueño; se mueve con `std::move`, no se copia.",
+      "`shared_ptr`: varios dueños; el objeto vive mientras quede alguno.",
+      "`reset()` suelta el objeto; un puntero vacío vale `false`.",
+      "Prefiera `unique_ptr` salvo que necesite compartir."
+    ],
+    "exercise": "Cree una tercera lista, `chill`, añádale `hit` antes de `rock.clear()` y escriba `use_count()` después de cada paso. ¿Cuándo se libera ahora la canción?"
+  },
+  "en": {
+    "slug": "smart-pointers-unique-ptr-and-shared-ptr",
+    "title": "unique_ptr and shared_ptr",
+    "summary": "Use C++ smart pointers, unique_ptr and shared_ptr, so memory frees itself: songs with a single owner or shared by several playlists.",
+    "body": [
+      "A **smart pointer** is an object that holds a pointer and applies RAII: when it goes away, it frees the memory. No more `new` and `delete`: `std::make_unique<Song>(\"Demo take\")` creates the song and returns a **`std::unique_ptr`** that owns it. `Song`'s destructor prints a message so you can see when each one is freed.",
+      "A `unique_ptr` has **a single owner**, so it cannot be copied, but it can be **moved**: `std::move(demo)` hands ownership to `keeper` and leaves `demo` empty (in a condition, an empty pointer is `false`). `keeper.reset()` frees the song right there; otherwise it would have been freed at the end of `main`. The arrow works just as with a plain pointer: `demo->title`.",
+      "**`std::shared_ptr`** allows **several owners** and keeps count of them, which `use_count()` reports. `hit` and the two playlists, `rock` and `party`, share the same song, so there are 3 owners. After clearing `rock` and calling `hit.reset()` there is one left, and the song lives on in `party`.",
+      "The song is freed when its last owner goes away: the `party` vector, at the end of `main`. That is why \"(freed Summer Nights)\" appears after \"End of main\". Use `unique_ptr` by default, as it costs nothing over a plain pointer, and `shared_ptr` only when ownership really is shared."
+    ],
+    "points": [
+      "Create objects with `std::make_unique` and `std::make_shared`, not `new`.",
+      "`unique_ptr`: one owner; it moves with `std::move` and cannot be copied.",
+      "`shared_ptr`: several owners; the object lives while any of them remains.",
+      "`reset()` lets go of the object; an empty pointer is `false`.",
+      "Prefer `unique_ptr` unless you need to share."
+    ],
+    "exercise": "Create a third playlist, `chill`, add `hit` to it before `rock.clear()` and print `use_count()` after each step. When is the song freed now?"
+  }
+}

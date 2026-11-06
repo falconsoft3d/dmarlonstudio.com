@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "plantillas-de-clases",
+    "title": "Plantillas de clases",
+    "summary": "Cree un búfer circular genérico con una plantilla de clase de C++, con el tipo y el tamaño como parámetros: lecturas de un sensor y archivos recientes.",
+    "body": [
+      "Una **plantilla de clase** hace con las clases lo mismo que la plantilla de función con las funciones: `RingBuffer<T, N>` es un molde y `RingBuffer<double, 4>` es una clase concreta. Así están hechos `std::vector<T>` o `std::map<K, V>`.",
+      "El segundo parámetro, `std::size_t N`, no es un tipo sino un **valor** fijado al compilar. Por eso puede servir de tamaño de `std::array<T, N>`, un array de tamaño fijo que vive dentro del objeto, sin memoria dinámica. Las llaves de `data_{}` lo inicializan con ceros (o con cadenas vacías).",
+      "Es un **búfer circular**: `push` escribe en la posición `next_` y avanza con `% N`, que vuelve a 0 al llegar al final. Cuando está lleno, cada valor nuevo pisa al más antiguo, así que de las seis temperaturas quedan las cuatro últimas. Es útil para guardar las últimas lecturas de un sensor o un historial de archivos abiertos.",
+      "`operator[]` traduce la posición lógica (0 es la más antigua) a la real dentro del array, y `show` lo usa con `(*this)[i]`. El mismo código vale para cualquier `T` que se pueda escribir con `<<`: `double` en `temps` y `std::string` en `recent`. Con un solo archivo, `recent` muestra `[1/3]`; con cuatro, se queda con los tres últimos."
+    ],
+    "points": [
+      "`template <typename T, std::size_t N> class ...` define una plantilla de clase.",
+      "Al usarla se dan los argumentos: `RingBuffer<double, 4>`.",
+      "Un parámetro puede ser un valor constante, como un tamaño.",
+      "Cada combinación de argumentos es una clase distinta.",
+      "`std::array<T, N>` es un array de tamaño fijo, sin memoria dinámica."
+    ],
+    "exercise": "Añada un método `average()` que devuelva la media de los elementos guardados (para tipos numéricos) y úselo para escribir la temperatura media de las cuatro últimas lecturas."
+  },
+  "en": {
+    "slug": "class-templates",
+    "title": "Class templates",
+    "summary": "Build a generic ring buffer with a C++ class template, with the type and the size as parameters: sensor readings and recently opened files.",
+    "body": [
+      "A **class template** does for classes what a function template does for functions: `RingBuffer<T, N>` is a mould and `RingBuffer<double, 4>` is an actual class. That is how `std::vector<T>` and `std::map<K, V>` are made.",
+      "The second parameter, `std::size_t N`, is not a type but a **value** fixed at compile time. That is why it can be the size of `std::array<T, N>`, a fixed-size array that lives inside the object, with no dynamic memory. The braces in `data_{}` fill it with zeros (or empty strings).",
+      "It is a **ring buffer**: `push` writes at position `next_` and moves on with `% N`, which wraps back to 0 at the end. Once it is full, each new value overwrites the oldest, so of the six temperatures only the last four remain. It is handy for keeping a sensor's latest readings or a history of recently opened files.",
+      "`operator[]` maps the logical position (0 is the oldest) to the real one inside the array, and `show` uses it as `(*this)[i]`. The same code works for any `T` that can be printed with `<<`: `double` in `temps` and `std::string` in `recent`. With one file, `recent` shows `[1/3]`; after four, it keeps the last three."
+    ],
+    "points": [
+      "`template <typename T, std::size_t N> class ...` defines a class template.",
+      "You supply the arguments when using it: `RingBuffer<double, 4>`.",
+      "A parameter can be a constant value, such as a size.",
+      "Each combination of arguments is a separate class.",
+      "`std::array<T, N>` is a fixed-size array with no dynamic memory."
+    ],
+    "exercise": "Add an `average()` method that returns the mean of the stored elements (for numeric types) and use it to print the average of the last four temperature readings."
+  }
+}

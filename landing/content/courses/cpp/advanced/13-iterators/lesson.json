@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "iteradores",
+    "title": "Iteradores",
+    "summary": "Recorra contenedores de C++ con iteradores: begin, end, rbegin, next, distance y erase en un std::list, con una ruta y una lista de reproducción.",
+    "body": [
+      "Un **iterador** señala un elemento de un contenedor: `*it` lo lee, `++it` pasa al siguiente y `it != route.end()` comprueba si se ha llegado al final. Ojo: `end()` no es el último elemento, sino la posición que viene después. Los iteradores son lo que usa por dentro el `for` de rango y lo que reciben todos los algoritmos.",
+      "`std::next(it)` devuelve el iterador siguiente sin mover `it`; aquí sirve para saber si quedan ciudades y poner `->` solo entre ellas. Con **`rbegin()`** y **`rend()`** se recorre al revés con el mismo código: el viaje de vuelta.",
+      "Los iteradores de `std::vector` son de **acceso aleatorio**: admiten aritmética, como `route.begin() + 2`. `std::distance` cuenta los pasos entre dos iteradores y `stop->size()` llama a un método del elemento señalado, igual que con un puntero.",
+      "En un **`std::list`** (una lista doblemente enlazada) insertar y borrar en medio es barato, pero borrar invalida el iterador del elemento borrado. Por eso `erase(it)` devuelve el siguiente y el bucle solo avanza con `++it` cuando no borra. `insert` coloca «Jingle» delante de la posición indicada, la segunda. **`cbegin()`** y **`cend()`** dan iteradores `const`, que solo dejan leer."
+    ],
+    "points": [
+      "`*it` lee el elemento, `++it` avanza y `end()` está después del último.",
+      "`rbegin()` y `rend()` recorren al revés.",
+      "`std::next`, `std::distance` y la aritmética `begin() + n` mueven y miden.",
+      "`erase(it)` devuelve el iterador siguiente: úselo al borrar dentro de un bucle.",
+      "`cbegin()` y `cend()` dan iteradores de solo lectura."
+    ],
+    "exercise": "Use `std::find` para obtener un iterador a «Song A» en la lista de reproducción e inserte «Encore» justo después (pista: `std::next`). Escriba la lista final."
+  },
+  "en": {
+    "slug": "iterators",
+    "title": "Iterators",
+    "summary": "Walk through C++ containers with iterators: begin, end, rbegin, next, distance and erase on a std::list, with a route and a playlist.",
+    "body": [
+      "An **iterator** points to an element in a container: `*it` reads it, `++it` moves to the next one and `it != route.end()` checks whether you have reached the end. Note that `end()` is not the last element but the position after it. Iterators are what the range `for` uses under the hood and what every algorithm takes.",
+      "`std::next(it)` returns the following iterator without moving `it`; here it tells whether more cities are left, so `->` only goes between them. With **`rbegin()`** and **`rend()`** the same code walks backwards: the trip home.",
+      "`std::vector` iterators are **random access**: they support arithmetic such as `route.begin() + 2`. `std::distance` counts the steps between two iterators, and `stop->size()` calls a method on the element pointed to, just as with a pointer.",
+      "In a **`std::list`** (a doubly linked list), inserting and erasing in the middle is cheap, but erasing invalidates the iterator of the erased element. That is why `erase(it)` returns the next one and the loop only moves on with `++it` when it does not erase. `insert` puts \"Jingle\" before the given position, the second one. **`cbegin()`** and **`cend()`** give `const` iterators, which only allow reading."
+    ],
+    "points": [
+      "`*it` reads the element, `++it` moves on and `end()` lies past the last one.",
+      "`rbegin()` and `rend()` walk backwards.",
+      "`std::next`, `std::distance` and `begin() + n` move and measure.",
+      "`erase(it)` returns the next iterator: use it when erasing inside a loop.",
+      "`cbegin()` and `cend()` give read-only iterators."
+    ],
+    "exercise": "Use `std::find` to get an iterator to \"Song A\" in the playlist and insert \"Encore\" right after it (hint: `std::next`). Print the final playlist."
+  }
+}

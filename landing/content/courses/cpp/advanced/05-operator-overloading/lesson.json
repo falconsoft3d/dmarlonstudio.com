@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "sobrecarga-de-operadores",
+    "title": "Sobrecarga de operadores",
+    "summary": "Dé a sus clases de C++ operadores propios (+, *, +=, ==, < y <<) con un tipo Money que guarda céntimos para no perder ni un euro al sumar.",
+    "body": [
+      "`Money` guarda el dinero en **céntimos** dentro de un `long`, porque un `double` no representa exactamente valores como 0,10. El constructor es **`explicit`**: impide que un número suelto se convierta en `Money` sin querer. `euros()` es un método **`static`**: se llama sobre la clase, `Money::euros(1.80)`, sin necesitar un objeto, y redondea a céntimos.",
+      "**Sobrecargar un operador** es escribir una función llamada `operator+`, `operator*`, etc. Así `coffee * 2 + croissant` se lee como una cuenta normal: el compilador la convierte en `coffee.operator*(2).operator+(croissant)`. Los operadores aritméticos son `const` y devuelven un valor nuevo; `+=`, en cambio, cambia el propio objeto y devuelve `*this` por referencia, como hacen los tipos de la biblioteca estándar.",
+      "`==` y `<` devuelven `bool`, de modo que los importes se pueden comparar, y gracias a `<` el tipo ya sirve para `std::sort` o `std::max`. `std::boolalpha` hace que `cout` escriba `true` y `false` en vez de 1 y 0.",
+      "`operator<<` no puede ser miembro, porque a su izquierda va el flujo (`std::cout << order`). Se declara **`friend`** dentro de la clase: es una función libre, pero con permiso para leer `cents_`. Escribe los euros, un punto y los céntimos con dos cifras (`setw(2)` y `setfill('0')`, que luego se deja como estaba) y devuelve el flujo para poder encadenar más `<<`."
+    ],
+    "points": [
+      "`operator+`, `operator==`, `operator<<`… son funciones con un nombre especial.",
+      "Los operadores aritméticos devuelven un valor nuevo; los compuestos, como `+=`, devuelven `*this`.",
+      "`explicit` evita conversiones implícitas desde el tipo del constructor.",
+      "`operator<<` es una función libre (a menudo `friend`) que devuelve el flujo.",
+      "Guarde el dinero en enteros (céntimos), no en `double`."
+    ],
+    "exercise": "Añada `operator-` y úselo para calcular el cambio cuando un cliente paga el pedido con un billete de 10 euros. Compruebe que el resultado es `4.15 EUR`."
+  },
+  "en": {
+    "slug": "operator-overloading",
+    "title": "Operator overloading",
+    "summary": "Give your C++ classes their own operators (+, *, +=, ==, < and <<) with a Money type that stores cents, so sums never lose a penny.",
+    "body": [
+      "`Money` keeps the amount in **cents** inside a `long`, because a `double` cannot represent values like 0.10 exactly. The constructor is **`explicit`**: it stops a stray number from silently turning into `Money`. `euros()` is a **`static`** method: you call it on the class, `Money::euros(1.80)`, without an object, and it rounds to cents.",
+      "**Overloading an operator** means writing a function named `operator+`, `operator*` and so on. Then `coffee * 2 + croissant` reads like ordinary arithmetic: the compiler turns it into `coffee.operator*(2).operator+(croissant)`. The arithmetic operators are `const` and return a new value; `+=`, on the other hand, changes the object itself and returns `*this` by reference, just like the standard library types do.",
+      "`==` and `<` return `bool`, so amounts can be compared, and thanks to `<` the type already works with `std::sort` or `std::max`. `std::boolalpha` makes `cout` print `true` and `false` instead of 1 and 0.",
+      "`operator<<` cannot be a member, because the stream goes on its left (`std::cout << order`). It is declared **`friend`** inside the class: a free function that is allowed to read `cents_`. It prints the euros, a dot and the cents as two digits (`setw(2)` and `setfill('0')`, which it then puts back) and returns the stream so more `<<` can follow."
+    ],
+    "points": [
+      "`operator+`, `operator==`, `operator<<`… are functions with a special name.",
+      "Arithmetic operators return a new value; compound ones such as `+=` return `*this`.",
+      "`explicit` prevents implicit conversions from the constructor's argument type.",
+      "`operator<<` is a free function (often a `friend`) that returns the stream.",
+      "Store money as whole numbers of cents, not as `double`."
+    ],
+    "exercise": "Add `operator-` and use it to work out the change when a customer pays for the order with a 10-euro note. Check that the result is `4.15 EUR`."
+  }
+}

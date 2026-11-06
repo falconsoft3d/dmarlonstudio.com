@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "plantillas-de-funciones",
+    "title": "Plantillas de funciones",
+    "summary": "Escriba una sola función de C++ para muchos tipos con template: el mayor de una lista de números, palabras o versiones, y un límite genérico.",
+    "body": [
+      "Una **plantilla de función** es un molde: `template <typename T>` dice que `T` es un tipo que se decidirá al usarla. `largest` busca el mayor elemento de un `std::vector<T>` sin saber si contiene enteros, cadenas o cualquier otra cosa.",
+      "Al llamar a `largest(std::vector<int>{12, 47, 33})`, el compilador **deduce** que `T` es `int` y genera una versión para enteros. Con el vector de `std::string` genera otra, que compara por orden alfabético: «zucchini» es la última. Cada tipo produce su propia función, sin coste al ejecutar.",
+      "Lo único que `largest` le pide a `T` es que se pueda comparar con `<`. `Version` define `operator<` (primero el número mayor y, si empata, el menor), así que la plantilla también funciona con ella y encuentra la 2.0. Si un tipo no cumple lo que pide la plantilla, el error aparece al compilar.",
+      "`clampTo` encaja un valor entre un mínimo y un máximo: el volumen 130 se queda en 100 y la calefacción a 3,5 grados sube a 5. Los tres parámetros son del mismo `T`, por eso `clampTo(7, 0.5, 6.5)` no compila: `T` no puede ser `int` y `double` a la vez. Con `clampTo<double>(...)` se indica el tipo **explícitamente** y el 7 se convierte en `7.0`."
+    ],
+    "points": [
+      "`template <typename T>` delante de una función la convierte en plantilla.",
+      "El compilador deduce `T` de los argumentos y genera una versión por tipo.",
+      "La plantilla funciona con cualquier tipo que tenga las operaciones que usa.",
+      "`funcion<Tipo>(...)` fija el tipo a mano cuando la deducción no basta.",
+      "Las plantillas se escriben enteras, con su cuerpo, antes de usarlas (normalmente en un `.h`)."
+    ],
+    "exercise": "Escriba una plantilla `countAbove(const std::vector<T>& items, T limit)` que cuente cuántos elementos son mayores que `limit`, y pruébela con notas (`int`) y con temperaturas (`double`)."
+  },
+  "en": {
+    "slug": "function-templates",
+    "title": "Function templates",
+    "summary": "Write one C++ function for many types with templates: the largest of a list of numbers, words or versions, plus a generic clamp.",
+    "body": [
+      "A **function template** is a mould: `template <typename T>` says `T` is a type to be decided when the function is used. `largest` finds the biggest element of a `std::vector<T>` without knowing whether it holds integers, strings or anything else.",
+      "When you call `largest(std::vector<int>{12, 47, 33})`, the compiler **deduces** that `T` is `int` and generates a version for integers. With the `std::string` vector it generates another one, which compares alphabetically: \"zucchini\" comes last. Each type gets its own function, at no run-time cost.",
+      "All `largest` asks of `T` is that it can be compared with `<`. `Version` defines `operator<` (major number first, then minor on a tie), so the template works with it too and finds 2.0. If a type does not provide what the template needs, the error shows up at compile time.",
+      "`clampTo` keeps a value between a minimum and a maximum: a volume of 130 stays at 100 and heating at 3.5 degrees goes up to 5. All three parameters share the same `T`, which is why `clampTo(7, 0.5, 6.5)` does not compile: `T` cannot be `int` and `double` at once. `clampTo<double>(...)` states the type **explicitly**, and 7 becomes `7.0`."
+    ],
+    "points": [
+      "`template <typename T>` in front of a function makes it a template.",
+      "The compiler deduces `T` from the arguments and generates one version per type.",
+      "A template works with any type that supports the operations it uses.",
+      "`function<Type>(...)` sets the type by hand when deduction is not enough.",
+      "Templates are written in full, body included, before use (usually in a header)."
+    ],
+    "exercise": "Write a template `countAbove(const std::vector<T>& items, T limit)` that counts how many elements are greater than `limit`, and try it with marks (`int`) and temperatures (`double`)."
+  }
+}

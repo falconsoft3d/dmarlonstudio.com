@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "constexpr-y-static-assert",
+    "title": "constexpr y static_assert",
+    "summary": "Calcule al compilar con constexpr, compruebe condiciones con static_assert y elija código con if constexpr: tamaños, proporciones y tablas en C++.",
+    "body": [
+      "Una función **`constexpr`** se puede evaluar **al compilar** cuando sus argumentos se conocen de antemano. `mebibytes(64)` y `gcd(1920, 1080)` no se calculan al ejecutar el programa: el ejecutable ya lleva los resultados. `gcd` (el máximo común divisor, por el algoritmo de Euclides) es recursiva, y aun así vale.",
+      "Desde C++17, una función `constexpr` puede tener variables y bucles: `makeSquares` rellena un `std::array` con los cuadrados del 0 al 9, y `squares` es una **tabla calculada al compilar**. Las variables `constexpr`, como `width` o `cacheSize`, son constantes cuyo valor conoce el compilador.",
+      "**`static_assert`** es una comprobación que hace el compilador: si la condición es falsa, el programa no compila y se muestra el mensaje. Aquí garantiza que la pantalla es 16:9, que 64 MiB son 67 108 864 bytes y que la tabla es correcta. Desde C++17 el mensaje es opcional, como en el tercero.",
+      "La misma función `constexpr` sirve en tiempo de ejecución: `n` no se conoce al compilar, así que `gcd(n, 36)` se calcula al ejecutar, como cualquier otra función.",
+      "**`if constexpr`** elige una rama al compilar. En la plantilla `describe`, `std::is_integral_v<T>` (de `<type_traits>`) dice si `T` es un tipo entero: para `int` solo se compila la primera rama y para `double`, la segunda."
+    ],
+    "points": [
+      "`constexpr` permite calcular al compilar si los datos se conocen.",
+      "Una función `constexpr` también funciona con datos del tiempo de ejecución.",
+      "`static_assert(condición, \"mensaje\")` detiene la compilación si falla.",
+      "`if constexpr` descarta al compilar la rama que no corresponde.",
+      "Lo que se calcula al compilar no cuesta nada al ejecutar."
+    ],
+    "exercise": "Cambie `height` a 1200 y compile: lea el mensaje del `static_assert`. Después, escriba una función `constexpr` `factorial(int n)` y compruebe con `static_assert` que `factorial(5) == 120`."
+  },
+  "en": {
+    "slug": "constexpr-and-static-assert",
+    "title": "constexpr and static_assert",
+    "summary": "Compute at compile time with constexpr, check conditions with static_assert and pick code with if constexpr: sizes, ratios and tables in C++.",
+    "body": [
+      "A **`constexpr`** function can be evaluated **at compile time** when its arguments are known in advance. `mebibytes(64)` and `gcd(1920, 1080)` are not worked out when the program runs: the executable already contains the results. `gcd` (the greatest common divisor, by Euclid's algorithm) is recursive, and that is fine.",
+      "Since C++17, a `constexpr` function can have variables and loops: `makeSquares` fills a `std::array` with the squares of 0 to 9, so `squares` is a **table built at compile time**. `constexpr` variables such as `width` or `cacheSize` are constants whose value the compiler knows.",
+      "**`static_assert`** is a check made by the compiler: if the condition is false, the program does not compile and the message is shown. Here it guarantees that the screen is 16:9, that 64 MiB is 67,108,864 bytes and that the table is right. Since C++17 the message is optional, as in the third one.",
+      "The same `constexpr` function works at run time too: `n` is not known while compiling, so `gcd(n, 36)` is computed when the program runs, like any other function.",
+      "**`if constexpr`** picks a branch at compile time. In the `describe` template, `std::is_integral_v<T>` (from `<type_traits>`) says whether `T` is an integer type: for `int` only the first branch is compiled, and for `double` only the second."
+    ],
+    "points": [
+      "`constexpr` lets values be computed at compile time when the inputs are known.",
+      "A `constexpr` function also works with run-time data.",
+      "`static_assert(condition, \"message\")` stops the build if it fails.",
+      "`if constexpr` throws away the branch that does not apply, at compile time.",
+      "Work done at compile time costs nothing at run time."
+    ],
+    "exercise": "Change `height` to 1200 and compile: read the `static_assert` message. Then write a `constexpr` function `factorial(int n)` and check with `static_assert` that `factorial(5) == 120`."
+  }
+}

@@ -39,7 +39,7 @@ Hechos
 39. Punto de venta con imágenes y conexión con Odoo (URL, usuario y contraseña): productos y precios, pedidos a Ventas | ✅ |
 44. Pascal + Odoo: descarga en la página Demos (capturas y compilación con Lazarus en GitHub) y probado con Odoo 8 | ✅ |
 45. Captura del carrito de la tienda Flutter (paso 3 de su página) | ✅ |
-47. Odoo sin conexión (Pascal): obras y presupuestos BIM 2.0 por conceptos, sin conexión y subida a Odoo sin duplicados (probado en Odoo 20) | ✅ |
+47. Odoo sin conexión (Pascal): obras y presupuestos BIM 2.0 por conceptos, sin conexión y subida a Odoo sin duplicados, con el aspecto del árbol de BIM (probado en Odoo 18 y 20) | ✅ |
 
 
 Trabajando

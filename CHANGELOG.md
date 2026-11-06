@@ -3,6 +3,20 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.49 — 2026-11-06
+
+- **Obras BIM, como el árbol de conceptos de BIM 2.0** (su manual): a la
+  izquierda el árbol con ⊞/⊟ y el icono de cada tipo (capítulo, partida,
+  material, mano de obra, equipo, subcontrata), «[código] nombre»; a la
+  derecha lo que hay dentro de lo elegido con Código, Nombre, Cantidad,
+  Costo, Saldo y «Detalle», los recursos en cursiva y la fila de totales;
+  arriba, la obra y el presupuesto, el botón «+», el de inicio, la ruta
+  (Presupuestos / … › Concepto) y «UPD · Enviar a Odoo».
+- Los atajos de BIM: N añade un hijo, Mayús + N al mismo nivel, Supr
+  elimina, Intro abre, U envía y E / Mayús + E abre o cierra todo.
+- Probado de verdad contra Odoo 18 (todo, también el punto de venta) y 20
+  con BIM 2.0.
+
 ## 1.0.48 — 2026-11-06
 
 - **Obras BIM en «Odoo sin conexión» (Pascal)**: si Odoo tiene BIM 2.0

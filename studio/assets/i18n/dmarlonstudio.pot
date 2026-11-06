@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -1081,7 +1081,7 @@ msgstr ""
 msgid "Descubra lo nuevo de esta semana"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Detalle"
 msgstr ""
 
@@ -5627,10 +5627,6 @@ msgid "%d clientes · %d sin enviar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "%d conceptos"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "%d creados sin conexión"
 msgstr ""
 
@@ -5675,6 +5671,14 @@ msgid "Añada al menos una partida al presupuesto."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Añadir hijo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Añadir un hijo de lo elegido (N)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Aún no se ha sincronizado"
 msgstr ""
 
@@ -5691,7 +5695,7 @@ msgid "Base de datos encontrada: %s."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Borrador en este equipo: añada capítulos, partidas y recursos y pulse Guardar y enviar a Odoo."
+msgid "Borrador en este equipo: añada capítulos, partidas y recursos y pulse UPD · Enviar a Odoo."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5712,10 +5716,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Buscar producto…"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "CAP|PAR|MO|EQ|MAT|SUB|FUN"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5787,6 +5787,11 @@ msgid "Cockpit de ventas para Odoo 8 a 20 en Pascal con Lazarus: JSON-RPC, datos
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgctxt "bim"
+msgid "Concepto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Conectado a Odoo %s (base de datos %s, usuario %d)."
 msgstr ""
 
@@ -5815,6 +5820,10 @@ msgid "Conéctese para ver los conceptos de este presupuesto."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Costo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Creada desde DMarlon Studio · %s"
 msgstr ""
 
@@ -5822,12 +5831,8 @@ msgstr ""
 msgid "Creado en este equipo: se enviará a Odoo al sincronizar (con la referencia %s)."
 msgstr ""
 
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Crear obra"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cree una obra: se guarda aquí y se envía a Odoo al sincronizar."
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
+msgid "Crear"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5848,10 +5853,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Descartar el cambio elegido"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
-msgid "Descripción"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5955,7 +5956,7 @@ msgid "Elija una línea del ticket."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "En Odoo: %s"
+msgid "Eliminar lo elegido (Supr)"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6064,10 +6065,6 @@ msgid "Guardar presupuesto"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Guardar y enviar a Odoo"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Hay %d cambios sin enviar a Odoo, que se perderán. ¿Borrar de todos modos?"
 msgstr ""
 
@@ -6107,6 +6104,14 @@ msgstr ""
 msgid "Mejores clientes"
 msgstr ""
 
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Mismo nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "N: añadir hijo · Mayús + N: al mismo nivel · Supr: eliminar · Intro: abrir · U: enviar · E / Mayús + E: abrir o cerrar todo"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "NIF"
 msgstr ""
@@ -6139,6 +6144,10 @@ msgstr ""
 msgid "Nombre del presupuesto (opcional)"
 msgstr ""
 
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nueva obra…"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Nuevo cliente"
 msgstr ""
@@ -6148,11 +6157,12 @@ msgid "Nuevo presupuesto"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Obra %s de Odoo · %s"
+msgid "Nuevo…"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Obra creada en este equipo: se enviará a Odoo al sincronizar."
+msgctxt "bim"
+msgid "Obra"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6165,10 +6175,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Obra «%s» creada en Odoo (%s)."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Obras"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6236,6 +6242,11 @@ msgstr ""
 msgid "Por %s"
 msgstr ""
 
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgctxt "bim"
+msgid "Presupuesto"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/budget_screen.dart
 msgid "Presupuesto"
 msgstr ""
@@ -6277,11 +6288,12 @@ msgid "Presupuestos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Presupuestos abiertos"
+msgctxt "bim"
+msgid "Presupuestos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Presupuestos de la obra"
+msgid "Presupuestos abiertos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
@@ -6314,6 +6326,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Resumen de las ventas de los últimos doce meses"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Saldo"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6428,10 +6444,6 @@ msgid "Total %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Total: %s"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Total: %s (sin impuestos)"
 msgstr ""
 
@@ -6441,6 +6453,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Trabajar sin conexión"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "UPD · Enviar a Odoo"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6477,6 +6493,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ventas por mes"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Volver al primer nivel del presupuesto"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -8786,6 +8806,10 @@ msgstr ""
 msgid "Descartar todos los cambios…"
 msgstr ""
 
+#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
+msgid "Descripción"
+msgstr ""
+
 #: lib/ui/screens/code_git.dart
 msgid "Deshacer el último commit"
 msgstr ""
@@ -9590,10 +9614,6 @@ msgstr ""
 
 #: lib/ui/screens/diagrams.dart
 msgid "Conectar con otra figura"
-msgstr ""
-
-#: lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
-msgid "Crear"
 msgstr ""
 
 #: lib/ui/screens/diagrams.dart

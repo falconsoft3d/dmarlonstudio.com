@@ -491,8 +491,9 @@ void main() {
       'Tick',
       'NavBim',
       'BimProject',
-      'BimBudList',
+      'BimBudSel',
       'BimTree',
+      'BimRows',
       'BimType',
       'BimSend',
     ]) {

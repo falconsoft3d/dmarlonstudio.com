@@ -11,6 +11,13 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
   const paper = '#eef1f4', card = '#ffffff', ink = '#1d2939';
   const muted = '#5b6670', accent = '#0a6ed1', note = '#fff8e1';
   final app = t(markTr('Odoo sin conexión'));
+  // Con contexto (msgctxt «bim»): «Presupuestos» y «Concepto» como en BIM 2.0.
+  String tc(String ctx, String id) {
+    final k = contextKey(ctx, id);
+    final r = t(k);
+    return r == k ? id : r;
+  }
+
   final pageNames = [
     t(markTr('Panel')),
     t(markTr('Clientes')),
@@ -875,85 +882,133 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             ),
             'HelpCard',
           ),
-          // Obras BIM: obras, presupuestos por conceptos (capítulos, partidas
-          // y recursos) y su envío a Odoo con el módulo BIM 2.0.
-          onPage(box('BimLeft', 20, oy + 16, 300, 610), 7),
-          inside(
-            text('BimLeftHead', 16, 10, 268, 24, t(markTr('Obras')), size: 13, bold: true),
-            'BimLeft',
-          ),
-          inside(
-            _w('Combobox', 'BimProject', 16, 38, 268, 28, {'state': 'readonly'}, {
+          // Obras BIM, como el árbol de conceptos de BIM 2.0: arriba la obra y
+          // el presupuesto; la barra (+, inicio, quitar, ruta y UPD); a la
+          // izquierda el árbol y a la derecha lo que hay dentro de lo elegido
+          // (Código, Nombre, Cantidad, Costo, Saldo), con el editor debajo.
+          onPage(text('LblBimProj', 20, oy + 14, 40, 20, tc('bim', markTrc('bim', 'Obra')), fg: muted), 7),
+          onPage(
+            _w('Combobox', 'BimProject', 60, oy + 10, 300, 28, {'state': 'readonly'}, {
               'select': 'BimProject_select',
             }),
-            'BimLeft',
+            7,
+          ),
+          onPage(button('BimProjAdd', 366, oy + 10, 110, 28, t(markTr('Nueva obra…'))), 7),
+          onPage(
+            text('LblBimBud', 488, oy + 14, 86, 20, tc('bim', markTrc('bim', 'Presupuesto')), fg: muted),
+            7,
+          ),
+          onPage(
+            _w('Combobox', 'BimBudSel', 576, oy + 10, 200, 28, {'state': 'readonly'}, {
+              'select': 'BimBudSel_select',
+            }),
+            7,
+          ),
+          onPage(button('BimBudNew', 782, oy + 10, 98, 28, t(markTr('Nuevo…'))), 7),
+          onPage(
+            _w(
+              'Button',
+              'BimAdd',
+              20,
+              oy + 46,
+              38,
+              32,
+              {'text': '+', 'bg': '#714b67', 'fg': '#ffffff', 'font_bold': true, 'font_size': 14},
+              {'command': 'BimAdd_click'},
+            ),
+            7,
+          ),
+          onPage(button('BimHome', 62, oy + 46, 38, 32, '⌂'), 7),
+          onPage(button('BimDel', 104, oy + 46, 38, 32, '✕'), 7),
+          onPage(text('BimCrumb', 154, oy + 44, 520, 18, '', fg: '#017e84', size: 9), 7),
+          onPage(text('BimCrumb2', 154, oy + 61, 520, 20, '', size: 10), 7),
+          onPage(
+            _w(
+              'Button',
+              'BimSend',
+              690,
+              oy + 46,
+              190,
+              32,
+              {
+                'text': t(markTr('UPD · Enviar a Odoo')),
+                'bg': '#714b67',
+                'fg': '#ffffff',
+                'font_bold': true,
+              },
+              {'command': 'BimSend_click'},
+            ),
+            7,
+          ),
+          onPage(box('BimTreeBox', 20, oy + 88, 280, 538), 7),
+          inside(
+            _w('Listbox', 'BimTree', 0, 0, 280, 538, const {}, {'select': 'BimTree_select'}),
+            'BimTreeBox',
+          ),
+          onPage(box('BimSplit', 300, oy + 88, 2, 538, '#cfd4da'), 7),
+          onPage(box('BimRight', 302, oy + 88, 578, 538), 7),
+          inside(
+            text('LblBimHCode', 34, 8, 64, 20, t(markTr('Código')), bold: true),
+            'BimRight',
           ),
           inside(
-            text('LblBimNewProj', 16, 76, 268, 20, t(markTr('Obra nueva')), fg: muted),
-            'BimLeft',
-          ),
-          inside(_w('Entry', 'BimProjName', 16, 96, 268, 28), 'BimLeft'),
-          inside(
-            _w('Combobox', 'BimProjCust', 16, 130, 268, 28, {'state': 'readonly'}),
-            'BimLeft',
-          ),
-          inside(
-            button('BimProjAdd', 16, 164, 268, 28, t(markTr('Crear obra'))),
-            'BimLeft',
+            text('LblBimHName', 102, 8, 140, 20, t(markTr('Nombre')), bold: true),
+            'BimRight',
           ),
           inside(
             text(
-              'LblBimBudgets',
-              16,
-              206,
-              268,
+              'LblBimHQty',
+              246,
+              8,
+              84,
               20,
-              t(markTr('Presupuestos de la obra')),
+              t(markTr('Cantidad')),
               bold: true,
+              anchor: 'e',
             ),
-            'BimLeft',
-          ),
-          inside(
-            _w('Listbox', 'BimBudList', 16, 228, 268, 254, const {}, {
-              'select': 'BimBudList_select',
-            }),
-            'BimLeft',
-          ),
-          inside(_w('Entry', 'BimBudName', 16, 490, 268, 28), 'BimLeft'),
-          inside(
-            primary('BimBudNew', 16, 524, 268, 30, t(markTr('Presupuesto nuevo'))),
-            'BimLeft',
-          ),
-          inside(
-            text('BimLeftInfo', 16, 560, 268, 44, '', fg: muted, size: 9),
-            'BimLeft',
-          ),
-          onPage(box('BimRight', 336, oy + 16, 544, 610), 7),
-          inside(
-            text('BimBudTitle', 16, 8, 512, 24, '', size: 13, bold: true),
             'BimRight',
           ),
           inside(
-            text('BimBudSub', 16, 32, 512, 18, '', fg: muted, size: 9),
+            text('LblBimHCost', 326, 8, 84, 20, t(markTr('Costo')), bold: true, anchor: 'e'),
             'BimRight',
           ),
           inside(
-            _w('Listbox', 'BimTree', 16, 54, 512, 334, const {}, {
-              'select': 'BimTree_select',
+            text('LblBimHBal', 404, 8, 84, 20, t(markTr('Saldo')), bold: true, anchor: 'e'),
+            'BimRight',
+          ),
+          inside(box('BimHeadLine', 0, 34, 578, 1, '#dee2e6'), 'BimRight'),
+          inside(
+            _w('Listbox', 'BimRows', 0, 35, 578, 300, const {}, {
+              'select': 'BimRows_select',
+              'double': 'BimRows_double',
             }),
             'BimRight',
           ),
+          inside(box('BimFootLine', 0, 335, 578, 1, '#dee2e6'), 'BimRight'),
           inside(
-            text('LblBimType', 16, 394, 120, 18, t(markTr('Tipo')), fg: muted),
+            text('BimFootQty', 246, 342, 84, 20, '', bold: true, anchor: 'e'),
+            'BimRight',
+          ),
+          inside(
+            text('BimFootCost', 326, 342, 84, 20, '', bold: true, anchor: 'e'),
+            'BimRight',
+          ),
+          inside(
+            text('BimFootBal', 404, 342, 84, 20, '', bold: true, anchor: 'e'),
+            'BimRight',
+          ),
+          inside(box('BimEditLine', 0, 372, 578, 1, '#dee2e6'), 'BimRight'),
+          inside(
+            text('LblBimType', 12, 380, 130, 18, t(markTr('Tipo')), fg: muted),
             'BimRight',
           ),
           inside(
             _w(
               'Combobox',
               'BimType',
-              16,
-              412,
-              120,
+              12,
+              398,
+              130,
               28,
               {
                 'items': [
@@ -972,53 +1027,50 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             'BimRight',
           ),
           inside(
-            text('LblBimCode', 144, 394, 80, 18, t(markTr('Código')), fg: muted),
+            text('LblBimCode', 150, 380, 80, 18, t(markTr('Código')), fg: muted),
             'BimRight',
           ),
-          inside(_w('Entry', 'BimCode', 144, 412, 80, 28), 'BimRight'),
+          inside(_w('Entry', 'BimCode', 150, 398, 80, 28), 'BimRight'),
           inside(
-            text('LblBimName', 232, 394, 296, 18, t(markTr('Descripción')), fg: muted),
-            'BimRight',
-          ),
-          inside(_w('Entry', 'BimName', 232, 412, 296, 28), 'BimRight'),
-          inside(
-            text('LblBimQty', 16, 446, 90, 18, t(markTr('Cantidad')), fg: muted),
-            'BimRight',
-          ),
-          inside(_w('Entry', 'BimQty', 16, 464, 90, 28, {'text': '1'}), 'BimRight'),
-          inside(
-            text('LblBimPrice', 114, 446, 100, 18, t(markTr('Precio')), fg: muted),
-            'BimRight',
-          ),
-          inside(_w('Entry', 'BimPrice', 114, 464, 100, 28, {'text': '0'}), 'BimRight'),
-          inside(
-            text('LblBimUom', 222, 446, 90, 18, t(markTr('Unidad')), fg: muted),
-            'BimRight',
-          ),
-          inside(_w('Entry', 'BimUom', 222, 464, 90, 28), 'BimRight'),
-          inside(button('BimAdd', 320, 464, 66, 28, t(markTr('Añadir'))), 'BimRight'),
-          inside(button('BimApply', 391, 464, 66, 28, t(markTr('Aplicar'))), 'BimRight'),
-          inside(button('BimDel', 462, 464, 66, 28, t(markTr('Quitar'))), 'BimRight'),
-          inside(
-            text(
-              'BimTotal',
-              16,
-              500,
-              512,
-              26,
-              '',
-              size: 13,
-              bold: true,
-              anchor: 'e',
-            ),
+            text('LblBimName', 238, 380, 328, 18, t(markTr('Nombre')), fg: muted),
             'BimRight',
           ),
           inside(
-            primary('BimSend', 16, 534, 250, 34, t(markTr('Guardar y enviar a Odoo'))),
+            _w('Entry', 'BimName', 238, 398, 328, 28, const {}, {'enter_key': 'BimEnter_key'}),
             'BimRight',
           ),
           inside(
-            text('BimInfo', 278, 530, 250, 72, '', fg: muted, size: 9),
+            text('LblBimQty', 12, 432, 80, 18, t(markTr('Cantidad')), fg: muted),
+            'BimRight',
+          ),
+          inside(
+            _w('Entry', 'BimQty', 12, 450, 80, 28, {'text': '1'}, {'enter_key': 'BimEnter_key'}),
+            'BimRight',
+          ),
+          inside(
+            text('LblBimPrice', 98, 432, 90, 18, t(markTr('Precio')), fg: muted),
+            'BimRight',
+          ),
+          inside(
+            _w('Entry', 'BimPrice', 98, 450, 90, 28, {'text': '0'}, {'enter_key': 'BimEnter_key'}),
+            'BimRight',
+          ),
+          inside(
+            text('LblBimUom', 194, 432, 70, 18, t(markTr('Unidad')), fg: muted),
+            'BimRight',
+          ),
+          inside(_w('Entry', 'BimUom', 194, 450, 70, 28), 'BimRight'),
+          inside(
+            button('BimChild', 270, 450, 104, 28, t(markTr('Añadir hijo'))),
+            'BimRight',
+          ),
+          inside(
+            button('BimSibling', 378, 450, 104, 28, t(markTr('Mismo nivel'))),
+            'BimRight',
+          ),
+          inside(button('BimApply', 486, 450, 80, 28, t(markTr('Aplicar'))), 'BimRight'),
+          inside(
+            text('BimInfo', 12, 488, 554, 44, '', fg: muted, size: 9),
             'BimRight',
           ),
           _w('Timer', 'Tick', 0, 0, 24, 24, {'interval': 1000}, {
@@ -1231,16 +1283,26 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
     'SDeliveryFailed': t(markTr('La entrega %s no se pudo validar (estado %s).')),
     'SNoInvoice': t(markTr('Odoo no creó la factura del pedido %s.')),
     'SNoSsl': t(markTr('no encontrada')),
-    'SBimTags': t(markTr('CAP|PAR|MO|EQ|MAT|SUB|FUN')),
     'SBimNoCust': t(markTr('(sin cliente)')),
+    'SBimCrumb': tc('bim', markTrc('bim', 'Presupuestos')),
+    'SBimConcept': tc('bim', markTrc('bim', 'Concepto')),
+    'SBimDetail': t(markTr('Detalle')),
+    'SBimCustomer': t(markTr('Cliente')),
+    'SBimCancel': t(markTr('Cancelar')),
+    'SBimCreate': t(markTr('Crear')),
+    'SBimNewProject': t(markTr('Obra nueva')),
+    'SBimNewBudgetTitle': t(markTr('Presupuesto nuevo')),
+    'SBimHintAdd': t(markTr('Añadir un hijo de lo elegido (N)')),
+    'SBimHintHome': t(markTr('Volver al primer nivel del presupuesto')),
+    'SBimHintDel': t(markTr('Eliminar lo elegido (Supr)')),
+    'SBimKeys': t(
+      markTr(
+        'N: añadir hijo · Mayús + N: al mismo nivel · Supr: eliminar · Intro: abrir · U: enviar · E / Mayús + E: abrir o cerrar todo',
+      ),
+    ),
     'SBimHintProj': t(markTr('Nombre de la obra')),
     'SBimHintBud': t(markTr('Nombre del presupuesto (opcional)')),
     'SBimNoProject': t(markTr('Elija o cree una obra.')),
-    'SBimNoProjectYet': t(
-      markTr('Cree una obra: se guarda aquí y se envía a Odoo al sincronizar.'),
-    ),
-    'SBimProjLocal': t(markTr('Obra creada en este equipo: se enviará a Odoo al sincronizar.')),
-    'SBimProjInOdoo': t(markTr('Obra %s de Odoo · %s')),
     'SBimProjName': t(markTr('Escriba el nombre de la obra.')),
     'SBimNewBudget': t(markTr('Presupuesto %s')),
     'SBimChooseBudget': t(markTr('Elija o cree un presupuesto de la obra.')),
@@ -1265,16 +1327,12 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
     ),
     'SBimDraft': t(
       markTr(
-        'Borrador en este equipo: añada capítulos, partidas y recursos y pulse Guardar y enviar a Odoo.',
+        'Borrador en este equipo: añada capítulos, partidas y recursos y pulse UPD · Enviar a Odoo.',
       ),
     ),
     'SBimWaiting': t(markTr('Esperando la conexión para enviarse a Odoo.')),
     'SBimLocked': t(markTr('Está en Odoo: aquí se consulta; los cambios, en Odoo.')),
     'SBimLoad': t(markTr('Conéctese para ver los conceptos de este presupuesto.')),
-    'SBimTotal': t(markTr('Total: %s')),
-    'SBimInOdoo': t(markTr('En Odoo: %s')),
-    'SBimLocalTag': t(markTr('Sin enviar')),
-    'SBimConceptsN': t(markTr('%d conceptos')),
     'SBimMissing': t(
       markTr('Esta base de datos de Odoo no tiene BIM 2.0 (módulo base_bim_2).'),
     ),
@@ -1485,8 +1543,10 @@ type
     PosPageNo: Integer;
     Cart: TJSONArray;
     MonthBox, StateBox, TopBox, PosBox: TPaintBox;
-    BimProjRows, BimBudRows, BimCustRows: array of Integer;
-    BimProjKey, BimBudKey: string;
+    BimBudRows, BimTreeRows, BimRowRows: array of Integer;
+    BimProjKey, BimBudKey, BimSelRef, BimRowRef: string;
+    BimOpen: TStringList;
+    BimSibMode: Boolean;
     destructor Destroy; override;
     procedure form_create; override;
     procedure form_close; override;
@@ -1580,25 +1640,43 @@ type
     function CurBimProject: TJSONObject;
     function CurBimBudget: TJSONObject;
     function BimEditable(B: TJSONObject): Boolean;
+    function BimShown(A: TJSONArray; I: Integer): Boolean;
+    procedure BimReveal(A: TJSONArray; const R: string);
     function BimParentFor(B: TJSONObject; const T: string): string;
     function BimRead(out T: string; out Q, Pr: Double): Boolean;
+    function AskBimProject(out AName: string; out Partner: TJSONObject): Boolean;
+    procedure BimPrepare(Sibling: Boolean);
     procedure BimSuggestCode;
+    procedure BimCommit;
+    procedure BimOpenRow(R: Integer);
     procedure RefreshBim;
     procedure RefreshBimBudgets;
     procedure RefreshBimTree;
+    procedure RefreshBimRows;
     procedure BimProject_select; override;
     procedure BimProjAdd_click; override;
-    procedure BimBudList_select; override;
+    procedure BimBudSel_select; override;
     procedure BimBudNew_click; override;
     procedure BimTree_select; override;
+    procedure BimRows_select; override;
+    procedure BimRows_double; override;
     procedure BimType_select; override;
     procedure BimAdd_click; override;
+    procedure BimHome_click; override;
+    procedure BimChild_click; override;
+    procedure BimSibling_click; override;
+    procedure BimEnter_key; override;
     procedure BimApply_click; override;
     procedure BimDel_click; override;
     procedure BimSend_click; override;
-    procedure DrawBimBudget(Control: TWinControl; Index: Integer;
+    procedure BimTreeMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BimRowsMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure BimKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure DrawBimNode(Control: TWinControl; Index: Integer;
       ARect: TRect; State: TOwnerDrawState);
-    procedure DrawBimConcept(Control: TWinControl; Index: Integer;
+    procedure DrawBimRow(Control: TWinControl; Index: Integer;
       ARect: TRect; State: TOwnerDrawState);
   end;
 
@@ -3586,6 +3664,7 @@ begin
   Store.Free;
   Draft.Free;
   Cart.Free;
+  BimOpen.Free;
   inherited Destroy;
 end;
 
@@ -3670,10 +3749,19 @@ begin
   OwnerDraw(RecentList, 38, @DrawRecent);
   OwnerDraw(Outbox, 46, @DrawOutbox);
   OwnerDraw(PosLines, 40, @DrawPosLine);
-  OwnerDraw(BimBudList, 46, @DrawBimBudget);
-  OwnerDraw(BimTree, 30, @DrawBimConcept);
-  BimProjName.TextHint := SBimHintProj;
-  BimBudName.TextHint := SBimHintBud;
+  OwnerDraw(BimTree, 36, @DrawBimNode);
+  OwnerDraw(BimRows, 40, @DrawBimRow);
+  BimTree.OnMouseUp := @BimTreeMouseUp;
+  BimRows.OnMouseUp := @BimRowsMouseUp;
+  BimTree.OnKeyDown := @BimKeyDown;
+  BimRows.OnKeyDown := @BimKeyDown;
+  BimAdd.Hint := SBimHintAdd;
+  BimHome.Hint := SBimHintHome;
+  BimDel.Hint := SBimHintDel;
+  BimAdd.ShowHint := True;
+  BimHome.ShowHint := True;
+  BimDel.ShowHint := True;
+  BimOpen := TStringList.Create;
   BimType.ItemIndex := 0;
   PosBox := MakeBox(Self, PosGrid, @PaintPos);
   PosBox.OnMouseUp := @PosMouseUp;
@@ -3741,7 +3829,7 @@ begin
     3: begin RefreshSales; RefreshChoices; end;
     4: RefreshPos;
     5: begin RefreshOutbox; RefreshSyncInfo; end;
-    7: begin RefreshBim; BimSuggestCode; end;
+    7: begin RefreshBim; BimPrepare(False); end;
   end;
   // Que ningún campo se quede con el foco (y todo el texto elegido): una
   // tecla pulsada sin querer lo cambiaría.
@@ -6145,7 +6233,15 @@ begin
   end;
 end;
 
-// ---- TForm1: la página Obras BIM
+// ---- TForm1: la página Obras BIM (como el árbol de conceptos de BIM 2.0)
+
+const
+  CBimTeal = $00847E01;    // #017e84
+  CBimSelBg = $00F2F0DC;   // #dcf0f2
+  CBimLine = $00EBE7E5;    // #e5e7eb
+  CBimGreen = $00329A2C;   // #2c9a32
+  CBimBrown = $0014698B;   // #8b6914
+  CBimInk = $00292521;     // #212529
 
 { Obras BIM, detrás del punto de venta; sin BIM en Odoo (y sin nada de BIM
   aquí), el botón se oculta y los de abajo suben. }
@@ -6208,25 +6304,139 @@ begin
     ((JStr(P, 'ref') <> '') and (JStr(B, 'project_ref') = JStr(P, 'ref'))));
 end;
 
+{ 1.234,5678 y 1.234,56, con los separadores de aquí (como BIM). }
+function BimNum(V: Double; const Mask: string): string;
+var
+  F: TFormatSettings;
+begin
+  F := DefaultFormatSettings;
+  F.DecimalSeparator := Decimals;
+  F.ThousandSeparator := Thousands;
+  Result := FormatFloat(Mask, V, F);
+end;
+
+{ El icono de cada tipo, como en BIM: el capítulo, cuatro cuadros verdes; la
+  partida, una lista; el material, una «m»; la mano de obra, una persona… }
+procedure BimIcon(C: TCanvas; X, Y: Integer; const T: string);
+begin
+  C.Brush.Style := bsSolid;
+  C.Pen.Style := psSolid;
+  if T = 'chapter' then
+  begin
+    C.Brush.Color := CBimGreen;
+    C.Pen.Color := CBimGreen;
+    C.FillRect(Rect(X, Y + 1, X + 6, Y + 7));
+    C.FillRect(Rect(X + 8, Y + 1, X + 14, Y + 7));
+    C.FillRect(Rect(X, Y + 9, X + 6, Y + 15));
+    C.FillRect(Rect(X + 8, Y + 9, X + 14, Y + 15));
+  end
+  else if T = 'departure' then
+  begin
+    C.Brush.Color := CBimBrown;
+    C.FillRect(Rect(X, Y + 2, X + 3, Y + 5));
+    C.FillRect(Rect(X + 5, Y + 2, X + 14, Y + 5));
+    C.FillRect(Rect(X, Y + 7, X + 3, Y + 10));
+    C.FillRect(Rect(X + 5, Y + 7, X + 14, Y + 10));
+    C.FillRect(Rect(X, Y + 12, X + 3, Y + 15));
+    C.FillRect(Rect(X + 5, Y + 12, X + 14, Y + 15));
+  end
+  else if T = 'labor' then
+  begin
+    C.Brush.Color := CBimGreen;
+    C.Pen.Color := CBimGreen;
+    C.Ellipse(X + 4, Y, X + 10, Y + 6);
+    C.FillRect(Rect(X + 3, Y + 6, X + 11, Y + 11));
+    C.FillRect(Rect(X + 4, Y + 11, X + 6, Y + 16));
+    C.FillRect(Rect(X + 8, Y + 11, X + 10, Y + 16));
+  end
+  else if T = 'equip' then
+  begin
+    C.Brush.Color := $00555B60;
+    C.Pen.Color := $00555B60;
+    C.FillRect(Rect(X, Y + 4, X + 9, Y + 11));
+    C.FillRect(Rect(X + 9, Y + 7, X + 14, Y + 11));
+    C.Ellipse(X + 1, Y + 10, X + 6, Y + 15);
+    C.Ellipse(X + 8, Y + 10, X + 13, Y + 15);
+  end
+  else if T = 'subcontract' then
+  begin
+    C.Brush.Color := $00C1426F;
+    C.Pen.Color := $00C1426F;
+    C.FillRect(Rect(X, Y + 5, X + 14, Y + 15));
+    C.Brush.Style := bsClear;
+    C.Rectangle(X + 4, Y + 2, X + 10, Y + 6);
+  end
+  else
+  begin
+    C.Brush.Style := bsClear;
+    C.Font.Size := 11;
+    C.Font.Style := [fsBold, fsItalic];
+    if T = 'material' then C.Font.Color := CBimBrown else C.Font.Color := CGrey;
+    if T = 'material' then C.TextOut(X + 1, Y - 2, 'm') else C.TextOut(X + 3, Y - 2, 'f');
+  end;
+  C.Brush.Style := bsClear;
+end;
+
+{ ⊞ o ⊟: un cuadrito con + o −. }
+procedure BimToggle(C: TCanvas; X, Y: Integer; Open: Boolean);
+begin
+  C.Brush.Style := bsSolid;
+  C.Brush.Color := clWhite;
+  C.Pen.Color := $00707070;
+  C.Rectangle(X, Y, X + 11, Y + 11);
+  C.Line(X + 3, Y + 5, X + 8, Y + 5);
+  if not Open then C.Line(X + 5, Y + 3, X + 5, Y + 8);
+  C.Brush.Style := bsClear;
+end;
+
+{ ¿Está a la vista el concepto I (todos sus padres abiertos)? }
+function TForm1.BimShown(A: TJSONArray; I: Integer): Boolean;
+var
+  N: Integer;
+begin
+  Result := True;
+  N := 0;
+  I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+  while (I >= 0) and (N < 64) do
+  begin
+    if BimOpen.IndexOf(JStr(A.Objects[I], 'ref')) < 0 then Exit(False);
+    I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+    Inc(N);
+  end;
+end;
+
+{ Abre los padres de R (para que se vea en el árbol). }
+procedure TForm1.BimReveal(A: TJSONArray; const R: string);
+var
+  I, N: Integer;
+begin
+  N := 0;
+  I := BimIndex(A, R);
+  if I >= 0 then I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+  while (I >= 0) and (N < 64) do
+  begin
+    if BimOpen.IndexOf(JStr(A.Objects[I], 'ref')) < 0 then BimOpen.Add(JStr(A.Objects[I], 'ref'));
+    I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+    Inc(N);
+  end;
+end;
+
 procedure TForm1.RefreshBim;
 var
   A: TJSONArray;
   P: TJSONObject;
-  I, Keep: Integer;
-  Sorted: TStringList;
+  I: Integer;
 begin
   A := Store.List('bim_projects');
   if (CurBimProject = nil) and (A.Count > 0) then BimProjKey := BimKey(A.Objects[0]);
-  SetLength(BimProjRows, A.Count);
   BimProject.Items.BeginUpdate;
   try
     BimProject.Items.Clear;
     for I := 0 to A.Count - 1 do
     begin
       P := A.Objects[I];
-      BimProjRows[I] := I;
       if JStr(P, 'code') <> '' then
-        BimProject.Items.Add(JStr(P, 'code') + ' · ' + JStr(P, 'name'))
+        BimProject.Items.Add('[' + JStr(P, 'code') + '] ' + JStr(P, 'name'))
       else
         BimProject.Items.Add(JStr(P, 'name') + ' (' + SPendingTag + ')');
       if BimKey(P) = BimProjKey then BimProject.ItemIndex := I;
@@ -6234,40 +6444,13 @@ begin
   finally
     BimProject.Items.EndUpdate;
   end;
-  // Los clientes, por nombre (el primero: sin cliente).
-  A := Store.List('partners');
-  Sorted := TStringList.Create;
-  try
-    for I := 0 to A.Count - 1 do
-      Sorted.AddObject(JStr(A.Objects[I], 'name'), TObject(PtrInt(I)));
-    Sorted.CaseSensitive := False;
-    Sorted.Sort;
-    Keep := BimProjCust.ItemIndex;
-    BimProjCust.Items.BeginUpdate;
-    try
-      BimProjCust.Items.Clear;
-      BimProjCust.Items.Add(SBimNoCust);
-      SetLength(BimCustRows, Sorted.Count);
-      for I := 0 to Sorted.Count - 1 do
-      begin
-        BimCustRows[I] := PtrInt(Sorted.Objects[I]);
-        BimProjCust.Items.Add(Sorted[I]);
-      end;
-    finally
-      BimProjCust.Items.EndUpdate;
-    end;
-    if (Keep >= 0) and (Keep < BimProjCust.Items.Count) then BimProjCust.ItemIndex := Keep
-    else BimProjCust.ItemIndex := 0;
-  finally
-    Sorted.Free;
-  end;
   RefreshBimBudgets;
 end;
 
 procedure TForm1.RefreshBimBudgets;
 var
   A: TJSONArray;
-  P: TJSONObject;
+  P, B: TJSONObject;
   I, N: Integer;
 begin
   P := CurBimProject;
@@ -6282,72 +6465,161 @@ begin
     end;
   SetLength(BimBudRows, N);
   if (N > 0) and ((CurBimBudget = nil) or not BimOfProject(CurBimBudget, P)) then
+  begin
     BimBudKey := BimKey(A.Objects[BimBudRows[0]]);
+    BimSelRef := '';
+  end;
   if N = 0 then BimBudKey := '';
-  BimBudList.Items.BeginUpdate;
+  BimBudSel.Items.BeginUpdate;
   try
-    BimBudList.Items.Clear;
+    BimBudSel.Items.Clear;
     for I := 0 to N - 1 do
     begin
-      BimBudList.Items.Add('');
-      if BimKey(A.Objects[BimBudRows[I]]) = BimBudKey then BimBudList.ItemIndex := I;
+      B := A.Objects[BimBudRows[I]];
+      if JStr(B, 'code') <> '' then
+        BimBudSel.Items.Add('[' + JStr(B, 'code') + '] ' + JStr(B, 'name'))
+      else
+        BimBudSel.Items.Add(JStr(B, 'name') + ' (' + SPendingTag + ')');
+      if BimKey(B) = BimBudKey then BimBudSel.ItemIndex := I;
     end;
   finally
-    BimBudList.Items.EndUpdate;
+    BimBudSel.Items.EndUpdate;
   end;
-  if P = nil then BimLeftInfo.Caption := SBimNoProjectYet
-  else if JInt(P, 'id') = 0 then BimLeftInfo.Caption := SBimProjLocal
-  else BimLeftInfo.Caption := Format(SBimProjInOdoo, [JStr(P, 'code'), JStr(P, 'partner')]);
   RefreshBimTree;
 end;
 
+{ El árbol (lo que está a la vista) y la tabla de lo elegido. }
 procedure TForm1.RefreshBimTree;
 var
   B: TJSONObject;
   A: TJSONArray;
-  I, Keep: Integer;
+  I, N, TopRow: Integer;
   Edit: Boolean;
 begin
   B := CurBimBudget;
-  Keep := BimTree.ItemIndex;
+  TopRow := BimTree.TopIndex;
+  SetLength(BimTreeRows, 0);
+  N := 0;
+  if B <> nil then
+  begin
+    A := BimConcepts(B);
+    if BimIndex(A, BimSelRef) < 0 then BimSelRef := '';
+    SetLength(BimTreeRows, A.Count);
+    for I := 0 to A.Count - 1 do
+      if BimShown(A, I) then
+      begin
+        BimTreeRows[N] := I;
+        Inc(N);
+      end;
+    SetLength(BimTreeRows, N);
+  end;
   BimTree.Items.BeginUpdate;
   try
     BimTree.Items.Clear;
-    if B <> nil then
+    for I := 0 to N - 1 do
     begin
-      A := BimConcepts(B);
-      for I := 0 to A.Count - 1 do BimTree.Items.Add('');
-      if Keep < A.Count then BimTree.ItemIndex := Keep;
+      BimTree.Items.Add('');
+      if JStr(A.Objects[BimTreeRows[I]], 'ref') = BimSelRef then BimTree.ItemIndex := I;
     end;
+    if (TopRow >= 0) and (TopRow < N) then BimTree.TopIndex := TopRow;
   finally
     BimTree.Items.EndUpdate;
   end;
   Edit := BimEditable(B);
   BimAdd.Enabled := Edit;
-  BimApply.Enabled := Edit;
   BimDel.Enabled := Edit;
+  BimChild.Enabled := Edit;
+  BimSibling.Enabled := Edit;
+  BimApply.Enabled := Edit;
   BimSend.Enabled := Edit;
   if B = nil then
   begin
-    BimBudTitle.Caption := SBimChooseBudget;
-    BimBudSub.Caption := '';
-    BimTotal.Caption := '';
+    BimCrumb.Caption := '';
+    BimCrumb2.Caption := SBimChooseBudget;
     BimInfo.Caption := '';
-    Exit;
+  end
+  else
+  begin
+    if JStr(B, 'code') <> '' then
+      BimCrumb.Caption := SBimCrumb + ' / [' + JStr(B, 'code') + '] ' + JStr(B, 'name')
+    else BimCrumb.Caption := SBimCrumb + ' / ' + JStr(B, 'name');
+    if Edit then BimInfo.Caption := SBimDraft + LineEnding + SBimKeys
+    else if JBool(B, 'pending') then BimInfo.Caption := SBimWaiting
+    else if (BimConcepts(B).Count = 0) and not Online then BimInfo.Caption := SBimLoad
+    else BimInfo.Caption := SBimLocked;
   end;
-  BimBudTitle.Caption := JStr(B, 'name');
-  if JStr(B, 'code') <> '' then
-    BimBudSub.Caption := Format(SBimInOdoo, [JStr(B, 'code') + ' · ' + JStr(B, 'project')])
-  else BimBudSub.Caption := JStr(B, 'project');
-  if BimConcepts(B).Count > 0 then
-    BimTotal.Caption := Format(SBimTotal, [Money(BimSum(BimConcepts(B)))])
-  else if JNum(B, 'amount') <> 0 then
-    BimTotal.Caption := Format(SBimTotal, [Money(JNum(B, 'amount'))])
-  else BimTotal.Caption := '';
-  if Edit then BimInfo.Caption := SBimDraft
-  else if JBool(B, 'pending') then BimInfo.Caption := SBimWaiting
-  else if (BimConcepts(B).Count = 0) and not Online then BimInfo.Caption := SBimLoad
-  else BimInfo.Caption := SBimLocked;
+  RefreshBimRows;
+end;
+
+{ La tabla: lo que hay dentro de lo elegido (de un recurso, lo que hay junto
+  a él), con la ruta y los totales. }
+procedure TForm1.RefreshBimRows;
+var
+  B: TJSONObject;
+  A: TJSONArray;
+  I, N, S: Integer;
+  Holder, Path: string;
+  SQ, SC, SB: Double;
+begin
+  B := CurBimBudget;
+  SetLength(BimRowRows, 0);
+  N := 0;
+  SQ := 0;
+  SC := 0;
+  SB := 0;
+  Path := '';
+  if B <> nil then
+  begin
+    A := BimConcepts(B);
+    S := BimIndex(A, BimSelRef);
+    Holder := BimSelRef;
+    if (S >= 0) and BimIsResource(JStr(A.Objects[S], 'type')) then
+      Holder := JStr(A.Objects[S], 'parent');
+    SetLength(BimRowRows, A.Count);
+    for I := 0 to A.Count - 1 do
+      if JStr(A.Objects[I], 'parent') = Holder then
+      begin
+        BimRowRows[N] := I;
+        Inc(N);
+        if JStr(A.Objects[I], 'type') = 'chapter' then SQ := SQ + 1
+        else SQ := SQ + JNum(A.Objects[I], 'qty');
+        SC := SC + BimUnit(A, I);
+        SB := SB + BimAmount(A, I);
+      end;
+    SetLength(BimRowRows, N);
+    // La ruta: Concepto › [01] … › [01.01] …
+    I := BimIndex(A, Holder);
+    while I >= 0 do
+    begin
+      Path := ' › [' + JStr(A.Objects[I], 'code') + '] ' + JStr(A.Objects[I], 'name') + Path;
+      I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+    end;
+  end;
+  BimCrumb2.Caption := SBimConcept + Path;
+  if B = nil then BimCrumb2.Caption := SBimChooseBudget;
+  BimRows.Items.BeginUpdate;
+  try
+    BimRows.Items.Clear;
+    for I := 0 to N - 1 do
+    begin
+      BimRows.Items.Add('');
+      if JStr(A.Objects[BimRowRows[I]], 'ref') = BimRowRef then BimRows.ItemIndex := I;
+    end;
+  finally
+    BimRows.Items.EndUpdate;
+  end;
+  if N > 0 then
+  begin
+    BimFootQty.Caption := BimNum(SQ, '#,##0.00');
+    BimFootCost.Caption := BimNum(SC, '#,##0.00');
+    BimFootBal.Caption := BimNum(SB, '#,##0.00');
+  end
+  else
+  begin
+    BimFootQty.Caption := '';
+    BimFootCost.Caption := '';
+    BimFootBal.Caption := '';
+  end;
 end;
 
 procedure TForm1.BimProject_select;
@@ -6355,43 +6627,114 @@ var
   A: TJSONArray;
 begin
   A := Store.List('bim_projects');
-  if (BimProject.ItemIndex >= 0) and (BimProject.ItemIndex <= High(BimProjRows)) then
-    BimProjKey := BimKey(A.Objects[BimProjRows[BimProject.ItemIndex]]);
+  if (BimProject.ItemIndex >= 0) and (BimProject.ItemIndex < A.Count) then
+    BimProjKey := BimKey(A.Objects[BimProject.ItemIndex]);
   BimBudKey := '';
+  BimSelRef := '';
+  BimRowRef := '';
   RefreshBimBudgets;
+  BimPrepare(False);
+end;
+
+{ La obra nueva: nombre y cliente, en un cuadro de diálogo. }
+function TForm1.AskBimProject(out AName: string; out Partner: TJSONObject): Boolean;
+var
+  F: TForm;
+  E: TEdit;
+  Cb: TComboBox;
+  L: TLabel;
+  Ok, No: TButton;
+  A: TJSONArray;
+  Sorted: TStringList;
+  I: Integer;
+begin
+  Result := False;
+  AName := '';
+  Partner := nil;
+  A := Store.List('partners');
+  Sorted := TStringList.Create;
+  F := TForm.CreateNew(nil);
+  try
+    for I := 0 to A.Count - 1 do
+      Sorted.AddObject(JStr(A.Objects[I], 'name'), TObject(PtrInt(I)));
+    Sorted.CaseSensitive := False;
+    Sorted.Sort;
+    F.Caption := SBimNewProject;
+    F.BorderStyle := bsDialog;
+    F.Position := poMainFormCenter;
+    F.ClientWidth := 400;
+    F.ClientHeight := 176;
+    L := TLabel.Create(F);
+    L.Parent := F;
+    L.SetBounds(16, 12, 368, 18);
+    L.Caption := SBimHintProj;
+    E := TEdit.Create(F);
+    E.Parent := F;
+    E.SetBounds(16, 32, 368, 28);
+    L := TLabel.Create(F);
+    L.Parent := F;
+    L.SetBounds(16, 70, 368, 18);
+    L.Caption := SBimCustomer;
+    Cb := TComboBox.Create(F);
+    Cb.Parent := F;
+    Cb.Style := csDropDownList;
+    Cb.SetBounds(16, 90, 368, 28);
+    Cb.Items.Add(SBimNoCust);
+    for I := 0 to Sorted.Count - 1 do Cb.Items.Add(Sorted[I]);
+    Cb.ItemIndex := 0;
+    No := TButton.Create(F);
+    No.Parent := F;
+    No.SetBounds(196, 134, 92, 30);
+    No.Caption := SBimCancel;
+    No.ModalResult := mrCancel;
+    No.Cancel := True;
+    Ok := TButton.Create(F);
+    Ok.Parent := F;
+    Ok.SetBounds(292, 134, 92, 30);
+    Ok.Caption := SBimCreate;
+    Ok.ModalResult := mrOk;
+    Ok.Default := True;
+    F.ActiveControl := E;
+    if F.ShowModal <> mrOk then Exit;
+    if Trim(E.Text) = '' then
+    begin
+      ShowMessage(SBimProjName);
+      Exit;
+    end;
+    AName := Trim(E.Text);
+    I := Cb.ItemIndex - 1;
+    if (I >= 0) and (I < Sorted.Count) then Partner := A.Objects[PtrInt(Sorted.Objects[I])];
+    Result := True;
+  finally
+    F.Free;
+    Sorted.Free;
+  end;
 end;
 
 procedure TForm1.BimProjAdd_click;
 var
   P, Partner: TJSONObject;
-  I: Integer;
+  N: string;
 begin
-  if Trim(BimProjName.Text) = '' then
-  begin
-    ShowMessage(SBimProjName);
-    BimProjName.SetFocus;
-    Exit;
-  end;
-  Partner := nil;
-  I := BimProjCust.ItemIndex - 1;
-  if (I >= 0) and (I <= High(BimCustRows)) then
-    Partner := Store.List('partners').Objects[BimCustRows[I]];
-  P := Store.AddBimProject(BimProjName.Text, Partner);
+  if not AskBimProject(N, Partner) then Exit;
+  P := Store.AddBimProject(N, Partner);
   BimProjKey := BimKey(P);
   BimBudKey := '';
-  BimProjName.Text := '';
+  BimSelRef := '';
   LayoutNav;
   RefreshStatus;
   RefreshBim;
 end;
 
-procedure TForm1.BimBudList_select;
+procedure TForm1.BimBudSel_select;
 var
   B: TJSONObject;
 begin
-  if (BimBudList.ItemIndex < 0) or (BimBudList.ItemIndex > High(BimBudRows)) then Exit;
-  BimBudKey := BimKey(Store.List('bim_budgets').Objects[BimBudRows[BimBudList.ItemIndex]]);
-  BimTree.ItemIndex := -1;
+  if (BimBudSel.ItemIndex < 0) or (BimBudSel.ItemIndex > High(BimBudRows)) then Exit;
+  BimBudKey := BimKey(Store.List('bim_budgets').Objects[BimBudRows[BimBudSel.ItemIndex]]);
+  BimSelRef := '';
+  BimRowRef := '';
+  BimOpen.Clear;
   B := CurBimBudget;
   // Uno de Odoo: sus conceptos se piden al abrirlo (si hay conexión).
   if (B <> nil) and (JInt(B, 'id') > 0) and (BimConcepts(B).Count = 0) and
@@ -6408,12 +6751,13 @@ begin
     on E: Exception do Fail(E, True);
   end;
   RefreshBimTree;
+  BimPrepare(False);
 end;
 
 procedure TForm1.BimBudNew_click;
 var
   P, B: TJSONObject;
-  BName: string;
+  N: string;
 begin
   P := CurBimProject;
   if P = nil then
@@ -6421,45 +6765,71 @@ begin
     ShowMessage(SBimNoProject);
     Exit;
   end;
-  BName := Trim(BimBudName.Text);
-  if BName = '' then BName := Format(SBimNewBudget, [FormatDateTime('dd/mm/yyyy', Now)]);
-  B := Store.AddBimBudget(P, BName);
+  N := Format(SBimNewBudget, [FormatDateTime('dd/mm/yyyy', Now)]);
+  if not InputQuery(SBimNewBudgetTitle, SBimHintBud, N) then Exit;
+  if Trim(N) = '' then Exit;
+  B := Store.AddBimBudget(P, N);
   BimBudKey := BimKey(B);
-  BimBudName.Text := '';
-  BimType.ItemIndex := 0;
+  BimSelRef := '';
+  BimRowRef := '';
+  BimOpen.Clear;
   RefreshBimBudgets;
-  BimSuggestCode;
+  BimPrepare(False);
 end;
 
-{ Dónde va un concepto nuevo de tipo T según lo elegido en el árbol: el
-  capítulo arriba; la partida en el capítulo elegido (o en el de lo elegido);
-  el recurso en la partida elegida (o en la de lo elegido). }
+{ Dónde va un concepto nuevo de tipo T: como hijo de lo elegido o a su mismo
+  nivel; el capítulo, arriba; la partida, en el capítulo más cercano; el
+  recurso, en la partida más cercana. «?» si no hay dónde. }
 function TForm1.BimParentFor(B: TJSONObject; const T: string): string;
 var
   A: TJSONArray;
   I: Integer;
   ST: string;
 begin
-  Result := '';
-  if T = 'chapter' then Exit;
+  if T = 'chapter' then Exit('');
   A := BimConcepts(B);
-  I := BimTree.ItemIndex;
-  while (I >= 0) and (I < A.Count) do
+  I := BimIndex(A, BimSelRef);
+  if BimSibMode and (I >= 0) then I := BimIndex(A, JStr(A.Objects[I], 'parent'));
+  while I >= 0 do
   begin
     ST := JStr(A.Objects[I], 'type');
     if (T = 'departure') and (ST = 'chapter') then Exit(JStr(A.Objects[I], 'ref'));
     if BimIsResource(T) and (ST = 'departure') then Exit(JStr(A.Objects[I], 'ref'));
     I := BimIndex(A, JStr(A.Objects[I], 'parent'));
   end;
-  // Nada elegido: el último capítulo (o su última partida).
-  for I := A.Count - 1 downto 0 do
-  begin
-    ST := JStr(A.Objects[I], 'type');
-    if ((T = 'departure') and (ST = 'chapter')) or
-      (BimIsResource(T) and (ST = 'departure')) then
-      Exit(JStr(A.Objects[I], 'ref'));
-  end;
   Result := '?';
+end;
+
+{ Prepara el editor para un concepto nuevo: hijo de lo elegido (N) o a su
+  mismo nivel (Mayús + N), con el tipo y el código que tocan. }
+procedure TForm1.BimPrepare(Sibling: Boolean);
+var
+  B: TJSONObject;
+  A: TJSONArray;
+  S: Integer;
+  ST: string;
+begin
+  B := CurBimBudget;
+  BimSibMode := Sibling;
+  BimRowRef := '';
+  BimRows.ItemIndex := -1;
+  if B = nil then Exit;
+  A := BimConcepts(B);
+  S := BimIndex(A, BimSelRef);
+  if S >= 0 then ST := JStr(A.Objects[S], 'type') else ST := '';
+  if Sibling then
+  begin
+    if ST = '' then BimType.ItemIndex := 0 else BimType.ItemIndex := BimTypeIndex(ST);
+  end
+  else if ST = '' then BimType.ItemIndex := 0
+  else if ST = 'chapter' then BimType.ItemIndex := 1
+  else if ST = 'departure' then BimType.ItemIndex := 2
+  else BimType.ItemIndex := BimTypeIndex(ST);
+  BimName.Text := '';
+  BimUom.Text := '';
+  BimQty.Text := '1';
+  BimPrice.Text := '0';
+  BimSuggestCode;
 end;
 
 procedure TForm1.BimSuggestCode;
@@ -6468,14 +6838,14 @@ var
   T, Up: string;
 begin
   B := CurBimBudget;
-  if (B = nil) or not BimEditable(B) or (BimType.ItemIndex < 0) then Exit;
+  if (B = nil) or (BimType.ItemIndex < 0) then Exit;
   T := BimTypeKeys[BimType.ItemIndex];
+  BimQty.Enabled := T <> 'chapter';
+  BimPrice.Enabled := T <> 'chapter';
+  if BimRowRef <> '' then Exit; // se está cambiando uno que ya existe
   Up := BimParentFor(B, T);
   if Up = '?' then Up := '';
   BimCode.Text := BimNextCode(BimConcepts(B), T, Up);
-  BimQty.Enabled := T <> 'chapter';
-  BimPrice.Enabled := T <> 'chapter';
-  if T = 'chapter' then BimQty.Text := '1';
 end;
 
 procedure TForm1.BimType_select;
@@ -6483,27 +6853,156 @@ begin
   BimSuggestCode;
 end;
 
+{ Clic en el árbol: el cuadrito ⊞/⊟ abre o cierra; el resto elige. }
+procedure TForm1.BimTreeMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  B: TJSONObject;
+  A: TJSONArray;
+  R, I, Lv: Integer;
+  Ref: string;
+begin
+  B := CurBimBudget;
+  if (B = nil) or (Button <> mbLeft) then Exit;
+  R := BimTree.ItemAtPos(Point(X, Y), True);
+  if (R < 0) or (R > High(BimTreeRows)) then Exit;
+  A := BimConcepts(B);
+  I := BimTreeRows[R];
+  Lv := BimLevel(A, I);
+  if (X >= 6 + Lv * 18) and (X <= 20 + Lv * 18) and BimHasKids(A, I) then
+  begin
+    Ref := JStr(A.Objects[I], 'ref');
+    if BimOpen.IndexOf(Ref) >= 0 then BimOpen.Delete(BimOpen.IndexOf(Ref))
+    else BimOpen.Add(Ref);
+    RefreshBimTree;
+  end;
+end;
+
 procedure TForm1.BimTree_select;
+var
+  B: TJSONObject;
+  A: TJSONArray;
+begin
+  B := CurBimBudget;
+  if (B = nil) or (BimTree.ItemIndex < 0) or (BimTree.ItemIndex > High(BimTreeRows)) then Exit;
+  A := BimConcepts(B);
+  BimSelRef := JStr(A.Objects[BimTreeRows[BimTree.ItemIndex]], 'ref');
+  BimRowRef := '';
+  RefreshBimRows;
+  BimPrepare(False);
+end;
+
+{ Elegir una fila de la tabla la carga en el editor (para cambiarla). }
+procedure TForm1.BimRows_select;
 var
   B, C: TJSONObject;
   A: TJSONArray;
   F: TFormatSettings;
 begin
   B := CurBimBudget;
-  if (B = nil) or (BimTree.ItemIndex < 0) then Exit;
+  if (B = nil) or (BimRows.ItemIndex < 0) or (BimRows.ItemIndex > High(BimRowRows)) then Exit;
   A := BimConcepts(B);
-  if BimTree.ItemIndex >= A.Count then Exit;
-  C := A.Objects[BimTree.ItemIndex];
+  C := A.Objects[BimRowRows[BimRows.ItemIndex]];
+  BimRowRef := JStr(C, 'ref');
   F := DefaultFormatSettings;
   F.DecimalSeparator := Decimals;
   BimType.ItemIndex := BimTypeIndex(JStr(C, 'type'));
   BimCode.Text := JStr(C, 'code');
   BimName.Text := JStr(C, 'name');
-  BimQty.Text := FormatFloat('0.###', JNum(C, 'qty'), F);
+  BimQty.Text := FormatFloat('0.####', JNum(C, 'qty'), F);
   BimPrice.Text := FormatFloat('0.00', JNum(C, 'price'), F);
   BimUom.Text := JStr(C, 'uom');
   BimQty.Enabled := JStr(C, 'type') <> 'chapter';
   BimPrice.Enabled := JStr(C, 'type') <> 'chapter';
+end;
+
+{ Abrir (doble clic, Intro o «Detalle»): entra en el concepto, como en BIM. }
+procedure TForm1.BimOpenRow(R: Integer);
+var
+  B: TJSONObject;
+  A: TJSONArray;
+begin
+  B := CurBimBudget;
+  if (B = nil) or (R < 0) or (R > High(BimRowRows)) then Exit;
+  A := BimConcepts(B);
+  BimSelRef := JStr(A.Objects[BimRowRows[R]], 'ref');
+  BimReveal(A, BimSelRef);
+  if BimOpen.IndexOf(BimSelRef) < 0 then BimOpen.Add(BimSelRef);
+  BimRowRef := '';
+  RefreshBimTree;
+  BimPrepare(False);
+end;
+
+procedure TForm1.BimRows_double;
+begin
+  BimOpenRow(BimRows.ItemIndex);
+end;
+
+procedure TForm1.BimRowsMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  R: Integer;
+begin
+  if Button <> mbLeft then Exit;
+  R := BimRows.ItemAtPos(Point(X, Y), True);
+  if (R >= 0) and (X >= 494) then BimOpenRow(R);
+end;
+
+procedure TForm1.BimHome_click;
+begin
+  BimSelRef := '';
+  BimRowRef := '';
+  BimTree.ItemIndex := -1;
+  RefreshBimRows;
+  BimPrepare(False);
+end;
+
+{ Los atajos del árbol de BIM: N añade un hijo, Mayús + N al mismo nivel,
+  Supr elimina, Intro abre, U actualiza (envía) y E / Mayús + E abre o
+  cierra todo. }
+procedure TForm1.BimKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var
+  B: TJSONObject;
+  A: TJSONArray;
+  I: Integer;
+begin
+  B := CurBimBudget;
+  if B = nil then Exit;
+  A := BimConcepts(B);
+  case Key of
+    VK_N:
+      if BimEditable(B) then
+      begin
+        BimPrepare(ssShift in Shift);
+        BimName.SetFocus;
+        Key := 0;
+      end;
+    VK_DELETE, VK_BACK:
+      begin
+        BimDel_click;
+        Key := 0;
+      end;
+    VK_RETURN:
+      begin
+        if Sender = BimRows then BimOpenRow(BimRows.ItemIndex);
+        Key := 0;
+      end;
+    VK_U:
+      begin
+        BimSend_click;
+        Key := 0;
+      end;
+    VK_E:
+      begin
+        BimOpen.Clear;
+        if not (ssShift in Shift) then
+          for I := 0 to A.Count - 1 do
+            if not BimIsResource(JStr(A.Objects[I], 'type')) then
+              BimOpen.Add(JStr(A.Objects[I], 'ref'));
+        RefreshBimTree;
+        Key := 0;
+      end;
+  end;
 end;
 
 { Lee el editor; False (y avisa) si falta algo. }
@@ -6539,7 +7038,8 @@ begin
   Result := True;
 end;
 
-procedure TForm1.BimAdd_click;
+{ Añade lo del editor: como hijo de lo elegido o a su mismo nivel. }
+procedure TForm1.BimCommit;
 var
   B, C: TJSONObject;
   T, Up, Err: string;
@@ -6556,27 +7056,45 @@ begin
     else ShowMessage(SBimNeedDeparture);
     Exit;
   end;
-  C := Store.AddConcept(B, Up, T, BimCode.Text, BimName.Text, Q, Pr,
-    BimUom.Text, Err);
+  C := Store.AddConcept(B, Up, T, BimCode.Text, BimName.Text, Q, Pr, BimUom.Text, Err);
   if C = nil then
   begin
     ShowMessage(Err);
     Exit;
   end;
   A := BimConcepts(B);
+  BimReveal(A, JStr(C, 'ref'));
+  if (Up <> '') and (BimOpen.IndexOf(Up) < 0) then BimOpen.Add(Up);
+  // Se queda elegido el padre: la tabla muestra lo que se va añadiendo.
+  if Up <> '' then BimSelRef := Up else BimSelRef := '';
+  BimRowRef := '';
   RefreshBimTree;
-  BimTree.ItemIndex := BimIndex(A, JStr(C, 'ref'));
-  // Lo siguiente que se suele añadir: tras un capítulo, una partida; tras
-  // una partida, su mano de obra; tras un recurso, otro igual.
-  if T = 'chapter' then BimType.ItemIndex := 1
-  else if T = 'departure' then BimType.ItemIndex := 2;
-  BimName.Text := '';
-  BimUom.Text := '';
-  BimPrice.Text := '0';
-  BimQty.Text := '1';
-  BimSuggestCode;
-  RefreshBimBudgets;
+  BimPrepare(False);
   BimName.SetFocus;
+end;
+
+procedure TForm1.BimAdd_click;
+begin
+  BimSibMode := False;
+  BimCommit;
+end;
+
+procedure TForm1.BimChild_click;
+begin
+  BimSibMode := False;
+  BimCommit;
+end;
+
+procedure TForm1.BimSibling_click;
+begin
+  BimSibMode := True;
+  BimCommit;
+end;
+
+{ Intro en el editor: cambia el elegido de la tabla o añade uno nuevo. }
+procedure TForm1.BimEnter_key;
+begin
+  if BimRowRef <> '' then BimApply_click else BimCommit;
 end;
 
 procedure TForm1.BimApply_click;
@@ -6585,16 +7103,18 @@ var
   A: TJSONArray;
   T: string;
   Q, Pr: Double;
+  I: Integer;
 begin
   B := CurBimBudget;
   if not BimEditable(B) then Exit;
   A := BimConcepts(B);
-  if (BimTree.ItemIndex < 0) or (BimTree.ItemIndex >= A.Count) then
+  I := BimIndex(A, BimRowRef);
+  if I < 0 then
   begin
     ShowMessage(SBimChoose);
     Exit;
   end;
-  C := A.Objects[BimTree.ItemIndex];
+  C := A.Objects[I];
   if not BimRead(T, Q, Pr) then Exit;
   // Entre recursos se cambia el tipo; un capítulo o una partida, no.
   if (T <> JStr(C, 'type')) and not (BimIsResource(T) and BimIsResource(JStr(C, 'type'))) then
@@ -6610,7 +7130,7 @@ begin
   C.Strings['uom'] := Trim(BimUom.Text);
   B.Floats['amount'] := BimSum(A);
   Store.Save;
-  RefreshBimBudgets;
+  RefreshBimTree;
 end;
 
 procedure TForm1.BimDel_click;
@@ -6618,17 +7138,22 @@ var
   B: TJSONObject;
   A: TJSONArray;
   I, Last: Integer;
+  R: string;
 begin
   B := CurBimBudget;
   if not BimEditable(B) then Exit;
   A := BimConcepts(B);
-  I := BimTree.ItemIndex;
-  if (I < 0) or (I >= A.Count) then
+  // Lo elegido en la tabla o, si no, en el árbol.
+  R := BimRowRef;
+  if R = '' then R := BimSelRef;
+  I := BimIndex(A, R);
+  if I < 0 then
   begin
     ShowMessage(SBimChoose);
     Exit;
   end;
   if not Ask(Format(SBimDelAsk, [JStr(A.Objects[I], 'name')])) then Exit;
+  if R = BimSelRef then BimSelRef := JStr(A.Objects[I], 'parent');
   Last := BimEnd(A, I);
   while Last >= I do
   begin
@@ -6637,8 +7162,9 @@ begin
   end;
   B.Floats['amount'] := BimSum(A);
   Store.Save;
-  BimTree.ItemIndex := -1;
-  RefreshBimBudgets;
+  BimRowRef := '';
+  RefreshBimTree;
+  BimPrepare(False);
 end;
 
 procedure TForm1.BimSend_click;
@@ -6665,81 +7191,113 @@ begin
   else ShowMessage(SBimQueued);
 end;
 
-procedure TForm1.DrawBimBudget(Control: TWinControl; Index: Integer;
+{ Una fila del árbol: ⊞/⊟, el icono del tipo y «[código] nombre». }
+procedure TForm1.DrawBimNode(Control: TWinControl; Index: Integer;
   ARect: TRect; State: TOwnerDrawState);
-var
-  C: TCanvas;
-  B: TJSONObject;
-  Sub, Amount: string;
-  W: Integer;
-begin
-  if (Index < 0) or (Index > High(BimBudRows)) then Exit;
-  C := TListBox(Control).Canvas;
-  B := Store.List('bim_budgets').Objects[BimBudRows[Index]];
-  Row(C, ARect, odSelected in State);
-  if BimConcepts(B).Count > 0 then Amount := Money(BimSum(BimConcepts(B)))
-  else Amount := Money(JNum(B, 'amount'));
-  C.Font.Size := 10;
-  C.Font.Style := [fsBold];
-  W := C.TextWidth(Amount);
-  Say(C, ARect.Left + 12, ARect.Top + 5, JStr(B, 'name'), CInk, 10, True,
-    ARect.Right - ARect.Left - W - 30);
-  TextRight(C, ARect.Right - 8, ARect.Top + 5, Amount, CInk, 10, True);
-  if JStr(B, 'code') <> '' then Sub := JStr(B, 'code')
-  else Sub := SBimLocalTag;
-  Sub := Sub + '  ·  ' + Format(SBimConceptsN, [BimConcepts(B).Count]);
-  Say(C, ARect.Left + 12, ARect.Top + 25, Sub, CMuted, 9, False,
-    ARect.Right - ARect.Left - 90);
-  if JBool(B, 'pending') then
-  begin
-    C.Font.Size := 8;
-    W := C.TextWidth(SPendingTag) + 22;
-    Pill(C, ARect.Right - W, ARect.Top + 24, SPendingTag, COrange);
-  end;
-end;
-
-procedure TForm1.DrawBimConcept(Control: TWinControl; Index: Integer;
-  ARect: TRect; State: TOwnerDrawState);
-const
-  TagColors: array[0..6] of TColor = (CInk, CBlue, CGreen, CPurple, COrange,
-    $00A0522D, CGrey);
 var
   C: TCanvas;
   B, K: TJSONObject;
   A: TJSONArray;
-  X, Ti, W: Integer;
-  T, Amount, Sub: string;
-  F: TFormatSettings;
+  X, I, Lv: Integer;
+  Sel: Boolean;
 begin
   B := CurBimBudget;
-  if B = nil then Exit;
+  if (B = nil) or (Index < 0) or (Index > High(BimTreeRows)) then Exit;
   A := BimConcepts(B);
-  if (Index < 0) or (Index >= A.Count) then Exit;
+  I := BimTreeRows[Index];
+  K := A.Objects[I];
   C := TListBox(Control).Canvas;
-  K := A.Objects[Index];
-  T := JStr(K, 'type');
-  Ti := BimTypeIndex(T);
-  F := DefaultFormatSettings;
-  F.DecimalSeparator := Decimals;
-  Row(C, ARect, odSelected in State);
-  X := ARect.Left + 8 + BimLevel(A, Index) * 18;
-  Pill(C, X, ARect.Top + 7, Part(SBimTags, Ti), TagColors[Ti]);
-  X := X + 44;
-  Amount := Money(BimAmount(A, Index));
-  C.Font.Size := 10;
-  C.Font.Style := [fsBold];
-  W := C.TextWidth(Amount);
-  Say(C, X, ARect.Top + 6, JStr(K, 'code'), CMuted, 9, False, 70);
-  Say(C, X + 74, ARect.Top + 5, JStr(K, 'name'), CInk, 10, not BimIsResource(T),
-    ARect.Right - X - 74 - W - 150);
-  TextRight(C, ARect.Right - 8, ARect.Top + 5, Amount, CInk, 10, not BimIsResource(T));
-  if T <> 'chapter' then
+  Sel := JStr(K, 'ref') = BimSelRef;
+  C.Brush.Style := bsSolid;
+  if Sel then C.Brush.Color := CBimSelBg else C.Brush.Color := clWhite;
+  C.FillRect(ARect);
+  C.Pen.Color := CBimLine;
+  C.Line(ARect.Left + 4, ARect.Bottom - 1, ARect.Right - 4, ARect.Bottom - 1);
+  Lv := BimLevel(A, I);
+  X := ARect.Left + 6 + Lv * 18;
+  if BimHasKids(A, I) then
+    BimToggle(C, X, ARect.Top + (ARect.Bottom - ARect.Top - 11) div 2,
+      BimOpen.IndexOf(JStr(K, 'ref')) >= 0);
+  BimIcon(C, X + 18, ARect.Top + (ARect.Bottom - ARect.Top - 16) div 2, JStr(K, 'type'));
+  C.Brush.Style := bsClear;
+  if Sel then
+    Say(C, X + 38, ARect.Top + 9, '[' + JStr(K, 'code') + '] ' + JStr(K, 'name'),
+      CBimTeal, 10, False, ARect.Right - X - 42)
+  else
+    Say(C, X + 38, ARect.Top + 9, '[' + JStr(K, 'code') + '] ' + JStr(K, 'name'),
+      CBimInk, 10, False, ARect.Right - X - 42);
+end;
+
+{ Una fila de la tabla: Código, Nombre, Cantidad, Costo, Saldo y «Detalle»;
+  los recursos, en cursiva (como en BIM). }
+procedure TForm1.DrawBimRow(Control: TWinControl; Index: Integer;
+  ARect: TRect; State: TOwnerDrawState);
+var
+  C: TCanvas;
+  B, K: TJSONObject;
+  A: TJSONArray;
+  I, Y, R: Integer;
+  T: string;
+  Res: Boolean;
+
+  procedure Cell(Right: Integer; const S: string);
   begin
-    Sub := FormatFloat('0.###', JNum(K, 'qty'), F);
-    if JStr(K, 'uom') <> '' then Sub := Sub + ' ' + JStr(K, 'uom');
-    Sub := Sub + ' × ' + Money(BimUnit(A, Index));
-    TextRight(C, ARect.Right - W - 22, ARect.Top + 7, Sub, CMuted, 9, False);
+    C.Font.Size := 10;
+    C.Font.Color := CBimInk;
+    if Res then C.Font.Style := [fsItalic] else C.Font.Style := [];
+    C.TextOut(ARect.Left + Right - C.TextWidth(S), Y, S);
   end;
+
+begin
+  B := CurBimBudget;
+  if (B = nil) or (Index < 0) or (Index > High(BimRowRows)) then Exit;
+  A := BimConcepts(B);
+  I := BimRowRows[Index];
+  K := A.Objects[I];
+  T := JStr(K, 'type');
+  Res := BimIsResource(T);
+  C := TListBox(Control).Canvas;
+  C.Brush.Style := bsSolid;
+  if odSelected in State then C.Brush.Color := CBimSelBg else C.Brush.Color := clWhite;
+  C.FillRect(ARect);
+  C.Pen.Color := CBimLine;
+  C.Line(ARect.Left, ARect.Bottom - 1, ARect.Right, ARect.Bottom - 1);
+  // La casilla, como en la lista de Odoo.
+  C.Brush.Color := clWhite;
+  C.Pen.Color := $00C8C4C0;
+  Y := ARect.Top + (ARect.Bottom - ARect.Top - 13) div 2;
+  C.Rectangle(ARect.Left + 10, Y, ARect.Left + 23, Y + 13);
+  C.Brush.Style := bsClear;
+  Y := ARect.Top + 11;
+  C.Font.Color := CBimInk;
+  C.Font.Size := 10;
+  if Res then C.Font.Style := [fsItalic] else C.Font.Style := [];
+  C.TextOut(ARect.Left + 34, Y, Fit(C, JStr(K, 'code'), 64));
+  R := 150;
+  if JStr(K, 'uom') <> '' then
+  begin
+    C.TextOut(ARect.Left + 102, Y, Fit(C, JStr(K, 'name'), R - 34));
+    C.Font.Color := CMuted;
+    C.Font.Size := 9;
+    C.TextOut(ARect.Left + 102 + R - 28, Y + 1, Fit(C, JStr(K, 'uom'), 30));
+  end
+  else C.TextOut(ARect.Left + 102, Y, Fit(C, JStr(K, 'name'), R));
+  if T = 'chapter' then Cell(330, BimNum(1, '#,##0.0000'))
+  else Cell(330, BimNum(JNum(K, 'qty'), '#,##0.0000'));
+  Cell(410, BimNum(BimUnit(A, I), '#,##0.00'));
+  Cell(488, BimNum(BimAmount(A, I), '#,##0.00'));
+  // 👁 Detalle
+  C.Pen.Color := CBimTeal;
+  C.Brush.Style := bsClear;
+  C.Ellipse(ARect.Left + 498, Y + 3, ARect.Left + 510, Y + 11);
+  C.Brush.Style := bsSolid;
+  C.Brush.Color := CBimTeal;
+  C.Ellipse(ARect.Left + 502, Y + 5, ARect.Left + 506, Y + 9);
+  C.Brush.Style := bsClear;
+  C.Font.Color := CBimTeal;
+  C.Font.Style := [];
+  C.Font.Size := 10;
+  C.TextOut(ARect.Left + 514, Y, SBimDetail);
 end;
 
 end.

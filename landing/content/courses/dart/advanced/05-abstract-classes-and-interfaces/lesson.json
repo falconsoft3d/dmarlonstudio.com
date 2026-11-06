@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clases-abstractas-e-interfaces",
+    "title": "Clases abstractas e interfaces",
+    "summary": "Defina contratos en Dart con clases abstractas e interfaces, y distinga extends de implements con varios métodos de pago.",
+    "body": [
+      "Una clase **`abstract`** no se puede instanciar (`PaymentMethod()` no compila) y puede declarar miembros sin cuerpo: `name` y `fee` son **abstractos**, y cada subclase decide cómo son. `charge`, en cambio, es concreto: está escrito una vez y lo heredan todas, aunque dentro llame a `fee`, que la clase base todavía no sabe calcular.",
+      "`Card` y `BankTransfer` heredan con `extends` y rellenan lo que falta. La tarjeta cobra un 1,5 % más 25 céntimos, con división entera (`~/`); la transferencia no cobra comisión. Observe que `name` puede implementarse con un getter (`get name =>`) o con un campo `final`: para quien lo usa es lo mismo.",
+      "**`implements`** es otra cosa: toma solo el **contrato**, sin heredar código. `Refundable` se declara como `abstract interface class`, un modificador de Dart 3 que indica que está pensada para implementarse. Además, en Dart **toda clase es una interfaz implícita**: `GiftCard implements PaymentMethod` y por eso debe escribir todos sus miembros, también `charge`, que no recibe de nadie.",
+      "En el bucle, la variable es de tipo `PaymentMethod` y `is Refundable` pregunta si el objeto cumple también el otro contrato. Como `Refundable` no es un subtipo de `PaymentMethod`, Dart no cambia el tipo de la variable tras el `is`, y hay que convertirla con `as Refundable` para llamar a `refund`. La transferencia no es reembolsable y por eso no muestra esa línea."
+    ],
+    "points": [
+      "Una clase `abstract` no se instancia y puede dejar métodos sin cuerpo.",
+      "`extends` hereda código; `implements` solo obliga a cumplir el contrato.",
+      "Toda clase de Dart sirve también como interfaz.",
+      "Una clase puede implementar varias interfaces a la vez.",
+      "`is` comprueba si un objeto cumple una interfaz."
+    ],
+    "exercise": "Cree un método de pago `MobileWallet` que implemente `PaymentMethod` y `Refundable`, con una comisión fija de 10 céntimos, y añádalo a la lista."
+  },
+  "en": {
+    "slug": "abstract-classes-and-interfaces",
+    "title": "Abstract classes and interfaces",
+    "summary": "Define contracts in Dart with abstract classes and interfaces, and see the difference between extends and implements with several payment methods.",
+    "body": [
+      "An **`abstract`** class cannot be instantiated (`PaymentMethod()` does not compile) and may declare members without a body: `name` and `fee` are **abstract**, so each subclass decides what they are. `charge`, on the other hand, is concrete: it is written once and every subclass inherits it, even though it calls `fee`, which the base class cannot work out yet.",
+      "`Card` and `BankTransfer` inherit with `extends` and fill in the gaps. The card charges 1.5 % plus 25 cents, using integer division (`~/`); the transfer charges no fee. Notice that `name` can be implemented with a getter (`get name =>`) or with a `final` field: callers cannot tell the difference.",
+      "**`implements`** is something else: it takes only the **contract** and inherits no code. `Refundable` is declared as an `abstract interface class`, a Dart 3 modifier saying it is meant to be implemented. On top of that, in Dart **every class is an implicit interface**: `GiftCard implements PaymentMethod`, so it has to write every member itself, `charge` included, since it inherits nothing.",
+      "In the loop the variable has type `PaymentMethod`, and `is Refundable` asks whether the object also fulfils the other contract. Because `Refundable` is not a subtype of `PaymentMethod`, Dart does not change the variable's type after the `is`, so it has to be cast with `as Refundable` before calling `refund`. The transfer is not refundable, which is why it prints no such line."
+    ],
+    "points": [
+      "An `abstract` class cannot be instantiated and may leave methods without a body.",
+      "`extends` inherits code; `implements` only requires the contract.",
+      "Every Dart class can also be used as an interface.",
+      "A class can implement several interfaces at once.",
+      "`is` checks whether an object fulfils an interface."
+    ],
+    "exercise": "Create a `MobileWallet` payment method that implements `PaymentMethod` and `Refundable`, with a flat 10-cent fee, and add it to the list."
+  }
+}

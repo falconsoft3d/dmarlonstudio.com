@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "isolates-con-isolate-run",
+    "title": "Isolates con Isolate.run",
+    "summary": "Saque el cálculo pesado del hilo principal en Dart con Isolate.run, ejecute varios isolates en paralelo y capture sus errores.",
+    "body": [
+      "Todo código de Dart se ejecuta dentro de un **isolate**: una unidad de ejecución con su propia memoria y su propio bucle de eventos. `async`/`await` sirve para esperar sin bloquear, pero no reparte el cálculo: si una función pasa un segundo calculando, el isolate principal se queda ocupado ese segundo y, en una aplicación Flutter, la interfaz se congela.",
+      "`countPrimes` es trabajo de CPU puro: una criba de Eratóstenes que marca los números compuestos en una lista de booleanos y cuenta los que quedan. **`Isolate.run`**, de `dart:isolate`, crea un isolate nuevo, ejecuta en él la función que recibe, devuelve el resultado como una `Future` y cierra el isolate. Mientras tanto, el isolate principal queda libre.",
+      "Varios `Isolate.run` a la vez aprovechan varios núcleos. Pueden terminar en cualquier orden, pero `Future.wait` devuelve los resultados en el orden de la lista y el programa los escribe al final, por eso la salida es siempre la misma. Los isolates **no comparten memoria**: lo que se envía y lo que vuelve se copia, así que no hay condiciones de carrera de las que preocuparse.",
+      "Si la función falla dentro del isolate, el error vuelve a quien llamó: `countPrimes(-1)` intenta crear una lista de tamaño negativo, lanza `RangeError` y el `try`/`catch` de `main` lo captura. En Flutter, la función `compute()` hace exactamente esto, y es la forma de procesar un JSON enorme o una imagen sin que la pantalla se detenga."
+    ],
+    "points": [
+      "Cada isolate tiene su propia memoria: no comparten variables.",
+      "`async` no reparte el cálculo; otro isolate sí.",
+      "`Isolate.run` ejecuta una función en otro isolate y devuelve una `Future`.",
+      "Con `Future.wait`, los resultados siguen el orden de la lista.",
+      "Los errores del isolate se capturan con `try`/`catch` en quien espera."
+    ],
+    "exercise": "Escriba una función `sumOfSquares(int n)` que sume los cuadrados de 1 a `n`, y ejecute en paralelo `n = 1000` y `n = 1000000` con `Isolate.run`."
+  },
+  "en": {
+    "slug": "isolates-with-isolate-run",
+    "title": "Isolates with Isolate.run",
+    "summary": "Move heavy computation off Dart's main thread with Isolate.run, run several isolates in parallel and catch their errors.",
+    "body": [
+      "All Dart code runs inside an **isolate**: a unit of execution with its own memory and its own event loop. `async`/`await` lets you wait without blocking, but it does not spread the computation: if a function spends a second crunching numbers, the main isolate is busy for that second and, in a Flutter app, the UI freezes.",
+      "`countPrimes` is pure CPU work: a sieve of Eratosthenes that marks composite numbers in a list of booleans and counts the rest. **`Isolate.run`**, from `dart:isolate`, spawns a new isolate, runs the given function there, returns the result as a `Future` and shuts the isolate down. Meanwhile, the main isolate stays free.",
+      "Several `Isolate.run` calls at once make use of several cores. They may finish in any order, but `Future.wait` returns the results in list order and the program prints them at the end, so the output is always the same. Isolates **share no memory**: whatever is sent and returned is copied, so there are no race conditions to worry about.",
+      "If the function fails inside the isolate, the error travels back to the caller: `countPrimes(-1)` tries to create a list of negative length, throws a `RangeError`, and the `try`/`catch` in `main` catches it. In Flutter, the `compute()` function does exactly this, and it is how you process a huge JSON file or an image without the screen stalling."
+    ],
+    "points": [
+      "Each isolate has its own memory: no shared variables.",
+      "`async` does not spread computation; another isolate does.",
+      "`Isolate.run` runs a function in another isolate and returns a `Future`.",
+      "With `Future.wait`, results follow the order of the list.",
+      "Errors from the isolate are caught with `try`/`catch` by the caller."
+    ],
+    "exercise": "Write a `sumOfSquares(int n)` function that adds the squares from 1 to `n`, and run `n = 1000` and `n = 1000000` in parallel with `Isolate.run`."
+  }
+}

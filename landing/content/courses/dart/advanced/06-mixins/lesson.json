@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "mixins",
+    "title": "Mixins",
+    "summary": "Reutilice comportamiento en Dart con mixins: with para aplicarlos, on para limitarlos y miembros abstractos que exigen datos a la clase.",
+    "body": [
+      "Dart solo permite heredar de una clase, pero a menudo varias clases necesitan el mismo trozo de comportamiento sin ser parientes. Un **`mixin`** es ese trozo reutilizable: campos y métodos que se «mezclan» en una clase con la palabra **`with`**.",
+      "`Discountable` añade un campo, `percentOff`, y un getter, `finalPrice`, que resta el porcentaje con división entera. Con **`on Product`** se limita a las clases que son `Product` y, a cambio, puede usar `price` con toda tranquilidad: el compilador sabe que existirá.",
+      "`Shippable` no tiene restricción y declara `weightKg` como abstracto: es la clase que lo usa la que debe aportarlo. Con ese dato calcula `shippingCost`, 399 céntimos hasta un kilo y 699 a partir de ahí. Un mixin puede, por tanto, ofrecer lógica y exigir a cambio los datos que necesita.",
+      "`Book` mezcla los dos (`with Discountable, Shippable`) y `Ebook` solo el descuento, porque un libro digital no se envía. En `main`, la cascada `..percentOff = 20` asigna el campo que aportó el mixin. Los mixins también son tipos, y `is` los reconoce: un `Book` es `Discountable` y además `Product`, mientras que un `Ebook` no es `Shippable`."
+    ],
+    "points": [
+      "Un `mixin` reutiliza código en clases que no comparten herencia.",
+      "Se aplica con `with`, y se pueden aplicar varios a la vez.",
+      "`on Clase` limita dónde se usa y permite usar los miembros de esa clase.",
+      "Un mixin puede exigir miembros abstractos a la clase que lo usa.",
+      "Los mixins también son tipos: funcionan con `is`."
+    ],
+    "exercise": "Cree un mixin `Reviewable` con una lista de notas y un getter `rating` que dé la media, aplíquelo a `Book` y añada dos valoraciones."
+  },
+  "en": {
+    "slug": "mixins",
+    "title": "Mixins",
+    "summary": "Reuse behaviour in Dart with mixins: with to apply them, on to restrict them and abstract members that ask the class for data.",
+    "body": [
+      "Dart only lets a class extend one other class, yet several unrelated classes often need the same piece of behaviour. A **`mixin`** is that reusable piece: fields and methods that are mixed into a class with the **`with`** keyword.",
+      "`Discountable` adds a field, `percentOff`, and a getter, `finalPrice`, which takes off the percentage using integer division. **`on Product`** restricts it to classes that are a `Product` and, in exchange, it can safely use `price`: the compiler knows it will be there.",
+      "`Shippable` has no restriction and declares `weightKg` as abstract: the class that uses it must provide it. With that value it computes `shippingCost`, 399 cents up to one kilo and 699 above that. So a mixin can offer logic and, in return, demand the data it needs.",
+      "`Book` mixes in both (`with Discountable, Shippable`) and `Ebook` only the discount, because a digital book is never shipped. In `main`, the cascade `..percentOff = 20` sets the field the mixin brought along. Mixins are types too, and `is` recognises them: a `Book` is `Discountable` as well as a `Product`, while an `Ebook` is not `Shippable`."
+    ],
+    "points": [
+      "A `mixin` reuses code across classes that share no inheritance.",
+      "Apply it with `with`; several can be applied at once.",
+      "`on Class` restricts where it can be used and gives access to that class's members.",
+      "A mixin can require abstract members from the class using it.",
+      "Mixins are types too: they work with `is`."
+    ],
+    "exercise": "Create a `Reviewable` mixin with a list of scores and a `rating` getter that returns their average, apply it to `Book` and add two reviews."
+  }
+}

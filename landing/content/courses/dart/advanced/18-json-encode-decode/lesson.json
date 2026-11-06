@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "json-con-fromjson-y-tojson",
+    "title": "JSON con fromJson y toJson",
+    "summary": "Lea y escriba JSON en Dart con jsonDecode y jsonEncode, y conviértalo en objetos con tipos mediante fromJson y toJson, como en Flutter.",
+    "body": [
+      "**`dart:convert`** trae lo necesario para trabajar con JSON. **`jsonDecode`** convierte el texto en estructuras de Dart: los objetos JSON pasan a `Map<String, dynamic>`, las listas a `List`, y los números, textos, booleanos y `null` a sus tipos. `body` es lo que podría responder una API: una lista con dos clientes (dos cadenas seguidas en el código se unen en una sola).",
+      "Trabajar con mapas por toda la aplicación es frágil, así que se convierten en objetos con tipo. El factory **`Customer.fromJson`** lee cada clave y la convierte a su tipo con `as`: `as String?` acepta el `null` de Pablo, y `List<String>.from(json['tags'] ?? const [])` convierte la lista dinámica en una lista de textos, o usa una vacía si la clave falta. Si el JSON trae un tipo inesperado, falla aquí, en un solo sitio, y no en mitad de la interfaz.",
+      "**`toJson`** hace el camino inverso: devuelve un mapa con tipos básicos. No hace falta llamarlo: **`jsonEncode`** llama por su cuenta a `toJson()` de cualquier objeto que no sepa convertir, y por eso `jsonEncode(customers.first)` funciona directamente.",
+      "Si el texto no es JSON válido (aquí, una coma sobrante), `jsonDecode` lanza `FormatException`. Esta pareja `fromJson`/`toJson` es la convención que siguen los modelos de cualquier aplicación Flutter; paquetes como `json_serializable` solo escriben este mismo código por usted."
+    ],
+    "points": [
+      "`jsonDecode` convierte texto JSON en mapas y listas de Dart.",
+      "`fromJson` convierte el mapa en un objeto con tipos.",
+      "`toJson` devuelve un mapa, y `jsonEncode` lo usa automáticamente.",
+      "Use `as Tipo?` para los campos que pueden ser `null`.",
+      "Un JSON mal formado lanza `FormatException`."
+    ],
+    "exercise": "Añada a `Customer` un campo `bool active` que en el JSON se llame `is_active` y valga `true` si falta, e inclúyalo en cada línea de la salida y en `toJson`."
+  },
+  "en": {
+    "slug": "json-with-fromjson-and-tojson",
+    "title": "JSON with fromJson and toJson",
+    "summary": "Read and write JSON in Dart with jsonDecode and jsonEncode, and turn it into typed objects with fromJson and toJson, just as Flutter apps do.",
+    "body": [
+      "**`dart:convert`** has everything needed to work with JSON. **`jsonDecode`** turns the text into Dart structures: JSON objects become `Map<String, dynamic>`, arrays become `List`, and numbers, strings, booleans and `null` map to their own types. `body` is what an API might send back: a list of two customers (two adjacent string literals in the code are joined into one).",
+      "Passing maps around the whole app is fragile, so they are turned into typed objects. The **`Customer.fromJson`** factory reads each key and casts it to its type with `as`: `as String?` accepts Pablo's `null`, and `List<String>.from(json['tags'] ?? const [])` turns the dynamic list into a list of strings, or uses an empty one when the key is missing. If the JSON carries an unexpected type, it fails here, in one place, not halfway through the UI.",
+      "**`toJson`** goes the other way: it returns a map of basic types. You do not even have to call it: **`jsonEncode`** calls `toJson()` by itself on any object it does not know how to convert, which is why `jsonEncode(customers.first)` just works.",
+      "If the text is not valid JSON (here, a trailing comma), `jsonDecode` throws a `FormatException`. This `fromJson`/`toJson` pair is the convention every Flutter app's models follow; packages such as `json_serializable` simply write this same code for you."
+    ],
+    "points": [
+      "`jsonDecode` turns JSON text into Dart maps and lists.",
+      "`fromJson` turns the map into a typed object.",
+      "`toJson` returns a map, and `jsonEncode` uses it automatically.",
+      "Use `as Type?` for fields that may be `null`.",
+      "Malformed JSON throws a `FormatException`."
+    ],
+    "exercise": "Add a `bool active` field to `Customer`, called `is_active` in the JSON and defaulting to `true` when missing, and include it in each output line and in `toJson`."
+  }
+}

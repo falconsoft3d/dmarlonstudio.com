@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "futures-async-y-await",
+    "title": "Futures, async y await",
+    "summary": "Entienda las Future de Dart y escriba código asíncrono legible con async y await, simulando llamadas a un servidor con Future.delayed.",
+    "body": [
+      "Una **`Future<T>`** es la promesa de un valor de tipo `T` que llegará más tarde: la respuesta de un servidor, un archivo leído o el resultado de una consulta. `fetchUser` y `fetchOrders` simulan una llamada de red con `Future.delayed`, que espera unos milisegundos sin bloquear el programa.",
+      "Una función marcada como **`async`** siempre devuelve una `Future`, aunque dentro haga `return` de un valor normal: `countOrders` devuelve `Future<int>`. Dentro de ella se puede usar **`await`**, que pausa esa función hasta que la `Future` termina y entrega su valor.",
+      "Fíjese en el orden de la salida. `fetchUser(7)` arranca la petición y devuelve enseguida una `Future` pendiente, así que el mensaje 2 se escribe antes de tener el usuario. Solo `await pending` espera, y entonces aparece el 3. Después, `await fetchOrders(...)` espera la segunda llamada: con `await`, el código asíncrono se lee de arriba abajo, como el síncrono, y cada ejecución da la misma salida porque cada paso espera al anterior.",
+      "`then()` es el estilo anterior: registra una función que se ejecuta cuando llega el resultado. Sigue siendo útil, pero `async`/`await` es más legible. `main` también puede ser `async` y devolver `Future<void>`. En una aplicación Flutter, los datos de una pantalla se cargan exactamente así, con funciones `async` que devuelven el modelo ya listo."
+    ],
+    "points": [
+      "Una `Future<T>` es un valor que llegará más tarde.",
+      "Una función `async` siempre devuelve una `Future`.",
+      "`await` pausa la función hasta tener el valor, sin bloquear el programa.",
+      "Llamar sin `await` arranca la tarea y el código sigue adelante.",
+      "`then()` es la alternativa con funciones de *callback*."
+    ],
+    "exercise": "Escriba `fetchAddress(int userId)`, que tarde 30 ms y devuelva `'Calle Mayor 5, Madrid'`, y muestre la dirección entre el saludo y la lista de pedidos."
+  },
+  "en": {
+    "slug": "futures-async-and-await",
+    "title": "Futures, async and await",
+    "summary": "Understand Dart Futures and write readable asynchronous code with async and await, simulating server calls with Future.delayed.",
+    "body": [
+      "A **`Future<T>`** is the promise of a value of type `T` that will arrive later: a server response, a file that has been read or the result of a query. `fetchUser` and `fetchOrders` simulate a network call with `Future.delayed`, which waits a few milliseconds without blocking the program.",
+      "A function marked **`async`** always returns a `Future`, even when it `return`s a plain value: `countOrders` returns a `Future<int>`. Inside it you can use **`await`**, which pauses that function until the `Future` completes and hands over its value.",
+      "Look at the order of the output. `fetchUser(7)` starts the request and immediately returns a pending `Future`, so message 2 is printed before the user is there. Only `await pending` waits, and then line 3 appears. Next, `await fetchOrders(...)` waits for the second call: with `await`, asynchronous code reads from top to bottom like synchronous code, and every run gives the same output because each step waits for the previous one.",
+      "`then()` is the older style: it registers a function that runs when the result arrives. It is still useful, but `async`/`await` is easier to read. `main` itself can be `async` and return `Future<void>`. In a Flutter app, a screen's data is loaded exactly like this, with `async` functions that return the ready-made model."
+    ],
+    "points": [
+      "A `Future<T>` is a value that will arrive later.",
+      "An `async` function always returns a `Future`.",
+      "`await` pauses the function until the value is ready, without blocking the program.",
+      "Calling without `await` starts the work and carries on.",
+      "`then()` is the callback-based alternative."
+    ],
+    "exercise": "Write `fetchAddress(int userId)`, which takes 30 ms and returns `'Calle Mayor 5, Madrid'`, and print the address between the greeting and the order list."
+  }
+}

@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.61 — 2026-11-07
+
+- **Curso de Dart avanzado** (20 lecciones, español e inglés): clases y
+  constructores con nombre y `factory`, miembros privados, herencia,
+  interfaces, mixins, extensiones, enums mejorados, genéricos, records,
+  patrones y clases selladas, operadores, `Future`, `Stream`, isolates,
+  JSON y generadores, con un procesador de pedidos como proyecto: la capa
+  de lógica de una app de Flutter.
+
 ## 1.0.60 — 2026-11-07
 
 - **Curso de Go básico** (20 lecciones, español e inglés): variables y

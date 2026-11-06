@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "genericos",
+    "title": "Genéricos",
+    "summary": "Escriba clases y funciones genéricas en Dart, con tipos acotados (extends) e inferencia, con un repositorio en memoria y una función groupBy.",
+    "body": [
+      "Los **genéricos** permiten escribir una clase o una función una sola vez y usarla con cualquier tipo, sin perder la comprobación de tipos. Seguramente ya los usa a diario: `List<String>` o `Map<int, T>` son clases genéricas.",
+      "`Repository<T extends Entity>` es un repositorio en memoria para cualquier entidad. `T` es un **parámetro de tipo** y `extends Entity` lo **acota**: solo valen tipos que tengan `id`, y gracias a eso `save` puede usar `item.id` como clave. Un `Repository<Customer>` guarda clientes y nada más; `customers.save('Elena')` no compilaría. `findById` devuelve `T?` porque el cliente puede no existir, y con el 9 da `null`.",
+      "`groupBy<K, V>` es una **función genérica**: recibe elementos de tipo `V` y una función que obtiene de cada uno una clave de tipo `K`. No hace falta escribir los tipos al llamarla, porque Dart los **infiere** de los argumentos: con clientes y `c.city`, `K` es `String`; con palabras y `s.length`, `K` es `int`. El operador `??=` crea la lista de cada grupo la primera vez que aparece su clave.",
+      "A diferencia de Java, los genéricos de Dart se conservan al ejecutar el programa (son **reificados**): `runtimeType` escribe `Repository<Customer>`, y una comprobación como `is List<int>` funciona de verdad."
+    ],
+    "points": [
+      "`<T>` es un parámetro de tipo que se fija al usar la clase.",
+      "`T extends Base` limita los tipos y permite usar los miembros de `Base`.",
+      "Las funciones también pueden ser genéricas, y Dart infiere sus tipos.",
+      "Los genéricos de Dart se conservan en tiempo de ejecución."
+    ],
+    "exercise": "Cree una clase `Product implements Entity` con `id`, `name` y `price`, guarde tres en un `Repository<Product>` y agrúpelos con `groupBy` según cuesten más o menos de 20 euros."
+  },
+  "en": {
+    "slug": "generics",
+    "title": "Generics",
+    "summary": "Write generic classes and functions in Dart, with bounded types (extends) and type inference, using an in-memory repository and a groupBy function.",
+    "body": [
+      "**Generics** let you write a class or a function once and use it with any type, without losing type checking. You probably use them every day already: `List<String>` and `Map<int, T>` are generic classes.",
+      "`Repository<T extends Entity>` is an in-memory repository for any entity. `T` is a **type parameter** and `extends Entity` **bounds** it: only types that have an `id` qualify, and thanks to that `save` can use `item.id` as the key. A `Repository<Customer>` stores customers and nothing else; `customers.save('Elena')` would not compile. `findById` returns `T?` because the customer may not exist, and for id 9 it gives `null`.",
+      "`groupBy<K, V>` is a **generic function**: it takes items of type `V` and a function that gets a key of type `K` from each one. You do not have to write the types when calling it, because Dart **infers** them from the arguments: with customers and `c.city`, `K` is `String`; with words and `s.length`, `K` is `int`. The `??=` operator creates each group's list the first time its key turns up.",
+      "Unlike Java, Dart keeps generic types at run time (they are **reified**): `runtimeType` prints `Repository<Customer>`, and a check such as `is List<int>` genuinely works."
+    ],
+    "points": [
+      "`<T>` is a type parameter, fixed when the class is used.",
+      "`T extends Base` restricts the types and lets you use `Base`'s members.",
+      "Functions can be generic too, and Dart infers their types.",
+      "Dart's generics are kept at run time."
+    ],
+    "exercise": "Create a `Product implements Entity` class with `id`, `name` and `price`, store three in a `Repository<Product>` and group them with `groupBy` by whether they cost more or less than 20 euros."
+  }
+}

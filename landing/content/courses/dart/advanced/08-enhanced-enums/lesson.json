@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "enums-mejorados",
+    "title": "Enums mejorados",
+    "summary": "Dé campos, constructor y métodos a sus enums en Dart y modele con ellos el ciclo de vida de un pedido, con un switch que el compilador comprueba.",
+    "body": [
+      "Un `enum` de Dart puede ser mucho más que una lista de nombres: los **enums mejorados** tienen campos, constructor y métodos. `OrderStatus` enumera los estados de un pedido, y cada valor lleva su etiqueta (`label`) y si todavía se puede cancelar (`canCancel`).",
+      "Los valores se escriben arriba, cada uno con sus argumentos, y la lista termina en punto y coma. El constructor tiene que ser **`const`** y los campos `final`, porque cada valor es una constante que se crea una sola vez. `canCancel` es un parámetro con nombre que vale `false` por defecto, así que solo `pending` y `paid` tienen que indicarlo.",
+      "El getter `next` usa una **expresión `switch`** sobre `this` para dar el estado siguiente. No lleva un caso `_` final: el compilador conoce todos los valores del enum y comprueba que estén cubiertos (`delivered || cancelled` agrupa dos en un caso). Si mañana se añade un estado, el `switch` deja de compilar hasta que se trate. `isFinal` se apoya en `next`.",
+      "En `main`, el bucle recorre el flujo del pedido hasta que `next` da `null`. Todo enum trae además `values` (la lista de valores), `name` (su nombre como texto), `index` (su posición) y `values.byName`, que convierte un texto en el valor correspondiente: muy útil al leer un estado guardado en JSON o en una base de datos."
+    ],
+    "points": [
+      "Un enum mejorado tiene campos, un constructor `const` y métodos.",
+      "Cada valor se declara con sus argumentos.",
+      "Un `switch` sobre un enum debe cubrir todos sus valores.",
+      "`values`, `name`, `index` y `byName` vienen incluidos.",
+      "Un estado nuevo obliga a revisar cada `switch`, y eso evita olvidos."
+    ],
+    "exercise": "Añada un estado `returned('Returned')` y haga que siga a `delivered`; el compilador le obligará a tratarlo en el `switch` de `next`."
+  },
+  "en": {
+    "slug": "enhanced-enums",
+    "title": "Enhanced enums",
+    "summary": "Give your Dart enums fields, a constructor and methods, and use one to model an order's life cycle with a switch the compiler checks.",
+    "body": [
+      "A Dart `enum` can be much more than a list of names: **enhanced enums** have fields, a constructor and methods. `OrderStatus` lists the states of an order, and each value carries its `label` and whether it can still be cancelled (`canCancel`).",
+      "The values come first, each with its arguments, and the list ends with a semicolon. The constructor must be **`const`** and the fields `final`, because every value is a constant created only once. `canCancel` is a named parameter that defaults to `false`, so only `pending` and `paid` need to mention it.",
+      "The `next` getter uses a **`switch` expression** on `this` to return the following state. There is no final `_` case: the compiler knows every value of the enum and checks they are all covered (`delivered || cancelled` groups two of them in one case). If a state is added tomorrow, the `switch` stops compiling until it is handled. `isFinal` builds on `next`.",
+      "In `main`, the loop walks through the order's flow until `next` returns `null`. Every enum also comes with `values` (the list of values), `name` (its name as text), `index` (its position) and `values.byName`, which turns a string back into the value: very handy when reading a state stored in JSON or a database."
+    ],
+    "points": [
+      "An enhanced enum has fields, a `const` constructor and methods.",
+      "Each value is declared with its arguments.",
+      "A `switch` over an enum must cover every value.",
+      "`values`, `name`, `index` and `byName` come built in.",
+      "A new state forces you to revisit every `switch`, so nothing is forgotten."
+    ],
+    "exercise": "Add a `returned('Returned')` state that follows `delivered`; the compiler will make you handle it in the `next` switch."
+  }
+}

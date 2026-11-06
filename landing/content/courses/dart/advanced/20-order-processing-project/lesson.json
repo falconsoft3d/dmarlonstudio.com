@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-procesar-pedidos",
+    "title": "Proyecto: procesar pedidos",
+    "summary": "Combine clases selladas, genéricos, async y JSON en Dart en un pequeño sistema de pedidos: la lógica que hay detrás de una app Flutter.",
+    "body": [
+      "Este programa reúne el curso en una pequeña capa de lógica de pedidos, la que tendría una aplicación Flutter debajo de sus pantallas. Empieza con un tipo **`Result<T>`** sellado y genérico: una operación termina en `Ok`, con un valor, o en `Err`, con un motivo. Así los fallos esperados (falta de existencias, pago rechazado) son datos que se tratan, no excepciones que se escapan.",
+      "`Order.fromJson` usa una lista de inicialización y, dentro, un `for` con un **patrón de lista**: cada línea del JSON es un array `[sku, qty, cents]` que se desestructura y se guarda como un record `(String, int, int)`. `total` suma cantidad por precio con `fold`, y `toJson` devuelve el resumen que se enviará después.",
+      "`process` es el servicio asíncrono simulado: espera 10 ms por línea, busca las líneas cuyo producto no tiene existencias suficientes en el mapa `stock` y devuelve un `Err` si encuentra alguna o si el total pasa de 100 euros (10000 céntimos); si no, un `Ok`. Como es `async`, su tipo es `Future<Result<Order>>`.",
+      "`main` decodifica los pedidos y los procesa **todos en paralelo** con `Future.wait(orders.map(process))`. Aunque cada uno tarde distinto, los resultados llegan en el orden de los pedidos, así que la salida no cambia. El `switch` sobre el `Result` sellado es exhaustivo y extrae `value` o `reason`; después, `if (r case Ok(:final value))` se queda con los aceptados y `jsonEncode` produce el informe, llamando a `toJson()` de cada pedido.",
+      "Clases, records, patrones, genéricos, `async` y JSON, todo en 34 líneas. En DMarlon Studio, Dart es el lenguaje de los destinos Flutter, y este es justo el tipo de código que va en la capa de modelo y lógica de esas aplicaciones, separado de los widgets que lo muestran."
+    ],
+    "points": [
+      "Un `Result` sellado convierte los fallos esperados en datos.",
+      "Los patrones de lista leen JSON compacto con seguridad.",
+      "`Future.wait` procesa en paralelo y mantiene el orden.",
+      "El `switch` exhaustivo obliga a tratar el éxito y el error.",
+      "`toJson` y `jsonEncode` preparan la salida para otra API."
+    ],
+    "exercise": "Añada al informe final un campo `rejected` con la lista de motivos de los pedidos rechazados, obtenida con otro `if (r case Err(:final reason))`."
+  },
+  "en": {
+    "slug": "order-processing-project",
+    "title": "Project: order processing",
+    "summary": "Combine Dart sealed classes, generics, async and JSON in a small order processing system: the logic that sits behind a Flutter app.",
+    "body": [
+      "This program brings the course together in a small order processing layer, the kind a Flutter app keeps underneath its screens. It starts with a sealed, generic **`Result<T>`** type: an operation ends either in `Ok`, holding a value, or in `Err`, holding a reason. That way expected failures (out of stock, payment declined) are data you handle, not exceptions that escape.",
+      "`Order.fromJson` uses an initializer list and, inside it, a `for` with a **list pattern**: each JSON line is an array `[sku, qty, cents]` that is destructured and stored as a `(String, int, int)` record. `total` adds up quantity times price with `fold`, and `toJson` returns the summary to be sent on later.",
+      "`process` is the simulated asynchronous service: it waits 10 ms per line, looks for lines whose product lacks enough units in the `stock` map, and returns an `Err` if it finds one or if the total exceeds 100 euros (10000 cents); otherwise, an `Ok`. Being `async`, its type is `Future<Result<Order>>`.",
+      "`main` decodes the orders and processes **all of them in parallel** with `Future.wait(orders.map(process))`. Even though each takes a different time, the results arrive in order, so the output never changes. The `switch` over the sealed `Result` is exhaustive and extracts `value` or `reason`; then `if (r case Ok(:final value))` keeps the accepted ones and `jsonEncode` produces the report, calling each order's `toJson()`.",
+      "Classes, records, patterns, generics, `async` and JSON, all in 34 lines. In DMarlon Studio, Dart is the language of the Flutter targets, and this is exactly the kind of code that goes into the model and logic layer of those apps, kept apart from the widgets that display it."
+    ],
+    "points": [
+      "A sealed `Result` turns expected failures into data.",
+      "List patterns read compact JSON safely.",
+      "`Future.wait` processes in parallel and keeps the order.",
+      "The exhaustive `switch` forces you to handle both success and failure.",
+      "`toJson` and `jsonEncode` prepare the output for another API."
+    ],
+    "exercise": "Add a `rejected` field to the final report with the list of reasons for the rejected orders, gathered with another `if (r case Err(:final reason))`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "patrones-y-clases-selladas",
+    "title": "Patrones y clases selladas",
+    "summary": "Modele los estados de una pantalla con clases sealed en Dart 3 y trátelos con un switch exhaustivo, patrones de objeto, guardas when y if-case.",
+    "body": [
+      "Una clase **`sealed`** (sellada) solo puede tener subtipos en su propio archivo. Es abstracta y, a cambio, el compilador conoce la lista completa de sus subtipos: `Loading`, `Loaded` y `Failed`. Es la forma habitual de modelar los estados de una pantalla en Flutter: cargando, con datos o con error.",
+      "`render` usa una **expresión `switch`** con **patrones de objeto**: `Loaded(:final items)` comprueba que el estado es un `Loaded` y extrae su campo `items` en una variable. Los patrones pueden afinar más: `Loaded(items: [])` solo encaja con la lista vacía, `Failed(code: 401)` con ese código concreto, y la **guarda** `when items.length == 1` añade una condición al caso.",
+      "El orden importa: los casos se prueban de arriba abajo y gana el primero que encaja, por eso el general `Loaded(:final items)` va después de los particulares. Y como la clase está sellada, el `switch` es **exhaustivo**: no necesita `default`, y si se borra el caso `Loading()` o se añade un estado nuevo, el programa no compila hasta cubrirlo.",
+      "Los patrones no son solo para clases. La última línea usa `if (json case ...)` con un **patrón de mapa** y otro de **lista**: comprueba que hay una clave `user` de tipo `String` y una lista `roles` cuyo primer elemento es texto (`...` acepta el resto), y de paso guarda los valores en `name` y `role`. Es una forma segura de leer JSON sin una cadena de comprobaciones y conversiones."
+    ],
+    "points": [
+      "`sealed` fija la lista de subtipos en el mismo archivo.",
+      "Un `switch` sobre una clase sellada es exhaustivo: no hace falta `default`.",
+      "`Clase(:final campo)` comprueba el tipo y extrae el campo.",
+      "`when` añade una condición a un caso.",
+      "`if (valor case patrón)` valida y desestructura a la vez."
+    ],
+    "exercise": "Añada un estado `Offline` a la clase sellada, observe el error del compilador en `render` y añada el caso que escriba `No connection`."
+  },
+  "en": {
+    "slug": "patterns-and-sealed-classes",
+    "title": "Patterns and sealed classes",
+    "summary": "Model a screen's states with Dart 3 sealed classes and handle them with an exhaustive switch, object patterns, when guards and if-case.",
+    "body": [
+      "A **`sealed`** class can only have subtypes in its own file. It is abstract and, in exchange, the compiler knows the complete list of its subtypes: `Loading`, `Loaded` and `Failed`. It is the usual way to model a screen's states in Flutter: loading, showing data or showing an error.",
+      "`render` uses a **`switch` expression** with **object patterns**: `Loaded(:final items)` checks that the state is a `Loaded` and pulls its `items` field into a variable. Patterns can be more precise: `Loaded(items: [])` only matches an empty list, `Failed(code: 401)` only that exact code, and the **guard** `when items.length == 1` adds a condition to the case.",
+      "Order matters: cases are tried from top to bottom and the first match wins, which is why the general `Loaded(:final items)` comes after the specific ones. And since the class is sealed, the `switch` is **exhaustive**: it needs no `default`, and if you delete the `Loading()` case or add a new state, the program will not compile until it is covered.",
+      "Patterns are not just for classes. The last line uses `if (json case ...)` with a **map pattern** and a **list pattern**: it checks that there is a `user` key holding a `String` and a `roles` list whose first element is text (`...` accepts the rest), and binds the values to `name` and `role` on the way. It is a safe way to read JSON without a chain of checks and casts."
+    ],
+    "points": [
+      "`sealed` fixes the list of subtypes in the same file.",
+      "A `switch` over a sealed class is exhaustive: no `default` needed.",
+      "`Class(:final field)` checks the type and extracts the field.",
+      "`when` adds a condition to a case.",
+      "`if (value case pattern)` validates and destructures at once."
+    ],
+    "exercise": "Add an `Offline` state to the sealed class, look at the compiler error in `render` and add the case that prints `No connection`."
+  }
+}

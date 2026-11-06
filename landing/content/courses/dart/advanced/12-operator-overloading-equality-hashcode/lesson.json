@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "operadores-igualdad-y-hashcode",
+    "title": "Operadores, == y hashCode",
+    "summary": "Defina operadores en sus clases de Dart, compare objetos por valor con == y hashCode y ordénelos con Comparable, con un tipo Money.",
+    "body": [
+      "En Dart, los operadores son métodos con un nombre especial: **`operator +`**, `operator *`, `operator <`… `Money` guarda céntimos y moneda, y define `+` para sumar importes (lanza `ArgumentError` si las monedas no coinciden), `*` para multiplicar por una cantidad y `<` para comparar. Así, `coffee * 2 + croissant` se lee como la cuenta de una cafetería.",
+      "Por defecto, `==` compara identidad: dos objetos son iguales solo si son el mismo. Para que dos `Money(150)` lo sean se sobrescribe **`operator ==`**, que recibe un `Object`, comprueba el tipo con `is Money` y compara los campos. `identical` sigue diciendo `false`: son iguales, pero no son el mismo objeto.",
+      "Regla de oro: si sobrescribe `==`, sobrescriba también **`hashCode`**, de modo que dos objetos iguales den el mismo número. `Object.hash(cents, currency)` lo calcula a partir de los mismos campos que compara `==`. Los `Set` y los `Map` lo usan para buscar, y por eso el conjunto `{coffee, Money(150), croissant}` se queda con solo dos precios.",
+      "Implementar **`Comparable<Money>`** con `compareTo` da a la clase un orden natural, y `sort()` lo usa sin más argumentos. `toString()` decide cómo se escribe el objeto, también dentro de listas y conjuntos. El último caso muestra el error al sumar euros con dólares."
+    ],
+    "points": [
+      "`operator +` y compañía definen operadores en sus clases.",
+      "Sobrescriba `==` para comparar por valor.",
+      "Con `==` va siempre `hashCode`, calculado con los mismos campos.",
+      "`Object.hash` combina varios campos en un código hash.",
+      "`Comparable` y `compareTo` permiten ordenar con `sort()`."
+    ],
+    "exercise": "Añada `operator -` a `Money` y calcule el cambio que recibe un cliente que paga el pedido con un billete de 5 euros (`Money(500)`)."
+  },
+  "en": {
+    "slug": "operators-equality-and-hashcode",
+    "title": "Operators, == and hashCode",
+    "summary": "Define operators on your Dart classes, compare objects by value with == and hashCode, and sort them with Comparable, using a Money type.",
+    "body": [
+      "In Dart, operators are methods with a special name: **`operator +`**, `operator *`, `operator <`… `Money` stores cents and a currency, and defines `+` to add amounts (throwing an `ArgumentError` when the currencies differ), `*` to multiply by a quantity and `<` to compare. That way, `coffee * 2 + croissant` reads like a café bill.",
+      "By default, `==` compares identity: two objects are equal only if they are the same object. To make two `Money(150)` equal you override **`operator ==`**, which takes an `Object`, checks the type with `is Money` and compares the fields. `identical` still says `false`: they are equal, but not the same object.",
+      "Golden rule: if you override `==`, override **`hashCode`** too, so that equal objects produce the same number. `Object.hash(cents, currency)` computes it from the same fields `==` compares. Sets and maps rely on it to look things up, which is why the set `{coffee, Money(150), croissant}` ends up with only two prices.",
+      "Implementing **`Comparable<Money>`** with `compareTo` gives the class a natural order, and `sort()` uses it with no extra arguments. `toString()` decides how the object is printed, inside lists and sets too. The last case shows the error when adding euros to dollars."
+    ],
+    "points": [
+      "`operator +` and friends define operators on your classes.",
+      "Override `==` to compare by value.",
+      "`==` always goes with `hashCode`, computed from the same fields.",
+      "`Object.hash` combines several fields into one hash code.",
+      "`Comparable` and `compareTo` let `sort()` order your objects."
+    ],
+    "exercise": "Add `operator -` to `Money` and work out the change a customer gets when paying the order with a 5-euro note (`Money(500)`)."
+  }
+}

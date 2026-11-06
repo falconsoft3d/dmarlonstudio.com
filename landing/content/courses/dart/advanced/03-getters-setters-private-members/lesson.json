@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "getters-setters-y-miembros-privados",
+    "title": "Getters, setters y miembros privados",
+    "summary": "Proteja el estado de sus clases en Dart con miembros privados (_), getters calculados y setters que validan, con una cuenta bancaria de ejemplo.",
+    "body": [
+      "En Dart no existen las palabras `private` ni `public`: un nombre que empieza por **guion bajo** (`_balanceCents`, `_history`) es **privado de la biblioteca**, es decir, del archivo donde está. Desde otro archivo no se puede leer ni escribir; dentro del mismo archivo, sí. Por eso la privacidad se nota sobre todo cuando el proyecto crece en varios archivos y cada clase vive en el suyo.",
+      "Los **getters** (`get`) se leen como un campo, sin paréntesis, pero calculan su valor cada vez. `balance` devuelve el saldo con formato y `history` devuelve una copia no modificable con `List.unmodifiable`, de modo que nadie de fuera pueda cambiar la lista interna: el intento `account.history.add('fake')` lanza `UnsupportedError`, que el programa captura.",
+      "Un **setter** (`set`) se usa como una asignación, `account.dailyLimit = 20000`, pero ejecuta código: aquí comprueba que el límite no sea negativo y anota el cambio en el historial. Con `-1` lanza `ArgumentError` y el valor anterior se conserva. Tener getter y setter con el mismo nombre hace que, visto desde fuera, `dailyLimit` parezca un campo normal.",
+      "En `main` aparece el **operador de cascada** `..`: `BankAccount('Lucia')..deposit(12000)..deposit(3550)` llama a dos métodos sobre el mismo objeto y el resultado de toda la expresión es la cuenta, no lo que devuelva `deposit`. Es muy habitual para configurar un objeto recién creado."
+    ],
+    "points": [
+      "`_nombre` es privado del archivo (la biblioteca), no de la clase.",
+      "Un getter se lee como un campo y se calcula al pedirlo.",
+      "Un setter se usa con `=` y permite validar el valor.",
+      "Devuelva copias no modificables de sus listas internas.",
+      "`..` encadena llamadas sobre el mismo objeto."
+    ],
+    "exercise": "Añada un método `withdraw(int cents)` que lance `StateError` si la retirada supera el saldo o el límite diario, y pruebe a retirar 30000 céntimos."
+  },
+  "en": {
+    "slug": "getters-setters-and-private-members",
+    "title": "Getters, setters and private members",
+    "summary": "Protect the state of your Dart classes with private members (_), computed getters and validating setters, using a bank account as the example.",
+    "body": [
+      "Dart has no `private` or `public` keywords: a name that starts with an **underscore** (`_balanceCents`, `_history`) is **library-private**, which means private to the file it lives in. Code in another file cannot read or write it; code in the same file can. That is why privacy really shows once a project grows into several files, with each class in its own.",
+      "**Getters** (`get`) are read like a field, without parentheses, but compute their value every time. `balance` returns the formatted balance and `history` returns an unmodifiable copy made with `List.unmodifiable`, so nobody outside can change the internal list: the attempt `account.history.add('fake')` throws an `UnsupportedError`, which the program catches.",
+      "A **setter** (`set`) is used like an assignment, `account.dailyLimit = 20000`, but runs code: here it checks that the limit is not negative and records the change in the history. With `-1` it throws an `ArgumentError` and the previous value is kept. Having a getter and a setter with the same name makes `dailyLimit` look like an ordinary field from the outside.",
+      "`main` also shows the **cascade operator** `..`: `BankAccount('Lucia')..deposit(12000)..deposit(3550)` calls two methods on the same object, and the whole expression evaluates to the account, not to whatever `deposit` returns. It is the everyday way to set up a freshly created object."
+    ],
+    "points": [
+      "`_name` is private to the file (the library), not to the class.",
+      "A getter reads like a field and is computed on demand.",
+      "A setter is used with `=` and can validate the value.",
+      "Hand out unmodifiable copies of your internal lists.",
+      "`..` chains calls on the same object."
+    ],
+    "exercise": "Add a `withdraw(int cents)` method that throws a `StateError` if the amount exceeds the balance or the daily limit, and try to withdraw 30000 cents."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "streams-async-y-await-for",
+    "title": "Streams con async* y await for",
+    "summary": "Cree streams en Dart con funciones async* y yield, recórralos con await for y transfórmelos con where y map, con una descarga simulada.",
+    "body": [
+      "Una `Future` da un solo valor; un **`Stream`** da una secuencia de valores a lo largo del tiempo: el progreso de una descarga, los mensajes de un chat o las lecturas de un sensor. La forma más sencilla de crear uno es una función **`async*`**: cada **`yield`** emite un evento, y entre uno y otro la función puede hacer `await`.",
+      "`download` simula la descarga de 600 KB en trozos de 160: espera 20 ms por trozo, suma lo recibido sin pasarse del total y emite el porcentaje. Además, nada se ejecuta hasta que alguien escucha el stream.",
+      "**`await for`** recorre el stream: espera cada evento, ejecuta el cuerpo del bucle y continúa hasta que el stream se cierra, que aquí es cuando la función termina. Después de las cuatro líneas de progreso, `main` sigue con lo siguiente.",
+      "Los streams tienen los mismos métodos que las listas (`where`, `map`, `fold`, `toList`…), pero asíncronos: `toList()` devuelve una `Future`. `Stream.fromIterable` convierte una lista en stream, y del ejemplo se quedan las lecturas de más de 24 grados. `Stream.periodic` emite un número cada 10 ms y no termina nunca; un **`break`** dentro de `await for` cancela la suscripción y el stream se detiene."
+    ],
+    "points": [
+      "Un `Stream` es una secuencia de valores asíncronos.",
+      "Una función `async*` crea un stream, y `yield` emite cada valor.",
+      "`await for` espera cada evento hasta que el stream se cierra.",
+      "`where`, `map` y `toList` también existen para streams.",
+      "`break` dentro de `await for` cancela la suscripción."
+    ],
+    "exercise": "Cree `Stream<String> countdown(int from) async*` que emita `3`, `2`, `1` y `Go!` con 50 ms entre cada valor, y recórralo con `await for`."
+  },
+  "en": {
+    "slug": "streams-async-and-await-for",
+    "title": "Streams with async* and await for",
+    "summary": "Create Dart streams with async* functions and yield, consume them with await for and transform them with where and map, using a simulated download.",
+    "body": [
+      "A `Future` delivers one value; a **`Stream`** delivers a sequence of values over time: a download's progress, chat messages or sensor readings. The simplest way to create one is an **`async*`** function: each **`yield`** emits an event, and in between the function may `await`.",
+      "`download` simulates downloading 600 KB in 160 KB chunks: it waits 20 ms per chunk, adds up what has arrived without going past the total and emits the percentage. Also, nothing runs until someone listens to the stream.",
+      "**`await for`** walks through the stream: it waits for each event, runs the loop body and carries on until the stream closes, which here happens when the function ends. After the four progress lines, `main` moves on.",
+      "Streams have the same methods as lists (`where`, `map`, `fold`, `toList`…), only asynchronous: `toList()` returns a `Future`. `Stream.fromIterable` turns a list into a stream, and the example keeps the readings above 24 degrees. `Stream.periodic` emits a number every 10 ms and never ends; a **`break`** inside `await for` cancels the subscription and the stream stops."
+    ],
+    "points": [
+      "A `Stream` is a sequence of asynchronous values.",
+      "An `async*` function creates a stream, and `yield` emits each value.",
+      "`await for` waits for each event until the stream closes.",
+      "`where`, `map` and `toList` exist for streams too.",
+      "`break` inside `await for` cancels the subscription."
+    ],
+    "exercise": "Create `Stream<String> countdown(int from) async*` that emits `3`, `2`, `1` and `Go!` with 50 ms between values, and loop over it with `await for`."
+  }
+}

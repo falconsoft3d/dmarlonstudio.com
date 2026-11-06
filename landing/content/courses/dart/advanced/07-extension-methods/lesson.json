@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "metodos-de-extension",
+    "title": "Métodos de extensión",
+    "summary": "Añada métodos y getters a int, String o List en Dart con extensiones, también genéricas, sin heredar ni modificar esas clases.",
+    "body": [
+      "Las **extensiones** añaden métodos y getters a tipos que no son suyos, como `int`, `String` o `List`, sin heredar de ellos ni envolverlos en otra clase. Se declaran con `extension Nombre on Tipo` y, dentro, `this` es el valor sobre el que se llama.",
+      "`MoneyFormat` añade a los enteros un getter `eur`, de modo que `1999.eur` da `19.99 EUR`. `TextTools` añade dos utilidades a `String`: `capitalized` (primera letra en mayúscula y el resto en minúscula) y `toSlug()`, que con dos expresiones regulares convierte un título en un texto apto para una URL. Fíjese en que dentro de la extensión se llama a `trim()` o a `substring()` sin prefijo, igual que en un método de la propia clase.",
+      "`Stats` extiende `Iterable<int>`, así que sirve para listas, conjuntos y cualquier iterable de enteros: `total` suma con `fold` y `average` divide entre `length`. Las extensiones se combinan con naturalidad: `basket.average.round().eur` redondea la media y le da formato con la primera extensión.",
+      "`SafeIndex<T>` es una **extensión genérica**: vale para una `List` de cualquier tipo, y `at(7)` devuelve `null` en lugar de lanzar `RangeError`. Las extensiones se eligen en tiempo de compilación según el tipo **estático** de la expresión, por lo que no funcionan sobre una variable `dynamic`."
+    ],
+    "points": [
+      "`extension Nombre on Tipo` añade miembros a tipos ajenos.",
+      "Dentro de la extensión, `this` es el valor sobre el que se llama.",
+      "Pueden ser getters, métodos e incluso operadores.",
+      "Admiten genéricos: `extension X<T> on List<T>`.",
+      "Se eligen por el tipo estático; no sirven con `dynamic`."
+    ],
+    "exercise": "Escriba una extensión sobre `String` con un getter `initials` que devuelva las iniciales en mayúsculas, de modo que `'ana belen ruiz'.initials` dé `ABR`."
+  },
+  "en": {
+    "slug": "extension-methods",
+    "title": "Extension methods",
+    "summary": "Add methods and getters to int, String or List in Dart with extensions, generic ones included, without subclassing or changing those classes.",
+    "body": [
+      "**Extensions** add methods and getters to types you do not own, such as `int`, `String` or `List`, without subclassing them or wrapping them in another class. You declare them with `extension Name on Type` and, inside, `this` is the value the member is called on.",
+      "`MoneyFormat` gives integers an `eur` getter, so `1999.eur` returns `19.99 EUR`. `TextTools` adds two helpers to `String`: `capitalized` (first letter upper case, the rest lower case) and `toSlug()`, which uses two regular expressions to turn a title into URL-friendly text. Notice that inside the extension you call `trim()` or `substring()` without a prefix, just as in a method of the class itself.",
+      "`Stats` extends `Iterable<int>`, so it works on lists, sets and any iterable of integers: `total` adds up with `fold` and `average` divides by `length`. Extensions combine naturally: `basket.average.round().eur` rounds the average and formats it with the first extension.",
+      "`SafeIndex<T>` is a **generic extension**: it works on a `List` of any type, and `at(7)` returns `null` instead of throwing a `RangeError`. Extensions are picked at compile time from the **static** type of the expression, so they do not work on a `dynamic` variable."
+    ],
+    "points": [
+      "`extension Name on Type` adds members to types you do not own.",
+      "Inside the extension, `this` is the value it was called on.",
+      "They can be getters, methods and even operators.",
+      "They can be generic: `extension X<T> on List<T>`.",
+      "They are chosen by static type, so `dynamic` values miss them."
+    ],
+    "exercise": "Write an extension on `String` with an `initials` getter that returns the upper-case initials, so that `'ana belen ruiz'.initials` gives `ABR`."
+  }
+}

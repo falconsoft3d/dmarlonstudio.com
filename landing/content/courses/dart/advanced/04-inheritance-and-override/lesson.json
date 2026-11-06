@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "herencia-y-override",
+    "title": "Herencia y @override",
+    "summary": "Herede clases en Dart con extends, pase datos al padre con super y sustituya métodos con @override, con una nómina de ejemplo.",
+    "body": [
+      "`Employee` es la **clase base**: nombre, salario mensual y dos métodos. `annualCost()` multiplica por 14 (doce mensualidades más dos pagas extra) y `describe()` compone el texto llamando a `annualCost()`.",
+      "**`extends`** crea una subclase que hereda los campos y los métodos de la base. En `Manager`, el constructor usa **parámetros super** (`super.name`, `super.monthlySalary`): pasan esos argumentos directamente al constructor de `Employee`, sin repetirlos. `Intern` lo hace a la manera clásica, con `: super(name, 900)` en la lista de inicialización, y fija así un salario de 900.",
+      "**`@override`** marca un método que sustituye al heredado. No es obligatorio, pero el analizador avisa si el nombre no coincide con ninguno de la base y deja claro qué se cambia. `Manager.annualCost()` reutiliza el cálculo original con `super.annualCost()` y le suma el bonus; `describe()` hace lo mismo con el texto.",
+      "Lo interesante está en `main`: la lista `staff` es de tipo `List<Employee>`, pero cada objeto usa **su** versión de los métodos. `describe()` solo está escrito en `Employee` y, aun así, para Luis llama al `annualCost()` de `Manager` y para Marta al de `Intern`. Eso es el **polimorfismo**. `runtimeType` muestra la clase real del objeto, e `is` confirma que un `Intern` también es un `Employee`."
+    ],
+    "points": [
+      "`extends` hereda todo lo de la clase base.",
+      "`super.campo` en el constructor reenvía el argumento al padre.",
+      "`@override` marca el método que se sustituye.",
+      "`super.metodo()` llama a la versión heredada.",
+      "Cada objeto usa sus propios métodos, aunque la variable sea del tipo base."
+    ],
+    "exercise": "Cree una subclase `Contractor` con una tarifa por hora y unas horas al año, cuyo `annualCost()` sea tarifa por horas, y añádala a `staff`."
+  },
+  "en": {
+    "slug": "inheritance-and-override",
+    "title": "Inheritance and @override",
+    "summary": "Inherit Dart classes with extends, pass data to the parent with super and replace methods with @override, using a payroll example.",
+    "body": [
+      "`Employee` is the **base class**: a name, a monthly salary and two methods. `annualCost()` multiplies by 14 (twelve monthly payments plus two extra ones, as is common in Spain) and `describe()` builds the text by calling `annualCost()`.",
+      "**`extends`** creates a subclass that inherits the base class's fields and methods. In `Manager`, the constructor uses **super parameters** (`super.name`, `super.monthlySalary`): they pass those arguments straight to `Employee`'s constructor without repeating them. `Intern` does it the classic way, with `: super(name, 900)` in the initializer list, which fixes the salary at 900.",
+      "**`@override`** marks a method that replaces the inherited one. It is not mandatory, but the analyzer warns you if the name matches nothing in the base class, and it makes clear what is being changed. `Manager.annualCost()` reuses the original calculation through `super.annualCost()` and adds the bonus; `describe()` does the same with the text.",
+      "The interesting part is in `main`: the `staff` list is a `List<Employee>`, yet each object uses **its own** version of the methods. `describe()` is only written in `Employee` and still, for Luis it calls `Manager`'s `annualCost()` and for Marta the `Intern` one. That is **polymorphism**. `runtimeType` shows the object's real class, and `is` confirms that an `Intern` is also an `Employee`."
+    ],
+    "points": [
+      "`extends` inherits everything from the base class.",
+      "`super.field` in a constructor forwards the argument to the parent.",
+      "`@override` marks the method being replaced.",
+      "`super.method()` calls the inherited version.",
+      "Each object uses its own methods, even through a base-class variable."
+    ],
+    "exercise": "Create a `Contractor` subclass with an hourly rate and yearly hours, whose `annualCost()` is rate times hours, and add one to `staff`."
+  }
+}

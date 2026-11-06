@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "future-wait-y-errores-asincronos",
+    "title": "Future.wait y errores asíncronos",
+    "summary": "Lance varias peticiones en paralelo con Future.wait en Dart y trate sus errores con try/catch, timeout y onError, con una salida siempre igual.",
+    "body": [
+      "Con `await` una tras otra, tres llamadas de 60, 10 y 30 ms tardarían 100 ms. **`Future.wait`** las lanza todas a la vez y espera a que acaben, así que tarda lo que la más lenta. Lo importante para un resultado predecible es que la lista de resultados sigue el **orden de la lista de entrada**, no el orden en que terminan: por eso `Stocks` sale siempre `[35, 63, 21]`.",
+      "`fetchStock` lanza `StateError` con los códigos que empiezan por `X`. Dentro de una función `async`, una excepción hace que su `Future` termine con error, y al hacer `await` ese error se lanza de nuevo en quien espera. Por eso basta un `try`/`catch` normal, con `on StateError`, alrededor de `await Future.wait(...)`.",
+      "Para esperar a la vez futures de **tipos distintos**, Dart 3 permite agruparlas en un record y usar `.wait`: `(Future.value('Mug'), fetchStock(...)).wait` devuelve un record `(String, int)` que se desestructura en `name` y `stock`, cada uno con su tipo.",
+      "**`timeout`** convierte una llamada demasiado lenta en una `TimeoutException`, que viene de `dart:async`: `SLOW-API` tarda 300 ms y se abandona a los 50. Y cuando un fallo no es grave, **`onError`** sustituye el error por un valor de reserva: el producto desconocido da `0` en vez de una excepción."
+    ],
+    "points": [
+      "`Future.wait` ejecuta en paralelo y devuelve los resultados en orden.",
+      "Un error en una `Future` reaparece en el `await`: captúrelo con `try`/`catch`.",
+      "`(f1, f2).wait` espera futures de tipos distintos.",
+      "`timeout` pone un límite de tiempo a una llamada.",
+      "`onError` devuelve un valor de reserva si algo falla."
+    ],
+    "exercise": "Añada un tercer elemento al record, `fetchStock('CAP', 15)`, desestructúrelo en una variable `caps` y escriba los tres valores en una línea."
+  },
+  "en": {
+    "slug": "future-wait-and-async-errors",
+    "title": "Future.wait and async errors",
+    "summary": "Run several requests in parallel with Future.wait in Dart and handle their errors with try/catch, timeout and onError, with output that never changes.",
+    "body": [
+      "Awaited one after another, three calls of 60, 10 and 30 ms would take 100 ms. **`Future.wait`** starts them all at once and waits for them to finish, so it takes as long as the slowest. The key to a predictable result is that the list of results follows the **order of the input list**, not the order in which they finish: that is why `Stocks` always prints `[35, 63, 21]`.",
+      "`fetchStock` throws a `StateError` for codes starting with `X`. Inside an `async` function, an exception makes its `Future` complete with an error, and `await` rethrows that error in whoever is waiting. So an ordinary `try`/`catch` with `on StateError` around `await Future.wait(...)` is all it takes.",
+      "To wait for futures of **different types** at the same time, Dart 3 lets you group them in a record and call `.wait`: `(Future.value('Mug'), fetchStock(...)).wait` returns a `(String, int)` record that is destructured into `name` and `stock`, each with its own type.",
+      "**`timeout`** turns a call that is too slow into a `TimeoutException`, which comes from `dart:async`: `SLOW-API` takes 300 ms and is abandoned after 50. And when a failure is not serious, **`onError`** replaces the error with a fallback value: the unknown product gives `0` instead of an exception."
+    ],
+    "points": [
+      "`Future.wait` runs in parallel and returns the results in order.",
+      "An error in a `Future` resurfaces at the `await`: catch it with `try`/`catch`.",
+      "`(f1, f2).wait` waits for futures of different types.",
+      "`timeout` puts a time limit on a call.",
+      "`onError` returns a fallback value when something fails."
+    ],
+    "exercise": "Add a third element to the record, `fetchStock('CAP', 15)`, destructure it into a `caps` variable and print all three values on one line."
+  }
+}

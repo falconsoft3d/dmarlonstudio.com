@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "records-y-desestructuracion",
+    "title": "Records y desestructuración",
+    "summary": "Devuelva varios valores sin crear clases con los records de Dart 3, y desestructúrelos en variables, en bucles y en intercambios.",
+    "body": [
+      "Un **record** agrupa varios valores sin tener que crear una clase. Puede tener campos **posicionales**, como `(double, double, double)`, o **con nombre**, como `({String city, double celsius})`. El `typedef` da a este último un nombre corto, `Reading`, que después se usa como cualquier otro tipo.",
+      "`summarize` devuelve tres valores a la vez: el mínimo, el máximo y la media. En `main`, `final (low, high, avg) = ...` los **desestructura**: es un patrón que deshace el record en tres variables de una sola vez. Antes de Dart 3 habría hecho falta una clase auxiliar o una lista sin tipos.",
+      "En el `for`, el patrón `(:city, :celsius)` toma los campos con nombre en variables que se llaman igual; `:city` es la forma corta de `city: city`. Así el bucle se lee casi como una frase y solo avisa de las ciudades que pasan de 30 grados.",
+      "Los campos con nombre se leen por su nombre (`first.city`) y los posicionales con `$1`, `$2`…; por eso `summarize([1, 2]).$2` es el máximo, `2.0`. Los records tienen **igualdad por valor**: dos records con los mismos campos son `==` aunque se hayan creado por separado. Por último, `(a, b) = (b, a)` intercambia dos variables sin necesitar una auxiliar."
+    ],
+    "points": [
+      "Un record agrupa valores sin crear una clase: `(1, 'a')` o `(x: 1, y: 2)`.",
+      "Devolver un record es la forma natural de devolver varios valores.",
+      "`final (a, b) = record;` desestructura en variables.",
+      "`:campo` toma un campo con nombre en una variable del mismo nombre.",
+      "Los records se comparan por valor."
+    ],
+    "exercise": "Haga que `summarize` devuelva un record con nombre, `({double min, double max, double avg})`, y cambie la desestructuración por `final (:min, :max, :avg) = ...`."
+  },
+  "en": {
+    "slug": "records-and-destructuring",
+    "title": "Records and destructuring",
+    "summary": "Return several values without writing a class using Dart 3 records, and destructure them into variables, in loops and in swaps.",
+    "body": [
+      "A **record** groups several values without needing a class. It can have **positional** fields, like `(double, double, double)`, or **named** ones, like `({String city, double celsius})`. The `typedef` gives the latter a short name, `Reading`, which is then used like any other type.",
+      "`summarize` returns three values at once: the minimum, the maximum and the average. In `main`, `final (low, high, avg) = ...` **destructures** them: it is a pattern that unpacks the record into three variables in one go. Before Dart 3 this would have needed a helper class or an untyped list.",
+      "In the `for` loop, the pattern `(:city, :celsius)` pulls the named fields into variables with the same names; `:city` is short for `city: city`. The loop then reads almost like a sentence and only warns about the cities above 30 degrees.",
+      "Named fields are read by name (`first.city`) and positional ones with `$1`, `$2`…, which is why `summarize([1, 2]).$2` is the maximum, `2.0`. Records have **value equality**: two records with the same fields are `==` even when created separately. Finally, `(a, b) = (b, a)` swaps two variables without a temporary one."
+    ],
+    "points": [
+      "A record groups values without a class: `(1, 'a')` or `(x: 1, y: 2)`.",
+      "Returning a record is the natural way to return several values.",
+      "`final (a, b) = record;` destructures it into variables.",
+      "`:field` pulls a named field into a variable of the same name.",
+      "Records are compared by value."
+    ],
+    "exercise": "Make `summarize` return a named record, `({double min, double max, double avg})`, and change the destructuring to `final (:min, :max, :avg) = ...`."
+  }
+}

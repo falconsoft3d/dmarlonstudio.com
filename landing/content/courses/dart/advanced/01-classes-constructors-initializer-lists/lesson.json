@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clases-constructores-y-listas-de-inicializacion",
+    "title": "Clases y listas de inicialización",
+    "summary": "Defina clases en Dart con campos final, constructores abreviados con this y listas de inicialización que preparan los datos antes del cuerpo.",
+    "body": [
+      "Una **clase** agrupa datos y comportamiento. `Product` tiene tres campos **`final`**: se asignan una vez, al construir el objeto, y ya no cambian, que es lo habitual en Dart para los objetos que representan datos. El precio se guarda en céntimos (`priceCents`), un entero, para no arrastrar errores de redondeo.",
+      "El constructor `Product(this.name, this.priceCents, {this.stock = 0})` usa **parámetros formales de inicialización**: `this.name` copia el argumento directamente en el campo, sin escribir ninguna asignación. `stock` es un parámetro con nombre con valor por defecto, por eso `cable` sale con `0 in stock`. El getter `label` compone el texto a partir de los campos.",
+      "`Invoice` necesita algo más: guardar el cliente limpio y calcular el total. Como esos campos son `final`, no se pueden asignar dentro del cuerpo del constructor; para eso está la **lista de inicialización**, lo que va detrás de los dos puntos. `customer = customer.trim().toUpperCase()` asigna el campo a partir del parámetro del mismo nombre, y `totalCents` suma los precios de las líneas con `fold`.",
+      "Las inicializaciones se ejecutan en orden y **antes** del cuerpo entre llaves. Cuando el cuerpo se ejecuta, el objeto ya está completo: por eso puede escribir `this.customer`, el campo ya en mayúsculas (`GARCIA LTD`), y no `customer`, que dentro del constructor es el parámetro, todavía con espacios. Observe que `number` usa la forma corta `this.number` y convive sin problema con la lista de inicialización."
+    ],
+    "points": [
+      "Los campos `final` se asignan una sola vez, al construir el objeto.",
+      "`this.campo` en los parámetros copia el argumento en el campo.",
+      "La lista de inicialización (`: campo = ...`) se ejecuta antes del cuerpo.",
+      "Dentro del constructor, `this.x` es el campo y `x` es el parámetro.",
+      "Guarde el dinero en céntimos enteros para evitar errores de redondeo."
+    ],
+    "exercise": "Añada a `Invoice` un campo `final int lineCount` que se calcule en la lista de inicialización con `lines.length`, y escríbalo junto al total."
+  },
+  "en": {
+    "slug": "classes-constructors-and-initializer-lists",
+    "title": "Classes and initializer lists",
+    "summary": "Define Dart classes with final fields, this-shorthand constructors and initializer lists that prepare the data before the constructor body runs.",
+    "body": [
+      "A **class** bundles data and behaviour. `Product` has three **`final`** fields: they are set once, when the object is built, and never change, which is the usual style in Dart for objects that represent data. The price is stored in cents (`priceCents`), an integer, so no rounding errors creep in.",
+      "The constructor `Product(this.name, this.priceCents, {this.stock = 0})` uses **initializing formal parameters**: `this.name` copies the argument straight into the field, with no assignment to write. `stock` is a named parameter with a default value, which is why `cable` shows `0 in stock`. The `label` getter builds its text from the fields.",
+      "`Invoice` needs a bit more: it stores a cleaned-up customer name and works out the total. Since those fields are `final`, they cannot be assigned inside the constructor body; that is what the **initializer list** is for, the part after the colon. `customer = customer.trim().toUpperCase()` sets the field from the parameter of the same name, and `totalCents` adds up the line prices with `fold`.",
+      "The initializers run in order and **before** the body in braces. By the time the body runs, the object is complete: that is why it can print `this.customer`, the field already in capitals (`GARCIA LTD`), rather than `customer`, which inside the constructor is the parameter, still padded with spaces. Notice that `number` uses the short `this.number` form and happily coexists with the initializer list."
+    ],
+    "points": [
+      "`final` fields are set exactly once, when the object is built.",
+      "`this.field` in the parameter list copies the argument into the field.",
+      "The initializer list (`: field = ...`) runs before the body.",
+      "Inside the constructor, `this.x` is the field and `x` is the parameter.",
+      "Store money as whole cents to avoid rounding errors."
+    ],
+    "exercise": "Add a `final int lineCount` field to `Invoice`, computed in the initializer list with `lines.length`, and print it next to the total."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "constructores-con-nombre-y-factory",
+    "title": "Constructores con nombre y factory",
+    "summary": "Cree objetos de varias formas en Dart: constructores con nombre, redirigidos y privados, y constructores factory que validan o reutilizan objetos.",
+    "body": [
+      "Una clase de Dart puede tener varios constructores; los que no son el principal se llaman **constructores con nombre** y se escriben `Clase.nombre`. `Currency._` es uno de ellos y, como empieza por guion bajo, es **privado**: solo el propio archivo puede llamarlo. Es el que construye de verdad los objetos, y escribe `(new Currency ...)` cada vez para que la salida muestre cuándo se crea uno.",
+      "`Currency.euro()` es un **constructor redirigido**: detrás de los dos puntos, `this._('EUR', 2)` delega en otro constructor de la misma clase. Un constructor normal, con nombre o sin él, siempre crea un objeto nuevo; por eso `Currency.euro()` escribe `(new Currency EUR)`.",
+      "Un constructor **`factory`** no está obligado a crear nada: es una función que devuelve una instancia, nueva o ya existente. `Currency(String code)` busca en el mapa estático `_cache` con `putIfAbsent` y solo construye la moneda la primera vez que se pide. Por eso `Currency('USD')` y `Currency.parse(' usd ')` devuelven **el mismo objeto**, como confirma `identical`, y `USD` se crea una sola vez.",
+      "Un `factory` también sirve para validar o convertir antes de construir. `Currency.parse` limpia el texto, lanza `FormatException` si el código no tiene tres letras y, si es correcto, delega en el factory principal. Por último, `format` tiene en cuenta los decimales de cada moneda: el yen (`JPY`) no tiene, así que `1500` se escribe tal cual."
+    ],
+    "points": [
+      "Una clase puede tener tantos constructores con nombre como necesite.",
+      "`: this(...)` redirige a otro constructor de la misma clase.",
+      "`factory` puede devolver un objeto que ya existe, por ejemplo, de una caché.",
+      "Un constructor privado (`Clase._`) obliga a pasar por los factory.",
+      "`identical` comprueba si dos variables apuntan al mismo objeto."
+    ],
+    "exercise": "Añada un factory `Currency.fromSymbol(String symbol)` que convierta `'€'` en `EUR` y `'£'` en `GBP`, y que lance `FormatException` con cualquier otro símbolo."
+  },
+  "en": {
+    "slug": "named-and-factory-constructors",
+    "title": "Named and factory constructors",
+    "summary": "Build Dart objects in several ways: named, redirecting and private constructors, plus factory constructors that validate input or reuse objects.",
+    "body": [
+      "A Dart class can have several constructors; the ones besides the main one are **named constructors**, written `Class.name`. `Currency._` is one of them and, because it starts with an underscore, it is **private**: only this file can call it. It is the one that really builds objects, and it prints `(new Currency ...)` each time so the output shows when one is created.",
+      "`Currency.euro()` is a **redirecting constructor**: after the colon, `this._('EUR', 2)` hands the work to another constructor of the same class. A regular constructor, named or not, always creates a new object, which is why `Currency.euro()` prints `(new Currency EUR)`.",
+      "A **`factory`** constructor does not have to create anything: it is a function that returns an instance, new or existing. `Currency(String code)` looks in the static `_cache` map with `putIfAbsent` and only builds the currency the first time it is asked for. That is why `Currency('USD')` and `Currency.parse(' usd ')` return **the same object**, as `identical` confirms, and `USD` is created only once.",
+      "A `factory` is also the place to validate or convert before building. `Currency.parse` cleans up the text, throws a `FormatException` if the code is not three letters long and, if it is fine, delegates to the main factory. Finally, `format` respects each currency's decimals: the yen (`JPY`) has none, so `1500` is printed as it is."
+    ],
+    "points": [
+      "A class can have as many named constructors as it needs.",
+      "`: this(...)` redirects to another constructor of the same class.",
+      "A `factory` can return an existing object, from a cache for instance.",
+      "A private constructor (`Class._`) forces callers through the factories.",
+      "`identical` checks whether two variables point to the same object."
+    ],
+    "exercise": "Add a `Currency.fromSymbol(String symbol)` factory that turns `'€'` into `EUR` and `'£'` into `GBP`, and throws a `FormatException` for any other symbol."
+  }
+}

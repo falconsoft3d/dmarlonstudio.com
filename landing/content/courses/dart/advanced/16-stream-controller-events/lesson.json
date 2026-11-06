@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "streamcontroller-y-eventos",
+    "title": "StreamController y eventos",
+    "summary": "Emita sus propios eventos en Dart con StreamController y escúchelos con listen, onError y onDone, con un carrito de la compra de ejemplo.",
+    "body": [
+      "Cuando los eventos no salen de un bucle sino de acciones sueltas (un toque en un botón, un mensaje que llega), se usa un **`StreamController`**. Tiene dos caras: una para meter eventos (`add`, `addError`, `close`) y otra, `stream`, para escucharlos. `Cart` guarda el controlador en un campo privado y solo expone `events`, de modo que desde fuera se puede escuchar pero no emitir.",
+      "`add` actualiza las cantidades y emite un texto con el total de artículos; `remove` emite un evento normal si el artículo estaba y, si no, un **error** con `addError`. Un controlador normal admite un único oyente; creado con **`.broadcast()`**, admite cualquier número, como aquí.",
+      "**`listen`** suscribe una función que recibe cada evento y admite dos más: `onError` para los errores y `onDone` para cuando el stream se cierra. El segundo oyente, la insignia del carrito, filtra con `where` y solo atiende a los añadidos. También lleva `onError`, aunque esté vacío: en un stream broadcast, un error que llega a un oyente sin `onError` se considera no capturado y detiene el programa.",
+      "Los eventos se entregan de forma asíncrona, pero en el orden en que se emitieron y a los oyentes en el orden en que se suscribieron, así que la salida es la misma en cada ejecución. `close()` envía la señal de fin a todos y devuelve una `Future` que `main` espera; por eso `cart closed` es lo último. Este patrón, una clase que expone un stream de cambios, es la base de arquitecturas como BLoC, muy usadas en Flutter."
+    ],
+    "points": [
+      "`StreamController` permite emitir eventos cuando usted quiera.",
+      "`add` emite un valor, `addError` un error y `close` cierra el stream.",
+      "`.broadcast()` admite varios oyentes a la vez.",
+      "`listen` recibe cada evento, y además `onError` y `onDone`.",
+      "Exponga solo `stream` y guarde el controlador como privado."
+    ],
+    "exercise": "Añada un método `clear()` que vacíe el carrito y emita `cleared`, y un tercer oyente que cuente los eventos recibidos y escriba el total en `onDone`."
+  },
+  "en": {
+    "slug": "streamcontroller-and-events",
+    "title": "StreamController and events",
+    "summary": "Emit your own events in Dart with a StreamController and listen to them with listen, onError and onDone, using a shopping cart as the example.",
+    "body": [
+      "When events do not come from a loop but from one-off actions (a button tap, an incoming message), you use a **`StreamController`**. It has two sides: one to put events in (`add`, `addError`, `close`) and another, `stream`, to listen to them. `Cart` keeps the controller in a private field and only exposes `events`, so outside code can listen but not emit.",
+      "`add` updates the quantities and emits a message with the total number of items; `remove` emits a normal event if the item was there and, if not, an **error** through `addError`. A regular controller allows a single listener; created with **`.broadcast()`**, it allows any number, as here.",
+      "**`listen`** subscribes a function that receives each event and accepts two more: `onError` for errors and `onDone` for when the stream closes. The second listener, the cart badge, filters with `where` and only cares about additions. It still has an `onError`, even an empty one: on a broadcast stream, an error reaching a listener without `onError` counts as uncaught and stops the program.",
+      "Events are delivered asynchronously, but in the order they were emitted and to listeners in the order they subscribed, so the output is the same on every run. `close()` sends the done signal to everyone and returns a `Future` that `main` awaits, which is why `cart closed` comes last. This pattern, a class exposing a stream of changes, is the basis of architectures such as BLoC, widely used in Flutter."
+    ],
+    "points": [
+      "A `StreamController` lets you emit events whenever you like.",
+      "`add` emits a value, `addError` an error and `close` closes the stream.",
+      "`.broadcast()` allows several listeners at once.",
+      "`listen` takes each event, plus `onError` and `onDone`.",
+      "Expose only the `stream` and keep the controller private."
+    ],
+    "exercise": "Add a `clear()` method that empties the cart and emits `cleared`, plus a third listener that counts the events it receives and prints the count in `onDone`."
+  }
+}

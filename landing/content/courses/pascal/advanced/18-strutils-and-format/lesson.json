@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "strutils-y-format",
+    "title": "Textos con StrUtils y Format",
+    "summary": "Trocee, alinee, transforme y enmascare textos con las funciones de StrUtils y los formatos de Format en Free Pascal, con una línea de un CSV.",
+    "body": [
+      "La constante `Row` es una línea de un CSV separado por punto y coma. **`WordCount`** cuenta sus campos y **`ExtractWord(n, Row, [';'])`** saca el campo número `n` (empezando por 1); el tercer parámetro es un conjunto de separadores. `StrToFloat` y `StrToInt` convierten el precio y las existencias.",
+      "**`Format`** construye un texto a partir de una plantilla. `%-16s` reserva 16 caracteres para un texto alineado a la izquierda (el signo `-`), `%8.2f` escribe un número con dos decimales en 8 columnas alineado a la derecha y `%6d` hace lo mismo con un entero. `%.6d` rellena con ceros (`000042`) y `%x` escribe en hexadecimal, útil para colores.",
+      "**`IfThen`** de `StrUtils` elige entre dos textos según una condición, en una sola expresión. `ReplaceStr` y `LowerCase` convierten el nombre en un *slug* para una URL, y `ReverseString` le da la vuelta.",
+      "**`ContainsText`** y **`StartsText`** buscan sin distinguir mayúsculas de minúsculas; sus parejas `ContainsStr` y `StartsStr` sí distinguen. **`DupeString`** repite un texto y **`RightStr`** toma el final: juntos enmascaran una tarjeta dejando visibles los cuatro últimos dígitos. **`PadCenter`** centra un texto en un ancho dado."
+    ],
+    "points": [
+      "`ExtractWord` y `WordCount` trocean por los separadores que usted elija.",
+      "En `Format`, `%-16s` alinea a la izquierda y `%8.2f` a la derecha.",
+      "`%.6d` rellena con ceros y `%x` escribe en hexadecimal.",
+      "Las funciones `...Text` no distinguen mayúsculas; las `...Str`, sí.",
+      "`IfThen` elige entre dos textos en una expresión."
+    ],
+    "exercise": "Añada una segunda línea CSV con otro producto y escriba las dos como una tabla con `Format`, con una línea de guiones hecha con `DupeString` bajo la cabecera."
+  },
+  "en": {
+    "slug": "strutils-and-format",
+    "title": "Strings with StrUtils and Format",
+    "summary": "Split, align, transform and mask text with the StrUtils functions and Format patterns in Free Pascal, working on a line from a CSV file.",
+    "body": [
+      "The `Row` constant is a line from a semicolon-separated CSV. **`WordCount`** counts its fields and **`ExtractWord(n, Row, [';'])`** pulls out field number `n` (starting at 1); the third parameter is a set of separators. `StrToFloat` and `StrToInt` convert the price and the stock.",
+      "**`Format`** builds text from a template. `%-16s` reserves 16 characters for left-aligned text (the `-` sign), `%8.2f` writes a number with two decimals in 8 right-aligned columns and `%6d` does the same with an integer. `%.6d` pads with zeros (`000042`) and `%x` writes hexadecimal, handy for colours.",
+      "**`IfThen`** from `StrUtils` picks one of two strings based on a condition, in a single expression. `ReplaceStr` and `LowerCase` turn the name into a URL *slug*, and `ReverseString` flips it.",
+      "**`ContainsText`** and **`StartsText`** search ignoring case; their counterparts `ContainsStr` and `StartsStr` are case-sensitive. **`DupeString`** repeats a string and **`RightStr`** takes the end of one: together they mask a card number, leaving the last four digits visible. **`PadCenter`** centres text in a given width."
+    ],
+    "points": [
+      "`ExtractWord` and `WordCount` split on whatever separators you choose.",
+      "In `Format`, `%-16s` aligns left and `%8.2f` aligns right.",
+      "`%.6d` pads with zeros and `%x` writes hexadecimal.",
+      "The `...Text` functions ignore case; the `...Str` ones do not.",
+      "`IfThen` picks one of two strings in an expression."
+    ],
+    "exercise": "Add a second CSV line with another product and print both as a table with `Format`, with a row of dashes made with `DupeString` under the header."
+  }
+}

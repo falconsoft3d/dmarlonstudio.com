@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "lista-enlazada",
+    "title": "Una lista enlazada",
+    "summary": "Construya una lista enlazada en Pascal con records y punteros: crear nodos, insertar en medio sin mover nada y liberar toda la memoria.",
+    "body": [
+      "Una **lista enlazada** guarda cada elemento en un **nodo** separado que apunta al siguiente. Aquí cada nodo es una parada de autobús, `TStop`, con su nombre y el campo `Next`. El tipo `PStop` se declara antes que el record al que apunta: Pascal lo permite con los punteros siempre que el record llegue en el mismo bloque `type`, y aquí hace falta porque el record se refiere a sí mismo a través del puntero.",
+      "`NewStop` reserva un nodo con `New(Result)`, lo rellena y devuelve su dirección. Como recibe el siguiente nodo como parámetro, las llamadas anidadas construyen la ruta de atrás hacia delante: primero `Moncloa` (que apunta a `nil`, el final), luego `Gran Via` y por último `Sol`, que queda en `route`.",
+      "Insertar es la gran ventaja: `route^.Next := NewStop('Callao', route^.Next)` crea un nodo que apunta a lo que venía después de `Sol` y engancha `Sol` al nuevo. No se mueve ningún elemento, a diferencia de un array, donde habría que desplazar todos los posteriores.",
+      "`ToText` recorre la lista **de forma recursiva**: el texto de una parada es su nombre más el texto del resto, hasta llegar a `nil`, que devuelve `end`. Al final, el bucle `while` libera los nodos uno a uno, guardando antes `Next` en `next`, porque tras `Dispose(route)` ese campo ya no se puede leer."
+    ],
+    "points": [
+      "Cada nodo guarda un dato y un puntero al siguiente; `nil` marca el final.",
+      "El tipo puntero puede declararse antes que su record, en el mismo `type`.",
+      "Insertar solo cambia punteros: no mueve nada.",
+      "Para liberar, guarde `Next` antes de `Dispose`.",
+      "Recorrer una lista se presta a la recursión."
+    ],
+    "exercise": "Quite la parada `Gran Via` de la ruta: haga que `Callao` apunte a `Moncloa`, libere el nodo sobrante con `Dispose` y vuelva a escribir la ruta."
+  },
+  "en": {
+    "slug": "linked-list",
+    "title": "A linked list",
+    "summary": "Build a linked list in Pascal with records and pointers: create nodes, insert in the middle without moving anything and free all the memory.",
+    "body": [
+      "A **linked list** keeps each element in a separate **node** that points to the next one. Here each node is a bus stop, `TStop`, with its name and a `Next` field. The `PStop` type is declared before the record it points to: Pascal allows this for pointers as long as the record follows in the same `type` block, and it is needed here because the record refers to itself through the pointer.",
+      "`NewStop` allocates a node with `New(Result)`, fills it in and returns its address. Because it takes the next node as a parameter, the nested calls build the route back to front: first `Moncloa` (pointing to `nil`, the end), then `Gran Via` and finally `Sol`, which ends up in `route`.",
+      "Insertion is the big win: `route^.Next := NewStop('Callao', route^.Next)` creates a node that points to whatever came after `Sol` and hooks `Sol` onto the new one. No element moves, unlike an array, where every later element would have to shift.",
+      "`ToText` walks the list **recursively**: a stop's text is its name plus the text of the rest, until it reaches `nil`, which returns `end`. Finally, the `while` loop frees the nodes one by one, saving `Next` in `next` first, because once `Dispose(route)` runs that field can no longer be read."
+    ],
+    "points": [
+      "Each node holds a value and a pointer to the next; `nil` marks the end.",
+      "The pointer type may come before its record, in the same `type` block.",
+      "Inserting only changes pointers: nothing moves.",
+      "When freeing, save `Next` before `Dispose`.",
+      "Walking a list lends itself to recursion."
+    ],
+    "exercise": "Remove the `Gran Via` stop from the route: make `Callao` point to `Moncloa`, release the leftover node with `Dispose` and print the route again."
+  }
+}

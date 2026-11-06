@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tstringlist",
+    "title": "TStringList a fondo",
+    "summary": "Ordene, busque y guarde pares nombre=valor con TStringList, la lista de textos de la unidad Classes que usa todo programa en Free Pascal y Lazarus.",
+    "body": [
+      "**`TStringList`** (unidad `Classes`) es la navaja suiza de Pascal para trabajar con textos. Con **`Sorted := True`**, la lista se ordena y cada `Add` posterior va directo a su sitio. **`CommaText`** sirve en los dos sentidos: al asignarlo, trocea el texto por las comas; al leerlo, une los elementos.",
+      "**`Find`** hace una búsqueda binaria, muy rápida en listas grandes, y solo funciona con la lista ordenada. Devuelve `True` si encuentra el texto y deja su posición en el parámetro `index`: `Navarro` está en la 3, contando desde 0. Para listas sin ordenar está `IndexOf`. Al añadir `Castro`, aparece entre `Blanco` y `Garcia` sin que haya que reordenar.",
+      "La segunda lista guarda líneas **`nombre=valor`**, como un fichero de configuración (aquí, la conexión a una base de datos de Odoo). **`Values['port']`** devuelve el valor de ese nombre, y asignarlo cambia la línea si existe o añade una nueva al final, como pasa con `user`.",
+      "**`Names[3]`** y **`ValueFromIndex[3]`** dan el nombre y el valor de la línea 3 por su posición. Con `LoadFromFile` y `SaveToFile` la misma lista lee y escribe un fichero `.ini` o `.conf` entero en una línea. Es un objeto, así que se libera en el `finally`."
+    ],
+    "points": [
+      "`Sorted := True` ordena y mantiene el orden en cada `Add`.",
+      "`CommaText` trocea y une textos separados por comas.",
+      "`Find` busca deprisa, pero solo en listas ordenadas.",
+      "`Values['nombre']` lee y escribe pares `nombre=valor`.",
+      "`LoadFromFile` y `SaveToFile` leen y guardan la lista entera."
+    ],
+    "exercise": "Guarde `config` en `odoo.conf` con `SaveToFile`, cree otra `TStringList`, cárguelo con `LoadFromFile` y escriba su `Values['database']`."
+  },
+  "en": {
+    "slug": "tstringlist",
+    "title": "TStringList in depth",
+    "summary": "Sort, search and store name=value pairs with TStringList, the string list from the Classes unit that every Free Pascal and Lazarus program uses.",
+    "body": [
+      "**`TStringList`** (in the `Classes` unit) is Pascal's Swiss army knife for text. With **`Sorted := True`**, the list sorts itself and every later `Add` goes straight to its place. **`CommaText`** works both ways: assigning it splits the text at the commas; reading it joins the items.",
+      "**`Find`** runs a binary search, very fast on large lists, and only works when the list is sorted. It returns `True` if it finds the text and puts its position in the `index` parameter: `Navarro` is at 3, counting from 0. For unsorted lists there is `IndexOf`. When `Castro` is added, it lands between `Blanco` and `Garcia` with no re-sorting needed.",
+      "The second list holds **`name=value`** lines, like a configuration file (here, the connection to an Odoo database). **`Values['port']`** returns the value for that name, and assigning it changes the line if it exists or appends a new one, as happens with `user`.",
+      "**`Names[3]`** and **`ValueFromIndex[3]`** give the name and value of line 3 by position. With `LoadFromFile` and `SaveToFile` the same list reads and writes a whole `.ini` or `.conf` file in one line. It is an object, so it is freed in the `finally` block."
+    ],
+    "points": [
+      "`Sorted := True` sorts and keeps order on every `Add`.",
+      "`CommaText` splits and joins comma-separated text.",
+      "`Find` searches fast, but only in sorted lists.",
+      "`Values['name']` reads and writes `name=value` pairs.",
+      "`LoadFromFile` and `SaveToFile` load and save the whole list."
+    ],
+    "exercise": "Save `config` to `odoo.conf` with `SaveToFile`, create another `TStringList`, load the file with `LoadFromFile` and print its `Values['database']`."
+  }
+}

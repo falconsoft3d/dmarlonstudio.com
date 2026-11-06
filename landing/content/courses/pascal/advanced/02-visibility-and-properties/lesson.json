@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "visibilidad-y-propiedades",
+    "title": "Visibilidad y propiedades",
+    "summary": "Proteja los datos de sus clases con private y public y expóngalos con propiedades que validan al escribir y calculan al leer en Object Pascal.",
+    "body": [
+      "Las secciones de **visibilidad** dicen quién puede tocar cada miembro. Lo que va en **`private`** (el campo `FPrice` y los métodos `SetPrice` y `GetPriceWithVat`) es asunto interno de la clase; lo que va en **`public`** es su cara visible. El prefijo `F` para los campos y `Get`/`Set` para sus métodos es la convención de Pascal.",
+      "Una **propiedad** parece un campo pero decide qué pasa al leer y al escribir. `property Price: Double read FPrice write SetPrice` lee el campo directamente y, al escribir, llama al método. Por eso `lamp.Price := 34.90` ejecuta en realidad `SetPrice(34.90)`, que solo acepta precios no negativos.",
+      "La prueba está en la salida: tras `lamp.Price := -5`, el precio sigue en `34.90`. Nadie fuera de la clase puede saltarse la regla, porque el campo es privado y el único camino para cambiarlo es la propiedad.",
+      "`PriceWithVat` solo tiene `read`, así que es de **solo lectura**, y no guarda nada: `GetPriceWithVat` calcula el precio con el 21 % de IVA cada vez que se consulta. `Name`, en cambio, es un campo público corriente.",
+      "Un detalle de Free Pascal: `private` protege frente a otras unidades, pero el código de la misma unidad (aquí, el propio programa) aún podría usar `FPrice`. Si quiere un muro completo, use **`strict private`**. Así trabajan también los componentes de Lazarus: `Caption` o `Width` son propiedades con su setter detrás."
+    ],
+    "points": [
+      "`private` esconde los detalles; `public` es lo que se ofrece.",
+      "`read` y `write` pueden ir a un campo o a un método.",
+      "Un setter valida antes de guardar.",
+      "Una propiedad sin `write` es de solo lectura y puede ser calculada.",
+      "`strict private` impide el acceso incluso desde la misma unidad."
+    ],
+    "exercise": "Añada una propiedad `Stock: Integer` con un setter que rechace valores negativos y una propiedad de solo lectura `StockValue` que devuelva `Price * Stock`."
+  },
+  "en": {
+    "slug": "visibility-and-properties",
+    "title": "Visibility and properties",
+    "summary": "Protect your class data with private and public, and expose it through properties that validate on write and compute on read in Object Pascal.",
+    "body": [
+      "**Visibility** sections say who may touch each member. Whatever sits under **`private`** (the `FPrice` field and the `SetPrice` and `GetPriceWithVat` methods) is the class's own business; whatever sits under **`public`** is its visible face. The `F` prefix for fields and `Get`/`Set` for their methods are Pascal conventions.",
+      "A **property** looks like a field but decides what happens on read and on write. `property Price: Double read FPrice write SetPrice` reads the field directly and, on write, calls the method. So `lamp.Price := 34.90` really runs `SetPrice(34.90)`, which only accepts prices that are not negative.",
+      "The output proves it: after `lamp.Price := -5`, the price is still `34.90`. Nothing outside the class can bypass the rule, because the field is private and the property is the only way to change it.",
+      "`PriceWithVat` has only `read`, which makes it **read-only**, and it stores nothing: `GetPriceWithVat` works out the price with 21 % VAT every time it is read. `Name`, on the other hand, is a plain public field.",
+      "One Free Pascal detail: `private` protects members from other units, but code in the same unit (here, the program itself) could still reach `FPrice`. For a full wall, use **`strict private`**. Lazarus components work the same way: `Caption` and `Width` are properties with a setter behind them."
+    ],
+    "points": [
+      "`private` hides the details; `public` is what the class offers.",
+      "`read` and `write` can point to a field or to a method.",
+      "A setter validates before storing.",
+      "A property without `write` is read-only and may be computed.",
+      "`strict private` blocks access even from the same unit."
+    ],
+    "exercise": "Add a `Stock: Integer` property whose setter rejects negative values, and a read-only `StockValue` property that returns `Price * Stock`."
+  }
+}

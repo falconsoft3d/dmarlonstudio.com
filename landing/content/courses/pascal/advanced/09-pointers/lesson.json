@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "punteros-new-y-dispose",
+    "title": "Punteros, New y Dispose",
+    "summary": "Trabaje con punteros en Pascal: direcciones con @, acceso con ^, y memoria dinámica reservada con New y devuelta con Dispose.",
+    "body": [
+      "Un **puntero** guarda la dirección de un dato, no el dato. `PProduct = ^TProduct` declara un puntero a `TProduct`, y `PInteger` ya viene definido en la RTL. Por convención, los tipos puntero empiezan por `P`.",
+      "**`@units`** obtiene la dirección de una variable que ya existe, y **`pUnits^`** sigue el puntero hasta el dato. Por eso `pUnits^ := pUnits^ + 5` cambia la propia `units`, que pasa de 10 a 15. La salida nunca muestra direcciones: cambian en cada ejecución y no dicen nada útil.",
+      "**`New(item)`** reserva en el montón (*heap*) un `TProduct` nuevo y deja su dirección en `item`; además inicializa los campos gestionados como `Name`. A partir de ahí se trabaja con `item^.Name` e `item^.Stock`. `Restock` recibe el puntero y modifica el registro original, no una copia.",
+      "**`Dispose(item)`** devuelve esa memoria. Lo que se reserva con `New` se libera con `Dispose`, exactamente una vez; si se olvida, hay una fuga. Después conviene poner el puntero a **`nil`** para no usar por error una dirección liberada, y **`Assigned`** comprueba si apunta a algo.",
+      "Los objetos de las lecciones anteriores son, por dentro, punteros: `Create` y `Free` hacen el papel de `New` y `Dispose`. Saber cómo funcionan ayuda a entender por qué asignar un objeto copia solo la referencia."
+    ],
+    "points": [
+      "`@x` es la dirección de `x`; `p^` es el dato al que apunta `p`.",
+      "`New` reserva memoria en el montón; `Dispose` la devuelve.",
+      "Cada `New` necesita exactamente un `Dispose`.",
+      "Tras `Dispose`, ponga el puntero a `nil`.",
+      "`Assigned(p)` dice si `p` apunta a algo."
+    ],
+    "exercise": "Cree con `New` un segundo producto, `'Paper A4'` con 40 unidades, escriba la suma de las existencias de los dos y libere ambos con `Dispose`."
+  },
+  "en": {
+    "slug": "pointers-new-and-dispose",
+    "title": "Pointers, New and Dispose",
+    "summary": "Work with pointers in Pascal: addresses with @, access with ^, and dynamic memory allocated with New and released with Dispose.",
+    "body": [
+      "A **pointer** holds the address of a value, not the value. `PProduct = ^TProduct` declares a pointer to `TProduct`, and `PInteger` comes predefined in the RTL. By convention, pointer types start with `P`.",
+      "**`@units`** takes the address of a variable that already exists, and **`pUnits^`** follows the pointer to the value. So `pUnits^ := pUnits^ + 5` changes `units` itself, which goes from 10 to 15. The output never shows addresses: they change on every run and say nothing useful.",
+      "**`New(item)`** allocates a fresh `TProduct` on the heap and leaves its address in `item`; it also initialises managed fields such as `Name`. From then on you work with `item^.Name` and `item^.Stock`. `Restock` receives the pointer and modifies the original record, not a copy.",
+      "**`Dispose(item)`** gives that memory back. What you allocate with `New` you release with `Dispose`, exactly once; forget it and you have a leak. Afterwards, set the pointer to **`nil`** so a released address is never used by mistake, and **`Assigned`** tells you whether it points at anything.",
+      "The objects from earlier lessons are pointers underneath: `Create` and `Free` play the part of `New` and `Dispose`. Knowing how this works explains why assigning an object only copies the reference."
+    ],
+    "points": [
+      "`@x` is the address of `x`; `p^` is the value `p` points to.",
+      "`New` allocates on the heap; `Dispose` releases it.",
+      "Every `New` needs exactly one `Dispose`.",
+      "After `Dispose`, set the pointer to `nil`.",
+      "`Assigned(p)` tells you whether `p` points at something."
+    ],
+    "exercise": "Allocate a second product with `New`, `'Paper A4'` with 40 units, print the combined stock of both and release them with `Dispose`."
+  }
+}

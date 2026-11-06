@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "generics-collections",
+    "title": "Generics.Collections",
+    "summary": "Cuente ventas por ciudad con TDictionary y ordene el resultado con TList, las colecciones genéricas de Generics.Collections en Free Pascal.",
+    "body": [
+      "La unidad **`Generics.Collections`** ofrece las mismas colecciones que Delphi: `TList<T>`, `TDictionary<K, V>`, `TObjectList<T>`, `TQueue<T>`… Aquí `TSales` es un diccionario de ciudad a número de pedidos y `TCityList`, una lista de textos.",
+      "El bucle cuenta los pedidos de `Orders`. **`TryGetValue`** busca la ciudad y, si está, deja su cuenta en `count` y devuelve `True`; entonces `sales[city] := count + 1` la actualiza. Si no está, `Add` la crea con `1`. Ojo: `Add` con una clave repetida lanza una excepción; para «añadir o cambiar» está `AddOrSetValue`.",
+      "Un diccionario guarda las claves según su *hash*, así que su orden no es fiable y podría cambiar con otra versión o con otros datos. Para una salida estable, el programa copia las claves a la lista con `cities.AddRange(sales.Keys)`, las ordena con `cities.Sort` y recorre la lista, pidiendo a `sales[city]` cada cuenta.",
+      "`Count` dice cuántas ciudades hay y **`ContainsKey`** pregunta por una clave sin riesgo. Las dos colecciones se liberan en el `finally`. Al compilar, Free Pascal 3.2.2 muestra unos avisos que vienen de la propia unidad (`Constructing a class ... with abstract method`): son internos de la biblioteca y no afectan al programa."
+    ],
+    "points": [
+      "`TDictionary<K, V>` busca valores por clave muy deprisa.",
+      "`TryGetValue` lee sin lanzar errores si la clave no existe.",
+      "`Add` falla con claves repetidas; `AddOrSetValue`, no.",
+      "El orden de un diccionario no está garantizado: ordene las claves aparte.",
+      "`TList<T>` tiene `AddRange`, `Sort` y `for ... in`."
+    ],
+    "exercise": "Cree un segundo diccionario `TDictionary<String, Double>` con el importe de cada pedido y escriba, ciudad por ciudad y en orden alfabético, cuánto se ha facturado."
+  },
+  "en": {
+    "slug": "generics-collections",
+    "title": "Generics.Collections",
+    "summary": "Count sales per city with TDictionary and sort the result with TList, the generic collections in Free Pascal's Generics.Collections unit.",
+    "body": [
+      "The **`Generics.Collections`** unit offers the same collections as Delphi: `TList<T>`, `TDictionary<K, V>`, `TObjectList<T>`, `TQueue<T>` and more. Here `TSales` is a dictionary from city to number of orders and `TCityList` a list of strings.",
+      "The loop counts the orders in `Orders`. **`TryGetValue`** looks up the city and, if it is there, puts its count in `count` and returns `True`; then `sales[city] := count + 1` updates it. If not, `Add` creates it with `1`. Careful: `Add` with an existing key raises an exception; for \"add or replace\" there is `AddOrSetValue`.",
+      "A dictionary stores its keys by *hash*, so its order cannot be trusted and could change with another version or other data. For stable output, the program copies the keys into the list with `cities.AddRange(sales.Keys)`, sorts them with `cities.Sort` and walks the list, asking `sales[city]` for each count.",
+      "`Count` says how many cities there are and **`ContainsKey`** asks about a key safely. Both collections are freed in the `finally` block. When compiling, Free Pascal 3.2.2 shows a few warnings that come from the unit itself (`Constructing a class ... with abstract method`): they are internal to the library and do not affect your program."
+    ],
+    "points": [
+      "`TDictionary<K, V>` finds values by key very quickly.",
+      "`TryGetValue` reads without raising if the key is missing.",
+      "`Add` fails on duplicate keys; `AddOrSetValue` does not.",
+      "Dictionary order is not guaranteed: sort the keys separately.",
+      "`TList<T>` has `AddRange`, `Sort` and `for ... in`."
+    ],
+    "exercise": "Create a second `TDictionary<String, Double>` with the amount of each order and print, city by city in alphabetical order, how much has been invoiced."
+  }
+}

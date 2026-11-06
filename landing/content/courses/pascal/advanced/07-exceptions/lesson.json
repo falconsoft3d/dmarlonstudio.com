@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "excepciones",
+    "title": "Excepciones",
+    "summary": "Lance y capture excepciones en Object Pascal con raise y try/except, y cree sus propias clases de excepción para los errores de su aplicación.",
+    "body": [
+      "Una **excepción** es un objeto que interrumpe el flujo normal cuando algo va mal. Todas descienden de `Exception` (unidad `SysUtils`), y crear la suya es una línea: `EOutOfStock = class(Exception)`. Por convención, sus nombres empiezan por `E`.",
+      "`Order` comprueba el pedido y, si no puede atenderlo, lo dice con **`raise`**: `raise EOutOfStock.CreateFmt(...)` crea la excepción con un mensaje al estilo de `Format` y la lanza. La función se detiene ahí mismo y la ejecución salta al manejador más cercano. `StrToInt('ten')` también lanza la suya, `EConvertError`, sin que usted escriba nada.",
+      "El bloque **`try ... except`** captura lo que se lance dentro. Cada **`on E: Clase do`** atiende un tipo y da acceso al objeto en `E`, con su `Message` y su `ClassName`. Se prueban en orden, así que los específicos van antes y `Exception`, que lo atrapa todo, al final: por eso el `EArgumentException` del pedido de `0` cae en la última línea.",
+      "Como el `try` está dentro del bucle, un pedido erróneo no detiene a los demás: se procesan los cuatro y el programa termina con `All requests handled`. El objeto de la excepción lo libera el propio `except`; usted no tiene que hacer `Free`."
+    ],
+    "points": [
+      "`raise` lanza una excepción y corta la ejecución.",
+      "Sus excepciones heredan de `Exception` y empiezan por `E`.",
+      "`on E: Clase do` captura un tipo concreto.",
+      "Ponga los tipos específicos antes que `Exception`.",
+      "El objeto de la excepción se libera solo al capturarla."
+    ],
+    "exercise": "Cree `EMaxOrder = class(Exception)` y lánzela cuando la cantidad pase de 100; añada `'250'` a `Requests` y un manejador propio que escriba «Too many units»."
+  },
+  "en": {
+    "slug": "exceptions",
+    "title": "Exceptions",
+    "summary": "Raise and catch exceptions in Object Pascal with raise and try/except, and create your own exception classes for your application's errors.",
+    "body": [
+      "An **exception** is an object that breaks the normal flow when something goes wrong. They all descend from `Exception` (in the `SysUtils` unit), and declaring your own takes one line: `EOutOfStock = class(Exception)`. By convention, their names start with `E`.",
+      "`Order` checks the request and, when it cannot fulfil it, says so with **`raise`**: `raise EOutOfStock.CreateFmt(...)` builds the exception with a `Format`-style message and throws it. The procedure stops right there and execution jumps to the nearest handler. `StrToInt('ten')` throws one of its own, `EConvertError`, without you writing anything.",
+      "A **`try ... except`** block catches whatever is raised inside it. Each **`on E: Class do`** handles one type and gives you the object in `E`, with its `Message` and `ClassName`. They are tried in order, so specific types go first and `Exception`, which catches everything, goes last: that is why the `EArgumentException` for the order of `0` lands on the final line.",
+      "Because the `try` sits inside the loop, a bad request does not stop the rest: all four are processed and the program ends with `All requests handled`. The exception object is freed by the `except` block itself; you do not call `Free`."
+    ],
+    "points": [
+      "`raise` throws an exception and stops execution.",
+      "Your exceptions inherit from `Exception` and start with `E`.",
+      "`on E: Class do` catches one specific type.",
+      "Put specific types before `Exception`.",
+      "The exception object is freed once it is caught."
+    ],
+    "exercise": "Create `EMaxOrder = class(Exception)` and raise it when the quantity is over 100; add `'250'` to `Requests` and a handler of its own that prints \"Too many units\"."
+  }
+}

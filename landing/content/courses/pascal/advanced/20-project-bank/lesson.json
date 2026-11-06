@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-banco",
+    "title": "Proyecto: un pequeño banco",
+    "summary": "Junte clases, herencia, genéricos y excepciones en un pequeño banco en Object Pascal que rechaza retiradas imposibles y libera toda su memoria.",
+    "body": [
+      "El proyecto final reúne lo esencial del curso en un banco diminuto. **`TBank = class(specialize TFPGMap<String, Currency>)`** es a la vez clase, herencia y genérico: un mapa de titular a saldo que hereda todo lo de `TFPGMap` (`IndexOf`, `KeyData`, `Keys`, `Data`, `Count`) y le añade la regla de negocio del banco, el método `Withdraw`.",
+      "`Withdraw` valida antes de tocar nada y, si algo falla, lanza **`EBankError`**, una excepción propia que hereda de `Exception`: primero comprueba que exista la cuenta con `IndexOf` y después que haya saldo suficiente. Solo si todo va bien descuenta el importe y lo anuncia. El tipo **`Currency`** es el de Pascal para dinero: decimal fijo, sin los errores de redondeo de `Double`.",
+      "El programa abre dos cuentas con `bank['Elena'] := 300`, que añade la clave o cambia su valor si ya existía, y procesa tres peticiones de 200 EUR. Cada una va en su propio `try ... except`, así que un rechazo no detiene a las demás: Elena retira, Pablo no tiene saldo suficiente y Marta no tiene cuenta.",
+      "Al final se listan los saldos con `Keys[i]` y `Data[i]` (sin `Sorted`, el mapa conserva el orden de alta) y `bank.Free` libera el mapa con todo su contenido. Las clases de la demo de Odoo sin conexión de DMarlon Studio funcionan exactamente igual: este mismo código, con una ventana de Lazarus delante, sería una aplicación de escritorio, y con el destino Consola se ejecuta con F9."
+    ],
+    "points": [
+      "Una clase puede heredar de un genérico ya especializado.",
+      "Valide primero y lance una excepción propia si algo falla.",
+      "Un `try ... except` por operación aísla cada error.",
+      "`Currency` es el tipo adecuado para el dinero.",
+      "Lo que se crea con `Create` se libera con `Free`."
+    ],
+    "exercise": "Añada a `TBank` un método `Transfer(src, dst: String; amount: Currency)` que use `Withdraw` y lance `EBankError` si la cuenta de destino no existe, y pruebe a transferir 50 EUR de Elena a Pablo."
+  },
+  "en": {
+    "slug": "project-small-bank",
+    "title": "Project: a small bank",
+    "summary": "Bring classes, inheritance, generics and exceptions together in a small Object Pascal bank that refuses impossible withdrawals and frees all its memory.",
+    "body": [
+      "The final project packs the essentials of the course into a tiny bank. **`TBank = class(specialize TFPGMap<String, Currency>)`** is class, inheritance and generic all at once: a map from account holder to balance that inherits everything in `TFPGMap` (`IndexOf`, `KeyData`, `Keys`, `Data`, `Count`) and adds the bank's business rule, the `Withdraw` method.",
+      "`Withdraw` validates before touching anything and, if something is wrong, raises **`EBankError`**, a custom exception that inherits from `Exception`: first it checks the account exists with `IndexOf`, then that the balance is enough. Only when all is well does it take the money out and report it. **`Currency`** is Pascal's money type: fixed-point decimal, without `Double`'s rounding errors.",
+      "The program opens two accounts with `bank['Elena'] := 300`, which adds the key or changes its value if it already exists, and processes three 200 EUR requests. Each one has its own `try ... except`, so a refusal does not stop the others: Elena withdraws, Pablo does not have enough and Marta has no account.",
+      "Finally the balances are listed with `Keys[i]` and `Data[i]` (without `Sorted`, the map keeps the order in which accounts were opened) and `bank.Free` releases the map with everything in it. The classes in DMarlon Studio's offline Odoo demo work exactly the same way: put a Lazarus window in front of this code and you have a desktop app, and with the Console target it runs on F9."
+    ],
+    "points": [
+      "A class can inherit from an already specialised generic.",
+      "Validate first and raise a custom exception if something is wrong.",
+      "One `try ... except` per operation keeps each error isolated.",
+      "`Currency` is the right type for money.",
+      "What you `Create`, you `Free`."
+    ],
+    "exercise": "Add a `Transfer(src, dst: String; amount: Currency)` method to `TBank` that uses `Withdraw` and raises `EBankError` if the destination account does not exist, and try moving 50 EUR from Elena to Pablo."
+  }
+}

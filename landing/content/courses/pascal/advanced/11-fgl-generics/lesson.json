@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "genericos-con-fgl",
+    "title": "Genéricos con fgl",
+    "summary": "Use las listas y mapas genéricos de la unidad fgl de Free Pascal, TFPGList y TFPGMap, para guardar pedidos y existencias con su tipo exacto.",
+    "body": [
+      "Un **genérico** es un tipo con un hueco para otro tipo. La unidad **`fgl`** de Free Pascal trae `TFPGList<T>` (una lista) y `TFPGMap<K, V>` (un mapa de clave y valor). En modo `objfpc` se concretan con **`specialize`**: `TQtyList` es una lista de `Integer` y `TStockMap`, un mapa de `String` a `Integer`. El compilador comprueba los tipos: en `orders` no cabe un texto.",
+      "`orders.Sort(@Descending)` ordena con su propia función de comparación, que devuelve un número negativo, cero o positivo según el orden de `a` y `b`. Con `b - a`, de mayor a menor. Después, `orders[0]` es el pedido más grande y `orders.Last`, el más pequeño.",
+      "Con **`stock.Sorted := True`**, el mapa mantiene las claves en orden alfabético y las busca por búsqueda binaria. Su propiedad por defecto permite escribir `stock['monitor'] := 7`: si la clave no existe, la añade; si existe, cambia su valor, como hace la línea que descuenta 5 teclados.",
+      "Para recorrerlo, `Keys[i]` y `Data[i]` dan la clave y el valor de cada posición, ya ordenados. Leer `stock['webcam']` lanzaría una excepción porque no existe; para preguntar sin riesgo está **`IndexOf`**, que devuelve `-1`. Las dos colecciones son objetos, así que se liberan en el `finally`."
+    ],
+    "points": [
+      "`specialize TFPGList<Integer>` crea una lista de enteros con su tipo comprobado.",
+      "`Sort` recibe una función que compara dos elementos.",
+      "`TFPGMap` con `Sorted := True` guarda las claves en orden.",
+      "`mapa[clave] := valor` añade o actualiza.",
+      "`IndexOf` comprueba si una clave existe sin lanzar errores."
+    ],
+    "exercise": "Añada al mapa `'webcam'` con 12 unidades solo si `IndexOf` dice que no existe, y escriba cuántas unidades hay en total sumando `Data[i]`."
+  },
+  "en": {
+    "slug": "generics-with-fgl",
+    "title": "Generics with fgl",
+    "summary": "Use the generic lists and maps from Free Pascal's fgl unit, TFPGList and TFPGMap, to store orders and stock with their exact types.",
+    "body": [
+      "A **generic** is a type with a slot for another type. Free Pascal's **`fgl`** unit provides `TFPGList<T>` (a list) and `TFPGMap<K, V>` (a key-value map). In `objfpc` mode you make them concrete with **`specialize`**: `TQtyList` is a list of `Integer` and `TStockMap` a map from `String` to `Integer`. The compiler checks the types: a string will not fit in `orders`.",
+      "`orders.Sort(@Descending)` sorts with your own comparison function, which returns a negative number, zero or a positive number depending on how `a` and `b` compare. With `b - a`, largest first. Afterwards `orders[0]` is the biggest order and `orders.Last` the smallest.",
+      "With **`stock.Sorted := True`**, the map keeps its keys in alphabetical order and finds them by binary search. Its default property lets you write `stock['monitor'] := 7`: if the key does not exist it is added; if it does, its value changes, as in the line that takes off 5 keyboards.",
+      "To walk it, `Keys[i]` and `Data[i]` give the key and value at each position, already sorted. Reading `stock['webcam']` would raise an exception because it does not exist; to ask safely there is **`IndexOf`**, which returns `-1`. Both collections are objects, so they are freed in the `finally` block."
+    ],
+    "points": [
+      "`specialize TFPGList<Integer>` makes a type-checked list of integers.",
+      "`Sort` takes a function that compares two items.",
+      "`TFPGMap` with `Sorted := True` keeps its keys in order.",
+      "`map[key] := value` adds or updates.",
+      "`IndexOf` checks whether a key exists without raising errors."
+    ],
+    "exercise": "Add `'webcam'` with 12 units to the map only if `IndexOf` says it is missing, and print the total number of units by adding up `Data[i]`."
+  }
+}

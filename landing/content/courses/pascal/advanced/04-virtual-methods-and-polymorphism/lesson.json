@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "metodos-virtuales-y-polimorfismo",
+    "title": "Métodos virtuales y polimorfismo",
+    "summary": "Use virtual y override en Object Pascal para que cada clase responda a su manera a la misma llamada: polimorfismo con tarifas de envío.",
+    "body": [
+      "Un método **`virtual`** puede ser sustituido por las clases hijas. `TShipping.Cost` calcula la tarifa normal (4.95 EUR más 0.80 por kilo), y `TExpress` y `TPickup` lo redefinen con **`override`**: misma firma, otro cálculo.",
+      "Dentro de un `override` se puede reutilizar el original: `TExpress.Cost` devuelve `inherited Cost(kg) * 2`, el doble de la tarifa normal, sin copiar la fórmula. `TPickup.Cost` devuelve `0`, porque el cliente recoge el paquete en la tienda.",
+      "El bucle es donde aparece el **polimorfismo**: la variable `option` es de tipo `TShipping`, pero en cada vuelta contiene un objeto de otra clase. Como `Cost` es virtual, `option.Cost(3.5)` decide **en tiempo de ejecución** qué versión llamar según el objeto real, y salen tres precios distintos.",
+      "Sin `virtual`, el compilador elegiría por el tipo de la variable y las tres líneas costarían `7.75`. El bucle recorre directamente la lista `[TShipping.Create, TExpress.Create, TPickup.Create]` y libera cada objeto en cuanto lo ha usado.",
+      "Es el mecanismo que mueve Lazarus: un formulario llama a `Paint` o `Resize` de cada control sin saber de qué clase es. En DMarlon Studio puede ejecutar este ejemplo con el destino Consola y la tecla F9."
+    ],
+    "points": [
+      "`virtual` permite que las hijas cambien el método; `override` lo cambia.",
+      "La versión que se ejecuta depende del objeto, no de la variable.",
+      "`inherited` dentro de un `override` reutiliza el original.",
+      "Una variable de la clase madre puede contener cualquier hija.",
+      "Sin `virtual`, no hay polimorfismo."
+    ],
+    "exercise": "Añada `TInternational = class(TShipping)` cuyo `Cost` sea la tarifa normal más 12 EUR de aduana, y métala en la lista del bucle."
+  },
+  "en": {
+    "slug": "virtual-methods-and-polymorphism",
+    "title": "Virtual methods and polymorphism",
+    "summary": "Use virtual and override in Object Pascal so each class answers the same call in its own way: polymorphism with shipping rates.",
+    "body": [
+      "A **`virtual`** method can be replaced by child classes. `TShipping.Cost` works out the standard rate (4.95 EUR plus 0.80 per kilo), and `TExpress` and `TPickup` redefine it with **`override`**: same signature, different calculation.",
+      "Inside an `override` you can reuse the original: `TExpress.Cost` returns `inherited Cost(kg) * 2`, twice the standard rate, without copying the formula. `TPickup.Cost` returns `0`, since the customer collects the parcel at the shop.",
+      "The loop is where **polymorphism** shows up: `option` is declared as `TShipping`, yet each pass it holds an object of a different class. Because `Cost` is virtual, `option.Cost(3.5)` decides **at run time** which version to call based on the real object, and three different prices come out.",
+      "Without `virtual`, the compiler would pick by the variable's type and all three lines would cost `7.75`. The loop walks straight over the list `[TShipping.Create, TExpress.Create, TPickup.Create]` and frees each object as soon as it has been used.",
+      "This is the mechanism Lazarus runs on: a form calls `Paint` or `Resize` on every control without knowing its class. In DMarlon Studio you can run this example with the Console target and F9."
+    ],
+    "points": [
+      "`virtual` lets children change a method; `override` changes it.",
+      "The version that runs depends on the object, not the variable.",
+      "`inherited` inside an `override` reuses the original.",
+      "A parent-class variable can hold any child.",
+      "No `virtual`, no polymorphism."
+    ],
+    "exercise": "Add `TInternational = class(TShipping)` whose `Cost` is the standard rate plus 12 EUR in customs, and put it in the loop's list."
+  }
+}

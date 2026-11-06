@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "interfaces",
+    "title": "Interfaces",
+    "summary": "Defina interfaces en Object Pascal, impleméntelas en clases sin parentesco y deje que el recuento de referencias libere los objetos solo.",
+    "body": [
+      "Una **interfaz** es un contrato: una lista de métodos sin datos ni código. `ITax` solo dice que hay una función `Apply(net)`. Por convención, su nombre empieza por `I`.",
+      "Las clases `TVat` (IVA peninsular, 21 %) y `TIgic` (IGIC canario, 7 %) **implementan** la interfaz: la nombran tras la clase madre, `class(TInterfacedObject, ITax)`, y escriben su propio `Apply`. No están emparentadas entre sí; lo único que comparten es el contrato. Una clase hereda de una sola madre, pero puede implementar varias interfaces.",
+      "`Quote` recibe un parámetro de tipo `ITax`, así que acepta cualquier objeto que cumpla el contrato, venga de la clase que venga. Es la manera de escribir código que no depende de clases concretas.",
+      "**`TInterfacedObject`** aporta el **recuento de referencias**: cada variable o parámetro de tipo interfaz que apunta al objeto suma uno, y cuando el contador vuelve a cero el objeto se libera solo. Por eso `Quote('Madrid', TVat.Create, 250)` no necesita `Free`: el objeto desaparece al terminar la llamada. La variable `tax` mantiene vivo el suyo hasta `tax := nil`.",
+      "La regla de oro: un objeto que se maneja por interfaz no se libera con `Free` ni se guarda a la vez en una variable de clase. Si necesita `Supports` o el operador `as` con interfaces, añádales un GUID entre corchetes."
+    ],
+    "points": [
+      "Una interfaz es una lista de métodos que una clase promete cumplir.",
+      "Una clase puede implementar varias interfaces.",
+      "Un parámetro de interfaz acepta cualquier clase que la implemente.",
+      "Con `TInterfacedObject`, el objeto se libera solo al quedarse sin referencias.",
+      "No mezcle `Free` con objetos manejados por interfaz."
+    ],
+    "exercise": "Cree `TExempt = class(TInterfacedObject, ITax)` para exportaciones, cuyo `Apply` devuelva el neto sin impuesto, y añada una línea `Quote('Export', TExempt.Create, 250)`."
+  },
+  "en": {
+    "slug": "interfaces",
+    "title": "Interfaces",
+    "summary": "Define Object Pascal interfaces, implement them in unrelated classes and let reference counting free the objects for you.",
+    "body": [
+      "An **interface** is a contract: a list of methods with no data and no code. `ITax` only says there is an `Apply(net)` function. By convention, its name starts with `I`.",
+      "The `TVat` (mainland Spain VAT, 21 %) and `TIgic` (Canary Islands tax, 7 %) classes **implement** the interface: they name it after the parent class, `class(TInterfacedObject, ITax)`, and write their own `Apply`. They are not related to each other; all they share is the contract. A class inherits from a single parent but can implement several interfaces.",
+      "`Quote` takes an `ITax` parameter, so it accepts any object that honours the contract, whatever its class. This is how you write code that does not depend on concrete classes.",
+      "**`TInterfacedObject`** brings **reference counting**: every interface variable or parameter pointing at the object adds one, and when the count drops back to zero the object frees itself. That is why `Quote('Madrid', TVat.Create, 250)` needs no `Free`: the object goes away when the call ends. The `tax` variable keeps its object alive until `tax := nil`.",
+      "The golden rule: an object handled through an interface is never released with `Free`, nor kept in a class variable at the same time. If you need `Supports` or the `as` operator with interfaces, give them a GUID in square brackets."
+    ],
+    "points": [
+      "An interface is a list of methods a class promises to provide.",
+      "A class can implement several interfaces.",
+      "An interface parameter accepts any class that implements it.",
+      "With `TInterfacedObject`, an object frees itself when no references remain.",
+      "Do not mix `Free` with interface-managed objects."
+    ],
+    "exercise": "Create `TExempt = class(TInterfacedObject, ITax)` for exports, whose `Apply` returns the net amount untaxed, and add a `Quote('Export', TExempt.Create, 250)` line."
+  }
+}

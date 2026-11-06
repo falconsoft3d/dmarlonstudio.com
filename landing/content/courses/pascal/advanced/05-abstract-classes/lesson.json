@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clases-abstractas",
+    "title": "Clases abstractas",
+    "summary": "Declare métodos abstract en Object Pascal para definir un esquema común que cada clase hija completa, con métodos de pago y sus comisiones.",
+    "body": [
+      "Un método **`abstract`** se declara pero no se implementa: `TPayment.Fee` dice que todo pago tiene una comisión, pero no cuál. Debe ser también `virtual`, porque su única razón de ser es que las clases hijas lo completen con `override`.",
+      "`TPayment` es una **clase abstracta**: sirve de molde, no para crear objetos. Si hiciera `TPayment.Create`, Free Pascal lo compilaría con un aviso, y al llamar a `Fee` saltaría un error `EAbstractError`. Los objetos reales son `TCard` (1,5 % del importe) y `TTransfer` (0,35 EUR fijos).",
+      "Lo interesante es `Charge`: es un método **normal** de la clase abstracta que usa el método abstracto. Todos los pagos se cobran con los mismos pasos y solo cambia la comisión. Este patrón se llama *método plantilla*: la madre pone el esquema y las hijas, el detalle.",
+      "`Copy(ClassName, 2, 9)` quita la `T` inicial del nombre de la clase para escribir `Card` o `Transfer`. El bucle crea cada método de pago, le cobra 20 y 250 EUR y lo libera con `Free`."
+    ],
+    "points": [
+      "`virtual; abstract;` declara un método sin cuerpo.",
+      "Una clase abstracta es un molde; se usan sus hijas.",
+      "Llamar a un método abstracto lanza `EAbstractError`.",
+      "Los métodos normales de la madre pueden usar los abstractos.",
+      "Método plantilla: pasos comunes, detalle en cada hija."
+    ],
+    "exercise": "Añada `TBizum = class(TPayment)` sin comisión para importes de hasta 50 EUR y con 0,20 EUR para importes mayores, y cóbrele los mismos dos importes."
+  },
+  "en": {
+    "slug": "abstract-classes",
+    "title": "Abstract classes",
+    "summary": "Declare abstract methods in Object Pascal to define a common outline that each child class fills in, with payment methods and their fees.",
+    "body": [
+      "An **`abstract`** method is declared but not implemented: `TPayment.Fee` says every payment has a fee, but not which one. It must also be `virtual`, because its only purpose is to be completed by child classes with `override`.",
+      "`TPayment` is an **abstract class**: a template, not something to create objects from. If you wrote `TPayment.Create`, Free Pascal would compile it with a warning, and calling `Fee` would raise `EAbstractError`. The real objects are `TCard` (1.5 % of the amount) and `TTransfer` (a flat 0.35 EUR).",
+      "The interesting part is `Charge`: a **regular** method of the abstract class that uses the abstract one. Every payment is charged with the same steps and only the fee changes. This is the *template method* pattern: the parent sets the outline, the children supply the detail.",
+      "`Copy(ClassName, 2, 9)` drops the leading `T` from the class name to print `Card` or `Transfer`. The loop creates each payment method, charges it 20 and 250 EUR and frees it with `Free`."
+    ],
+    "points": [
+      "`virtual; abstract;` declares a method with no body.",
+      "An abstract class is a template; you use its children.",
+      "Calling an abstract method raises `EAbstractError`.",
+      "Regular methods in the parent can call the abstract ones.",
+      "Template method: shared steps, details in each child."
+    ],
+    "exercise": "Add `TBizum = class(TPayment)` with no fee for amounts up to 50 EUR and 0.20 EUR above that, and charge it the same two amounts."
+  }
+}

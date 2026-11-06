@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "quicksort-y-busqueda-binaria",
+    "title": "Quicksort y búsqueda binaria",
+    "summary": "Programe quicksort y la búsqueda binaria en Pascal con arrays abiertos y recursión, y vea por qué buscar en una lista ordenada es tan rápido.",
+    "body": [
+      "**Quicksort** ordena eligiendo un **pivote** y colocando a su izquierda los valores menores y a su derecha los mayores; después repite lo mismo con cada lado. Esta versión (la partición de Lomuto) toma como pivote el último elemento, `a[hi]`.",
+      "La variable `i` marca la frontera de los menores: el bucle `for` recorre el tramo y, cada vez que encuentra un valor menor que el pivote, lo intercambia con `a[i]` y adelanta la frontera. Al terminar, el pivote se coloca en `a[i]`, que ya es su sitio definitivo, y las dos llamadas recursivas ordenan cada lado si tiene más de un elemento.",
+      "El parámetro `var a: array of Integer` es un **array abierto**: acepta arrays de cualquier tamaño y, al ser `var`, los ordena en su sitio. El array `codes` se declara ya con sus valores, algo que Free Pascal 3.2 permite también con los arrays dinámicos. En promedio quicksort hace unas n·log n comparaciones; en el peor caso, con datos ya ordenados y este pivote, llega a n².",
+      "La **búsqueda binaria** solo funciona sobre datos ordenados: mira el elemento central y descarta la mitad donde no puede estar. `Find` lo hace de forma recursiva y devuelve `-1` con `Exit(-1)` cuando el tramo se queda vacío. Con un millón de códigos bastan unas 20 comparaciones."
+    ],
+    "points": [
+      "Quicksort: partir alrededor de un pivote y ordenar cada lado.",
+      "Tras la partición, el pivote ya está en su sitio definitivo.",
+      "`var a: array of Integer` acepta arrays de cualquier tamaño.",
+      "La búsqueda binaria necesita datos ordenados.",
+      "Cada paso de la búsqueda binaria descarta la mitad."
+    ],
+    "exercise": "Cambie la comparación de `QuickSort` para ordenar de mayor a menor y adapte `Find` para que siga funcionando con ese orden."
+  },
+  "en": {
+    "slug": "quicksort-and-binary-search",
+    "title": "Quicksort and binary search",
+    "summary": "Write quicksort and binary search in Pascal with open arrays and recursion, and see why searching a sorted list is so fast.",
+    "body": [
+      "**Quicksort** sorts by picking a **pivot** and moving smaller values to its left and larger ones to its right; then it does the same to each side. This version (the Lomuto partition) uses the last element, `a[hi]`, as the pivot.",
+      "The variable `i` marks the boundary of the smaller values: the `for` loop walks the range and, whenever it finds a value below the pivot, swaps it with `a[i]` and moves the boundary on. At the end, the pivot goes into `a[i]`, which is already its final place, and the two recursive calls sort each side if it has more than one element.",
+      "The `var a: array of Integer` parameter is an **open array**: it accepts arrays of any size and, being `var`, sorts them in place. The `codes` array is declared with its values already in it, which Free Pascal 3.2 also allows for dynamic arrays. On average quicksort makes about n·log n comparisons; in the worst case, with already sorted data and this pivot, it reaches n².",
+      "**Binary search** only works on sorted data: it looks at the middle element and discards the half where the target cannot be. `Find` does it recursively and returns `-1` with `Exit(-1)` once the range is empty. With a million codes, about 20 comparisons are enough."
+    ],
+    "points": [
+      "Quicksort: partition around a pivot and sort each side.",
+      "After partitioning, the pivot is already in its final place.",
+      "`var a: array of Integer` accepts arrays of any size.",
+      "Binary search needs sorted data.",
+      "Each step of binary search throws away half."
+    ],
+    "exercise": "Change `QuickSort`'s comparison to sort from largest to smallest, and adapt `Find` so it still works with that order."
+  }
+}

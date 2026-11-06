@@ -3,6 +3,16 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.62 — 2026-11-07
+
+- **Curso de Pascal avanzado** (20 lecciones, español e inglés): clases y
+  propiedades, herencia y métodos virtuales, clases abstractas e
+  interfaces, excepciones y `try/finally`, punteros y lista enlazada,
+  genéricos (`fgl` y `Generics.Collections`), `TStringList`, tipos
+  procedurales, sobrecarga de operadores, recursión, quicksort, `StrUtils`,
+  JSON con `fpjson` y un pequeño banco como proyecto: el Object Pascal de
+  las aplicaciones de Lazarus del estudio.
+
 ## 1.0.61 — 2026-11-07
 
 - **Curso de Dart avanzado** (20 lecciones, español e inglés): clases y

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "json-con-fpjson",
+    "title": "JSON con fpjson",
+    "summary": "Lea y cree JSON en Free Pascal con fpjson y jsonparser: recorra un pedido, sume sus líneas y responda con un objeto JSON nuevo.",
+    "body": [
+      "La unidad **`fpjson`** representa el JSON como objetos de Pascal (`TJSONObject`, `TJSONArray`, números y textos), y **`jsonparser`** añade el analizador. **`GetJSON`** convierte el texto `Incoming` en ese árbol y devuelve la raíz, que aquí se trata como objeto con `as TJSONObject`.",
+      "Los valores se leen por nombre y tipo: `order.Integers['id']`, `line.Strings['sku']`, `order.Arrays['lines']`. **`FindPath('customer.name')`** baja por varios niveles de una vez con una ruta separada por puntos. Si un nombre no existe o el tipo no coincide, se lanza una excepción.",
+      "El `for item in` recorre el array de líneas; cada `item` es un `TJSONEnum` y su `Value` es el objeto de la línea. El total se suma en **céntimos enteros**, que además evita un detalle de fpjson: los números con decimales salen en notación científica al convertirlos a texto.",
+      "Para crear JSON, `TJSONObject.Create([...])` recibe pares de nombre y valor, y `Add` añade más, incluso un `TJSONArray` completo. **`AsJSON`** lo escribe en una línea (`FormatJSON` lo escribiría indentado). Cada objeto es **dueño** de lo que contiene: un solo `Free` sobre la raíz libera todo el árbol, y los dos `try ... finally` garantizan que se libere."
+    ],
+    "points": [
+      "`GetJSON` convierte un texto en un árbol de objetos JSON.",
+      "`Integers[...]`, `Strings[...]` y `Arrays[...]` leen por nombre y tipo.",
+      "`FindPath('a.b')` baja por varios niveles a la vez.",
+      "`TJSONObject.Create([...])` y `Add` construyen JSON; `AsJSON` lo escribe.",
+      "Liberar la raíz libera todo lo que contiene."
+    ],
+    "exercise": "Añada a la respuesta un objeto `shipping` con la ciudad del cliente (`order.FindPath('customer.city').AsString`) y un campo `express` a `True`."
+  },
+  "en": {
+    "slug": "json-with-fpjson",
+    "title": "JSON with fpjson",
+    "summary": "Read and build JSON in Free Pascal with fpjson and jsonparser: walk an order, add up its lines and reply with a brand new JSON object.",
+    "body": [
+      "The **`fpjson`** unit represents JSON as Pascal objects (`TJSONObject`, `TJSONArray`, numbers and strings), and **`jsonparser`** adds the parser. **`GetJSON`** turns the `Incoming` text into that tree and returns the root, which is treated as an object here with `as TJSONObject`.",
+      "Values are read by name and type: `order.Integers['id']`, `line.Strings['sku']`, `order.Arrays['lines']`. **`FindPath('customer.name')`** goes down several levels at once using a dot-separated path. If a name is missing or the type does not match, an exception is raised.",
+      "The `for item in` loop walks the array of lines; each `item` is a `TJSONEnum` and its `Value` is the line object. The total is added up in **whole cents**, which also sidesteps an fpjson quirk: numbers with decimals come out in scientific notation when turned into text.",
+      "To build JSON, `TJSONObject.Create([...])` takes name-value pairs, and `Add` appends more, even a whole `TJSONArray`. **`AsJSON`** writes it on one line (`FormatJSON` would indent it). Every object **owns** what it contains: a single `Free` on the root releases the whole tree, and the two `try ... finally` blocks make sure that happens."
+    ],
+    "points": [
+      "`GetJSON` turns text into a tree of JSON objects.",
+      "`Integers[...]`, `Strings[...]` and `Arrays[...]` read by name and type.",
+      "`FindPath('a.b')` goes down several levels at once.",
+      "`TJSONObject.Create([...])` and `Add` build JSON; `AsJSON` writes it.",
+      "Freeing the root frees everything inside it."
+    ],
+    "exercise": "Add a `shipping` object to the reply with the customer's city (`order.FindPath('customer.city').AsString`) and an `express` field set to `True`."
+  }
+}

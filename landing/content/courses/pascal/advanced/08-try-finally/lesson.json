@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "try-finally-y-liberar-recursos",
+    "title": "Try/finally y liberar recursos",
+    "summary": "Garantice que sus objetos se liberan aunque haya errores con try/finally en Object Pascal, el patrón que evita fugas de memoria.",
+    "body": [
+      "En Pascal los objetos se liberan a mano, y un error a mitad de camino podría saltarse el `Free`. El bloque **`try ... finally`** lo impide: lo que va tras `finally` se ejecuta **siempre**, tanto si el código de `try` termina bien como si lanza una excepción.",
+      "`Import` sigue el patrón clásico: crea la lista **antes** del `try` (si `Create` fallara, no habría nada que liberar) y la libera dentro de `finally`. Entre medias convierte cada texto con `StrToFloat` y lo añade a `prices`.",
+      "La primera llamada importa los tres precios y escribe el total. En la segunda, `StrToFloat('n/a')` lanza `EConvertError` tras importar `12.00`. Fíjese en el orden de la salida: primero `Freeing a list of 1`, porque el `finally` se ejecuta mientras la excepción sale, y después `Import failed`, cuando la captura el `try ... except` del programa principal.",
+      "`finally` no captura nada: la excepción sigue su camino y por eso `This line is skipped` nunca aparece. Los dos bloques se complementan: **`finally` limpia** y **`except` decide** qué hacer con el error. En una aplicación de Lazarus, todo objeto temporal debería ir protegido así."
+    ],
+    "points": [
+      "Lo que hay en `finally` se ejecuta siempre.",
+      "Cree el objeto antes del `try` y libérelo en `finally`.",
+      "`finally` no detiene la excepción; solo limpia.",
+      "`except` decide qué hacer con el error; `finally`, qué liberar.",
+      "Así se evitan las fugas de memoria."
+    ],
+    "exercise": "Haga que `Import` guarde los precios válidos en un fichero con `prices.SaveToFile('prices.txt')` justo antes del `finally`, y compruebe que en la segunda llamada no llega a escribirse."
+  },
+  "en": {
+    "slug": "try-finally-and-resource-cleanup",
+    "title": "Try/finally and cleanup",
+    "summary": "Make sure your objects are released even when errors happen with try/finally in Object Pascal, the pattern that prevents memory leaks.",
+    "body": [
+      "In Pascal you free objects yourself, and an error halfway through could skip the `Free`. A **`try ... finally`** block prevents that: whatever follows `finally` runs **every time**, whether the `try` code finishes normally or raises an exception.",
+      "`Import` follows the classic pattern: it creates the list **before** the `try` (if `Create` failed, there would be nothing to free) and frees it inside `finally`. In between it converts each text with `StrToFloat` and adds it to `prices`.",
+      "The first call imports all three prices and prints the total. In the second, `StrToFloat('n/a')` raises `EConvertError` after importing `12.00`. Look at the order of the output: first `Freeing a list of 1`, because the `finally` block runs while the exception is on its way out, and then `Import failed`, when the main program's `try ... except` catches it.",
+      "`finally` catches nothing: the exception keeps going, which is why `This line is skipped` never appears. The two blocks complement each other: **`finally` cleans up** and **`except` decides** what to do about the error. In a Lazarus app, every temporary object should be protected like this."
+    ],
+    "points": [
+      "Whatever is in `finally` always runs.",
+      "Create the object before the `try` and free it in `finally`.",
+      "`finally` does not stop the exception; it only cleans up.",
+      "`except` decides what to do; `finally` decides what to release.",
+      "This is how you avoid memory leaks."
+    ],
+    "exercise": "Make `Import` save the valid prices with `prices.SaveToFile('prices.txt')` just before `finally`, and check that the second call never gets to write it."
+  }
+}

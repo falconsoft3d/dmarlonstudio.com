@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "recursion-y-backtracking",
+    "title": "Recursión y backtracking",
+    "summary": "Resuelva problemas de búsqueda con recursión y backtracking en Pascal: qué facturas pendientes suman exactamente el importe de un pago.",
+    "body": [
+      "Un cliente paga 500 EUR y hay seis facturas pendientes: ¿qué combinaciones suman justo ese importe? Es un caso real de conciliación bancaria y un ejemplo perfecto de **backtracking** (vuelta atrás): probar una opción, seguir explorando y, si no lleva a nada, deshacerla y probar la siguiente.",
+      "`Search(i, remaining)` decide sobre la factura `i` sabiendo cuánto falta por cubrir. Tiene dos **casos base**, los que detienen la recursión: si `remaining` llega a `0`, la selección actual es una solución y se escribe; si se acaban las facturas o el importe se pasa (queda negativo), ese camino es un callejón sin salida y se vuelve atrás con `Exit`.",
+      "El corazón está en las cuatro últimas líneas: se **elige** la factura (`chosen[i] := True`) y se explora el resto con lo que falta; después se **deshace** la elección (`chosen[i] := False`) y se explora el resto sin ella. Así se recorren todas las combinaciones, 2⁶ = 64 como mucho, y se descartan pronto las que se pasan.",
+      "El array `chosen` es el estado compartido que se va marcando y desmarcando, y `found` cuenta las soluciones; Free Pascal permite inicializar una variable global al declararla, como en `found: Integer = 0`. El resultado: cuatro maneras distintas de casar el pago."
+    ],
+    "points": [
+      "Una función recursiva se llama a sí misma con un problema más pequeño.",
+      "Los casos base detienen la recursión.",
+      "Backtracking: elegir, explorar y deshacer.",
+      "Cortar pronto los caminos imposibles ahorra trabajo.",
+      "El estado compartido se marca antes y se desmarca después."
+    ],
+    "exercise": "Haga que la búsqueda se detenga en cuanto encuentre la primera combinación y que, en lugar de las facturas, escriba sus posiciones en el array."
+  },
+  "en": {
+    "slug": "recursion-and-backtracking",
+    "title": "Recursion and backtracking",
+    "summary": "Solve search problems with recursion and backtracking in Pascal: which pending invoices add up exactly to the amount of a payment.",
+    "body": [
+      "A customer pays 500 EUR and there are six pending invoices: which combinations add up to exactly that amount? It is a real bank reconciliation task and a perfect example of **backtracking**: try an option, keep exploring and, if it leads nowhere, undo it and try the next one.",
+      "`Search(i, remaining)` decides about invoice `i` knowing how much is still to be covered. It has two **base cases**, the ones that stop the recursion: if `remaining` reaches `0`, the current selection is a solution and gets printed; if the invoices run out or the amount overshoots (goes negative), that path is a dead end and `Exit` goes back.",
+      "The heart of it is the last four lines: **choose** the invoice (`chosen[i] := True`) and explore the rest with what is left; then **undo** the choice (`chosen[i] := False`) and explore the rest without it. That covers every combination, 2⁶ = 64 at most, and drops the ones that overshoot early.",
+      "The `chosen` array is the shared state that gets marked and unmarked, and `found` counts the solutions; Free Pascal lets you initialise a global variable in its declaration, as in `found: Integer = 0`. The result: four different ways to match the payment."
+    ],
+    "points": [
+      "A recursive function calls itself with a smaller problem.",
+      "Base cases stop the recursion.",
+      "Backtracking: choose, explore, undo.",
+      "Pruning impossible paths early saves work.",
+      "Shared state is marked before and unmarked after."
+    ],
+    "exercise": "Make the search stop as soon as it finds the first combination and print the invoices' positions in the array instead of their amounts."
+  }
+}

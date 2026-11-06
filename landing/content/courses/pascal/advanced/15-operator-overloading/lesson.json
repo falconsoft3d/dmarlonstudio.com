@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "sobrecarga-de-operadores",
+    "title": "Sobrecarga de operadores",
+    "summary": "Defina +, * y conversiones para sus propios tipos con advanced records en Free Pascal: un tipo dinero en céntimos que se suma como un número.",
+    "body": [
+      "La directiva **`{$modeswitch advancedrecords}`** permite que un record tenga métodos y operadores, como una clase pequeña pero sin `Create` ni `Free`: es un valor que se copia al asignarlo. `TMoney` guarda el importe en céntimos enteros (`Int64`) para que las sumas de dinero no arrastren errores de redondeo.",
+      "Cada **`class operator`** enseña al compilador a usar un operador con el tipo. `+` suma dos `TMoney` y `*` multiplica un `TMoney` por una cantidad entera. Se implementan como funciones: reciben los operandos y devuelven el resultado en `Result`.",
+      "El más curioso es **`:=`**, el operador de **conversión implícita**: dice cómo convertir un `Double` en `TMoney`, redondeando a céntimos. Gracias a él, `coffee := 1.60` funciona, y en `coffee * 2 + 3.25` el `3.25` se convierte solo para poder usar el `+` de `TMoney`.",
+      "`ToString` es un método normal del record. **`WriteStr`** funciona como `WriteLn` pero escribe en una cadena, con el mismo formato `:0:2`, y no necesita la unidad `SysUtils`. El resultado se lee como una cuenta de cafetería: dos cafés y un pastel, `6.45 EUR`."
+    ],
+    "points": [
+      "`{$modeswitch advancedrecords}` da métodos y operadores a los records.",
+      "`class operator +` define qué hace `+` con su tipo.",
+      "`class operator :=` define una conversión implícita.",
+      "Un record es un valor: se copia, no se crea ni se libera.",
+      "Guarde el dinero en céntimos enteros."
+    ],
+    "exercise": "Añada `class operator <(a, b: TMoney): Boolean` y úselo para escribir si la cuenta supera los 5 EUR; después añada `-` para aplicar un descuento de 0.50."
+  },
+  "en": {
+    "slug": "operator-overloading",
+    "title": "Operator overloading",
+    "summary": "Define +, * and conversions for your own types with advanced records in Free Pascal: a money type in cents that adds up like a number.",
+    "body": [
+      "The **`{$modeswitch advancedrecords}`** directive lets a record have methods and operators, like a small class without `Create` or `Free`: it is a value that gets copied on assignment. `TMoney` stores the amount in whole cents (`Int64`) so money sums do not drag rounding errors along.",
+      "Each **`class operator`** teaches the compiler to use an operator with the type. `+` adds two `TMoney` values and `*` multiplies a `TMoney` by a whole quantity. They are implemented as functions: they receive the operands and return the result in `Result`.",
+      "The most interesting one is **`:=`**, the **implicit conversion** operator: it says how to turn a `Double` into a `TMoney`, rounding to cents. Thanks to it, `coffee := 1.60` works, and in `coffee * 2 + 3.25` the `3.25` is converted automatically so `TMoney`'s `+` can be used.",
+      "`ToString` is an ordinary record method. **`WriteStr`** works like `WriteLn` but writes into a string, with the same `:0:2` formatting, and needs no `SysUtils` unit. The result reads like a café bill: two coffees and a cake, `6.45 EUR`."
+    ],
+    "points": [
+      "`{$modeswitch advancedrecords}` gives records methods and operators.",
+      "`class operator +` defines what `+` does with your type.",
+      "`class operator :=` defines an implicit conversion.",
+      "A record is a value: it is copied, never created or freed.",
+      "Store money as whole cents."
+    ],
+    "exercise": "Add `class operator <(a, b: TMoney): Boolean` and use it to print whether the bill is over 5 EUR; then add `-` to apply a 0.50 discount."
+  }
+}

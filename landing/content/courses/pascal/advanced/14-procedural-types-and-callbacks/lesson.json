@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tipos-procedurales-y-callbacks",
+    "title": "Tipos procedurales y callbacks",
+    "summary": "Pase funciones y métodos como parámetros en Object Pascal con tipos procedurales y of object, el mecanismo de los eventos de Lazarus.",
+    "body": [
+      "Un **tipo procedural** describe la forma de una función: `TPriceRule = function(price: Double): Double`. Cualquier función con esa firma encaja, y `Sale` (un 20 % de descuento) y `Clearance` (un 50 %) la cumplen. En modo `objfpc`, **`@Sale`** obtiene la referencia a la función para pasarla como un valor más.",
+      "`Checkout` recibe la regla de precio y la llama como si fuera una función normal: `rule(price)`. Así la misma rutina de cobro sirve para cualquier descuento presente o futuro sin tocar su código; es lo que se llama un **callback**.",
+      "**`of object`** cambia el juego: `TSaleEvent` no apunta a una función suelta, sino a un **método de un objeto concreto**. Por dentro guarda dos cosas, el código y el objeto (`Self`). Por eso `@till.ShowSale` lleva consigo a `till` y el método puede escribir su `Name`, `Till 1`.",
+      "Antes de llamar a un evento conviene comprobar **`Assigned(onSale)`**: si nadie se ha suscrito vale `nil` y llamarlo provocaría un fallo. Así funcionan los eventos de Lazarus: `OnClick` es un `procedure(Sender: TObject) of object`, y en las aplicaciones de escritorio de DMarlon Studio cada botón engancha un método del formulario exactamente igual."
+    ],
+    "points": [
+      "Un tipo procedural es la firma de una función.",
+      "`@Funcion` obtiene la referencia en modo `objfpc`.",
+      "`of object` guarda un método y el objeto al que pertenece.",
+      "Compruebe `Assigned` antes de llamar a un evento.",
+      "Los eventos de Lazarus (`OnClick`…) son métodos `of object`."
+    ],
+    "exercise": "Escriba una regla `Member` que reste 5 EUR a precios de más de 30, cree un segundo `TTill` llamado `'Till 2'` y cobre con él 59.90 usando `@Member`."
+  },
+  "en": {
+    "slug": "procedural-types-and-callbacks",
+    "title": "Procedural types and callbacks",
+    "summary": "Pass functions and methods as parameters in Object Pascal with procedural types and of object, the mechanism behind Lazarus events.",
+    "body": [
+      "A **procedural type** describes the shape of a function: `TPriceRule = function(price: Double): Double`. Any function with that signature fits, and `Sale` (20 % off) and `Clearance` (50 % off) both do. In `objfpc` mode, **`@Sale`** takes a reference to the function so you can pass it around like any other value.",
+      "`Checkout` receives the pricing rule and calls it as if it were an ordinary function: `rule(price)`. The same checkout routine works for any discount, present or future, without touching its code; that is what a **callback** is.",
+      "**`of object`** changes the game: `TSaleEvent` does not point to a free-standing function but to a **method of a specific object**. Internally it stores two things, the code and the object (`Self`). That is why `@till.ShowSale` carries `till` along and the method can print its `Name`, `Till 1`.",
+      "Before calling an event, check **`Assigned(onSale)`**: if nobody has subscribed it is `nil` and calling it would crash. This is how Lazarus events work: `OnClick` is a `procedure(Sender: TObject) of object`, and in DMarlon Studio's desktop apps every button hooks up a form method in exactly this way."
+    ],
+    "points": [
+      "A procedural type is a function signature.",
+      "`@Function` takes the reference in `objfpc` mode.",
+      "`of object` stores a method together with its object.",
+      "Check `Assigned` before calling an event.",
+      "Lazarus events (`OnClick` and friends) are `of object` methods."
+    ],
+    "exercise": "Write a `Member` rule that takes 5 EUR off prices above 30, create a second `TTill` named `'Till 2'` and use it to charge 59.90 with `@Member`."
+  }
+}

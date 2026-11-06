@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "herencia-e-inherited",
+    "title": "Herencia e inherited",
+    "summary": "Cree clases hijas en Object Pascal que heredan campos y métodos, y llame al constructor de la clase madre con inherited en Free Pascal.",
+    "body": [
+      "La **herencia** crea una clase a partir de otra. `TManager = class(TEmployee)` recibe todo lo de `TEmployee` (los campos `Name` y `Salary` y el método `Print`) y solo añade lo nuevo: el campo `Team` y su propio constructor.",
+      "El constructor de `TManager` no repite el trabajo de su madre: **`inherited Create(AName, ASalary)`** llama al constructor de `TEmployee`, que rellena el nombre y el sueldo, y después solo queda guardar `Team`. Llamar a `inherited` al principio del constructor es el patrón habitual.",
+      "`boss.Print` funciona aunque `TManager` no declare ningún `Print`: lo busca en la clase madre. Por eso la primera línea de la salida la escribe código de `TEmployee` con los datos de un `TManager`.",
+      "El operador **`is`** comprueba si un objeto es de una clase o de alguna de sus descendientes, y devuelve `TRUE` para `boss is TEmployee`: un jefe también es un empleado. `ClassName` devuelve el nombre real de la clase, `TManager`.",
+      "Toda clase desciende al final de `TObject`, de ahí vienen `Create`, `Free` y `ClassName`. En Lazarus lo verá en cada ventana: `TForm1 = class(TForm)` hereda todo lo que sabe hacer un formulario y usted solo añade lo suyo."
+    ],
+    "points": [
+      "`class(TMadre)` hereda campos y métodos.",
+      "La clase hija solo declara lo que añade o cambia.",
+      "`inherited Create(...)` reutiliza el constructor de la madre.",
+      "`is` comprueba la clase, incluidas las descendientes.",
+      "Todas las clases descienden de `TObject`."
+    ],
+    "exercise": "Cree `TSalesRep = class(TEmployee)` con un campo `Commission: Double` (por ejemplo, `0.05`) y un constructor que use `inherited`, y escriba su sueldo más la comisión sobre 20000 EUR de ventas."
+  },
+  "en": {
+    "slug": "inheritance-and-inherited",
+    "title": "Inheritance and inherited",
+    "summary": "Build child classes in Object Pascal that inherit fields and methods, and call the parent constructor with inherited in Free Pascal.",
+    "body": [
+      "**Inheritance** builds one class on top of another. `TManager = class(TEmployee)` receives everything in `TEmployee` (the `Name` and `Salary` fields and the `Print` method) and only adds what is new: the `Team` field and its own constructor.",
+      "`TManager`'s constructor does not redo its parent's work: **`inherited Create(AName, ASalary)`** calls `TEmployee`'s constructor, which fills in the name and salary, and then all that is left is storing `Team`. Calling `inherited` first thing in a constructor is the usual pattern.",
+      "`boss.Print` works even though `TManager` declares no `Print`: it is looked up in the parent class. That is why the first output line is written by `TEmployee` code using a `TManager`'s data.",
+      "The **`is`** operator checks whether an object belongs to a class or any of its descendants, and returns `TRUE` for `boss is TEmployee`: a manager is also an employee. `ClassName` returns the object's real class name, `TManager`.",
+      "Every class ultimately descends from `TObject`, which is where `Create`, `Free` and `ClassName` come from. In Lazarus you see it in every window: `TForm1 = class(TForm)` inherits everything a form can do and you only add your own parts."
+    ],
+    "points": [
+      "`class(TParent)` inherits fields and methods.",
+      "The child class only declares what it adds or changes.",
+      "`inherited Create(...)` reuses the parent constructor.",
+      "`is` checks the class, descendants included.",
+      "Every class descends from `TObject`."
+    ],
+    "exercise": "Create `TSalesRep = class(TEmployee)` with a `Commission: Double` field (say `0.05`) and a constructor that uses `inherited`, and print its salary plus the commission on 20000 EUR of sales."
+  }
+}

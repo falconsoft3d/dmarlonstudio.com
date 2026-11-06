@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "clases-y-objetos",
+    "title": "Clases y objetos",
+    "summary": "Declare clases en Object Pascal con campos, métodos, constructor y destructor, y aprenda a liberar los objetos con Free en Free Pascal.",
+    "body": [
+      "Una **clase** agrupa datos y el código que trabaja con ellos. `TCustomer` declara dos **campos** (`Name` y `Orders`) y tres métodos. Como no hay sección de visibilidad, todo es público. El cuerpo de cada método se escribe después, fuera de la clase, con el nombre completo: `TCustomer.AddOrder`.",
+      "El **constructor** `Create` reserva la memoria del objeto, la pone a cero (por eso `Orders` empieza en `0` y no hay que inicializarlo) y después ejecuta su código: guarda el nombre y escribe `Created Ana Lopez`. Se llama sobre la clase: `TCustomer.Create('Ana Lopez')`.",
+      "El **destructor** `Destroy` lleva `override` porque sustituye al de `TObject`, la clase de la que descienden todas, y termina con `inherited Destroy` para que la memoria se libere. Nunca se llama directamente: se usa **`Free`**, que comprueba antes que la variable no sea `nil` y llama a `Destroy`.",
+      "Una variable de clase es una **referencia**, no el objeto. `other := ana` no copia al cliente: las dos variables apuntan al mismo objeto, y por eso los dos `AddOrder` suman en el mismo contador y la salida dice `2 orders`. A diferencia de los records del curso básico, asignar no duplica nada.",
+      "Por la misma razón, el objeto se libera **una sola vez**. Tras `ana.Free`, `other` apunta a memoria liberada y no debe usarse. Este es el patrón de cualquier aplicación de escritorio de DMarlon Studio hecha con Lazarus: crear, usar y liberar."
+    ],
+    "points": [
+      "Una clase declara campos y métodos; el cuerpo de los métodos va aparte.",
+      "`Create` reserva el objeto y pone sus campos a cero.",
+      "El destructor lleva `override` y acaba en `inherited Destroy`.",
+      "Libere con `Free`, nunca llamando a `Destroy`.",
+      "Asignar un objeto copia la referencia, no el objeto."
+    ],
+    "exercise": "Añada a `TCustomer` un campo `Total: Double` y un método `AddOrder(amount: Double)` que sume el importe, y muestre el total de Ana tras dos pedidos de 25.50 y 14.99."
+  },
+  "en": {
+    "slug": "classes-and-objects",
+    "title": "Classes and objects",
+    "summary": "Declare Object Pascal classes with fields, methods, a constructor and a destructor, and learn to release objects with Free in Free Pascal.",
+    "body": [
+      "A **class** groups data with the code that works on it. `TCustomer` declares two **fields** (`Name` and `Orders`) and three methods. With no visibility section, everything is public. Each method body is written afterwards, outside the class, under its full name: `TCustomer.AddOrder`.",
+      "The **constructor** `Create` allocates the object, fills it with zeros (that is why `Orders` starts at `0` without any code) and then runs its own body: it stores the name and prints `Created Ana Lopez`. You call it on the class: `TCustomer.Create('Ana Lopez')`.",
+      "The **destructor** `Destroy` is marked `override` because it replaces the one in `TObject`, the root of every class, and it ends with `inherited Destroy` so the memory is actually released. You never call it directly: you call **`Free`**, which first checks the variable is not `nil` and then calls `Destroy`.",
+      "A class variable is a **reference**, not the object itself. `other := ana` does not copy the customer: both variables point to the same object, so both `AddOrder` calls bump the same counter and the output says `2 orders`. Unlike the records from the basic course, assignment duplicates nothing.",
+      "For the same reason, the object is freed **exactly once**. After `ana.Free`, `other` points to released memory and must not be used. This create, use and free pattern is the heart of every desktop app DMarlon Studio builds with Lazarus."
+    ],
+    "points": [
+      "A class declares fields and methods; method bodies go separately.",
+      "`Create` allocates the object and zeroes its fields.",
+      "A destructor is marked `override` and ends with `inherited Destroy`.",
+      "Release objects with `Free`, never by calling `Destroy`.",
+      "Assigning an object copies the reference, not the object."
+    ],
+    "exercise": "Add a `Total: Double` field to `TCustomer` and an `AddOrder(amount: Double)` method that adds the amount, then print Ana's total after two orders of 25.50 and 14.99."
+  }
+}

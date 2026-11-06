@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-boletin-de-notas",
+    "title": "Proyecto: boletín de notas",
+    "summary": "Un proyecto que reúne el curso básico de Python: lee notas de un archivo, ignora datos erróneos y escribe un boletín con medias y calificaciones.",
+    "body": [
+      "Este programa junta casi todo lo visto en el curso. Empieza con una **función**, `grade()`, que convierte una media en una letra usando `if` y `return`: en cuanto una condición se cumple, devuelve la letra y termina.",
+      "Después **escribe un archivo** `marks.txt` con una línea por alumno y lo vuelve a **abrir para leerlo** línea a línea. `line.split(\":\")` separa el nombre de las notas y se desempaqueta en `name` y `text`.",
+      "Las notas se separan con `split(\",\")` y cada una se convierte con `float()`, que acepta los espacios de alrededor. Ben tiene un «five» escrito con letras: `float()` lanza un `ValueError`, el `except` lo avisa y esa nota se descarta sin detener el programa.",
+      "Las notas válidas se van añadiendo a la **lista** `marks` y la media de cada alumno se guarda en el **diccionario** `averages`, con el nombre como clave.",
+      "Para terminar, un `for` sobre `averages.items()` escribe el boletín en columnas con **f-strings**, apunta en la lista `passed` a quien aprueba y recuerda la mejor media. `\", \".join(passed)` une los nombres en una sola línea."
+    ],
+    "points": [
+      "Las funciones ordenan el programa en piezas con nombre.",
+      "Archivos + `split()` convierten texto en datos.",
+      "`try`/`except` evita que un dato erróneo pare el programa.",
+      "Listas y diccionarios guardan los resultados para el informe.",
+      "Las f-strings con ancho alinean la tabla."
+    ],
+    "exercise": "Amplíe el proyecto para que guarde el boletín en un archivo `report.txt` y añada al final la media de toda la clase y cuántos alumnos sacaron cada letra (con un diccionario de contadores)."
+  },
+  "en": {
+    "slug": "project-grade-report",
+    "title": "Project: grade report",
+    "summary": "A project that brings the basic Python course together: it reads marks from a file, skips bad data and prints a report with averages and grades.",
+    "body": [
+      "This program puts together almost everything in the course. It starts with a **function**, `grade()`, that turns an average into a letter with `if` and `return`: as soon as a condition is true, it returns the letter and stops.",
+      "Then it **writes a file**, `marks.txt`, with one line per student and **opens it again for reading**, line by line. `line.split(\":\")` separates the name from the marks and is unpacked into `name` and `text`.",
+      "The marks are split with `split(\",\")` and each one is converted with `float()`, which accepts the surrounding spaces. Ben has a «five» written in letters: `float()` raises a `ValueError`, the `except` reports it and that mark is dropped without stopping the program.",
+      "The valid marks are added to the **list** `marks`, and each student's average is stored in the **dictionary** `averages`, with the name as the key.",
+      "Finally, a `for` loop over `averages.items()` prints the report in columns with **f-strings**, notes who passed in the `passed` list and remembers the best average. `\", \".join(passed)` puts the names on a single line."
+    ],
+    "points": [
+      "Functions split the program into named pieces.",
+      "Files plus `split()` turn text into data.",
+      "`try`/`except` stops one bad value from stopping the program.",
+      "Lists and dictionaries hold the results for the report.",
+      "F-strings with widths line up the table."
+    ],
+    "exercise": "Extend the project so it saves the report to a `report.txt` file and adds the class average and how many students got each letter (with a dictionary of counters)."
+  }
+}

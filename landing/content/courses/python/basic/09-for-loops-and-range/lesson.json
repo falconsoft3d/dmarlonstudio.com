@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "bucles-for-y-range",
+    "title": "Bucles for y range()",
+    "summary": "Recorra letras y números con for y range() en Python: una tabla de multiplicar, los años olímpicos, una suma y break para parar.",
+    "body": [
+      "`for` repite su bloque una vez por cada elemento de una secuencia. Una cadena es una secuencia de letras, así que `for letter in \"PYTHON\":` da seis vueltas, una por letra. `end=\" \"` hace que `print()` termine con un espacio en vez de saltar de línea, y el `print()` vacío de después cierra la línea.",
+      "`range()` genera números. `range(1, 6)` da 1, 2, 3, 4 y 5: el final **no** se incluye. Con él se escribe la tabla del 7 sin repetir cinco veces el mismo `print()`.",
+      "Con un tercer número se indica el **paso**: `range(2024, 2036, 4)` va de cuatro en cuatro y da los años de los Juegos Olímpicos de verano.",
+      "Un patrón muy habitual es **acumular**: `total` empieza en 0 y en cada vuelta se le suma `n`. Al acabar, guarda la suma de 1 a 100: `5050`.",
+      "`break` sale del bucle en el acto. El último `for` podría llegar hasta 99, pero se detiene en cuanto encuentra el primer número que es múltiplo de 6 y de 8 a la vez: `24`."
+    ],
+    "points": [
+      "`for x in secuencia:` da una vuelta por elemento.",
+      "`range(a, b)` va de `a` a `b - 1`; `range(n)` va de 0 a `n - 1`.",
+      "`range(a, b, paso)` salta de `paso` en `paso`.",
+      "`break` termina el bucle antes de tiempo.",
+      "Use `for` cuando sepa cuántas vueltas dar, y `while` cuando dependa de una condición."
+    ],
+    "exercise": "Escriba la tabla del 9 del 1 al 10 y, aparte, sume solo los números pares del 1 al 100 usando `range()` con paso 2."
+  },
+  "en": {
+    "slug": "for-loops-and-range",
+    "title": "For loops and range()",
+    "summary": "Loop over letters and numbers with for and range() in Python: a times table, Olympic years, a running total and break to stop early.",
+    "body": [
+      "`for` runs its block once for each item of a sequence. A string is a sequence of letters, so `for letter in \"PYTHON\":` goes round six times, once per letter. `end=\" \"` makes `print()` finish with a space instead of a new line, and the empty `print()` afterwards closes the line.",
+      "`range()` produces numbers. `range(1, 6)` gives 1, 2, 3, 4 and 5: the end is **not** included. With it you can print the 7 times table without writing the same `print()` five times.",
+      "A third number sets the **step**: `range(2024, 2036, 4)` counts in fours and gives the years of the Summer Olympics.",
+      "A very common pattern is **accumulating**: `total` starts at 0 and each round adds `n` to it. When the loop ends, it holds the sum from 1 to 100: `5050`.",
+      "`break` leaves the loop at once. The last `for` could go up to 99, but it stops as soon as it finds the first number that is a multiple of both 6 and 8: `24`."
+    ],
+    "points": [
+      "`for x in sequence:` goes round once per item.",
+      "`range(a, b)` goes from `a` to `b - 1`; `range(n)` from 0 to `n - 1`.",
+      "`range(a, b, step)` jumps by `step`.",
+      "`break` ends the loop early.",
+      "Use `for` when you know how many rounds; use `while` when it depends on a condition."
+    ],
+    "exercise": "Print the 9 times table from 1 to 10 and, separately, add up only the even numbers from 1 to 100 using `range()` with a step of 2."
+  }
+}

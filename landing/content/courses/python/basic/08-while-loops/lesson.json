@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "bucles-while",
+    "title": "Repetir con while",
+    "summary": "Repita código en Python con while mientras se cumpla una condición: ahorre para una bicicleta semana a semana y haga una cuenta atrás.",
+    "body": [
+      "`while` repite su bloque **mientras** la condición sea verdadera. Antes de cada vuelta, Python vuelve a mirar `savings < goal`: con 0, 22, 44, 66 y 88 euros sigue; al llegar a 110 la condición es falsa y el bucle termina.",
+      "Dentro del bucle algo tiene que cambiar para que acabe alguna vez. `week += 1` es una forma corta de `week = week + 1`, y `savings += 22` suma el ahorro de la semana. Si nada cambiara, el bucle no terminaría nunca (un **bucle infinito**).",
+      "Al salir del bucle, las variables conservan su último valor: por eso se puede decir que se tardó `5` semanas y que sobran `10` euros.",
+      "La cuenta atrás hace lo contrario: empieza en 3 y resta con `count -= 1` hasta que `count > 0` deja de cumplirse. Entonces se ejecuta la línea sin sangría que va después: «Lift-off!»."
+    ],
+    "points": [
+      "`while condición:` repite mientras la condición sea `True`.",
+      "Algo del bucle tiene que acercarlo al final.",
+      "`x += 1` suma 1 a `x`; `x -= 1` le resta 1.",
+      "Si la condición es falsa desde el principio, el bloque no se ejecuta ninguna vez."
+    ],
+    "exercise": "Cambie el ahorro para que cada semana se guarde 5 euros más que la anterior (22, 27, 32…) y vea en cuántas semanas se llega a una bicicleta de 250 euros."
+  },
+  "en": {
+    "slug": "while-loops",
+    "title": "Repeating with while",
+    "summary": "Repeat code in Python with while as long as a condition holds: save up for a bike week by week and run a countdown.",
+    "body": [
+      "`while` repeats its block **as long as** the condition is true. Before each round, Python checks `savings < goal` again: with 0, 22, 44, 66 and 88 euros it carries on; at 110 the condition is false and the loop stops.",
+      "Something inside the loop must change so that it ends one day. `week += 1` is a short way of writing `week = week + 1`, and `savings += 22` adds the week's savings. If nothing changed, the loop would never end (an **infinite loop**).",
+      "After the loop, the variables keep their last value: that is how the program can say it took `5` weeks and there are `10` euros to spare.",
+      "The countdown goes the other way: it starts at 3 and subtracts with `count -= 1` until `count > 0` is no longer true. Then the unindented line after it runs: «Lift-off!»."
+    ],
+    "points": [
+      "`while condition:` repeats while the condition is `True`.",
+      "Something in the loop must bring it closer to the end.",
+      "`x += 1` adds 1 to `x`; `x -= 1` subtracts 1.",
+      "If the condition is false from the start, the block never runs."
+    ],
+    "exercise": "Change the savings so that each week you put away 5 euros more than the week before (22, 27, 32…) and find out how many weeks it takes to buy a 250-euro bike."
+  }
+}

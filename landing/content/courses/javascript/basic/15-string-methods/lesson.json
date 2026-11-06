@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "metodos-de-cadenas",
+    "title": "Métodos de las cadenas",
+    "summary": "Limpie y dé formato a textos en JavaScript con trim, split, join, replace, replaceAll, padStart, padEnd, slice, indexOf y repeat.",
+    "body": [
+      "El texto que escribe la gente suele venir con espacios de más. **`trim()`** quita los del principio y del final; los corchetes de la primera línea de salida muestran dónde empieza y acaba la cadena.",
+      "**`split(\",\")`** corta la cadena por cada coma y devuelve un array; con `map((p) => p.trim())` se limpia cada pizza. **`join(\" | \")`** hace lo contrario: une el array en una cadena con el separador que se le indique.",
+      "**`replace()`** cambia solo la primera vez que aparece un texto y **`replaceAll()`** las cambia todas, como se ve con las dos «Margarita» del aviso.",
+      "**`padEnd()`** y **`padStart()`** rellenan una cadena hasta una longitud, por la derecha o por la izquierda, con espacios o con el carácter que se elija. Así la carta sale en columnas, con los nombres rellenos de puntos y los precios alineados a la derecha, y el número de pedido sale como `00042`.",
+      "**`indexOf()`** da la posición de un texto y **`lastIndexOf()`** la de su última aparición; con **`slice()`** se recorta lo que hay entre ellas. **`repeat()`** repite una cadena, útil para dibujar líneas."
+    ],
+    "points": [
+      "`trim` quita los espacios de los extremos.",
+      "`split` convierte texto en array; `join`, array en texto.",
+      "`replace` cambia la primera aparición; `replaceAll`, todas.",
+      "`padStart` y `padEnd` alinean en columnas.",
+      "Ningún método cambia la cadena original."
+    ],
+    "exercise": "A partir de la cadena `\"  ana, LUIS ,marta \"`, obtenga los nombres limpios, con la primera letra en mayúscula, y escríbalos separados por comas con `join`."
+  },
+  "en": {
+    "slug": "string-methods",
+    "title": "String methods",
+    "summary": "Clean and format text in JavaScript with trim, split, join, replace, replaceAll, padStart, padEnd, slice, indexOf and repeat.",
+    "body": [
+      "Text typed by people often comes with extra spaces. **`trim()`** removes the ones at the start and end; the square brackets in the first line of output show where the string begins and ends.",
+      "**`split(\",\")`** cuts the string at every comma and returns an array; `map((p) => p.trim())` then cleans each pizza. **`join(\" | \")`** does the opposite: it glues the array back into a string with the separator you choose.",
+      "**`replace()`** changes only the first occurrence of some text and **`replaceAll()`** changes them all, as you can see with the two Margaritas in the notice.",
+      "**`padEnd()`** and **`padStart()`** fill a string up to a length, on the right or on the left, with spaces or any character you pick. That puts the menu in columns, with dotted names and prices aligned to the right, and turns the order number into `00042`.",
+      "**`indexOf()`** gives the position of some text and **`lastIndexOf()`** that of its last occurrence; **`slice()`** cuts out what lies between them. **`repeat()`** repeats a string, handy for drawing lines."
+    ],
+    "points": [
+      "`trim` removes spaces at both ends.",
+      "`split` turns text into an array; `join` turns an array into text.",
+      "`replace` changes the first occurrence; `replaceAll` all of them.",
+      "`padStart` and `padEnd` line text up in columns.",
+      "No method changes the original string."
+    ],
+    "exercise": "Starting from the string `\"  ana, LUIS ,marta \"`, get the clean names with a capital first letter and print them separated by commas with `join`."
+  }
+}

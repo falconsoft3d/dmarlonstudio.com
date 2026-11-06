@@ -40,11 +40,15 @@ Hechos
 44. Pascal + Odoo: descarga en la página Demos (capturas y compilación con Lazarus en GitHub) y probado con Odoo 8 | ✅ |
 45. Captura del carrito de la tienda Flutter (paso 3 de su página) | ✅ |
 47. Odoo sin conexión (Pascal): obras y presupuestos BIM 2.0 por conceptos, sin conexión y subida a Odoo sin duplicados, con el aspecto del árbol de BIM (probado en Odoo 18 y 20) | ✅ |
+48. Demos: la de Pascal ya no se cierra al tocar un campo de texto y cada demo lleva su icono (macOS y Windows) | ✅ |
+49. 500 iconos de aplicación en el estudio: se asignan solos por el nombre del proyecto y se cambian en la Galería | ✅ |
 
 
 Trabajando
 =========
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
+50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
+51. Cursos en la web (menú Cursos): 7 lenguajes, básico y avanzado de 20 ejemplos con su imagen y su salida real. Hechos: Python básico, JavaScript básico | ⏳ |
 
 
 Pendiente

@@ -1,2 +1,5 @@
 .DS_Store
 *.zip
+
+# Demos compiladas en local para probarlas (scripts/build_demos.py)
+demos-local/

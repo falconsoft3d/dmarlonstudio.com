@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "numeros-y-math",
+    "title": "Números y Math",
+    "summary": "Haga cuentas en JavaScript: operadores, resto con %, potencias, redondeo con toFixed y las funciones del objeto Math, con ejemplos prácticos.",
+    "body": [
+      "En JavaScript todos los números son del tipo `number`, tengan decimales o no. Las operaciones básicas son `+`, `-`, `*` y `/`. La superficie de la habitación es `width * length`; `Math.round()` la redondea al entero más próximo y **`toFixed(2)`** la escribe con dos decimales (como texto).",
+      "La división `/` siempre da el resultado exacto: `27 / 12` es `2.25`. Para saber cuántas cajas de 12 huevos se llenan se usa **`Math.floor()`**, que redondea hacia abajo, y para los huevos que sobran, el **resto** `%`: `27 % 12` es `3`.",
+      "`**` eleva a una potencia y `Math.sqrt()` calcula la raíz cuadrada. `Math.max()` y `Math.min()` devuelven el mayor y el menor de los números que reciban, y **`Math.ceil()`** redondea hacia arriba: con 130 personas y autobuses de 55 plazas hacen falta 3.",
+      "Los decimales se guardan en binario y algunos no son exactos: `0.1 + 0.2` da `0.30000000000000004`. Para mostrar dinero o medidas, redondee con `toFixed()`.",
+      "`Number()` convierte un texto en número y `parseInt()` lee el número entero del principio de un texto, como `\"15 kg\"`. Si el texto no es un número, el resultado es **`NaN`** («no es un número»)."
+    ],
+    "points": [
+      "`%` es el resto de la división.",
+      "`Math.floor` redondea hacia abajo, `Math.ceil` hacia arriba y `Math.round` al más próximo.",
+      "`toFixed(n)` da un texto con `n` decimales.",
+      "Los decimales no siempre son exactos: redondee al mostrarlos.",
+      "`Number(\"abc\")` da `NaN`."
+    ],
+    "exercise": "Calcule cuántas cajas de 6 botellas hacen falta para 50 botellas y cuántas sobran en la última caja, y el precio de 7 botellas a 1.35 euros con dos decimales."
+  },
+  "en": {
+    "slug": "numbers-and-math",
+    "title": "Numbers and Math",
+    "summary": "Do maths in JavaScript: operators, the remainder with %, powers, rounding with toFixed and the functions of the Math object, with practical examples.",
+    "body": [
+      "In JavaScript all numbers are of type `number`, with or without decimals. The basic operators are `+`, `-`, `*` and `/`. The room's area is `width * length`; `Math.round()` rounds it to the nearest whole number and **`toFixed(2)`** writes it with two decimals (as text).",
+      "Division with `/` always gives the exact result: `27 / 12` is `2.25`. To know how many boxes of 12 eggs get filled, use **`Math.floor()`**, which rounds down, and for the eggs left over, the **remainder** `%`: `27 % 12` is `3`.",
+      "`**` raises to a power and `Math.sqrt()` gives the square root. `Math.max()` and `Math.min()` return the largest and smallest of the numbers they receive, and **`Math.ceil()`** rounds up: 130 people on 55-seat buses need 3 buses.",
+      "Decimals are stored in binary and some are not exact: `0.1 + 0.2` gives `0.30000000000000004`. To show money or measurements, round them with `toFixed()`.",
+      "`Number()` turns text into a number and `parseInt()` reads the whole number at the start of a text, like `\"15 kg\"`. If the text is not a number, the result is **`NaN`** (Not a Number)."
+    ],
+    "points": [
+      "`%` is the remainder of a division.",
+      "`Math.floor` rounds down, `Math.ceil` up and `Math.round` to the nearest.",
+      "`toFixed(n)` gives a string with `n` decimals.",
+      "Decimals are not always exact: round them when you show them.",
+      "`Number(\"abc\")` gives `NaN`."
+    ],
+    "exercise": "Work out how many boxes of 6 bottles you need for 50 bottles and how many go in the last box, and the price of 7 bottles at 1.35 euros with two decimals."
+  }
+}

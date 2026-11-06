@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Su primer programa en JavaScript: console.log() escribe texto y resultados en la consola. Ejecútelo con Node.js en DMarlon Studio.",
+    "body": [
+      "Todo programa empieza por mostrar algo. En JavaScript se hace con `console.log()`: escribe en la consola lo que le pase entre paréntesis y salta a la línea siguiente. Cada orden termina con un punto y coma `;`.",
+      "El texto va entre comillas (es una **cadena**). Los números van sin comillas y JavaScript hace las cuentas antes de escribirlas: `2 + 3` sale como `5`. Fíjese en que los decimales se escriben con punto, no con coma: `1.5`.",
+      "Si separa varios valores con comas, `console.log()` los escribe todos en la misma línea, con un espacio entre ellos. Así se mezcla texto y resultado, como en `\"2 + 3 =\", 2 + 3`.",
+      "Las líneas que empiezan por `//` son **comentarios**: JavaScript las ignora y sirven para explicar el código. Para un comentario de varias líneas se usa `/* ... */`.",
+      "JavaScript nació en el navegador, pero con **Node.js** se ejecuta también en el ordenador, como aquí. En DMarlon Studio es además el lenguaje de los destinos Electron, React, Next.js y React Native."
+    ],
+    "points": [
+      "`console.log()` escribe una línea en la consola.",
+      "Los textos van entre comillas; los números, no.",
+      "Con comas, `console.log()` escribe varios valores separados por un espacio.",
+      "`//` empieza un comentario de una línea; `/* */` abarca varias."
+    ],
+    "exercise": "Cambie el programa para que escriba su nombre y su edad, y en otra línea cuántos años tendrá dentro de 10 (que lo calcule JavaScript)."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Your first JavaScript program: console.log() writes text and results to the console. Run it with Node.js in DMarlon Studio.",
+    "body": [
+      "Every program starts by showing something. In JavaScript you use `console.log()`: it writes whatever you put inside the parentheses to the console and moves to the next line. Each statement ends with a semicolon `;`.",
+      "Text goes between quotes (it is a **string**). Numbers go without quotes, and JavaScript does the maths before printing: `2 + 3` comes out as `5`. Decimals use a dot: `1.5`.",
+      "If you separate several values with commas, `console.log()` prints them all on the same line with a space in between. That is how you mix text and results, as in `\"2 + 3 =\", 2 + 3`.",
+      "Lines starting with `//` are **comments**: JavaScript ignores them, and they explain the code to whoever reads it. For a comment over several lines, use `/* ... */`.",
+      "JavaScript was born in the browser, but **Node.js** runs it on your computer too, as here. In DMarlon Studio it is also the language of the Electron, React, Next.js and React Native targets."
+    ],
+    "points": [
+      "`console.log()` writes a line to the console.",
+      "Text goes between quotes; numbers do not.",
+      "With commas, `console.log()` prints several values separated by a space.",
+      "`//` starts a one-line comment; `/* */` spans several lines."
+    ],
+    "exercise": "Change the program so it prints your name and age, and on another line how old you will be in 10 years (let JavaScript work it out)."
+  }
+}

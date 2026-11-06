@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones",
+    "title": "Funciones",
+    "summary": "Cree sus propias funciones en Python con def, páseles datos y devuelva resultados con return, con los tiques de una cafetería.",
+    "body": [
+      "Una **función** es un bloque de código con nombre que se puede usar tantas veces como haga falta. Se crea con `def`, el nombre, paréntesis y dos puntos; el cuerpo va con sangría. Crearla no la ejecuta: `welcome()` la **llama**, y entonces se escriben el saludo y la raya.",
+      "Entre los paréntesis se pueden poner **parámetros**: nombres que reciben los valores de la llamada. En `serve(\"latte\")`, `drink` vale `\"latte\"`; en la siguiente llamada vale `\"hot chocolate\"`. Así, una sola función sirve para cualquier bebida.",
+      "`return` **devuelve** un resultado a quien llamó. `with_vat(2.50)` calcula el precio con el 21 % de IVA y lo devuelve, de modo que la llamada se puede usar dentro de una f-string, guardar en una variable o sumar con otra: `with_vat(3.00) + with_vat(1.80)`.",
+      "Una función puede llamar a otras: `receipt_line()` usa `with_vat()` para escribir cada línea del tique con el nombre alineado a la izquierda y el precio a la derecha."
+    ],
+    "points": [
+      "`def nombre(parámetros):` crea una función.",
+      "La función solo se ejecuta cuando se la llama: `nombre(...)`.",
+      "Los parámetros reciben los valores de la llamada.",
+      "`return` devuelve un resultado que se puede guardar o usar."
+    ],
+    "exercise": "Escriba una función `to_fahrenheit(celsius)` que devuelva `celsius * 9 / 5 + 32` y úsela en un `for` para convertir 0, 20, 37 y 100 grados."
+  },
+  "en": {
+    "slug": "functions",
+    "title": "Functions",
+    "summary": "Create your own Python functions with def, pass them data and send results back with return, while printing a café's receipts.",
+    "body": [
+      "A **function** is a named block of code you can use as many times as you like. You create it with `def`, the name, parentheses and a colon; the body is indented. Creating it does not run it: `welcome()` **calls** it, and only then are the greeting and the line printed.",
+      "Inside the parentheses you can put **parameters**: names that receive the values of the call. In `serve(\"latte\")`, `drink` is `\"latte\"`; in the next call it is `\"hot chocolate\"`. So one function works for any drink.",
+      "`return` **sends a result back** to the caller. `with_vat(2.50)` works out the price with 21 % VAT and returns it, so the call can go inside an f-string, be stored in a variable or be added to another: `with_vat(3.00) + with_vat(1.80)`.",
+      "A function can call other functions: `receipt_line()` uses `with_vat()` to print each line of the receipt, with the name aligned left and the price aligned right."
+    ],
+    "points": [
+      "`def name(parameters):` creates a function.",
+      "The function only runs when you call it: `name(...)`.",
+      "Parameters receive the values of the call.",
+      "`return` sends back a result you can store or use."
+    ],
+    "exercise": "Write a `to_fahrenheit(celsius)` function that returns `celsius * 9 / 5 + 32` and use it in a `for` loop to convert 0, 20, 37 and 100 degrees."
+  }
+}

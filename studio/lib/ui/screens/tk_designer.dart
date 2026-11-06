@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -48,6 +49,7 @@ import '../tk_project.dart';
 import '../bottom_panel.dart';
 import '../code_complete_view.dart';
 import '../code_find_panel.dart';
+import '../app_icons.dart';
 import '../icon_ai.dart';
 import '../theme.dart';
 import '../widgets.dart';
@@ -1095,10 +1097,12 @@ class _TkEditorState extends State<_TkEditor> {
     ProjectStore.savedConnections().then((c) {
       if (mounted) setState(() => _connections = c);
     });
+    _autoIcon();
   }
 
   @override
   void dispose() {
+    _iconTimer?.cancel();
     TkProject.changes.removeListener(_onProject);
     _run?.removeListener(_onRun);
     _testsRun?.removeListener(_onRun);
@@ -3038,6 +3042,68 @@ class _TkEditorState extends State<_TkEditor> {
     ),
   );
 
+  Timer? _iconTimer;
+
+  /// El icono automático (app_icons.dart): si el proyecto no tiene, o el
+  /// suyo lo puso el estudio y el nombre cambió, se dibuja uno del catálogo.
+  /// Si el proyecto estaba guardado, sigue guardado.
+  Future<void> _autoIcon() async {
+    final clean = !doc.dirty;
+    try {
+      if (!await ensureAutoAppIcon(doc.id, d, doc.name, doc.description)) {
+        return;
+      }
+      if (clean) {
+        await doc.save();
+      } else {
+        doc.touch();
+      }
+    } catch (_) {
+      return; // sin icono no se rompe nada: se intenta al abrir otra vez
+    }
+    if (!mounted) return;
+    imageCache.clear();
+    setState(() {});
+  }
+
+  /// Tras escribir el nombre, el icono automático lo sigue.
+  void _autoIconSoon() {
+    _iconTimer?.cancel();
+    _iconTimer = Timer(const Duration(milliseconds: 900), _autoIcon);
+  }
+
+  /// La galería de los 500 iconos: el elegido se queda aunque cambie el
+  /// nombre.
+  Future<void> _iconFromGallery() async {
+    final pick = await showAppIconGallery(
+      context,
+      initial:
+          AppIconPick.parse(d.props['app_icon_auto'] as String?) ??
+          AppIconPick.parse(d.props['app_icon_pick'] as String?) ??
+          autoAppIcon(doc.name, doc.description),
+    );
+    if (pick == null || !mounted) return;
+    await runAction(context, () async {
+      _begin();
+      await writeAppIcon(doc.id, d, pick, auto: false);
+      d.props['app_icon_pick'] = pick.key;
+    });
+    if (!mounted) return;
+    imageCache.clear();
+    _changed();
+  }
+
+  /// Vuelve al icono automático.
+  Future<void> _iconAuto() async {
+    _begin();
+    d.appIcon = null;
+    d.props
+      ..remove('app_icon_auto')
+      ..remove('app_icon_pick');
+    _changed();
+    await _autoIcon();
+  }
+
   /// Elige el icono de la aplicación con el diálogo de archivos y lo copia a
   /// images/ del proyecto (así viaja con él).
   Future<void> _chooseIcon() async {
@@ -3061,6 +3127,9 @@ class _TkEditorState extends State<_TkEditor> {
       _begin();
       setState(() {
         d.appIcon = rel;
+        d.props
+          ..remove('app_icon_auto')
+          ..remove('app_icon_pick');
         _changed();
       });
       // Una imagen nueva con el mismo nombre: que no se vea la de antes.
@@ -3083,6 +3152,9 @@ class _TkEditorState extends State<_TkEditor> {
     _begin();
     setState(() {
       d.appIcon = rel;
+      d.props
+        ..remove('app_icon_auto')
+        ..remove('app_icon_pick');
       _changed();
     });
   }
@@ -3114,6 +3186,7 @@ class _TkEditorState extends State<_TkEditor> {
               ..name = v.trim()
               ..touch();
             setState(() {});
+            _autoIconSoon();
           },
         ),
         label(tr('Descripción')),
@@ -3127,6 +3200,7 @@ class _TkEditorState extends State<_TkEditor> {
             doc
               ..description = v
               ..touch();
+            _autoIconSoon();
           },
         ),
         label(tr('Destino')),
@@ -3208,9 +3282,14 @@ class _TkEditorState extends State<_TkEditor> {
                   spacing: 4,
                   children: [
                     FilledButton.tonal(
+                      key: const ValueKey('tk-project-icon-gallery'),
+                      onPressed: _iconFromGallery,
+                      child: Text(tr('Galería…')),
+                    ),
+                    TextButton(
                       key: const ValueKey('tk-project-icon'),
                       onPressed: _chooseIcon,
-                      child: Text(tr('Elegir…')),
+                      child: Text(tr('Archivo…')),
                     ),
                     TextButton.icon(
                       key: const ValueKey('tk-project-icon-ai'),
@@ -3218,14 +3297,11 @@ class _TkEditorState extends State<_TkEditor> {
                       icon: const Icon(LucideIcons.sparkles, size: 15),
                       label: Text(tr('Generar con IA')),
                     ),
-                    if (icon != null)
+                    if (!appIconIsAuto(d))
                       TextButton(
-                        onPressed: () => setState(() {
-                          _begin();
-                          d.appIcon = null;
-                          _changed();
-                        }),
-                        child: Text(tr('Quitar')),
+                        key: const ValueKey('tk-project-icon-auto'),
+                        onPressed: _iconAuto,
+                        child: Text(tr('Automático')),
                       ),
                   ],
                 ),
@@ -3234,9 +3310,13 @@ class _TkEditorState extends State<_TkEditor> {
           ),
           const SizedBox(height: 6),
           Text(
-            tr(
-              'Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino.',
-            ),
+            appIconIsAuto(d)
+                ? tr(
+                    'Automático: el estudio elige uno de sus 500 iconos por el nombre del proyecto y lo cambia si cambia el nombre. En la Galería puede elegir otro y su color; en Archivo, un PNG propio (256 × 256 o más).',
+                  )
+                : tr(
+                    'Elegido por usted: se queda aunque cambie el nombre. Está en la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino.',
+                  ),
             style: TextStyle(fontSize: 11.5, color: t.hintColor),
           ),
         ],

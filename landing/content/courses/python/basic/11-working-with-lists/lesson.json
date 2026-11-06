@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "trabajar-con-listas",
+    "title": "Trabajar con listas",
+    "summary": "Añada, quite y ordene elementos de una lista de Python con append, insert, remove, pop y sort, y tome partes con el troceado [a:b].",
+    "body": [
+      "Las listas tienen **métodos**: funciones que se escriben tras un punto y trabajan sobre esa lista. `append(\"apples\")` añade al final e `insert(0, \"coffee\")` añade en la posición indicada, aquí la primera.",
+      "`remove(\"bread\")` quita el primer elemento con ese valor. `pop()` quita el último y además lo **devuelve**, así que se puede guardar: `last` vale `apples`.",
+      "`sort()` ordena la lista de menor a mayor y la cambia en el sitio (no crea otra). Con `sort(reverse=True)` queda de mayor a menor: las mejores notas primero.",
+      "El **troceado** (*slicing*) toma una parte: `scores[1:4]` va de la posición 1 a la 3 (el final no entra). Si se omite el principio o el final, llega hasta el borde: `scores[:3]` son los tres primeros y `scores[3:]`, el resto. `scores[::-1]` la da al revés.",
+      "`index(88)` busca un valor y dice en qué posición está: `1`, porque tras ordenar de mayor a menor el 88 es el segundo."
+    ],
+    "points": [
+      "`append()` añade al final; `insert(i, x)` en la posición `i`.",
+      "`remove(x)` quita por valor; `pop()` quita el último y lo devuelve.",
+      "`sort()` ordena; `sort(reverse=True)`, al revés.",
+      "`lista[a:b]` va de `a` a `b - 1`; `lista[::-1]` invierte."
+    ],
+    "exercise": "Con la lista de notas, añada un `100` y un `47`, ordénela, y escriba las dos peores notas con un troceado y la mediana (el elemento del centro)."
+  },
+  "en": {
+    "slug": "working-with-lists",
+    "title": "Working with lists",
+    "summary": "Add, remove and sort the items of a Python list with append, insert, remove, pop and sort, and take parts of it with slicing [a:b].",
+    "body": [
+      "Lists have **methods**: functions written after a dot that work on that list. `append(\"apples\")` adds at the end and `insert(0, \"coffee\")` adds at the given position, here the very first.",
+      "`remove(\"bread\")` removes the first item with that value. `pop()` removes the last item and also **returns** it, so you can keep it: `last` is `apples`.",
+      "`sort()` puts the list in order from smallest to largest and changes it in place (it does not make a new one). With `sort(reverse=True)` it goes from largest to smallest: best scores first.",
+      "**Slicing** takes a part: `scores[1:4]` goes from position 1 to 3 (the end is left out). Leave out the start or the end and it runs to the edge: `scores[:3]` are the first three and `scores[3:]` the rest. `scores[::-1]` gives it backwards.",
+      "`index(88)` looks for a value and tells you its position: `1`, because after sorting from best to worst, 88 is the second one."
+    ],
+    "points": [
+      "`append()` adds at the end; `insert(i, x)` at position `i`.",
+      "`remove(x)` removes by value; `pop()` removes the last one and returns it.",
+      "`sort()` sorts; `sort(reverse=True)` the other way round.",
+      "`items[a:b]` goes from `a` to `b - 1`; `items[::-1]` reverses."
+    ],
+    "exercise": "Add a `100` and a `47` to the scores, sort the list, then print the two worst scores with a slice and the median (the middle item)."
+  }
+}

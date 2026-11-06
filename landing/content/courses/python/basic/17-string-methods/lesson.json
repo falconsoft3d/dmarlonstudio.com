@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "metodos-de-cadenas",
+    "title": "Métodos de cadenas",
+    "summary": "Limpie y transforme texto en Python con strip, split, join, lower, upper, replace, find y count, ordenando una lista de ingredientes.",
+    "body": [
+      "Las cadenas también tienen métodos. Ninguno cambia la cadena original (las cadenas no se pueden modificar): todos **devuelven una cadena nueva**. `strip()` quita los espacios del principio y del final; los corchetes de la salida muestran que los de en medio siguen ahí.",
+      "`split(\",\")` corta la cadena por cada coma y devuelve una **lista** de trozos, todavía con espacios sueltos y mayúsculas mezcladas.",
+      "El bucle limpia cada trozo encadenando métodos: `part.strip().lower()` primero quita los espacios y, sobre el resultado, pasa a minúsculas. Cada trozo limpio se añade con `append()` a `items`.",
+      "`join()` hace lo contrario que `split()`: une una lista en una sola cadena, poniendo entre cada elemento el texto sobre el que se llama, aquí `\" | \"`.",
+      "Con el título de la receta: `upper()` pasa a mayúsculas, `title()` pone mayúscula a cada palabra y `replace()` sustituye un texto por otro. `startswith()` responde `True` o `False`, `count()` cuenta cuántas veces aparece algo y `find()` dice en qué posición empieza (o `-1` si no está)."
+    ],
+    "points": [
+      "Los métodos de cadenas devuelven una cadena nueva.",
+      "`strip()` quita espacios de los extremos.",
+      "`texto.split(\",\")` da una lista; `\", \".join(lista)` la vuelve a unir.",
+      "`lower()`, `upper()` y `title()` cambian mayúsculas y minúsculas.",
+      "`replace()`, `find()` y `count()` buscan y sustituyen."
+    ],
+    "exercise": "Pida una frase con `input()` y escriba cuántas palabras tiene, la palabra más larga y la frase con cada palabra al revés."
+  },
+  "en": {
+    "slug": "string-methods",
+    "title": "String methods",
+    "summary": "Clean up and transform text in Python with strip, split, join, lower, upper, replace, find and count, tidying a list of ingredients.",
+    "body": [
+      "Strings have methods too. None of them changes the original string (strings cannot be modified): they all **return a new string**. `strip()` removes the spaces at the start and the end; the square brackets in the output show that the ones in the middle are still there.",
+      "`split(\",\")` cuts the string at every comma and returns a **list** of pieces, still with stray spaces and mixed capitals.",
+      "The loop cleans each piece by chaining methods: `part.strip().lower()` first removes the spaces and then turns the result into lower case. Each clean piece is added to `items` with `append()`.",
+      "`join()` does the opposite of `split()`: it glues a list into one string, putting the text it is called on between the items, here `\" | \"`.",
+      "With the recipe title, `upper()` turns it into capitals, `title()` capitalises each word and `replace()` swaps one piece of text for another. `startswith()` answers `True` or `False`, `count()` counts how many times something appears and `find()` tells you where it starts (or `-1` if it is not there)."
+    ],
+    "points": [
+      "String methods return a new string.",
+      "`strip()` removes spaces from both ends.",
+      "`text.split(\",\")` gives a list; `\", \".join(items)` glues it back.",
+      "`lower()`, `upper()` and `title()` change the case.",
+      "`replace()`, `find()` and `count()` search and replace."
+    ],
+    "exercise": "Ask for a sentence with `input()` and print how many words it has, its longest word, and the sentence with every word reversed."
+  }
+}

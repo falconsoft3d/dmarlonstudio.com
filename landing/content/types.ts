@@ -96,6 +96,7 @@ export type Content = {
     manual: string;
     dossier: string;
     demos: string;
+    courses: string;
   };
   mock: {
     save: string;

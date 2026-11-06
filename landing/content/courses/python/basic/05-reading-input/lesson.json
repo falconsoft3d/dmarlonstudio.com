@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "leer-del-teclado",
+    "title": "Leer del teclado",
+    "summary": "Pida datos al usuario con input() en Python y conviértalos en números con int() y float() para poder hacer cuentas con ellos.",
+    "body": [
+      "`input()` escribe el mensaje que le pase y espera a que el usuario teclee una línea y pulse Intro. Lo tecleado es el resultado: `name = input(\"What is your name? \")` lo guarda en `name`.",
+      "En este ejemplo las respuestas salen del archivo `input.txt` (como si alguien las tecleara), por eso no aparecen en la salida: solo se ve la pregunta y, a continuación, la contestación del programa. En la consola de DMarlon Studio puede escribirlas usted mismo.",
+      "`input()` siempre devuelve **texto**, aunque se teclee `29`. Para hacer cuentas hay que **convertirlo**: `int()` lo pasa a número entero y `float()` a número con decimales. `int(input(...))` hace las dos cosas en una línea: lee y convierte.",
+      "Con los números ya convertidos se calcula normalmente: la edad dentro de 10 años, la altura en centímetros (`{height * 100:.0f}`, sin decimales) y el precio de tres entradas de cine con dos decimales."
+    ],
+    "points": [
+      "`input(\"mensaje\")` lee una línea del teclado.",
+      "Lo que devuelve `input()` es siempre una cadena.",
+      "`int()` y `float()` convierten texto en números.",
+      "Si el texto no es un número, la conversión falla (lo resolverá más adelante con `try`)."
+    ],
+    "exercise": "Pida también el nombre de la película y escriba al final una frase como «3 tickets for Dune cost 25.50 euros.». Añada la respuesta a `input.txt`."
+  },
+  "en": {
+    "slug": "reading-input",
+    "title": "Reading from the keyboard",
+    "summary": "Ask the user for data with input() in Python and convert it into numbers with int() and float() so you can do maths with it.",
+    "body": [
+      "`input()` prints the message you give it and waits for the user to type a line and press Enter. What they type is the result: `name = input(\"What is your name? \")` stores it in `name`.",
+      "In this example the answers come from the `input.txt` file (as if someone were typing them), so they do not appear in the output: you only see each question followed by the program's reply. In the DMarlon Studio console you can type them yourself.",
+      "`input()` always returns **text**, even if you type `29`. To do maths you have to **convert** it: `int()` turns it into a whole number and `float()` into a number with decimals. `int(input(...))` does both in one line: it reads and converts.",
+      "Once converted, the numbers work as usual: your age in 10 years, your height in centimetres (`{height * 100:.0f}`, no decimals) and the price of three cinema tickets with two decimals."
+    ],
+    "points": [
+      "`input(\"message\")` reads a line from the keyboard.",
+      "`input()` always returns a string.",
+      "`int()` and `float()` turn text into numbers.",
+      "If the text is not a number, the conversion fails (you will handle that later with `try`)."
+    ],
+    "exercise": "Also ask for the film's name and end with a sentence such as «3 tickets for Dune cost 25.50 euros.». Add the answer to `input.txt`."
+  }
+}

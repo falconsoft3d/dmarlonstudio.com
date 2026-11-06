@@ -13,6 +13,7 @@ export const en: Content = {
       { href: "/en#designer", label: "Designer" },
       { href: "/en#editor", label: "Editor" },
       { href: "/en/demos", label: "Demos" },
+      { href: "/en/courses", label: "Courses" },
       { href: "/en/manual", label: "Manual" },
       { href: "/en/dossier", label: "Dossier" },
       { href: "/en/changelog", label: "Changelog" },
@@ -241,6 +242,7 @@ export const en: Content = {
     manual: "Manual",
     dossier: "Dossier",
     demos: "Demos",
+    courses: "Courses",
   },
   mock: {
     save: "Save",

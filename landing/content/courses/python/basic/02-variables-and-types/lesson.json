@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "variables-y-tipos",
+    "title": "Variables y tipos",
+    "summary": "Guarde datos en variables de Python y descubra sus tipos (str, float, int y bool) con type(), con el ejemplo de una tienda.",
+    "body": [
+      "Una **variable** es un nombre que apunta a un valor. Se crea al darle un valor con `=`: `product = \"Coffee mug\"` guarda un texto con el nombre `product`. A partir de ahí, basta con escribir el nombre para usar el valor, como hace `print(\"Product:\", product)`.",
+      "Cada valor tiene un **tipo**. El texto entre comillas es `str` (cadena); `12` es `int` (número entero); `7.5` es `float` (número con decimales), y `True` o `False` son `bool` (verdadero o falso). Python deduce el tipo solo: no hay que declararlo.",
+      "La función `type()` dice de qué tipo es un valor. Por eso la salida muestra `<class 'str'>`, `<class 'float'>`, `<class 'int'>` y `<class 'bool'>`, uno por cada variable de la tienda.",
+      "Una variable puede cambiar. `stock = stock - 3` calcula primero la parte de la derecha con el valor actual (12 − 3) y guarda el resultado en `stock`, que pasa a valer `9`."
+    ],
+    "points": [
+      "`=` guarda un valor en una variable (no es «igual a»).",
+      "Los tipos básicos son `str`, `int`, `float` y `bool`.",
+      "`type()` dice el tipo de un valor.",
+      "Los nombres van en minúsculas y con guion bajo: `on_sale`."
+    ],
+    "exercise": "Añada una variable `rating` con la nota del producto (por ejemplo, `4.6`), escríbala con su tipo y súbale el precio a `price` en 2 euros."
+  },
+  "en": {
+    "slug": "variables-and-types",
+    "title": "Variables and types",
+    "summary": "Store data in Python variables and find out their types (str, float, int and bool) with type(), using a small shop as the example.",
+    "body": [
+      "A **variable** is a name that points to a value. You create it by giving it a value with `=`: `product = \"Coffee mug\"` stores some text under the name `product`. From then on, writing the name is enough to use the value, as `print(\"Product:\", product)` does.",
+      "Every value has a **type**. Text between quotes is a `str` (string); `12` is an `int` (whole number); `7.5` is a `float` (number with decimals); and `True` or `False` are `bool` (yes or no). Python works out the type by itself: you never declare it.",
+      "The `type()` function tells you what type a value is. That is why the output shows `<class 'str'>`, `<class 'float'>`, `<class 'int'>` and `<class 'bool'>`, one for each variable of the shop.",
+      "A variable can change. `stock = stock - 3` first works out the right-hand side with the current value (12 − 3) and stores the result back in `stock`, which is now `9`."
+    ],
+    "points": [
+      "`=` stores a value in a variable (it does not mean «equals»).",
+      "The basic types are `str`, `int`, `float` and `bool`.",
+      "`type()` tells you the type of a value.",
+      "Names are lower case with underscores: `on_sale`."
+    ],
+    "exercise": "Add a `rating` variable with the product's score (say `4.6`), print it with its type, and raise `price` by 2 euros."
+  }
+}

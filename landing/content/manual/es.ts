@@ -471,7 +471,9 @@ export const manualEs: Manual = {
             {
               type: "ul",
               items: [
-                "**Elegir…** abre el diálogo de archivos: el PNG se copia a `images/` del proyecto.",
+                "**Icono automático**: todo proyecto con ventana lleva uno sin hacer nada. El estudio lo elige entre sus 500 iconos por las palabras del nombre y de la descripción («Calculadora», «Tienda online», «Obras BIM»…), con un color fijo para ese nombre, y lo guarda en `images/app_icon.png`. Si cambia el nombre, el icono lo sigue.",
+                "**Galería…** muestra los 500 iconos con un buscador (en español o en inglés) y 12 colores. El que elija se queda aunque cambie el nombre; **Automático** vuelve al que pone el estudio.",
+                "**Archivo…** abre el diálogo de archivos: el PNG se copia a `images/` del proyecto.",
                 "**Generar con IA** dibuja el icono a partir de una descripción (con la IA de Ajustes) y lo guarda como PNG de 512 × 512. Antes de usarlo se ve y se puede pedir otra versión.",
                 "Cada destino lo usa: el icono de la ventana (tkinter, Electron, C++), el de la extensión de Chrome o el de la web de Next.js.",
                 "**Subproyectos**: un proyecto puede tener partes con su propio destino (por ejemplo, «Odoo» con «bd» en Python y «front» en Next.js). Se crean con **Añadir subproyecto…**, cuelgan del nodo Proyecto y un clic los abre en su pestaña; cada uno es una carpeta dentro de la del proyecto.",

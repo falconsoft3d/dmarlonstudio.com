@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays",
+    "title": "Arrays: listas de valores",
+    "summary": "Guarde listas en arrays de JavaScript: índices desde 0, length, cambiar elementos, recorrerlos con for y for...of, y arrays de arrays.",
+    "body": [
+      "Un **array** es una lista ordenada de valores entre corchetes, separados por comas. `fruits` guarda cuatro cadenas y **`length`** dice cuántas hay.",
+      "Cada elemento tiene una posición, su **índice**, que empieza en 0: `fruits[0]` es el primero y `fruits[fruits.length - 1]` el último. Si pide una posición que no existe, como `fruits[10]`, obtiene `undefined`, no un error.",
+      "Con el índice también se cambia un elemento: `fruits[1] = \"kiwi\"`. Fíjese en que `fruits` es `const` y aun así se puede modificar: `const` impide asignar otro array a la variable, no cambiar lo que hay dentro.",
+      "Para recorrer un array hay dos formas. El `for` clásico usa el índice `i` de `0` a `length - 1` y suma las temperaturas para sacar la media. **`for...of`** da directamente cada valor, sin índices, y es más claro cuando no hace falta la posición, como al contar los días de 22 grados o más.",
+      "Un array puede contener otros arrays: el tablero de tres en raya es una lista de tres filas, y `board[1][1]` es la casilla del centro (fila 1, columna 1)."
+    ],
+    "points": [
+      "Los índices empiezan en 0; el último es `length - 1`.",
+      "Una posición que no existe da `undefined`.",
+      "Un array `const` se puede modificar, pero no reasignar.",
+      "`for...of` recorre los valores sin índices."
+    ],
+    "exercise": "Añada un array con las notas de cinco exámenes y escriba la nota más alta, la más baja (recorriéndolo con `for...of`) y la media con un decimal."
+  },
+  "en": {
+    "slug": "arrays",
+    "title": "Arrays: lists of values",
+    "summary": "Store lists in JavaScript arrays: indexes from 0, length, changing elements, looping with for and for...of, and arrays of arrays.",
+    "body": [
+      "An **array** is an ordered list of values in square brackets, separated by commas. `fruits` holds four strings and **`length`** tells you how many there are.",
+      "Each element has a position, its **index**, starting at 0: `fruits[0]` is the first and `fruits[fruits.length - 1]` the last. Ask for a position that does not exist, like `fruits[10]`, and you get `undefined`, not an error.",
+      "The index also lets you change an element: `fruits[1] = \"kiwi\"`. Notice that `fruits` is a `const` and can still be modified: `const` stops you assigning another array to the variable, not changing what is inside.",
+      "There are two ways to loop over an array. The classic `for` uses the index `i` from `0` to `length - 1` and adds up the temperatures for the average. **`for...of`** gives you each value directly, without indexes, and reads better when you do not need the position, as when counting the days of 22 degrees or more.",
+      "An array can hold other arrays: the noughts and crosses board is a list of three rows, and `board[1][1]` is the centre square (row 1, column 1)."
+    ],
+    "points": [
+      "Indexes start at 0; the last one is `length - 1`.",
+      "A position that does not exist gives `undefined`.",
+      "A `const` array can be modified, but not reassigned.",
+      "`for...of` goes through the values without indexes."
+    ],
+    "exercise": "Add an array with five exam grades and print the highest and lowest (looping with `for...of`) and the average with one decimal."
+  }
+}

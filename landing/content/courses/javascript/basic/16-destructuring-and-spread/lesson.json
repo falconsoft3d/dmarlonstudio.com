@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "desestructuracion-y-spread",
+    "title": "Desestructuración y spread",
+    "summary": "Saque valores de arrays y objetos con la desestructuración de JavaScript, y copie o combine datos con el operador spread (...).",
+    "body": [
+      "La **desestructuración** saca valores de un array y los guarda en variables de una vez. `const [gold, silver, bronze, ...rest] = podium` toma los tres primeros pilotos por orden y, con `...rest`, mete los que quedan en otro array.",
+      "Con la misma idea se intercambian dos variables sin una auxiliar: `[home, away] = [away, home]` crea un array con los valores cambiados de sitio y lo desestructura en las mismas variables.",
+      "Con objetos se desestructura **por nombre**, no por posición: `const { name, level } = player` crea las variables `name` y `level` con esos valores. Si la propiedad no existe, se le puede dar un valor por defecto, como `lives = 3`.",
+      "La desestructuración también funciona en los parámetros de una función, `({ name, coins }) =>`, y en un `for...of`: `Object.entries()` devuelve pares `[clave, valor]` y `[item, qty]` los separa.",
+      "El **operador spread** `...` hace lo contrario: despliega un array o un objeto. `[...weekA, ...weekB, 30]` une dos arrays y añade un valor, `Math.max(...scores)` pasa cada número como un argumento y `{ ...player, level: 13 }` copia el objeto cambiando algunas propiedades, sin tocar el original. Es el patrón con el que React actualiza su estado."
+    ],
+    "points": [
+      "`const [a, b] = array` saca valores por posición.",
+      "`const { x, y } = objeto` saca valores por nombre.",
+      "`...rest` recoge lo que sobra.",
+      "`[...a, ...b]` y `{ ...obj, clave: valor }` copian y combinan sin cambiar el original."
+    ],
+    "exercise": "Con desestructuración, guarde el primero y el cuarto del podio saltando los demás con comas (`const [winner, , , fourth] = podium`), y cree una copia de `player` con 100 monedas más y una propiedad nueva `team`."
+  },
+  "en": {
+    "slug": "destructuring-and-spread",
+    "title": "Destructuring and spread",
+    "summary": "Unpack values from arrays and objects with JavaScript destructuring, and copy or combine data with the spread operator (...).",
+    "body": [
+      "**Destructuring** takes values out of an array and stores them in variables in one go. `const [gold, silver, bronze, ...rest] = podium` takes the first three drivers in order and, with `...rest`, puts the others in another array.",
+      "The same idea swaps two variables without a temporary one: `[home, away] = [away, home]` builds an array with the values swapped round and destructures it into the same variables.",
+      "Objects are destructured **by name**, not by position: `const { name, level } = player` creates the variables `name` and `level` with those values. If a property does not exist, it can get a default value, like `lives = 3`.",
+      "Destructuring also works in a function's parameters, `({ name, coins }) =>`, and in a `for...of`: `Object.entries()` returns `[key, value]` pairs and `[item, qty]` splits them.",
+      "The **spread operator** `...` does the opposite: it unpacks an array or object. `[...weekA, ...weekB, 30]` joins two arrays and adds a value, `Math.max(...scores)` passes each number as a separate argument and `{ ...player, level: 13 }` copies the object while changing some properties, leaving the original alone. It is the pattern React uses to update its state."
+    ],
+    "points": [
+      "`const [a, b] = array` unpacks by position.",
+      "`const { x, y } = object` unpacks by name.",
+      "`...rest` collects whatever is left.",
+      "`[...a, ...b]` and `{ ...obj, key: value }` copy and combine without changing the original."
+    ],
+    "exercise": "Use destructuring to get the first and fourth drivers, skipping the others with commas (`const [winner, , , fourth] = podium`), and make a copy of `player` with 100 more coins and a new `team` property."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "errores-con-try-except",
+    "title": "Errores con try y except",
+    "summary": "Capture los errores de su programa de Python con try y except para que no se detenga: números mal escritos, divisiones por cero y claves que faltan.",
+    "body": [
+      "Cuando algo sale mal, Python lanza una **excepción** y, si nadie la atiende, el programa se detiene con un mensaje de error. `try` permite intentarlo: si algo dentro del bloque falla, Python salta al `except` en vez de pararse.",
+      "En el primer bucle, `int(\"seven\")` y `int(\"3.5\")` lanzan un `ValueError`. El `except ValueError:` escribe un aviso y el bucle sigue con el siguiente texto, así que el total suma solo `42` y `15`.",
+      "Un `try` puede tener varios `except`, uno por tipo de error. En `slices_each()`, dividir entre `0` da `ZeroDivisionError`, y dividir entre un texto, `TypeError`. El bloque `else` solo se ejecuta si **no** hubo error: es donde se escribe el resultado bueno.",
+      "Con `except KeyError as error:` se guarda el propio error en una variable para mostrarlo. Al pedir la clave `\"juice\"`, que no existe en el diccionario, el mensaje dice exactamente cuál falta."
+    ],
+    "points": [
+      "El código que puede fallar va dentro de `try:`.",
+      "`except TipoDeError:` atiende solo ese tipo de error.",
+      "`else:` se ejecuta si no hubo ningún error.",
+      "`except ... as e:` da acceso al error y su mensaje.",
+      "Capture errores concretos, no todos a la vez."
+    ],
+    "exercise": "Escriba una función `ask_number()` que lea un número con `input()` y, si no es válido, lo vuelva a pedir dentro de un `while` hasta que lo sea. Pruébela con un `input.txt` con dos líneas erróneas y una buena."
+  },
+  "en": {
+    "slug": "try-except",
+    "title": "Errors with try and except",
+    "summary": "Catch the errors in your Python program with try and except so it keeps going: bad numbers, division by zero and missing keys.",
+    "body": [
+      "When something goes wrong, Python raises an **exception** and, if nobody handles it, the program stops with an error message. `try` lets you have a go: if something in the block fails, Python jumps to the `except` instead of stopping.",
+      "In the first loop, `int(\"seven\")` and `int(\"3.5\")` raise a `ValueError`. The `except ValueError:` prints a warning and the loop moves on to the next text, so the total only adds `42` and `15`.",
+      "A `try` can have several `except` blocks, one per kind of error. In `slices_each()`, dividing by `0` raises `ZeroDivisionError`, and dividing by a string raises `TypeError`. The `else` block only runs when there was **no** error: that is where the good result is printed.",
+      "`except KeyError as error:` stores the error itself in a variable so you can show it. Asking for the `\"juice\"` key, which is not in the dictionary, gives a message saying exactly which one is missing."
+    ],
+    "points": [
+      "Code that might fail goes inside `try:`.",
+      "`except SomeError:` handles only that kind of error.",
+      "`else:` runs when there was no error.",
+      "`except ... as e:` gives you the error and its message.",
+      "Catch specific errors, not everything at once."
+    ],
+    "exercise": "Write an `ask_number()` function that reads a number with `input()` and, if it is not valid, asks again inside a `while` loop until it is. Test it with an `input.txt` that has two wrong lines and a good one."
+  }
+}

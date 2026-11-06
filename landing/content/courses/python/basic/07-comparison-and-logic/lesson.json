@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "comparaciones-y-operadores-logicos",
+    "title": "Comparaciones y lógica",
+    "summary": "Compare valores en Python con ==, !=, <, >= y combine condiciones con and, or y not para decidir quién sube a la montaña rusa.",
+    "body": [
+      "Los **operadores de comparación** responden `True` o `False`: `==` (igual), `!=` (distinto), `<`, `>`, `<=` y `>=`. Fíjese en que para comparar se usan dos signos `==`; uno solo, `=`, es para guardar un valor.",
+      "`and` exige que se cumplan **las dos** condiciones: la niña mide 1,42 m y tiene entrada, así que `can_ride` es `True`. `or` se conforma con **una**: el parque abre porque es festivo, aunque no sea fin de semana. `not` da la vuelta al resultado.",
+      "Python permite **encadenar** comparaciones como en matemáticas: `13 <= age <= 19` comprueba de una vez si la edad está entre 13 y 19.",
+      "También se comparan textos, letra a letra y distinguiendo mayúsculas: `\"Ana\" == \"ana\"` es `False`.",
+      "Al final, todo se junta en un `if`: `age < 18 and not has_ticket` falla porque sí tiene entrada, así que pasa al `elif age < 18`, que sí se cumple."
+    ],
+    "points": [
+      "`==` compara; `=` guarda.",
+      "`and`: las dos verdaderas. `or`: al menos una. `not`: lo contrario.",
+      "Los paréntesis aclaran el orden: `not (weekend or holiday)`.",
+      "`a <= x <= b` comprueba si `x` está entre `a` y `b`."
+    ],
+    "exercise": "Añada una variable `with_adult` y cambie la regla para que quien mida entre 1,30 y 1,40 m también pueda subir si va con un adulto."
+  },
+  "en": {
+    "slug": "comparison-and-logical-operators",
+    "title": "Comparisons and logic",
+    "summary": "Compare values in Python with ==, !=, < and >=, and combine conditions with and, or and not to decide who rides the roller coaster.",
+    "body": [
+      "**Comparison operators** answer `True` or `False`: `==` (equal), `!=` (not equal), `<`, `>`, `<=` and `>=`. Note that comparing uses two signs, `==`; a single `=` stores a value.",
+      "`and` needs **both** conditions to be true: the girl is 1.42 m tall and has a ticket, so `can_ride` is `True`. `or` is happy with **one**: the park is open because it is a holiday, even though it is not the weekend. `not` flips the result.",
+      "Python lets you **chain** comparisons as in maths: `13 <= age <= 19` checks in one go whether the age is between 13 and 19.",
+      "Text can be compared too, letter by letter and case-sensitive: `\"Ana\" == \"ana\"` is `False`.",
+      "At the end it all comes together in an `if`: `age < 18 and not has_ticket` fails because she does have a ticket, so Python moves on to `elif age < 18`, which is true."
+    ],
+    "points": [
+      "`==` compares; `=` stores.",
+      "`and`: both true. `or`: at least one. `not`: the opposite.",
+      "Parentheses make the order clear: `not (weekend or holiday)`.",
+      "`a <= x <= b` checks whether `x` lies between `a` and `b`."
+    ],
+    "exercise": "Add a `with_adult` variable and change the rule so that children between 1.30 and 1.40 m can also ride when they come with an adult."
+  }
+}

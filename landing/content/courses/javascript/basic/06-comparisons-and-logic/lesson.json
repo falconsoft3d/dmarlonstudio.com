@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "comparaciones-y-operadores-logicos",
+    "title": "Comparaciones, lógica y truthy",
+    "summary": "La diferencia entre === y == en JavaScript, los operadores lógicos &&, || y !, y qué valores cuentan como verdaderos o falsos (truthy y falsy).",
+    "body": [
+      "**`===`** (igualdad estricta) compara el valor y el tipo: `5 === \"5\"` es `false` porque uno es número y el otro texto. **`==`** convierte los tipos antes de comparar, y por eso `5 == \"5\"` y hasta `0 == false` dan `true`. Use siempre `===` y su contrario `!==`, que no dan sorpresas.",
+      "Los **operadores lógicos** combinan condiciones: `&&` (y) exige que se cumplan las dos, `||` (o) basta con una y `!` (no) da la vuelta al resultado. Con 16 años no se puede ir al concierto sin un adulto, pero `age >= 18 || withAdult` es verdadero porque `withAdult` lo es.",
+      "En un `if`, cualquier valor cuenta como verdadero o falso. Son **falsy** `false`, `0`, `\"\"` (cadena vacía), `null`, `undefined` y `NaN`; todo lo demás es **truthy**, incluso `\"0\"`. Por eso `if (username)` sirve para saber si el usuario ha escrito algo.",
+      "`||` devuelve el primer valor truthy que encuentra, así que `username || \"Guest\"` da un valor por defecto cuando el nombre está vacío. `Boolean()` muestra cómo se interpreta un valor."
+    ],
+    "points": [
+      "Use `===` y `!==`; evite `==`.",
+      "`&&` exige las dos condiciones; `||`, una; `!` niega.",
+      "Falsy: `false`, `0`, `\"\"`, `null`, `undefined`, `NaN`.",
+      "`valor || porDefecto` da un valor de reserva."
+    ],
+    "exercise": "Añada un descuento para quien sea socio o gaste más de 100 euros, pero nunca los domingos (una variable `isSunday`), y pruebe varias combinaciones."
+  },
+  "en": {
+    "slug": "comparisons-logical-operators-truthy-falsy",
+    "title": "Comparisons, logic and truthiness",
+    "summary": "The difference between === and == in JavaScript, the logical operators &&, || and !, and which values count as true or false (truthy and falsy).",
+    "body": [
+      "**`===`** (strict equality) compares value and type: `5 === \"5\"` is `false` because one is a number and the other text. **`==`** converts types before comparing, which is why `5 == \"5\"` and even `0 == false` give `true`. Always use `===` and its opposite `!==`: no surprises.",
+      "**Logical operators** combine conditions: `&&` (and) needs both to be true, `||` (or) needs just one, and `!` (not) flips the result. At 16 you cannot go to the concert alone, but `age >= 18 || withAdult` is true because an adult comes along.",
+      "In an `if`, any value counts as true or false. The **falsy** values are `false`, `0`, `\"\"` (the empty string), `null`, `undefined` and `NaN`; everything else is **truthy**, even `\"0\"`. That is why `if (username)` tells you whether the user typed anything.",
+      "`||` returns the first truthy value it finds, so `username || \"Guest\"` gives a default when the name is empty. `Boolean()` shows how a value is read."
+    ],
+    "points": [
+      "Use `===` and `!==`; avoid `==`.",
+      "`&&` needs both conditions; `||` needs one; `!` negates.",
+      "Falsy: `false`, `0`, `\"\"`, `null`, `undefined`, `NaN`.",
+      "`value || fallback` gives a default value."
+    ],
+    "exercise": "Add a discount for anyone who is a member or spends over 100 euros, but never on Sundays (an `isSunday` variable), and try several combinations."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "foreach-map-y-filter",
+    "title": "forEach, map y filter",
+    "summary": "Recorra y transforme arrays en JavaScript sin bucles manuales: forEach para cada elemento, map para crear otro array y filter para quedarse con unos pocos.",
+    "body": [
+      "Los arrays tienen métodos que reciben una función y la aplican a cada elemento. **`forEach()`** la ejecuta una vez por producto, con el elemento y su posición (`p, i`), y no devuelve nada: sirve para hacer algo con cada uno, como escribirlo.",
+      "**`map()`** crea un array **nuevo** con lo que devuelva la función para cada elemento, del mismo tamaño que el original. `products.map((p) => p.name)` saca la lista de nombres y el segundo `map` calcula los precios con IVA.",
+      "**`filter()`** crea un array nuevo solo con los elementos para los que la función devuelve `true`. `p.stock > 0` deja los productos que hay en el almacén y `p.price < 50` los baratos.",
+      "Como `filter` y `map` devuelven arrays, se pueden **encadenar**: primero se filtran los productos con existencias y de más de 50 euros, y después se les pone el precio rebajado un 10 %. Ninguno de los dos toca el array original, que sigue teniendo sus cinco productos.",
+      "Estos métodos con funciones flecha son la forma habitual de trabajar con listas en JavaScript, también para pintar listas de elementos en React."
+    ],
+    "points": [
+      "`forEach` hace algo con cada elemento y no devuelve nada.",
+      "`map` devuelve un array nuevo transformado, del mismo tamaño.",
+      "`filter` devuelve un array nuevo con los que cumplen la condición.",
+      "Se pueden encadenar: `.filter(...).map(...)`.",
+      "El array original no cambia."
+    ],
+    "exercise": "Con `filter` y `map`, obtenga los nombres en mayúsculas de los productos de menos de 100 euros, y con `forEach` escriba los que están agotados."
+  },
+  "en": {
+    "slug": "foreach-map-and-filter",
+    "title": "forEach, map and filter",
+    "summary": "Loop over and transform JavaScript arrays without manual loops: forEach for each element, map to build a new array and filter to keep just a few.",
+    "body": [
+      "Arrays have methods that take a function and apply it to each element. **`forEach()`** runs it once per product, with the element and its position (`p, i`), and returns nothing: it is for doing something with each one, such as printing it.",
+      "**`map()`** builds a **new** array with whatever the function returns for each element, the same size as the original. `products.map((p) => p.name)` gives the list of names, and the second `map` works out the prices with VAT.",
+      "**`filter()`** builds a new array with only the elements for which the function returns `true`. `p.stock > 0` keeps the products in stock and `p.price < 50` the cheap ones.",
+      "Because `filter` and `map` return arrays, you can **chain** them: first keep the products in stock that cost over 50 euros, then give them a 10% discount. Neither touches the original array, which still has its five products.",
+      "These methods with arrow functions are the usual way to work with lists in JavaScript, including rendering lists of items in React."
+    ],
+    "points": [
+      "`forEach` does something with each element and returns nothing.",
+      "`map` returns a new, transformed array of the same size.",
+      "`filter` returns a new array with the elements that pass the test.",
+      "They chain: `.filter(...).map(...)`.",
+      "The original array does not change."
+    ],
+    "exercise": "Use `filter` and `map` to get the names in capitals of the products under 100 euros, and `forEach` to print the ones that are out of stock."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-lista-de-tareas",
+    "title": "Proyecto: lista de tareas",
+    "summary": "Un pequeño proyecto en JavaScript que lo reúne todo: una lista de tareas con órdenes de texto, objetos, arrays, funciones, errores y JSON.",
+    "body": [
+      "Este programa junta lo visto en el curso en una lista de tareas que se maneja con órdenes de texto: `add` añade una tarea, `done` la marca como hecha y `remove` la quita. Las órdenes están en el array `commands`, como si alguien las hubiera tecleado.",
+      "Cada tarea es un objeto con `id`, `title` y `done`, y todas se guardan en el array `tasks`. `nextId` es un `let` porque aumenta con cada tarea nueva; `nextId++` devuelve el valor actual y después le suma 1.",
+      "La función `run` interpreta una orden. Con desestructuración y rest, `const [command, ...words] = line.split(\" \")` separa la primera palabra del resto, y `join` vuelve a unir el título. Para `done` y `remove`, `find` busca la tarea por su número y `splice` la quita del array.",
+      "Cuando algo no cuadra, `run` lanza un error con `throw`: la tarea 7 no existe y `jump` no es una orden conocida. El bucle principal llama a `run` dentro de un `try`/`catch`, así que cada error se muestra y el programa sigue con la orden siguiente.",
+      "Al final se escribe la lista con `[x]` o `[ ]` según `done` (un ternario), `padStart` alinea los números, `filter` cuenta las pendientes y `JSON.stringify` la prepara para guardarla. Es el mismo JavaScript con el que se programan las aplicaciones Electron, React, Next.js y React Native de DMarlon Studio."
+    ],
+    "points": [
+      "Los datos: un array de objetos, uno por tarea.",
+      "Una función por tarea concreta: aquí, `run` interpreta cada orden.",
+      "`throw` para los errores y `try`/`catch` para que el programa continúe.",
+      "`find`, `filter`, `splice`, plantillas y JSON trabajan juntos."
+    ],
+    "exercise": "Añada la orden `rename 3 Nuevo título`, que cambie el título de una tarea, y la orden `clear`, que quite todas las tareas hechas con `filter`."
+  },
+  "en": {
+    "slug": "project-to-do-list",
+    "title": "Project: a to-do list",
+    "summary": "A small JavaScript project that brings it all together: a to-do list driven by text commands, with objects, arrays, functions, errors and JSON.",
+    "body": [
+      "This program combines what you have learnt in the course into a to-do list driven by text commands: `add` adds a task, `done` marks it as finished and `remove` deletes it. The commands are in the `commands` array, as if someone had typed them.",
+      "Each task is an object with an `id`, a `title` and `done`, and they all live in the `tasks` array. `nextId` is a `let` because it goes up with every new task; `nextId++` returns the current value and then adds 1.",
+      "The `run` function interprets one command. With destructuring and rest, `const [command, ...words] = line.split(\" \")` separates the first word from the rest, and `join` puts the title back together. For `done` and `remove`, `find` looks the task up by its number and `splice` removes it from the array.",
+      "When something does not add up, `run` throws an error: task 7 does not exist and `jump` is not a known command. The main loop calls `run` inside a `try`/`catch`, so each error is shown and the program carries on with the next command.",
+      "Finally the list is printed with `[x]` or `[ ]` depending on `done` (a ternary), `padStart` lines up the numbers, `filter` counts the pending tasks and `JSON.stringify` gets the list ready to be saved. It is the same JavaScript used to build DMarlon Studio's Electron, React, Next.js and React Native apps."
+    ],
+    "points": [
+      "The data: an array of objects, one per task.",
+      "One function per job: here `run` interprets each command.",
+      "`throw` for errors and `try`/`catch` so the program keeps going.",
+      "`find`, `filter`, `splice`, template literals and JSON work together."
+    ],
+    "exercise": "Add a `rename 3 New title` command that changes a task's title, and a `clear` command that removes all finished tasks with `filter`."
+  }
+}

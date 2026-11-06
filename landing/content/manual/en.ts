@@ -471,7 +471,9 @@ export const manualEn: Manual = {
             {
               type: "ul",
               items: [
-                "**Choose…** opens the file dialog: the PNG is copied to the project's `images/`.",
+                "**Automatic icon**: every windowed project gets one without you doing anything. The studio picks it from its 500 icons using the words in the name and description (“Calculator”, “Online shop”, “BIM works”…), with a colour fixed for that name, and saves it to `images/app_icon.png`. If you rename the project, the icon follows.",
+                "**Gallery…** shows the 500 icons with a search box (in English or Spanish) and 12 colours. The one you choose stays even if you rename the project; **Automatic** goes back to the studio's choice.",
+                "**File…** opens the file dialog: the PNG is copied to the project's `images/`.",
                 "**Generate with AI** draws the icon from a description (with the AI from Settings) and saves it as a 512 × 512 PNG. You see it before using it and can ask for another version.",
                 "Every target uses it: the window icon (tkinter, Electron, C++), the Chrome extension icon or the Next.js web icon.",
                 "**Subprojects**: a project can have parts with their own target (for example, “Odoo” with “db” in Python and “front” in Next.js). Create them with **Add subproject…**; they hang from the Project node and a click opens them in their tab. Each one is a folder inside the project folder.",

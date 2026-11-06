@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "cadenas-y-f-strings",
+    "title": "Cadenas y f-strings",
+    "summary": "Trabaje con texto en Python: unir y repetir cadenas, contar letras con len(), leer posiciones y dar formato con f-strings.",
+    "body": [
+      "Una **cadena** (`str`) es texto entre comillas, simples o dobles: `\"Ada\"` y `'Lovelace'` valen lo mismo. Con `+` se unen (`first + \" \" + last` da `Ada Lovelace`) y con `*` se repiten: `\"=\" * 20` dibuja una raya de veinte signos.",
+      "`len()` cuenta los caracteres, espacios incluidos: `Ada Lovelace` tiene `12`. Cada carácter tiene una **posición** que empieza en 0: `first[0]` es `A`, y las posiciones negativas cuentan desde el final, así que `last[-1]` es la última letra, `e`.",
+      "Un número no se puede unir a un texto con `+`: Python daría un error. Hay que convertirlo antes con `str(score)`, como en la primera frase de la nota.",
+      "Es más cómodo usar una **f-string**: una cadena con `f` delante en la que los valores van entre llaves, `f\"{first} scored {score} points.\"`. Dentro de las llaves cabe cualquier cálculo, como `{score + 5}`.",
+      "Tras dos puntos se indica el formato: `{average:.2f}` deja dos decimales (`87.46`); `{first:>8}` ocupa 8 huecos alineado a la derecha y `{last:<10}`, 10 huecos a la izquierda. Los corchetes de la salida dejan ver esos espacios."
+    ],
+    "points": [
+      "`+` une cadenas y `*` las repite.",
+      "`len()` cuenta caracteres; `texto[0]` es el primero y `texto[-1]`, el último.",
+      "`str()` convierte un número en texto.",
+      "En una f-string los valores van entre `{ }`.",
+      "`:.2f` da dos decimales; `:>8` y `:<8` alinean en 8 huecos."
+    ],
+    "exercise": "Escriba su nombre y apellido en las variables, y muestre una línea con sus iniciales y otra con la longitud del nombre completo, centrada en 30 huecos con `:^30`."
+  },
+  "en": {
+    "slug": "strings-and-f-strings",
+    "title": "Strings and f-strings",
+    "summary": "Work with text in Python: join and repeat strings, count characters with len(), read positions and format values with f-strings.",
+    "body": [
+      "A **string** (`str`) is text between quotes, single or double: `\"Ada\"` and `'Lovelace'` work the same. `+` joins them (`first + \" \" + last` gives `Ada Lovelace`) and `*` repeats them: `\"=\" * 20` draws a line of twenty signs.",
+      "`len()` counts the characters, spaces included: `Ada Lovelace` has `12`. Each character has a **position** (an index) starting at 0: `first[0]` is `A`, and negative positions count from the end, so `last[-1]` is the last letter, `e`.",
+      "You cannot join a number to a string with `+`: Python would stop with an error. Convert it first with `str(score)`, as the first score sentence does.",
+      "An **f-string** is handier: a string with an `f` in front where values go inside braces, `f\"{first} scored {score} points.\"`. Any calculation fits inside the braces, such as `{score + 5}`.",
+      "After a colon comes the format: `{average:.2f}` keeps two decimals (`87.46`); `{first:>8}` fills 8 spaces aligned to the right, and `{last:<10}` fills 10 aligned to the left. The square brackets in the output let you see that padding."
+    ],
+    "points": [
+      "`+` joins strings and `*` repeats them.",
+      "`len()` counts characters; `text[0]` is the first and `text[-1]` the last.",
+      "`str()` turns a number into text.",
+      "In an f-string, values go inside `{ }`.",
+      "`:.2f` gives two decimals; `:>8` and `:<8` align within 8 spaces."
+    ],
+    "exercise": "Put your own first and last name in the variables, then print your initials and the length of your full name, centred in 30 spaces with `:^30`."
+  }
+}

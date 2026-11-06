@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "archivos-de-texto",
+    "title": "Escribir y leer archivos",
+    "summary": "Guarde datos en un archivo de texto con Python y léalos de nuevo con open(), write() y read(): las puntuaciones de un juego.",
+    "body": [
+      "`open(\"scores.txt\", \"w\")` abre un archivo de la carpeta actual para **escribir**: si no existe lo crea y, si existe, lo vacía. `with` se encarga de **cerrarlo** al terminar el bloque, aunque haya un error. Dentro, `file.write()` escribe texto; el salto de línea `\\n` hay que ponerlo a mano.",
+      "El modo `\"a\"` (*append*) abre el archivo para **añadir** al final sin borrar lo que había: así se suma la puntuación de Dani.",
+      "Sin modo, `open()` abre para **leer**. `file.read()` devuelve todo el contenido como una sola cadena. Como ya termina con `\\n`, se escribe con `end=\"\"` para no dejar una línea en blanco.",
+      "Para convertir el texto otra vez en datos, se recorre el archivo con `for line in file:`, una línea por vuelta. `strip()` quita el salto de línea, `split(\",\")` separa nombre y puntos, e `int()` convierte los puntos en número para compararlos y quedarse con el mejor.",
+      "Abrir para leer un archivo que no existe lanza `FileNotFoundError`, que se captura con `try` y `except` como en la lección anterior."
+    ],
+    "points": [
+      "`with open(nombre, modo) as f:` abre y cierra solo.",
+      "`\"w\"` escribe desde cero; `\"a\"` añade; sin modo, lee.",
+      "`write()` no añade el salto de línea: ponga `\\n`.",
+      "`read()` da todo el texto; `for line in f:` va línea a línea.",
+      "Un archivo que no existe da `FileNotFoundError`."
+    ],
+    "exercise": "Al final del programa, escriba un archivo `ranking.txt` con los jugadores ordenados de más a menos puntos (lea los datos, guárdelos en una lista de tuplas y ordénela)."
+  },
+  "en": {
+    "slug": "text-files",
+    "title": "Writing and reading files",
+    "summary": "Save data to a text file with Python and read it back with open(), write() and read(): the high scores of a game.",
+    "body": [
+      "`open(\"scores.txt\", \"w\")` opens a file in the current folder for **writing**: if it does not exist it is created, and if it does it is emptied. `with` makes sure the file is **closed** when the block ends, even if there is an error. Inside, `file.write()` writes text; you have to add the line break `\\n` yourself.",
+      "Mode `\"a\"` (append) opens the file to **add** at the end without deleting what was there: that is how Dani's score is added.",
+      "Without a mode, `open()` opens for **reading**. `file.read()` returns the whole content as one string. Since it already ends with `\\n`, it is printed with `end=\"\"` so there is no blank line.",
+      "To turn the text back into data, the program goes through the file with `for line in file:`, one line per round. `strip()` removes the line break, `split(\",\")` separates name and points, and `int()` turns the points into a number so they can be compared to find the best.",
+      "Opening a missing file for reading raises `FileNotFoundError`, which is caught with `try` and `except` as in the previous lesson."
+    ],
+    "points": [
+      "`with open(name, mode) as f:` opens and closes for you.",
+      "`\"w\"` writes from scratch; `\"a\"` appends; no mode reads.",
+      "`write()` does not add a line break: add `\\n`.",
+      "`read()` gives the whole text; `for line in f:` goes line by line.",
+      "A file that does not exist raises `FileNotFoundError`."
+    ],
+    "exercise": "At the end of the program, write a `ranking.txt` file with the players sorted from most to fewest points (read the data, keep it in a list of tuples and sort it)."
+  }
+}

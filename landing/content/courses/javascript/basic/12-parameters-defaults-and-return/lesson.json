@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "parametros-valores-por-defecto-y-return",
+    "title": "Parámetros, valores por defecto y return",
+    "summary": "Más sobre funciones en JavaScript: parámetros con valor por defecto, return para salir antes, undefined, parámetros rest y devolver un objeto.",
+    "body": [
+      "Un parámetro puede llevar un **valor por defecto** con `=`: `orderCoffee(size = \"medium\", sugar = 1)` usa esos valores cuando falta el argumento. Por eso `orderCoffee(\"small\")` sale con un azúcar y `orderCoffee()` es un café mediano.",
+      "**`return`** termina la función en ese mismo momento. `finalPrice` comprueba primero si el precio es negativo y, si lo es, devuelve el aviso sin llegar a calcular el descuento. Salir pronto así evita anidar muchos `if`.",
+      "Una función sin `return` devuelve **`undefined`**: `showScore` escribe la puntuación, pero lo que devuelve no sirve para nada. Distinga entre escribir un valor en la consola y devolverlo.",
+      "Los **parámetros rest**, con tres puntos (`...grades`), recogen todos los argumentos que lleguen en un array, sean tres o ninguno. `average` los suma con `for...of` y, si no hay ninguno, devuelve `0` en lugar de dividir entre cero.",
+      "Una función devuelve un solo valor, pero ese valor puede ser un objeto con varios datos, como hace `stats`. En una flecha, el objeto va entre paréntesis, `({ ... })`, para que las llaves no se confundan con el cuerpo."
+    ],
+    "points": [
+      "`param = valor` da un valor por defecto.",
+      "`return` sale de la función en el acto.",
+      "Sin `return`, la función devuelve `undefined`.",
+      "`...args` recoge cualquier número de argumentos en un array.",
+      "Para devolver varios datos, devuelva un objeto."
+    ],
+    "exercise": "Escriba `ticketPrice(age, isStudent = false)` que devuelva 0 para menores de 4 años, 6 euros para estudiantes y 9 para el resto, y `total(...prices)` que sume todos los precios que reciba."
+  },
+  "en": {
+    "slug": "parameters-default-values-and-return",
+    "title": "Parameters, defaults and return",
+    "summary": "More on JavaScript functions: parameters with default values, return to exit early, undefined, rest parameters and returning an object.",
+    "body": [
+      "A parameter can have a **default value** with `=`: `orderCoffee(size = \"medium\", sugar = 1)` uses those values when the argument is missing. That is why `orderCoffee(\"small\")` comes with one sugar and `orderCoffee()` is a medium coffee.",
+      "**`return`** ends the function right there. `finalPrice` first checks whether the price is negative and, if so, returns the warning without ever working out the discount. Exiting early like this saves nesting lots of `if`s.",
+      "A function without `return` gives back **`undefined`**: `showScore` prints the score, but what it returns is of no use. Printing a value and returning it are two different things.",
+      "**Rest parameters**, with three dots (`...grades`), collect every argument passed into an array, whether there are three or none. `average` adds them up with `for...of` and, if there are none, returns `0` instead of dividing by zero.",
+      "A function returns a single value, but that value can be an object holding several pieces of data, as `stats` does. In an arrow function the object goes in brackets, `({ ... })`, so the braces are not mistaken for the body."
+    ],
+    "points": [
+      "`param = value` sets a default value.",
+      "`return` leaves the function at once.",
+      "Without `return`, a function gives back `undefined`.",
+      "`...args` collects any number of arguments in an array.",
+      "To return several values, return an object."
+    ],
+    "exercise": "Write `ticketPrice(age, isStudent = false)` that returns 0 for children under 4, 6 euros for students and 9 for everyone else, and `total(...prices)` that adds up every price it receives."
+  }
+}

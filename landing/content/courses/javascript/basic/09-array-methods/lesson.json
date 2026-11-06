@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "metodos-de-arrays",
+    "title": "Añadir, quitar y buscar",
+    "summary": "Los métodos básicos de los arrays en JavaScript: push, pop, shift, unshift, includes, indexOf, slice y splice, con una lista de la compra y una cola.",
+    "body": [
+      "Los arrays traen métodos para cambiar la lista sin tocar los índices a mano. **`push()`** añade al final y **`pop()`** quita el último y lo devuelve: por eso `last` vale `\"cheese\"`.",
+      "Por el principio funcionan igual **`unshift()`**, que añade, y **`shift()`**, que quita el primero y lo devuelve. Son los métodos de una cola: se entra por un extremo y se sale por el otro.",
+      "Para buscar, **`includes()`** responde `true` o `false`, y **`indexOf()`** da la posición del elemento, o `-1` si no está, como pasa con `\"tea\"`.",
+      "**`slice(inicio, fin)`** copia un trozo, desde `inicio` hasta antes de `fin`, sin cambiar el original; sin el segundo número, copia hasta el final. **`splice(posición, cuántos)`**, en cambio, modifica el array: `queue.splice(1, 2)` quita dos personas desde la posición 1, y `queue.splice(1, 0, \"Fran\")` inserta a Fran sin quitar a nadie.",
+      "Recuerde la diferencia: `push`, `pop`, `shift`, `unshift` y `splice` cambian el array; `slice`, `includes` e `indexOf` solo lo leen."
+    ],
+    "points": [
+      "`push`/`pop` trabajan por el final; `unshift`/`shift`, por el principio.",
+      "`indexOf` devuelve `-1` si no encuentra el elemento.",
+      "`slice` copia sin cambiar el original.",
+      "`splice` quita e inserta en el propio array."
+    ],
+    "exercise": "Simule la cola de una panadería: entran tres clientes con `push`, se atiende a dos con `shift` y una persona se cuela en la posición 0 con `splice`; escriba la cola en cada paso."
+  },
+  "en": {
+    "slug": "working-with-arrays",
+    "title": "Adding, removing and searching",
+    "summary": "The basic JavaScript array methods: push, pop, shift, unshift, includes, indexOf, slice and splice, with a shopping list and a queue.",
+    "body": [
+      "Arrays come with methods to change the list without handling indexes yourself. **`push()`** adds to the end and **`pop()`** removes the last element and returns it: that is why `last` holds `\"cheese\"`.",
+      "At the start, **`unshift()`** adds and **`shift()`** removes the first element and returns it. These are the methods of a queue: you join at one end and leave at the other.",
+      "To search, **`includes()`** answers `true` or `false`, and **`indexOf()`** gives the element's position, or `-1` if it is not there, as happens with `\"tea\"`.",
+      "**`slice(start, end)`** copies a part, from `start` up to but not including `end`, without changing the original; leave out the second number and it copies to the end. **`splice(position, count)`**, on the other hand, modifies the array: `queue.splice(1, 2)` removes two people from position 1, and `queue.splice(1, 0, \"Fran\")` inserts Fran without removing anyone.",
+      "Remember the difference: `push`, `pop`, `shift`, `unshift` and `splice` change the array; `slice`, `includes` and `indexOf` only read it."
+    ],
+    "points": [
+      "`push`/`pop` work at the end; `unshift`/`shift` at the start.",
+      "`indexOf` returns `-1` when the element is not found.",
+      "`slice` copies without changing the original.",
+      "`splice` removes and inserts in the array itself."
+    ],
+    "exercise": "Simulate a bakery queue: three customers join with `push`, two are served with `shift` and someone jumps in at position 0 with `splice`; print the queue at each step."
+  }
+}

@@ -3,6 +3,25 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.51 — 2026-11-07
+
+- **Cursos** (menú nuevo de la web, en español e inglés): un curso por cada
+  lenguaje del estudio, básico y avanzado, de 20 lecciones. Cada lección es
+  un programa completo que se ha ejecutado de verdad, con su explicación, su
+  salida real, la imagen del código y la salida en DMarlon Studio, un
+  ejercicio y cómo probarlo en el estudio. Ya están **Python básico** y
+  **JavaScript básico**; los demás llegan en las versiones siguientes.
+- **500 iconos de aplicación** en el estudio: cada proyecto con ventana lleva
+  uno sin hacer nada, elegido por las palabras del nombre (en español o en
+  inglés) y con un color fijo para ese nombre; si cambia el nombre, el icono
+  lo sigue. **Galería…** los muestra con un buscador y 12 colores; el que se
+  elige se queda. **Automático** vuelve al del estudio.
+- **Demos**: la de Pascal (Odoo sin conexión) ya no se cierra al tocar un
+  campo de texto en macOS, y cada demo lleva su icono en la .app y en el .exe.
+- Las demos de macOS se pueden firmar con Developer ID y notarizar en CI
+  (`scripts/mac-signing-secrets.sh`): en cuanto estén los secretos, abren sin
+  avisos.
+
 ## 1.0.50 — 2026-11-06
 
 - **Manual**: sección nueva «Ejemplo: Odoo sin conexión y obras BIM» en el

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "objetos",
+    "title": "Objetos",
+    "summary": "Agrupe datos en objetos de JavaScript: propiedades clave: valor, punto y corchetes, añadir y borrar, Object.keys, for...in y arrays de objetos.",
+    "body": [
+      "Un **objeto** reúne datos relacionados en pares **clave: valor** entre llaves. El libro tiene `title`, `author`, `year` y `available`, cada uno con su valor; a cada par se le llama **propiedad**.",
+      "Una propiedad se lee con un punto, `book.title`, o con corchetes y una cadena, `book[field]`. Los corchetes sirven cuando el nombre de la clave está en una variable, como `field`.",
+      "Las propiedades se cambian y se añaden asignándoles un valor (`book.available = false`, `book.pages = 412`) y se borran con **`delete`**. El operador `in` dice si existe una clave y **`Object.keys()`** devuelve todas en un array.",
+      "**`for...in`** recorre las claves de un objeto; con `book[key]` se obtiene el valor de cada una. No lo confunda con `for...of`, que recorre los valores de un array.",
+      "Lo más habitual es un **array de objetos**: cada alumno es un objeto con `name` y `grade`, y `for...of` los recorre uno a uno. Es la misma forma que tienen los datos que maneja una aplicación React o Next.js hecha con DMarlon Studio."
+    ],
+    "points": [
+      "Un objeto guarda pares `clave: valor`.",
+      "`obj.clave` u `obj[\"clave\"]` para leer; `=` para cambiar o añadir.",
+      "`delete` borra una propiedad; `in` comprueba si existe.",
+      "`Object.keys()` da las claves; `for...in` las recorre."
+    ],
+    "exercise": "Cree un objeto `car` con marca, modelo y kilómetros; súmele 1500 kilómetros, añádale un color, escriba todas sus propiedades con `for...in` y cuántas tiene con `Object.keys()`."
+  },
+  "en": {
+    "slug": "objects",
+    "title": "Objects",
+    "summary": "Group data in JavaScript objects: key: value properties, dot and bracket access, adding and deleting, Object.keys, for...in and arrays of objects.",
+    "body": [
+      "An **object** gathers related data as **key: value** pairs in curly braces. The book has a `title`, `author`, `year` and `available`, each with its value; each pair is called a **property**.",
+      "You read a property with a dot, `book.title`, or with brackets and a string, `book[field]`. Brackets are useful when the key's name is in a variable, like `field`.",
+      "You change and add properties by assigning a value (`book.available = false`, `book.pages = 412`) and remove them with **`delete`**. The `in` operator checks whether a key exists and **`Object.keys()`** returns all of them in an array.",
+      "**`for...in`** goes through the keys of an object; `book[key]` gives you each value. Do not confuse it with `for...of`, which goes through the values of an array.",
+      "Most often you will have an **array of objects**: each student is an object with a `name` and a `grade`, and `for...of` visits them one by one. It is the same shape as the data handled by a React or Next.js app built with DMarlon Studio."
+    ],
+    "points": [
+      "An object stores `key: value` pairs.",
+      "`obj.key` or `obj[\"key\"]` to read; `=` to change or add.",
+      "`delete` removes a property; `in` checks whether it exists.",
+      "`Object.keys()` gives the keys; `for...in` loops over them."
+    ],
+    "exercise": "Create a `car` object with make, model and mileage; add 1500 km, give it a colour, print all its properties with `for...in` and how many there are with `Object.keys()`."
+  }
+}

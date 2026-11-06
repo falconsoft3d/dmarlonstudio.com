@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "if-elif-else",
+    "title": "Decidir con if, elif y else",
+    "summary": "Haga que su programa de Python tome decisiones con if, elif y else: qué ropa ponerse según la temperatura y si el envío sale gratis.",
+    "body": [
+      "`if` comprueba una **condición** y, si es verdadera, ejecuta el bloque que va debajo. El bloque se marca con la **sangría**: las líneas que empiezan con cuatro espacios tras los dos puntos `:` son las que dependen del `if`.",
+      "`elif` (de «else if») añade otra condición que solo se mira si las anteriores han fallado, y `else` recoge todo lo demás. Python las revisa de arriba abajo y ejecuta **solo la primera** que se cumple: con `temperature = 12` falla `>= 25`, falla `>= 15` y acierta `>= 5`, así que escribe «take a coat».",
+      "`elif` y `else` son opcionales. `if raining:` va solo: como `raining` es `True`, escribe la línea del paraguas; si fuera `False`, no pasaría nada.",
+      "Con `if` y `else` se elige entre dos caminos: el carrito suma 42,80 €, no llega a 50, y el programa calcula cuánto falta para el envío gratis. La última línea no tiene sangría, así que se ejecuta siempre."
+    ],
+    "points": [
+      "Tras la condición van dos puntos `:` y el bloque, con sangría.",
+      "De una cadena `if`/`elif`/`else` solo se ejecuta un bloque.",
+      "El orden importa: ponga primero las condiciones más estrictas.",
+      "Una variable `bool` ya sirve como condición: `if raining:`."
+    ],
+    "exercise": "Pruebe con `temperature = 30` y con `-2`, y añada un caso nuevo con `elif` para cuando haga más de 35 grados («Stay in the shade!»)."
+  },
+  "en": {
+    "slug": "if-elif-else",
+    "title": "Deciding with if, elif and else",
+    "summary": "Make your Python program take decisions with if, elif and else: what to wear for the weather and whether delivery is free.",
+    "body": [
+      "`if` checks a **condition** and, when it is true, runs the block underneath. The block is marked by **indentation**: the lines indented four spaces after the colon `:` are the ones that belong to the `if`.",
+      "`elif` (short for «else if») adds another condition that is only checked when the ones above have failed, and `else` catches everything else. Python goes from top to bottom and runs **only the first** one that is true: with `temperature = 12`, `>= 25` fails, `>= 15` fails and `>= 5` matches, so it prints «take a coat».",
+      "`elif` and `else` are optional. `if raining:` stands on its own: since `raining` is `True` it prints the umbrella line; if it were `False`, nothing would happen.",
+      "With `if` and `else` you choose between two paths: the basket comes to 42.80 euros, which is under 50, so the program works out how much more is needed for free delivery. The last line is not indented, so it always runs."
+    ],
+    "points": [
+      "After the condition comes a colon `:` and an indented block.",
+      "In an `if`/`elif`/`else` chain only one block runs.",
+      "Order matters: put the strictest conditions first.",
+      "A `bool` variable already works as a condition: `if raining:`."
+    ],
+    "exercise": "Try `temperature = 30` and `-2`, and add a new `elif` for when it is over 35 degrees («Stay in the shade!»)."
+  }
+}

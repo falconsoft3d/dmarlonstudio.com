@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "leer-la-entrada-estandar",
+    "title": "Leer lo que se teclea",
+    "summary": "Lea datos de la entrada estándar en JavaScript con Node.js y fs.readFileSync(0), y conviértalos en un informe de notas.",
+    "body": [
+      "En Node.js, lo que se teclea llega por la **entrada estándar** (stdin). `require(\"fs\")` carga el módulo de archivos y **`fs.readFileSync(0, \"utf8\")`** lee toda la entrada de una vez como una cadena: el `0` es el número que identifica la entrada estándar.",
+      "Aquí la entrada viene de `input.txt`, que hace de teclado. En una terminal se ejecutaría con `node main.js < input.txt`, o bien escribiendo las líneas y pulsando Ctrl+D al final (Ctrl+Z y Intro en Windows).",
+      "Lo leído es un único texto, así que primero se corta en líneas con `split(\"\\n\")`. `trim()` quita los espacios y el `\\r` que dejan los archivos de Windows, y `filter` descarta las líneas vacías.",
+      "Cada línea se separa en nombre y nota con `split(\" \")` y desestructuración, y `Number()` convierte la nota en número. Los datos de fuera pueden venir mal: si la nota no es un número, **`Number.isNaN()`** lo detecta y `continue` salta la línea de Jorge con un aviso.",
+      "Con los alumnos ya en un array de objetos, el informe es lo de las lecciones anteriores: un ternario para el resultado, `padEnd` y `padStart` para las columnas y `reduce` para la media."
+    ],
+    "points": [
+      "`fs.readFileSync(0, \"utf8\")` lee toda la entrada estándar.",
+      "`split(\"\\n\")` la corta en líneas; `trim` limpia cada una.",
+      "`Number()` convierte texto en número; compruébelo con `Number.isNaN`.",
+      "No se fíe de los datos de fuera: valídelos."
+    ],
+    "exercise": "Cambie `input.txt` para que cada línea tenga un nombre y tres notas, calcule la media de cada alumno y diga cuál tiene la más alta."
+  },
+  "en": {
+    "slug": "reading-input-from-stdin",
+    "title": "Reading what is typed",
+    "summary": "Read data from standard input in JavaScript with Node.js and fs.readFileSync(0), and turn it into a grade report.",
+    "body": [
+      "In Node.js, whatever is typed arrives through **standard input** (stdin). `require(\"fs\")` loads the file system module and **`fs.readFileSync(0, \"utf8\")`** reads all the input at once as one string: `0` is the number that identifies standard input.",
+      "Here the input comes from `input.txt`, which stands in for the keyboard. In a terminal you would run `node main.js < input.txt`, or type the lines and press Ctrl+D at the end (Ctrl+Z and Enter on Windows).",
+      "What you read is a single text, so first it is cut into lines with `split(\"\\n\")`. `trim()` removes spaces and the `\\r` left by Windows files, and `filter` drops the empty lines.",
+      "Each line is split into a name and a grade with `split(\" \")` and destructuring, and `Number()` turns the grade into a number. Outside data can be wrong: if the grade is not a number, **`Number.isNaN()`** spots it and `continue` skips Jorge's line with a warning.",
+      "With the students in an array of objects, the report uses what you already know: a ternary for the result, `padEnd` and `padStart` for the columns and `reduce` for the average."
+    ],
+    "points": [
+      "`fs.readFileSync(0, \"utf8\")` reads all of standard input.",
+      "`split(\"\\n\")` cuts it into lines; `trim` cleans each one.",
+      "`Number()` turns text into a number; check it with `Number.isNaN`.",
+      "Never trust outside data: validate it."
+    ],
+    "exercise": "Change `input.txt` so each line has a name and three grades, work out each student's average and say who has the highest."
+  }
+}

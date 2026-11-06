@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "reduce-find-some-y-every",
+    "title": "reduce, find, some y every",
+    "summary": "Resuma y busque en arrays de JavaScript: reduce para sumar o agrupar, find y findIndex para encontrar, some y every para comprobar.",
+    "body": [
+      "**`reduce()`** combina todos los elementos en un solo valor. Recibe una función con el **acumulador** (`sum`) y el elemento actual (`o`), y un valor inicial, `0`. En cada vuelta, lo que devuelve la función pasa a ser el nuevo acumulador: al final, `sum` es el total de todos los pedidos.",
+      "El valor inicial puede ser cualquier cosa. Con un objeto vacío `{}`, `reduce` agrupa los importes por cliente: `acc[o.customer] || 0` toma lo que ya llevaba ese cliente, o 0 si es el primero, y le suma el pedido.",
+      "Sin valor inicial, `reduce` empieza con el primer elemento como acumulador. Así se queda con el pedido mayor, comparando cada uno con el mejor hasta el momento.",
+      "**`find()`** devuelve el **primer** elemento que cumple la condición, o `undefined` si no hay ninguno, como con el pedido `999`. **`findIndex()`** devuelve su posición en lugar del elemento.",
+      "**`some()`** responde si al menos uno cumple la condición y **`every()`**, si la cumplen todos. Los dos devuelven `true` o `false` y dejan de mirar en cuanto conocen la respuesta."
+    ],
+    "points": [
+      "`reduce((acc, x) => ..., inicial)` reduce un array a un valor.",
+      "Con `{}` como inicial, `reduce` sirve para agrupar o contar.",
+      "`find` da el primer elemento que coincide, o `undefined`.",
+      "`some`: ¿alguno?; `every`: ¿todos?"
+    ],
+    "exercise": "Con `reduce`, cuente cuántos pedidos hay pagados y sin pagar; con `find`, busque el primer pedido de Ana de más de 20 euros; con `every`, compruebe si todos superan los 10 euros."
+  },
+  "en": {
+    "slug": "reduce-find-some-and-every",
+    "title": "reduce, find, some and every",
+    "summary": "Summarise and search JavaScript arrays: reduce to add up or group, find and findIndex to locate, some and every to check.",
+    "body": [
+      "**`reduce()`** combines all the elements into a single value. It takes a function with the **accumulator** (`sum`) and the current element (`o`), plus a starting value, `0`. On each round, whatever the function returns becomes the new accumulator: at the end, `sum` is the total of all the orders.",
+      "The starting value can be anything. With an empty object `{}`, `reduce` groups the amounts by customer: `acc[o.customer] || 0` takes what that customer already had, or 0 if this is the first one, and adds the order.",
+      "Without a starting value, `reduce` uses the first element as the accumulator. That is how it keeps the biggest order, comparing each one with the best so far.",
+      "**`find()`** returns the **first** element that passes the test, or `undefined` if none does, as with order `999`. **`findIndex()`** returns its position instead of the element.",
+      "**`some()`** tells you whether at least one element passes and **`every()`** whether they all do. Both return `true` or `false` and stop looking as soon as they know the answer."
+    ],
+    "points": [
+      "`reduce((acc, x) => ..., start)` boils an array down to one value.",
+      "With `{}` as the start, `reduce` can group or count.",
+      "`find` gives the first matching element, or `undefined`.",
+      "`some`: any of them? `every`: all of them?"
+    ],
+    "exercise": "Use `reduce` to count how many orders are paid and unpaid, `find` to get Ana's first order over 20 euros, and `every` to check whether all of them are over 10 euros."
+  }
+}

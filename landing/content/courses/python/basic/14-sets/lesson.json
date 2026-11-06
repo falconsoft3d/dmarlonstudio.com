@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "conjuntos",
+    "title": "Conjuntos",
+    "summary": "Quite repetidos con los conjuntos (set) de Python y compare grupos con intersección, unión y diferencia: quién está en cada club.",
+    "body": [
+      "Un **conjunto** (`set`) guarda cada valor **una sola vez**. `set(visits)` convierte la lista de seis visitas en un conjunto de tres personas: los repetidos desaparecen solos.",
+      "Los conjuntos **no tienen orden**, y al escribirlos los elementos pueden salir en cualquier orden. Por eso el ejemplo usa `sorted()`, que devuelve una lista ordenada con sus elementos y así la salida es siempre la misma.",
+      "Un conjunto también se escribe entre llaves, como `chess` y `football`. Con ellos se hacen operaciones de conjuntos: `&` (**intersección**) da quién está en los dos clubes; `|` (**unión**), quién está en alguno; `-` (**diferencia**), quién está solo en ajedrez, y `^`, quién está en uno solo de los dos.",
+      "`add()` añade un elemento; si ya estaba, como `ben`, no pasa nada. `discard()` lo quita sin dar error aunque no esté. Y `in` comprueba si un elemento pertenece, mucho más rápido que en una lista larga."
+    ],
+    "points": [
+      "Un `set` no guarda repetidos ni tiene orden.",
+      "`set(lista)` quita los duplicados de una lista.",
+      "`&` común, `|` todos, `-` diferencia, `^` solo en uno.",
+      "`sorted()` da una lista ordenada para escribir el conjunto."
+    ],
+    "exercise": "Cree un tercer club, `music`, y escriba quién está en los tres clubes y quién está en ajedrez o en música pero no en fútbol."
+  },
+  "en": {
+    "slug": "sets",
+    "title": "Sets",
+    "summary": "Remove duplicates with Python sets and compare groups with intersection, union and difference: who belongs to each school club.",
+    "body": [
+      "A **set** keeps each value **only once**. `set(visits)` turns the list of six visits into a set of three people: the duplicates simply vanish.",
+      "Sets **have no order**, and when printed their items can come out in any order. That is why the example uses `sorted()`, which returns a sorted list of the items, so the output is always the same.",
+      "A set can also be written between braces, like `chess` and `football`. With them you can do set operations: `&` (**intersection**) gives who is in both clubs; `|` (**union**) who is in either; `-` (**difference**) who is only in chess; and `^` who is in just one of the two.",
+      "`add()` adds an item; if it is already there, like `ben`, nothing happens. `discard()` removes it without an error even when it is missing. And `in` checks membership, much faster than in a long list."
+    ],
+    "points": [
+      "A `set` has no duplicates and no order.",
+      "`set(items)` removes the duplicates from a list.",
+      "`&` common, `|` all, `-` difference, `^` in only one.",
+      "`sorted()` gives a sorted list for printing a set."
+    ],
+    "exercise": "Create a third club, `music`, and print who is in all three clubs and who is in chess or music but not in football."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "let-const-y-tipos-de-datos",
+    "title": "let, const y tipos de datos",
+    "summary": "Guarde valores en variables con let y const, y descubra con typeof los tipos de datos de JavaScript: cadenas, números, booleanos, undefined y null.",
+    "body": [
+      "Una **variable** es un nombre que guarda un valor. Con `const` se declara una que no cambiará, como `shopName`; con `let`, una que sí puede cambiar, como `loavesLeft`, que pasa de `40` a `28` cuando se le asigna `loavesLeft - 12`.",
+      "Use `const` siempre que pueda y `let` solo cuando el valor tenga que cambiar: así el código dice claramente qué es fijo. Si intenta dar otro valor a una `const` (quite las `//` de la última línea), JavaScript se detiene con un error.",
+      "El operador **`typeof`** dice de qué tipo es un valor. El texto es `string`; los números, enteros o con decimales, son `number`; `true` y `false` son `boolean`.",
+      "Una variable declarada sin valor, como `nextDelivery`, vale **`undefined`**. En cambio, **`null`** es un «vacío» que se pone a propósito; `typeof null` da `object` por un error histórico del lenguaje que ya no se puede corregir.",
+      "En JavaScript el tipo va con el valor, no con la variable: `label` empieza siendo un número y después guarda un texto. Es cómodo, pero conviene no mezclar tipos en la misma variable."
+    ],
+    "points": [
+      "`const` para valores fijos; `let` para los que cambian.",
+      "`typeof` devuelve el tipo: `string`, `number`, `boolean`, `undefined`…",
+      "`undefined` es «sin valor todavía»; `null` es «vacío a propósito».",
+      "Dar otro valor a una `const` es un error."
+    ],
+    "exercise": "Añada una constante `bakerName` con un nombre y una variable `isHoliday` con `false`; escriba su tipo con `typeof` y después cambie `isHoliday` a `true`."
+  },
+  "en": {
+    "slug": "let-const-and-data-types",
+    "title": "let, const and data types",
+    "summary": "Store values in variables with let and const, and use typeof to discover JavaScript's data types: strings, numbers, booleans, undefined and null.",
+    "body": [
+      "A **variable** is a name that holds a value. `const` declares one that will not change, like `shopName`; `let` declares one that can, like `loavesLeft`, which goes from `40` to `28` when it is assigned `loavesLeft - 12`.",
+      "Use `const` whenever you can and `let` only when the value must change: the code then says clearly what is fixed. If you try to give a `const` a new value (remove the `//` on the last line), JavaScript stops with an error.",
+      "The **`typeof`** operator tells you the type of a value. Text is `string`; numbers, whole or decimal, are `number`; `true` and `false` are `boolean`.",
+      "A variable declared without a value, like `nextDelivery`, holds **`undefined`**. **`null`**, on the other hand, is an emptiness you set on purpose; `typeof null` gives `object` because of an old mistake in the language that can no longer be fixed.",
+      "In JavaScript the type belongs to the value, not to the variable: `label` starts as a number and later holds text. It is convenient, but it is best not to mix types in the same variable."
+    ],
+    "points": [
+      "`const` for fixed values; `let` for values that change.",
+      "`typeof` returns the type: `string`, `number`, `boolean`, `undefined`…",
+      "`undefined` means no value yet; `null` means empty on purpose.",
+      "Giving a `const` a new value is an error."
+    ],
+    "exercise": "Add a constant `bakerName` with a name and a variable `isHoliday` set to `false`; print their types with `typeof`, then change `isHoliday` to `true`."
+  }
+}

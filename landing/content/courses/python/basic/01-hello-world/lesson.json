@@ -1,0 +1,36 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Su primer programa en Python: print() escribe texto y resultados en la consola. Ejecútelo con un clic en DMarlon Studio.",
+    "body": [
+      "Todo programa empieza por mostrar algo. En Python se hace con `print()`: escribe en la consola lo que le pase entre paréntesis y salta a la línea siguiente.",
+      "El texto va entre comillas (es una **cadena**). Los números van sin comillas y Python hace las cuentas antes de escribirlas: `2 + 3` sale como `5`.",
+      "Las líneas que empiezan por `#` son **comentarios**: Python las ignora y sirven para explicar el código a quien lo lea."
+    ],
+    "points": [
+      "`print()` escribe una línea en la consola.",
+      "Los textos van entre comillas; los números, no.",
+      "Con comas, `print()` escribe varios valores separados por un espacio.",
+      "`#` empieza un comentario."
+    ],
+    "exercise": "Cambie el programa para que escriba su nombre y su edad, y en otra línea cuántos años tendrá dentro de 10 (que lo calcule Python)."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Your first Python program: print() writes text and results to the console. Run it with one click in DMarlon Studio.",
+    "body": [
+      "Every program starts by showing something. In Python you use `print()`: it writes whatever you put inside the parentheses to the console and moves to the next line.",
+      "Text goes between quotes (it is a **string**). Numbers go without quotes, and Python does the maths before printing: `2 + 3` comes out as `5`.",
+      "Lines starting with `#` are **comments**: Python ignores them, and they explain the code to whoever reads it."
+    ],
+    "points": [
+      "`print()` writes a line to the console.",
+      "Text goes between quotes; numbers do not.",
+      "With commas, `print()` writes several values separated by a space.",
+      "`#` starts a comment."
+    ],
+    "exercise": "Change the program so it prints your name and age, and on another line how old you will be in 10 years (let Python work it out)."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tuplas-y-desempaquetado",
+    "title": "Tuplas y desempaquetado",
+    "summary": "Use tuplas de Python para datos que no cambian y desempaquételos en varias variables de una vez, también dentro de un bucle for.",
+    "body": [
+      "Una **tupla** es como una lista, pero entre paréntesis y **sin poder cambiarla** después de crearla. Sirve para datos que van juntos y fijos, como un punto `(3, 7)`: sus valores se leen igual que en una lista, `point[0]` y `point[1]`.",
+      "El **desempaquetado** reparte los valores de una tupla entre varias variables en una sola línea: `x, y = point` deja `x = 3` e `y = 7`. Tiene que haber tantas variables como valores; así se hace con la ciudad: nombre, altitud y población.",
+      "Con el mismo truco se intercambian dos variables sin una auxiliar: `left, right = right, left`. Python arma primero la tupla de la derecha y luego la reparte.",
+      "Una lista de tuplas es muy práctica para tablas. En `for medal, runner in podium:` cada vuelta recibe una tupla y la desempaqueta en `medal` y `runner`; `{medal:>6}` alinea las medallas a la derecha.",
+      "Algunas funciones devuelven una tupla. `divmod(200, 60)` da a la vez la división entera y el resto, `(3, 20)`: 200 segundos son 3 minutos y 20 segundos."
+    ],
+    "points": [
+      "Una tupla va entre `( )` y no se puede modificar.",
+      "`a, b = tupla` reparte sus valores en variables.",
+      "`a, b = b, a` intercambia dos variables.",
+      "En un `for` se puede desempaquetar cada tupla de una lista."
+    ],
+    "exercise": "Cree una lista de tuplas con tres ciudades (nombre, temperatura de hoy) y escriba cada una con su temperatura; después, intercambie la primera y la última."
+  },
+  "en": {
+    "slug": "tuples-and-unpacking",
+    "title": "Tuples and unpacking",
+    "summary": "Use Python tuples for data that does not change, and unpack them into several variables at once, even inside a for loop.",
+    "body": [
+      "A **tuple** is like a list, but between parentheses and **impossible to change** once it is created. It suits data that belongs together and stays fixed, such as a point `(3, 7)`: you read its values as in a list, `point[0]` and `point[1]`.",
+      "**Unpacking** hands out the values of a tuple to several variables in one line: `x, y = point` leaves `x = 3` and `y = 7`. You need as many variables as values; the city works the same way, with name, altitude and population.",
+      "The same trick swaps two variables without a spare one: `left, right = right, left`. Python first builds the tuple on the right and then hands it out.",
+      "A list of tuples is very handy for tables. In `for medal, runner in podium:` each round receives one tuple and unpacks it into `medal` and `runner`; `{medal:>6}` lines up the medals on the right.",
+      "Some functions return a tuple. `divmod(200, 60)` gives the floor division and the remainder at once, `(3, 20)`: 200 seconds are 3 minutes and 20 seconds."
+    ],
+    "points": [
+      "A tuple goes between `( )` and cannot be changed.",
+      "`a, b = some_tuple` hands its values out to variables.",
+      "`a, b = b, a` swaps two variables.",
+      "A `for` loop can unpack each tuple of a list."
+    ],
+    "exercise": "Make a list of tuples with three cities (name, today's temperature) and print each one with its temperature; then swap the first and the last city."
+  }
+}

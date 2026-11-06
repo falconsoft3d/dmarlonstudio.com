@@ -1,0 +1,990 @@
+{
+ "id": "python",
+ "levels": {
+  "basic": [
+   {
+    "n": 1,
+    "es": {
+     "slug": "hola-mundo",
+     "title": "Hola, mundo",
+     "summary": "Su primer programa en Python: print() escribe texto y resultados en la consola. Ejecútelo con un clic en DMarlon Studio.",
+     "body": [
+      "Todo programa empieza por mostrar algo. En Python se hace con `print()`: escribe en la consola lo que le pase entre paréntesis y salta a la línea siguiente.",
+      "El texto va entre comillas (es una **cadena**). Los números van sin comillas y Python hace las cuentas antes de escribirlas: `2 + 3` sale como `5`.",
+      "Las líneas que empiezan por `#` son **comentarios**: Python las ignora y sirven para explicar el código a quien lo lea."
+     ],
+     "points": [
+      "`print()` escribe una línea en la consola.",
+      "Los textos van entre comillas; los números, no.",
+      "Con comas, `print()` escribe varios valores separados por un espacio.",
+      "`#` empieza un comentario."
+     ],
+     "exercise": "Cambie el programa para que escriba su nombre y su edad, y en otra línea cuántos años tendrá dentro de 10 (que lo calcule Python)."
+    },
+    "en": {
+     "slug": "hello-world",
+     "title": "Hello, world",
+     "summary": "Your first Python program: print() writes text and results to the console. Run it with one click in DMarlon Studio.",
+     "body": [
+      "Every program starts by showing something. In Python you use `print()`: it writes whatever you put inside the parentheses to the console and moves to the next line.",
+      "Text goes between quotes (it is a **string**). Numbers go without quotes, and Python does the maths before printing: `2 + 3` comes out as `5`.",
+      "Lines starting with `#` are **comments**: Python ignores them, and they explain the code to whoever reads it."
+     ],
+     "points": [
+      "`print()` writes a line to the console.",
+      "Text goes between quotes; numbers do not.",
+      "With commas, `print()` writes several values separated by a space.",
+      "`#` starts a comment."
+     ],
+     "exercise": "Change the program so it prints your name and age, and on another line how old you will be in 10 years (let Python work it out)."
+    },
+    "code": "# Your first program: print() writes a line in the console.\nprint(\"Hello, world!\")\nprint(\"I am learning Python with DMarlon Studio.\")\n\n# print() accepts several values and separates them with a space.\nprint(\"2 + 3 =\", 2 + 3)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Your first program: print() writes a line in the console.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Hello, world!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"I am learning Python with DMarlon Studio.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># print() accepts several values and separates them with a space.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"2 + 3 =\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Hello, world!\nI am learning Python with DMarlon Studio.\n2 + 3 = 5",
+    "image": "/courses/python/basic-01.jpg",
+    "size": [
+     1200,
+     496
+    ]
+   },
+   {
+    "n": 2,
+    "es": {
+     "slug": "variables-y-tipos",
+     "title": "Variables y tipos",
+     "summary": "Guarde datos en variables de Python y descubra sus tipos (str, float, int y bool) con type(), con el ejemplo de una tienda.",
+     "body": [
+      "Una **variable** es un nombre que apunta a un valor. Se crea al darle un valor con `=`: `product = \"Coffee mug\"` guarda un texto con el nombre `product`. A partir de ahí, basta con escribir el nombre para usar el valor, como hace `print(\"Product:\", product)`.",
+      "Cada valor tiene un **tipo**. El texto entre comillas es `str` (cadena); `12` es `int` (número entero); `7.5` es `float` (número con decimales), y `True` o `False` son `bool` (verdadero o falso). Python deduce el tipo solo: no hay que declararlo.",
+      "La función `type()` dice de qué tipo es un valor. Por eso la salida muestra `<class 'str'>`, `<class 'float'>`, `<class 'int'>` y `<class 'bool'>`, uno por cada variable de la tienda.",
+      "Una variable puede cambiar. `stock = stock - 3` calcula primero la parte de la derecha con el valor actual (12 − 3) y guarda el resultado en `stock`, que pasa a valer `9`."
+     ],
+     "points": [
+      "`=` guarda un valor en una variable (no es «igual a»).",
+      "Los tipos básicos son `str`, `int`, `float` y `bool`.",
+      "`type()` dice el tipo de un valor.",
+      "Los nombres van en minúsculas y con guion bajo: `on_sale`."
+     ],
+     "exercise": "Añada una variable `rating` con la nota del producto (por ejemplo, `4.6`), escríbala con su tipo y súbale el precio a `price` en 2 euros."
+    },
+    "en": {
+     "slug": "variables-and-types",
+     "title": "Variables and types",
+     "summary": "Store data in Python variables and find out their types (str, float, int and bool) with type(), using a small shop as the example.",
+     "body": [
+      "A **variable** is a name that points to a value. You create it by giving it a value with `=`: `product = \"Coffee mug\"` stores some text under the name `product`. From then on, writing the name is enough to use the value, as `print(\"Product:\", product)` does.",
+      "Every value has a **type**. Text between quotes is a `str` (string); `12` is an `int` (whole number); `7.5` is a `float` (number with decimals); and `True` or `False` are `bool` (yes or no). Python works out the type by itself: you never declare it.",
+      "The `type()` function tells you what type a value is. That is why the output shows `<class 'str'>`, `<class 'float'>`, `<class 'int'>` and `<class 'bool'>`, one for each variable of the shop.",
+      "A variable can change. `stock = stock - 3` first works out the right-hand side with the current value (12 − 3) and stores the result back in `stock`, which is now `9`."
+     ],
+     "points": [
+      "`=` stores a value in a variable (it does not mean «equals»).",
+      "The basic types are `str`, `int`, `float` and `bool`.",
+      "`type()` tells you the type of a value.",
+      "Names are lower case with underscores: `on_sale`."
+     ],
+     "exercise": "Add a `rating` variable with the product's score (say `4.6`), print it with its type, and raise `price` by 2 euros."
+    },
+    "code": "# A variable is a name that points to a value.\nproduct = \"Coffee mug\"\nprice = 7.5\nstock = 12\non_sale = True\n\nprint(\"Product:\", product)\nprint(\"Price:\", price)\nprint(\"In stock:\", stock)\nprint(\"On sale:\", on_sale)\n\n# type() tells you what kind of value a variable holds.\nprint(type(product))\nprint(type(price))\nprint(type(stock))\nprint(type(on_sale))\n\n# A variable can change: just give it a new value.\nstock = stock - 3\nprint(\"Stock after selling 3:\", stock)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A variable is a name that points to a value.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">product = </span><span style=\"color:#CE9178\">\"Coffee mug\"</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">price = </span><span style=\"color:#B5CEA8\">7.5</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">stock = </span><span style=\"color:#B5CEA8\">12</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">on_sale = </span><span style=\"color:#569CD6\">True</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Product:\"</span><span style=\"color:#D4D4D4\">, product)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Price:\"</span><span style=\"color:#D4D4D4\">, price)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"In stock:\"</span><span style=\"color:#D4D4D4\">, stock)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"On sale:\"</span><span style=\"color:#D4D4D4\">, on_sale)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># type() tells you what kind of value a variable holds.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#4EC9B0\">type</span><span style=\"color:#D4D4D4\">(product))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#4EC9B0\">type</span><span style=\"color:#D4D4D4\">(price))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#4EC9B0\">type</span><span style=\"color:#D4D4D4\">(stock))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#4EC9B0\">type</span><span style=\"color:#D4D4D4\">(on_sale))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A variable can change: just give it a new value.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">stock = stock - </span><span style=\"color:#B5CEA8\">3</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Stock after selling 3:\"</span><span style=\"color:#D4D4D4\">, stock)</span></span></code></pre>",
+    "output": "Product: Coffee mug\nPrice: 7.5\nIn stock: 12\nOn sale: True\n<class 'str'>\n<class 'float'>\n<class 'int'>\n<class 'bool'>\nStock after selling 3: 9",
+    "image": "/courses/python/basic-02.jpg",
+    "size": [
+     1200,
+     933
+    ]
+   },
+   {
+    "n": 3,
+    "es": {
+     "slug": "numeros-y-operaciones",
+     "title": "Números y operaciones",
+     "summary": "Haga cuentas en Python: división entera con //, resto con %, potencias con ** y redondeo con round(), repartiendo unas pizzas.",
+     "body": [
+      "Python suma con `+`, resta con `-` y multiplica con `*`. Tres pizzas de ocho porciones son `3 * 8`, es decir, `24` porciones que hay que repartir entre `5` amigos.",
+      "Hay tres formas de dividir. `/` da el resultado exacto, siempre con decimales (`4.8`). `//` es la **división entera**: cuántas porciones enteras toca a cada uno (`4`). Y `%` da el **resto**: las porciones que sobran (`4`).",
+      "Los números con punto decimal son `float`. La cuenta `12.99 * 3` da `38.97`; `round(bill)` la redondea a euros enteros (`39`) y `round(bill / friends, 2)` la deja con dos decimales (`7.79`). Ojo: en Python el separador decimal es siempre el punto, nunca la coma.",
+      "`**` eleva a una potencia: `15 ** 2` es 15 al cuadrado. Con eso se calcula el área de cada pizza (π · r²) y se ve que la grande tiene casi el doble de superficie.",
+      "Como en matemáticas, la multiplicación va antes que la suma: `2 + 3 * 4` da `14`. Los **paréntesis** cambian el orden: `(2 + 3) * 4` da `20`."
+     ],
+     "points": [
+      "`/` divide con decimales; `//` da la parte entera.",
+      "`%` da el resto de una división.",
+      "`**` es la potencia: `2 ** 3` vale `8`.",
+      "`round(x, 2)` redondea a dos decimales.",
+      "Los paréntesis deciden qué se calcula primero."
+     ],
+     "exercise": "Cambie el número de amigos a 7 y añada una línea que diga cuántas porciones habría que comprar de más para que nadie se quede sin la quinta."
+    },
+    "en": {
+     "slug": "numbers-and-arithmetic",
+     "title": "Numbers and arithmetic",
+     "summary": "Do maths in Python: whole division with //, remainders with %, powers with ** and rounding with round(), while sharing out some pizzas.",
+     "body": [
+      "Python adds with `+`, subtracts with `-` and multiplies with `*`. Three pizzas with eight slices each are `3 * 8`, that is `24` slices to share among `5` friends.",
+      "There are three ways to divide. `/` gives the exact result, always with decimals (`4.8`). `//` is **floor division**: how many whole slices each friend gets (`4`). And `%` gives the **remainder**: the slices left over (`4`).",
+      "Numbers with a decimal point are `float`. `12.99 * 3` gives `38.97`; `round(bill)` rounds it to whole euros (`39`) and `round(bill / friends, 2)` keeps two decimals (`7.79`). Remember that Python always uses a point for decimals, never a comma.",
+      "`**` raises to a power: `15 ** 2` is 15 squared. With it the program works out each pizza's area (π · r²), and you can see that the large one is almost twice as big.",
+      "As in maths, multiplication comes before addition: `2 + 3 * 4` is `14`. **Parentheses** change the order: `(2 + 3) * 4` is `20`."
+     ],
+     "points": [
+      "`/` divides with decimals; `//` keeps the whole part.",
+      "`%` gives the remainder of a division.",
+      "`**` is the power: `2 ** 3` is `8`.",
+      "`round(x, 2)` rounds to two decimals.",
+      "Parentheses decide what is worked out first."
+     ],
+     "exercise": "Change the number of friends to 7 and add a line that says how many extra slices you would need so that everyone gets a fifth one."
+    },
+    "code": "# Pizza night with friends: let Python do the maths.\nslices = 3 * 8        # three pizzas, eight slices each\nfriends = 5\n\nprint(\"Total slices:\", slices)\nprint(\"Each one (exact):\", slices / friends)\nprint(\"Each one (whole):\", slices // friends)\nprint(\"Slices left over:\", slices % friends)\n\n# Numbers with a decimal point are floats.\npizza_price = 12.99\nbill = pizza_price * 3\nprint(\"Bill:\", bill)\nprint(\"Rounded to euros:\", round(bill))\nprint(\"Per person:\", round(bill / friends, 2))\n\n# ** raises to a power: area of a 30 cm and a 40 cm pizza.\nmedium = 3.1416 * 15 ** 2\nlarge = 3.1416 * 20 ** 2\nprint(\"Medium area:\", round(medium), \"cm2\")\nprint(\"Large area:\", round(large), \"cm2\")\n\n# Parentheses decide what is worked out first.\nprint(2 + 3 * 4, (2 + 3) * 4)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Pizza night with friends: let Python do the maths.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">slices = </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#6A9955\">        # three pizzas, eight slices each</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">friends = </span><span style=\"color:#B5CEA8\">5</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Total slices:\"</span><span style=\"color:#D4D4D4\">, slices)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Each one (exact):\"</span><span style=\"color:#D4D4D4\">, slices / friends)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Each one (whole):\"</span><span style=\"color:#D4D4D4\">, slices // friends)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Slices left over:\"</span><span style=\"color:#D4D4D4\">, slices % friends)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Numbers with a decimal point are floats.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">pizza_price = </span><span style=\"color:#B5CEA8\">12.99</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">bill = pizza_price * </span><span style=\"color:#B5CEA8\">3</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Bill:\"</span><span style=\"color:#D4D4D4\">, bill)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Rounded to euros:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(bill))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Per person:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(bill / friends, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># ** raises to a power: area of a 30 cm and a 40 cm pizza.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">medium = </span><span style=\"color:#B5CEA8\">3.1416</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">15</span><span style=\"color:#D4D4D4\"> ** </span><span style=\"color:#B5CEA8\">2</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">large = </span><span style=\"color:#B5CEA8\">3.1416</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">20</span><span style=\"color:#D4D4D4\"> ** </span><span style=\"color:#B5CEA8\">2</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Medium area:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(medium), </span><span style=\"color:#CE9178\">\"cm2\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Large area:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(large), </span><span style=\"color:#CE9178\">\"cm2\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Parentheses decide what is worked out first.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">, (</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">) * </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Total slices: 24\nEach one (exact): 4.8\nEach one (whole): 4\nSlices left over: 4\nBill: 38.97\nRounded to euros: 39\nPer person: 7.79\nMedium area: 707 cm2\nLarge area: 1257 cm2\n14 20",
+    "image": "/courses/python/basic-03.jpg",
+    "size": [
+     1200,
+     1044
+    ]
+   },
+   {
+    "n": 4,
+    "es": {
+     "slug": "cadenas-y-f-strings",
+     "title": "Cadenas y f-strings",
+     "summary": "Trabaje con texto en Python: unir y repetir cadenas, contar letras con len(), leer posiciones y dar formato con f-strings.",
+     "body": [
+      "Una **cadena** (`str`) es texto entre comillas, simples o dobles: `\"Ada\"` y `'Lovelace'` valen lo mismo. Con `+` se unen (`first + \" \" + last` da `Ada Lovelace`) y con `*` se repiten: `\"=\" * 20` dibuja una raya de veinte signos.",
+      "`len()` cuenta los caracteres, espacios incluidos: `Ada Lovelace` tiene `12`. Cada carácter tiene una **posición** que empieza en 0: `first[0]` es `A`, y las posiciones negativas cuentan desde el final, así que `last[-1]` es la última letra, `e`.",
+      "Un número no se puede unir a un texto con `+`: Python daría un error. Hay que convertirlo antes con `str(score)`, como en la primera frase de la nota.",
+      "Es más cómodo usar una **f-string**: una cadena con `f` delante en la que los valores van entre llaves, `f\"{first} scored {score} points.\"`. Dentro de las llaves cabe cualquier cálculo, como `{score + 5}`.",
+      "Tras dos puntos se indica el formato: `{average:.2f}` deja dos decimales (`87.46`); `{first:>8}` ocupa 8 huecos alineado a la derecha y `{last:<10}`, 10 huecos a la izquierda. Los corchetes de la salida dejan ver esos espacios."
+     ],
+     "points": [
+      "`+` une cadenas y `*` las repite.",
+      "`len()` cuenta caracteres; `texto[0]` es el primero y `texto[-1]`, el último.",
+      "`str()` convierte un número en texto.",
+      "En una f-string los valores van entre `{ }`.",
+      "`:.2f` da dos decimales; `:>8` y `:<8` alinean en 8 huecos."
+     ],
+     "exercise": "Escriba su nombre y apellido en las variables, y muestre una línea con sus iniciales y otra con la longitud del nombre completo, centrada en 30 huecos con `:^30`."
+    },
+    "en": {
+     "slug": "strings-and-f-strings",
+     "title": "Strings and f-strings",
+     "summary": "Work with text in Python: join and repeat strings, count characters with len(), read positions and format values with f-strings.",
+     "body": [
+      "A **string** (`str`) is text between quotes, single or double: `\"Ada\"` and `'Lovelace'` work the same. `+` joins them (`first + \" \" + last` gives `Ada Lovelace`) and `*` repeats them: `\"=\" * 20` draws a line of twenty signs.",
+      "`len()` counts the characters, spaces included: `Ada Lovelace` has `12`. Each character has a **position** (an index) starting at 0: `first[0]` is `A`, and negative positions count from the end, so `last[-1]` is the last letter, `e`.",
+      "You cannot join a number to a string with `+`: Python would stop with an error. Convert it first with `str(score)`, as the first score sentence does.",
+      "An **f-string** is handier: a string with an `f` in front where values go inside braces, `f\"{first} scored {score} points.\"`. Any calculation fits inside the braces, such as `{score + 5}`.",
+      "After a colon comes the format: `{average:.2f}` keeps two decimals (`87.46`); `{first:>8}` fills 8 spaces aligned to the right, and `{last:<10}` fills 10 aligned to the left. The square brackets in the output let you see that padding."
+     ],
+     "points": [
+      "`+` joins strings and `*` repeats them.",
+      "`len()` counts characters; `text[0]` is the first and `text[-1]` the last.",
+      "`str()` turns a number into text.",
+      "In an f-string, values go inside `{ }`.",
+      "`:.2f` gives two decimals; `:>8` and `:<8` align within 8 spaces."
+     ],
+     "exercise": "Put your own first and last name in the variables, then print your initials and the length of your full name, centred in 30 spaces with `:^30`."
+    },
+    "code": "# Strings are text between quotes, single or double.\nfirst = \"Ada\"\nlast = 'Lovelace'\n\n# + joins strings and * repeats them.\nfull = first + \" \" + last\nprint(full)\nprint(\"=\" * 20)\n\n# len() counts the characters.\nprint(\"Characters in the name:\", len(full))\n\n# Each character has a position, starting at 0.\nprint(\"Initials:\", first[0] + last[0])\nprint(\"Last letter:\", last[-1])\n\n# str() turns a number into text so it can be joined.\nscore = 92\nprint(first + \" scored \" + str(score) + \" points.\")\n\n# An f-string puts values straight into the text with { }.\nprint(f\"{first} scored {score} points.\")\nprint(f\"Next year she wants {score + 5}.\")\n\n# After a colon you can format: decimals, width, alignment.\naverage = 87.456\nprint(f\"Class average: {average:.2f}\")\nprint(f\"[{first:>8}] [{last:<10}]\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Strings are text between quotes, single or double.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">first = </span><span style=\"color:#CE9178\">\"Ada\"</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">last = </span><span style=\"color:#CE9178\">'Lovelace'</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># + joins strings and * repeats them.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">full = first + </span><span style=\"color:#CE9178\">\" \"</span><span style=\"color:#D4D4D4\"> + last</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(full)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"=\"</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">20</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># len() counts the characters.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Characters in the name:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(full))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Each character has a position, starting at 0.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Initials:\"</span><span style=\"color:#D4D4D4\">, first[</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">] + last[</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Last letter:\"</span><span style=\"color:#D4D4D4\">, last[-</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># str() turns a number into text so it can be joined.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">score = </span><span style=\"color:#B5CEA8\">92</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(first + </span><span style=\"color:#CE9178\">\" scored \"</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#4EC9B0\">str</span><span style=\"color:#D4D4D4\">(score) + </span><span style=\"color:#CE9178\">\" points.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># An f-string puts values straight into the text with { }.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">first</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> scored </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">score</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> points.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Next year she wants </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">score + </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># After a colon you can format: decimals, width, alignment.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">average = </span><span style=\"color:#B5CEA8\">87.456</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Class average: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">average</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"[</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">first</span><span style=\"color:#569CD6\">:>8}</span><span style=\"color:#CE9178\">] [</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">last</span><span style=\"color:#569CD6\">:&#x3C;10}</span><span style=\"color:#CE9178\">]\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Ada Lovelace\n====================\nCharacters in the name: 12\nInitials: AL\nLast letter: e\nAda scored 92 points.\nAda scored 92 points.\nNext year she wants 97.\nClass average: 87.46\n[     Ada] [Lovelace  ]",
+    "image": "/courses/python/basic-04.jpg",
+    "size": [
+     1200,
+     1134
+    ]
+   },
+   {
+    "n": 5,
+    "es": {
+     "slug": "leer-del-teclado",
+     "title": "Leer del teclado",
+     "summary": "Pida datos al usuario con input() en Python y conviértalos en números con int() y float() para poder hacer cuentas con ellos.",
+     "body": [
+      "`input()` escribe el mensaje que le pase y espera a que el usuario teclee una línea y pulse Intro. Lo tecleado es el resultado: `name = input(\"What is your name? \")` lo guarda en `name`.",
+      "En este ejemplo las respuestas salen del archivo `input.txt` (como si alguien las tecleara), por eso no aparecen en la salida: solo se ve la pregunta y, a continuación, la contestación del programa. En la consola de DMarlon Studio puede escribirlas usted mismo.",
+      "`input()` siempre devuelve **texto**, aunque se teclee `29`. Para hacer cuentas hay que **convertirlo**: `int()` lo pasa a número entero y `float()` a número con decimales. `int(input(...))` hace las dos cosas en una línea: lee y convierte.",
+      "Con los números ya convertidos se calcula normalmente: la edad dentro de 10 años, la altura en centímetros (`{height * 100:.0f}`, sin decimales) y el precio de tres entradas de cine con dos decimales."
+     ],
+     "points": [
+      "`input(\"mensaje\")` lee una línea del teclado.",
+      "Lo que devuelve `input()` es siempre una cadena.",
+      "`int()` y `float()` convierten texto en números.",
+      "Si el texto no es un número, la conversión falla (lo resolverá más adelante con `try`)."
+     ],
+     "exercise": "Pida también el nombre de la película y escriba al final una frase como «3 tickets for Dune cost 25.50 euros.». Añada la respuesta a `input.txt`."
+    },
+    "en": {
+     "slug": "reading-input",
+     "title": "Reading from the keyboard",
+     "summary": "Ask the user for data with input() in Python and convert it into numbers with int() and float() so you can do maths with it.",
+     "body": [
+      "`input()` prints the message you give it and waits for the user to type a line and press Enter. What they type is the result: `name = input(\"What is your name? \")` stores it in `name`.",
+      "In this example the answers come from the `input.txt` file (as if someone were typing them), so they do not appear in the output: you only see each question followed by the program's reply. In the DMarlon Studio console you can type them yourself.",
+      "`input()` always returns **text**, even if you type `29`. To do maths you have to **convert** it: `int()` turns it into a whole number and `float()` into a number with decimals. `int(input(...))` does both in one line: it reads and converts.",
+      "Once converted, the numbers work as usual: your age in 10 years, your height in centimetres (`{height * 100:.0f}`, no decimals) and the price of three cinema tickets with two decimals."
+     ],
+     "points": [
+      "`input(\"message\")` reads a line from the keyboard.",
+      "`input()` always returns a string.",
+      "`int()` and `float()` turn text into numbers.",
+      "If the text is not a number, the conversion fails (you will handle that later with `try`)."
+     ],
+     "exercise": "Also ask for the film's name and end with a sentence such as «3 tickets for Dune cost 25.50 euros.». Add the answer to `input.txt`."
+    },
+    "code": "# input() shows a message and waits for a line from the keyboard.\nname = input(\"What is your name? \")\nprint(f\"Nice to meet you, {name}!\")\n\n# input() always returns text: convert it to do maths.\nage = int(input(\"How old are you? \"))\nprint(f\"In 10 years you will be {age + 10}.\")\n\n# float() converts text with a decimal point.\nheight = float(input(\"How tall are you, in metres? \"))\nprint(f\"That is {height * 100:.0f} centimetres.\")\n\n# Two numbers for a quick bill.\nprice = float(input(\"Price of a cinema ticket? \"))\ntickets = int(input(\"How many tickets? \"))\nprint(f\"{tickets} tickets cost {price * tickets:.2f} euros.\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># input() shows a message and waits for a line from the keyboard.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">name = </span><span style=\"color:#DCDCAA\">input</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"What is your name? \"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Nice to meet you, </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># input() always returns text: convert it to do maths.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">age = </span><span style=\"color:#4EC9B0\">int</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#DCDCAA\">input</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"How old are you? \"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"In 10 years you will be </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">age + </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># float() converts text with a decimal point.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">height = </span><span style=\"color:#4EC9B0\">float</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#DCDCAA\">input</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"How tall are you, in metres? \"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"That is </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">height * </span><span style=\"color:#B5CEA8\">100</span><span style=\"color:#569CD6\">:.0f}</span><span style=\"color:#CE9178\"> centimetres.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Two numbers for a quick bill.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">price = </span><span style=\"color:#4EC9B0\">float</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#DCDCAA\">input</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Price of a cinema ticket? \"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">tickets = </span><span style=\"color:#4EC9B0\">int</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#DCDCAA\">input</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"How many tickets? \"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">tickets</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> tickets cost </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">price * tickets</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\"> euros.\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "input": "Lucia\n29\n1.68\n8.50\n3\n",
+    "output": "What is your name? Nice to meet you, Lucia!\nHow old are you? In 10 years you will be 39.\nHow tall are you, in metres? That is 168 centimetres.\nPrice of a cinema ticket? How many tickets? 3 tickets cost 25.50 euros.",
+    "image": "/courses/python/basic-05.jpg",
+    "size": [
+     1200,
+     739
+    ]
+   },
+   {
+    "n": 6,
+    "es": {
+     "slug": "if-elif-else",
+     "title": "Decidir con if, elif y else",
+     "summary": "Haga que su programa de Python tome decisiones con if, elif y else: qué ropa ponerse según la temperatura y si el envío sale gratis.",
+     "body": [
+      "`if` comprueba una **condición** y, si es verdadera, ejecuta el bloque que va debajo. El bloque se marca con la **sangría**: las líneas que empiezan con cuatro espacios tras los dos puntos `:` son las que dependen del `if`.",
+      "`elif` (de «else if») añade otra condición que solo se mira si las anteriores han fallado, y `else` recoge todo lo demás. Python las revisa de arriba abajo y ejecuta **solo la primera** que se cumple: con `temperature = 12` falla `>= 25`, falla `>= 15` y acierta `>= 5`, así que escribe «take a coat».",
+      "`elif` y `else` son opcionales. `if raining:` va solo: como `raining` es `True`, escribe la línea del paraguas; si fuera `False`, no pasaría nada.",
+      "Con `if` y `else` se elige entre dos caminos: el carrito suma 42,80 €, no llega a 50, y el programa calcula cuánto falta para el envío gratis. La última línea no tiene sangría, así que se ejecuta siempre."
+     ],
+     "points": [
+      "Tras la condición van dos puntos `:` y el bloque, con sangría.",
+      "De una cadena `if`/`elif`/`else` solo se ejecuta un bloque.",
+      "El orden importa: ponga primero las condiciones más estrictas.",
+      "Una variable `bool` ya sirve como condición: `if raining:`."
+     ],
+     "exercise": "Pruebe con `temperature = 30` y con `-2`, y añada un caso nuevo con `elif` para cuando haga más de 35 grados («Stay in the shade!»)."
+    },
+    "en": {
+     "slug": "if-elif-else",
+     "title": "Deciding with if, elif and else",
+     "summary": "Make your Python program take decisions with if, elif and else: what to wear for the weather and whether delivery is free.",
+     "body": [
+      "`if` checks a **condition** and, when it is true, runs the block underneath. The block is marked by **indentation**: the lines indented four spaces after the colon `:` are the ones that belong to the `if`.",
+      "`elif` (short for «else if») adds another condition that is only checked when the ones above have failed, and `else` catches everything else. Python goes from top to bottom and runs **only the first** one that is true: with `temperature = 12`, `>= 25` fails, `>= 15` fails and `>= 5` matches, so it prints «take a coat».",
+      "`elif` and `else` are optional. `if raining:` stands on its own: since `raining` is `True` it prints the umbrella line; if it were `False`, nothing would happen.",
+      "With `if` and `else` you choose between two paths: the basket comes to 42.80 euros, which is under 50, so the program works out how much more is needed for free delivery. The last line is not indented, so it always runs."
+     ],
+     "points": [
+      "After the condition comes a colon `:` and an indented block.",
+      "In an `if`/`elif`/`else` chain only one block runs.",
+      "Order matters: put the strictest conditions first.",
+      "A `bool` variable already works as a condition: `if raining:`."
+     ],
+     "exercise": "Try `temperature = 30` and `-2`, and add a new `elif` for when it is over 35 degrees («Stay in the shade!»)."
+    },
+    "code": "# The program decides what to wear from the temperature.\ntemperature = 12\n\nif temperature >= 25:\n    print(\"It is hot: wear a T-shirt.\")\nelif temperature >= 15:\n    print(\"It is mild: a light jacket will do.\")\nelif temperature >= 5:\n    print(\"It is cool: take a coat.\")\nelse:\n    print(\"It is freezing: coat, scarf and gloves!\")\n\n# Without elif or else: the block runs only if it is true.\nraining = True\nif raining:\n    print(\"And take an umbrella.\")\n\n# if ... else chooses between exactly two paths.\nbasket = 42.80\nif basket >= 50:\n    print(\"Free delivery!\")\nelse:\n    print(f\"Add {50 - basket:.2f} euros more for free delivery.\")\n\nprint(\"Have a nice day.\")  # not indented: it always runs",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># The program decides what to wear from the temperature.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">temperature = </span><span style=\"color:#B5CEA8\">12</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">if</span><span style=\"color:#D4D4D4\"> temperature >= </span><span style=\"color:#B5CEA8\">25</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"It is hot: wear a T-shirt.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">elif</span><span style=\"color:#D4D4D4\"> temperature >= </span><span style=\"color:#B5CEA8\">15</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"It is mild: a light jacket will do.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">elif</span><span style=\"color:#D4D4D4\"> temperature >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"It is cool: take a coat.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">else</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"It is freezing: coat, scarf and gloves!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Without elif or else: the block runs only if it is true.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">raining = </span><span style=\"color:#569CD6\">True</span></span><span class=\"line\"><span style=\"color:#C586C0\">if</span><span style=\"color:#D4D4D4\"> raining:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"And take an umbrella.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># if ... else chooses between exactly two paths.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">basket = </span><span style=\"color:#B5CEA8\">42.80</span></span><span class=\"line\"><span style=\"color:#C586C0\">if</span><span style=\"color:#D4D4D4\"> basket >= </span><span style=\"color:#B5CEA8\">50</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Free delivery!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">else</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Add </span><span style=\"color:#569CD6\">{</span><span style=\"color:#B5CEA8\">50</span><span style=\"color:#D4D4D4\"> - basket</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\"> euros more for free delivery.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Have a nice day.\"</span><span style=\"color:#D4D4D4\">)  </span><span style=\"color:#6A9955\"># not indented: it always runs</span></span></code></pre>",
+    "output": "It is cool: take a coat.\nAnd take an umbrella.\nAdd 7.20 euros more for free delivery.\nHave a nice day.",
+    "image": "/courses/python/basic-06.jpg",
+    "size": [
+     1200,
+     941
+    ]
+   },
+   {
+    "n": 7,
+    "es": {
+     "slug": "comparaciones-y-operadores-logicos",
+     "title": "Comparaciones y lógica",
+     "summary": "Compare valores en Python con ==, !=, <, >= y combine condiciones con and, or y not para decidir quién sube a la montaña rusa.",
+     "body": [
+      "Los **operadores de comparación** responden `True` o `False`: `==` (igual), `!=` (distinto), `<`, `>`, `<=` y `>=`. Fíjese en que para comparar se usan dos signos `==`; uno solo, `=`, es para guardar un valor.",
+      "`and` exige que se cumplan **las dos** condiciones: la niña mide 1,42 m y tiene entrada, así que `can_ride` es `True`. `or` se conforma con **una**: el parque abre porque es festivo, aunque no sea fin de semana. `not` da la vuelta al resultado.",
+      "Python permite **encadenar** comparaciones como en matemáticas: `13 <= age <= 19` comprueba de una vez si la edad está entre 13 y 19.",
+      "También se comparan textos, letra a letra y distinguiendo mayúsculas: `\"Ana\" == \"ana\"` es `False`.",
+      "Al final, todo se junta en un `if`: `age < 18 and not has_ticket` falla porque sí tiene entrada, así que pasa al `elif age < 18`, que sí se cumple."
+     ],
+     "points": [
+      "`==` compara; `=` guarda.",
+      "`and`: las dos verdaderas. `or`: al menos una. `not`: lo contrario.",
+      "Los paréntesis aclaran el orden: `not (weekend or holiday)`.",
+      "`a <= x <= b` comprueba si `x` está entre `a` y `b`."
+     ],
+     "exercise": "Añada una variable `with_adult` y cambie la regla para que quien mida entre 1,30 y 1,40 m también pueda subir si va con un adulto."
+    },
+    "en": {
+     "slug": "comparison-and-logical-operators",
+     "title": "Comparisons and logic",
+     "summary": "Compare values in Python with ==, !=, < and >=, and combine conditions with and, or and not to decide who rides the roller coaster.",
+     "body": [
+      "**Comparison operators** answer `True` or `False`: `==` (equal), `!=` (not equal), `<`, `>`, `<=` and `>=`. Note that comparing uses two signs, `==`; a single `=` stores a value.",
+      "`and` needs **both** conditions to be true: the girl is 1.42 m tall and has a ticket, so `can_ride` is `True`. `or` is happy with **one**: the park is open because it is a holiday, even though it is not the weekend. `not` flips the result.",
+      "Python lets you **chain** comparisons as in maths: `13 <= age <= 19` checks in one go whether the age is between 13 and 19.",
+      "Text can be compared too, letter by letter and case-sensitive: `\"Ana\" == \"ana\"` is `False`.",
+      "At the end it all comes together in an `if`: `age < 18 and not has_ticket` fails because she does have a ticket, so Python moves on to `elif age < 18`, which is true."
+     ],
+     "points": [
+      "`==` compares; `=` stores.",
+      "`and`: both true. `or`: at least one. `not`: the opposite.",
+      "Parentheses make the order clear: `not (weekend or holiday)`.",
+      "`a <= x <= b` checks whether `x` lies between `a` and `b`."
+     ],
+     "exercise": "Add a `with_adult` variable and change the rule so that children between 1.30 and 1.40 m can also ride when they come with an adult."
+    },
+    "code": "# Comparisons give True or False.\nage = 16\nheight = 1.42\nhas_ticket = True\n\nprint(\"age == 16:\", age == 16)\nprint(\"age != 18:\", age != 18)\nprint(\"age >= 18:\", age >= 18)\nprint(\"height < 1.40:\", height < 1.40)\n\n# and: both must be true. or: at least one. not: the opposite.\ncan_ride = height >= 1.40 and has_ticket\nprint(\"Can ride the roller coaster:\", can_ride)\n\nweekend = False\nholiday = True\nprint(\"Park is open:\", weekend or holiday)\nprint(\"Park is closed:\", not (weekend or holiday))\n\n# Python lets you chain comparisons.\nprint(\"Teenager:\", 13 <= age <= 19)\n\n# Text can be compared too (letter by letter).\nprint(\"Same name:\", \"Ana\" == \"ana\")\n\nif age < 18 and not has_ticket:\n    print(\"Ask an adult to buy you a ticket.\")\nelif age < 18:\n    print(\"Enjoy the park, and stay with your group!\")\nelse:\n    print(\"Enjoy the park!\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Comparisons give True or False.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">age = </span><span style=\"color:#B5CEA8\">16</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">height = </span><span style=\"color:#B5CEA8\">1.42</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">has_ticket = </span><span style=\"color:#569CD6\">True</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"age == 16:\"</span><span style=\"color:#D4D4D4\">, age == </span><span style=\"color:#B5CEA8\">16</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"age != 18:\"</span><span style=\"color:#D4D4D4\">, age != </span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"age >= 18:\"</span><span style=\"color:#D4D4D4\">, age >= </span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"height &#x3C; 1.40:\"</span><span style=\"color:#D4D4D4\">, height &#x3C; </span><span style=\"color:#B5CEA8\">1.40</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># and: both must be true. or: at least one. not: the opposite.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">can_ride = height >= </span><span style=\"color:#B5CEA8\">1.40</span><span style=\"color:#569CD6\"> and</span><span style=\"color:#D4D4D4\"> has_ticket</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Can ride the roller coaster:\"</span><span style=\"color:#D4D4D4\">, can_ride)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">weekend = </span><span style=\"color:#569CD6\">False</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">holiday = </span><span style=\"color:#569CD6\">True</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Park is open:\"</span><span style=\"color:#D4D4D4\">, weekend </span><span style=\"color:#C586C0\">or</span><span style=\"color:#D4D4D4\"> holiday)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Park is closed:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#C586C0\">not</span><span style=\"color:#D4D4D4\"> (weekend </span><span style=\"color:#569CD6\">or</span><span style=\"color:#D4D4D4\"> holiday))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Python lets you chain comparisons.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Teenager:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">13</span><span style=\"color:#D4D4D4\"> &#x3C;= age &#x3C;= </span><span style=\"color:#B5CEA8\">19</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Text can be compared too (letter by letter).</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Same name:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"Ana\"</span><span style=\"color:#D4D4D4\"> == </span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">if</span><span style=\"color:#D4D4D4\"> age &#x3C; </span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#569CD6\"> and</span><span style=\"color:#569CD6\"> not</span><span style=\"color:#D4D4D4\"> has_ticket:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Ask an adult to buy you a ticket.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">elif</span><span style=\"color:#D4D4D4\"> age &#x3C; </span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Enjoy the park, and stay with your group!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">else</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Enjoy the park!\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "age == 16: True\nage != 18: True\nage >= 18: False\nheight < 1.40: False\nCan ride the roller coaster: True\nPark is open: True\nPark is closed: False\nTeenager: True\nSame name: False\nEnjoy the park, and stay with your group!",
+    "image": "/courses/python/basic-07.jpg",
+    "size": [
+     1200,
+     1202
+    ]
+   },
+   {
+    "n": 8,
+    "es": {
+     "slug": "bucles-while",
+     "title": "Repetir con while",
+     "summary": "Repita código en Python con while mientras se cumpla una condición: ahorre para una bicicleta semana a semana y haga una cuenta atrás.",
+     "body": [
+      "`while` repite su bloque **mientras** la condición sea verdadera. Antes de cada vuelta, Python vuelve a mirar `savings < goal`: con 0, 22, 44, 66 y 88 euros sigue; al llegar a 110 la condición es falsa y el bucle termina.",
+      "Dentro del bucle algo tiene que cambiar para que acabe alguna vez. `week += 1` es una forma corta de `week = week + 1`, y `savings += 22` suma el ahorro de la semana. Si nada cambiara, el bucle no terminaría nunca (un **bucle infinito**).",
+      "Al salir del bucle, las variables conservan su último valor: por eso se puede decir que se tardó `5` semanas y que sobran `10` euros.",
+      "La cuenta atrás hace lo contrario: empieza en 3 y resta con `count -= 1` hasta que `count > 0` deja de cumplirse. Entonces se ejecuta la línea sin sangría que va después: «Lift-off!»."
+     ],
+     "points": [
+      "`while condición:` repite mientras la condición sea `True`.",
+      "Algo del bucle tiene que acercarlo al final.",
+      "`x += 1` suma 1 a `x`; `x -= 1` le resta 1.",
+      "Si la condición es falsa desde el principio, el bloque no se ejecuta ninguna vez."
+     ],
+     "exercise": "Cambie el ahorro para que cada semana se guarde 5 euros más que la anterior (22, 27, 32…) y vea en cuántas semanas se llega a una bicicleta de 250 euros."
+    },
+    "en": {
+     "slug": "while-loops",
+     "title": "Repeating with while",
+     "summary": "Repeat code in Python with while as long as a condition holds: save up for a bike week by week and run a countdown.",
+     "body": [
+      "`while` repeats its block **as long as** the condition is true. Before each round, Python checks `savings < goal` again: with 0, 22, 44, 66 and 88 euros it carries on; at 110 the condition is false and the loop stops.",
+      "Something inside the loop must change so that it ends one day. `week += 1` is a short way of writing `week = week + 1`, and `savings += 22` adds the week's savings. If nothing changed, the loop would never end (an **infinite loop**).",
+      "After the loop, the variables keep their last value: that is how the program can say it took `5` weeks and there are `10` euros to spare.",
+      "The countdown goes the other way: it starts at 3 and subtracts with `count -= 1` until `count > 0` is no longer true. Then the unindented line after it runs: «Lift-off!»."
+     ],
+     "points": [
+      "`while condition:` repeats while the condition is `True`.",
+      "Something in the loop must bring it closer to the end.",
+      "`x += 1` adds 1 to `x`; `x -= 1` subtracts 1.",
+      "If the condition is false from the start, the block never runs."
+     ],
+     "exercise": "Change the savings so that each week you put away 5 euros more than the week before (22, 27, 32…) and find out how many weeks it takes to buy a 250-euro bike."
+    },
+    "code": "# Saving for a bike: add money every week until you have enough.\ngoal = 100\nsavings = 0\nweek = 0\n\nwhile savings < goal:\n    week += 1       # the same as week = week + 1\n    savings += 22\n    print(f\"Week {week}: {savings} euros saved\")\n\nprint(f\"Goal reached in {week} weeks!\")\nprint(f\"Change left over: {savings - goal} euros\")\n\n# A countdown: the loop stops when the condition becomes false.\ncount = 3\nwhile count > 0:\n    print(count, \"...\")\n    count -= 1\nprint(\"Lift-off!\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Saving for a bike: add money every week until you have enough.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">goal = </span><span style=\"color:#B5CEA8\">100</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">savings = </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">week = </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">while</span><span style=\"color:#D4D4D4\"> savings &#x3C; goal:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    week += </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#6A9955\">       # the same as week = week + 1</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    savings += </span><span style=\"color:#B5CEA8\">22</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Week </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">week</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">savings</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> euros saved\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Goal reached in </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">week</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> weeks!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Change left over: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">savings - goal</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> euros\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A countdown: the loop stops when the condition becomes false.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">count = </span><span style=\"color:#B5CEA8\">3</span></span><span class=\"line\"><span style=\"color:#C586C0\">while</span><span style=\"color:#D4D4D4\"> count > </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(count, </span><span style=\"color:#CE9178\">\"...\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    count -= </span><span style=\"color:#B5CEA8\">1</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Lift-off!\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Week 1: 22 euros saved\nWeek 2: 44 euros saved\nWeek 3: 66 euros saved\nWeek 4: 88 euros saved\nWeek 5: 110 euros saved\nGoal reached in 5 weeks!\nChange left over: 10 euros\n3 ...\n2 ...\n1 ...\nLift-off!",
+    "image": "/courses/python/basic-08.jpg",
+    "size": [
+     1200,
+     953
+    ]
+   },
+   {
+    "n": 9,
+    "es": {
+     "slug": "bucles-for-y-range",
+     "title": "Bucles for y range()",
+     "summary": "Recorra letras y números con for y range() en Python: una tabla de multiplicar, los años olímpicos, una suma y break para parar.",
+     "body": [
+      "`for` repite su bloque una vez por cada elemento de una secuencia. Una cadena es una secuencia de letras, así que `for letter in \"PYTHON\":` da seis vueltas, una por letra. `end=\" \"` hace que `print()` termine con un espacio en vez de saltar de línea, y el `print()` vacío de después cierra la línea.",
+      "`range()` genera números. `range(1, 6)` da 1, 2, 3, 4 y 5: el final **no** se incluye. Con él se escribe la tabla del 7 sin repetir cinco veces el mismo `print()`.",
+      "Con un tercer número se indica el **paso**: `range(2024, 2036, 4)` va de cuatro en cuatro y da los años de los Juegos Olímpicos de verano.",
+      "Un patrón muy habitual es **acumular**: `total` empieza en 0 y en cada vuelta se le suma `n`. Al acabar, guarda la suma de 1 a 100: `5050`.",
+      "`break` sale del bucle en el acto. El último `for` podría llegar hasta 99, pero se detiene en cuanto encuentra el primer número que es múltiplo de 6 y de 8 a la vez: `24`."
+     ],
+     "points": [
+      "`for x in secuencia:` da una vuelta por elemento.",
+      "`range(a, b)` va de `a` a `b - 1`; `range(n)` va de 0 a `n - 1`.",
+      "`range(a, b, paso)` salta de `paso` en `paso`.",
+      "`break` termina el bucle antes de tiempo.",
+      "Use `for` cuando sepa cuántas vueltas dar, y `while` cuando dependa de una condición."
+     ],
+     "exercise": "Escriba la tabla del 9 del 1 al 10 y, aparte, sume solo los números pares del 1 al 100 usando `range()` con paso 2."
+    },
+    "en": {
+     "slug": "for-loops-and-range",
+     "title": "For loops and range()",
+     "summary": "Loop over letters and numbers with for and range() in Python: a times table, Olympic years, a running total and break to stop early.",
+     "body": [
+      "`for` runs its block once for each item of a sequence. A string is a sequence of letters, so `for letter in \"PYTHON\":` goes round six times, once per letter. `end=\" \"` makes `print()` finish with a space instead of a new line, and the empty `print()` afterwards closes the line.",
+      "`range()` produces numbers. `range(1, 6)` gives 1, 2, 3, 4 and 5: the end is **not** included. With it you can print the 7 times table without writing the same `print()` five times.",
+      "A third number sets the **step**: `range(2024, 2036, 4)` counts in fours and gives the years of the Summer Olympics.",
+      "A very common pattern is **accumulating**: `total` starts at 0 and each round adds `n` to it. When the loop ends, it holds the sum from 1 to 100: `5050`.",
+      "`break` leaves the loop at once. The last `for` could go up to 99, but it stops as soon as it finds the first number that is a multiple of both 6 and 8: `24`."
+     ],
+     "points": [
+      "`for x in sequence:` goes round once per item.",
+      "`range(a, b)` goes from `a` to `b - 1`; `range(n)` from 0 to `n - 1`.",
+      "`range(a, b, step)` jumps by `step`.",
+      "`break` ends the loop early.",
+      "Use `for` when you know how many rounds; use `while` when it depends on a condition."
+     ],
+     "exercise": "Print the 9 times table from 1 to 10 and, separately, add up only the even numbers from 1 to 100 using `range()` with a step of 2."
+    },
+    "code": "# for repeats a block once for each item of a sequence.\nfor letter in \"PYTHON\":\n    print(letter, end=\" \")    # end=\" \" stays on the same line\nprint()\n\n# range(1, 6) gives 1, 2, 3, 4, 5 (the end is not included).\nnumber = 7\nfor i in range(1, 6):\n    print(f\"{number} x {i} = {number * i}\")\n\n# range(start, stop, step): the Summer Olympics, every 4 years.\nfor year in range(2024, 2036, 4):\n    print(\"Olympic year:\", year)\n\n# Add up as you go.\ntotal = 0\nfor n in range(1, 101):\n    total += n\nprint(\"1 + 2 + ... + 100 =\", total)\n\n# break leaves the loop as soon as it finds what it wants.\nfor n in range(1, 100):\n    if n % 6 == 0 and n % 8 == 0:\n        print(\"First number divisible by 6 and 8:\", n)\n        break",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># for repeats a block once for each item of a sequence.</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> letter </span><span style=\"color:#C586C0\">in</span><span style=\"color:#CE9178\"> \"PYTHON\"</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(letter, </span><span style=\"color:#9CDCFE\">end</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#CE9178\">\" \"</span><span style=\"color:#D4D4D4\">)    </span><span style=\"color:#6A9955\"># end=\" \" stays on the same line</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">()</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># range(1, 6) gives 1, 2, 3, 4, 5 (the end is not included).</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">number = </span><span style=\"color:#B5CEA8\">7</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> i </span><span style=\"color:#C586C0\">in</span><span style=\"color:#DCDCAA\"> range</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">number</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> x </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">i</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> = </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">number * i</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># range(start, stop, step): the Summer Olympics, every 4 years.</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> year </span><span style=\"color:#C586C0\">in</span><span style=\"color:#DCDCAA\"> range</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">2024</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2036</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Olympic year:\"</span><span style=\"color:#D4D4D4\">, year)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Add up as you go.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">total = </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> n </span><span style=\"color:#C586C0\">in</span><span style=\"color:#DCDCAA\"> range</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">101</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    total += n</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"1 + 2 + ... + 100 =\"</span><span style=\"color:#D4D4D4\">, total)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># break leaves the loop as soon as it finds what it wants.</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> n </span><span style=\"color:#C586C0\">in</span><span style=\"color:#DCDCAA\"> range</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">100</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> n % </span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\"> == </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#569CD6\"> and</span><span style=\"color:#D4D4D4\"> n % </span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\"> == </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"First number divisible by 6 and 8:\"</span><span style=\"color:#D4D4D4\">, n)</span></span><span class=\"line\"><span style=\"color:#C586C0\">        break</span></span></code></pre>",
+    "output": "P Y T H O N \n7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\nOlympic year: 2024\nOlympic year: 2028\nOlympic year: 2032\n1 + 2 + ... + 100 = 5050\nFirst number divisible by 6 and 8: 24",
+    "image": "/courses/python/basic-09.jpg",
+    "size": [
+     1200,
+     1088
+    ]
+   },
+   {
+    "n": 10,
+    "es": {
+     "slug": "listas",
+     "title": "Listas",
+     "summary": "Guarde varios valores en una lista de Python: acceda por posición, cámbielos, recórralos con for y súmelos con sum(), min() y max().",
+     "body": [
+      "Una **lista** guarda varios valores en orden, entre corchetes y separados por comas. `fruits` tiene cuatro frutas y `prices`, sus cuatro precios en el mismo orden. `print(fruits)` la muestra entera y `len(fruits)` dice cuántos elementos tiene.",
+      "Como en las cadenas, cada elemento tiene una posición que empieza en 0: `fruits[0]` es `apple` y `fruits[-1]`, el último, `mango`.",
+      "A diferencia de las cadenas, las listas **se pueden cambiar**: `prices[3] = 0.99` sustituye el precio del mango (que estaba en la posición 3) por uno más barato.",
+      "`for fruit in fruits:` recorre la lista elemento a elemento, igual que recorría las letras de una cadena. Y `in` comprueba si un valor está en la lista: `\"kiwi\" in fruits` es `False`.",
+      "Para listas de números, `sum()` las suma, `min()` da el menor y `max()` el mayor. Con `round(..., 2)` el total sale con dos decimales."
+     ],
+     "points": [
+      "Una lista va entre `[ ]` y puede crecer o cambiar.",
+      "`lista[0]` es el primero; `lista[-1]`, el último.",
+      "`len()` da el número de elementos.",
+      "`valor in lista` dice si está.",
+      "`sum()`, `min()` y `max()` trabajan con listas de números."
+     ],
+     "exercise": "Cree una lista con las temperaturas máximas de una semana, escriba la media (`sum()` entre `len()`), la más alta y la más baja, y cuántos días pasaron de 25 grados."
+    },
+    "en": {
+     "slug": "lists",
+     "title": "Lists",
+     "summary": "Keep several values in a Python list: read them by position, change them, loop over them with for and add them up with sum(), min() and max().",
+     "body": [
+      "A **list** keeps several values in order, between square brackets and separated by commas. `fruits` holds four fruits and `prices` their four prices in the same order. `print(fruits)` shows the whole list and `len(fruits)` says how many items it has.",
+      "As with strings, every item has a position starting at 0: `fruits[0]` is `apple` and `fruits[-1]`, the last one, is `mango`.",
+      "Unlike strings, lists **can be changed**: `prices[3] = 0.99` replaces the mango's price (at position 3) with a cheaper one.",
+      "`for fruit in fruits:` goes through the list item by item, just as it went through the letters of a string. And `in` checks whether a value is in the list: `\"kiwi\" in fruits` is `False`.",
+      "For lists of numbers, `sum()` adds them up, `min()` gives the smallest and `max()` the largest. `round(..., 2)` keeps the total to two decimals."
+     ],
+     "points": [
+      "A list goes between `[ ]` and can grow or change.",
+      "`items[0]` is the first; `items[-1]` the last.",
+      "`len()` gives the number of items.",
+      "`value in items` tells you whether it is there.",
+      "`sum()`, `min()` and `max()` work on lists of numbers."
+     ],
+     "exercise": "Make a list with a week's highest temperatures, then print the average (`sum()` divided by `len()`), the highest, the lowest and how many days went over 25 degrees."
+    },
+    "code": "# A list keeps several values in order, between [ ].\nfruits = [\"apple\", \"banana\", \"cherry\", \"mango\"]\nprices = [0.40, 0.25, 0.10, 1.20]\n\nprint(fruits)\nprint(\"Items:\", len(fruits))\nprint(\"First:\", fruits[0])\nprint(\"Last:\", fruits[-1])\n\n# A list can change: give a position a new value.\nprices[3] = 0.99\nprint(\"A mango now costs\", prices[3])\n\n# for goes through the list, one item at a time.\nfor fruit in fruits:\n    print(\"-\", fruit)\n\n# in checks whether a value is in the list.\nprint(\"Do we sell kiwis?\", \"kiwi\" in fruits)\n\n# sum(), min() and max() work on lists of numbers.\nprint(\"One of each costs\", round(sum(prices), 2))\nprint(\"Cheapest:\", min(prices), \"| Dearest:\", max(prices))",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A list keeps several values in order, between [ ].</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">fruits = [</span><span style=\"color:#CE9178\">\"apple\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"banana\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"cherry\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"mango\"</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">prices = [</span><span style=\"color:#B5CEA8\">0.40</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0.25</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0.10</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">1.20</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(fruits)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Items:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(fruits))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"First:\"</span><span style=\"color:#D4D4D4\">, fruits[</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Last:\"</span><span style=\"color:#D4D4D4\">, fruits[-</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A list can change: give a position a new value.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">prices[</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">] = </span><span style=\"color:#B5CEA8\">0.99</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"A mango now costs\"</span><span style=\"color:#D4D4D4\">, prices[</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># for goes through the list, one item at a time.</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> fruit </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> fruits:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"-\"</span><span style=\"color:#D4D4D4\">, fruit)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># in checks whether a value is in the list.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Do we sell kiwis?\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"kiwi\"</span><span style=\"color:#C586C0\"> in</span><span style=\"color:#D4D4D4\"> fruits)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># sum(), min() and max() work on lists of numbers.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"One of each costs\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#DCDCAA\">sum</span><span style=\"color:#D4D4D4\">(prices), </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Cheapest:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">min</span><span style=\"color:#D4D4D4\">(prices), </span><span style=\"color:#CE9178\">\"| Dearest:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">max</span><span style=\"color:#D4D4D4\">(prices))</span></span></code></pre>",
+    "output": "['apple', 'banana', 'cherry', 'mango']\nItems: 4\nFirst: apple\nLast: mango\nA mango now costs 0.99\n- apple\n- banana\n- cherry\n- mango\nDo we sell kiwis? False\nOne of each costs 1.74\nCheapest: 0.1 | Dearest: 0.99",
+    "image": "/courses/python/basic-10.jpg",
+    "size": [
+     1200,
+     1064
+    ]
+   },
+   {
+    "n": 11,
+    "es": {
+     "slug": "trabajar-con-listas",
+     "title": "Trabajar con listas",
+     "summary": "Añada, quite y ordene elementos de una lista de Python con append, insert, remove, pop y sort, y tome partes con el troceado [a:b].",
+     "body": [
+      "Las listas tienen **métodos**: funciones que se escriben tras un punto y trabajan sobre esa lista. `append(\"apples\")` añade al final e `insert(0, \"coffee\")` añade en la posición indicada, aquí la primera.",
+      "`remove(\"bread\")` quita el primer elemento con ese valor. `pop()` quita el último y además lo **devuelve**, así que se puede guardar: `last` vale `apples`.",
+      "`sort()` ordena la lista de menor a mayor y la cambia en el sitio (no crea otra). Con `sort(reverse=True)` queda de mayor a menor: las mejores notas primero.",
+      "El **troceado** (*slicing*) toma una parte: `scores[1:4]` va de la posición 1 a la 3 (el final no entra). Si se omite el principio o el final, llega hasta el borde: `scores[:3]` son los tres primeros y `scores[3:]`, el resto. `scores[::-1]` la da al revés.",
+      "`index(88)` busca un valor y dice en qué posición está: `1`, porque tras ordenar de mayor a menor el 88 es el segundo."
+     ],
+     "points": [
+      "`append()` añade al final; `insert(i, x)` en la posición `i`.",
+      "`remove(x)` quita por valor; `pop()` quita el último y lo devuelve.",
+      "`sort()` ordena; `sort(reverse=True)`, al revés.",
+      "`lista[a:b]` va de `a` a `b - 1`; `lista[::-1]` invierte."
+     ],
+     "exercise": "Con la lista de notas, añada un `100` y un `47`, ordénela, y escriba las dos peores notas con un troceado y la mediana (el elemento del centro)."
+    },
+    "en": {
+     "slug": "working-with-lists",
+     "title": "Working with lists",
+     "summary": "Add, remove and sort the items of a Python list with append, insert, remove, pop and sort, and take parts of it with slicing [a:b].",
+     "body": [
+      "Lists have **methods**: functions written after a dot that work on that list. `append(\"apples\")` adds at the end and `insert(0, \"coffee\")` adds at the given position, here the very first.",
+      "`remove(\"bread\")` removes the first item with that value. `pop()` removes the last item and also **returns** it, so you can keep it: `last` is `apples`.",
+      "`sort()` puts the list in order from smallest to largest and changes it in place (it does not make a new one). With `sort(reverse=True)` it goes from largest to smallest: best scores first.",
+      "**Slicing** takes a part: `scores[1:4]` goes from position 1 to 3 (the end is left out). Leave out the start or the end and it runs to the edge: `scores[:3]` are the first three and `scores[3:]` the rest. `scores[::-1]` gives it backwards.",
+      "`index(88)` looks for a value and tells you its position: `1`, because after sorting from best to worst, 88 is the second one."
+     ],
+     "points": [
+      "`append()` adds at the end; `insert(i, x)` at position `i`.",
+      "`remove(x)` removes by value; `pop()` removes the last one and returns it.",
+      "`sort()` sorts; `sort(reverse=True)` the other way round.",
+      "`items[a:b]` goes from `a` to `b - 1`; `items[::-1]` reverses."
+     ],
+     "exercise": "Add a `100` and a `47` to the scores, sort the list, then print the two worst scores with a slice and the median (the middle item)."
+    },
+    "code": "# A shopping list that grows and shrinks.\nshopping = [\"milk\", \"bread\", \"eggs\"]\n\nshopping.append(\"apples\")       # add at the end\nshopping.insert(0, \"coffee\")    # add at a position\nprint(\"After adding:\", shopping)\n\nshopping.remove(\"bread\")        # remove by value\nlast = shopping.pop()           # remove the last one and return it\nprint(\"Removed:\", last)\nprint(\"Now:\", shopping)\n\n# sort() puts the list in order (it changes the list itself).\nscores = [72, 95, 58, 88, 64]\nscores.sort()\nprint(\"Sorted:\", scores)\nscores.sort(reverse=True)\nprint(\"Best first:\", scores)\n\n# Slicing: list[start:stop] takes a part (stop is not included).\nprint(\"Top 3:\", scores[:3])\nprint(\"The rest:\", scores[3:])\nprint(\"Middle:\", scores[1:4])\nprint(\"Backwards:\", scores[::-1])\nprint(\"Position of 88:\", scores.index(88))",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A shopping list that grows and shrinks.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">shopping = [</span><span style=\"color:#CE9178\">\"milk\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"bread\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"eggs\"</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">shopping.append(</span><span style=\"color:#CE9178\">\"apples\"</span><span style=\"color:#D4D4D4\">)       </span><span style=\"color:#6A9955\"># add at the end</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">shopping.insert(</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"coffee\"</span><span style=\"color:#D4D4D4\">)    </span><span style=\"color:#6A9955\"># add at a position</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"After adding:\"</span><span style=\"color:#D4D4D4\">, shopping)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">shopping.remove(</span><span style=\"color:#CE9178\">\"bread\"</span><span style=\"color:#D4D4D4\">)        </span><span style=\"color:#6A9955\"># remove by value</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">last = shopping.pop()           </span><span style=\"color:#6A9955\"># remove the last one and return it</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Removed:\"</span><span style=\"color:#D4D4D4\">, last)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Now:\"</span><span style=\"color:#D4D4D4\">, shopping)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># sort() puts the list in order (it changes the list itself).</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">scores = [</span><span style=\"color:#B5CEA8\">72</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">95</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">58</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">88</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">64</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">scores.sort()</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Sorted:\"</span><span style=\"color:#D4D4D4\">, scores)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">scores.sort(</span><span style=\"color:#9CDCFE\">reverse</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#569CD6\">True</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Best first:\"</span><span style=\"color:#D4D4D4\">, scores)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Slicing: list[start:stop] takes a part (stop is not included).</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Top 3:\"</span><span style=\"color:#D4D4D4\">, scores[:</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"The rest:\"</span><span style=\"color:#D4D4D4\">, scores[</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">:])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Middle:\"</span><span style=\"color:#D4D4D4\">, scores[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Backwards:\"</span><span style=\"color:#D4D4D4\">, scores[::-</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Position of 88:\"</span><span style=\"color:#D4D4D4\">, scores.index(</span><span style=\"color:#B5CEA8\">88</span><span style=\"color:#D4D4D4\">))</span></span></code></pre>",
+    "output": "After adding: ['coffee', 'milk', 'bread', 'eggs', 'apples']\nRemoved: apples\nNow: ['coffee', 'milk', 'eggs']\nSorted: [58, 64, 72, 88, 95]\nBest first: [95, 88, 72, 64, 58]\nTop 3: [95, 88, 72]\nThe rest: [64, 58]\nMiddle: [88, 72, 64]\nBackwards: [58, 64, 72, 88, 95]\nPosition of 88: 1",
+    "image": "/courses/python/basic-11.jpg",
+    "size": [
+     1200,
+     1067
+    ]
+   },
+   {
+    "n": 12,
+    "es": {
+     "slug": "tuplas-y-desempaquetado",
+     "title": "Tuplas y desempaquetado",
+     "summary": "Use tuplas de Python para datos que no cambian y desempaquételos en varias variables de una vez, también dentro de un bucle for.",
+     "body": [
+      "Una **tupla** es como una lista, pero entre paréntesis y **sin poder cambiarla** después de crearla. Sirve para datos que van juntos y fijos, como un punto `(3, 7)`: sus valores se leen igual que en una lista, `point[0]` y `point[1]`.",
+      "El **desempaquetado** reparte los valores de una tupla entre varias variables en una sola línea: `x, y = point` deja `x = 3` e `y = 7`. Tiene que haber tantas variables como valores; así se hace con la ciudad: nombre, altitud y población.",
+      "Con el mismo truco se intercambian dos variables sin una auxiliar: `left, right = right, left`. Python arma primero la tupla de la derecha y luego la reparte.",
+      "Una lista de tuplas es muy práctica para tablas. En `for medal, runner in podium:` cada vuelta recibe una tupla y la desempaqueta en `medal` y `runner`; `{medal:>6}` alinea las medallas a la derecha.",
+      "Algunas funciones devuelven una tupla. `divmod(200, 60)` da a la vez la división entera y el resto, `(3, 20)`: 200 segundos son 3 minutos y 20 segundos."
+     ],
+     "points": [
+      "Una tupla va entre `( )` y no se puede modificar.",
+      "`a, b = tupla` reparte sus valores en variables.",
+      "`a, b = b, a` intercambia dos variables.",
+      "En un `for` se puede desempaquetar cada tupla de una lista."
+     ],
+     "exercise": "Cree una lista de tuplas con tres ciudades (nombre, temperatura de hoy) y escriba cada una con su temperatura; después, intercambie la primera y la última."
+    },
+    "en": {
+     "slug": "tuples-and-unpacking",
+     "title": "Tuples and unpacking",
+     "summary": "Use Python tuples for data that does not change, and unpack them into several variables at once, even inside a for loop.",
+     "body": [
+      "A **tuple** is like a list, but between parentheses and **impossible to change** once it is created. It suits data that belongs together and stays fixed, such as a point `(3, 7)`: you read its values as in a list, `point[0]` and `point[1]`.",
+      "**Unpacking** hands out the values of a tuple to several variables in one line: `x, y = point` leaves `x = 3` and `y = 7`. You need as many variables as values; the city works the same way, with name, altitude and population.",
+      "The same trick swaps two variables without a spare one: `left, right = right, left`. Python first builds the tuple on the right and then hands it out.",
+      "A list of tuples is very handy for tables. In `for medal, runner in podium:` each round receives one tuple and unpacks it into `medal` and `runner`; `{medal:>6}` lines up the medals on the right.",
+      "Some functions return a tuple. `divmod(200, 60)` gives the floor division and the remainder at once, `(3, 20)`: 200 seconds are 3 minutes and 20 seconds."
+     ],
+     "points": [
+      "A tuple goes between `( )` and cannot be changed.",
+      "`a, b = some_tuple` hands its values out to variables.",
+      "`a, b = b, a` swaps two variables.",
+      "A `for` loop can unpack each tuple of a list."
+     ],
+     "exercise": "Make a list of tuples with three cities (name, today's temperature) and print each one with its temperature; then swap the first and the last city."
+    },
+    "code": "# A tuple is like a list that cannot change. It uses ( ).\npoint = (3, 7)\nprint(\"Point:\", point)\nprint(\"x =\", point[0], \"| y =\", point[1])\n\n# Unpacking: give each value its own name in one line.\nx, y = point\nprint(f\"One step right: ({x + 1}, {y})\")\n\n# Tuples suit fixed records: name, altitude, population.\ncity = (\"Madrid\", 667, 3.3)\nname, altitude, population = city\nprint(f\"{name}: {altitude} m high, {population} million people\")\n\n# Swap two variables without a spare one.\nleft, right = \"rock\", \"paper\"\nleft, right = right, left\nprint(\"left =\", left, \"| right =\", right)\n\n# A list of tuples, unpacked right in the for loop.\npodium = [(\"gold\", \"Ana\"), (\"silver\", \"Ben\"), (\"bronze\", \"Chloe\")]\nfor medal, runner in podium:\n    print(f\"{medal:>6}: {runner}\")\n\n# A function such as divmod() can return a tuple.\nminutes, seconds = divmod(200, 60)\nprint(f\"200 seconds = {minutes} min {seconds} s\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A tuple is like a list that cannot change. It uses ( ).</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">point = (</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Point:\"</span><span style=\"color:#D4D4D4\">, point)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"x =\"</span><span style=\"color:#D4D4D4\">, point[</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">], </span><span style=\"color:#CE9178\">\"| y =\"</span><span style=\"color:#D4D4D4\">, point[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Unpacking: give each value its own name in one line.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">x, y = point</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"One step right: (</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">x + </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">, </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">y</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">)\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Tuples suit fixed records: name, altitude, population.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">city = (</span><span style=\"color:#CE9178\">\"Madrid\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">667</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3.3</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">name, altitude, population = city</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">altitude</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> m high, </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">population</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> million people\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Swap two variables without a spare one.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">left, right = </span><span style=\"color:#CE9178\">\"rock\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"paper\"</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">left, right = right, left</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"left =\"</span><span style=\"color:#D4D4D4\">, left, </span><span style=\"color:#CE9178\">\"| right =\"</span><span style=\"color:#D4D4D4\">, right)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A list of tuples, unpacked right in the for loop.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">podium = [(</span><span style=\"color:#CE9178\">\"gold\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"Ana\"</span><span style=\"color:#D4D4D4\">), (</span><span style=\"color:#CE9178\">\"silver\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"Ben\"</span><span style=\"color:#D4D4D4\">), (</span><span style=\"color:#CE9178\">\"bronze\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"Chloe\"</span><span style=\"color:#D4D4D4\">)]</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> medal, runner </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> podium:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">medal</span><span style=\"color:#569CD6\">:>6}</span><span style=\"color:#CE9178\">: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">runner</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A function such as divmod() can return a tuple.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">minutes, seconds = </span><span style=\"color:#DCDCAA\">divmod</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#B5CEA8\">200</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">60</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"200 seconds = </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">minutes</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> min </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">seconds</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> s\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Point: (3, 7)\nx = 3 | y = 7\nOne step right: (4, 7)\nMadrid: 667 m high, 3.3 million people\nleft = paper | right = rock\n  gold: Ana\nsilver: Ben\nbronze: Chloe\n200 seconds = 3 min 20 s",
+    "image": "/courses/python/basic-12.jpg",
+    "size": [
+     1200,
+     1091
+    ]
+   },
+   {
+    "n": 13,
+    "es": {
+     "slug": "diccionarios",
+     "title": "Diccionarios",
+     "summary": "Guarde pares clave-valor en un diccionario de Python: el inventario de una frutería con get(), del, items(), keys() y values().",
+     "body": [
+      "Un **diccionario** relaciona **claves** con **valores**, entre llaves: `{\"apples\": 12, \"pears\": 5}`. En vez de buscar por posición, como en una lista, se busca por la clave: `stock[\"apples\"]` da `12`.",
+      "Para cambiar un valor o añadir una clave nueva se usa la misma forma: `stock[\"pears\"] = 8` cambia las peras y `stock[\"kiwis\"] = 20` crea los kiwis, que se añaden al final.",
+      "Pedir una clave que no existe con corchetes da un error. `get(\"bananas\", 0)` es más prudente: si la clave no está, devuelve el valor por defecto, aquí `0`. Y `del stock[\"plums\"]` borra una clave con su valor.",
+      "`items()` da cada pareja clave-valor y, como en la lección anterior, el `for` la desempaqueta en `fruit` y `amount`. `{fruit:<8}{amount:>4}` las coloca en columnas.",
+      "`keys()` da las claves (con `list()` se convierten en una lista para escribirlas) y `values()`, los valores, que `sum()` suma. `in` mira si existe una **clave**."
+     ],
+     "points": [
+      "Un diccionario va entre `{ }` con pares `clave: valor`.",
+      "`d[clave] = valor` cambia o añade.",
+      "`d.get(clave, defecto)` no falla si la clave no existe.",
+      "`for k, v in d.items():` recorre claves y valores.",
+      "`clave in d` comprueba si la clave existe."
+     ],
+     "exercise": "Añada un diccionario `prices` con el precio de cada fruta y escriba el valor del inventario: cada fruta con su cantidad por su precio, y el total al final."
+    },
+    "en": {
+     "slug": "dictionaries",
+     "title": "Dictionaries",
+     "summary": "Store key-value pairs in a Python dictionary: a greengrocer's stock with get(), del, items(), keys() and values().",
+     "body": [
+      "A **dictionary** links **keys** to **values**, between braces: `{\"apples\": 12, \"pears\": 5}`. Instead of looking things up by position, as in a list, you look them up by key: `stock[\"apples\"]` gives `12`.",
+      "Changing a value and adding a new key look the same: `stock[\"pears\"] = 8` updates the pears and `stock[\"kiwis\"] = 20` creates the kiwis, which go at the end.",
+      "Asking for a missing key with square brackets is an error. `get(\"bananas\", 0)` is safer: if the key is not there, it returns the default, here `0`. And `del stock[\"plums\"]` removes a key together with its value.",
+      "`items()` gives each key-value pair and, as in the previous lesson, the `for` unpacks it into `fruit` and `amount`. `{fruit:<8}{amount:>4}` puts them in columns.",
+      "`keys()` gives the keys (`list()` turns them into a list for printing) and `values()` the values, which `sum()` adds up. `in` checks whether a **key** exists."
+     ],
+     "points": [
+      "A dictionary goes between `{ }` with `key: value` pairs.",
+      "`d[key] = value` changes or adds.",
+      "`d.get(key, default)` does not fail when the key is missing.",
+      "`for k, v in d.items():` goes through keys and values.",
+      "`key in d` checks whether the key exists."
+     ],
+     "exercise": "Add a `prices` dictionary with the price of each fruit and print the value of the stock: each fruit's amount times its price, and the total at the end."
+    },
+    "code": "# A dictionary links keys to values: {key: value}.\nstock = {\"apples\": 12, \"pears\": 5, \"plums\": 0}\nprint(\"Apples in stock:\", stock[\"apples\"])\n\n# Change a value, or add a new key, in the same way.\nstock[\"pears\"] = 8\nstock[\"kiwis\"] = 20\nprint(stock)\n\n# get() gives a default value when the key does not exist.\nprint(\"Bananas:\", stock.get(\"bananas\", 0))\n\n# del removes a key and its value.\ndel stock[\"plums\"]\n\n# items() gives each key together with its value.\nfor fruit, amount in stock.items():\n    print(f\"{fruit:<8}{amount:>4}\")\n\nprint(\"Fruits:\", list(stock.keys()))\nprint(\"Total pieces:\", sum(stock.values()))\nprint(\"Do we sell kiwis?\", \"kiwis\" in stock)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A dictionary links keys to values: {key: value}.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">stock = {</span><span style=\"color:#CE9178\">\"apples\"</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#B5CEA8\">12</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"pears\"</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"plums\"</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">}</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Apples in stock:\"</span><span style=\"color:#D4D4D4\">, stock[</span><span style=\"color:#CE9178\">\"apples\"</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Change a value, or add a new key, in the same way.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">stock[</span><span style=\"color:#CE9178\">\"pears\"</span><span style=\"color:#D4D4D4\">] = </span><span style=\"color:#B5CEA8\">8</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">stock[</span><span style=\"color:#CE9178\">\"kiwis\"</span><span style=\"color:#D4D4D4\">] = </span><span style=\"color:#B5CEA8\">20</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(stock)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># get() gives a default value when the key does not exist.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Bananas:\"</span><span style=\"color:#D4D4D4\">, stock.get(</span><span style=\"color:#CE9178\">\"bananas\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># del removes a key and its value.</span></span><span class=\"line\"><span style=\"color:#C586C0\">del</span><span style=\"color:#D4D4D4\"> stock[</span><span style=\"color:#CE9178\">\"plums\"</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># items() gives each key together with its value.</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> fruit, amount </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> stock.items():</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">fruit</span><span style=\"color:#569CD6\">:&#x3C;8}{</span><span style=\"color:#D4D4D4\">amount</span><span style=\"color:#569CD6\">:>4}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Fruits:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#4EC9B0\">list</span><span style=\"color:#D4D4D4\">(stock.keys()))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Total pieces:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sum</span><span style=\"color:#D4D4D4\">(stock.values()))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Do we sell kiwis?\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"kiwis\"</span><span style=\"color:#C586C0\"> in</span><span style=\"color:#D4D4D4\"> stock)</span></span></code></pre>",
+    "output": "Apples in stock: 12\n{'apples': 12, 'pears': 8, 'plums': 0, 'kiwis': 20}\nBananas: 0\napples    12\npears      8\nkiwis     20\nFruits: ['apples', 'pears', 'kiwis']\nTotal pieces: 40\nDo we sell kiwis? True",
+    "image": "/courses/python/basic-13.jpg",
+    "size": [
+     1200,
+     978
+    ]
+   },
+   {
+    "n": 14,
+    "es": {
+     "slug": "conjuntos",
+     "title": "Conjuntos",
+     "summary": "Quite repetidos con los conjuntos (set) de Python y compare grupos con intersección, unión y diferencia: quién está en cada club.",
+     "body": [
+      "Un **conjunto** (`set`) guarda cada valor **una sola vez**. `set(visits)` convierte la lista de seis visitas en un conjunto de tres personas: los repetidos desaparecen solos.",
+      "Los conjuntos **no tienen orden**, y al escribirlos los elementos pueden salir en cualquier orden. Por eso el ejemplo usa `sorted()`, que devuelve una lista ordenada con sus elementos y así la salida es siempre la misma.",
+      "Un conjunto también se escribe entre llaves, como `chess` y `football`. Con ellos se hacen operaciones de conjuntos: `&` (**intersección**) da quién está en los dos clubes; `|` (**unión**), quién está en alguno; `-` (**diferencia**), quién está solo en ajedrez, y `^`, quién está en uno solo de los dos.",
+      "`add()` añade un elemento; si ya estaba, como `ben`, no pasa nada. `discard()` lo quita sin dar error aunque no esté. Y `in` comprueba si un elemento pertenece, mucho más rápido que en una lista larga."
+     ],
+     "points": [
+      "Un `set` no guarda repetidos ni tiene orden.",
+      "`set(lista)` quita los duplicados de una lista.",
+      "`&` común, `|` todos, `-` diferencia, `^` solo en uno.",
+      "`sorted()` da una lista ordenada para escribir el conjunto."
+     ],
+     "exercise": "Cree un tercer club, `music`, y escriba quién está en los tres clubes y quién está en ajedrez o en música pero no en fútbol."
+    },
+    "en": {
+     "slug": "sets",
+     "title": "Sets",
+     "summary": "Remove duplicates with Python sets and compare groups with intersection, union and difference: who belongs to each school club.",
+     "body": [
+      "A **set** keeps each value **only once**. `set(visits)` turns the list of six visits into a set of three people: the duplicates simply vanish.",
+      "Sets **have no order**, and when printed their items can come out in any order. That is why the example uses `sorted()`, which returns a sorted list of the items, so the output is always the same.",
+      "A set can also be written between braces, like `chess` and `football`. With them you can do set operations: `&` (**intersection**) gives who is in both clubs; `|` (**union**) who is in either; `-` (**difference**) who is only in chess; and `^` who is in just one of the two.",
+      "`add()` adds an item; if it is already there, like `ben`, nothing happens. `discard()` removes it without an error even when it is missing. And `in` checks membership, much faster than in a long list."
+     ],
+     "points": [
+      "A `set` has no duplicates and no order.",
+      "`set(items)` removes the duplicates from a list.",
+      "`&` common, `|` all, `-` difference, `^` in only one.",
+      "`sorted()` gives a sorted list for printing a set."
+     ],
+     "exercise": "Create a third club, `music`, and print who is in all three clubs and who is in chess or music but not in football."
+    },
+    "code": "# A set keeps each value only once. It uses { } or set().\nvisits = [\"ana\", \"ben\", \"ana\", \"carla\", \"ben\", \"ana\"]\npeople = set(visits)\nprint(\"Visits:\", len(visits), \"| Different people:\", len(people))\n\n# A set has no order: sorted() gives a sorted list to print.\nprint(\"Who came:\", sorted(people))\n\n# Two clubs at school: who is in each one?\nchess = {\"ana\", \"ben\", \"carla\", \"dani\"}\nfootball = {\"ben\", \"dani\", \"eva\", \"fran\"}\n\nprint(\"Both clubs:\", sorted(chess & football))\nprint(\"Any club:\", sorted(chess | football))\nprint(\"Only chess:\", sorted(chess - football))\nprint(\"Just one club:\", sorted(chess ^ football))\n\n# add() and discard() change the set.\nfootball.add(\"ana\")\nfootball.add(\"ben\")         # already there: nothing changes\nfootball.discard(\"fran\")\nprint(\"Football now:\", sorted(football))\nprint(\"Is eva in chess?\", \"eva\" in chess)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># A set keeps each value only once. It uses { } or set().</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">visits = [</span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"ben\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"carla\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"ben\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">people = </span><span style=\"color:#4EC9B0\">set</span><span style=\"color:#D4D4D4\">(visits)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Visits:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(visits), </span><span style=\"color:#CE9178\">\"| Different people:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(people))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A set has no order: sorted() gives a sorted list to print.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Who came:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(people))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Two clubs at school: who is in each one?</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">chess = {</span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"ben\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"carla\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"dani\"</span><span style=\"color:#D4D4D4\">}</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">football = {</span><span style=\"color:#CE9178\">\"ben\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"dani\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"eva\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"fran\"</span><span style=\"color:#D4D4D4\">}</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Both clubs:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(chess &#x26; football))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Any club:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(chess | football))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Only chess:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(chess - football))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Just one club:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(chess ^ football))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># add() and discard() change the set.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">football.add(</span><span style=\"color:#CE9178\">\"ana\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">football.add(</span><span style=\"color:#CE9178\">\"ben\"</span><span style=\"color:#D4D4D4\">)         </span><span style=\"color:#6A9955\"># already there: nothing changes</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">football.discard(</span><span style=\"color:#CE9178\">\"fran\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Football now:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#DCDCAA\">sorted</span><span style=\"color:#D4D4D4\">(football))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Is eva in chess?\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"eva\"</span><span style=\"color:#C586C0\"> in</span><span style=\"color:#D4D4D4\"> chess)</span></span></code></pre>",
+    "output": "Visits: 6 | Different people: 3\nWho came: ['ana', 'ben', 'carla']\nBoth clubs: ['ben', 'dani']\nAny club: ['ana', 'ben', 'carla', 'dani', 'eva', 'fran']\nOnly chess: ['ana', 'carla']\nJust one club: ['ana', 'carla', 'eva', 'fran']\nFootball now: ['ana', 'ben', 'dani', 'eva']\nIs eva in chess? False",
+    "image": "/courses/python/basic-14.jpg",
+    "size": [
+     1200,
+     980
+    ]
+   },
+   {
+    "n": 15,
+    "es": {
+     "slug": "funciones",
+     "title": "Funciones",
+     "summary": "Cree sus propias funciones en Python con def, páseles datos y devuelva resultados con return, con los tiques de una cafetería.",
+     "body": [
+      "Una **función** es un bloque de código con nombre que se puede usar tantas veces como haga falta. Se crea con `def`, el nombre, paréntesis y dos puntos; el cuerpo va con sangría. Crearla no la ejecuta: `welcome()` la **llama**, y entonces se escriben el saludo y la raya.",
+      "Entre los paréntesis se pueden poner **parámetros**: nombres que reciben los valores de la llamada. En `serve(\"latte\")`, `drink` vale `\"latte\"`; en la siguiente llamada vale `\"hot chocolate\"`. Así, una sola función sirve para cualquier bebida.",
+      "`return` **devuelve** un resultado a quien llamó. `with_vat(2.50)` calcula el precio con el 21 % de IVA y lo devuelve, de modo que la llamada se puede usar dentro de una f-string, guardar en una variable o sumar con otra: `with_vat(3.00) + with_vat(1.80)`.",
+      "Una función puede llamar a otras: `receipt_line()` usa `with_vat()` para escribir cada línea del tique con el nombre alineado a la izquierda y el precio a la derecha."
+     ],
+     "points": [
+      "`def nombre(parámetros):` crea una función.",
+      "La función solo se ejecuta cuando se la llama: `nombre(...)`.",
+      "Los parámetros reciben los valores de la llamada.",
+      "`return` devuelve un resultado que se puede guardar o usar."
+     ],
+     "exercise": "Escriba una función `to_fahrenheit(celsius)` que devuelva `celsius * 9 / 5 + 32` y úsela en un `for` para convertir 0, 20, 37 y 100 grados."
+    },
+    "en": {
+     "slug": "functions",
+     "title": "Functions",
+     "summary": "Create your own Python functions with def, pass them data and send results back with return, while printing a café's receipts.",
+     "body": [
+      "A **function** is a named block of code you can use as many times as you like. You create it with `def`, the name, parentheses and a colon; the body is indented. Creating it does not run it: `welcome()` **calls** it, and only then are the greeting and the line printed.",
+      "Inside the parentheses you can put **parameters**: names that receive the values of the call. In `serve(\"latte\")`, `drink` is `\"latte\"`; in the next call it is `\"hot chocolate\"`. So one function works for any drink.",
+      "`return` **sends a result back** to the caller. `with_vat(2.50)` works out the price with 21 % VAT and returns it, so the call can go inside an f-string, be stored in a variable or be added to another: `with_vat(3.00) + with_vat(1.80)`.",
+      "A function can call other functions: `receipt_line()` uses `with_vat()` to print each line of the receipt, with the name aligned left and the price aligned right."
+     ],
+     "points": [
+      "`def name(parameters):` creates a function.",
+      "The function only runs when you call it: `name(...)`.",
+      "Parameters receive the values of the call.",
+      "`return` sends back a result you can store or use."
+     ],
+     "exercise": "Write a `to_fahrenheit(celsius)` function that returns `celsius * 9 / 5 + 32` and use it in a `for` loop to convert 0, 20, 37 and 100 degrees."
+    },
+    "code": "# def creates a function: a named block of code you can reuse.\ndef welcome():\n    print(\"Welcome to the Python Cafe!\")\n    print(\"-\" * 27)\n\nwelcome()\n\n# A function can receive a value (a parameter)...\ndef serve(drink):\n    print(f\"One {drink}, coming right up.\")\n\nserve(\"latte\")\nserve(\"hot chocolate\")\n\n# ...and give back a result with return.\ndef with_vat(price):\n    return price * 1.21\n\nprint(f\"A 2.50 tea costs {with_vat(2.50):.2f} with VAT.\")\n\n# The result can be stored and used like any other value.\ntotal = with_vat(3.00) + with_vat(1.80)\nprint(f\"Coffee and a croissant: {total:.2f}\")\n\n# A function can call other functions.\ndef receipt_line(drink, price):\n    print(f\"{drink:<14}{with_vat(price):>6.2f}\")\n\nreceipt_line(\"Cappuccino\", 2.80)\nreceipt_line(\"Orange juice\", 3.20)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># def creates a function: a named block of code you can reuse.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> welcome</span><span style=\"color:#D4D4D4\">():</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Welcome to the Python Cafe!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"-\"</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">27</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">welcome()</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A function can receive a value (a parameter)...</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> serve</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">drink</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"One </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">drink</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">, coming right up.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">serve(</span><span style=\"color:#CE9178\">\"latte\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">serve(</span><span style=\"color:#CE9178\">\"hot chocolate\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># ...and give back a result with return.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> with_vat</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">price</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">    return</span><span style=\"color:#D4D4D4\"> price * </span><span style=\"color:#B5CEA8\">1.21</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"A 2.50 tea costs </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">with_vat(</span><span style=\"color:#B5CEA8\">2.50</span><span style=\"color:#D4D4D4\">)</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\"> with VAT.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># The result can be stored and used like any other value.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">total = with_vat(</span><span style=\"color:#B5CEA8\">3.00</span><span style=\"color:#D4D4D4\">) + with_vat(</span><span style=\"color:#B5CEA8\">1.80</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Coffee and a croissant: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">total</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A function can call other functions.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> receipt_line</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">drink</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">price</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">drink</span><span style=\"color:#569CD6\">:&#x3C;14}{</span><span style=\"color:#D4D4D4\">with_vat(price)</span><span style=\"color:#569CD6\">:>6.2f}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">receipt_line(</span><span style=\"color:#CE9178\">\"Cappuccino\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2.80</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">receipt_line(</span><span style=\"color:#CE9178\">\"Orange juice\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3.20</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Welcome to the Python Cafe!\n---------------------------\nOne latte, coming right up.\nOne hot chocolate, coming right up.\nA 2.50 tea costs 3.02 with VAT.\nCoffee and a croissant: 5.81\nCappuccino      3.39\nOrange juice    3.87",
+    "image": "/courses/python/basic-15.jpg",
+    "size": [
+     1200,
+     1137
+    ]
+   },
+   {
+    "n": 16,
+    "es": {
+     "slug": "parametros-y-return",
+     "title": "Parámetros, valores por defecto y return",
+     "summary": "Dé valores por defecto a los parámetros de sus funciones en Python, llámelas por nombre y devuelva varios resultados con return.",
+     "body": [
+      "Una función puede tener varios parámetros. En `order_total(price, quantity, discount=0)` el último tiene un **valor por defecto**: si no se pasa, vale `0`. Por eso `order_total(4.0, 3)` da `12.0` y `order_total(4.0, 3, 25)` aplica un 25 % de descuento y da `9.0`.",
+      "Los valores también se pueden pasar **por nombre** (argumentos con nombre): `order_total(quantity=2, price=10.0, discount=10)`. Así el orden da igual y la llamada se entiende mejor.",
+      "`return` puede devolver **varios valores** separados por comas: en realidad devuelve una tupla. `summary()` da la nota más baja, la más alta y la media, y la llamada las desempaqueta en `low, high, avg`, como vio con las tuplas.",
+      "`return` además **termina la función** en ese momento. En `grade()`, si la nota es 9 o más, devuelve «Outstanding» y ya no mira el resto; por eso no hace falta `elif` ni `else`.",
+      "Una función sin `return` devuelve `None` («nada»). `cheer()` escribe su frase, pero lo que devuelve es `None`, y eso es lo que escribe el último `print()`."
+     ],
+     "points": [
+      "`param=valor` da un valor por defecto.",
+      "Los argumentos con nombre se pueden pasar en cualquier orden.",
+      "`return a, b` devuelve una tupla que se puede desempaquetar.",
+      "`return` sale de la función al instante.",
+      "Sin `return`, la función devuelve `None`."
+     ],
+     "exercise": "Añada a `order_total()` un parámetro `shipping=3.5` que se sume al final, salvo cuando el total supere los 30 euros (entonces, envío gratis)."
+    },
+    "en": {
+     "slug": "parameters-and-return",
+     "title": "Parameters, defaults and return",
+     "summary": "Give default values to the parameters of your Python functions, call them by name and send back several results with return.",
+     "body": [
+      "A function can have several parameters. In `order_total(price, quantity, discount=0)` the last one has a **default value**: if you leave it out, it is `0`. That is why `order_total(4.0, 3)` gives `12.0`, while `order_total(4.0, 3, 25)` takes 25 % off and gives `9.0`.",
+      "You can also pass values **by name** (keyword arguments): `order_total(quantity=2, price=10.0, discount=10)`. Then the order does not matter and the call reads better.",
+      "`return` can give back **several values** separated by commas: what it really returns is a tuple. `summary()` returns the lowest mark, the highest and the average, and the call unpacks them into `low, high, avg`, just as you did with tuples.",
+      "`return` also **ends the function** right there. In `grade()`, if the mark is 9 or more it returns «Outstanding» and never looks at the rest, so there is no need for `elif` or `else`.",
+      "A function without `return` gives back `None` («nothing»). `cheer()` prints its sentence, but what it returns is `None`, and that is what the last `print()` shows."
+     ],
+     "points": [
+      "`param=value` gives a default value.",
+      "Keyword arguments can go in any order.",
+      "`return a, b` returns a tuple you can unpack.",
+      "`return` leaves the function at once.",
+      "Without `return`, a function returns `None`."
+     ],
+     "exercise": "Add a `shipping=3.5` parameter to `order_total()` that is added at the end, unless the total is over 30 euros (then shipping is free)."
+    },
+    "code": "# Several parameters; the last one has a default value.\ndef order_total(price, quantity, discount=0):\n    total = price * quantity\n    return total - total * discount / 100\n\nprint(order_total(4.0, 3))                     # no discount\nprint(order_total(4.0, 3, 25))                 # 25 % off\nprint(order_total(quantity=2, price=10.0, discount=10))  # by name\n\n# return can give back several values at once (a tuple).\ndef summary(marks):\n    average = sum(marks) / len(marks)\n    return min(marks), max(marks), round(average, 1)\n\nlow, high, avg = summary([6, 9, 7, 10, 8])\nprint(f\"Lowest {low}, highest {high}, average {avg}\")\n\n# return also ends the function straight away.\ndef grade(mark):\n    if mark >= 9:\n        return \"Outstanding\"\n    if mark >= 5:\n        return \"Pass\"\n    return \"Keep trying\"\n\nfor mark in [9.5, 7.2, 5.0, 3.8]:\n    print(mark, \"->\", grade(mark))\n\n# A function without return gives back None.\ndef cheer(name):\n    print(\"Well done,\", name)\n\nprint(cheer(\"Lola\"))",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Several parameters; the last one has a default value.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> order_total</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">price</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">quantity</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">discount</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    total = price * quantity</span></span><span class=\"line\"><span style=\"color:#C586C0\">    return</span><span style=\"color:#D4D4D4\"> total - total * discount / </span><span style=\"color:#B5CEA8\">100</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(order_total(</span><span style=\"color:#B5CEA8\">4.0</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">))                     </span><span style=\"color:#6A9955\"># no discount</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(order_total(</span><span style=\"color:#B5CEA8\">4.0</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">25</span><span style=\"color:#D4D4D4\">))                 </span><span style=\"color:#6A9955\"># 25 % off</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(order_total(</span><span style=\"color:#9CDCFE\">quantity</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">price</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#B5CEA8\">10.0</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">discount</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">))  </span><span style=\"color:#6A9955\"># by name</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># return can give back several values at once (a tuple).</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> summary</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">marks</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    average = </span><span style=\"color:#DCDCAA\">sum</span><span style=\"color:#D4D4D4\">(marks) / </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(marks)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    return</span><span style=\"color:#DCDCAA\"> min</span><span style=\"color:#D4D4D4\">(marks), </span><span style=\"color:#DCDCAA\">max</span><span style=\"color:#D4D4D4\">(marks), </span><span style=\"color:#DCDCAA\">round</span><span style=\"color:#D4D4D4\">(average, </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">low, high, avg = summary([</span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">9</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Lowest </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">low</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">, highest </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">high</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">, average </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">avg</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># return also ends the function straight away.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> grade</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">mark</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> mark >= </span><span style=\"color:#B5CEA8\">9</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">        return</span><span style=\"color:#CE9178\"> \"Outstanding\"</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> mark >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">        return</span><span style=\"color:#CE9178\"> \"Pass\"</span></span><span class=\"line\"><span style=\"color:#C586C0\">    return</span><span style=\"color:#CE9178\"> \"Keep trying\"</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> mark </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> [</span><span style=\"color:#B5CEA8\">9.5</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7.2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">5.0</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3.8</span><span style=\"color:#D4D4D4\">]:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(mark, </span><span style=\"color:#CE9178\">\"->\"</span><span style=\"color:#D4D4D4\">, grade(mark))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># A function without return gives back None.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> cheer</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">name</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Well done,\"</span><span style=\"color:#D4D4D4\">, name)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(cheer(</span><span style=\"color:#CE9178\">\"Lola\"</span><span style=\"color:#D4D4D4\">))</span></span></code></pre>",
+    "output": "12.0\n9.0\n18.0\nLowest 6, highest 10, average 8.0\n9.5 -> Outstanding\n7.2 -> Pass\n5.0 -> Pass\n3.8 -> Keep trying\nWell done, Lola\nNone",
+    "image": "/courses/python/basic-16.jpg",
+    "size": [
+     1200,
+     1246
+    ]
+   },
+   {
+    "n": 17,
+    "es": {
+     "slug": "metodos-de-cadenas",
+     "title": "Métodos de cadenas",
+     "summary": "Limpie y transforme texto en Python con strip, split, join, lower, upper, replace, find y count, ordenando una lista de ingredientes.",
+     "body": [
+      "Las cadenas también tienen métodos. Ninguno cambia la cadena original (las cadenas no se pueden modificar): todos **devuelven una cadena nueva**. `strip()` quita los espacios del principio y del final; los corchetes de la salida muestran que los de en medio siguen ahí.",
+      "`split(\",\")` corta la cadena por cada coma y devuelve una **lista** de trozos, todavía con espacios sueltos y mayúsculas mezcladas.",
+      "El bucle limpia cada trozo encadenando métodos: `part.strip().lower()` primero quita los espacios y, sobre el resultado, pasa a minúsculas. Cada trozo limpio se añade con `append()` a `items`.",
+      "`join()` hace lo contrario que `split()`: une una lista en una sola cadena, poniendo entre cada elemento el texto sobre el que se llama, aquí `\" | \"`.",
+      "Con el título de la receta: `upper()` pasa a mayúsculas, `title()` pone mayúscula a cada palabra y `replace()` sustituye un texto por otro. `startswith()` responde `True` o `False`, `count()` cuenta cuántas veces aparece algo y `find()` dice en qué posición empieza (o `-1` si no está)."
+     ],
+     "points": [
+      "Los métodos de cadenas devuelven una cadena nueva.",
+      "`strip()` quita espacios de los extremos.",
+      "`texto.split(\",\")` da una lista; `\", \".join(lista)` la vuelve a unir.",
+      "`lower()`, `upper()` y `title()` cambian mayúsculas y minúsculas.",
+      "`replace()`, `find()` y `count()` buscan y sustituyen."
+     ],
+     "exercise": "Pida una frase con `input()` y escriba cuántas palabras tiene, la palabra más larga y la frase con cada palabra al revés."
+    },
+    "en": {
+     "slug": "string-methods",
+     "title": "String methods",
+     "summary": "Clean up and transform text in Python with strip, split, join, lower, upper, replace, find and count, tidying a list of ingredients.",
+     "body": [
+      "Strings have methods too. None of them changes the original string (strings cannot be modified): they all **return a new string**. `strip()` removes the spaces at the start and the end; the square brackets in the output show that the ones in the middle are still there.",
+      "`split(\",\")` cuts the string at every comma and returns a **list** of pieces, still with stray spaces and mixed capitals.",
+      "The loop cleans each piece by chaining methods: `part.strip().lower()` first removes the spaces and then turns the result into lower case. Each clean piece is added to `items` with `append()`.",
+      "`join()` does the opposite of `split()`: it glues a list into one string, putting the text it is called on between the items, here `\" | \"`.",
+      "With the recipe title, `upper()` turns it into capitals, `title()` capitalises each word and `replace()` swaps one piece of text for another. `startswith()` answers `True` or `False`, `count()` counts how many times something appears and `find()` tells you where it starts (or `-1` if it is not there)."
+     ],
+     "points": [
+      "String methods return a new string.",
+      "`strip()` removes spaces from both ends.",
+      "`text.split(\",\")` gives a list; `\", \".join(items)` glues it back.",
+      "`lower()`, `upper()` and `title()` change the case.",
+      "`replace()`, `find()` and `count()` search and replace."
+     ],
+     "exercise": "Ask for a sentence with `input()` and print how many words it has, its longest word, and the sentence with every word reversed."
+    },
+    "code": "# Ingredients typed in a hurry: spaces and capitals all over.\nraw = \"   tomato, Onion ,garlic,  PEPPER  \"\n\n# strip() removes the spaces at both ends.\nclean = raw.strip()\nprint(f\"[{clean}]\")\n\n# split() cuts a string into a list, at each comma.\nparts = clean.split(\",\")\nprint(parts)\n\n# Tidy each piece: no spaces and in lower case.\nitems = []\nfor part in parts:\n    items.append(part.strip().lower())\nprint(items)\n\n# join() glues a list into one string.\nprint(\" | \".join(items))\n\ntitle = \"salsa verde recipe\"\nprint(title.upper())\nprint(title.title())\nprint(title.replace(\"verde\", \"roja\"))\nprint(\"Starts with 'salsa'?\", title.startswith(\"salsa\"))\nprint(\"How many 'e':\", title.count(\"e\"))\nprint(\"Where is 'recipe'?\", title.find(\"recipe\"))",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Ingredients typed in a hurry: spaces and capitals all over.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">raw = </span><span style=\"color:#CE9178\">\"   tomato, Onion ,garlic,  PEPPER  \"</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># strip() removes the spaces at both ends.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">clean = raw.strip()</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"[</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">clean</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">]\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># split() cuts a string into a list, at each comma.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">parts = clean.split(</span><span style=\"color:#CE9178\">\",\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(parts)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Tidy each piece: no spaces and in lower case.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">items = []</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> part </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> parts:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    items.append(part.strip().lower())</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(items)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># join() glues a list into one string.</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\" | \"</span><span style=\"color:#D4D4D4\">.join(items))</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">title = </span><span style=\"color:#CE9178\">\"salsa verde recipe\"</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(title.upper())</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(title.title())</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(title.replace(</span><span style=\"color:#CE9178\">\"verde\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"roja\"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Starts with 'salsa'?\"</span><span style=\"color:#D4D4D4\">, title.startswith(</span><span style=\"color:#CE9178\">\"salsa\"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"How many 'e':\"</span><span style=\"color:#D4D4D4\">, title.count(</span><span style=\"color:#CE9178\">\"e\"</span><span style=\"color:#D4D4D4\">))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Where is 'recipe'?\"</span><span style=\"color:#D4D4D4\">, title.find(</span><span style=\"color:#CE9178\">\"recipe\"</span><span style=\"color:#D4D4D4\">))</span></span></code></pre>",
+    "output": "[tomato, Onion ,garlic,  PEPPER]\n['tomato', ' Onion ', 'garlic', '  PEPPER']\n['tomato', 'onion', 'garlic', 'pepper']\ntomato | onion | garlic | pepper\nSALSA VERDE RECIPE\nSalsa Verde Recipe\nsalsa roja recipe\nStarts with 'salsa'? True\nHow many 'e': 4\nWhere is 'recipe'? 12",
+    "image": "/courses/python/basic-17.jpg",
+    "size": [
+     1200,
+     1112
+    ]
+   },
+   {
+    "n": 18,
+    "es": {
+     "slug": "errores-con-try-except",
+     "title": "Errores con try y except",
+     "summary": "Capture los errores de su programa de Python con try y except para que no se detenga: números mal escritos, divisiones por cero y claves que faltan.",
+     "body": [
+      "Cuando algo sale mal, Python lanza una **excepción** y, si nadie la atiende, el programa se detiene con un mensaje de error. `try` permite intentarlo: si algo dentro del bloque falla, Python salta al `except` en vez de pararse.",
+      "En el primer bucle, `int(\"seven\")` y `int(\"3.5\")` lanzan un `ValueError`. El `except ValueError:` escribe un aviso y el bucle sigue con el siguiente texto, así que el total suma solo `42` y `15`.",
+      "Un `try` puede tener varios `except`, uno por tipo de error. En `slices_each()`, dividir entre `0` da `ZeroDivisionError`, y dividir entre un texto, `TypeError`. El bloque `else` solo se ejecuta si **no** hubo error: es donde se escribe el resultado bueno.",
+      "Con `except KeyError as error:` se guarda el propio error en una variable para mostrarlo. Al pedir la clave `\"juice\"`, que no existe en el diccionario, el mensaje dice exactamente cuál falta."
+     ],
+     "points": [
+      "El código que puede fallar va dentro de `try:`.",
+      "`except TipoDeError:` atiende solo ese tipo de error.",
+      "`else:` se ejecuta si no hubo ningún error.",
+      "`except ... as e:` da acceso al error y su mensaje.",
+      "Capture errores concretos, no todos a la vez."
+     ],
+     "exercise": "Escriba una función `ask_number()` que lea un número con `input()` y, si no es válido, lo vuelva a pedir dentro de un `while` hasta que lo sea. Pruébela con un `input.txt` con dos líneas erróneas y una buena."
+    },
+    "en": {
+     "slug": "try-except",
+     "title": "Errors with try and except",
+     "summary": "Catch the errors in your Python program with try and except so it keeps going: bad numbers, division by zero and missing keys.",
+     "body": [
+      "When something goes wrong, Python raises an **exception** and, if nobody handles it, the program stops with an error message. `try` lets you have a go: if something in the block fails, Python jumps to the `except` instead of stopping.",
+      "In the first loop, `int(\"seven\")` and `int(\"3.5\")` raise a `ValueError`. The `except ValueError:` prints a warning and the loop moves on to the next text, so the total only adds `42` and `15`.",
+      "A `try` can have several `except` blocks, one per kind of error. In `slices_each()`, dividing by `0` raises `ZeroDivisionError`, and dividing by a string raises `TypeError`. The `else` block only runs when there was **no** error: that is where the good result is printed.",
+      "`except KeyError as error:` stores the error itself in a variable so you can show it. Asking for the `\"juice\"` key, which is not in the dictionary, gives a message saying exactly which one is missing."
+     ],
+     "points": [
+      "Code that might fail goes inside `try:`.",
+      "`except SomeError:` handles only that kind of error.",
+      "`else:` runs when there was no error.",
+      "`except ... as e:` gives you the error and its message.",
+      "Catch specific errors, not everything at once."
+     ],
+     "exercise": "Write an `ask_number()` function that reads a number with `input()` and, if it is not valid, asks again inside a `while` loop until it is. Test it with an `input.txt` that has two wrong lines and a good one."
+    },
+    "code": "# int() fails with text that is not a number: try catches it.\nanswers = [\"42\", \"seven\", \"3.5\", \"15\"]\ntotal = 0\n\nfor text in answers:\n    try:\n        number = int(text)\n        total += number\n        print(f\"'{text}' -> {number}\")\n    except ValueError:\n        print(f\"'{text}' is not a whole number, skipped\")\nprint(\"Total:\", total)\n\n# Different errors, different except blocks.\ndef slices_each(pizzas, people):\n    try:\n        slices = pizzas * 8 // people\n    except ZeroDivisionError:\n        print(\"Nobody to share with!\")\n    except TypeError:\n        print(\"People must be a number.\")\n    else:  # runs only if there was no error\n        print(f\"{people} people get {slices} slices each\")\n\nslices_each(3, 4)\nslices_each(3, 0)\nslices_each(3, \"four\")\n\n# as gives you the error itself, with its message.\nprices = {\"tea\": 1.5, \"coffee\": 1.8}\ntry:\n    print(prices[\"juice\"])\nexcept KeyError as error:\n    print(\"No price for\", error)",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># int() fails with text that is not a number: try catches it.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">answers = [</span><span style=\"color:#CE9178\">\"42\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"seven\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"3.5\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"15\"</span><span style=\"color:#D4D4D4\">]</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">total = </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> text </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> answers:</span></span><span class=\"line\"><span style=\"color:#C586C0\">    try</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        number = </span><span style=\"color:#4EC9B0\">int</span><span style=\"color:#D4D4D4\">(text)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        total += number</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"'</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">text</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">' -> </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">number</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    except</span><span style=\"color:#4EC9B0\"> ValueError</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"'</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">text</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">' is not a whole number, skipped\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Total:\"</span><span style=\"color:#D4D4D4\">, total)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Different errors, different except blocks.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> slices_each</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">pizzas</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#9CDCFE\">people</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">    try</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        slices = pizzas * </span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\"> // people</span></span><span class=\"line\"><span style=\"color:#C586C0\">    except</span><span style=\"color:#4EC9B0\"> ZeroDivisionError</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Nobody to share with!\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    except</span><span style=\"color:#4EC9B0\"> TypeError</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"People must be a number.\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    else</span><span style=\"color:#D4D4D4\">:  </span><span style=\"color:#6A9955\"># runs only if there was no error</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">people</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> people get </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">slices</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> slices each\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">slices_each(</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">slices_each(</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">slices_each(</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"four\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># as gives you the error itself, with its message.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">prices = {</span><span style=\"color:#CE9178\">\"tea\"</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#B5CEA8\">1.5</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"coffee\"</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#B5CEA8\">1.8</span><span style=\"color:#D4D4D4\">}</span></span><span class=\"line\"><span style=\"color:#C586C0\">try</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(prices[</span><span style=\"color:#CE9178\">\"juice\"</span><span style=\"color:#D4D4D4\">])</span></span><span class=\"line\"><span style=\"color:#C586C0\">except</span><span style=\"color:#4EC9B0\"> KeyError</span><span style=\"color:#C586C0\"> as</span><span style=\"color:#D4D4D4\"> error:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"No price for\"</span><span style=\"color:#D4D4D4\">, error)</span></span></code></pre>",
+    "output": "'42' -> 42\n'seven' is not a whole number, skipped\n'3.5' is not a whole number, skipped\n'15' -> 15\nTotal: 57\n4 people get 6 slices each\nNobody to share with!\nPeople must be a number.\nNo price for 'juice'",
+    "image": "/courses/python/basic-18.jpg",
+    "size": [
+     1200,
+     1248
+    ]
+   },
+   {
+    "n": 19,
+    "es": {
+     "slug": "archivos-de-texto",
+     "title": "Escribir y leer archivos",
+     "summary": "Guarde datos en un archivo de texto con Python y léalos de nuevo con open(), write() y read(): las puntuaciones de un juego.",
+     "body": [
+      "`open(\"scores.txt\", \"w\")` abre un archivo de la carpeta actual para **escribir**: si no existe lo crea y, si existe, lo vacía. `with` se encarga de **cerrarlo** al terminar el bloque, aunque haya un error. Dentro, `file.write()` escribe texto; el salto de línea `\\n` hay que ponerlo a mano.",
+      "El modo `\"a\"` (*append*) abre el archivo para **añadir** al final sin borrar lo que había: así se suma la puntuación de Dani.",
+      "Sin modo, `open()` abre para **leer**. `file.read()` devuelve todo el contenido como una sola cadena. Como ya termina con `\\n`, se escribe con `end=\"\"` para no dejar una línea en blanco.",
+      "Para convertir el texto otra vez en datos, se recorre el archivo con `for line in file:`, una línea por vuelta. `strip()` quita el salto de línea, `split(\",\")` separa nombre y puntos, e `int()` convierte los puntos en número para compararlos y quedarse con el mejor.",
+      "Abrir para leer un archivo que no existe lanza `FileNotFoundError`, que se captura con `try` y `except` como en la lección anterior."
+     ],
+     "points": [
+      "`with open(nombre, modo) as f:` abre y cierra solo.",
+      "`\"w\"` escribe desde cero; `\"a\"` añade; sin modo, lee.",
+      "`write()` no añade el salto de línea: ponga `\\n`.",
+      "`read()` da todo el texto; `for line in f:` va línea a línea.",
+      "Un archivo que no existe da `FileNotFoundError`."
+     ],
+     "exercise": "Al final del programa, escriba un archivo `ranking.txt` con los jugadores ordenados de más a menos puntos (lea los datos, guárdelos en una lista de tuplas y ordénela)."
+    },
+    "en": {
+     "slug": "text-files",
+     "title": "Writing and reading files",
+     "summary": "Save data to a text file with Python and read it back with open(), write() and read(): the high scores of a game.",
+     "body": [
+      "`open(\"scores.txt\", \"w\")` opens a file in the current folder for **writing**: if it does not exist it is created, and if it does it is emptied. `with` makes sure the file is **closed** when the block ends, even if there is an error. Inside, `file.write()` writes text; you have to add the line break `\\n` yourself.",
+      "Mode `\"a\"` (append) opens the file to **add** at the end without deleting what was there: that is how Dani's score is added.",
+      "Without a mode, `open()` opens for **reading**. `file.read()` returns the whole content as one string. Since it already ends with `\\n`, it is printed with `end=\"\"` so there is no blank line.",
+      "To turn the text back into data, the program goes through the file with `for line in file:`, one line per round. `strip()` removes the line break, `split(\",\")` separates name and points, and `int()` turns the points into a number so they can be compared to find the best.",
+      "Opening a missing file for reading raises `FileNotFoundError`, which is caught with `try` and `except` as in the previous lesson."
+     ],
+     "points": [
+      "`with open(name, mode) as f:` opens and closes for you.",
+      "`\"w\"` writes from scratch; `\"a\"` appends; no mode reads.",
+      "`write()` does not add a line break: add `\\n`.",
+      "`read()` gives the whole text; `for line in f:` goes line by line.",
+      "A file that does not exist raises `FileNotFoundError`."
+     ],
+     "exercise": "At the end of the program, write a `ranking.txt` file with the players sorted from most to fewest points (read the data, keep it in a list of tuples and sort it)."
+    },
+    "code": "players = [(\"Ana\", 120), (\"Ben\", 95), (\"Carla\", 140)]\n\n# \"w\" creates the file (or empties it) to write in it.\nwith open(\"scores.txt\", \"w\") as file:\n    for name, points in players:\n        file.write(f\"{name},{points}\\n\")\n\n# \"a\" adds at the end without deleting what was there.\nwith open(\"scores.txt\", \"a\") as file:\n    file.write(\"Dani,110\\n\")\n\n# read() gives the whole file as one string.\nwith open(\"scores.txt\") as file:\n    print(file.read(), end=\"\")\n\n# Line by line, to turn the text back into data.\nbest_name, best_points = \"\", 0\nwith open(\"scores.txt\") as file:\n    for line in file:\n        name, points = line.strip().split(\",\")\n        if int(points) > best_points:\n            best_name, best_points = name, int(points)\nprint(f\"Best player: {best_name} with {best_points} points\")\n\n# Opening a file that does not exist raises an error.\ntry:\n    with open(\"missing.txt\") as file:\n        print(file.read())\nexcept FileNotFoundError:\n    print(\"missing.txt does not exist yet\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#D4D4D4\">players = [(</span><span style=\"color:#CE9178\">\"Ana\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">120</span><span style=\"color:#D4D4D4\">), (</span><span style=\"color:#CE9178\">\"Ben\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">95</span><span style=\"color:#D4D4D4\">), (</span><span style=\"color:#CE9178\">\"Carla\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">140</span><span style=\"color:#D4D4D4\">)]</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># \"w\" creates the file (or empties it) to write in it.</span></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"scores.txt\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"w\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#C586C0\">    for</span><span style=\"color:#D4D4D4\"> name, points </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> players:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        file.write(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">,</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">points</span><span style=\"color:#569CD6\">}</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># \"a\" adds at the end without deleting what was there.</span></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"scores.txt\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"a\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    file.write(</span><span style=\"color:#CE9178\">\"Dani,110</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># read() gives the whole file as one string.</span></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"scores.txt\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(file.read(), </span><span style=\"color:#9CDCFE\">end</span><span style=\"color:#D4D4D4\">=</span><span style=\"color:#CE9178\">\"\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Line by line, to turn the text back into data.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">best_name, best_points = </span><span style=\"color:#CE9178\">\"\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"scores.txt\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#C586C0\">    for</span><span style=\"color:#D4D4D4\"> line </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        name, points = line.strip().split(</span><span style=\"color:#CE9178\">\",\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">        if</span><span style=\"color:#4EC9B0\"> int</span><span style=\"color:#D4D4D4\">(points) > best_points:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">            best_name, best_points = name, </span><span style=\"color:#4EC9B0\">int</span><span style=\"color:#D4D4D4\">(points)</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Best player: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">best_name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> with </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">best_points</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> points\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\"># Opening a file that does not exist raises an error.</span></span><span class=\"line\"><span style=\"color:#C586C0\">try</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">    with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"missing.txt\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">        print</span><span style=\"color:#D4D4D4\">(file.read())</span></span><span class=\"line\"><span style=\"color:#C586C0\">except</span><span style=\"color:#4EC9B0\"> FileNotFoundError</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"missing.txt does not exist yet\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Ana,120\nBen,95\nCarla,140\nDani,110\nBest player: Carla with 140 points\nmissing.txt does not exist yet",
+    "image": "/courses/python/basic-19.jpg",
+    "size": [
+     1200,
+     1095
+    ]
+   },
+   {
+    "n": 20,
+    "es": {
+     "slug": "proyecto-boletin-de-notas",
+     "title": "Proyecto: boletín de notas",
+     "summary": "Un proyecto que reúne el curso básico de Python: lee notas de un archivo, ignora datos erróneos y escribe un boletín con medias y calificaciones.",
+     "body": [
+      "Este programa junta casi todo lo visto en el curso. Empieza con una **función**, `grade()`, que convierte una media en una letra usando `if` y `return`: en cuanto una condición se cumple, devuelve la letra y termina.",
+      "Después **escribe un archivo** `marks.txt` con una línea por alumno y lo vuelve a **abrir para leerlo** línea a línea. `line.split(\":\")` separa el nombre de las notas y se desempaqueta en `name` y `text`.",
+      "Las notas se separan con `split(\",\")` y cada una se convierte con `float()`, que acepta los espacios de alrededor. Ben tiene un «five» escrito con letras: `float()` lanza un `ValueError`, el `except` lo avisa y esa nota se descarta sin detener el programa.",
+      "Las notas válidas se van añadiendo a la **lista** `marks` y la media de cada alumno se guarda en el **diccionario** `averages`, con el nombre como clave.",
+      "Para terminar, un `for` sobre `averages.items()` escribe el boletín en columnas con **f-strings**, apunta en la lista `passed` a quien aprueba y recuerda la mejor media. `\", \".join(passed)` une los nombres en una sola línea."
+     ],
+     "points": [
+      "Las funciones ordenan el programa en piezas con nombre.",
+      "Archivos + `split()` convierten texto en datos.",
+      "`try`/`except` evita que un dato erróneo pare el programa.",
+      "Listas y diccionarios guardan los resultados para el informe.",
+      "Las f-strings con ancho alinean la tabla."
+     ],
+     "exercise": "Amplíe el proyecto para que guarde el boletín en un archivo `report.txt` y añada al final la media de toda la clase y cuántos alumnos sacaron cada letra (con un diccionario de contadores)."
+    },
+    "en": {
+     "slug": "project-grade-report",
+     "title": "Project: grade report",
+     "summary": "A project that brings the basic Python course together: it reads marks from a file, skips bad data and prints a report with averages and grades.",
+     "body": [
+      "This program puts together almost everything in the course. It starts with a **function**, `grade()`, that turns an average into a letter with `if` and `return`: as soon as a condition is true, it returns the letter and stops.",
+      "Then it **writes a file**, `marks.txt`, with one line per student and **opens it again for reading**, line by line. `line.split(\":\")` separates the name from the marks and is unpacked into `name` and `text`.",
+      "The marks are split with `split(\",\")` and each one is converted with `float()`, which accepts the surrounding spaces. Ben has a «five» written in letters: `float()` raises a `ValueError`, the `except` reports it and that mark is dropped without stopping the program.",
+      "The valid marks are added to the **list** `marks`, and each student's average is stored in the **dictionary** `averages`, with the name as the key.",
+      "Finally, a `for` loop over `averages.items()` prints the report in columns with **f-strings**, notes who passed in the `passed` list and remembers the best average. `\", \".join(passed)` puts the names on a single line."
+     ],
+     "points": [
+      "Functions split the program into named pieces.",
+      "Files plus `split()` turn text into data.",
+      "`try`/`except` stops one bad value from stopping the program.",
+      "Lists and dictionaries hold the results for the report.",
+      "F-strings with widths line up the table."
+     ],
+     "exercise": "Extend the project so it saves the report to a `report.txt` file and adds the class average and how many students got each letter (with a dictionary of counters)."
+    },
+    "code": "# Grade report: files, strings, lists, dicts, functions and errors.\ndef grade(mark):\n    if mark >= 9:\n        return \"A\"\n    if mark >= 7:\n        return \"B\"\n    if mark >= 5:\n        return \"C\"\n    return \"F\"\n\nwith open(\"marks.txt\", \"w\") as file:\n    file.write(\"Ana: 8, 9.5, 7\\nBen: 4, 6, five\\nCarla: 9, 10, 9.5\\nDani: 3, 5, 4\\n\")\naverages = {}\nwith open(\"marks.txt\") as file:\n    for line in file:\n        name, text = line.split(\":\")\n        marks = []\n        for part in text.split(\",\"):\n            try:\n                marks.append(float(part))\n            except ValueError:\n                print(f\"{name}: '{part.strip()}' is not a mark, skipped\")\n        averages[name] = sum(marks) / len(marks)\n\nprint(f\"{'Student':<8}{'Avg':>6}  Grade\")\npassed, best_name, best = [], \"\", 0\nfor name, avg in averages.items():\n    print(f\"{name:<8}{avg:>6.2f}  {grade(avg)}\")\n    if avg >= 5:\n        passed.append(name)\n    if avg > best:\n        best_name, best = name, avg\nprint(\"Passed:\", \", \".join(passed))\nprint(f\"Best average: {best_name} ({best:.2f})\")",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#6A9955\"># Grade report: files, strings, lists, dicts, functions and errors.</span></span><span class=\"line\"><span style=\"color:#569CD6\">def</span><span style=\"color:#DCDCAA\"> grade</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#9CDCFE\">mark</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> mark >= </span><span style=\"color:#B5CEA8\">9</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">        return</span><span style=\"color:#CE9178\"> \"A\"</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> mark >= </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">        return</span><span style=\"color:#CE9178\"> \"B\"</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> mark >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#C586C0\">        return</span><span style=\"color:#CE9178\"> \"C\"</span></span><span class=\"line\"><span style=\"color:#C586C0\">    return</span><span style=\"color:#CE9178\"> \"F\"</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"marks.txt\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\"w\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    file.write(</span><span style=\"color:#CE9178\">\"Ana: 8, 9.5, 7</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">Ben: 4, 6, five</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">Carla: 9, 10, 9.5</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">Dani: 3, 5, 4</span><span style=\"color:#D7BA7D\">\\n</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">averages = {}</span></span><span class=\"line\"><span style=\"color:#C586C0\">with</span><span style=\"color:#DCDCAA\"> open</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"marks.txt\"</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#C586C0\">as</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#C586C0\">    for</span><span style=\"color:#D4D4D4\"> line </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> file:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        name, text = line.split(</span><span style=\"color:#CE9178\">\":\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        marks = []</span></span><span class=\"line\"><span style=\"color:#C586C0\">        for</span><span style=\"color:#D4D4D4\"> part </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> text.split(</span><span style=\"color:#CE9178\">\",\"</span><span style=\"color:#D4D4D4\">):</span></span><span class=\"line\"><span style=\"color:#C586C0\">            try</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">                marks.append(</span><span style=\"color:#4EC9B0\">float</span><span style=\"color:#D4D4D4\">(part))</span></span><span class=\"line\"><span style=\"color:#C586C0\">            except</span><span style=\"color:#4EC9B0\"> ValueError</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">                print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">: '</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">part.strip()</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">' is not a mark, skipped\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        averages[name] = </span><span style=\"color:#DCDCAA\">sum</span><span style=\"color:#D4D4D4\">(marks) / </span><span style=\"color:#DCDCAA\">len</span><span style=\"color:#D4D4D4\">(marks)</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#CE9178\">'Student'</span><span style=\"color:#569CD6\">:&#x3C;8}{</span><span style=\"color:#CE9178\">'Avg'</span><span style=\"color:#569CD6\">:>6}</span><span style=\"color:#CE9178\">  Grade\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">passed, best_name, best = [], </span><span style=\"color:#CE9178\">\"\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0</span></span><span class=\"line\"><span style=\"color:#C586C0\">for</span><span style=\"color:#D4D4D4\"> name, avg </span><span style=\"color:#C586C0\">in</span><span style=\"color:#D4D4D4\"> averages.items():</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">    print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">name</span><span style=\"color:#569CD6\">:&#x3C;8}{</span><span style=\"color:#D4D4D4\">avg</span><span style=\"color:#569CD6\">:>6.2f}</span><span style=\"color:#569CD6\">  {</span><span style=\"color:#D4D4D4\">grade(avg)</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\">\"</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> avg >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        passed.append(name)</span></span><span class=\"line\"><span style=\"color:#C586C0\">    if</span><span style=\"color:#D4D4D4\"> avg > best:</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">        best_name, best = name, avg</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">\"Passed:\"</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">\", \"</span><span style=\"color:#D4D4D4\">.join(passed))</span></span><span class=\"line\"><span style=\"color:#DCDCAA\">print</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">f</span><span style=\"color:#CE9178\">\"Best average: </span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">best_name</span><span style=\"color:#569CD6\">}</span><span style=\"color:#CE9178\"> (</span><span style=\"color:#569CD6\">{</span><span style=\"color:#D4D4D4\">best</span><span style=\"color:#569CD6\">:.2f}</span><span style=\"color:#CE9178\">)\"</span><span style=\"color:#D4D4D4\">)</span></span></code></pre>",
+    "output": "Ben: 'five' is not a mark, skipped\nStudent    Avg  Grade\nAna       8.17  B\nBen       5.00  C\nCarla     9.50  A\nDani      4.00  F\nPassed: Ana, Ben, Carla\nBest average: Carla (9.50)",
+    "image": "/courses/python/basic-20.jpg",
+    "size": [
+     1200,
+     1227
+    ]
+   }
+  ]
+ }
+}

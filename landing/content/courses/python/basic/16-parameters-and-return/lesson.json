@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "parametros-y-return",
+    "title": "Parámetros, valores por defecto y return",
+    "summary": "Dé valores por defecto a los parámetros de sus funciones en Python, llámelas por nombre y devuelva varios resultados con return.",
+    "body": [
+      "Una función puede tener varios parámetros. En `order_total(price, quantity, discount=0)` el último tiene un **valor por defecto**: si no se pasa, vale `0`. Por eso `order_total(4.0, 3)` da `12.0` y `order_total(4.0, 3, 25)` aplica un 25 % de descuento y da `9.0`.",
+      "Los valores también se pueden pasar **por nombre** (argumentos con nombre): `order_total(quantity=2, price=10.0, discount=10)`. Así el orden da igual y la llamada se entiende mejor.",
+      "`return` puede devolver **varios valores** separados por comas: en realidad devuelve una tupla. `summary()` da la nota más baja, la más alta y la media, y la llamada las desempaqueta en `low, high, avg`, como vio con las tuplas.",
+      "`return` además **termina la función** en ese momento. En `grade()`, si la nota es 9 o más, devuelve «Outstanding» y ya no mira el resto; por eso no hace falta `elif` ni `else`.",
+      "Una función sin `return` devuelve `None` («nada»). `cheer()` escribe su frase, pero lo que devuelve es `None`, y eso es lo que escribe el último `print()`."
+    ],
+    "points": [
+      "`param=valor` da un valor por defecto.",
+      "Los argumentos con nombre se pueden pasar en cualquier orden.",
+      "`return a, b` devuelve una tupla que se puede desempaquetar.",
+      "`return` sale de la función al instante.",
+      "Sin `return`, la función devuelve `None`."
+    ],
+    "exercise": "Añada a `order_total()` un parámetro `shipping=3.5` que se sume al final, salvo cuando el total supere los 30 euros (entonces, envío gratis)."
+  },
+  "en": {
+    "slug": "parameters-and-return",
+    "title": "Parameters, defaults and return",
+    "summary": "Give default values to the parameters of your Python functions, call them by name and send back several results with return.",
+    "body": [
+      "A function can have several parameters. In `order_total(price, quantity, discount=0)` the last one has a **default value**: if you leave it out, it is `0`. That is why `order_total(4.0, 3)` gives `12.0`, while `order_total(4.0, 3, 25)` takes 25 % off and gives `9.0`.",
+      "You can also pass values **by name** (keyword arguments): `order_total(quantity=2, price=10.0, discount=10)`. Then the order does not matter and the call reads better.",
+      "`return` can give back **several values** separated by commas: what it really returns is a tuple. `summary()` returns the lowest mark, the highest and the average, and the call unpacks them into `low, high, avg`, just as you did with tuples.",
+      "`return` also **ends the function** right there. In `grade()`, if the mark is 9 or more it returns «Outstanding» and never looks at the rest, so there is no need for `elif` or `else`.",
+      "A function without `return` gives back `None` («nothing»). `cheer()` prints its sentence, but what it returns is `None`, and that is what the last `print()` shows."
+    ],
+    "points": [
+      "`param=value` gives a default value.",
+      "Keyword arguments can go in any order.",
+      "`return a, b` returns a tuple you can unpack.",
+      "`return` leaves the function at once.",
+      "Without `return`, a function returns `None`."
+    ],
+    "exercise": "Add a `shipping=3.5` parameter to `order_total()` that is added at the end, unless the total is over 30 euros (then shipping is free)."
+  }
+}

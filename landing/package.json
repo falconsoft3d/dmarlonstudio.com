@@ -1,6 +1,6 @@
 {
   "name": "dmarlonstudio-landing",
-  "version": "1.0.50",
+  "version": "1.0.51",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -24,6 +24,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.1",
+    "shiki": "^3.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

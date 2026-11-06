@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "listas",
+    "title": "Listas",
+    "summary": "Guarde varios valores en una lista de Python: acceda por posición, cámbielos, recórralos con for y súmelos con sum(), min() y max().",
+    "body": [
+      "Una **lista** guarda varios valores en orden, entre corchetes y separados por comas. `fruits` tiene cuatro frutas y `prices`, sus cuatro precios en el mismo orden. `print(fruits)` la muestra entera y `len(fruits)` dice cuántos elementos tiene.",
+      "Como en las cadenas, cada elemento tiene una posición que empieza en 0: `fruits[0]` es `apple` y `fruits[-1]`, el último, `mango`.",
+      "A diferencia de las cadenas, las listas **se pueden cambiar**: `prices[3] = 0.99` sustituye el precio del mango (que estaba en la posición 3) por uno más barato.",
+      "`for fruit in fruits:` recorre la lista elemento a elemento, igual que recorría las letras de una cadena. Y `in` comprueba si un valor está en la lista: `\"kiwi\" in fruits` es `False`.",
+      "Para listas de números, `sum()` las suma, `min()` da el menor y `max()` el mayor. Con `round(..., 2)` el total sale con dos decimales."
+    ],
+    "points": [
+      "Una lista va entre `[ ]` y puede crecer o cambiar.",
+      "`lista[0]` es el primero; `lista[-1]`, el último.",
+      "`len()` da el número de elementos.",
+      "`valor in lista` dice si está.",
+      "`sum()`, `min()` y `max()` trabajan con listas de números."
+    ],
+    "exercise": "Cree una lista con las temperaturas máximas de una semana, escriba la media (`sum()` entre `len()`), la más alta y la más baja, y cuántos días pasaron de 25 grados."
+  },
+  "en": {
+    "slug": "lists",
+    "title": "Lists",
+    "summary": "Keep several values in a Python list: read them by position, change them, loop over them with for and add them up with sum(), min() and max().",
+    "body": [
+      "A **list** keeps several values in order, between square brackets and separated by commas. `fruits` holds four fruits and `prices` their four prices in the same order. `print(fruits)` shows the whole list and `len(fruits)` says how many items it has.",
+      "As with strings, every item has a position starting at 0: `fruits[0]` is `apple` and `fruits[-1]`, the last one, is `mango`.",
+      "Unlike strings, lists **can be changed**: `prices[3] = 0.99` replaces the mango's price (at position 3) with a cheaper one.",
+      "`for fruit in fruits:` goes through the list item by item, just as it went through the letters of a string. And `in` checks whether a value is in the list: `\"kiwi\" in fruits` is `False`.",
+      "For lists of numbers, `sum()` adds them up, `min()` gives the smallest and `max()` the largest. `round(..., 2)` keeps the total to two decimals."
+    ],
+    "points": [
+      "A list goes between `[ ]` and can grow or change.",
+      "`items[0]` is the first; `items[-1]` the last.",
+      "`len()` gives the number of items.",
+      "`value in items` tells you whether it is there.",
+      "`sum()`, `min()` and `max()` work on lists of numbers."
+    ],
+    "exercise": "Make a list with a week's highest temperatures, then print the average (`sum()` divided by `len()`), the highest, the lowest and how many days went over 25 degrees."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "if-else-y-operador-ternario",
+    "title": "if / else y el ternario",
+    "summary": "Tome decisiones en JavaScript con if, else if y else, y elija entre dos valores en una sola línea con el operador ternario.",
+    "body": [
+      "**`if`** ejecuta un bloque, entre llaves `{ }`, solo si la condición entre paréntesis es verdadera. Con `grade >= 5` el programa decide si la nota es un aprobado; si no lo es, se ejecuta el bloque de **`else`**.",
+      "Para más de dos casos se encadenan **`else if`**. Las condiciones se comprueban de arriba abajo y solo se ejecuta la primera que se cumple: con `temperature = 12`, falla `>= 30`, falla `>= 18` y acierta `>= 5`. El `else` final recoge todo lo demás.",
+      "El **operador ternario** `condición ? valorSiSí : valorSiNo` elige entre dos valores en una sola expresión. `shipping` vale `0` si la cesta llega a 50 euros y `4.95` si no.",
+      "Como es una expresión, el ternario cabe dentro de una plantilla: `${items === 1 ? \"item\" : \"items\"}` pone la palabra en singular o en plural. `===` significa «es igual a»; lo verá con detalle en la lección siguiente.",
+      "Use `if` cuando haya que hacer cosas distintas y el ternario cuando solo cambie un valor. Para condiciones largas, el `if` se lee mejor."
+    ],
+    "points": [
+      "`if` ejecuta su bloque solo si la condición es verdadera.",
+      "`else if` encadena casos; gana el primero que se cumple.",
+      "`condición ? a : b` devuelve `a` o `b`.",
+      "Los comparadores básicos: `>`, `<`, `>=`, `<=`, `===`."
+    ],
+    "exercise": "Añada una variable `speed` y escriba «Too slow» por debajo de 60, «OK» hasta 120 y «Too fast» por encima, y con un ternario «free shipping» o «paid shipping» según `basketTotal`."
+  },
+  "en": {
+    "slug": "if-else-and-the-ternary-operator",
+    "title": "if / else and the ternary",
+    "summary": "Make decisions in JavaScript with if, else if and else, and choose between two values on a single line with the ternary operator.",
+    "body": [
+      "**`if`** runs a block, between braces `{ }`, only when the condition in brackets is true. With `grade >= 5` the program decides whether the grade is a pass; if not, the **`else`** block runs.",
+      "For more than two cases you chain **`else if`**. The conditions are checked from top to bottom and only the first true one runs: with `temperature = 12`, `>= 30` fails, `>= 18` fails and `>= 5` matches. The final `else` catches everything else.",
+      "The **ternary operator** `condition ? valueIfTrue : valueIfFalse` picks one of two values in a single expression. `shipping` is `0` if the basket reaches 50 euros and `4.95` otherwise.",
+      "Because it is an expression, the ternary fits inside a template literal: `${items === 1 ? \"item\" : \"items\"}` chooses singular or plural. `===` means is equal to; the next lesson looks at it in detail.",
+      "Use `if` when different things must happen and the ternary when only a value changes. For long conditions, `if` is easier to read."
+    ],
+    "points": [
+      "`if` runs its block only when the condition is true.",
+      "`else if` chains cases; the first true one wins.",
+      "`condition ? a : b` returns `a` or `b`.",
+      "The basic comparisons: `>`, `<`, `>=`, `<=`, `===`."
+    ],
+    "exercise": "Add a `speed` variable and print \"Too slow\" below 60, \"OK\" up to 120 and \"Too fast\" above that, and use a ternary to print \"free shipping\" or \"paid shipping\" depending on `basketTotal`."
+  }
+}

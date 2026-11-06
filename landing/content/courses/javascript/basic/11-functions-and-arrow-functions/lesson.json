@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-y-funciones-flecha",
+    "title": "Funciones y funciones flecha",
+    "summary": "Reutilice código con funciones en JavaScript: declaraciones con function, valores con return, funciones flecha y funciones como valores.",
+    "body": [
+      "Una **función** es un bloque de código con nombre que se puede usar tantas veces como haga falta. `function greet(name)` declara una que recibe un **parámetro**, `name`, y se **llama** escribiendo su nombre con el valor entre paréntesis: `greet(\"Laura\")`.",
+      "Con **`return`** la función devuelve un resultado a quien la llama. `celsiusToFahrenheit(20)` vale `68`, y ese valor se puede escribir, guardar en una variable o usar en otra cuenta.",
+      "Las **funciones flecha** son una forma más corta: `const double = (n) => n * 2`. Si el cuerpo es una sola expresión, se devuelve sin escribir `return`; si tiene varias líneas, como `shippingCost`, necesita llaves y `return`.",
+      "En JavaScript las funciones son valores como cualquier otro: se guardan en constantes y se pasan a otras funciones. `applyTwice(double, 5)` recibe `double` y la aplica dos veces: `5`, `10`, `20`. Esta idea es la base de las lecciones siguientes y de los componentes de React, que en DMarlon Studio usan los destinos React, Next.js y React Native.",
+      "Una declaración con `function` se puede llamar antes de la línea en la que aparece, como `square(9)`; una función flecha guardada en `const`, no."
+    ],
+    "points": [
+      "`function nombre(parámetros) { ... }` declara una función.",
+      "`return` devuelve un valor y termina la función.",
+      "`(x) => x * 2` es una función flecha que devuelve `x * 2`.",
+      "Las funciones son valores: se guardan y se pasan a otras funciones."
+    ],
+    "exercise": "Escriba una función flecha `vatPrice` que sume el 21 % de IVA a un precio y otra `isAdult` que diga si una edad llega a 18, y pruébelas con tres valores cada una."
+  },
+  "en": {
+    "slug": "functions-and-arrow-functions",
+    "title": "Functions and arrow functions",
+    "summary": "Reuse code with functions in JavaScript: function declarations, values with return, arrow functions and functions as values.",
+    "body": [
+      "A **function** is a named block of code you can use as many times as you need. `function greet(name)` declares one that receives a **parameter**, `name`, and you **call** it by writing its name with a value in brackets: `greet(\"Laura\")`.",
+      "With **`return`** the function hands a result back to whoever called it. `celsiusToFahrenheit(20)` is `68`, and you can print that value, store it in a variable or use it in another calculation.",
+      "**Arrow functions** are a shorter form: `const double = (n) => n * 2`. When the body is a single expression, it is returned without writing `return`; with several lines, as in `shippingCost`, you need braces and `return`.",
+      "In JavaScript functions are values like any other: you store them in constants and pass them to other functions. `applyTwice(double, 5)` receives `double` and applies it twice: `5`, `10`, `20`. This idea underpins the next lessons and React components, which DMarlon Studio's React, Next.js and React Native targets use.",
+      "A `function` declaration can be called before the line where it appears, like `square(9)`; an arrow function stored in a `const` cannot."
+    ],
+    "points": [
+      "`function name(parameters) { ... }` declares a function.",
+      "`return` gives back a value and ends the function.",
+      "`(x) => x * 2` is an arrow function that returns `x * 2`.",
+      "Functions are values: you can store them and pass them around."
+    ],
+    "exercise": "Write an arrow function `vatPrice` that adds 21% VAT to a price and another, `isAdult`, that says whether an age is at least 18, and try each with three values."
+  }
+}

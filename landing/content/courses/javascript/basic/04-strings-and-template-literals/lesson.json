@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cadenas-y-plantillas",
+    "title": "Cadenas y plantillas de texto",
+    "summary": "Trabaje con texto en JavaScript: unir cadenas, plantillas con comillas invertidas y ${}, longitud, caracteres, mayúsculas y búsquedas.",
+    "body": [
+      "Una cadena se puede unir a otra con `+`, como en `\"Product: \" + product`. Funciona, pero con varios valores enseguida se llena de comillas y signos más.",
+      "Las **plantillas de texto** (*template literals*) van entre comillas invertidas `` ` `` y dentro de `${...}` admiten cualquier expresión: `${price * quantity}` hace la cuenta y pone el resultado en su sitio. Es la forma habitual de componer textos en JavaScript.",
+      "**`length`** dice cuántos caracteres tiene la cadena, y entre corchetes se lee uno de ellos: `product[0]` es el primero y `product[product.length - 1]` el último, porque las posiciones empiezan en 0.",
+      "Los **métodos** son funciones que lleva el propio valor y se llaman con un punto: `toUpperCase()` y `toLowerCase()` cambian a mayúsculas o minúsculas, `includes()` dice si contiene un texto y `startsWith()` si empieza por él. Ninguno cambia la cadena original: devuelven una nueva.",
+      "Una plantilla puede ocupar varias líneas tal cual, como el tique `receipt`: los saltos de línea forman parte del texto."
+    ],
+    "points": [
+      "Las plantillas usan `` ` `` y `${expresión}`.",
+      "`length` es el número de caracteres; `texto[0]`, el primero.",
+      "`toUpperCase`, `includes` y `startsWith` son métodos de las cadenas.",
+      "Las cadenas no cambian: los métodos devuelven otra nueva."
+    ],
+    "exercise": "Cambie el producto por otro y la cantidad por 3, y añada al tique una línea con el precio por unidad y otra con el nombre del producto en mayúsculas."
+  },
+  "en": {
+    "slug": "strings-and-template-literals",
+    "title": "Strings and template literals",
+    "summary": "Work with text in JavaScript: joining strings, template literals with backticks and ${}, length, characters, upper case and searching.",
+    "body": [
+      "You can join one string to another with `+`, as in `\"Product: \" + product`. It works, but with several values it soon fills up with quotes and plus signs.",
+      "**Template literals** go between backticks `` ` `` and accept any expression inside `${...}`: `${price * quantity}` does the sum and puts the result in place. It is the usual way to build text in JavaScript.",
+      "**`length`** tells you how many characters the string has, and square brackets read one of them: `product[0]` is the first and `product[product.length - 1]` the last, because positions start at 0.",
+      "**Methods** are functions that come with the value itself and are called with a dot: `toUpperCase()` and `toLowerCase()` change the case, `includes()` checks whether it contains some text and `startsWith()` whether it begins with it. None of them changes the original string: they return a new one.",
+      "A template literal can span several lines as it is, like the `receipt`: the line breaks are part of the text."
+    ],
+    "points": [
+      "Template literals use `` ` `` and `${expression}`.",
+      "`length` is the number of characters; `text[0]` is the first.",
+      "`toUpperCase`, `includes` and `startsWith` are string methods.",
+      "Strings never change: methods return a new one."
+    ],
+    "exercise": "Change the product to another one and the quantity to 3, and add a line to the receipt with the unit price and another with the product name in capitals."
+  }
+}

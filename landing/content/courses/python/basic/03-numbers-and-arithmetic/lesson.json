@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "numeros-y-operaciones",
+    "title": "Números y operaciones",
+    "summary": "Haga cuentas en Python: división entera con //, resto con %, potencias con ** y redondeo con round(), repartiendo unas pizzas.",
+    "body": [
+      "Python suma con `+`, resta con `-` y multiplica con `*`. Tres pizzas de ocho porciones son `3 * 8`, es decir, `24` porciones que hay que repartir entre `5` amigos.",
+      "Hay tres formas de dividir. `/` da el resultado exacto, siempre con decimales (`4.8`). `//` es la **división entera**: cuántas porciones enteras toca a cada uno (`4`). Y `%` da el **resto**: las porciones que sobran (`4`).",
+      "Los números con punto decimal son `float`. La cuenta `12.99 * 3` da `38.97`; `round(bill)` la redondea a euros enteros (`39`) y `round(bill / friends, 2)` la deja con dos decimales (`7.79`). Ojo: en Python el separador decimal es siempre el punto, nunca la coma.",
+      "`**` eleva a una potencia: `15 ** 2` es 15 al cuadrado. Con eso se calcula el área de cada pizza (π · r²) y se ve que la grande tiene casi el doble de superficie.",
+      "Como en matemáticas, la multiplicación va antes que la suma: `2 + 3 * 4` da `14`. Los **paréntesis** cambian el orden: `(2 + 3) * 4` da `20`."
+    ],
+    "points": [
+      "`/` divide con decimales; `//` da la parte entera.",
+      "`%` da el resto de una división.",
+      "`**` es la potencia: `2 ** 3` vale `8`.",
+      "`round(x, 2)` redondea a dos decimales.",
+      "Los paréntesis deciden qué se calcula primero."
+    ],
+    "exercise": "Cambie el número de amigos a 7 y añada una línea que diga cuántas porciones habría que comprar de más para que nadie se quede sin la quinta."
+  },
+  "en": {
+    "slug": "numbers-and-arithmetic",
+    "title": "Numbers and arithmetic",
+    "summary": "Do maths in Python: whole division with //, remainders with %, powers with ** and rounding with round(), while sharing out some pizzas.",
+    "body": [
+      "Python adds with `+`, subtracts with `-` and multiplies with `*`. Three pizzas with eight slices each are `3 * 8`, that is `24` slices to share among `5` friends.",
+      "There are three ways to divide. `/` gives the exact result, always with decimals (`4.8`). `//` is **floor division**: how many whole slices each friend gets (`4`). And `%` gives the **remainder**: the slices left over (`4`).",
+      "Numbers with a decimal point are `float`. `12.99 * 3` gives `38.97`; `round(bill)` rounds it to whole euros (`39`) and `round(bill / friends, 2)` keeps two decimals (`7.79`). Remember that Python always uses a point for decimals, never a comma.",
+      "`**` raises to a power: `15 ** 2` is 15 squared. With it the program works out each pizza's area (π · r²), and you can see that the large one is almost twice as big.",
+      "As in maths, multiplication comes before addition: `2 + 3 * 4` is `14`. **Parentheses** change the order: `(2 + 3) * 4` is `20`."
+    ],
+    "points": [
+      "`/` divides with decimals; `//` keeps the whole part.",
+      "`%` gives the remainder of a division.",
+      "`**` is the power: `2 ** 3` is `8`.",
+      "`round(x, 2)` rounds to two decimals.",
+      "Parentheses decide what is worked out first."
+    ],
+    "exercise": "Change the number of friends to 7 and add a line that says how many extra slices you would need so that everyone gets a fifth one."
+  }
+}

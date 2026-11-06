@@ -3499,7 +3499,7 @@ msgstr ""
 msgid "Buscar por nombre o categoría"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr ""
 
@@ -4452,7 +4452,7 @@ msgstr ""
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr ""
 
@@ -4774,7 +4774,7 @@ msgstr ""
 msgid "Elegir la carpeta…"
 msgstr ""
 
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
 msgid "Elegir…"
 msgstr ""
 
@@ -8410,6 +8410,26 @@ msgstr ""
 msgid "Oscuro"
 msgstr ""
 
+#: lib/ui/app_icons.dart
+msgid "Buscar: tienda, música, calendar…"
+msgstr ""
+
+#: lib/ui/app_icons.dart lib/ui/screens/tk_designer.dart
+msgid "Icono de la aplicación"
+msgstr ""
+
+#: lib/ui/app_icons.dart
+msgid "Ningún icono con esas palabras."
+msgstr ""
+
+#: lib/ui/app_icons.dart lib/ui/icon_ai.dart
+msgid "No se pudo dibujar el icono."
+msgstr ""
+
+#: lib/ui/app_icons.dart lib/ui/icon_ai.dart
+msgid "Usar este icono"
+msgstr ""
+
 #: lib/ui/bottom_panel.dart
 msgid "Minimizar"
 msgstr ""
@@ -8459,19 +8479,11 @@ msgid "Lo dibuja la IA de Ajustes en SVG; se guarda como PNG de 512 × 512 en im
 msgstr ""
 
 #: lib/ui/icon_ai.dart
-msgid "No se pudo dibujar el icono."
-msgstr ""
-
-#: lib/ui/icon_ai.dart
 msgid "Otra versión"
 msgstr ""
 
 #: lib/ui/icon_ai.dart
 msgid "Por ejemplo: una calculadora azul, estilo plano"
-msgstr ""
-
-#: lib/ui/icon_ai.dart
-msgid "Usar este icono"
 msgstr ""
 
 #: lib/ui/screens/budget_screen.dart
@@ -10295,7 +10307,19 @@ msgid "Aplicación web con Flask"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Archivo…"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Arrástrelo a la ventana ({0})"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Automático"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Automático: el estudio elige uno de sus 500 iconos por el nombre del proyecto y lo cambia si cambia el nombre. En la Galería puede elegir otro y su color; en Archivo, un PNG propio (256 × 256 o más)."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -10436,6 +10460,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "El mismo diseñador y el mismo Python: la página se abre en su navegador y el código corre en un servidor de este equipo. Necesita Flask. El destino no se puede cambiar después."
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
+msgid "Elegido por usted: se queda aunque cambie el nombre. Está en la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -10591,6 +10619,10 @@ msgid "F12: diseño"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
+msgid "Galería…"
+msgstr ""
+
+#: lib/ui/screens/tk_designer.dart
 msgid "Generar con IA"
 msgstr ""
 
@@ -10600,10 +10632,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Guarde el proyecto."
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Icono de la aplicación"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -10740,10 +10768,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Traer al frente"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Un PNG (mejor de 256 × 256 o más). Se copia a la carpeta images del proyecto y lo usan la ventana, la extensión o la web según el destino."
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart

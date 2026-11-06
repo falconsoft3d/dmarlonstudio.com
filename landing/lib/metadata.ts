@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 /** Metadatos de una página que existe en los dos idiomas. */
 export function pageMetadata(
   lang: Lang,
-  page: { title: string; description: string; paths: Record<Lang, string>; noIndex?: boolean },
+  page: { title: string; description: string; paths: Record<Lang, string>; noIndex?: boolean; image?: string },
 ): Metadata {
   const { title, description, paths } = page;
   return {
@@ -55,8 +55,14 @@ export function pageMetadata(
       description,
       locale: OG_LOCALE[lang],
       alternateLocale: [OG_LOCALE[lang === "es" ? "en" : "es"]],
+      ...(page.image ? { images: [page.image] } : {}),
     },
-    twitter: { card: "summary", title: `${title} · DMarlon Studio`, description },
+    twitter: {
+      card: page.image ? "summary_large_image" : "summary",
+      title: `${title} · DMarlon Studio`,
+      description,
+      ...(page.image ? { images: [page.image] } : {}),
+    },
     ...(page.noIndex ? { robots: { index: false, follow: true } } : {}),
   };
 }

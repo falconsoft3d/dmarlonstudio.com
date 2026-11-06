@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "json-stringify-y-parse",
+    "title": "JSON: stringify y parse",
+    "summary": "Convierta objetos de JavaScript en texto JSON con JSON.stringify y vuelva a obtenerlos con JSON.parse, para guardar partidas o leer datos de un servidor.",
+    "body": [
+      "**JSON** es un formato de texto para datos, con la misma forma que los objetos y arrays de JavaScript. Es como se guardan configuraciones y como se mandan los datos entre un servidor y una aplicación web, por ejemplo una hecha con Next.js o React en DMarlon Studio.",
+      "**`JSON.stringify()`** convierte un valor en texto JSON: la partida guardada `save` pasa a ser una cadena (`typeof text` es `string`), lista para escribirla en un archivo o enviarla. Con un tercer argumento, `JSON.stringify(valor, null, 2)`, el texto sale sangrado con dos espacios y se lee mucho mejor.",
+      "**`JSON.parse()`** hace el camino contrario: lee el texto y crea un objeto nuevo. `loaded` es una copia independiente, así que subirle el nivel no cambia `save`, que sigue en el 7.",
+      "Los datos que llegan de un servidor son texto, como `reply`, y se leen con `JSON.parse`. En JSON las claves y las cadenas van siempre entre comillas dobles, y existen `null`, números, booleanos, arrays y objetos.",
+      "JSON no tiene `undefined` ni funciones: al convertir `item`, las propiedades `note` y `show` desaparecen sin avisar."
+    ],
+    "points": [
+      "`JSON.stringify(valor)` convierte en texto JSON.",
+      "`JSON.stringify(valor, null, 2)` lo sangra para leerlo.",
+      "`JSON.parse(texto)` crea un objeto nuevo a partir del texto.",
+      "JSON usa comillas dobles y no guarda `undefined` ni funciones."
+    ],
+    "exercise": "Añada a la partida un array `achievements` con dos logros, conviértala en JSON, léala de nuevo con `JSON.parse`, añada un logro a la copia y compruebe que el original sigue con dos."
+  },
+  "en": {
+    "slug": "json-stringify-and-parse",
+    "title": "JSON: stringify and parse",
+    "summary": "Turn JavaScript objects into JSON text with JSON.stringify and get them back with JSON.parse, to save a game or read data from a server.",
+    "body": [
+      "**JSON** is a text format for data with the same shape as JavaScript objects and arrays. It is how settings are stored and how data travels between a server and a web app, such as one built with Next.js or React in DMarlon Studio.",
+      "**`JSON.stringify()`** turns a value into JSON text: the saved game `save` becomes a string (`typeof text` is `string`), ready to write to a file or send. With a third argument, `JSON.stringify(value, null, 2)`, the text is indented by two spaces and much easier to read.",
+      "**`JSON.parse()`** goes the other way: it reads the text and creates a new object. `loaded` is an independent copy, so raising its level does not change `save`, which stays on level 7.",
+      "Data from a server arrives as text, like `reply`, and is read with `JSON.parse`. In JSON, keys and strings always use double quotes, and there are `null`, numbers, booleans, arrays and objects.",
+      "JSON has no `undefined` and no functions: when `item` is converted, the `note` and `show` properties silently disappear."
+    ],
+    "points": [
+      "`JSON.stringify(value)` turns a value into JSON text.",
+      "`JSON.stringify(value, null, 2)` indents it for reading.",
+      "`JSON.parse(text)` creates a new object from the text.",
+      "JSON uses double quotes and keeps no `undefined` or functions."
+    ],
+    "exercise": "Add an `achievements` array with two entries to the saved game, turn it into JSON, read it back with `JSON.parse`, add an achievement to the copy and check the original still has two."
+  }
+}

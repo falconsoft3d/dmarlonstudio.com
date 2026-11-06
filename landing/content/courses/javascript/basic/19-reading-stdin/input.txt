@@ -1,0 +1,5 @@
+Ana 7.5
+Luis 4
+Jorge absent
+Marta 9
+Pablo 6.25

@@ -28,6 +28,9 @@ export function SiteFooter({ lang, t }: { lang: Lang; t: Content }) {
           <a href={PATHS.manual[lang]} className="hover:text-ink">
             {footer.manual}
           </a>
+          <a href={PATHS.courses[lang]} className="hover:text-ink">
+            {footer.courses}
+          </a>
           <a href={PATHS.dossier[lang]} className="hover:text-ink">
             {footer.dossier}
           </a>

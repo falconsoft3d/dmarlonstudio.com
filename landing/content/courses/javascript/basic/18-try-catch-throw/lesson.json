@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "errores-try-catch-throw",
+    "title": "Errores: try, catch y throw",
+    "summary": "Controle los errores en JavaScript: capture fallos con try/catch, use finally y lance sus propios errores con throw, Error y RangeError.",
+    "body": [
+      "Algunos fallos detienen el programa, como leer una propiedad de `null`. Si el código que puede fallar va dentro de **`try`**, el error no lo detiene: salta al bloque **`catch`**, que recibe un objeto con el tipo (`error.name`, aquí `TypeError`) y la explicación (`error.message`).",
+      "`JSON.parse` lanza un error cuando el texto no es JSON válido, como `{stock: 5}`, cuya clave no lleva comillas. `safeParse` lo captura y devuelve `null` en lugar de romperse. El bloque **`finally`** se ejecuta siempre, haya error o no, y sirve para tareas que no pueden quedarse sin hacer, como cerrar un archivo.",
+      "Con **`throw`** el programa lanza sus propios errores cuando los datos no tienen sentido. `withdraw` lanza un `Error` si la cantidad no es positiva y un **`RangeError`** si supera el saldo; `new Error(\"mensaje\")` crea el error con su explicación.",
+      "El bucle prueba tres retiradas, cada una con su propio `try`/`catch`: la primera sale bien y las otras dos muestran su mensaje sin detener las demás. Así se separa el código que detecta el problema (`throw`) del que decide qué hacer con él (`catch`)."
+    ],
+    "points": [
+      "`try { ... } catch (error) { ... }` captura los errores.",
+      "`error.name` y `error.message` dicen qué ha pasado.",
+      "`finally` se ejecuta siempre.",
+      "`throw new Error(\"...\")` lanza un error propio."
+    ],
+    "exercise": "Escriba `parseAge(text)` que lance un error si el texto no es un número o si la edad es negativa o mayor de 120, y pruébela con `\"35\"`, `\"abc\"` y `\"-4\"` dentro de un `try`/`catch`."
+  },
+  "en": {
+    "slug": "errors-try-catch-throw",
+    "title": "Errors: try, catch and throw",
+    "summary": "Handle errors in JavaScript: catch failures with try/catch, use finally, and throw your own errors with throw, Error and RangeError.",
+    "body": [
+      "Some mistakes stop the program, such as reading a property of `null`. If the code that might fail goes inside **`try`**, the error does not stop it: it jumps to the **`catch`** block, which receives an object with the type (`error.name`, here `TypeError`) and the explanation (`error.message`).",
+      "`JSON.parse` throws an error when the text is not valid JSON, like `{stock: 5}`, whose key has no quotes. `safeParse` catches it and returns `null` instead of crashing. The **`finally`** block always runs, error or not, and is for jobs that must never be skipped, such as closing a file.",
+      "With **`throw`** the program raises its own errors when the data makes no sense. `withdraw` throws an `Error` if the amount is not positive and a **`RangeError`** if it is more than the balance; `new Error(\"message\")` creates the error with its explanation.",
+      "The loop tries three withdrawals, each with its own `try`/`catch`: the first works and the other two show their message without stopping the rest. This keeps the code that spots the problem (`throw`) apart from the code that decides what to do about it (`catch`)."
+    ],
+    "points": [
+      "`try { ... } catch (error) { ... }` catches errors.",
+      "`error.name` and `error.message` tell you what happened.",
+      "`finally` always runs.",
+      "`throw new Error(\"...\")` raises your own error."
+    ],
+    "exercise": "Write `parseAge(text)` that throws an error if the text is not a number or the age is negative or over 120, and try it with `\"35\"`, `\"abc\"` and `\"-4\"` inside a `try`/`catch`."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "bucles-for-y-while",
+    "title": "Bucles for y while",
+    "summary": "Repita código en JavaScript con for y while: tablas de multiplicar, ahorros que crecen, break, continue y una cuenta atrás.",
+    "body": [
+      "El bucle **`for`** tiene tres partes entre paréntesis: el inicio (`let i = 1`), la condición para seguir (`i <= 5`) y el paso de cada vuelta (`i++`, que suma 1). Así se escribe la tabla del 7 sin repetir cinco veces la misma línea.",
+      "**`while`** repite mientras la condición sea verdadera, sin saber de antemano cuántas vueltas dará. Los ahorros crecen un 5 % al año (`savings * 1.05`) y el bucle cuenta los años hasta pasar de 130 euros: hacen falta 6. Cuide de que la condición llegue a ser falsa; si no, el bucle no acaba nunca.",
+      "Dentro de un bucle, **`continue`** salta a la vuelta siguiente y **`break`** sale del bucle del todo. En el juego se saltan los niveles pares (`level % 2 === 0`) y se para después del 7, aunque el `for` llegaba hasta 10.",
+      "Un bucle también puede construir algo poco a poco: `countdown += n + \" \"` añade cada número al final de la cadena, contando hacia atrás con `n--`."
+    ],
+    "points": [
+      "`for (inicio; condición; paso)` para un número de vueltas conocido.",
+      "`while (condición)` mientras se cumpla; asegúrese de que termina.",
+      "`continue` salta a la vuelta siguiente; `break` sale del bucle.",
+      "`i++` suma 1, `n--` resta 1 y `+=` añade."
+    ],
+    "exercise": "Escriba la tabla del 9 del 1 al 10 y calcule con un `while` cuántos años tardan 200 euros en duplicarse al 4 % anual."
+  },
+  "en": {
+    "slug": "for-and-while-loops",
+    "title": "for and while loops",
+    "summary": "Repeat code in JavaScript with for and while: times tables, growing savings, break, continue and a countdown.",
+    "body": [
+      "A **`for`** loop has three parts in brackets: the start (`let i = 1`), the condition to keep going (`i <= 5`) and the step for each round (`i++`, which adds 1). That is how you print the 7 times table without writing the same line five times.",
+      "**`while`** repeats as long as its condition is true, without knowing in advance how many rounds it will take. The savings grow 5% a year (`savings * 1.05`) and the loop counts the years until they pass 130 euros: it takes 6. Make sure the condition becomes false at some point, or the loop never ends.",
+      "Inside a loop, **`continue`** jumps to the next round and **`break`** leaves the loop completely. In the game the even levels are skipped (`level % 2 === 0`) and play stops after level 7, even though the `for` went up to 10.",
+      "A loop can also build something bit by bit: `countdown += n + \" \"` adds each number to the end of the string, counting down with `n--`."
+    ],
+    "points": [
+      "`for (start; condition; step)` when you know how many rounds.",
+      "`while (condition)` for as long as it holds; make sure it ends.",
+      "`continue` jumps to the next round; `break` leaves the loop.",
+      "`i++` adds 1, `n--` subtracts 1 and `+=` appends."
+    ],
+    "exercise": "Print the 9 times table from 1 to 10, and use a `while` to work out how many years 200 euros take to double at 4% a year."
+  }
+}

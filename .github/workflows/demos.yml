@@ -13,6 +13,8 @@ on:
       - 'studio/assets/i18n/**'
       - 'studio/test/demos_export_test.dart'
       - 'scripts/build_demos.py'
+      - 'scripts/demos.entitlements'
+      - 'scripts/demo-icons/**'
       - 'scripts/build_live_demos.py'
       - '.github/workflows/demos.yml'
   workflow_dispatch:
@@ -61,10 +63,54 @@ jobs:
         run: |
           flutter pub get
           DMS_DEMOS_OUT="$GITHUB_WORKSPACE/demos-src" flutter test test/demos_export_test.dart
+      # Firma con «Developer ID Application» y notarización de Apple, para que
+      # macOS abra las demos sin avisos. Necesita estos secretos del repositorio
+      # (los pone scripts/mac-signing-secrets.sh); si faltan, firma local.
+      #   MACOS_CERT_P12, MACOS_CERT_PASSWORD: el certificado exportado (.p12)
+      #   APPLE_API_KEY, APPLE_API_KEY_ID, APPLE_API_ISSUER: clave de la API de
+      #   App Store Connect (.p8) para notarytool
+      - name: Certificado de Apple
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          P12: ${{ secrets.MACOS_CERT_P12 }}
+          P12_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          API_KEY: ${{ secrets.APPLE_API_KEY }}
+          API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+        run: |
+          if [ -z "$P12" ]; then
+            echo "::warning::Sin certificado de Apple: las demos de macOS van con firma local"
+            exit 0
+          fi
+          KC="$RUNNER_TEMP/firma.keychain-db"
+          KC_PASS="$(uuidgen)"
+          echo "$P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$KC_PASS" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KC_PASS" "$KC"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KC" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -k "$KC_PASS" "$KC" > /dev/null
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          rm "$RUNNER_TEMP/cert.p12"
+          ID=$(security find-identity -v -p codesigning "$KC" | grep "Developer ID Application" | head -1 | awk '{print $2}')
+          if [ -z "$ID" ]; then
+            echo "::error::El .p12 no trae un certificado «Developer ID Application»"
+            exit 1
+          fi
+          echo "DMS_SIGN_ID=$ID" >> "$GITHUB_ENV"
+          if [ -n "$API_KEY" ]; then
+            echo "$API_KEY" | base64 --decode > "$RUNNER_TEMP/notary.p8"
+            echo "DMS_NOTARY_KEY=$RUNNER_TEMP/notary.p8" >> "$GITHUB_ENV"
+            echo "DMS_NOTARY_KEY_ID=$API_KEY_ID" >> "$GITHUB_ENV"
+            echo "DMS_NOTARY_ISSUER=$API_ISSUER" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Sin clave de App Store Connect: las demos se firman pero no se notarizan"
+          fi
       - name: Compilar
         shell: bash
         run: |
-          python -m pip install pyinstaller==6.22.3
+          python -m pip install pyinstaller==6.22.3 pillow==12.0.0
           python -c "import tkinter; print('Tk', tkinter.TkVersion)"
           python scripts/build_demos.py demos-src demos-out
         env:

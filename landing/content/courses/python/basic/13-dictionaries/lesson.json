@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "diccionarios",
+    "title": "Diccionarios",
+    "summary": "Guarde pares clave-valor en un diccionario de Python: el inventario de una frutería con get(), del, items(), keys() y values().",
+    "body": [
+      "Un **diccionario** relaciona **claves** con **valores**, entre llaves: `{\"apples\": 12, \"pears\": 5}`. En vez de buscar por posición, como en una lista, se busca por la clave: `stock[\"apples\"]` da `12`.",
+      "Para cambiar un valor o añadir una clave nueva se usa la misma forma: `stock[\"pears\"] = 8` cambia las peras y `stock[\"kiwis\"] = 20` crea los kiwis, que se añaden al final.",
+      "Pedir una clave que no existe con corchetes da un error. `get(\"bananas\", 0)` es más prudente: si la clave no está, devuelve el valor por defecto, aquí `0`. Y `del stock[\"plums\"]` borra una clave con su valor.",
+      "`items()` da cada pareja clave-valor y, como en la lección anterior, el `for` la desempaqueta en `fruit` y `amount`. `{fruit:<8}{amount:>4}` las coloca en columnas.",
+      "`keys()` da las claves (con `list()` se convierten en una lista para escribirlas) y `values()`, los valores, que `sum()` suma. `in` mira si existe una **clave**."
+    ],
+    "points": [
+      "Un diccionario va entre `{ }` con pares `clave: valor`.",
+      "`d[clave] = valor` cambia o añade.",
+      "`d.get(clave, defecto)` no falla si la clave no existe.",
+      "`for k, v in d.items():` recorre claves y valores.",
+      "`clave in d` comprueba si la clave existe."
+    ],
+    "exercise": "Añada un diccionario `prices` con el precio de cada fruta y escriba el valor del inventario: cada fruta con su cantidad por su precio, y el total al final."
+  },
+  "en": {
+    "slug": "dictionaries",
+    "title": "Dictionaries",
+    "summary": "Store key-value pairs in a Python dictionary: a greengrocer's stock with get(), del, items(), keys() and values().",
+    "body": [
+      "A **dictionary** links **keys** to **values**, between braces: `{\"apples\": 12, \"pears\": 5}`. Instead of looking things up by position, as in a list, you look them up by key: `stock[\"apples\"]` gives `12`.",
+      "Changing a value and adding a new key look the same: `stock[\"pears\"] = 8` updates the pears and `stock[\"kiwis\"] = 20` creates the kiwis, which go at the end.",
+      "Asking for a missing key with square brackets is an error. `get(\"bananas\", 0)` is safer: if the key is not there, it returns the default, here `0`. And `del stock[\"plums\"]` removes a key together with its value.",
+      "`items()` gives each key-value pair and, as in the previous lesson, the `for` unpacks it into `fruit` and `amount`. `{fruit:<8}{amount:>4}` puts them in columns.",
+      "`keys()` gives the keys (`list()` turns them into a list for printing) and `values()` the values, which `sum()` adds up. `in` checks whether a **key** exists."
+    ],
+    "points": [
+      "A dictionary goes between `{ }` with `key: value` pairs.",
+      "`d[key] = value` changes or adds.",
+      "`d.get(key, default)` does not fail when the key is missing.",
+      "`for k, v in d.items():` goes through keys and values.",
+      "`key in d` checks whether the key exists."
+    ],
+    "exercise": "Add a `prices` dictionary with the price of each fruit and print the value of the stock: each fruit's amount times its price, and the total at the end."
+  }
+}

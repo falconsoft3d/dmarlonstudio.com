@@ -23,8 +23,11 @@ var
   C: TOdooClient;
   St: TOdooStore;
   Sy: TOdooSync;
-  P, O: TJSONObject;
+  P, O, BP, BB, BB2, K1, K2: TJSONObject;
   L, Prods, Goods, Args, Rows: TJSONArray;
+  BR: TJSONData;
+  Bid, Bid2, BPid, BI, BX: Integer;
+  BErr, BRef, BPRef: string;
   Ref, ORef, Dir, Fails, Pass, Db, Sale1, Sale2, Before: string;
   I, J, Pid, Oid: Integer;
 
@@ -220,6 +223,116 @@ begin
     Check((Rows.Count = 1) and (JStr(Rows.Objects[0], 'city') = 'Sevilla') and
       (JStr(Rows.Objects[0], 'email') = 'otro@example.com'), 'edit_synced');
     Rows.Free;
+    // BIM 2.0 (si está): una obra y su presupuesto por conceptos, hechos
+    // sin conexión; al sincronizar, en Odoo con los mismos importes; sin
+    // duplicados al reenviar, y un envío cortado a medias se completa.
+    if C.Exists('bim.budget') then
+    try
+      BP := St.AddBimProject('DMS Obra ' + FormatDateTime('hhnnss', Now), nil);
+      BB := St.AddBimBudget(BP, 'DMS Presupuesto');
+      K1 := St.AddConcept(BB, '', 'chapter', '01', 'Movimiento de tierras', 1, 0, '', BErr);
+      K2 := St.AddConcept(BB, JStr(K1, 'ref'), 'departure', '01.01', 'Excavación', 120, 0, 'm3', BErr);
+      St.AddConcept(BB, JStr(K2, 'ref'), 'labor', 'MO001', 'Peón', 0.5, 18, 'h', BErr);
+      St.AddConcept(BB, JStr(K2, 'ref'), 'equip', 'EQ001', 'Retroexcavadora', 0.1, 45, 'h', BErr);
+      // Una partida sin recursos, con su precio.
+      St.AddConcept(BB, JStr(K1, 'ref'), 'departure', '01.02', 'Relleno', 10, 7.5, 'm3', BErr);
+      Check(St.AddConcept(BB, '', 'labor', 'MO002', 'Sin partida', 1, 1, '', BErr) = nil,
+        'bim_rules (' + BErr + ')');
+      // 120 × (0,5 × 18 + 0,1 × 45) + 10 × 7,5 = 1620 + 75
+      Check(Abs(JNum(BB, 'amount') - 1695) < 0.01, 'bim_local_total ' + FloatToStr(JNum(BB, 'amount')));
+      St.SendBimBudget(BB);
+      Check(St.Pending = 2, 'bim_queued');
+      Sy.Push;
+      Bid := JInt(BB, 'id');
+      BPid := JInt(BP, 'id');
+      BRef := JStr(BB, 'ref');
+      BPRef := JStr(BP, 'ref');
+      WriteLn('info bim ', JStr(BP, 'code'), ' ', JStr(BB, 'code'), ' total=',
+        FloatToStr(JNum(BB, 'amount')));
+      if St.Pending > 0 then WriteLn('info bim outbox ', St.List('outbox').AsJSON);
+      Check((BPid > 0) and (Bid > 0) and (St.Pending = 0) and
+        (C.Count('bim.concepts', Domain1('budget_id', '=', TJSONIntegerNumber.Create(Bid))) = 5) and
+        (Abs(JNum(BB, 'amount') - 1695) < 0.01), 'bim_synced');
+      // Como si la respuesta se hubiera perdido: se reenvía todo.
+      BP.Integers['id'] := 0;
+      BB.Integers['id'] := 0;
+      BB.Integers['project_id'] := 0;
+      St.Queue('bim_project', BPRef, 0);
+      St.Queue('bim_budget', BRef, 0);
+      Sy.Push;
+      Check((JInt(BP, 'id') = BPid) and (JInt(BB, 'id') = Bid) and (St.Pending = 0) and
+        (C.Count('bim.project', Domain1('notes', 'ilike', TJSONString.Create(BPRef))) = 1) and
+        (C.Count('bim.budget', Domain1('origin', '=', TJSONString.Create(BRef))) = 1) and
+        (C.Count('bim.concepts', Domain1('budget_id', '=', TJSONIntegerNumber.Create(Bid))) = 5),
+        'bim_no_duplicates');
+      // Cortado a medias: la cabecera y el capítulo ya llegaron a Odoo.
+      BB2 := St.AddBimBudget(BP, 'DMS Presupuesto 2');
+      K1 := St.AddConcept(BB2, '', 'chapter', '01', 'Cimentación', 1, 0, '', BErr);
+      K2 := St.AddConcept(BB2, JStr(K1, 'ref'), 'departure', '01.01', 'Zapata', 4, 0, 'm3', BErr);
+      St.AddConcept(BB2, JStr(K2, 'ref'), 'material', 'MT001', 'Hormigón', 1.05, 90, 'm3', BErr);
+      Args := TJSONArray.Create;
+      Args.Add(TJSONObject.Create(['name', 'DMS Presupuesto 2', 'project_id', BPid,
+        'origin', JStr(BB2, 'ref'), 'currency_id', JInt(St.Settings, 'currency_id')]));
+      BR := C.Kw('bim.budget', 'create', Args);
+      if BR is TJSONArray then Bid2 := TJSONArray(BR).Items[0].AsInteger else Bid2 := BR.AsInteger;
+      BR.Free;
+      Args := TJSONArray.Create;
+      Args.Add(TJSONObject.Create(['budget_id', Bid2, 'code', '01', 'name', 'Cimentación',
+        'type', 'chapter', 'id_import', JStr(K1, 'ref')]));
+      C.Kw('bim.concepts', 'create', Args).Free;
+      St.SendBimBudget(BB2);
+      Sy.Push;
+      WriteLn('info bim resumed ', JStr(BB2, 'code'), ' total=', FloatToStr(JNum(BB2, 'amount')));
+      // 4 × 1,05 × 90 = 378
+      Check((JInt(BB2, 'id') = Bid2) and (St.Pending = 0) and
+        (C.Count('bim.concepts', Domain1('budget_id', '=', TJSONIntegerNumber.Create(Bid2))) = 3) and
+        (C.Count('bim.concepts', Domain1('id_import', '=', TJSONString.Create(JStr(K1, 'ref')))) = 1) and
+        (Abs(JNum(BB2, 'amount') - 378) < 0.01), 'bim_resumed');
+      // Al descargar, las obras y los presupuestos de Odoo (y el árbol hecho aquí).
+      Sy.Download;
+      BB := St.Find('bim_budgets', 0, BRef);
+      Check((BB <> nil) and (JInt(BB, 'id') = Bid) and (BB.Find('concepts') is TJSONArray) and
+        (St.Find('bim_projects', BPid, '') <> nil), 'bim_download');
+      BB := St.Find('bim_budgets', Bid2, '');
+      if BB <> nil then
+      begin
+        BB.Delete('concepts');
+        Sy.LoadBimConcepts(BB);
+        Check(BB.Arrays['concepts'].Count = 3, 'bim_load_tree');
+      end
+      else Check(False, 'bim_load_tree');
+      // Limpieza: los conceptos de primer nivel (se llevan a sus hijos), los
+      // presupuestos y la obra (BIM no deja borrar obras: se archiva).
+      try
+        for BI := 0 to 1 do
+        begin
+          if BI = 0 then BX := Bid else BX := Bid2;
+          Rows := C.SearchRead('bim.concepts', Domain1('budget_id', '=',
+            TJSONIntegerNumber.Create(BX)), ['parent_id'], 0, '');
+          L := TJSONArray.Create;
+          for I := 0 to Rows.Count - 1 do
+            if not (Rows.Objects[I].Find('parent_id') is TJSONArray) then
+              L.Add(JInt(Rows.Objects[I], 'id'));
+          Rows.Free;
+          Args := TJSONArray.Create;
+          Args.Add(L);
+          C.Kw('bim.concepts', 'unlink', Args).Free;
+          Args := TJSONArray.Create;
+          Args.Add(TJSONArray.Create([BX]));
+          C.Kw('bim.budget', 'unlink', Args).Free;
+        end;
+        Args := TJSONArray.Create;
+        Args.Add(TJSONArray.Create([BPid]));
+        Args.Add(TJSONObject.Create(['active', False]));
+        C.Kw('bim.project', 'write', Args).Free;
+        WriteLn('info bim cleanup ok');
+      except
+        on E: Exception do WriteLn('info bim cleanup: ', E.Message);
+      end;
+    except
+      on E: Exception do Check(False, 'bim exception ' + E.ClassName + ': ' + E.Message);
+    end
+    else WriteLn('info bim: no está BIM 2.0 en esta base de datos');
     // Punto de venta, sin conexión: el cliente de mostrador y dos líneas
     // (una con descuento). Al sincronizar: pedido confirmado, entrega
     // validada y factura publicada.
@@ -376,6 +489,12 @@ void main() {
       'PosLines',
       'PosPay',
       'Tick',
+      'NavBim',
+      'BimProject',
+      'BimBudList',
+      'BimTree',
+      'BimType',
+      'BimSend',
     ]) {
       expect(names, contains(n));
     }
@@ -443,6 +562,13 @@ void main() {
       'action_invoice_open',
       'signal_workflow',
       'DMS-POS',
+      // BIM 2.0: obra, presupuesto y conceptos, sin duplicados.
+      'bim.project',
+      'bim.budget',
+      'bim.concepts',
+      'id_import',
+      'update_amount',
+      "'bim_budget'",
       // OpenSSL: junto al ejecutable, en Contents/Frameworks y la del sistema.
       '../Frameworks',
       'InitSSLInterface',
@@ -478,7 +604,7 @@ void main() {
         environment: {'DMS_ODOO_SMOKE': '1'},
       ).timeout(const Duration(minutes: 1));
       expect(r.exitCode, 0, reason: '${r.stdout}${r.stderr}');
-      expect('${r.stdout}', contains('smoke pages=7 tabs=FALSE'));
+      expect('${r.stdout}', contains('smoke pages=8 tabs=FALSE'));
     },
     timeout: const Timeout(Duration(minutes: 6)),
   );

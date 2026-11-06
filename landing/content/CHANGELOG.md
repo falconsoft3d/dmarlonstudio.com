@@ -3,6 +3,25 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.48 — 2026-11-06
+
+- **Obras BIM en «Odoo sin conexión» (Pascal)**: si Odoo tiene BIM 2.0
+  (`base_bim_2`), una página nueva para crear **obras y presupuestos por
+  conceptos** también sin conexión: capítulos, partidas y recursos (mano de
+  obra, equipo, material, subcontrata y función) con cantidad, precio y
+  unidad, y los importes calculados como en BIM (recurso = cantidad × precio;
+  partida = su cantidad × la suma de sus recursos; capítulo = la suma).
+  «Guardar y enviar a Odoo» sube la obra, el presupuesto y su árbol, en
+  orden, y pide a BIM que recalcule (UPD). **Sin duplicados**: la referencia
+  DMS-… va en las observaciones de la obra, en el origen del presupuesto y en
+  el «id_import» de cada concepto, y un envío cortado sigue donde se quedó.
+  Los presupuestos de Odoo se ven en el mismo árbol. Probado contra Odoo 20
+  con BIM 2.0.
+- Las lecturas se repiten solas si el servidor (o su proxy) responde 502, 503
+  o 504; las escrituras no, y se reintentan al sincronizar sin duplicar.
+- El origen de las ventas del punto de venta llegaba a Odoo mal codificado
+  («TPV Â· Tarjeta»): ahora «TPV · Tarjeta».
+
 ## 1.0.47 — 2026-11-06
 
 - **Odoo sin conexión (Pascal)**, decimotercera demo de escritorio: se

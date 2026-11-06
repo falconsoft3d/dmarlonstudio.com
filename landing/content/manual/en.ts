@@ -394,7 +394,7 @@ export const manualEn: Manual = {
                 ["**Stock investor (demo)**", "Live simulated prices, buying and selling with commission, a saved portfolio and a chart"],
                 ["**Point of sale**", "A POS in the style of Odoo's with pictures: quantity, discount and price keypad, payment, receipt and sales in SQLite. It connects to Odoo with URL, user and password to download products and prices and send the orders to Sales"],
                 ["**File renamer**", "Rules with regular expressions and numbering, a preview with conflicts and undo"],
-                ["**Offline Odoo (Pascal)**", "A native Lazarus app for Odoo 8 to 20 over JSON-RPC: dashboard with charts, customers, products, quotations and a point of sale that creates order, delivery and invoice, online and offline, without duplicates"],
+                ["**Offline Odoo (Pascal)**", "A native Lazarus app for Odoo 8 to 20 over JSON-RPC: dashboard with charts, customers, products, quotations and a point of sale that creates order, delivery and invoice, online and offline, without duplicates. With BIM 2.0 (base_bim_2) in Odoo, also projects and budgets by concepts (chapters, items and labour, equipment, material and subcontract resources) made offline and uploaded to Odoo"],
                 ["**Train tracking**", "Live public data (Renfe's GTFS-Realtime) in the background, proximity alerts, a train graph and a map drawn on canvases, and an offline simulation"],
                 ["**MP3 player**", "A custom interface drawn on canvases (digital clock, spectrum), ID3 tags, M3U lists and sound with `pygame`"],
               ],

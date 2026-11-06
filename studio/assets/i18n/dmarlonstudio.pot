@@ -813,7 +813,7 @@ msgstr ""
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -1145,7 +1145,7 @@ msgstr ""
 msgid "Envío"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Equipo"
 msgstr ""
 
@@ -4950,7 +4950,7 @@ msgstr ""
 msgid "Antes del nombre"
 msgstr ""
 
-#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
 msgid "Aplicar"
 msgstr ""
 
@@ -5627,6 +5627,10 @@ msgid "%d clientes · %d sin enviar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d conceptos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "%d creados sin conexión"
 msgstr ""
 
@@ -5651,6 +5655,10 @@ msgid "%s × %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "(sin cliente)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "(ya no existe en este equipo)"
 msgstr ""
 
@@ -5663,7 +5671,15 @@ msgid "Añada al menos un producto."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Añada al menos una partida al presupuesto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Aún no se ha sincronizado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "BIM 2.0: %d obras y %d presupuestos."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5672,6 +5688,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Base de datos encontrada: %s."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Borrador en este equipo: añada capítulos, partidas y recursos y pulse Guardar y enviar a Odoo."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5695,6 +5715,10 @@ msgid "Buscar producto…"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "CAP|PAR|MO|EQ|MAT|SUB|FUN"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cambios del cliente «%s» enviados."
 msgstr ""
 
@@ -5712,6 +5736,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cancelados"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Capítulo"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5783,7 +5811,23 @@ msgid "Contraseña o clave de API"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Conéctese para ver los conceptos de este presupuesto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Creada desde DMarlon Studio · %s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Creado en este equipo: se enviará a Odoo al sincronizar (con la referencia %s)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Crear obra"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cree una obra: se guarda aquí y se envía a Odoo al sincronizar."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5806,6 +5850,10 @@ msgstr ""
 msgid "Descartar el cambio elegido"
 msgstr ""
 
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
+msgid "Descripción"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Detectar"
 msgstr ""
@@ -5823,6 +5871,10 @@ msgid "Editar cliente"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El concepto %s no tiene su padre en Odoo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El correo electrónico no parece válido."
 msgstr ""
 
@@ -5836,6 +5888,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El presupuesto %s ya estaba en Odoo: no se duplica."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El presupuesto «%s» ya estaba en Odoo: se añaden solo los conceptos que faltan."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5867,7 +5923,27 @@ msgid "Elija el cliente del presupuesto."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija en el árbol el capítulo donde va la partida."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija en el árbol la partida donde va el recurso."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija o cree un presupuesto de la obra."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija o cree una obra."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Elija un cambio de la lista."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija un concepto del árbol."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
@@ -5876,6 +5952,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Elija una línea del ticket."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "En Odoo: %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5899,6 +5979,18 @@ msgid "Error: %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba el código del concepto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba el nombre de la obra."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba la descripción del concepto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Escriba la dirección del servidor de Odoo."
 msgstr ""
 
@@ -5907,7 +5999,15 @@ msgid "Escriba la dirección, el usuario y la contraseña de Odoo y pulse Conect
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba una cantidad mayor que cero y un precio (0 o más)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Escriba una cantidad mayor que cero."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Esperando la conexión para enviarse a Odoo."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5915,7 +6015,15 @@ msgid "Esperando la conexión · %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Esta base de datos de Odoo no tiene BIM 2.0 (módulo base_bim_2)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Estado de la sincronización"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Está en Odoo: aquí se consulta; los cambios, en Odoo."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5942,11 +6050,21 @@ msgid ""
 "\n"
 "HTTPS: la aplicación lleva su OpenSSL (en Windows, libssl-3-x64.dll y libcrypto-3-x64.dll junto al .exe). Si falta, en macOS se usa la de Homebrew o la del sistema; en Linux, la libssl del sistema.\n"
 "\n"
-"Los presupuestos necesitan el módulo Ventas en Odoo; con Inventario se ve también el stock."
+"Los presupuestos necesitan el módulo Ventas en Odoo; con Inventario se ve también el stock.\n"
+"\n"
+"Obras BIM: si Odoo tiene BIM 2.0 (base_bim_2), se crean obras y presupuestos por conceptos (capítulos, partidas y recursos) sin conexión y se suben a Odoo, que recalcula los importes."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Función"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Guardar presupuesto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Guardar y enviar a Odoo"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5967,6 +6085,22 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "La entrega %s no se pudo validar (estado %s)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "La obra «%s» ya estaba en Odoo: no se duplica."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Los capítulos van en el primer nivel del presupuesto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Mano de obra"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Material"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -5997,12 +6131,52 @@ msgstr ""
 msgid "Nombre *"
 msgstr ""
 
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nombre de la obra"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nombre del presupuesto (opcional)"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Nuevo cliente"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Nuevo presupuesto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obra %s de Odoo · %s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obra creada en este equipo: se enviará a Odoo al sincronizar."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obra nueva"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obra nueva: %s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obra «%s» creada en Odoo (%s)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obras"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obras BIM"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Obras y presupuestos por conceptos de BIM 2.0, también sin conexión"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6019,6 +6193,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Odoo sin conexión (Pascal)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Partida"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6063,7 +6241,19 @@ msgid "Presupuesto"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto %s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuesto %s creado en Odoo para %s."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto %s «%s» enviado a Odoo: %d conceptos, total %s."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto BIM «%s» (%s)"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6072,6 +6262,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuesto guardado: se enviará a Odoo al sincronizar."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto nuevo"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -6084,6 +6278,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuestos abiertos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuestos de la obra"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
@@ -6183,6 +6381,10 @@ msgid "Su cliente aún no está en Odoo."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Subcontrata"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ticket"
 msgstr ""
 
@@ -6226,6 +6428,10 @@ msgid "Total %s"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Total: %s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Total: %s (sin impuestos)"
 msgstr ""
 
@@ -6235,6 +6441,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Trabajar sin conexión"
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Un capítulo, una partida y un recurso no se convierten entre sí: quítelo y añádalo de nuevo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Unidad"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
@@ -6303,6 +6517,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "¿Descartar este cambio? Lo que se creó en este equipo y aún no está en Odoo se borrará."
+msgstr ""
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "¿Quitar «%s» y lo que lleva dentro?"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -8568,10 +8786,6 @@ msgstr ""
 msgid "Descartar todos los cambios…"
 msgstr ""
 
-#: lib/ui/screens/code_git.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_designer.dart
-msgid "Descripción"
-msgstr ""
-
 #: lib/ui/screens/code_git.dart
 msgid "Deshacer el último commit"
 msgstr ""
@@ -9856,10 +10070,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "Expresión de Python"
-msgstr ""
-
-#: lib/ui/screens/tk_debug_panel.dart
-msgid "Función"
 msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart

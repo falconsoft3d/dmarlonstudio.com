@@ -126,7 +126,7 @@ export const manualEs: Manual = {
                 ["**Inversor de bolsa (demo)**", "Precios simulados en vivo, compra y venta con comisión, cartera guardada y gráfico"],
                 ["**Punto de venta**", "Un TPV al estilo del de Odoo con imágenes: teclado de cantidad, descuento y precio, cobro, ticket y ventas en SQLite. Se conecta a Odoo con URL, usuario y contraseña para bajar productos y precios y enviar los pedidos a Ventas"],
                 ["**Renombrar archivos**", "Reglas con expresiones regulares y numeración, vista previa con conflictos y deshacer"],
-                ["**Odoo sin conexión (Pascal)**", "Una app nativa de Lazarus para Odoo 8 a 20 por JSON-RPC: panel con gráficos, clientes, productos, presupuestos y un punto de venta que crea pedido, entrega y factura, con y sin conexión y sin duplicados"],
+                ["**Odoo sin conexión (Pascal)**", "Una app nativa de Lazarus para Odoo 8 a 20 por JSON-RPC: panel con gráficos, clientes, productos, presupuestos y un punto de venta que crea pedido, entrega y factura, con y sin conexión y sin duplicados. Con BIM 2.0 (base_bim_2) en Odoo, también obras y presupuestos por conceptos (capítulos, partidas y recursos de mano de obra, equipo, material y subcontrata) que se hacen sin conexión y se suben a Odoo"],
                 ["**Seguimiento de trenes**", "Datos públicos en directo (GTFS-Realtime de Renfe) en segundo plano, alertas de proximidad, malla de circulación y mapa dibujados en lienzos, y una simulación sin conexión"],
                 ["**Reproductor MP3**", "Una interfaz propia dibujada en lienzos (reloj digital, espectro), etiquetas ID3, listas M3U y sonido con `pygame`"],
               ],

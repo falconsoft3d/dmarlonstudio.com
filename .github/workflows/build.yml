@@ -28,7 +28,15 @@ jobs:
           channel: stable
       - run: flutter pub get
       - run: flutter analyze --no-fatal-infos --no-fatal-warnings
-      - run: flutter test
+      # Los fallos salen como anotaciones (se ven sin iniciar sesión en GitHub).
+      - name: flutter test
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter test -r expanded 2>&1 | tee test.log || {
+            grep -E '\[E\]$' test.log | sed 's/^/::error title=Prueba fallida::/'
+            exit 1
+          }
 
   windows:
     needs: test

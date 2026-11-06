@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "preprocesador-macros-if-guardas",
+    "title": "El preprocesador",
+    "summary": "Use el preprocesador de C: constantes y macros con parámetros, # y ##, compilación condicional con #if y guardas de inclusión en las cabeceras.",
+    "body": [
+      "Antes de compilar, el **preprocesador** trata las líneas que empiezan por `#` y trabaja solo con texto. `#define VAT_RATE 0.21` hace que cada `VAT_RATE` del código se sustituya por `0.21`: no es una variable, no ocupa memoria y no tiene tipo.",
+      "Las **macros con parámetros** también son sustitución de texto, y eso tiene trampa. `SQUARE_BAD(1 + 2)` se convierte en `1 + 2 * 1 + 2`, que vale 5 y no 9. La versión correcta pone paréntesis a cada parámetro y al resultado entero: `((x) * (x))`. Aun así, un argumento como `i++` se evaluaría dos veces; para algo más complejo es mejor una función.",
+      "**`#`** convierte un argumento en texto: `SHOW(expr)` escribe la propia expresión y su valor. **`##`** pega dos piezas en un solo nombre: `FIELD(stock)` declara `item_stock`. Las macros predefinidas `__FILE__`, `__LINE__` y `__STDC_VERSION__` dan el archivo, la línea y la versión de C (`201112` es C11).",
+      "**`#if`** compila un trozo u otro según una condición que se resuelve antes de compilar: con `DEBUG` a 1 entra el mensaje de depuración y el `#else` ni siquiera llega al compilador. Normalmente `DEBUG` se define al compilar, con `-DDEBUG=1`, sin tocar el código.",
+      "La **guarda de inclusión** rodea todo el contenido de una cabecera `.h`: la primera vez `SHOP_H` no está definida, se define y entra el contenido; si la cabecera se incluye otra vez, `#ifndef SHOP_H` es falso y se salta. El ejemplo lo muestra con el mismo `struct item` escrito dos veces: sin la guarda, sería un error por definirlo dos veces."
+    ],
+    "points": [
+      "`#define` sustituye texto antes de compilar.",
+      "En las macros, paréntesis en cada parámetro y en el total.",
+      "`#` convierte en texto y `##` une nombres.",
+      "Toda cabecera lleva `#ifndef`, `#define` y `#endif`."
+    ],
+    "exercise": "Cambie `DEBUG` a 0 y compruebe la salida; después escriba la macro `CLAMP(x, lo, hi)`, que deja `x` entre `lo` y `hi`, y pruébela con `SHOW`."
+  },
+  "en": {
+    "slug": "preprocessor-macros-if-guards",
+    "title": "The preprocessor",
+    "summary": "Use the C preprocessor: constants and macros with parameters, # and ##, conditional compilation with #if, and include guards in headers.",
+    "body": [
+      "Before compiling, the **preprocessor** handles the lines that start with `#`, and it only works with text. `#define VAT_RATE 0.21` replaces every `VAT_RATE` in the code with `0.21`: it is not a variable, takes no memory and has no type.",
+      "**Macros with parameters** are text substitution too, and that has a catch. `SQUARE_BAD(1 + 2)` becomes `1 + 2 * 1 + 2`, which is 5, not 9. The correct version wraps each parameter and the whole result in parentheses: `((x) * (x))`. Even so, an argument like `i++` would be evaluated twice; for anything more complex, a function is better.",
+      "**`#`** turns an argument into text: `SHOW(expr)` prints the expression itself and its value. **`##`** glues two pieces into one name: `FIELD(stock)` declares `item_stock`. The predefined macros `__FILE__`, `__LINE__` and `__STDC_VERSION__` give the file, the line and the C version (`201112` is C11).",
+      "**`#if`** compiles one piece or another depending on a condition settled before compiling: with `DEBUG` set to 1 the debug message goes in, and the `#else` branch never even reaches the compiler. `DEBUG` is usually defined at build time, with `-DDEBUG=1`, without touching the code.",
+      "An **include guard** wraps the whole content of a `.h` header: the first time, `SHOP_H` is not defined, so it gets defined and the content goes in; if the header is included again, `#ifndef SHOP_H` is false and it is skipped. The example shows it with the same `struct item` written twice: without the guard, defining it twice would be an error."
+    ],
+    "points": [
+      "`#define` replaces text before compiling.",
+      "In macros, parenthesise each parameter and the whole result.",
+      "`#` makes text and `##` joins names.",
+      "Every header gets `#ifndef`, `#define` and `#endif`."
+    ],
+    "exercise": "Set `DEBUG` to 0 and check the output; then write a `CLAMP(x, lo, hi)` macro that keeps `x` between `lo` and `hi` and try it with `SHOW`."
+  }
+}

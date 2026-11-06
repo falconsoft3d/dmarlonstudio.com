@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arbol-binario-de-busqueda",
+    "title": "Un árbol binario de búsqueda",
+    "summary": "Construya en C un árbol binario de búsqueda que cuenta palabras: inserción recursiva, búsqueda, recorrido en orden y liberación del árbol.",
+    "body": [
+      "En un **árbol binario de búsqueda** cada nodo tiene dos hijos, `left` y `right`, y una regla: las palabras menores van a la izquierda y las mayores, a la derecha. Gracias a esa regla, buscar baja por una sola rama y en cada nivel descarta la mitad del árbol, si está equilibrado.",
+      "`insert` es **recursiva**. Si llega a un hueco (`n == NULL`), crea el nodo con `calloc`, que deja `count` a 0 e hijos a `NULL`, y copia la palabra. Después compara con `strcmp`: si es menor, inserta en el subárbol izquierdo; si es mayor, en el derecho; si es igual, suma uno a `count`. Un nodo recién creado pasa así de 0 a 1, y una palabra repetida como `fig` llega a 3.",
+      "`find` hace lo mismo sin recursión: mientras no encuentre la palabra, baja a la izquierda o a la derecha. Devuelve el nodo o `NULL`, como con `lime`.",
+      "`in_order` visita primero el subárbol izquierdo, después el nodo y por último el derecho: un **recorrido en orden**, que escribe las palabras ordenadas alfabéticamente sin haber ordenado nada. La raíz es `melon` porque fue la primera palabra insertada.",
+      "`free_tree` libera **en postorden**: primero los dos hijos y después el nodo. Al revés, al liberar el nodo se perderían los punteros a sus hijos."
+    ],
+    "points": [
+      "Menores a la izquierda, mayores a la derecha.",
+      "Buscar e insertar recorren una sola rama.",
+      "El recorrido en orden da los datos ordenados.",
+      "Se libera en postorden: hijos primero, nodo después."
+    ],
+    "exercise": "Escriba `int height(const Node *n)` (0 para `NULL`, y 1 más la altura del hijo más alto) y compare la altura del árbol con la que sale si inserta las palabras ya ordenadas."
+  },
+  "en": {
+    "slug": "binary-search-tree",
+    "title": "A binary search tree",
+    "summary": "Build a binary search tree in C that counts words: recursive insertion, lookup, in-order traversal and freeing the tree.",
+    "body": [
+      "In a **binary search tree** each node has two children, `left` and `right`, and one rule: smaller words go to the left and bigger ones to the right. Thanks to that rule, a search walks down a single branch and, if the tree is balanced, rules out half of it at each level.",
+      "`insert` is **recursive**. When it reaches an empty spot (`n == NULL`), it creates the node with `calloc`, which leaves `count` at 0 and the children at `NULL`, and copies the word. Then it compares with `strcmp`: smaller goes into the left subtree, bigger into the right one, and equal adds one to `count`. A brand-new node therefore goes from 0 to 1, and a repeated word like `fig` reaches 3.",
+      "`find` does the same without recursion: until it finds the word, it moves down left or right. It returns the node or `NULL`, as with `lime`.",
+      "`in_order` visits the left subtree first, then the node, then the right subtree: an **in-order traversal**, which prints the words alphabetically without sorting anything. The root is `melon` because it was the first word inserted.",
+      "`free_tree` frees in **post-order**: both children first, then the node. The other way round, freeing the node would lose the pointers to its children."
+    ],
+    "points": [
+      "Smaller to the left, bigger to the right.",
+      "Search and insert walk a single branch.",
+      "An in-order traversal gives the data sorted.",
+      "Free in post-order: children first, then the node."
+    ],
+    "exercise": "Write `int height(const Node *n)` (0 for `NULL`, otherwise 1 plus the taller child's height) and compare the tree's height with the one you get by inserting the words already sorted."
+  }
+}

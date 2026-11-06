@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "lista-enlazada",
+    "title": "Una lista enlazada",
+    "summary": "Programe en C una lista enlazada de tareas: nodos en el montón, añadir al final y al principio, borrar por id y liberar la lista entera.",
+    "body": [
+      "Una **lista enlazada** es una cadena de **nodos**: cada `Task` guarda sus datos y un puntero `next` al siguiente, y el último tiene `next` a `NULL`. A diferencia de un array, añadir o quitar en medio no obliga a mover nada: basta con cambiar un puntero.",
+      "`new_task` reserva un nodo con `malloc`, lo rellena y lo enlaza delante de `next`. Con `NULL` crea un nodo suelto; con la lista actual, como en `todo = new_task(4, \"Server\", todo)`, lo pone **al principio**, que es la operación más rápida de una lista.",
+      "`append` y `remove_id` usan un **puntero a puntero**, `Task **link`. Empieza apuntando a `todo` y, en cada paso, pasa a apuntar al campo `next` del nodo actual. Así no hay caso especial para el primer nodo: cuando el bucle para, `*link` es justo el puntero que hay que cambiar, sea la cabeza o el `next` de otro nodo.",
+      "Para borrar, `remove_id` guarda el nodo en `gone`, hace que `*link` salte a `gone->next` y libera `gone`. En la salida, la tarea 2 desaparece y las demás siguen enlazadas.",
+      "Al final, el bucle `while` libera la lista entera: guarda `next` **antes** del `free`, porque después de liberar un nodo ya no se puede leer su campo `next`."
+    ],
+    "points": [
+      "Cada nodo apunta al siguiente; el último, a `NULL`.",
+      "Insertar al principio no recorre nada.",
+      "Con `Task **link` se modifica la cabeza o cualquier `next` sin casos especiales.",
+      "Al liberar, guarde `next` antes de `free`."
+    ],
+    "exercise": "Escriba `int count(const Task *t)` y `Task *find(Task *t, int id)`, y use `find` para cambiar el título de la tarea 3 a `\"Backup NAS\"`."
+  },
+  "en": {
+    "slug": "linked-list",
+    "title": "A linked list",
+    "summary": "Program a linked list of tasks in C: nodes on the heap, adding at the end and at the front, removing by id and freeing the whole list.",
+    "body": [
+      "A **linked list** is a chain of **nodes**: each `Task` holds its data and a `next` pointer to the following one, and the last one has `next` set to `NULL`. Unlike an array, inserting or removing in the middle moves nothing: you just change a pointer.",
+      "`new_task` allocates a node with `malloc`, fills it in and links it in front of `next`. With `NULL` it creates a standalone node; with the current list, as in `todo = new_task(4, \"Server\", todo)`, it puts it **at the front**, the fastest operation on a list.",
+      "`append` and `remove_id` use a **pointer to a pointer**, `Task **link`. It starts out pointing at `todo` and, at each step, moves on to point at the current node's `next` field. That removes the special case for the first node: when the loop stops, `*link` is exactly the pointer to change, whether it is the head or another node's `next`.",
+      "To remove a node, `remove_id` keeps it in `gone`, makes `*link` skip to `gone->next` and frees `gone`. In the output, task 2 disappears and the rest stay linked.",
+      "At the end, the `while` loop frees the whole list: it saves `next` **before** calling `free`, because once a node is freed you can no longer read its `next` field."
+    ],
+    "points": [
+      "Each node points to the next; the last one to `NULL`.",
+      "Inserting at the front walks nothing.",
+      "`Task **link` changes the head or any `next` with no special cases.",
+      "When freeing, save `next` before calling `free`."
+    ],
+    "exercise": "Write `int count(const Task *t)` and `Task *find(Task *t, int id)`, and use the latter to rename task 3 to `\"Backup NAS\"`."
+  }
+}

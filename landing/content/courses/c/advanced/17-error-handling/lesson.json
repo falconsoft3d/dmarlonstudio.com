@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "errores-codigos-de-retorno-y-errno",
+    "title": "Errores: códigos de retorno y errno",
+    "summary": "Gestione errores en C con códigos de retorno propios, errno, strtol y strerror: validar cantidades de un pedido y avisar si falta un archivo.",
+    "body": [
+      "C no tiene excepciones: cada función avisa de un fallo con lo que **devuelve**. La forma más clara es un `enum` de **códigos de retorno**, como `Status`, y dejar el resultado en un parámetro de salida: `parse_quantity` devuelve `OK` o un error, y solo si todo va bien escribe la cantidad en `*out`; por eso, en la salida, `qty` sigue a 0 en las entradas con error. `status_text` traduce cada código a un mensaje fijo.",
+      "**`strtol`** convierte texto en `long` y, en `end`, deja un puntero al primer carácter que no ha podido leer. Si `end == text` no había ningún número (`abc`); si `*end` no es `'\\0'`, sobra algo detrás (`12kg`). Es mucho más seguro que `atoi`, que con `abc` devuelve 0 sin decir nada.",
+      "**`errno`**, de `errno.h`, es una variable global donde la biblioteca estándar anota el último error. Solo se escribe cuando algo falla, así que hay que ponerla a 0 **antes** de llamar a `strtol` y mirarla justo después: `ERANGE` significa que el número no cabe en un `long`, como `99999999999999999999`.",
+      "`fopen` también deja la causa en `errno` cuando devuelve `NULL`, y **`strerror(errno)`** la convierte en texto: «No such file or directory». **`perror(\"texto\")`** hace lo mismo en una sola llamada, pero escribe en la salida de errores (`stderr`).",
+      "`main` termina con `EXIT_SUCCESS`; un programa que falla devuelve `EXIT_FAILURE`, y es lo que ven los scripts que lo ejecutan. En DMarlon Studio el destino Consola muestra la salida al ejecutar con F9."
+    ],
+    "points": [
+      "Devuelva un código de estado y deje el resultado en un puntero.",
+      "`strtol` con `end` detecta texto vacío o sobrante.",
+      "Ponga `errno = 0` antes de la llamada y mírelo justo después.",
+      "`strerror(errno)` y `perror` explican el error del sistema."
+    ],
+    "exercise": "Añada `\"-3\"` a las entradas y el código `ERR_NEGATIVE` para que esa entrada dé «negative quantity» en vez de «out of range», y haga que `main` devuelva `EXIT_FAILURE` si alguna entrada no es válida."
+  },
+  "en": {
+    "slug": "errors-return-codes-and-errno",
+    "title": "Errors: return codes and errno",
+    "summary": "Handle errors in C with your own return codes, errno, strtol and strerror: validating order quantities and reporting a missing file.",
+    "body": [
+      "C has no exceptions: each function reports a failure through what it **returns**. The clearest approach is an `enum` of **return codes**, like `Status`, with the result left in an output parameter: `parse_quantity` returns `OK` or an error, and only when everything is fine does it write the quantity to `*out`, which is why `qty` stays at 0 for the invalid inputs in the output. `status_text` turns each code into a fixed message.",
+      "**`strtol`** turns text into a `long` and leaves in `end` a pointer to the first character it could not read. If `end == text` there was no number at all (`abc`); if `*end` is not `'\\0'`, something is left over (`12kg`). It is far safer than `atoi`, which returns 0 for `abc` and says nothing.",
+      "**`errno`**, from `errno.h`, is a global variable where the standard library records the last error. It is only written when something fails, so you set it to 0 **before** calling `strtol` and check it straight after: `ERANGE` means the number does not fit in a `long`, like `99999999999999999999`.",
+      "`fopen` also leaves the reason in `errno` when it returns `NULL`, and **`strerror(errno)`** turns it into text: \"No such file or directory\". **`perror(\"text\")`** does the same in one call, but writes to the error stream (`stderr`).",
+      "`main` ends with `EXIT_SUCCESS`; a program that fails returns `EXIT_FAILURE`, which is what the scripts that run it see. In DMarlon Studio the Console target shows the output when you run with F9."
+    ],
+    "points": [
+      "Return a status code and leave the result behind a pointer.",
+      "`strtol` with `end` catches empty or leftover text.",
+      "Set `errno = 0` before the call and check it right after.",
+      "`strerror(errno)` and `perror` explain the system error."
+    ],
+    "exercise": "Add `\"-3\"` to the inputs and an `ERR_NEGATIVE` code so that it gives \"negative quantity\" instead of \"out of range\", and make `main` return `EXIT_FAILURE` if any input is invalid."
+  }
+}

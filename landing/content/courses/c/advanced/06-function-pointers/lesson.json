@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros-a-funciones-y-callbacks",
+    "title": "Punteros a funciones y callbacks",
+    "summary": "Guarde funciones en variables y arrays con punteros a funciones en C y páselas como callbacks: reglas de precios aplicadas por pasos.",
+    "body": [
+      "Una función también tiene una dirección, y un **puntero a función** la guarda. La sintaxis es enrevesada, así que se le pone nombre con `typedef`: `typedef double (*PriceRule)(double);` define `PriceRule` como «puntero a una función que recibe un `double` y devuelve un `double`». `add_vat`, `discount` y `round_up` encajan en ese tipo.",
+      "`apply_all` recibe una de esas funciones en el parámetro `rule` y la llama con `rule(prices[i])` para cada precio. Es un **callback**: `apply_all` sabe recorrer el array, pero lo que se hace con cada precio lo decide quien la llama.",
+      "Al pasar una función basta su nombre, sin paréntesis: `discount` es la dirección de la función; `discount(5)` sería llamarla.",
+      "`steps` es un **array de structs** con un nombre y una regla. El bucle aplica las reglas en orden (descuento del 10 %, IVA del 21 % y redondeo hacia arriba) y escribe los precios después de cada paso. Cambiar el orden o añadir una regla es tocar solo la tabla, no el bucle.",
+      "Los punteros a funciones están por todas partes en C: `qsort` recibe la función que compara, `atexit` la que se ejecuta al salir y las bibliotecas de interfaz gráfica, la que responde a cada botón."
+    ],
+    "points": [
+      "`typedef R (*Nombre)(params);` da nombre al tipo de puntero a función.",
+      "El nombre de la función sin `()` es su dirección.",
+      "Un callback es una función que se pasa a otra para que la llame.",
+      "Una tabla de structs con punteros a funciones sustituye a un `switch` largo."
+    ],
+    "exercise": "Añada la regla `psychological`, que deja cada precio en `x,99` (por ejemplo, `27.00` pasa a `26.99`), y póngala al final de la tabla `steps`."
+  },
+  "en": {
+    "slug": "function-pointers-and-callbacks",
+    "title": "Function pointers and callbacks",
+    "summary": "Store functions in variables and arrays with C function pointers and pass them as callbacks: pricing rules applied step by step.",
+    "body": [
+      "A function has an address too, and a **function pointer** stores it. The syntax is awkward, so give it a name with `typedef`: `typedef double (*PriceRule)(double);` defines `PriceRule` as \"pointer to a function that takes a `double` and returns a `double`\". `add_vat`, `discount` and `round_up` all fit that type.",
+      "`apply_all` receives one of those functions in its `rule` parameter and calls it with `rule(prices[i])` for each price. That is a **callback**: `apply_all` knows how to walk the array, but what happens to each price is up to the caller.",
+      "To pass a function, use its name without parentheses: `discount` is the function's address; `discount(5)` would call it.",
+      "`steps` is an **array of structs** holding a name and a rule. The loop applies the rules in order (a 10% discount, 21% VAT and rounding up) and prints the prices after each step. Reordering or adding a rule means touching only the table, not the loop.",
+      "Function pointers are everywhere in C: `qsort` takes the comparison function, `atexit` the one to run on exit, and GUI libraries the one that handles each button."
+    ],
+    "points": [
+      "`typedef R (*Name)(params);` names a function pointer type.",
+      "A function's name without `()` is its address.",
+      "A callback is a function handed to another one to call.",
+      "A table of structs with function pointers replaces a long `switch`."
+    ],
+    "exercise": "Add a `psychological` rule that turns each price into `x.99` (for example `27.00` becomes `26.99`) and put it at the end of the `steps` table."
+  }
+}

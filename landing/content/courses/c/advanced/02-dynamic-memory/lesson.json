@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "memoria-dinamica-malloc-calloc-free",
+    "title": "Memoria dinámica: malloc, calloc y free",
+    "summary": "Reserve memoria en tiempo de ejecución en C con malloc y calloc, compruebe NULL y libérela con free: las notas de una clase y su histograma.",
+    "body": [
+      "Un array normal tiene un tamaño fijo al compilar. Cuando el tamaño se conoce solo al ejecutar (cuántos alumnos hay en un archivo, por ejemplo), se pide la memoria al **montón** (*heap*) con **`malloc`**, que recibe un número de bytes y devuelve un puntero al bloque.",
+      "`malloc(students * sizeof *marks)` pide sitio para 10 `int`. Escribir `sizeof *marks` en vez de `sizeof(int)` hace que el cálculo siga siendo correcto si un día cambia el tipo del puntero. Si no hay memoria, `malloc` devuelve `NULL`, y hay que comprobarlo antes de usar el bloque.",
+      "Lo que devuelve `malloc` no está inicializado: contiene lo que hubiera antes. Por eso el bucle escribe cada nota antes de leerla. **`calloc(11, sizeof *count)`** reserva 11 contadores y además los pone a cero, justo lo que hace falta para contar cuántas veces sale cada nota con `count[marks[i]]++`.",
+      "Cada bloque reservado se devuelve con **`free`** exactamente una vez. Si falla el segundo `calloc`, el programa libera primero `marks` antes de salir. Después de `free`, el puntero sigue guardando la dirección antigua (un **puntero colgante**); ponerlo a `NULL` evita usarlo por error.",
+      "Olvidar un `free` es una **fuga de memoria**: en un programa corto no se nota, pero en un servidor que funciona días acaba agotando la memoria."
+    ],
+    "points": [
+      "`malloc(n * sizeof *p)` reserva sin inicializar.",
+      "`calloc(n, sizeof *p)` reserva y pone todo a cero.",
+      "Compruebe siempre si devuelven `NULL`.",
+      "Un `free` por cada reserva, y no use el puntero después."
+    ],
+    "exercise": "Cambie el programa para que también calcule la media: reserve con `malloc` un array de `double` con la nota de cada alumno sobre 100 (nota × 10), escríbalo y libérelo al final."
+  },
+  "en": {
+    "slug": "dynamic-memory-malloc-calloc-free",
+    "title": "Dynamic memory: malloc, calloc, free",
+    "summary": "Allocate memory at run time in C with malloc and calloc, check for NULL and release it with free: a class's marks and their histogram.",
+    "body": [
+      "A regular array has a fixed size at compile time. When the size is only known while running (how many students are in a file, say), you ask the **heap** for memory with **`malloc`**, which takes a number of bytes and returns a pointer to the block.",
+      "`malloc(students * sizeof *marks)` asks for room for 10 `int`s. Writing `sizeof *marks` instead of `sizeof(int)` keeps the size right if the pointer's type ever changes. When memory runs out, `malloc` returns `NULL`, and you must check that before using the block.",
+      "What `malloc` returns is not initialised: it holds whatever was there before. That is why the loop writes every mark before reading it. **`calloc(11, sizeof *count)`** reserves 11 counters and also sets them to zero, exactly what is needed to count each mark with `count[marks[i]]++`.",
+      "Every block you allocate goes back with **`free`** exactly once. If the second `calloc` fails, the program frees `marks` before leaving. After `free`, the pointer still holds the old address (a **dangling pointer**); setting it to `NULL` stops you from using it by mistake.",
+      "Forgetting a `free` is a **memory leak**: invisible in a short program, but a server that runs for days eventually runs out of memory."
+    ],
+    "points": [
+      "`malloc(n * sizeof *p)` allocates without initialising.",
+      "`calloc(n, sizeof *p)` allocates and zeroes everything.",
+      "Always check whether they return `NULL`.",
+      "One `free` per allocation, and do not use the pointer afterwards."
+    ],
+    "exercise": "Make the program also work out the average: allocate with `malloc` an array of `double` with each student's mark out of 100 (mark × 10), print it and free it at the end."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "archivos-binarios-fwrite-fread",
+    "title": "Archivos binarios: fwrite y fread",
+    "summary": "Guarde structs en un archivo binario con fwrite, léalos con fread y salte a un registro con fseek en C para modificarlo sin reescribir el archivo.",
+    "body": [
+      "Un **archivo binario** guarda los bytes tal como están en memoria, sin convertirlos a texto. Se abre con una `b` en el modo (`\"wb\"`, `\"rb\"`, `\"r+b\"`) y, a cambio de no poder leerse con un editor, es más compacto y más rápido, y cada registro ocupa siempre lo mismo.",
+      "**`fwrite(items, sizeof(Product), 3, f)`** escribe tres structs de una vez y devuelve cuántos ha escrito. Cada `Product` ocupa 32 bytes (16 del nombre, 4 del entero, 4 de relleno para alinear el `double` y 8 del `double`), así que el archivo mide 96 bytes, como confirma `ftell` tras `fseek(f, 0, SEEK_END)`.",
+      "Como todos los registros miden lo mismo, el registro `i` empieza en el byte `i * sizeof(Product)`. El modo **`\"r+b\"`** permite leer y escribir sin vaciar el archivo: `fseek` salta al registro 1, **`fread`** lo carga en `p`, se restan 5 ratones y, tras volver a la misma posición, `fwrite` lo sobrescribe. Es un **acceso directo**: no hace falta leer ni reescribir los demás registros.",
+      "`rewind` vuelve al principio y el bucle `while (fread(&p, sizeof p, 1, f) == 1)` lee registro a registro hasta el final. Al terminar, `remove` borra el archivo de prueba.",
+      "Los bytes dependen del ordenador: el tamaño de los tipos, el relleno y el orden de los bytes (*endianness*) pueden cambiar entre sistemas. Para intercambiar datos entre programas distintos, mejor texto o un formato con cada campo definido."
+    ],
+    "points": [
+      "Modos con `b`: `\"wb\"`, `\"rb\"`, `\"r+b\"`.",
+      "`fwrite` y `fread` devuelven cuántos elementos han procesado.",
+      "`fseek(f, i * sizeof(T), SEEK_SET)` salta al registro `i`.",
+      "El formato binario depende del compilador y del sistema."
+    ],
+    "exercise": "Añada al final del archivo un cuarto producto abriéndolo en modo `\"ab\"` y escriba cuántos registros tiene ahora dividiendo el tamaño del archivo entre `sizeof(Product)`."
+  },
+  "en": {
+    "slug": "binary-files-fwrite-fread",
+    "title": "Binary files: fwrite and fread",
+    "summary": "Save structs to a binary file with fwrite, read them with fread and jump to a record with fseek in C to change it without rewriting the file.",
+    "body": [
+      "A **binary file** stores bytes exactly as they are in memory, without turning them into text. You open it with a `b` in the mode (`\"wb\"`, `\"rb\"`, `\"r+b\"`) and, in exchange for not being readable in an editor, it is more compact and faster, and every record has the same size.",
+      "**`fwrite(items, sizeof(Product), 3, f)`** writes three structs in one go and returns how many it wrote. Each `Product` takes 32 bytes (16 for the name, 4 for the integer, 4 of padding to align the `double` and 8 for the `double`), so the file is 96 bytes long, as `ftell` confirms after `fseek(f, 0, SEEK_END)`.",
+      "Since every record is the same size, record `i` starts at byte `i * sizeof(Product)`. Mode **`\"r+b\"`** allows reading and writing without emptying the file: `fseek` jumps to record 1, **`fread`** loads it into `p`, 5 mice are taken off and, after going back to the same position, `fwrite` overwrites it. That is **random access**: the other records are never read or rewritten.",
+      "`rewind` goes back to the start and the loop `while (fread(&p, sizeof p, 1, f) == 1)` reads one record at a time until the end. Finally, `remove` deletes the test file.",
+      "The bytes depend on the machine: the size of the types, the padding and the byte order (endianness) can differ between systems. To exchange data between different programs, prefer text or a format where every field is defined."
+    ],
+    "points": [
+      "Modes with `b`: `\"wb\"`, `\"rb\"`, `\"r+b\"`.",
+      "`fwrite` and `fread` return how many items they handled.",
+      "`fseek(f, i * sizeof(T), SEEK_SET)` jumps to record `i`.",
+      "A binary layout depends on the compiler and the system."
+    ],
+    "exercise": "Append a fourth product by opening the file in `\"ab\"` mode, then print how many records it holds by dividing the file size by `sizeof(Product)`."
+  }
+}

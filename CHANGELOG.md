@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.58 — 2026-11-07
+
+- **Curso de C avanzado** (20 lecciones, español e inglés): punteros a
+  punteros, `malloc`/`realloc`/`free`, cadenas a fondo, `const`, punteros a
+  funciones, `qsort` y `bsearch`, lista enlazada, pila y cola, árbol
+  binario, tabla hash, uniones y campos de bits, operadores de bits, el
+  preprocesador, funciones variádicas, `errno`, archivos binarios,
+  vuelta atrás y un gestor de inventario como proyecto. Sin fugas de memoria.
+
 ## 1.0.57 — 2026-11-07
 
 - **Curso de Pascal básico** (20 lecciones, español e inglés): `WriteLn` y

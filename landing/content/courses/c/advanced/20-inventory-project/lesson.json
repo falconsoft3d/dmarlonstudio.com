@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-gestor-de-inventario",
+    "title": "Proyecto: gestor de inventario",
+    "summary": "Un pequeño gestor de inventario en C que reúne structs, memoria dinámica, una lista enlazada y archivos, y libera toda la memoria al terminar.",
+    "body": [
+      "Este proyecto junta lo visto en el curso. Cada artículo es un `Item` con nombre, cantidad, precio y un puntero `next`: el inventario es una **lista enlazada** en el montón. `add` reserva un nodo con `malloc`, copia el nombre de forma segura con `snprintf` y lo pone delante de la lista; las tres llamadas anidadas de `main` crean el inventario de golpe.",
+      "Para guardar, `main` abre `inventory.csv` y escribe una línea por artículo con `fprintf`, separando los campos con `;`. Si el archivo no se puede abrir, libera la lista antes de salir con código 1. Después de `fclose`, `free_all` libera todos los nodos: a partir de ahí, los datos solo existen en el archivo.",
+      "`load` hace el camino contrario. `fscanf` lee cada línea con el formato `\" %19[^;];%d;%lf\"`: el espacio inicial salta el salto de línea anterior, `%19[^;]` lee hasta el punto y coma sin pasar de 19 caracteres (los que caben en `name`) y el bucle sigue mientras se lean los tres campos. Cada línea crea un nodo nuevo con `add`.",
+      "Como `add` inserta al principio, la lista cargada queda en orden inverso al del archivo: por eso `Screws x100` sale primero. El informe recorre la lista, marca con `REORDER` lo que tiene menos de 5 unidades y acumula el valor del almacén en el propio `for`.",
+      "Al final se liberan todos los nodos con `free_all` y se borra el archivo de prueba con `remove`. Escriba este programa en el destino Consola de DMarlon Studio y ejecútelo con F9: es una buena base para añadirle un menú, búsquedas o la ordenación con `qsort`."
+    ],
+    "points": [
+      "Los datos viven en una lista enlazada en el montón.",
+      "Guardar en texto y volver a cargar separa la memoria del archivo.",
+      "`%19[^;]` lee hasta un separador sin desbordar el búfer.",
+      "Cada `malloc` tiene su `free`: `free_all` antes de salir, también si hay error."
+    ],
+    "exercise": "Añada `int sell(Item *stock, const char *name, int units)`, que busque el artículo y reste las unidades (y devuelva -1 si no existe o no hay bastantes), y úsela antes de guardar para vender 2 martillos."
+  },
+  "en": {
+    "slug": "project-inventory-manager",
+    "title": "Project: inventory manager",
+    "summary": "A small inventory manager in C that combines structs, dynamic memory, a linked list and files, and frees all its memory at the end.",
+    "body": [
+      "This project brings the course together. Each article is an `Item` with a name, quantity, price and a `next` pointer: the inventory is a **linked list** on the heap. `add` allocates a node with `malloc`, copies the name safely with `snprintf` and puts it at the front of the list; the three nested calls in `main` build the whole inventory at once.",
+      "To save, `main` opens `inventory.csv` and writes one line per item with `fprintf`, with the fields separated by `;`. If the file cannot be opened, it frees the list before leaving with code 1. After `fclose`, `free_all` frees every node: from then on, the data exists only in the file.",
+      "`load` goes the other way. `fscanf` reads each line with the format `\" %19[^;];%d;%lf\"`: the leading space skips the previous newline, `%19[^;]` reads up to the semicolon and never more than 19 characters (what fits in `name`), and the loop carries on while all three fields are read. Each line becomes a new node through `add`.",
+      "Because `add` inserts at the front, the loaded list ends up in the reverse order of the file, which is why `Screws x100` comes first. The report walks the list, flags anything with fewer than 5 units as `REORDER` and adds up the stock value inside the `for` itself.",
+      "Finally, `free_all` frees every node and `remove` deletes the test file. Write this program in DMarlon Studio's Console target and run it with F9: it is a good base for adding a menu, searches or sorting with `qsort`."
+    ],
+    "points": [
+      "The data lives in a linked list on the heap.",
+      "Saving to text and loading it back separates memory from the file.",
+      "`%19[^;]` reads up to a separator without overflowing the buffer.",
+      "Every `malloc` has its `free`: `free_all` before leaving, on errors too."
+    ],
+    "exercise": "Add `int sell(Item *stock, const char *name, int units)`, which finds the item and takes the units off (returning -1 if it does not exist or there are not enough), and use it before saving to sell 2 hammers."
+  }
+}

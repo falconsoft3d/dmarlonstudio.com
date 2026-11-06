@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "pila-y-cola",
+    "title": "Una pila y una cola",
+    "summary": "Use una pila en C para comprobar si los paréntesis de una expresión están equilibrados y una cola circular para los trabajos de una impresora.",
+    "body": [
+      "Una **pila** (LIFO, *last in, first out*) solo deja meter y sacar por arriba, como una pila de platos. Aquí es un array `stack` con un índice `top`: **apilar** es `stack[top++] = c` y **desapilar**, `stack[--top]`.",
+      "`balanced` comprueba los paréntesis de una expresión. Cada apertura (`(`, `[` o `{`) se apila. Cada cierre tiene que coincidir con la última apertura que queda en la pila: `\"([{\"[closer - \")]}\"]` da la apertura que corresponde al cierre encontrado, porque las dos cadenas tienen el mismo orden. Si la pila está vacía o no coincide, no está equilibrada; y si al final queda algo abierto, como en `((total)`, tampoco.",
+      "Una **cola** (FIFO, *first in, first out*) atiende por orden de llegada, como la de la impresora. `Queue` es un **búfer circular**: `head` es el primero que espera y `count`, cuántos hay. `enqueue` escribe en la posición `(head + count) % CAP` y `dequeue` lee en `head` y la adelanta.",
+      "El `% CAP` hace que los índices vuelvan a 0 al llegar al final del array, así que el hueco que deja cada trabajo impreso se aprovecha y nunca hay que mover elementos.",
+      "Las dos estructuras tienen aquí capacidad fija, `CAP`, y `balanced` devuelve 0 si se llenara la pila. Con lo visto en la lección de `realloc` se pueden convertir en estructuras que crecen."
+    ],
+    "points": [
+      "Pila: el último que entra es el primero que sale.",
+      "Cola: el primero que entra es el primero que sale.",
+      "`top++` apila y `--top` desapila.",
+      "Un búfer circular avanza con `% CAP` y no mueve datos."
+    ],
+    "exercise": "Añada a `Queue` una función `int is_full(const Queue *q)`, haga que `enqueue` devuelva 0 si la cola está llena y pruébela con `CAP` a 3."
+  },
+  "en": {
+    "slug": "stack-and-queue",
+    "title": "A stack and a queue",
+    "summary": "Use a stack in C to check whether the brackets in an expression are balanced, and a circular queue for a printer's jobs.",
+    "body": [
+      "A **stack** (LIFO, last in, first out) only lets you add and remove at the top, like a pile of plates. Here it is an array `stack` with an index `top`: **push** is `stack[top++] = c` and **pop** is `stack[--top]`.",
+      "`balanced` checks the brackets in an expression. Every opener (`(`, `[` or `{`) is pushed. Every closer must match the last opener left on the stack: `\"([{\"[closer - \")]}\"]` gives the opener for the closer just found, because both strings list them in the same order. If the stack is empty or they do not match, it is unbalanced; and if something is still open at the end, as in `((total)`, it is too.",
+      "A **queue** (FIFO, first in, first out) serves in order of arrival, like a printer's. `Queue` is a **ring buffer**: `head` is the first one waiting and `count` how many there are. `enqueue` writes at position `(head + count) % CAP` and `dequeue` reads at `head` and moves it forward.",
+      "`% CAP` wraps the indexes back to 0 at the end of the array, so the slot freed by each printed job is reused and elements never have to move.",
+      "Both structures have a fixed capacity here, `CAP`, and `balanced` returns 0 if the stack would overflow. With what you saw in the `realloc` lesson you can turn them into structures that grow."
+    ],
+    "points": [
+      "Stack: last in, first out.",
+      "Queue: first in, first out.",
+      "`top++` pushes and `--top` pops.",
+      "A ring buffer moves on with `% CAP` and never shifts data."
+    ],
+    "exercise": "Add an `int is_full(const Queue *q)` function to the queue, make `enqueue` return 0 when it is full and test it with `CAP` set to 3."
+  }
+}

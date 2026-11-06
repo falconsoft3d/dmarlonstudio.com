@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "realloc-y-array-que-crece",
+    "title": "realloc y un array que crece",
+    "summary": "Construya en C un array dinámico que crece con realloc, duplicando su capacidad, para guardar lecturas de un sensor sin saber cuántas llegarán.",
+    "body": [
+      "Muchas veces no se sabe cuántos datos van a llegar: las lecturas de un sensor, las líneas de un archivo. La solución es un **array dinámico**: el struct `Readings` guarda el puntero a los datos, cuántos se usan (`len`) y cuántos caben (`cap`).",
+      "`push` añade un valor. Si el array está lleno (`len == cap`), pide más sitio con **`realloc`**, que agranda el bloque o lo copia a otro mayor y devuelve la nueva dirección. La capacidad se **duplica** (2, 4, 8, 16): así hay pocas reservas aunque se añadan miles de valores.",
+      "El resultado de `realloc` se guarda primero en `bigger`, no directamente en `r->data`. Si `realloc` falla devuelve `NULL` pero el bloque antiguo sigue siendo válido; con `r->data = realloc(r->data, …)` se perdería la única dirección que lo libera.",
+      "`temps` empieza con `NULL` y capacidad 0: `realloc(NULL, n)` funciona como `malloc(n)`, así que no hace falta un caso aparte para la primera reserva. Las líneas `grow:` de la salida muestran cada vez que el array ha crecido.",
+      "Al final basta un solo `free(temps.data)`, porque todo está en un bloque. Si `push` falla, `main` libera lo que ya tenía antes de salir."
+    ],
+    "points": [
+      "Un array dinámico guarda datos, longitud y capacidad.",
+      "Duplicar la capacidad evita llamar a `realloc` en cada valor.",
+      "Guarde el resultado de `realloc` en una variable temporal.",
+      "`realloc(NULL, n)` es lo mismo que `malloc(n)`."
+    ],
+    "exercise": "Añada una función `pop` que quite y devuelva la última lectura y, cuando `len` baje a un cuarto de `cap`, reduzca la capacidad a la mitad con `realloc`."
+  },
+  "en": {
+    "slug": "realloc-and-a-growing-array",
+    "title": "realloc and a growing array",
+    "summary": "Build a dynamic array in C that grows with realloc, doubling its capacity, to store sensor readings without knowing how many will arrive.",
+    "body": [
+      "Often you do not know how much data will arrive: readings from a sensor, lines in a file. The answer is a **dynamic array**: the `Readings` struct keeps the pointer to the data, how many are used (`len`) and how many fit (`cap`).",
+      "`push` adds a value. If the array is full (`len == cap`), it asks for more room with **`realloc`**, which grows the block or copies it into a bigger one and returns the new address. The capacity **doubles** (2, 4, 8, 16), so there are few allocations even when thousands of values are added.",
+      "The result of `realloc` goes into `bigger` first, not straight into `r->data`. If `realloc` fails it returns `NULL` but the old block is still valid; with `r->data = realloc(r->data, …)` you would lose the only address that can free it.",
+      "`temps` starts with `NULL` and capacity 0: `realloc(NULL, n)` behaves like `malloc(n)`, so the first allocation needs no special case. The `grow:` lines in the output show each time the array grew.",
+      "At the end one `free(temps.data)` is enough, because everything is in a single block. If `push` fails, `main` frees what it already had before leaving."
+    ],
+    "points": [
+      "A dynamic array keeps data, length and capacity.",
+      "Doubling the capacity avoids a `realloc` for every value.",
+      "Store the result of `realloc` in a temporary variable.",
+      "`realloc(NULL, n)` is the same as `malloc(n)`."
+    ],
+    "exercise": "Add a `pop` function that removes and returns the last reading and, when `len` drops to a quarter of `cap`, halves the capacity with `realloc`."
+  }
+}

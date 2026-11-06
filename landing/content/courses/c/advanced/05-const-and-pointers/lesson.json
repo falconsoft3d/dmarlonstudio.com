@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "const-y-punteros",
+    "title": "const y punteros",
+    "summary": "Distinga en C entre puntero a const, puntero const y los dos a la vez, y use const en los parámetros para prometer que una función solo lee.",
+    "body": [
+      "**`const`** hace que el compilador impida escribir en algo. Con punteros hay dos cosas que se pueden proteger: los datos a los que apunta y el propio puntero. La regla para leerlo: `const` afecta a lo que tiene **a su izquierda** o, si no hay nada, a lo de su derecha.",
+      "`const char *shop` es un **puntero a const**: no se puede escribir `*shop = 'x'`, pero `shop` sí puede apuntar a otra cadena. Es el tipo correcto para las cadenas literales y para casi cualquier parámetro de texto, como el de `count_upper`, que mueve `s` por la cadena sin cambiarla.",
+      "`char *const first = city` es un **puntero const**: siempre apunta a `city`, pero a través de él sí se escribe, y `first[0] = 'M'` pone la mayúscula a `Madrid`. `const double *const rate` protege las dos cosas.",
+      "En los parámetros, `const` es una promesa a quien llama. `show(const Book *b)` solo lee el libro: si dentro se intentara `b->stock = 0`, el programa no compilaría. `sell(Book *b, …)` no lleva `const` porque cambia el stock, y eso se ve ya en su declaración.",
+      "Las líneas comentadas del ejemplo son errores de compilación a propósito: quite el `//` de una de ellas para ver el mensaje del compilador."
+    ],
+    "points": [
+      "`const T *p`: no se escribe en `*p`; `p` puede moverse.",
+      "`T *const p`: `p` no se mueve; `*p` se puede escribir.",
+      "`const T *const p`: ninguna de las dos cosas.",
+      "Ponga `const` en los parámetros que la función solo lee."
+    ],
+    "exercise": "Escriba `double stock_value(const Book *books, int n)` que sume precio por stock de un array de libros, y compruebe que el compilador protesta si dentro intenta cambiar un precio."
+  },
+  "en": {
+    "slug": "const-and-pointers",
+    "title": "const and pointers",
+    "summary": "Tell apart a pointer to const, a const pointer and both at once in C, and use const parameters to promise that a function only reads.",
+    "body": [
+      "**`const`** makes the compiler refuse writes to something. With pointers there are two things you can protect: the data it points at and the pointer itself. The reading rule: `const` applies to what is **on its left** or, if there is nothing there, to what is on its right.",
+      "`const char *shop` is a **pointer to const**: you cannot write `*shop = 'x'`, but `shop` can point to another string. It is the right type for string literals and for almost every text parameter, like the one in `count_upper`, which moves `s` along the string without changing it.",
+      "`char *const first = city` is a **const pointer**: it always points at `city`, but you can write through it, and `first[0] = 'M'` capitalises `Madrid`. `const double *const rate` protects both things.",
+      "On parameters, `const` is a promise to the caller. `show(const Book *b)` only reads the book: trying `b->stock = 0` inside would not compile. `sell(Book *b, …)` has no `const` because it changes the stock, and you can tell from its declaration alone.",
+      "The commented-out lines in the example are deliberate compile errors: remove the `//` from one of them to see the compiler's message."
+    ],
+    "points": [
+      "`const T *p`: no writes to `*p`; `p` can move.",
+      "`T *const p`: `p` cannot move; `*p` can be written.",
+      "`const T *const p`: neither.",
+      "Mark the parameters a function only reads as `const`."
+    ],
+    "exercise": "Write `double stock_value(const Book *books, int n)` that adds up price times stock over an array of books, and check that the compiler complains if you try to change a price inside it."
+  }
+}

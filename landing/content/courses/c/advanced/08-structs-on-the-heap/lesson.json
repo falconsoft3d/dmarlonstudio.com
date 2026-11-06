@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "structs-con-punteros-en-el-monton",
+    "title": "Structs con punteros en el montón",
+    "summary": "Cree en C un array de structs en el montón cuyos campos también son memoria dinámica, y libérelo todo en el orden correcto.",
+    "body": [
+      "`Player` no guarda los datos dentro: tiene **punteros** a ellos. `name` apunta a una cadena y `scores` a un array de `count` puntuaciones. Así cada jugador ocupa lo que necesita: Lucia tiene dos puntuaciones y Martina, cuatro.",
+      "`copy_text` hace una copia de una cadena en el montón: reserva `strlen(s) + 1` bytes (el `+1` es para el `'\\0'`) y copia con `strcpy`. Hace falta porque `strdup` no forma parte del C11 estándar, aunque muchos sistemas la tengan.",
+      "`malloc(n * sizeof *team)` crea el **array de structs** en el montón. Cada `team[i]` es un `Player` completo, y sus campos se rellenan con más reservas: una para el nombre y otra para las puntuaciones. Si cualquiera devuelve `NULL`, el programa termina.",
+      "El bucle de la salida recorre el array con un puntero `p`: `p->name` es lo mismo que `(*p).name`, y `p < team + n` para justo después del último jugador.",
+      "Para liberar se va **de dentro afuera**: primero lo que posee cada struct (`name` y `scores`) y después el array `team`. Si se liberase primero `team`, ya no se podría leer dónde estaban los nombres y se perderían."
+    ],
+    "points": [
+      "Un struct puede tener punteros a memoria que él mismo posee.",
+      "Copie las cadenas con `malloc(strlen(s) + 1)` y `strcpy`.",
+      "`p->campo` es `(*p).campo`.",
+      "Libere de dentro afuera: los campos y después el array."
+    ],
+    "exercise": "Escriba `add_score(Player *p, int score)`, que agrande `scores` con `realloc` y añada una puntuación al final, y úsela para dar 20 puntos más a Hugo."
+  },
+  "en": {
+    "slug": "structs-with-pointers-on-the-heap",
+    "title": "Structs with pointers on the heap",
+    "summary": "Create an array of structs on the heap in C whose fields are dynamic memory too, and free all of it in the right order.",
+    "body": [
+      "`Player` does not hold its data inside: it has **pointers** to it. `name` points to a string and `scores` to an array of `count` scores. That way each player takes only what it needs: Lucia has two scores and Martina has four.",
+      "`copy_text` makes a heap copy of a string: it allocates `strlen(s) + 1` bytes (the `+1` is for the `'\\0'`) and copies with `strcpy`. It is needed because `strdup` is not part of standard C11, even though many systems provide it.",
+      "`malloc(n * sizeof *team)` creates the **array of structs** on the heap. Each `team[i]` is a whole `Player`, and its fields are filled with further allocations: one for the name and one for the scores. If any of them returns `NULL`, the program stops.",
+      "The output loop walks the array with a pointer `p`: `p->name` is the same as `(*p).name`, and `p < team + n` stops just after the last player.",
+      "Freeing goes **from the inside out**: first what each struct owns (`name` and `scores`), then the `team` array. Freeing `team` first would leave you unable to read where the names were, and they would be lost."
+    ],
+    "points": [
+      "A struct can hold pointers to memory it owns.",
+      "Copy strings with `malloc(strlen(s) + 1)` and `strcpy`.",
+      "`p->field` is `(*p).field`.",
+      "Free from the inside out: the fields, then the array."
+    ],
+    "exercise": "Write `add_score(Player *p, int score)`, which grows `scores` with `realloc` and appends a score, and use it to give Hugo 20 more points."
+  }
+}

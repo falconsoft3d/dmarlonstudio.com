@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros-a-punteros",
+    "title": "Punteros a punteros y aritmética",
+    "summary": "Recorra arrays en C con aritmética de punteros, reste punteros y use un puntero a puntero para que una función cambie a dónde apunta otro.",
+    "body": [
+      "La **aritmética de punteros** cuenta en elementos, no en bytes: si `p` apunta a `prices[0]`, `p + 2` apunta a `prices[2]` y `*(p + 2)` es lo mismo que `prices[2]`. El compilador multiplica por el tamaño del tipo, y por eso `(char *)(p + 1) - (char *)p` da `8`, los bytes de un `double`.",
+      "**Restar dos punteros** del mismo array da cuántos elementos hay entre ellos, con el tipo `ptrdiff_t` (se escribe con `%td`). `(prices + n) - p` es `5`, y `cheapest - prices` convierte un puntero en su índice. Apuntar una posición después del último elemento, como `prices + n`, está permitido para comparar, pero no para leer `*`.",
+      "Una función recibe copias de sus argumentos. Para que `find_cheapest` cambie el puntero `cheapest` de `main`, se le pasa su dirección, `&cheapest`, y el parámetro es un **puntero a puntero**, `double **`. Dentro, `*cheapest` es el puntero de `main` y `**cheapest` es el precio al que apunta.",
+      "El caso más habitual de `**` es una lista de cadenas: `shops` es un array de `const char *` que termina en `NULL`, como `argv`. `const char **s` recorre la lista: `*s` es cada cadena y `**s`, su primera letra.",
+      "En DMarlon Studio, este programa se escribe en el destino Consola y se compila y ejecuta con un clic (F9)."
+    ],
+    "points": [
+      "`p + i` avanza `i` elementos; `*(p + i)` es `p[i]`.",
+      "La resta de punteros da elementos, con `%td`.",
+      "Para cambiar un puntero desde una función, pase `&puntero` y reciba `T **`.",
+      "Un array de cadenas se recorre con `char **` hasta `NULL`."
+    ],
+    "exercise": "Escriba `find_dearest` con la misma forma que `find_cheapest` y use las dos para escribir el precio más alto, el más bajo y la distancia en elementos entre ellos."
+  },
+  "en": {
+    "slug": "pointers-to-pointers",
+    "title": "Pointers to pointers and arithmetic",
+    "summary": "Walk C arrays with pointer arithmetic, subtract pointers, and use a pointer to a pointer so a function can change where another pointer points.",
+    "body": [
+      "**Pointer arithmetic** counts in elements, not bytes: if `p` points at `prices[0]`, then `p + 2` points at `prices[2]` and `*(p + 2)` is the same as `prices[2]`. The compiler multiplies by the size of the type, which is why `(char *)(p + 1) - (char *)p` gives `8`, the bytes in a `double`.",
+      "**Subtracting two pointers** into the same array gives the number of elements between them, as a `ptrdiff_t` (printed with `%td`). `(prices + n) - p` is `5`, and `cheapest - prices` turns a pointer into its index. Pointing one past the last element, like `prices + n`, is allowed for comparisons but not for reading with `*`.",
+      "A function gets copies of its arguments. For `find_cheapest` to change the `cheapest` pointer in `main`, it receives its address, `&cheapest`, and the parameter is a **pointer to a pointer**, `double **`. Inside, `*cheapest` is `main`'s pointer and `**cheapest` is the price it points at.",
+      "The most common use of `**` is a list of strings: `shops` is an array of `const char *` ending in `NULL`, just like `argv`. `const char **s` walks the list: `*s` is each string and `**s` its first letter.",
+      "In DMarlon Studio, you write this program in the Console target and build and run it with one click (F9)."
+    ],
+    "points": [
+      "`p + i` moves `i` elements; `*(p + i)` is `p[i]`.",
+      "Subtracting pointers gives elements, printed with `%td`.",
+      "To change a pointer from a function, pass `&pointer` and take a `T **`.",
+      "Walk an array of strings with `char **` until `NULL`."
+    ],
+    "exercise": "Write `find_dearest` with the same shape as `find_cheapest` and use both to print the highest price, the lowest price and how many elements apart they are."
+  }
+}

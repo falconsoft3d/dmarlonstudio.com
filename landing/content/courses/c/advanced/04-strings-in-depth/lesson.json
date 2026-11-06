@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cadenas-a-fondo",
+    "title": "Cadenas a fondo",
+    "summary": "Trocee líneas con strtok, construya textos con snprintf sin desbordar el búfer y copie con strncpy de forma segura en C, con strchr y strstr.",
+    "body": [
+      "**`strtok`** parte una línea en campos. La primera llamada recibe la cadena y los separadores (`\";\"`); las siguientes reciben `NULL` para seguir donde se quedó, hasta que devuelve `NULL`. Funciona escribiendo `'\\0'` encima de cada separador: por eso `line` es un array modificable y, al terminar, `line` solo contiene `\"Ana Lopez\"`. Nunca la use sobre una cadena literal.",
+      "**`snprintf`** escribe con formato, como `printf`, pero en un búfer y **sin pasar nunca de su tamaño**: siempre termina el texto con `'\\0'`. Devuelve cuántos caracteres habría necesitado; si ese número es mayor o igual que `sizeof badge`, el texto se ha cortado, como le pasa a `\"Maximiliano Fernandez\"`.",
+      "**`strncpy`** copia como mucho `n` caracteres, pero si el origen es más largo **no añade el `'\\0'` final**. La forma segura es copiar `sizeof code - 1` caracteres y poner el terminador a mano en la última posición. Así `code` queda en `\"IB3170\"`.",
+      "**`strchr`** busca un carácter y **`strstr`**, una subcadena; las dos devuelven un puntero a lo encontrado o `NULL`. `dash + 1` es la cadena que empieza justo después del primer guion: la ruta `MAD-BCN`.",
+      "`strtok` guarda su posición en una variable interna, así que no se pueden trocear dos cadenas a la vez. Para eso existe `strtok_r` en POSIX y `strtok_s` en Windows."
+    ],
+    "points": [
+      "`strtok` modifica la cadena: use un array, no un literal.",
+      "`snprintf` nunca desborda y devuelve la longitud que necesitaba.",
+      "Tras `strncpy`, ponga usted el `'\\0'` final.",
+      "`strchr` y `strstr` devuelven un puntero o `NULL`."
+    ],
+    "exercise": "Trocee la línea `\"Madrid,Sevilla,,Bilbao\"` con `strtok` y fíjese en qué pasa con el campo vacío; después construya con `snprintf` una lista `\"Madrid / Sevilla / Bilbao\"` en un búfer de 20 caracteres y diga si se ha cortado."
+  },
+  "en": {
+    "slug": "strings-in-depth",
+    "title": "Strings in depth",
+    "summary": "Split lines with strtok, build text with snprintf without overflowing the buffer and copy safely with strncpy in C, plus strchr and strstr.",
+    "body": [
+      "**`strtok`** splits a line into fields. The first call takes the string and the separators (`\";\"`); later calls take `NULL` to carry on where it stopped, until it returns `NULL`. It works by writing `'\\0'` over each separator: that is why `line` is a modifiable array and, afterwards, `line` holds only `\"Ana Lopez\"`. Never use it on a string literal.",
+      "**`snprintf`** formats like `printf`, but into a buffer and **never past its size**: it always ends the text with `'\\0'`. It returns how many characters it would have needed; if that is greater than or equal to `sizeof badge`, the text was cut, as happens with `\"Maximiliano Fernandez\"`.",
+      "**`strncpy`** copies at most `n` characters, but when the source is longer **it does not add the final `'\\0'`**. The safe pattern is to copy `sizeof code - 1` characters and put the terminator in the last position yourself. That leaves `code` as `\"IB3170\"`.",
+      "**`strchr`** finds a character and **`strstr`** a substring; both return a pointer to what they found or `NULL`. `dash + 1` is the string that starts right after the first dash: the route `MAD-BCN`.",
+      "`strtok` keeps its position in a hidden variable, so you cannot split two strings at the same time. That is what `strtok_r` (POSIX) and `strtok_s` (Windows) are for."
+    ],
+    "points": [
+      "`strtok` modifies the string: use an array, not a literal.",
+      "`snprintf` never overflows and returns the length it needed.",
+      "After `strncpy`, add the final `'\\0'` yourself.",
+      "`strchr` and `strstr` return a pointer or `NULL`."
+    ],
+    "exercise": "Split the line `\"Madrid,Sevilla,,Bilbao\"` with `strtok` and see what happens to the empty field; then build the list `\"Madrid / Sevilla / Bilbao\"` with `snprintf` in a 20-character buffer and report whether it was cut."
+  }
+}

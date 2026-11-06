@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "uniones-y-campos-de-bits",
+    "title": "Uniones y campos de bits",
+    "summary": "Guarde valores de distinto tipo en una unión con etiqueta y empaquete una fecha en bits con campos de bits en C, comprobando su tamaño con sizeof.",
+    "body": [
+      "En una **unión** todos los miembros empiezan en la misma dirección y comparten los mismos bytes: solo uno tiene sentido a la vez. Por eso ocupa lo que su miembro más grande; aquí, `sizeof config[0].value` es 8, lo que mide un `double` o un puntero.",
+      "Como la unión no recuerda qué miembro se escribió, se acompaña de una **etiqueta**: en `Setting`, el campo `kind` (un `enum`) dice si el valor es `INT`, `REAL` o `TEXT`. Esto se llama **unión con etiqueta** y es la forma clásica en C de guardar un valor que puede ser de varios tipos, como los ajustes de un archivo de configuración.",
+      "Al inicializar se elige el miembro con su nombre: `{.i = 8080}`, `{.d = 2.5}`, `{.s = \"es\"}`. `show` mira la etiqueta con un `switch` y lee solo el miembro que corresponde.",
+      "Los **campos de bits** dicen cuántos bits ocupa cada campo: `day : 5` llega hasta 31, `month : 4` hasta 15 y `year : 12` hasta 4095. Los tres caben en un solo `unsigned int`, y `sizeof release` es 4 bytes en vez de 12. El orden exacto de los bits depende del compilador, así que no sirven para leer formatos binarios ajenos.",
+      "La última unión lee los bytes de un `float` como un entero de 32 bits: `1.0f` se guarda como `0x3F800000` según el estándar IEEE 754. En C, leer un miembro distinto del último escrito está permitido y reinterpreta los bytes."
+    ],
+    "points": [
+      "Los miembros de una unión comparten los mismos bytes.",
+      "Una unión ocupa lo que su miembro más grande.",
+      "Una etiqueta (`enum`) indica qué miembro es el válido.",
+      "`campo : n` ocupa solo `n` bits."
+    ],
+    "exercise": "Añada a `Kind` el tipo `FLAG` con un miembro `int on` en la unión, cree el ajuste `dark_mode` y haga que `show` escriba `on` u `off`."
+  },
+  "en": {
+    "slug": "unions-and-bit-fields",
+    "title": "Unions and bit fields",
+    "summary": "Store values of different types in a tagged union and pack a date into bits with C bit fields, checking their size with sizeof.",
+    "body": [
+      "In a **union** every member starts at the same address and shares the same bytes: only one makes sense at a time. That is why it takes the size of its biggest member; here `sizeof config[0].value` is 8, the size of a `double` or a pointer.",
+      "Because the union does not remember which member was written, it comes with a **tag**: in `Setting`, the `kind` field (an `enum`) says whether the value is `INT`, `REAL` or `TEXT`. This is a **tagged union**, the classic C way to hold a value that can be one of several types, such as the settings in a configuration file.",
+      "When initialising, you pick the member by name: `{.i = 8080}`, `{.d = 2.5}`, `{.s = \"es\"}`. `show` checks the tag with a `switch` and reads only the matching member.",
+      "**Bit fields** state how many bits each field takes: `day : 5` goes up to 31, `month : 4` up to 15 and `year : 12` up to 4095. All three fit in one `unsigned int`, and `sizeof release` is 4 bytes instead of 12. The exact bit order depends on the compiler, so they are not for reading someone else's binary format.",
+      "The last union reads the bytes of a `float` as a 32-bit integer: `1.0f` is stored as `0x3F800000`, as IEEE 754 specifies. In C, reading a member other than the one last written is allowed and reinterprets the bytes."
+    ],
+    "points": [
+      "A union's members share the same bytes.",
+      "A union is as big as its biggest member.",
+      "A tag (`enum`) says which member is valid.",
+      "`field : n` takes only `n` bits."
+    ],
+    "exercise": "Add a `FLAG` kind with an `int on` member in the union, create a `dark_mode` setting and make `show` print `on` or `off`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "operadores-de-bits-y-banderas",
+    "title": "Operadores de bits y banderas",
+    "summary": "Guarde varios permisos en un solo entero con banderas de bits en C: activar con |, quitar con & y ~, alternar con ^ y comprobar con &.",
+    "body": [
+      "Una **bandera** es un bit con significado propio. El `enum` da a cada permiso un bit distinto con desplazamientos: `1 << 0` es 1, `1 << 1` es 2, `1 << 2` es 4 y `1 << 3` es 8. Así un solo `unsigned` guarda los cuatro permisos a la vez, que es como lo hacen los permisos de archivos o las opciones de muchas API.",
+      "**`|`** (O) junta bits: `READ | WRITE` es `0011`. Con `|=` se añade un permiso sin tocar los demás. **`&`** con **`~`** quita uno: `~WRITE` tiene todos los bits a 1 menos el de escribir, y `ana &= ~WRITE` lo apaga. **`^`** (O exclusivo) lo invierte: activa `ADMIN` la primera vez y lo desactivaría la segunda.",
+      "Para **comprobar** un permiso se usa `&`: `guest & WRITE` es 0 si el bit está apagado. `ana & guest` da los bits que tienen los dos, aquí solo `READ`, que vale 1.",
+      "`show` escribe los bits de mayor a menor con `perms >> bit & 1`: desplaza a la derecha hasta dejar el bit buscado en la última posición y se queda solo con él. `>>` tiene más prioridad que `&`, pero ante la duda conviene poner paréntesis.",
+      "El último bucle cuenta los bits a 1 con un truco clásico: `v &= v - 1` apaga el 1 más bajo, así que el bucle da tantas vueltas como permisos hay. Use siempre tipos `unsigned` para trabajar con bits: desplazar números negativos no está bien definido."
+    ],
+    "points": [
+      "`x |= F` activa, `x &= ~F` desactiva, `x ^= F` alterna.",
+      "`x & F` comprueba si el bit está activo.",
+      "`1 << n` es el bit `n`; `x >> n` desplaza a la derecha.",
+      "Para bits, use tipos `unsigned`."
+    ],
+    "exercise": "Añada la bandera `SHARE = 1 << 4`, cambie `show` para que escriba cinco bits y escriba una función `int has_all(unsigned perms, unsigned wanted)` que diga si están todos los permisos de `wanted`."
+  },
+  "en": {
+    "slug": "bitwise-operators-and-flags",
+    "title": "Bitwise operators and flags",
+    "summary": "Store several permissions in one integer with bit flags in C: set with |, clear with & and ~, toggle with ^ and test with &.",
+    "body": [
+      "A **flag** is a bit with its own meaning. The `enum` gives each permission a different bit using shifts: `1 << 0` is 1, `1 << 1` is 2, `1 << 2` is 4 and `1 << 3` is 8. A single `unsigned` then holds all four permissions at once, which is how file permissions and the options of many APIs work.",
+      "**`|`** (OR) combines bits: `READ | WRITE` is `0011`. `|=` adds a permission without touching the others. **`&`** with **`~`** removes one: `~WRITE` has every bit set except the write bit, and `ana &= ~WRITE` turns it off. **`^`** (XOR) flips it: it turns `ADMIN` on the first time and would turn it off the second.",
+      "To **test** a permission, use `&`: `guest & WRITE` is 0 when the bit is off. `ana & guest` gives the bits both have, here only `READ`, which is 1.",
+      "`show` prints the bits from high to low with `perms >> bit & 1`: it shifts right until the wanted bit is last and keeps only that one. `>>` binds tighter than `&`, but when in doubt, add parentheses.",
+      "The last loop counts the bits set with a classic trick: `v &= v - 1` clears the lowest 1, so the loop runs once per permission. Always use `unsigned` types for bit work: shifting negative numbers is not well defined."
+    ],
+    "points": [
+      "`x |= F` sets, `x &= ~F` clears, `x ^= F` toggles.",
+      "`x & F` tests whether the bit is set.",
+      "`1 << n` is bit `n`; `x >> n` shifts right.",
+      "Use `unsigned` types for bits."
+    ],
+    "exercise": "Add a `SHARE = 1 << 4` flag, make `show` print five bits and write `int has_all(unsigned perms, unsigned wanted)` that says whether every permission in `wanted` is present."
+  }
+}

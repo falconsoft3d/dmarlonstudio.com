@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-variadicas",
+    "title": "Funciones variádicas",
+    "summary": "Escriba en C funciones con un número variable de argumentos usando stdarg.h: una media de n valores y un registro de mensajes al estilo de printf.",
+    "body": [
+      "Una **función variádica** acepta un número variable de argumentos, como `printf`. Se declara con `...` después de al menos un parámetro con nombre: `double average(int count, ...)`. Las herramientas están en **`stdarg.h`**.",
+      "Dentro se declara un `va_list` y se inicia con **`va_start(args, count)`**, que recibe el último parámetro con nombre. Cada **`va_arg(args, double)`** devuelve el siguiente argumento con el tipo que se le indica, y **`va_end`** cierra la lista. Cada `va_start` tiene que llevar su `va_end`.",
+      "La función no tiene forma de saber cuántos argumentos le han llegado ni de qué tipo son: se lo tiene que decir quien llama. `average` lo sabe por `count`; `printf`, por los `%` del formato. Si no coinciden, como `average(3, 7.5)`, se leería basura sin ningún aviso. Además, en los `...` los `float` llegan convertidos a `double` y los `char` y `short`, a `int`; por eso `va_arg` pide `double`.",
+      "`log_msg` es un **registro de mensajes** al estilo de `printf`: escribe el nivel entre corchetes y pasa el formato y los demás argumentos a **`vprintf`**, la versión de `printf` que recibe un `va_list`. Existen también `vfprintf`, `vsnprintf` y compañía, pensadas precisamente para esto.",
+      "`%%` en el formato escribe un signo `%`, como en `91%`."
+    ],
+    "points": [
+      "`...` después de un parámetro con nombre.",
+      "`va_start`, `va_arg` y `va_end`, siempre en pareja inicio y fin.",
+      "Quien llama indica cuántos y de qué tipo son los argumentos.",
+      "Los `float` llegan como `double`; los `char`, como `int`."
+    ],
+    "exercise": "Escriba `int max_of(int count, ...)`, que devuelva el mayor de `count` enteros, y una variante de `log_msg` que escriba en un búfer con `vsnprintf` en vez de en la pantalla."
+  },
+  "en": {
+    "slug": "variadic-functions",
+    "title": "Variadic functions",
+    "summary": "Write C functions that take a variable number of arguments with stdarg.h: an average of n values and a printf-style logger.",
+    "body": [
+      "A **variadic function** accepts a variable number of arguments, like `printf`. It is declared with `...` after at least one named parameter: `double average(int count, ...)`. The tools live in **`stdarg.h`**.",
+      "Inside, you declare a `va_list` and start it with **`va_start(args, count)`**, which takes the last named parameter. Each **`va_arg(args, double)`** returns the next argument as the type you name, and **`va_end`** closes the list. Every `va_start` needs its `va_end`.",
+      "The function has no way to know how many arguments arrived or of what type: the caller has to tell it. `average` learns it from `count`; `printf`, from the `%` in its format. If they do not match, as in `average(3, 7.5)`, it would read garbage without any warning. Also, through `...`, `float`s arrive as `double` and `char`s and `short`s as `int`, which is why `va_arg` asks for `double`.",
+      "`log_msg` is a printf-style **logger**: it prints the level in brackets and hands the format and the remaining arguments to **`vprintf`**, the version of `printf` that takes a `va_list`. There are also `vfprintf`, `vsnprintf` and friends, made precisely for this.",
+      "`%%` in a format prints a `%` sign, as in `91%`."
+    ],
+    "points": [
+      "`...` comes after a named parameter.",
+      "`va_start`, `va_arg` and `va_end`, always starting and ending in pairs.",
+      "The caller states how many arguments there are and their types.",
+      "`float`s arrive as `double`; `char`s as `int`."
+    ],
+    "exercise": "Write `int max_of(int count, ...)` that returns the largest of `count` integers, and a version of `log_msg` that writes into a buffer with `vsnprintf` instead of the screen."
+  }
+}

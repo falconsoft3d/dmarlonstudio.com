@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tabla-hash",
+    "title": "Una tabla hash",
+    "summary": "Programe en C una tabla hash con encadenamiento: la función djb2, cubetas con listas enlazadas, colisiones y búsqueda de precios de bebidas.",
+    "body": [
+      "Una **tabla hash** encuentra un dato por su clave casi al instante, sin recorrerlo todo. Es un array de **cubetas** (`table[BUCKETS]`), y una **función hash** convierte cada clave en el número de su cubeta.",
+      "`hash` usa **djb2**: empieza en `5381` y, por cada carácter, multiplica por 33 y suma el carácter. La misma clave da siempre el mismo número, y `% BUCKETS` lo lleva al rango de 0 a 4. El `(unsigned char)` evita sorpresas con los caracteres acentuados, que en un `char` con signo serían negativos.",
+      "Dos claves pueden caer en la misma cubeta: es una **colisión**, y aquí les pasa a `tea` y `juice`, las dos en la 1. Por eso cada cubeta es una **lista enlazada** (el campo `next`): `put` reserva una entrada con `malloc` y la pone al principio de la lista de su cubeta.",
+      "`get` calcula la cubeta y recorre solo esa lista comparando con `strcmp`. Con pocas entradas por cubeta, la búsqueda es casi inmediata aunque la tabla tenga miles de claves. Si no está, como `soup`, devuelve `NULL`.",
+      "Al final se libera cada lista, cubeta por cubeta. Las claves no se liberan porque son cadenas literales, no memoria del montón."
+    ],
+    "points": [
+      "La función hash convierte la clave en el número de cubeta.",
+      "Una colisión es cuando dos claves comparten cubeta.",
+      "Con encadenamiento, cada cubeta es una lista enlazada.",
+      "Buscar solo recorre la lista de una cubeta."
+    ],
+    "exercise": "Haga que `put` busque primero la clave con `get` y, si ya existe, solo actualice el precio; compruébelo poniendo `tea` a `1.25`."
+  },
+  "en": {
+    "slug": "hash-table",
+    "title": "A hash table",
+    "summary": "Program a hash table with chaining in C: the djb2 function, buckets holding linked lists, collisions and looking up drink prices.",
+    "body": [
+      "A **hash table** finds an item by its key almost instantly, without scanning everything. It is an array of **buckets** (`table[BUCKETS]`), and a **hash function** turns each key into the number of its bucket.",
+      "`hash` uses **djb2**: it starts at `5381` and, for each character, multiplies by 33 and adds the character. The same key always gives the same number, and `% BUCKETS` brings it into the 0 to 4 range. The `(unsigned char)` cast avoids surprises with accented characters, which would be negative in a signed `char`.",
+      "Two keys can land in the same bucket: that is a **collision**, and it happens here to `tea` and `juice`, both in bucket 1. That is why each bucket is a **linked list** (the `next` field): `put` allocates an entry with `malloc` and puts it at the front of its bucket's list.",
+      "`get` works out the bucket and walks only that list, comparing with `strcmp`. With few entries per bucket, a lookup is almost immediate even when the table holds thousands of keys. If the key is missing, like `soup`, it returns `NULL`.",
+      "At the end each list is freed, bucket by bucket. The keys are not freed because they are string literals, not heap memory."
+    ],
+    "points": [
+      "The hash function turns a key into a bucket number.",
+      "A collision is two keys sharing a bucket.",
+      "With chaining, each bucket is a linked list.",
+      "A lookup walks the list of a single bucket."
+    ],
+    "exercise": "Make `put` look the key up with `get` first and, if it is already there, only update the price; test it by setting `tea` to `1.25`."
+  }
+}

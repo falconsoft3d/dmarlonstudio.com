@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "recursion-y-vuelta-atras",
+    "title": "Recursión y vuelta atrás",
+    "summary": "Resuelva el problema de las N reinas en C con recursión y vuelta atrás (backtracking): probar una opción, seguir y deshacerla si no lleva a nada.",
+    "body": [
+      "El problema de las **N reinas** consiste en colocar N reinas en un tablero de N×N sin que ninguna ataque a otra: ni en la misma fila, ni en la misma columna, ni en la misma diagonal. Como cada fila lleva exactamente una reina, basta guardar en `col[r]` la columna de la reina de la fila `r`.",
+      "`safe` comprueba si una reina puede ir en la columna `c` de la fila `row` mirando solo las filas anteriores. Hay ataque si comparten columna (`col[r] == c`) o diagonal: en una diagonal, la distancia entre columnas es igual a la distancia entre filas, `abs(col[r] - c) == row - r`.",
+      "`place` es **recursiva** y aplica la **vuelta atrás** (*backtracking*): prueba cada columna de la fila actual; si es segura, coloca la reina y se llama a sí misma para la fila siguiente. Cuando esa llamada termina, haya encontrado algo o no, el bucle pasa a la columna siguiente, y el valor de `col[row]` se sobrescribe: así se **deshace** la elección sin código extra.",
+      "El **caso base** es `row == N`: todas las filas tienen reina, así que es una solución. Se cuentan todas y solo se dibuja la primera. Para 6 reinas hay 4 soluciones; para 8, el tablero de ajedrez, 92.",
+      "La vuelta atrás sirve para cualquier problema de «elegir, comprobar y retroceder»: sudokus, laberintos, horarios o permutaciones. Las ramas que no son seguras se abandonan pronto, y por eso es mucho más rápida que probar todas las combinaciones."
+    ],
+    "points": [
+      "Recursión: una función que se llama a sí misma con un problema menor.",
+      "Siempre hace falta un caso base que detenga la recursión.",
+      "Vuelta atrás: elegir, seguir y deshacer la elección.",
+      "Descartar pronto las ramas imposibles ahorra casi todo el trabajo."
+    ],
+    "exercise": "Cambie `N` a 8 y compruebe que salen 92 soluciones; después cuente también cuántas veces se llama a `safe` y compárelo con las 8⁸ formas de poner una reina por fila."
+  },
+  "en": {
+    "slug": "recursion-and-backtracking",
+    "title": "Recursion and backtracking",
+    "summary": "Solve the N-queens problem in C with recursion and backtracking: try an option, carry on, and undo it when it leads nowhere.",
+    "body": [
+      "The **N-queens** problem is to place N queens on an N×N board so that none attacks another: not in the same row, column or diagonal. Since each row holds exactly one queen, it is enough to store in `col[r]` the column of the queen in row `r`.",
+      "`safe` checks whether a queen can go in column `c` of row `row` by looking only at the rows above. There is an attack if they share a column (`col[r] == c`) or a diagonal: on a diagonal, the distance between columns equals the distance between rows, `abs(col[r] - c) == row - r`.",
+      "`place` is **recursive** and uses **backtracking**: it tries each column of the current row; if it is safe, it places the queen and calls itself for the next row. When that call returns, whether it found something or not, the loop moves on to the next column and `col[row]` is overwritten: that **undoes** the choice with no extra code.",
+      "The **base case** is `row == N`: every row has a queen, so it is a solution. All of them are counted and only the first is drawn. With 6 queens there are 4 solutions; with 8, the chessboard, there are 92.",
+      "Backtracking works for any \"choose, check and step back\" problem: sudokus, mazes, timetables or permutations. Branches that are not safe are abandoned early, which is why it is far faster than trying every combination."
+    ],
+    "points": [
+      "Recursion: a function that calls itself on a smaller problem.",
+      "There must always be a base case that stops it.",
+      "Backtracking: choose, go on, undo the choice.",
+      "Dropping impossible branches early saves almost all the work."
+    ],
+    "exercise": "Set `N` to 8 and check that you get 92 solutions; then also count how many times `safe` is called and compare it with the 8⁸ ways of putting one queen in each row."
+  }
+}

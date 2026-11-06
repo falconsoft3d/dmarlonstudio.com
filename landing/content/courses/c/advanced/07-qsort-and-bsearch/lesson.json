@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "qsort-y-bsearch",
+    "title": "qsort y bsearch con comparadores",
+    "summary": "Ordene un array de structs en C con qsort y una función comparadora, y busque en él con bsearch: los productos de una tienda por precio y por código.",
+    "body": [
+      "**`qsort`**, de `stdlib.h`, ordena cualquier array: recibe el array, cuántos elementos tiene, el tamaño de cada uno y un **comparador**. No sabe qué hay dentro; por eso el comparador recibe dos `const void *`, que se convierten al tipo real, aquí `const Product *`.",
+      "El comparador devuelve un número negativo si el primero va antes, cero si son iguales y positivo si va después. `(x > y) - (x < y)` da exactamente `-1`, `0` o `1`. La tentación de escribir `x - y` falla con los `double` (al convertir a `int`, `0.5` se queda en `0`) y con enteros muy grandes, que se desbordan.",
+      "`by_price` ordena de más barato a más caro. Para el orden contrario basta cambiar `a` por `b` en el comparador.",
+      "**`bsearch`** hace una búsqueda binaria: mira el centro y descarta la mitad en cada paso, así que encuentra un elemento entre un millón en unas 20 comparaciones. A cambio, el array tiene que estar ordenado **por la misma clave** que se busca; por eso se vuelve a ordenar con `by_code` antes de buscar.",
+      "La clave que se busca es un `Product` con solo el código relleno. `bsearch` devuelve un puntero al elemento encontrado o `NULL`, como pasa con el código `9999`."
+    ],
+    "points": [
+      "`qsort(array, n, sizeof array[0], comparador)` ordena cualquier tipo.",
+      "El comparador devuelve <0, 0 o >0; `(x > y) - (x < y)` es seguro.",
+      "`bsearch` exige el array ordenado por la misma clave.",
+      "`bsearch` devuelve un puntero al elemento o `NULL`."
+    ],
+    "exercise": "Escriba `by_name` con `strcmp`, ordene la estantería por nombre y busque `\"Milk\"` con `bsearch`."
+  },
+  "en": {
+    "slug": "qsort-and-bsearch",
+    "title": "qsort and bsearch with comparators",
+    "summary": "Sort an array of structs in C with qsort and a comparison function, then search it with bsearch: a shop's products by price and by code.",
+    "body": [
+      "**`qsort`**, from `stdlib.h`, sorts any array: it takes the array, the number of elements, the size of each one and a **comparator**. It has no idea what is inside, which is why the comparator receives two `const void *` that you cast to the real type, here `const Product *`.",
+      "The comparator returns a negative number if the first goes first, zero if they are equal and a positive one if it goes after. `(x > y) - (x < y)` gives exactly `-1`, `0` or `1`. The tempting `x - y` breaks with `double`s (converted to `int`, `0.5` becomes `0`) and with very large integers, which overflow.",
+      "`by_price` sorts from cheapest to dearest. For the opposite order, just swap `a` and `b` in the comparator.",
+      "**`bsearch`** does a binary search: it looks at the middle and throws away half at each step, so it finds one element among a million in about 20 comparisons. In return, the array must be sorted **by the same key** you search for, which is why it is sorted again with `by_code` before searching.",
+      "The search key is a `Product` with only the code filled in. `bsearch` returns a pointer to the element it found or `NULL`, as with code `9999`."
+    ],
+    "points": [
+      "`qsort(array, n, sizeof array[0], comparator)` sorts any type.",
+      "The comparator returns <0, 0 or >0; `(x > y) - (x < y)` is safe.",
+      "`bsearch` needs the array sorted by the same key.",
+      "`bsearch` returns a pointer to the element or `NULL`."
+    ],
+    "exercise": "Write `by_name` using `strcmp`, sort the shelf by name and look up `\"Milk\"` with `bsearch`."
+  }
+}

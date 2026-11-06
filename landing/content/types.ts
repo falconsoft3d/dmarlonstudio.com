@@ -42,6 +42,7 @@ export type Content = {
     text: string;
     primary: string;
     secondary: string;
+    demos: string;
     targetsLabel: string;
     targets: Target[];
     backendsLabel: string;
@@ -94,6 +95,7 @@ export type Content = {
     download: string;
     manual: string;
     dossier: string;
+    demos: string;
   };
   mock: {
     save: string;

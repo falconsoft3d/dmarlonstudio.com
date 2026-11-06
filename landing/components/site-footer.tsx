@@ -22,6 +22,9 @@ export function SiteFooter({ lang, t }: { lang: Lang; t: Content }) {
           </a>
         </div>
         <nav aria-label={footer.linksLabel} className="flex flex-wrap gap-x-5 gap-y-2 sm:ml-auto">
+          <a href={PATHS.demos[lang]} className="hover:text-ink">
+            {footer.demos}
+          </a>
           <a href={PATHS.manual[lang]} className="hover:text-ink">
             {footer.manual}
           </a>

@@ -29,10 +29,15 @@ Hechos
 20. HTML (Web): editor de pantallas, sin compilar ni dependencias | ✅ |
 32. Vue.js (Web): editor de pantallas, componentes .vue, Vite | ✅ |
 30. Go (Web): servidor en Go, API REST con datos guardados, editor de pantallas | ✅ |
+37. Demos en la landing: 10 utilidades para macOS y Windows con capturas y el logo de su tecnología | ✅ |
+38. Espacio en disco con mapa (WinDirStat) y Papelera | ✅ |
+39. Punto de venta con imágenes y conexión con Odoo (URL, usuario y contraseña): productos y precios, pedidos a Ventas | ✅ |
 
 
 Trabajando
 =========
+40. Reproductor MP3 (demo) | ⏳ |
+41. Seguimiento de trenes con datos públicos de Renfe: alertas de proximidad y gráfico de seguimiento | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 

@@ -29,7 +29,7 @@ msgstr "AI error ({0}): {1}"
 msgid "Falta la clave de {0} para transcribir la voz. Escríbala en Ajustes → Inteligencia artificial."
 msgstr "The {0} key is missing to transcribe voice. Enter it in Settings → Artificial intelligence."
 
-#: lib/ai/assistant.dart
+#: lib/ai/assistant.dart lib/code/tk_showcase_util_pos.dart
 msgid "No se pudo conectar con {0}: {1}"
 msgstr "Could not connect to {0}: {1}"
 
@@ -165,7 +165,7 @@ msgstr "Claude Code is already working."
 msgid "Escribiendo {0}"
 msgstr "Writing {0}"
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr "Done"
 
@@ -409,7 +409,7 @@ msgstr ""
 "// Label1.Caption := 'Hello', Edit1.Text, CheckBox1.Checked.\n"
 "// Also ShowMessage(text), Ask(question), Close and NumToStr(number)."
 
-#: lib/code/tk_examples.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr "Open"
 
@@ -417,11 +417,11 @@ msgstr "Open"
 msgid "Abrir una nota"
 msgstr "Open a note"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/ui/screens/settings_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/settings_screen.dart
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -461,7 +461,7 @@ msgstr "Clear"
 msgid "Borrar todo"
 msgstr "Clear all"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr "Search"
 
@@ -477,7 +477,7 @@ msgstr "Calculator with keyboard input and exact decimal numbers."
 msgid "Calculadora web"
 msgstr "Web calculator"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
 msgid "Cantidad"
 msgstr "Quantity"
 
@@ -557,7 +557,7 @@ msgstr "From"
 msgid "Decimales"
 msgstr "Decimals"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Edición"
 msgstr "Edit"
 
@@ -589,7 +589,7 @@ msgstr "The desktop stopwatch, with the same code, in Flask."
 msgid "El editor de notas en Flask: guardar descarga el archivo en el navegador."
 msgstr "The notes editor in Flask: saving downloads the file in the browser."
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_util_investor.dart
 msgid "Empresa"
 msgstr "Company"
 
@@ -605,7 +605,7 @@ msgstr "Type the customer's name."
 msgid "Escriba un número"
 msgstr "Enter a number"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr "Date"
 
@@ -645,7 +645,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -657,7 +657,7 @@ msgstr "Save the note"
 msgid "Hecha / pendiente"
 msgstr "Done / pending"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pos.dart
 msgid "Hora"
 msgstr "Time"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -797,7 +797,7 @@ msgstr "Remove done tasks"
 msgid "Reiniciado"
 msgstr "Reset"
 
-#: lib/code/tk_examples.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Reiniciar"
 msgstr "Reset"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -837,15 +837,15 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr "Text"
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr "Type"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr "User"
 
@@ -965,11 +965,11 @@ msgstr "Progress"
 msgid "Relleno"
 msgstr "Fill"
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_showcase_util_file_renamer.dart
 msgid "Separador"
 msgstr "Separator"
 
-#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pos.dart
 msgid "Tarjeta"
 msgstr "Card"
 
@@ -1077,7 +1077,7 @@ msgstr "Purchase"
 msgid "Confirmar el pago"
 msgstr "Confirm payment"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr "Password"
 
@@ -1325,7 +1325,7 @@ msgstr "Organise your day, find what you need and share it with anyone."
 msgid "Pagar"
 msgstr "Payable"
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pago"
 msgstr "Payment"
 
@@ -1345,7 +1345,7 @@ msgstr "Order confirmed"
 msgid "Pedido enviado"
 msgstr "Order shipped"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pedidos"
 msgstr "Orders"
 
@@ -1385,7 +1385,7 @@ msgstr "Repeat the password"
 msgid "Reservar"
 msgstr "Book"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_util_investor.dart
 msgid "Resultado"
 msgstr "Result"
 
@@ -1413,7 +1413,7 @@ msgstr "Yes, within 30 days of delivery."
 msgid "Tema oscuro"
 msgstr "Dark theme"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "Todo"
 msgstr "All"
 
@@ -1421,7 +1421,7 @@ msgstr "All"
 msgid "Todo lo que necesita, en un solo lugar"
 msgstr "Everything you need, in one place"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Total"
 msgstr "Total"
 
@@ -1597,7 +1597,7 @@ msgstr "File (in the project’s images folder)"
 msgid "Arrastrar"
 msgstr "Drag"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Arriba"
 msgstr "Up"
 
@@ -1609,7 +1609,7 @@ msgstr "AI assistant"
 msgid "Autenticación"
 msgstr "Authentication"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Autor"
 msgstr "Author"
 
@@ -1737,7 +1737,7 @@ msgstr "Page control"
 msgid "Cursiva"
 msgstr "Italic"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_file_renamer.dart
 msgid "Desde"
 msgstr "From"
 
@@ -1801,7 +1801,7 @@ msgstr "Desktop (Python)"
 msgid "Esfuerzo"
 msgstr "Effort"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr "Status"
 
@@ -1881,7 +1881,7 @@ msgstr "API integration"
 msgid "Intervalo (ms)"
 msgstr "Interval (ms)"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Izquierda"
 msgstr "Left"
 
@@ -1997,7 +1997,7 @@ msgstr "Orientation"
 msgid "Pascal (Lazarus)"
 msgstr "Pascal (Lazarus)"
 
-#: lib/code/tk_model.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Paso"
 msgstr "Step"
 
@@ -2017,7 +2017,7 @@ msgstr "Tabs, groups and buttons (indentation; “Button | icon”)"
 msgid "Por defecto"
 msgstr "Default"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Posición"
 msgstr "Position"
 
@@ -2077,7 +2077,7 @@ msgstr "Fill, cropping"
 msgid "Salir el ratón"
 msgstr "Mouse leave"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Selección"
 msgstr "Selection"
 
@@ -2169,7 +2169,7 @@ msgstr "Token (Bearer)"
 msgid "Token o clave (mejor en una variable)"
 msgstr "Token or key (better in a variable)"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Título"
 msgstr "Title"
 
@@ -2205,7 +2205,7 @@ msgstr "A window can only have one ribbon: “{0}” is one too many."
 msgid "Usuario (básica)"
 msgstr "User (basic)"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_investor.dart
 msgid "Valor"
 msgstr "Value"
 
@@ -2545,7 +2545,7 @@ msgstr "To"
 msgid "Abrir un archivo de texto"
 msgstr "Open a text file"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Abrir…"
 msgstr "Open…"
 
@@ -2557,7 +2557,7 @@ msgstr "Accessories"
 msgid "Actualizar los tipos"
 msgstr "Update the rates"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Asunto"
 msgstr "Subject"
 
@@ -2645,11 +2645,11 @@ msgstr "Simulated data · {0} · {1} · {2} candles"
 msgid "Datos simulados: no son cotizaciones reales."
 msgstr "Simulated data: these are not real quotes."
 
-#: lib/code/tk_showcase.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Deshacer"
 msgstr "Undo"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Detener"
 msgstr "Stop"
 
@@ -2661,7 +2661,7 @@ msgstr "Classic text editor with menus, open and save, undo and a status bar wit
 msgid "Elija la cita que quiere eliminar."
 msgstr "Choose the appointment to delete."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -2705,7 +2705,7 @@ msgstr "Arrows or WASD to move · Space: pause · Enter: new game"
 msgid "Gráfico de líneas"
 msgstr "Line chart"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardar como…"
 msgstr "Save as…"
 
@@ -2713,7 +2713,7 @@ msgstr "Save as…"
 msgid "Guardar el archivo de texto"
 msgstr "Save the text file"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
 msgid "Importe"
 msgstr "Amount"
 
@@ -2801,7 +2801,7 @@ msgstr "Select all"
 msgid "Sin conexión: tipos aproximados de reserva, no para operaciones reales."
 msgstr "Offline: approximate fallback rates, not for real transactions."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Sin título"
 msgstr "Untitled"
 
@@ -2901,7 +2901,7 @@ msgstr "New high score!"
 msgid "¿Eliminar a «{0}»? Sus citas quedan sin contacto."
 msgstr "Delete “{0}”? Their appointments will have no contact."
 
-#: lib/code/tk_showcase.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart
 msgid "¿Guardar los cambios de «{0}»?"
 msgstr "Save the changes to “{0}”?"
 
@@ -3385,7 +3385,7 @@ msgstr "A notepad made with DMarlon Studio, Electron and React."
 msgid "Borrar las hechas"
 msgstr "Clear completed"
 
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Cliente"
 msgstr "Customer"
 
@@ -3533,7 +3533,7 @@ msgstr "A mobile app with login and notes saved in FalconDatabase: put the conne
 msgid "Buscar por nombre o categoría"
 msgstr "Search by name or category"
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -3573,7 +3573,7 @@ msgstr "Inventory (Flutter desktop)"
 msgid "Inventario: productos, existencias y avisos de poco stock. Las pantallas lo usan como app."
 msgstr "Inventory: products, stock and low-stock alerts. The screens use it as app."
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "No hay productos que coincidan."
 msgstr "No products match."
 
@@ -3593,7 +3593,7 @@ msgstr "White paint 5 L"
 msgid "Por debajo del mínimo ({0} uds.)"
 msgstr "Below the minimum ({0} units)"
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Precio"
 msgstr "Price"
 
@@ -3817,7 +3817,7 @@ msgstr "Message sent to {0}."
 msgid "Para"
 msgstr "To"
 
-#: lib/code/tk_showcase_mail.dart
+#: lib/code/tk_showcase_mail.dart lib/code/tk_showcase_util_pos.dart
 msgid "Probando la conexión…"
 msgstr "Testing the connection…"
 
@@ -3945,7 +3945,7 @@ msgstr "Reports"
 msgid "Por categoría"
 msgstr "By category"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Producto"
 msgstr "Product"
 
@@ -3997,7 +3997,7 @@ msgstr "You save {0}"
 msgid "Altavoz portátil resistente al agua con sonido de 360 grados."
 msgstr "Waterproof portable speaker with 360-degree sound."
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart
 msgid "Audio"
 msgstr "Audio"
 
@@ -4359,7 +4359,7 @@ msgstr "The first account to sign up becomes the administrator."
 msgid "La página se genera al abrirla (form_create)."
 msgstr "The page is generated when it opens (form_create)."
 
-#: lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Las contraseñas no coinciden."
 msgstr "The passwords do not match."
 
@@ -4479,7 +4479,7 @@ msgstr "Paper"
 msgid "Papel actualizado."
 msgstr "Role updated."
 
-#: lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pedido"
 msgstr "Order"
 
@@ -4587,7 +4587,7 @@ msgstr "Stock updated."
 msgid "Su pedido n.º {0} está confirmado. Le enviaremos un correo a {1}."
 msgstr "Your order no. {0} is confirmed. We will send an email to {1}."
 
-#: lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "Subtotal"
 msgstr "Subtotal"
 
@@ -4775,6 +4775,1538 @@ msgstr "Latest comments"
 msgid "← Volver al inicio"
 msgstr "← Back to home"
 
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid " (sin permiso)"
+msgstr " (no permission)"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "(sin extensión)"
+msgstr "(no extension)"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid ","
+msgstr "."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Analizando «{0}»…"
+msgstr "Scanning “{0}”…"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Analizar"
+msgstr "Scan"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Análisis cancelado: los datos están incompletos."
+msgstr "Scan cancelled: the data is incomplete."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Análisis terminado."
+msgstr "Scan finished."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Aquí verá el mapa de lo que ocupa la carpeta."
+msgstr "The map of what fills the folder will appear here."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Archivos"
+msgstr "Files"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Archivos más grandes"
+msgstr "Largest files"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Cancelando…"
+msgstr "Cancelling…"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
+msgid "Carpeta"
+msgstr "Folder"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Carpetas"
+msgstr "Folders"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Clic: elegir   ·   Doble clic: entrar en la carpeta   ·   Clic derecho: acciones"
+msgstr "Click: select   ·   Double-click: open the folder   ·   Right-click: actions"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Comprimidos"
+msgstr "Archives"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+msgid "Código"
+msgstr "Code"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Disco de «{0}»"
+msgstr "Disk of “{0}”"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Documentos"
+msgstr "Documents"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Elegir la carpeta…"
+msgstr "Choose the folder…"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart lib/ui/screens/tk_designer.dart
+msgid "Elegir…"
+msgstr "Choose…"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Elija la carpeta que quiere analizar"
+msgstr "Choose the folder to scan"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Elija primero un archivo o una carpeta de la lista."
+msgstr "First select a file or a folder in the list."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Elija una carpeta y pulse Analizar."
+msgstr "Choose a folder and click Scan."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "En la Papelera: {0}   ·   {1} liberados (al vaciarla)"
+msgstr "In the Trash: {0}   ·   {1} freed (once emptied)"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Espacio en disco"
+msgstr "Disk Usage"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Espacio en disco, ejemplo de DMarlon Studio al estilo de WinDirStat: analiza una carpeta en segundo plano sin seguir enlaces ni contar dos veces el mismo archivo y dibuja un mapa de lo que ocupa. Solo mueve a la Papelera lo que usted confirme; nunca borra para siempre."
+msgstr "Disk Usage, a WinDirStat-style DMarlon Studio sample: scans a folder in the background without following links or counting the same file twice, and draws a map of what takes up the space. It only moves to the Trash what you confirm; it never deletes permanently."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Espere a que termine el análisis."
+msgstr "Wait for the scan to finish."
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
+msgstr "Images"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/project_browser.dart
+msgid "Modificado"
+msgstr "Modified"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Mostrando: {0}"
+msgstr "Showing: {0}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Mostrar en la carpeta"
+msgstr "Show in folder"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Mover a la Papelera…"
+msgstr "Move to Trash…"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "No se pudo analizar: {0}"
+msgstr "Could not scan: {0}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "No se pudo mover a la Papelera: {0}"
+msgstr "Could not move to the Trash: {0}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pos.dart
+msgid "Otros"
+msgstr "Other"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Por seguridad no se mueve a la Papelera la carpeta analizada, la carpeta personal ni la raíz de un disco: {0}"
+msgstr "For safety, the scanned folder, the home folder and the root of a disk are never moved to the Trash: {0}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Por tipo"
+msgstr "By type"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Programas"
+msgstr "Programs"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Proporción"
+msgstr "Flex"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Qué llena el disco, al estilo de WinDirStat: analiza una carpeta en segundo plano y la dibuja como un mapa por tamaño y tipo, con el árbol de carpetas, los archivos más grandes y la Papelera a mano."
+msgstr "What fills the disk, WinDirStat style: scans a folder in the background and draws it as a map by size and type, with the folder tree, the largest files and the Trash at hand."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Solo este disco"
+msgstr "This disk only"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Subir"
+msgstr "Move up"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Subir un nivel"
+msgstr "Up one level"
+
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Tamaño"
+msgstr "Size"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Ver"
+msgstr "View"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "Vídeo"
+msgstr "Video"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "[{0} archivos en esta carpeta]"
+msgstr "[{0} files in this folder]"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0}   ·   {1}"
+msgstr "{0}   ·   {1}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} archivos   ·   {1}   ·   {2}"
+msgstr "{0} files   ·   {1}   ·   {2}"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} archivos   ·   {1}   ·   {2} carpetas   ·   {3} s"
+msgstr "{0} files   ·   {1}   ·   {2} folders   ·   {3} s"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} carpetas de otros discos"
+msgstr "{0} folders on other disks"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} en total   ·   {1} usados ({2})   ·   {3} libres"
+msgstr "{0} total   ·   {1} used ({2})   ·   {3} free"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} enlaces sin seguir"
+msgstr "{0} links not followed"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "{0} sin permiso de lectura"
+msgstr "{0} without read permission"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "«{0}» no es una carpeta."
+msgstr "“{0}” is not a folder."
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "¿Mover «{0}» ({1}) a la Papelera?"
+msgstr "Move “{0}” ({1}) to the Trash?"
+
+#: lib/code/tk_showcase_util_disk_usage.dart
+msgid "… y {0} carpetas más"
+msgstr "… and {0} more folders"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "1. Buscar y reemplazar"
+msgstr "1. Find and replace"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "2. Prefijo y sufijo"
+msgstr "2. Prefix and suffix"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "3. Numeración"
+msgstr "3. Numbering"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "4. Mayúsculas y extensión"
+msgstr "4. Case and extension"
+
+#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Actualizar"
+msgstr "Refresh"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Antes del nombre"
+msgstr "Before the name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+msgid "Aplicar"
+msgstr "Apply"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Cambiar a"
+msgstr "Change to"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Cifras"
+msgstr "Digits"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Desde, paso y cifras deben ser números enteros (cifras de 0 a 10)."
+msgstr "From, step and digits must be whole numbers (digits from 0 to 10)."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Deshecho: {0} archivos vuelven a su nombre anterior."
+msgstr "Undone: {0} files are back to their previous name."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Después del nombre"
+msgstr "After the name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Distinguir mayúsculas"
+msgstr "Match case"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Elegir la carpeta"
+msgstr "Choose the folder"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Elija una carpeta para empezar."
+msgstr "Choose a folder to start."
+
+#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Expresión regular"
+msgstr "Regular expression"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Expresión regular no válida: {0}"
+msgstr "Invalid regular expression: {0}"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Extensión"
+msgstr "Extension"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Filtro"
+msgstr "Filter"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Incluir subcarpetas"
+msgstr "Include subfolders"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "La carpeta «{0}» no existe."
+msgstr "The folder “{0}” does not exist."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Las reglas se aplican en orden al nombre sin la extensión. Nunca se borra ningún archivo."
+msgstr "Rules apply in order to the name without the extension. No file is ever deleted."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Letras"
+msgstr "Case"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "MAYÚSCULAS"
+msgstr "UPPERCASE"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Mantener"
+msgstr "Keep"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "No se pudo deshacer: {0}"
+msgstr "Could not undo: {0}"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "No se pudo renombrar; no se ha cambiado nada: {0}"
+msgstr "Could not rename; nothing was changed: {0}"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Nombre actual"
+msgstr "Current name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Nombre nuevo"
+msgstr "New name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Patrones separados por «;», por ejemplo *.jpg;*.png"
+msgstr "Patterns separated by “;”, for example *.jpg;*.png"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Prefijo"
+msgstr "Prefix"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Reemplazar por"
+msgstr "Replace with"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Renombra archivos por lotes con reglas en orden (buscar y reemplazar, prefijo, numeración, mayúsculas, extensión), vista previa con conflictos y Deshacer."
+msgstr "Renames files in batches with rules in order (find and replace, prefix, numbering, case, extension), a preview with conflicts and Undo."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Renombrar archivos"
+msgstr "Rename files"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Resuelva los conflictos (en rojo) antes de aplicar."
+msgstr "Resolve the conflicts (in red) before applying."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Se han renombrado {0} archivos."
+msgstr "{0} files renamed."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Se muestran solo los primeros {0} archivos."
+msgstr "Only the first {0} files are shown."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Sin cambios"
+msgstr "No change"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Sin numerar"
+msgstr "No numbering"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Sufijo"
+msgstr "Suffix"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Sustituir el nombre"
+msgstr "Replace the name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Título (cada palabra)"
+msgstr "Title Case"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "Ya existe un archivo con ese nombre."
+msgstr "A file with that name already exists."
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "cambia"
+msgstr "changes"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "demasiado largo"
+msgstr "too long"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "duplicado"
+msgstr "duplicate"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "minúsculas"
+msgstr "lowercase"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "no válido en Windows"
+msgstr "not valid on Windows"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "nombre vacío"
+msgstr "empty name"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "sin cambios"
+msgstr "unchanged"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "ya existe"
+msgstr "already exists"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "{0} archivos   ·   {1} cambian   ·   {2} con conflictos"
+msgstr "{0} files   ·   {1} change   ·   {2} with conflicts"
+
+#: lib/code/tk_showcase_util_file_renamer.dart
+msgid "¿Cambiar el nombre de {0} archivos?"
+msgstr "Rename {0} files?"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Acciones"
+msgstr "Shares"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Alimentación"
+msgstr "Food"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Cartera"
+msgstr "Portfolio"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Cartera nueva con {0} de efectivo. Se guarda en {1}"
+msgstr "New portfolio with {0} in cash. It is saved in {1}"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Cartera recuperada de {0}"
+msgstr "Portfolio restored from {0}"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Comisión"
+msgstr "Commission"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Compra"
+msgstr "Buy"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Compra: {0} {1} a {2}, comisión {3}."
+msgstr "Buy: {0} {1} at {2}, commission {3}."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Comprar"
+msgstr "Buy"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Demo con datos simulados: empresas ficticias y precios aleatorios. No es una inversión real."
+msgstr "Demo with simulated data: fictional companies and random prices. Not a real investment."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Demo reiniciada: 10.000 € de efectivo y precios nuevos."
+msgstr "Demo reset: 10,000 € in cash and new prices."
+
+#: lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pos.dart
+msgid "Efectivo"
+msgstr "Cash"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Efectivo insuficiente: necesita {0} y tiene {1}."
+msgstr "Not enough cash: you need {0} and have {1}."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Energía"
+msgstr "Energy"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Escriba una cantidad entera mayor que cero."
+msgstr "Enter a whole quantity greater than zero."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Farmacia"
+msgstr "Pharma"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Ganancia / pérdida"
+msgstr "Gain / loss"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Inversor de bolsa"
+msgstr "Stock investor"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Inversor de bolsa (demo)"
+msgstr "Stock investor (demo)"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Logística"
+msgstr "Logistics"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Mercado en marcha: precios nuevos cada segundo."
+msgstr "Market running: new prices every second."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Mercado en pausa."
+msgstr "Market paused."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Mercado simulado de empresas ficticias: compre y venda con comisión, siga su cartera y sus ganancias, y todo queda guardado."
+msgstr "Simulated market of fictional companies: buy and sell with a commission, follow your portfolio and your gains, and everything is saved."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Minería"
+msgstr "Mining"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Máx."
+msgstr "Max"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Navieras"
+msgstr "Shipping"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "No se pudo guardar la cartera: {0}"
+msgstr "The portfolio could not be saved: {0}"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Nube"
+msgstr "Cloud"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Operación"
+msgstr "Operation"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Patrimonio total"
+msgstr "Total net worth"
+
+#: lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_designer.dart
+msgid "Pausar"
+msgstr "Pause"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Precio actual"
+msgstr "Current price"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Precio medio"
+msgstr "Average price"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Reanudar"
+msgstr "Resume"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Solo tiene {0} acciones de {1}."
+msgstr "You only have {0} shares of {1}."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Símbolo"
+msgstr "Symbol"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Valor de las acciones"
+msgstr "Value of shares"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Variación"
+msgstr "Change"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Vender"
+msgstr "Sell"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Venta"
+msgstr "Sell"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Venta: {0} {1} a {2}. Resultado: {3}."
+msgstr "Sell: {0} {1} at {2}. Result: {3}."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Videojuegos"
+msgstr "Video games"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "{0} × {1} = {2}  ·  comisión {3}  ·  tiene {4}"
+msgstr "{0} × {1} = {2}  ·  commission {3}  ·  you have {4}"
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "¿Reiniciar la demo? Se borran la cartera y las órdenes, y vuelve a tener 10.000 € de efectivo."
+msgstr "Reset the demo? The portfolio and the orders are deleted, and you get 10,000 € in cash again."
+
+#: lib/code/tk_showcase_util_investor.dart
+msgid "Órdenes"
+msgstr "Orders"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "(Esta página no tiene texto: puede ser una imagen escaneada.)"
+msgstr "(This page has no text: it may be a scanned image.)"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Abajo"
+msgstr "Bottom"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Abierto: {0} ({1} páginas)"
+msgstr "Opened: {0} ({1} pages)"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Abra un PDF con el botón Abrir o con Archivo → Abrir…"
+msgstr "Open a PDF with the Open button or File → Open…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Abrir un PDF"
+msgstr "Open a PDF"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Aceptar"
+msgstr "OK"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Azul"
+msgstr "Blue"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Añadir un sello de texto…"
+msgstr "Add a text stamp…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "BORRADOR"
+msgstr "DRAFT"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Bajar"
+msgstr "Move down"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Carta"
+msgstr "Letter"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Color"
+msgstr "Color"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Contraseña para abrir el PDF (vacía = sin contraseña):"
+msgstr "Password to open the PDF (empty = no password):"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Contraseña…"
+msgstr "Password…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Derecha"
+msgstr "Right"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Deshecho: {0}"
+msgstr "Undone: {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Dividir en un PDF por página…"
+msgstr "Split into one PDF per page…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Dividir por páginas…"
+msgstr "Split by page…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Documento"
+msgstr "Document"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Documentos PDF"
+msgstr "PDF documents"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Duplicar"
+msgstr "Duplicate"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Editor de PDF"
+msgstr "PDF Editor"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Editor de PDF de ejemplo de DMarlon Studio, hecho con pypdf: ordene, gire, elimine, una y divida páginas, cambie las propiedades, añada sellos y proteja el PDF con contraseña. Nada cambia en el disco hasta que pulse Guardar."
+msgstr "Sample PDF editor from DMarlon Studio, built with pypdf: reorder, rotate, delete, merge and split pages, change the properties, add stamps and protect the PDF with a password. Nothing changes on disk until you click Save."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Elegir el PDF con las páginas que quiere insertar"
+msgstr "Choose the PDF with the pages to insert"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Elija la carpeta para los PDF de cada página"
+msgstr "Choose the folder for the one-page PDFs"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Elija una o varias páginas de la lista."
+msgstr "Select one or more pages in the list."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Elija varias páginas con Mayús o Ctrl (Cmd en el Mac). Los cambios quedan en memoria hasta que pulse Guardar."
+msgstr "Select several pages with Shift or Ctrl (Cmd on a Mac). Changes stay in memory until you click Save."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "En diagonal (marca de agua)"
+msgstr "Diagonal (watermark)"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "En el centro"
+msgstr "Center"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Este PDF usa un cifrado que necesita el paquete cryptography. Instálelo con: {0}"
+msgstr "This PDF uses encryption that needs the cryptography package. Install it with: {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Extraer a un PDF…"
+msgstr "Extract to a PDF…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Extraer las páginas elegidas…"
+msgstr "Extract the selected pages…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Girar a la derecha"
+msgstr "Rotate right"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Girar a la izquierda"
+msgstr "Rotate left"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Giro"
+msgstr "Rotation"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Gris"
+msgstr "Gray"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Guardado con contraseña ({1}): {0}"
+msgstr "Saved with a password ({1}): {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Guardado: {0}"
+msgstr "Saved: {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Guardar el PDF"
+msgstr "Save the PDF"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Insertadas {0} páginas de «{1}»."
+msgstr "Inserted {0} pages from “{1}”."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Insertar PDF…"
+msgstr "Insert PDF…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Insertar páginas"
+msgstr "Insert pages"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Insertar páginas de otro PDF…"
+msgstr "Insert pages from another PDF…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "La contraseña no es correcta."
+msgstr "The password is not correct."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Negro"
+msgstr "Black"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "No hay nada que deshacer."
+msgstr "Nothing to undo."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "No se pudo abrir «{0}»: {1}"
+msgstr "Could not open “{0}”: {1}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
+msgid "No se pudo guardar: {0}"
+msgstr "Could not save: {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Nº"
+msgstr "No."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Ordene, gire, elimine, duplique e inserte páginas de otro PDF; extraiga, divida, cambie las propiedades, añada sellos y proteja con contraseña. Con pypdf."
+msgstr "Reorder, rotate, delete, duplicate and insert pages from another PDF; extract, split, change the properties, add stamps and protect with a password. With pypdf."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Para editar PDF hace falta el paquete pypdf. Instálelo con: {0}"
+msgstr "Editing PDFs needs the pypdf package. Install it with: {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Primero abra un PDF."
+msgstr "Open a PDF first."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_inspector.dart
+msgid "Propiedades"
+msgstr "Properties"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Páginas"
+msgstr "Pages"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Páginas elegidas"
+msgstr "Selected pages"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Repita la contraseña:"
+msgstr "Repeat the password:"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Rojo"
+msgstr "Red"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Se guardará protegido con contraseña."
+msgstr "It will be saved protected with a password."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Seleccionar todas"
+msgstr "Select all"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Sello"
+msgstr "Stamp"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Sello de texto"
+msgstr "Text stamp"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Sello de texto…"
+msgstr "Text stamp…"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Sin contraseña."
+msgstr "No password."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Texto de la página"
+msgstr "Page text"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Texto de la página {0}"
+msgstr "Text of page {0}"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Un PDF necesita al menos una página: no se pueden eliminar todas."
+msgstr "A PDF needs at least one page: you cannot delete them all."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Verde"
+msgstr "Green"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "[Sello: {0}] "
+msgstr "[Stamp: {0}] "
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "_extracto"
+msgstr "_extract"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "documento.pdf"
+msgstr "document.pdf"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "{0} archivos creados en «{1}»."
+msgstr "{0} files created in “{1}”."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "{0} páginas   ·   {1} elegidas"
+msgstr "{0} pages   ·   {1} selected"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "{0} páginas extraídas en «{1}»."
+msgstr "{0} pages extracted to “{1}”."
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "{0}: {1} páginas"
+msgstr "{0}: {1} pages"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "«{0}» está protegido. Escriba la contraseña:"
+msgstr "“{0}” is protected. Enter the password:"
+
+#: lib/code/tk_showcase_util_pdf_editor.dart
+msgid "¿Antes de qué página se insertan las {0} páginas? ({1} = al final)"
+msgstr "Insert the {0} pages before which page? ({1} = at the end)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Buscando la dirección de {0}…"
+msgstr "Looking up the address of {0}…"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Comunes"
+msgstr "Common"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Detenido: {0} puertos abiertos de {1} revisados."
+msgstr "Stopped: {0} open ports out of {1} checked."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Equipo (nombre o IP)"
+msgstr "Host (name or IP)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Equipo escaneado"
+msgstr "Scanned host"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escanea los puertos TCP de un equipo con varios hilos en segundo plano: servicio y respuesta de cada uno, progreso, Detener y exportación a CSV."
+msgstr "Scans the TCP ports of a host with several background threads: service and response of each one, progress, Stop and CSV export."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escaneando {0} ({1}): {2} puertos…"
+msgstr "Scanning {0} ({1}): {2} ports…"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escanear"
+msgstr "Scan"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escanee solo equipos propios o con permiso: escanear redes ajenas puede ser ilegal."
+msgstr "Only scan your own machines or ones you have permission for: scanning other people's networks may be illegal."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escriba el equipo que quiere escanear, por ejemplo 127.0.0.1."
+msgstr "Enter the host you want to scan, for example 127.0.0.1."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escriba los puertos: números del 1 al 65535 o rangos, por ejemplo 20-25,80,443."
+msgstr "Enter the ports: numbers from 1 to 65535 or ranges, for example 20-25,80,443."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Escáner de puertos"
+msgstr "Port scanner"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Espera (s)"
+msgstr "Timeout (s)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Exportar CSV…"
+msgstr "Export CSV…"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Exportar los resultados"
+msgstr "Export the results"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Hilos"
+msgstr "Threads"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "La espera debe ser un número de segundos entre 0,05 y 10."
+msgstr "The timeout must be a number of seconds between 0.05 and 10."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Leer la respuesta (banner)"
+msgstr "Read the response (banner)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Lista o rangos (p. ej. 20-25,80,443)"
+msgstr "List or ranges (e.g. 20-25,80,443)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Los hilos deben ser un número entero entre 1 y 1000."
+msgstr "Threads must be a whole number between 1 and 1000."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Mostrar también los cerrados"
+msgstr "Also show closed ports"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "No hay resultados que exportar."
+msgstr "There are no results to export."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "No se encuentra el equipo «{0}»: {1}"
+msgstr "Host “{0}” not found: {1}"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Personalizado"
+msgstr "Custom"
+
+#: lib/code/tk_showcase_util_port_scanner.dart lib/ui/screens/dev_tools.dart
+msgid "Puerto"
+msgstr "Port"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Puertos"
+msgstr "Ports"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Respuesta del servicio"
+msgstr "Service response"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Resultados guardados en {0}."
+msgstr "Results saved to {0}."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Servicio"
+msgstr "Service"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Terminado: {0} puertos abiertos en {1:.1f} s."
+msgstr "Finished: {0} open ports in {1:.1f} s."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "Todos (1–65535)"
+msgstr "All (1–65535)"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "abierto"
+msgstr "open"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "cerrado"
+msgstr "closed"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "filtrado"
+msgstr "filtered"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "la tabla muestra {0} de {1} cerrados; el CSV los lleva todos"
+msgstr "the table shows {0} of {1} closed; the CSV has them all"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "puertos.csv"
+msgstr "ports.csv"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "{0}   ·   {1} abiertos   ·   {2} de {3} puertos   ·   {4:.1f} s"
+msgstr "{0}   ·   {1} open   ·   {2} of {3} ports   ·   {4:.1f} s"
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "«{0}» no es un puerto ni un rango válido."
+msgstr "“{0}” is not a valid port or range."
+
+#: lib/code/tk_showcase_util_port_scanner.dart
+msgid "«{0}» se sale del rango de puertos (1–65535)."
+msgstr "“{0}” is outside the port range (1–65535)."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid " · pendientes: {0}"
+msgstr " · pending: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Agua mineral"
+msgstr "Mineral water"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Añada productos al pedido antes de pagar."
+msgstr "Add products to the order before paying."
+
+#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+msgid "Base de datos (opcional)"
+msgstr "Database (optional)"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Batido de chocolate"
+msgstr "Chocolate milkshake"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Bebidas"
+msgstr "Drinks"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Bocadillo de jamón"
+msgstr "Ham sandwich"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cafetería de demostración"
+msgstr "Demo café"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Café con leche"
+msgstr "Latte"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Café solo"
+msgstr "Espresso"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cafés y tés"
+msgstr "Coffee and tea"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Caja al estilo de Odoo con imágenes, teclado, cobro, recibo y pedidos en SQLite; se conecta a Odoo para descargar los productos y enviar los pedidos a Ventas."
+msgstr "Odoo-style till with images, keypad, payment, receipt and orders in SQLite; it connects to Odoo to download the products and send the orders to Sales."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cambiar imagen…"
+msgstr "Change image…"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cambio"
+msgstr "Change"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cambio: {0}"
+msgstr "Change: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cant."
+msgstr "Qty"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Capuchino"
+msgstr "Cappuccino"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Caña de cerveza"
+msgstr "Small draught beer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Churros (6)"
+msgstr "Churros (6)"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Clic derecho en un producto para cambiar su imagen."
+msgstr "Right-click a product to change its image."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cliente de las ventas sin cliente"
+msgstr "Customer for sales without a customer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cliente de mostrador"
+msgstr "Walk-in customer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cliente: {0}"
+msgstr "Customer: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cobrar"
+msgstr "Payment"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Con tarjeta se cobra el importe exacto."
+msgstr "Card payments charge the exact amount."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Conectado como {0} ({1}), base de datos {2}."
+msgstr "Connected as {0} ({1}), database {2}."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Conexión con Odoo"
+msgstr "Odoo connection"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Conexión con Odoo guardada."
+msgstr "Odoo connection saved."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Configurar Odoo…"
+msgstr "Configure Odoo…"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Configure primero la conexión con Odoo."
+msgstr "Configure the Odoo connection first."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Copiar el recibo"
+msgstr "Copy the receipt"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cortado"
+msgstr "Cortado"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Cruasán"
+msgstr "Croissant"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "De nuevo con el catálogo de ejemplo."
+msgstr "Back to the sample catalogue."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Desc."
+msgstr "Disc."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Desc. %"
+msgstr "Disc. %"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Descargados {0} productos de Odoo en {1} categorías."
+msgstr "Downloaded {0} products from Odoo in {1} categories."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Descargando los productos de Odoo…"
+msgstr "Downloading the products from Odoo…"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Descargar productos"
+msgstr "Download products"
+
+#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/code_git.dart
+msgid "Dirección (URL)"
+msgstr "URL"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Dulces"
+msgstr "Pastries"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "El pedido lleva productos del catálogo de ejemplo y no se envía a Odoo: descargue antes los productos de Odoo."
+msgstr "The order has products from the sample catalogue and is not sent to Odoo: download the Odoo products first."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "El pedido {0} queda pendiente de enviar a Odoo: {1}"
+msgstr "Order {0} is waiting to be sent to Odoo: {1}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "El servidor tiene varias bases de datos (o no deja verlas): escriba cuál usar."
+msgstr "The server has several databases (or does not list them): enter the one to use."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "El total del pedido debe ser mayor que cero."
+msgstr "The order total must be greater than zero."
+
+#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/code_git.dart
+msgid "Elegir"
+msgstr "Choose"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Elegir cliente"
+msgstr "Choose customer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Empanada gallega"
+msgstr "Galician pie"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Escriba el usuario y la contraseña."
+msgstr "Enter the user and the password."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Escriba la dirección de Odoo, por ejemplo https://miempresa.odoo.com"
+msgstr "Enter the Odoo address, for example https://mycompany.odoo.com"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Escriba lo que entrega el cliente con el teclado de la izquierda o con el del ordenador."
+msgstr "Enter what the customer hands over with the keypad on the left or with the computer keyboard."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Este usuario tiene la verificación en dos pasos: desactívela para él o use un usuario propio para el punto de venta."
+msgstr "This user has two-factor authentication: turn it off for this user or use a dedicated user for the point of sale."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Exacto"
+msgstr "Exact"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Falta: {0}"
+msgstr "Remaining: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "IVA incluido: {0}"
+msgstr "VAT included: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "IVA {0} %: base {1}  cuota {2}"
+msgstr "VAT {0} %: base {1}  tax {2}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Imagen de «{0}»"
+msgstr "Image of “{0}”"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Importe entregado"
+msgstr "Amount tendered"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Imágenes PNG o GIF"
+msgstr "PNG or GIF images"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "La dirección no parece de un servidor Odoo ({0})."
+msgstr "The address does not look like an Odoo server ({0})."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Magdalena"
+msgstr "Muffin"
+
+#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar"
+msgstr "Show"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Más…"
+msgstr "More…"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Napolitana de chocolate"
+msgstr "Chocolate croissant"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "No se encontró la base de datos «{0}»."
+msgstr "Database “{0}” not found."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "No se pudo abrir la imagen: {0}"
+msgstr "Could not open the image: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Nueva imagen para «{0}»."
+msgstr "New image for “{0}”."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Nuevo cliente"
+msgstr "New customer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Nuevo pedido"
+msgstr "New order"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo no responde (más de {0} s)."
+msgstr "Odoo is not responding (more than {0} s)."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo no tiene productos a la venta para el punto de venta."
+msgstr "Odoo has no products for sale in the point of sale."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo respondió con un error: {0}"
+msgstr "Odoo answered with an error: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo: conectado"
+msgstr "Odoo: connected"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo: conectando…"
+msgstr "Odoo: connecting…"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo: no configurado"
+msgstr "Odoo: not configured"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo: pendiente de enviar"
+msgstr "Odoo: waiting to be sent"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Odoo: sin conexión"
+msgstr "Odoo: offline"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedido cobrado"
+msgstr "Order paid"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedido de venta: {0}"
+msgstr "Sales order: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedido {0}"
+msgstr "Order {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedido {0} cobrado: {1} ({2})."
+msgstr "Order {0} paid: {1} ({2})."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedido {0} enviado a Odoo: {1}."
+msgstr "Order {0} sent to Odoo: {1}."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedidos de hoy"
+msgstr "Today's orders"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedidos de hoy: {0} · {1}"
+msgstr "Today's orders: {0} · {1}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedidos guardados en {0}"
+msgstr "Orders saved in {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Pedidos: {0} · Total {1} · Efectivo {2} · Tarjeta {3}"
+msgstr "Orders: {0} · Total {1} · Cash {2} · Card {3}"
+
+#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+msgid "Probar conexión"
+msgstr "Test connection"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Punto de venta"
+msgstr "Point of sale"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Quitar imagen"
+msgstr "Remove image"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Recibo copiado al portapapeles."
+msgstr "Receipt copied to the clipboard."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Refresco de cola"
+msgstr "Cola"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Salados"
+msgstr "Savoury"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Sin cliente"
+msgstr "No customer"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Sincronizar pedidos ({0} pendientes)"
+msgstr "Sync orders ({0} pending)"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Sándwich mixto"
+msgstr "Ham and cheese toastie"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "TOTAL"
+msgstr "TOTAL"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Tarta de queso"
+msgstr "Cheesecake"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Tortilla de patatas"
+msgstr "Spanish omelette"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Tostada con tomate"
+msgstr "Toast with tomato"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Total a pagar"
+msgstr "Amount due"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Total: {0}"
+msgstr "Total: {0}"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Té verde"
+msgstr "Green tea"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Use el usuario y la contraseña con los que entra en Odoo. La contraseña se guarda en la base de datos del punto de venta (pos.sqlite) de este equipo. Si el usuario tiene la verificación en dos pasos, use un usuario propio para el punto de venta, sin ella. Sin base de datos, se usa la única que tenga el servidor."
+msgstr "Use the user and password you log in to Odoo with. The password is stored in the point of sale database (pos.sqlite) on this computer. If the user has two-factor authentication, use a dedicated user for the point of sale without it. Without a database, the server's only database is used."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Usuario o contraseña incorrectos."
+msgstr "Wrong user or password."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Vaciar pedido"
+msgstr "Clear order"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Validar"
+msgstr "Validate"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Volver al catálogo de ejemplo"
+msgstr "Back to the sample catalogue"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "Zumo de naranja"
+msgstr "Orange juice"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "¡Gracias por su visita!"
+msgstr "Thank you for your visit!"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "«{0}» vuelve a tener su imagen de siempre."
+msgstr "“{0}” has its usual image again."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "¿Vaciar el pedido actual?"
+msgstr "Clear the current order?"
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "¿Volver al catálogo de ejemplo? Se quitan los productos descargados de Odoo."
+msgstr "Go back to the sample catalogue? The products downloaded from Odoo are removed."
+
+#: lib/code/tk_showcase_util_pos.dart
+msgid "← Volver"
+msgstr "← Back"
+
 #: lib/code/tk_showcase_web.dart
 msgid "Ahora está en «{0}»."
 msgstr "It is now in “{0}”."
@@ -4846,10 +6378,6 @@ msgstr "Customer added: {0}"
 #: lib/code/tk_showcase_web.dart
 msgid "Clientes y productos"
 msgstr "Customers and products"
-
-#: lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
-msgid "Código"
-msgstr "Code"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Descargando {0}.html"
@@ -5222,10 +6750,6 @@ msgstr "A React Native mobile app made with screens: login, catalog, product pag
 #: lib/code/tk_showcase_web_next.dart
 msgid "Una web de verdad hecha con pantallas: login, catálogo con búsqueda y categorías, ficha, carrito y pago, adaptable a escritorio y móvil."
 msgstr "A real website made with screens: login, catalog with search and categories, product page, cart and checkout, responsive for desktop and mobile."
-
-#: lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Aceptar"
-msgstr "OK"
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Aviso"
@@ -5612,14 +7136,6 @@ msgid "Cerrar"
 msgstr "Close"
 
 #: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Distinguir mayúsculas"
-msgstr "Match case"
-
-#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Expresión regular"
-msgstr "Regular expression"
-
-#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Reemplazar"
 msgstr "Replace"
 
@@ -5670,10 +7186,6 @@ msgstr "For example: a blue calculator, flat style"
 #: lib/ui/icon_ai.dart
 msgid "Usar este icono"
 msgstr "Use this icon"
-
-#: lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Actualizar"
-msgstr "Refresh"
 
 #: lib/ui/screens/budget_screen.dart
 msgid "Agotado: la IA está bloqueada en este proyecto."
@@ -5802,10 +7314,6 @@ msgstr "Attach images or files"
 #: lib/ui/screens/code_claude.dart
 msgid "Aplicado: {0}"
 msgstr "Applied: {0}"
-
-#: lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
-msgid "Aplicar"
-msgstr "Apply"
 
 #: lib/ui/screens/code_claude.dart
 msgid "Aplicar todo"
@@ -6024,20 +7532,8 @@ msgid "Deshacer el último commit"
 msgstr "Undo last commit"
 
 #: lib/ui/screens/code_git.dart
-msgid "Dirección (URL)"
-msgstr "URL"
-
-#: lib/ui/screens/code_git.dart
 msgid "Dirección del repositorio"
 msgstr "Repository URL"
-
-#: lib/ui/screens/code_git.dart
-msgid "Elegir"
-msgstr "Choose"
-
-#: lib/ui/screens/code_git.dart lib/ui/screens/tk_designer.dart
-msgid "Elegir…"
-msgstr "Choose…"
 
 #: lib/ui/screens/code_git.dart
 msgid "Eliminar del remoto"
@@ -6560,10 +8056,6 @@ msgid "Base de datos"
 msgstr "Database"
 
 #: lib/ui/screens/dev_tools.dart
-msgid "Base de datos (opcional)"
-msgstr "Database (optional)"
-
-#: lib/ui/screens/dev_tools.dart
 msgid "Borrar historial"
 msgstr "Clear history"
 
@@ -6730,14 +8222,6 @@ msgstr "New request"
 #: lib/ui/screens/dev_tools.dart
 msgid "Probando…"
 msgstr "Testing…"
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Probar conexión"
-msgstr "Test connection"
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Puerto"
-msgstr "Port"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Pulse «Enviar» para ver la respuesta."
@@ -7083,10 +8567,6 @@ msgstr "No pending changes."
 msgid "Subido."
 msgstr "Pushed."
 
-#: lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Subir"
-msgstr "Move up"
-
 #: lib/ui/screens/github_dialog.dart
 msgid "Token de GitHub"
 msgstr "GitHub token"
@@ -7135,10 +8615,6 @@ msgstr "Copied."
 msgid "Los clientes ya configurados dejarán de conectarse hasta que les dé el token nuevo."
 msgstr "Clients already set up will stop connecting until you give them the new token."
 
-#: lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
-msgid "Mostrar"
-msgstr "Show"
-
 #: lib/ui/screens/mcp_settings.dart
 msgid "No se encontró Claude Code. Instálelo desde https://claude.com/claude-code o copie la orden y ejecútela en una terminal."
 msgstr "Claude Code was not found. Install it from https://claude.com/claude-code or copy the command and run it in a terminal."
@@ -7159,25 +8635,13 @@ msgstr "Add new"
 msgid "Buscar proyectos"
 msgstr "Search projects"
 
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
-msgid "Carpeta"
-msgstr "Folder"
-
 #: lib/ui/screens/project_browser.dart
 msgid "Componentes"
 msgstr "Components"
 
-#: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Duplicar"
-msgstr "Duplicate"
-
 #: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "GitHub…"
 msgstr "GitHub…"
-
-#: lib/ui/screens/project_browser.dart
-msgid "Modificado"
-msgstr "Modified"
 
 #: lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Mostrar la carpeta"
@@ -7887,10 +9351,6 @@ msgstr "Same height"
 msgid "Igualar el ancho"
 msgstr "Same width"
 
-#: lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Imágenes"
-msgstr "Images"
-
 #: lib/ui/screens/tk_designer.dart
 msgid "Instalando Electron y React (solo la primera vez; unos 100 MB)…"
 msgstr "Installing Electron and React (first time only; about 100 MB)…"
@@ -7950,10 +9410,6 @@ msgstr "Step over (F8)"
 #: lib/ui/screens/tk_designer.dart
 msgid "Pascal generado"
 msgstr "Generated Pascal"
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Pausar"
-msgstr "Pause"
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Pedir"
@@ -8184,10 +9640,6 @@ msgid "BASE DE DATOS"
 msgstr "DATABASE"
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "Bajar"
-msgstr "Move down"
-
-#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Barra superior"
 msgstr "Top bar"
 
@@ -8206,10 +9658,6 @@ msgstr "Floating button: icon"
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Clave anon (pública)"
 msgstr "Anon key (public)"
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Color"
-msgstr "Color"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Color del icono"
@@ -8332,10 +9780,6 @@ msgid "Paquetes de pub.dev (uno por línea)"
 msgstr "pub.dev packages (one per line)"
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "Proporción"
-msgstr "Flex"
-
-#: lib/ui/screens/tk_flutter_designer.dart
 msgid "Proyecto (referencia)"
 msgstr "Project (reference)"
 
@@ -8362,10 +9806,6 @@ msgstr "Subtitle"
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Tachado (expresión)"
 msgstr "Strikethrough (expression)"
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Tamaño"
-msgstr "Size"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Teclado"
@@ -8452,10 +9892,6 @@ msgid "No escriba tokens ni contraseñas aquí: guárdelos como variables en el 
 msgstr "Do not write tokens or passwords here: save them as variables in the API module (Variables) and put their name in “Variable with the token or key”. In the URL and the headers, {{name}} uses those variables at run time."
 
 #: lib/ui/screens/tk_inspector.dart
-msgid "Propiedades"
-msgstr "Properties"
-
-#: lib/ui/screens/tk_inspector.dart
 msgid "Página"
 msgstr "Page"
 
@@ -8476,10 +9912,6 @@ msgid "{0}: sin equivalente en una aplicación web."
 msgstr "{0}: no equivalent in a web app."
 
 #: lib/ui/theme.dart
-msgid "Azul"
-msgstr "Blue"
-
-#: lib/ui/theme.dart
 msgid "Azul oscuro"
 msgstr "Dark blue"
 
@@ -8490,10 +9922,6 @@ msgstr "Plum"
 #: lib/ui/theme.dart
 msgid "Granate"
 msgstr "Crimson"
-
-#: lib/ui/theme.dart
-msgid "Gris"
-msgstr "Gray"
 
 #: lib/ui/theme.dart
 msgid "Lima"
@@ -8508,24 +9936,12 @@ msgid "Naranja"
 msgstr "Orange"
 
 #: lib/ui/theme.dart
-msgid "Negro"
-msgstr "Black"
-
-#: lib/ui/theme.dart
 msgid "Púrpura"
 msgstr "Purple"
 
 #: lib/ui/theme.dart
-msgid "Rojo"
-msgstr "Red"
-
-#: lib/ui/theme.dart
 msgid "Turquesa"
 msgstr "Teal"
-
-#: lib/ui/theme.dart
-msgid "Verde"
-msgstr "Green"
 
 #: lib/ui/theme.dart
 msgid "Verde oscuro"

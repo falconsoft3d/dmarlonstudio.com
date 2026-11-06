@@ -27,6 +27,14 @@ part 'tk_showcase_flutter_cloud.dart';
 part 'tk_showcase_flutter_desktop.dart';
 part 'tk_showcase_web_next.dart';
 part 'tk_showcase_windows.dart';
+part 'tk_showcase_util_investor.dart';
+part 'tk_showcase_util_pdf_editor.dart';
+part 'tk_showcase_util_disk_usage.dart';
+part 'tk_showcase_util_port_scanner.dart';
+part 'tk_showcase_util_pos.dart';
+part 'tk_showcase_util_file_renamer.dart';
+part 'tk_showcase_util_mp3_player.dart';
+part 'tk_showcase_util_train_monitor.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
 String tkUnitComment({
@@ -142,6 +150,12 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _viewer3d(t),
   _reports(t),
   _aiTexts(t),
+  tkUtilPdfEditor(t),
+  tkUtilDiskUsage(t),
+  tkUtilPortScanner(t),
+  tkUtilInvestor(t),
+  tkUtilPos(t),
+  tkUtilFileRenamer(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

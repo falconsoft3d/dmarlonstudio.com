@@ -68,6 +68,16 @@ const carousel = [
   'rn_store',
   'flutter_shipping',
   'flutter_todo',
+  'react_store',
+  'html_store',
+  'vue_store',
+  'go_store',
+  'pdf_editor',
+  'disk_usage',
+  'port_scanner',
+  'investor',
+  'pos',
+  'file_renamer',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

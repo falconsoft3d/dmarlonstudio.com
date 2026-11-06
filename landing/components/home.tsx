@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from "lucide-react";
+import { AppWindow, ArrowRight, Download } from "lucide-react";
 import { Downloads } from "@/components/downloads";
 import { ExamplesCarousel } from "@/components/examples-carousel";
 import { SiteFooter } from "@/components/site-footer";
@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { TargetBadge } from "@/components/target-logo";
 import { contentOf } from "@/content";
 import type { Section, StepStatus, Target } from "@/content/types";
-import type { Lang } from "@/lib/i18n";
+import { PATHS, type Lang } from "@/lib/i18n";
 
 function SectionBlock({ s, alt }: { s: Section; alt: boolean }) {
   return (
@@ -76,6 +76,13 @@ export function Home({ lang }: { lang: Lang }) {
               >
                 {hero.secondary}
                 <ArrowRight className="size-4" aria-hidden />
+              </a>
+              <a
+                href={PATHS.demos[lang]}
+                className="inline-flex items-center gap-2 rounded-md border border-line bg-surface px-5 py-2.5 font-medium transition-colors hover:border-accent hover:text-accent"
+              >
+                <AppWindow className="size-4" aria-hidden />
+                {hero.demos}
               </a>
             </div>
           </div>

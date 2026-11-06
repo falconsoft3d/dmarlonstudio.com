@@ -3,6 +3,44 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.43 — 2026-11-06
+
+- **Demos para descargar** en la web (menú **Demos**, dmarlonstudio.com/demos):
+  diez utilidades hechas con el estudio y compiladas para **macOS y
+  Windows**, en español y en inglés (en macOS se abren siempre en claro), para enseñar lo que se puede hacer con
+  él: calculadora, bloc de notas, editor de PDF, espacio en disco, escáner de
+  puertos, inversor de bolsa, punto de venta, agenda, conversor de moneda y
+  renombrar archivos. Cada una tiene su captura con el logotipo de su
+  tecnología y lo que demuestra. Las compila GitHub Actions
+  (`.github/workflows/demos.yml`): el estudio exporta cada ejemplo y
+  `scripts/build_demos.py` lo empaqueta con PyInstaller; los paquetes de pip
+  que necesite se declaran en el código con `REQUIRES = [...]`.
+- **Seis ejemplos nuevos** de escritorio (tkinter):
+  - **Editor de PDF** (con `pypdf`): girar, borrar, mover, duplicar, insertar
+    otro PDF, extraer, dividir, propiedades, sello de texto, contraseña y
+    deshacer.
+  - **Espacio en disco**: un mapa del disco al estilo de WinDirStat
+    (rectángulos por tamaño y colores por tipo, con zoom), árbol de
+    carpetas, los 100 archivos más grandes y totales por tipo; análisis en
+    segundo plano y «Mostrar en la carpeta», «Abrir» y «Mover a la
+    Papelera» (nunca borra para siempre).
+  - **Escáner de puertos**: conexiones TCP en paralelo con progreso,
+    servicio y cabecera de cada puerto, y exportación a CSV.
+  - **Inversor de bolsa (demo)**: empresas ficticias con precios simulados
+    en vivo, compra y venta con comisión, cartera, órdenes y gráfico.
+  - **Punto de venta** al estilo del de Odoo: productos con imagen (se puede
+    cambiar), categorías, teclado de cantidad, descuento y precio, cobro con
+    cambio, ticket y pedidos del día en SQLite. Se conecta a **Odoo** con
+    URL, usuario y contraseña (la sesión del cliente web): descarga los
+    productos con su precio e imagen y crea y confirma los pedidos en Ventas;
+    sin conexión los deja pendientes y los envía después, sin duplicarlos.
+  - **Renombrar archivos**: reglas encadenadas, vista previa con conflictos,
+    intercambios seguros y deshacer.
+- **Portada**: las capturas del carrusel de Flutter, React Native, Next.js,
+  C++, Pascal y consola no se veían (eran PNG y se pedían en JPEG); ahora
+  `scripts/build-docs.mjs` convierte también las del carrusel y las de las
+  demos. Cada captura lleva el logotipo de su tecnología.
+
 ## 1.0.42 — 2026-11-06
 
 - **Web (Vue)** con el editor de pantallas: las mismas pantallas y la misma

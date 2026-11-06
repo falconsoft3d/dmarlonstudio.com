@@ -1,0 +1,41 @@
+import type { TargetIcon } from "@/content/types";
+
+/** La tecnología de cada ejemplo: el logotipo y el nombre que se ven sobre su imagen. */
+export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> = {
+  notepad: { icon: "python", label: "Python · tkinter" },
+  line_chart: { icon: "python", label: "Python · tkinter" },
+  stocks: { icon: "python", label: "Python · tkinter" },
+  viewer_3d: { icon: "python", label: "Python · tkinter" },
+  agenda: { icon: "python", label: "Python · tkinter" },
+  mail_client: { icon: "python", label: "Python · tkinter" },
+  currency: { icon: "python", label: "Python · tkinter" },
+  snake: { icon: "python", label: "Python · tkinter" },
+  music_player: { icon: "python", label: "Python · tkinter" },
+  windows_dialogs: { icon: "python", label: "Python · tkinter" },
+  calculator: { icon: "python", label: "Python · tkinter" },
+  web_crm: { icon: "flask", label: "Flask" },
+  web_invoicing: { icon: "flask", label: "Flask" },
+  web_shop: { icon: "flask", label: "Flask" },
+  web_blog: { icon: "flask", label: "Flask" },
+  electron_calculator: { icon: "electron", label: "Electron + React" },
+  electron_notepad: { icon: "electron", label: "Electron + React" },
+  chrome_notes: { icon: "chrome", label: "Chrome" },
+  chrome_words: { icon: "chrome", label: "Chrome" },
+  next_tasks: { icon: "next", label: "Next.js" },
+  web_next_store: { icon: "next", label: "Next.js" },
+  cpp_calculator: { icon: "cpp", label: "C++ · FLTK" },
+  pascal_calculator: { icon: "lazarus", label: "Pascal · Lazarus" },
+  console_animals: { icon: "console", label: "Python" },
+  flutter_store: { icon: "flutter", label: "Flutter" },
+  flutter_inventory: { icon: "flutter", label: "Flutter" },
+  flutter_shipping: { icon: "flutter", label: "Flutter" },
+  flutter_todo: { icon: "flutter", label: "Flutter" },
+  rn_store: { icon: "react", label: "React Native" },
+  react_store: { icon: "react", label: "React · Vite" },
+  html_store: { icon: "html", label: "HTML" },
+  vue_store: { icon: "vue", label: "Vue · Vite" },
+  go_store: { icon: "go", label: "Go" },
+};
+
+/** La captura de un ejemplo (JPEG; scripts/build-docs.mjs convierte los PNG). */
+export const exampleImage = (lang: string, seed: string) => `/examples/${lang}/${seed}.jpg`;

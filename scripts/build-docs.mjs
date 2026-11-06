@@ -43,9 +43,12 @@ function chrome() {
   return found;
 }
 
-/** PNG nuevos de las capturas → JPEG de 1600 px. */
+/** PNG nuevos de las capturas (manual, carrusel de ejemplos y demos) → JPEG de 1600 px. */
 function optimizeShots() {
-  const dir = join(landing, "public", "manual");
+  for (const folder of ["manual", "examples", "demos"]) optimizeFolder(join(landing, "public", folder));
+}
+
+function optimizeFolder(dir) {
   if (!existsSync(dir)) return;
   for (const lang of readdirSync(dir)) {
     const sub = join(dir, lang);

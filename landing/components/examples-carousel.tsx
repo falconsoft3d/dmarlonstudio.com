@@ -3,6 +3,8 @@
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import type { Content } from "@/content/types";
+import { TechChip } from "@/components/tech-chip";
+import { EXAMPLE_TECH, exampleImage } from "@/lib/examples";
 import type { Lang } from "@/lib/i18n";
 
 const DELAY = 5000;
@@ -64,7 +66,7 @@ export function ExamplesCarousel({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             key={it.seed}
-            src={`/examples/${lang}/${it.seed}.jpg`}
+            src={exampleImage(lang, it.seed)}
             alt={`${it.name}: ${it.text}`}
             width={1360}
             height={860}
@@ -75,6 +77,14 @@ export function ExamplesCarousel({
             }`}
           />
         ))}
+        {EXAMPLE_TECH[current.seed] && (
+          <TechChip
+            key={current.seed}
+            icon={EXAMPLE_TECH[current.seed].icon}
+            label={EXAMPLE_TECH[current.seed].label}
+            className="absolute right-3 bottom-3"
+          />
+        )}
         <button
           type="button"
           onClick={() => go(index - 1)}

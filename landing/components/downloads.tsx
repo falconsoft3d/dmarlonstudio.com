@@ -7,7 +7,7 @@ import type { Content } from "@/content";
 import { DOWNLOADS, RELEASES_URL, type Platform } from "@/lib/downloads";
 
 /** Sistema del visitante; en el servidor no se sabe (null). */
-function useVisitorPlatform(): Platform | null {
+export function useVisitorPlatform(): Platform | null {
   return useSyncExternalStore(
     () => () => {},
     () => {

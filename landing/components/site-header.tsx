@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { Content } from "@/content";
 import { REPO_URL } from "@/lib/downloads";
-import { HOME, type Alternates, type Lang } from "@/lib/i18n";
+import { HOME, PATHS, type Alternates, type Lang } from "@/lib/i18n";
 
 export function SiteHeader({ lang, t, alternates }: { lang: Lang; t: Content; alternates?: Alternates }) {
   return (
@@ -22,6 +22,9 @@ export function SiteHeader({ lang, t, alternates }: { lang: Lang; t: Content; al
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-2">
+          <a href={PATHS.demos[lang]} className="rounded-md px-2 py-1.5 text-sm text-muted transition-colors hover:text-ink lg:hidden">
+            {t.footer.demos}
+          </a>
           <LanguageSwitch lang={lang} label={t.header.languageLabel} alternates={alternates} />
           <ThemeToggle labels={t.theme} />
           <a

@@ -938,6 +938,54 @@ export const manualEn: Manual = {
             },
           ],
         },
+        {
+          id: "odoo-bim",
+          title: "Example: offline Odoo and BIM projects",
+          blocks: [
+            {
+              type: "p",
+              text: "The **Offline Odoo (Pascal)** example is a native app that works with Odoo 8 to 20 over JSON-RPC, online and offline: dashboard, customers, products, sales, point of sale and, if the Odoo database has **BIM 2.0** (the `base_bim_2` module), the **BIM projects** page to make projects and budgets by concepts. It can be downloaded already built from the **Demos** page.",
+            },
+            {
+              type: "img",
+              src: shot("pascal-odoo-bim"),
+              alt: "The BIM projects page: the concept tree and the table of the selection",
+              caption: "BIM projects, like the BIM 2.0 concept tree: the tree on the left; on the right, what is inside the selected item.",
+            },
+            {
+              type: "ol",
+              items: [
+                "In **Settings**, type the Odoo address, database, user and password and press **Connect and download**. If Odoo has BIM 2.0, **BIM projects** appears in the menu, after **Point of sale**.",
+                "Choose an Odoo project or create one with **New project…** (name and, optionally, customer). Then create its budget with **New…**.",
+                "In the tree, with nothing selected (or with **⌂**), add the chapters; select a chapter to add its items and an item to add its resources: labour, equipment, material, subcontract or function. The editor below suggests the type and code (01, 01.01, MO001…); type the name, quantity, price and unit and press **Add child**, **Same level** or **+**.",
+                "The table shows what is inside the selection with its **Quantity**, **Cost** and **Balance**, and the totals. Select a row to change it with **Apply**; **Detail**, a double click or Enter open it.",
+                "Press **UPD · Send to Odoo**: online it is uploaded at once; offline it waits in **Sync** and is sent when the network is back. Odoo recalculates the amounts (UPD) and the budget gets its PSU… code.",
+              ],
+            },
+            {
+              type: "table",
+              head: ["Key", "In the tree or the table"],
+              rows: [
+                ["N", "Add a child to the selection"],
+                ["Shift + N", "Add at the same level"],
+                ["Del", "Delete (with everything inside)"],
+                ["Enter", "Open (go into the concept)"],
+                ["U", "Send the budget to Odoo (UPD)"],
+                ["E / Shift + E", "Expand or collapse the whole tree"],
+              ],
+            },
+            {
+              type: "note",
+              tone: "info",
+              text: "Amounts are worked out as in BIM: a resource, quantity × price; an item, its quantity × the sum of its resources (or its price, if it has none); a chapter, the sum of what is inside. Chapters go on the first level, items inside a chapter and resources inside an item.",
+            },
+            {
+              type: "note",
+              tone: "info",
+              text: "No duplicates: the project carries its DMS-… reference in its notes, the budget in its origin and each concept in its «id_import». Before creating anything it is looked up in Odoo, so resending duplicates nothing and an interrupted upload carries on where it stopped. Budgets already in Odoo are shown in the same tree (they are changed in Odoo). Tested with BIM 2.0 on Odoo 18 and 20.",
+            },
+          ],
+        },
       ],
     },
     // ------------------------------------------------------------- flutter

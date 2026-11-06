@@ -886,9 +886,9 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
           // el presupuesto; la barra (+, inicio, quitar, ruta y UPD); a la
           // izquierda el árbol y a la derecha lo que hay dentro de lo elegido
           // (Código, Nombre, Cantidad, Costo, Saldo), con el editor debajo.
-          onPage(text('LblBimProj', 20, oy + 14, 40, 20, tc('bim', markTrc('bim', 'Obra')), fg: muted), 7),
+          onPage(text('LblBimProj', 20, oy + 14, 56, 20, tc('bim', markTrc('bim', 'Obra')), fg: muted), 7),
           onPage(
-            _w('Combobox', 'BimProject', 60, oy + 10, 300, 28, {'state': 'readonly'}, {
+            _w('Combobox', 'BimProject', 76, oy + 10, 284, 28, {'state': 'readonly'}, {
               'select': 'BimProject_select',
             }),
             7,

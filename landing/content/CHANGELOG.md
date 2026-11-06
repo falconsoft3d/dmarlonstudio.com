@@ -3,6 +3,16 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.50 — 2026-11-06
+
+- **Manual**: sección nueva «Ejemplo: Odoo sin conexión y obras BIM» en el
+  capítulo de Pascal (español e inglés), con su captura, los pasos para
+  hacer una obra y su presupuesto por conceptos, los atajos del árbol y
+  cómo se calculan los importes y se evitan los duplicados.
+- **Página de la demo** «Odoo sin conexión»: el tercer paso son ahora los
+  presupuestos de obra de BIM 2.0, con su captura; la tarjeta lo dice.
+- En inglés, «Project» ya no se monta sobre la lista de obras.
+
 ## 1.0.49 — 2026-11-06
 
 - **Obras BIM, como el árbol de conceptos de BIM 2.0** (su manual): a la

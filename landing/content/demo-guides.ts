@@ -114,11 +114,11 @@ const es: Record<string, DemoGuide> = {
   },
   pascal_odoo: {
     intro:
-      "Una aplicación nativa en Object Pascal (Lazarus) para trabajar con Odoo 8 a 20 con y sin conexión: panel de indicadores, clientes, productos, presupuestos y un punto de venta que crea en Odoo el pedido, la entrega y la factura.",
+      "Una aplicación nativa en Object Pascal (Lazarus) para trabajar con Odoo 8 a 20 con y sin conexión: panel de indicadores, clientes, productos, presupuestos, un punto de venta que crea en Odoo el pedido, la entrega y la factura y, con BIM 2.0, obras y presupuestos por conceptos.",
     steps: [
       { title: "El panel de ventas", text: "Indicadores del mes, ventas por mes, pedidos por estado y mejores clientes, dibujados a partir de los datos descargados de Odoo." },
-      { title: "Venda sin conexión", text: "Cree clientes, presupuestos o ventas en el punto de venta aunque no haya red: se guardan en su equipo como pendientes." },
-      { title: "Sincronice sin duplicados", text: "Al volver la conexión se envía todo a Odoo con una referencia única, así que nunca se crea nada dos veces aunque se corte a medias." },
+      { title: "Venda sin conexión", text: "Cree clientes, presupuestos o ventas en el punto de venta aunque no haya red: se guardan como pendientes y, al volver la conexión, llegan a Odoo con una referencia única, sin duplicados aunque se corte a medias." },
+      { title: "Presupuestos de obra (BIM 2.0)", text: "Con el módulo BIM 2.0 en Odoo, la página Obras BIM es su árbol de conceptos: capítulos, partidas y recursos con cantidad y precio, los importes como en BIM y sus atajos (N, Mayús + N, Supr, U). Se hace sin conexión y UPD lo sube a Odoo." },
     ],
   },
   flutter_store: {
@@ -270,11 +270,11 @@ const en: Record<string, DemoGuide> = {
     ],
   },
   pascal_odoo: {
-    intro: "A native Object Pascal (Lazarus) app to work with Odoo 8 to 20 online and offline: KPI dashboard, customers, products, quotations and a point of sale that creates the order, delivery and invoice in Odoo.",
+    intro: "A native Object Pascal (Lazarus) app to work with Odoo 8 to 20 online and offline: KPI dashboard, customers, products, quotations, a point of sale that creates the order, delivery and invoice in Odoo and, with BIM 2.0, projects and budgets by concepts.",
     steps: [
       { title: "The sales dashboard", text: "Month KPIs, sales by month, orders by status and top customers, drawn from the data downloaded from Odoo." },
-      { title: "Sell offline", text: "Create customers, quotations or point-of-sale sales with no network: they are saved on your computer as pending." },
-      { title: "Sync without duplicates", text: "When the connection is back everything goes to Odoo with a unique reference, so nothing is ever created twice even if it stops halfway." },
+      { title: "Sell offline", text: "Create customers, quotations or point-of-sale sales with no network: they are saved as pending and, when the connection is back, reach Odoo with a unique reference, without duplicates even if it stops halfway." },
+      { title: "Construction budgets (BIM 2.0)", text: "With the BIM 2.0 module in Odoo, the BIM projects page is its concept tree: chapters, items and resources with quantity and price, amounts worked out as in BIM and its shortcuts (N, Shift + N, Del, U). It works offline and UPD uploads it to Odoo." },
     ],
   },
   flutter_store: {

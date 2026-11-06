@@ -938,6 +938,54 @@ export const manualEs: Manual = {
             },
           ],
         },
+        {
+          id: "odoo-bim",
+          title: "Ejemplo: Odoo sin conexión y obras BIM",
+          blocks: [
+            {
+              type: "p",
+              text: "El ejemplo **Odoo sin conexión (Pascal)** es una aplicación nativa que trabaja con Odoo 8 a 20 por JSON-RPC, con y sin conexión: panel, clientes, productos, ventas, punto de venta y, si la base de datos de Odoo tiene **BIM 2.0** (el módulo `base_bim_2`), la página **Obras BIM** para hacer obras y presupuestos por conceptos. Se descarga ya compilado en la página **Demos**.",
+            },
+            {
+              type: "img",
+              src: shot("pascal-odoo-bim"),
+              alt: "La página Obras BIM: el árbol de conceptos y la tabla de lo elegido",
+              caption: "Obras BIM, como el árbol de conceptos de BIM 2.0: a la izquierda el árbol; a la derecha, lo que hay dentro de la partida elegida.",
+            },
+            {
+              type: "ol",
+              items: [
+                "En **Configuración**, escriba la dirección de Odoo, la base de datos, el usuario y la contraseña y pulse **Conectar y descargar**. Si Odoo tiene BIM 2.0, aparece **Obras BIM** en el menú, detrás de **Punto de venta**.",
+                "Elija una obra de Odoo o cree una con **Nueva obra…** (nombre y, si quiere, cliente). Luego cree su presupuesto con **Nuevo…**.",
+                "En el árbol, sin elegir nada (o con **⌂**), añada los capítulos; elija un capítulo para añadir sus partidas y una partida para añadir sus recursos: mano de obra, equipo, material, subcontrata o función. El editor de debajo propone el tipo y el código (01, 01.01, MO001…); escriba el nombre, la cantidad, el precio y la unidad y pulse **Añadir hijo**, **Mismo nivel** o **+**.",
+                "La tabla muestra lo que hay dentro de lo elegido con su **Cantidad**, **Costo** y **Saldo**, y los totales. Elija una fila para cambiarla con **Aplicar**; **Detalle**, el doble clic o Intro entran en ella.",
+                "Pulse **UPD · Enviar a Odoo**: con conexión se sube al momento; sin ella, espera en **Sincronización** y se envía al volver la red. Odoo recalcula los importes (UPD) y el presupuesto queda con su código PSU….",
+              ],
+            },
+            {
+              type: "table",
+              head: ["Tecla", "En el árbol o en la tabla"],
+              rows: [
+                ["N", "Añadir un hijo de lo elegido"],
+                ["Mayús + N", "Añadir al mismo nivel"],
+                ["Supr", "Eliminar (con lo que lleva dentro)"],
+                ["Intro", "Abrir (entrar en el concepto)"],
+                ["U", "Enviar el presupuesto a Odoo (UPD)"],
+                ["E / Mayús + E", "Abrir o cerrar todo el árbol"],
+              ],
+            },
+            {
+              type: "note",
+              tone: "info",
+              text: "Los importes se calculan como en BIM: un recurso, cantidad × precio; una partida, su cantidad × la suma de sus recursos (o su precio, si no tiene); un capítulo, la suma de lo que lleva dentro. Los capítulos van en el primer nivel, las partidas dentro de un capítulo y los recursos dentro de una partida.",
+            },
+            {
+              type: "note",
+              tone: "info",
+              text: "Sin duplicados: la obra lleva su referencia DMS-… en las observaciones, el presupuesto en su origen y cada concepto en su «id_import». Antes de crear algo se busca en Odoo, así que reenviar no duplica nada y un envío cortado sigue donde se quedó. Los presupuestos que ya están en Odoo se ven en el mismo árbol (se cambian en Odoo). Probado con BIM 2.0 en Odoo 18 y 20.",
+            },
+          ],
+        },
       ],
     },
     // ------------------------------------------------------------- flutter

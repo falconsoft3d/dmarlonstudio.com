@@ -199,8 +199,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       pascal_odoo: {
         name: "Odoo sin conexión (Pascal)",
-        text: "Un panel de ventas nativo para Odoo 8 a 20: clientes, productos y presupuestos que se trabajan sin conexión y se envían a Odoo al volver, sin duplicados.",
-        shows: ["Una app nativa en Object Pascal (Lazarus)", "JSON-RPC con todas las versiones de Odoo", "Panel con indicadores y gráficos propios"],
+        text: "Un panel de ventas nativo para Odoo 8 a 20: clientes, productos, presupuestos, punto de venta y obras de BIM 2.0, que se trabajan sin conexión y se envían a Odoo al volver, sin duplicados.",
+        shows: ["Una app nativa en Object Pascal (Lazarus)", "JSON-RPC con todas las versiones de Odoo", "Presupuestos de obra por conceptos (BIM 2.0)"],
       },
       file_renamer: {
         name: "Renombrar archivos",
@@ -357,8 +357,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       pascal_odoo: {
         name: "Offline Odoo (Pascal)",
-        text: "A native sales cockpit for Odoo 8 to 20: customers, products and quotations you work on offline and send to Odoo when you are back, without duplicates.",
-        shows: ["A native app in Object Pascal (Lazarus)", "JSON-RPC with every Odoo version", "A dashboard with KPIs and custom charts"],
+        text: "A native sales cockpit for Odoo 8 to 20: customers, products, quotations, point of sale and BIM 2.0 projects you work on offline and send to Odoo when you are back, without duplicates.",
+        shows: ["A native app in Object Pascal (Lazarus)", "JSON-RPC with every Odoo version", "Construction budgets by concepts (BIM 2.0)"],
       },
       file_renamer: {
         name: "File renamer",

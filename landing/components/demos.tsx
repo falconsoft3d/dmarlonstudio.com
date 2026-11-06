@@ -53,7 +53,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Once utilidades para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Doce utilidades para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -107,7 +107,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: once utilidades de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: doce utilidades de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -189,6 +189,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un reproductor al estilo de los clásicos: reloj digital, analizador de espectro, lista de reproducción y listas M3U. En macOS, para Apple Silicon.",
         shows: ["Una interfaz propia dibujada en lienzos", "Leer etiquetas ID3 y cabeceras MP3", "Un paquete de pip (pygame) para el sonido"],
       },
+      train_monitor: {
+        name: "Seguimiento de trenes",
+        text: "Los trenes de Cercanías y Rodalies en directo con los datos abiertos de Renfe: avisa cuando dos trenes de la misma línea se acercan y dibuja la malla de circulación. Demo educativa: no es un sistema de seguridad.",
+        shows: ["Datos públicos en directo (GTFS y GTFS-Realtime)", "Gráficos propios: malla de circulación y mapa", "Simulación cuando no hay conexión"],
+      },
       file_renamer: {
         name: "Renombrar archivos",
         text: "Cambie el nombre de muchos archivos a la vez con reglas, viendo el resultado antes de aplicarlo.",
@@ -200,7 +205,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Eleven utilities for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twelve utilities for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -254,7 +259,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: eleven desktop utilities for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twelve desktop utilities for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -335,6 +340,11 @@ const TEXT: Record<Lang, DemosText> = {
         name: "MP3 player",
         text: "A player in the style of the classics: digital clock, spectrum analyzer, playlist and M3U lists. On macOS, for Apple Silicon.",
         shows: ["A custom interface drawn on canvases", "Reading ID3 tags and MP3 headers", "A pip package (pygame) for sound"],
+      },
+      train_monitor: {
+        name: "Train tracking",
+        text: "Spain's commuter trains live with Renfe's open data: it warns when two trains on the same line get close and draws the train graph. An educational demo: not a safety system.",
+        shows: ["Live public data (GTFS and GTFS-Realtime)", "Custom charts: train graph and map", "A simulation when there is no connection"],
       },
       file_renamer: {
         name: "File renamer",

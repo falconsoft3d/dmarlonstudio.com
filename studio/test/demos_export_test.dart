@@ -34,6 +34,7 @@ const demos = [
   'currency',
   'file_renamer',
   'mp3_player',
+  'train_monitor',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)

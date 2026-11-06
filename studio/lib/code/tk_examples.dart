@@ -158,6 +158,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   tkUtilPos(t),
   tkUtilFileRenamer(t),
   tkUtilMp3Player(t),
+  tkUtilTrainMonitor(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

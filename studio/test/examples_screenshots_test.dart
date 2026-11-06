@@ -79,6 +79,7 @@ const carousel = [
   'pos',
   'file_renamer',
   'mp3_player',
+  'train_monitor',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

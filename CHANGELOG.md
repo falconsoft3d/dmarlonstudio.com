@@ -3,6 +3,17 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.45 — 2026-11-06
+
+- **Seguimiento de trenes**, ejemplo y duodécima demo de escritorio: los
+  trenes de Cercanías y Rodalies en directo con los datos abiertos de Renfe
+  (GTFS y GTFS-Realtime, licencia CC BY 4.0). Sitúa cada tren en su línea,
+  avisa cuando dos de la misma línea y sentido se acercan (distancia y
+  tiempo, umbrales configurables) o cuando uno se para fuera de una
+  estación, y dibuja la malla de circulación y el mapa de la línea. Sin
+  conexión, una simulación con estaciones reales. Demo educativa: no es un
+  sistema de seguridad, y lo dice.
+
 ## 1.0.44 — 2026-11-06
 
 - **Demos móviles y web** en la página Demos, que se prueban sin instalar

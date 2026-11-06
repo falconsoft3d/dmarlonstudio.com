@@ -32,6 +32,7 @@ Hechos
 37. Demos en la landing: 10 utilidades para macOS y Windows con capturas y el logo de su tecnología | ✅ |
 38. Espacio en disco con mapa (WinDirStat) y Papelera | ✅ |
 40. Reproductor MP3 (demo) | ✅ |
+41. Seguimiento de trenes con datos públicos de Renfe: alertas de proximidad y gráfico de seguimiento | ✅ |
 42. Demos móviles (Flutter en el navegador y APK) y web (HTML, React, Vue) | ✅ |
 39. Punto de venta con imágenes y conexión con Odoo (URL, usuario y contraseña): productos y precios, pedidos a Ventas | ✅ |
 
@@ -39,7 +40,6 @@ Hechos
 Trabajando
 =========
 43. Pascal (Lazarus) conectado a Odoo 8–20 por RPC, con y sin conexión, con panel de indicadores | ⏳ |
-41. Seguimiento de trenes con datos públicos de Renfe: alertas de proximidad y gráfico de seguimiento | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 

@@ -42,6 +42,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   pos: { icon: "python", label: "Python · tkinter" },
   file_renamer: { icon: "python", label: "Python · tkinter" },
   mp3_player: { icon: "python", label: "Python · tkinter" },
+  train_monitor: { icon: "python", label: "Python · tkinter" },
 };
 
 /** La captura de un ejemplo (JPEG; scripts/build-docs.mjs convierte los PNG). */

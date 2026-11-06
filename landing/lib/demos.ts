@@ -26,6 +26,7 @@ export const DEMO_SEEDS = [
   "currency",
   "file_renamer",
   "mp3_player",
+  "train_monitor",
 ] as const;
 
 export type DemoSeed = (typeof DEMO_SEEDS)[number];

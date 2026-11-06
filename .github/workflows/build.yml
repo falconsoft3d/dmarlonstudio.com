@@ -33,9 +33,10 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          flutter test -r expanded 2>&1 | tee test.log || {
-            # Cada prueba fallida con las 40 líneas de su error.
-            awk '/\[E\]$/{n=40; msg=$0; next} n>0{msg=msg"%0A"$0; n--; if(n==0){print "::error title=Prueba fallida::" msg; msg=""}} END{if(msg!="") print "::error title=Prueba fallida::" msg}' test.log
+          # Los ejecutores de GitHub son más lentos: el límite por prueba, ×4.
+          flutter test -r expanded --timeout 4x 2>&1 | tee test.log || {
+            # Cada prueba fallida con las 25 líneas de antes y las 15 de después.
+            awk '{buf[NR%25]=$0} /\[E\]$/{msg=""; for(i=NR-24;i<NR;i++) if(i>0) msg=msg buf[i%25] "%0A"; msg=msg $0; n=15; next} n>0{msg=msg"%0A"$0; n--; if(n==0){print "::error title=Prueba fallida::" msg; msg=""}} END{if(msg!="") print "::error title=Prueba fallida::" msg}' test.log
             exit 1
           }
 

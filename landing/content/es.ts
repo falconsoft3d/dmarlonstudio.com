@@ -107,6 +107,7 @@ export const es: Content = {
       { seed: "port_scanner", name: "Escáner de puertos", text: "Conexiones TCP en paralelo con progreso y exportación a CSV." },
       { seed: "file_renamer", name: "Renombrar archivos", text: "Reglas, vista previa con conflictos y deshacer." },
       { seed: "mp3_player", name: "Reproductor MP3", text: "Reloj digital, analizador de espectro y lista de reproducción, dibujados en lienzos." },
+      { seed: "train_monitor", name: "Seguimiento de trenes", text: "Datos abiertos de Renfe en directo: alertas de proximidad, mallas de circulación y mapa de la línea." },
       { seed: "console_animals", name: "Gestión de animales (consola)", text: "Altas, bajas y vacunas desde un menú de consola en Python." },
       { seed: "pascal_calculator", name: "Calculadora (Pascal)", text: "La calculadora nativa en Object Pascal con Lazarus, también con el teclado." },
       { seed: "web_crm", name: "CRM web", text: "Oportunidades por etapas y valor del embudo, en Flask." },

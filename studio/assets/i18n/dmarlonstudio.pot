@@ -453,7 +453,7 @@ msgstr ""
 msgid "Cantidad"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Cargando…"
 msgstr ""
 
@@ -629,7 +629,7 @@ msgstr ""
 msgid "Hecha / pendiente"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Hora"
 msgstr ""
 
@@ -1773,7 +1773,7 @@ msgstr ""
 msgid "Esfuerzo"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_util_train_monitor.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr ""
 
@@ -2927,7 +2927,7 @@ msgstr ""
 msgid "Toro"
 msgstr ""
 
-#: lib/code/tk_showcase_3d.dart
+#: lib/code/tk_showcase_3d.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Velocidad"
 msgstr ""
 
@@ -5362,7 +5362,7 @@ msgstr ""
 msgid "Carpeta…"
 msgstr ""
 
-#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_train_monitor.dart lib/code/tk_showcase_web.dart
 msgid "Detenido"
 msgstr ""
 
@@ -6526,6 +6526,247 @@ msgstr ""
 msgid "← Volver"
 msgstr ""
 
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Alerta"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Alertas de proximidad"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Alertas: {0} · Avisos: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart lib/code/tk_showcase_windows.dart
+msgid "Aviso"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Aviso a menos de"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Cancelado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Conectando con Renfe…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Datos en directo (Renfe)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Datos en directo: {0} trenes en {1}. Posiciones de las {2}; se actualizan cada 20 s."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Datos simulados: las estaciones existen; los trenes, horarios e incidencias son inventados."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid ""
+"Datos: cada 20 s se leen las posiciones de los trenes y sus retrasos (GTFS-Realtime de Renfe, en JSON). Los horarios, estaciones y trazados (GTFS) se descargan una vez y se guardan en su carpeta de datos.\n"
+"\n"
+"Posición en la vía: cada posición se proyecta sobre el trazado de la línea y se convierte en kilómetros desde el origen. Así se sabe el orden de los trenes de cada sentido.\n"
+"\n"
+"Alertas de proximidad: entre dos trenes seguidos de la misma línea y sentido se mide la distancia por la vía y el intervalo (hace cuánto pasó el tren de delante por donde está ahora el de detrás). Por debajo de los umbrales hay aviso; por debajo de la mitad, alerta. También avisa si un tren lleva más de 3 min parado fuera de una estación.\n"
+"\n"
+"Gráfico de seguimiento: estaciones en vertical, a su distancia real, y la hora en horizontal. Cada tren es una línea: cuanto más inclinada, más rápido va; dos líneas que se juntan son dos trenes que se acercan. En gris discontinuo, el horario previsto.\n"
+"\n"
+"Límites: datos públicos que llegan con retraso, sin vías ni señales. Se supone vía doble, un sentido por vía. No sirve para circular: la seguridad real depende de la señalización (ASFA, ERTMS) y de los operadores."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Demo educativa con datos públicos, que pueden llegar con retraso o incompletos. No es un sistema de seguridad: la separación real de los trenes la garantizan la señalización (ASFA, ERTMS) y los operadores."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Descargando los horarios de Cercanías (solo la primera vez): {0} de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "El archivo descargado no es un GTFS."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Elija una línea."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "En estación"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Fuera del trazado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Gráfico de seguimiento · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Hacia"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Leyendo los horarios de {0}…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Los horarios no tienen servicio hoy en {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Línea"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Mapa de la línea · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "No se pudieron leer los horarios de Renfe ({0}): se muestra la simulación."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "No se pudo actualizar ({0}). Se reintenta en 20 s."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Normal"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Núcleo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Origen de los datos: Renfe Operadora (data.renfe.com, licencia CC BY 4.0), sin su participación ni respaldo. Posiciones: {0} · Horarios: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Próxima parada"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Recogiendo posiciones: el recorrido real aparece con cada lectura (cada 20 s)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Red simulada"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Retraso"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Retraso: {0} · {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Ritmo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Seguimiento de trenes"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Separación"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Simulación"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Simulación: estaciones reales; trenes, retrasos e incidencias inventados. Ritmo ×{0}."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Sin alertas activas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Sin conexión con Renfe ({0}): se muestra la simulación."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Sonido"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Tren"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Tren {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Trenes"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Trenes de Cercanías en directo con los datos abiertos de Renfe (o una simulación sin conexión): alertas de proximidad, gráfico de seguimiento y mapa de la línea. Demo educativa, no un sistema de seguridad."
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Trenes de la línea"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "Trenes de la línea {0}: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/code_git.dart
+msgid "ahora"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "hacia {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "horario previsto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "o"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "parado {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "puntual"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "vía {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "{0} en la {1}: tren {2} parado {3} fuera de una estación"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "{0} en la {1}: {2}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_train_monitor.dart
+msgid "¿Cómo funciona?"
+msgstr ""
+
 #: lib/code/tk_showcase_web.dart
 msgid "Ahora está en «{0}»."
 msgstr ""
@@ -6926,10 +7167,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web_next.dart
 msgid "Una web de verdad hecha con pantallas: login, catálogo con búsqueda y categorías, ficha, carrito y pago, adaptable a escritorio y móvil."
-msgstr ""
-
-#: lib/code/tk_showcase_windows.dart
-msgid "Aviso"
 msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
@@ -7997,10 +8234,6 @@ msgid "Volver «{0}» a {1}"
 msgstr ""
 
 #: lib/ui/screens/code_git.dart
-msgid "ahora"
-msgstr ""
-
-#: lib/ui/screens/code_git.dart
 msgid "hace {0} d"
 msgstr ""
 
@@ -9039,10 +9272,6 @@ msgid "Locales"
 msgstr ""
 
 #: lib/ui/screens/tk_debug_panel.dart
-msgid "Línea"
-msgstr ""
-
-#: lib/ui/screens/tk_debug_panel.dart
 msgid "Líneas más ejecutadas"
 msgstr ""
 
@@ -9966,10 +10195,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Recibe (un dato)"
-msgstr ""
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Separación"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

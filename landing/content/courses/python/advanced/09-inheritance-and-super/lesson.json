@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "herencia-y-super",
+    "title": "Herencia y super()",
+    "summary": "Reutilice y especialice clases en Python con herencia: subclases, super(), sobrescritura de métodos, isinstance y el MRO, con una nómina.",
+    "body": [
+      "`class Manager(Employee)` crea una **subclase**: un `Manager` es un `Employee` y hereda todo lo que este tiene (`name`, `salary`, `describe()`…) sin volver a escribirlo.",
+      "El `__init__` de `Manager` necesita un dato más, `bonus`. En lugar de copiar el código del padre, llama a **`super().__init__(name, salary)`** para que `Employee` prepare su parte y luego añade la suya. `Intern` no define `__init__`, así que usa el del padre tal cual.",
+      "Las dos subclases **sobrescriben** `monthly_pay()`: un método con el mismo nombre sustituye al heredado. `Manager` reaprovecha el cálculo del padre con `super().monthly_pay()` y suma la prima; `Intern` devuelve una beca fija.",
+      "Lo potente es el **polimorfismo**: `describe()` está escrito una sola vez en `Employee`, pero `self.monthly_pay()` llama en cada caso al método de la clase real del objeto, y `type(self).__name__` escribe esa clase. El bucle trata igual a todos y cada uno responde a su manera.",
+      "`isinstance(staff[1], Employee)` es `True` porque un jefe también es empleado, e `issubclass` compara clases. `Manager.__mro__` es el **orden de resolución de métodos**: la lista de clases donde Python busca cada método, de la más concreta a `object`."
+    ],
+    "points": [
+      "`class Hija(Padre)` hereda atributos y métodos.",
+      "`super()` llama a la versión del padre.",
+      "Un método con el mismo nombre sobrescribe al heredado.",
+      "`isinstance` acepta también las subclases.",
+      "El MRO dice en qué orden se buscan los métodos."
+    ],
+    "exercise": "Cree una subclase `Contractor` que cobre por horas (`hours * rate`) y añada un contratista a `staff` para que aparezca en la nómina."
+  },
+  "en": {
+    "slug": "inheritance-and-super",
+    "title": "Inheritance and super()",
+    "summary": "Reuse and specialise Python classes with inheritance: subclasses, super(), method overriding, isinstance and the MRO, using a payroll.",
+    "body": [
+      "`class Manager(Employee)` creates a **subclass**: a `Manager` is an `Employee` and inherits everything it has (`name`, `salary`, `describe()`…) without rewriting it.",
+      "`Manager`'s `__init__` needs one more piece of data, `bonus`. Instead of copying the parent's code, it calls **`super().__init__(name, salary)`** so `Employee` sets up its part, and then adds its own. `Intern` has no `__init__`, so it uses the parent's as it is.",
+      "Both subclasses **override** `monthly_pay()`: a method with the same name replaces the inherited one. `Manager` reuses the parent's calculation with `super().monthly_pay()` and adds the bonus; `Intern` returns a fixed grant.",
+      "The powerful part is **polymorphism**: `describe()` is written once in `Employee`, yet `self.monthly_pay()` calls the method of the object's actual class each time, and `type(self).__name__` prints that class. The loop treats everyone the same and each object answers in its own way.",
+      "`isinstance(staff[1], Employee)` is `True` because a manager is also an employee, and `issubclass` compares classes. `Manager.__mro__` is the **method resolution order**: the list of classes Python searches for each method, from the most specific down to `object`."
+    ],
+    "points": [
+      "`class Child(Parent)` inherits attributes and methods.",
+      "`super()` calls the parent's version.",
+      "A method with the same name overrides the inherited one.",
+      "`isinstance` accepts subclasses too.",
+      "The MRO is the order in which methods are looked up."
+    ],
+    "exercise": "Create a `Contractor` subclass paid by the hour (`hours * rate`) and add a contractor to `staff` so they show up in the payroll."
+  }
+}

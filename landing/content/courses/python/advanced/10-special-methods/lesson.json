@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "metodos-especiales",
+    "title": "Métodos especiales",
+    "summary": "Haga que sus objetos se escriban, comparen, sumen y midan como los de Python con __repr__, __eq__, __lt__, __add__ y __len__.",
+    "body": [
+      "Los **métodos especiales** (o *dunder*, por los dos guiones bajos) son los que Python llama por su cuenta cuando usa operadores y funciones integradas. `Money` guarda el importe en céntimos (`cents`), un entero, para no arrastrar errores de redondeo.",
+      "**`__repr__`** devuelve el texto que representa al objeto. Se usa en `print()` cuando no hay `__str__` y, sobre todo, dentro de listas: por eso `cart.prices` sale como `[19.99 EUR, 4.50 EUR, 120.00 EUR]` y no como direcciones de memoria.",
+      "**`__eq__`** define `==`: compara importe y moneda como una tupla. Sin él, dos `Money(450)` serían distintos porque son objetos diferentes. **`__lt__`** define `<`, y con eso basta para que `sorted()`, `min()` y `max()` sepan ordenar.",
+      "**`__add__`** define `+` y devuelve un `Money` nuevo. Gracias a él funciona `sum(cart.prices, Money(0))`: `sum` empieza en el segundo argumento (que debe ser un `Money`, no el `0` por defecto) y va sumando con `+`. Si las monedas no coinciden, lanza `ValueError`.",
+      "En `Cart`, **`__len__`** hace que `len(cart)` funcione. Hay muchos más: `__getitem__` para `cart[0]`, `__contains__` para `in`, `__bool__` para `if cart:`…"
+    ],
+    "points": [
+      "Python llama a los métodos especiales por usted: `+` llama a `__add__`.",
+      "`__repr__` es la representación; procure que sea clara.",
+      "`__eq__` define `==` y `__lt__` basta para ordenar.",
+      "`__len__` hace funcionar `len()`.",
+      "Guardar el dinero en céntimos enteros evita errores de redondeo."
+    ],
+    "exercise": "Añada `__mul__` a `Money` para que `Money(1999) * 3` devuelva `59.97 EUR`, y úselo para cobrar tres unidades del primer artículo."
+  },
+  "en": {
+    "slug": "special-methods",
+    "title": "Special methods",
+    "summary": "Make your objects print, compare, add up and measure like built-in Python ones with __repr__, __eq__, __lt__, __add__ and __len__.",
+    "body": [
+      "**Special methods** (or *dunder* methods, for the double underscores) are the ones Python calls by itself when you use operators and built-in functions. `Money` stores the amount in `cents`, an integer, so no rounding errors creep in.",
+      "**`__repr__`** returns the text that represents the object. `print()` uses it when there is no `__str__` and, above all, inside lists: that is why `cart.prices` shows as `[19.99 EUR, 4.50 EUR, 120.00 EUR]` rather than memory addresses.",
+      "**`__eq__`** defines `==`: it compares amount and currency as a tuple. Without it, two `Money(450)` would be different because they are different objects. **`__lt__`** defines `<`, and that alone lets `sorted()`, `min()` and `max()` put them in order.",
+      "**`__add__`** defines `+` and returns a new `Money`. It is what makes `sum(cart.prices, Money(0))` work: `sum` starts from the second argument (which must be a `Money`, not the default `0`) and keeps adding with `+`. If the currencies differ, it raises `ValueError`.",
+      "In `Cart`, **`__len__`** makes `len(cart)` work. There are many more: `__getitem__` for `cart[0]`, `__contains__` for `in`, `__bool__` for `if cart:`…"
+    ],
+    "points": [
+      "Python calls special methods for you: `+` calls `__add__`.",
+      "`__repr__` is the representation; make it clear.",
+      "`__eq__` defines `==` and `__lt__` is enough for sorting.",
+      "`__len__` makes `len()` work.",
+      "Storing money as whole cents avoids rounding errors."
+    ],
+    "exercise": "Add `__mul__` to `Money` so that `Money(1999) * 3` returns `59.97 EUR`, and use it to charge three units of the first item."
+  }
+}

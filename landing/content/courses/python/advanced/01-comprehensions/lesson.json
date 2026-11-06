@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "comprensiones",
+    "title": "Comprensiones de listas, diccionarios y conjuntos",
+    "summary": "Cree listas, diccionarios y conjuntos en una sola línea con las comprensiones de Python, con filtros y desempaquetado. Pruébelo en DMarlon Studio.",
+    "body": [
+      "Una **comprensión** construye una colección nueva a partir de otra sin escribir el bucle completo. `[qty * price for _, _, qty, price in orders]` recorre los pedidos, desempaqueta cada tupla y guarda el total de cada línea. El guion bajo `_` es el nombre habitual para los valores que no se usan.",
+      "Al final se puede añadir un **filtro** con `if`: la lista `big` solo guarda las líneas cuyo importe llega a 30, y la expresión del principio (aquí, la f-string `f\"{name}/{item}\"`) decide qué se guarda de cada una.",
+      "Con llaves y un solo valor se obtiene una **comprensión de conjunto**: `{item for _, item, _, _ in orders}` deja cada producto una sola vez. Los conjuntos no tienen orden fijo, por eso el programa los pasa por `sorted()` antes de escribirlos.",
+      "Con llaves y `clave: valor` se obtiene una **comprensión de diccionario**. `spent` asocia a cada cliente lo que ha gastado, y dentro lleva otra comprensión (una expresión generadora dentro de `sum()`). La última, `cheap`, recorre `prices.items()` y da la vuelta al diccionario: el precio pasa a ser la clave.",
+      "Las comprensiones son más rápidas y legibles que un bucle con `append()` cuando el resultado cabe en una línea. Si necesita varias condiciones encadenadas o efectos secundarios (escribir, guardar), un bucle normal se entiende mejor."
+    ],
+    "points": [
+      "`[expr for x in datos if condición]` crea una lista.",
+      "`{expr for x in datos}` crea un conjunto, sin repetidos.",
+      "`{clave: valor for x in datos}` crea un diccionario.",
+      "Se puede desempaquetar en el `for`: `for nombre, *_ in pedidos`.",
+      "Si la comprensión no cabe en una línea, mejor un bucle."
+    ],
+    "exercise": "Añada un diccionario `units` que asocie a cada producto el total de unidades vendidas (por ejemplo, `mouse` debe dar 4) usando una comprensión de diccionario."
+  },
+  "en": {
+    "slug": "comprehensions",
+    "title": "List, dict and set comprehensions",
+    "summary": "Build lists, dicts and sets in a single line with Python comprehensions, including filters and unpacking. Try it in DMarlon Studio.",
+    "body": [
+      "A **comprehension** builds a new collection from another one without writing out the whole loop. `[qty * price for _, _, qty, price in orders]` walks through the orders, unpacks each tuple and keeps the total of every line. The underscore `_` is the usual name for values you do not need.",
+      "You can add a **filter** at the end with `if`: the `big` list only keeps lines worth 30 or more, and the expression at the start (here the f-string `f\"{name}/{item}\"`) decides what is stored for each one.",
+      "Curly braces with a single value give you a **set comprehension**: `{item for _, item, _, _ in orders}` keeps each product once. Sets have no fixed order, which is why the program passes them through `sorted()` before printing.",
+      "Curly braces with `key: value` give you a **dict comprehension**. `spent` maps every customer to what they spent, and it contains another comprehension (a generator expression inside `sum()`). The last one, `cheap`, loops over `prices.items()` and flips the dictionary so the price becomes the key.",
+      "Comprehensions are faster and easier to read than a loop with `append()` when the result fits on one line. If you need several chained conditions or side effects (printing, saving), a plain loop reads better."
+    ],
+    "points": [
+      "`[expr for x in data if condition]` builds a list.",
+      "`{expr for x in data}` builds a set, with no duplicates.",
+      "`{key: value for x in data}` builds a dict.",
+      "You can unpack inside the `for`: `for name, *_ in orders`.",
+      "If a comprehension does not fit on one line, use a loop."
+    ],
+    "exercise": "Add a `units` dict that maps each product to the total units sold (for example, `mouse` should give 4) using a dict comprehension."
+  }
+}

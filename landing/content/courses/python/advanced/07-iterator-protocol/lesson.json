@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "protocolo-de-iteradores",
+    "title": "El protocolo de los iteradores",
+    "summary": "Cómo funciona el for por dentro: iter(), next(), StopIteration y una clase propia con __iter__ y __next__ que pagina resultados en Python.",
+    "body": [
+      "Un `for` no sabe nada de listas: le pide a la colección un **iterador** con `iter()` y luego llama a `next()` una y otra vez hasta que salta la excepción **`StopIteration`**. El programa lo hace a mano con `[\"ok\", \"fail\"]`: dos `next()` devuelven los dos valores y el tercero lanza `StopIteration`, que se captura.",
+      "Cualquier clase puede participar en este **protocolo** con dos métodos especiales. `__iter__` devuelve el iterador; en `Paginator` devuelve `self`, porque el propio objeto lleva la cuenta de por dónde va.",
+      "`__next__` devuelve el siguiente elemento: corta una página de `self.items` desde `self.start`, avanza `self.start` y la devuelve. Cuando `start` llega al final, lanza `StopIteration` y el `for` termina sin error. La última página tiene solo dos pedidos porque el corte de una lista nunca se sale del final.",
+      "Como `Paginator` cumple el protocolo, funciona con todo lo que recorre: `for`, `enumerate(..., start=1)` para numerar las páginas, `list()` para contarlas, `sum()`, comprensiones…",
+      "Este iterador se gasta, igual que un generador: si recorre el mismo `Paginator` dos veces, la segunda no da nada. Si quiere poder repetir, haga que `__iter__` cree un objeto nuevo cada vez o escriba `__iter__` como generador con `yield`."
+    ],
+    "points": [
+      "`for` usa `iter()` una vez y `next()` hasta `StopIteration`.",
+      "`__iter__` devuelve el iterador; `__next__` da el siguiente valor.",
+      "Lanzar `StopIteration` es la forma de decir que no hay más.",
+      "Un objeto iterable funciona con `for`, `list()`, `sum()`, `enumerate()`…"
+    ],
+    "exercise": "Añada a `Paginator` un parámetro `limit` que corte la iteración después de ese número de páginas, aunque queden elementos."
+  },
+  "en": {
+    "slug": "iterator-protocol",
+    "title": "The iterator protocol",
+    "summary": "How a for loop works inside: iter(), next(), StopIteration, and a custom Python class with __iter__ and __next__ that pages results.",
+    "body": [
+      "A `for` loop knows nothing about lists: it asks the collection for an **iterator** with `iter()` and then calls `next()` again and again until a **`StopIteration`** exception appears. The program does it by hand with `[\"ok\", \"fail\"]`: two `next()` calls return both values and the third raises `StopIteration`, which is caught.",
+      "Any class can take part in this **protocol** with two special methods. `__iter__` returns the iterator; in `Paginator` it returns `self`, because the object itself keeps track of where it is.",
+      "`__next__` returns the next item: it slices a page out of `self.items` starting at `self.start`, moves `self.start` on and returns the page. When `start` reaches the end it raises `StopIteration` and the `for` loop ends cleanly. The last page only has two orders because slicing a list never goes past the end.",
+      "Since `Paginator` follows the protocol, it works with anything that loops: `for`, `enumerate(..., start=1)` to number the pages, `list()` to count them, `sum()`, comprehensions…",
+      "This iterator gets used up, just like a generator: loop over the same `Paginator` twice and the second time gives nothing. If you need to repeat, make `__iter__` return a fresh object each time, or write `__iter__` as a generator with `yield`."
+    ],
+    "points": [
+      "`for` calls `iter()` once and `next()` until `StopIteration`.",
+      "`__iter__` returns the iterator; `__next__` gives the next value.",
+      "Raising `StopIteration` is how you say there is nothing left.",
+      "An iterable works with `for`, `list()`, `sum()`, `enumerate()`…"
+    ],
+    "exercise": "Add a `limit` parameter to `Paginator` that stops after that many pages, even if there are items left."
+  }
+}

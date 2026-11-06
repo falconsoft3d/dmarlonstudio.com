@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "dataclasses",
+    "title": "Clases de datos",
+    "summary": "Clases de datos en Python con @dataclass: __init__, __repr__ y __eq__ automáticos, field(default_factory), __post_init__, frozen y order.",
+    "body": [
+      "Muchas clases solo guardan datos. Con el decorador **`@dataclass`** basta con declarar los campos con su tipo (`product: str`, `quantity: int`…) y Python escribe por usted `__init__`, `__repr__` y `__eq__`. Por eso `print(inv.lines[0])` sale legible y dos `Line` con los mismos datos son iguales con `==`.",
+      "Los campos con valor por defecto van al final: `paid: bool = False`. Para una lista no vale `lines: list = []`, porque todas las facturas compartirían la misma; **`field(default_factory=list)`** crea una lista nueva para cada objeto.",
+      "**`__post_init__`** se ejecuta justo después del `__init__` generado y sirve para validar o limpiar datos: aquí quita los espacios del nombre del cliente y lo pone con mayúsculas iniciales. Las clases de datos admiten métodos normales, como `total()`.",
+      "`@dataclass(frozen=True, order=True)` añade dos cosas a `Version`: con **`frozen`** los objetos no se pueden modificar (asignar un campo lanza un error) y con **`order`** se comparan campo a campo, como tuplas. Así `max()` sabe que la `1.10` es más nueva que la `1.9`, cosa que una comparación de textos haría mal.",
+      "`asdict(inv)` convierte la factura, con sus líneas, en diccionarios normales: es el paso previo habitual para guardarla en JSON."
+    ],
+    "points": [
+      "`@dataclass` genera `__init__`, `__repr__` y `__eq__`.",
+      "Use `field(default_factory=list)` para listas y diccionarios por defecto.",
+      "`__post_init__` valida o ajusta los datos al crear el objeto.",
+      "`frozen=True` la hace inmutable; `order=True`, comparable.",
+      "`asdict()` la convierte en un diccionario."
+    ],
+    "exercise": "Añada a `Line` un campo `discount: float = 0.0` y haga que `Invoice.total()` lo tenga en cuenta; ponga un 10 % de descuento a las sillas."
+  },
+  "en": {
+    "slug": "dataclasses",
+    "title": "Dataclasses",
+    "summary": "Python dataclasses with @dataclass: free __init__, __repr__ and __eq__, field(default_factory), __post_init__, frozen and order.",
+    "body": [
+      "Many classes only hold data. With the **`@dataclass`** decorator you just declare the fields with their types (`product: str`, `quantity: int`…) and Python writes `__init__`, `__repr__` and `__eq__` for you. That is why `print(inv.lines[0])` is readable and two `Line` objects with the same data are equal with `==`.",
+      "Fields with defaults go last: `paid: bool = False`. For a list, `lines: list = []` will not do, because every invoice would share the same one; **`field(default_factory=list)`** creates a fresh list for each object.",
+      "**`__post_init__`** runs right after the generated `__init__` and is the place to validate or clean data: here it strips the spaces from the customer name and title-cases it. Dataclasses can have ordinary methods too, like `total()`.",
+      "`@dataclass(frozen=True, order=True)` gives `Version` two extras: **`frozen`** makes the objects read-only (assigning a field raises an error) and **`order`** compares them field by field, like tuples. So `max()` knows that `1.10` is newer than `1.9`, something a plain text comparison would get wrong.",
+      "`asdict(inv)` turns the invoice, lines included, into plain dictionaries: the usual first step before saving it as JSON."
+    ],
+    "points": [
+      "`@dataclass` generates `__init__`, `__repr__` and `__eq__`.",
+      "Use `field(default_factory=list)` for default lists and dicts.",
+      "`__post_init__` validates or adjusts data on creation.",
+      "`frozen=True` makes it immutable; `order=True`, comparable.",
+      "`asdict()` turns it into a dictionary."
+    ],
+    "exercise": "Add a `discount: float = 0.0` field to `Line`, make `Invoice.total()` take it into account and give the chairs a 10% discount."
+  }
+}

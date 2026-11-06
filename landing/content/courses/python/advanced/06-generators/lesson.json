@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "generadores-y-yield",
+    "title": "Generadores y yield",
+    "summary": "Procese un registro de servidor línea a línea con generadores de Python: yield, next(), cadenas de generadores y expresiones generadoras.",
+    "body": [
+      "Una función con **`yield`** es un **generador**: al llamarla no se ejecuta, sino que devuelve un objeto que va entregando valores de uno en uno. `read_lines(LOG)` no crea una lista con todas las líneas; da una, se detiene, y sigue desde ahí cuando se le pide la siguiente. Con un registro de millones de líneas, la memoria apenas se nota.",
+      "`errors(lines)` consume otro generador: recorre las líneas, separa sus campos con `split()` y solo entrega las que tienen un código `400` o mayor. Encadenados, `errors(read_lines(LOG))` forman una **tubería** en la que cada línea pasa por todas las fases antes de leer la siguiente.",
+      "Al crear `pipeline` no se ha ejecutado nada todavía (su tipo es `generator`). `next(pipeline)` lo hace avanzar hasta el primer `yield` y devuelve ese valor; el `for` siguiente continúa justo donde se quedó, por eso no repite el primer error. Un generador solo se recorre una vez.",
+      "Con paréntesis en lugar de corchetes se obtiene una **expresión generadora**: `sum(1 for line in ... if ...)` cuenta los errores 500 sin construir ninguna lista intermedia.",
+      "`invoice_numbers` tiene un `while True`, pero no se cuelga: solo calcula el número que se le pide. La comprensión final toma tres con `next(numbers)`; el siguiente sería `INV-2043`."
+    ],
+    "points": [
+      "`yield` convierte una función en generador.",
+      "Un generador calcula cada valor cuando se le pide (es perezoso).",
+      "`next()` avanza hasta el siguiente `yield`; el `for` lo hace solo.",
+      "Un generador se agota: para recorrerlo otra vez, créelo de nuevo.",
+      "`(expr for x in datos)` es una expresión generadora."
+    ],
+    "exercise": "Añada un generador `paths(lines)` que entregue solo la ruta (`/shop`, `/pay`…) de cada línea y úselo para contar cuántas veces aparece `/pay`."
+  },
+  "en": {
+    "slug": "generators-and-yield",
+    "title": "Generators and yield",
+    "summary": "Process a server log line by line with Python generators: yield, next(), chained generators and generator expressions.",
+    "body": [
+      "A function containing **`yield`** is a **generator**: calling it does not run it, it returns an object that hands out values one at a time. `read_lines(LOG)` does not build a list of every line; it gives one, pauses, and resumes from there when asked for the next. With a log of millions of lines, the memory use barely changes.",
+      "`errors(lines)` consumes another generator: it loops over the lines, splits their fields with `split()` and only yields those with a status of `400` or more. Chained together, `errors(read_lines(LOG))` form a **pipeline** where each line goes through every stage before the next one is read.",
+      "Creating `pipeline` runs nothing yet (its type is `generator`). `next(pipeline)` runs it up to the first `yield` and returns that value; the `for` loop then carries on exactly where it stopped, which is why it does not repeat the first error. A generator can only be consumed once.",
+      "Parentheses instead of square brackets give you a **generator expression**: `sum(1 for line in ... if ...)` counts the 500 errors without building any intermediate list.",
+      "`invoice_numbers` has a `while True`, yet it never hangs: it only works out the number you ask for. The final comprehension takes three with `next(numbers)`; the next one would be `INV-2043`."
+    ],
+    "points": [
+      "`yield` turns a function into a generator.",
+      "A generator computes each value on demand (it is lazy).",
+      "`next()` runs to the next `yield`; a `for` loop does it for you.",
+      "A generator gets used up: to loop again, create a new one.",
+      "`(expr for x in data)` is a generator expression."
+    ],
+    "exercise": "Add a generator `paths(lines)` that yields only the path (`/shop`, `/pay`…) of each line, and use it to count how many times `/pay` appears."
+  }
+}

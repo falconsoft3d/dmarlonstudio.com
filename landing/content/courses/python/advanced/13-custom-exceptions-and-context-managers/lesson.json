@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "excepciones-propias-y-gestores-de-contexto",
+    "title": "Excepciones propias y gestores de contexto",
+    "summary": "Cree sus propias excepciones y gestores de contexto en Python: with, __enter__, __exit__, contextlib.contextmanager y suppress, con un almacén.",
+    "body": [
+      "Una **excepción propia** es una clase que hereda de `Exception`: `class StockError(Exception): pass` basta. Permite capturar justo ese problema (falta de existencias) sin confundirlo con otros errores. `take()` la lanza con un mensaje que explica qué faltaba.",
+      "Un **gestor de contexto** es lo que va detrás de `with`. `Transaction` lo es porque tiene dos métodos: **`__enter__`** se ejecuta al entrar (guarda una copia del almacén y devuelve el diccionario, que llega a `s` gracias a `as`) y **`__exit__`** al salir, haya error o no.",
+      "Si dentro del bloque salta una excepción, `__exit__` la recibe en `exc_type` y `exc`. Aquí restaura la copia con `update()`, de modo que los 3 bolígrafos retirados vuelven a su sitio: o se hace todo el pedido o nada. Devolver `True` le dice a Python que el error ya está tratado; por eso solo se silencia `StockError` y cualquier otro error seguiría su camino.",
+      "**`@contextmanager`** escribe un gestor con un generador: lo que va antes de `yield` es la entrada y lo que va después, la salida. `section()` escribe las etiquetas de inicio y fin. En un mismo `with` se pueden abrir varios gestores separados por comas. Al salir se cierran en orden inverso, primero `Transaction` y luego `section`: por eso la etiqueta de cierre sale después del aviso.",
+      "**`suppress(KeyError)`** es un gestor ya hecho que ignora un tipo concreto de error: pedir `\"paper\"`, que no existe en el almacén, no detiene el programa."
+    ],
+    "points": [
+      "Una excepción propia hereda de `Exception`.",
+      "`with` llama a `__enter__` al entrar y a `__exit__` al salir, siempre.",
+      "Si `__exit__` devuelve `True`, la excepción no se propaga.",
+      "`@contextmanager` crea un gestor con un generador y `yield`.",
+      "`contextlib.suppress` ignora los errores indicados."
+    ],
+    "exercise": "Haga un segundo pedido que sí se pueda servir (2 bolígrafos y 1 tinta) dentro de `section(\"order 2\")` y compruebe que esta vez el almacén cambia."
+  },
+  "en": {
+    "slug": "custom-exceptions-and-context-managers",
+    "title": "Custom exceptions and context managers",
+    "summary": "Create your own exceptions and context managers in Python: with, __enter__, __exit__, contextlib.contextmanager and suppress, in a warehouse.",
+    "body": [
+      "A **custom exception** is a class that inherits from `Exception`: `class StockError(Exception): pass` is enough. It lets you catch exactly that problem (running out of stock) without mixing it up with other errors. `take()` raises it with a message saying what was missing.",
+      "A **context manager** is whatever goes after `with`. `Transaction` is one because it has two methods: **`__enter__`** runs on the way in (it saves a copy of the stock and returns the dictionary, which reaches `s` through `as`) and **`__exit__`** runs on the way out, error or not.",
+      "If an exception is raised inside the block, `__exit__` receives it in `exc_type` and `exc`. Here it restores the copy with `update()`, so the 3 pens already taken go back: either the whole order goes through or none of it does. Returning `True` tells Python the error has been dealt with; that is why only `StockError` is silenced and any other error would carry on up.",
+      "**`@contextmanager`** builds a manager from a generator: the code before `yield` is the way in and the code after it is the way out. `section()` prints the opening and closing tags. A single `with` can open several managers separated by commas. They close in reverse order on the way out, first `Transaction` and then `section`: that is why the closing tag comes after the rollback message.",
+      "**`suppress(KeyError)`** is a ready-made manager that ignores one kind of error: asking for `\"paper\"`, which is not in stock, does not stop the program."
+    ],
+    "points": [
+      "A custom exception inherits from `Exception`.",
+      "`with` calls `__enter__` on entry and `__exit__` on exit, always.",
+      "If `__exit__` returns `True`, the exception does not propagate.",
+      "`@contextmanager` builds a manager from a generator with `yield`.",
+      "`contextlib.suppress` ignores the errors you name."
+    ],
+    "exercise": "Place a second order that can be fulfilled (2 pens and 1 ink) inside `section(\"order 2\")` and check that the stock changes this time."
+  }
+}

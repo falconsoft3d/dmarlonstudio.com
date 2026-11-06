@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "asyncio-async-await",
+    "title": "asyncio con async y await",
+    "summary": "Programación asíncrona en Python con asyncio: corrutinas con async y await, gather para tareas a la vez, sleep(0) y wait_for con tiempo límite.",
+    "body": [
+      "Una función con **`async def`** es una **corrutina**: al llamarla no se ejecuta, sino que devuelve un objeto que el **bucle de eventos** de `asyncio` irá ejecutando. `asyncio.run(main())` crea ese bucle, ejecuta `main()` y lo cierra al acabar.",
+      "**`await`** espera a otra corrutina y, mientras tanto, cede el turno. `check_stock` simula una consulta a un almacén con `await asyncio.sleep(...)`: mientras Madrid «tarda», el bucle atiende a Bilbao y a Sevilla. Por eso las tres preguntas salen seguidas y las respuestas llegan por orden de rapidez: Bilbao (0,01 s), Sevilla y Madrid. Todo tarda lo que la más lenta, no la suma.",
+      "**`asyncio.gather()`** lanza varias corrutinas a la vez y espera a todas. Aunque terminen en otro orden, devuelve los resultados **en el orden en que se pasaron**, así que `results` empieza por Madrid.",
+      "`await asyncio.sleep(0)` no espera nada: solo devuelve el control al bucle. Con él, `packer` y `printer` se turnan en cada trabajo. Ese es el modelo de `asyncio`: un solo hilo y cambios de tarea solo en los `await`, de modo que el orden es predecible.",
+      "**`asyncio.wait_for(..., timeout=0.05)`** pone un tiempo límite: la operación de un segundo se cancela y salta `TimeoutError`, que el programa captura. `asyncio` brilla con muchas esperas de red o de disco; para cálculos pesados no aporta velocidad."
+    ],
+    "points": [
+      "`async def` define una corrutina; `await` espera sin bloquear.",
+      "`asyncio.run()` arranca el bucle de eventos.",
+      "`gather` ejecuta varias a la vez y mantiene el orden de los resultados.",
+      "Las tareas solo se alternan en los `await`.",
+      "`wait_for` cancela lo que pasa del tiempo límite."
+    ],
+    "exercise": "Añada un cuarto almacén, `Valencia`, con 0,005 s de retraso y 3 unidades, y compruebe en qué posición responde y en cuál aparece en `results`."
+  },
+  "en": {
+    "slug": "asyncio-async-await",
+    "title": "asyncio with async and await",
+    "summary": "Asynchronous Python with asyncio: coroutines with async and await, gather to run tasks together, sleep(0) and wait_for with a timeout.",
+    "body": [
+      "A function defined with **`async def`** is a **coroutine**: calling it does not run it, it returns an object that the `asyncio` **event loop** will run. `asyncio.run(main())` creates that loop, runs `main()` and closes the loop when it finishes.",
+      "**`await`** waits for another coroutine and hands over control in the meantime. `check_stock` fakes a warehouse query with `await asyncio.sleep(...)`: while Madrid is busy, the loop serves Bilbao and Sevilla. That is why the three questions go out back to back and the answers arrive fastest first: Bilbao (0.01 s), Sevilla, then Madrid. The whole thing takes as long as the slowest one, not the sum.",
+      "**`asyncio.gather()`** starts several coroutines together and waits for all of them. Even if they finish in a different order, it returns the results **in the order they were passed**, so `results` starts with Madrid.",
+      "`await asyncio.sleep(0)` waits for nothing: it just gives control back to the loop. With it, `packer` and `printer` take turns on each job. That is the `asyncio` model: a single thread that only switches tasks at an `await`, so the order is predictable.",
+      "**`asyncio.wait_for(..., timeout=0.05)`** sets a time limit: the one-second operation is cancelled and `TimeoutError` is raised, which the program catches. `asyncio` shines when there is a lot of waiting on the network or disk; for heavy calculations it does not make anything faster."
+    ],
+    "points": [
+      "`async def` defines a coroutine; `await` waits without blocking.",
+      "`asyncio.run()` starts the event loop.",
+      "`gather` runs several at once and keeps the results in order.",
+      "Tasks only switch at an `await`.",
+      "`wait_for` cancels whatever goes over the time limit."
+    ],
+    "exercise": "Add a fourth warehouse, `Valencia`, with a 0.005 s delay and 3 units, and check where it answers and where it appears in `results`."
+  }
+}

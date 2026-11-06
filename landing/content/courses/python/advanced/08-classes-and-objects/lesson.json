@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "clases-y-objetos",
+    "title": "Clases y objetos",
+    "summary": "Programación orientada a objetos en Python: clases, __init__, self, atributos, métodos, propiedades y __str__, con jugadores de un juego de rol.",
+    "body": [
+      "Una **clase** es un molde y cada **objeto** (o instancia) es una pieza hecha con él. `Player(\"Aria\", attack=35)` crea un jugador nuevo: Python reserva el objeto y llama a **`__init__`**, que rellena sus datos.",
+      "El primer parámetro de cada método, **`self`**, es el propio objeto. `self.name = name` crea un **atributo de instancia**: cada jugador tiene el suyo. `max_health`, en cambio, se escribe en el cuerpo de la clase y es un **atributo de clase**, compartido por todos (`Player.max_health`).",
+      "Los **métodos** son funciones que trabajan con el objeto. `hit(self, other)` recibe a otro jugador y le resta vida sin bajar de cero con `max(0, ...)`; `pick_up` añade objetos a la lista `inventory`, que también es propia de cada jugador porque se crea en `__init__`.",
+      "`@property` convierte `alive` en un valor calculado que se lee como un atributo, sin paréntesis: `while orc.alive:` repite los golpes hasta que el orco se queda sin vida. `__str__` decide cómo se ve el objeto en `print()`.",
+      "La última línea distingue dos ideas: `hero` y `orc` son del mismo tipo (`type(hero) is type(orc)`), pero son objetos distintos (`hero is orc` es `False`)."
+    ],
+    "points": [
+      "`class` define el molde; `Clase(...)` crea un objeto.",
+      "`__init__` prepara cada objeto nuevo; `self` es ese objeto.",
+      "Los atributos de `self` son de cada objeto; los del cuerpo de la clase, de todos.",
+      "`@property` expone un cálculo como si fuera un atributo.",
+      "`__str__` controla lo que escribe `print()`."
+    ],
+    "exercise": "Añada un método `heal(amount)` que suba la vida sin pasar de `max_health` y haga que Grok se cure 20 puntos después del segundo golpe."
+  },
+  "en": {
+    "slug": "classes-and-objects",
+    "title": "Classes and objects",
+    "summary": "Object-oriented programming in Python: classes, __init__, self, attributes, methods, properties and __str__, with players in a role-playing game.",
+    "body": [
+      "A **class** is a mould and each **object** (or instance) is a piece made from it. `Player(\"Aria\", attack=35)` creates a new player: Python makes the object and calls **`__init__`**, which fills in its data.",
+      "The first parameter of every method, **`self`**, is the object itself. `self.name = name` creates an **instance attribute**: each player has its own. `max_health`, on the other hand, sits in the class body and is a **class attribute**, shared by all of them (`Player.max_health`).",
+      "**Methods** are functions that work on the object. `hit(self, other)` takes another player and lowers their health, never below zero thanks to `max(0, ...)`; `pick_up` adds items to the `inventory` list, which also belongs to each player because it is created in `__init__`.",
+      "`@property` turns `alive` into a computed value you read like an attribute, without parentheses: `while orc.alive:` keeps hitting until the orc runs out of health. `__str__` decides how the object looks in `print()`.",
+      "The last line separates two ideas: `hero` and `orc` have the same type (`type(hero) is type(orc)`), but they are different objects (`hero is orc` is `False`)."
+    ],
+    "points": [
+      "`class` defines the mould; `Class(...)` creates an object.",
+      "`__init__` sets up each new object; `self` is that object.",
+      "Attributes on `self` belong to each object; those in the class body are shared.",
+      "`@property` exposes a calculation as if it were an attribute.",
+      "`__str__` controls what `print()` shows."
+    ],
+    "exercise": "Add a `heal(amount)` method that raises health without going past `max_health`, and make Grok heal 20 points after the second hit."
+  }
+}

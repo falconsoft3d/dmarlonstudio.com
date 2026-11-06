@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "recursividad-y-memoizacion",
+    "title": "Recursividad y memoización",
+    "summary": "Funciones recursivas en Python para recorrer un árbol de carpetas, y memoización con un diccionario para contar las formas de pagar un importe.",
+    "body": [
+      "Una función **recursiva** se llama a sí misma con un problema más pequeño. Toda recursión necesita un **caso base**, que se resuelve sin volver a llamarse. En `size(item)`, si el elemento no es un diccionario es un archivo y se devuelve su tamaño; si es una carpeta, se suma `size()` de cada cosa que contiene, y cada una de esas llamadas baja un nivel más.",
+      "`show(folder, depth=0)` también es recursiva: escribe cada nombre con dos espacios por nivel de profundidad y, si encuentra una carpeta, se llama con `depth + 1`. La recursión encaja con los datos que tienen forma de árbol (carpetas, menús, organigramas, JSON), donde no se sabe de antemano cuántos niveles hay.",
+      "`ways_to_pay(amount, coins)` cuenta de cuántas maneras se puede pagar un importe con unas monedas. En cada paso hay dos caminos: usar una moneda `coins[0]` (y queda menos por pagar) o descartarla para siempre (`coins[1:]`). Los casos base son importe cero (una forma, ya está pagado) e importe negativo o sin monedas (ninguna).",
+      "Sin más, esa función repetiría millones de veces los mismos subproblemas. La **memoización** guarda cada respuesta en `memo` con la clave `(amount, coins)` y, si vuelve a aparecer, la reutiliza. Con solo 238 casos guardados obtiene las 4562 formas de pagar 1 euro. Es lo mismo que hace `@lru_cache` automáticamente.",
+      "Python limita la profundidad de la recursión (unas 1000 llamadas anidadas). Para estructuras muy profundas, un bucle con una pila propia es más seguro."
+    ],
+    "points": [
+      "Una función recursiva se llama a sí misma con un caso más pequeño.",
+      "Sin caso base, la recursión no termina.",
+      "Es natural para árboles: carpetas, menús, JSON anidado.",
+      "La memoización guarda resultados para no repetir cálculos.",
+      "Python corta la recursión hacia las 1000 llamadas anidadas."
+    ],
+    "exercise": "Escriba una función recursiva `count_files(folder)` que devuelva cuántos archivos hay en `project` (debe dar 6)."
+  },
+  "en": {
+    "slug": "recursion-and-memoization",
+    "title": "Recursion and memoization",
+    "summary": "Recursive Python functions to walk a folder tree, and memoization with a dictionary to count the ways to pay an amount.",
+    "body": [
+      "A **recursive** function calls itself on a smaller problem. Every recursion needs a **base case** that is solved without calling itself again. In `size(item)`, if the item is not a dictionary it is a file and its size is returned; if it is a folder, it adds up `size()` for everything inside, and each of those calls goes one level deeper.",
+      "`show(folder, depth=0)` is recursive too: it prints each name indented by two spaces per level and, when it finds a folder, calls itself with `depth + 1`. Recursion fits data shaped like a tree (folders, menus, org charts, JSON), where you do not know in advance how many levels there are.",
+      "`ways_to_pay(amount, coins)` counts how many ways an amount can be paid with a set of coins. At each step there are two paths: use one `coins[0]` coin (leaving less to pay) or drop that coin for good (`coins[1:]`). The base cases are an amount of zero (one way, it is paid) and a negative amount or no coins left (no way).",
+      "On its own, that function would repeat the same subproblems millions of times. **Memoization** stores each answer in `memo` under the key `(amount, coins)` and reuses it when it comes up again. With only 238 stored cases it finds the 4562 ways to pay 1 euro. It is exactly what `@lru_cache` does for you.",
+      "Python limits recursion depth (about 1000 nested calls). For very deep structures, a loop with your own stack is safer."
+    ],
+    "points": [
+      "A recursive function calls itself on a smaller case.",
+      "Without a base case, recursion never ends.",
+      "It is a natural fit for trees: folders, menus, nested JSON.",
+      "Memoization stores results so they are not computed twice.",
+      "Python stops recursion at around 1000 nested calls."
+    ],
+    "exercise": "Write a recursive `count_files(folder)` that returns how many files there are in `project` (it should give 6)."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "decoradores",
+    "title": "Decoradores",
+    "summary": "Añada registro y control de permisos a funciones de Python sin tocarlas: decoradores, decoradores con argumentos y functools.wraps.",
+    "body": [
+      "Un **decorador** es una función que recibe una función y devuelve otra que la envuelve. `log_calls(func)` define `wrapper`, que llama a la original, escribe su nombre y su resultado, y lo devuelve. Es una clausura: `wrapper` recuerda `func`.",
+      "Escribir `@log_calls` encima de una definición equivale a `refund = log_calls(refund)`: a partir de ahí, el nombre `refund` apunta al envoltorio. `@functools.wraps(func)` copia en el envoltorio el nombre y la documentación de la original; sin él, `refund.__name__` valdría `\"wrapper\"`.",
+      "`require_role(\"admin\")` es un **decorador con argumentos**: es una función que devuelve el decorador de verdad. Por eso hay tres niveles: `require_role` recibe el rol, `decorator` recibe la función y `wrapper` recibe los argumentos de cada llamada. El envoltorio mira `user[\"roles\"]` y, si falta el rol, ni siquiera llama a la función.",
+      "Los decoradores se **apilan**: se aplica primero el de abajo. `refund` queda protegida por `require_role` y todo ello envuelto por `log_calls`, así que el registro anota también las llamadas denegadas, como se ve con Luis.",
+      "Así se separa lo que hace la función (calcular un reembolso) de lo que se repite en muchas (registrar, comprobar permisos, medir tiempos, reintentar)."
+    ],
+    "points": [
+      "`@deco` encima de `def f` equivale a `f = deco(f)`.",
+      "El envoltorio suele aceptar `*args` y `**kwargs` y devolver el resultado.",
+      "Use siempre `@functools.wraps(func)` en el envoltorio.",
+      "Un decorador con argumentos es una función que devuelve un decorador.",
+      "Varios decoradores se aplican de abajo arriba."
+    ],
+    "exercise": "Escriba un decorador `@uppercase` que convierta en mayúsculas la cadena que devuelve la función y aplíquelo a `refund` encima de los otros dos."
+  },
+  "en": {
+    "slug": "decorators",
+    "title": "Decorators",
+    "summary": "Add logging and permission checks to Python functions without touching them: decorators, decorators with arguments and functools.wraps.",
+    "body": [
+      "A **decorator** is a function that takes a function and returns another one that wraps it. `log_calls(func)` defines `wrapper`, which calls the original, prints its name and result, and returns it. It is a closure: `wrapper` remembers `func`.",
+      "Writing `@log_calls` above a definition is the same as `refund = log_calls(refund)`: from then on, the name `refund` points to the wrapper. `@functools.wraps(func)` copies the original name and docstring onto the wrapper; without it, `refund.__name__` would be `\"wrapper\"`.",
+      "`require_role(\"admin\")` is a **decorator with arguments**: a function that returns the real decorator. That is why there are three levels: `require_role` takes the role, `decorator` takes the function and `wrapper` takes the arguments of each call. The wrapper checks `user[\"roles\"]` and, if the role is missing, never calls the function at all.",
+      "Decorators **stack**, and the bottom one is applied first. `refund` is guarded by `require_role`, and the whole thing is wrapped by `log_calls`, so the log also records denied calls, as you can see with Luis.",
+      "This separates what a function does (work out a refund) from what many functions repeat (logging, permission checks, timing, retries)."
+    ],
+    "points": [
+      "`@deco` above `def f` means `f = deco(f)`.",
+      "The wrapper usually takes `*args` and `**kwargs` and returns the result.",
+      "Always use `@functools.wraps(func)` on the wrapper.",
+      "A decorator with arguments is a function that returns a decorator.",
+      "Stacked decorators are applied from the bottom up."
+    ],
+    "exercise": "Write an `@uppercase` decorator that turns the string returned by the function into capitals, and put it on `refund` above the other two."
+  }
+}

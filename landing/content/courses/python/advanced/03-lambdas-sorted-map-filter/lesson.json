@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "lambdas-sorted-map-y-filter",
+    "title": "Lambdas, sorted, map y filter",
+    "summary": "Ordene, filtre y transforme datos en Python con funciones lambda, sorted(key=...), map y filter, sobre un catálogo de productos.",
+    "body": [
+      "Una **lambda** es una función pequeña sin nombre: `lambda price: round(price * 1.21, 2)` recibe un precio y devuelve el precio con IVA. Solo admite una expresión, sin `return`. El programa la guarda en `vat` para enseñarla, aunque lo normal es escribirla directamente donde se usa.",
+      "`sorted(products, key=lambda p: p[\"price\"])` ordena los diccionarios por precio: `key` es la función que dice qué hay que comparar de cada elemento. Devuelve una lista nueva y deja `products` como estaba.",
+      "Para ordenar por varios criterios, la clave devuelve una **tupla**: `(-p[\"price\"], p[\"name\"])` ordena de más caro a más barato (el signo menos invierte el orden) y, si dos precios empatan, por nombre. Por eso `Desk` sale antes que `Monitor`. `max()` y `min()` aceptan el mismo `key=`.",
+      "`filter(función, datos)` se queda con los elementos para los que la función devuelve `True` (aquí, los que tienen existencias) y `map(función, datos)` aplica la función a cada uno. Las dos son **perezosas**: no hacen nada hasta que se recorren, por eso el programa las convierte con `list()` o las recorre en una comprensión.",
+      "`map` acepta cualquier función, no solo lambdas: `map(str.upper, ...)` usa el método de las cadenas y `map(vat, ...)` reutiliza la lambda guardada."
+    ],
+    "points": [
+      "`lambda args: expresión` crea una función de una línea.",
+      "`sorted(datos, key=...)` ordena por lo que devuelva la clave.",
+      "Una tupla como clave ordena por varios criterios.",
+      "`filter` y `map` son perezosos: páselos por `list()` para verlos.",
+      "Muchas veces una comprensión se lee mejor que `map` y `filter`."
+    ],
+    "exercise": "Escriba los nombres de los productos ordenados por el valor de su inventario (`price * stock`), de mayor a menor."
+  },
+  "en": {
+    "slug": "lambdas-sorted-map-and-filter",
+    "title": "Lambdas, sorted, map and filter",
+    "summary": "Sort, filter and transform data in Python with lambda functions, sorted(key=...), map and filter, using a product catalogue.",
+    "body": [
+      "A **lambda** is a small nameless function: `lambda price: round(price * 1.21, 2)` takes a price and returns it with VAT. It allows a single expression and no `return`. The program stores it in `vat` to show it off, though you would normally write it right where it is used.",
+      "`sorted(products, key=lambda p: p[\"price\"])` sorts the dictionaries by price: `key` is the function that says what to compare for each item. It returns a new list and leaves `products` untouched.",
+      "To sort by several criteria, the key returns a **tuple**: `(-p[\"price\"], p[\"name\"])` sorts from most to least expensive (the minus sign flips the order) and breaks ties by name. That is why `Desk` comes before `Monitor`. `max()` and `min()` accept the same `key=`.",
+      "`filter(function, data)` keeps the items for which the function returns `True` (here, the ones in stock) and `map(function, data)` applies the function to every item. Both are **lazy**: they do nothing until you loop over them, which is why the program wraps them in `list()` or a comprehension.",
+      "`map` takes any function, not just lambdas: `map(str.upper, ...)` uses the string method and `map(vat, ...)` reuses the stored lambda."
+    ],
+    "points": [
+      "`lambda args: expression` creates a one-line function.",
+      "`sorted(data, key=...)` sorts by whatever the key returns.",
+      "A tuple key sorts by several criteria.",
+      "`filter` and `map` are lazy: pass them to `list()` to see them.",
+      "A comprehension is often clearer than `map` and `filter`."
+    ],
+    "exercise": "Print the product names sorted by their stock value (`price * stock`), highest first."
+  }
+}

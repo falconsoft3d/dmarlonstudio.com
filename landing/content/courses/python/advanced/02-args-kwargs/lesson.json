@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "args-kwargs-y-argumentos-por-nombre",
+    "title": "*args, **kwargs y argumentos por nombre",
+    "summary": "Funciones de Python que aceptan cualquier número de argumentos con *args y **kwargs, y argumentos que solo se pasan por nombre.",
+    "body": [
+      "`invoice_total(*amounts, ...)` acepta tantos importes como se le pasen: el asterisco los reúne en una **tupla** llamada `amounts`, y `sum(amounts)` los suma. Por eso funciona igual con tres importes que con uno.",
+      "Los parámetros que van detrás de `*amounts` (`discount` y `tax`) son **solo por nombre** (*keyword-only*): no hay manera de pasarlos por posición, porque todo lo posicional ya se lo queda `*amounts`. Hay que escribir `discount=0.1` o `tax=0.10`, y eso hace la llamada más clara.",
+      "`log_event(event, **details)` recibe los argumentos con nombre que sobran en un **diccionario**. El programa lo recorre con `details.items()` para escribir cada campo como `clave=valor`.",
+      "Los asteriscos también sirven al llamar: `invoice_total(*prices)` reparte la lista como argumentos sueltos y `log_event(\"update\", **extra)` reparte un diccionario como argumentos con nombre.",
+      "En `ship(order_id, *, express=False)` el `*` solo no recoge nada: marca que lo que viene detrás va por nombre. Por eso `ship(1043, True)` lanza un `TypeError`, que el programa captura y muestra."
+    ],
+    "points": [
+      "`*args` reúne los argumentos posicionales sobrantes en una tupla.",
+      "`**kwargs` reúne los argumentos con nombre sobrantes en un diccionario.",
+      "Lo que va detrás de `*` o de `*args` solo se pasa por nombre.",
+      "Al llamar, `*lista` y `**dic` reparten los valores.",
+      "Los nombres `args` y `kwargs` son costumbre; lo que importa son los asteriscos."
+    ],
+    "exercise": "Añada a `invoice_total` un parámetro solo por nombre `shipping=0.0` que se sume al final, y llámelo con `shipping=4.95`."
+  },
+  "en": {
+    "slug": "args-kwargs-and-keyword-only",
+    "title": "*args, **kwargs and keyword-only arguments",
+    "summary": "Python functions that accept any number of arguments with *args and **kwargs, plus arguments that can only be passed by name.",
+    "body": [
+      "`invoice_total(*amounts, ...)` takes as many amounts as you give it: the asterisk gathers them into a **tuple** called `amounts`, and `sum(amounts)` adds them up. That is why it works the same with three amounts or with one.",
+      "The parameters after `*amounts` (`discount` and `tax`) are **keyword-only**: there is no way to pass them by position, because `*amounts` swallows everything positional. You have to write `discount=0.1` or `tax=0.10`, which also makes the call clearer.",
+      "`log_event(event, **details)` collects the leftover named arguments in a **dictionary**. The program loops over `details.items()` to print each field as `key=value`.",
+      "Asterisks also work when calling: `invoice_total(*prices)` spreads a list into separate arguments, and `log_event(\"update\", **extra)` spreads a dictionary into named arguments.",
+      "In `ship(order_id, *, express=False)` the bare `*` collects nothing: it just marks that everything after it is keyword-only. So `ship(1043, True)` raises a `TypeError`, which the program catches and prints."
+    ],
+    "points": [
+      "`*args` gathers extra positional arguments into a tuple.",
+      "`**kwargs` gathers extra named arguments into a dict.",
+      "Anything after `*` or `*args` is keyword-only.",
+      "When calling, `*list` and `**dict` spread the values out.",
+      "The names `args` and `kwargs` are a convention; the asterisks are what matter."
+    ],
+    "exercise": "Add a keyword-only `shipping=0.0` parameter to `invoice_total` that is added at the end, and call it with `shipping=4.95`."
+  }
+}

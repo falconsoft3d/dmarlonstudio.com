@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-inventario",
+    "title": "Proyecto: un inventario con pruebas",
+    "summary": "Un pequeño inventario en Python que reúne clases, dataclasses y excepciones propias, comprobado con pruebas assert. Ejecútelo en DMarlon Studio.",
+    "body": [
+      "Este proyecto junta lo visto en el curso. `Product` es una **clase de datos**: tres campos, uno con valor por defecto, y un `__repr__` gratis que se ve en la salida. `OutOfStock` es una **excepción propia** para el único error que el inventario sabe tratar.",
+      "`Inventory` es una clase normal. Su `__init__` recibe cualquier número de productos con `*products` y los guarda en un diccionario por código (`sku`) con una comprensión. `sell()` busca el producto (si el código no existe salta un `KeyError`, un error distinto a propósito), comprueba las existencias, las descuenta y devuelve el importe. `value()` suma el valor de todo el almacén.",
+      "La segunda mitad son **pruebas**. **`assert condición`** no hace nada si la condición es cierta y lanza `AssertionError` si es falsa, con el mensaje opcional que va tras la coma. Cada `assert` fija un comportamiento: el valor inicial es 955, vender 4 sillas cobra 198 y quedan 6.",
+      "Para probar que algo **falla**, se intenta dentro de un `try`: si `sell(\"TABLE\", 5)` no lanzara `OutOfStock`, se llegaría a `assert False` y la prueba fallaría. Como sí la lanza, el `except` la captura y muestra el mensaje. Si el programa llega a `All tests passed`, todas las comprobaciones se han cumplido.",
+      "En proyectos reales estas pruebas van en funciones `test_...` y las ejecuta **pytest**, que usa estos mismos `assert`. Ojo: `python -O` desactiva los `assert`, así que no los use para validar datos en producción."
+    ],
+    "points": [
+      "Una clase de datos para los datos y una clase normal para el comportamiento.",
+      "Excepciones propias para los errores que el programa sabe tratar.",
+      "`assert condición, \"mensaje\"` detiene el programa si algo no cuadra.",
+      "Para probar un error: `try`, la llamada, `assert False` y `except`.",
+      "pytest ejecuta funciones `test_...` con estos mismos `assert`."
+    ],
+    "exercise": "Añada un método `restock(sku, qty)` que rechace cantidades negativas con `ValueError`, y escriba dos pruebas: una que reponga 3 mesas y otra que compruebe el error."
+  },
+  "en": {
+    "slug": "inventory-project",
+    "title": "Project: a tested inventory",
+    "summary": "A small Python inventory that brings together classes, dataclasses and custom exceptions, checked with assert tests. Run it in DMarlon Studio.",
+    "body": [
+      "This project pulls the course together. `Product` is a **dataclass**: three fields, one with a default, and a free `__repr__` that you can see in the output. `OutOfStock` is a **custom exception** for the one error the inventory knows how to handle.",
+      "`Inventory` is an ordinary class. Its `__init__` takes any number of products through `*products` and stores them in a dictionary keyed by `sku` with a comprehension. `sell()` looks up the product (an unknown code raises `KeyError`, a different error on purpose), checks the stock, takes the units off and returns the amount. `value()` adds up the value of the whole warehouse.",
+      "The second half is **tests**. **`assert condition`** does nothing when the condition is true and raises `AssertionError` when it is false, with the optional message after the comma. Each `assert` pins down one behaviour: the starting value is 955, selling 4 chairs charges 198 and leaves 6.",
+      "To test that something **fails**, try it inside a `try`: if `sell(\"TABLE\", 5)` did not raise `OutOfStock`, the code would reach `assert False` and the test would fail. Since it does raise, the `except` catches it and prints the message. If the program gets to `All tests passed`, every check has held.",
+      "In real projects these tests live in `test_...` functions and are run by **pytest**, which uses these very same `assert` statements. Note that `python -O` switches `assert` off, so do not use it to validate data in production."
+    ],
+    "points": [
+      "A dataclass for the data, an ordinary class for the behaviour.",
+      "Custom exceptions for the errors your program can handle.",
+      "`assert condition, \"message\"` stops the program when something is off.",
+      "To test an error: `try`, the call, `assert False`, then `except`.",
+      "pytest runs `test_...` functions with these same `assert` statements."
+    ],
+    "exercise": "Add a `restock(sku, qty)` method that rejects negative quantities with `ValueError`, and write two tests: one that restocks 3 tables and one that checks the error."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "anotaciones-de-tipo-protocolos-y-genericos",
+    "title": "Anotaciones de tipo, protocolos y genéricos",
+    "summary": "Anotaciones de tipo en Python: alias con type, typing.Protocol para el tipado estructural y funciones genéricas con la sintaxis de Python 3.12.",
+    "body": [
+      "Las **anotaciones de tipo** (`title: str`, `-> Euros`) documentan qué espera y qué devuelve cada función. Python no las comprueba al ejecutar; las usan los editores y herramientas como mypy o Pyright para avisar de errores antes de ejecutar el programa. `type Euros = float` crea un **alias**: un nombre más expresivo para un tipo que ya existe.",
+      "Un **`Protocol`** describe una forma, no una familia: `Priced` dice que vale cualquier objeto con un método `price()` que devuelva euros. `Book` y `Subscription` no heredan de `Priced` y aun así lo cumplen. Es el **tipado estructural** (el *duck typing* de siempre, pero comprobable): si tiene `price()`, sirve.",
+      "Por eso `basket_total(items: list[Priced], ...)` acepta libros, suscripciones y cualquier clase futura que tenga `price()`. Con **`@runtime_checkable`**, además, `isinstance(basket[1], Priced)` se puede preguntar al ejecutar: la suscripción lo cumple y la cadena `\"Dune\"` no.",
+      "`def first[T](items: list[T], default: T) -> T` es una función **genérica** (sintaxis de Python 3.12; antes se usaba `TypeVar`). `T` es un tipo cualquiera, pero el mismo en toda la firma: con una lista de cadenas, el verificador sabe que el resultado es una cadena.",
+      "La última línea lo deja claro: `Subscription(\"3\")` pasa una cadena donde se esperaba un `int` y Python lo ejecuta sin quejarse. Un verificador de tipos lo marcaría como error."
+    ],
+    "points": [
+      "Las anotaciones no cambian lo que hace el programa: lo documentan.",
+      "`type Nombre = ...` crea un alias de tipo.",
+      "Un `Protocol` acepta cualquier clase con los métodos indicados.",
+      "`def f[T](x: T) -> T` declara una función genérica.",
+      "Use mypy o Pyright para que las anotaciones detecten errores."
+    ],
+    "exercise": "Cree una clase `GiftCard` con `price()` y añádala a `basket` sin heredar de nada; después escriba `def last[T](items: list[T], default: T) -> T`."
+  },
+  "en": {
+    "slug": "type-hints-protocols-and-generics",
+    "title": "Type hints, protocols and generics",
+    "summary": "Python type hints: aliases with type, typing.Protocol for structural typing and generic functions with the Python 3.12 syntax.",
+    "body": [
+      "**Type hints** (`title: str`, `-> Euros`) document what each function expects and returns. Python does not check them at run time; editors and tools such as mypy or Pyright use them to flag mistakes before you run the program. `type Euros = float` creates an **alias**: a more meaningful name for an existing type.",
+      "A **`Protocol`** describes a shape, not a family: `Priced` says that any object with a `price()` method returning euros will do. `Book` and `Subscription` do not inherit from `Priced` and still satisfy it. This is **structural typing** (good old duck typing, but checkable): if it has `price()`, it fits.",
+      "That is why `basket_total(items: list[Priced], ...)` accepts books, subscriptions and any future class with `price()`. With **`@runtime_checkable`** you can also ask `isinstance(basket[1], Priced)` at run time: the subscription qualifies and the string `\"Dune\"` does not.",
+      "`def first[T](items: list[T], default: T) -> T` is a **generic** function (Python 3.12 syntax; older code uses `TypeVar`). `T` stands for any type, but the same one across the whole signature: given a list of strings, the checker knows the result is a string.",
+      "The last line makes the point: `Subscription(\"3\")` passes a string where an `int` was expected and Python runs it without complaint. A type checker would flag it as an error."
+    ],
+    "points": [
+      "Hints do not change what the program does: they document it.",
+      "`type Name = ...` creates a type alias.",
+      "A `Protocol` accepts any class with the required methods.",
+      "`def f[T](x: T) -> T` declares a generic function.",
+      "Run mypy or Pyright to make the hints catch bugs."
+    ],
+    "exercise": "Create a `GiftCard` class with `price()` and add it to `basket` without inheriting from anything; then write `def last[T](items: list[T], default: T) -> T`."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "modulo-collections",
+    "title": "Counter, defaultdict, deque y namedtuple",
+    "summary": "Las estructuras de datos del módulo collections de Python: Counter, defaultdict, deque y namedtuple, aplicadas a las ventas de una cafetería.",
+    "body": [
+      "**`namedtuple`** crea una tupla con nombres de campo. `Sale(\"Ana\", \"coffee\", 3.2)` ocupa lo mismo que una tupla, es inmutable y se lee mejor: `first.customer` en lugar de `first[0]`, aunque el índice sigue funcionando (`first[2]`).",
+      "**`Counter`** cuenta lo que se le dé. A partir de una expresión generadora con los productos, `most_common(2)` devuelve los dos más vendidos con su cuenta. Preguntar por algo que no está, como `best[\"juice\"]`, da `0` en vez de un `KeyError`. Al final se usa también como acumulador: `totals[sale.customer] += sale.amount` funciona aunque el cliente aún no exista.",
+      "**`defaultdict(list)`** es un diccionario que, cuando falta una clave, la crea con el valor de `list()`, una lista vacía. Así `by_customer[sale.customer].append(...)` agrupa las ventas por cliente sin comprobar antes si la clave existe.",
+      "**`deque`** (*double-ended queue*) añade y quita por los dos extremos con la misma rapidez. Con `maxlen=3` solo guarda los tres últimos elementos: cada `append` nuevo expulsa el más antiguo, y `appendleft(\"VIP\")` entra por la izquierda y expulsa por la derecha. Es ideal para historiales y colas.",
+      "La comprensión final redondea los totales, porque las sumas de decimales como `3.2 + 4.0 + 3.2` arrastran pequeños errores de coma flotante."
+    ],
+    "points": [
+      "`namedtuple`: una tupla con campos con nombre.",
+      "`Counter` cuenta y `most_common(n)` da los n primeros.",
+      "`defaultdict(list)` crea la lista vacía si falta la clave.",
+      "`deque(maxlen=n)` guarda solo los últimos n elementos.",
+      "Las claves que faltan en un `Counter` valen `0`."
+    ],
+    "exercise": "Use un `Counter` para saber cuántas compras ha hecho cada cliente y escriba el cliente que más veces ha comprado."
+  },
+  "en": {
+    "slug": "collections-module",
+    "title": "Counter, defaultdict, deque and namedtuple",
+    "summary": "The data structures in Python's collections module: Counter, defaultdict, deque and namedtuple, applied to the sales of a coffee shop.",
+    "body": [
+      "**`namedtuple`** creates a tuple with named fields. `Sale(\"Ana\", \"coffee\", 3.2)` takes the same memory as a tuple, is immutable and reads better: `first.customer` instead of `first[0]`, although the index still works (`first[2]`).",
+      "**`Counter`** counts whatever you feed it. Given a generator expression of products, `most_common(2)` returns the two best sellers with their counts. Asking for something that is not there, like `best[\"juice\"]`, gives `0` instead of a `KeyError`. At the end it also works as an accumulator: `totals[sale.customer] += sale.amount` works even if the customer is not there yet.",
+      "**`defaultdict(list)`** is a dictionary that, when a key is missing, creates it with the value of `list()`, an empty list. So `by_customer[sale.customer].append(...)` groups sales by customer without checking first whether the key exists.",
+      "**`deque`** (double-ended queue) adds and removes at both ends equally fast. With `maxlen=3` it only keeps the last three items: each new `append` pushes out the oldest, and `appendleft(\"VIP\")` comes in on the left and pushes one out on the right. It is perfect for histories and queues.",
+      "The final comprehension rounds the totals, because adding decimals such as `3.2 + 4.0 + 3.2` builds up tiny floating-point errors."
+    ],
+    "points": [
+      "`namedtuple`: a tuple with named fields.",
+      "`Counter` counts and `most_common(n)` gives the top n.",
+      "`defaultdict(list)` creates an empty list for a missing key.",
+      "`deque(maxlen=n)` keeps only the last n items.",
+      "Missing keys in a `Counter` are `0`."
+    ],
+    "exercise": "Use a `Counter` to find how many purchases each customer made and print the customer who bought most often."
+  }
+}

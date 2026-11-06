@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "enumeraciones-y-match",
+    "title": "Enumeraciones y match/case",
+    "summary": "Estados de pedido con Enum y eventos procesados con match/case en Python: patrones de valores, diccionarios, secuencias, capturas y guardas.",
+    "body": [
+      "Una **enumeración** (`Enum`) agrupa un conjunto cerrado de valores con nombre. `Status.PAID` es mucho más seguro que la cadena `\"paid\"`: una errata como `Status.PIAD` falla en el acto. Cada miembro tiene `name` y `value`, se puede recorrer con `for status in Status` y se puede buscar por su valor con `Status(\"paid\")`. El primer bucle escribe cada miembro con `!s` (que da `Status.PAID`) y su valor con `!r`.",
+      "**`match`** compara un valor con una serie de **patrones** y ejecuta el primer `case` que encaja. En `next_step`, `case Status.PENDING:` compara con un miembro concreto, y **`case _:`** recoge todo lo demás, como un `else`.",
+      "En `handle` los patrones describen la **forma** de los datos. `{\"type\": \"order\", \"id\": oid, ...}` encaja con cualquier diccionario que tenga esas claves (aunque tenga más) y **captura** los valores en `oid` y `total`. El `if total >= 100` es una **guarda**: si no se cumple, se prueba el siguiente `case`, que es el que acepta el pedido 8.",
+      "`(\"refund\", oid, amount)` encaja con cualquier secuencia de tres elementos que empiece por `\"refund\"` (tupla o lista; las cadenas no cuentan). `[\"cancel\", *ids]` admite cualquier longitud y guarda el resto en la lista `ids`.",
+      "El último evento, `\"ping\"`, no encaja con nada y cae en `case _`. `{event!r}` lo escribe con `repr()`, entre comillas."
+    ],
+    "points": [
+      "`Enum` da nombres fijos a un conjunto cerrado de valores.",
+      "`match` prueba los `case` en orden y ejecuta el primero que encaja.",
+      "Los patrones pueden capturar valores en variables.",
+      "`if` después del patrón añade una condición (guarda).",
+      "`case _:` recoge todo lo que no ha encajado."
+    ],
+    "exercise": "Añada un estado `CANCELLED` a `Status` y un `case` en `next_step` que devuelva `\"refund the customer\"`; después, haga que los reembolsos con `amount` negativo escriban un aviso."
+  },
+  "en": {
+    "slug": "enums-and-pattern-matching",
+    "title": "Enums and match/case",
+    "summary": "Order states with Enum and events handled with match/case in Python: value, mapping and sequence patterns, captures and guards.",
+    "body": [
+      "An **enumeration** (`Enum`) groups a closed set of named values. `Status.PAID` is much safer than the string `\"paid\"`: a typo such as `Status.PIAD` fails straight away. Each member has a `name` and a `value`, you can loop over them with `for status in Status`, and you can look one up by value with `Status(\"paid\")`. The first loop prints each member with `!s` (which gives `Status.PAID`) and its value with `!r`.",
+      "**`match`** compares a value against a series of **patterns** and runs the first `case` that fits. In `next_step`, `case Status.PENDING:` compares against a specific member, and **`case _:`** catches everything else, like an `else`.",
+      "In `handle`, the patterns describe the **shape** of the data. `{\"type\": \"order\", \"id\": oid, ...}` matches any dictionary with those keys (even if it has more) and **captures** the values into `oid` and `total`. The `if total >= 100` part is a **guard**: if it fails, the next `case` is tried, and that is the one that accepts order 8.",
+      "`(\"refund\", oid, amount)` matches any three-item sequence starting with `\"refund\"` (tuple or list; strings do not count). `[\"cancel\", *ids]` accepts any length and collects the rest into the list `ids`.",
+      "The last event, `\"ping\"`, matches nothing and falls into `case _`. `{event!r}` prints it with `repr()`, quotes included."
+    ],
+    "points": [
+      "`Enum` gives fixed names to a closed set of values.",
+      "`match` tries each `case` in order and runs the first one that fits.",
+      "Patterns can capture values into variables.",
+      "An `if` after the pattern adds a condition (a guard).",
+      "`case _:` catches whatever did not match."
+    ],
+    "exercise": "Add a `CANCELLED` state to `Status` and a `case` in `next_step` that returns `\"refund the customer\"`; then make refund events with a negative `amount` print a warning."
+  }
+}

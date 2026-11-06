@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "json-y-expresiones-regulares",
+    "title": "JSON y expresiones regulares",
+    "summary": "Lea y escriba JSON con el módulo json de Python y extraiga datos de un registro con expresiones regulares: grupos con nombre, findall y sub.",
+    "body": [
+      "**JSON** es el formato de texto que usan casi todas las API web. **`json.loads()`** convierte ese texto en objetos de Python: los objetos JSON pasan a diccionarios, las listas a listas y `false` a `False`. A partir de ahí, `order[\"items\"]` se recorre como cualquier lista para calcular el total.",
+      "**`json.dumps()`** hace el camino contrario. Con `sort_keys=True` las claves salen ordenadas, lo que ayuda a comparar resultados; con `indent=2` saldría con sangría, más fácil de leer. Para archivos están `json.load()` y `json.dump()`, sin la `s`.",
+      "Las **expresiones regulares** describen patrones de texto. `re.compile()` prepara el patrón una vez para usarlo muchas. `\\d` es un dígito, `[A-Z]+` una o más mayúsculas y `.+` el resto de la línea. **`(?P<time>...)`** es un **grupo con nombre**: lo que encaja se recupera con `match[\"time\"]`. `pattern.match(line)` comprueba el patrón desde el principio de la línea.",
+      "**`re.findall()`** devuelve todo lo que encaja en el texto. Con el patrón de correo, `[\\w.]+` son letras, dígitos, guiones bajos o puntos; si el patrón tiene un grupo entre paréntesis, como `order (\\d+)`, devuelve solo lo del grupo, y el programa lo pasa a `int`.",
+      "**`re.sub()`** sustituye lo que encaja: aquí oculta la parte del correo anterior a la arroba. Las cadenas de los patrones empiezan por `r` (**cadenas crudas**) para que la barra invertida llegue tal cual a `re`."
+    ],
+    "points": [
+      "`json.loads` convierte texto en objetos; `json.dumps`, al revés.",
+      "Escriba los patrones como cadenas crudas: `r\"\\d+\"`.",
+      "`(?P<nombre>...)` captura un trozo que se pide por nombre.",
+      "`findall` devuelve todas las coincidencias; `sub` las reemplaza.",
+      "`re.compile` prepara un patrón que se usa muchas veces."
+    ],
+    "exercise": "Extraiga del registro los milisegundos de la línea `WARN` con un grupo con nombre y escriba un aviso si pasan de 2000."
+  },
+  "en": {
+    "slug": "json-and-regular-expressions",
+    "title": "JSON and regular expressions",
+    "summary": "Read and write JSON with Python's json module and pull data out of a log with regular expressions: named groups, findall and sub.",
+    "body": [
+      "**JSON** is the text format almost every web API speaks. **`json.loads()`** turns that text into Python objects: JSON objects become dictionaries, arrays become lists and `false` becomes `False`. From there, `order[\"items\"]` is looped over like any other list to work out the total.",
+      "**`json.dumps()`** goes the other way. With `sort_keys=True` the keys come out sorted, which helps when comparing results; `indent=2` would add indentation for easier reading. For files there are `json.load()` and `json.dump()`, without the `s`.",
+      "**Regular expressions** describe text patterns. `re.compile()` prepares a pattern once so you can use it many times. `\\d` is a digit, `[A-Z]+` one or more capital letters and `.+` the rest of the line. **`(?P<time>...)`** is a **named group**: whatever it matches is retrieved with `match[\"time\"]`. `pattern.match(line)` tries the pattern from the start of the line.",
+      "**`re.findall()`** returns everything that matches in the text. In the email pattern, `[\\w.]+` means letters, digits, underscores or dots; when the pattern has a group in parentheses, as in `order (\\d+)`, it returns only the group, which the program converts to `int`.",
+      "**`re.sub()`** replaces whatever matches: here it hides the part of the email before the at sign. Pattern strings start with `r` (**raw strings**) so backslashes reach `re` unchanged."
+    ],
+    "points": [
+      "`json.loads` turns text into objects; `json.dumps` does the reverse.",
+      "Write patterns as raw strings: `r\"\\d+\"`.",
+      "`(?P<name>...)` captures a piece you can ask for by name.",
+      "`findall` returns every match; `sub` replaces them.",
+      "`re.compile` prepares a pattern you use many times."
+    ],
+    "exercise": "Use a named group to pull the milliseconds out of the `WARN` line and print a warning if they are over 2000."
+  }
+}

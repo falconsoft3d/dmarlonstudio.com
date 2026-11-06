@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clausuras-y-nonlocal",
+    "title": "Clausuras y nonlocal",
+    "summary": "Funciones que devuelven funciones y recuerdan sus variables: clausuras en Python y nonlocal para cambiarlas, con descuentos y turnos.",
+    "body": [
+      "En Python una función puede definir otra dentro y devolverla. `make_discount(0.20)` crea la función `apply` y la devuelve sin llamarla. Lo curioso es que `apply` sigue viendo `rate` aunque `make_discount` ya haya terminado: eso es una **clausura**, una función que lleva consigo las variables del sitio donde nació.",
+      "Cada llamada crea una clausura distinta: `sales` recuerda `0.20` y `members` recuerda `0.35`. Son como pequeñas fábricas de funciones configuradas.",
+      "Leer una variable de fuera no necesita nada especial, pero cambiarla sí. En `next_ticket`, `number += 1` haría que Python tratara `number` como local (y fallaría con `UnboundLocalError`). La declaración **`nonlocal number`** indica que es la variable de la función de fuera, la que se conserva entre llamadas.",
+      "Por eso `bakery` y `butcher` llevan cuentas separadas: cada dispensador tiene su propio `number`. La última línea curiosea dentro: `sales.__closure__[0].cell_contents` es la celda donde la clausura guarda `rate`.",
+      "Las clausuras son la base de los decoradores (la próxima lección) y una alternativa ligera a una clase cuando solo hace falta guardar un dato y un método."
+    ],
+    "points": [
+      "Una función interior puede usar las variables de la exterior.",
+      "Esas variables siguen vivas después de que la exterior termine.",
+      "`nonlocal` permite cambiar una variable de la función de fuera.",
+      "Cada llamada a la fábrica crea una clausura independiente."
+    ],
+    "exercise": "Escriba `make_counter(limit)` que devuelva una función que cuente 1, 2, 3… y, al pasar de `limit`, devuelva `\"full\"`."
+  },
+  "en": {
+    "slug": "closures-and-nonlocal",
+    "title": "Closures and nonlocal",
+    "summary": "Functions that return functions and remember their variables: Python closures, and nonlocal to change them, with discounts and tickets.",
+    "body": [
+      "In Python a function can define another one inside it and return it. `make_discount(0.20)` creates the `apply` function and returns it without calling it. The interesting part is that `apply` can still see `rate` after `make_discount` has finished: that is a **closure**, a function that carries the variables of the place where it was created.",
+      "Each call makes a different closure: `sales` remembers `0.20` and `members` remembers `0.35`. They work like small factories of pre-configured functions.",
+      "Reading an outer variable needs nothing special, but changing it does. In `next_ticket`, `number += 1` would make Python treat `number` as local (and fail with `UnboundLocalError`). The **`nonlocal number`** statement says it is the outer function's variable, the one that survives between calls.",
+      "That is why `bakery` and `butcher` keep separate counts: each dispenser has its own `number`. The last line peeks inside: `sales.__closure__[0].cell_contents` is the cell where the closure stores `rate`.",
+      "Closures are the foundation of decorators (the next lesson) and a lightweight alternative to a class when you only need to keep one piece of data and one method."
+    ],
+    "points": [
+      "An inner function can use the outer function's variables.",
+      "Those variables stay alive after the outer function returns.",
+      "`nonlocal` lets you change a variable of the enclosing function.",
+      "Each call to the factory creates an independent closure."
+    ],
+    "exercise": "Write `make_counter(limit)` that returns a function counting 1, 2, 3… and returning `\"full\"` once it goes past `limit`."
+  }
+}

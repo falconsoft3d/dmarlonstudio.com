@@ -3,6 +3,16 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.53 — 2026-11-07
+
+- **Curso de Python avanzado** (20 lecciones, español e inglés):
+  comprensiones, `*args`/`**kwargs`, lambdas, clausuras, decoradores,
+  generadores, iteradores, clases, herencia, métodos especiales,
+  dataclasses, enumeraciones y `match`, excepciones propias y `with`, tipos y
+  genéricos, `collections`, `itertools`/`functools`, recursividad, JSON y
+  expresiones regulares, `asyncio` y un inventario con pruebas como
+  proyecto. Cada ejemplo, con su salida real y su imagen en DMarlon Studio.
+
 ## 1.0.52 — 2026-11-07
 
 - **Curso de JavaScript avanzado** (20 lecciones, español e inglés): ámbito

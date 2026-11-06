@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "itertools-y-functools",
+    "title": "itertools y functools",
+    "summary": "Herramientas de la biblioteca estándar de Python: accumulate, combinations, chain, count, islice y groupby, y lru_cache, reduce y partial.",
+    "body": [
+      "El módulo **`itertools`** reúne iteradores ya hechos. `accumulate(daily_sales)` da los **totales acumulados** día a día. `combinations(menu, 2)` genera todas las parejas posibles de platos sin repetir ni importar el orden: con cuatro platos salen 6. `chain` encadena varias secuencias como si fueran una sola.",
+      "`count(500, 5)` cuenta sin fin (500, 505, 510…) y, como todo en `itertools`, es perezoso. Para no recorrerlo eternamente, **`islice(tickets, 4)`** toma solo los cuatro primeros, igual que un corte `[:4]` pero para iteradores.",
+      "**`groupby`** agrupa elementos **consecutivos** iguales y devuelve pares de clave y grupo. Por eso `INFO` aparece dos veces en `runs`: los dos no están juntos. Si quiere un grupo por valor, ordene antes con `sorted()`.",
+      "Del módulo **`functools`**: `reduce` combina los elementos de dos en dos hasta dejar uno (aquí multiplica los descuentos sucesivos: 0,9 × 0,95 × 0,8) y **`partial`** crea una función nueva con un argumento ya fijado: `spain(p)` equivale a `price_with_tax(p, rate=0.21)`.",
+      "**`@lru_cache`** guarda los resultados de una función según sus argumentos. La segunda llamada con `\"EU\"` no ejecuta el cuerpo (no sale el mensaje de cálculo) y `cache_info()` lo confirma: un acierto y dos fallos. Úselo solo con funciones que den siempre lo mismo para los mismos argumentos."
+    ],
+    "points": [
+      "`accumulate`, `combinations` y `chain` ahorran muchos bucles.",
+      "`count` es infinito: córtelo con `islice`.",
+      "`groupby` solo junta elementos consecutivos.",
+      "`reduce` combina una lista en un solo valor; `partial` fija argumentos.",
+      "`@lru_cache` recuerda resultados de funciones puras."
+    ],
+    "exercise": "Use `groupby` sobre `sorted(log)` para contar cuántas veces aparece cada nivel en total, y `accumulate` con `max` para ver, día a día, la mejor venta hasta ese momento."
+  },
+  "en": {
+    "slug": "itertools-and-functools",
+    "title": "itertools and functools",
+    "summary": "Handy tools from Python's standard library: accumulate, combinations, chain, count, islice and groupby, plus lru_cache, reduce and partial.",
+    "body": [
+      "The **`itertools`** module bundles ready-made iterators. `accumulate(daily_sales)` gives the **running totals** day by day. `combinations(menu, 2)` produces every possible pair of dishes with no repeats and no regard for order: four dishes give 6 pairs. `chain` joins several sequences as if they were one.",
+      "`count(500, 5)` counts forever (500, 505, 510…) and, like everything in `itertools`, it is lazy. So you do not loop over it forever, **`islice(tickets, 4)`** takes just the first four, like a `[:4]` slice but for iterators.",
+      "**`groupby`** groups **consecutive** equal items and returns pairs of key and group. That is why `INFO` shows up twice in `runs`: the two are not next to each other. If you want one group per value, sort first with `sorted()`.",
+      "From the **`functools`** module: `reduce` combines items two at a time until one is left (here it multiplies the successive discounts: 0.9 × 0.95 × 0.8), and **`partial`** creates a new function with one argument already filled in: `spain(p)` is the same as `price_with_tax(p, rate=0.21)`.",
+      "**`@lru_cache`** stores a function's results by argument. The second call with `\"EU\"` does not run the body (no calculation message appears) and `cache_info()` confirms it: one hit and two misses. Only use it on functions that always return the same thing for the same arguments."
+    ],
+    "points": [
+      "`accumulate`, `combinations` and `chain` save a lot of loops.",
+      "`count` is infinite: cut it with `islice`.",
+      "`groupby` only joins consecutive items.",
+      "`reduce` folds a list into one value; `partial` fixes arguments.",
+      "`@lru_cache` remembers the results of pure functions."
+    ],
+    "exercise": "Use `groupby` on `sorted(log)` to count how many times each level appears in total, and `accumulate` with `max` to show the best day so far after each day."
+  }
+}

@@ -106,6 +106,7 @@ export const en: Content = {
       { seed: "disk_usage", name: "Disk space", text: "What each folder takes up and the largest files, without freezing the window." },
       { seed: "port_scanner", name: "Port scanner", text: "Parallel TCP connections with progress and CSV export." },
       { seed: "file_renamer", name: "File renamer", text: "Rules, a preview with conflicts and undo." },
+      { seed: "mp3_player", name: "MP3 player", text: "Digital clock, spectrum analyzer and playlist, drawn on canvases." },
       { seed: "console_animals", name: "Animal management (console)", text: "Registrations, removals and vaccines from a Python console menu." },
       { seed: "pascal_calculator", name: "Calculator (Pascal)", text: "The native calculator in Object Pascal with Lazarus, keyboard included." },
       { seed: "web_crm", name: "CRM web", text: "Opportunities by stage and pipeline value, in Flask." },

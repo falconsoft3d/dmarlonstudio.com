@@ -35,6 +35,7 @@ part 'tk_showcase_util_pos.dart';
 part 'tk_showcase_util_file_renamer.dart';
 part 'tk_showcase_util_mp3_player.dart';
 part 'tk_showcase_util_train_monitor.dart';
+part 'tk_showcase_util_pascal_odoo.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
 String tkUnitComment({
@@ -156,6 +157,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   tkUtilInvestor(t),
   tkUtilPos(t),
   tkUtilFileRenamer(t),
+  tkUtilMp3Player(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

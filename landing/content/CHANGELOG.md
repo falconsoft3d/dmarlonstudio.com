@@ -3,6 +3,24 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.44 — 2026-11-06
+
+- **Demos móviles y web** en la página Demos, que se prueban sin instalar
+  nada:
+  - **Móvil**: la tienda con login, los envíos y las tareas de Flutter,
+    compiladas para el navegador y abiertas dentro de un teléfono, y como
+    **APK de Android** (lo compila GitHub Actions).
+  - **Web**: la misma tienda en **HTML**, **React** y **Vue**, publicada en
+    la propia web.
+  - `scripts/build_live_demos.py` las compila; la página tiene secciones
+    Escritorio, Móvil y Web.
+- **Reproductor MP3**, ejemplo y undécima demo de escritorio: reloj
+  digital, analizador de espectro, título que se desplaza, kbps y kHz, lista
+  de reproducción con listas M3U y etiquetas ID3 leídas sin bibliotecas; el
+  sonido, con `pygame`.
+- El carrusel de la portada lleva el logotipo también en los ejemplos nuevos.
+- CI: las pruebas que fallan salen como anotaciones con su error.
+
 ## 1.0.43 — 2026-11-06
 
 - **Demos para descargar** en la web (menú **Demos**, dmarlonstudio.com/demos):

@@ -35,6 +35,13 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   html_store: { icon: "html", label: "HTML" },
   vue_store: { icon: "vue", label: "Vue · Vite" },
   go_store: { icon: "go", label: "Go" },
+  pdf_editor: { icon: "python", label: "Python · tkinter" },
+  disk_usage: { icon: "python", label: "Python · tkinter" },
+  port_scanner: { icon: "python", label: "Python · tkinter" },
+  investor: { icon: "python", label: "Python · tkinter" },
+  pos: { icon: "python", label: "Python · tkinter" },
+  file_renamer: { icon: "python", label: "Python · tkinter" },
+  mp3_player: { icon: "python", label: "Python · tkinter" },
 };
 
 /** La captura de un ejemplo (JPEG; scripts/build-docs.mjs convierte los PNG). */

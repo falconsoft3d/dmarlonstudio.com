@@ -126,11 +126,12 @@ export const manualEs: Manual = {
                 ["**Inversor de bolsa (demo)**", "Precios simulados en vivo, compra y venta con comisión, cartera guardada y gráfico"],
                 ["**Punto de venta**", "Un TPV al estilo del de Odoo con imágenes: teclado de cantidad, descuento y precio, cobro, ticket y ventas en SQLite. Se conecta a Odoo con URL, usuario y contraseña para bajar productos y precios y enviar los pedidos a Ventas"],
                 ["**Renombrar archivos**", "Reglas con expresiones regulares y numeración, vista previa con conflictos y deshacer"],
+                ["**Reproductor MP3**", "Una interfaz propia dibujada en lienzos (reloj digital, espectro), etiquetas ID3, listas M3U y sonido con `pygame`"],
               ],
             },
             {
               type: "p",
-              text: "Diez de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Once de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android): son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },

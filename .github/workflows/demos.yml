@@ -13,6 +13,7 @@ on:
       - 'studio/assets/i18n/**'
       - 'studio/test/demos_export_test.dart'
       - 'scripts/build_demos.py'
+      - 'scripts/build_live_demos.py'
       - '.github/workflows/demos.yml'
   workflow_dispatch:
 
@@ -57,8 +58,33 @@ jobs:
           name: demos-${{ matrix.os }}
           path: demos-out/*.zip
 
+  # Las demos móviles (Flutter) como APK de Android.
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.38.4
+          channel: stable
+      - name: Exportar las demos móviles
+        working-directory: studio
+        run: |
+          flutter pub get
+          DMS_LIVE_OUT="$GITHUB_WORKSPACE/live-src" flutter test test/demos_export_test.dart
+      - name: Compilar los APK
+        run: python3 scripts/build_live_demos.py android live-src demos-out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demos-android
+          path: demos-out/*.apk
+
   release:
-    needs: build
+    needs: [build, android]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
@@ -71,4 +97,6 @@ jobs:
           body: Aplicaciones de ejemplo hechas con DMarlon Studio, compiladas para macOS y Windows. Se descargan desde https://dmarlonstudio.com/demos
           prerelease: true
           make_latest: false
-          files: '*.zip'
+          files: |
+            *.zip
+            *.apk

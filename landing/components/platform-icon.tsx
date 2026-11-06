@@ -1,7 +1,21 @@
+import { siAndroid } from "simple-icons";
 import type { Platform } from "@/lib/downloads";
 
 /** Logotipo de cada sistema (trazos simples, del color del texto). */
-export function PlatformIcon({ platform, className = "size-6" }: { platform: Platform; className?: string }) {
+export function PlatformIcon({
+  platform,
+  className = "size-6",
+}: {
+  platform: Platform | "android";
+  className?: string;
+}) {
+  if (platform === "android") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+        <path d={siAndroid.path} />
+      </svg>
+    );
+  }
   if (platform === "windows") {
     return (
       <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">

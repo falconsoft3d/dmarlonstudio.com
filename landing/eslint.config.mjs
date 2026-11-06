@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Las demos compiladas (scripts/build_live_demos.py).
+    "public/demos/live/**",
   ]),
 ]);
 

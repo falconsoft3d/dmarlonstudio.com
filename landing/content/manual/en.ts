@@ -394,11 +394,12 @@ export const manualEn: Manual = {
                 ["**Stock investor (demo)**", "Live simulated prices, buying and selling with commission, a saved portfolio and a chart"],
                 ["**Point of sale**", "A POS in the style of Odoo's with pictures: quantity, discount and price keypad, payment, receipt and sales in SQLite. It connects to Odoo with URL, user and password to download products and prices and send the orders to Sales"],
                 ["**File renamer**", "Rules with regular expressions and numbering, a preview with conflicts and undo"],
+                ["**MP3 player**", "A custom interface drawn on canvases (digital clock, spectrum), ID3 tags, M3U lists and sound with `pygame`"],
               ],
             },
             {
               type: "p",
-              text: "Ten of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com: the best way to see what the studio can do before installing it.",
+              text: "Eleven of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK): the best way to see what the studio can do before installing it.",
             },
           ],
         },

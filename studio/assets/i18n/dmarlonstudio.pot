@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -2141,7 +2141,7 @@ msgstr ""
 msgid "Token o clave (mejor en una variable)"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Título"
 msgstr ""
 
@@ -2615,7 +2615,7 @@ msgstr ""
 msgid "Deshacer"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Detener"
 msgstr ""
 
@@ -2723,7 +2723,7 @@ msgstr ""
 msgid "Nueva partida"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Pausa"
 msgstr ""
 
@@ -3963,7 +3963,7 @@ msgstr ""
 msgid "Altavoz portátil resistente al agua con sonido de 360 grados."
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
 msgid "Audio"
 msgstr ""
 
@@ -4706,7 +4706,7 @@ msgstr ""
 msgid "(sin extensión)"
 msgstr ""
 
-#: lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr ""
 
@@ -4870,7 +4870,7 @@ msgstr ""
 msgid "Subir un nivel"
 msgstr ""
 
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Tamaño"
 msgstr ""
 
@@ -5318,6 +5318,306 @@ msgstr ""
 msgid "Órdenes"
 msgstr ""
 
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Abrir archivos…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Abrir una lista M3U"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Abrir una lista M3U…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Al azar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Aleatorio"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Anterior"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Archivos…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Artista"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Añadir canciones"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Añadir…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Carpeta…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Detenido"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Dos canales"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Duración"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "El comando se ha copiado al portapapeles."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Elija primero una canción de la lista."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Elija una carpeta con música"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "En pausa: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Espacio: reproducir o pausa  ·  ←/→: 5 s  ·  ↑/↓: volumen  ·  Supr: quitar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Este reproductor usa pygame para el sonido y no está instalado. Instálelo con este comando y vuelva a abrir el reproductor:"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Estéreo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Estéreo conjunto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Fin de la lista."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Formato"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Guardar la lista M3U"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Guardar la lista M3U…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Información del archivo…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Ir a {0} / {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista M3U"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista abierta: {0} canciones."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Lista de reproducción"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista guardada en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista ordenada: {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista recuperada: {0} canciones."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Lista…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Mono"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "No hay archivos MP3, OGG ni WAV en esa carpeta."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "No se encuentra el archivo: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "No se pudo abrir la lista: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "No se pudo abrir la salida de sonido: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
+msgid "No se pudo guardar: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "No se pudo reproducir {0}: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "No se puede saltar dentro de este archivo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Nueva lista"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Ordenar…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "PISTA"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Para oír la música hace falta pygame: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Pistas: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Por artista"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Por nombre de archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Por título"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Pulse Añadir para elegir canciones MP3, OGG o WAV."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Quitadas de la lista: {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Quitar las elegidas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Quitar las que no se encuentran"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Quitar…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Repetir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Reproducir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Reproductor MP3"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Reproductor de MP3 con aspecto clásico: pantalla LCD con reloj y espectro, lista de reproducción, listas M3U y etiquetas ID3 leídas del archivo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Siguiente"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Sonando: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "VOL"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Vaciar la lista"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Volumen: {0} %"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "estéreo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "lista.m3u"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "mono"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "{0} canciones añadidas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "{0} no se encontraron."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "{0} ya estaban en la lista."
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "{0}: activado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "{0}: desactivado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "¿Vaciar la lista de reproducción?"
+msgstr ""
+
+#: lib/code/tk_showcase_util_mp3_player.dart
+msgid "Álbum"
+msgstr ""
+
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "(Esta página no tiene texto: puede ser una imagen escaneada.)"
 msgstr ""
@@ -5504,10 +5804,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "No se pudo abrir «{0}»: {1}"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
-msgid "No se pudo guardar: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -6235,15 +6531,7 @@ msgid "Ahora está en «{0}»."
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Aleatorio"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Alojamiento anual"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Anterior"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -6256,10 +6544,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Añada canciones con Archivo → Añadir canciones…"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Añadir canciones"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -6311,10 +6595,6 @@ msgid "Descargar"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Detenido"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Diseño web"
 msgstr ""
 
@@ -6344,10 +6624,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Emitir factura"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "En pausa: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -6449,10 +6725,6 @@ msgid "Libro técnico"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Lista de reproducción"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Lista de reproducción con aleatorio y repetición, volumen y posición, con pygame o el reproductor del sistema."
 msgstr ""
 
@@ -6478,10 +6750,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "No hay forma de reproducir audio en este equipo. Instale pygame: {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "No se pudo reproducir {0}: {1}"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -6568,16 +6836,8 @@ msgstr ""
 msgid "Reservas web"
 msgstr ""
 
-#: lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Siguiente"
-msgstr ""
-
 #: lib/code/tk_showcase_web.dart
 msgid "Sin pygame: pausa, volumen y posición limitados. Instálelo con: {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Sonando: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -6590,10 +6850,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Vaciar"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Vaciar la lista"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart

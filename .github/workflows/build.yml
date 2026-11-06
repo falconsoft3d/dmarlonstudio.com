@@ -34,7 +34,8 @@ jobs:
         run: |
           set -o pipefail
           flutter test -r expanded 2>&1 | tee test.log || {
-            grep -E '\[E\]$' test.log | sed 's/^/::error title=Prueba fallida::/'
+            # Cada prueba fallida con las 40 líneas de su error.
+            awk '/\[E\]$/{n=40; msg=$0; next} n>0{msg=msg"%0A"$0; n--; if(n==0){print "::error title=Prueba fallida::" msg; msg=""}} END{if(msg!="") print "::error title=Prueba fallida::" msg}' test.log
             exit 1
           }
 

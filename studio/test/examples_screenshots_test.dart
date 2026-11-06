@@ -78,6 +78,7 @@ const carousel = [
   'investor',
   'pos',
   'file_renamer',
+  'mp3_player',
 ];
 
 /// DMS_SEEDS=a,b: solo esas capturas.

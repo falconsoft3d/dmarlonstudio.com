@@ -4,12 +4,37 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TechChip } from "@/components/tech-chip";
 import { contentOf } from "@/content";
-import { DEMO_SEEDS, DEMOS_RELEASE_URL, demoImage, type DemoSeed } from "@/lib/demos";
+import { LiveDemo } from "@/components/live-demo";
+import { PlatformIcon } from "@/components/platform-icon";
+import type { TargetIcon } from "@/content/types";
+import {
+  apkUrl,
+  DEMO_SEEDS,
+  DEMOS_RELEASE_URL,
+  demoImage,
+  liveUrl,
+  MOBILE_SEEDS,
+  WEB_SEEDS,
+  type DemoSeed,
+  type MobileSeed,
+  type WebSeed,
+} from "@/lib/demos";
 import { PATHS, type Lang } from "@/lib/i18n";
 
 type DemoText = { name: string; text: string; shows: string[] };
 
+type Section = { title: string; intro: string };
+
 type DemosText = {
+  sections: { desktop: Section; mobile: Section; web: Section };
+  tryPhone: string;
+  tryWeb: string;
+  close: string;
+  newTab: string;
+  android: string;
+  mobileNote: string;
+  mobileItems: Record<MobileSeed, DemoText>;
+  webItems: Record<WebSeed, DemoText>;
   title: string;
   eyebrow: string;
   intro: string;
@@ -25,10 +50,64 @@ type DemosText = {
 
 const TEXT: Record<Lang, DemosText> = {
   es: {
+    sections: {
+      desktop: {
+        title: "Escritorio",
+        intro: "Once utilidades para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+      },
+      mobile: {
+        title: "Móvil",
+        intro: "Apps de Flutter hechas con el editor de pantallas. Pruébelas aquí mismo, dentro de un teléfono, o instálelas en Android.",
+      },
+      web: {
+        title: "Web",
+        intro: "La misma tienda, diseñada una vez y generada en tres tecnologías. Ábrala en el navegador: entre con demo@tienda.com y 1234.",
+      },
+    },
+    tryPhone: "Probar aquí",
+    tryWeb: "Abrir la web",
+    close: "Cerrar",
+    newTab: "Abrir en una pestaña nueva",
+    android: "Android (APK)",
+    mobileNote: "Para instalar el APK, permita en Android «instalar aplicaciones desconocidas». En iPhone se prueban desde el estudio (necesitan la firma de Apple para distribuirse).",
+    mobileItems: {
+      flutter_store: {
+        name: "Tienda con login",
+        text: "Entrar, buscar en el catálogo, ver un producto, llenar el carrito y pagar. Pruebe con demo@tienda.com y 1234.",
+        shows: ["Pantallas diseñadas al estilo de FlutterFlow", "Login, navegación y estado de la app", "La misma app en Android, iPhone y la web"],
+      },
+      flutter_shipping: {
+        name: "Envíos",
+        text: "Los envíos por estado, el detalle con su seguimiento y el alta de uno nuevo.",
+        shows: ["Listas, tarjetas e insignias", "Una pantalla de detalle que recibe datos", "Formularios con validación"],
+      },
+      flutter_todo: {
+        name: "Tareas",
+        text: "Tareas con filtros que se guardan en el teléfono (en la web, en el navegador).",
+        shows: ["Guardar datos en el dispositivo", "Filtros y contadores en vivo", "Un paquete de pub (shared_preferences)"],
+      },
+    },
+    webItems: {
+      html_store: {
+        name: "Tienda web (HTML)",
+        text: "HTML, CSS y JavaScript, sin compilar ni instalar nada: se sube tal cual a cualquier hosting.",
+        shows: ["Cero dependencias", "Rutas y estado en JavaScript", "Adaptable a escritorio y móvil"],
+      },
+      react_store: {
+        name: "Tienda web (React)",
+        text: "La misma tienda como web de React con Vite: archivos estáticos listos para publicar.",
+        shows: ["Componentes de React generados", "Compilada con Vite", "La lógica en JavaScript, igual que en HTML"],
+      },
+      vue_store: {
+        name: "Tienda web (Vue)",
+        text: "La misma tienda con Vue: cada pantalla es un componente .vue.",
+        shows: ["Componentes .vue con su plantilla", "Compilada con Vite", "Un diseño, tres tecnologías"],
+      },
+    },
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Diez utilidades de verdad, hechas con DMarlon Studio. Cada una se diseñó arrastrando componentes, con la lógica en Python, y el estudio la convirtió en una aplicación para macOS y Windows. Descárguela y úsela; después ábrala en el estudio (está entre sus proyectos de ejemplo) y cámbiela.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: once utilidades de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -105,6 +184,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Convierta entre divisas con los tipos de cambio reales del Banco Central Europeo.",
         shows: ["Llamar a una API de Internet", "Respuesta sin congelar la ventana", "Funciona sin conexión con los últimos datos"],
       },
+      mp3_player: {
+        name: "Reproductor MP3",
+        text: "Un reproductor al estilo de los clásicos: reloj digital, analizador de espectro, lista de reproducción y listas M3U. En macOS, para Apple Silicon.",
+        shows: ["Una interfaz propia dibujada en lienzos", "Leer etiquetas ID3 y cabeceras MP3", "Un paquete de pip (pygame) para el sonido"],
+      },
       file_renamer: {
         name: "Renombrar archivos",
         text: "Cambie el nombre de muchos archivos a la vez con reglas, viendo el resultado antes de aplicarlo.",
@@ -113,10 +197,64 @@ const TEXT: Record<Lang, DemosText> = {
     },
   },
   en: {
+    sections: {
+      desktop: {
+        title: "Desktop",
+        intro: "Eleven utilities for macOS and Windows. Download them, open them and use them: nothing else to install.",
+      },
+      mobile: {
+        title: "Mobile",
+        intro: "Flutter apps made with the screen editor. Try them right here, inside a phone, or install them on Android.",
+      },
+      web: {
+        title: "Web",
+        intro: "The same shop, designed once and generated in three technologies. Open it in the browser: sign in with demo@tienda.com and 1234.",
+      },
+    },
+    tryPhone: "Try it here",
+    tryWeb: "Open the website",
+    close: "Close",
+    newTab: "Open in a new tab",
+    android: "Android (APK)",
+    mobileNote: "To install the APK, allow “install unknown apps” on Android. On iPhone they are tried from the studio (distributing them needs Apple's signature).",
+    mobileItems: {
+      flutter_store: {
+        name: "Shop with login",
+        text: "Sign in, search the catalog, open a product, fill the cart and pay. Try demo@tienda.com and 1234.",
+        shows: ["Screens designed FlutterFlow-style", "Login, navigation and app state", "The same app on Android, iPhone and the web"],
+      },
+      flutter_shipping: {
+        name: "Shipments",
+        text: "Shipments by status, the detail with its tracking and adding a new one.",
+        shows: ["Lists, cards and badges", "A detail screen that receives data", "Forms with validation"],
+      },
+      flutter_todo: {
+        name: "Tasks",
+        text: "Tasks with filters saved on the phone (on the web, in the browser).",
+        shows: ["Saving data on the device", "Live filters and counters", "A pub package (shared_preferences)"],
+      },
+    },
+    webItems: {
+      html_store: {
+        name: "Web shop (HTML)",
+        text: "HTML, CSS and JavaScript with nothing to build or install: upload it as is to any hosting.",
+        shows: ["Zero dependencies", "Routes and state in JavaScript", "Responsive on desktop and mobile"],
+      },
+      react_store: {
+        name: "Web shop (React)",
+        text: "The same shop as a React website with Vite: static files ready to publish.",
+        shows: ["Generated React components", "Built with Vite", "The logic in JavaScript, as in HTML"],
+      },
+      vue_store: {
+        name: "Web shop (Vue)",
+        text: "The same shop with Vue: each screen is a .vue component.",
+        shows: [".vue components with their template", "Built with Vite", "One design, three technologies"],
+      },
+    },
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Ten real utilities made with DMarlon Studio. Each one was designed by dragging components, with its logic in Python, and the studio turned it into an app for macOS and Windows. Download it and use it; then open it in the studio (it is among your example projects) and change it.",
+      "Real apps made with DMarlon Studio: eleven desktop utilities for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -193,6 +331,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Convert between currencies with the real exchange rates of the European Central Bank.",
         shows: ["Calling an Internet API", "Answers without freezing the window", "Works offline with the latest data"],
       },
+      mp3_player: {
+        name: "MP3 player",
+        text: "A player in the style of the classics: digital clock, spectrum analyzer, playlist and M3U lists. On macOS, for Apple Silicon.",
+        shows: ["A custom interface drawn on canvases", "Reading ID3 tags and MP3 headers", "A pip package (pygame) for sound"],
+      },
       file_renamer: {
         name: "File renamer",
         text: "Rename many files at once with rules, seeing the result before applying it.",
@@ -207,6 +350,81 @@ export function demosText(lang: Lang) {
 }
 
 const POINT_ICONS = [Blocks, Package, Code2];
+
+const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
+  html_store: { icon: "html", label: "HTML · CSS · JS" },
+  react_store: { icon: "react", label: "React · Vite" },
+  vue_store: { icon: "vue", label: "Vue · Vite" },
+};
+
+/** Una sección de demos (escritorio, móvil o web) con su rejilla de tarjetas. */
+function DemoSection({
+  id,
+  section,
+  note,
+  alt = false,
+  children,
+}: {
+  id: string;
+  section: { title: string; intro: string };
+  note?: string;
+  alt?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className={`scroll-mt-28 border-b border-line ${alt ? "bg-surface" : ""}`}>
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <h2 className="text-2xl font-semibold tracking-tight">{section.title}</h2>
+        <p className="mt-2 max-w-3xl text-muted text-pretty">{section.intro}</p>
+        <ul className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{children}</ul>
+        {note && <p className="mt-6 max-w-3xl text-sm text-muted">{note}</p>}
+      </div>
+    </section>
+  );
+}
+
+/** Tarjeta de una demo: captura con su tecnología, qué hace, qué demuestra y sus botones. */
+function DemoCard({
+  id,
+  image,
+  icon,
+  tech,
+  d,
+  shows,
+  children,
+}: {
+  id: string;
+  image: string;
+  icon: TargetIcon;
+  tech: string;
+  d: DemoText;
+  shows: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <li id={id} className="flex scroll-mt-28 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm">
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image} alt={`${d.name}: ${d.text}`} loading="lazy" className="h-full w-full object-cover object-top" />
+        <TechChip icon={icon} label={tech} className="absolute top-3 left-3" />
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-semibold">{d.name}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-muted">{d.text}</p>
+        <p className="mt-4 text-xs font-medium tracking-wide text-muted uppercase">{shows}</p>
+        <ul className="mt-1.5 flex-1 space-y-1 text-sm">
+          {d.shows.map((s) => (
+            <li key={s} className="flex gap-2">
+              <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+              {s}
+            </li>
+          ))}
+        </ul>
+        {children}
+      </div>
+    </li>
+  );
+}
 
 /** Página de demos: utilidades hechas con el estudio, para macOS y Windows. */
 export function Demos({ lang }: { lang: Lang }) {
@@ -238,45 +456,61 @@ export function Demos({ lang }: { lang: Lang }) {
           </ul>
         </section>
 
-        <section className="border-t border-line bg-surface">
-          <ul className="mx-auto grid max-w-6xl gap-6 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-3">
-            {DEMO_SEEDS.map((seed) => {
-              const d = x.items[seed];
-              return (
-                <li
-                  key={seed}
-                  id={seed}
-                  className="flex scroll-mt-24 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={demoImage(seed, lang)}
-                      alt={`${d.name}: ${d.text}`}
-                      loading="lazy"
-                      className="h-full w-full object-cover object-top"
-                    />
-                    <TechChip icon="python" label={x.tech} className="absolute top-3 left-3" />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <h2 className="text-lg font-semibold">{d.name}</h2>
-                    <p className="mt-1 text-sm leading-relaxed text-muted">{d.text}</p>
-                    <p className="mt-4 text-xs font-medium tracking-wide text-muted uppercase">{x.shows}</p>
-                    <ul className="mt-1.5 flex-1 space-y-1 text-sm">
-                      {d.shows.map((s) => (
-                        <li key={s} className="flex gap-2">
-                          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
-                          {s}
-                        </li>
-                      ))}
-                    </ul>
-                    <DemoDownloads seed={seed} lang={lang} label={x.download} />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
+        <nav aria-label={x.title} className="sticky top-14 z-30 border-y border-line bg-canvas/90 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 sm:px-6">
+            {(["desktop", "mobile", "web"] as const).map((k) => (
+              <a
+                key={k}
+                href={`#${k}`}
+                className="rounded-md px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-soft hover:text-ink"
+              >
+                {x.sections[k].title}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        <DemoSection id="desktop" section={x.sections.desktop} alt>
+          {DEMO_SEEDS.map((seed) => (
+            <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon="python" tech={x.tech} d={x.items[seed]} shows={x.shows}>
+              <DemoDownloads seed={seed} lang={lang} label={x.download} />
+            </DemoCard>
+          ))}
+        </DemoSection>
+
+        <DemoSection id="mobile" section={x.sections.mobile} note={x.mobileNote}>
+          {MOBILE_SEEDS.map((seed) => {
+            const d = x.mobileItems[seed];
+            return (
+              <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon="flutter" tech="Flutter" d={d} shows={x.shows}>
+                <div className="mt-5 grid grid-cols-2 gap-2">
+                  <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryPhone} close={x.close} newTab={x.newTab} phone />
+                  <a
+                    href={apkUrl(seed, lang)}
+                    className="inline-flex items-center justify-center gap-1.5 rounded-md border border-line bg-soft px-3 py-2 text-sm font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+                  >
+                    <PlatformIcon platform="android" className="size-4" />
+                    {x.android}
+                  </a>
+                </div>
+              </DemoCard>
+            );
+          })}
+        </DemoSection>
+
+        <DemoSection id="web" section={x.sections.web} alt>
+          {WEB_SEEDS.map((seed) => {
+            const d = x.webItems[seed];
+            const tech = WEB_TECH[seed];
+            return (
+              <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon={tech.icon} tech={tech.label} d={d} shows={x.shows}>
+                <div className="mt-5 grid">
+                  <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryWeb} close={x.close} newTab={x.newTab} phone={false} />
+                </div>
+              </DemoCard>
+            );
+          })}
+        </DemoSection>
 
         <section className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-2">
           <div>

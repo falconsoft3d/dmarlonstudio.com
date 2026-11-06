@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "excepciones-try-catch-throw",
+    "title": "Excepciones: try, catch y throw",
+    "summary": "Gestione errores en C++ con excepciones: lance std::invalid_argument y std::runtime_error con throw y captúrelos con try y catch.",
+    "body": [
+      "Cuando una función no puede hacer su trabajo, **`throw`** lanza una **excepción**: la función se detiene en ese punto y el error sube hasta quien la llamó. `withdraw` lanza `std::invalid_argument` si la cantidad no es positiva y `std::runtime_error` si no hay saldo suficiente. Las dos clases están en `<stdexcept>` y guardan un mensaje.",
+      "El código que puede fallar va dentro de **`try`**. Si se lanza una excepción, se salta el resto del bloque (ni se actualiza `balance` ni se escribe `Withdrew`) y se ejecuta el primer **`catch`** cuyo tipo coincida.",
+      "Las excepciones se capturan **por referencia constante**, `const std::invalid_argument& e`, y **`e.what()`** devuelve el mensaje con el que se lanzaron. Después del `catch`, el bucle sigue con la siguiente petición: un error no detiene el programa.",
+      "La biblioteca estándar también lanza excepciones: `std::stoi(\"twenty\")` no puede convertir el texto y lanza `std::invalid_argument`, y `at()` fuera de rango lanza `std::out_of_range`. **`std::exception`** es la clase base de todas, así que `catch (const std::exception&)` las captura todas. Si no necesita el mensaje, puede omitir el nombre `e`.",
+      "Una excepción que nadie captura termina el programa con un error. `catch (...)`, con tres puntos, captura cualquier cosa."
+    ],
+    "points": [
+      "`throw std::runtime_error(\"mensaje\")` lanza un error.",
+      "`try { ... }` encierra el código que puede fallar.",
+      "`catch (const Tipo& e)` lo captura; `e.what()` da el mensaje.",
+      "Se ejecuta el primer `catch` cuyo tipo coincide.",
+      "`std::exception` captura cualquier error de la biblioteca estándar."
+    ],
+    "exercise": "Añada a `withdraw` un límite de 60 euros por operación que lance `std::out_of_range(\"over the limit\")`, y su `catch` correspondiente en `main`. Pruébelo con una petición de 80."
+  },
+  "en": {
+    "slug": "exceptions-try-catch-throw",
+    "title": "Exceptions: try, catch and throw",
+    "summary": "Handle errors in C++ with exceptions: throw std::invalid_argument and std::runtime_error, then catch them with try and catch.",
+    "body": [
+      "When a function cannot do its job, **`throw`** raises an **exception**: the function stops right there and the error travels up to whoever called it. `withdraw` throws `std::invalid_argument` if the amount is not positive and `std::runtime_error` if there is not enough money. Both classes live in `<stdexcept>` and carry a message.",
+      "Code that may fail goes inside **`try`**. If an exception is thrown, the rest of the block is skipped (`balance` is not updated and `Withdrew` is not printed) and the first **`catch`** whose type matches runs instead.",
+      "Exceptions are caught **by const reference**, `const std::invalid_argument& e`, and **`e.what()`** returns the message they were thrown with. After the `catch`, the loop carries on with the next request: one error does not stop the program.",
+      "The standard library throws exceptions too: `std::stoi(\"twenty\")` cannot convert the text and throws `std::invalid_argument`, and `at()` out of range throws `std::out_of_range`. **`std::exception`** is the base class of them all, so `catch (const std::exception&)` catches every one. If you do not need the message, you can leave out the name `e`.",
+      "An exception nobody catches ends the program with an error. `catch (...)`, with three dots, catches anything at all."
+    ],
+    "points": [
+      "`throw std::runtime_error(\"message\")` raises an error.",
+      "`try { ... }` wraps the code that may fail.",
+      "`catch (const Type& e)` handles it; `e.what()` gives the message.",
+      "The first `catch` whose type matches is the one that runs.",
+      "`std::exception` catches any standard library error."
+    ],
+    "exercise": "Give `withdraw` a limit of 60 euros per operation that throws `std::out_of_range(\"over the limit\")`, add the matching `catch` in `main` and test it with a request for 80."
+  }
+}

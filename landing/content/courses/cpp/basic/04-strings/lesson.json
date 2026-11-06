@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "cadenas-de-texto",
+    "title": "Cadenas de texto",
+    "summary": "Trabaje con std::string en C++: unir con +, medir con size(), recortar con substr, buscar con find y convertir entre texto y números.",
+    "body": [
+      "**`std::string`** guarda texto y sabe cuánto mide: `full.size()` da `12`, los caracteres de `Grace Hopper` contando el espacio. El operador **`+`** une cadenas, y `first + \" \" + last` forma el nombre completo.",
+      "Con **`[]`** se lee un carácter por su posición, que empieza en 0: `first[0]` es `'G'`. **`substr(inicio, longitud)`** copia un trozo: `code.substr(0, 2)` da `ES` y, sin longitud, `code.substr(8)` llega hasta el final: `MAD`.",
+      "**`find()`** busca un texto y devuelve su posición: `2024` empieza en la 3. Si no lo encuentra, devuelve el valor especial **`std::string::npos`**; por eso `code.find(\"BCN\") != std::string::npos` vale `0`, es decir, falso.",
+      "En C++ una cadena se puede modificar en su sitio: `+=` añade texto al final y `replace(0, 5, \"Parcel\")` sustituye los 5 primeros caracteres por otros.",
+      "Para pasar de texto a número están **`std::stoi`** (entero) y **`std::stod`** (con decimales). **`std::to_string`** hace lo contrario, y así `\"Units: \" + std::to_string(units)` se puede unir con `+`."
+    ],
+    "points": [
+      "`+` une cadenas y `size()` cuenta sus caracteres.",
+      "`s[0]` es el primer carácter.",
+      "`substr(inicio, longitud)` copia un trozo.",
+      "`find()` devuelve `std::string::npos` si no encuentra nada.",
+      "`std::stoi`, `std::stod` y `std::to_string` convierten entre texto y números."
+    ],
+    "exercise": "Con `std::string email = \"lucia.perez@example.com\";`, separe el usuario y el dominio usando `find('@')` y `substr`, y escriba cuántos caracteres tiene cada parte."
+  },
+  "en": {
+    "slug": "strings",
+    "title": "Text strings",
+    "summary": "Work with std::string in C++: join with +, measure with size(), cut with substr, search with find and convert between text and numbers.",
+    "body": [
+      "**`std::string`** holds text and knows its length: `full.size()` gives `12`, the characters in `Grace Hopper` including the space. The **`+`** operator joins strings, and `first + \" \" + last` builds the full name.",
+      "**`[]`** reads one character by its position, starting at 0: `first[0]` is `'G'`. **`substr(start, length)`** copies a piece: `code.substr(0, 2)` gives `ES` and, without a length, `code.substr(8)` goes to the end: `MAD`.",
+      "**`find()`** looks for some text and returns its position: `2024` starts at 3. If it finds nothing, it returns the special value **`std::string::npos`**, which is why `code.find(\"BCN\") != std::string::npos` is `0`, that is, false.",
+      "In C++ a string can be changed in place: `+=` adds text at the end and `replace(0, 5, \"Parcel\")` swaps the first 5 characters for something else.",
+      "To turn text into a number there are **`std::stoi`** (whole numbers) and **`std::stod`** (decimals). **`std::to_string`** goes the other way, so `\"Units: \" + std::to_string(units)` can be joined with `+`."
+    ],
+    "points": [
+      "`+` joins strings and `size()` counts their characters.",
+      "`s[0]` is the first character.",
+      "`substr(start, length)` copies a piece.",
+      "`find()` returns `std::string::npos` when it finds nothing.",
+      "`std::stoi`, `std::stod` and `std::to_string` convert between text and numbers."
+    ],
+    "exercise": "With `std::string email = \"lucia.perez@example.com\";`, split the user name from the domain using `find('@')` and `substr`, and print how many characters each part has."
+  }
+}

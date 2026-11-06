@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "comparaciones-y-logica",
+    "title": "Comparaciones y lógica",
+    "summary": "Compare valores en C++ con ==, !=, < y >, combine condiciones con &&, || y !, y escriba los bool como true y false con std::boolalpha.",
+    "body": [
+      "Una comparación da un **`bool`**: `age >= 18` es falso con 16 años. Los operadores son `==` (igual), `!=` (distinto), `<`, `>`, `<=` y `>=`. Cuidado: `=` asigna y `==` compara.",
+      "Por defecto, `std::cout` escribe un `bool` como `0` o `1`. Tras **`std::boolalpha`** escribe `false` y `true`, y así sigue hasta el final del programa. Dentro de una cadena de `<<`, las comparaciones van entre paréntesis.",
+      "**`&&`** (y) exige que las dos partes sean verdaderas, **`||`** (o) que lo sea al menos una y **`!`** (no) invierte el valor. Por eso un menor puede ver la película si va con un adulto, y `31.5` grados es un día caluroso: está entre 30 y 45.",
+      "C++ evalúa **en cortocircuito**: si la parte izquierda de `&&` es falsa, la derecha ni se calcula. Gracias a eso, `boxes != 0 && items / boxes > 5` nunca divide entre cero.",
+      "Las `std::string` también se comparan: `<` sigue el orden alfabético, y `\"apple\" < \"banana\"` es verdadero."
+    ],
+    "points": [
+      "Una comparación da `true` o `false`.",
+      "`==` compara; `=` asigna.",
+      "`&&` (y), `||` (o) y `!` (no) combinan condiciones.",
+      "Con `&&` y `||`, la parte derecha solo se evalúa si hace falta.",
+      "`std::boolalpha` escribe `true` y `false` en vez de `1` y `0`."
+    ],
+    "exercise": "Escriba la condición de una oferta: hay descuento si el cliente es socio (`bool member`) o si la compra supera 100 euros, pero nunca en domingo (`bool sunday`). Pruébela con varias combinaciones."
+  },
+  "en": {
+    "slug": "comparison-and-logic",
+    "title": "Comparisons and logic",
+    "summary": "Compare values in C++ with ==, !=, < and >, combine conditions with &&, || and !, and print bools as true and false with std::boolalpha.",
+    "body": [
+      "A comparison gives a **`bool`**: `age >= 18` is false at 16. The operators are `==` (equal), `!=` (not equal), `<`, `>`, `<=` and `>=`. Careful: `=` assigns and `==` compares.",
+      "By default, `std::cout` prints a `bool` as `0` or `1`. After **`std::boolalpha`** it prints `false` and `true`, and keeps doing so until the program ends. Inside a chain of `<<`, comparisons go in brackets.",
+      "**`&&`** (and) needs both sides to be true, **`||`** (or) needs at least one and **`!`** (not) flips the value. That is why a minor can see the film with an adult, and `31.5` degrees is a hot day: it lies between 30 and 45.",
+      "C++ uses **short-circuit** evaluation: if the left side of `&&` is false, the right side is never worked out. Thanks to that, `boxes != 0 && items / boxes > 5` never divides by zero.",
+      "`std::string` values can be compared too: `<` follows alphabetical order, and `\"apple\" < \"banana\"` is true."
+    ],
+    "points": [
+      "A comparison gives `true` or `false`.",
+      "`==` compares; `=` assigns.",
+      "`&&` (and), `||` (or) and `!` (not) combine conditions.",
+      "With `&&` and `||`, the right side is only evaluated when needed.",
+      "`std::boolalpha` prints `true` and `false` instead of `1` and `0`."
+    ],
+    "exercise": "Write the condition for a special offer: there is a discount if the customer is a member (`bool member`) or spends over 100 euros, but never on a Sunday (`bool sunday`). Try it with several combinations."
+  }
+}

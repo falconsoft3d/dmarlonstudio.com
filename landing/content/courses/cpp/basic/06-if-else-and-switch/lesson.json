@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "if-else-y-switch",
+    "title": "if, else y switch",
+    "summary": "Tome decisiones en C++ con if, else if y else, elija entre casos fijos con switch y break, y use el operador ternario ?:.",
+    "body": [
+      "**`if`** ejecuta un bloque solo si la condición entre paréntesis es verdadera. **`else if`** prueba otra condición y **`else`** recoge todos los demás casos. Una cesta de `42.5` no llega a 50 pero sí a 30, así que paga 2.99 de envío.",
+      "Las condiciones se comprueban en orden y gana la primera verdadera: con `78` puntos, `score >= 90` falla y `score >= 75` se cumple, de modo que `grade` vale `'B'` y el resto ni se mira. Si el bloque tiene una sola instrucción, las llaves se pueden omitir, como aquí.",
+      "`grade` empieza valiendo `'F'`: es el valor que queda si no se cumple ninguna condición, y además evita usar una variable sin valor.",
+      "**`switch`** compara un entero o un `char` con varios **`case`** fijos. **`break`** termina cada caso; sin él, la ejecución seguiría por el caso siguiente. **`default`** se ejecuta cuando no coincide ninguno.",
+      "El **operador ternario** `condición ? si_verdadero : si_falso` elige entre dos valores en una sola expresión: con `stock` a 0, escribe `Sold out`."
+    ],
+    "points": [
+      "`if`, `else if` y `else`: gana la primera condición verdadera.",
+      "La condición va siempre entre paréntesis.",
+      "`switch` compara un valor con `case` fijos.",
+      "Cada `case` termina con `break`; `default` recoge el resto.",
+      "`c ? a : b` elige entre dos valores."
+    ],
+    "exercise": "Añada un `switch` sobre `int day = 6;` que escriba «weekend» para el 6 y el 7 (dos `case` seguidos, sin `break` entre ellos) y «working day» para los demás días."
+  },
+  "en": {
+    "slug": "if-else-and-switch",
+    "title": "if, else and switch",
+    "summary": "Make decisions in C++ with if, else if and else, choose between fixed cases with switch and break, and use the ternary operator ?:.",
+    "body": [
+      "**`if`** runs a block only when the condition in brackets is true. **`else if`** tries another condition and **`else`** catches every other case. A basket of `42.5` does not reach 50 but does reach 30, so shipping is 2.99.",
+      "Conditions are checked in order and the first true one wins: with `78` points, `score >= 90` fails and `score >= 75` holds, so `grade` becomes `'B'` and the rest are not even looked at. When a block has a single statement you can leave out the braces, as here.",
+      "`grade` starts as `'F'`: that is the value left if no condition holds, and it also avoids using a variable that has no value.",
+      "**`switch`** compares an integer or a `char` with several fixed **`case`** labels. **`break`** ends each case; without it, execution would fall through into the next one. **`default`** runs when no case matches.",
+      "The **ternary operator** `condition ? if_true : if_false` picks one of two values in a single expression: with `stock` at 0, it prints `Sold out`."
+    ],
+    "points": [
+      "`if`, `else if` and `else`: the first true condition wins.",
+      "The condition always goes in brackets.",
+      "`switch` compares one value with fixed `case` labels.",
+      "Each `case` ends with `break`; `default` handles the rest.",
+      "`c ? a : b` picks one of two values."
+    ],
+    "exercise": "Add a `switch` on `int day = 6;` that prints \"weekend\" for 6 and 7 (two `case` labels in a row, with no `break` between them) and \"working day\" for any other day."
+  }
+}

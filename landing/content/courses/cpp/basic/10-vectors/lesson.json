@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "vectores",
+    "title": "Vectores",
+    "summary": "Guarde listas en C++ con std::vector: crear, leer con [] y at(), saber su tamaño con size() y añadir elementos con push_back.",
+    "body": [
+      "**`std::vector`** es la lista de C++: guarda elementos del mismo tipo, sabe cuántos tiene y puede crecer. El tipo va entre `< >`: `std::vector<std::string>` para los jugadores y `std::vector<int>` para sus puntos. Necesita `#include <vector>`.",
+      "**`size()`** da el número de elementos, **`[]`** lee o cambia uno por su posición, que empieza en 0, y **`back()`** devuelve el último. `scores[1] = 110` cambia los puntos de Luis.",
+      "Para recorrer dos vectores a la vez se usa un `for` con índice. El índice es de tipo `std::size_t`, el entero sin signo que devuelve `size()`; con un `int`, algunos compiladores avisarían de que se comparan tipos distintos.",
+      "**`push_back()`** añade un elemento al final: Pablo y sus 130 puntos. Después, el `for` de rango suma todos los puntos, y `static_cast<double>` evita la división entera al calcular la media.",
+      "**`at()`** hace lo mismo que `[]`, pero comprueba que la posición existe y, si no, lanza un error en lugar de leer memoria ajena. Por último, `std::vector<int> lives(4, 3)` crea un vector de 4 elementos que valen 3."
+    ],
+    "points": [
+      "`std::vector<tipo>` es una lista que puede crecer.",
+      "`v[i]` lee o cambia el elemento `i`, contando desde 0.",
+      "`size()` da el número de elementos y `back()`, el último.",
+      "`push_back(x)` añade al final.",
+      "`at(i)` comprueba que la posición existe."
+    ],
+    "exercise": "Cree un vector con las temperaturas máximas de lunes a sábado, añada la del domingo con `push_back` y escriba la media de la semana y cuántos días se superaron los 25 grados."
+  },
+  "en": {
+    "slug": "vectors",
+    "title": "Vectors",
+    "summary": "Store lists in C++ with std::vector: create them, read with [] and at(), get their size with size() and add elements with push_back.",
+    "body": [
+      "**`std::vector`** is the C++ list: it holds elements of one type, knows how many it has and can grow. The type goes between `< >`: `std::vector<std::string>` for the players and `std::vector<int>` for their points. It needs `#include <vector>`.",
+      "**`size()`** gives the number of elements, **`[]`** reads or changes one by its position, starting at 0, and **`back()`** returns the last one. `scores[1] = 110` updates Luis's points.",
+      "To go through two vectors together you use a `for` with an index. The index is a `std::size_t`, the unsigned integer that `size()` returns; with an `int`, some compilers would warn that you are comparing different types.",
+      "**`push_back()`** adds an element at the end: Pablo and his 130 points. Then the range-based `for` adds up all the points, and `static_cast<double>` avoids integer division when working out the average.",
+      "**`at()`** does the same as `[]` but checks that the position exists and, if it does not, throws an error instead of reading someone else's memory. Finally, `std::vector<int> lives(4, 3)` creates a vector of 4 elements, all set to 3."
+    ],
+    "points": [
+      "`std::vector<type>` is a list that can grow.",
+      "`v[i]` reads or changes element `i`, counting from 0.",
+      "`size()` gives the number of elements and `back()` the last one.",
+      "`push_back(x)` adds at the end.",
+      "`at(i)` checks that the position exists."
+    ],
+    "exercise": "Create a vector with the highest temperatures from Monday to Saturday, add Sunday's with `push_back`, and print the week's average and how many days went above 25 degrees."
+  }
+}

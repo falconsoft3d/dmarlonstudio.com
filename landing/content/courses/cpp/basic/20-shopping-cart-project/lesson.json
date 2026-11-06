@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-carrito-de-la-compra",
+    "title": "Proyecto: carrito de la compra",
+    "summary": "Combine en C++ map, funciones, referencias, excepciones, lectura de datos e iomanip en un carrito de la compra con su ticket.",
+    "body": [
+      "El proyecto final reúne lo aprendido en un carrito de la compra. El catálogo es un **`std::map`** que va de cada producto a su precio: `const` porque nadie debe cambiarlo, y global, fuera de `main`, para que lo pueda usar cualquier función.",
+      "`add` recibe el carrito **por referencia** para modificarlo, el producto como `const std::string&` y las unidades con **valor por defecto** 1. Antes de sumar comprueba los datos y, si algo no cuadra, **lanza** `std::invalid_argument` con un mensaje claro.",
+      "Los pedidos se leen de `input.txt` con `while (std::cin >> item >> units)`, que termina cuando no quedan más. Cada pedido va en su propio `try`: el caviar, que no está en el catálogo, y el queso sin unidades se descartan con un aviso, y el resto sigue adelante. La última llamada, `add(cart, \"bread\")`, usa el valor por defecto.",
+      "`cart[item] += units` acumula: las dos líneas de manzanas suman 10. El ticket recorre el carrito con un **enlace estructurado**, `[name, count]`, en orden alfabético, y **`<iomanip>`** alinea las columnas con dos decimales.",
+      "Al final, el **operador ternario** aplica un 10 % de descuento si el total supera 5 euros: 7.88 se queda en 7.09. Con una ventana FLTK en lugar de la consola, esta misma lógica sería una aplicación de escritorio nativa en DMarlon Studio."
+    ],
+    "points": [
+      "Un `std::map` constante sirve de catálogo de precios.",
+      "Pase por referencia lo que la función debe modificar.",
+      "Valide los datos y lance una excepción si no son correctos.",
+      "Un `try` por pedido: un error no detiene el resto.",
+      "`<iomanip>` convierte los datos en un ticket legible."
+    ],
+    "exercise": "Guarde también el ticket en `receipt.txt` con un `std::ofstream` y haga que `add` rechace con una excepción cualquier pedido de más de 20 unidades."
+  },
+  "en": {
+    "slug": "shopping-cart-project",
+    "title": "Project: a shopping cart",
+    "summary": "Combine map, functions, references, exceptions, input and iomanip in C++ to build a shopping cart that prints its receipt.",
+    "body": [
+      "The final project brings everything together in a shopping cart. The catalogue is a **`std::map`** from each product to its price: `const` because nobody should change it, and global, outside `main`, so any function can use it.",
+      "`add` takes the cart **by reference** so it can change it, the product as `const std::string&` and the units with a **default value** of 1. Before adding, it checks the data and, if something is wrong, **throws** `std::invalid_argument` with a clear message.",
+      "The orders are read from `input.txt` with `while (std::cin >> item >> units)`, which stops when there are no more. Each order gets its own `try`: the caviar, which is not in the catalogue, and the cheese with no units are skipped with a warning, and the rest carry on. The last call, `add(cart, \"bread\")`, uses the default value.",
+      "`cart[item] += units` adds up: the two apple orders make 10. The receipt walks through the cart with a **structured binding**, `[name, count]`, in alphabetical order, and **`<iomanip>`** lines up the columns with two decimals.",
+      "Finally, the **ternary operator** takes 10% off when the total is over 5 euros: 7.88 becomes 7.09. With an FLTK window instead of the console, this same logic would be a native desktop app in DMarlon Studio."
+    ],
+    "points": [
+      "A constant `std::map` works as a price list.",
+      "Pass by reference whatever the function must change.",
+      "Check the data and throw an exception when it is wrong.",
+      "One `try` per order: one error does not stop the rest.",
+      "`<iomanip>` turns the data into a readable receipt."
+    ],
+    "exercise": "Also save the receipt to `receipt.txt` with a `std::ofstream`, and make `add` reject any order of more than 20 units by throwing an exception."
+  }
+}

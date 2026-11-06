@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Escriba su primer programa en C++: la función main(), std::cout y el operador << para mostrar texto y números en la consola.",
+    "body": [
+      "Todo programa en C++ empieza a ejecutarse en la función **`main()`**. Lo que va entre sus llaves `{ }` son las instrucciones: se ejecutan de arriba abajo y cada una termina en punto y coma `;`.",
+      "`#include <iostream>` incorpora la biblioteca de **entrada y salida**. Con ella llega **`std::cout`**, la salida de la consola. El prefijo `std::` indica que pertenece a la biblioteca estándar de C++.",
+      "El operador **`<<`** envía a `std::cout` lo que tiene a su derecha, y se puede encadenar: `\"Welcome to \" << \"C++\" << ...` forma una sola línea. Los números se escriben igual que el texto, y `2 + 3` se calcula antes de mostrarse.",
+      "Para saltar de línea puede usar `std::endl` o el carácter `'\\n'`, que también funciona dentro del texto, como en `\"Line one\\nLine two\\n\"`. `\\t` inserta un tabulador. Los comentarios empiezan por `//` y el compilador los ignora.",
+      "`return 0;` le indica al sistema que todo ha ido bien. En DMarlon Studio, C++ es el motor de las aplicaciones nativas de escritorio con FLTK y del destino Consola: pulse F9 para compilar y ejecutar este ejemplo."
+    ],
+    "points": [
+      "Un programa empieza en `int main() { ... }`.",
+      "`#include <iostream>` da acceso a `std::cout`.",
+      "`<<` encadena textos y números en la salida.",
+      "`'\\n'` o `std::endl` saltan de línea.",
+      "Cada instrucción termina en `;`."
+    ],
+    "exercise": "Añada tres líneas que escriban su nombre, su ciudad y el resultado de `365 * 24` (las horas de un año), con un `\\t` entre cada etiqueta y su valor."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Write your first C++ program: the main() function, std::cout and the << operator to show text and numbers in the console.",
+    "body": [
+      "Every C++ program starts running in the **`main()`** function. What goes between its braces `{ }` are the statements: they run from top to bottom and each one ends with a semicolon `;`.",
+      "`#include <iostream>` brings in the **input/output** library. With it comes **`std::cout`**, the console output. The `std::` prefix means it belongs to the C++ standard library.",
+      "The **`<<`** operator sends whatever is on its right to `std::cout`, and it can be chained: `\"Welcome to \" << \"C++\" << ...` builds a single line. Numbers are printed just like text, and `2 + 3` is worked out before it is shown.",
+      "To start a new line you can use `std::endl` or the `'\\n'` character, which also works inside text, as in `\"Line one\\nLine two\\n\"`. `\\t` inserts a tab. Comments start with `//` and the compiler ignores them.",
+      "`return 0;` tells the system that everything went well. In DMarlon Studio, C++ powers native desktop apps with FLTK and the Console target: press F9 to compile and run this example."
+    ],
+    "points": [
+      "A program starts in `int main() { ... }`.",
+      "`#include <iostream>` gives you `std::cout`.",
+      "`<<` chains text and numbers into the output.",
+      "`'\\n'` or `std::endl` start a new line.",
+      "Every statement ends with `;`."
+    ],
+    "exercise": "Add three lines that print your name, your city and the result of `365 * 24` (the hours in a year), with a `\\t` between each label and its value."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "referencias",
+    "title": "Referencias y referencias const",
+    "summary": "Entienda en C++ la diferencia entre pasar por valor y por referencia (&), y use const & para pasar vectores y cadenas sin copiarlos.",
+    "body": [
+      "Por defecto, C++ pasa los argumentos **por valor**: la función recibe una **copia**. `addBonusCopy` suma 50 a su copia, que llega a 150, pero `score` sigue valiendo 100.",
+      "Con **`&`** detrás del tipo, el parámetro es una **referencia**: otro nombre para la variable original. `addBonus(int& points)` trabaja sobre el propio `score`, que pasa a 150.",
+      "Una referencia también puede ser una variable: `int& alias = score;` no crea nada nuevo, así que `alias = 0` pone `score` a 0. Una referencia queda unida a la misma variable desde que se crea.",
+      "Copiar un número no cuesta nada, pero copiar un vector o una cadena larga, sí. **`const std::vector<double>&`** evita la copia y además promete no modificar el original: si `total` intentara cambiar `prices`, el programa no compilaría. Es la forma habitual de pasar cadenas y vectores.",
+      "En un `for` de rango, `double& p` permite cambiar cada elemento, y el 10 % de descuento queda aplicado en `basket`. Para solo leer, `const double& p`."
+    ],
+    "points": [
+      "Por valor, la función trabaja con una copia.",
+      "Con `tipo&`, trabaja con el original.",
+      "`const tipo&` evita la copia y prohíbe los cambios.",
+      "`for (auto& x : v)` modifica los elementos del vector.",
+      "Pase cadenas y vectores como `const &` si solo los lee."
+    ],
+    "exercise": "Escriba `void applyVat(std::vector<double>& prices)`, que sume el 21 % a cada precio, y `double maxPrice(const std::vector<double>& prices)`, y pruébelas con la cesta."
+  },
+  "en": {
+    "slug": "references",
+    "title": "References and const references",
+    "summary": "See the difference between passing by value and by reference (&) in C++, and use const & to pass vectors and strings without copying them.",
+    "body": [
+      "By default C++ passes arguments **by value**: the function gets a **copy**. `addBonusCopy` adds 50 to its copy, which reaches 150, but `score` is still 100.",
+      "With **`&`** after the type, the parameter is a **reference**: another name for the original variable. `addBonus(int& points)` works on `score` itself, which goes up to 150.",
+      "A reference can also be a variable: `int& alias = score;` creates nothing new, so `alias = 0` sets `score` to 0. A reference stays tied to the same variable from the moment it is created.",
+      "Copying a number costs nothing, but copying a vector or a long string does. **`const std::vector<double>&`** avoids the copy and also promises not to change the original: if `total` tried to modify `prices`, the program would not compile. It is the usual way to pass strings and vectors.",
+      "In a range-based `for`, `double& p` lets you change each element, so the 10% discount ends up applied to `basket`. For reading only, use `const double& p`."
+    ],
+    "points": [
+      "By value, the function works on a copy.",
+      "With `type&`, it works on the original.",
+      "`const type&` avoids the copy and forbids changes.",
+      "`for (auto& x : v)` changes the vector's elements.",
+      "Pass strings and vectors as `const &` when you only read them."
+    ],
+    "exercise": "Write `void applyVat(std::vector<double>& prices)`, which adds 21% to each price, and `double maxPrice(const std::vector<double>& prices)`, and try them on the basket."
+  }
+}

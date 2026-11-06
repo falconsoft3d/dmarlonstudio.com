@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "for-y-for-de-rango",
+    "title": "for y for de rango",
+    "summary": "Cuente con el for clásico de C++, recorra colecciones con el for de rango y anide bucles para construir una tabla.",
+    "body": [
+      "El **`for`** clásico reúne tres partes entre paréntesis: el inicio (`int i = 1`), la condición (`i <= 5`) y el paso (`i++`). Es el bucle para contar, aquí la tabla del 7. La variable `i` solo existe dentro del bucle.",
+      "El paso puede ser cualquiera: `n += 2` recorre los números pares hasta 100, que se van acumulando en `sum`. Si el cuerpo es una sola instrucción, no hacen falta llaves.",
+      "El **`for` de rango**, `for (double t : temps)`, recorre todos los elementos de una colección sin índices: en cada vuelta, `t` toma un valor. `temps` es un array de tamaño fijo, heredado de C; en la próxima lección conocerá `std::vector`, mucho más flexible.",
+      "Una `std::string` también es una colección, de caracteres: el bucle mira cada `char` de `programming` y cuenta sus vocales.",
+      "Los **bucles anidados** van uno dentro de otro: por cada fila, el bucle interior recorre las cuatro columnas, y el `'\\t'` las alinea en forma de tabla."
+    ],
+    "points": [
+      "`for (inicio; condición; paso)` sirve para contar.",
+      "El paso puede ser `i++`, `i--`, `i += 2`...",
+      "`for (tipo x : colección)` recorre cada elemento.",
+      "Una cadena se recorre carácter a carácter.",
+      "Un bucle dentro de otro recorre filas y columnas."
+    ],
+    "exercise": "Escriba la tabla de multiplicar completa del 1 al 9 con dos `for` anidados y, con un `for` de rango sobre un array `{12, 7, 30, 5}`, busque el mayor de esos números."
+  },
+  "en": {
+    "slug": "for-and-range-for",
+    "title": "for and range-based for",
+    "summary": "Count with the classic C++ for loop, go through collections with the range-based for, and nest loops to build a table.",
+    "body": [
+      "The classic **`for`** puts three parts in brackets: the start (`int i = 1`), the condition (`i <= 5`) and the step (`i++`). It is the loop for counting, here the 7 times table. The variable `i` only exists inside the loop.",
+      "The step can be anything: `n += 2` goes through the even numbers up to 100, adding them up in `sum`. When the body is a single statement, no braces are needed.",
+      "The **range-based `for`**, `for (double t : temps)`, visits every element of a collection without indices: on each round `t` takes one value. `temps` is a fixed-size array inherited from C; the next lesson introduces `std::vector`, which is far more flexible.",
+      "A `std::string` is a collection too, of characters: the loop looks at each `char` in `programming` and counts the vowels.",
+      "**Nested loops** sit one inside another: for each row, the inner loop goes through the four columns, and `'\\t'` lines them up as a table."
+    ],
+    "points": [
+      "`for (start; condition; step)` is for counting.",
+      "The step can be `i++`, `i--`, `i += 2`...",
+      "`for (type x : collection)` visits every element.",
+      "A string can be walked character by character.",
+      "A loop inside another goes through rows and columns."
+    ],
+    "exercise": "Print the full times tables from 1 to 9 with two nested `for` loops and, with a range-based `for` over the array `{12, 7, 30, 5}`, find the largest of those numbers."
+  }
+}

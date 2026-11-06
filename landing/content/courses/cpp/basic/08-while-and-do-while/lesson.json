@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "while-y-do-while",
+    "title": "while y do-while",
+    "summary": "Repita código en C++ con while mientras se cumpla una condición, con do-while al menos una vez, y controle el bucle con break y continue.",
+    "body": [
+      "**`while`** repite un bloque mientras la condición sea verdadera. Ahorrando 120 euros al mes, el bucle da vueltas hasta que `savings` llega a 500: en 5 meses junta 600. Algo dentro del bucle tiene que acabar cambiando la condición; si no, no terminaría nunca.",
+      "La cuenta atrás cabe en una línea: `seconds--` usa el valor actual para escribirlo y después le resta uno. Cuando llega a 0, la condición deja de cumplirse y el programa sigue con `Lift off!`.",
+      "**`do { ... } while (condición);`** comprueba la condición al final, así que el bloque se ejecuta **al menos una vez**: el jugador tiene su turno aunque `energy` valga 0. Fíjese en el punto y coma detrás del `while`.",
+      "**`while (true)`** sería un bucle infinito, pero **`break`** lo termina en cuanto `n` pasa de 10. **`continue`** salta directamente a la vuelta siguiente sin escribir nada, y así se omiten el 3, el 6 y el 9."
+    ],
+    "points": [
+      "`while` comprueba la condición antes de cada vuelta.",
+      "`do-while` la comprueba después: se ejecuta al menos una vez.",
+      "Dentro del bucle algo debe cambiar la condición.",
+      "`break` sale del bucle; `continue` pasa a la vuelta siguiente."
+    ],
+    "exercise": "Una planta mide 5 cm y crece un 20 % cada semana. Con un `while`, calcule cuántas semanas tarda en superar los 30 cm y escriba su altura cada semana."
+  },
+  "en": {
+    "slug": "while-and-do-while",
+    "title": "while and do-while",
+    "summary": "Repeat code in C++ with while as long as a condition holds, with do-while at least once, and steer the loop with break and continue.",
+    "body": [
+      "**`while`** repeats a block as long as the condition is true. Saving 120 euros a month, the loop goes round until `savings` reaches 500: after 5 months there are 600. Something inside the loop must eventually change the condition, or it would never end.",
+      "The countdown fits on one line: `seconds--` uses the current value for printing and then subtracts one. When it hits 0 the condition fails and the program moves on to `Lift off!`.",
+      "**`do { ... } while (condition);`** checks the condition at the end, so the block runs **at least once**: the player gets a turn even though `energy` is 0. Note the semicolon after the `while`.",
+      "**`while (true)`** would loop forever, but **`break`** ends it as soon as `n` goes past 10. **`continue`** jumps straight to the next round without printing anything, which is how 3, 6 and 9 are skipped."
+    ],
+    "points": [
+      "`while` checks the condition before each round.",
+      "`do-while` checks it afterwards: it runs at least once.",
+      "Something inside the loop must change the condition.",
+      "`break` leaves the loop; `continue` moves on to the next round."
+    ],
+    "exercise": "A plant is 5 cm tall and grows 20% every week. Use a `while` to work out how many weeks it takes to pass 30 cm, printing its height each week."
+  }
+}

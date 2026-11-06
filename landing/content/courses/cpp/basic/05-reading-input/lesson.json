@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "leer-del-teclado",
+    "title": "Leer del teclado",
+    "summary": "Pida datos al usuario en C++ con std::cin y >> para números y palabras, y con std::getline para líneas completas con espacios.",
+    "body": [
+      "**`std::cin`** es la entrada del teclado, la pareja de `std::cout`. Con **`>>`** lee una palabra y la convierte al tipo de la variable: `std::cin >> tickets` guarda un `int` y `std::cin >> price`, un `double`.",
+      "`>>` se detiene en el primer espacio, así que para un nombre completo se usa **`std::getline(std::cin, name)`**, que lee la línea entera con sus espacios.",
+      "En este ejemplo las respuestas salen del archivo `input.txt`, como si alguien las tecleara, y por eso no aparecen en la salida: se ve cada pregunta y, en la línea siguiente, la respuesta del programa. En la consola de DMarlon Studio (F9) puede escribirlas usted mismo.",
+      "Cuidado al mezclar los dos: después de `std::cin >> price` queda pendiente el Intro de esa línea, y un `getline` leería una línea vacía. **`std::cin >> std::ws`** salta los espacios y saltos de línea pendientes antes de leer el título de la película.",
+      "`>>` también se encadena: `std::cin >> row >> seat` lee dos números escritos en la misma línea, separados por un espacio."
+    ],
+    "points": [
+      "`std::cin >> x` lee una palabra y la convierte al tipo de `x`.",
+      "`std::getline(std::cin, s)` lee una línea completa.",
+      "Tras `>>`, use `std::cin >> std::ws` antes de `getline`.",
+      "`std::cin >> a >> b` lee varios valores seguidos."
+    ],
+    "exercise": "Pregunte también cuántas raciones de palomitas quiere (a 4.50 euros cada una) y escriba el total de entradas y palomitas. Añada la respuesta al final de `input.txt`."
+  },
+  "en": {
+    "slug": "reading-input",
+    "title": "Reading from the keyboard",
+    "summary": "Ask the user for data in C++ with std::cin and >> for numbers and words, and with std::getline for whole lines with spaces.",
+    "body": [
+      "**`std::cin`** is the keyboard input, the partner of `std::cout`. With **`>>`** it reads one word and converts it to the variable's type: `std::cin >> tickets` stores an `int` and `std::cin >> price` a `double`.",
+      "`>>` stops at the first space, so for a full name you use **`std::getline(std::cin, name)`**, which reads the whole line, spaces included.",
+      "In this example the answers come from the `input.txt` file, as if someone were typing them, so they do not appear in the output: you see each question and, on the next line, the program's reply. In the DMarlon Studio console (F9) you can type them yourself.",
+      "Be careful when mixing the two: after `std::cin >> price`, the Enter at the end of that line is still waiting, and a `getline` would read an empty line. **`std::cin >> std::ws`** skips any pending spaces and line breaks before reading the film title.",
+      "`>>` can be chained too: `std::cin >> row >> seat` reads two numbers typed on the same line, separated by a space."
+    ],
+    "points": [
+      "`std::cin >> x` reads one word and converts it to the type of `x`.",
+      "`std::getline(std::cin, s)` reads a whole line.",
+      "After `>>`, use `std::cin >> std::ws` before `getline`.",
+      "`std::cin >> a >> b` reads several values in a row."
+    ],
+    "exercise": "Also ask how many tubs of popcorn they want (4.50 euros each) and print the total for tickets and popcorn. Add the answer to the end of `input.txt`."
+  }
+}

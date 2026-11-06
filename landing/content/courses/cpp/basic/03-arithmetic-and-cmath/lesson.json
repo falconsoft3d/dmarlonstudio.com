@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "operaciones-y-cmath",
+    "title": "Operaciones y funciones matemáticas",
+    "summary": "Haga cuentas en C++: división entera y resto, static_cast, operadores compuestos y las funciones de <cmath> como sqrt, pow y round.",
+    "body": [
+      "Con dos enteros, **`/`** hace la **división entera**: `17 / 5` da `3`, sin decimales, y **`%`** da el **resto**, `2`. Es justo lo que hace falta para repartir 17 galletas entre 5 niños.",
+      "Si uno de los dos números es `double`, la división conserva los decimales: `cookies / 5.0` da `3.4`. Cuando los dos son variables enteras, **`static_cast<double>(cookies)`** convierte una de ellas antes de dividir.",
+      "Los **operadores compuestos** abrevian: `score += 5` equivale a `score = score + 5`, `score *= 2` multiplica y `score++` suma uno. Los comentarios muestran el valor tras cada paso: 15, 30 y 31.",
+      "**`<cmath>`** trae las funciones matemáticas: `std::sqrt` (raíz cuadrada, aquí la hipotenusa de un triángulo de lados 3 y 4), `std::pow` (potencia), `std::round`, `std::floor` y `std::ceil` (redondear al más cercano, hacia abajo y hacia arriba) y `std::abs` (valor absoluto).",
+      "Al final se calcula el área de una pizza de 30 cm con π·r². C++17 no incluye una constante π estándar, así que el ejemplo la define con `const double pi`."
+    ],
+    "points": [
+      "Entre enteros, `/` descarta los decimales y `%` da el resto.",
+      "Con un `double` en la operación, el resultado tiene decimales.",
+      "`static_cast<double>(x)` convierte un valor de tipo.",
+      "`+=`, `-=`, `*=`, `/=` y `++` abrevian las operaciones.",
+      "`<cmath>`: `sqrt`, `pow`, `round`, `floor`, `ceil`, `abs`."
+    ],
+    "exercise": "Calcule cuántas cajas de 12 huevos se llenan con 150 huevos, cuántos sobran y cuántas cajas hacen falta para guardarlos todos (pista: `std::ceil(150 / 12.0)`)."
+  },
+  "en": {
+    "slug": "arithmetic-and-cmath",
+    "title": "Arithmetic and maths functions",
+    "summary": "Do maths in C++: integer division and remainder, static_cast, compound operators and the <cmath> functions such as sqrt, pow and round.",
+    "body": [
+      "With two integers, **`/`** does **integer division**: `17 / 5` gives `3`, with no decimals, and **`%`** gives the **remainder**, `2`. That is exactly what you need to share 17 cookies among 5 children.",
+      "If either number is a `double`, the division keeps the decimals: `cookies / 5.0` gives `3.4`. When both are integer variables, **`static_cast<double>(cookies)`** converts one of them before dividing.",
+      "**Compound operators** are shortcuts: `score += 5` means `score = score + 5`, `score *= 2` multiplies and `score++` adds one. The comments show the value after each step: 15, 30 and 31.",
+      "**`<cmath>`** brings the maths functions: `std::sqrt` (square root, here the hypotenuse of a triangle with sides 3 and 4), `std::pow` (power), `std::round`, `std::floor` and `std::ceil` (round to nearest, down and up) and `std::abs` (absolute value).",
+      "Finally, the program works out the area of a 30 cm pizza with π·r². C++17 has no standard π constant, so the example defines it with `const double pi`."
+    ],
+    "points": [
+      "Between integers, `/` drops the decimals and `%` gives the remainder.",
+      "With a `double` in the operation, the result has decimals.",
+      "`static_cast<double>(x)` converts a value to another type.",
+      "`+=`, `-=`, `*=`, `/=` and `++` are shortcuts.",
+      "`<cmath>`: `sqrt`, `pow`, `round`, `floor`, `ceil`, `abs`."
+    ],
+    "exercise": "Work out how many boxes of 12 eggs you can fill with 150 eggs, how many eggs are left over and how many boxes you need to store them all (hint: `std::ceil(150 / 12.0)`)."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "archivos-de-texto",
+    "title": "Escribir y leer archivos de texto",
+    "summary": "Guarde datos en un archivo de texto con std::ofstream y léalos de nuevo con std::ifstream en C++, en la carpeta actual del programa.",
+    "body": [
+      "**`<fstream>`** trae los flujos de archivo, que funcionan como `std::cout` y `std::cin`. **`std::ofstream out(\"temperatures.txt\")`** abre el archivo para escribir en la carpeta actual: lo crea si no existe y lo vacía si ya existía. Después se escribe con `<<`, igual que en la consola.",
+      "**`close()`** cierra el archivo y guarda lo escrito; si se olvida, se cierra solo cuando la variable deja de existir, al final del bloque. Con **`std::ios::app`** como segundo argumento, el archivo se abre para **añadir** al final, y Valencia se suma a las tres ciudades.",
+      "**`std::ifstream in(\"temperatures.txt\")`** lo abre para leer. Conviene comprobar que se ha abierto: `!in` es verdadero si ha fallado (porque el archivo no existe o no hay permiso), y entonces el programa avisa y termina con `return 1`.",
+      "**`in >> city >> temp`** lee una palabra y un número, como `std::cin`. Además devuelve el propio flujo, que se evalúa como falso cuando ya no puede leer más, así que `while (in >> city >> temp)` recorre el archivo hasta el final. Por el camino se cuentan las ciudades y se busca la más calurosa.",
+      "Para leer líneas completas, con espacios, se usa `std::getline(in, line)` en un `while`, igual que con el teclado en la lección 5. Al ejecutar el ejemplo en DMarlon Studio, `temperatures.txt` aparece junto al programa."
+    ],
+    "points": [
+      "`std::ofstream f(\"nombre\")` crea o vacía el archivo para escribir.",
+      "`std::ios::app` añade al final sin borrar lo anterior.",
+      "`std::ifstream f(\"nombre\")` abre para leer; compruebe `if (!f)`.",
+      "Se escribe con `<<` y se lee con `>>` o `std::getline`.",
+      "`while (f >> x)` lee hasta el final del archivo."
+    ],
+    "exercise": "Después del bucle, abra el archivo con un nuevo `std::ifstream` y, con `while (std::getline(again, line))`, escriba cada línea numerada: `1: Madrid 24.5`, `2: Bilbao 17.5`..."
+  },
+  "en": {
+    "slug": "text-files",
+    "title": "Writing and reading text files",
+    "summary": "Save data to a text file with std::ofstream and read it back with std::ifstream in C++, in the program's current folder.",
+    "body": [
+      "**`<fstream>`** brings the file streams, which work like `std::cout` and `std::cin`. **`std::ofstream out(\"temperatures.txt\")`** opens the file for writing in the current folder: it creates it if it is missing and empties it if it already exists. Then you write with `<<`, exactly as on the console.",
+      "**`close()`** closes the file and saves what was written; if you forget, it closes by itself when the variable goes away at the end of the block. With **`std::ios::app`** as a second argument, the file is opened to **append** at the end, and Valencia joins the other three cities.",
+      "**`std::ifstream in(\"temperatures.txt\")`** opens it for reading. It is wise to check that it opened: `!in` is true if it failed (the file does not exist or there is no permission), and then the program says so and ends with `return 1`.",
+      "**`in >> city >> temp`** reads a word and a number, just like `std::cin`. It also returns the stream itself, which counts as false once nothing more can be read, so `while (in >> city >> temp)` goes through the file to the end. Along the way the cities are counted and the hottest one is found.",
+      "To read whole lines, spaces included, use `std::getline(in, line)` in a `while`, as with the keyboard in lesson 5. When you run the example in DMarlon Studio, `temperatures.txt` appears next to the program."
+    ],
+    "points": [
+      "`std::ofstream f(\"name\")` creates or empties the file for writing.",
+      "`std::ios::app` appends without erasing what is there.",
+      "`std::ifstream f(\"name\")` opens for reading; check `if (!f)`.",
+      "Write with `<<`, read with `>>` or `std::getline`.",
+      "`while (f >> x)` reads until the end of the file."
+    ],
+    "exercise": "After the loop, open the file again with a new `std::ifstream` and use `while (std::getline(again, line))` to print each line with a number: `1: Madrid 24.5`, `2: Bilbao 17.5`..."
+  }
+}

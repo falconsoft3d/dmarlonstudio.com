@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "argumentos-por-defecto-y-sobrecarga",
+    "title": "Argumentos por defecto y sobrecarga",
+    "summary": "Dé valores por defecto a los parámetros en C++ y escriba varias funciones con el mismo nombre (sobrecarga) que el compilador elige según los argumentos.",
+    "body": [
+      "Un parámetro puede tener un **valor por defecto**: `double vat = 0.21`. Si la llamada lo omite, se usa ese valor (`withVat(100)` da 121); si lo indica, manda el de la llamada: `withVat(100, 0.04)`, con el IVA de los libros, da 104.",
+      "Los parámetros con valor por defecto van al final. `greet` tiene dos, así que se puede llamar con uno, dos o tres argumentos, pero siempre en orden: para dar `times` hay que dar también `word`.",
+      "La **sobrecarga** permite tener varias funciones con el mismo nombre si sus parámetros son distintos. `area(4)` llama a la del cuadrado, que tiene un parámetro, y `area(3, 5)`, a la del rectángulo, que tiene dos.",
+      "El compilador también elige por el **tipo**: `show(42)` usa la versión `int`, `show(3.5)` la `double` y `show(\"ready\")` la de `std::string`. La elección se hace al compilar, no al ejecutar.",
+      "`greet` y `show` reciben el texto como `const std::string&`, como vio en la lección anterior: sin copia y sin cambios."
+    ],
+    "points": [
+      "`tipo p = valor` da un valor por defecto a un parámetro.",
+      "Los parámetros con valor por defecto van al final.",
+      "Sobrecarga: el mismo nombre con parámetros distintos.",
+      "El compilador elige la versión por el número y el tipo de los argumentos."
+    ],
+    "exercise": "Añada una sobrecarga `void show(char letter)` y llámela con `show('A')`. Después, dé a `withVat` un tercer parámetro `int units = 1` y calcule el precio de tres pares de zapatos."
+  },
+  "en": {
+    "slug": "default-arguments-and-overloading",
+    "title": "Default arguments and overloading",
+    "summary": "Give C++ parameters default values and write several functions with the same name (overloading) that the compiler picks by their arguments.",
+    "body": [
+      "A parameter can have a **default value**: `double vat = 0.21`. If the call leaves it out, that value is used (`withVat(100)` gives 121); if the call gives one, the call wins: `withVat(100, 0.04)`, with the VAT rate for books, gives 104.",
+      "Parameters with defaults go at the end. `greet` has two, so it can be called with one, two or three arguments, but always in order: to pass `times` you must also pass `word`.",
+      "**Overloading** lets several functions share a name as long as their parameters differ. `area(4)` calls the square version, which has one parameter, and `area(3, 5)` the rectangle version, which has two.",
+      "The compiler also chooses by **type**: `show(42)` uses the `int` version, `show(3.5)` the `double` one and `show(\"ready\")` the `std::string` one. The choice is made at compile time, not while the program runs.",
+      "`greet` and `show` take their text as `const std::string&`, as in the previous lesson: no copy and no changes."
+    ],
+    "points": [
+      "`type p = value` gives a parameter a default value.",
+      "Parameters with defaults go at the end.",
+      "Overloading: the same name with different parameters.",
+      "The compiler picks the version by the number and types of the arguments."
+    ],
+    "exercise": "Add an overload `void show(char letter)` and call it with `show('A')`. Then give `withVat` a third parameter `int units = 1` and work out the price of three pairs of shoes."
+  }
+}

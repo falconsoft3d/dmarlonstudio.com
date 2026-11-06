@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "mapas",
+    "title": "Mapas",
+    "summary": "Guarde pares clave-valor en C++ con std::map: el inventario de una frutería con [], count(), erase() y un recorrido en orden alfabético.",
+    "body": [
+      "**`std::map`** relaciona **claves** con **valores**, como un diccionario. Se declara con los dos tipos: `std::map<std::string, int>` va del nombre de la fruta a su cantidad. Necesita `#include <map>`.",
+      "**`[]`** lee el valor de una clave (`stock[\"apples\"]` da 12) y también lo cambia, o crea la clave si no existe: `stock[\"kiwis\"] = 20` añade los kiwis. Cuidado: solo con leer `stock[\"bananas\"]` también se crearía, con valor 0.",
+      "Para comprobar una clave sin crearla está **`count()`**, que en un `map` da 0 o 1. **`erase()`** borra una clave junto con su valor. Y `at()`, como en los vectores, lanza un error si la clave no existe.",
+      "Un `map` guarda las claves **ordenadas**: al recorrerlo salen `apples`, `kiwis` y `pears`, en orden alfabético y no en el que se añadieron. Cada elemento es un par: `item.first` es la clave e `item.second`, el valor.",
+      "Contar es un uso clásico: `letters[c]++` funciona aunque la letra todavía no esté, porque `[]` la crea con 0 y después le suma uno. Así se cuentan las letras de `banana`."
+    ],
+    "points": [
+      "`std::map<Clave, Valor>` relaciona claves con valores.",
+      "`m[clave] = valor` cambia o añade.",
+      "Leer `m[clave]` crea la clave si no existe.",
+      "`count()` comprueba una clave sin crearla y `erase()` la borra.",
+      "Las claves se recorren siempre en orden."
+    ],
+    "exercise": "Con un `std::map<std::string, int>`, cuente cuántas veces aparece cada color en un vector `{\"red\", \"blue\", \"red\", \"green\", \"blue\", \"red\"}` y escriba el resultado."
+  },
+  "en": {
+    "slug": "maps",
+    "title": "Maps",
+    "summary": "Store key-value pairs in C++ with std::map: a greengrocer's stock with [], count(), erase() and a walk through the keys in order.",
+    "body": [
+      "**`std::map`** links **keys** to **values**, like a dictionary. It is declared with both types: `std::map<std::string, int>` goes from a fruit's name to its amount. It needs `#include <map>`.",
+      "**`[]`** reads a key's value (`stock[\"apples\"]` gives 12) and also changes it, or creates the key if it is missing: `stock[\"kiwis\"] = 20` adds the kiwis. Careful: merely reading `stock[\"bananas\"]` would create it too, with the value 0.",
+      "To check for a key without creating it there is **`count()`**, which in a `map` gives 0 or 1. **`erase()`** removes a key together with its value. And `at()`, as with vectors, throws an error if the key does not exist.",
+      "A `map` keeps its keys **sorted**: walking through it gives `apples`, `kiwis` and `pears`, in alphabetical order rather than the order they were added. Each element is a pair: `item.first` is the key and `item.second` the value.",
+      "Counting is a classic job: `letters[c]++` works even when the letter is not there yet, because `[]` creates it with 0 and then adds one. That is how the letters in `banana` are counted."
+    ],
+    "points": [
+      "`std::map<Key, Value>` links keys to values.",
+      "`m[key] = value` changes or adds.",
+      "Reading `m[key]` creates the key if it is missing.",
+      "`count()` checks a key without creating it and `erase()` removes it.",
+      "Keys always come out in order."
+    ],
+    "exercise": "Use a `std::map<std::string, int>` to count how many times each colour appears in a vector `{\"red\", \"blue\", \"red\", \"green\", \"blue\", \"red\"}` and print the result."
+  }
+}

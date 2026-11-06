@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "trabajar-con-vectores",
+    "title": "Trabajar con vectores",
+    "summary": "Modifique un std::vector en C++ con insert, erase y pop_back, y ordénelo y busque su mínimo y su máximo con las funciones de <algorithm>.",
+    "body": [
+      "Además de `push_back`, **`insert()`** añade en cualquier sitio. Recibe la posición como **iterador**: `list.begin()` señala el primer elemento y `list.begin() + 2`, el tercero. Así `coffee` entra al principio y `butter`, delante de la posición 2.",
+      "**`erase()`** borra el elemento de una posición (aquí `milk`, el segundo) y **`pop_back()`** quita el último. Los demás se desplazan y `size()` se actualiza: de 6 elementos se pasa a 4.",
+      "**`std::sort`**, de `<algorithm>`, ordena un rango que va de `begin()` a `end()`, la posición justo después del último. Con cadenas, el orden es alfabético.",
+      "`<algorithm>` tiene muchas más funciones que trabajan con rangos: **`std::min_element`** y **`std::max_element`** devuelven un iterador al menor y al mayor, y el `*` de delante obtiene su valor. Con un tercer argumento, `std::greater<int>()` (de `<functional>`), `sort` ordena de mayor a menor, como una tabla de récords.",
+      "**`clear()`** vacía el vector y **`empty()`** dice si se ha quedado sin elementos."
+    ],
+    "points": [
+      "`v.begin()` es la primera posición y `v.end()`, la siguiente a la última.",
+      "`insert(v.begin() + i, x)` añade delante de la posición `i`.",
+      "`erase(v.begin() + i)` borra la posición `i`; `pop_back()`, la última.",
+      "`std::sort(v.begin(), v.end())` ordena de menor a mayor.",
+      "`std::min_element` y `std::max_element` buscan los extremos."
+    ],
+    "exercise": "Antes de borrar un producto, búsquelo con `std::find(list.begin(), list.end(), \"eggs\")`: si el resultado es `list.end()`, escriba que no está en la lista; si no, bórrelo con `erase`."
+  },
+  "en": {
+    "slug": "working-with-vectors",
+    "title": "Working with vectors",
+    "summary": "Change a std::vector in C++ with insert, erase and pop_back, then sort it and find its smallest and largest values with <algorithm>.",
+    "body": [
+      "Besides `push_back`, **`insert()`** adds an element anywhere. It takes the position as an **iterator**: `list.begin()` points at the first element and `list.begin() + 2` at the third. So `coffee` goes in at the start and `butter` before position 2.",
+      "**`erase()`** removes the element at a position (here `milk`, the second one) and **`pop_back()`** removes the last one. The others shift along and `size()` is updated: from 6 elements down to 4.",
+      "**`std::sort`**, from `<algorithm>`, sorts a range that goes from `begin()` to `end()`, the position just after the last element. Strings are sorted alphabetically.",
+      "`<algorithm>` has many more functions that work on ranges: **`std::min_element`** and **`std::max_element`** return an iterator to the smallest and largest, and the `*` in front gets the value. With a third argument, `std::greater<int>()` (from `<functional>`), `sort` goes from highest to lowest, like a high-score table.",
+      "**`clear()`** empties the vector and **`empty()`** tells you whether it has no elements left."
+    ],
+    "points": [
+      "`v.begin()` is the first position and `v.end()` the one after the last.",
+      "`insert(v.begin() + i, x)` adds before position `i`.",
+      "`erase(v.begin() + i)` removes position `i`; `pop_back()` the last one.",
+      "`std::sort(v.begin(), v.end())` sorts from lowest to highest.",
+      "`std::min_element` and `std::max_element` find the extremes."
+    ],
+    "exercise": "Before removing a product, look for it with `std::find(list.begin(), list.end(), \"eggs\")`: if the result is `list.end()`, print that it is not on the list; otherwise remove it with `erase`."
+  }
+}

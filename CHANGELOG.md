@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.55 — 2026-11-07
+
+- **Curso de C++ básico** (20 lecciones, español e inglés): `cout` y
+  `cin`, tipos y `auto`, `<cmath>`, `std::string`, decisiones y bucles,
+  `std::vector` y `sort`, funciones, referencias, sobrecarga, `std::map`,
+  pares y enlaces estructurados, `<iomanip>`, excepciones, archivos y un
+  carrito de la compra como proyecto. Cada ejemplo, compilado en C++17 y
+  ejecutado de verdad, con su salida y su imagen en DMarlon Studio.
+
 ## 1.0.54 — 2026-11-07
 
 - **Curso de C básico** (20 lecciones, español e inglés): `printf` y

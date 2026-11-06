@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "formato-con-iomanip",
+    "title": "Dar formato a la salida",
+    "summary": "Alinee columnas y controle los decimales en C++ con setw, left, right, setfill, fixed y setprecision de <iomanip>: la carta de una cafetería.",
+    "body": [
+      "**`<iomanip>`** trae los **manipuladores**, que se envían a `std::cout` con `<<` para cambiar cómo se escribe lo que viene después. Con ellos se monta la carta de una cafetería en columnas.",
+      "**`std::setw(14)`** reserva 14 caracteres solo para el **siguiente** valor; por eso se repite delante de cada columna. **`std::left`** y **`std::right`** alinean el texto dentro de ese ancho, y se mantienen hasta que se cambien.",
+      "**`std::setfill('-')`** cambia el carácter de relleno: con `setw(22)` y un texto vacío, dibuja una raya de 22 guiones. Después se vuelve al espacio con `std::setfill(' ')`. El mismo truco con `'0'` escribe el número de pedido `00042`.",
+      "**`std::fixed`** junto con **`std::setprecision(2)`** escribe siempre dos decimales: `3` sale como `3.00`, lo ideal para precios. Sin `fixed` (`std::defaultfloat`), `setprecision(3)` cuenta cifras significativas, y π queda en `3.14`.",
+      "**`std::hex`** y **`std::oct`** escriben los enteros en hexadecimal y en octal; `std::dec` vuelve al decimal. Los pares de `menu` se recorren con enlaces estructurados, como en la lección anterior."
+    ],
+    "points": [
+      "`std::setw(n)` fija el ancho del siguiente valor.",
+      "`std::left` y `std::right` alinean, y duran hasta que se cambian.",
+      "`std::setfill(c)` cambia el carácter de relleno.",
+      "`std::fixed << std::setprecision(2)`: siempre dos decimales.",
+      "`std::hex`, `std::oct` y `std::dec` cambian la base."
+    ],
+    "exercise": "Añada a la carta una columna `Qty` con las unidades pedidas de cada producto y otra con el importe (unidades por precio), todas alineadas a la derecha, y el total al final."
+  },
+  "en": {
+    "slug": "formatting-with-iomanip",
+    "title": "Formatting output",
+    "summary": "Line up columns and control decimals in C++ with setw, left, right, setfill, fixed and setprecision from <iomanip>: a café menu.",
+    "body": [
+      "**`<iomanip>`** brings the **manipulators**, which you send to `std::cout` with `<<` to change how whatever follows is printed. With them, the café menu is laid out in columns.",
+      "**`std::setw(14)`** reserves 14 characters for the **next** value only, which is why it is repeated before each column. **`std::left`** and **`std::right`** align the text within that width, and they stay in force until you change them.",
+      "**`std::setfill('-')`** changes the padding character: with `setw(22)` and an empty string, it draws a line of 22 dashes. Then `std::setfill(' ')` goes back to spaces. The same trick with `'0'` prints the order number `00042`.",
+      "**`std::fixed`** together with **`std::setprecision(2)`** always prints two decimals: `3` comes out as `3.00`, perfect for prices. Without `fixed` (`std::defaultfloat`), `setprecision(3)` counts significant digits, so π becomes `3.14`.",
+      "**`std::hex`** and **`std::oct`** print integers in hexadecimal and octal; `std::dec` goes back to decimal. The pairs in `menu` are walked with structured bindings, as in the previous lesson."
+    ],
+    "points": [
+      "`std::setw(n)` sets the width of the next value.",
+      "`std::left` and `std::right` align, and last until changed.",
+      "`std::setfill(c)` changes the padding character.",
+      "`std::fixed << std::setprecision(2)`: always two decimals.",
+      "`std::hex`, `std::oct` and `std::dec` change the base."
+    ],
+    "exercise": "Add a `Qty` column to the menu with the units ordered of each item and another with the amount (units times price), all right-aligned, and the total at the bottom."
+  }
+}

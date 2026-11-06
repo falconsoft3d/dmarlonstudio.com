@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "variables-tipos-y-auto",
+    "title": "Variables, tipos y auto",
+    "summary": "Declare variables en C++ con int, double, char, bool y std::string, proteja valores con const y deje que auto deduzca el tipo.",
+    "body": [
+      "En C++ cada **variable** tiene un **tipo** fijo, que se escribe delante del nombre: `int` para enteros (`age`), `double` para números con decimales (`height`), `char` para un solo carácter entre comillas simples (`'A'`) y `bool` para verdadero o falso. Conviene darles siempre un valor inicial.",
+      "**`std::string`** guarda texto entre comillas dobles y necesita `#include <string>`. Al escribir un `bool` con `std::cout` sale `1` (verdadero) o `0` (falso); en la lección 7 verá cómo mostrar `true` y `false`.",
+      "Una variable puede cambiar de valor (`age = age + 1`), pero nunca de tipo. El compilador comprueba los tipos antes de ejecutar nada, y así detecta muchos errores pronto. Con **`const`**, el valor queda fijo: si intenta cambiar `vat`, el programa no compila.",
+      "**`auto`** deja que el compilador deduzca el tipo a partir del valor: `49.90` convierte `price` en un `double` y `3`, a `units` en un `int`. Es cómodo, pero el tipo sigue siendo fijo. `total` mezcla los dos y el resultado es `double`.",
+      "**`sizeof`** dice cuántos bytes ocupa un tipo en memoria: en un ordenador actual, un `int` ocupa 4 y un `double`, 8."
+    ],
+    "points": [
+      "Tipo, nombre y valor: `int age = 34;`.",
+      "`int`, `double`, `char`, `bool` y `std::string` son los tipos básicos.",
+      "`const` impide cambiar un valor.",
+      "`auto` deduce el tipo del valor inicial.",
+      "Una variable no cambia nunca de tipo."
+    ],
+    "exercise": "Añada `const int maxPlayers = 4;` y `auto players = 3;`, escriba cuántas plazas quedan libres e intente luego asignar otro valor a `maxPlayers` para ver el error del compilador."
+  },
+  "en": {
+    "slug": "variables-types-and-auto",
+    "title": "Variables, types and auto",
+    "summary": "Declare C++ variables with int, double, char, bool and std::string, protect values with const and let auto work out the type.",
+    "body": [
+      "In C++ every **variable** has a fixed **type**, written before its name: `int` for whole numbers (`age`), `double` for numbers with decimals (`height`), `char` for a single character in single quotes (`'A'`) and `bool` for true or false. It is good practice to always give them a starting value.",
+      "**`std::string`** holds text in double quotes and needs `#include <string>`. When you print a `bool` with `std::cout` you get `1` (true) or `0` (false); lesson 7 shows how to print `true` and `false` instead.",
+      "A variable can change its value (`age = age + 1`) but never its type. The compiler checks types before anything runs, so it catches many mistakes early. With **`const`**, the value is fixed: if you try to change `vat`, the program does not compile.",
+      "**`auto`** lets the compiler work out the type from the value: `49.90` makes `price` a `double` and `3` makes `units` an `int`. It is handy, but the type is still fixed. `total` mixes both, and the result is a `double`.",
+      "**`sizeof`** tells you how many bytes a type takes in memory: on a modern computer an `int` takes 4 and a `double` 8."
+    ],
+    "points": [
+      "Type, name and value: `int age = 34;`.",
+      "`int`, `double`, `char`, `bool` and `std::string` are the basic types.",
+      "`const` stops a value from changing.",
+      "`auto` deduces the type from the starting value.",
+      "A variable never changes its type."
+    ],
+    "exercise": "Add `const int maxPlayers = 4;` and `auto players = 3;`, print how many places are still free, then try to assign a new value to `maxPlayers` and read the compiler error."
+  }
+}

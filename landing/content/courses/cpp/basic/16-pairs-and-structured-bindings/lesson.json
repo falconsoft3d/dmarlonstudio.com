@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "pares-y-enlaces-estructurados",
+    "title": "Pares y enlaces estructurados",
+    "summary": "Agrupe dos valores con std::pair en C++, devuélvalos juntos desde una función y sepárelos con los enlaces estructurados de C++17.",
+    "body": [
+      "**`std::pair`** guarda dos valores juntos, que pueden ser de tipos distintos: un producto y su precio. Se accede a ellos con **`first`** y **`second`**. Está en `<utility>`.",
+      "**`std::make_pair`** crea un par deduciendo los tipos a partir de los valores, sin necesidad de escribirlos.",
+      "Una función devuelve un solo valor, pero ese valor puede ser un par: `minMax` devuelve a la vez la temperatura mínima y la máxima con `return {lo, hi};`.",
+      "Los **enlaces estructurados** de C++17, `auto [coldest, hottest] = minMax(week);`, dan un nombre a cada parte del par. Se lee mucho mejor que `result.first` y `result.second`.",
+      "Donde más se agradecen es al recorrer un `map`, cuyos elementos son pares: `for (const auto& [player, count] : goals)` saca el nombre y los goles de cada jugador, por orden alfabético."
+    ],
+    "points": [
+      "`std::pair<A, B>` guarda dos valores; se leen con `first` y `second`.",
+      "`std::make_pair(a, b)` deduce los tipos.",
+      "Una función puede devolver dos resultados en un par.",
+      "`auto [a, b] = par;` da nombre a cada parte.",
+      "`for (const auto& [clave, valor] : mapa)` recorre un `map`."
+    ],
+    "exercise": "Escriba una función que reciba un `std::vector<int>` de notas y devuelva un `std::pair` con la nota media (`double`) y el número de aprobados (5 o más), y recoja el resultado con un enlace estructurado."
+  },
+  "en": {
+    "slug": "pairs-and-structured-bindings",
+    "title": "Pairs and structured bindings",
+    "summary": "Group two values with std::pair in C++, return them together from a function and unpack them with C++17 structured bindings.",
+    "body": [
+      "**`std::pair`** keeps two values together, which can be of different types: a product and its price. You reach them with **`first`** and **`second`**. It lives in `<utility>`.",
+      "**`std::make_pair`** builds a pair and works out the types from the values, so you do not have to write them.",
+      "A function returns a single value, but that value can be a pair: `minMax` hands back both the lowest and the highest temperature with `return {lo, hi};`.",
+      "C++17 **structured bindings**, `auto [coldest, hottest] = minMax(week);`, give a name to each part of the pair. It reads much better than `result.first` and `result.second`.",
+      "They really shine when walking through a `map`, whose elements are pairs: `for (const auto& [player, count] : goals)` pulls out each player's name and goals, in alphabetical order."
+    ],
+    "points": [
+      "`std::pair<A, B>` holds two values, read with `first` and `second`.",
+      "`std::make_pair(a, b)` deduces the types.",
+      "A function can return two results in a pair.",
+      "`auto [a, b] = pair;` names each part.",
+      "`for (const auto& [key, value] : map)` walks through a `map`."
+    ],
+    "exercise": "Write a function that takes a `std::vector<int>` of marks and returns a `std::pair` with the average mark (`double`) and the number of passes (5 or more), and catch the result with a structured binding."
+  }
+}

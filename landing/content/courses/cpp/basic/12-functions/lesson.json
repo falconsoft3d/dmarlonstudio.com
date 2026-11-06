@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "funciones",
+    "title": "Funciones",
+    "summary": "Escriba funciones en C++ con su tipo de retorno y sus parámetros, use void y return, y reutilícelas para convertir temperaturas.",
+    "body": [
+      "Una **función** agrupa código bajo un nombre para poder reutilizarlo. Se declara con el **tipo de retorno**, el nombre y los **parámetros** con sus tipos: `double toFahrenheit(double celsius)` recibe grados Celsius y **`return`** devuelve el resultado.",
+      "Una función **`void`** no devuelve nada: `printLine(26)` solo escribe una raya de 26 guiones. El argumento `26` se copia en el parámetro `width`.",
+      "`return` termina la función en cuanto se ejecuta. En `describe`, si la temperatura es menor de 10 devuelve `cold` y no mira nada más; por eso no hace falta ningún `else`.",
+      "Los parámetros pueden ser de cualquier tipo, también un `std::vector`. `average` comprueba con `empty()` que hay datos antes de dividir. Las funciones se escriben antes de `main`, que las usa, porque el compilador lee el archivo de arriba abajo.",
+      "En `main`, un `for` de rango llama a dos funciones por cada día, y el resultado de una función se puede pasar directamente a otra: `describe(average(week))`."
+    ],
+    "points": [
+      "Tipo de retorno, nombre y parámetros: `double f(double x)`.",
+      "`return` devuelve el valor y termina la función.",
+      "`void` significa que no devuelve nada.",
+      "Una función debe declararse antes de usarse.",
+      "El resultado de una función puede ser el argumento de otra."
+    ],
+    "exercise": "Escriba `double toCelsius(double fahrenheit)` y `int countHot(std::vector<double> temps)`, que cuente los días de más de 25 grados, y úselas en `main`."
+  },
+  "en": {
+    "slug": "functions",
+    "title": "Functions",
+    "summary": "Write C++ functions with a return type and parameters, use void and return, and reuse them to convert temperatures.",
+    "body": [
+      "A **function** groups code under a name so you can reuse it. It is declared with its **return type**, its name and its **parameters** with their types: `double toFahrenheit(double celsius)` takes degrees Celsius and **`return`** hands back the result.",
+      "A **`void`** function returns nothing: `printLine(26)` just prints a row of 26 dashes. The argument `26` is copied into the `width` parameter.",
+      "`return` ends the function the moment it runs. In `describe`, if the temperature is below 10 it returns `cold` and looks no further, which is why no `else` is needed.",
+      "Parameters can be of any type, including a `std::vector`. `average` checks with `empty()` that there is data before dividing. The functions are written before `main`, which uses them, because the compiler reads the file from top to bottom.",
+      "In `main`, a range-based `for` calls two functions for each day, and one function's result can go straight into another: `describe(average(week))`."
+    ],
+    "points": [
+      "Return type, name and parameters: `double f(double x)`.",
+      "`return` hands back the value and ends the function.",
+      "`void` means it returns nothing.",
+      "A function must be declared before it is used.",
+      "One function's result can be another's argument."
+    ],
+    "exercise": "Write `double toCelsius(double fahrenheit)` and `int countHot(std::vector<double> temps)`, which counts the days above 25 degrees, and use them in `main`."
+  }
+}

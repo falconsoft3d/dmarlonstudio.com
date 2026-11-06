@@ -1,0 +1,6 @@
+apple 6
+milk 2
+caviar 1
+bread 1
+cheese 0
+apple 4

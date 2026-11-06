@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-procesar-pedidos",
+    "title": "Proyecto: procesar pedidos",
+    "summary": "Un proyecto que une lo aprendido en Go: pedidos en JSON, una función genérica que trabaja en paralelo con goroutines y un tipo con String.",
+    "body": [
+      "El programa recibe pedidos en **JSON**, les suma el IVA en paralelo y los escribe. Es pequeño, pero junta cuatro piezas del curso: etiquetas JSON, genéricos, goroutines con canales e interfaces.",
+      "`Order` lleva etiquetas `json:\"id\"`, `json:\"net\"` y `json:\"total\"`, y **`json.Unmarshal`** rellena con ellas el slice `orders` a partir del texto. El error se escribe en la primera línea, `<nil>` si todo fue bien; en un programa real, si no fuera `nil`, se pararía ahí.",
+      "**`ParallelMap[T, U any]`** es genérica: sirve para cualquier slice y cualquier función. Lanza una goroutine por elemento y cada una escribe en su posición, `out[i]`, así que el orden se conserva sea cual sea el que termine antes. Para saber cuándo han acabado todas, cada goroutine envía `true` por el canal `done` y la función recibe tantas señales como elementos: lo mismo que un `WaitGroup`, hecho con un canal.",
+      "La función que se le pasa es un literal, `func(o Order) Order`, que recibe **una copia** del pedido, le pone el `Total` (neto más el 21 %) y la devuelve. `orders` no se modifica y `billed` tiene los pedidos ya facturados. Go deduce solo que `T` y `U` son `Order`.",
+      "Para escribirlos basta con `fmt.Println(o)`: `Order` tiene un método `String`, así que cumple **`fmt.Stringer`** y sale como `#101 120.00 -> 145.20`. Pasos naturales: IVA según el país, el resultado en JSON con `json.Marshal(billed)` o servirlo con un manejador HTTP, como hace el destino Web (Go) de DMarlon Studio."
+    ],
+    "points": [
+      "Las etiquetas JSON enlazan las claves con los campos del struct.",
+      "Una función genérica con goroutines sirve para cualquier tipo.",
+      "Escribir en `out[i]` conserva el orden sin cerrojos.",
+      "Recibir una señal por goroutine equivale a esperar con un `WaitGroup`.",
+      "Un método `String` decide cómo se escribe el tipo."
+    ],
+    "exercise": "Añada a `Order` un campo `Country` (`json:\"country\"`) y un mapa con el IVA de `ES`, `DE` y `FR`, ponga el país en cada pedido del JSON y use el IVA que corresponda. Al final, escriba `billed` en JSON con `json.Marshal`."
+  },
+  "en": {
+    "slug": "order-pipeline-project",
+    "title": "Project: processing orders",
+    "summary": "A project that brings Go topics together: orders in JSON, a generic function that works in parallel with goroutines, and a type with String.",
+    "body": [
+      "The program receives orders as **JSON**, adds VAT to them in parallel and prints them. It is small, but it combines four pieces of the course: JSON tags, generics, goroutines with channels, and interfaces.",
+      "`Order` has the tags `json:\"id\"`, `json:\"net\"` and `json:\"total\"`, and **`json.Unmarshal`** uses them to fill the `orders` slice from the text. The error is printed on the first line, `<nil>` if all went well; in a real program, if it were not `nil`, you would stop there.",
+      "**`ParallelMap[T, U any]`** is generic: it works with any slice and any function. It starts one goroutine per item and each one writes to its own position, `out[i]`, so the order is kept whichever finishes first. To know when they are all done, each goroutine sends `true` on the `done` channel and the function receives as many signals as there are items: the same as a `WaitGroup`, made with a channel.",
+      "The function passed in is a literal, `func(o Order) Order`, which gets **a copy** of the order, sets its `Total` (net plus 21%) and returns it. `orders` is left unchanged and `billed` holds the invoiced orders. Go works out on its own that `T` and `U` are `Order`.",
+      "Printing them only takes `fmt.Println(o)`: `Order` has a `String` method, so it satisfies **`fmt.Stringer`** and prints as `#101 120.00 -> 145.20`. Natural next steps: VAT by country, the result as JSON with `json.Marshal(billed)`, or serving it from an HTTP handler, as the Web (Go) target in DMarlon Studio does."
+    ],
+    "points": [
+      "JSON tags link the keys to the struct's fields.",
+      "A generic function with goroutines works for any type.",
+      "Writing to `out[i]` keeps the order without locks.",
+      "Receiving one signal per goroutine is the same as waiting on a `WaitGroup`.",
+      "A `String` method decides how the type prints."
+    ],
+    "exercise": "Add a `Country` field (`json:\"country\"`) to `Order` and a map with the VAT for `ES`, `DE` and `FR`, put a country on each order in the JSON and use the matching VAT. At the end, print `billed` as JSON with `json.Marshal`."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "comprobaciones-con-tablas",
+    "title": "Comprobaciones con tablas",
+    "summary": "Compruebe una función en Go con una tabla de casos, como en los tests de go test: cada caso con nombre, entrada y resultado esperado.",
+    "body": [
+      "En Go, la forma más común de probar una función es una **tabla de casos**: un slice de structs con un nombre, la entrada y el resultado esperado. `tests` es un slice de un **struct anónimo**, declarado ahí mismo porque no se usa en ningún otro sitio.",
+      "La función que se prueba es `shipping`: los pedidos de 50,00 EUR o más no pagan el envío y el resto paga 4,95. Los importes van en céntimos (`5000` son 50,00 EUR) para comparar enteros y no decimales, que pueden no coincidir por redondeo.",
+      "El bucle llama a `shipping` con cada `total`, compara lo obtenido (`got`) con lo esperado (`want`) y escribe `ok` o `FAIL`. Si falla, el mensaje dice qué se llamó, qué salió y qué debía salir: con eso suele bastar para encontrar el error sin depurar. `failed` cuenta los fallos para el resumen final.",
+      "Y hay uno: `exactly 50.00` espera `0` pero obtiene `495`, porque la condición es `total > 5000` y debería ser `>=`. Es el error más típico, el del límite, y por eso conviene probar siempre los bordes: un céntimo menos (`4999`), justo el límite (`5000`) y el caso vacío (`0`).",
+      "En un proyecto, esta misma tabla va en un fichero `shipping_test.go`, dentro de `func TestShipping(t *testing.T)`; cada caso se ejecuta con `t.Run(tc.name, ...)`, el fallo se informa con `t.Errorf` y todo se lanza con `go test`. Añadir un caso es añadir una línea."
+    ],
+    "points": [
+      "Una tabla de casos es un slice de structs: nombre, entrada y esperado.",
+      "Compare `got` con `want` y diga ambos cuando falle.",
+      "Pruebe los bordes: justo el límite, uno menos y el vacío.",
+      "Con dinero, compare enteros en céntimos.",
+      "En `go test`, la misma tabla con `t.Run` y `t.Errorf`."
+    ],
+    "exercise": "Corrija el error cambiando `>` por `>=` y compruebe que pasan los cinco casos. Después añada un parámetro `express bool` que sume 6,00 EUR siempre, y amplíe la tabla con dos casos urgentes."
+  },
+  "en": {
+    "slug": "table-driven-checks",
+    "title": "Table-driven checks",
+    "summary": "Check a Go function with a table of cases, just like go test does: each case with a name, an input and an expected result.",
+    "body": [
+      "The most common way to test a function in Go is a **table of cases**: a slice of structs with a name, the input and the expected result. `tests` is a slice of an **anonymous struct**, declared right there because it is used nowhere else.",
+      "The function under test is `shipping`: orders of 50.00 EUR or more ship free and the rest pay 4.95. Amounts are in cents (`5000` is 50.00 EUR) so you compare integers rather than decimals, which may not match because of rounding.",
+      "The loop calls `shipping` with each `total`, compares what it got (`got`) with what it expected (`want`) and prints `ok` or `FAIL`. On a failure the message says what was called, what came out and what should have: that is usually enough to find the bug without a debugger. `failed` counts the failures for the final summary.",
+      "And there is one: `exactly 50.00` expects `0` but gets `495`, because the condition is `total > 5000` and should be `>=`. It is the classic bug, the boundary one, which is why you should always test the edges: one cent short (`4999`), the limit itself (`5000`) and the empty case (`0`).",
+      "In a project, this same table goes into a `shipping_test.go` file, inside `func TestShipping(t *testing.T)`; each case runs with `t.Run(tc.name, ...)`, failures are reported with `t.Errorf`, and the whole thing runs with `go test`. Adding a case means adding one line."
+    ],
+    "points": [
+      "A table of cases is a slice of structs: name, input and expected.",
+      "Compare `got` with `want`, and show both when it fails.",
+      "Test the edges: the limit itself, one below and the empty case.",
+      "With money, compare whole cents.",
+      "In `go test`, the same table with `t.Run` and `t.Errorf`."
+    ],
+    "exercise": "Fix the bug by changing `>` to `>=` and check that all five cases pass. Then add an `express bool` parameter that always adds 6.00 EUR, and extend the table with two express cases."
+  }
+}

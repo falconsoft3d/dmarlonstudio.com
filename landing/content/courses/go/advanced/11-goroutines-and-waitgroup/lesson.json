@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "goroutines-y-waitgroup",
+    "title": "Goroutines y WaitGroup",
+    "summary": "Ejecute trabajo en paralelo con goroutines en Go, espere a que terminen con sync.WaitGroup y obtenga siempre la misma salida.",
+    "body": [
+      "Una **goroutine** es una función que se ejecuta a la vez que el resto del programa. Basta con escribir **`go`** delante de la llamada: `go func(i int) { ... }(i)` lanza una por documento y el bucle sigue sin esperar. Son muy ligeras; un programa puede tener miles.",
+      "El problema es que `main` no espera a nadie: si termina, el programa acaba con las goroutines a medias. **`sync.WaitGroup`** lleva la cuenta: `wg.Add(1)` antes de lanzar cada una, `defer wg.Done()` dentro, para avisar al acabar pase lo que pase, y `wg.Wait()` bloquea `main` hasta que la cuenta vuelve a cero.",
+      "Cada goroutine escribe solo en su casilla, `counts[i]`. Como ninguna toca la de otra, no comparten nada y no hace falta ningún cerrojo. Si todas sumaran en una misma variable, habría una **condición de carrera** y el total podría salir mal; eso se resuelve en la lección del mutex.",
+      "`i` se pasa como argumento a la función anónima. Antes de Go 1.22, la variable del bucle era una sola que va cambiando, y una goroutine que la leyera directamente podría ver ya el valor de otra vuelta. Con el argumento, cada goroutine recibe su propia copia.",
+      "Las goroutines terminan en un orden que cambia de una ejecución a otra, pero la salida no: se escribe después de `wg.Wait()` y recorriendo `counts` en orden. Esa es la regla para resultados deterministas: calcular en paralelo y escribir al final, en un orden fijo."
+    ],
+    "points": [
+      "`go f()` ejecuta `f` en una goroutine nueva.",
+      "`wg.Add(1)` antes, `defer wg.Done()` dentro, `wg.Wait()` para esperar.",
+      "Si cada goroutine escribe en su casilla, no comparten nada.",
+      "Pase la variable del bucle como argumento a la goroutine.",
+      "Calcule en paralelo y escriba al final, en orden."
+    ],
+    "exercise": "Haga que cada goroutine calcule también la palabra más larga de su texto, guárdela en un segundo slice `longest` y escríbala junto al número de palabras."
+  },
+  "en": {
+    "slug": "goroutines-and-waitgroup",
+    "title": "Goroutines and WaitGroup",
+    "summary": "Run work in parallel with goroutines in Go, wait for them to finish with sync.WaitGroup, and still get the same output every time.",
+    "body": [
+      "A **goroutine** is a function running at the same time as the rest of the program. Just write **`go`** in front of the call: `go func(i int) { ... }(i)` starts one per document, and the loop carries on without waiting. They are very lightweight; a program can have thousands.",
+      "The catch is that `main` waits for nobody: when it returns, the program ends with the goroutines half done. **`sync.WaitGroup`** keeps count: `wg.Add(1)` before starting each one, `defer wg.Done()` inside it to report back whatever happens, and `wg.Wait()` blocks `main` until the count is back to zero.",
+      "Each goroutine writes only to its own slot, `counts[i]`. Since none of them touches another's slot, they share nothing and no lock is needed. If they all added to the same variable there would be a **data race** and the total could come out wrong; the mutex lesson deals with that.",
+      "`i` is passed as an argument to the anonymous function. Before Go 1.22 the loop variable was a single variable that kept changing, and a goroutine reading it directly might already see the value from another iteration. With the argument, each goroutine gets its own copy.",
+      "The goroutines finish in an order that changes from run to run, but the output does not: it is printed after `wg.Wait()`, walking `counts` in order. That is the rule for deterministic results: compute in parallel, then print at the end in a fixed order."
+    ],
+    "points": [
+      "`go f()` runs `f` in a new goroutine.",
+      "`wg.Add(1)` before, `defer wg.Done()` inside, `wg.Wait()` to wait.",
+      "If each goroutine writes to its own slot, nothing is shared.",
+      "Pass the loop variable to the goroutine as an argument.",
+      "Compute in parallel, print at the end, in order."
+    ],
+    "exercise": "Make each goroutine also find the longest word in its text, store it in a second slice, `longest`, and print it next to the word count."
+  }
+}

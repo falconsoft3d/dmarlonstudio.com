@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "grupos-de-trabajadores",
+    "title": "Grupos de trabajadores",
+    "summary": "Reparta trabajo entre un número fijo de goroutines en Go con un canal de tareas y otro de resultados, y ordene los resultados antes de escribirlos.",
+    "body": [
+      "Un **grupo de trabajadores** (*worker pool*) limita cuántas tareas se hacen a la vez: en lugar de una goroutine por factura, hay tres que se reparten todas. Es lo que se hace cuando cada tarea gasta un recurso escaso, como conexiones a una base de datos o llamadas a una API.",
+      "Hay dos canales con búfer: `jobs`, con los números de factura pendientes, y `results`, con una línea de texto por factura. `worker` los recibe con dirección: `<-chan int` solo para recibir y `chan<- string` solo para enviar, así el compilador impide usarlos al revés.",
+      "Cada trabajador ejecuta `for id := range jobs`: toma una factura, le suma el 21 % de IVA, envía el resultado y vuelve a por otra. Los tres compiten por las mismas tareas, y cuál hace cada una cambia en cada ejecución. `close(jobs)` avisa de que no hay más trabajo, y sus bucles terminan.",
+      "`main` sabe que habrá exactamente un resultado por factura, así que `for range nets` recibe `len(nets)` veces y no necesita un `WaitGroup`. Leer el mapa `nets` desde varias goroutines a la vez es seguro porque nadie lo modifica.",
+      "Las facturas se envían recorriendo un mapa, cuyo orden es aleatorio, y los trabajadores terminan cuando terminan: los resultados llegan desordenados. **`sort.Strings(lines)`** los pone en orden (todas las líneas empiezan por `#` y un número de tres cifras) y la salida es siempre la misma."
+    ],
+    "points": [
+      "Un grupo fijo de trabajadores limita el trabajo simultáneo.",
+      "Los trabajadores leen de un canal de tareas con `range`.",
+      "`close(jobs)` termina los bucles de los trabajadores.",
+      "Si sabe cuántos resultados habrá, reciba exactamente esos.",
+      "Los resultados llegan en cualquier orden: ordénelos antes de escribir."
+    ],
+    "exercise": "Cambie el número de trabajadores a 1 y después a 6, y compruebe que la salida no cambia. Luego haga que `worker` reciba también un número de trabajador y añádalo al final de cada línea: verá que entonces la salida deja de ser siempre igual."
+  },
+  "en": {
+    "slug": "worker-pools",
+    "title": "Worker pools",
+    "summary": "Share work among a fixed number of goroutines in Go with a jobs channel and a results channel, and sort the results before printing them.",
+    "body": [
+      "A **worker pool** limits how many tasks run at once: instead of one goroutine per invoice, three goroutines share them all. It is what you do when each task uses a scarce resource, such as database connections or calls to an API.",
+      "There are two buffered channels: `jobs`, with the invoice numbers still to do, and `results`, with one line of text per invoice. `worker` receives them with a direction: `<-chan int` for receiving only and `chan<- string` for sending only, so the compiler stops you using them the wrong way round.",
+      "Each worker runs `for id := range jobs`: it takes an invoice, adds 21% VAT, sends the result and goes back for another. The three compete for the same jobs, and which one does each job changes from run to run. `close(jobs)` says there is no more work, and their loops end.",
+      "`main` knows there will be exactly one result per invoice, so `for range nets` receives `len(nets)` times and needs no `WaitGroup`. Reading the `nets` map from several goroutines at once is safe because nobody writes to it.",
+      "The invoices are sent by looping over a map, whose order is random, and the workers finish whenever they finish: results arrive shuffled. **`sort.Strings(lines)`** puts them in order (every line starts with `#` and a three-digit number), so the output is always the same."
+    ],
+    "points": [
+      "A fixed pool of workers limits how much runs at once.",
+      "Workers read from a jobs channel with `range`.",
+      "`close(jobs)` ends the workers' loops.",
+      "If you know how many results there will be, receive exactly that many.",
+      "Results arrive in any order: sort them before printing."
+    ],
+    "exercise": "Change the number of workers to 1 and then to 6, and check that the output does not change. Then pass a worker number to `worker` and add it at the end of each line: you will see the output stop being the same every time."
+  }
+}

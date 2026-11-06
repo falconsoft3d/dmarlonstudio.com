@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "canales-con-bufer-y-select",
+    "title": "Canales con búfer y select",
+    "summary": "Use canales con búfer como colas en Go, envíe sin bloquear con select y default, y ponga un tiempo límite con select y time.After.",
+    "body": [
+      "`make(chan string, 3)` crea un canal **con búfer**: admite hasta tres mensajes sin que nadie los reciba todavía. Funciona como una cola de correos pendientes. `len(queue)` dice cuántos hay dentro y `cap(queue)`, cuántos caben.",
+      "**`select`** espera a la vez en varias operaciones de canal y ejecuta la primera que pueda hacerse. Con un `case queue <- msg` y un **`default`**, el envío deja de bloquear: si hay sitio, se encola; si el búfer está lleno, se ejecuta `default` y el mensaje se descarta. Por eso `newsletter` y `survey` no entran.",
+      "Después de `close(queue)` ya no se puede enviar, pero los mensajes que hay en el búfer siguen ahí: `range` los entrega todos, en orden, y termina cuando la cola queda vacía.",
+      "La segunda parte pone un **tiempo límite**. Una goroutine tarda 300 ms en preparar un informe; `time.After(50 * time.Millisecond)` devuelve un canal que recibe un valor pasados 50 ms. El `select` se queda con lo que llegue antes: el plazo. El canal `report` tiene búfer de 1 para que la goroutine pueda dejar su resultado aunque ya nadie lo espere y no se quede bloqueada para siempre.",
+      "Si varios `case` están listos a la vez, `select` elige uno **al azar**. Este ejemplo lo evita a propósito: o solo hay un caso posible, o los tiempos están muy separados (50 frente a 300 ms), y por eso la salida es siempre la misma."
+    ],
+    "points": [
+      "`make(chan T, n)` crea un canal con búfer de `n` valores.",
+      "`select` ejecuta la primera operación de canal que esté lista.",
+      "Con `default`, `select` no bloquea nunca.",
+      "Tras `close`, `range` todavía entrega lo que queda en el búfer.",
+      "`time.After` en un `select` pone un tiempo límite."
+    ],
+    "exercise": "Cambie la capacidad de `queue` a 5 y compruebe que ya no se descarta nada. Después cambie el plazo a `500 * time.Millisecond` y vea cómo ahora gana el informe."
+  },
+  "en": {
+    "slug": "buffered-channels-and-select",
+    "title": "Buffered channels and select",
+    "summary": "Use buffered channels as queues in Go, send without blocking using select and default, and set a time limit with select and time.After.",
+    "body": [
+      "`make(chan string, 3)` creates a **buffered** channel: it holds up to three messages before anyone receives them. It works like a queue of pending emails. `len(queue)` tells you how many are inside and `cap(queue)` how many fit.",
+      "**`select`** waits on several channel operations at once and runs the first one that can go ahead. With a `case queue <- msg` and a **`default`**, the send no longer blocks: if there is room, the message is queued; if the buffer is full, `default` runs and the message is dropped. That is why `newsletter` and `survey` do not get in.",
+      "After `close(queue)` you can no longer send, but the messages already in the buffer are still there: `range` delivers all of them, in order, and stops once the queue is empty.",
+      "The second part sets a **time limit**. A goroutine takes 300 ms to prepare a report; `time.After(50 * time.Millisecond)` returns a channel that receives a value after 50 ms. The `select` takes whichever comes first: the deadline. The `report` channel has a buffer of 1 so the goroutine can leave its result even when nobody is waiting any more, instead of being stuck forever.",
+      "If several cases are ready at once, `select` picks one **at random**. This example avoids that on purpose: either only one case is possible, or the times are far apart (50 against 300 ms), which is why the output is always the same."
+    ],
+    "points": [
+      "`make(chan T, n)` creates a channel with a buffer of `n` values.",
+      "`select` runs the first channel operation that is ready.",
+      "With `default`, `select` never blocks.",
+      "After `close`, `range` still delivers what is left in the buffer.",
+      "`time.After` inside a `select` sets a time limit."
+    ],
+    "exercise": "Change the capacity of `queue` to 5 and check that nothing is dropped now. Then change the deadline to `500 * time.Millisecond` and watch the report win instead."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "interfaces-e-implementacion-implicita",
+    "title": "Interfaces e implementación implícita",
+    "summary": "Defina interfaces en Go y vea cómo un tipo las cumple solo con tener sus métodos, sin implements: transportistas y costes de envío.",
+    "body": [
+      "Una **interfaz** es una lista de métodos. `Carrier` pide dos: `Name() string` y `Cost(kg float64) float64`. No dice cómo se calcula nada; solo qué se le puede pedir a un transportista.",
+      "`Courier` y `PostOffice` son structs normales con sus métodos, y ninguno declara que implementa `Carrier`: en Go la **implementación es implícita**. Basta con tener los métodos con la firma exacta para cumplir la interfaz. `PostOffice.Cost` cobra lo mismo pese lo que pese, por eso su parámetro `float64` ni siquiera tiene nombre.",
+      "La línea `var _ Carrier = PostOffice{}` es un truco habitual: asigna un `PostOffice` a una variable de tipo `Carrier` que se descarta con `_`. Si algún día falta un método o cambia su firma, el programa **no compila** y el error aparece justo ahí.",
+      "En `main`, `carriers` es un `[]Carrier` que mezcla los dos tipos. El bucle llama a `c.Name()` y `c.Cost(kg)` sin saber qué hay detrás: en tiempo de ejecución se usa el método del tipo concreto. Por eso con 1 y 2 kg sale más barato el mensajero (`5.70` y `6.90`) y con 5 kg, la oficina de correos (`7.00`).",
+      "Para añadir un transportista no hay que tocar el bucle: basta con un tipo nuevo que tenga `Name` y `Cost`. Es costumbre en Go que las interfaces sean pequeñas, de uno o dos métodos, y que se definan en el paquete que las usa."
+    ],
+    "points": [
+      "Una interfaz es un conjunto de métodos.",
+      "Un tipo cumple una interfaz si tiene sus métodos; no existe `implements`.",
+      "Un `[]Carrier` puede guardar valores de tipos distintos.",
+      "`var _ Carrier = PostOffice{}` comprueba al compilar que el tipo cumple la interfaz.",
+      "Mejor interfaces pequeñas, definidas donde se usan."
+    ],
+    "exercise": "Cree un tipo `Locker` (taquilla de recogida) con `Name()` y un `Cost` fijo de `3.95`, añádalo a `carriers` y compruebe que el bucle lo usa sin cambiar nada más."
+  },
+  "en": {
+    "slug": "interfaces-and-implicit-implementation",
+    "title": "Interfaces and implicit implementation",
+    "summary": "Define interfaces in Go and see how a type satisfies one just by having its methods, with no implements keyword: carriers and shipping costs.",
+    "body": [
+      "An **interface** is a list of methods. `Carrier` asks for two: `Name() string` and `Cost(kg float64) float64`. It says nothing about how anything is worked out, only what you can ask a carrier for.",
+      "`Courier` and `PostOffice` are ordinary structs with methods, and neither of them says it implements `Carrier`: in Go, **implementation is implicit**. Having the methods with the exact signatures is enough. `PostOffice.Cost` charges the same whatever the weight, which is why its `float64` parameter has no name.",
+      "The line `var _ Carrier = PostOffice{}` is a common trick: it assigns a `PostOffice` to a `Carrier` variable that is thrown away with `_`. If a method ever goes missing or changes its signature, the program **does not compile**, and the error points right there.",
+      "In `main`, `carriers` is a `[]Carrier` holding both types. The loop calls `c.Name()` and `c.Cost(kg)` without knowing what is behind them: at run time the method of the concrete type is used. That is why the courier is cheaper for 1 and 2 kg (`5.70` and `6.90`) and the post office wins at 5 kg (`7.00`).",
+      "Adding a carrier does not touch the loop: all it takes is a new type with `Name` and `Cost`. Go code tends to keep interfaces small, one or two methods, and to define them in the package that uses them."
+    ],
+    "points": [
+      "An interface is a set of methods.",
+      "A type satisfies an interface by having its methods; there is no `implements`.",
+      "A `[]Carrier` can hold values of different types.",
+      "`var _ Carrier = PostOffice{}` checks at compile time that the type fits.",
+      "Prefer small interfaces, defined where they are used."
+    ],
+    "exercise": "Create a `Locker` type (a parcel locker) with `Name()` and a flat `Cost` of `3.95`, add it to `carriers` and check that the loop uses it without any other change."
+  }
+}

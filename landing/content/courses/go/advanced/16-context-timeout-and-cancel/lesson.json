@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "context-tiempo-limite-y-cancelacion",
+    "title": "context: tiempo límite y cancelación",
+    "summary": "Ponga un tiempo límite a una operación y cancélela con context en Go: WithTimeout, WithCancel, ctx.Done() y ctx.Err() con un proveedor lento.",
+    "body": [
+      "Un **`context.Context`** viaja de función en función y lleva una orden: «deja lo que estés haciendo». Por convención es el primer parámetro y se llama `ctx`, como en `fetchQuote(ctx, supplier, delay)`. Las bibliotecas de red y de bases de datos de Go lo aceptan en casi todas sus funciones.",
+      "`fetchQuote` simula un proveedor que tarda `delay` en dar precio. Su `select` espera dos cosas: que pase ese tiempo o que se cierre **`ctx.Done()`**, un canal que se cierra cuando el contexto vence o se cancela. Lo que llegue antes decide. **`ctx.Err()`** explica el motivo y se envuelve con `%w` para no perderlo.",
+      "**`context.WithTimeout`** crea un contexto que vence solo, aquí a los 100 ms. `FastParts` contesta en 10 ms y da su precio; `SlowSupply` tardaría un segundo, así que gana el plazo y el error es `context deadline exceeded`. `errors.Is(err, context.DeadlineExceeded)` lo reconoce aunque esté envuelto.",
+      "`WithTimeout` también devuelve una función `cancel`, y hay que llamarla siempre, aunque el plazo no llegue a vencer, para liberar sus recursos. Normalmente se escribe `defer cancel()`; dentro de un bucle se llama al final de cada vuelta, porque un `defer` esperaría a que terminase `main`.",
+      "**`context.WithCancel`** no vence solo: se cancela al llamar a `cancel()`, por ejemplo cuando el cliente cierra la página. Aquí se cancela antes de pedir el precio, así que `ctx.Done()` ya está cerrado y el error es `context canceled`. Los tiempos (10, 100 y 1000 ms) están tan separados que la salida es siempre la misma."
+    ],
+    "points": [
+      "`ctx` va siempre como primer parámetro.",
+      "`ctx.Done()` se cierra al vencer el plazo o al cancelar.",
+      "`ctx.Err()` dice por qué: `DeadlineExceeded` o `Canceled`.",
+      "Llame siempre a `cancel()`, normalmente con `defer`.",
+      "`errors.Is` reconoce el motivo aunque el error esté envuelto."
+    ],
+    "exercise": "Pida los dos precios a la vez, cada uno en su goroutine y con el mismo contexto de 100 ms, guarde cada resultado en su posición de un slice y escríbalos en orden cuando terminen los dos."
+  },
+  "en": {
+    "slug": "context-timeout-and-cancel",
+    "title": "context: timeouts and cancellation",
+    "summary": "Put a time limit on an operation and cancel it with context in Go: WithTimeout, WithCancel, ctx.Done() and ctx.Err() with a slow supplier.",
+    "body": [
+      "A **`context.Context`** travels from function to function carrying one instruction: stop what you are doing. By convention it is the first parameter and is called `ctx`, as in `fetchQuote(ctx, supplier, delay)`. Go's networking and database libraries accept one in almost every function.",
+      "`fetchQuote` simulates a supplier that takes `delay` to quote a price. Its `select` waits for two things: that time passing, or **`ctx.Done()`** being closed, a channel that closes when the context expires or is cancelled. Whichever comes first wins. **`ctx.Err()`** gives the reason, and it is wrapped with `%w` so it is not lost.",
+      "**`context.WithTimeout`** creates a context that expires on its own, here after 100 ms. `FastParts` answers in 10 ms and gives its price; `SlowSupply` would take a second, so the deadline wins and the error is `context deadline exceeded`. `errors.Is(err, context.DeadlineExceeded)` recognises it even though it is wrapped.",
+      "`WithTimeout` also returns a `cancel` function, and you must always call it, even if the deadline never arrives, to release its resources. Usually you write `defer cancel()`; inside a loop you call it at the end of each iteration, because a `defer` would wait until `main` returns.",
+      "**`context.WithCancel`** does not expire on its own: it is cancelled by calling `cancel()`, for instance when the customer closes the page. Here it is cancelled before asking for the price, so `ctx.Done()` is already closed and the error is `context canceled`. The times (10, 100 and 1000 ms) are so far apart that the output is always the same."
+    ],
+    "points": [
+      "`ctx` always goes first in the parameter list.",
+      "`ctx.Done()` closes when the deadline passes or on cancel.",
+      "`ctx.Err()` says why: `DeadlineExceeded` or `Canceled`.",
+      "Always call `cancel()`, usually with `defer`.",
+      "`errors.Is` recognises the reason even when the error is wrapped."
+    ],
+    "exercise": "Ask both suppliers at once, each in its own goroutine and with the same 100 ms context, store each result in its slot of a slice and print them in order once both are done."
+  }
+}

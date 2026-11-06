@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "defer-panic-y-recover",
+    "title": "defer, panic y recover",
+    "summary": "Aplace llamadas con defer, vea en qué orden se ejecutan y convierta un panic en un error normal con recover, en Go.",
+    "body": [
+      "**`defer`** aplaza una llamada hasta que la función que la contiene termina, salga por donde salga. En `importFile`, `defer fmt.Println(\"close\", name)` se escribe justo después de abrir: así el cierre queda al lado de la apertura y nunca se olvida, aunque la función tenga varios `return`.",
+      "Las llamadas aplazadas se apilan y se ejecutan en **orden inverso** (la última, la primera): por eso salen `undo step 3`, `2`, `1` y, al final, `close`. Los **argumentos se evalúan al hacer el `defer`**, no al ejecutarlo: cada `step` queda fijado con su valor de ese momento.",
+      "Un **`panic`** es un fallo que detiene el programa: aquí lo provoca `total / len(scores)` con una lista vacía, una división entre cero. El panic sube por las funciones ejecutando sus `defer`; si nadie lo detiene, el programa termina con un mensaje de error.",
+      "**`recover`** lo detiene, pero solo dentro de una función aplazada. `average` aplaza una función anónima que llama a `recover()`: si hubo panic, devuelve su valor (`runtime error: integer divide by zero`) y la función lo convierte en un error. Como los resultados tienen nombre, `(avg int, err error)`, la función aplazada puede cambiar `err` antes de que `average` devuelva.",
+      "El `defer` de `main` se escribió el primero y sale el último. En Go, los errores normales se devuelven como valores; `panic` y `recover` se reservan para fallos de programación o para que un servidor no se caiga entero por una sola petición."
+    ],
+    "points": [
+      "`defer` ejecuta la llamada al terminar la función.",
+      "Varios `defer` se ejecutan en orden inverso.",
+      "Los argumentos de un `defer` se evalúan en el momento de escribirlo.",
+      "`recover` solo funciona dentro de una función aplazada.",
+      "Con resultados con nombre, un `defer` puede cambiar lo que se devuelve."
+    ],
+    "exercise": "Cambie el bucle de `importFile` por `defer func() { fmt.Println(\"  undo step\", step) }()` y observe qué número sale ahora: la función anónima lee `step` al ejecutarse, no al aplazarse."
+  },
+  "en": {
+    "slug": "defer-panic-and-recover",
+    "title": "defer, panic and recover",
+    "summary": "Postpone calls with defer, see in which order they run, and turn a panic into an ordinary error with recover, in Go.",
+    "body": [
+      "**`defer`** postpones a call until the surrounding function returns, however it returns. In `importFile`, `defer fmt.Println(\"close\", name)` is written right after opening: the cleanup sits next to the setup and is never forgotten, even if the function has several `return` statements.",
+      "Deferred calls are stacked and run in **reverse order** (last in, first out): that is why you see `undo step 3`, `2`, `1` and then `close`. **Arguments are evaluated when you write the `defer`**, not when it runs: each `step` is fixed at the value it had then.",
+      "A **`panic`** is a failure that stops the program: here `total / len(scores)` causes one with an empty list, a division by zero. The panic travels up through the functions, running their `defer` calls; if nothing stops it, the program ends with an error message.",
+      "**`recover`** stops it, but only inside a deferred function. `average` defers an anonymous function that calls `recover()`: if there was a panic, it returns its value (`runtime error: integer divide by zero`) and the function turns it into an error. Because the results are named, `(avg int, err error)`, the deferred function can change `err` before `average` returns.",
+      "The `defer` in `main` was written first and prints last. In Go, ordinary errors are returned as values; `panic` and `recover` are kept for programming mistakes, or to stop a server from going down because of a single request."
+    ],
+    "points": [
+      "`defer` runs the call when the function returns.",
+      "Several `defer` calls run in reverse order.",
+      "A `defer`'s arguments are evaluated when it is written.",
+      "`recover` only works inside a deferred function.",
+      "With named results, a `defer` can change what is returned."
+    ],
+    "exercise": "Replace the loop in `importFile` with `defer func() { fmt.Println(\"  undo step\", step) }()` and see which number is printed now: the anonymous function reads `step` when it runs, not when it is deferred."
+  }
+}

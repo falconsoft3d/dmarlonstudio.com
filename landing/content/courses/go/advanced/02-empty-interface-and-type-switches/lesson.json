@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "interfaz-vacia-y-switch-de-tipos",
+    "title": "Interfaz vacía y switch de tipos",
+    "summary": "Guarde valores de cualquier tipo con any (interface{}) en Go y recupere el tipo concreto con aserciones de tipo y switch de tipos.",
+    "body": [
+      "La **interfaz vacía** `interface{}` no pide ningún método, así que todos los tipos la cumplen: una variable de ese tipo puede guardar cualquier valor. Desde Go 1.18 tiene un nombre más corto, **`any`**. `values` es un `[]any` con un entero, un decimal, un texto, una lista, un booleano y `nil`, como los ajustes que llegan de un fichero de configuración.",
+      "Un `any` guarda el valor y su tipo, pero para trabajar con él hay que recuperar el tipo concreto. El **switch de tipos** `switch v := v.(type)` lo hace: dentro de cada `case`, `v` ya es de ese tipo, y por eso en `case string` vale `len(v)` y en `case []string` se pueden contar los elementos. `case nil` atrapa el valor ausente y `default`, todo lo demás; `%T` escribe el nombre del tipo (`bool`).",
+      "Para un solo tipo está la **aserción de tipo**. Con dos resultados, `n, ok := port.(int)`, no hay riesgo: `port` guarda el texto `\"8080\"`, no un entero, así que `ok` vale `false` y `n` se queda en el valor cero, `0`.",
+      "Con un solo resultado, `values[0].(int)` devuelve el entero directamente (`8080 * 2 = 16160`), pero si el tipo no coincidiera provocaría un **panic** y el programa se detendría. Úsela solo cuando esté seguro del tipo; si hay dudas, use `ok` o un switch.",
+      "`any` es útil en los bordes del programa, como un JSON sin estructura fija o el propio `fmt.Println`, pero con él se pierde la comprobación de tipos del compilador. Dentro de su código, prefiera tipos concretos, interfaces con métodos o genéricos."
+    ],
+    "points": [
+      "`any` es lo mismo que `interface{}`: admite cualquier valor.",
+      "`switch v := x.(type)` da a `v` el tipo de cada `case`.",
+      "`n, ok := x.(int)` nunca falla: `ok` dice si el tipo coincide.",
+      "`x.(int)` sin `ok` provoca un panic si el tipo no es el esperado.",
+      "Use `any` en los bordes; dentro, tipos concretos."
+    ],
+    "exercise": "Añada a `describe` un `case bool` que escriba `flag on` o `flag off`, y cambie la última línea por `values[2].(int)` para ver el panic que produce una aserción equivocada."
+  },
+  "en": {
+    "slug": "empty-interface-and-type-switches",
+    "title": "Empty interface and type switches",
+    "summary": "Store values of any type with any (interface{}) in Go and get the concrete type back with type assertions and type switches.",
+    "body": [
+      "The **empty interface** `interface{}` asks for no methods, so every type satisfies it: a variable of that type can hold any value. Since Go 1.18 it has a shorter name, **`any`**. `values` is a `[]any` with an integer, a decimal, some text, a list, a boolean and `nil`, much like settings read from a configuration file.",
+      "An `any` keeps the value and its type, but to work with it you need the concrete type back. The **type switch** `switch v := v.(type)` does that: inside each `case`, `v` already has that type, which is why `len(v)` works in `case string` and the items can be counted in `case []string`. `case nil` catches the missing value and `default` everything else; `%T` prints the type name (`bool`).",
+      "For a single type there is the **type assertion**. With two results, `n, ok := port.(int)`, nothing can go wrong: `port` holds the text `\"8080\"`, not an integer, so `ok` is `false` and `n` keeps the zero value, `0`.",
+      "With one result, `values[0].(int)` returns the integer directly (`8080 * 2 = 16160`), but if the type did not match it would **panic** and stop the program. Use it only when you are sure of the type; when in doubt, use `ok` or a switch.",
+      "`any` is handy at the edges of a program, such as JSON with no fixed shape or `fmt.Println` itself, but it gives up the compiler's type checks. Inside your own code, prefer concrete types, interfaces with methods or generics."
+    ],
+    "points": [
+      "`any` is the same as `interface{}`: it accepts any value.",
+      "`switch v := x.(type)` gives `v` the type of each `case`.",
+      "`n, ok := x.(int)` never fails: `ok` tells you whether the type matches.",
+      "`x.(int)` without `ok` panics if the type is not the expected one.",
+      "Use `any` at the edges; inside, concrete types."
+    ],
+    "exercise": "Add a `case bool` to `describe` that prints `flag on` or `flag off`, and change the last line to `values[2].(int)` to see the panic a wrong assertion causes."
+  }
+}

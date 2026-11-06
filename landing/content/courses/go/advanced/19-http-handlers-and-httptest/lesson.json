@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "manejadores-http-y-httptest",
+    "title": "Manejadores HTTP y httptest",
+    "summary": "Escriba un manejador HTTP en Go con net/http que responde en JSON y pruébelo con httptest, sin red ni servidor. Así trabaja el destino Web (Go).",
+    "body": [
+      "Un servidor web en Go es, sobre todo, un **manejador**: una función con la firma `func(w http.ResponseWriter, r *http.Request)`. `r` trae la petición (método, ruta, parámetros) y en `w` se escribe la respuesta. En DMarlon Studio, Go es el servidor del destino **Web (Go)**: las páginas de la aplicación piden datos a manejadores como este.",
+      "`priceHandler` lee el parámetro con `r.URL.Query().Get(\"sku\")` y lo busca en `prices`. El `switch` decide la respuesta: si el método no es `GET`, **`http.Error`** escribe el código `405` y un texto; si el producto no existe, `404`. Si no se indica ningún código, la respuesta sale con `200`.",
+      "En el caso bueno, primero se fijan las cabeceras con `w.Header().Set(\"Content-Type\", \"application/json\")` (después de escribir el cuerpo ya no se pueden cambiar) y luego `json.NewEncoder(w).Encode(...)` escribe el JSON directamente en la respuesta. Al ser un mapa, las claves salen en orden alfabético: `price` antes que `sku`.",
+      "**`http.HandlerFunc(priceHandler)`** convierte la función en un `http.Handler`, la interfaz que usa todo `net/http`. `HandlerFunc` es un tipo de función con un método `ServeHTTP` que llama a la propia función: interfaces y funciones como valores trabajando juntas.",
+      "Para probarlo no hace falta red. **`httptest.NewRequest`** construye una petición y **`httptest.NewRecorder`** es un `ResponseWriter` que guarda lo que se escribe: `rec.Code`, las cabeceras y `rec.Body`. Para servirlo de verdad bastaría con `http.ListenAndServe(\":8080\", handler)`."
+    ],
+    "points": [
+      "Un manejador recibe un `http.ResponseWriter` y un `*http.Request`.",
+      "`http.Error` escribe un código de error y un texto.",
+      "Fije las cabeceras antes de escribir el cuerpo.",
+      "`http.HandlerFunc` convierte una función en un `http.Handler`.",
+      "`httptest` prueba manejadores sin red ni servidor."
+    ],
+    "exercise": "Haga que una petición sin `sku` (`/api/price`) responda `400` con el texto `missing sku` usando `http.StatusBadRequest`, y añádala a `requests` para comprobarlo."
+  },
+  "en": {
+    "slug": "http-handlers-and-httptest",
+    "title": "HTTP handlers and httptest",
+    "summary": "Write an HTTP handler in Go with net/http that answers in JSON, and test it with httptest, no network or server. This is how the Web (Go) target works.",
+    "body": [
+      "A web server in Go is, above all, a **handler**: a function with the signature `func(w http.ResponseWriter, r *http.Request)`. `r` carries the request (method, path, parameters) and the response is written to `w`. In DMarlon Studio, Go is the server of the **Web (Go)** target: the app's pages ask handlers like this one for their data.",
+      "`priceHandler` reads the parameter with `r.URL.Query().Get(\"sku\")` and looks it up in `prices`. The `switch` picks the answer: if the method is not `GET`, **`http.Error`** writes status `405` and a message; if the product does not exist, `404`. When no status is set, the response goes out as `200`.",
+      "In the good case, the headers are set first with `w.Header().Set(\"Content-Type\", \"application/json\")` (once the body is written they can no longer change), and then `json.NewEncoder(w).Encode(...)` writes the JSON straight into the response. Since it is a map, the keys come out in alphabetical order: `price` before `sku`.",
+      "**`http.HandlerFunc(priceHandler)`** turns the function into an `http.Handler`, the interface all of `net/http` works with. `HandlerFunc` is a function type with a `ServeHTTP` method that calls the function itself: interfaces and function values working together.",
+      "Testing it needs no network. **`httptest.NewRequest`** builds a request and **`httptest.NewRecorder`** is a `ResponseWriter` that keeps whatever is written: `rec.Code`, the headers and `rec.Body`. To serve it for real, `http.ListenAndServe(\":8080\", handler)` would be enough."
+    ],
+    "points": [
+      "A handler takes an `http.ResponseWriter` and an `*http.Request`.",
+      "`http.Error` writes an error status and a message.",
+      "Set the headers before writing the body.",
+      "`http.HandlerFunc` turns a function into an `http.Handler`.",
+      "`httptest` tests handlers with no network or server."
+    ],
+    "exercise": "Make a request with no `sku` (`/api/price`) answer `400` with the text `missing sku` using `http.StatusBadRequest`, and add it to `requests` to check it."
+  }
+}

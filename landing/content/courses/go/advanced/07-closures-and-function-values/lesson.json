@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "closures-y-funciones-como-valores",
+    "title": "Closures y funciones como valores",
+    "summary": "Use funciones como valores en Go: tipos de función, funciones que devuelven closures y closures con estado propio. Reglas de precio y facturas.",
+    "body": [
+      "En Go las funciones son **valores**: se guardan en variables, se pasan como argumentos y se devuelven. `PriceRule` es un **tipo de función**: cualquier `func(float64) float64` encaja, y eso permite tener una lista de reglas, `rules`, y aplicarlas una tras otra.",
+      "`percentOff(10)` devuelve una función anónima que usa `pct`, un parámetro de `percentOff`. Esa función es un **closure**: recuerda las variables del sitio donde nació aunque `percentOff` ya haya terminado. `percentOff(10)` y `percentOff(5)` son dos reglas distintas, cada una con su `pct`.",
+      "`addVAT` es una **función literal** guardada en una variable. No hace falta declararla como `PriceRule`: su tipo es `func(float64) float64` y se puede poner en la lista tal cual. El bucle interior aplica las tres reglas en orden: `100` menos un 10 %, menos un 5 % y más el 21 % de IVA da `103.45`.",
+      "`invoiceNumbers` devuelve un closure que modifica `n`. La variable no se pierde al volver de la función: vive mientras viva el closure, y cada llamada a `next()` la incrementa (`INV-001`, `INV-002`…). Es una forma sencilla de tener estado sin un struct.",
+      "Cada llamada a `invoiceNumbers` crea una `n` nueva: `other` empieza en `REF-001` mientras `next` sigue por `INV-004`. Los argumentos de `fmt.Println` se evalúan de izquierda a derecha, por eso salen `REF-001` y `REF-002` en ese orden."
+    ],
+    "points": [
+      "Las funciones son valores: se guardan, se pasan y se devuelven.",
+      "Un tipo de función, como `PriceRule`, da nombre a una firma.",
+      "Un closure recuerda las variables del sitio donde se creó.",
+      "Las variables capturadas sobreviven mientras viva el closure.",
+      "Cada llamada a la función externa crea un estado nuevo."
+    ],
+    "exercise": "Escriba `minus(amount float64) PriceRule`, que reste un importe fijo sin bajar de cero, y añada `minus(5)` a `rules` antes del IVA. Compruebe cómo cambia el total de cada factura."
+  },
+  "en": {
+    "slug": "closures-and-function-values",
+    "title": "Closures and function values",
+    "summary": "Use functions as values in Go: function types, functions that return closures, and closures with their own state. Price rules and invoices.",
+    "body": [
+      "In Go, functions are **values**: you can store them in variables, pass them as arguments and return them. `PriceRule` is a **function type**: any `func(float64) float64` fits, which lets you keep a list of rules, `rules`, and apply them one after another.",
+      "`percentOff(10)` returns an anonymous function that uses `pct`, a parameter of `percentOff`. That function is a **closure**: it remembers the variables from where it was created, even after `percentOff` has returned. `percentOff(10)` and `percentOff(5)` are two different rules, each with its own `pct`.",
+      "`addVAT` is a **function literal** stored in a variable. It does not need to be declared as a `PriceRule`: its type is `func(float64) float64`, so it goes straight into the list. The inner loop applies the three rules in order: `100` minus 10%, minus 5% and plus 21% VAT gives `103.45`.",
+      "`invoiceNumbers` returns a closure that changes `n`. The variable is not lost when the function returns: it lives as long as the closure does, and every call to `next()` increments it (`INV-001`, `INV-002`…). It is a simple way to keep state without a struct.",
+      "Each call to `invoiceNumbers` creates a fresh `n`: `other` starts at `REF-001` while `next` carries on with `INV-004`. The arguments to `fmt.Println` are evaluated left to right, which is why `REF-001` and `REF-002` come out in that order."
+    ],
+    "points": [
+      "Functions are values: store them, pass them, return them.",
+      "A function type, such as `PriceRule`, names a signature.",
+      "A closure remembers the variables from where it was created.",
+      "Captured variables survive as long as the closure does.",
+      "Each call to the outer function creates new state."
+    ],
+    "exercise": "Write `minus(amount float64) PriceRule`, which subtracts a fixed amount without going below zero, and add `minus(5)` to `rules` before the VAT. Check how each invoice total changes."
+  }
+}

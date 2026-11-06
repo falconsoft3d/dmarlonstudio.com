@@ -523,3 +523,49 @@ export function LessonPage({
     </Shell>
   );
 }
+
+// ------------------------------------------------------------- portada de la web
+
+/** En la portada: los cursos, que llevan al IDE. */
+export function CoursesBand({ lang }: { lang: Lang }) {
+  const ui = coursesUi(lang);
+  return (
+    <section id={lang === "es" ? "cursos" : "courses"} className="border-t border-line">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+        <div>
+          <p className="inline-flex items-center gap-2 text-sm font-medium text-accent">
+            <GraduationCap className="size-4" aria-hidden />
+            {ui.menu}
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{ui.title}</h2>
+          <p className="mt-3 leading-relaxed text-muted text-pretty">{ui.intro}</p>
+          <a
+            href={coursesPath(lang)}
+            className="mt-6 inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
+          >
+            {ui.allCourses}
+            <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {COURSES.filter((c) => LEVELS.some((l) => hasLevel(c.id, l))).map((c) => (
+            <li key={c.id}>
+              <a
+                href={coursePath(lang, c.id)}
+                className="flex items-center gap-3 rounded-lg border border-line bg-surface p-3 transition-colors hover:border-accent"
+              >
+                <CourseIcon course={c} className="size-9" />
+                <span>
+                  <span className="block text-sm font-medium">{c.name}</span>
+                  <span className="block text-xs text-muted">
+                    {fill(ui.lessons, LEVELS.reduce((n, l) => n + lessonsOf(c.id, l).length, 0))}
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "una-pila-generica",
+    "title": "Una pila genérica",
+    "summary": "Cree un tipo genérico Stack[T] en Go con Push, Pop y Len, y úselo con textos y con enteros: el historial de deshacer de un editor.",
+    "body": [
+      "Los tipos también pueden tener parámetros de tipo. **`Stack[T any]`** es una pila de elementos de tipo `T`, guardados en un slice. `Stack[string]` y `Stack[int]` son dos tipos distintos, pero los dos salen de un solo código, sin copiar nada ni usar `any`.",
+      "Los métodos repiten el parámetro en el receptor: `func (s *Stack[T]) Push(v T)`. El receptor es un puntero porque `Push` y `Pop` modifican `s.items`; con un valor, cambiarían una copia. Un detalle: en Go los métodos no pueden declarar parámetros de tipo propios, solo usar los del tipo.",
+      "`Pop` saca el último elemento (una pila es **LIFO**: el último en entrar es el primero en salir) y devuelve dos valores, el elemento y un `bool`. Con la pila vacía devuelve `top` sin tocar, que es el **valor cero** de `T` (`\"\"` para textos, `0` para números), y `false`. Por eso el cuarto deshacer escribe `undo \"\" ok=false`.",
+      "`var history Stack[string]` ya está lista para usar: su slice es `nil` y `append` funciona con él. Las ediciones se deshacen al revés de como se hicieron, que es justo lo que se espera de un botón de deshacer.",
+      "`pages` usa la misma pila con enteros, como el historial de un navegador. `&Stack[int]{items: ...}` la crea con datos iniciales; eso se puede hacer aquí porque `items` es visible dentro del paquete `main`, aunque empiece en minúscula."
+    ],
+    "points": [
+      "Un tipo genérico se declara con `type Stack[T any] struct`.",
+      "Los métodos usan el parámetro en el receptor: `(s *Stack[T])`.",
+      "`var zero T` o un resultado con nombre dan el valor cero de `T`.",
+      "Devolver `(T, bool)` evita valores mágicos con la pila vacía.",
+      "`Stack[string]` y `Stack[int]` son tipos distintos con el mismo código."
+    ],
+    "exercise": "Añada un método `Peek() (T, bool)` que devuelva el elemento de arriba sin sacarlo, y úselo para escribir cuál es la próxima edición que se desharía antes de cada `Pop`."
+  },
+  "en": {
+    "slug": "a-generic-stack",
+    "title": "A generic stack",
+    "summary": "Build a generic Stack[T] type in Go with Push, Pop and Len, and use it with strings and with integers: an editor's undo history.",
+    "body": [
+      "Types can have type parameters too. **`Stack[T any]`** is a stack of items of type `T`, kept in a slice. `Stack[string]` and `Stack[int]` are two different types, but both come from one piece of code, with no copying and no `any`.",
+      "Methods repeat the parameter in the receiver: `func (s *Stack[T]) Push(v T)`. The receiver is a pointer because `Push` and `Pop` change `s.items`; with a value receiver they would change a copy. One detail: in Go, methods cannot declare type parameters of their own, only use the type's.",
+      "`Pop` removes the last item (a stack is **LIFO**: last in, first out) and returns two values, the item and a `bool`. When the stack is empty it returns `top` untouched, which is the **zero value** of `T` (`\"\"` for strings, `0` for numbers), and `false`. That is why the fourth undo prints `undo \"\" ok=false`.",
+      "`var history Stack[string]` is ready to use as it is: its slice is `nil`, and `append` works on it. The edits are undone in the reverse order they were made, which is exactly what you expect from an undo button.",
+      "`pages` uses the same stack with integers, like a browser's history. `&Stack[int]{items: ...}` creates it with initial data; that works here because `items` is visible inside package `main`, even though it starts with a lowercase letter."
+    ],
+    "points": [
+      "A generic type is declared with `type Stack[T any] struct`.",
+      "Methods use the parameter in the receiver: `(s *Stack[T])`.",
+      "`var zero T` or a named result gives the zero value of `T`.",
+      "Returning `(T, bool)` avoids magic values on an empty stack.",
+      "`Stack[string]` and `Stack[int]` are different types from the same code."
+    ],
+    "exercise": "Add a `Peek() (T, bool)` method that returns the top item without removing it, and use it to print which edit would be undone next before each `Pop`."
+  }
+}

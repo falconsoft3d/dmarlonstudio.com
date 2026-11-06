@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "canales",
+    "title": "Canales",
+    "summary": "Comunique goroutines en Go con canales: enviar y recibir, cerrar un canal, recorrerlo con range y montar una tubería de dos etapas.",
+    "body": [
+      "Un **canal** es un tubo con tipo por el que las goroutines se pasan valores. `make(chan Line)` crea uno de líneas de pedido; `out <- l` envía y `<-total` recibe. Es la forma que propone Go de coordinar: «no comunique compartiendo memoria; comparta memoria comunicando».",
+      "Este canal **no tiene búfer**: cada envío espera a que alguien reciba, y cada recepción espera a que alguien envíe. Así el canal, además de pasar datos, **sincroniza**: `produce` no puede adelantarse a quien lee.",
+      "`produce` es un patrón habitual, el **generador**: crea el canal, lanza una goroutine que lo llena y lo devuelve enseguida. El tipo de retorno, `<-chan Line`, es un canal **solo de recepción**: quien lo recibe no puede enviar ni cerrar. Al terminar, `defer close(out)` lo **cierra** para avisar de que no vendrán más valores.",
+      "La segunda etapa recorre el canal con `for l := range produce(lines)`, que recibe hasta que el canal se cierra; sin el `close`, el bucle esperaría para siempre. Escribe cada línea, acumula el importe y envía el total por otro canal. En `main`, `<-total` se queda esperando hasta que llega ese valor, sin necesidad de un `WaitGroup`.",
+      "Con un solo emisor y un solo receptor, el orden de los valores se conserva y la salida es siempre la misma. Dos reglas: cierra el canal quien envía, nunca quien recibe, y enviar a un canal cerrado provoca un panic."
+    ],
+    "points": [
+      "`ch <- v` envía; `v := <-ch` recibe.",
+      "Sin búfer, cada envío espera a su receptor: el canal sincroniza.",
+      "`<-chan T` es un canal solo de recepción.",
+      "`close(ch)` avisa de que no hay más valores; `range` termina con él.",
+      "Cierra el que envía; enviar a un canal cerrado es un panic."
+    ],
+    "exercise": "Añada una tercera etapa entre las dos: una función `discount(in <-chan Line) <-chan Line` que rebaje un 10 % el precio de las líneas con `Qty` de 3 o más, y encadénela con `range discount(produce(lines))`."
+  },
+  "en": {
+    "slug": "channels",
+    "title": "Channels",
+    "summary": "Connect goroutines in Go with channels: send and receive, close a channel, loop over it with range and build a two-stage pipeline.",
+    "body": [
+      "A **channel** is a typed pipe that goroutines use to pass values to each other. `make(chan Line)` creates one for order lines; `out <- l` sends and `<-total` receives. It is Go's way of coordinating: do not communicate by sharing memory; share memory by communicating.",
+      "This channel is **unbuffered**: every send waits until someone receives, and every receive waits until someone sends. So besides carrying data, the channel **synchronises**: `produce` cannot run ahead of its reader.",
+      "`produce` is a common pattern, the **generator**: it creates the channel, starts a goroutine that fills it and returns it straight away. The return type, `<-chan Line`, is a **receive-only** channel: whoever gets it can neither send nor close. When it is done, `defer close(out)` **closes** it to say no more values are coming.",
+      "The second stage loops over the channel with `for l := range produce(lines)`, which receives until the channel is closed; without the `close`, the loop would wait forever. It prints each line, adds up the amount and sends the total on another channel. In `main`, `<-total` waits until that value arrives, with no `WaitGroup` needed.",
+      "With one sender and one receiver the order of values is kept and the output is always the same. Two rules: the sender closes the channel, never the receiver, and sending on a closed channel panics."
+    ],
+    "points": [
+      "`ch <- v` sends; `v := <-ch` receives.",
+      "Unbuffered, each send waits for its receiver: the channel synchronises.",
+      "`<-chan T` is a receive-only channel.",
+      "`close(ch)` says there are no more values; `range` stops there.",
+      "The sender closes; sending on a closed channel panics."
+    ],
+    "exercise": "Add a third stage between the two: a `discount(in <-chan Line) <-chan Line` function that takes 10% off the price of lines with a `Qty` of 3 or more, and chain it with `range discount(produce(lines))`."
+  }
+}

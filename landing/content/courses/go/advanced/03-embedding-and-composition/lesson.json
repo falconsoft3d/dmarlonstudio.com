@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "incrustacion-y-composicion",
+    "title": "Incrustación y composición",
+    "summary": "Componga tipos en Go incrustando structs: campos y métodos promovidos, cómo sustituir un método y por qué no es herencia. Clientes y direcciones.",
+    "body": [
+      "Go no tiene herencia; tiene **composición**. `Customer` incluye `Contact` y `Address` escribiendo solo el tipo, sin nombre de campo: eso es un **campo incrustado** (*embedding*). El campo existe y se llama como su tipo, `c.Contact` y `c.Address`.",
+      "Los campos y métodos del tipo incrustado se **promueven**: `c.Name` es en realidad `c.Contact.Name` y `c.City` es `c.Address.City`. Lo mismo con los métodos: `c.Label()` y `c.Line()` funcionan como si `Customer` los hubiera declarado, y por tanto `Customer` cumple cualquier interfaz que pida `Label() string`.",
+      "La promoción atraviesa varios niveles. `VIP` incrusta `Customer`, así que `v.Points += 50` modifica `v.Customer.Points` (de `120` a `170`) y `v.Contact.Email` llega hasta el contacto, dos niveles más abajo.",
+      "`VIP` declara su propio `Label`, que **tapa** el promovido: `v.Label()` añade la categoría, `[gold]`. El original sigue ahí y se llama nombrándolo, `v.Customer.Label()`, que es lo que hace el nuevo método para no repetir código.",
+      "Ojo, no es herencia: un `VIP` **no es** un `Customer` y no se puede pasar donde se espera uno; hay que pasar `v.Customer`. Y si dos tipos incrustados tuvieran un campo con el mismo nombre, habría que indicar cuál con `c.Contact.Name` o `c.Address.Name`."
+    ],
+    "points": [
+      "Incrustar es escribir el tipo sin nombre de campo.",
+      "Los campos y métodos del tipo incrustado se promueven.",
+      "Un método propio con el mismo nombre tapa el promovido.",
+      "El original sigue accesible: `v.Customer.Label()`.",
+      "Es composición, no herencia: un `VIP` no es un `Customer`."
+    ],
+    "exercise": "Añada a `Address` un campo `Postcode` y haga que `Line()` lo incluya. Después defina una interfaz `Labeler` con `Label() string` y una función que reciba un `Labeler`: pásele `c` y `v` y compare lo que escribe."
+  },
+  "en": {
+    "slug": "embedding-and-composition",
+    "title": "Embedding and composition",
+    "summary": "Compose types in Go by embedding structs: promoted fields and methods, overriding a method, and why it is not inheritance. Customers and addresses.",
+    "body": [
+      "Go has no inheritance; it has **composition**. `Customer` includes `Contact` and `Address` by writing just the type, with no field name: that is an **embedded field**. The field exists and is named after its type, `c.Contact` and `c.Address`.",
+      "The fields and methods of the embedded type are **promoted**: `c.Name` is really `c.Contact.Name` and `c.City` is `c.Address.City`. The same goes for methods: `c.Label()` and `c.Line()` work as if `Customer` had declared them, so `Customer` satisfies any interface that asks for `Label() string`.",
+      "Promotion goes through several levels. `VIP` embeds `Customer`, so `v.Points += 50` changes `v.Customer.Points` (from `120` to `170`) and `v.Contact.Email` reaches the contact two levels down.",
+      "`VIP` declares its own `Label`, which **shadows** the promoted one: `v.Label()` adds the tier, `[gold]`. The original is still there and you call it by name, `v.Customer.Label()`, which is exactly what the new method does to avoid repeating code.",
+      "Careful, this is not inheritance: a `VIP` **is not** a `Customer` and cannot be passed where one is expected; you pass `v.Customer`. And if two embedded types had a field with the same name, you would have to say which one, `c.Contact.Name` or `c.Address.Name`."
+    ],
+    "points": [
+      "Embedding means writing the type with no field name.",
+      "Fields and methods of the embedded type are promoted.",
+      "A method of your own with the same name shadows the promoted one.",
+      "The original is still reachable: `v.Customer.Label()`.",
+      "It is composition, not inheritance: a `VIP` is not a `Customer`."
+    ],
+    "exercise": "Add a `Postcode` field to `Address` and make `Line()` include it. Then define a `Labeler` interface with `Label() string` and a function that takes a `Labeler`: pass it `c` and `v` and compare what it prints."
+  }
+}

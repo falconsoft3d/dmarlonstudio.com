@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "encoding-json-y-etiquetas",
+    "title": "encoding/json y etiquetas de struct",
+    "summary": "Convierta structs a JSON y de vuelta en Go con json.Marshal y json.Unmarshal, y controle los nombres con etiquetas como omitempty y -.",
+    "body": [
+      "El paquete **`encoding/json`** convierte structs en JSON y JSON en structs. Solo tiene en cuenta los campos **exportados** (los que empiezan por mayúscula), y el nombre de cada uno en el JSON lo decide su **etiqueta**: el texto entre comillas invertidas, como `json:\"sku\"`. Sin etiqueta se usaría el nombre del campo tal cual, `SKU`.",
+      "Dos opciones de etiqueta muy útiles: **`omitempty`** omite el campo si tiene el valor cero (por eso el primer pedido sale sin `note`) y **`-`** no lo escribe nunca, ideal para datos internos como el margen, `Margin`. Los structs anidados y los slices (`Items`) se convierten solos.",
+      "**`json.Marshal(out)`** devuelve `[]byte` y un error; `string(data)` lo convierte en texto para escribirlo. Los campos salen en el orden del struct.",
+      "**`json.Unmarshal`** hace lo contrario y necesita un **puntero**, `&in`, para poder rellenar el struct. Las claves que el struct no tiene, como `coupon`, se ignoran sin error, y las que faltan dejan el valor cero. Al emparejar claves no distingue mayúsculas y minúsculas.",
+      "Si un tipo no encaja, `\"nine\"` donde se espera un `int`, `Unmarshal` devuelve un error que dice exactamente qué campo falla. **`json.MarshalIndent`** escribe el JSON con sangría, más fácil de leer: el segundo argumento es un prefijo para cada línea y el tercero, la sangría."
+    ],
+    "points": [
+      "Solo se codifican los campos exportados (en mayúscula).",
+      "`json:\"nombre\"` fija el nombre de la clave.",
+      "`omitempty` omite los valores cero; `-` omite el campo siempre.",
+      "`Unmarshal` necesita un puntero y devuelve un error si un tipo no encaja.",
+      "Las claves desconocidas se ignoran."
+    ],
+    "exercise": "Añada al struct `Order` un campo `Paid bool` con la etiqueta `json:\"paid\"`, póngalo a `true` en el primer pedido y añada `\"paid\": false` al JSON de entrada. Compruebe qué sale en cada `Println`."
+  },
+  "en": {
+    "slug": "encoding-json-and-struct-tags",
+    "title": "encoding/json and struct tags",
+    "summary": "Turn structs into JSON and back in Go with json.Marshal and json.Unmarshal, and control key names with tags such as omitempty and -.",
+    "body": [
+      "The **`encoding/json`** package turns structs into JSON and JSON into structs. It only looks at **exported** fields (those starting with a capital letter), and each field's name in the JSON comes from its **tag**: the text in backquotes, such as `json:\"sku\"`. Without a tag the field name would be used as it is, `SKU`.",
+      "Two very useful tag options: **`omitempty`** leaves the field out when it holds the zero value (which is why the first order has no `note`) and **`-`** never writes it, ideal for internal data such as the `Margin`. Nested structs and slices (`Items`) are converted on their own.",
+      "**`json.Marshal(out)`** returns a `[]byte` and an error; `string(data)` turns it into text for printing. Fields come out in the order of the struct.",
+      "**`json.Unmarshal`** does the opposite and needs a **pointer**, `&in`, so it can fill the struct. Keys the struct does not have, such as `coupon`, are ignored without an error, and missing ones leave the zero value. Keys are matched case-insensitively.",
+      "If a type does not fit, `\"nine\"` where an `int` is expected, `Unmarshal` returns an error saying exactly which field failed. **`json.MarshalIndent`** writes indented JSON that is easier to read: the second argument is a prefix for every line and the third is the indent."
+    ],
+    "points": [
+      "Only exported (capitalised) fields are encoded.",
+      "`json:\"name\"` sets the key name.",
+      "`omitempty` skips zero values; `-` always skips the field.",
+      "`Unmarshal` needs a pointer and returns an error if a type does not fit.",
+      "Unknown keys are ignored."
+    ],
+    "exercise": "Add a `Paid bool` field with the tag `json:\"paid\"` to `Order`, set it to `true` in the first order and add `\"paid\": false` to the input JSON. Check what each `Println` prints."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "sort-slice-y-sort-interface",
+    "title": "sort.Slice y sort.Interface",
+    "summary": "Ordene structs en Go con sort.Slice, sort.SliceStable y sort.Interface, invierta el orden con sort.Reverse y busque con sort.Search.",
+    "body": [
+      "El paquete `sort` ordena de dos formas. La clásica es **`sort.Interface`**: un tipo con tres métodos, `Len`, `Less` y `Swap`. `ByName` es un `[]Product` con otro nombre y esos tres métodos; `sort.Sort(ByName(ps))` convierte el slice (sin copiarlo: comparten los datos) y lo ordena por nombre.",
+      "La forma rápida es **`sort.Slice`**: recibe el slice y una función `less(i, j)` que dice si el elemento `i` va antes que el `j`. El closure usa `ps` directamente, y así se ordena por precio en una línea, sin declarar ningún tipo.",
+      "Con el slice ordenado por precio, **`sort.Search`** hace una búsqueda binaria: devuelve el primer índice en el que la condición es verdadera, aquí el primer producto de 30 EUR o más, `Lamp`. Solo funciona si el slice está ordenado por lo mismo que se busca; si ninguno cumple, devuelve `len(ps)`.",
+      "`sort.Slice` no garantiza el orden de los elementos iguales. **`sort.SliceStable`** sí: al ordenar por categoría, dentro de `office` y de `tech` se conserva el orden anterior por precio (`Lamp` antes que `Desk`, `Cable` antes que `Mouse`). Así se ordena por varios criterios: primero el secundario y luego, estable, el principal.",
+      "**`sort.Reverse`** envuelve cualquier `sort.Interface` y le da la vuelta a `Less`: orden alfabético inverso sin escribir otro tipo. El método `String` de `Product` (lección del Stringer) hace que `%v` escriba cada producto como `Mouse/tech/25`."
+    ],
+    "points": [
+      "`sort.Interface` pide `Len`, `Less` y `Swap`.",
+      "`sort.Slice` ordena con una función `less(i, j)`.",
+      "`sort.SliceStable` conserva el orden de los iguales.",
+      "`sort.Reverse` invierte cualquier `sort.Interface`.",
+      "`sort.Search` busca en un slice ya ordenado."
+    ],
+    "exercise": "Ordene los productos por categoría y, dentro de cada categoría, por nombre, con una sola llamada a `sort.Slice` cuyo `less` compare primero `Category` y, si coinciden, `Name`."
+  },
+  "en": {
+    "slug": "sort-slice-and-sort-interface",
+    "title": "sort.Slice and sort.Interface",
+    "summary": "Sort structs in Go with sort.Slice, sort.SliceStable and sort.Interface, flip the order with sort.Reverse and search with sort.Search.",
+    "body": [
+      "The `sort` package sorts in two ways. The classic one is **`sort.Interface`**: a type with three methods, `Len`, `Less` and `Swap`. `ByName` is a `[]Product` under another name with those three methods; `sort.Sort(ByName(ps))` converts the slice (without copying it: they share the data) and sorts it by name.",
+      "The quick way is **`sort.Slice`**: it takes the slice and a `less(i, j)` function that says whether item `i` goes before item `j`. The closure uses `ps` directly, so sorting by price is one line, with no type to declare.",
+      "With the slice sorted by price, **`sort.Search`** does a binary search: it returns the first index where the condition is true, here the first product costing 30 EUR or more, `Lamp`. It only works if the slice is sorted by what you are searching for; if nothing matches, it returns `len(ps)`.",
+      "`sort.Slice` does not guarantee the order of equal items. **`sort.SliceStable`** does: when sorting by category, the earlier price order is kept inside `office` and `tech` (`Lamp` before `Desk`, `Cable` before `Mouse`). That is how you sort by several keys: the secondary one first, then the main one, stably.",
+      "**`sort.Reverse`** wraps any `sort.Interface` and flips `Less`: reverse alphabetical order without writing another type. The `String` method on `Product` (from the Stringer lesson) makes `%v` print each product as `Mouse/tech/25`."
+    ],
+    "points": [
+      "`sort.Interface` needs `Len`, `Less` and `Swap`.",
+      "`sort.Slice` sorts with a `less(i, j)` function.",
+      "`sort.SliceStable` keeps equal items in their order.",
+      "`sort.Reverse` flips any `sort.Interface`.",
+      "`sort.Search` searches a slice that is already sorted."
+    ],
+    "exercise": "Sort the products by category and, within each category, by name, with a single `sort.Slice` call whose `less` compares `Category` first and, if they match, `Name`."
+  }
+}

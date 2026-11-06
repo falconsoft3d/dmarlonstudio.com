@@ -42,13 +42,13 @@ Hechos
 47. Odoo sin conexión (Pascal): obras y presupuestos BIM 2.0 por conceptos, sin conexión y subida a Odoo sin duplicados, con el aspecto del árbol de BIM (probado en Odoo 18 y 20) | ✅ |
 48. Demos: la de Pascal ya no se cierra al tocar un campo de texto y cada demo lleva su icono (macOS y Windows) | ✅ |
 49. 500 iconos de aplicación en el estudio: se asignan solos por el nombre del proyecto y se cambian en la Galería | ✅ |
+51. Cursos en la web (menú Cursos y portada): 7 lenguajes (Python, JavaScript, C, C++, Pascal, Go y Dart), básico y avanzado de 20 ejemplos cada uno (280 lecciones en español e inglés) con su imagen en DMarlon Studio y su salida real | ✅ |
 
 
 Trabajando
 =========
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
-51. Cursos en la web (menú Cursos): 7 lenguajes, básico y avanzado de 20 ejemplos con su imagen y su salida real. Hechos: los 7 lenguajes, básico y avanzado | ⏳ |
 
 
 Pendiente

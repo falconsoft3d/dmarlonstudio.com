@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "genericos-parametros-de-tipo-y-restricciones",
+    "title": "Genéricos: parámetros de tipo y restricciones",
+    "summary": "Escriba funciones genéricas en Go con parámetros de tipo y restricciones: un Sum para varios tipos numéricos y un Map para cualquier tipo.",
+    "body": [
+      "Desde Go 1.18, una función puede tener **parámetros de tipo**, entre corchetes antes de los normales: `Sum[T Number](values []T) T`. `T` es un tipo que se decide al llamar, y la misma función suma enteros, decimales y céntimos sin escribirla tres veces ni recurrir a `any`.",
+      "`Number` es una **restricción**: una interfaz que, en lugar de métodos, enumera los tipos permitidos con `|`. Gracias a ella, el compilador sabe que todos admiten `+=` y deja escribir `total += v`. La tilde de **`~int64`** significa «`int64` o cualquier tipo cuyo tipo base sea `int64`», y por eso entra también `Cents`.",
+      "`var total T` crea el valor cero de `T`: `0` para los números. Al llamar, Go **deduce** `T` de los argumentos: con `[]int{3, 5, 8}`, `T` es `int`. Con `nil` no hay nada de lo que deducirlo, así que se indica a mano: `Sum[float64](nil)` devuelve `0`.",
+      "`Map[T, U any]` tiene dos parámetros de tipo y la restricción **`any`**, que admite cualquier tipo pero no deja hacer con él casi nada: solo guardarlo, pasarlo y devolverlo. Basta para aplicar `f` a cada elemento: de `[]int` a `[]string` (`[#7 #12 #30]`, y `%T` confirma `[]string`) y de ahí a `[]int` con las longitudes.",
+      "Para comparar valores con `==` existe la restricción **`comparable`**. En Go 1.19 la biblioteca estándar no trae una para `<` y `>`; puede declararla usted como `Number`, con los tipos que necesite."
+    ],
+    "points": [
+      "Los parámetros de tipo van entre corchetes: `func Sum[T Number]`.",
+      "Una restricción es una interfaz que dice qué tipos valen.",
+      "`~int64` admite también los tipos definidos sobre `int64`.",
+      "Go deduce `T` de los argumentos; si no puede, se escribe `Sum[float64]`.",
+      "`any` admite cualquier tipo; `comparable`, los que se comparan con `==`."
+    ],
+    "exercise": "Escriba `Filter[T any](items []T, keep func(T) bool) []T` y úsela para quedarse con los importes de `[]Cents{1999, 450, 12000}` mayores de `1000`. Después sume el resultado con `Sum`."
+  },
+  "en": {
+    "slug": "generics-type-parameters-and-constraints",
+    "title": "Generics: type parameters and constraints",
+    "summary": "Write generic functions in Go with type parameters and constraints: one Sum for several number types and one Map for any type.",
+    "body": [
+      "Since Go 1.18 a function can have **type parameters**, in square brackets before the ordinary ones: `Sum[T Number](values []T) T`. `T` is a type chosen at the call, and the same function adds up integers, decimals and cents without writing it three times or falling back on `any`.",
+      "`Number` is a **constraint**: an interface that, instead of methods, lists the allowed types with `|`. Thanks to it the compiler knows they all support `+=`, so `total += v` is allowed. The tilde in **`~int64`** means `int64` or any type whose underlying type is `int64`, which is why `Cents` gets in too.",
+      "`var total T` makes the zero value of `T`: `0` for numbers. At the call, Go **infers** `T` from the arguments: with `[]int{3, 5, 8}`, `T` is `int`. With `nil` there is nothing to infer it from, so you spell it out: `Sum[float64](nil)` returns `0`.",
+      "`Map[T, U any]` has two type parameters and the **`any`** constraint, which accepts every type but lets you do almost nothing with it: store it, pass it and return it. That is enough to apply `f` to each item: from `[]int` to `[]string` (`[#7 #12 #30]`, and `%T` confirms `[]string`) and from there to `[]int` with the lengths.",
+      "To compare values with `==` there is the **`comparable`** constraint. In Go 1.19 the standard library has none for `<` and `>`; you can declare your own just like `Number`, with the types you need."
+    ],
+    "points": [
+      "Type parameters go in square brackets: `func Sum[T Number]`.",
+      "A constraint is an interface that says which types are allowed.",
+      "`~int64` also lets in types defined on top of `int64`.",
+      "Go infers `T` from the arguments; if it cannot, write `Sum[float64]`.",
+      "`any` accepts every type; `comparable`, those you can compare with `==`."
+    ],
+    "exercise": "Write `Filter[T any](items []T, keep func(T) bool) []T` and use it to keep the amounts in `[]Cents{1999, 450, 12000}` greater than `1000`. Then add up the result with `Sum`."
+  }
+}

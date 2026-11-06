@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "stringer-y-formato-de-sus-tipos",
+    "title": "Stringer y formato de sus tipos",
+    "summary": "Decida cómo se escriben sus tipos en Go con el método String (fmt.Stringer) y vea qué hacen %v, %+v, %#v, %d y los anchos con ellos.",
+    "body": [
+      "`fmt` busca en cada valor un método `String() string`; si lo tiene, el valor cumple la interfaz **`fmt.Stringer`** y se escribe con él. `Status` es un entero con constantes creadas con **`iota`** (`0`, `1`, `2`), y su `String` las traduce con un array: `Shipped` sale como `shipped`, no como `1`.",
+      "`Money` guarda céntimos en un `int64` para no arrastrar errores de redondeo, y su `String` los escribe como `259.99 EUR`. Por eso `fmt.Println(o.Status, o.Total)` da textos legibles sin ninguna conversión a mano.",
+      "Con un struct, `%v` escribe los campos entre llaves y usa el `String` de cada uno: `{1042 259.99 EUR shipped}`. **`%+v`** añade los nombres de los campos, muy útil para depurar. **`%#v`** escribe sintaxis de Go (`main.Order{ID:1042, Total:25999, Status:1}`) y no llama a `String`.",
+      "Solo los verbos de texto (`%v`, `%s`, `%q`, `%x`) llaman a `String`. Con **`%d`** sale el número que hay debajo: `1 25999`. Los anchos funcionan sobre el texto que devuelve `String`: `%-12s` alinea a la izquierda y `%12v`, a la derecha.",
+      "Una trampa: dentro de `String` no escriba el propio valor con `%v` o `%s`, porque `fmt` volvería a llamar a `String` sin fin. `Money` usa `%d`, que no lo llama, así que no hay problema."
+    ],
+    "points": [
+      "Un tipo con `String() string` es un `fmt.Stringer`.",
+      "`%v` y `%s` usan `String`; `%d` escribe el número.",
+      "`%+v` añade los nombres de los campos; `%#v`, la sintaxis de Go.",
+      "Los anchos (`%-12s`) se aplican al texto de `String`.",
+      "Dentro de `String`, no formatee el propio valor con `%v`."
+    ],
+    "exercise": "Añada un estado `Cancelled` a las constantes y a la tabla de `String`, y cambie el pedido a ese estado. Después escriba `fmt.Printf(\"%q\\n\", o.Status)` y observe que `%q` también usa `String`."
+  },
+  "en": {
+    "slug": "stringer-and-formatting-your-types",
+    "title": "Stringer and formatting your types",
+    "summary": "Decide how your Go types print with a String method (fmt.Stringer) and see what %v, %+v, %#v, %d and widths do with them.",
+    "body": [
+      "`fmt` looks for a `String() string` method on every value; if it has one, the value satisfies the **`fmt.Stringer`** interface and is printed with it. `Status` is an integer with constants made with **`iota`** (`0`, `1`, `2`), and its `String` turns them into words with an array: `Shipped` prints as `shipped`, not `1`.",
+      "`Money` stores cents in an `int64` so no rounding errors creep in, and its `String` writes them as `259.99 EUR`. That is why `fmt.Println(o.Status, o.Total)` gives readable text with no manual conversion.",
+      "With a struct, `%v` prints the fields between braces and uses each one's `String`: `{1042 259.99 EUR shipped}`. **`%+v`** adds the field names, very handy for debugging. **`%#v`** prints Go syntax (`main.Order{ID:1042, Total:25999, Status:1}`) and does not call `String`.",
+      "Only the text verbs (`%v`, `%s`, `%q`, `%x`) call `String`. With **`%d`** you get the number underneath: `1 25999`. Widths apply to the text `String` returns: `%-12s` aligns left and `%12v` aligns right.",
+      "One trap: inside `String`, do not print the value itself with `%v` or `%s`, because `fmt` would call `String` again forever. `Money` uses `%d`, which does not call it, so all is well."
+    ],
+    "points": [
+      "A type with `String() string` is a `fmt.Stringer`.",
+      "`%v` and `%s` use `String`; `%d` prints the number.",
+      "`%+v` adds field names; `%#v` prints Go syntax.",
+      "Widths (`%-12s`) apply to the text from `String`.",
+      "Inside `String`, never format the value itself with `%v`."
+    ],
+    "exercise": "Add a `Cancelled` status to the constants and to the table in `String`, and set the order to it. Then print `fmt.Printf(\"%q\\n\", o.Status)` and notice that `%q` uses `String` too."
+  }
+}

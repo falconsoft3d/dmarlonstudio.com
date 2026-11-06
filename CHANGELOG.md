@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.63 — 2026-11-07
+
+- **Curso de Go avanzado** (20 lecciones, español e inglés): interfaces,
+  switch de tipos, incrustación, errores con `Is`/`As` y `%w`, `defer` y
+  `recover`, genéricos, `sort`, goroutines, canales y `select`, grupos de
+  trabajadores, `Mutex`, `context`, JSON, comprobaciones con tablas,
+  manejadores HTTP con `httptest` y un procesador de pedidos como proyecto.
+- **Los 14 cursos, completos**: Python, JavaScript, C, C++, Pascal, Go y
+  Dart, básico y avanzado; 280 lecciones en español y en inglés.
+- **Portada**: sección de cursos con los siete lenguajes.
+- Los ejemplos de Go se compilan sin cgo (`CGO_ENABLED=0`).
+
 ## 1.0.62 — 2026-11-07
 
 - **Curso de Pascal avanzado** (20 lecciones, español e inglés): clases y

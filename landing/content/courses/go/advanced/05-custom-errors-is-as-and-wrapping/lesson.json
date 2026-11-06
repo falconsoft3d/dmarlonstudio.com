@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "errores-propios-is-as-y-envoltura",
+    "title": "Errores propios, Is, As y %w",
+    "summary": "Cree errores centinela y tipos de error propios en Go, envuélvalos con %w y reconózcalos después con errors.Is y errors.As.",
+    "body": [
+      "`ErrUnknown` es un **error centinela**: una variable del paquete creada con `errors.New` que representa un fallo concreto, «producto desconocido». Quien la reciba puede preguntar si su error es ese, sin comparar textos.",
+      "`StockError` es un **tipo de error propio**. Cualquier tipo con el método `Error() string` cumple la interfaz `error`, y este, además, lleva datos: cuántas unidades se piden (`Want`) y cuántas hay (`Have`). El método está en el puntero, así que el error que se devuelve es un `*StockError`.",
+      "`reserve` no devuelve esos errores tal cual: los **envuelve** con `fmt.Errorf` y el verbo **`%w`**, que añade contexto (`reserve: ...`) y guarda el error original dentro. El mensaje queda `reserve: want 3, have 1`, y el error de dentro sigue disponible. Con `%v` en lugar de `%w` solo se copiaría el texto.",
+      "**`errors.As(err, &se)`** recorre la cadena de errores envueltos buscando un `*StockError`; si lo encuentra, lo guarda en `se` y devuelve `true`, y así se puede calcular `se.Want - se.Have`, `2`. **`errors.Is(err, ErrUnknown)`** recorre la misma cadena buscando ese centinela: `true` para `XX-99`, `false` para un error `nil`.",
+      "`switch err := reserve(sku, 3); {` declara `err` solo para ese switch y luego evalúa los `case` como condiciones. Recuerde: compare errores con `errors.Is` y no con `==`, porque `==` no ve lo que hay dentro de un error envuelto."
+    ],
+    "points": [
+      "Un error centinela es una variable creada con `errors.New`.",
+      "Un tipo con `Error() string` es un `error` y puede llevar datos.",
+      "`fmt.Errorf(\"...: %w\", err)` añade contexto sin perder el original.",
+      "`errors.Is` busca un valor en la cadena; `errors.As`, un tipo.",
+      "Con errores envueltos, `==` no basta: use `errors.Is`."
+    ],
+    "exercise": "Cree un centinela `ErrInvalidQty` y haga que `reserve` lo devuelva envuelto cuando `qty <= 0`. Añada un `case errors.Is(err, ErrInvalidQty):` al switch y pruebe con una cantidad de `0`."
+  },
+  "en": {
+    "slug": "custom-errors-is-as-and-wrapping",
+    "title": "Custom errors, Is, As and %w",
+    "summary": "Create sentinel errors and your own error types in Go, wrap them with %w and recognise them later with errors.Is and errors.As.",
+    "body": [
+      "`ErrUnknown` is a **sentinel error**: a package variable created with `errors.New` that stands for one specific failure, unknown product. Whoever receives it can ask whether their error is that one, without comparing strings.",
+      "`StockError` is a **custom error type**. Any type with an `Error() string` method satisfies the `error` interface, and this one also carries data: how many units were requested (`Want`) and how many there are (`Have`). The method is on the pointer, so the error returned is a `*StockError`.",
+      "`reserve` does not return those errors as they are: it **wraps** them with `fmt.Errorf` and the **`%w`** verb, which adds context (`reserve: ...`) and keeps the original error inside. The message becomes `reserve: want 3, have 1`, and the inner error is still available. With `%v` instead of `%w` only the text would be copied.",
+      "**`errors.As(err, &se)`** walks the chain of wrapped errors looking for a `*StockError`; if it finds one, it stores it in `se` and returns `true`, so you can compute `se.Want - se.Have`, `2`. **`errors.Is(err, ErrUnknown)`** walks the same chain looking for that sentinel: `true` for `XX-99`, `false` for a `nil` error.",
+      "`switch err := reserve(sku, 3); {` declares `err` just for that switch and then evaluates each `case` as a condition. Remember: compare errors with `errors.Is`, not `==`, because `==` cannot see inside a wrapped error."
+    ],
+    "points": [
+      "A sentinel error is a variable created with `errors.New`.",
+      "A type with `Error() string` is an `error` and can carry data.",
+      "`fmt.Errorf(\"...: %w\", err)` adds context without losing the original.",
+      "`errors.Is` looks for a value in the chain; `errors.As`, for a type.",
+      "With wrapped errors, `==` is not enough: use `errors.Is`."
+    ],
+    "exercise": "Create an `ErrInvalidQty` sentinel and make `reserve` return it wrapped when `qty <= 0`. Add a `case errors.Is(err, ErrInvalidQty):` to the switch and try a quantity of `0`."
+  }
+}

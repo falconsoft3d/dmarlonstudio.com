@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "mutex-y-estado-compartido",
+    "title": "Mutex y estado compartido",
+    "summary": "Proteja datos compartidos por varias goroutines en Go con sync.Mutex: 55 compradores, 40 entradas y ninguna vendida dos veces.",
+    "body": [
+      "Cuando varias goroutines leen y escriben la misma variable a la vez hay una **condición de carrera**. En `Buy`, comprobar si quedan entradas y descontar una son dos pasos: si dos compradores comprueban a la vez y ven `1`, los dos la compran y se vende una entrada que no existe.",
+      "**`sync.Mutex`** (de *mutual exclusion*) lo impide. `b.mu.Lock()` deja pasar a una sola goroutine; las demás esperan en esa línea hasta que la primera llama a `Unlock`. Lo que queda entre las dos llamadas, la **sección crítica**, se ejecuta de una en una, así que comprobar y descontar ocurren juntos.",
+      "`defer b.mu.Unlock()` justo después de `Lock` es la forma habitual: el cerrojo se suelta al salir de la función, salga como salga. El mutex vive dentro del struct, junto a los datos que protege, y el comentario lo dice. Los métodos usan un receptor puntero: copiar un `Mutex` lo estropea (y `go vet` lo avisa).",
+      "En `main`, 55 goroutines compran a la vez y `wg.Wait()` espera a todas. Leer `office.sold` después sin el cerrojo es correcto, porque `Wait` garantiza que todas han terminado. El resultado no depende del orden: siempre se venden 40, se rechazan 15 y no queda ninguna.",
+      "Para detectar carreras, ejecute `go run -race main.go`: avisa si dos goroutines tocan lo mismo sin protección. Si casi todo son lecturas, existe `sync.RWMutex`; para un simple contador, `sync/atomic`."
+    ],
+    "points": [
+      "Dos goroutines que escriben lo mismo sin protección son una carrera.",
+      "`Lock` deja pasar a una sola goroutine hasta el `Unlock`.",
+      "Escriba `defer mu.Unlock()` justo después de `Lock()`.",
+      "Ponga el mutex junto a los datos que protege y use receptor puntero.",
+      "`go run -race` detecta condiciones de carrera."
+    ],
+    "exercise": "Añada a la taquilla un segundo concierto, `\"rock night\"`, con 10 entradas, y haga que los compradores pares pidan uno y los impares el otro. Escriba al final lo que queda de cada uno."
+  },
+  "en": {
+    "slug": "mutex-and-shared-state",
+    "title": "Mutex and shared state",
+    "summary": "Protect data shared by several goroutines in Go with sync.Mutex: 55 buyers, 40 tickets and not one ticket sold twice.",
+    "body": [
+      "When several goroutines read and write the same variable at once you have a **data race**. In `Buy`, checking whether tickets are left and taking one are two steps: if two buyers check at the same moment and both see `1`, both buy it and a ticket that does not exist gets sold.",
+      "**`sync.Mutex`** (for *mutual exclusion*) prevents that. `b.mu.Lock()` lets a single goroutine through; the rest wait on that line until the first one calls `Unlock`. What lies between the two calls, the **critical section**, runs one goroutine at a time, so the check and the update happen together.",
+      "`defer b.mu.Unlock()` right after `Lock` is the usual style: the lock is released when the function returns, however it returns. The mutex lives inside the struct, next to the data it protects, and the comment says so. The methods use a pointer receiver: copying a `Mutex` breaks it (and `go vet` warns about it).",
+      "In `main`, 55 goroutines buy at once and `wg.Wait()` waits for all of them. Reading `office.sold` afterwards without the lock is fine, because `Wait` guarantees they have all finished. The result does not depend on the order: 40 are always sold, 15 buyers are turned away and none are left.",
+      "To catch races, run `go run -race main.go`: it reports two goroutines touching the same thing unprotected. If almost everything is reads there is `sync.RWMutex`; for a plain counter, `sync/atomic`."
+    ],
+    "points": [
+      "Two goroutines writing the same thing unprotected are a race.",
+      "`Lock` lets one goroutine through until `Unlock`.",
+      "Write `defer mu.Unlock()` right after `Lock()`.",
+      "Keep the mutex next to the data it protects; use a pointer receiver.",
+      "`go run -race` finds data races."
+    ],
+    "exercise": "Add a second show to the box office, `\"rock night\"`, with 10 tickets, and make even-numbered buyers ask for one and odd-numbered buyers for the other. Print what is left of each at the end."
+  }
+}

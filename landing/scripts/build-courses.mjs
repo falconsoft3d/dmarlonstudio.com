@@ -91,7 +91,9 @@ function runLesson(id, lessonDir, where) {
         input: last ? input : "",
         encoding: "utf8",
         timeout: 60_000,
-        env: { ...process.env, NO_COLOR: "1", LANG: "en_US.UTF-8", TZ: "UTC" },
+        // Go sin cgo: el mismo binario en todas partes (y Go 1.19 con cgo
+        // no arranca en macOS 26 si usa la red).
+        env: { ...process.env, NO_COLOR: "1", LANG: "en_US.UTF-8", TZ: "UTC", CGO_ENABLED: "0" },
       });
       if (r.error) {
         fail(where, `${cmd}: ${r.error.message}`);

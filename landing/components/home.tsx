@@ -1,4 +1,5 @@
 import { AppWindow, ArrowRight, Download } from "lucide-react";
+import { CoursesBand } from "@/components/courses";
 import { Downloads } from "@/components/downloads";
 import { ExamplesCarousel } from "@/components/examples-carousel";
 import { SiteFooter } from "@/components/site-footer";
@@ -117,6 +118,9 @@ export function Home({ lang }: { lang: Lang }) {
         {sections.map((s, i) => (
           <SectionBlock key={s.id} s={s} alt={i % 2 === 0} />
         ))}
+
+        {/* Cursos gratis: llevan al IDE */}
+        <CoursesBand lang={lang} />
 
         {/* Hoja de ruta */}
         <section id={roadmap.id} className="border-t border-line bg-surface">

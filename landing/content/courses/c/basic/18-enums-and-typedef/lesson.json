@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "enum-y-typedef",
+    "title": "Enumeraciones y typedef",
+    "summary": "Dé nombre a valores fijos con enum en C y cree nombres de tipo cortos con typedef: un semáforo y los pedidos de una cafetería.",
+    "body": [
+      "Un **`enum`** da nombres a un conjunto de números enteros. En `enum Light { RED, YELLOW, GREEN }`, `RED` vale `0`, `YELLOW` `1` y `GREEN` `2`. El código se lee mejor con `RED` que con un `0` suelto, y el compilador puede avisar si un `switch` olvida algún caso.",
+      "`next` usa un `switch` sobre el `enum` para seguir el orden del semáforo: rojo, verde, amarillo y vuelta a rojo. Como los valores son números, también sirven de índice: `light_names[light]` busca el nombre en un array de textos.",
+      "Los valores se pueden elegir: en `SMALL = 1, MEDIUM, LARGE`, los siguientes continúan contando, así que `MEDIUM` es `2` y `LARGE` `3`. Por eso `size_names` empieza con un texto vacío en la posición `0`.",
+      "**`typedef`** da otro nombre a un tipo. Gracias a él se escribe `Size` en vez de `enum ...` y `Coffee` en vez de `struct ...`. El `struct` de `Coffee` se declara en una sola línea y el array `orders` guarda tres pedidos, que el `for` escribe en columnas."
+    ],
+    "points": [
+      "`enum` da nombre a valores enteros: el primero vale 0.",
+      "Se puede fijar el valor: `SMALL = 1`; los siguientes continúan.",
+      "Un `enum` funciona bien en un `switch` y como índice.",
+      "`typedef` crea un nombre corto para un tipo.",
+      "Con `typedef struct { ... } Nombre;` ya no hace falta escribir `struct`."
+    ],
+    "exercise": "Añada un `enum` `Milk { WHOLE, SKIMMED, OAT }` y un campo `milk` en `Coffee`, y escriba también el tipo de leche de cada pedido."
+  },
+  "en": {
+    "slug": "enums-and-typedef",
+    "title": "Enums and typedef",
+    "summary": "Name fixed values with enum in C and create short type names with typedef: a traffic light and the orders at a coffee shop.",
+    "body": [
+      "An **`enum`** gives names to a set of whole numbers. In `enum Light { RED, YELLOW, GREEN }`, `RED` is `0`, `YELLOW` is `1` and `GREEN` is `2`. Code reads better with `RED` than with a bare `0`, and the compiler can warn you when a `switch` misses a case.",
+      "`next` uses a `switch` on the `enum` to follow the traffic light's order: red, green, yellow and back to red. Since the values are numbers, they also work as indexes: `light_names[light]` looks up the name in an array of strings.",
+      "You can choose the values: in `SMALL = 1, MEDIUM, LARGE`, the following ones carry on counting, so `MEDIUM` is `2` and `LARGE` is `3`. That is why `size_names` starts with an empty string at position `0`.",
+      "**`typedef`** gives a type another name. Thanks to it you write `Size` instead of `enum ...` and `Coffee` instead of `struct ...`. The `struct` for `Coffee` is declared on a single line, and the `orders` array holds three orders, which the `for` prints in columns."
+    ],
+    "points": [
+      "`enum` names whole-number values: the first is 0.",
+      "You can set a value, `SMALL = 1`; the next ones carry on.",
+      "An `enum` works well in a `switch` and as an index.",
+      "`typedef` creates a short name for a type.",
+      "With `typedef struct { ... } Name;` you no longer write `struct`."
+    ],
+    "exercise": "Add an `enum Milk { WHOLE, SKIMMED, OAT }` and a `milk` field in `Coffee`, and print each order's milk too."
+  }
+}

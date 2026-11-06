@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.54 — 2026-11-07
+
+- **Curso de C básico** (20 lecciones, español e inglés): `printf` y
+  `scanf`, tipos, operadores, decisiones y bucles, arrays, cadenas,
+  funciones y prototipos, ámbito y `static`, punteros, estructuras,
+  enumeraciones, archivos de texto y un cuaderno de notas como proyecto.
+  Cada ejemplo, compilado con `-Wall` y ejecutado de verdad, con su salida y
+  su imagen en DMarlon Studio.
+
 ## 1.0.53 — 2026-11-07
 
 - **Curso de Python avanzado** (20 lecciones, español e inglés):

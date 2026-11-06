@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Escriba su primer programa en C: incluya stdio.h, cree la función main y muestre texto en pantalla con printf, \\n y \\t.",
+    "body": [
+      "Todo programa en C empieza por las bibliotecas que necesita. `#include <stdio.h>` trae las funciones de entrada y salida estándar, entre ellas **`printf`**, que escribe texto en la pantalla. Las líneas que empiezan por `//` son **comentarios**: el compilador las ignora y sirven para explicar el código.",
+      "El programa se ejecuta siempre desde la función **`main`**. `int main(void)` dice que `main` no recibe nada y devuelve un número entero; su código va entre llaves `{ }` y cada instrucción termina en punto y coma `;`.",
+      "`printf` escribe el texto tal cual, sin saltar de línea. Por eso `\"One, \"`, `\"two, \"` y `\"three!\\n\"` aparecen juntos en una sola línea: solo **`\\n`** pasa a la siguiente. Del mismo modo, **`\\t`** inserta un tabulador para hacer columnas sencillas y `\\\"` escribe unas comillas dentro del texto.",
+      "`return 0;` termina `main` y le dice al sistema que todo ha ido bien. En DMarlon Studio, el C se escribe en el destino **Consola**: pulse F9 y el programa se compila y se ejecuta con un solo clic, con la salida a la vista."
+    ],
+    "points": [
+      "`#include <stdio.h>` da acceso a `printf`.",
+      "El programa empieza en `int main(void)`.",
+      "Cada instrucción termina en `;`.",
+      "`printf` no salta de línea: hay que poner `\\n`.",
+      "`return 0;` indica que el programa ha terminado bien."
+    ],
+    "exercise": "Añada al final una tabla con tres días más (Wed, Thu, Fri) y su tiempo, alineada con `\\t`, y una línea de despedida."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Write your first C program: include stdio.h, create the main function and print text on the screen with printf, \\n and \\t.",
+    "body": [
+      "Every C program starts with the libraries it needs. `#include <stdio.h>` brings in the standard input and output functions, including **`printf`**, which writes text on the screen. Lines starting with `//` are **comments**: the compiler ignores them and they are there to explain the code.",
+      "The program always starts running in the **`main`** function. `int main(void)` says that `main` takes nothing and returns a whole number; its code goes between braces `{ }` and every statement ends with a semicolon `;`.",
+      "`printf` writes the text exactly as given, without starting a new line. That is why `\"One, \"`, `\"two, \"` and `\"three!\\n\"` end up together on one line: only **`\\n`** moves to the next one. In the same way, **`\\t`** inserts a tab for simple columns and `\\\"` puts quotes inside the text.",
+      "`return 0;` ends `main` and tells the system that everything went well. In DMarlon Studio, C is written in the **Console** target: press F9 and the program is compiled and run in one click, with the output right there."
+    ],
+    "points": [
+      "`#include <stdio.h>` gives you `printf`.",
+      "The program starts in `int main(void)`.",
+      "Every statement ends with `;`.",
+      "`printf` does not start a new line: add `\\n`.",
+      "`return 0;` means the program finished fine."
+    ],
+    "exercise": "Add three more days (Wed, Thu, Fri) with their weather at the end, lined up with `\\t`, and a goodbye line."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "while-y-do-while",
+    "title": "Bucles while y do-while",
+    "summary": "Repita código en C mientras se cumpla una condición con while, y con do-while cuando el bloque deba ejecutarse al menos una vez.",
+    "body": [
+      "**`while`** repite su bloque mientras la condición sea verdadera. El café empieza a 90 grados y cada vuelta pierde un 10 % (`coffee *= 0.9`); cuando baja de 60, la condición `coffee > 60.0` deja de cumplirse y el bucle termina. `minute` cuenta las vueltas.",
+      "Dentro del bucle algo tiene que cambiar para que la condición llegue a ser falsa. En la cuenta atrás es `seconds--`; si lo olvidara, el bucle no terminaría nunca (un **bucle infinito**).",
+      "**`do-while`** comprueba la condición al **final**, así que el bloque se ejecuta al menos una vez. Para contar las cifras de `2026`, cada vuelta suma una cifra y divide el número entre 10 (división entera): `202`, `20`, `2` y `0`. Con `do-while`, el número `0` también cuenta como una cifra; con un `while` normal daría cero cifras.",
+      "Fíjese en el punto y coma que cierra `} while (number > 0);`: en `do-while` es obligatorio."
+    ],
+    "points": [
+      "`while (condición)` comprueba antes de cada vuelta.",
+      "Algo dentro del bucle debe acercarlo al final.",
+      "`do { ... } while (condición);` se ejecuta al menos una vez.",
+      "`do-while` termina con punto y coma."
+    ],
+    "exercise": "Cambie `number` a `0` y compruebe que el resultado es una cifra. Después, use un `while` para saber cuántos años tardan 1000 euros al 5 % anual en superar los 1500."
+  },
+  "en": {
+    "slug": "while-and-do-while",
+    "title": "while and do-while loops",
+    "summary": "Repeat code in C while a condition holds with while, and with do-while when the block must run at least once.",
+    "body": [
+      "**`while`** repeats its block as long as the condition is true. The coffee starts at 90 degrees and loses 10% every turn (`coffee *= 0.9`); once it drops below 60, `coffee > 60.0` no longer holds and the loop ends. `minute` counts the turns.",
+      "Something inside the loop must change so that the condition eventually becomes false. In the countdown it is `seconds--`; forget it and the loop never ends (an **infinite loop**).",
+      "**`do-while`** checks the condition at the **end**, so the block always runs at least once. To count the digits of `2026`, each turn adds one digit and divides the number by 10 (integer division): `202`, `20`, `2` and `0`. With `do-while`, the number `0` also counts as one digit; a plain `while` would give zero digits.",
+      "Notice the semicolon that closes `} while (number > 0);`: in `do-while` it is required."
+    ],
+    "points": [
+      "`while (condition)` checks before every turn.",
+      "Something in the loop must move it towards the end.",
+      "`do { ... } while (condition);` runs at least once.",
+      "`do-while` ends with a semicolon."
+    ],
+    "exercise": "Change `number` to `0` and check that the result is one digit. Then use a `while` loop to find how many years it takes 1000 euros at 5% a year to go above 1500."
+  }
+}

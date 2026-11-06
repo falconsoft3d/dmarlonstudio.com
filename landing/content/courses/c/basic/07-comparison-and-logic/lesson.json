@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "comparaciones-y-logica",
+    "title": "Comparaciones y lógica",
+    "summary": "Compare valores en C con ==, !=, <, >= y combine condiciones con &&, || y !. Verdadero es 1 y falso es 0; además, el operador ternario ?:.",
+    "body": [
+      "C no tiene un tipo propio para verdadero y falso en su forma más básica: **0 es falso** y cualquier otro número es verdadero. Por eso una comparación como `age == 15` da `1` si se cumple y `0` si no, como muestran las tres primeras líneas de la salida.",
+      "Los operadores de comparación son `==` (igual), `!=` (distinto), `<`, `>`, `<=` y `>=`. No confunda **`==`**, que compara, con `=`, que asigna: `if (lives = 0)` guardaría un `0` en `lives` y la condición sería siempre falsa.",
+      "Para combinar condiciones están **`&&`** (y), que exige que se cumplan las dos, **`||`** (o), que se conforma con una, y **`!`** (no), que invierte el resultado. Con `has_ticket` a `1` y `1.42` metros se puede subir a la montaña rusa; con 15 años no hay precio reducido, y `!has_ticket` es falso, así que no pide entrada.",
+      "`age >= 13 && age <= 17` comprueba un **intervalo**, y su resultado (`1`) se puede guardar en una variable. El **operador ternario** `teen ? \"yes\" : \"no\"` elige un valor u otro según la condición, muy práctico dentro de `printf`."
+    ],
+    "points": [
+      "En C, 0 es falso y cualquier otro valor es verdadero.",
+      "`==` compara; `=` asigna.",
+      "`&&` exige las dos condiciones; `||`, al menos una.",
+      "`!` invierte una condición.",
+      "`c ? a : b` da `a` si `c` es verdadera y `b` si no."
+    ],
+    "exercise": "Añada una variable `with_adult` y permita subir a la montaña rusa a quien mida al menos 1.20 metros si va acompañado, o 1.40 si va solo, en una sola condición con `&&` y `||`."
+  },
+  "en": {
+    "slug": "comparison-and-logic",
+    "title": "Comparison and logic",
+    "summary": "Compare values in C with ==, !=, < and >=, and combine conditions with &&, || and !. True is 1 and false is 0; plus the ?: ternary operator.",
+    "body": [
+      "In its most basic form, C has no special type for true and false: **0 is false** and any other number is true. That is why a comparison such as `age == 15` gives `1` when it holds and `0` when it does not, as the first three lines of output show.",
+      "The comparison operators are `==` (equal), `!=` (not equal), `<`, `>`, `<=` and `>=`. Do not mix up **`==`**, which compares, with `=`, which assigns: `if (lives = 0)` would store `0` in `lives` and the condition would always be false.",
+      "To combine conditions there is **`&&`** (and), which needs both to hold, **`||`** (or), which is happy with one, and **`!`** (not), which flips the result. With `has_ticket` set to `1` and a height of `1.42` metres you can ride the roller coaster; at 15 there is no reduced price, and `!has_ticket` is false, so no ticket is asked for.",
+      "`age >= 13 && age <= 17` checks a **range**, and its result (`1`) can be stored in a variable. The **ternary operator** `teen ? \"yes\" : \"no\"` picks one value or the other depending on the condition, which is very handy inside `printf`."
+    ],
+    "points": [
+      "In C, 0 is false and any other value is true.",
+      "`==` compares; `=` assigns.",
+      "`&&` needs both conditions; `||` needs at least one.",
+      "`!` flips a condition.",
+      "`c ? a : b` gives `a` when `c` is true, `b` otherwise."
+    ],
+    "exercise": "Add a `with_adult` variable and let riders on if they are at least 1.20 metres tall with an adult, or 1.40 on their own, in a single condition using `&&` and `||`."
+  }
+}

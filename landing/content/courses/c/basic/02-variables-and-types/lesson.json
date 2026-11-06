@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "variables-y-tipos",
+    "title": "Variables y tipos básicos",
+    "summary": "Declare variables en C con los tipos int, double y char, cambie su valor, use const y vea con sizeof cuántos bytes ocupa cada tipo.",
+    "body": [
+      "Una **variable** es un espacio de memoria con nombre. En C hay que **declararla** con su tipo antes de usarla: `int apples = 12;` crea una variable entera llamada `apples` y le da el valor `12`.",
+      "Los tres tipos básicos del ejemplo son **`int`** para números enteros, **`double`** para números con decimales (`1.35`) y **`char`** para un solo carácter, que se escribe entre comillas simples: `'A'`. El tipo decide qué cabe en la variable y cómo se escribe con `printf`: `%d` para `int`, `%f` para `double` y `%c` para `char`.",
+      "Una variable puede cambiar de valor: `apples = apples - 3;` calcula primero `12 - 3` y guarda el resultado, `9`, en la misma variable. También se puede crear una variable a partir de otras, como `total`.",
+      "Con **`const`** el valor queda fijo: si intentara cambiar `vat` más adelante, el compilador daría un error. Por último, **`sizeof`** dice cuántos bytes ocupa cada tipo; se escribe con `%zu`. Fíjese en que `%f` muestra seis decimales: en la lección 4 verá cómo elegir cuántos."
+    ],
+    "points": [
+      "En C cada variable se declara con su tipo.",
+      "`int` enteros, `double` decimales, `char` un carácter entre `' '`.",
+      "`=` guarda un valor; la variable puede cambiar después.",
+      "`const` impide cambiar el valor.",
+      "`sizeof` da el tamaño en bytes."
+    ],
+    "exercise": "Añada una variable `double` con el peso de las peras en kilos y escriba cuánto cuestan a `price` euros el kilo."
+  },
+  "en": {
+    "slug": "variables-and-types",
+    "title": "Variables and basic types",
+    "summary": "Declare variables in C with the int, double and char types, change their values, use const and check with sizeof how many bytes each type takes.",
+    "body": [
+      "A **variable** is a named piece of memory. In C you have to **declare** it with its type before using it: `int apples = 12;` creates a whole-number variable called `apples` and gives it the value `12`.",
+      "The three basic types in the example are **`int`** for whole numbers, **`double`** for numbers with decimals (`1.35`) and **`char`** for a single character, written between single quotes: `'A'`. The type decides what fits in the variable and how `printf` writes it: `%d` for `int`, `%f` for `double` and `%c` for `char`.",
+      "A variable can change its value: `apples = apples - 3;` first works out `12 - 3` and then stores the result, `9`, in the same variable. You can also create a variable from others, like `total`.",
+      "With **`const`** the value is fixed: if you tried to change `vat` later, the compiler would refuse. Finally, **`sizeof`** tells you how many bytes each type takes; it is printed with `%zu`. Notice that `%f` shows six decimals: lesson 4 shows how to choose how many."
+    ],
+    "points": [
+      "In C every variable is declared with its type.",
+      "`int` whole numbers, `double` decimals, `char` one character in `' '`.",
+      "`=` stores a value; the variable can change later.",
+      "`const` stops the value from changing.",
+      "`sizeof` gives the size in bytes."
+    ],
+    "exercise": "Add a `double` variable with the weight of the pears in kilos and print how much they cost at `price` euros a kilo."
+  }
+}

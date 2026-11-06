@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros",
+    "title": "Punteros: dirección y valor",
+    "summary": "Aprenda qué es un puntero en C: la dirección de una variable con &, el valor con *, funciones que cambian variables ajenas y NULL.",
+    "body": [
+      "Cada variable ocupa un lugar en la memoria con una **dirección**. El operador **`&`** da esa dirección y un **puntero** es una variable que la guarda: `int *p = &score;` declara `p` como «puntero a `int`» y lo hace apuntar a `score`. La dirección cambia de una ejecución a otra, por eso el ejemplo solo comprueba que `p == &score`.",
+      "El operador **`*`** delante de un puntero va a esa dirección: `*p` es el valor de `score`, `50`. Y también sirve para cambiarlo: tras `*p = 75`, `score` vale `75`, porque `p` y `score` se refieren al mismo sitio.",
+      "Aquí está la gran utilidad de los punteros. En la lección 13 vio que una función recibe copias; si en cambio recibe una **dirección**, puede cambiar la variable original. `add_points(&score, 25)` suma 25 a `score`, y `swap` intercambia `gold` y `silver`. Es lo que hace `scanf` con el `&age` de la lección 5.",
+      "**`NULL`** es un puntero que no apunta a nada. Antes de usar con `*` un puntero que podría ser `NULL`, compruébelo: leer `*nowhere` haría que el programa fallara."
+    ],
+    "points": [
+      "`&x` da la dirección de `x`.",
+      "`int *p` es un puntero a `int`.",
+      "`*p` lee o cambia el valor al que apunta.",
+      "Con un puntero, una función puede cambiar las variables de quien la llama.",
+      "Compruebe que un puntero no es `NULL` antes de usarlo."
+    ],
+    "exercise": "Escriba `void split_bill(double total, int people, double *each, double *tip)` que guarde lo que paga cada persona y una propina del 10 %, y escriba ambos valores desde `main`."
+  },
+  "en": {
+    "slug": "pointers",
+    "title": "Pointers: address and value",
+    "summary": "Learn what a pointer is in C: a variable's address with &, its value with *, functions that change the caller's variables, and NULL.",
+    "body": [
+      "Every variable lives at a place in memory with an **address**. The **`&`** operator gives that address, and a **pointer** is a variable that stores it: `int *p = &score;` declares `p` as a \"pointer to `int`\" and makes it point at `score`. The address changes from one run to the next, so the example only checks that `p == &score`.",
+      "The **`*`** operator in front of a pointer goes to that address: `*p` is the value of `score`, `50`. It can change it too: after `*p = 75`, `score` is `75`, because `p` and `score` refer to the same place.",
+      "Here is what makes pointers so useful. Lesson 13 showed that a function gets copies; if it gets an **address** instead, it can change the original variable. `add_points(&score, 25)` adds 25 to `score`, and `swap` exchanges `gold` and `silver`. That is exactly what `scanf` does with `&age` in lesson 5.",
+      "**`NULL`** is a pointer that points to nothing. Before using `*` on a pointer that might be `NULL`, check it: reading `*nowhere` would crash the program."
+    ],
+    "points": [
+      "`&x` gives the address of `x`.",
+      "`int *p` is a pointer to an `int`.",
+      "`*p` reads or changes the value it points to.",
+      "With a pointer, a function can change the caller's variables.",
+      "Check that a pointer is not `NULL` before using it."
+    ],
+    "exercise": "Write `void split_bill(double total, int people, double *each, double *tip)` that stores what each person pays and a 10% tip, and print both values from `main`."
+  }
+}

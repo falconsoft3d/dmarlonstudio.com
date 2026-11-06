@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros-y-arrays",
+    "title": "Punteros y arrays",
+    "summary": "Descubra la relación entre punteros y arrays en C: el nombre del array como dirección, la aritmética de punteros y arrays como parámetros.",
+    "body": [
+      "El nombre de un array funciona como la **dirección de su primer elemento**: `int *p = marks;` hace que `p` apunte a `marks[0]`, sin necesidad de `&`. Por eso `*p` es `6`.",
+      "Con la **aritmética de punteros**, `p + 1` apunta al elemento siguiente, no al byte siguiente: C avanza el tamaño de un `int`. `*(p + 1)` es `8`, y `p[2]` es solo otra forma de escribir `*(p + 2)`. El `for` con `q` recorre el array moviendo un puntero desde `marks` hasta `marks + n`, justo pasado el final.",
+      "Cuando se pasa un array a una función, lo que viaja es esa dirección. Por eso la función **no sabe cuántos elementos** hay y hay que pasarle también `count`. Y por eso `add_bonus` sí cambia el array original, a diferencia de lo que ocurre con un `int` normal: todas las notas suben un punto.",
+      "En `average`, el parámetro es `const double *values`: **`const`** promete que la función solo leerá el array, y el compilador avisaría si intentara cambiarlo. Es una buena costumbre en funciones que solo consultan."
+    ],
+    "points": [
+      "El nombre de un array es la dirección de su primer elemento.",
+      "`p + i` avanza `i` elementos; `p[i]` es `*(p + i)`.",
+      "Una función que recibe un array recibe un puntero: pásele también el tamaño.",
+      "La función puede cambiar el array original.",
+      "`const` en el parámetro indica que solo se va a leer."
+    ],
+    "exercise": "Escriba `int find_max(const int *values, int count)` que devuelva la posición de la nota más alta, y úsela para escribir esa nota tras el bonus."
+  },
+  "en": {
+    "slug": "pointers-and-arrays",
+    "title": "Pointers and arrays",
+    "summary": "See how pointers and arrays are related in C: the array name as an address, pointer arithmetic and arrays passed as function parameters.",
+    "body": [
+      "An array's name works as the **address of its first element**: `int *p = marks;` makes `p` point at `marks[0]`, no `&` needed. That is why `*p` is `6`.",
+      "With **pointer arithmetic**, `p + 1` points to the next element, not the next byte: C moves forward by the size of an `int`. `*(p + 1)` is `8`, and `p[2]` is just another way of writing `*(p + 2)`. The `for` with `q` walks the array by moving a pointer from `marks` up to `marks + n`, just past the end.",
+      "When you pass an array to a function, what travels is that address. So the function **does not know how many elements** there are, and you have to pass `count` too. And that is why `add_bonus` does change the original array, unlike a plain `int`: every mark goes up by one.",
+      "In `average`, the parameter is `const double *values`: **`const`** promises that the function will only read the array, and the compiler would complain if it tried to change it. It is a good habit for functions that only look."
+    ],
+    "points": [
+      "An array's name is the address of its first element.",
+      "`p + i` moves `i` elements forward; `p[i]` is `*(p + i)`.",
+      "A function that takes an array gets a pointer: pass the size as well.",
+      "The function can change the original array.",
+      "`const` on the parameter says it will only be read."
+    ],
+    "exercise": "Write `int find_max(const int *values, int count)` that returns the position of the highest mark, and use it to print that mark after the bonus."
+  }
+}

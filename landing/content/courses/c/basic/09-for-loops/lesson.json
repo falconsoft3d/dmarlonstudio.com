@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "bucles-for",
+    "title": "Bucles for",
+    "summary": "Use el bucle for de C para contar hacia arriba y hacia abajo, sumar, saltar vueltas con continue, salir con break y anidar bucles.",
+    "body": [
+      "**`for`** reúne en una línea las tres partes de un bucle con contador: el inicio (`int i = 1`), la condición (`i <= 5`) y el paso (`i++`). Es lo mismo que un `while`, pero más compacto. La variable `i` solo existe dentro del bucle.",
+      "El paso puede ser cualquiera: `n -= 2` cuenta hacia atrás de dos en dos. Un `for` también sirve para **acumular**: `total` empieza en `0` y en cada día suma lo vendido, `20 + 3 * day`, hasta llegar a `224` panes.",
+      "**`continue`** salta al final de la vuelta y pasa a la siguiente: los asientos múltiplos de 4 (`seat % 4 == 0`) no se escriben. **`break`** sale del bucle del todo: al pasar del asiento 10, el bucle termina aunque la condición llegue hasta 20.",
+      "Un bucle dentro de otro recorre filas y columnas. Por cada `row`, el bucle interior da cinco vueltas. `'A' + row` aprovecha que un `char` es un número: `'A' + 1` es `'B'`."
+    ],
+    "points": [
+      "`for (inicio; condición; paso)` reúne todo el contador.",
+      "Una variable acumuladora empieza en 0 y suma en cada vuelta.",
+      "`continue` pasa a la siguiente vuelta; `break` sale del bucle.",
+      "Con bucles anidados se recorren filas y columnas."
+    ],
+    "exercise": "Escriba la tabla de multiplicar completa del 1 al 9 con dos bucles `for` anidados, con cada número en una columna de ancho 3 (`%3d`)."
+  },
+  "en": {
+    "slug": "for-loops",
+    "title": "for loops",
+    "summary": "Use C's for loop to count up and down, add things up, skip turns with continue, leave with break and nest one loop inside another.",
+    "body": [
+      "**`for`** puts the three parts of a counting loop in one line: the start (`int i = 1`), the condition (`i <= 5`) and the step (`i++`). It does the same as a `while`, but more compactly. The variable `i` only exists inside the loop.",
+      "The step can be anything: `n -= 2` counts down in twos. A `for` is also good for **adding up**: `total` starts at `0` and every day adds that day's sales, `20 + 3 * day`, reaching `224` loaves.",
+      "**`continue`** jumps to the end of the turn and moves on to the next: seats that are multiples of 4 (`seat % 4 == 0`) are not printed. **`break`** leaves the loop altogether: once past seat 10 the loop ends, even though the condition goes up to 20.",
+      "A loop inside another goes through rows and columns. For each `row`, the inner loop runs five times. `'A' + row` takes advantage of a `char` being a number: `'A' + 1` is `'B'`."
+    ],
+    "points": [
+      "`for (start; condition; step)` holds the whole counter.",
+      "An accumulator starts at 0 and adds on every turn.",
+      "`continue` moves to the next turn; `break` leaves the loop.",
+      "Nested loops go through rows and columns."
+    ],
+    "exercise": "Print the full 1 to 9 times table with two nested `for` loops, each number in a column 3 characters wide (`%3d`)."
+  }
+}

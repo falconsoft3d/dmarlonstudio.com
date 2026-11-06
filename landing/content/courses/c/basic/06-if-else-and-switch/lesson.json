@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "if-else-y-switch",
+    "title": "Decisiones con if y switch",
+    "summary": "Tome decisiones en C con if, else if y else, y elija entre varios casos con switch, case, break y default: temperaturas, notas y horarios.",
+    "body": [
+      "**`if`** ejecuta una instrucción o un bloque solo si la condición entre paréntesis es verdadera. Con `31` grados, `temperature > 30` se cumple y se escribe el aviso. Si solo hay una instrucción, las llaves se pueden omitir, como aquí; con varias, son obligatorias.",
+      "Con **`else if`** y **`else`** se elige un camino entre varios. C prueba las condiciones de arriba abajo y ejecuta **solo** el primer bloque que se cumple: con `68`, la primera (`>= 90`) falla, la segunda (`>= 60`) se cumple y el `else` ya no se mira.",
+      "**`switch`** compara un valor entero con varios `case` fijos. Varios `case` seguidos comparten el mismo código: del 1 al 5 se abre a las 9:00, y el 6 y el 7 son fin de semana. **`default`** recoge cualquier otro valor.",
+      "Cada caso termina con **`break`**. Sin él, C seguiría ejecutando el código del caso siguiente, un error muy típico. Pruebe a cambiar `day` a `3` o a `9` y vuelva a ejecutar."
+    ],
+    "points": [
+      "`if (condición)` ejecuta el bloque si es verdadera.",
+      "`else if` y `else` eligen un único camino.",
+      "`switch` compara un entero con valores fijos.",
+      "Cada `case` necesita su `break`.",
+      "`default` atiende los valores no previstos."
+    ],
+    "exercise": "Añada un `switch` sobre una variable `char size` que escriba el precio de un café según el tamaño: `'S'` 1.20, `'M'` 1.60, `'L'` 2.00 y, en `default`, «Unknown size»."
+  },
+  "en": {
+    "slug": "if-else-and-switch",
+    "title": "Decisions with if and switch",
+    "summary": "Make decisions in C with if, else if and else, and pick between several cases with switch, case, break and default: temperatures, scores and opening hours.",
+    "body": [
+      "**`if`** runs a statement or a block only when the condition in brackets is true. At `31` degrees, `temperature > 30` holds and the warning is printed. With a single statement the braces can be left out, as here; with several, they are required.",
+      "**`else if`** and **`else`** pick one path among several. C tries the conditions from top to bottom and runs **only** the first block that matches: with `68`, the first one (`>= 90`) fails, the second one (`>= 60`) holds and the `else` is never looked at.",
+      "**`switch`** compares a whole number with several fixed `case` values. Cases written one after another share the same code: days 1 to 5 open at 9:00, and 6 and 7 are the weekend. **`default`** catches any other value.",
+      "Each case ends with **`break`**. Without it, C would carry on running the code of the next case, a very common mistake. Try changing `day` to `3` or `9` and run it again."
+    ],
+    "points": [
+      "`if (condition)` runs the block when it is true.",
+      "`else if` and `else` pick a single path.",
+      "`switch` compares a whole number with fixed values.",
+      "Every `case` needs its `break`.",
+      "`default` handles the values you did not expect."
+    ],
+    "exercise": "Add a `switch` on a `char size` variable that prints the price of a coffee by size: `'S'` 1.20, `'M'` 1.60, `'L'` 2.00 and, in `default`, «Unknown size»."
+  }
+}

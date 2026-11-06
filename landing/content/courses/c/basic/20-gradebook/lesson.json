@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-cuaderno-de-notas",
+    "title": "Proyecto: cuaderno de notas",
+    "summary": "Combine todo lo aprendido en C en un cuaderno de notas: structs, arrays, enum, funciones, punteros y un informe guardado en un archivo.",
+    "body": [
+      "Este proyecto reúne el curso. **`#define SUBJECTS 3`** da nombre a un valor fijo: antes de compilar, cada `SUBJECTS` se sustituye por `3`. Si mañana hubiera cuatro asignaturas, bastaría con cambiar una línea. Con `typedef` se definen el `enum` `Result` (suspenso, aprobado y mención) y la `struct` `Student`, que guarda un nombre y un array de notas.",
+      "`average` recibe un **puntero** a `const Student`: no copia el alumno entero y promete no cambiarlo. Con `s->marks[i]` suma sus notas en un `for`. `result_of` usa el operador ternario dos veces para elegir `MERIT` desde 8.5, `PASS` desde 5 y, si no, `FAIL`.",
+      "En `main`, `group` es un **array de estructuras** iniciado entre llaves, y `sizeof` calcula cuántos alumnos hay. `counts[3] = {0}` empieza los contadores a cero y, como los valores del `enum` son 0, 1 y 2, `counts[r]++` suma uno al resultado de cada alumno. `labels[r]` da su nombre en texto.",
+      "El mismo bucle escribe cada fila en pantalla con `printf` y en `report.txt` con `fprintf`, separada por `;` para que se pueda abrir en una hoja de cálculo. Al final, `fclose` guarda el informe y se escribe el resumen. En DMarlon Studio, cree un proyecto de destino Consola, pegue el código y pulse F9: verá la tabla y el archivo `report.txt` en la carpeta del proyecto."
+    ],
+    "points": [
+      "`#define` da nombre a un valor que se repite.",
+      "Un array de `struct` guarda una lista de registros.",
+      "Pase un puntero `const` para leer una estructura sin copiarla.",
+      "Los valores de un `enum` sirven de índice en arrays.",
+      "Escriba en pantalla y en archivo desde el mismo bucle."
+    ],
+    "exercise": "Añada un quinto alumno y una cuarta asignatura (cambie `SUBJECTS` a 4), y escriba al final el nombre del alumno con la media más alta."
+  },
+  "en": {
+    "slug": "project-gradebook",
+    "title": "Project: a gradebook",
+    "summary": "Combine everything from the C course in a gradebook: structs, arrays, an enum, functions, pointers and a report saved to a file.",
+    "body": [
+      "This project brings the course together. **`#define SUBJECTS 3`** gives a fixed value a name: before compiling, every `SUBJECTS` is replaced by `3`. If there were four subjects tomorrow, changing one line would be enough. `typedef` defines the `Result` `enum` (fail, pass, merit) and the `Student` `struct`, which holds a name and an array of marks.",
+      "`average` takes a **pointer** to a `const Student`: it does not copy the whole student and promises not to change it. With `s->marks[i]` it adds up the marks in a `for`. `result_of` uses the ternary operator twice to pick `MERIT` from 8.5, `PASS` from 5 and `FAIL` otherwise.",
+      "In `main`, `group` is an **array of structs** initialised between braces, and `sizeof` works out how many students there are. `counts[3] = {0}` starts the counters at zero and, since the `enum` values are 0, 1 and 2, `counts[r]++` adds one to each student's result. `labels[r]` gives its name as text.",
+      "The same loop writes each row on the screen with `printf` and into `report.txt` with `fprintf`, separated by `;` so it can be opened in a spreadsheet. At the end, `fclose` saves the report and the summary is printed. In DMarlon Studio, create a Console target project, paste the code and press F9: you will see the table and the `report.txt` file in the project folder."
+    ],
+    "points": [
+      "`#define` names a value that is used in several places.",
+      "An array of `struct` holds a list of records.",
+      "Pass a `const` pointer to read a struct without copying it.",
+      "`enum` values work as array indexes.",
+      "Write to the screen and to a file from the same loop."
+    ],
+    "exercise": "Add a fifth student and a fourth subject (change `SUBJECTS` to 4), and print at the end the name of the student with the highest average."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cadenas-de-caracteres",
+    "title": "Cadenas de caracteres",
+    "summary": "Trabaje con textos en C como arrays de char terminados en '\\0', con las funciones de string.h: strlen, strcpy, strcat y strcmp.",
+    "body": [
+      "En C, un texto o **cadena** es un array de `char` que termina con el carácter especial **`'\\0'`**. `char city[20] = \"Madrid\"` ocupa 20 bytes, pero solo usa 7: las seis letras y el `'\\0'`. **`strlen`** cuenta las letras hasta el `'\\0'` (`6`), mientras que `sizeof` da el tamaño del array (`20`). Como cualquier array, cada letra se lee con su índice: `city[0]`.",
+      "Un array no se puede copiar con `=`. Para eso está **`strcpy(destino, origen)`**, de `string.h`. La copia es independiente: cambiar `copy[0]` a `'m'` no toca `city`. **`strcat`** añade un texto al final de otro. En ambos casos, el destino debe tener sitio suficiente; si no, se escribiría fuera del array.",
+      "Tampoco se comparan con `==`. **`strcmp(a, b)`** devuelve `0` si son iguales, un número negativo si `a` va antes en orden alfabético y uno positivo si va después. Como `\"pear\"` va después de `\"apple\"`, gana el último `else`.",
+      "Para recorrer una cadena basta con avanzar hasta encontrar el `'\\0'`: el `for` del final lo hace y cuenta las `o` de `greeting`."
+    ],
+    "points": [
+      "Una cadena es un array de `char` que acaba en `'\\0'`.",
+      "`strlen` cuenta letras; `sizeof` mide el array.",
+      "`strcpy` copia y `strcat` añade: el destino necesita sitio.",
+      "`strcmp` da 0 si los textos son iguales.",
+      "Los textos no se copian con `=` ni se comparan con `==`."
+    ],
+    "exercise": "Recorra `greeting` y convierta cada letra minúscula en mayúscula restándole `'a' - 'A'`; después escríbalo (debe salir `HELLO FROM MADRID`)."
+  },
+  "en": {
+    "slug": "strings",
+    "title": "Strings as char arrays",
+    "summary": "Work with text in C as char arrays that end in '\\0', using the string.h functions: strlen, strcpy, strcat and strcmp.",
+    "body": [
+      "In C, a piece of text, or **string**, is an array of `char` that ends with the special character **`'\\0'`**. `char city[20] = \"Madrid\"` takes 20 bytes but only uses 7: the six letters and the `'\\0'`. **`strlen`** counts the letters up to the `'\\0'` (`6`), whereas `sizeof` gives the size of the array (`20`). As with any array, each letter is read by its index: `city[0]`.",
+      "An array cannot be copied with `=`. That is what **`strcpy(destination, source)`** from `string.h` is for. The copy is independent: changing `copy[0]` to `'m'` leaves `city` alone. **`strcat`** adds one text at the end of another. In both cases the destination must have enough room; otherwise it would write outside the array.",
+      "Strings are not compared with `==` either. **`strcmp(a, b)`** returns `0` when they are equal, a negative number when `a` comes first in alphabetical order and a positive one when it comes after. Since `\"pear\"` comes after `\"apple\"`, the last `else` wins.",
+      "To walk through a string, just move forward until you find the `'\\0'`: the `for` at the end does exactly that and counts the letter `o` in `greeting`."
+    ],
+    "points": [
+      "A string is a `char` array that ends in `'\\0'`.",
+      "`strlen` counts letters; `sizeof` measures the array.",
+      "`strcpy` copies and `strcat` appends: the destination needs room.",
+      "`strcmp` gives 0 when the texts are equal.",
+      "Strings are not copied with `=` or compared with `==`."
+    ],
+    "exercise": "Walk through `greeting` and turn every lowercase letter into uppercase by subtracting `'a' - 'A'`; then print it (you should get `HELLO FROM MADRID`)."
+  }
+}

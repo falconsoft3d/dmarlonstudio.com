@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "aritmetica-y-conversiones",
+    "title": "Aritmética y conversiones",
+    "summary": "Haga cuentas en C: suma, resta, producto, la división entera, el resto con %, las conversiones (cast) a double e int y los atajos += y ++.",
+    "body": [
+      "Los operadores `+`, `-`, `*` y `/` funcionan como en matemáticas, con una excepción importante: si los dos números son `int`, la **división entera** descarta los decimales. Por eso `7 / 3` da `2` y no `2.33`. El operador **`%`** da el **resto** de esa división: `7 % 3` es `1`, la pizza que sobra.",
+      "Para obtener los decimales, al menos uno de los números tiene que ser `double`. Eso se consigue con una **conversión** o *cast*: `(double)pizzas` convierte `7` en `7.0` y entonces la división da `2.333333`.",
+      "El orden importa: en `(double)(pizzas / people)` la división entera se hace primero y da `2`; convertirla después ya no recupera los decimales, solo da `2.000000`.",
+      "La conversión contraria, `(int)bill`, **corta** los decimales sin redondear: `47.85` pasa a `47`. Para los céntimos se multiplica por 100, se suma `0.5` para redondear y `% 100` se queda con las dos últimas cifras.",
+      "Por último, los atajos: `score += 5` equivale a `score = score + 5`, `score *= 2` a `score = score * 2` y `score++` suma 1. Así, `10` pasa a `15`, luego a `30` y termina en `31`."
+    ],
+    "points": [
+      "`int / int` da un entero: se pierden los decimales.",
+      "`%` da el resto de la división entera.",
+      "`(double)x` convierte antes de dividir; `(int)x` corta los decimales.",
+      "`+=`, `-=`, `*=` y `++` cambian la propia variable."
+    ],
+    "exercise": "Con 7 pizzas de 8 porciones y 5 personas, calcule cuántas porciones le tocan a cada una y cuántas sobran, solo con `/` y `%`."
+  },
+  "en": {
+    "slug": "arithmetic-and-casts",
+    "title": "Arithmetic and casts",
+    "summary": "Do maths in C: addition, subtraction, multiplication, integer division, the remainder with %, casts to double and int, and the += and ++ shortcuts.",
+    "body": [
+      "The `+`, `-`, `*` and `/` operators work as in maths, with one important exception: when both numbers are `int`, **integer division** drops the decimals. That is why `7 / 3` gives `2`, not `2.33`. The **`%`** operator gives the **remainder** of that division: `7 % 3` is `1`, the pizza left over.",
+      "To keep the decimals, at least one of the numbers must be a `double`. You get that with a **cast**: `(double)pizzas` turns `7` into `7.0`, and then the division gives `2.333333`.",
+      "Order matters: in `(double)(pizzas / people)` the integer division happens first and gives `2`; converting it afterwards cannot bring the decimals back, so you only get `2.000000`.",
+      "The opposite cast, `(int)bill`, **cuts off** the decimals without rounding: `47.85` becomes `47`. For the cents, the program multiplies by 100, adds `0.5` to round and keeps the last two digits with `% 100`.",
+      "Finally, the shortcuts: `score += 5` means `score = score + 5`, `score *= 2` means `score = score * 2` and `score++` adds 1. So `10` becomes `15`, then `30`, and ends at `31`."
+    ],
+    "points": [
+      "`int / int` gives a whole number: the decimals are lost.",
+      "`%` gives the remainder of integer division.",
+      "`(double)x` converts before dividing; `(int)x` cuts off the decimals.",
+      "`+=`, `-=`, `*=` and `++` change the variable itself."
+    ],
+    "exercise": "With 7 pizzas of 8 slices each and 5 people, work out how many slices each person gets and how many are left, using only `/` and `%`."
+  }
+}

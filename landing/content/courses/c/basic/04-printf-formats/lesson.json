@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "formatos-de-printf",
+    "title": "Formatos de printf",
+    "summary": "Domine los especificadores de printf en C: %d, %f, %c y %s, los decimales con %.2f, los anchos de columna, %% y otros formatos para un tique.",
+    "body": [
+      "Cada `%` dentro del texto de `printf` es un **especificador**: un hueco que se rellena con el siguiente valor de la lista, en orden. `%d` es para `int`, `%f` para `double`, `%c` para `char` y **`%s`** para un texto. El tipo tiene que coincidir; si no, el resultado es imprevisible (y `-Wall` le avisa).",
+      "Entre el `%` y la letra se indica la **precisión**: `%.2f` escribe dos decimales (`42.75`) y `%.0f` redondea a un número entero (`43`).",
+      "Un número delante es el **ancho** mínimo de la columna. `%5d` rellena con espacios por la izquierda hasta 5 caracteres (alineado a la derecha), `%-5d` alinea a la izquierda y `%05d` rellena con ceros. Combinados, como `%-10s %4d %8.2f`, forman las columnas del tique.",
+      "Para escribir un signo de porcentaje hay que poner **`%%`**. Y hay otros formatos útiles: `%x` escribe un número en hexadecimal (`255` es `ff`) y `%e` en notación científica."
+    ],
+    "points": [
+      "`%d` int, `%f` double, `%c` char, `%s` texto.",
+      "`%.2f` fija el número de decimales.",
+      "`%8d` ocupa 8 caracteres; `%-8s` alinea a la izquierda.",
+      "`%%` escribe el signo `%`."
+    ],
+    "exercise": "Añada al tique una línea con el total (cantidad por precio de cada producto, sumados) alineada bajo la columna `Price`."
+  },
+  "en": {
+    "slug": "printf-formats",
+    "title": "printf formats",
+    "summary": "Master printf format specifiers in C: %d, %f, %c and %s, decimals with %.2f, column widths, %% and other formats for a shop receipt.",
+    "body": [
+      "Every `%` in a `printf` text is a **format specifier**: a slot filled with the next value in the list, in order. `%d` is for `int`, `%f` for `double`, `%c` for `char` and **`%s`** for text. The type must match; otherwise the result is unpredictable (and `-Wall` warns you).",
+      "Between the `%` and the letter you can set the **precision**: `%.2f` prints two decimals (`42.75`) and `%.0f` rounds to a whole number (`43`).",
+      "A number in front is the minimum **width** of the column. `%5d` pads with spaces on the left up to 5 characters (right-aligned), `%-5d` aligns left and `%05d` pads with zeros. Put together, as in `%-10s %4d %8.2f`, they make the columns of the receipt.",
+      "To print a percent sign, write **`%%`**. There are other handy formats too: `%x` prints a number in hexadecimal (`255` is `ff`) and `%e` in scientific notation."
+    ],
+    "points": [
+      "`%d` int, `%f` double, `%c` char, `%s` text.",
+      "`%.2f` sets the number of decimals.",
+      "`%8d` takes 8 characters; `%-8s` aligns left.",
+      "`%%` prints a `%` sign."
+    ],
+    "exercise": "Add a total line to the receipt (quantity times price for each product, added up) lined up under the `Price` column."
+  }
+}

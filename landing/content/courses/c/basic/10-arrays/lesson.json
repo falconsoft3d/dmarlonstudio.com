@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays",
+    "title": "Arrays",
+    "summary": "Guarde muchos valores del mismo tipo en un array de C: las temperaturas de una semana, su media y su máximo, con índices que empiezan en 0.",
+    "body": [
+      "Un **array** guarda varios valores del mismo tipo, uno detrás de otro en la memoria. `double temps[7] = {...}` reserva sitio para siete `double` y les da sus valores entre llaves. `days` es otro array, de siete `char`.",
+      "Cada elemento se alcanza con su **índice** entre corchetes, y los índices **empiezan en 0**: `temps[0]` es el lunes y `temps[6]`, el domingo. El número de elementos se calcula con `sizeof(temps) / sizeof(temps[0])`: el tamaño total entre el de uno. `temps[2] = 20.0` cambia el miércoles.",
+      "Un `for` de `0` a `count - 1` recorre el array: escribe cada día, suma las temperaturas en `sum` y guarda la mayor en `max`, junto con su posición en `hottest`. Con eso se calcula la media y se sabe cuál fue el día más caluroso.",
+      "Si se dan menos valores que el tamaño, el resto empieza en **0**: en `votes[4] = {3, 5}` las opciones 3 y 4 valen `0`. Cuidado: C **no comprueba** los límites, y `temps[7]` leería memoria que no es del array sin avisar."
+    ],
+    "points": [
+      "Un array guarda varios valores del mismo tipo.",
+      "Los índices van de `0` a `tamaño - 1`.",
+      "`sizeof(a) / sizeof(a[0])` da el número de elementos.",
+      "Los elementos sin valor inicial valen 0.",
+      "C no comprueba si el índice se sale del array."
+    ],
+    "exercise": "Añada la temperatura mínima y su día, y cuente cuántos días pasaron de 20 grados."
+  },
+  "en": {
+    "slug": "arrays",
+    "title": "Arrays",
+    "summary": "Store many values of the same type in a C array: a week of temperatures, their average and their maximum, with indexes that start at 0.",
+    "body": [
+      "An **array** stores several values of the same type, one after another in memory. `double temps[7] = {...}` makes room for seven `double` values and gives them their values between braces. `days` is another array, of seven `char`.",
+      "Each element is reached by its **index** in square brackets, and indexes **start at 0**: `temps[0]` is Monday and `temps[6]` is Sunday. The number of elements is worked out with `sizeof(temps) / sizeof(temps[0])`: the total size divided by the size of one. `temps[2] = 20.0` changes Wednesday.",
+      "A `for` from `0` to `count - 1` goes through the array: it prints each day, adds the temperatures into `sum` and keeps the highest in `max`, together with its position in `hottest`. From that you get the average and the hottest day.",
+      "If you give fewer values than the size, the rest start at **0**: in `votes[4] = {3, 5}` options 3 and 4 are `0`. Careful: C does **not check** the limits, and `temps[7]` would silently read memory that does not belong to the array."
+    ],
+    "points": [
+      "An array stores several values of the same type.",
+      "Indexes go from `0` to `size - 1`.",
+      "`sizeof(a) / sizeof(a[0])` gives the number of elements.",
+      "Elements without a starting value are 0.",
+      "C does not check whether an index is outside the array."
+    ],
+    "exercise": "Add the lowest temperature and its day, and count how many days went above 20 degrees."
+  }
+}

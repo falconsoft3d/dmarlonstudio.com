@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "archivos-de-texto",
+    "title": "Escribir y leer archivos",
+    "summary": "Guarde y lea datos en un archivo de texto en C con fopen, fprintf, fscanf y fclose, y añada líneas al final con el modo \"a\".",
+    "body": [
+      "Para trabajar con un archivo, **`fopen`** lo abre y devuelve un puntero `FILE *`. Si no puede abrirlo, devuelve `NULL`, así que hay que comprobarlo siempre. El nombre sin carpeta, `\"scores.txt\"`, hace que el archivo se cree en la carpeta actual, la misma desde la que se ejecuta el programa.",
+      "El segundo argumento es el **modo**: `\"w\"` crea el archivo para escribir (y si ya existía, lo vacía), `\"a\"` añade al final sin borrar lo que había y `\"r\"` lo abre para leer. **`fprintf`** funciona como `printf`, pero escribe en el archivo que se le indica primero.",
+      "**`fclose`** cierra el archivo y se asegura de que todo lo escrito queda guardado en el disco. No lo olvide: sin él, las últimas líneas podrían perderse.",
+      "Para leer, **`fscanf`** hace lo mismo que `scanf`, pero desde el archivo. Devuelve cuántos valores ha leído; el `while` sigue mientras lea los dos (el nombre y la puntuación) y para al llegar al final. Mientras tanto suma los puntos para calcular la media. Si quisiera leer líneas enteras, con espacios, usaría `fgets`. En DMarlon Studio, tras pulsar F9, verá `scores.txt` junto a su programa."
+    ],
+    "points": [
+      "`fopen(nombre, modo)` devuelve `NULL` si falla: compruébelo.",
+      "`\"w\"` crea o vacía, `\"a\"` añade, `\"r\"` lee.",
+      "`fprintf` y `fscanf` son `printf` y `scanf` para archivos.",
+      "`fscanf` devuelve cuántos valores ha leído.",
+      "`fclose` guarda y cierra."
+    ],
+    "exercise": "Tras leer, abra `best.txt` con `\"w\"` y guarde en él el nombre y la puntuación del mejor jugador; después vuelva a leerlo y escríbalo en pantalla."
+  },
+  "en": {
+    "slug": "text-files",
+    "title": "Writing and reading files",
+    "summary": "Save and read data in a text file in C with fopen, fprintf, fscanf and fclose, and add lines at the end with \"a\" mode.",
+    "body": [
+      "To work with a file, **`fopen`** opens it and returns a `FILE *` pointer. If it cannot open it, it returns `NULL`, so always check. A name with no folder, `\"scores.txt\"`, creates the file in the current folder, the one the program is run from.",
+      "The second argument is the **mode**: `\"w\"` creates the file for writing (emptying it if it already existed), `\"a\"` appends at the end without deleting what was there and `\"r\"` opens it for reading. **`fprintf`** works like `printf`, but writes to the file you give it first.",
+      "**`fclose`** closes the file and makes sure everything written is saved to disk. Do not forget it: without it, the last lines could be lost.",
+      "To read, **`fscanf`** does the same as `scanf`, but from the file. It returns how many values it read; the `while` carries on as long as it reads both (the name and the score) and stops at the end of the file. Along the way it adds up the scores for the average. To read whole lines, spaces included, you would use `fgets`. In DMarlon Studio, after pressing F9, you will see `scores.txt` next to your program."
+    ],
+    "points": [
+      "`fopen(name, mode)` returns `NULL` on failure: check it.",
+      "`\"w\"` creates or empties, `\"a\"` appends, `\"r\"` reads.",
+      "`fprintf` and `fscanf` are `printf` and `scanf` for files.",
+      "`fscanf` returns how many values it read.",
+      "`fclose` saves and closes."
+    ],
+    "exercise": "After reading, open `best.txt` with `\"w\"` and save the best player's name and score in it; then read it back and print it on the screen."
+  }
+}

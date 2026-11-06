@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "parametros-y-prototipos",
+    "title": "Parámetros, retorno y prototipos",
+    "summary": "Declare prototipos en C para escribir las funciones después de main, pase varios parámetros por valor y use varios return en una función.",
+    "body": [
+      "Un **prototipo** es la primera línea de una función terminada en punto y coma: `double apply_discount(double price, int percent);`. Le dice al compilador el nombre, los parámetros y el tipo que devuelve, de modo que `main` puede usarla aunque su cuerpo esté escrito más abajo. En programas largos, `main` queda arriba y se lee primero.",
+      "Al llamar a la función, los **argumentos** se reparten en el mismo orden que los parámetros: en `apply_discount(59.90, 20)`, `price` vale `59.90` y `percent`, `20`.",
+      "En C los parámetros se pasan **por valor**: la función recibe una copia. Aunque `apply_discount` cambie su `price`, la variable `price` de `main` sigue valiendo `10.00`. Si se llama sin guardar el resultado, este se pierde; para quedárselo hay que asignarlo: `price = apply_discount(price, 50);`.",
+      "Una función puede tener varios **`return`**: el primero que se alcanza la termina. `is_leap` aplica las reglas del calendario por orden: múltiplo de 400, bisiesto; de 100, no; y en otro caso, bisiesto si es múltiplo de 4. Por eso 1900 no lo es y 2000 sí."
+    ],
+    "points": [
+      "Un prototipo anuncia una función antes de definirla.",
+      "Los argumentos se asignan a los parámetros por orden.",
+      "Los parámetros son copias: la función no cambia las variables de quien llama.",
+      "Guarde el valor devuelto si lo necesita.",
+      "El primer `return` que se alcanza termina la función."
+    ],
+    "exercise": "Añada el prototipo y la función `int days_in_february(int year)` que use `is_leap` para devolver 28 o 29, y escriba el resultado para los cuatro años."
+  },
+  "en": {
+    "slug": "parameters-and-prototypes",
+    "title": "Parameters, returns and prototypes",
+    "summary": "Declare prototypes in C so functions can come after main, pass several parameters by value and use several return statements in one function.",
+    "body": [
+      "A **prototype** is a function's first line ending in a semicolon: `double apply_discount(double price, int percent);`. It tells the compiler the name, the parameters and the return type, so `main` can use the function even though its body comes further down. In long programs, `main` stays at the top and is read first.",
+      "When you call the function, the **arguments** are handed out in the same order as the parameters: in `apply_discount(59.90, 20)`, `price` is `59.90` and `percent` is `20`.",
+      "In C parameters are passed **by value**: the function gets a copy. Even though `apply_discount` changes its own `price`, the `price` variable in `main` is still `10.00`. If you call it without storing the result, the result is lost; to keep it, assign it: `price = apply_discount(price, 50);`.",
+      "A function can have several **`return`** statements: the first one reached ends it. `is_leap` applies the calendar rules in order: a multiple of 400 is a leap year; of 100, it is not; otherwise it is a leap year if it is a multiple of 4. That is why 1900 is not and 2000 is."
+    ],
+    "points": [
+      "A prototype announces a function before it is defined.",
+      "Arguments are matched to parameters by order.",
+      "Parameters are copies: the function does not change the caller's variables.",
+      "Store the returned value if you need it.",
+      "The first `return` reached ends the function."
+    ],
+    "exercise": "Add the prototype and the function `int days_in_february(int year)`, which uses `is_leap` to return 28 or 29, and print the result for the four years."
+  }
+}

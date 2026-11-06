@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "ambito-y-static",
+    "title": "Ámbito y variables static",
+    "summary": "Entienda dónde vive cada variable en C: globales, locales, de bloque y static, que conservan su valor entre llamadas a una función.",
+    "body": [
+      "El **ámbito** de una variable es la parte del programa donde existe. `total_visits` está fuera de cualquier función: es **global** y todas las funciones que vienen después pueden usarla y cambiarla. Úselas con moderación, porque cualquiera puede modificarlas.",
+      "Las variables declaradas dentro de una función son **locales**: nacen en cada llamada y desaparecen al terminar. Por eso `local` vale siempre `1`: cada vez empieza de nuevo en `0` y se suma uno.",
+      "Con **`static`**, una variable local se crea una sola vez y **conserva su valor** entre llamadas, aunque solo se vea dentro de su función. `calls` cuenta `1`, `2`, `3`, y `next_ticket` reparte números seguidos a partir de `101`. `++number` suma uno y entrega ya el valor nuevo.",
+      "Cada bloque `{ }` crea su propio ámbito. El `lives` de dentro del bloque es otra variable que **oculta** a la de fuera mientras dura el bloque; al salir, vuelve a verse la de fuera, con su `3`. Del mismo modo, la `i` del `for` deja de existir al acabar el bucle."
+    ],
+    "points": [
+      "Una variable global se ve en todo el archivo.",
+      "Una variable local nace y muere con cada llamada.",
+      "`static` conserva el valor entre llamadas.",
+      "Un bloque `{ }` tiene su propio ámbito.",
+      "Una variable de dentro oculta a otra del mismo nombre de fuera."
+    ],
+    "exercise": "Escriba una función `void log_message(const char text[])` que numere sus mensajes con una variable `static` («1: start», «2: load»…) y llámela cuatro veces."
+  },
+  "en": {
+    "slug": "scope-and-static",
+    "title": "Scope and static variables",
+    "summary": "Understand where each variable lives in C: globals, locals, block variables and static ones, which keep their value between calls to a function.",
+    "body": [
+      "A variable's **scope** is the part of the program where it exists. `total_visits` sits outside every function: it is **global**, and every function after it can read and change it. Use globals sparingly, since anything can modify them.",
+      "Variables declared inside a function are **local**: they are born on each call and vanish when it ends. That is why `local` is always `1`: each time it starts again at `0` and gets one added.",
+      "With **`static`**, a local variable is created only once and **keeps its value** between calls, although it can still only be seen inside its function. `calls` counts `1`, `2`, `3`, and `next_ticket` hands out consecutive numbers from `101`. `++number` adds one and gives back the new value straight away.",
+      "Every `{ }` block has its own scope. The `lives` inside the block is a different variable that **hides** the outer one while the block lasts; once outside, the outer one is visible again, still `3`. In the same way, the `i` from the `for` no longer exists after the loop."
+    ],
+    "points": [
+      "A global variable is visible in the whole file.",
+      "A local variable is born and dies with each call.",
+      "`static` keeps the value between calls.",
+      "A `{ }` block has its own scope.",
+      "An inner variable hides an outer one with the same name."
+    ],
+    "exercise": "Write a `void log_message(const char text[])` function that numbers its messages with a `static` variable («1: start», «2: load»…) and call it four times."
+  }
+}

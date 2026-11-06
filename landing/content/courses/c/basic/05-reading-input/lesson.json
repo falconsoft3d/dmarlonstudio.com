@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "leer-con-scanf",
+    "title": "Leer datos con scanf",
+    "summary": "Pida datos al usuario en C con scanf: palabras con %s, enteros con %d y decimales con %lf, y compruebe cuántos valores se han leído.",
+    "body": [
+      "**`scanf`** es lo contrario de `printf`: lee del teclado según un formato y guarda lo leído en variables. Como necesita saber **dónde** guardarlo, a los números se les pone `&` delante: `scanf(\"%d\", &age)`. Qué significa exactamente ese `&` lo verá en la lección de punteros.",
+      "`char name[30]` reserva sitio para un texto (en la lección 11 verá los textos a fondo). `%29s` lee **una palabra**, como mucho de 29 letras, para dejar sitio al final del texto; a los textos no se les pone `&`.",
+      "Ojo con los `double`: en `scanf` se leen con **`%lf`**, aunque en `printf` se escriban con `%f`. Un formato puede leer varios valores a la vez: `\"%d %d\"` lee dos enteros de la misma línea, y `scanf` **devuelve** cuántos ha conseguido leer, aquí `2`. Si alguien escribe una letra en vez de un número, devolvería menos, y así puede comprobarlo.",
+      "Aquí las respuestas salen del archivo `input.txt`, como si alguien las tecleara, por eso no aparecen en la salida: solo se ven las preguntas y lo que contesta el programa. En la consola de DMarlon Studio, tras pulsar F9, puede escribirlas usted mismo."
+    ],
+    "points": [
+      "`scanf` lee con el mismo tipo de formatos que `printf`.",
+      "Los números llevan `&`: `scanf(\"%d\", &n)`.",
+      "Un `double` se lee con `%lf`.",
+      "`%29s` lee una palabra sin pasarse del tamaño.",
+      "`scanf` devuelve cuántos valores ha leído."
+    ],
+    "exercise": "Pida también el número de la sala con `%d` y escriba al final «Room 4: 3 tickets cost 21.25 euros.». Añada la respuesta a `input.txt`."
+  },
+  "en": {
+    "slug": "reading-with-scanf",
+    "title": "Reading input with scanf",
+    "summary": "Ask the user for data in C with scanf: words with %s, whole numbers with %d and decimals with %lf, and check how many values were read.",
+    "body": [
+      "**`scanf`** is the opposite of `printf`: it reads from the keyboard following a format and stores what it reads in variables. Since it needs to know **where** to store it, numbers get an `&` in front: `scanf(\"%d\", &age)`. What that `&` means exactly comes in the lesson on pointers.",
+      "`char name[30]` makes room for some text (lesson 11 covers text in depth). `%29s` reads **one word** of up to 29 letters, leaving room for the end of the text; text does not take an `&`.",
+      "Watch out for `double`: in `scanf` it is read with **`%lf`**, even though `printf` writes it with `%f`. One format can read several values at once: `\"%d %d\"` reads two whole numbers from the same line, and `scanf` **returns** how many it managed to read, here `2`. If someone typed a letter instead of a number it would return fewer, so you can check.",
+      "Here the answers come from the `input.txt` file, as if someone were typing them, so they do not appear in the output: you only see the questions and the program's replies. In the DMarlon Studio console, after pressing F9, you can type them yourself."
+    ],
+    "points": [
+      "`scanf` reads with the same kind of formats as `printf`.",
+      "Numbers take `&`: `scanf(\"%d\", &n)`.",
+      "A `double` is read with `%lf`.",
+      "`%29s` reads a word without overflowing.",
+      "`scanf` returns how many values it read."
+    ],
+    "exercise": "Also ask for the screen number with `%d` and end with «Room 4: 3 tickets cost 21.25 euros.». Add the answer to `input.txt`."
+  }
+}

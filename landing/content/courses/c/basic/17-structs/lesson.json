@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "estructuras",
+    "title": "Estructuras",
+    "summary": "Agrupe datos relacionados en una struct de C: los productos de una tienda con nombre, precio y existencias, el punto, la flecha y punteros.",
+    "body": [
+      "Una **estructura** (`struct`) reúne en un solo tipo varios datos relacionados, cada uno con su nombre y su tipo. `struct Product` tiene tres **campos**: `name`, `price` y `stock`. Es la forma de C de describir «un producto».",
+      "Para crear una se dan los valores entre llaves en el mismo orden que los campos, como en `mug`, o con su nombre, como en `lamp`: `.name = \"Lamp\"`. El **punto** da acceso a cada campo: `mug.price = 6.95` cambia el precio. Un campo de texto se cambiaría con `strcpy`, como cualquier cadena.",
+      "`show` recibe la estructura **por valor**, es decir, una copia: le basta para leerla. `sell`, en cambio, tiene que cambiar las existencias, así que recibe un **puntero**: `sell(&mug, 5)`. Con un puntero a estructura, los campos se alcanzan con la **flecha**: `p->stock` es lo mismo que `(*p).stock`.",
+      "`sell` no deja vender más de lo que hay: con `4` lámparas pedidas y `3` en el almacén, ajusta `units` y la lámpara queda a `0`."
+    ],
+    "points": [
+      "Una `struct` agrupa varios campos en un tipo.",
+      "`variable.campo` lee o cambia un campo.",
+      "Pase un puntero para que la función cambie la estructura.",
+      "`p->campo` es `(*p).campo`.",
+      "Se puede iniciar por orden o con `.campo = valor`."
+    ],
+    "exercise": "Escriba `void restock(struct Product *p, int units)` que sume existencias, y una función `double stock_value(struct Product p)` que devuelva precio por existencias; úselas con los dos productos."
+  },
+  "en": {
+    "slug": "structs",
+    "title": "Structs",
+    "summary": "Group related data into a C struct: a shop's products with a name, price and stock, the dot, the arrow and pointers to structs.",
+    "body": [
+      "A **structure** (`struct`) puts several related pieces of data into one type, each with its own name and type. `struct Product` has three **fields**: `name`, `price` and `stock`. It is C's way of describing \"a product\".",
+      "To create one, give the values between braces in the same order as the fields, as with `mug`, or by name, as with `lamp`: `.name = \"Lamp\"`. The **dot** reaches each field: `mug.price = 6.95` changes the price. A text field would be changed with `strcpy`, like any string.",
+      "`show` takes the struct **by value**, that is, a copy: enough to read it. `sell`, on the other hand, has to change the stock, so it takes a **pointer**: `sell(&mug, 5)`. With a pointer to a struct, fields are reached with the **arrow**: `p->stock` is the same as `(*p).stock`.",
+      "`sell` will not sell more than there is: with `4` lamps asked for and `3` in stock, it adjusts `units` and the lamp ends up at `0`."
+    ],
+    "points": [
+      "A `struct` groups several fields into one type.",
+      "`variable.field` reads or changes a field.",
+      "Pass a pointer so the function can change the struct.",
+      "`p->field` is `(*p).field`.",
+      "You can initialise by order or with `.field = value`."
+    ],
+    "exercise": "Write `void restock(struct Product *p, int units)` that adds stock, and a `double stock_value(struct Product p)` function that returns price times stock; use them on both products."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones",
+    "title": "Funciones",
+    "summary": "Agrupe código en funciones de C: funciones void sin valor de vuelta, funciones con un parámetro y funciones que devuelven un resultado con return.",
+    "body": [
+      "Una **función** es un trozo de código con nombre que se puede usar tantas veces como quiera. `print_line` dibuja una raya; en `main` basta con escribir `print_line();` para que se ejecute. Así la raya se dibuja tres veces sin repetir el código.",
+      "Delante del nombre va el tipo de lo que devuelve. **`void`** significa «nada»: `print_line` y `print_stars` solo escriben. `print_line(void)` no recibe nada; `print_stars(int count)` recibe un **parámetro**, el número de estrellas, y con él su `for` dibuja 5, 3 o 4.",
+      "`celsius_to_fahrenheit` devuelve un `double`: **`return`** termina la función y entrega el valor a quien la llamó. Ese valor se puede usar directamente dentro de `printf` o guardar en una variable, como `cold`.",
+      "Las funciones de este ejemplo se escriben **antes** de `main` para que el compilador ya las conozca cuando se usan. En la lección siguiente verá cómo ponerlas después."
+    ],
+    "points": [
+      "Una función agrupa código bajo un nombre.",
+      "`void` como tipo: no devuelve nada.",
+      "Los parámetros van entre paréntesis con su tipo.",
+      "`return valor;` termina la función y entrega el resultado.",
+      "Defina la función antes de usarla (o use un prototipo)."
+    ],
+    "exercise": "Escriba una función `double kmh_to_ms(double kmh)` que pase kilómetros por hora a metros por segundo (divida entre 3.6) y úsela con 50, 90 y 120."
+  },
+  "en": {
+    "slug": "functions",
+    "title": "Functions",
+    "summary": "Group code into C functions: void functions that return nothing, functions with a parameter and functions that give back a result with return.",
+    "body": [
+      "A **function** is a named piece of code you can use as often as you like. `print_line` draws a line; in `main`, writing `print_line();` is enough to run it. That way the line is drawn three times without repeating the code.",
+      "In front of the name goes the type of what it returns. **`void`** means \"nothing\": `print_line` and `print_stars` only print. `print_line(void)` takes nothing; `print_stars(int count)` takes a **parameter**, the number of stars, and its `for` uses it to draw 5, 3 or 4.",
+      "`celsius_to_fahrenheit` returns a `double`: **`return`** ends the function and hands the value back to whoever called it. That value can go straight into `printf` or be stored in a variable, like `cold`.",
+      "The functions in this example are written **before** `main` so the compiler already knows them when they are used. The next lesson shows how to put them after it."
+    ],
+    "points": [
+      "A function groups code under a name.",
+      "`void` as the type: it returns nothing.",
+      "Parameters go in brackets, each with its type.",
+      "`return value;` ends the function and hands back the result.",
+      "Define a function before using it (or use a prototype)."
+    ],
+    "exercise": "Write a `double kmh_to_ms(double kmh)` function that turns kilometres per hour into metres per second (divide by 3.6) and use it with 50, 90 and 120."
+  }
+}

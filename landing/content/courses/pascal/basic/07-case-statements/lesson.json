@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "la-sentencia-case",
+    "title": "La sentencia case",
+    "summary": "Elija entre muchos valores con case en Pascal: días de la semana, rangos de notas y el menú de una máquina expendedora.",
+    "body": [
+      "**`case` expresión `of`** compara un valor con una lista de opciones y ejecuta la que coincide. Es más claro que una cadena de `else if` cuando todas las condiciones preguntan por la misma variable.",
+      "Cada opción puede ser un valor, varios separados por comas (`6, 7`) o un **rango** (`1..5`). El `else` final recoge todo lo que no coincide. A diferencia del `if`, aquí la opción anterior al `else` sí lleva punto y coma.",
+      "Con rangos, la tabla de notas queda muy corta: `83` cae en `80..89` y sale `B`. Las opciones no pueden repetirse; si un valor aparece en dos, el compilador da un error.",
+      "`case` funciona con cualquier tipo **ordinal**: enteros, `Char`, `Boolean` y los tipos enumerados de la lección 17, pero no con reales. En la máquina expendedora, `'b'` elige el café. Como ese `case` no tiene `else`, si no coincidiera ninguna opción, simplemente no pasaría nada.",
+      "Cada `case` se cierra con su propio **`end;`**, aunque no haya ningún `begin`."
+    ],
+    "points": [
+      "`case x of` elige una opción según el valor de `x`.",
+      "Las opciones admiten listas (`6, 7`) y rangos (`1..5`).",
+      "`else` recoge los valores que no aparecen.",
+      "Solo funciona con tipos ordinales, no con reales.",
+      "Cada `case` termina con `end;`."
+    ],
+    "exercise": "Añada un `case` para el número de un mes (`month`) que escriba cuántos días tiene: 28 para el 2; 30 para el 4, 6, 9 y 11; y 31 para el resto."
+  },
+  "en": {
+    "slug": "case-statements",
+    "title": "The case statement",
+    "summary": "Choose between many values with case in Pascal: days of the week, grade ranges and the menu of a vending machine.",
+    "body": [
+      "**`case` expression `of`** compares a value with a list of options and runs the one that matches. It reads better than an `else if` chain when every condition asks about the same variable.",
+      "Each option can be one value, several separated by commas (`6, 7`) or a **range** (`1..5`). The final `else` catches everything that does not match. Unlike `if`, the option before this `else` does take a semicolon.",
+      "Ranges keep the grade table short: `83` falls into `80..89` and the result is `B`. Options cannot overlap; if a value appears in two of them, the compiler reports an error.",
+      "`case` works with any **ordinal** type: integers, `Char`, `Boolean` and the enumerated types of lesson 17, but not with real numbers. In the vending machine, `'b'` picks the coffee. That `case` has no `else`, so if no option matched, nothing would happen.",
+      "Every `case` is closed with its own **`end;`**, even though there is no `begin`."
+    ],
+    "points": [
+      "`case x of` picks an option based on the value of `x`.",
+      "Options can be lists (`6, 7`) and ranges (`1..5`).",
+      "`else` catches the values that are not listed.",
+      "It only works with ordinal types, not real numbers.",
+      "Every `case` ends with `end;`."
+    ],
+    "exercise": "Add a `case` for a month number (`month`) that prints how many days it has: 28 for 2; 30 for 4, 6, 9 and 11; and 31 for the rest."
+  }
+}

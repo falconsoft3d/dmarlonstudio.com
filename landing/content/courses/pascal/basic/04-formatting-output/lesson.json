@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "formatear-la-salida",
+    "title": "Formatear la salida",
+    "summary": "Dé forma a los números en Pascal: WriteLn con :ancho:decimales y la función Format de SysUtils para alinear las columnas del tique de una cafetería.",
+    "body": [
+      "Sin indicaciones, `WriteLn` escribe un real en notación científica: `3.4560000000000000E+000`. Con **`:0:2`** detrás del valor sale con dos decimales y redondeado, `3.46`. El primer número es el **ancho** mínimo y el segundo, los **decimales**.",
+      "Si el ancho es mayor que el valor, se rellena con espacios por la izquierda: `price:8:2` ocupa 8 caracteres, y `42:6` y `'tea':6` ocupan 6, alineados a la derecha. Es la forma más rápida de hacer columnas.",
+      "Para tener más control está **`Format`**, de la unit **`SysUtils`** (por eso el programa empieza con `uses SysUtils;`). Recibe un patrón y, entre corchetes, los valores que lo rellenan: `%s` es una cadena, `%d` un entero y `%.2f` un real con dos decimales.",
+      "Entre el `%` y la letra va el ancho: `%4d` ocupa 4 caracteres a la derecha y `%-10s` ocupa 10 a la **izquierda**, por el signo menos. Así quedan alineadas las columnas del tique. Para escribir un `%` de verdad se pone `%%`."
+    ],
+    "points": [
+      "`valor:ancho:decimales` da formato en `WriteLn`.",
+      "`:0:2` escribe dos decimales sin espacios de más.",
+      "`Format('patrón', [valores])` está en `SysUtils`.",
+      "`%d`, `%s` y `%.2f`; con `-` se alinea a la izquierda."
+    ],
+    "exercise": "Añada al tique una columna `Unit` con el precio de cada unidad (`1.20`, `1.55` y `2.10`) y una línea más con dos tostadas a 1,80; corrija el total."
+  },
+  "en": {
+    "slug": "formatting-output",
+    "title": "Formatting output",
+    "summary": "Shape numbers in Pascal: WriteLn with :width:decimals and the Format function from SysUtils to line up the columns of a café receipt.",
+    "body": [
+      "With no instructions, `WriteLn` prints a real number in scientific notation: `3.4560000000000000E+000`. Adding **`:0:2`** after the value prints it with two decimals, rounded: `3.46`. The first number is the minimum **width** and the second the number of **decimals**.",
+      "When the width is larger than the value, it is padded with spaces on the left: `price:8:2` takes up 8 characters, and `42:6` and `'tea':6` take up 6, aligned to the right. It is the quickest way to make columns.",
+      "For more control there is **`Format`**, from the **`SysUtils`** unit (which is why the program starts with `uses SysUtils;`). It takes a pattern and, in square brackets, the values that fill it: `%s` is a string, `%d` an integer and `%.2f` a real number with two decimals.",
+      "The width goes between the `%` and the letter: `%4d` takes up 4 characters aligned right and `%-10s` takes up 10 aligned **left**, thanks to the minus sign. That is how the receipt columns line up. To print an actual `%`, write `%%`."
+    ],
+    "points": [
+      "`value:width:decimals` formats numbers in `WriteLn`.",
+      "`:0:2` prints two decimals with no extra spaces.",
+      "`Format('pattern', [values])` lives in `SysUtils`.",
+      "`%d`, `%s` and `%.2f`; a `-` aligns to the left."
+    ],
+    "exercise": "Add a `Unit` column to the receipt with the price of each item (`1.20`, `1.55` and `2.10`) and one more line with two pieces of toast at 1.80; fix the total."
+  }
+}

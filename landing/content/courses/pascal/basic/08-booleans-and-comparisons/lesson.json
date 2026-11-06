@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "booleanos-y-comparaciones",
+    "title": "Booleanos y comparaciones",
+    "summary": "Compare valores en Pascal con =, <>, < y > y combine condiciones con and, or, not y xor para decidir quién sube a la montaña rusa.",
+    "body": [
+      "Una comparación da un **`Boolean`**: `True` o `False`, que `WriteLn` escribe como `TRUE` y `FALSE`. Los operadores son `=`, `<>` (distinto), `<`, `>`, `<=` y `>=`. Recuerde: `=` compara y `:=` asigna.",
+      "Las condiciones se combinan con **`and`** (tienen que cumplirse las dos), **`or`** (basta con una) y **`not`** (le da la vuelta). El resultado se puede guardar en una variable, como `canRide` o `discount`, y usarse después.",
+      "Lo más importante: en Pascal, `and` y `or` tienen **más prioridad** que las comparaciones, así que cada comparación va entre paréntesis: `(height >= 140) and hasTicket`. Sin ellos, `age < 14 or age >= 65` se leería como `age < (14 or age) >= 65` y no compilaría.",
+      "**`xor`** es verdadero cuando solo uno de los dos lados lo es. Además, Free Pascal evalúa `and` y `or` en **cortocircuito**: si con el primer lado ya sabe el resultado, no mira el segundo.",
+      "`(age >= 10) and (age <= 12)` comprueba que la edad está dentro de un intervalo; es el uso más típico dentro de un `if`."
+    ],
+    "points": [
+      "Las comparaciones dan `True` o `False`.",
+      "`<>` significa «distinto de».",
+      "`and`, `or`, `not` y `xor` combinan booleanos.",
+      "Cada comparación va entre paréntesis al usar `and` u `or`."
+    ],
+    "exercise": "Añada una variable `withAdult: Boolean` y cambie `canRide` para que los menores de 8 años solo puedan subir acompañados: `(height >= 140) and hasTicket and ((age >= 8) or withAdult)`."
+  },
+  "en": {
+    "slug": "booleans-and-comparisons",
+    "title": "Booleans and comparisons",
+    "summary": "Compare values in Pascal with =, <>, < and >, and combine conditions with and, or, not and xor to decide who rides the roller coaster.",
+    "body": [
+      "A comparison gives a **`Boolean`**: `True` or `False`, which `WriteLn` prints as `TRUE` and `FALSE`. The operators are `=`, `<>` (not equal), `<`, `>`, `<=` and `>=`. Remember: `=` compares and `:=` assigns.",
+      "Conditions are combined with **`and`** (both must hold), **`or`** (one is enough) and **`not`** (turns it around). The result can be stored in a variable, such as `canRide` or `discount`, and used later.",
+      "The key point: in Pascal, `and` and `or` have **higher precedence** than comparisons, so each comparison needs its own brackets: `(height >= 140) and hasTicket`. Without them, `age < 14 or age >= 65` would be read as `age < (14 or age) >= 65` and would not compile.",
+      "**`xor`** is true when exactly one side is true. Free Pascal also uses **short-circuit** evaluation for `and` and `or`: if the first side already decides the result, the second is not checked.",
+      "`(age >= 10) and (age <= 12)` checks that the age falls within a range, the most common use inside an `if`."
+    ],
+    "points": [
+      "Comparisons give `True` or `False`.",
+      "`<>` means «not equal to».",
+      "`and`, `or`, `not` and `xor` combine Booleans.",
+      "Put each comparison in brackets when using `and` or `or`."
+    ],
+    "exercise": "Add a `withAdult: Boolean` variable and change `canRide` so children under 8 can only ride with an adult: `(height >= 140) and hasTicket and ((age >= 8) or withAdult)`."
+  }
+}

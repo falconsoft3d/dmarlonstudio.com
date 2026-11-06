@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "while-y-repeat-until",
+    "title": "while y repeat…until",
+    "summary": "Repita código en Pascal mientras se cumpla una condición: while la comprueba antes de cada vuelta y repeat…until, al final.",
+    "body": [
+      "**`while` condición `do`** repite su orden mientras la condición sea verdadera, y la comprueba **antes** de cada vuelta. La hucha suma 15 euros por semana mientras haya menos de 100: tras 7 semanas hay 105 y el bucle se detiene.",
+      "Como en el `if`, si el bucle tiene que hacer varias cosas, van entre `begin` y `end`. Dentro tiene que cambiar algo que afecte a la condición (aquí, `savings`); si no, el bucle no terminaría nunca.",
+      "**`repeat ... until` condición** comprueba al **final**, así que se ejecuta al menos una vez, y para cuando la condición es **verdadera** (al revés que `while`). La pelota rebota a la mitad de altura cada vez, hasta bajar de 1 metro. Entre `repeat` y `until` caben varias órdenes sin necesidad de `begin` ni `end`.",
+      "**`Inc(bounces)`** suma 1 a la variable, igual que `bounces := bounces + 1`; **`Dec`** resta. El último `while` no se ejecuta ni una vez, porque `savings < 50` ya es falso desde el principio."
+    ],
+    "points": [
+      "`while` comprueba la condición antes de cada vuelta.",
+      "`repeat ... until` se ejecuta al menos una vez.",
+      "`until` para cuando su condición es verdadera.",
+      "`Inc(x)` y `Dec(x)` suman y restan 1."
+    ],
+    "exercise": "Calcule cuántos años tardan 1000 euros en duplicarse en una cuenta al 5 % anual: con un `while`, multiplique el saldo por `1.05` cada año hasta llegar a 2000."
+  },
+  "en": {
+    "slug": "while-and-repeat-until",
+    "title": "while and repeat…until",
+    "summary": "Repeat code in Pascal while a condition holds: while checks it before each pass and repeat…until checks it at the end.",
+    "body": [
+      "**`while` condition `do`** repeats its statement as long as the condition is true, checking it **before** every pass. The piggy bank adds 15 euros a week while it holds less than 100: after 7 weeks it has 105 and the loop stops.",
+      "As with `if`, when the loop has to do several things they go between `begin` and `end`. Something inside must change the condition (here, `savings`); otherwise the loop would never end.",
+      "**`repeat ... until` condition** checks at the **end**, so it always runs at least once, and it stops when the condition is **true** (the opposite of `while`). The ball bounces back to half its height each time until it drops below 1 metre. Several statements fit between `repeat` and `until` without `begin` or `end`.",
+      "**`Inc(bounces)`** adds 1 to the variable, just like `bounces := bounces + 1`; **`Dec`** subtracts. The last `while` never runs at all, because `savings < 50` is already false at the start."
+    ],
+    "points": [
+      "`while` checks the condition before each pass.",
+      "`repeat ... until` always runs at least once.",
+      "`until` stops when its condition is true.",
+      "`Inc(x)` and `Dec(x)` add and subtract 1."
+    ],
+    "exercise": "Work out how many years it takes 1000 euros to double in an account paying 5 % a year: with a `while`, multiply the balance by `1.05` each year until it reaches 2000."
+  }
+}

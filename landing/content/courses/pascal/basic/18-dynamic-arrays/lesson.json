@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays-dinamicos",
+    "title": "Arrays dinámicos",
+    "summary": "Use en Pascal arrays dinámicos que crecen y menguan con SetLength: un carrito de la compra con funciones para añadir productos y sumarlos.",
+    "body": [
+      "Un **array dinámico** se declara sin tamaño, `array of Double`, y su tamaño se cambia mientras el programa se ejecuta con **`SetLength`**. Empieza vacío: `nil` es un array dinámico sin elementos.",
+      "`Add` hace crecer el carrito: `SetLength(list, Length(list) + 1)` añade un hueco al final y `list[High(list)] := value` lo rellena. El parámetro es `var` porque el procedimiento cambia el array de quien lo llama.",
+      "A diferencia de los estáticos, los arrays dinámicos **siempre empiezan en el índice 0**: con tres productos, los índices van de `0` a `High(cart)`, que vale `2`, mientras que `Length` da `3`.",
+      "`Sum` recibe el array con `const`, sin copiarlo, y lo recorre con `for x in list`. Para pasar un array dinámico como parámetro conviene definir antes su tipo, aquí `TPrices`.",
+      "`SetLength(cart, 2)` también **encoge** el array: el último producto desaparece. No hace falta liberar la memoria: Free Pascal lo hace solo cuando el array deja de usarse."
+    ],
+    "points": [
+      "`array of T` es un array sin tamaño fijo.",
+      "`SetLength(a, n)` lo hace crecer o encoger.",
+      "Los índices van de `0` a `High(a)`.",
+      "La memoria se libera sola."
+    ],
+    "exercise": "Escriba una función `MostExpensive(const list: TPrices): Integer` que devuelva el índice del producto más caro, y escriba su posición y su precio."
+  },
+  "en": {
+    "slug": "dynamic-arrays",
+    "title": "Dynamic arrays",
+    "summary": "Use Pascal dynamic arrays that grow and shrink with SetLength: a shopping cart with routines to add items and total them up.",
+    "body": [
+      "A **dynamic array** is declared without a size, `array of Double`, and resized while the program runs with **`SetLength`**. It starts empty: `nil` is a dynamic array with no elements.",
+      "`Add` grows the cart: `SetLength(list, Length(list) + 1)` adds a slot at the end and `list[High(list)] := value` fills it. The parameter is `var` because the procedure changes the caller's array.",
+      "Unlike static arrays, dynamic arrays **always start at index 0**: with three items, the indexes run from `0` to `High(cart)`, which is `2`, while `Length` gives `3`.",
+      "`Sum` takes the array as `const`, without copying it, and walks through it with `for x in list`. To pass a dynamic array as a parameter, it is best to define its type first, here `TPrices`.",
+      "`SetLength(cart, 2)` also **shrinks** the array: the last item disappears. There is no need to free the memory: Free Pascal does it on its own once the array is no longer used."
+    ],
+    "points": [
+      "`array of T` is an array with no fixed size.",
+      "`SetLength(a, n)` grows or shrinks it.",
+      "Indexes run from `0` to `High(a)`.",
+      "The memory is freed automatically."
+    ],
+    "exercise": "Write a `MostExpensive(const list: TPrices): Integer` function that returns the index of the most expensive item, and print its position and price."
+  }
+}

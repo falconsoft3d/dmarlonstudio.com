@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "aritmetica-div-y-mod",
+    "title": "Aritmética: div, mod y /",
+    "summary": "Haga cuentas en Pascal: div para la división entera, mod para el resto, / para dividir con decimales, y Trunc y Round para pasar a entero.",
+    "body": [
+      "**`div`** divide dos enteros y se queda con la parte entera; **`mod`** da el resto. Juntos convierten `135` minutos en `2 h 15 min` y reparten 17 porciones de pizza entre 5 amigos: 3 para cada uno y sobran 2.",
+      "**`/`** siempre da un número real, aunque divida dos enteros: `17 / 5` es `3.4`. Por eso el resultado se guarda en `share`, que es `Double`; en una variable `Integer` no cabría y el compilador daría un error.",
+      "Como en matemáticas, `*`, `/`, `div` y `mod` van antes que `+` y `-`: `2 + 3 * 4` da `14`. Los paréntesis cambian el orden: `(2 + 3) * 4` da `20`.",
+      "Para pasar de real a entero hay dos funciones: **`Trunc`** corta los decimales (`3.7` da `3`) y **`Round`** redondea (`4`). Cuidado: cuando el número acaba exactamente en ,5, `Round` va al **par** más cercano, así que `Round(2.5)` es `2` y `Round(3.5)` es `4`.",
+      "`42 mod 2 = 0` es la forma habitual de saber si un número es par: el resto de dividirlo entre 2 es cero."
+    ],
+    "points": [
+      "`div` es la división entera y `mod`, el resto.",
+      "`/` siempre devuelve un real.",
+      "`*` y `/` van antes que `+` y `-`; los paréntesis mandan.",
+      "`Trunc` corta y `Round` redondea (los ,5 van al par)."
+    ],
+    "exercise": "Convierta 7384 segundos en horas, minutos y segundos con `div` y `mod`, y escriba el resultado como `2 h 3 min 4 s`."
+  },
+  "en": {
+    "slug": "arithmetic-div-and-mod",
+    "title": "Arithmetic: div, mod and /",
+    "summary": "Do maths in Pascal: div for whole-number division, mod for the remainder, / for decimal division, and Trunc and Round to get back to integers.",
+    "body": [
+      "**`div`** divides two integers and keeps the whole part; **`mod`** gives the remainder. Together they turn `135` minutes into `2 h 15 min` and share 17 slices of pizza among 5 friends: 3 each, with 2 left over.",
+      "**`/`** always gives a real number, even when both sides are integers: `17 / 5` is `3.4`. That is why the result goes into `share`, a `Double`; an `Integer` variable could not hold it and the compiler would report an error.",
+      "As in maths, `*`, `/`, `div` and `mod` come before `+` and `-`: `2 + 3 * 4` gives `14`. Brackets change the order: `(2 + 3) * 4` gives `20`.",
+      "To go from a real number to an integer there are two functions: **`Trunc`** cuts off the decimals (`3.7` gives `3`) and **`Round`** rounds (`4`). Watch out: when a number ends in exactly .5, `Round` goes to the nearest **even** number, so `Round(2.5)` is `2` and `Round(3.5)` is `4`.",
+      "`42 mod 2 = 0` is the usual way to check whether a number is even: the remainder when you divide it by 2 is zero."
+    ],
+    "points": [
+      "`div` is whole-number division and `mod` the remainder.",
+      "`/` always returns a real number.",
+      "`*` and `/` come before `+` and `-`; brackets win.",
+      "`Trunc` cuts and `Round` rounds (halves go to the even number)."
+    ],
+    "exercise": "Turn 7384 seconds into hours, minutes and seconds with `div` and `mod`, and print the result as `2 h 3 min 4 s`."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "parametros-var-y-const",
+    "title": "Parámetros var y const",
+    "summary": "Pase parámetros en Pascal por valor, por referencia con var y de solo lectura con const, y devuelva varios resultados desde un procedimiento.",
+    "body": [
+      "Un parámetro normal se pasa **por valor**: el procedimiento recibe una **copia**. `AddBonus` pone `bonus := 0`, pero el `bonus` del programa principal sigue valiendo `30` después de la llamada.",
+      "Con **`var`** delante, el parámetro es la propia variable de quien llama (se pasa **por referencia**): lo que haga el procedimiento se nota fuera. Por eso `score` pasa de `120` a `150`. A un parámetro `var` hay que darle una variable; `AddBonus(120, 30)` no compilaría.",
+      "`var` también sirve para devolver **varios resultados**: `SplitTime` recibe 197 segundos y rellena `mins` y `secs` a la vez, algo que una función, con un solo `Result`, no puede hacer directamente.",
+      "**`const`** marca un parámetro de solo lectura: si `Show` intentara cambiar `player`, el compilador daría un error. Con cadenas y records, además, es más eficiente, porque no se hace ninguna copia. Es buena costumbre usarlo con todo lo que no se vaya a modificar."
+    ],
+    "points": [
+      "Sin nada delante, el parámetro es una copia.",
+      "`var` trabaja sobre la variable de quien llama.",
+      "Con `var` un procedimiento puede devolver varios valores.",
+      "`const` impide cambiar el parámetro y evita copias."
+    ],
+    "exercise": "Escriba un procedimiento `Swap(var a, b: Integer)` que intercambie dos variables y úselo para ordenar de menor a mayor dos puntuaciones, `ana` y `leo`."
+  },
+  "en": {
+    "slug": "var-and-const-parameters",
+    "title": "var and const parameters",
+    "summary": "Pass Pascal parameters by value, by reference with var, and read-only with const, and return several results from one procedure.",
+    "body": [
+      "A plain parameter is passed **by value**: the procedure gets a **copy**. `AddBonus` sets `bonus := 0`, yet the main program's `bonus` is still `30` after the call.",
+      "With **`var`** in front, the parameter is the caller's own variable (passed **by reference**): whatever the procedure does shows up outside. That is why `score` goes from `120` to `150`. A `var` parameter needs a variable; `AddBonus(120, 30)` would not compile.",
+      "`var` is also the way to return **several results**: `SplitTime` takes 197 seconds and fills in both `mins` and `secs`, something a function, with its single `Result`, cannot do directly.",
+      "**`const`** marks a read-only parameter: if `Show` tried to change `player`, the compiler would report an error. With strings and records it is also more efficient, as no copy is made. It is good practice to use it for anything you will not modify."
+    ],
+    "points": [
+      "With nothing in front, a parameter is a copy.",
+      "`var` works on the caller's variable.",
+      "With `var`, a procedure can hand back several values.",
+      "`const` stops the parameter being changed and avoids copies."
+    ],
+    "exercise": "Write a `Swap(var a, b: Integer)` procedure that swaps two variables, and use it to sort two scores, `ana` and `leo`, from lowest to highest."
+  }
+}

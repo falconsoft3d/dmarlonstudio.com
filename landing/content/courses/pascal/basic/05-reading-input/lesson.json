@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "leer-del-teclado",
+    "title": "Leer del teclado",
+    "summary": "Pida datos al usuario con ReadLn en Pascal: textos y números, uno por línea o varios en la misma, para calcular el precio de unas entradas de cine.",
+    "body": [
+      "**`ReadLn`** espera a que el usuario escriba una línea y pulse Intro, y guarda lo escrito en la variable que le pase: `ReadLn(name)`. Antes se usa `Write`, sin salto de línea, para que la pregunta y la respuesta queden en la misma línea.",
+      "En este ejemplo las respuestas salen del archivo `input.txt`, como si alguien las tecleara; por eso no aparecen en la salida y cada pregunta va seguida directamente de la contestación del programa. En la consola de DMarlon Studio (destino Consola, F9) puede escribirlas usted mismo.",
+      "A diferencia de otros lenguajes, `ReadLn` **convierte** el texto al tipo de la variable: con `age: Integer` lee un entero y con `price: Double`, un número con decimales. Si se teclea algo que no es un número, el programa se detiene con un error de ejecución (el 106).",
+      "**`ReadLn(first, second)`** lee varios números de una misma línea, separados por espacios, como `7 9`. Con ellos se calcula la nota media, `(first + second) / 2`, que se escribe con un decimal."
+    ],
+    "points": [
+      "`ReadLn(variable)` lee una línea del teclado.",
+      "`ReadLn` convierte el texto al tipo de la variable.",
+      "`Write` antes de `ReadLn` deja la pregunta en la misma línea.",
+      "`ReadLn(a, b)` lee varios números separados por espacios."
+    ],
+    "exercise": "Pregunte también el título de la película y termine con una frase como «3 tickets for Dune cost 25.50 euros.». Añada la respuesta a `input.txt` en el lugar que le corresponda."
+  },
+  "en": {
+    "slug": "reading-input",
+    "title": "Reading from the keyboard",
+    "summary": "Ask the user for data with ReadLn in Pascal: text and numbers, one per line or several on the same line, to work out the price of cinema tickets.",
+    "body": [
+      "**`ReadLn`** waits for the user to type a line and press Enter, and stores what they typed in the variable you pass it: `ReadLn(name)`. It is preceded by `Write`, with no line break, so the question and the answer share a line.",
+      "In this example the answers come from the `input.txt` file, as if someone were typing them; that is why they do not appear in the output and each question is followed straight away by the program's reply. In the DMarlon Studio console (Console target, F9) you can type them yourself.",
+      "Unlike some languages, `ReadLn` **converts** the text to the variable's type: with `age: Integer` it reads a whole number, and with `price: Double` a number with decimals. If the user types something that is not a number, the program stops with a run-time error (number 106).",
+      "**`ReadLn(first, second)`** reads several numbers from the same line, separated by spaces, such as `7 9`. They are used to work out the average mark, `(first + second) / 2`, printed with one decimal."
+    ],
+    "points": [
+      "`ReadLn(variable)` reads a line from the keyboard.",
+      "`ReadLn` converts the text to the variable's type.",
+      "`Write` before `ReadLn` keeps the question on the same line.",
+      "`ReadLn(a, b)` reads several numbers separated by spaces."
+    ],
+    "exercise": "Also ask for the film's title and finish with a sentence such as «3 tickets for Dune cost 25.50 euros.». Add the answer to `input.txt` in the right place."
+  }
+}

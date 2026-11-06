@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "variables-y-tipos",
+    "title": "Variables y tipos básicos",
+    "summary": "Declare variables en el bloque var de Pascal con sus tipos básicos (Integer, Double, Char, Boolean y String) y deles valor con :=.",
+    "body": [
+      "En Pascal cada variable se **declara** antes de usarla, en el bloque **`var`**, con su nombre y su **tipo**: `shirts: Integer;`. El compilador comprueba los tipos, así que no le dejará guardar un texto en una variable numérica.",
+      "Los tipos básicos son **`Integer`** para enteros, **`Double`** (o **`Real`**) para números con decimales, **`Char`** para un solo carácter entre comillas (`'M'`), **`Boolean`** para `True` o `False` y **`String`** para textos. Las mayúsculas dan igual: `WriteLn` y `writeln` son lo mismo.",
+      "El valor se da con **`:=`**; el `=` solo, en Pascal, sirve para comparar. `WriteLn` escribe un booleano como `TRUE` y un número real en notación científica: `1.2500000000000000E+001` es 12,5. El `:0:2` de `shirts * price:0:2` lo escribe con dos decimales; la lección 4 lo explica con calma.",
+      "Una variable puede cambiar de valor, pero no de tipo: `shirts := shirts + 2` suma las dos camisetas que llegan. **`High(Integer)`** da el mayor entero que cabe en un `Integer`: `2147483647`."
+    ],
+    "points": [
+      "Las variables se declaran en `var` con `nombre: Tipo;`.",
+      "`:=` asigna; `=` compara.",
+      "`Integer`, `Double`, `Char`, `Boolean` y `String` son los tipos básicos.",
+      "Una variable cambia de valor, nunca de tipo."
+    ],
+    "exercise": "Añada una variable `discount: Double` con el valor `0.10` y escriba el precio de una camiseta con el descuento aplicado (`price * (1 - discount)`), con dos decimales."
+  },
+  "en": {
+    "slug": "variables-and-types",
+    "title": "Variables and basic types",
+    "summary": "Declare variables in Pascal's var block with the basic types (Integer, Double, Char, Boolean and String) and give them values with :=.",
+    "body": [
+      "In Pascal every variable is **declared** before it is used, in the **`var`** block, with its name and its **type**: `shirts: Integer;`. The compiler checks types, so it will not let you store text in a number variable.",
+      "The basic types are **`Integer`** for whole numbers, **`Double`** (or **`Real`**) for numbers with decimals, **`Char`** for a single character in quotes (`'M'`), **`Boolean`** for `True` or `False`, and **`String`** for text. Case does not matter: `WriteLn` and `writeln` are the same.",
+      "Values are assigned with **`:=`**; a plain `=` is for comparing in Pascal. `WriteLn` prints a Boolean as `TRUE` and a real number in scientific notation: `1.2500000000000000E+001` is 12.5. The `:0:2` in `shirts * price:0:2` prints it with two decimals; lesson 4 covers it properly.",
+      "A variable can change its value but not its type: `shirts := shirts + 2` adds the two T-shirts that arrive. **`High(Integer)`** gives the largest number an `Integer` can hold: `2147483647`."
+    ],
+    "points": [
+      "Variables are declared in `var` as `name: Type;`.",
+      "`:=` assigns; `=` compares.",
+      "`Integer`, `Double`, `Char`, `Boolean` and `String` are the basic types.",
+      "A variable can change its value, never its type."
+    ],
+    "exercise": "Add a `discount: Double` variable set to `0.10` and print the price of one T-shirt with the discount applied (`price * (1 - discount)`), with two decimals."
+  }
+}

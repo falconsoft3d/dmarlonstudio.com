@@ -1,0 +1,974 @@
+{
+ "id": "pascal",
+ "levels": {
+  "basic": [
+   {
+    "n": 1,
+    "es": {
+     "slug": "hola-mundo",
+     "title": "Hola, mundo",
+     "summary": "Su primer programa en Pascal: WriteLn escribe textos y resultados en la consola. Compílelo con Free Pascal o ejecútelo con F9 en DMarlon Studio.",
+     "body": [
+      "Un programa en Pascal empieza con su nombre, `program main;`, y lo que hace va entre **`begin`** y **`end.`**, con un punto final que marca dónde termina. Cada orden acaba en punto y coma.",
+      "**`WriteLn`** escribe en la consola lo que le pase entre paréntesis y salta a la línea siguiente. El texto va entre comillas simples, `'Hello, world!'`: es una **cadena**. **`Write`** hace lo mismo pero sin saltar de línea; por eso `Write('Two plus three is ')` y `WriteLn(2 + 3)` acaban en la misma línea.",
+      "Los números van sin comillas y Pascal hace la cuenta antes de escribirla: `7 * 24` sale como `168`. Con comas, un solo `WriteLn` escribe varios valores seguidos, sin nada entre ellos (los espacios los pone usted dentro de las comillas). Un `WriteLn` sin paréntesis deja una línea en blanco.",
+      "Los comentarios no se ejecutan: `//` comenta hasta el final de la línea y `{ ... }` encierra un comentario que puede ocupar varias. En DMarlon Studio, Pascal mueve las aplicaciones de escritorio hechas con Lazarus y también el destino Consola, donde este programa se ejecuta con F9."
+     ],
+     "points": [
+      "El programa va entre `begin` y `end.`, con punto final.",
+      "`WriteLn` escribe y salta de línea; `Write`, no.",
+      "Los textos van entre comillas simples; los números, no.",
+      "Las comas separan varios valores en un mismo `WriteLn`.",
+      "`//` y `{ }` son comentarios."
+     ],
+     "exercise": "Haga que el programa escriba su nombre y, en otra línea, cuántos minutos tiene un día (que lo calcule Pascal con `24 * 60`)."
+    },
+    "en": {
+     "slug": "hello-world",
+     "title": "Hello, world",
+     "summary": "Your first Pascal program: WriteLn prints text and results to the console. Compile it with Free Pascal or run it with F9 in DMarlon Studio.",
+     "body": [
+      "A Pascal program starts with its name, `program main;`, and what it does goes between **`begin`** and **`end.`**, with a full stop marking where it finishes. Each statement ends with a semicolon.",
+      "**`WriteLn`** writes whatever you put inside the brackets to the console and moves to the next line. Text goes between single quotes, `'Hello, world!'`: it is a **string**. **`Write`** does the same without the line break, which is why `Write('Two plus three is ')` and `WriteLn(2 + 3)` end up on the same line.",
+      "Numbers go without quotes, and Pascal works out the sum before printing it: `7 * 24` comes out as `168`. With commas, a single `WriteLn` prints several values one after another with nothing in between (you add the spaces inside the quotes). A `WriteLn` with no brackets prints an empty line.",
+      "Comments are not run: `//` comments out the rest of the line and `{ ... }` wraps a comment that can span several lines. In DMarlon Studio, Pascal powers desktop apps built with Lazarus as well as the Console target, where this program runs with F9."
+     ],
+     "points": [
+      "The program goes between `begin` and `end.`, with a full stop.",
+      "`WriteLn` prints and moves to a new line; `Write` does not.",
+      "Text goes between single quotes; numbers do not.",
+      "Commas separate several values in one `WriteLn`.",
+      "`//` and `{ }` are comments."
+     ],
+     "exercise": "Make the program print your name and, on another line, how many minutes there are in a day (let Pascal work it out with `24 * 60`)."
+    },
+    "code": "program main;\n\n{ The program runs from begin to the final end with a full stop. }\nbegin\n  WriteLn('Hello, world!');\n  WriteLn('Welcome to Pascal.');\n\n  // Write stays on the same line; WriteLn moves to the next one.\n  Write('Two plus three is ');\n  WriteLn(2 + 3);\n\n  // Several values, separated by commas, in one WriteLn.\n  WriteLn('A week has ', 7 * 24, ' hours.');\n  WriteLn;\n  WriteLn('Goodbye!');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">{ The program runs from begin to the final end with a full stop. }</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Hello, world!'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Welcome to Pascal.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Write stays on the same line; WriteLn moves to the next one.</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'Two plus three is '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Several values, separated by commas, in one WriteLn.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'A week has '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">24</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' hours.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Goodbye!'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Hello, world!\nWelcome to Pascal.\nTwo plus three is 5\nA week has 168 hours.\n\nGoodbye!",
+    "image": "/courses/pascal/basic-01.jpg",
+    "size": [
+     1200,
+     784
+    ]
+   },
+   {
+    "n": 2,
+    "es": {
+     "slug": "variables-y-tipos",
+     "title": "Variables y tipos básicos",
+     "summary": "Declare variables en el bloque var de Pascal con sus tipos básicos (Integer, Double, Char, Boolean y String) y deles valor con :=.",
+     "body": [
+      "En Pascal cada variable se **declara** antes de usarla, en el bloque **`var`**, con su nombre y su **tipo**: `shirts: Integer;`. El compilador comprueba los tipos, así que no le dejará guardar un texto en una variable numérica.",
+      "Los tipos básicos son **`Integer`** para enteros, **`Double`** (o **`Real`**) para números con decimales, **`Char`** para un solo carácter entre comillas (`'M'`), **`Boolean`** para `True` o `False` y **`String`** para textos. Las mayúsculas dan igual: `WriteLn` y `writeln` son lo mismo.",
+      "El valor se da con **`:=`**; el `=` solo, en Pascal, sirve para comparar. `WriteLn` escribe un booleano como `TRUE` y un número real en notación científica: `1.2500000000000000E+001` es 12,5. El `:0:2` de `shirts * price:0:2` lo escribe con dos decimales; la lección 4 lo explica con calma.",
+      "Una variable puede cambiar de valor, pero no de tipo: `shirts := shirts + 2` suma las dos camisetas que llegan. **`High(Integer)`** da el mayor entero que cabe en un `Integer`: `2147483647`."
+     ],
+     "points": [
+      "Las variables se declaran en `var` con `nombre: Tipo;`.",
+      "`:=` asigna; `=` compara.",
+      "`Integer`, `Double`, `Char`, `Boolean` y `String` son los tipos básicos.",
+      "Una variable cambia de valor, nunca de tipo."
+     ],
+     "exercise": "Añada una variable `discount: Double` con el valor `0.10` y escriba el precio de una camiseta con el descuento aplicado (`price * (1 - discount)`), con dos decimales."
+    },
+    "en": {
+     "slug": "variables-and-types",
+     "title": "Variables and basic types",
+     "summary": "Declare variables in Pascal's var block with the basic types (Integer, Double, Char, Boolean and String) and give them values with :=.",
+     "body": [
+      "In Pascal every variable is **declared** before it is used, in the **`var`** block, with its name and its **type**: `shirts: Integer;`. The compiler checks types, so it will not let you store text in a number variable.",
+      "The basic types are **`Integer`** for whole numbers, **`Double`** (or **`Real`**) for numbers with decimals, **`Char`** for a single character in quotes (`'M'`), **`Boolean`** for `True` or `False`, and **`String`** for text. Case does not matter: `WriteLn` and `writeln` are the same.",
+      "Values are assigned with **`:=`**; a plain `=` is for comparing in Pascal. `WriteLn` prints a Boolean as `TRUE` and a real number in scientific notation: `1.2500000000000000E+001` is 12.5. The `:0:2` in `shirts * price:0:2` prints it with two decimals; lesson 4 covers it properly.",
+      "A variable can change its value but not its type: `shirts := shirts + 2` adds the two T-shirts that arrive. **`High(Integer)`** gives the largest number an `Integer` can hold: `2147483647`."
+     ],
+     "points": [
+      "Variables are declared in `var` as `name: Type;`.",
+      "`:=` assigns; `=` compares.",
+      "`Integer`, `Double`, `Char`, `Boolean` and `String` are the basic types.",
+      "A variable can change its value, never its type."
+     ],
+     "exercise": "Add a `discount: Double` variable set to `0.10` and print the price of one T-shirt with the discount applied (`price * (1 - discount)`), with two decimals."
+    },
+    "code": "program main;\n\n// Every variable is declared in the var block, with its type.\nvar\n  shop: String;\n  shirts: Integer;\n  price: Double;\n  size: Char;\n  inStock: Boolean;\n\nbegin\n  // := gives a variable its value.\n  shop := 'Corner Shop';\n  shirts := 3;\n  price := 12.5;\n  size := 'M';\n  inStock := True;\n\n  WriteLn('Shop: ', shop);\n  WriteLn('T-shirts: ', shirts, ' in size ', size);\n  WriteLn('In stock? ', inStock);\n  WriteLn('Price: ', price);\n\n  // A variable can change, but always keeps its type.\n  shirts := shirts + 2;\n  WriteLn('T-shirts after the delivery: ', shirts);\n  WriteLn('Value of the stock: ', shirts * price:0:2);\n  WriteLn('Largest Integer: ', High(Integer));\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// Every variable is declared in the var block, with its type.</span></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  shop: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  shirts: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  size: </span><span style=\"color:#569CD6\">Char</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  inStock: </span><span style=\"color:#569CD6\">Boolean</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // := gives a variable its value.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  shop := </span><span style=\"color:#CE9178\">'Corner Shop'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  shirts := </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  price := </span><span style=\"color:#B5CEA8\">12.5</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  size := </span><span style=\"color:#CE9178\">'M'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  inStock := </span><span style=\"color:#569CD6\">True</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Shop: '</span><span style=\"color:#D4D4D4\">, shop);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'T-shirts: '</span><span style=\"color:#D4D4D4\">, shirts, </span><span style=\"color:#CE9178\">' in size '</span><span style=\"color:#D4D4D4\">, size);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'In stock? '</span><span style=\"color:#D4D4D4\">, inStock);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Price: '</span><span style=\"color:#D4D4D4\">, price);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // A variable can change, but always keeps its type.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  shirts := shirts + </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'T-shirts after the delivery: '</span><span style=\"color:#D4D4D4\">, shirts);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Value of the stock: '</span><span style=\"color:#D4D4D4\">, shirts * price:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Largest Integer: '</span><span style=\"color:#D4D4D4\">, High(</span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Shop: Corner Shop\nT-shirts: 3 in size M\nIn stock? TRUE\nPrice:  1.2500000000000000E+001\nT-shirts after the delivery: 5\nValue of the stock: 62.50\nLargest Integer: 2147483647",
+    "image": "/courses/pascal/basic-02.jpg",
+    "size": [
+     1200,
+     1094
+    ]
+   },
+   {
+    "n": 3,
+    "es": {
+     "slug": "aritmetica-div-y-mod",
+     "title": "Aritmética: div, mod y /",
+     "summary": "Haga cuentas en Pascal: div para la división entera, mod para el resto, / para dividir con decimales, y Trunc y Round para pasar a entero.",
+     "body": [
+      "**`div`** divide dos enteros y se queda con la parte entera; **`mod`** da el resto. Juntos convierten `135` minutos en `2 h 15 min` y reparten 17 porciones de pizza entre 5 amigos: 3 para cada uno y sobran 2.",
+      "**`/`** siempre da un número real, aunque divida dos enteros: `17 / 5` es `3.4`. Por eso el resultado se guarda en `share`, que es `Double`; en una variable `Integer` no cabría y el compilador daría un error.",
+      "Como en matemáticas, `*`, `/`, `div` y `mod` van antes que `+` y `-`: `2 + 3 * 4` da `14`. Los paréntesis cambian el orden: `(2 + 3) * 4` da `20`.",
+      "Para pasar de real a entero hay dos funciones: **`Trunc`** corta los decimales (`3.7` da `3`) y **`Round`** redondea (`4`). Cuidado: cuando el número acaba exactamente en ,5, `Round` va al **par** más cercano, así que `Round(2.5)` es `2` y `Round(3.5)` es `4`.",
+      "`42 mod 2 = 0` es la forma habitual de saber si un número es par: el resto de dividirlo entre 2 es cero."
+     ],
+     "points": [
+      "`div` es la división entera y `mod`, el resto.",
+      "`/` siempre devuelve un real.",
+      "`*` y `/` van antes que `+` y `-`; los paréntesis mandan.",
+      "`Trunc` corta y `Round` redondea (los ,5 van al par)."
+     ],
+     "exercise": "Convierta 7384 segundos en horas, minutos y segundos con `div` y `mod`, y escriba el resultado como `2 h 3 min 4 s`."
+    },
+    "en": {
+     "slug": "arithmetic-div-and-mod",
+     "title": "Arithmetic: div, mod and /",
+     "summary": "Do maths in Pascal: div for whole-number division, mod for the remainder, / for decimal division, and Trunc and Round to get back to integers.",
+     "body": [
+      "**`div`** divides two integers and keeps the whole part; **`mod`** gives the remainder. Together they turn `135` minutes into `2 h 15 min` and share 17 slices of pizza among 5 friends: 3 each, with 2 left over.",
+      "**`/`** always gives a real number, even when both sides are integers: `17 / 5` is `3.4`. That is why the result goes into `share`, a `Double`; an `Integer` variable could not hold it and the compiler would report an error.",
+      "As in maths, `*`, `/`, `div` and `mod` come before `+` and `-`: `2 + 3 * 4` gives `14`. Brackets change the order: `(2 + 3) * 4` gives `20`.",
+      "To go from a real number to an integer there are two functions: **`Trunc`** cuts off the decimals (`3.7` gives `3`) and **`Round`** rounds (`4`). Watch out: when a number ends in exactly .5, `Round` goes to the nearest **even** number, so `Round(2.5)` is `2` and `Round(3.5)` is `4`.",
+      "`42 mod 2 = 0` is the usual way to check whether a number is even: the remainder when you divide it by 2 is zero."
+     ],
+     "points": [
+      "`div` is whole-number division and `mod` the remainder.",
+      "`/` always returns a real number.",
+      "`*` and `/` come before `+` and `-`; brackets win.",
+      "`Trunc` cuts and `Round` rounds (halves go to the even number)."
+     ],
+     "exercise": "Turn 7384 seconds into hours, minutes and seconds with `div` and `mod`, and print the result as `2 h 3 min 4 s`."
+    },
+    "code": "program main;\n\nvar\n  minutes, slices, friends: Integer;\n  share: Double;\n\nbegin\n  // div divides whole numbers; mod gives the remainder.\n  minutes := 135;\n  WriteLn(minutes, ' min = ', minutes div 60, ' h ', minutes mod 60, ' min');\n\n  slices := 17;\n  friends := 5;\n  WriteLn('Each friend gets ', slices div friends, ' slices');\n  WriteLn('Slices left over: ', slices mod friends);\n\n  // / always gives a real number, even with two integers.\n  share := slices / friends;\n  WriteLn('Exact share: ', share:0:2);\n\n  // * and / go before + and -; brackets change the order.\n  WriteLn('2 + 3 * 4 = ', 2 + 3 * 4);\n  WriteLn('(2 + 3) * 4 = ', (2 + 3) * 4);\n\n  // From real to integer: Trunc cuts, Round rounds.\n  WriteLn('Trunc(3.7) = ', Trunc(3.7), ' | Round(3.7) = ', Round(3.7));\n  // Round sends .5 to the even number.\n  WriteLn('Round(2.5) = ', Round(2.5), ' | Round(3.5) = ', Round(3.5));\n  WriteLn('Even? ', 42 mod 2 = 0);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  minutes, slices, friends: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  share: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // div divides whole numbers; mod gives the remainder.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  minutes := </span><span style=\"color:#B5CEA8\">135</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(minutes, </span><span style=\"color:#CE9178\">' min = '</span><span style=\"color:#D4D4D4\">, minutes </span><span style=\"color:#569CD6\">div</span><span style=\"color:#B5CEA8\"> 60</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' h '</span><span style=\"color:#D4D4D4\">, minutes </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 60</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' min'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">  slices := </span><span style=\"color:#B5CEA8\">17</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  friends := </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Each friend gets '</span><span style=\"color:#D4D4D4\">, slices </span><span style=\"color:#569CD6\">div</span><span style=\"color:#D4D4D4\"> friends, </span><span style=\"color:#CE9178\">' slices'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Slices left over: '</span><span style=\"color:#D4D4D4\">, slices </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#D4D4D4\"> friends);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // / always gives a real number, even with two integers.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  share := slices / friends;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Exact share: '</span><span style=\"color:#D4D4D4\">, share:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // * and / go before + and -; brackets change the order.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'2 + 3 * 4 = '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\"> * </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'(2 + 3) * 4 = '</span><span style=\"color:#D4D4D4\">, (</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">) * </span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // From real to integer: Trunc cuts, Round rounds.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Trunc(3.7) = '</span><span style=\"color:#D4D4D4\">, Trunc(</span><span style=\"color:#B5CEA8\">3.7</span><span style=\"color:#D4D4D4\">), </span><span style=\"color:#CE9178\">' | Round(3.7) = '</span><span style=\"color:#D4D4D4\">, Round(</span><span style=\"color:#B5CEA8\">3.7</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // Round sends .5 to the even number.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Round(2.5) = '</span><span style=\"color:#D4D4D4\">, Round(</span><span style=\"color:#B5CEA8\">2.5</span><span style=\"color:#D4D4D4\">), </span><span style=\"color:#CE9178\">' | Round(3.5) = '</span><span style=\"color:#D4D4D4\">, Round(</span><span style=\"color:#B5CEA8\">3.5</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Even? '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">42</span><span style=\"color:#569CD6\"> mod</span><span style=\"color:#B5CEA8\"> 2</span><span style=\"color:#D4D4D4\"> = </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "135 min = 2 h 15 min\nEach friend gets 3 slices\nSlices left over: 2\nExact share: 3.40\n2 + 3 * 4 = 14\n(2 + 3) * 4 = 20\nTrunc(3.7) = 3 | Round(3.7) = 4\nRound(2.5) = 2 | Round(3.5) = 4\nEven? TRUE",
+    "image": "/courses/pascal/basic-03.jpg",
+    "size": [
+     1200,
+     1158
+    ]
+   },
+   {
+    "n": 4,
+    "es": {
+     "slug": "formatear-la-salida",
+     "title": "Formatear la salida",
+     "summary": "Dé forma a los números en Pascal: WriteLn con :ancho:decimales y la función Format de SysUtils para alinear las columnas del tique de una cafetería.",
+     "body": [
+      "Sin indicaciones, `WriteLn` escribe un real en notación científica: `3.4560000000000000E+000`. Con **`:0:2`** detrás del valor sale con dos decimales y redondeado, `3.46`. El primer número es el **ancho** mínimo y el segundo, los **decimales**.",
+      "Si el ancho es mayor que el valor, se rellena con espacios por la izquierda: `price:8:2` ocupa 8 caracteres, y `42:6` y `'tea':6` ocupan 6, alineados a la derecha. Es la forma más rápida de hacer columnas.",
+      "Para tener más control está **`Format`**, de la unit **`SysUtils`** (por eso el programa empieza con `uses SysUtils;`). Recibe un patrón y, entre corchetes, los valores que lo rellenan: `%s` es una cadena, `%d` un entero y `%.2f` un real con dos decimales.",
+      "Entre el `%` y la letra va el ancho: `%4d` ocupa 4 caracteres a la derecha y `%-10s` ocupa 10 a la **izquierda**, por el signo menos. Así quedan alineadas las columnas del tique. Para escribir un `%` de verdad se pone `%%`."
+     ],
+     "points": [
+      "`valor:ancho:decimales` da formato en `WriteLn`.",
+      "`:0:2` escribe dos decimales sin espacios de más.",
+      "`Format('patrón', [valores])` está en `SysUtils`.",
+      "`%d`, `%s` y `%.2f`; con `-` se alinea a la izquierda."
+     ],
+     "exercise": "Añada al tique una columna `Unit` con el precio de cada unidad (`1.20`, `1.55` y `2.10`) y una línea más con dos tostadas a 1,80; corrija el total."
+    },
+    "en": {
+     "slug": "formatting-output",
+     "title": "Formatting output",
+     "summary": "Shape numbers in Pascal: WriteLn with :width:decimals and the Format function from SysUtils to line up the columns of a café receipt.",
+     "body": [
+      "With no instructions, `WriteLn` prints a real number in scientific notation: `3.4560000000000000E+000`. Adding **`:0:2`** after the value prints it with two decimals, rounded: `3.46`. The first number is the minimum **width** and the second the number of **decimals**.",
+      "When the width is larger than the value, it is padded with spaces on the left: `price:8:2` takes up 8 characters, and `42:6` and `'tea':6` take up 6, aligned to the right. It is the quickest way to make columns.",
+      "For more control there is **`Format`**, from the **`SysUtils`** unit (which is why the program starts with `uses SysUtils;`). It takes a pattern and, in square brackets, the values that fill it: `%s` is a string, `%d` an integer and `%.2f` a real number with two decimals.",
+      "The width goes between the `%` and the letter: `%4d` takes up 4 characters aligned right and `%-10s` takes up 10 aligned **left**, thanks to the minus sign. That is how the receipt columns line up. To print an actual `%`, write `%%`."
+     ],
+     "points": [
+      "`value:width:decimals` formats numbers in `WriteLn`.",
+      "`:0:2` prints two decimals with no extra spaces.",
+      "`Format('pattern', [values])` lives in `SysUtils`.",
+      "`%d`, `%s` and `%.2f`; a `-` aligns to the left."
+     ],
+     "exercise": "Add a `Unit` column to the receipt with the price of each item (`1.20`, `1.55` and `2.10`) and one more line with two pieces of toast at 1.80; fix the total."
+    },
+    "code": "program main;\n\nuses\n  SysUtils;\n\nvar\n  price: Double;\n\nbegin\n  price := 3.456;\n  // With no format, a real number comes out in scientific notation.\n  WriteLn(price);\n  // :0:2 means as wide as needed, with two decimals.\n  WriteLn(price:0:2);\n  // :8:2 fills up to 8 characters, aligned to the right.\n  WriteLn('[', price:8:2, ']');\n  WriteLn('[', 42:6, ']', '[', 'tea':6, ']');\n\n  // Format, from SysUtils, builds a string from a pattern.\n  WriteLn(Format('%-10s%4s%9s', ['Item', 'Qty', 'Euros']));\n  WriteLn(Format('%-10s%4d%9.2f', ['Coffee', 2, 2.40]));\n  WriteLn(Format('%-10s%4d%9.2f', ['Croissant', 3, 4.65]));\n  WriteLn(Format('%-10s%4d%9.2f', ['Juice', 1, 2.10]));\n  WriteLn(Format('%-14s%9.2f', ['Total', 9.15]));\n  WriteLn(Format('VAT included: %d%%', [10]));\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">uses</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SysUtils;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  price := </span><span style=\"color:#B5CEA8\">3.456</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // With no format, a real number comes out in scientific notation.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(price);</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // :0:2 means as wide as needed, with two decimals.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(price:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // :8:2 fills up to 8 characters, aligned to the right.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'['</span><span style=\"color:#D4D4D4\">, price:</span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">']'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'['</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">42</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">']'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'['</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'tea'</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">']'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Format, from SysUtils, builds a string from a pattern.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-10s%4s%9s'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#CE9178\">'Item'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Qty'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Euros'</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-10s%4d%9.2f'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#CE9178\">'Coffee'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2.40</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-10s%4d%9.2f'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#CE9178\">'Croissant'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">4.65</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-10s%4d%9.2f'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#CE9178\">'Juice'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2.10</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-14s%9.2f'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#CE9178\">'Total'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">9.15</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'VAT included: %d%%'</span><span style=\"color:#D4D4D4\">, [</span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">]));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": " 3.4560000000000000E+000\n3.46\n[    3.46]\n[    42][   tea]\nItem       Qty    Euros\nCoffee       2     2.40\nCroissant    3     4.65\nJuice        1     2.10\nTotal              9.15\nVAT included: 10%",
+    "image": "/courses/pascal/basic-04.jpg",
+    "size": [
+     1200,
+     1089
+    ]
+   },
+   {
+    "n": 5,
+    "es": {
+     "slug": "leer-del-teclado",
+     "title": "Leer del teclado",
+     "summary": "Pida datos al usuario con ReadLn en Pascal: textos y números, uno por línea o varios en la misma, para calcular el precio de unas entradas de cine.",
+     "body": [
+      "**`ReadLn`** espera a que el usuario escriba una línea y pulse Intro, y guarda lo escrito en la variable que le pase: `ReadLn(name)`. Antes se usa `Write`, sin salto de línea, para que la pregunta y la respuesta queden en la misma línea.",
+      "En este ejemplo las respuestas salen del archivo `input.txt`, como si alguien las tecleara; por eso no aparecen en la salida y cada pregunta va seguida directamente de la contestación del programa. En la consola de DMarlon Studio (destino Consola, F9) puede escribirlas usted mismo.",
+      "A diferencia de otros lenguajes, `ReadLn` **convierte** el texto al tipo de la variable: con `age: Integer` lee un entero y con `price: Double`, un número con decimales. Si se teclea algo que no es un número, el programa se detiene con un error de ejecución (el 106).",
+      "**`ReadLn(first, second)`** lee varios números de una misma línea, separados por espacios, como `7 9`. Con ellos se calcula la nota media, `(first + second) / 2`, que se escribe con un decimal."
+     ],
+     "points": [
+      "`ReadLn(variable)` lee una línea del teclado.",
+      "`ReadLn` convierte el texto al tipo de la variable.",
+      "`Write` antes de `ReadLn` deja la pregunta en la misma línea.",
+      "`ReadLn(a, b)` lee varios números separados por espacios."
+     ],
+     "exercise": "Pregunte también el título de la película y termine con una frase como «3 tickets for Dune cost 25.50 euros.». Añada la respuesta a `input.txt` en el lugar que le corresponda."
+    },
+    "en": {
+     "slug": "reading-input",
+     "title": "Reading from the keyboard",
+     "summary": "Ask the user for data with ReadLn in Pascal: text and numbers, one per line or several on the same line, to work out the price of cinema tickets.",
+     "body": [
+      "**`ReadLn`** waits for the user to type a line and press Enter, and stores what they typed in the variable you pass it: `ReadLn(name)`. It is preceded by `Write`, with no line break, so the question and the answer share a line.",
+      "In this example the answers come from the `input.txt` file, as if someone were typing them; that is why they do not appear in the output and each question is followed straight away by the program's reply. In the DMarlon Studio console (Console target, F9) you can type them yourself.",
+      "Unlike some languages, `ReadLn` **converts** the text to the variable's type: with `age: Integer` it reads a whole number, and with `price: Double` a number with decimals. If the user types something that is not a number, the program stops with a run-time error (number 106).",
+      "**`ReadLn(first, second)`** reads several numbers from the same line, separated by spaces, such as `7 9`. They are used to work out the average mark, `(first + second) / 2`, printed with one decimal."
+     ],
+     "points": [
+      "`ReadLn(variable)` reads a line from the keyboard.",
+      "`ReadLn` converts the text to the variable's type.",
+      "`Write` before `ReadLn` keeps the question on the same line.",
+      "`ReadLn(a, b)` reads several numbers separated by spaces."
+     ],
+     "exercise": "Also ask for the film's title and finish with a sentence such as «3 tickets for Dune cost 25.50 euros.». Add the answer to `input.txt` in the right place."
+    },
+    "code": "program main;\n\nvar\n  name: String;\n  age, tickets, first, second: Integer;\n  price: Double;\n\nbegin\n  Write('What is your name? ');\n  ReadLn(name);\n  WriteLn('Nice to meet you, ', name, '!');\n\n  // ReadLn turns the text into the type of the variable.\n  Write('How old are you? ');\n  ReadLn(age);\n  WriteLn('In 10 years you will be ', age + 10, '.');\n\n  Write('Price of a cinema ticket? ');\n  ReadLn(price);\n  Write('How many tickets? ');\n  ReadLn(tickets);\n  WriteLn(tickets, ' tickets cost ', price * tickets:0:2, ' euros.');\n\n  // Several numbers on the same line, separated by spaces.\n  Write('Your two exam marks? ');\n  ReadLn(first, second);\n  WriteLn('Average mark: ', (first + second) / 2:0:1);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#569CD6\">  name</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  age, tickets, first, second: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'What is your name? '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  ReadLn(</span><span style=\"color:#569CD6\">name</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Nice to meet you, '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#569CD6\">name</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'!'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // ReadLn turns the text into the type of the variable.</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'How old are you? '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  ReadLn(age);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'In 10 years you will be '</span><span style=\"color:#D4D4D4\">, age + </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'Price of a cinema ticket? '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  ReadLn(price);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'How many tickets? '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  ReadLn(tickets);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(tickets, </span><span style=\"color:#CE9178\">' tickets cost '</span><span style=\"color:#D4D4D4\">, price * tickets:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' euros.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Several numbers on the same line, separated by spaces.</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'Your two exam marks? '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  ReadLn(first, second);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Average mark: '</span><span style=\"color:#D4D4D4\">, (first + second) / </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "input": "Lucia\n29\n8.50\n3\n7 9\n",
+    "output": "What is your name? Nice to meet you, Lucia!\nHow old are you? In 10 years you will be 39.\nPrice of a cinema ticket? How many tickets? 3 tickets cost 25.50 euros.\nYour two exam marks? Average mark: 8.0",
+    "image": "/courses/pascal/basic-05.jpg",
+    "size": [
+     1200,
+     1008
+    ]
+   },
+   {
+    "n": 6,
+    "es": {
+     "slug": "if-then-else",
+     "title": "if, then y else",
+     "summary": "Tome decisiones en Pascal con if, then y else: avisos según la temperatura y la nota de un examen, con bloques begin…end y cadenas de else if.",
+     "body": [
+      "**`if` condición `then` orden** ejecuta la orden solo si la condición es verdadera. Con `temp` a `31`, `temp > 30` se cumple y sale el aviso del calor; `temp < 10` no se cumple, y la línea del abrigo no se ejecuta.",
+      "Detrás de `then` (y de `else`) va **una sola orden**. Si hacen falta varias, se agrupan entre **`begin`** y **`end`**, como las dos líneas del aprobado.",
+      "**`else`** indica qué hacer cuando la condición es falsa. Hay una regla de Pascal que confunde al principio: **antes de `else` nunca va punto y coma**, porque el `;` cerraría el `if` y el `else` quedaría suelto. Por eso pone `end` y no `end;` justo antes.",
+      "Para elegir entre varias opciones se encadena **`else if`**: las condiciones se miran en orden y solo se ejecuta la primera que se cumple. Con un 6, `grade >= 9` y `grade >= 7` fallan, `grade >= 5` acierta y sale `Pass`."
+     ],
+     "points": [
+      "`if ... then` ejecuta una orden si la condición se cumple.",
+      "Varias órdenes van entre `begin` y `end`.",
+      "Nunca ponga punto y coma justo antes de `else`.",
+      "`else if` comprueba varias condiciones en orden."
+     ],
+     "exercise": "Junte los dos avisos de temperatura en un solo `if ... else if ... else` que escriba «Hot» por encima de 30 grados, «Cold» por debajo de 10 y «Mild» en el resto, y pruébelo con `temp` a 5, 18 y 31."
+    },
+    "en": {
+     "slug": "if-then-else",
+     "title": "if, then and else",
+     "summary": "Make decisions in Pascal with if, then and else: weather warnings and exam grades, with begin…end blocks and else if chains.",
+     "body": [
+      "**`if` condition `then` statement** runs the statement only when the condition is true. With `temp` at `31`, `temp > 30` holds and the heat warning appears; `temp < 10` does not, so the coat line is skipped.",
+      "After `then` (and after `else`) comes **a single statement**. If you need several, group them between **`begin`** and **`end`**, like the two lines for a pass.",
+      "**`else`** says what to do when the condition is false. One Pascal rule trips everyone up at first: **there is never a semicolon right before `else`**, because the `;` would close the `if` and leave the `else` hanging. That is why the code has `end`, not `end;`, just before it.",
+      "To choose between several options, chain **`else if`**: the conditions are checked in order and only the first one that holds runs. With a 6, `grade >= 9` and `grade >= 7` fail, `grade >= 5` succeeds and `Pass` is printed."
+     ],
+     "points": [
+      "`if ... then` runs a statement when the condition holds.",
+      "Several statements go between `begin` and `end`.",
+      "Never put a semicolon right before `else`.",
+      "`else if` checks several conditions in order."
+     ],
+     "exercise": "Merge the two temperature warnings into a single `if ... else if ... else` that prints «Hot» above 30 degrees, «Cold» below 10 and «Mild» otherwise, and try it with `temp` set to 5, 18 and 31."
+    },
+    "code": "program main;\n\nvar\n  temp, grade: Integer;\n\nbegin\n  temp := 31;\n  // The line after then only runs if the condition is true.\n  if temp > 30 then\n    WriteLn(temp, ' C: it is hot, drink water.');\n  if temp < 10 then\n    WriteLn('Take a coat.');\n\n  // Several statements go between begin and end.\n  // There is never a semicolon just before else.\n  grade := 6;\n  if grade >= 5 then\n  begin\n    WriteLn('Grade ', grade, ': passed.');\n    WriteLn('See you next year.');\n  end\n  else\n    WriteLn('Grade ', grade, ': failed.');\n\n  // else if checks the conditions in order.\n  if grade >= 9 then\n    WriteLn('Outstanding')\n  else if grade >= 7 then\n    WriteLn('Very good')\n  else if grade >= 5 then\n    WriteLn('Pass')\n  else\n    WriteLn('Fail');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  temp, grade: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  temp := </span><span style=\"color:#B5CEA8\">31</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // The line after then only runs if the condition is true.</span></span><span class=\"line\"><span style=\"color:#569CD6\">  if</span><span style=\"color:#D4D4D4\"> temp > </span><span style=\"color:#B5CEA8\">30</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(temp, </span><span style=\"color:#CE9178\">' C: it is hot, drink water.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  if</span><span style=\"color:#D4D4D4\"> temp &#x3C; </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Take a coat.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Several statements go between begin and end.</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // There is never a semicolon just before else.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  grade := </span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  if</span><span style=\"color:#D4D4D4\"> grade >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Grade '</span><span style=\"color:#D4D4D4\">, grade, </span><span style=\"color:#CE9178\">': passed.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'See you next year.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Grade '</span><span style=\"color:#D4D4D4\">, grade, </span><span style=\"color:#CE9178\">': failed.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // else if checks the conditions in order.</span></span><span class=\"line\"><span style=\"color:#569CD6\">  if</span><span style=\"color:#D4D4D4\"> grade >= </span><span style=\"color:#B5CEA8\">9</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Outstanding'</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span><span style=\"color:#569CD6\"> if</span><span style=\"color:#D4D4D4\"> grade >= </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Very good'</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span><span style=\"color:#569CD6\"> if</span><span style=\"color:#D4D4D4\"> grade >= </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Pass'</span><span style=\"color:#D4D4D4\">)</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Fail'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "31 C: it is hot, drink water.\nGrade 6: passed.\nSee you next year.\nPass",
+    "image": "/courses/pascal/basic-06.jpg",
+    "size": [
+     1200,
+     1143
+    ]
+   },
+   {
+    "n": 7,
+    "es": {
+     "slug": "la-sentencia-case",
+     "title": "La sentencia case",
+     "summary": "Elija entre muchos valores con case en Pascal: días de la semana, rangos de notas y el menú de una máquina expendedora.",
+     "body": [
+      "**`case` expresión `of`** compara un valor con una lista de opciones y ejecuta la que coincide. Es más claro que una cadena de `else if` cuando todas las condiciones preguntan por la misma variable.",
+      "Cada opción puede ser un valor, varios separados por comas (`6, 7`) o un **rango** (`1..5`). El `else` final recoge todo lo que no coincide. A diferencia del `if`, aquí la opción anterior al `else` sí lleva punto y coma.",
+      "Con rangos, la tabla de notas queda muy corta: `83` cae en `80..89` y sale `B`. Las opciones no pueden repetirse; si un valor aparece en dos, el compilador da un error.",
+      "`case` funciona con cualquier tipo **ordinal**: enteros, `Char`, `Boolean` y los tipos enumerados de la lección 17, pero no con reales. En la máquina expendedora, `'b'` elige el café. Como ese `case` no tiene `else`, si no coincidiera ninguna opción, simplemente no pasaría nada.",
+      "Cada `case` se cierra con su propio **`end;`**, aunque no haya ningún `begin`."
+     ],
+     "points": [
+      "`case x of` elige una opción según el valor de `x`.",
+      "Las opciones admiten listas (`6, 7`) y rangos (`1..5`).",
+      "`else` recoge los valores que no aparecen.",
+      "Solo funciona con tipos ordinales, no con reales.",
+      "Cada `case` termina con `end;`."
+     ],
+     "exercise": "Añada un `case` para el número de un mes (`month`) que escriba cuántos días tiene: 28 para el 2; 30 para el 4, 6, 9 y 11; y 31 para el resto."
+    },
+    "en": {
+     "slug": "case-statements",
+     "title": "The case statement",
+     "summary": "Choose between many values with case in Pascal: days of the week, grade ranges and the menu of a vending machine.",
+     "body": [
+      "**`case` expression `of`** compares a value with a list of options and runs the one that matches. It reads better than an `else if` chain when every condition asks about the same variable.",
+      "Each option can be one value, several separated by commas (`6, 7`) or a **range** (`1..5`). The final `else` catches everything that does not match. Unlike `if`, the option before this `else` does take a semicolon.",
+      "Ranges keep the grade table short: `83` falls into `80..89` and the result is `B`. Options cannot overlap; if a value appears in two of them, the compiler reports an error.",
+      "`case` works with any **ordinal** type: integers, `Char`, `Boolean` and the enumerated types of lesson 17, but not with real numbers. In the vending machine, `'b'` picks the coffee. That `case` has no `else`, so if no option matched, nothing would happen.",
+      "Every `case` is closed with its own **`end;`**, even though there is no `begin`."
+     ],
+     "points": [
+      "`case x of` picks an option based on the value of `x`.",
+      "Options can be lists (`6, 7`) and ranges (`1..5`).",
+      "`else` catches the values that are not listed.",
+      "It only works with ordinal types, not real numbers.",
+      "Every `case` ends with `end;`."
+     ],
+     "exercise": "Add a `case` for a month number (`month`) that prints how many days it has: 28 for 2; 30 for 4, 6, 9 and 11; and 31 for the rest."
+    },
+    "code": "program main;\n\nvar\n  day, score: Integer;\n  option: Char;\n\nbegin\n  day := 6;\n  case day of\n    1..5: WriteLn('Day ', day, ': working day');\n    6, 7: WriteLn('Day ', day, ': weekend');\n  else\n    WriteLn('Day ', day, ': not a day of the week');\n  end;\n\n  // Ranges keep a grade table short.\n  score := 83;\n  case score of\n    90..100: WriteLn(score, ' points: A');\n    80..89: WriteLn(score, ' points: B');\n    70..79: WriteLn(score, ' points: C');\n  else\n    WriteLn(score, ' points: keep practising');\n  end;\n\n  // case also works with Char: a vending machine.\n  option := 'b';\n  case option of\n    'a': WriteLn('Water: 1.00');\n    'b': WriteLn('Coffee: 1.50');\n    'c': WriteLn('Juice: 2.00');\n  end;\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  day, score: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  option: </span><span style=\"color:#569CD6\">Char</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  day := </span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  case</span><span style=\"color:#D4D4D4\"> day </span><span style=\"color:#569CD6\">of</span></span><span class=\"line\"><span style=\"color:#B5CEA8\">    1</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.5</span><span style=\"color:#D4D4D4\">: WriteLn(</span><span style=\"color:#CE9178\">'Day '</span><span style=\"color:#D4D4D4\">, day, </span><span style=\"color:#CE9178\">': working day'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#B5CEA8\">    6</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\">: WriteLn(</span><span style=\"color:#CE9178\">'Day '</span><span style=\"color:#D4D4D4\">, day, </span><span style=\"color:#CE9178\">': weekend'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Day '</span><span style=\"color:#D4D4D4\">, day, </span><span style=\"color:#CE9178\">': not a day of the week'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Ranges keep a grade table short.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  score := </span><span style=\"color:#B5CEA8\">83</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  case</span><span style=\"color:#D4D4D4\"> score </span><span style=\"color:#569CD6\">of</span></span><span class=\"line\"><span style=\"color:#B5CEA8\">    90</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.100</span><span style=\"color:#D4D4D4\">: WriteLn(score, </span><span style=\"color:#CE9178\">' points: A'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#B5CEA8\">    80</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.89</span><span style=\"color:#D4D4D4\">: WriteLn(score, </span><span style=\"color:#CE9178\">' points: B'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#B5CEA8\">    70</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.79</span><span style=\"color:#D4D4D4\">: WriteLn(score, </span><span style=\"color:#CE9178\">' points: C'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  else</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(score, </span><span style=\"color:#CE9178\">' points: keep practising'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // case also works with Char: a vending machine.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  option := </span><span style=\"color:#CE9178\">'b'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  case</span><span style=\"color:#D4D4D4\"> option </span><span style=\"color:#569CD6\">of</span></span><span class=\"line\"><span style=\"color:#CE9178\">    'a'</span><span style=\"color:#D4D4D4\">: WriteLn(</span><span style=\"color:#CE9178\">'Water: 1.00'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#CE9178\">    'b'</span><span style=\"color:#D4D4D4\">: WriteLn(</span><span style=\"color:#CE9178\">'Coffee: 1.50'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#CE9178\">    'c'</span><span style=\"color:#D4D4D4\">: WriteLn(</span><span style=\"color:#CE9178\">'Juice: 2.00'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Day 6: weekend\n83 points: B\nCoffee: 1.50",
+    "image": "/courses/pascal/basic-07.jpg",
+    "size": [
+     1200,
+     1099
+    ]
+   },
+   {
+    "n": 8,
+    "es": {
+     "slug": "booleanos-y-comparaciones",
+     "title": "Booleanos y comparaciones",
+     "summary": "Compare valores en Pascal con =, <>, < y > y combine condiciones con and, or, not y xor para decidir quién sube a la montaña rusa.",
+     "body": [
+      "Una comparación da un **`Boolean`**: `True` o `False`, que `WriteLn` escribe como `TRUE` y `FALSE`. Los operadores son `=`, `<>` (distinto), `<`, `>`, `<=` y `>=`. Recuerde: `=` compara y `:=` asigna.",
+      "Las condiciones se combinan con **`and`** (tienen que cumplirse las dos), **`or`** (basta con una) y **`not`** (le da la vuelta). El resultado se puede guardar en una variable, como `canRide` o `discount`, y usarse después.",
+      "Lo más importante: en Pascal, `and` y `or` tienen **más prioridad** que las comparaciones, así que cada comparación va entre paréntesis: `(height >= 140) and hasTicket`. Sin ellos, `age < 14 or age >= 65` se leería como `age < (14 or age) >= 65` y no compilaría.",
+      "**`xor`** es verdadero cuando solo uno de los dos lados lo es. Además, Free Pascal evalúa `and` y `or` en **cortocircuito**: si con el primer lado ya sabe el resultado, no mira el segundo.",
+      "`(age >= 10) and (age <= 12)` comprueba que la edad está dentro de un intervalo; es el uso más típico dentro de un `if`."
+     ],
+     "points": [
+      "Las comparaciones dan `True` o `False`.",
+      "`<>` significa «distinto de».",
+      "`and`, `or`, `not` y `xor` combinan booleanos.",
+      "Cada comparación va entre paréntesis al usar `and` u `or`."
+     ],
+     "exercise": "Añada una variable `withAdult: Boolean` y cambie `canRide` para que los menores de 8 años solo puedan subir acompañados: `(height >= 140) and hasTicket and ((age >= 8) or withAdult)`."
+    },
+    "en": {
+     "slug": "booleans-and-comparisons",
+     "title": "Booleans and comparisons",
+     "summary": "Compare values in Pascal with =, <>, < and >, and combine conditions with and, or, not and xor to decide who rides the roller coaster.",
+     "body": [
+      "A comparison gives a **`Boolean`**: `True` or `False`, which `WriteLn` prints as `TRUE` and `FALSE`. The operators are `=`, `<>` (not equal), `<`, `>`, `<=` and `>=`. Remember: `=` compares and `:=` assigns.",
+      "Conditions are combined with **`and`** (both must hold), **`or`** (one is enough) and **`not`** (turns it around). The result can be stored in a variable, such as `canRide` or `discount`, and used later.",
+      "The key point: in Pascal, `and` and `or` have **higher precedence** than comparisons, so each comparison needs its own brackets: `(height >= 140) and hasTicket`. Without them, `age < 14 or age >= 65` would be read as `age < (14 or age) >= 65` and would not compile.",
+      "**`xor`** is true when exactly one side is true. Free Pascal also uses **short-circuit** evaluation for `and` and `or`: if the first side already decides the result, the second is not checked.",
+      "`(age >= 10) and (age <= 12)` checks that the age falls within a range, the most common use inside an `if`."
+     ],
+     "points": [
+      "Comparisons give `True` or `False`.",
+      "`<>` means «not equal to».",
+      "`and`, `or`, `not` and `xor` combine Booleans.",
+      "Put each comparison in brackets when using `and` or `or`."
+     ],
+     "exercise": "Add a `withAdult: Boolean` variable and change `canRide` so children under 8 can only ride with an adult: `(height >= 140) and hasTicket and ((age >= 8) or withAdult)`."
+    },
+    "code": "program main;\n\nvar\n  age, height: Integer;\n  hasTicket, isMember, canRide, discount: Boolean;\n\nbegin\n  age := 12;\n  height := 145;\n  hasTicket := True;\n  isMember := False;\n\n  // = compares (:= assigns) and <> means \"not equal\".\n  WriteLn('Is the age 12? ', age = 12);\n  WriteLn('Is the age not 18? ', age <> 18);\n  WriteLn('Taller than 1.50 m? ', height > 150);\n\n  // With and/or, each comparison goes in its own brackets.\n  canRide := (height >= 140) and hasTicket;\n  WriteLn('Can ride the roller coaster? ', canRide);\n\n  discount := (age < 14) or (age >= 65) or isMember;\n  WriteLn('Gets a discount? ', discount);\n  WriteLn('Pays full price? ', not discount);\n\n  // xor is true when exactly one side is true.\n  WriteLn('Ticket or card, but not both? ', hasTicket xor isMember);\n\n  if (age >= 10) and (age <= 12) then\n    WriteLn('Category: junior');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  age, height: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  hasTicket, isMember, canRide, discount: </span><span style=\"color:#569CD6\">Boolean</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  age := </span><span style=\"color:#B5CEA8\">12</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  height := </span><span style=\"color:#B5CEA8\">145</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  hasTicket := </span><span style=\"color:#569CD6\">True</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  isMember := </span><span style=\"color:#569CD6\">False</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // = compares (:= assigns) and &#x3C;> means \"not equal\".</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Is the age 12? '</span><span style=\"color:#D4D4D4\">, age = </span><span style=\"color:#B5CEA8\">12</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Is the age not 18? '</span><span style=\"color:#D4D4D4\">, age &#x3C;> </span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Taller than 1.50 m? '</span><span style=\"color:#D4D4D4\">, height > </span><span style=\"color:#B5CEA8\">150</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // With and/or, each comparison goes in its own brackets.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  canRide := (height >= </span><span style=\"color:#B5CEA8\">140</span><span style=\"color:#D4D4D4\">) and hasTicket;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Can ride the roller coaster? '</span><span style=\"color:#D4D4D4\">, canRide);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#D4D4D4\">  discount := (age &#x3C; </span><span style=\"color:#B5CEA8\">14</span><span style=\"color:#D4D4D4\">) or (age >= </span><span style=\"color:#B5CEA8\">65</span><span style=\"color:#D4D4D4\">) or isMember;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Gets a discount? '</span><span style=\"color:#D4D4D4\">, discount);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Pays full price? '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#569CD6\">not</span><span style=\"color:#D4D4D4\"> discount);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // xor is true when exactly one side is true.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Ticket or card, but not both? '</span><span style=\"color:#D4D4D4\">, hasTicket </span><span style=\"color:#569CD6\">xor</span><span style=\"color:#D4D4D4\"> isMember);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">  if</span><span style=\"color:#D4D4D4\"> (age >= </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">) and (age &#x3C;= </span><span style=\"color:#B5CEA8\">12</span><span style=\"color:#D4D4D4\">) </span><span style=\"color:#569CD6\">then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Category: junior'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Is the age 12? TRUE\nIs the age not 18? TRUE\nTaller than 1.50 m? FALSE\nCan ride the roller coaster? TRUE\nGets a discount? TRUE\nPays full price? FALSE\nTicket or card, but not both? TRUE\nCategory: junior",
+    "image": "/courses/pascal/basic-08.jpg",
+    "size": [
+     1200,
+     1160
+    ]
+   },
+   {
+    "n": 9,
+    "es": {
+     "slug": "while-y-repeat-until",
+     "title": "while y repeat…until",
+     "summary": "Repita código en Pascal mientras se cumpla una condición: while la comprueba antes de cada vuelta y repeat…until, al final.",
+     "body": [
+      "**`while` condición `do`** repite su orden mientras la condición sea verdadera, y la comprueba **antes** de cada vuelta. La hucha suma 15 euros por semana mientras haya menos de 100: tras 7 semanas hay 105 y el bucle se detiene.",
+      "Como en el `if`, si el bucle tiene que hacer varias cosas, van entre `begin` y `end`. Dentro tiene que cambiar algo que afecte a la condición (aquí, `savings`); si no, el bucle no terminaría nunca.",
+      "**`repeat ... until` condición** comprueba al **final**, así que se ejecuta al menos una vez, y para cuando la condición es **verdadera** (al revés que `while`). La pelota rebota a la mitad de altura cada vez, hasta bajar de 1 metro. Entre `repeat` y `until` caben varias órdenes sin necesidad de `begin` ni `end`.",
+      "**`Inc(bounces)`** suma 1 a la variable, igual que `bounces := bounces + 1`; **`Dec`** resta. El último `while` no se ejecuta ni una vez, porque `savings < 50` ya es falso desde el principio."
+     ],
+     "points": [
+      "`while` comprueba la condición antes de cada vuelta.",
+      "`repeat ... until` se ejecuta al menos una vez.",
+      "`until` para cuando su condición es verdadera.",
+      "`Inc(x)` y `Dec(x)` suman y restan 1."
+     ],
+     "exercise": "Calcule cuántos años tardan 1000 euros en duplicarse en una cuenta al 5 % anual: con un `while`, multiplique el saldo por `1.05` cada año hasta llegar a 2000."
+    },
+    "en": {
+     "slug": "while-and-repeat-until",
+     "title": "while and repeat…until",
+     "summary": "Repeat code in Pascal while a condition holds: while checks it before each pass and repeat…until checks it at the end.",
+     "body": [
+      "**`while` condition `do`** repeats its statement as long as the condition is true, checking it **before** every pass. The piggy bank adds 15 euros a week while it holds less than 100: after 7 weeks it has 105 and the loop stops.",
+      "As with `if`, when the loop has to do several things they go between `begin` and `end`. Something inside must change the condition (here, `savings`); otherwise the loop would never end.",
+      "**`repeat ... until` condition** checks at the **end**, so it always runs at least once, and it stops when the condition is **true** (the opposite of `while`). The ball bounces back to half its height each time until it drops below 1 metre. Several statements fit between `repeat` and `until` without `begin` or `end`.",
+      "**`Inc(bounces)`** adds 1 to the variable, just like `bounces := bounces + 1`; **`Dec`** subtracts. The last `while` never runs at all, because `savings < 50` is already false at the start."
+     ],
+     "points": [
+      "`while` checks the condition before each pass.",
+      "`repeat ... until` always runs at least once.",
+      "`until` stops when its condition is true.",
+      "`Inc(x)` and `Dec(x)` add and subtract 1."
+     ],
+     "exercise": "Work out how many years it takes 1000 euros to double in an account paying 5 % a year: with a `while`, multiply the balance by `1.05` each year until it reaches 2000."
+    },
+    "code": "program main;\n\nvar\n  savings, weeks, bounces: Integer;\n  height: Double;\n\nbegin\n  // while checks the condition before each turn.\n  savings := 0;\n  weeks := 0;\n  while savings < 100 do\n  begin\n    savings := savings + 15;\n    weeks := weeks + 1;\n  end;\n  WriteLn('After ', weeks, ' weeks: ', savings, ' euros saved');\n\n  // repeat runs at least once and stops when until is true.\n  height := 8.0;\n  bounces := 0;\n  repeat\n    height := height / 2;\n    Inc(bounces);  // the same as bounces := bounces + 1\n    WriteLn('Bounce ', bounces, ': ', height:0:2, ' m');\n  until height < 1;\n\n  // A while loop whose condition is false never runs.\n  while savings < 50 do\n    WriteLn('This line never appears.');\n  WriteLn('Done.');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  savings, weeks, bounces: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  height: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // while checks the condition before each turn.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  savings := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  weeks := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  while</span><span style=\"color:#D4D4D4\"> savings &#x3C; </span><span style=\"color:#B5CEA8\">100</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    savings := savings + </span><span style=\"color:#B5CEA8\">15</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    weeks := weeks + </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'After '</span><span style=\"color:#D4D4D4\">, weeks, </span><span style=\"color:#CE9178\">' weeks: '</span><span style=\"color:#D4D4D4\">, savings, </span><span style=\"color:#CE9178\">' euros saved'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // repeat runs at least once and stops when until is true.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  height := </span><span style=\"color:#B5CEA8\">8.0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  bounces := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  repeat</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    height := height / </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Inc(bounces);  </span><span style=\"color:#6A9955\">// the same as bounces := bounces + 1</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Bounce '</span><span style=\"color:#D4D4D4\">, bounces, </span><span style=\"color:#CE9178\">': '</span><span style=\"color:#D4D4D4\">, height:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' m'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#C586C0\">  until</span><span style=\"color:#D4D4D4\"> height &#x3C; </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // A while loop whose condition is false never runs.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  while</span><span style=\"color:#D4D4D4\"> savings &#x3C; </span><span style=\"color:#B5CEA8\">50</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'This line never appears.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Done.'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "After 7 weeks: 105 euros saved\nBounce 1: 4.00 m\nBounce 2: 2.00 m\nBounce 3: 1.00 m\nBounce 4: 0.50 m\nDone.",
+    "image": "/courses/pascal/basic-09.jpg",
+    "size": [
+     1200,
+     1118
+    ]
+   },
+   {
+    "n": 10,
+    "es": {
+     "slug": "bucles-for",
+     "title": "Bucles for con to y downto",
+     "summary": "Cuente con for en Pascal: to para subir, downto para bajar, sumas, contadores de tipo Char y bucles anidados para los asientos de un cine.",
+     "body": [
+      "**`for i := 1 to 5 do`** repite la orden con `i` valiendo 1, 2, 3, 4 y 5: la tabla del 7. El contador sube de uno en uno él solo; de hecho, el compilador no deja cambiarlo dentro del bucle.",
+      "**`downto`** cuenta hacia atrás: `3 downto 1` hace la cuenta atrás. `Write` deja los números en la misma línea y el `WriteLn` final la cierra con el despegue.",
+      "Un `for` se combina con un `if`: de 1 a 99 solo se suman los números con `i mod 2 = 1`, los impares, y el resultado es `2500`. Si con `to` el inicio es mayor que el final, el bucle no se ejecuta ninguna vez.",
+      "El contador puede ser de cualquier tipo ordinal, también `Char`: `for c := 'A' to 'E'` recorre esas letras. Y dentro de un `for` puede ir otro: por cada fila `i`, el bucle interior escribe sus cinco asientos, y entre los dos dibujan la sala."
+     ],
+     "points": [
+      "`for i := a to b do` cuenta de `a` a `b`.",
+      "`downto` cuenta hacia atrás.",
+      "El contador no se cambia dentro del bucle.",
+      "El contador puede ser un entero, un `Char` u otro tipo ordinal."
+     ],
+     "exercise": "Escriba la tabla de multiplicar completa del 1 al 9 con dos `for` anidados, alineando los resultados con `:4`."
+    },
+    "en": {
+     "slug": "for-loops",
+     "title": "for loops with to and downto",
+     "summary": "Count with for in Pascal: to counts up, downto counts down, plus running totals, Char counters and nested loops for cinema seats.",
+     "body": [
+      "**`for i := 1 to 5 do`** repeats the statement with `i` set to 1, 2, 3, 4 and 5: the 7 times table. The counter goes up by one on its own; in fact, the compiler will not let you change it inside the loop.",
+      "**`downto`** counts backwards: `3 downto 1` gives the countdown. `Write` keeps the numbers on one line and the final `WriteLn` closes it with the lift-off.",
+      "A `for` goes well with an `if`: from 1 to 99, only the numbers with `i mod 2 = 1`, the odd ones, are added up, and the result is `2500`. With `to`, if the start is greater than the end, the loop does not run at all.",
+      "The counter can be any ordinal type, including `Char`: `for c := 'A' to 'E'` goes through those letters. And a `for` can sit inside another: for each row `i`, the inner loop prints its five seats, and together they draw the cinema."
+     ],
+     "points": [
+      "`for i := a to b do` counts from `a` to `b`.",
+      "`downto` counts backwards.",
+      "Do not change the counter inside the loop.",
+      "The counter can be an integer, a `Char` or another ordinal type."
+     ],
+     "exercise": "Print the full multiplication table from 1 to 9 with two nested `for` loops, lining up the results with `:4`."
+    },
+    "code": "program main;\n\nvar\n  i, total: Integer;\n  c: Char;\n\nbegin\n  // for ... to counts up, one at a time.\n  for i := 1 to 5 do\n    WriteLn('7 x ', i, ' = ', 7 * i);\n\n  // downto counts down.\n  for i := 3 downto 1 do\n    Write(i, '... ');\n  WriteLn('Lift-off!');\n\n  // Add up the odd numbers from 1 to 99.\n  total := 0;\n  for i := 1 to 99 do\n    if i mod 2 = 1 then\n      total := total + i;\n  WriteLn('Odd numbers up to 99 add up to ', total);\n\n  // The counter can also be a Char: a grid of cinema seats.\n  for i := 1 to 3 do\n  begin\n    Write('Row ', i, ':');\n    for c := 'A' to 'E' do\n      Write(' ', i, c);\n    WriteLn;\n  end;\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  i, total: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  c: </span><span style=\"color:#569CD6\">Char</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // for ... to counts up, one at a time.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#B5CEA8\"> 5</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'7 x '</span><span style=\"color:#D4D4D4\">, i, </span><span style=\"color:#CE9178\">' = '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">7</span><span style=\"color:#D4D4D4\"> * i);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // downto counts down.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#C586C0\"> downto</span><span style=\"color:#B5CEA8\"> 1</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    Write</span><span style=\"color:#D4D4D4\">(i, </span><span style=\"color:#CE9178\">'... '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Lift-off!'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Add up the odd numbers from 1 to 99.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  total := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#B5CEA8\"> 99</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    if</span><span style=\"color:#D4D4D4\"> i </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 2</span><span style=\"color:#D4D4D4\"> = </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\"> then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">      total := total + i;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Odd numbers up to 99 add up to '</span><span style=\"color:#D4D4D4\">, total);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // The counter can also be a Char: a grid of cinema seats.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#B5CEA8\"> 3</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">    Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">'Row '</span><span style=\"color:#D4D4D4\">, i, </span><span style=\"color:#CE9178\">':'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#C586C0\">    for</span><span style=\"color:#D4D4D4\"> c := </span><span style=\"color:#CE9178\">'A'</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#CE9178\"> 'E'</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">      Write</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#CE9178\">' '</span><span style=\"color:#D4D4D4\">, i, c);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n3... 2... 1... Lift-off!\nOdd numbers up to 99 add up to 2500\nRow 1: 1A 1B 1C 1D 1E\nRow 2: 2A 2B 2C 2D 2E\nRow 3: 3A 3B 3C 3D 3E",
+    "image": "/courses/pascal/basic-10.jpg",
+    "size": [
+     1200,
+     1224
+    ]
+   },
+   {
+    "n": 11,
+    "es": {
+     "slug": "arrays-estaticos",
+     "title": "Arrays estáticos",
+     "summary": "Guarde varios valores del mismo tipo en un array de Pascal: las temperaturas de una semana, con su media y el día más caluroso.",
+     "body": [
+      "Un **array** guarda varios valores del mismo tipo bajo un solo nombre. Se declara con sus índices: `array[1..7] of Integer` son siete enteros numerados del 1 al 7. Es **estático**: su tamaño se fija al compilar y ya no cambia.",
+      "`Days` es un **array constante**, con sus valores entre paréntesis, y `temps` es una variable que empieza con las temperaturas de la semana. A cada elemento se llega con su índice entre corchetes: `temps[4] := 20` corrige el jueves.",
+      "**`Low`** y **`High`** dan el primer y el último índice, y **`Length`**, cuántos elementos hay. Con ellos el `for` recorre el array sin escribir números a mano, y sigue funcionando aunque cambie el tamaño.",
+      "Dentro del bucle se hacen tres cosas: escribir cada día con su temperatura, sumarla en `total` y recordar en `hottest` el **índice** del día más caluroso. Al final, `total / Length(temps)` da la media.",
+      "Usar un índice que no existe, como `temps[8]`, es un error. Si el índice es una constante, el compilador ya avisa; si es una variable, active la comprobación al ejecutar con `{$R+}` al principio del programa."
+     ],
+     "points": [
+      "`array[1..7] of Integer` declara siete enteros.",
+      "`a[i]` lee o cambia el elemento `i`.",
+      "`Low`, `High` y `Length` dan los límites y el tamaño.",
+      "Un array estático no cambia de tamaño."
+     ],
+     "exercise": "Añada un array `rain` con los litros de lluvia de cada día y escriba cuántos días llovió y cuál fue el más lluvioso."
+    },
+    "en": {
+     "slug": "static-arrays",
+     "title": "Static arrays",
+     "summary": "Store several values of the same type in a Pascal array: a week of temperatures, with the average and the hottest day.",
+     "body": [
+      "An **array** holds several values of the same type under one name. It is declared with its indexes: `array[1..7] of Integer` is seven integers numbered 1 to 7. It is **static**: its size is fixed when the program is compiled and never changes.",
+      "`Days` is a **constant array**, with its values in brackets, and `temps` is a variable that starts with the week's temperatures. Each element is reached by its index in square brackets: `temps[4] := 20` corrects Thursday.",
+      "**`Low`** and **`High`** give the first and last index, and **`Length`** the number of elements. With them the `for` loop walks the array without hard-coded numbers, and keeps working if the size changes.",
+      "Inside the loop three things happen: each day is printed with its temperature, added to `total`, and `hottest` remembers the **index** of the hottest day so far. At the end, `total / Length(temps)` gives the average.",
+      "Using an index that does not exist, such as `temps[8]`, is a mistake. With a constant index the compiler already warns you; with a variable, turn on run-time checking with `{$R+}` at the top of the program."
+     ],
+     "points": [
+      "`array[1..7] of Integer` declares seven integers.",
+      "`a[i]` reads or changes element `i`.",
+      "`Low`, `High` and `Length` give the bounds and the size.",
+      "A static array never changes size."
+     ],
+     "exercise": "Add a `rain` array with the litres of rain for each day and print how many days it rained and which day was the wettest."
+    },
+    "code": "program main;\n\n// A constant array: the names of the days.\nconst\n  Days: array[1..7] of String = ('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');\n\n// A variable array of 7 integers, with initial values.\nvar\n  temps: array[1..7] of Integer = (18, 21, 24, 19, 26, 28, 22);\n  i, hottest, total: Integer;\n\nbegin\n  temps[4] := 20;  // change one element\n  total := 0;\n  hottest := 1;\n  // Low and High give the first and last index.\n  for i := Low(temps) to High(temps) do\n  begin\n    WriteLn(Days[i], ': ', temps[i]:3, ' C');\n    total := total + temps[i];\n    if temps[i] > temps[hottest] then\n      hottest := i;\n  end;\n  WriteLn('Average: ', total / Length(temps):0:1, ' C');\n  WriteLn('Hottest day: ', Days[hottest], ' (', temps[hottest], ' C)');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// A constant array: the names of the days.</span></span><span class=\"line\"><span style=\"color:#569CD6\">const</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Days: </span><span style=\"color:#569CD6\">array</span><span style=\"color:#D4D4D4\">[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.7</span><span style=\"color:#D4D4D4\">] </span><span style=\"color:#569CD6\">of</span><span style=\"color:#569CD6\"> String</span><span style=\"color:#D4D4D4\"> = (</span><span style=\"color:#CE9178\">'Mon'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Tue'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Wed'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Thu'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Fri'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Sat'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'Sun'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// A variable array of 7 integers, with initial values.</span></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  temps: </span><span style=\"color:#569CD6\">array</span><span style=\"color:#D4D4D4\">[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.7</span><span style=\"color:#D4D4D4\">] </span><span style=\"color:#569CD6\">of</span><span style=\"color:#569CD6\"> Integer</span><span style=\"color:#D4D4D4\"> = (</span><span style=\"color:#B5CEA8\">18</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">21</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">24</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">19</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">26</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">28</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">22</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  i, hottest, total: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  temps[</span><span style=\"color:#B5CEA8\">4</span><span style=\"color:#D4D4D4\">] := </span><span style=\"color:#B5CEA8\">20</span><span style=\"color:#D4D4D4\">;  </span><span style=\"color:#6A9955\">// change one element</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  total := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  hottest := </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // Low and High give the first and last index.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := Low(temps) </span><span style=\"color:#569CD6\">to</span><span style=\"color:#D4D4D4\"> High(temps) </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(Days[i], </span><span style=\"color:#CE9178\">': '</span><span style=\"color:#D4D4D4\">, temps[i]:</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' C'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    total := total + temps[i];</span></span><span class=\"line\"><span style=\"color:#569CD6\">    if</span><span style=\"color:#D4D4D4\"> temps[i] > temps[hottest] </span><span style=\"color:#569CD6\">then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">      hottest := i;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Average: '</span><span style=\"color:#D4D4D4\">, total / Length(temps):</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' C'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Hottest day: '</span><span style=\"color:#D4D4D4\">, Days[hottest], </span><span style=\"color:#CE9178\">' ('</span><span style=\"color:#D4D4D4\">, temps[hottest], </span><span style=\"color:#CE9178\">' C)'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Mon:  18 C\nTue:  21 C\nWed:  24 C\nThu:  20 C\nFri:  26 C\nSat:  28 C\nSun:  22 C\nAverage: 22.7 C\nHottest day: Sat (28 C)",
+    "image": "/courses/pascal/basic-11.jpg",
+    "size": [
+     1200,
+     1068
+    ]
+   },
+   {
+    "n": 12,
+    "es": {
+     "slug": "cadenas-de-texto",
+     "title": "Cadenas de texto",
+     "summary": "Trabaje con textos en Pascal: unir con +, Length, Copy, Pos, UpperCase y LowerCase para separar el usuario y el dominio de un correo.",
+     "body": [
+      "Las cadenas se unen con **`+`**: `first + ' ' + last` da `Ada Lovelace`. **`Length`** da su número de caracteres, `12`.",
+      "Cada carácter tiene su posición, que **empieza en 1**: `first[1]` es `'A'`, y así salen las iniciales. **`UpperCase`** y **`LowerCase`**, de `SysUtils`, devuelven una copia en mayúsculas o en minúsculas; la cadena original no cambia.",
+      "**`Pos(trozo, texto)`** busca una cadena dentro de otra y da la posición donde empieza: la `@` está en la 13. Si no la encuentra, devuelve `0`, como ocurre con `'xyz'`.",
+      "**`Copy(texto, inicio, cuántos)`** recorta un trozo. Con la posición de la `@`, `Copy(email, 1, at - 1)` toma lo que hay delante (el usuario) y `Copy(email, at + 1, Length(email) - at)`, lo que hay detrás (el dominio).",
+      "`+` solo une cadenas: para añadir un número hay que convertirlo antes con **`IntToStr`** (o con `FloatToStr` si es real). `WriteLn`, en cambio, acepta números directamente si se separan con comas."
+     ],
+     "points": [
+      "`+` une cadenas y `Length` cuenta sus caracteres.",
+      "Las posiciones empiezan en 1: `s[1]` es el primer carácter.",
+      "`Pos` busca (y da `0` si no encuentra); `Copy` recorta.",
+      "`IntToStr` convierte un número en texto."
+     ],
+     "exercise": "A partir de `domain`, saque con `Pos` y `Copy` el nombre de la empresa (`example`) y la extensión (`com`), y escriba el usuario en mayúsculas."
+    },
+    "en": {
+     "slug": "strings",
+     "title": "Working with strings",
+     "summary": "Work with text in Pascal: join with +, then Length, Copy, Pos, UpperCase and LowerCase to split an email address into user and domain.",
+     "body": [
+      "Strings are joined with **`+`**: `first + ' ' + last` gives `Ada Lovelace`. **`Length`** gives the number of characters, `12`.",
+      "Each character has a position, which **starts at 1**: `first[1]` is `'A'`, which is how the initials are built. **`UpperCase`** and **`LowerCase`**, from `SysUtils`, return a copy in capitals or small letters; the original string stays as it was.",
+      "**`Pos(piece, text)`** looks for one string inside another and gives the position where it starts: the `@` is at 13. If it is not found, it returns `0`, as happens with `'xyz'`.",
+      "**`Copy(text, start, count)`** cuts out a piece. Using the position of the `@`, `Copy(email, 1, at - 1)` takes what comes before it (the user) and `Copy(email, at + 1, Length(email) - at)` what comes after (the domain).",
+      "`+` only joins strings: to add a number you first convert it with **`IntToStr`** (or `FloatToStr` for real numbers). `WriteLn`, on the other hand, takes numbers directly when they are separated by commas."
+     ],
+     "points": [
+      "`+` joins strings and `Length` counts their characters.",
+      "Positions start at 1: `s[1]` is the first character.",
+      "`Pos` searches (and gives `0` when nothing is found); `Copy` cuts.",
+      "`IntToStr` turns a number into text."
+     ],
+     "exercise": "Starting from `domain`, use `Pos` and `Copy` to get the company name (`example`) and the extension (`com`), and print the user in capitals."
+    },
+    "code": "program main;\n\nuses\n  SysUtils;\n\nvar\n  first, last, full, email, user, domain: String;\n  at: Integer;\n\nbegin\n  first := 'Ada';\n  last := 'Lovelace';\n  // + joins strings.\n  full := first + ' ' + last;\n  WriteLn('Full name: ', full, ' (', Length(full), ' characters)');\n\n  // Characters are numbered from 1.\n  WriteLn('Initials: ', first[1], last[1]);\n  WriteLn('In capitals: ', UpperCase(full));\n  WriteLn('In small letters: ', LowerCase(full));\n\n  // Pos finds a piece of text; Copy(s, start, count) cuts one out.\n  email := 'ada.lovelace@example.com';\n  at := Pos('@', email);\n  user := Copy(email, 1, at - 1);\n  domain := Copy(email, at + 1, Length(email) - at);\n  WriteLn('The @ is at position ', at);\n  WriteLn('User: ', user, ' | Domain: ', domain);\n  WriteLn('Position of \"xyz\": ', Pos('xyz', email));\n\n  // IntToStr turns a number into text, ready to join.\n  WriteLn('Order ' + IntToStr(1024) + ' for ' + first);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">uses</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SysUtils;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  first, last, full, email, user, domain: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  at: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  first := </span><span style=\"color:#CE9178\">'Ada'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  last := </span><span style=\"color:#CE9178\">'Lovelace'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // + joins strings.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  full := first + </span><span style=\"color:#CE9178\">' '</span><span style=\"color:#D4D4D4\"> + last;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Full name: '</span><span style=\"color:#D4D4D4\">, full, </span><span style=\"color:#CE9178\">' ('</span><span style=\"color:#D4D4D4\">, Length(full), </span><span style=\"color:#CE9178\">' characters)'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Characters are numbered from 1.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Initials: '</span><span style=\"color:#D4D4D4\">, first[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">], last[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">]);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'In capitals: '</span><span style=\"color:#D4D4D4\">, UpperCase(full));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'In small letters: '</span><span style=\"color:#D4D4D4\">, LowerCase(full));</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Pos finds a piece of text; Copy(s, start, count) cuts one out.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  email := </span><span style=\"color:#CE9178\">'ada.lovelace@example.com'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  at := Pos(</span><span style=\"color:#CE9178\">'@'</span><span style=\"color:#D4D4D4\">, email);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  user := </span><span style=\"color:#569CD6\">Copy</span><span style=\"color:#D4D4D4\">(email, </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, at - </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  domain := </span><span style=\"color:#569CD6\">Copy</span><span style=\"color:#D4D4D4\">(email, at + </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, Length(email) - at);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'The @ is at position '</span><span style=\"color:#D4D4D4\">, at);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'User: '</span><span style=\"color:#D4D4D4\">, user, </span><span style=\"color:#CE9178\">' | Domain: '</span><span style=\"color:#D4D4D4\">, domain);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Position of \"xyz\": '</span><span style=\"color:#D4D4D4\">, Pos(</span><span style=\"color:#CE9178\">'xyz'</span><span style=\"color:#D4D4D4\">, email));</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // IntToStr turns a number into text, ready to join.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Order '</span><span style=\"color:#D4D4D4\"> + IntToStr(</span><span style=\"color:#B5CEA8\">1024</span><span style=\"color:#D4D4D4\">) + </span><span style=\"color:#CE9178\">' for '</span><span style=\"color:#D4D4D4\"> + first);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Full name: Ada Lovelace (12 characters)\nInitials: AL\nIn capitals: ADA LOVELACE\nIn small letters: ada lovelace\nThe @ is at position 13\nUser: ada.lovelace | Domain: example.com\nPosition of \"xyz\": 0\nOrder 1024 for Ada",
+    "image": "/courses/pascal/basic-12.jpg",
+    "size": [
+     1200,
+     1204
+    ]
+   },
+   {
+    "n": 13,
+    "es": {
+     "slug": "procedimientos",
+     "title": "Procedimientos",
+     "summary": "Agrupe código con nombre en procedimientos de Pascal, con parámetros y variables locales, para imprimir el tique de una panadería.",
+     "body": [
+      "Un **procedimiento** es un bloque de código con nombre que se escribe una vez y se llama tantas veces como haga falta. Se declara antes del `begin` principal, con **`procedure`**, su nombre y, entre paréntesis, sus **parámetros**.",
+      "`PrintLine(width: Integer; symbol: Char)` recibe dos datos: cuántos caracteres dibujar y cuál. Se llama con `PrintLine(26, '=')` y con `PrintLine(26, '-')`: el mismo código dibuja dos líneas distintas. En la declaración los parámetros se separan con punto y coma; en la llamada, con comas.",
+      "`i` es una **variable local**: se declara en el `var` del propio procedimiento y solo existe mientras este se ejecuta. Otro procedimiento puede tener su propia `i` sin que se mezclen.",
+      "`PrintItem` escribe una línea del tique y calcula el importe, `qty * price`, sin que el programa principal tenga que saber cómo. `Greet` saluda a cada cliente. Así, el programa principal queda corto y se lee como una lista de pasos.",
+      "En las aplicaciones de escritorio con Lazarus que genera DMarlon Studio, cada clic en un botón llama a un procedimiento como estos: es su manejador de eventos."
+     ],
+     "points": [
+      "`procedure Nombre(parámetros);` declara un procedimiento.",
+      "Se llama por su nombre, con los valores entre paréntesis.",
+      "Las variables de su `var` son locales.",
+      "Un procedimiento evita repetir el mismo código."
+     ],
+     "exercise": "Escriba un procedimiento `PrintTotal(amount: Double)` que escriba la línea del total alineada con los importes y llámelo al final con `9.75`."
+    },
+    "en": {
+     "slug": "procedures",
+     "title": "Procedures",
+     "summary": "Group named blocks of code into Pascal procedures, with parameters and local variables, to print a bakery receipt.",
+     "body": [
+      "A **procedure** is a named block of code that you write once and call as often as you need. It is declared before the main `begin`, with **`procedure`**, its name and, in brackets, its **parameters**.",
+      "`PrintLine(width: Integer; symbol: Char)` takes two pieces of data: how many characters to draw and which one. It is called as `PrintLine(26, '=')` and `PrintLine(26, '-')`: the same code draws two different lines. In the declaration, parameters are separated by semicolons; in the call, by commas.",
+      "`i` is a **local variable**: it is declared in the procedure's own `var` block and only exists while the procedure runs. Another procedure can have its own `i` without the two getting mixed up.",
+      "`PrintItem` prints one line of the receipt and works out the amount, `qty * price`, without the main program having to know how. `Greet` welcomes each customer. The main program stays short and reads like a list of steps.",
+      "In the Lazarus desktop apps that DMarlon Studio builds, every button click calls a procedure just like these: its event handler."
+     ],
+     "points": [
+      "`procedure Name(parameters);` declares a procedure.",
+      "Call it by name, with the values in brackets.",
+      "Variables in its `var` block are local.",
+      "A procedure saves you from repeating the same code."
+     ],
+     "exercise": "Write a `PrintTotal(amount: Double)` procedure that prints the total line aligned with the amounts, and call it at the end with `9.75`."
+    },
+    "code": "program main;\n\n// A procedure is a named block of code that you can call again and again.\nprocedure PrintLine(width: Integer; symbol: Char);\nvar\n  i: Integer;  // a local variable: it only exists inside\nbegin\n  for i := 1 to width do\n    Write(symbol);\n  WriteLn;\nend;\n\nprocedure PrintItem(name: String; qty: Integer; price: Double);\nbegin\n  WriteLn(name:8, qty:3, ' x', price:6:2, qty * price:8:2);\nend;\n\nprocedure Greet(customer: String);\nbegin\n  WriteLn('Welcome, ', customer, '!');\nend;\n\nbegin\n  Greet('Marta');\n  PrintLine(26, '=');\n  PrintItem('Bread', 2, 1.20);\n  PrintItem('Milk', 3, 0.95);\n  PrintItem('Cheese', 1, 4.50);\n  PrintLine(26, '-');\n  Greet('Luis');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// A procedure is a named block of code that you can call again and again.</span></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> PrintLine</span><span style=\"color:#D4D4D4\">(width: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">; symbol: </span><span style=\"color:#569CD6\">Char</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  i: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;  </span><span style=\"color:#6A9955\">// a local variable: it only exists inside</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#D4D4D4\"> width </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    Write</span><span style=\"color:#D4D4D4\">(symbol);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> PrintItem</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">name</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">; qty: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">; price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#569CD6\">name</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\">, qty:</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' x'</span><span style=\"color:#D4D4D4\">, price:</span><span style=\"color:#B5CEA8\">6</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, qty * price:</span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> Greet</span><span style=\"color:#D4D4D4\">(customer: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Welcome, '</span><span style=\"color:#D4D4D4\">, customer, </span><span style=\"color:#CE9178\">'!'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Greet(</span><span style=\"color:#CE9178\">'Marta'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  PrintLine(</span><span style=\"color:#B5CEA8\">26</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'='</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  PrintItem(</span><span style=\"color:#CE9178\">'Bread'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">1.20</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  PrintItem(</span><span style=\"color:#CE9178\">'Milk'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">0.95</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  PrintItem(</span><span style=\"color:#CE9178\">'Cheese'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">4.50</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  PrintLine(</span><span style=\"color:#B5CEA8\">26</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'-'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Greet(</span><span style=\"color:#CE9178\">'Luis'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Welcome, Marta!\n==========================\n   Bread  2 x  1.20    2.40\n    Milk  3 x  0.95    2.85\n  Cheese  1 x  4.50    4.50\n--------------------------\nWelcome, Luis!",
+    "image": "/courses/pascal/basic-13.jpg",
+    "size": [
+     1200,
+     1139
+    ]
+   },
+   {
+    "n": 14,
+    "es": {
+     "slug": "funciones-y-result",
+     "title": "Funciones y Result",
+     "summary": "Escriba funciones en Pascal que devuelven un valor con Result: grados Celsius a Fahrenheit, el precio con IVA y si un año es bisiesto.",
+     "body": [
+      "Una **función** es como un procedimiento, pero **devuelve un valor**. Se declara con **`function`**, sus parámetros y, tras los dos puntos, el tipo del resultado: `function CelsiusToF(c: Double): Double`.",
+      "El valor se devuelve con la variable especial **`Result`**: lo que contenga al terminar la función es lo que recibe quien la llama. Se puede asignar varias veces y leer dentro de la función, como cualquier otra variable.",
+      "`WithVat` tiene una **constante local**, `Rate`, con el 21 %. `IsLeap` devuelve un `Boolean` con la regla completa de los bisiestos: divisible entre 4 pero no entre 100, o divisible entre 400. Por eso 1900 no es bisiesto y 2000 sí.",
+      "Una llamada a una función va donde podría ir un valor: dentro de `WriteLn`, en una cuenta como `2 * WithVat(20)` o seguida del formato `:5:1`. En el `for`, `CelsiusToF(temp * 10)` convierte 0, 10, 20 y 30 grados.",
+      "También se puede asignar el resultado al nombre de la función (`CelsiusToF := ...`), como en el Pascal clásico, pero `Result` es más claro y es lo habitual en Free Pascal (modo `objfpc`) y en Delphi."
+     ],
+     "points": [
+      "`function Nombre(parámetros): Tipo;` declara una función.",
+      "Lo que quede en `Result` es el valor devuelto.",
+      "Una función se usa dentro de expresiones, como un valor.",
+      "Las funciones pueden tener sus propias constantes y variables."
+     ],
+     "exercise": "Escriba una función `Discount(price: Double; percent: Integer): Double` que devuelva el precio rebajado y úsela para escribir el precio de una camiseta de 20 euros con un 15 % de descuento y con IVA."
+    },
+    "en": {
+     "slug": "functions-and-result",
+     "title": "Functions and Result",
+     "summary": "Write Pascal functions that return a value through Result: Celsius to Fahrenheit, prices with VAT and whether a year is a leap year.",
+     "body": [
+      "A **function** is like a procedure, but it **returns a value**. It is declared with **`function`**, its parameters and, after the colon, the type of the result: `function CelsiusToF(c: Double): Double`.",
+      "The value is returned through the special variable **`Result`**: whatever it holds when the function ends is what the caller gets. You can assign it several times and read it inside the function, like any other variable.",
+      "`WithVat` has a **local constant**, `Rate`, set to 21 %. `IsLeap` returns a `Boolean` with the full leap-year rule: divisible by 4 but not by 100, or divisible by 400. That is why 1900 is not a leap year and 2000 is.",
+      "A function call goes wherever a value could go: inside `WriteLn`, in a sum such as `2 * WithVat(20)`, or followed by the `:5:1` format. In the `for` loop, `CelsiusToF(temp * 10)` converts 0, 10, 20 and 30 degrees.",
+      "You can also assign the result to the function's name (`CelsiusToF := ...`), as in classic Pascal, but `Result` is clearer and is the norm in Free Pascal (`objfpc` mode) and Delphi."
+     ],
+     "points": [
+      "`function Name(parameters): Type;` declares a function.",
+      "Whatever is left in `Result` is the returned value.",
+      "A function is used inside expressions, like a value.",
+      "Functions can have their own constants and variables."
+     ],
+     "exercise": "Write a `Discount(price: Double; percent: Integer): Double` function that returns the reduced price, and use it to print the price of a 20-euro T-shirt with a 15 % discount and VAT."
+    },
+    "code": "program main;\n\n// A function returns a value: whatever is left in Result.\nfunction CelsiusToF(c: Double): Double;\nbegin\n  Result := c * 9 / 5 + 32;\nend;\n\nfunction WithVat(price: Double): Double;\nconst\n  Rate = 0.21;\nbegin\n  Result := price * (1 + Rate);\nend;\n\nfunction IsLeap(year: Integer): Boolean;\nbegin\n  Result := ((year mod 4 = 0) and (year mod 100 <> 0)) or (year mod 400 = 0);\nend;\n\nvar\n  temp: Integer;\nbegin\n  // A function call goes wherever a value can go.\n  for temp := 0 to 3 do\n    WriteLn(temp * 10:3, ' C = ', CelsiusToF(temp * 10):5:1, ' F');\n  WriteLn('A 20-euro shirt with VAT: ', WithVat(20):0:2);\n  WriteLn('Two shirts: ', 2 * WithVat(20):0:2);\n  WriteLn('2024 is a leap year? ', IsLeap(2024));\n  WriteLn('1900 is a leap year? ', IsLeap(1900));\n  WriteLn('2000 is a leap year? ', IsLeap(2000));\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// A function returns a value: whatever is left in Result.</span></span><span class=\"line\"><span style=\"color:#569CD6\">function</span><span style=\"color:#DCDCAA\"> CelsiusToF</span><span style=\"color:#D4D4D4\">(c: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">): </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\"> := c * </span><span style=\"color:#B5CEA8\">9</span><span style=\"color:#D4D4D4\"> / </span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\"> + </span><span style=\"color:#B5CEA8\">32</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">function</span><span style=\"color:#DCDCAA\"> WithVat</span><span style=\"color:#D4D4D4\">(price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">): </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">const</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Rate = </span><span style=\"color:#B5CEA8\">0.21</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\"> := price * (</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\"> + Rate);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">function</span><span style=\"color:#DCDCAA\"> IsLeap</span><span style=\"color:#D4D4D4\">(year: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">): </span><span style=\"color:#569CD6\">Boolean</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\"> := ((year </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 4</span><span style=\"color:#D4D4D4\"> = </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">) and (year </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 100</span><span style=\"color:#D4D4D4\"> &#x3C;> </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">)) or (year </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 400</span><span style=\"color:#D4D4D4\"> = </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  temp: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // A function call goes wherever a value can go.</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> temp := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#B5CEA8\"> 3</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(temp * </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' C = '</span><span style=\"color:#D4D4D4\">, CelsiusToF(temp * </span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">):</span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' F'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'A 20-euro shirt with VAT: '</span><span style=\"color:#D4D4D4\">, WithVat(</span><span style=\"color:#B5CEA8\">20</span><span style=\"color:#D4D4D4\">):</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Two shirts: '</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\"> * WithVat(</span><span style=\"color:#B5CEA8\">20</span><span style=\"color:#D4D4D4\">):</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'2024 is a leap year? '</span><span style=\"color:#D4D4D4\">, IsLeap(</span><span style=\"color:#B5CEA8\">2024</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'1900 is a leap year? '</span><span style=\"color:#D4D4D4\">, IsLeap(</span><span style=\"color:#B5CEA8\">1900</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'2000 is a leap year? '</span><span style=\"color:#D4D4D4\">, IsLeap(</span><span style=\"color:#B5CEA8\">2000</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "  0 C =  32.0 F\n 10 C =  50.0 F\n 20 C =  68.0 F\n 30 C =  86.0 F\nA 20-euro shirt with VAT: 24.20\nTwo shirts: 48.40\n2024 is a leap year? TRUE\n1900 is a leap year? FALSE\n2000 is a leap year? TRUE",
+    "image": "/courses/pascal/basic-14.jpg",
+    "size": [
+     1200,
+     1203
+    ]
+   },
+   {
+    "n": 15,
+    "es": {
+     "slug": "parametros-var-y-const",
+     "title": "Parámetros var y const",
+     "summary": "Pase parámetros en Pascal por valor, por referencia con var y de solo lectura con const, y devuelva varios resultados desde un procedimiento.",
+     "body": [
+      "Un parámetro normal se pasa **por valor**: el procedimiento recibe una **copia**. `AddBonus` pone `bonus := 0`, pero el `bonus` del programa principal sigue valiendo `30` después de la llamada.",
+      "Con **`var`** delante, el parámetro es la propia variable de quien llama (se pasa **por referencia**): lo que haga el procedimiento se nota fuera. Por eso `score` pasa de `120` a `150`. A un parámetro `var` hay que darle una variable; `AddBonus(120, 30)` no compilaría.",
+      "`var` también sirve para devolver **varios resultados**: `SplitTime` recibe 197 segundos y rellena `mins` y `secs` a la vez, algo que una función, con un solo `Result`, no puede hacer directamente.",
+      "**`const`** marca un parámetro de solo lectura: si `Show` intentara cambiar `player`, el compilador daría un error. Con cadenas y records, además, es más eficiente, porque no se hace ninguna copia. Es buena costumbre usarlo con todo lo que no se vaya a modificar."
+     ],
+     "points": [
+      "Sin nada delante, el parámetro es una copia.",
+      "`var` trabaja sobre la variable de quien llama.",
+      "Con `var` un procedimiento puede devolver varios valores.",
+      "`const` impide cambiar el parámetro y evita copias."
+     ],
+     "exercise": "Escriba un procedimiento `Swap(var a, b: Integer)` que intercambie dos variables y úselo para ordenar de menor a mayor dos puntuaciones, `ana` y `leo`."
+    },
+    "en": {
+     "slug": "var-and-const-parameters",
+     "title": "var and const parameters",
+     "summary": "Pass Pascal parameters by value, by reference with var, and read-only with const, and return several results from one procedure.",
+     "body": [
+      "A plain parameter is passed **by value**: the procedure gets a **copy**. `AddBonus` sets `bonus := 0`, yet the main program's `bonus` is still `30` after the call.",
+      "With **`var`** in front, the parameter is the caller's own variable (passed **by reference**): whatever the procedure does shows up outside. That is why `score` goes from `120` to `150`. A `var` parameter needs a variable; `AddBonus(120, 30)` would not compile.",
+      "`var` is also the way to return **several results**: `SplitTime` takes 197 seconds and fills in both `mins` and `secs`, something a function, with its single `Result`, cannot do directly.",
+      "**`const`** marks a read-only parameter: if `Show` tried to change `player`, the compiler would report an error. With strings and records it is also more efficient, as no copy is made. It is good practice to use it for anything you will not modify."
+     ],
+     "points": [
+      "With nothing in front, a parameter is a copy.",
+      "`var` works on the caller's variable.",
+      "With `var`, a procedure can hand back several values.",
+      "`const` stops the parameter being changed and avoids copies."
+     ],
+     "exercise": "Write a `Swap(var a, b: Integer)` procedure that swaps two variables, and use it to sort two scores, `ana` and `leo`, from lowest to highest."
+    },
+    "code": "program main;\n\n// score is var (the caller's own variable); bonus is just a copy.\nprocedure AddBonus(var score: Integer; bonus: Integer);\nbegin\n  score := score + bonus;\n  bonus := 0;\nend;\n\n// var parameters let a procedure hand back several results.\nprocedure SplitTime(total: Integer; var mins, secs: Integer);\nbegin\n  mins := total div 60;\n  secs := total mod 60;\nend;\n\n// const: read-only, and the string is not copied.\nprocedure Show(const player: String; score: Integer);\nbegin\n  WriteLn(player, ': ', score, ' points');\nend;\n\nvar\n  score, bonus, mins, secs: Integer;\nbegin\n  score := 120;\n  bonus := 30;\n  AddBonus(score, bonus);\n  Show('Ana', score);\n  WriteLn('Bonus after the call: ', bonus);\n  SplitTime(197, mins, secs);\n  WriteLn('Lap time: ', mins, ' min ', secs, ' s');\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// score is var (the caller's own variable); bonus is just a copy.</span></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> AddBonus</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">var</span><span style=\"color:#D4D4D4\"> score: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">; bonus: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  score := score + bonus;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  bonus := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// var parameters let a procedure hand back several results.</span></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> SplitTime</span><span style=\"color:#D4D4D4\">(total: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">; </span><span style=\"color:#569CD6\">var</span><span style=\"color:#D4D4D4\"> mins, secs: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  mins := total </span><span style=\"color:#569CD6\">div</span><span style=\"color:#B5CEA8\"> 60</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  secs := total </span><span style=\"color:#569CD6\">mod</span><span style=\"color:#B5CEA8\"> 60</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">// const: read-only, and the string is not copied.</span></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> Show</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">const</span><span style=\"color:#D4D4D4\"> player: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">; score: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(player, </span><span style=\"color:#CE9178\">': '</span><span style=\"color:#D4D4D4\">, score, </span><span style=\"color:#CE9178\">' points'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  score, bonus, mins, secs: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  score := </span><span style=\"color:#B5CEA8\">120</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  bonus := </span><span style=\"color:#B5CEA8\">30</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  AddBonus(score, bonus);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Show(</span><span style=\"color:#CE9178\">'Ana'</span><span style=\"color:#D4D4D4\">, score);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Bonus after the call: '</span><span style=\"color:#D4D4D4\">, bonus);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SplitTime(</span><span style=\"color:#B5CEA8\">197</span><span style=\"color:#D4D4D4\">, mins, secs);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Lap time: '</span><span style=\"color:#D4D4D4\">, mins, </span><span style=\"color:#CE9178\">' min '</span><span style=\"color:#D4D4D4\">, secs, </span><span style=\"color:#CE9178\">' s'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Ana: 150 points\nBonus after the call: 30\nLap time: 3 min 17 s",
+    "image": "/courses/pascal/basic-15.jpg",
+    "size": [
+     1200,
+     1099
+    ]
+   },
+   {
+    "n": 16,
+    "es": {
+     "slug": "registros-record",
+     "title": "Registros (record)",
+     "summary": "Agrupe datos relacionados en un record de Pascal: los productos de una papelería con nombre, precio y existencias, y funciones que los usan.",
+     "body": [
+      "Un **`record`** agrupa varios **campos**, de tipos distintos, en un tipo nuevo. Se declara en el bloque **`type`**: `TProduct` tiene `Name`, `Price` y `Stock`. Por costumbre, en Pascal los nombres de tipo empiezan por `T`.",
+      "A cada campo se llega con un punto: `diary.Name := 'Diary'`. `MakeProduct` es una función que devuelve un `TProduct` completo; dentro, `Result.Name`, `Result.Price` y `Result.Stock` rellenan sus campos.",
+      "Asignar un record **copia todos sus campos**: `diary := book` crea una copia independiente del cuaderno, y cambiarle el nombre no afecta a `book`, que sigue llamándose `Notebook`.",
+      "Un record se pasa a un procedimiento como cualquier otro valor. `Show(const p: TProduct)` lo recibe con `const`, sin copiarlo, y escribe sus campos en columnas con `:10`, `:8:2` y `:5`. Con los campos también se calcula el valor de las existencias."
+     ],
+     "points": [
+      "`record ... end` agrupa campos en un tipo nuevo.",
+      "Los campos se leen y se cambian con un punto: `p.Price`.",
+      "Asignar un record copia todos sus campos.",
+      "Las funciones pueden recibir y devolver records."
+     ],
+     "exercise": "Añada a `TProduct` un campo `Category: String`, rellénelo en `MakeProduct` y escríbalo en `Show`; después cree una goma de borrar de 0,60 euros con 80 unidades."
+    },
+    "en": {
+     "slug": "records",
+     "title": "Records",
+     "summary": "Group related data in a Pascal record: a stationery shop's products with name, price and stock, plus functions that use them.",
+     "body": [
+      "A **`record`** groups several **fields**, of different types, into a new type. It is declared in the **`type`** block: `TProduct` has `Name`, `Price` and `Stock`. By convention, Pascal type names start with `T`.",
+      "Each field is reached with a dot: `diary.Name := 'Diary'`. `MakeProduct` is a function that returns a complete `TProduct`; inside it, `Result.Name`, `Result.Price` and `Result.Stock` fill in its fields.",
+      "Assigning a record **copies every field**: `diary := book` makes an independent copy of the notebook, and renaming it does not affect `book`, which is still called `Notebook`.",
+      "A record is passed to a procedure like any other value. `Show(const p: TProduct)` takes it as `const`, without copying it, and prints its fields in columns with `:10`, `:8:2` and `:5`. The fields are also used to work out the value of the stock."
+     ],
+     "points": [
+      "`record ... end` groups fields into a new type.",
+      "Fields are read and changed with a dot: `p.Price`.",
+      "Assigning a record copies all its fields.",
+      "Functions can take and return records."
+     ],
+     "exercise": "Add a `Category: String` field to `TProduct`, fill it in `MakeProduct` and print it in `Show`; then create an eraser at 0.60 euros with 80 in stock."
+    },
+    "code": "program main;\n\ntype\n  TProduct = record\n    Name: String;\n    Price: Double;\n    Stock: Integer;\n  end;\n\nfunction MakeProduct(const name: String; price: Double; stock: Integer): TProduct;\nbegin\n  Result.Name := name;\n  Result.Price := price;\n  Result.Stock := stock;\nend;\n\nprocedure Show(const p: TProduct);\nbegin\n  WriteLn(p.Name:10, p.Price:8:2, p.Stock:5);\nend;\n\nvar\n  pen, book, diary: TProduct;\nbegin\n  pen := MakeProduct('Pen', 1.20, 50);\n  book := MakeProduct('Notebook', 3.75, 12);\n  // Assigning a record copies every field.\n  diary := book;\n  diary.Name := 'Diary';\n  Show(pen);\n  Show(book);\n  Show(diary);\n  WriteLn('Stock value: ', pen.Price * pen.Stock + book.Price * book.Stock:0:2);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">type</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  TProduct = </span><span style=\"color:#569CD6\">record</span></span><span class=\"line\"><span style=\"color:#569CD6\">    Name</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Stock: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">function</span><span style=\"color:#DCDCAA\"> MakeProduct</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">const</span><span style=\"color:#569CD6\"> name</span><span style=\"color:#D4D4D4\">: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">; price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">; stock: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">): TProduct;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#569CD6\">Name</span><span style=\"color:#D4D4D4\"> := </span><span style=\"color:#569CD6\">name</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\">.Price := price;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\">.Stock := stock;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> Show</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">const</span><span style=\"color:#D4D4D4\"> p: TProduct);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(p.</span><span style=\"color:#569CD6\">Name</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">10</span><span style=\"color:#D4D4D4\">, p.Price:</span><span style=\"color:#B5CEA8\">8</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, p.Stock:</span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  pen, book, diary: TProduct;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  pen := MakeProduct(</span><span style=\"color:#CE9178\">'Pen'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">1.20</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">50</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  book := MakeProduct(</span><span style=\"color:#CE9178\">'Notebook'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">3.75</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#B5CEA8\">12</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // Assigning a record copies every field.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  diary := book;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  diary.</span><span style=\"color:#569CD6\">Name</span><span style=\"color:#D4D4D4\"> := </span><span style=\"color:#CE9178\">'Diary'</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Show(pen);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Show(book);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Show(diary);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Stock value: '</span><span style=\"color:#D4D4D4\">, pen.Price * pen.Stock + book.Price * book.Stock:</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "       Pen    1.20   50\n  Notebook    3.75   12\n     Diary    3.75   12\nStock value: 105.00",
+    "image": "/courses/pascal/basic-16.jpg",
+    "size": [
+     1200,
+     1143
+    ]
+   },
+   {
+    "n": 17,
+    "es": {
+     "slug": "enumerados-y-conjuntos",
+     "title": "Enumerados y conjuntos",
+     "summary": "Defina tipos enumerados y conjuntos en Pascal: los días de apertura de una tienda con in, Include, Exclude, Ord, Succ y la intersección.",
+     "body": [
+      "Un **tipo enumerado** es una lista ordenada de nombres: `TDay = (Mon, Tue, ...)`. Es más claro que usar números para los días, y el compilador no deja mezclarlo con otros tipos. Free Pascal escribe su nombre con `WriteLn`: `Wed`.",
+      "Cada valor tiene una posición, que empieza en 0: **`Ord(Wed)`** es `2`. **`Succ`** da el siguiente y **`Pred`**, el anterior. Como son ordinales, sirven de contador en un `for` y de opción en un `case`.",
+      "Un **conjunto** (`set of TDay`) guarda algunos de esos valores, sin orden y sin repetirlos. `[Mon..Fri]` son los días laborables; **`Include`** añade el sábado y **`Exclude`** quita el miércoles. **`in`** pregunta si un valor está dentro: `Sun in open` es `FALSE`.",
+      "Con los conjuntos se opera: `+` es la unión, `-` la diferencia y `*` la **intersección**. `open * [Sat, Sun]` da los días del fin de semana en que abre la tienda, y **`for ... in`** los recorre uno a uno.",
+      "Los conjuntos de `Char` son muy prácticos para clasificar caracteres: `c in ['a', 'e', 'i', 'o', 'u']` dice si `c` es una vocal. `for c in` también recorre una cadena letra a letra."
+     ],
+     "points": [
+      "`(A, B, C)` define un tipo enumerado.",
+      "`Ord`, `Succ` y `Pred` dan la posición, el siguiente y el anterior.",
+      "`set of T` guarda valores sin orden ni repeticiones.",
+      "`in`, `Include`, `Exclude`, `+`, `-` y `*` trabajan con conjuntos."
+     ],
+     "exercise": "Cree un tipo `TTopping = (Cheese, Ham, Mushrooms, Olives, Pepper)` y un conjunto con los ingredientes de una pizza; escriba los que lleva y, con `-`, los que le faltan para llevarlos todos."
+    },
+    "en": {
+     "slug": "enums-and-sets",
+     "title": "Enumerated types and sets",
+     "summary": "Define enumerated types and sets in Pascal: a shop's opening days with in, Include, Exclude, Ord, Succ and set intersection.",
+     "body": [
+      "An **enumerated type** is an ordered list of names: `TDay = (Mon, Tue, ...)`. It is clearer than using numbers for days, and the compiler will not let you mix it up with other types. Free Pascal prints its name with `WriteLn`: `Wed`.",
+      "Each value has a position, starting at 0: **`Ord(Wed)`** is `2`. **`Succ`** gives the next one and **`Pred`** the previous one. Because they are ordinal, they work as a `for` counter and as `case` options.",
+      "A **set** (`set of TDay`) holds some of those values, with no order and no repeats. `[Mon..Fri]` are the working days; **`Include`** adds Saturday and **`Exclude`** removes Wednesday. **`in`** asks whether a value is in the set: `Sun in open` is `FALSE`.",
+      "Sets have operators: `+` is union, `-` difference and `*` **intersection**. `open * [Sat, Sun]` gives the weekend days the shop opens, and **`for ... in`** goes through them one by one.",
+      "Sets of `Char` are handy for classifying characters: `c in ['a', 'e', 'i', 'o', 'u']` tells you whether `c` is a vowel. `for c in` also walks through a string letter by letter."
+     ],
+     "points": [
+      "`(A, B, C)` defines an enumerated type.",
+      "`Ord`, `Succ` and `Pred` give the position, the next and the previous value.",
+      "`set of T` holds values with no order or repeats.",
+      "`in`, `Include`, `Exclude`, `+`, `-` and `*` work on sets."
+     ],
+     "exercise": "Create a `TTopping = (Cheese, Ham, Mushrooms, Olives, Pepper)` type and a set with the toppings on a pizza; print the ones it has and, with `-`, the ones it is missing to have them all."
+    },
+    "code": "program main;\n\ntype\n  TDay = (Mon, Tue, Wed, Thu, Fri, Sat, Sun);  // an enumerated type\n  TDays = set of TDay;\n\nvar\n  day: TDay;\n  open: TDays;\n  c: Char;\n  vowels: Integer;\nbegin\n  day := Wed;\n  WriteLn(day, ' is at position ', Ord(day), '; the next day is ', Succ(day));\n\n  // A set holds some of those values, without order or repeats.\n  open := [Mon..Fri];\n  Include(open, Sat);\n  Exclude(open, Wed);\n  for day := Mon to Sun do\n    if day in open then\n      Write(day, ' ');\n  WriteLn;\n  WriteLn('Open on Sunday? ', Sun in open);\n  for day in open * [Sat, Sun] do  // * is the intersection\n    WriteLn('Open at the weekend: ', day);\n\n  // Sets of Char make quick character tests.\n  vowels := 0;\n  for c in 'free pascal compiler' do\n    if c in ['a', 'e', 'i', 'o', 'u'] then\n      Inc(vowels);\n  WriteLn('Vowels: ', vowels);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">type</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  TDay = (Mon, Tue, Wed, Thu, Fri, Sat, Sun);  </span><span style=\"color:#6A9955\">// an enumerated type</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  TDays = </span><span style=\"color:#569CD6\">set</span><span style=\"color:#569CD6\"> of</span><span style=\"color:#D4D4D4\"> TDay;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  day: TDay;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  open: TDays;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  c: </span><span style=\"color:#569CD6\">Char</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  vowels: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  day := Wed;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(day, </span><span style=\"color:#CE9178\">' is at position '</span><span style=\"color:#D4D4D4\">, Ord(day), </span><span style=\"color:#CE9178\">'; the next day is '</span><span style=\"color:#D4D4D4\">, Succ(day));</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // A set holds some of those values, without order or repeats.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  open := [Mon..Fri];</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Include(open, Sat);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Exclude(open, Wed);</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> day := Mon </span><span style=\"color:#569CD6\">to</span><span style=\"color:#D4D4D4\"> Sun </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    if</span><span style=\"color:#D4D4D4\"> day </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> open </span><span style=\"color:#569CD6\">then</span></span><span class=\"line\"><span style=\"color:#569CD6\">      Write</span><span style=\"color:#D4D4D4\">(day, </span><span style=\"color:#CE9178\">' '</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Open on Sunday? '</span><span style=\"color:#D4D4D4\">, Sun </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> open);</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> day </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> open * [Sat, Sun] </span><span style=\"color:#C586C0\">do</span><span style=\"color:#6A9955\">  // * is the intersection</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Open at the weekend: '</span><span style=\"color:#D4D4D4\">, day);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Sets of Char make quick character tests.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  vowels := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> c </span><span style=\"color:#569CD6\">in</span><span style=\"color:#CE9178\"> 'free pascal compiler'</span><span style=\"color:#C586C0\"> do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    if</span><span style=\"color:#D4D4D4\"> c </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> [</span><span style=\"color:#CE9178\">'a'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'e'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'i'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'o'</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">'u'</span><span style=\"color:#D4D4D4\">] </span><span style=\"color:#569CD6\">then</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">      Inc(vowels);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Vowels: '</span><span style=\"color:#D4D4D4\">, vowels);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Wed is at position 2; the next day is Thu\nMon Tue Thu Fri Sat \nOpen on Sunday? FALSE\nOpen at the weekend: Sat\nVowels: 7",
+    "image": "/courses/pascal/basic-17.jpg",
+    "size": [
+     1200,
+     1164
+    ]
+   },
+   {
+    "n": 18,
+    "es": {
+     "slug": "arrays-dinamicos",
+     "title": "Arrays dinámicos",
+     "summary": "Use en Pascal arrays dinámicos que crecen y menguan con SetLength: un carrito de la compra con funciones para añadir productos y sumarlos.",
+     "body": [
+      "Un **array dinámico** se declara sin tamaño, `array of Double`, y su tamaño se cambia mientras el programa se ejecuta con **`SetLength`**. Empieza vacío: `nil` es un array dinámico sin elementos.",
+      "`Add` hace crecer el carrito: `SetLength(list, Length(list) + 1)` añade un hueco al final y `list[High(list)] := value` lo rellena. El parámetro es `var` porque el procedimiento cambia el array de quien lo llama.",
+      "A diferencia de los estáticos, los arrays dinámicos **siempre empiezan en el índice 0**: con tres productos, los índices van de `0` a `High(cart)`, que vale `2`, mientras que `Length` da `3`.",
+      "`Sum` recibe el array con `const`, sin copiarlo, y lo recorre con `for x in list`. Para pasar un array dinámico como parámetro conviene definir antes su tipo, aquí `TPrices`.",
+      "`SetLength(cart, 2)` también **encoge** el array: el último producto desaparece. No hace falta liberar la memoria: Free Pascal lo hace solo cuando el array deja de usarse."
+     ],
+     "points": [
+      "`array of T` es un array sin tamaño fijo.",
+      "`SetLength(a, n)` lo hace crecer o encoger.",
+      "Los índices van de `0` a `High(a)`.",
+      "La memoria se libera sola."
+     ],
+     "exercise": "Escriba una función `MostExpensive(const list: TPrices): Integer` que devuelva el índice del producto más caro, y escriba su posición y su precio."
+    },
+    "en": {
+     "slug": "dynamic-arrays",
+     "title": "Dynamic arrays",
+     "summary": "Use Pascal dynamic arrays that grow and shrink with SetLength: a shopping cart with routines to add items and total them up.",
+     "body": [
+      "A **dynamic array** is declared without a size, `array of Double`, and resized while the program runs with **`SetLength`**. It starts empty: `nil` is a dynamic array with no elements.",
+      "`Add` grows the cart: `SetLength(list, Length(list) + 1)` adds a slot at the end and `list[High(list)] := value` fills it. The parameter is `var` because the procedure changes the caller's array.",
+      "Unlike static arrays, dynamic arrays **always start at index 0**: with three items, the indexes run from `0` to `High(cart)`, which is `2`, while `Length` gives `3`.",
+      "`Sum` takes the array as `const`, without copying it, and walks through it with `for x in list`. To pass a dynamic array as a parameter, it is best to define its type first, here `TPrices`.",
+      "`SetLength(cart, 2)` also **shrinks** the array: the last item disappears. There is no need to free the memory: Free Pascal does it on its own once the array is no longer used."
+     ],
+     "points": [
+      "`array of T` is an array with no fixed size.",
+      "`SetLength(a, n)` grows or shrinks it.",
+      "Indexes run from `0` to `High(a)`.",
+      "The memory is freed automatically."
+     ],
+     "exercise": "Write a `MostExpensive(const list: TPrices): Integer` function that returns the index of the most expensive item, and print its position and price."
+    },
+    "code": "program main;\n\ntype\n  TPrices = array of Double;\n\nprocedure Add(var list: TPrices; value: Double);\nbegin\n  SetLength(list, Length(list) + 1);\n  list[High(list)] := value;\nend;\n\nfunction Sum(const list: TPrices): Double;\nvar\n  x: Double;\nbegin\n  Result := 0;\n  for x in list do\n    Result := Result + x;\nend;\n\nvar\n  cart: TPrices;\n  i: Integer;\nbegin\n  cart := nil;  // nil: an empty dynamic array, with 0 items\n  Add(cart, 2.50);\n  Add(cart, 0.99);\n  Add(cart, 4.75);\n  for i := 0 to High(cart) do  // index 0 is the first\n    WriteLn('Item ', i, ': ', cart[i]:5:2);\n  WriteLn('Total: ', Sum(cart):0:2, ' (', Length(cart), ' items)');\n  SetLength(cart, 2);  // shrinking drops the last item\n  WriteLn('Without the last one: ', Sum(cart):0:2);\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">type</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  TPrices = </span><span style=\"color:#569CD6\">array</span><span style=\"color:#569CD6\"> of</span><span style=\"color:#569CD6\"> Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> Add</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">var</span><span style=\"color:#D4D4D4\"> list: TPrices; value: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SetLength(list, Length(list) + </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  list[High(list)] := value;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">function</span><span style=\"color:#DCDCAA\"> Sum</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">const</span><span style=\"color:#D4D4D4\"> list: TPrices): </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  x: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Result</span><span style=\"color:#D4D4D4\"> := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> x </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> list </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">    Result</span><span style=\"color:#D4D4D4\"> := </span><span style=\"color:#569CD6\">Result</span><span style=\"color:#D4D4D4\"> + x;</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  cart: TPrices;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  i: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  cart := </span><span style=\"color:#569CD6\">nil</span><span style=\"color:#D4D4D4\">;  </span><span style=\"color:#6A9955\">// nil: an empty dynamic array, with 0 items</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Add</span><span style=\"color:#D4D4D4\">(cart, </span><span style=\"color:#B5CEA8\">2.50</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Add</span><span style=\"color:#D4D4D4\">(cart, </span><span style=\"color:#B5CEA8\">0.99</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  Add</span><span style=\"color:#D4D4D4\">(cart, </span><span style=\"color:#B5CEA8\">4.75</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> i := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#569CD6\"> to</span><span style=\"color:#D4D4D4\"> High(cart) </span><span style=\"color:#C586C0\">do</span><span style=\"color:#6A9955\">  // index 0 is the first</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(</span><span style=\"color:#CE9178\">'Item '</span><span style=\"color:#D4D4D4\">, i, </span><span style=\"color:#CE9178\">': '</span><span style=\"color:#D4D4D4\">, cart[i]:</span><span style=\"color:#B5CEA8\">5</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Total: '</span><span style=\"color:#D4D4D4\">, Sum(cart):</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">, </span><span style=\"color:#CE9178\">' ('</span><span style=\"color:#D4D4D4\">, Length(cart), </span><span style=\"color:#CE9178\">' items)'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SetLength(cart, </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);  </span><span style=\"color:#6A9955\">// shrinking drops the last item</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Without the last one: '</span><span style=\"color:#D4D4D4\">, Sum(cart):</span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">:</span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Item 0:  2.50\nItem 1:  0.99\nItem 2:  4.75\nTotal: 8.24 (3 items)\nWithout the last one: 3.49",
+    "image": "/courses/pascal/basic-18.jpg",
+    "size": [
+     1200,
+     1164
+    ]
+   },
+   {
+    "n": 19,
+    "es": {
+     "slug": "archivos-de-texto",
+     "title": "Archivos de texto",
+     "summary": "Escriba y lea archivos de texto en Pascal con AssignFile, Rewrite, Append, Reset, ReadLn y CloseFile: una lista de la compra guardada en disco.",
+     "body": [
+      "Un archivo de texto se maneja con una variable de tipo **`TextFile`**. **`AssignFile(f, 'shopping.txt')`** la asocia al nombre del archivo, que se crea en la carpeta actual, junto al programa.",
+      "**`Rewrite`** crea el archivo para escribir en él (si ya existía, lo vacía) y `WriteLn(f, ...)` escribe igual que en la consola, pero con el archivo como primer argumento. **`CloseFile`** lo cierra y se asegura de que todo queda guardado.",
+      "**`Append`** vuelve a abrir el archivo y escribe al **final**, sin borrar lo que había: así se añade el café a la lista.",
+      "**`Reset`** lo abre para leer desde la primera línea. El bucle `while not Eof(f)` lee una línea con `ReadLn(f, line)` hasta llegar al final (**`Eof`**, *end of file*) y numera cada producto con `count`.",
+      "Abrir para leer un archivo que no existe provoca un error de ejecución. Antes se puede comprobar con **`FileExists`**, de `SysUtils`: `notes.txt` no existe y da `FALSE`."
+     ],
+     "points": [
+      "`AssignFile` asocia la variable al nombre del archivo.",
+      "`Rewrite` crea, `Append` añade y `Reset` abre para leer.",
+      "`WriteLn(f, ...)` y `ReadLn(f, ...)` escriben y leen líneas.",
+      "`Eof(f)` dice si se ha llegado al final; `CloseFile` cierra."
+     ],
+     "exercise": "Guarde en otro archivo, `prices.txt`, un precio por línea (`2.50`, `1.10` y `3.75`); léalo con `ReadLn(f, price)` en una variable `Double` y escriba el total."
+    },
+    "en": {
+     "slug": "text-files",
+     "title": "Text files",
+     "summary": "Write and read text files in Pascal with AssignFile, Rewrite, Append, Reset, ReadLn and CloseFile: a shopping list saved to disk.",
+     "body": [
+      "A text file is handled through a variable of type **`TextFile`**. **`AssignFile(f, 'shopping.txt')`** links it to the file name; the file is created in the current folder, next to the program.",
+      "**`Rewrite`** creates the file for writing (emptying it if it already existed), and `WriteLn(f, ...)` writes just as it does to the console, but with the file as the first argument. **`CloseFile`** closes it and makes sure everything is saved.",
+      "**`Append`** opens the file again and writes at the **end**, keeping what was there: that is how coffee is added to the list.",
+      "**`Reset`** opens it for reading from the first line. The `while not Eof(f)` loop reads one line at a time with `ReadLn(f, line)` until it reaches the end (**`Eof`**, end of file), numbering each item with `count`.",
+      "Opening a file that does not exist for reading causes a run-time error. You can check first with **`FileExists`**, from `SysUtils`: `notes.txt` does not exist, so it gives `FALSE`."
+     ],
+     "points": [
+      "`AssignFile` links the variable to the file name.",
+      "`Rewrite` creates, `Append` adds and `Reset` opens for reading.",
+      "`WriteLn(f, ...)` and `ReadLn(f, ...)` write and read lines.",
+      "`Eof(f)` tells you when the end is reached; `CloseFile` closes."
+     ],
+     "exercise": "Save another file, `prices.txt`, with one price per line (`2.50`, `1.10` and `3.75`); read it back with `ReadLn(f, price)` into a `Double` variable and print the total."
+    },
+    "code": "program main;\n\nuses\n  SysUtils;\n\nvar\n  f: TextFile;\n  line: String;\n  count: Integer;\nbegin\n  // Rewrite creates the file (or empties it) to write in it.\n  AssignFile(f, 'shopping.txt');\n  Rewrite(f);\n  WriteLn(f, 'bread');\n  WriteLn(f, 'milk');\n  CloseFile(f);\n\n  // Append opens it again and writes at the end.\n  Append(f);\n  WriteLn(f, 'coffee');\n  CloseFile(f);\n\n  // Reset opens it to read, from the first line.\n  Reset(f);\n  count := 0;\n  while not Eof(f) do\n  begin\n    ReadLn(f, line);\n    Inc(count);\n    WriteLn(count, '. ', line);\n  end;\n  CloseFile(f);\n  WriteLn('Items: ', count, ' | Is there a notes.txt? ', FileExists('notes.txt'));\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">uses</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  SysUtils;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  f: TextFile;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  line: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  count: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#6A9955\">  // Rewrite creates the file (or empties it) to write in it.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  AssignFile(f, </span><span style=\"color:#CE9178\">'shopping.txt'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Rewrite(f);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(f, </span><span style=\"color:#CE9178\">'bread'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(f, </span><span style=\"color:#CE9178\">'milk'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  CloseFile(f);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Append opens it again and writes at the end.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Append(f);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(f, </span><span style=\"color:#CE9178\">'coffee'</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  CloseFile(f);</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#6A9955\">  // Reset opens it to read, from the first line.</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Reset(f);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  count := </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#C586C0\">  while</span><span style=\"color:#569CD6\"> not</span><span style=\"color:#D4D4D4\"> Eof(f) </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    ReadLn(f, line);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Inc(count);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    WriteLn(count, </span><span style=\"color:#CE9178\">'. '</span><span style=\"color:#D4D4D4\">, line);</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  CloseFile(f);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(</span><span style=\"color:#CE9178\">'Items: '</span><span style=\"color:#D4D4D4\">, count, </span><span style=\"color:#CE9178\">' | Is there a notes.txt? '</span><span style=\"color:#D4D4D4\">, FileExists(</span><span style=\"color:#CE9178\">'notes.txt'</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "1. bread\n2. milk\n3. coffee\nItems: 3 | Is there a notes.txt? FALSE",
+    "image": "/courses/pascal/basic-19.jpg",
+    "size": [
+     1200,
+     1143
+    ]
+   },
+   {
+    "n": 20,
+    "es": {
+     "slug": "proyecto-factura-de-una-tienda",
+     "title": "Proyecto: la factura de una tienda",
+     "summary": "Un pequeño proyecto en Pascal que reúne records, arrays, bucles, procedimientos y Format para imprimir la factura de una tienda de informática.",
+     "body": [
+      "Este programa junta lo visto en el curso. Cada línea de la factura es un **record** `TLine` con el producto, la cantidad y el precio, y la factura entera es un **array constante** de cuatro líneas, escritas con la forma `(Product: 'Mouse'; Qty: 2; Price: 12.50)`.",
+      "`VatRate` es una constante con el 21 % de IVA: si cambia, se toca en un solo sitio. El procedimiento `Row` escribe cualquier fila de la factura, con un texto a la izquierda y un importe a la derecha, gracias a `Format('%-26s%9.2f', ...)`; su parámetro `caption` es `const`.",
+      "El bucle **`for line in Invoice`** recorre las líneas una a una. Para cada una se prepara el texto con otro `Format` (producto, cantidad y precio) y se pasa a `Row` junto con el importe, `line.Qty * line.Price`, que también se va sumando en `subtotal`.",
+      "`subtotal` es una variable con valor inicial, `Double = 0`. Al terminar el bucle, tres llamadas a `Row` escriben el subtotal, el IVA y el total, todos alineados en la misma columna.",
+      "Es la misma lógica que hay detrás de una aplicación de escritorio con Lazarus, como la demo de Odoo sin conexión de DMarlon Studio: allí las líneas salen de una base de datos y se ven en una rejilla, pero las cuentas son las mismas. Para probar este programa, ábralo con el destino Consola y pulse F9."
+     ],
+     "points": [
+      "Un array de records guarda datos con forma de tabla.",
+      "Las constantes evitan repetir números como el IVA.",
+      "Un procedimiento con `Format` mantiene alineadas todas las filas.",
+      "`for ... in` recorre un array sin manejar índices."
+     ],
+     "exercise": "Aplique un 5 % de descuento si el subtotal pasa de 150 euros: calcúlelo con un `if`, escríbalo con `Row` en negativo y calcule el IVA y el total sobre el importe ya rebajado."
+    },
+    "en": {
+     "slug": "project-shop-invoice",
+     "title": "Project: a shop invoice",
+     "summary": "A small Pascal project that brings together records, arrays, loops, procedures and Format to print the invoice of a computer shop.",
+     "body": [
+      "This program brings together what the course has covered. Each invoice line is a `TLine` **record** with the product, quantity and price, and the whole invoice is a **constant array** of four lines, written in the form `(Product: 'Mouse'; Qty: 2; Price: 12.50)`.",
+      "`VatRate` is a constant holding the 21 % VAT rate: if it changes, there is only one place to edit. The `Row` procedure prints any row of the invoice, text on the left and an amount on the right, thanks to `Format('%-26s%9.2f', ...)`; its `caption` parameter is `const`.",
+      "The **`for line in Invoice`** loop goes through the lines one by one. For each, another `Format` builds the text (product, quantity and price), which is passed to `Row` together with the amount, `line.Qty * line.Price`, which is also added to `subtotal`.",
+      "`subtotal` is a variable with an initial value, `Double = 0`. Once the loop is done, three calls to `Row` print the subtotal, the VAT and the total, all lined up in the same column.",
+      "This is the same logic that sits behind a Lazarus desktop app, such as DMarlon Studio's offline Odoo demo: there, the lines come from a database and appear in a grid, but the sums are the same. To try this program, open it with the Console target and press F9."
+     ],
+     "points": [
+      "An array of records holds table-shaped data.",
+      "Constants avoid repeating numbers such as the VAT rate.",
+      "A procedure built on `Format` keeps every row aligned.",
+      "`for ... in` walks an array without handling indexes."
+     ],
+     "exercise": "Apply a 5 % discount when the subtotal goes over 150 euros: work it out with an `if`, print it with `Row` as a negative amount, and calculate the VAT and total on the reduced amount."
+    },
+    "code": "program main;\nuses SysUtils;\n\ntype\n  TLine = record\n    Product: String;\n    Qty: Integer;\n    Price: Double;\n  end;\n\nconst\n  VatRate = 0.21;\n  Invoice: array[1..4] of TLine = (\n    (Product: 'Keyboard'; Qty: 1; Price: 24.90), (Product: 'Mouse'; Qty: 2; Price: 12.50),\n    (Product: 'USB cable'; Qty: 3; Price: 4.99), (Product: 'Monitor'; Qty: 1; Price: 139.00));\n\nprocedure Row(const caption: String; amount: Double);\nbegin\n  WriteLn(Format('%-26s%9.2f', [caption, amount]));\nend;\n\nvar\n  line: TLine;\n  subtotal: Double = 0;\nbegin\n  for line in Invoice do\n  begin\n    Row(Format('%-10s %2d x %6.2f', [line.Product, line.Qty, line.Price]), line.Qty * line.Price);\n    subtotal := subtotal + line.Qty * line.Price;\n  end;\n  Row('Subtotal', subtotal);\n  Row('VAT 21%', subtotal * VatRate);\n  Row('TOTAL', subtotal * (1 + VatRate));\nend.",
+    "html": "<pre class=\"shiki dark-plus\" style=\"background-color:#1E1E1E;color:#D4D4D4\" tabindex=\"0\"><code><span class=\"line\"><span style=\"color:#569CD6\">program</span><span style=\"color:#D4D4D4\"> main;</span></span><span class=\"line\"><span style=\"color:#569CD6\">uses</span><span style=\"color:#D4D4D4\"> SysUtils;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">type</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  TLine = </span><span style=\"color:#569CD6\">record</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Product: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Qty: </span><span style=\"color:#569CD6\">Integer</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Price: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">const</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  VatRate = </span><span style=\"color:#B5CEA8\">0.21</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Invoice: </span><span style=\"color:#569CD6\">array</span><span style=\"color:#D4D4D4\">[</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">.</span><span style=\"color:#B5CEA8\">.4</span><span style=\"color:#D4D4D4\">] </span><span style=\"color:#569CD6\">of</span><span style=\"color:#D4D4D4\"> TLine = (</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    (Product: </span><span style=\"color:#CE9178\">'Keyboard'</span><span style=\"color:#D4D4D4\">; Qty: </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">; Price: </span><span style=\"color:#B5CEA8\">24.90</span><span style=\"color:#D4D4D4\">), (Product: </span><span style=\"color:#CE9178\">'Mouse'</span><span style=\"color:#D4D4D4\">; Qty: </span><span style=\"color:#B5CEA8\">2</span><span style=\"color:#D4D4D4\">; Price: </span><span style=\"color:#B5CEA8\">12.50</span><span style=\"color:#D4D4D4\">),</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    (Product: </span><span style=\"color:#CE9178\">'USB cable'</span><span style=\"color:#D4D4D4\">; Qty: </span><span style=\"color:#B5CEA8\">3</span><span style=\"color:#D4D4D4\">; Price: </span><span style=\"color:#B5CEA8\">4.99</span><span style=\"color:#D4D4D4\">), (Product: </span><span style=\"color:#CE9178\">'Monitor'</span><span style=\"color:#D4D4D4\">; Qty: </span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\">; Price: </span><span style=\"color:#B5CEA8\">139.00</span><span style=\"color:#D4D4D4\">));</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">procedure</span><span style=\"color:#DCDCAA\"> Row</span><span style=\"color:#D4D4D4\">(</span><span style=\"color:#569CD6\">const</span><span style=\"color:#D4D4D4\"> caption: </span><span style=\"color:#569CD6\">String</span><span style=\"color:#D4D4D4\">; amount: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\">);</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  WriteLn(Format(</span><span style=\"color:#CE9178\">'%-26s%9.2f'</span><span style=\"color:#D4D4D4\">, [caption, amount]));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"></span><span class=\"line\"><span style=\"color:#569CD6\">var</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  line: TLine;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  subtotal: </span><span style=\"color:#569CD6\">Double</span><span style=\"color:#D4D4D4\"> = </span><span style=\"color:#B5CEA8\">0</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#569CD6\">begin</span></span><span class=\"line\"><span style=\"color:#C586C0\">  for</span><span style=\"color:#D4D4D4\"> line </span><span style=\"color:#569CD6\">in</span><span style=\"color:#D4D4D4\"> Invoice </span><span style=\"color:#C586C0\">do</span></span><span class=\"line\"><span style=\"color:#569CD6\">  begin</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    Row(Format(</span><span style=\"color:#CE9178\">'%-10s %2d x %6.2f'</span><span style=\"color:#D4D4D4\">, [line.Product, line.Qty, line.Price]), line.Qty * line.Price);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">    subtotal := subtotal + line.Qty * line.Price;</span></span><span class=\"line\"><span style=\"color:#569CD6\">  end</span><span style=\"color:#D4D4D4\">;</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Row(</span><span style=\"color:#CE9178\">'Subtotal'</span><span style=\"color:#D4D4D4\">, subtotal);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Row(</span><span style=\"color:#CE9178\">'VAT 21%'</span><span style=\"color:#D4D4D4\">, subtotal * VatRate);</span></span><span class=\"line\"><span style=\"color:#D4D4D4\">  Row(</span><span style=\"color:#CE9178\">'TOTAL'</span><span style=\"color:#D4D4D4\">, subtotal * (</span><span style=\"color:#B5CEA8\">1</span><span style=\"color:#D4D4D4\"> + VatRate));</span></span><span class=\"line\"><span style=\"color:#569CD6\">end</span><span style=\"color:#D4D4D4\">.</span></span></code></pre>",
+    "output": "Keyboard    1 x  24.90        24.90\nMouse       2 x  12.50        25.00\nUSB cable   3 x   4.99        14.97\nMonitor     1 x 139.00       139.00\nSubtotal                     203.87\nVAT 21%                       42.81\nTOTAL                        246.68",
+    "image": "/courses/pascal/basic-20.jpg",
+    "size": [
+     1200,
+     1206
+    ]
+   }
+  ]
+ }
+}

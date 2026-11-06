@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Su primer programa en Pascal: WriteLn escribe textos y resultados en la consola. Compílelo con Free Pascal o ejecútelo con F9 en DMarlon Studio.",
+    "body": [
+      "Un programa en Pascal empieza con su nombre, `program main;`, y lo que hace va entre **`begin`** y **`end.`**, con un punto final que marca dónde termina. Cada orden acaba en punto y coma.",
+      "**`WriteLn`** escribe en la consola lo que le pase entre paréntesis y salta a la línea siguiente. El texto va entre comillas simples, `'Hello, world!'`: es una **cadena**. **`Write`** hace lo mismo pero sin saltar de línea; por eso `Write('Two plus three is ')` y `WriteLn(2 + 3)` acaban en la misma línea.",
+      "Los números van sin comillas y Pascal hace la cuenta antes de escribirla: `7 * 24` sale como `168`. Con comas, un solo `WriteLn` escribe varios valores seguidos, sin nada entre ellos (los espacios los pone usted dentro de las comillas). Un `WriteLn` sin paréntesis deja una línea en blanco.",
+      "Los comentarios no se ejecutan: `//` comenta hasta el final de la línea y `{ ... }` encierra un comentario que puede ocupar varias. En DMarlon Studio, Pascal mueve las aplicaciones de escritorio hechas con Lazarus y también el destino Consola, donde este programa se ejecuta con F9."
+    ],
+    "points": [
+      "El programa va entre `begin` y `end.`, con punto final.",
+      "`WriteLn` escribe y salta de línea; `Write`, no.",
+      "Los textos van entre comillas simples; los números, no.",
+      "Las comas separan varios valores en un mismo `WriteLn`.",
+      "`//` y `{ }` son comentarios."
+    ],
+    "exercise": "Haga que el programa escriba su nombre y, en otra línea, cuántos minutos tiene un día (que lo calcule Pascal con `24 * 60`)."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Your first Pascal program: WriteLn prints text and results to the console. Compile it with Free Pascal or run it with F9 in DMarlon Studio.",
+    "body": [
+      "A Pascal program starts with its name, `program main;`, and what it does goes between **`begin`** and **`end.`**, with a full stop marking where it finishes. Each statement ends with a semicolon.",
+      "**`WriteLn`** writes whatever you put inside the brackets to the console and moves to the next line. Text goes between single quotes, `'Hello, world!'`: it is a **string**. **`Write`** does the same without the line break, which is why `Write('Two plus three is ')` and `WriteLn(2 + 3)` end up on the same line.",
+      "Numbers go without quotes, and Pascal works out the sum before printing it: `7 * 24` comes out as `168`. With commas, a single `WriteLn` prints several values one after another with nothing in between (you add the spaces inside the quotes). A `WriteLn` with no brackets prints an empty line.",
+      "Comments are not run: `//` comments out the rest of the line and `{ ... }` wraps a comment that can span several lines. In DMarlon Studio, Pascal powers desktop apps built with Lazarus as well as the Console target, where this program runs with F9."
+    ],
+    "points": [
+      "The program goes between `begin` and `end.`, with a full stop.",
+      "`WriteLn` prints and moves to a new line; `Write` does not.",
+      "Text goes between single quotes; numbers do not.",
+      "Commas separate several values in one `WriteLn`.",
+      "`//` and `{ }` are comments."
+    ],
+    "exercise": "Make the program print your name and, on another line, how many minutes there are in a day (let Pascal work it out with `24 * 60`)."
+  }
+}

@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.57 — 2026-11-07
+
+- **Curso de Pascal básico** (20 lecciones, español e inglés): `WriteLn` y
+  `ReadLn`, tipos, `div` y `mod`, formatos, `if` y `case`, bucles, arrays
+  estáticos y dinámicos, cadenas, procedimientos y funciones, parámetros
+  `var` y `const`, registros, enumerados y conjuntos, archivos de texto y la
+  factura de una tienda como proyecto. Compilado con Free Pascal, como las
+  aplicaciones de Lazarus del estudio.
+
 ## 1.0.56 — 2026-11-07
 
 - **Curso de C++ avanzado** (20 lecciones, español e inglés): clases y

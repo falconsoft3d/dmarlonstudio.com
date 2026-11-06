@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-factura-de-una-tienda",
+    "title": "Proyecto: la factura de una tienda",
+    "summary": "Un pequeño proyecto en Pascal que reúne records, arrays, bucles, procedimientos y Format para imprimir la factura de una tienda de informática.",
+    "body": [
+      "Este programa junta lo visto en el curso. Cada línea de la factura es un **record** `TLine` con el producto, la cantidad y el precio, y la factura entera es un **array constante** de cuatro líneas, escritas con la forma `(Product: 'Mouse'; Qty: 2; Price: 12.50)`.",
+      "`VatRate` es una constante con el 21 % de IVA: si cambia, se toca en un solo sitio. El procedimiento `Row` escribe cualquier fila de la factura, con un texto a la izquierda y un importe a la derecha, gracias a `Format('%-26s%9.2f', ...)`; su parámetro `caption` es `const`.",
+      "El bucle **`for line in Invoice`** recorre las líneas una a una. Para cada una se prepara el texto con otro `Format` (producto, cantidad y precio) y se pasa a `Row` junto con el importe, `line.Qty * line.Price`, que también se va sumando en `subtotal`.",
+      "`subtotal` es una variable con valor inicial, `Double = 0`. Al terminar el bucle, tres llamadas a `Row` escriben el subtotal, el IVA y el total, todos alineados en la misma columna.",
+      "Es la misma lógica que hay detrás de una aplicación de escritorio con Lazarus, como la demo de Odoo sin conexión de DMarlon Studio: allí las líneas salen de una base de datos y se ven en una rejilla, pero las cuentas son las mismas. Para probar este programa, ábralo con el destino Consola y pulse F9."
+    ],
+    "points": [
+      "Un array de records guarda datos con forma de tabla.",
+      "Las constantes evitan repetir números como el IVA.",
+      "Un procedimiento con `Format` mantiene alineadas todas las filas.",
+      "`for ... in` recorre un array sin manejar índices."
+    ],
+    "exercise": "Aplique un 5 % de descuento si el subtotal pasa de 150 euros: calcúlelo con un `if`, escríbalo con `Row` en negativo y calcule el IVA y el total sobre el importe ya rebajado."
+  },
+  "en": {
+    "slug": "project-shop-invoice",
+    "title": "Project: a shop invoice",
+    "summary": "A small Pascal project that brings together records, arrays, loops, procedures and Format to print the invoice of a computer shop.",
+    "body": [
+      "This program brings together what the course has covered. Each invoice line is a `TLine` **record** with the product, quantity and price, and the whole invoice is a **constant array** of four lines, written in the form `(Product: 'Mouse'; Qty: 2; Price: 12.50)`.",
+      "`VatRate` is a constant holding the 21 % VAT rate: if it changes, there is only one place to edit. The `Row` procedure prints any row of the invoice, text on the left and an amount on the right, thanks to `Format('%-26s%9.2f', ...)`; its `caption` parameter is `const`.",
+      "The **`for line in Invoice`** loop goes through the lines one by one. For each, another `Format` builds the text (product, quantity and price), which is passed to `Row` together with the amount, `line.Qty * line.Price`, which is also added to `subtotal`.",
+      "`subtotal` is a variable with an initial value, `Double = 0`. Once the loop is done, three calls to `Row` print the subtotal, the VAT and the total, all lined up in the same column.",
+      "This is the same logic that sits behind a Lazarus desktop app, such as DMarlon Studio's offline Odoo demo: there, the lines come from a database and appear in a grid, but the sums are the same. To try this program, open it with the Console target and press F9."
+    ],
+    "points": [
+      "An array of records holds table-shaped data.",
+      "Constants avoid repeating numbers such as the VAT rate.",
+      "A procedure built on `Format` keeps every row aligned.",
+      "`for ... in` walks an array without handling indexes."
+    ],
+    "exercise": "Apply a 5 % discount when the subtotal goes over 150 euros: work it out with an `if`, print it with `Row` as a negative amount, and calculate the VAT and total on the reduced amount."
+  }
+}

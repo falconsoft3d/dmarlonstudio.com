@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "if-then-else",
+    "title": "if, then y else",
+    "summary": "Tome decisiones en Pascal con if, then y else: avisos según la temperatura y la nota de un examen, con bloques begin…end y cadenas de else if.",
+    "body": [
+      "**`if` condición `then` orden** ejecuta la orden solo si la condición es verdadera. Con `temp` a `31`, `temp > 30` se cumple y sale el aviso del calor; `temp < 10` no se cumple, y la línea del abrigo no se ejecuta.",
+      "Detrás de `then` (y de `else`) va **una sola orden**. Si hacen falta varias, se agrupan entre **`begin`** y **`end`**, como las dos líneas del aprobado.",
+      "**`else`** indica qué hacer cuando la condición es falsa. Hay una regla de Pascal que confunde al principio: **antes de `else` nunca va punto y coma**, porque el `;` cerraría el `if` y el `else` quedaría suelto. Por eso pone `end` y no `end;` justo antes.",
+      "Para elegir entre varias opciones se encadena **`else if`**: las condiciones se miran en orden y solo se ejecuta la primera que se cumple. Con un 6, `grade >= 9` y `grade >= 7` fallan, `grade >= 5` acierta y sale `Pass`."
+    ],
+    "points": [
+      "`if ... then` ejecuta una orden si la condición se cumple.",
+      "Varias órdenes van entre `begin` y `end`.",
+      "Nunca ponga punto y coma justo antes de `else`.",
+      "`else if` comprueba varias condiciones en orden."
+    ],
+    "exercise": "Junte los dos avisos de temperatura en un solo `if ... else if ... else` que escriba «Hot» por encima de 30 grados, «Cold» por debajo de 10 y «Mild» en el resto, y pruébelo con `temp` a 5, 18 y 31."
+  },
+  "en": {
+    "slug": "if-then-else",
+    "title": "if, then and else",
+    "summary": "Make decisions in Pascal with if, then and else: weather warnings and exam grades, with begin…end blocks and else if chains.",
+    "body": [
+      "**`if` condition `then` statement** runs the statement only when the condition is true. With `temp` at `31`, `temp > 30` holds and the heat warning appears; `temp < 10` does not, so the coat line is skipped.",
+      "After `then` (and after `else`) comes **a single statement**. If you need several, group them between **`begin`** and **`end`**, like the two lines for a pass.",
+      "**`else`** says what to do when the condition is false. One Pascal rule trips everyone up at first: **there is never a semicolon right before `else`**, because the `;` would close the `if` and leave the `else` hanging. That is why the code has `end`, not `end;`, just before it.",
+      "To choose between several options, chain **`else if`**: the conditions are checked in order and only the first one that holds runs. With a 6, `grade >= 9` and `grade >= 7` fail, `grade >= 5` succeeds and `Pass` is printed."
+    ],
+    "points": [
+      "`if ... then` runs a statement when the condition holds.",
+      "Several statements go between `begin` and `end`.",
+      "Never put a semicolon right before `else`.",
+      "`else if` checks several conditions in order."
+    ],
+    "exercise": "Merge the two temperature warnings into a single `if ... else if ... else` that prints «Hot» above 30 degrees, «Cold» below 10 and «Mild» otherwise, and try it with `temp` set to 5, 18 and 31."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays-estaticos",
+    "title": "Arrays estáticos",
+    "summary": "Guarde varios valores del mismo tipo en un array de Pascal: las temperaturas de una semana, con su media y el día más caluroso.",
+    "body": [
+      "Un **array** guarda varios valores del mismo tipo bajo un solo nombre. Se declara con sus índices: `array[1..7] of Integer` son siete enteros numerados del 1 al 7. Es **estático**: su tamaño se fija al compilar y ya no cambia.",
+      "`Days` es un **array constante**, con sus valores entre paréntesis, y `temps` es una variable que empieza con las temperaturas de la semana. A cada elemento se llega con su índice entre corchetes: `temps[4] := 20` corrige el jueves.",
+      "**`Low`** y **`High`** dan el primer y el último índice, y **`Length`**, cuántos elementos hay. Con ellos el `for` recorre el array sin escribir números a mano, y sigue funcionando aunque cambie el tamaño.",
+      "Dentro del bucle se hacen tres cosas: escribir cada día con su temperatura, sumarla en `total` y recordar en `hottest` el **índice** del día más caluroso. Al final, `total / Length(temps)` da la media.",
+      "Usar un índice que no existe, como `temps[8]`, es un error. Si el índice es una constante, el compilador ya avisa; si es una variable, active la comprobación al ejecutar con `{$R+}` al principio del programa."
+    ],
+    "points": [
+      "`array[1..7] of Integer` declara siete enteros.",
+      "`a[i]` lee o cambia el elemento `i`.",
+      "`Low`, `High` y `Length` dan los límites y el tamaño.",
+      "Un array estático no cambia de tamaño."
+    ],
+    "exercise": "Añada un array `rain` con los litros de lluvia de cada día y escriba cuántos días llovió y cuál fue el más lluvioso."
+  },
+  "en": {
+    "slug": "static-arrays",
+    "title": "Static arrays",
+    "summary": "Store several values of the same type in a Pascal array: a week of temperatures, with the average and the hottest day.",
+    "body": [
+      "An **array** holds several values of the same type under one name. It is declared with its indexes: `array[1..7] of Integer` is seven integers numbered 1 to 7. It is **static**: its size is fixed when the program is compiled and never changes.",
+      "`Days` is a **constant array**, with its values in brackets, and `temps` is a variable that starts with the week's temperatures. Each element is reached by its index in square brackets: `temps[4] := 20` corrects Thursday.",
+      "**`Low`** and **`High`** give the first and last index, and **`Length`** the number of elements. With them the `for` loop walks the array without hard-coded numbers, and keeps working if the size changes.",
+      "Inside the loop three things happen: each day is printed with its temperature, added to `total`, and `hottest` remembers the **index** of the hottest day so far. At the end, `total / Length(temps)` gives the average.",
+      "Using an index that does not exist, such as `temps[8]`, is a mistake. With a constant index the compiler already warns you; with a variable, turn on run-time checking with `{$R+}` at the top of the program."
+    ],
+    "points": [
+      "`array[1..7] of Integer` declares seven integers.",
+      "`a[i]` reads or changes element `i`.",
+      "`Low`, `High` and `Length` give the bounds and the size.",
+      "A static array never changes size."
+    ],
+    "exercise": "Add a `rain` array with the litres of rain for each day and print how many days it rained and which day was the wettest."
+  }
+}

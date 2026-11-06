@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "registros-record",
+    "title": "Registros (record)",
+    "summary": "Agrupe datos relacionados en un record de Pascal: los productos de una papelería con nombre, precio y existencias, y funciones que los usan.",
+    "body": [
+      "Un **`record`** agrupa varios **campos**, de tipos distintos, en un tipo nuevo. Se declara en el bloque **`type`**: `TProduct` tiene `Name`, `Price` y `Stock`. Por costumbre, en Pascal los nombres de tipo empiezan por `T`.",
+      "A cada campo se llega con un punto: `diary.Name := 'Diary'`. `MakeProduct` es una función que devuelve un `TProduct` completo; dentro, `Result.Name`, `Result.Price` y `Result.Stock` rellenan sus campos.",
+      "Asignar un record **copia todos sus campos**: `diary := book` crea una copia independiente del cuaderno, y cambiarle el nombre no afecta a `book`, que sigue llamándose `Notebook`.",
+      "Un record se pasa a un procedimiento como cualquier otro valor. `Show(const p: TProduct)` lo recibe con `const`, sin copiarlo, y escribe sus campos en columnas con `:10`, `:8:2` y `:5`. Con los campos también se calcula el valor de las existencias."
+    ],
+    "points": [
+      "`record ... end` agrupa campos en un tipo nuevo.",
+      "Los campos se leen y se cambian con un punto: `p.Price`.",
+      "Asignar un record copia todos sus campos.",
+      "Las funciones pueden recibir y devolver records."
+    ],
+    "exercise": "Añada a `TProduct` un campo `Category: String`, rellénelo en `MakeProduct` y escríbalo en `Show`; después cree una goma de borrar de 0,60 euros con 80 unidades."
+  },
+  "en": {
+    "slug": "records",
+    "title": "Records",
+    "summary": "Group related data in a Pascal record: a stationery shop's products with name, price and stock, plus functions that use them.",
+    "body": [
+      "A **`record`** groups several **fields**, of different types, into a new type. It is declared in the **`type`** block: `TProduct` has `Name`, `Price` and `Stock`. By convention, Pascal type names start with `T`.",
+      "Each field is reached with a dot: `diary.Name := 'Diary'`. `MakeProduct` is a function that returns a complete `TProduct`; inside it, `Result.Name`, `Result.Price` and `Result.Stock` fill in its fields.",
+      "Assigning a record **copies every field**: `diary := book` makes an independent copy of the notebook, and renaming it does not affect `book`, which is still called `Notebook`.",
+      "A record is passed to a procedure like any other value. `Show(const p: TProduct)` takes it as `const`, without copying it, and prints its fields in columns with `:10`, `:8:2` and `:5`. The fields are also used to work out the value of the stock."
+    ],
+    "points": [
+      "`record ... end` groups fields into a new type.",
+      "Fields are read and changed with a dot: `p.Price`.",
+      "Assigning a record copies all its fields.",
+      "Functions can take and return records."
+    ],
+    "exercise": "Add a `Category: String` field to `TProduct`, fill it in `MakeProduct` and print it in `Show`; then create an eraser at 0.60 euros with 80 in stock."
+  }
+}

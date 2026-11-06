@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "enumerados-y-conjuntos",
+    "title": "Enumerados y conjuntos",
+    "summary": "Defina tipos enumerados y conjuntos en Pascal: los días de apertura de una tienda con in, Include, Exclude, Ord, Succ y la intersección.",
+    "body": [
+      "Un **tipo enumerado** es una lista ordenada de nombres: `TDay = (Mon, Tue, ...)`. Es más claro que usar números para los días, y el compilador no deja mezclarlo con otros tipos. Free Pascal escribe su nombre con `WriteLn`: `Wed`.",
+      "Cada valor tiene una posición, que empieza en 0: **`Ord(Wed)`** es `2`. **`Succ`** da el siguiente y **`Pred`**, el anterior. Como son ordinales, sirven de contador en un `for` y de opción en un `case`.",
+      "Un **conjunto** (`set of TDay`) guarda algunos de esos valores, sin orden y sin repetirlos. `[Mon..Fri]` son los días laborables; **`Include`** añade el sábado y **`Exclude`** quita el miércoles. **`in`** pregunta si un valor está dentro: `Sun in open` es `FALSE`.",
+      "Con los conjuntos se opera: `+` es la unión, `-` la diferencia y `*` la **intersección**. `open * [Sat, Sun]` da los días del fin de semana en que abre la tienda, y **`for ... in`** los recorre uno a uno.",
+      "Los conjuntos de `Char` son muy prácticos para clasificar caracteres: `c in ['a', 'e', 'i', 'o', 'u']` dice si `c` es una vocal. `for c in` también recorre una cadena letra a letra."
+    ],
+    "points": [
+      "`(A, B, C)` define un tipo enumerado.",
+      "`Ord`, `Succ` y `Pred` dan la posición, el siguiente y el anterior.",
+      "`set of T` guarda valores sin orden ni repeticiones.",
+      "`in`, `Include`, `Exclude`, `+`, `-` y `*` trabajan con conjuntos."
+    ],
+    "exercise": "Cree un tipo `TTopping = (Cheese, Ham, Mushrooms, Olives, Pepper)` y un conjunto con los ingredientes de una pizza; escriba los que lleva y, con `-`, los que le faltan para llevarlos todos."
+  },
+  "en": {
+    "slug": "enums-and-sets",
+    "title": "Enumerated types and sets",
+    "summary": "Define enumerated types and sets in Pascal: a shop's opening days with in, Include, Exclude, Ord, Succ and set intersection.",
+    "body": [
+      "An **enumerated type** is an ordered list of names: `TDay = (Mon, Tue, ...)`. It is clearer than using numbers for days, and the compiler will not let you mix it up with other types. Free Pascal prints its name with `WriteLn`: `Wed`.",
+      "Each value has a position, starting at 0: **`Ord(Wed)`** is `2`. **`Succ`** gives the next one and **`Pred`** the previous one. Because they are ordinal, they work as a `for` counter and as `case` options.",
+      "A **set** (`set of TDay`) holds some of those values, with no order and no repeats. `[Mon..Fri]` are the working days; **`Include`** adds Saturday and **`Exclude`** removes Wednesday. **`in`** asks whether a value is in the set: `Sun in open` is `FALSE`.",
+      "Sets have operators: `+` is union, `-` difference and `*` **intersection**. `open * [Sat, Sun]` gives the weekend days the shop opens, and **`for ... in`** goes through them one by one.",
+      "Sets of `Char` are handy for classifying characters: `c in ['a', 'e', 'i', 'o', 'u']` tells you whether `c` is a vowel. `for c in` also walks through a string letter by letter."
+    ],
+    "points": [
+      "`(A, B, C)` defines an enumerated type.",
+      "`Ord`, `Succ` and `Pred` give the position, the next and the previous value.",
+      "`set of T` holds values with no order or repeats.",
+      "`in`, `Include`, `Exclude`, `+`, `-` and `*` work on sets."
+    ],
+    "exercise": "Create a `TTopping = (Cheese, Ham, Mushrooms, Olives, Pepper)` type and a set with the toppings on a pizza; print the ones it has and, with `-`, the ones it is missing to have them all."
+  }
+}

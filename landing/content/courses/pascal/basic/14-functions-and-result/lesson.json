@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-y-result",
+    "title": "Funciones y Result",
+    "summary": "Escriba funciones en Pascal que devuelven un valor con Result: grados Celsius a Fahrenheit, el precio con IVA y si un año es bisiesto.",
+    "body": [
+      "Una **función** es como un procedimiento, pero **devuelve un valor**. Se declara con **`function`**, sus parámetros y, tras los dos puntos, el tipo del resultado: `function CelsiusToF(c: Double): Double`.",
+      "El valor se devuelve con la variable especial **`Result`**: lo que contenga al terminar la función es lo que recibe quien la llama. Se puede asignar varias veces y leer dentro de la función, como cualquier otra variable.",
+      "`WithVat` tiene una **constante local**, `Rate`, con el 21 %. `IsLeap` devuelve un `Boolean` con la regla completa de los bisiestos: divisible entre 4 pero no entre 100, o divisible entre 400. Por eso 1900 no es bisiesto y 2000 sí.",
+      "Una llamada a una función va donde podría ir un valor: dentro de `WriteLn`, en una cuenta como `2 * WithVat(20)` o seguida del formato `:5:1`. En el `for`, `CelsiusToF(temp * 10)` convierte 0, 10, 20 y 30 grados.",
+      "También se puede asignar el resultado al nombre de la función (`CelsiusToF := ...`), como en el Pascal clásico, pero `Result` es más claro y es lo habitual en Free Pascal (modo `objfpc`) y en Delphi."
+    ],
+    "points": [
+      "`function Nombre(parámetros): Tipo;` declara una función.",
+      "Lo que quede en `Result` es el valor devuelto.",
+      "Una función se usa dentro de expresiones, como un valor.",
+      "Las funciones pueden tener sus propias constantes y variables."
+    ],
+    "exercise": "Escriba una función `Discount(price: Double; percent: Integer): Double` que devuelva el precio rebajado y úsela para escribir el precio de una camiseta de 20 euros con un 15 % de descuento y con IVA."
+  },
+  "en": {
+    "slug": "functions-and-result",
+    "title": "Functions and Result",
+    "summary": "Write Pascal functions that return a value through Result: Celsius to Fahrenheit, prices with VAT and whether a year is a leap year.",
+    "body": [
+      "A **function** is like a procedure, but it **returns a value**. It is declared with **`function`**, its parameters and, after the colon, the type of the result: `function CelsiusToF(c: Double): Double`.",
+      "The value is returned through the special variable **`Result`**: whatever it holds when the function ends is what the caller gets. You can assign it several times and read it inside the function, like any other variable.",
+      "`WithVat` has a **local constant**, `Rate`, set to 21 %. `IsLeap` returns a `Boolean` with the full leap-year rule: divisible by 4 but not by 100, or divisible by 400. That is why 1900 is not a leap year and 2000 is.",
+      "A function call goes wherever a value could go: inside `WriteLn`, in a sum such as `2 * WithVat(20)`, or followed by the `:5:1` format. In the `for` loop, `CelsiusToF(temp * 10)` converts 0, 10, 20 and 30 degrees.",
+      "You can also assign the result to the function's name (`CelsiusToF := ...`), as in classic Pascal, but `Result` is clearer and is the norm in Free Pascal (`objfpc` mode) and Delphi."
+    ],
+    "points": [
+      "`function Name(parameters): Type;` declares a function.",
+      "Whatever is left in `Result` is the returned value.",
+      "A function is used inside expressions, like a value.",
+      "Functions can have their own constants and variables."
+    ],
+    "exercise": "Write a `Discount(price: Double; percent: Integer): Double` function that returns the reduced price, and use it to print the price of a 20-euro T-shirt with a 15 % discount and VAT."
+  }
+}

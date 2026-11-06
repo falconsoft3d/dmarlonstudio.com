@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "archivos-de-texto",
+    "title": "Archivos de texto",
+    "summary": "Escriba y lea archivos de texto en Pascal con AssignFile, Rewrite, Append, Reset, ReadLn y CloseFile: una lista de la compra guardada en disco.",
+    "body": [
+      "Un archivo de texto se maneja con una variable de tipo **`TextFile`**. **`AssignFile(f, 'shopping.txt')`** la asocia al nombre del archivo, que se crea en la carpeta actual, junto al programa.",
+      "**`Rewrite`** crea el archivo para escribir en él (si ya existía, lo vacía) y `WriteLn(f, ...)` escribe igual que en la consola, pero con el archivo como primer argumento. **`CloseFile`** lo cierra y se asegura de que todo queda guardado.",
+      "**`Append`** vuelve a abrir el archivo y escribe al **final**, sin borrar lo que había: así se añade el café a la lista.",
+      "**`Reset`** lo abre para leer desde la primera línea. El bucle `while not Eof(f)` lee una línea con `ReadLn(f, line)` hasta llegar al final (**`Eof`**, *end of file*) y numera cada producto con `count`.",
+      "Abrir para leer un archivo que no existe provoca un error de ejecución. Antes se puede comprobar con **`FileExists`**, de `SysUtils`: `notes.txt` no existe y da `FALSE`."
+    ],
+    "points": [
+      "`AssignFile` asocia la variable al nombre del archivo.",
+      "`Rewrite` crea, `Append` añade y `Reset` abre para leer.",
+      "`WriteLn(f, ...)` y `ReadLn(f, ...)` escriben y leen líneas.",
+      "`Eof(f)` dice si se ha llegado al final; `CloseFile` cierra."
+    ],
+    "exercise": "Guarde en otro archivo, `prices.txt`, un precio por línea (`2.50`, `1.10` y `3.75`); léalo con `ReadLn(f, price)` en una variable `Double` y escriba el total."
+  },
+  "en": {
+    "slug": "text-files",
+    "title": "Text files",
+    "summary": "Write and read text files in Pascal with AssignFile, Rewrite, Append, Reset, ReadLn and CloseFile: a shopping list saved to disk.",
+    "body": [
+      "A text file is handled through a variable of type **`TextFile`**. **`AssignFile(f, 'shopping.txt')`** links it to the file name; the file is created in the current folder, next to the program.",
+      "**`Rewrite`** creates the file for writing (emptying it if it already existed), and `WriteLn(f, ...)` writes just as it does to the console, but with the file as the first argument. **`CloseFile`** closes it and makes sure everything is saved.",
+      "**`Append`** opens the file again and writes at the **end**, keeping what was there: that is how coffee is added to the list.",
+      "**`Reset`** opens it for reading from the first line. The `while not Eof(f)` loop reads one line at a time with `ReadLn(f, line)` until it reaches the end (**`Eof`**, end of file), numbering each item with `count`.",
+      "Opening a file that does not exist for reading causes a run-time error. You can check first with **`FileExists`**, from `SysUtils`: `notes.txt` does not exist, so it gives `FALSE`."
+    ],
+    "points": [
+      "`AssignFile` links the variable to the file name.",
+      "`Rewrite` creates, `Append` adds and `Reset` opens for reading.",
+      "`WriteLn(f, ...)` and `ReadLn(f, ...)` write and read lines.",
+      "`Eof(f)` tells you when the end is reached; `CloseFile` closes."
+    ],
+    "exercise": "Save another file, `prices.txt`, with one price per line (`2.50`, `1.10` and `3.75`); read it back with `ReadLn(f, price)` into a `Double` variable and print the total."
+  }
+}

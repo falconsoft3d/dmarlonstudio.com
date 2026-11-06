@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cadenas-de-texto",
+    "title": "Cadenas de texto",
+    "summary": "Trabaje con textos en Pascal: unir con +, Length, Copy, Pos, UpperCase y LowerCase para separar el usuario y el dominio de un correo.",
+    "body": [
+      "Las cadenas se unen con **`+`**: `first + ' ' + last` da `Ada Lovelace`. **`Length`** da su número de caracteres, `12`.",
+      "Cada carácter tiene su posición, que **empieza en 1**: `first[1]` es `'A'`, y así salen las iniciales. **`UpperCase`** y **`LowerCase`**, de `SysUtils`, devuelven una copia en mayúsculas o en minúsculas; la cadena original no cambia.",
+      "**`Pos(trozo, texto)`** busca una cadena dentro de otra y da la posición donde empieza: la `@` está en la 13. Si no la encuentra, devuelve `0`, como ocurre con `'xyz'`.",
+      "**`Copy(texto, inicio, cuántos)`** recorta un trozo. Con la posición de la `@`, `Copy(email, 1, at - 1)` toma lo que hay delante (el usuario) y `Copy(email, at + 1, Length(email) - at)`, lo que hay detrás (el dominio).",
+      "`+` solo une cadenas: para añadir un número hay que convertirlo antes con **`IntToStr`** (o con `FloatToStr` si es real). `WriteLn`, en cambio, acepta números directamente si se separan con comas."
+    ],
+    "points": [
+      "`+` une cadenas y `Length` cuenta sus caracteres.",
+      "Las posiciones empiezan en 1: `s[1]` es el primer carácter.",
+      "`Pos` busca (y da `0` si no encuentra); `Copy` recorta.",
+      "`IntToStr` convierte un número en texto."
+    ],
+    "exercise": "A partir de `domain`, saque con `Pos` y `Copy` el nombre de la empresa (`example`) y la extensión (`com`), y escriba el usuario en mayúsculas."
+  },
+  "en": {
+    "slug": "strings",
+    "title": "Working with strings",
+    "summary": "Work with text in Pascal: join with +, then Length, Copy, Pos, UpperCase and LowerCase to split an email address into user and domain.",
+    "body": [
+      "Strings are joined with **`+`**: `first + ' ' + last` gives `Ada Lovelace`. **`Length`** gives the number of characters, `12`.",
+      "Each character has a position, which **starts at 1**: `first[1]` is `'A'`, which is how the initials are built. **`UpperCase`** and **`LowerCase`**, from `SysUtils`, return a copy in capitals or small letters; the original string stays as it was.",
+      "**`Pos(piece, text)`** looks for one string inside another and gives the position where it starts: the `@` is at 13. If it is not found, it returns `0`, as happens with `'xyz'`.",
+      "**`Copy(text, start, count)`** cuts out a piece. Using the position of the `@`, `Copy(email, 1, at - 1)` takes what comes before it (the user) and `Copy(email, at + 1, Length(email) - at)` what comes after (the domain).",
+      "`+` only joins strings: to add a number you first convert it with **`IntToStr`** (or `FloatToStr` for real numbers). `WriteLn`, on the other hand, takes numbers directly when they are separated by commas."
+    ],
+    "points": [
+      "`+` joins strings and `Length` counts their characters.",
+      "Positions start at 1: `s[1]` is the first character.",
+      "`Pos` searches (and gives `0` when nothing is found); `Copy` cuts.",
+      "`IntToStr` turns a number into text."
+    ],
+    "exercise": "Starting from `domain`, use `Pos` and `Copy` to get the company name (`example`) and the extension (`com`), and print the user in capitals."
+  }
+}

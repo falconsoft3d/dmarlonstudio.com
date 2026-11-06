@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "bucles-for",
+    "title": "Bucles for con to y downto",
+    "summary": "Cuente con for en Pascal: to para subir, downto para bajar, sumas, contadores de tipo Char y bucles anidados para los asientos de un cine.",
+    "body": [
+      "**`for i := 1 to 5 do`** repite la orden con `i` valiendo 1, 2, 3, 4 y 5: la tabla del 7. El contador sube de uno en uno él solo; de hecho, el compilador no deja cambiarlo dentro del bucle.",
+      "**`downto`** cuenta hacia atrás: `3 downto 1` hace la cuenta atrás. `Write` deja los números en la misma línea y el `WriteLn` final la cierra con el despegue.",
+      "Un `for` se combina con un `if`: de 1 a 99 solo se suman los números con `i mod 2 = 1`, los impares, y el resultado es `2500`. Si con `to` el inicio es mayor que el final, el bucle no se ejecuta ninguna vez.",
+      "El contador puede ser de cualquier tipo ordinal, también `Char`: `for c := 'A' to 'E'` recorre esas letras. Y dentro de un `for` puede ir otro: por cada fila `i`, el bucle interior escribe sus cinco asientos, y entre los dos dibujan la sala."
+    ],
+    "points": [
+      "`for i := a to b do` cuenta de `a` a `b`.",
+      "`downto` cuenta hacia atrás.",
+      "El contador no se cambia dentro del bucle.",
+      "El contador puede ser un entero, un `Char` u otro tipo ordinal."
+    ],
+    "exercise": "Escriba la tabla de multiplicar completa del 1 al 9 con dos `for` anidados, alineando los resultados con `:4`."
+  },
+  "en": {
+    "slug": "for-loops",
+    "title": "for loops with to and downto",
+    "summary": "Count with for in Pascal: to counts up, downto counts down, plus running totals, Char counters and nested loops for cinema seats.",
+    "body": [
+      "**`for i := 1 to 5 do`** repeats the statement with `i` set to 1, 2, 3, 4 and 5: the 7 times table. The counter goes up by one on its own; in fact, the compiler will not let you change it inside the loop.",
+      "**`downto`** counts backwards: `3 downto 1` gives the countdown. `Write` keeps the numbers on one line and the final `WriteLn` closes it with the lift-off.",
+      "A `for` goes well with an `if`: from 1 to 99, only the numbers with `i mod 2 = 1`, the odd ones, are added up, and the result is `2500`. With `to`, if the start is greater than the end, the loop does not run at all.",
+      "The counter can be any ordinal type, including `Char`: `for c := 'A' to 'E'` goes through those letters. And a `for` can sit inside another: for each row `i`, the inner loop prints its five seats, and together they draw the cinema."
+    ],
+    "points": [
+      "`for i := a to b do` counts from `a` to `b`.",
+      "`downto` counts backwards.",
+      "Do not change the counter inside the loop.",
+      "The counter can be an integer, a `Char` or another ordinal type."
+    ],
+    "exercise": "Print the full multiplication table from 1 to 9 with two nested `for` loops, lining up the results with `:4`."
+  }
+}

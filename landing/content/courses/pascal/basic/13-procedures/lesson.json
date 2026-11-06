@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "procedimientos",
+    "title": "Procedimientos",
+    "summary": "Agrupe código con nombre en procedimientos de Pascal, con parámetros y variables locales, para imprimir el tique de una panadería.",
+    "body": [
+      "Un **procedimiento** es un bloque de código con nombre que se escribe una vez y se llama tantas veces como haga falta. Se declara antes del `begin` principal, con **`procedure`**, su nombre y, entre paréntesis, sus **parámetros**.",
+      "`PrintLine(width: Integer; symbol: Char)` recibe dos datos: cuántos caracteres dibujar y cuál. Se llama con `PrintLine(26, '=')` y con `PrintLine(26, '-')`: el mismo código dibuja dos líneas distintas. En la declaración los parámetros se separan con punto y coma; en la llamada, con comas.",
+      "`i` es una **variable local**: se declara en el `var` del propio procedimiento y solo existe mientras este se ejecuta. Otro procedimiento puede tener su propia `i` sin que se mezclen.",
+      "`PrintItem` escribe una línea del tique y calcula el importe, `qty * price`, sin que el programa principal tenga que saber cómo. `Greet` saluda a cada cliente. Así, el programa principal queda corto y se lee como una lista de pasos.",
+      "En las aplicaciones de escritorio con Lazarus que genera DMarlon Studio, cada clic en un botón llama a un procedimiento como estos: es su manejador de eventos."
+    ],
+    "points": [
+      "`procedure Nombre(parámetros);` declara un procedimiento.",
+      "Se llama por su nombre, con los valores entre paréntesis.",
+      "Las variables de su `var` son locales.",
+      "Un procedimiento evita repetir el mismo código."
+    ],
+    "exercise": "Escriba un procedimiento `PrintTotal(amount: Double)` que escriba la línea del total alineada con los importes y llámelo al final con `9.75`."
+  },
+  "en": {
+    "slug": "procedures",
+    "title": "Procedures",
+    "summary": "Group named blocks of code into Pascal procedures, with parameters and local variables, to print a bakery receipt.",
+    "body": [
+      "A **procedure** is a named block of code that you write once and call as often as you need. It is declared before the main `begin`, with **`procedure`**, its name and, in brackets, its **parameters**.",
+      "`PrintLine(width: Integer; symbol: Char)` takes two pieces of data: how many characters to draw and which one. It is called as `PrintLine(26, '=')` and `PrintLine(26, '-')`: the same code draws two different lines. In the declaration, parameters are separated by semicolons; in the call, by commas.",
+      "`i` is a **local variable**: it is declared in the procedure's own `var` block and only exists while the procedure runs. Another procedure can have its own `i` without the two getting mixed up.",
+      "`PrintItem` prints one line of the receipt and works out the amount, `qty * price`, without the main program having to know how. `Greet` welcomes each customer. The main program stays short and reads like a list of steps.",
+      "In the Lazarus desktop apps that DMarlon Studio builds, every button click calls a procedure just like these: its event handler."
+    ],
+    "points": [
+      "`procedure Name(parameters);` declares a procedure.",
+      "Call it by name, with the values in brackets.",
+      "Variables in its `var` block are local.",
+      "A procedure saves you from repeating the same code."
+    ],
+    "exercise": "Write a `PrintTotal(amount: Double)` procedure that prints the total line aligned with the amounts, and call it at the end with `9.75`."
+  }
+}

@@ -441,7 +441,7 @@ msgstr "Notify by"
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -477,7 +477,7 @@ msgstr "Calculator with keyboard input and exact decimal numbers."
 msgid "Calculadora web"
 msgstr "Web calculator"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Cantidad"
 msgstr "Quantity"
 
@@ -489,7 +489,7 @@ msgstr "Loading…"
 msgid "Cargar"
 msgstr "Load"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ciudad"
 msgstr "City"
 
@@ -597,7 +597,7 @@ msgstr "Company"
 msgid "En marcha"
 msgstr "Running"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Escriba el nombre del cliente."
 msgstr "Type the customer's name."
 
@@ -645,7 +645,7 @@ msgstr "Saved: {0}"
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr "Saved: {0} ({1}), notify by: {2}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr "Save"
 
@@ -761,7 +761,7 @@ msgstr "New note"
 msgid "Notas"
 msgstr "Notes"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr "New"
 
@@ -829,7 +829,7 @@ msgstr "Tasks"
 msgid "Tareas web"
 msgstr "Web tasks"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Teléfono"
 msgstr "Phone"
 
@@ -845,7 +845,7 @@ msgstr "Text"
 msgid "Tipo"
 msgstr "Type"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr "User"
 
@@ -969,7 +969,7 @@ msgstr "Fill"
 msgid "Separador"
 msgstr "Separator"
 
-#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Tarjeta"
 msgstr "Card"
 
@@ -1117,7 +1117,7 @@ msgstr "Detail"
 msgid "Direcciones"
 msgstr "Addresses"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/ui/screens/mcp_settings.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/mcp_settings.dart
 msgid "Dirección"
 msgstr "Address"
 
@@ -1323,7 +1323,7 @@ msgstr "Organise your day, find what you need and share it with anyone."
 
 #: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart
 msgid "Pagar"
-msgstr "Payable"
+msgstr "Pay"
 
 #: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pago"
@@ -1333,7 +1333,7 @@ msgstr "Payment"
 msgid "Pago confirmado"
 msgstr "Payment confirmed"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Panel"
 msgstr "Dashboard"
 
@@ -1345,7 +1345,7 @@ msgstr "Order confirmed"
 msgid "Pedido enviado"
 msgstr "Order shipped"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pedidos"
 msgstr "Orders"
 
@@ -1373,7 +1373,7 @@ msgstr "Products, quantities and total."
 msgid "Recuperar contraseña"
 msgstr "Reset password"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_windows.dart
 msgid "Registro"
 msgstr "Log"
 
@@ -1441,7 +1441,7 @@ msgstr "A description with the key details: what it is, what it is for and why i
 msgid "Valoración media"
 msgstr "Average rating"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ventas"
 msgstr "Sales"
 
@@ -3385,7 +3385,7 @@ msgstr "A notepad made with DMarlon Studio, Electron and React."
 msgid "Borrar las hechas"
 msgstr "Clear completed"
 
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Cliente"
 msgstr "Customer"
 
@@ -3401,7 +3401,7 @@ msgstr "Create shipment"
 msgid "En camino"
 msgstr "On the way"
 
-#: lib/code/tk_showcase_flutter.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Entregado"
 msgstr "Delivered"
 
@@ -3445,7 +3445,7 @@ msgstr "New task"
 msgid "Nuevo envío"
 msgstr "New shipment"
 
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Pendiente"
 msgstr "Pending"
 
@@ -3533,7 +3533,7 @@ msgstr "A mobile app with login and notes saved in FalconDatabase: put the conne
 msgid "Buscar por nombre o categoría"
 msgstr "Search by name or category"
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -3593,11 +3593,11 @@ msgstr "White paint 5 L"
 msgid "Por debajo del mínimo ({0} uds.)"
 msgstr "Below the minimum ({0} units)"
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Precio"
 msgstr "Price"
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Productos"
 msgstr "Products"
 
@@ -3837,7 +3837,7 @@ msgstr "Receiving…"
 msgid "Recibir"
 msgstr "Receive"
 
-#: lib/code/tk_showcase_mail.dart
+#: lib/code/tk_showcase_mail.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Recordar la contraseña en este equipo"
 msgstr "Remember the password on this computer"
 
@@ -3945,7 +3945,7 @@ msgstr "Reports"
 msgid "Por categoría"
 msgstr "By category"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Producto"
 msgstr "Product"
 
@@ -4081,7 +4081,7 @@ msgstr "Switch"
 msgid "Categorías"
 msgstr "Categories"
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Clientes"
 msgstr "Customers"
 
@@ -4129,7 +4129,7 @@ msgstr "Contents"
 msgid "Contra reembolso"
 msgstr "Cash on delivery"
 
-#: lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Correo electrónico"
 msgstr "Email"
 
@@ -4479,7 +4479,7 @@ msgstr "Paper"
 msgid "Papel actualizado."
 msgstr "Role updated."
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pedido"
 msgstr "Order"
 
@@ -4523,7 +4523,7 @@ msgstr "Post comment"
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr "Fitness band with sleep tracking and 14 days of battery."
 
-#: lib/code/tk_showcase_sites.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart
 msgid "Quitar"
 msgstr "Remove"
 
@@ -4575,7 +4575,7 @@ msgstr "About the blog"
 msgid "Solo quedan {0} unidades de «{1}»."
 msgstr "Only {0} units of “{1}” left."
 
-#: lib/code/tk_showcase_sites.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Stock"
 msgstr "Stock"
 
@@ -4835,7 +4835,7 @@ msgstr "Click: select   ·   Double-click: open the folder   ·   Right-click: a
 msgid "Comprimidos"
 msgstr "Archives"
 
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Código"
 msgstr "Code"
 
@@ -5259,7 +5259,7 @@ msgstr "Demo with simulated data: fictional companies and random prices. Not a r
 msgid "Demo reiniciada: 10.000 € de efectivo y precios nuevos."
 msgstr "Demo reset: 10,000 € in cash and new prices."
 
-#: lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Efectivo"
 msgstr "Cash"
 
@@ -5694,6 +5694,728 @@ msgstr "Clear the playlist?"
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "Álbum"
 msgstr "Album"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d cambios pendientes"
+msgstr "%d pending changes"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d clientes · %d sin enviar"
+msgstr "%d customers · %d not sent"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d creados sin conexión"
+msgstr "%d created offline"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d pedidos confirmados"
+msgstr "%d confirmed orders"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d pedidos · %s"
+msgstr "%d orders · %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d productos"
+msgstr "%d products"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%s no responde como un servidor de Odoo."
+msgstr "%s does not answer like an Odoo server."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%s × %s"
+msgstr "%s × %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "(ya no existe en este equipo)"
+msgstr "(no longer on this computer)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "1.234,56"
+msgstr "1,234.56"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Añada al menos un producto."
+msgstr "Add at least one product."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Aún no se ha sincronizado"
+msgstr "Not synced yet"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Base de datos (vacía: la única del servidor)"
+msgstr "Database (empty: the server's only one)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Base de datos encontrada: %s."
+msgstr "Database found: %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Borrar los datos locales"
+msgstr "Delete local data"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Buscar por nombre o código…"
+msgstr "Search by name or code…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Buscar por nombre, correo o ciudad…"
+msgstr "Search by name, email or city…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Buscar por número o cliente…"
+msgstr "Search by number or customer…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Buscar producto…"
+msgstr "Search product…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cambios del cliente «%s» enviados."
+msgstr "Changes to customer «%s» sent."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cambios en el cliente: %s"
+msgstr "Changes to customer: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cambios pendientes de enviar y registro"
+msgstr "Changes waiting to be sent, and log"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Cancelado"
+msgstr "Cancelled"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cancelados"
+msgstr "Cancelled"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cliente %d de Odoo, al día."
+msgstr "Odoo customer %d, up to date."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cliente %d de Odoo, con cambios pendientes de enviar."
+msgstr "Odoo customer %d, with changes waiting to be sent."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Cliente de mostrador"
+msgstr "Walk-in customer"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cliente nuevo: %s"
+msgstr "New customer: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cliente «%s» creado en Odoo (id %d)."
+msgstr "Customer «%s» created in Odoo (id %d)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cliente «%s» ya estaba en Odoo (id %d): no se duplica."
+msgstr "Customer «%s» was already in Odoo (id %d): not duplicated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Clientes de Odoo y los creados en este equipo"
+msgstr "Odoo customers and the ones created on this computer"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Cobrar"
+msgstr "Payment"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cockpit de ventas"
+msgstr "Sales cockpit"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cockpit de ventas al estilo de SAP Business One para Odoo 8 a 20, en Pascal con Lazarus: indicadores y gráficos, clientes, productos y presupuestos que se crean sin conexión y se sincronizan sin duplicados."
+msgstr "SAP Business One-style sales cockpit for Odoo 8 to 20, in Pascal with Lazarus: KPIs and charts, and customers, products and quotations that are created offline and synced without duplicates."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cockpit de ventas para Odoo 8 a 20 en Pascal con Lazarus: JSON-RPC, datos sin conexión y sincronización sin duplicados."
+msgstr "Sales cockpit for Odoo 8 to 20 in Pascal with Lazarus: JSON-RPC, offline data and sync without duplicates."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Conectado a Odoo %s (base de datos %s, usuario %d)."
+msgstr "Connected to Odoo %s (database %s, user %d)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Conectar y descargar"
+msgstr "Connect and download"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Conexión con Odoo"
+msgstr "Odoo connection"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Conexión correcta: Odoo %s, base de datos %s."
+msgstr "Connection OK: Odoo %s, database %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Configuración"
+msgstr "Settings"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Contraseña o clave de API"
+msgstr "Password or API key"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Creado en este equipo: se enviará a Odoo al sincronizar (con la referencia %s)."
+msgstr "Created on this computer: it will be sent to Odoo when you sync (with reference %s)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr "How it works"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Datos de este equipo: %s"
+msgstr "Data on this computer: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Descargados %d clientes, %d productos y %d pedidos."
+msgstr "Downloaded %d customers, %d products and %d orders."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Descargar todo de nuevo"
+msgstr "Download everything again"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Descartar el cambio elegido"
+msgstr "Discard the selected change"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Detectar"
+msgstr "Detect"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Dirección del servidor (https://…)"
+msgstr "Server address (https://…)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Dto. %"
+msgstr "Disc. %"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Editar cliente"
+msgstr "Edit customer"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El correo electrónico no parece válido."
+msgstr "The email address does not look valid."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El descuento va de 0 a 100."
+msgstr "The discount goes from 0 to 100."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El módulo Ventas no está instalado en esta base de datos de Odoo: no hay pedidos ni presupuestos."
+msgstr "The Sales module is not installed in this Odoo database: there are no orders or quotations."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El presupuesto %s ya estaba en Odoo: no se duplica."
+msgstr "Quotation %s was already in Odoo: not duplicated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El servidor no muestra sus bases de datos: escriba el nombre de la suya."
+msgstr "The server does not list its databases: type the name of yours."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El servidor no tiene la ruta %s: ¿es un Odoo?"
+msgstr "The server has no %s route: is it Odoo?"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El servidor redirige a %s: use esa dirección."
+msgstr "The server redirects to %s: use that address."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El servidor respondió con el error HTTP %d."
+msgstr "The server answered with HTTP error %d."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El servidor tiene varias bases de datos: %s. Elija una."
+msgstr "The server has several databases: %s. Choose one."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El ticket está vacío."
+msgstr "The receipt is empty."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija el cliente del presupuesto."
+msgstr "Choose the quotation's customer."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija un cambio de la lista."
+msgstr "Choose a change from the list."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Elija un producto."
+msgstr "Choose a product."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija una línea del ticket."
+msgstr "Choose a line of the receipt."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "En línea"
+msgstr "Online"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Entrega %s validada."
+msgstr "Delivery %s validated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Enviados %d cambios a Odoo."
+msgstr "Sent %d changes to Odoo."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_windows.dart lib/ui/screens/dev_tools.dart
+msgid "Error"
+msgstr "Error"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Error: %s"
+msgstr "Error: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba la dirección del servidor de Odoo."
+msgstr "Type the Odoo server address."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba la dirección, el usuario y la contraseña de Odoo y pulse Conectar y descargar."
+msgstr "Type the Odoo address, user and password and press Connect and download."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba una cantidad mayor que cero."
+msgstr "Type a quantity greater than zero."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Esperando la conexión · %s"
+msgstr "Waiting for the connection · %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Estado de la sincronización"
+msgstr "Sync status"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Está trabajando sin conexión: desmarque esa casilla en Sincronización para enviar los cambios."
+msgstr "You are working offline: untick that box in Sync to send the changes."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Factura %s publicada."
+msgstr "Invoice %s posted."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Facturado"
+msgstr "Invoiced"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Funciona con Odoo 8 a 20 (Community y Enterprise) por JSON-RPC, con las rutas del cliente web: /web/session/authenticate y /web/dataset/call_kw. Detecta la versión y usa los campos que tiene cada una.\n"
+"\n"
+"Sin conexión: los clientes, productos y pedidos se guardan en un archivo JSON de su carpeta de usuario. Los clientes y presupuestos nuevos esperan en «Pendientes de enviar» y se envían al sincronizar o, solos, cuando vuelve la conexión.\n"
+"\n"
+"Sin duplicados: cada registro creado aquí lleva una referencia DMS-… (en la referencia interna del cliente y en la referencia del cliente del pedido) que se busca en Odoo antes de crearlo.\n"
+"\n"
+"Punto de venta: cada venta llega a Odoo como pedido confirmado, con su entrega validada (si está Inventario) y su factura publicada. Si algo falla, al sincronizar se sigue desde el último paso hecho.\n"
+"\n"
+"HTTPS: la aplicación lleva su OpenSSL (en Windows, libssl-3-x64.dll y libcrypto-3-x64.dll junto al .exe). Si falta, en macOS se usa la de Homebrew o la del sistema; en Linux, la libssl del sistema.\n"
+"\n"
+"Los presupuestos necesitan el módulo Ventas en Odoo; con Inventario se ve también el stock."
+msgstr ""
+"Works with Odoo 8 to 20 (Community and Enterprise) over JSON-RPC, using the web client routes: /web/session/authenticate and /web/dataset/call_kw. It detects the version and uses the fields each one has.\n"
+"\n"
+"Offline: customers, products and orders are saved in a JSON file in your user folder. New customers and quotations wait in «Waiting to be sent» and are sent when you sync or, on their own, when the connection comes back.\n"
+"\n"
+"No duplicates: every record created here carries a DMS-… reference (in the customer's internal reference and in the order's customer reference) that is looked up in Odoo before creating it.\n"
+"\n"
+"Point of sale: every sale reaches Odoo as a confirmed order, with its delivery validated (if Inventory is installed) and its invoice posted. If something fails, the next sync carries on from the last step done.\n"
+"\n"
+"HTTPS: the app ships its own OpenSSL (on Windows, libssl-3-x64.dll and libcrypto-3-x64.dll next to the .exe). If it is missing, macOS uses Homebrew's or the system one; Linux uses the system libssl.\n"
+"\n"
+"Quotations need the Sales module in Odoo; with Inventory the stock is shown too."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Guardar presupuesto"
+msgstr "Save quotation"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Hay %d cambios sin enviar a Odoo, que se perderán. ¿Borrar de todos modos?"
+msgstr "There are %d changes not sent to Odoo, which will be lost. Delete anyway?"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/dev/dev_client.dart lib/ui/screens/dev_tools.dart
+msgid "Hecho"
+msgstr "Done"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Inventario no está instalado en Odoo: la venta no tiene entrega."
+msgstr "Inventory is not installed in Odoo: the sale has no delivery."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "La base de datos «%s» no existe en el servidor."
+msgstr "Database «%s» does not exist on the server."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "La entrega %s no se pudo validar (estado %s)."
+msgstr "Delivery %s could not be validated (status %s)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Mejores clientes"
+msgstr "Top customers"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "NIF"
+msgstr "Tax ID"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "No hay clientes: sincronice o cree uno en Clientes."
+msgstr "There are no customers: sync or create one in Customers."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "No se encuentra OpenSSL, que hace falta para HTTPS. En Windows, copie libssl-3-x64.dll y libcrypto-3-x64.dll junto al programa; en macOS, instale OpenSSL con Homebrew (brew install openssl@3); en Linux, instale libssl."
+msgstr "OpenSSL, which HTTPS needs, cannot be found. On Windows, copy libssl-3-x64.dll and libcrypto-3-x64.dll next to the program; on macOS, install OpenSSL with Homebrew (brew install openssl@3); on Linux, install libssl."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "No se pudo enviar «%s»: %s"
+msgstr "Could not send «%s»: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "No se puede conectar con %s. ¿Hay conexión a Internet y es correcta la dirección? (%s)"
+msgstr "Cannot connect to %s. Is there an Internet connection and is the address right? (%s)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nombre *"
+msgstr "Name *"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Nuevo cliente"
+msgstr "New customer"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nuevo presupuesto"
+msgstr "New quotation"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo 8–20, con y sin conexión"
+msgstr "Odoo 8–20, online and offline"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo no creó la factura del pedido %s."
+msgstr "Odoo did not create the invoice for order %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo sin conexión"
+msgstr "Offline Odoo"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo sin conexión (Pascal)"
+msgstr "Offline Odoo (Pascal)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedido %s confirmado."
+msgstr "Order %s confirmed."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedido de venta"
+msgstr "Sales order"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Pedido: %s\n"
+"Cliente: %s\n"
+"Fecha: %s\n"
+"Total: %s\n"
+"Estado: %s"
+msgstr ""
+"Order: %s\n"
+"Customer: %s\n"
+"Date: %s\n"
+"Total: %s\n"
+"Status: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedidos de venta"
+msgstr "Sales orders"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedidos por estado"
+msgstr "Orders by status"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedidos y presupuestos; los nuevos se envían al sincronizar"
+msgstr "Orders and quotations; new ones are sent when you sync"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pendientes de enviar"
+msgstr "Waiting to be sent"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Por %s"
+msgstr "Worth %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/budget_screen.dart
+msgid "Presupuesto"
+msgstr "Quotation"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto %s creado en Odoo para %s."
+msgstr "Quotation %s created in Odoo for %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto enviado"
+msgstr "Quotation sent"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto guardado: se enviará a Odoo al sincronizar."
+msgstr "Quotation saved: it will be sent to Odoo when you sync."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto para %s (%s)"
+msgstr "Quotation for %s (%s)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuestos"
+msgstr "Quotations"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuestos abiertos"
+msgstr "Open quotations"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+msgid "Probar conexión"
+msgstr "Test connection"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Productos que se pueden vender"
+msgstr "Products that can be sold"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Punto de venta"
+msgstr "Point of sale"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Página %d de %d · %d productos"
+msgstr "Page %d of %d · %d products"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Quitar línea"
+msgstr "Remove line"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Reintentar automáticamente"
+msgstr "Retry automatically"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Rellene la ficha y pulse Guardar: funciona también sin conexión."
+msgstr "Fill in the form and press Save: it works offline too."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Resumen de las ventas de los últimos doce meses"
+msgstr "Sales summary for the last twelve months"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Se envía a Odoo como pedido confirmado, con su entrega y su factura."
+msgstr "It is sent to Odoo as a confirmed order, with its delivery and its invoice."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Se guarda en este equipo y se envía a Odoo al sincronizar."
+msgstr "It is saved on this computer and sent to Odoo when you sync."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Servidor de Odoo, base de datos y usuario"
+msgstr "Odoo server, database and user"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Servidor: %s\n"
+"Base de datos: %s · %s\n"
+"Última sincronización: %s\n"
+"En este equipo: %d clientes, %d productos y %d pedidos."
+msgstr ""
+"Server: %s\n"
+"Database: %s · %s\n"
+"Last sync: %s\n"
+"On this computer: %d customers, %d products and %d orders."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sin conexión"
+msgstr "Offline"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sin configurar: vaya a Configuración"
+msgstr "Not set up: go to Settings"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sin datos: conecte con Odoo en Configuración."
+msgstr "No data: connect to Odoo in Settings."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sin enviar"
+msgstr "Not sent"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronización"
+msgstr "Sync"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronización terminada."
+msgstr "Sync finished."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronizado: %s"
+msgstr "Synced: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronizando…"
+msgstr "Syncing…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronizar"
+msgstr "Sync"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Sincronizar ahora"
+msgstr "Sync now"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Su cliente aún no está en Odoo."
+msgstr "Its customer is not in Odoo yet."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Ticket"
+msgstr "Receipt"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Ticket %s\n"
+"%s · %s\n"
+"Cliente: %s\n"
+"\n"
+"%s\n"
+"Total: %s\n"
+"\n"
+"Estado: %s\n"
+"Pedido: %s\n"
+"Entrega: %s\n"
+"Factura: %s"
+msgstr ""
+"Receipt %s\n"
+"%s · %s\n"
+"Customer: %s\n"
+"\n"
+"%s\n"
+"Total: %s\n"
+"\n"
+"Status: %s\n"
+"Order: %s\n"
+"Delivery: %s\n"
+"Invoice: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todas las categorías"
+msgstr "All categories"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todo enviado"
+msgstr "Everything sent"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todos"
+msgstr "All"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todos en Odoo"
+msgstr "All in Odoo"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Toque un producto para añadirlo al ticket."
+msgstr "Tap a product to add it to the receipt."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Total %s"
+msgstr "Total %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Total: %s (sin impuestos)"
+msgstr "Total: %s (before tax)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Trabajando sin conexión"
+msgstr "Working offline"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Trabajar sin conexión"
+msgstr "Work offline"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+msgid "Usuario o contraseña incorrectos."
+msgstr "Wrong user or password."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Vaciar"
+msgstr "Clear"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Venta del punto de venta para %s (%s)"
+msgstr "Point of sale sale for %s (%s)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Venta en mostrador: pedido, entrega y factura en Odoo"
+msgstr "Counter sales: order, delivery and invoice in Odoo"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Ventas del mes"
+msgstr "Sales this month"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Ventas del punto de venta"
+msgstr "Point of sale sales"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Ventas por mes"
+msgstr "Sales by month"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "dto. %s %%"
+msgstr "disc. %s %%"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
+msgstr "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "no encontrada"
+msgstr "not found"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "nunca"
+msgstr "never"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "pedidos"
+msgstr "orders"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "pendiente"
+msgstr "pending"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "sin Inventario en Odoo"
+msgstr "no Inventory in Odoo"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "versión desconocida"
+msgstr "unknown version"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "¿Borrar los clientes, productos y pedidos guardados en este equipo? Odoo no cambia."
+msgstr "Delete the customers, products and orders saved on this computer? Odoo does not change."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "¿Descartar este cambio? Lo que se creó en este equipo y aún no está en Odoo se borrará."
+msgstr "Discard this change? Whatever was created on this computer and is not in Odoo yet will be deleted."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Últimos pedidos"
+msgstr "Latest orders"
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "(Esta página no tiene texto: puede ser una imagen escaneada.)"
@@ -6236,16 +6958,8 @@ msgid "Cliente de las ventas sin cliente"
 msgstr "Customer for sales without a customer"
 
 #: lib/code/tk_showcase_util_pos.dart
-msgid "Cliente de mostrador"
-msgstr "Walk-in customer"
-
-#: lib/code/tk_showcase_util_pos.dart
 msgid "Cliente: {0}"
 msgstr "Customer: {0}"
-
-#: lib/code/tk_showcase_util_pos.dart
-msgid "Cobrar"
-msgstr "Payment"
 
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Con tarjeta se cobra el importe exacto."
@@ -6254,10 +6968,6 @@ msgstr "Card payments charge the exact amount."
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Conectado como {0} ({1}), base de datos {2}."
 msgstr "Connected as {0} ({1}), database {2}."
-
-#: lib/code/tk_showcase_util_pos.dart
-msgid "Conexión con Odoo"
-msgstr "Odoo connection"
 
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Conexión con Odoo guardada."
@@ -6420,10 +7130,6 @@ msgid "Nueva imagen para «{0}»."
 msgstr "New image for “{0}”."
 
 #: lib/code/tk_showcase_util_pos.dart
-msgid "Nuevo cliente"
-msgstr "New customer"
-
-#: lib/code/tk_showcase_util_pos.dart
 msgid "Nuevo pedido"
 msgstr "New order"
 
@@ -6495,14 +7201,6 @@ msgstr "Orders saved in {0}"
 msgid "Pedidos: {0} · Total {1} · Efectivo {2} · Tarjeta {3}"
 msgstr "Orders: {0} · Total {1} · Cash {2} · Card {3}"
 
-#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
-msgid "Probar conexión"
-msgstr "Test connection"
-
-#: lib/code/tk_showcase_util_pos.dart
-msgid "Punto de venta"
-msgstr "Point of sale"
-
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Quitar imagen"
 msgstr "Remove image"
@@ -6564,10 +7262,6 @@ msgid "Use el usuario y la contraseña con los que entra en Odoo. La contraseña
 msgstr "Use the user and password you log in to Odoo with. The password is stored in the point of sale database (pos.sqlite) on this computer. If the user has two-factor authentication, use a dedicated user for the point of sale without it. Without a database, the server's only database is used."
 
 #: lib/code/tk_showcase_util_pos.dart
-msgid "Usuario o contraseña incorrectos."
-msgstr "Wrong user or password."
-
-#: lib/code/tk_showcase_util_pos.dart
 msgid "Vaciar pedido"
 msgstr "Clear order"
 
@@ -6622,10 +7316,6 @@ msgstr "Warning"
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Aviso a menos de"
 msgstr "Warn below"
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Cancelado"
-msgstr "Cancelled"
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Conectando con Renfe…"
@@ -6938,10 +7628,6 @@ msgid "Elija el cliente."
 msgstr "Choose the client."
 
 #: lib/code/tk_showcase_web.dart
-msgid "Elija un producto."
-msgstr "Choose a product."
-
-#: lib/code/tk_showcase_web.dart
 msgid "Elija una factura de la lista."
 msgstr "Choose an invoice from the list."
 
@@ -7074,10 +7760,6 @@ msgid "Marcar como pagada"
 msgstr "Mark as paid"
 
 #: lib/code/tk_showcase_web.dart
-msgid "NIF"
-msgstr "Tax ID"
-
-#: lib/code/tk_showcase_web.dart
 msgid "No hay forma de reproducir audio en este equipo. Instale pygame: {0}"
 msgstr "There is no way to play audio on this computer. Install pygame: {0}"
 
@@ -7142,10 +7824,6 @@ msgid "Próxima acción"
 msgstr "Next action"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Quitar línea"
-msgstr "Remove line"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Repetir la lista"
 msgstr "Repeat the list"
 
@@ -7176,10 +7854,6 @@ msgstr "Online shop"
 #: lib/code/tk_showcase_web.dart
 msgid "Todas las etapas"
 msgstr "All stages"
-
-#: lib/code/tk_showcase_web.dart
-msgid "Vaciar"
-msgstr "Clear"
 
 #: lib/code/tk_showcase_web.dart
 msgid "Valor en curso: {0}"
@@ -7272,10 +7946,6 @@ msgstr "Choose a file"
 #: lib/code/tk_showcase_windows.dart
 msgid "Elegir un color"
 msgstr "Choose a color"
-
-#: lib/code/tk_showcase_windows.dart lib/ui/screens/dev_tools.dart
-msgid "Error"
-msgstr "Error"
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Escriba aquí. Esta ventana no bloquea a las demás."
@@ -7525,10 +8195,6 @@ msgstr "Could not connect: {0}"
 msgid "El servidor no permitió: {0}"
 msgstr "The server did not allow: {0}"
 
-#: lib/dev/dev_client.dart lib/ui/screens/dev_tools.dart
-msgid "Hecho"
-msgstr "Done"
-
 #: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
 msgid "Indique la colección («collection»)."
 msgstr "Enter the collection (“collection”)."
@@ -7760,10 +8426,6 @@ msgstr "By tool"
 #: lib/ui/screens/budget_screen.dart
 msgid "Por modelo"
 msgstr "By model"
-
-#: lib/ui/screens/budget_screen.dart
-msgid "Presupuesto"
-msgstr "Quotation"
 
 #: lib/ui/screens/budget_screen.dart
 msgid "Presupuesto de IA · {0}"

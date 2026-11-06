@@ -12,6 +12,8 @@ import 'dart:io';
 import 'package:dmarlon_studio/code/tk_codegen.dart';
 import 'package:dmarlon_studio/code/tk_examples.dart';
 import 'package:dmarlon_studio/code/tk_flutter.dart';
+import 'package:dmarlon_studio/code/tk_pascal.dart';
+import 'package:dmarlon_studio/code/tk_pascal_run.dart';
 import 'package:dmarlon_studio/code/tk_web_html.dart';
 import 'package:dmarlon_studio/code/tk_web_react.dart';
 import 'package:dmarlon_studio/code/tk_web_vue.dart';
@@ -94,11 +96,15 @@ void main() {
             ? {}
             : catalogOf(File('assets/i18n/$lang.po').readAsStringSync()),
       );
-      final all = tkExamples(tr);
+      final all = [...tkExamples(tr), ...tkPascalExamples(tr)];
       for (final seed in demos) {
         final e = all.firstWhere((x) => x.seed == seed);
-        expect(e.design.isPython && !e.design.isWeb, isTrue, reason: seed);
-        final files = {'app.py': TkCodegen.generate(e.design, e.code)};
+        // tkinter (PyInstaller) o Pascal (lazbuild).
+        final pascal = e.design.isPascal;
+        expect(pascal || (e.design.isPython && !e.design.isWeb), isTrue, reason: seed);
+        final files = pascal
+            ? TkPascal.files(e.design, e.code, options: await TkPascalTools.options())
+            : {'app.py': TkCodegen.generate(e.design, e.code)};
         if (out == null) continue;
         final dir = Directory(p.join(out, lang, seed));
         if (dir.existsSync()) await dir.delete(recursive: true);
@@ -110,6 +116,7 @@ void main() {
         await File(p.join(dir.path, 'demo.json')).writeAsString(
           jsonEncode({
             'seed': seed,
+            'kind': pascal ? 'pascal' : 'python',
             'lang': lang,
             'name': e.name,
           }),

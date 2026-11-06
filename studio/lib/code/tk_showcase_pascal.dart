@@ -6,6 +6,7 @@ part of 'tk_examples.dart';
 /// Los ejemplos de Pascal.
 List<TkExample> tkPascalExamples(String Function(String) t) => [
   _pascalCalculator(t),
+  tkUtilPascalOdoo(t),
 ];
 
 TkExample _pascalCalculator(String Function(String) t) {

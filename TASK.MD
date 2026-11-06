@@ -33,13 +33,16 @@ Hechos
 38. Espacio en disco con mapa (WinDirStat) y Papelera | ✅ |
 40. Reproductor MP3 (demo) | ✅ |
 41. Seguimiento de trenes con datos públicos de Renfe: alertas de proximidad y gráfico de seguimiento | ✅ |
+43. Pascal (Lazarus) conectado a Odoo 9–20 por RPC, con y sin conexión: panel, punto de venta con pedido, entrega y factura | ✅ |
+46. Página de cada demo con cómo funciona en tres capturas | ✅ |
 42. Demos móviles (Flutter en el navegador y APK) y web (HTML, React, Vue) | ✅ |
 39. Punto de venta con imágenes y conexión con Odoo (URL, usuario y contraseña): productos y precios, pedidos a Ventas | ✅ |
 
 
 Trabajando
 =========
-43. Pascal (Lazarus) conectado a Odoo 8–20 por RPC, con y sin conexión, con panel de indicadores | ⏳ |
+44. Pascal + Odoo: descarga en la página Demos (capturas y compilación con Lazarus en GitHub) y probar Odoo 8 | ⏳ |
+45. Captura del carrito de la tienda Flutter (paso 3 de su página) | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 

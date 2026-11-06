@@ -97,6 +97,105 @@ def light_and_sign(app: Path, title: str):
     run(["codesign", "--verify", "--deep", "--strict", app], app.parent)
 
 
+def lazbuild() -> str:
+    """lazbuild: el de LAZBUILD, el del PATH o el de una instalación normal."""
+    import shutil as sh
+    for c in (os.environ.get("LAZBUILD"), sh.which("lazbuild"), "/Applications/Lazarus/lazbuild",
+              r"C:\lazarus\lazbuild.exe"):
+        if c and Path(c).exists():
+            return c
+    raise SystemExit("Falta lazbuild (Lazarus)")
+
+
+def mac_openssl(frameworks: Path, archs: set):
+    """HTTPS en la .app: libssl.3 y libcrypto.3 de la OpenSSL de Homebrew en
+    Contents/Frameworks (la aplicación las busca ahí primero). libssl apunta
+    a la libcrypto de al lado (@loader_path), no a la de Homebrew."""
+    import shutil as sh
+    src = None
+    for c in (os.environ.get("OPENSSL_LIB"), "/opt/homebrew/opt/openssl@3/lib",
+              "/usr/local/opt/openssl@3/lib"):
+        if c and (Path(c) / "libssl.3.dylib").exists():
+            src = Path(c)
+            break
+    if src is None:
+        print("aviso: sin OpenSSL 3 de Homebrew; la demo usará la del sistema", flush=True)
+        return
+    have = set(subprocess.run(["lipo", "-archs", src / "libssl.3.dylib"], capture_output=True,
+                              text=True).stdout.split())
+    if not have & archs:
+        print(f"aviso: la OpenSSL de {src} es {have} y la demo {archs}: no se incluye", flush=True)
+        return
+    frameworks.mkdir(parents=True, exist_ok=True)
+    for lib in ("libcrypto.3.dylib", "libssl.3.dylib"):
+        dest = frameworks / lib
+        sh.copyfile(src / lib, dest)  # sigue el enlace de opt/ a Cellar/
+        dest.chmod(0o755)
+        run(["install_name_tool", "-id", f"@loader_path/{lib}", dest], frameworks)
+    ssl = frameworks / "libssl.3.dylib"
+    deps = subprocess.run(["otool", "-L", ssl], capture_output=True, text=True).stdout
+    for line in deps.splitlines()[1:]:
+        dep = line.strip().split(" (")[0]
+        if dep.endswith("/libcrypto.3.dylib") and not dep.startswith("@"):
+            run(["install_name_tool", "-change", dep, "@loader_path/libcrypto.3.dylib", ssl], frameworks)
+
+
+def pascal_demo(d: Path, name: str, title: str) -> Path:
+    """Pascal (Lazarus): lazbuild y, en macOS, una .app hecha a mano."""
+    import shutil as sh
+    out = d / "dist"
+    sh.rmtree(out, ignore_errors=True)
+    if MAC:
+        # Una .app para Apple Silicon e Intel (cada una con su compilación;
+        # lipo las une). Si falta una de las dos, la que se pueda.
+        built = []
+        for cpu, arch in (("aarch64", "arm64"), ("x86_64", "x86_64")):
+            try:
+                run([lazbuild(), "--build-mode=Default", "--ws=cocoa", f"--cpu={cpu}", "app.lpi"], d)
+            except subprocess.CalledProcessError:
+                print(f"aviso: no se pudo compilar para {arch}", flush=True)
+                continue
+            sh.move(d / "app", d / f"app-{arch}")
+            built.append(arch)
+        if not built:
+            raise SystemExit(f"{name}: no compila")
+        if len(built) > 1:
+            run(["lipo", "-create", *[f"app-{a}" for a in built], "-output", "app"], d)
+        else:
+            sh.copy(d / f"app-{built[0]}", d / "app")
+        app = out / f"{name}.app"
+        (app / "Contents" / "MacOS").mkdir(parents=True)
+        (app / "Contents" / "Resources").mkdir()
+        sh.copy(d / "app", app / "Contents" / "MacOS" / "app")
+        mac_openssl(app / "Contents" / "Frameworks", set(built))
+        with open(app / "Contents" / "Info.plist", "wb") as f:
+            plistlib.dump({
+                "CFBundleExecutable": "app",
+                "CFBundleIdentifier": "com.dmarlonstudio.demo." + re.sub(r"[^A-Za-z0-9]", "", name).lower(),
+                "CFBundleName": title,
+                "CFBundleDisplayName": title,
+                "CFBundlePackageType": "APPL",
+                "CFBundleShortVersionString": "1.0",
+                "NSHighResolutionCapable": True,
+                "NSPrincipalClass": "NSApplication",
+            }, f)
+        light_and_sign(app, title)
+        return app
+    run([lazbuild(), "--build-mode=Default", "app.lpi"], d)
+    folder = out / name
+    folder.mkdir(parents=True)
+    sh.copy(d / "app.exe", folder / f"{name}.exe")
+    # HTTPS: fphttpclient necesita las DLL de OpenSSL junto al .exe (las de
+    # OpenSSL 3 para Windows de 64 bits: libssl-3-x64.dll y libcrypto-3-x64.dll).
+    ssl = Path(os.environ.get("OPENSSL_BIN", r"C:\Program Files\OpenSSL\bin"))
+    for dll in ("libssl-3-x64.dll", "libcrypto-3-x64.dll"):
+        if (ssl / dll).exists():
+            sh.copy(ssl / dll, folder)
+        else:
+            print(f"aviso: falta {ssl / dll}: la demo no podrá usar HTTPS", flush=True)
+    return folder
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit(__doc__)
@@ -111,7 +210,10 @@ def main():
             continue
         d, name = meta.parent, safe(demo["name"])
         print(f"\n== {seed} ({lang}) ==", flush=True)
-        result = python_demo(d, name, demo["name"])
+        if demo.get("kind") == "pascal":
+            result = pascal_demo(d, name, demo["name"])
+        else:
+            result = python_demo(d, name, demo["name"])
         dest = out / f"{seed}-{lang}-{OS}.zip"
         zip_dir(result, dest)
         built.append(dest)

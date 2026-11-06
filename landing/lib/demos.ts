@@ -7,7 +7,7 @@
  * public/demos/<idioma>/<ejemplo>.jpg.
  */
 import { REPO_URL } from "@/lib/downloads";
-import type { Lang } from "@/lib/i18n";
+import { PATHS, type Lang } from "@/lib/i18n";
 
 export const DEMOS_TAG = "demos";
 export const DEMOS_RELEASE_URL = `${REPO_URL}/releases/tag/${DEMOS_TAG}`;
@@ -55,3 +55,8 @@ export const demoUrl = (seed: string, lang: Lang, os: DemoOs) =>
 
 /** La captura de la demo abierta (la ventana de la aplicación). */
 export const demoImage = (seed: string, lang: Lang) => `/demos/${lang}/${seed}.jpg`;
+
+/** La página de una demo (cómo funciona, en tres pasos). */
+export const demoPath = (lang: Lang, seed: string) => `${PATHS.demos[lang]}/${seed}`;
+
+export const demoAlternates = (seed: string) => ({ es: demoPath("es", seed), en: demoPath("en", seed) });

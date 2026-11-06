@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
+import { ALL_DEMOS } from "@/components/demos";
 import { chapterAlternates, manualOf } from "@/content/manual";
+import { demoAlternates } from "@/lib/demos";
 import { HOME, LANGS, PATHS, type Alternates } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site";
 
@@ -20,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...both(PATHS.manual, 0.8, "weekly"),
     ...manualOf("es").chapters.flatMap((_, i) => both(chapterAlternates(i), 0.7, "monthly")),
     ...both(PATHS.demos, 0.8, "weekly"),
+    ...ALL_DEMOS.flatMap((d) => both(demoAlternates(d.seed), 0.7, "monthly")),
     ...both(PATHS.dossier, 0.7, "monthly"),
     ...both(PATHS.changelog, 0.6, "weekly"),
   ];

@@ -9,6 +9,7 @@ import { PlatformIcon } from "@/components/platform-icon";
 import type { TargetIcon } from "@/content/types";
 import {
   apkUrl,
+  demoPath,
   DEMO_SEEDS,
   DEMOS_RELEASE_URL,
   demoImage,
@@ -27,6 +28,7 @@ type Section = { title: string; intro: string };
 
 type DemosText = {
   sections: { desktop: Section; mobile: Section; web: Section };
+  how2: string;
   tryPhone: string;
   tryWeb: string;
   close: string;
@@ -45,7 +47,7 @@ type DemosText = {
   how: { title: string; macos: string[]; windows: string[] };
   studio: string;
   release: string;
-  items: Record<DemoSeed, DemoText>;
+  items: Record<DemoSeed | "pascal_odoo", DemoText>;
 };
 
 const TEXT: Record<Lang, DemosText> = {
@@ -53,7 +55,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Doce utilidades para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Doce aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -64,6 +66,7 @@ const TEXT: Record<Lang, DemosText> = {
         intro: "La misma tienda, diseñada una vez y generada en tres tecnologías. Ábrala en el navegador: entre con demo@tienda.com y 1234.",
       },
     },
+    how2: "Cómo funciona",
     tryPhone: "Probar aquí",
     tryWeb: "Abrir la web",
     close: "Cerrar",
@@ -107,7 +110,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: doce utilidades de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: doce aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -194,6 +197,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Los trenes de Cercanías y Rodalies en directo con los datos abiertos de Renfe: avisa cuando dos trenes de la misma línea se acercan y dibuja la malla de circulación. Demo educativa: no es un sistema de seguridad.",
         shows: ["Datos públicos en directo (GTFS y GTFS-Realtime)", "Gráficos propios: malla de circulación y mapa", "Simulación cuando no hay conexión"],
       },
+      pascal_odoo: {
+        name: "Odoo sin conexión (Pascal)",
+        text: "Un panel de ventas nativo para Odoo 8 a 20: clientes, productos y presupuestos que se trabajan sin conexión y se envían a Odoo al volver, sin duplicados.",
+        shows: ["Una app nativa en Object Pascal (Lazarus)", "JSON-RPC con todas las versiones de Odoo", "Panel con indicadores y gráficos propios"],
+      },
       file_renamer: {
         name: "Renombrar archivos",
         text: "Cambie el nombre de muchos archivos a la vez con reglas, viendo el resultado antes de aplicarlo.",
@@ -205,7 +213,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twelve utilities for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twelve apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -216,6 +224,7 @@ const TEXT: Record<Lang, DemosText> = {
         intro: "The same shop, designed once and generated in three technologies. Open it in the browser: sign in with demo@tienda.com and 1234.",
       },
     },
+    how2: "How it works",
     tryPhone: "Try it here",
     tryWeb: "Open the website",
     close: "Close",
@@ -259,7 +268,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twelve desktop utilities for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twelve desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -346,6 +355,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Spain's commuter trains live with Renfe's open data: it warns when two trains on the same line get close and draws the train graph. An educational demo: not a safety system.",
         shows: ["Live public data (GTFS and GTFS-Realtime)", "Custom charts: train graph and map", "A simulation when there is no connection"],
       },
+      pascal_odoo: {
+        name: "Offline Odoo (Pascal)",
+        text: "A native sales cockpit for Odoo 8 to 20: customers, products and quotations you work on offline and send to Odoo when you are back, without duplicates.",
+        shows: ["A native app in Object Pascal (Lazarus)", "JSON-RPC with every Odoo version", "A dashboard with KPIs and custom charts"],
+      },
       file_renamer: {
         name: "File renamer",
         text: "Rename many files at once with rules, seeing the result before applying it.",
@@ -357,6 +371,38 @@ const TEXT: Record<Lang, DemosText> = {
 
 export function demosText(lang: Lang) {
   return TEXT[lang];
+}
+
+export type DemoKind = "desktop" | "mobile" | "web";
+
+/** Todas las demos, en el orden de la página. */
+export const ALL_DEMOS: { seed: string; kind: DemoKind }[] = [
+  ...DEMO_SEEDS.map((seed) => ({ seed, kind: "desktop" as const })),
+  ...MOBILE_SEEDS.map((seed) => ({ seed, kind: "mobile" as const })),
+  ...WEB_SEEDS.map((seed) => ({ seed, kind: "web" as const })),
+];
+
+/** Lo que la página de una demo necesita de ella: textos y tecnología. */
+export function demoInfo(lang: Lang, seed: string) {
+  const x = TEXT[lang];
+  const entry = ALL_DEMOS.find((d) => d.seed === seed);
+  if (!entry) return null;
+  const { kind } = entry;
+  const d =
+    kind === "desktop"
+      ? x.items[seed as DemoSeed]
+      : kind === "mobile"
+        ? x.mobileItems[seed as MobileSeed]
+        : x.webItems[seed as WebSeed];
+  const tech: { icon: TargetIcon; label: string } =
+    kind === "mobile"
+      ? { icon: "flutter", label: "Flutter" }
+      : kind === "web"
+        ? WEB_TECH[seed as WebSeed]
+        : seed === "pascal_odoo"
+          ? { icon: "lazarus", label: "Pascal · Lazarus" }
+          : { icon: "python", label: x.tech };
+  return { kind, d, tech, x };
 }
 
 const POINT_ICONS = [Blocks, Package, Code2];
@@ -396,6 +442,8 @@ function DemoSection({
 /** Tarjeta de una demo: captura con su tecnología, qué hace, qué demuestra y sus botones. */
 function DemoCard({
   id,
+  href,
+  how,
   image,
   icon,
   tech,
@@ -404,6 +452,8 @@ function DemoCard({
   children,
 }: {
   id: string;
+  href: string;
+  how: string;
   image: string;
   icon: TargetIcon;
   tech: string;
@@ -413,13 +463,22 @@ function DemoCard({
 }) {
   return (
     <li id={id} className="flex scroll-mt-28 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm">
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
+      <a href={href} className="group relative block aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image} alt={`${d.name}: ${d.text}`} loading="lazy" className="h-full w-full object-cover object-top" />
+        <img
+          src={image}
+          alt={`${d.name}: ${d.text}`}
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.02]"
+        />
         <TechChip icon={icon} label={tech} className="absolute top-3 left-3" />
-      </div>
+      </a>
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-lg font-semibold">{d.name}</h3>
+        <h3 className="text-lg font-semibold">
+          <a href={href} className="hover:text-accent">
+            {d.name}
+          </a>
+        </h3>
         <p className="mt-1 text-sm leading-relaxed text-muted">{d.text}</p>
         <p className="mt-4 text-xs font-medium tracking-wide text-muted uppercase">{shows}</p>
         <ul className="mt-1.5 flex-1 space-y-1 text-sm">
@@ -431,6 +490,9 @@ function DemoCard({
           ))}
         </ul>
         {children}
+        <a href={href} className="mt-3 inline-flex items-center gap-1 self-start text-sm font-medium text-accent hover:underline">
+          {how} →
+        </a>
       </div>
     </li>
   );
@@ -482,7 +544,17 @@ export function Demos({ lang }: { lang: Lang }) {
 
         <DemoSection id="desktop" section={x.sections.desktop} alt>
           {DEMO_SEEDS.map((seed) => (
-            <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon="python" tech={x.tech} d={x.items[seed]} shows={x.shows}>
+            <DemoCard
+              key={seed}
+              id={seed}
+              href={demoPath(lang, seed)}
+              how={x.how2}
+              image={demoImage(seed, lang)}
+              icon={(seed as string) === "pascal_odoo" ? "lazarus" : "python"}
+              tech={(seed as string) === "pascal_odoo" ? "Pascal · Lazarus" : x.tech}
+              d={x.items[seed]}
+              shows={x.shows}
+            >
               <DemoDownloads seed={seed} lang={lang} label={x.download} />
             </DemoCard>
           ))}
@@ -492,7 +564,7 @@ export function Demos({ lang }: { lang: Lang }) {
           {MOBILE_SEEDS.map((seed) => {
             const d = x.mobileItems[seed];
             return (
-              <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon="flutter" tech="Flutter" d={d} shows={x.shows}>
+              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} icon="flutter" tech="Flutter" d={d} shows={x.shows}>
                 <div className="mt-5 grid grid-cols-2 gap-2">
                   <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryPhone} close={x.close} newTab={x.newTab} phone />
                   <a
@@ -513,7 +585,7 @@ export function Demos({ lang }: { lang: Lang }) {
             const d = x.webItems[seed];
             const tech = WEB_TECH[seed];
             return (
-              <DemoCard key={seed} id={seed} image={demoImage(seed, lang)} icon={tech.icon} tech={tech.label} d={d} shows={x.shows}>
+              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} icon={tech.icon} tech={tech.label} d={d} shows={x.shows}>
                 <div className="mt-5 grid">
                   <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryWeb} close={x.close} newTab={x.newTab} phone={false} />
                 </div>

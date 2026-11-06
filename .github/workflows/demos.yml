@@ -39,6 +39,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      # Lazarus para la demo de Pascal (como lo instala el estudio).
+      - name: Lazarus (macOS)
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        run: |
+          brew install fpc
+          brew install --cask lazarus
+          echo "LAZBUILD=/Applications/Lazarus/lazbuild" >> "$GITHUB_ENV"
+      - name: Lazarus (Windows)
+        if: runner.os == 'Windows'
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          choco install lazarus -y --no-progress
+          "LAZBUILD=C:\lazarus\lazbuild.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
+          Get-ChildItem "C:\Program Files\OpenSSL\bin" -Filter *.dll | Select-Object Name
       - name: Exportar las demos
         working-directory: studio
         shell: bash

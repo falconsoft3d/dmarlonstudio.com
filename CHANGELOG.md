@@ -3,6 +3,20 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.46 — 2026-11-06
+
+- **Una página por demo** (`/demos/<demo>`, en español y en inglés): qué es,
+  sus botones de descarga o de prueba, lo que demuestra y **cómo funciona en
+  tres pasos con su captura**. Las 18 demos de la web la tienen, enlazada
+  desde su tarjeta («Cómo funciona»), con la anterior y la siguiente.
+- **Odoo sin conexión (Pascal)**, ejemplo nuevo de Lazarus: panel de ventas
+  con indicadores y gráficos, clientes, productos, presupuestos y un **punto
+  de venta** que crea en Odoo el pedido confirmado, la entrega validada y la
+  factura publicada. Trabaja con y sin conexión y sincroniza sin duplicados,
+  retomando cada venta donde se quedó. Probado contra Odoo 9 a 20 por JSON-RPC
+  (las rutas del cliente web); con OpenSSL dentro de la app.
+- El botón de pago de la tienda decía «Payable» en inglés: ahora «Pay».
+
 ## 1.0.45 — 2026-11-06
 
 - **Seguimiento de trenes**, ejemplo y duodécima demo de escritorio: los

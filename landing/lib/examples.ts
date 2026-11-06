@@ -43,6 +43,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   file_renamer: { icon: "python", label: "Python · tkinter" },
   mp3_player: { icon: "python", label: "Python · tkinter" },
   train_monitor: { icon: "python", label: "Python · tkinter" },
+  pascal_odoo: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 
 /** La captura de un ejemplo (JPEG; scripts/build-docs.mjs convierte los PNG). */

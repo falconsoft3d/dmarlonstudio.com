@@ -24,9 +24,9 @@ var
   St: TOdooStore;
   Sy: TOdooSync;
   P, O: TJSONObject;
-  L, Prods, Args, Rows: TJSONArray;
+  L, Prods, Goods, Args, Rows: TJSONArray;
   Ref, ORef, Dir, Fails, Pass, Db, Sale1, Sale2, Before: string;
-  I, Pid, Oid: Integer;
+  I, J, Pid, Oid: Integer;
 
   procedure Check(Ok: Boolean; const What: string);
   begin
@@ -175,6 +175,19 @@ begin
     St := TOdooStore.Create(Dir + 'data.json');
     Sy := TOdooSync.Create(C, St);
     Prods := St.List('products'); // la lista de antes ya no existe
+    // Para el punto de venta, productos que se entregan (no servicios: en
+    // los datos de ejemplo de Odoo 8 el primero es «Advance», un servicio, y
+    // un pedido solo de servicios no tiene entrega).
+    Goods := TJSONArray.Create;
+    Rows := C.SearchRead('product.product', Domain1('type', 'in',
+      TJSONArray.Create(['product', 'consu'])), ['name'], 0, '');
+    for I := 0 to Prods.Count - 1 do
+      for J := 0 to Rows.Count - 1 do
+        if JInt(Rows.Objects[J], 'id') = JInt(Prods.Objects[I], 'id') then
+          Goods.Add(Prods.Objects[I].Clone);
+    Rows.Free;
+    if Goods.Count = 0 then
+      for I := 0 to Prods.Count - 1 do Goods.Add(Prods.Objects[I].Clone);
     Check(St.Pending = 2, 'offline_saved');
     Check((Sy.Push = 2) and (St.Pending = 0), 'sync_push');
     Check((Refs('res.partner', 'ref', Ref) = 1) and
@@ -211,11 +224,11 @@ begin
     // (una con descuento). Al sincronizar: pedido confirmado, entrega
     // validada y factura publicada.
     L := TJSONArray.Create;
-    for I := 0 to Min(1, Prods.Count - 1) do
-      L.Add(TJSONObject.Create(['product_id', JInt(Prods.Objects[I], 'id'),
-        'name', JStr(Prods.Objects[I], 'name'), 'qty', 2 - I,
-        'price', JNum(Prods.Objects[I], 'price'), 'discount', 10 * I,
-        'uom', JInt(Prods.Objects[I], 'uom')]));
+    for I := 0 to Min(1, Goods.Count - 1) do
+      L.Add(TJSONObject.Create(['product_id', JInt(Goods.Objects[I], 'id'),
+        'name', JStr(Goods.Objects[I], 'name'), 'qty', 2 - I,
+        'price', JNum(Goods.Objects[I], 'price'), 'discount', 10 * I,
+        'uom', JInt(Goods.Objects[I], 'uom')]));
     O := St.AddPos(St.CounterPartner, L, 'card');
     Sale1 := JStr(O, 'ref');
     Check(St.Pending >= 1, 'pos_offline_queued');
@@ -235,10 +248,10 @@ begin
     // Se corta a medias: el pedido ya está confirmado en Odoo, pero sin
     // entrega ni factura. Al sincronizar se sigue desde ahí.
     L := TJSONArray.Create;
-    L.Add(TJSONObject.Create(['product_id', JInt(Prods.Objects[0], 'id'),
-      'name', JStr(Prods.Objects[0], 'name'), 'qty', 3,
-      'price', JNum(Prods.Objects[0], 'price'), 'discount', 0,
-      'uom', JInt(Prods.Objects[0], 'uom')]));
+    L.Add(TJSONObject.Create(['product_id', JInt(Goods.Objects[0], 'id'),
+      'name', JStr(Goods.Objects[0], 'name'), 'qty', 3,
+      'price', JNum(Goods.Objects[0], 'price'), 'discount', 0,
+      'uom', JInt(Goods.Objects[0], 'uom')]));
     O := St.AddPos(St.CounterPartner, L, 'cash');
     Sale2 := JStr(O, 'ref');
     Sy.Confirm(Sy.EnsureOrder(O));
@@ -417,6 +430,7 @@ void main() {
       'action_button_confirm',
       'action_confirm',
       'do_new_transfer',
+      'do_transfer',
       'button_validate',
       'force_assign',
       "'picked'",

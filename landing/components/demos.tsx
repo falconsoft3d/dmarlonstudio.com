@@ -47,7 +47,7 @@ type DemosText = {
   how: { title: string; macos: string[]; windows: string[] };
   studio: string;
   release: string;
-  items: Record<DemoSeed | "pascal_odoo", DemoText>;
+  items: Record<DemoSeed, DemoText>;
 };
 
 const TEXT: Record<Lang, DemosText> = {
@@ -55,7 +55,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Doce aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Trece aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -110,7 +110,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: doce aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: trece aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -213,7 +213,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twelve apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Thirteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -268,7 +268,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twelve desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: thirteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -550,8 +550,8 @@ export function Demos({ lang }: { lang: Lang }) {
               href={demoPath(lang, seed)}
               how={x.how2}
               image={demoImage(seed, lang)}
-              icon={(seed as string) === "pascal_odoo" ? "lazarus" : "python"}
-              tech={(seed as string) === "pascal_odoo" ? "Pascal · Lazarus" : x.tech}
+              icon={seed === "pascal_odoo" ? "lazarus" : "python"}
+              tech={seed === "pascal_odoo" ? "Pascal · Lazarus" : x.tech}
               d={x.items[seed]}
               shows={x.shows}
             >

@@ -2875,7 +2875,8 @@ end;
 { Valida las entregas del pedido que no estén hechas, con las cantidades
   pedidas: en la 17+, quantity y picked de cada movimiento; de la 11 a la 16,
   quantity_done; hasta la 11 se fuerza la disponibilidad (force_assign); luego
-  button_validate (do_new_transfer hasta la 10) y sus asistentes. }
+  button_validate (do_new_transfer en la 9 y la 10; do_transfer en la 8) y sus
+  asistentes. }
 function TOdooSync.Deliver(Id: Integer): string;
 var
   Picks, Moves, Rows, Args: TJSONArray;
@@ -2961,7 +2962,8 @@ begin
         Args.Add(TJSONArray.Create([JInt(P, 'id')]));
         K := TJSONObject.Create;
         K.Add('context', TJSONObject.Create(['skip_sms', True]));
-        if Client.Major <= 10 then R := Client.Kw('stock.picking', 'do_new_transfer', Args, K)
+        if Client.Major <= 8 then R := Client.Kw('stock.picking', 'do_transfer', Args, K)
+        else if Client.Major <= 10 then R := Client.Kw('stock.picking', 'do_new_transfer', Args, K)
         else R := Client.Kw('stock.picking', 'button_validate', Args, K);
         RunWizard(R);
       end;
@@ -2993,7 +2995,7 @@ end;
 { La factura: si el pedido no tiene, se crea con el asistente de Odoo
   (sale.advance.payment.inv, el del botón «Crear factura») y se publica:
   account.move.action_post desde la 13; account.invoice.action_invoice_open
-  (11-12) o la señal invoice_open del flujo (9-10). }
+  (11-12) o la señal invoice_open del flujo (8-10). }
 function TOdooSync.Invoice(Id: Integer): string;
 var
   InvModel, Method, NameField: string;

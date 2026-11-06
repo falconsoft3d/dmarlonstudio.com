@@ -22,7 +22,7 @@ import 'package:dmarlon_studio/i18n/tr.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 
-/// Las demos: diez utilidades (tkinter). Deben coincidir con
+/// Las demos: utilidades de tkinter y una de Pascal (Lazarus). Deben coincidir con
 /// landing/lib/demos.ts.
 const demos = [
   'calculator',
@@ -37,6 +37,7 @@ const demos = [
   'file_renamer',
   'mp3_player',
   'train_monitor',
+  'pascal_odoo',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)

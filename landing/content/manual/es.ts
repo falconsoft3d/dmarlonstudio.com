@@ -133,7 +133,7 @@ export const manualEs: Manual = {
             },
             {
               type: "p",
-              text: "Doce de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Trece de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },

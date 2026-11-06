@@ -37,12 +37,12 @@ Hechos
 46. Página de cada demo con cómo funciona en tres capturas | ✅ |
 42. Demos móviles (Flutter en el navegador y APK) y web (HTML, React, Vue) | ✅ |
 39. Punto de venta con imágenes y conexión con Odoo (URL, usuario y contraseña): productos y precios, pedidos a Ventas | ✅ |
+44. Pascal + Odoo: descarga en la página Demos (capturas y compilación con Lazarus en GitHub) y probado con Odoo 8 | ✅ |
+45. Captura del carrito de la tienda Flutter (paso 3 de su página) | ✅ |
 
 
 Trabajando
 =========
-44. Pascal + Odoo: descarga en la página Demos (capturas y compilación con Lazarus en GitHub) y probar Odoo 8 | ⏳ |
-45. Captura del carrito de la tienda Flutter (paso 3 de su página) | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 
 

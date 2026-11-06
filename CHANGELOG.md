@@ -3,6 +3,17 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.47 — 2026-11-06
+
+- **Odoo sin conexión (Pascal)**, decimotercera demo de escritorio: se
+  descarga ya compilada para macOS (Apple Silicon e Intel) y Windows desde la
+  página Demos, con su página de cómo funciona en tres capturas (panel, venta
+  sin conexión y sincronización).
+- **Odoo 8**, probado de verdad: la entrega del punto de venta se valida con
+  `do_transfer` (la 8 no tiene `do_new_transfer`). Ya van de Odoo 8 a 20.
+- La prueba contra Odoo vende productos que se entregan (no servicios).
+- La página de la tienda de Flutter enseña el carrito en su tercer paso.
+
 ## 1.0.46 — 2026-11-06
 
 - **Una página por demo** (`/demos/<demo>`, en español y en inglés): qué es,

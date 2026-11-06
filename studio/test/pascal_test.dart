@@ -83,7 +83,7 @@ void main() {
   });
 
   test('design.pas: métodos virtuales, eventos y menú', () {
-    final e = tkPascalExamples(id).single;
+    final e = tkPascalExamples(id).firstWhere((e) => e.seed == 'pascal_calculator');
     final files = TkPascal.files(e.design, e.code);
     expect(
       files.keys,
@@ -136,7 +136,7 @@ void main() {
       if (TkPascalTools.lazbuild() == null) {
         return markTestSkipped('Sin Lazarus.');
       }
-      final e = tkPascalExamples(id).single;
+      final e = tkPascalExamples(id).firstWhere((e) => e.seed == 'pascal_calculator');
       // Se cierra sola al abrir: solo interesa que compile.
       final code = e.code.replaceFirst(
         'procedure TForm1.form_create;\nbegin\n  Clear;',

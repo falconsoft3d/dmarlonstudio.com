@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "conjuntos",
+    "title": "Conjuntos",
+    "summary": "Use los conjuntos (Set) de Dart para guardar valores sin repetir: quitar duplicados con toSet() y comparar gustos con intersection, union y difference.",
+    "body": [
+      "Un **conjunto** (`Set`) guarda cada valor **una sola vez**, y se escribe entre llaves: `{'dart', 'flutter', 'mobile'}`. Añadir con `add('dart')` un valor que ya está no hace nada, por eso `tags` acaba con cuatro etiquetas y no con cinco.",
+      "**`toSet()`** convierte una lista en un conjunto y, de paso, quita los repetidos: seis visitas son solo tres ciudades distintas. Los conjuntos de Dart conservan el orden en que entró cada valor por primera vez.",
+      "**`contains()`** es la pregunta típica de un conjunto, y es muy rápida aunque tenga miles de elementos, porque no recorre los valores uno a uno como una lista.",
+      "Entre dos conjuntos hay operaciones de toda la vida: **`intersection()`** da lo que tienen en común (lo que gusta a Ana y a Ben), **`union()`** lo junta todo sin repetir y **`difference()`** da lo que solo está en el primero. **`remove()`** quita un valor.",
+      "Cuidado con las llaves vacías: `{}` es un mapa vacío (la próxima lección), no un conjunto. Para un conjunto vacío hay que dar el tipo, como en **`<String>{}`**."
+    ],
+    "points": [
+      "Un `Set` va entre `{ }` y no repite valores.",
+      "`lista.toSet()` quita los duplicados.",
+      "`contains()` es muy rápido en un conjunto.",
+      "`intersection`, `union` y `difference` comparan conjuntos.",
+      "Un conjunto vacío se escribe `<String>{}`."
+    ],
+    "exercise": "Cree dos conjuntos con los alumnos apuntados a música y a dibujo, y escriba quién va a las dos, quién va solo a música y cuántos alumnos distintos hay en total."
+  },
+  "en": {
+    "slug": "sets",
+    "title": "Sets",
+    "summary": "Use Dart sets to store values without repeats: remove duplicates with toSet() and compare hobbies with intersection, union and difference.",
+    "body": [
+      "A **set** (`Set`) holds each value **only once**, and is written between braces: `{'dart', 'flutter', 'mobile'}`. Adding a value that is already there with `add('dart')` does nothing, which is why `tags` ends up with four tags and not five.",
+      "**`toSet()`** turns a list into a set and drops the repeats on the way: six visits are only three different cities. Dart sets keep the order in which each value first went in.",
+      "**`contains()`** is the typical question for a set, and it is very fast even with thousands of elements, because it does not go through the values one by one as a list does.",
+      "Two sets have the classic operations: **`intersection()`** gives what they share (what both Ana and Ben like), **`union()`** puts everything together without repeats and **`difference()`** gives what is only in the first. **`remove()`** takes a value out.",
+      "Watch out for empty braces: `{}` is an empty map (next lesson), not a set. An empty set needs its type, as in **`<String>{}`**."
+    ],
+    "points": [
+      "A `Set` goes between `{ }` and has no repeats.",
+      "`list.toSet()` removes duplicates.",
+      "`contains()` is very fast on a set.",
+      "`intersection`, `union` and `difference` compare sets.",
+      "An empty set is written `<String>{}`."
+    ],
+    "exercise": "Create two sets with the students signed up for music and for art, and print who goes to both, who goes only to music and how many different students there are in total."
+  }
+}

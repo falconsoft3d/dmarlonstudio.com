@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "funciones-y-sintaxis-de-flecha",
+    "title": "Funciones y sintaxis de flecha",
+    "summary": "Escriba funciones en Dart con su tipo de retorno, return y la sintaxis de flecha =>, use void y guarde funciones en variables: un conversor de temperaturas.",
+    "body": [
+      "Una **función** agrupa código con un nombre para usarlo tantas veces como haga falta. `double toFahrenheit(double celsius)` dice qué devuelve (`double`), cómo se llama y qué **parámetro** recibe. Dentro, **`return`** devuelve el resultado: `celsius * 9 / 5 + 32`.",
+      "Cuando una función es una sola expresión, la **sintaxis de flecha** la acorta: `bool isFreezing(double celsius) => celsius <= 0;` equivale a un bloque con `return`. Las funciones se llaman unas a otras: `describe` usa `isFreezing` y el operador condicional para dar `freezing`, `hot` o `mild`.",
+      "**`void`** indica que la función no devuelve nada: `report` hace un trabajo, escribir una línea, y ya está. Se le pasan los **argumentos** en el mismo orden que los parámetros: `report('Oslo', -4)`. El `-4` es un entero, pero Dart lo convierte en `double` porque así lo pide el parámetro; por eso sale `-4.0`.",
+      "El resultado de una función se guarda en una variable o se usa directamente dentro de `${}`. Y las funciones también son **valores**: `var convert = toFahrenheit;` guarda la función sin llamarla, y `(int n) => n * n` es una **función anónima**, sin nombre, que se guarda en `square`. Las próximas lecciones las usarán mucho.",
+      "En Flutter todo se construye con funciones: los botones reciben una función que se ejecuta al pulsarlos. En DMarlon Studio, el código que se ejecuta al pulsar un botón del lienzo de teléfono va en una función así."
+    ],
+    "points": [
+      "`tipo nombre(parámetros) { return ...; }` define una función.",
+      "`=> expresión` sustituye a `{ return expresión; }`.",
+      "`void` significa que no devuelve nada.",
+      "Las funciones son valores: se guardan en variables.",
+      "`(x) => ...` es una función anónima."
+    ],
+    "exercise": "Escriba una función `kmToMiles` con sintaxis de flecha y otra `void` llamada `trip` que escriba el nombre de un destino con su distancia en kilómetros y en millas; llámela con tres destinos."
+  },
+  "en": {
+    "slug": "functions-and-arrow-syntax",
+    "title": "Functions and arrow syntax",
+    "summary": "Write Dart functions with a return type, return and the => arrow syntax, use void, and store functions in variables: a temperature converter.",
+    "body": [
+      "A **function** groups code under a name so you can use it as often as you need. `double toFahrenheit(double celsius)` says what it returns (`double`), what it is called and what **parameter** it takes. Inside, **`return`** hands back the result: `celsius * 9 / 5 + 32`.",
+      "When a function is a single expression, the **arrow syntax** shortens it: `bool isFreezing(double celsius) => celsius <= 0;` is the same as a block with `return`. Functions call each other: `describe` uses `isFreezing` and the conditional operator to give `freezing`, `hot` or `mild`.",
+      "**`void`** means the function returns nothing: `report` does a job, printing a line, and that is it. You pass the **arguments** in the same order as the parameters: `report('Oslo', -4)`. The `-4` is an integer, but Dart turns it into a `double` because the parameter asks for one, hence `-4.0`.",
+      "A function's result can be stored in a variable or used straight inside `${}`. And functions are **values** too: `var convert = toFahrenheit;` stores the function without calling it, and `(int n) => n * n` is an **anonymous function**, with no name, stored in `square`. The coming lessons use them a lot.",
+      "In Flutter everything is built with functions: buttons take a function that runs when they are tapped. In DMarlon Studio, the code that runs when you tap a button on the phone canvas lives in a function like these."
+    ],
+    "points": [
+      "`type name(parameters) { return ...; }` defines a function.",
+      "`=> expression` replaces `{ return expression; }`.",
+      "`void` means it returns nothing.",
+      "Functions are values: they can be stored in variables.",
+      "`(x) => ...` is an anonymous function."
+    ],
+    "exercise": "Write a `kmToMiles` function with arrow syntax and a `void` function called `trip` that prints a destination with its distance in kilometres and in miles; call it with three destinations."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "numeros-y-aritmetica",
+    "title": "Números y aritmética",
+    "summary": "Opere con números en Dart: +, -, *, la división / que da double, la división entera ~/ y el resto %, redondeos y los operadores += y ++.",
+    "body": [
+      "Con **`${...}`** se mete en una cadena el resultado de cualquier expresión, no solo una variable: `'34 + 10 = ${eggs + 10}'` calcula la suma y escribe `44`. Los operadores básicos son los de siempre: `+`, `-` y `*`.",
+      "La división **`/`** da siempre un `double`, aunque divida dos enteros: `34 / 6` es `5.666666666666667`. Cuando lo que interesa es cuántas veces cabe un número en otro, se usa la **división entera `~/`**, que se queda con la parte entera, y el **resto `%`**: 34 huevos en cajas de 6 son `5` cajas llenas y sobran `4`.",
+      "La misma pareja `~/` y `%` sirve para muchas cosas: `135 ~/ 60` son 2 horas y `135 % 60`, 15 minutos. También, como en matemáticas, `*` va antes que `+`; los paréntesis cambian el orden, por eso `2 + 3 * 4` da `14` y `(2 + 3) * 4` da `20`.",
+      "Los `double` tienen métodos para redondear: **`toStringAsFixed(2)`** da el texto con dos decimales (lo normal para euros), `round()` redondea al entero más cercano, `floor()` hacia abajo y `ceil()` hacia arriba.",
+      "Para cambiar una variable a partir de su propio valor, `score += 5` es lo mismo que `score = score + 5`, y **`score++`** suma uno. Existen igual `-=`, `*=` y `--`."
+    ],
+    "points": [
+      "`/` da siempre un `double`.",
+      "`~/` da la parte entera de la división; `%`, el resto.",
+      "`${expresión}` mete un cálculo en el texto.",
+      "`toStringAsFixed(2)` escribe con dos decimales.",
+      "`+=` y `++` actualizan una variable."
+    ],
+    "exercise": "Calcule cuántas semanas completas y cuántos días sueltos hay en 100 días con `~/` y `%`, y escriba el resultado en una frase."
+  },
+  "en": {
+    "slug": "numbers-and-arithmetic",
+    "title": "Numbers and arithmetic",
+    "summary": "Do arithmetic in Dart: +, -, *, division with / that gives a double, integer division ~/ and remainder %, rounding, and the += and ++ operators.",
+    "body": [
+      "**`${...}`** puts the result of any expression inside a string, not just a variable: `'34 + 10 = ${eggs + 10}'` works out the sum and prints `44`. The basic operators are the usual ones: `+`, `-` and `*`.",
+      "Division with **`/`** always gives a `double`, even when you divide two integers: `34 / 6` is `5.666666666666667`. When what you want is how many times one number fits into another, use **integer division `~/`**, which keeps the whole part, and the **remainder `%`**: 34 eggs in boxes of 6 make `5` full boxes with `4` left over.",
+      "The same `~/` and `%` pair is useful everywhere: `135 ~/ 60` is 2 hours and `135 % 60` is 15 minutes. As in maths, `*` goes before `+`, and brackets change the order, which is why `2 + 3 * 4` gives `14` and `(2 + 3) * 4` gives `20`.",
+      "A `double` has methods for rounding: **`toStringAsFixed(2)`** gives the text with two decimals (the norm for money), `round()` rounds to the nearest whole number, `floor()` rounds down and `ceil()` rounds up.",
+      "To change a variable based on its own value, `score += 5` means `score = score + 5`, and **`score++`** adds one. There are also `-=`, `*=` and `--`."
+    ],
+    "points": [
+      "`/` always gives a `double`.",
+      "`~/` gives the whole part of a division; `%` the remainder.",
+      "`${expression}` puts a calculation in the text.",
+      "`toStringAsFixed(2)` prints two decimals.",
+      "`+=` and `++` update a variable."
+    ],
+    "exercise": "Work out how many full weeks and spare days there are in 100 days with `~/` and `%`, and print the result in a sentence."
+  }
+}

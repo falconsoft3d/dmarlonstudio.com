@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "metodos-de-cadenas",
+    "title": "Métodos de las cadenas",
+    "summary": "Maneje texto en Dart con trim, toUpperCase, contains, indexOf, replaceAll, substring, split, join, padLeft y padRight.",
+    "body": [
+      "**`trim()`** quita los espacios del principio y del final; los corchetes de `'[$text]'` dejan ver que ya no queda ninguno. **`toUpperCase()`** pasa el texto a mayúsculas y `toLowerCase()`, a minúsculas.",
+      "Para buscar, **`contains()`** dice si el texto aparece, **`startsWith()`** si la cadena empieza por él (y `endsWith()`, si acaba) e **`indexOf()`** da la posición de la primera aparición; **`lastIndexOf()`**, la de la última. Como en las listas, se cuenta desde 0.",
+      "**`replaceAll('Dart', 'Flutter')`** cambia todas las apariciones de un texto por otro. **`substring(0, 4)`** corta un trozo: desde la posición 0 hasta la 4, sin incluirla, que es la palabra `Dart`.",
+      "**`split(' ')`** parte la cadena por los espacios y da una lista de palabras; **`join('_')`** hace lo contrario y une una lista con el separador que se le dé. **`padRight(12, '.')`** rellena con puntos por la derecha hasta 12 caracteres y **`padLeft(6)`** con espacios por la izquierda: así los productos y los precios salen en columnas.",
+      "Las cadenas de Dart **no cambian nunca**: cada método devuelve una cadena nueva. Por eso `raw` sigue teniendo sus 34 caracteres con todos los espacios, aunque se haya hecho `trim()`."
+    ],
+    "points": [
+      "`trim()` quita los espacios de los extremos.",
+      "`contains`, `startsWith` e `indexOf` buscan texto.",
+      "`substring(inicio, fin)` no incluye el fin.",
+      "`split` da una lista; `join` la vuelve a unir.",
+      "Los métodos devuelven una cadena nueva; la original no cambia."
+    ],
+    "exercise": "Parta de `'  ana GARCIA, madrid  '`, quite los espacios, sepárela por la coma y escriba `Name: Ana Garcia` y `City: MADRID`, con cada palabra del nombre empezando en mayúscula."
+  },
+  "en": {
+    "slug": "string-methods",
+    "title": "String methods",
+    "summary": "Handle text in Dart with trim, toUpperCase, contains, indexOf, replaceAll, substring, split, join, padLeft and padRight.",
+    "body": [
+      "**`trim()`** removes the spaces at the start and the end; the brackets in `'[$text]'` show that none are left. **`toUpperCase()`** turns the text into capitals and `toLowerCase()` into small letters.",
+      "To search, **`contains()`** says whether the text appears, **`startsWith()`** whether the string begins with it (and `endsWith()`, whether it ends with it), and **`indexOf()`** gives the position of the first match; **`lastIndexOf()`**, the last. As with lists, counting starts at 0.",
+      "**`replaceAll('Dart', 'Flutter')`** swaps every occurrence of one text for another. **`substring(0, 4)`** cuts out a piece: from position 0 up to, but not including, 4, which is the word `Dart`.",
+      "**`split(' ')`** breaks the string at the spaces and gives a list of words; **`join('_')`** does the opposite and glues a list together with the separator you give it. **`padRight(12, '.')`** fills with dots on the right up to 12 characters and **`padLeft(6)`** with spaces on the left, so products and prices line up in columns.",
+      "Dart strings **never change**: every method returns a new string. That is why `raw` still has its 34 characters, spaces and all, even after `trim()`."
+    ],
+    "points": [
+      "`trim()` removes spaces at both ends.",
+      "`contains`, `startsWith` and `indexOf` search for text.",
+      "`substring(start, end)` leaves out the end.",
+      "`split` gives a list; `join` glues it back.",
+      "Methods return a new string; the original stays the same."
+    ],
+    "exercise": "Start from `'  ana GARCIA, madrid  '`, trim it, split it at the comma and print `Name: Ana Garcia` and `City: MADRID`, with each word of the name starting with a capital."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "var-final-const-y-tipos",
+    "title": "var, final, const y tipos",
+    "summary": "Declare variables en Dart con su tipo (String, int, double, bool), con var, final y const, y vea el tipo de cada valor con runtimeType.",
+    "body": [
+      "Una **variable** guarda un valor con un nombre. En Dart se escribe primero el **tipo** y después el nombre: `String city = 'Valencia';`. Los tipos básicos son `String` (texto), `int` (enteros), `double` (números con decimales) y `bool` (`true` o `false`).",
+      "Dentro de una cadena, **`$nombre`** pone el valor de la variable: `'$city has $population people'` escribe `Valencia has 800000 people`. Es la forma habitual de componer texto en Dart; se verá a fondo en la lección 4.",
+      "Con **`var`** no hace falta escribir el tipo: Dart lo deduce del primer valor. `var visitors = 1200;` crea un `int` que después puede cambiar (`visitors = visitors + 300`), pero siempre será un `int`: asignarle `'many'` es un error que Dart detecta antes de ejecutar.",
+      "**`final`** da un valor una sola vez: `mayor` ya no puede cambiar. **`const`** es aún más estricto: el valor tiene que conocerse antes de ejecutar el programa, como el `50` de `speedLimit`. Use `final` o `const` siempre que un valor no vaya a cambiar; el código es más claro y más seguro.",
+      "Las líneas que empiezan por `//` con una asignación muestran errores a propósito: si quita las barras, Dart no compila. Al final, **`runtimeType`** dice el tipo de cada valor: `String`, `int`, `double` y `bool`."
+    ],
+    "points": [
+      "Tipo y nombre: `int age = 29;`.",
+      "`var` deduce el tipo, que ya no cambia.",
+      "`final` se asigna una sola vez; `const` es fijo desde la compilación.",
+      "`$nombre` mete una variable en el texto.",
+      "`runtimeType` dice el tipo de un valor."
+    ],
+    "exercise": "Añada una variable `final` con el nombre de un río y una `const` con su longitud en kilómetros, y escriba una frase con las dos y el tipo de cada una."
+  },
+  "en": {
+    "slug": "var-final-const-and-types",
+    "title": "var, final, const and types",
+    "summary": "Declare Dart variables with their type (String, int, double, bool), with var, final and const, and check each value's type with runtimeType.",
+    "body": [
+      "A **variable** stores a value under a name. In Dart the **type** comes first and then the name: `String city = 'Valencia';`. The basic types are `String` (text), `int` (whole numbers), `double` (numbers with decimals) and `bool` (`true` or `false`).",
+      "Inside a string, **`$name`** inserts the variable's value: `'$city has $population people'` prints `Valencia has 800000 people`. This is the usual way to build text in Dart; lesson 4 covers it in depth.",
+      "With **`var`** you do not have to write the type: Dart works it out from the first value. `var visitors = 1200;` creates an `int` that can change later (`visitors = visitors + 300`), but it will always be an `int`: assigning `'many'` to it is an error Dart catches before running anything.",
+      "**`final`** gives a value just once: `mayor` cannot change afterwards. **`const`** is stricter still: the value must be known before the program runs, like the `50` in `speedLimit`. Use `final` or `const` whenever a value will not change; the code is clearer and safer.",
+      "The commented-out assignments show errors on purpose: remove the slashes and Dart will not compile. At the end, **`runtimeType`** tells the type of each value: `String`, `int`, `double` and `bool`."
+    ],
+    "points": [
+      "Type, then name: `int age = 29;`.",
+      "`var` infers the type, which then stays fixed.",
+      "`final` is set once; `const` is fixed at compile time.",
+      "`$name` puts a variable inside the text.",
+      "`runtimeType` tells the type of a value."
+    ],
+    "exercise": "Add a `final` variable with the name of a river and a `const` with its length in kilometres, and print a sentence with both plus the type of each."
+  }
+}

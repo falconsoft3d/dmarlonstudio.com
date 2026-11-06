@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "cadenas-e-interpolacion",
+    "title": "Cadenas e interpolación",
+    "summary": "Trabaje con texto en Dart: unir cadenas con +, interpolación con $ y ${}, caracteres por posición, escapes, cadenas de varias líneas y el operador *.",
+    "body": [
+      "Las cadenas se pueden unir con **`+`**, como en `'Hello, ' + name + '!'`, pero en Dart lo natural es la **interpolación**: `'Hello, $name from $city!'` mete los valores dentro del texto sin cortarlo. Es más corto y se lee mejor.",
+      "**`${...}`** admite cualquier expresión: `${age + 1}` hace una suma, `${name.length}` lee la longitud de la cadena y `${city.toUpperCase()}` llama a un método que la pasa a mayúsculas. Con un nombre suelto basta `$`; en cuanto hay un punto o una operación, hacen falta las llaves.",
+      "Una cadena es una secuencia de caracteres y **`[índice]`** da uno de ellos. El primero está en la posición `0` y el último, en `name.length - 1`: por eso `name[0]` es `L` y `name[name.length - 1]` es `a`.",
+      "La **barra invertida** escribe tal cual caracteres que tienen otro significado: `\\'` es un apóstrofo dentro de comillas simples y `\\$` es un signo de dólar, no una interpolación. Dentro de comillas dobles, `\\\"` escribe comillas dobles.",
+      "Con **tres comillas** (`'''`) la cadena puede ocupar varias líneas, y la interpolación sigue funcionando: así se compone el billete `ticket`. Por último, **`*`** repite una cadena: `'=' * 20` dibuja una línea de veinte signos."
+    ],
+    "points": [
+      "`'$name'` y `'${expresión}'` meten valores en el texto.",
+      "Las llaves hacen falta si hay un punto o una operación.",
+      "`texto[0]` es el primer carácter; `texto.length`, cuántos hay.",
+      "`\\'`, `\\\"` y `\\$` escriben esos caracteres tal cual.",
+      "`'''` permite cadenas de varias líneas."
+    ],
+    "exercise": "Cree las variables `product`, `units` y `price` y escriba con una sola cadena interpolada una línea como `3 x notebook = 7.50 euros`, con el total calculado dentro de `${}`."
+  },
+  "en": {
+    "slug": "strings-and-interpolation",
+    "title": "Strings and interpolation",
+    "summary": "Work with text in Dart: joining strings with +, interpolation with $ and ${}, characters by index, escapes, multi-line strings and the * operator.",
+    "body": [
+      "You can join strings with **`+`**, as in `'Hello, ' + name + '!'`, but the natural way in Dart is **interpolation**: `'Hello, $name from $city!'` puts the values inside the text without breaking it up. It is shorter and easier to read.",
+      "**`${...}`** takes any expression: `${age + 1}` does a sum, `${name.length}` reads the length of the string and `${city.toUpperCase()}` calls a method that turns it into capitals. A bare name only needs `$`; as soon as there is a dot or an operation, you need the braces.",
+      "A string is a sequence of characters and **`[index]`** gives one of them. The first is at position `0` and the last at `name.length - 1`, so `name[0]` is `L` and `name[name.length - 1]` is `a`.",
+      "The **backslash** writes characters that would otherwise mean something else: `\\'` is an apostrophe inside single quotes and `\\$` is a dollar sign, not interpolation. Inside double quotes, `\\\"` writes a double quote.",
+      "With **triple quotes** (`'''`) a string can span several lines, and interpolation still works: that is how the `ticket` is built. Finally, **`*`** repeats a string: `'=' * 20` draws a line of twenty signs."
+    ],
+    "points": [
+      "`'$name'` and `'${expression}'` put values in the text.",
+      "Braces are needed when there is a dot or an operation.",
+      "`text[0]` is the first character; `text.length` says how many there are.",
+      "`\\'`, `\\\"` and `\\$` write those characters literally.",
+      "`'''` allows multi-line strings."
+    ],
+    "exercise": "Create `product`, `units` and `price` variables and print, with a single interpolated string, a line like `3 x notebook = 7.50 euros`, working out the total inside `${}`."
+  }
+}

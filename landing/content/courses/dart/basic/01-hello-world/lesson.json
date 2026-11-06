@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Su primer programa en Dart: la función main(), print() para escribir texto y números, comillas simples o dobles y el punto y coma.",
+    "body": [
+      "Todo programa de Dart empieza a ejecutarse en la función **`main()`**. `void main() { ... }` dice que `main` no devuelve nada (`void`) y, entre las llaves, van las instrucciones que se ejecutan de arriba abajo. Lo que va detrás de `//` es un **comentario**: Dart no lo ejecuta, solo sirve para quien lee el código.",
+      "**`print()`** escribe lo que se le da y pasa a la línea siguiente. El texto es una **cadena** (`String`) y va entre comillas: `'Hello, world!'`. Dart admite comillas simples y dobles; las dobles vienen bien cuando el texto lleva un apóstrofo, como en `\"It's easy to start.\"`.",
+      "`print()` también escribe números y el resultado de una operación: `print(7 * 6)` calcula primero `7 * 6` y escribe `42`. Fíjese en que `print(42)` y `print(7 * 6)` dan la misma línea en la salida.",
+      "`print('')` escribe una cadena vacía, es decir, una línea en blanco. Y cada instrucción termina en **punto y coma** (`;`): si falta, Dart no ejecuta el programa y señala la línea.",
+      "Dart es el lenguaje de las aplicaciones **Flutter**, y en DMarlon Studio es el que hay detrás de los destinos Flutter para móvil y escritorio, que se diseñan sobre el lienzo de teléfono. Todo empieza, como aquí, por un `main()`."
+    ],
+    "points": [
+      "El programa empieza en `void main() { }`.",
+      "`print()` escribe una línea y salta a la siguiente.",
+      "Las cadenas van entre comillas simples o dobles.",
+      "Cada instrucción termina en `;`.",
+      "`//` empieza un comentario."
+    ],
+    "exercise": "Añada tres líneas con `print()` que escriban su nombre, su ciudad y cuántos días tiene una semana multiplicado por 4."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Your first Dart program: the main() function, print() for text and numbers, single or double quotes, and the semicolon.",
+    "body": [
+      "Every Dart program starts running in the **`main()`** function. `void main() { ... }` says that `main` returns nothing (`void`), and the statements between the braces run from top to bottom. Anything after `//` is a **comment**: Dart ignores it, it is there for whoever reads the code.",
+      "**`print()`** writes whatever you give it and moves on to the next line. Text is a **string** (`String`) and goes between quotes: `'Hello, world!'`. Dart accepts single and double quotes; double quotes come in handy when the text has an apostrophe, as in `\"It's easy to start.\"`.",
+      "`print()` also writes numbers and the result of a calculation: `print(7 * 6)` works out `7 * 6` first and writes `42`. Notice that `print(42)` and `print(7 * 6)` produce the same line in the output.",
+      "`print('')` writes an empty string, that is, a blank line. And every statement ends with a **semicolon** (`;`): if one is missing, Dart refuses to run the program and points at the line.",
+      "Dart is the language of **Flutter** apps, and in DMarlon Studio it powers the Flutter targets for mobile and desktop, which you design on the phone canvas. It all starts, as here, with a `main()`."
+    ],
+    "points": [
+      "A program starts in `void main() { }`.",
+      "`print()` writes one line and moves to the next.",
+      "Strings go between single or double quotes.",
+      "Every statement ends with `;`.",
+      "`//` starts a comment."
+    ],
+    "exercise": "Add three `print()` lines that write your name, your city and the number of days in a week multiplied by 4."
+  }
+}

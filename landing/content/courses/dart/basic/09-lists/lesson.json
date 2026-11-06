@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "listas",
+    "title": "Listas",
+    "summary": "Guarde varios valores en orden con las listas de Dart: List<String>, posiciones desde 0, first y last, recorrerlas con for-in, contains e indexOf.",
+    "body": [
+      "Una **lista** guarda varios valores en orden, entre corchetes: `['Mercury', 'Venus', 'Earth', 'Mars']`. El tipo **`List<String>`** dice que es una lista de cadenas; lo que va entre `< >` es el tipo de sus elementos. `print(planets)` la escribe entera y `length` dice cuántos elementos tiene.",
+      "Cada elemento tiene una **posición** (índice), que empieza en `0`: `planets[0]` es `Mercury` y el último está en `length - 1`. Como pedir el primero y el último es tan frecuente, las listas tienen **`first`** y **`last`**.",
+      "Con `planets[3] = 'Mars (the red one)'` se cambia el elemento de esa posición. Y el bucle **`for-in`** recorre la lista elemento a elemento: `for (var planet in planets)` da cada planeta en `planet`, sin preocuparse de los índices.",
+      "Con `var`, Dart deduce el tipo: `[0, 0, 1, 2]` es una `List<int>`. El `for` clásico con índice también sirve para recorrerla, aquí para sumar las lunas.",
+      "Las listas responden preguntas: **`contains()`** dice si un valor está, **`indexOf()`** da su posición (o `-1` si no está, como con `Pluto`) e **`isEmpty`** dice si la lista está vacía."
+    ],
+    "points": [
+      "Una lista va entre `[ ]`; su tipo, `List<T>`.",
+      "El primer elemento está en `[0]`; el último, en `[length - 1]`.",
+      "`first` y `last` dan los extremos.",
+      "`for (var x in lista)` recorre los elementos.",
+      "`indexOf` da `-1` si el valor no está."
+    ],
+    "exercise": "Cree una lista con las temperaturas de una semana, recórrala con `for-in` para calcular la media y escriba también la del primer y el último día."
+  },
+  "en": {
+    "slug": "lists",
+    "title": "Lists",
+    "summary": "Store several values in order with Dart lists: List<String>, indexes from 0, first and last, looping with for-in, contains and indexOf.",
+    "body": [
+      "A **list** keeps several values in order, between square brackets: `['Mercury', 'Venus', 'Earth', 'Mars']`. The type **`List<String>`** says it is a list of strings; whatever goes between `< >` is the type of its elements. `print(planets)` prints all of it and `length` says how many elements it has.",
+      "Each element has a **position** (index) starting at `0`: `planets[0]` is `Mercury` and the last one is at `length - 1`. Since asking for the first and last is so common, lists have **`first`** and **`last`**.",
+      "`planets[3] = 'Mars (the red one)'` changes the element at that position. And the **`for-in`** loop goes through the list one element at a time: `for (var planet in planets)` puts each planet in `planet`, with no indexes to worry about.",
+      "With `var`, Dart infers the type: `[0, 0, 1, 2]` is a `List<int>`. The classic `for` with an index works too, here to add up the moons.",
+      "Lists answer questions: **`contains()`** tells whether a value is there, **`indexOf()`** gives its position (or `-1` if it is missing, as with `Pluto`) and **`isEmpty`** tells whether the list is empty."
+    ],
+    "points": [
+      "A list goes between `[ ]`; its type is `List<T>`.",
+      "The first element is at `[0]`; the last at `[length - 1]`.",
+      "`first` and `last` give the ends.",
+      "`for (var x in list)` goes through the elements.",
+      "`indexOf` gives `-1` when the value is missing."
+    ],
+    "exercise": "Create a list with a week's temperatures, loop through it with `for-in` to work out the average, and also print the first and last day's temperature."
+  }
+}

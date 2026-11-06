@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "switch-y-expresiones-switch",
+    "title": "switch y expresiones switch",
+    "summary": "Elija entre muchos casos con switch en Dart 3: la sentencia clásica, la nueva expresión switch con =>, patrones como || y >=, y guardas when.",
+    "body": [
+      "La **sentencia `switch`** compara un valor con cada `case` y ejecuta el que coincide. En Dart 3 no hace falta `break`: al terminar un caso, el `switch` acaba. `case 'Sat' || 'Sun':` reúne dos valores en un solo caso, y **`default`** recoge todo lo demás.",
+      "La **expresión `switch`** es la novedad de Dart 3: en lugar de ejecutar instrucciones, **devuelve un valor**, que aquí se guarda en `season`. Cada caso es `patrón => valor`, separados por comas, y **`_`** es el comodín que coincide con cualquier cosa. Con ella, elegir la estación de un mes cabe en unas pocas líneas.",
+      "Los casos son **patrones**, y un patrón puede comparar: `>= 90 => 'A'` se cumple con cualquier número mayor o igual que 90. Como Dart los prueba en orden, la nota `84` no llega a `>= 90` pero sí a `>= 70`, y la expresión cabe en una sola línea.",
+      "Los patrones se combinan con **`&&`**: `>= 0 && <= 50` es un intervalo. Y **`when`** añade una condición más, que puede mirar otras variables: `_ when school` solo se cumple si `school` es `true`. Por eso `65` km/h da `too fast near a school`.",
+      "Una expresión `switch` tiene que cubrir todos los casos posibles; si falta el `_`, Dart avisa antes de ejecutar. Es la forma más clara de convertir un valor en otro."
+    ],
+    "points": [
+      "En Dart 3 los `case` no necesitan `break`.",
+      "`switch (x) { patrón => valor, ... }` devuelve un valor.",
+      "`_` coincide con cualquier cosa.",
+      "`||`, `>=` y `&&` forman patrones.",
+      "`when` añade una condición a un caso."
+    ],
+    "exercise": "Con una expresión `switch`, convierta una variable `day` de 1 a 7 en el nombre del día en inglés, y use `_` para escribir `invalid day` con cualquier otro número."
+  },
+  "en": {
+    "slug": "switch-and-switch-expressions",
+    "title": "switch and switch expressions",
+    "summary": "Choose between many cases with switch in Dart 3: the classic statement, the new switch expression with =>, patterns such as || and >=, and when guards.",
+    "body": [
+      "The **`switch` statement** compares a value against each `case` and runs the one that matches. In Dart 3 you do not need `break`: once a case finishes, the `switch` is over. `case 'Sat' || 'Sun':` groups two values in one case, and **`default`** catches everything else.",
+      "The **`switch` expression** is new in Dart 3: instead of running statements, it **returns a value**, stored here in `season`. Each case is `pattern => value`, separated by commas, and **`_`** is the wildcard that matches anything. With it, picking the season of a month takes just a few lines.",
+      "Cases are **patterns**, and a pattern can compare: `>= 90 => 'A'` matches any number of 90 or more. Since Dart tries them in order, the score `84` misses `>= 90` but matches `>= 70`, and the whole expression fits on one line.",
+      "Patterns combine with **`&&`**: `>= 0 && <= 50` is a range. And **`when`** adds an extra condition that can look at other variables: `_ when school` only matches when `school` is `true`. That is why `65` km/h gives `too fast near a school`.",
+      "A `switch` expression must cover every possible case; leave out the `_` and Dart complains before running. It is the clearest way to turn one value into another."
+    ],
+    "points": [
+      "In Dart 3, `case` does not need `break`.",
+      "`switch (x) { pattern => value, ... }` returns a value.",
+      "`_` matches anything.",
+      "`||`, `>=` and `&&` build patterns.",
+      "`when` adds a condition to a case."
+    ],
+    "exercise": "Using a `switch` expression, turn a `day` variable from 1 to 7 into the English name of the day, and use `_` to give `invalid day` for any other number."
+  }
+}

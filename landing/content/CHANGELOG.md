@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.59 — 2026-11-07
+
+- **Curso de Dart básico** (20 lecciones, español e inglés): `var`,
+  `final` y `const`, números, cadenas e interpolación, lectura del teclado,
+  `if` y expresiones `switch`, bucles, listas, conjuntos y mapas, funciones
+  y parámetros con nombre, seguridad frente a `null`, métodos de colecciones,
+  excepciones, archivos y un carrito de la compra como proyecto: la base de
+  las apps de Flutter que diseña el estudio.
+
 ## 1.0.58 — 2026-11-07
 
 - **Curso de C avanzado** (20 lecciones, español e inglés): punteros a

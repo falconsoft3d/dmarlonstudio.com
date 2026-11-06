@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "mapas",
+    "title": "Mapas",
+    "summary": "Guarde pares clave-valor en un Map de Dart: la carta de una cafetería con [], ??, remove, containsKey, entries y un recuento de pedidos.",
+    "body": [
+      "Un **mapa** (`Map`) relaciona **claves** con **valores**, entre llaves: `{'coffee': 1.40, 'tea': 1.20}`. `Map<String, double>` dice que las claves son cadenas y los valores, números con decimales. Se busca por la clave: `menu['coffee']` da `1.4` (Dart no escribe el cero final de un `double`).",
+      "La misma forma sirve para cambiar un valor y para añadir una clave nueva: `menu['tea'] = 1.30` actualiza el té y `menu['juice'] = 2.50` añade el zumo al final.",
+      "Si la clave no existe, `menu['cake']` da **`null`**, no un error. Con **`??`** se pone un valor por defecto en su lugar: `menu['cake'] ?? 0.0`. **`remove()`** borra una clave con su valor, **`containsKey()`** pregunta si existe y **`keys`** y **`values`** dan las claves y los valores.",
+      "**`entries`** da cada pareja como un objeto con `key` y `value`, y el `for-in` las recorre. `padRight(8)` rellena el nombre con espacios hasta 8 caracteres para que los precios salgan en columna.",
+      "Un uso muy habitual es **contar**: por cada bebida pedida, `counts[drink] = (counts[drink] ?? 0) + 1` suma uno a lo que había, o empieza en cero si es la primera vez. `<String, int>{}` es un mapa vacío con sus tipos."
+    ],
+    "points": [
+      "Un mapa va entre `{ }` con pares `clave: valor`.",
+      "`m[clave] = valor` cambia o añade.",
+      "Una clave que falta da `null`; `??` pone un valor por defecto.",
+      "`for (var e in m.entries)` recorre `e.key` y `e.value`.",
+      "`containsKey` mira si la clave existe."
+    ],
+    "exercise": "Añada un mapa con las unidades vendidas de cada bebida y escriba cuánto ha facturado cada una (unidades por precio) y el total del día."
+  },
+  "en": {
+    "slug": "maps",
+    "title": "Maps",
+    "summary": "Store key-value pairs in a Dart Map: a café menu with [], ??, remove, containsKey, entries and a count of orders.",
+    "body": [
+      "A **map** (`Map`) links **keys** to **values**, between braces: `{'coffee': 1.40, 'tea': 1.20}`. `Map<String, double>` says the keys are strings and the values numbers with decimals. You look things up by key: `menu['coffee']` gives `1.4` (Dart does not print the trailing zero of a `double`).",
+      "Changing a value and adding a new key look the same: `menu['tea'] = 1.30` updates the tea and `menu['juice'] = 2.50` adds the juice at the end.",
+      "If the key does not exist, `menu['cake']` gives **`null`**, not an error. **`??`** puts a default value in its place: `menu['cake'] ?? 0.0`. **`remove()`** deletes a key with its value, **`containsKey()`** asks whether it exists, and **`keys`** and **`values`** give the keys and the values.",
+      "**`entries`** gives each pair as an object with `key` and `value`, and the `for-in` goes through them. `padRight(8)` pads the name with spaces up to 8 characters so the prices line up in a column.",
+      "A very common use is **counting**: for each drink ordered, `counts[drink] = (counts[drink] ?? 0) + 1` adds one to what was there, or starts from zero the first time. `<String, int>{}` is an empty map with its types."
+    ],
+    "points": [
+      "A map goes between `{ }` with `key: value` pairs.",
+      "`m[key] = value` changes or adds.",
+      "A missing key gives `null`; `??` supplies a default.",
+      "`for (var e in m.entries)` goes through `e.key` and `e.value`.",
+      "`containsKey` checks whether the key exists."
+    ],
+    "exercise": "Add a map with the units sold of each drink and print how much each one took in (units times price) and the total for the day."
+  }
+}

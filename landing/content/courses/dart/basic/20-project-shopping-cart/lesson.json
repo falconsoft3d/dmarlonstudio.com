@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "proyecto-carrito-de-la-compra",
+    "title": "Proyecto: carrito de la compra",
+    "summary": "Un proyecto en Dart que reúne el curso: un carrito de la compra con mapas, funciones, excepciones, null safety, fold y una expresión switch para el descuento.",
+    "body": [
+      "Este programa junta lo aprendido en el curso. Los precios de la tienda están en un **mapa `const`** fuera de `main`, porque no cambian. El carrito es una lista de líneas `producto,unidades`, tal como llegarían de un formulario o de un archivo, y tres de ellas tienen errores a propósito.",
+      "La función `lineCost` calcula el coste de una línea. `split(',')` separa el producto de las unidades; `prices[parts[0]]` da un `double?`, porque el producto puede no existir, e `int.tryParse` da un `int?`, porque el texto puede no ser un número. Si falta alguno de los dos, o la cantidad no es positiva, **`throw`** lanza un `ArgumentError` con un mensaje claro; si no, devuelve precio por unidades. Tras esos `if`, Dart sabe que ninguno es `null`.",
+      "En `main`, el bucle suma el coste de cada línea en el mapa `totals` con `(totals[product] ?? 0) + ...`, de modo que la leche, que aparece dos veces, se acumula. El **`try`** con **`on ArgumentError catch (e)`** atiende las líneas incorrectas: se escriben con `Skipped:` y el carrito sigue.",
+      "Para el tique, `forEach` escribe cada producto con la función de flecha `row`, que alinea las columnas con `padRight` y `padLeft`. **`fold`** suma los valores del mapa y una **expresión `switch`** con patrones `>= 20` y `>= 10` elige el descuento: con 17,60 euros toca un 5 %, y el total queda en `16.72`.",
+      "Un buen siguiente paso es darle una pantalla: en DMarlon Studio puede diseñar en el lienzo de teléfono una aplicación Flutter con la lista de productos y un botón de pagar, y reutilizar estas mismas funciones de Dart."
+    ],
+    "points": [
+      "Los datos fijos van en un `const` fuera de `main`.",
+      "`double?` e `int?` obligan a pensar en lo que puede faltar.",
+      "`throw` en la función y `try` en el bucle separan el error de su tratamiento.",
+      "`fold` suma los valores de un mapa.",
+      "Una expresión `switch` convierte el subtotal en un descuento."
+    ],
+    "exercise": "Añada un mapa con el IVA de cada producto (`4` para el pan y la leche, `10` para el resto) y escriba en el tique una línea `VAT` con el impuesto incluido en el total."
+  },
+  "en": {
+    "slug": "project-shopping-cart",
+    "title": "Project: shopping cart",
+    "summary": "A Dart project that brings the course together: a shopping cart with maps, functions, exceptions, null safety, fold and a switch expression for the discount.",
+    "body": [
+      "This program puts the whole course together. The shop's prices live in a **`const` map** outside `main`, because they never change. The cart is a list of `product,units` lines, just as they might come from a form or a file, and three of them contain mistakes on purpose.",
+      "The `lineCost` function works out the cost of one line. `split(',')` separates the product from the units; `prices[parts[0]]` gives a `double?`, because the product may not exist, and `int.tryParse` gives an `int?`, because the text may not be a number. If either is missing, or the quantity is not positive, **`throw`** raises an `ArgumentError` with a clear message; otherwise it returns price times units. After those `if` checks, Dart knows neither is `null`.",
+      "In `main`, the loop adds each line's cost into the `totals` map with `(totals[product] ?? 0) + ...`, so the milk, which appears twice, builds up. The **`try`** with **`on ArgumentError catch (e)`** handles the bad lines: they are printed with `Skipped:` and the cart carries on.",
+      "For the receipt, `forEach` prints each product with the arrow function `row`, which lines up the columns with `padRight` and `padLeft`. **`fold`** adds up the map's values and a **`switch` expression** with `>= 20` and `>= 10` patterns picks the discount: 17.60 euros earns 5%, and the total comes to `16.72`.",
+      "A good next step is to give it a screen: in DMarlon Studio you can design a Flutter app on the phone canvas with the product list and a pay button, and reuse these same Dart functions."
+    ],
+    "points": [
+      "Fixed data goes in a `const` outside `main`.",
+      "`double?` and `int?` make you think about what may be missing.",
+      "`throw` in the function and `try` in the loop keep the error apart from its handling.",
+      "`fold` adds up the values of a map.",
+      "A `switch` expression turns the subtotal into a discount."
+    ],
+    "exercise": "Add a map with each product's VAT rate (`4` for bread and milk, `10` for the rest) and print a `VAT` line on the receipt with the tax included in the total."
+  }
+}

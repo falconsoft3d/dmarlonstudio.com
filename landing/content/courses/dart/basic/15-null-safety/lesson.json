@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "seguridad-frente-a-null",
+    "title": "Seguridad frente a null",
+    "summary": "Entienda la seguridad frente a null de Dart: tipos con ?, los operadores ??, ?., ! y ??=, y cómo un if != null convierte el tipo.",
+    "body": [
+      "**`null`** significa «sin valor». En Dart, un `String` **nunca** puede ser `null`; si una variable puede quedarse sin valor, su tipo lleva **`?`**: `String? nickname;` empieza siendo `null`. Esta **seguridad frente a null** hace que Dart avise antes de ejecutar si se usa algo que podría faltar.",
+      "La función `findEmail` devuelve `String?` porque buscar en un mapa puede no encontrar nada. El operador **`??`** da un valor por defecto cuando lo de la izquierda es `null`: `nickname ?? 'none'` escribe `none`.",
+      "**`?.`** llama a un método solo si el valor no es `null`; si lo es, el resultado es `null` sin error. Marta no está en la agenda, así que `marta?.toUpperCase()` da `null`, y `marta?.length ?? 0` combina los dos operadores para dar `0`.",
+      "Tras comprobar `if (ana != null)`, Dart sabe que dentro del bloque `ana` tiene valor y la trata como un `String` normal: se puede llamar a `split` sin más. El operador **`!`** dice «estoy seguro de que no es null»: `emails['Luis']!` da un `String`, pero si la clave no existiera el programa fallaría, así que úselo con cuidado.",
+      "Por último, **`??=`** asigna solo si la variable sigue siendo `null`: el primer `nickname ??= 'Nana'` le da valor y el segundo ya no cambia nada."
+    ],
+    "points": [
+      "`String?` admite `null`; `String`, no.",
+      "`a ?? b` da `b` si `a` es `null`.",
+      "`a?.metodo()` da `null` en vez de fallar.",
+      "`a!` afirma que no es `null` (y falla si lo es).",
+      "Tras `if (a != null)`, `a` es del tipo sin `?`."
+    ],
+    "exercise": "Añada una función `String? findPhone(String name)` con un mapa de teléfonos y escriba, para tres nombres (uno que no esté), su teléfono o `no phone` usando `??`."
+  },
+  "en": {
+    "slug": "null-safety",
+    "title": "Null safety",
+    "summary": "Understand Dart's null safety: nullable types with ?, the ??, ?., ! and ??= operators, and how an if != null check changes the type.",
+    "body": [
+      "**`null`** means \"no value\". In Dart a `String` can **never** be `null`; if a variable may end up without a value, its type gets a **`?`**: `String? nickname;` starts out as `null`. This **null safety** lets Dart warn you before running if you use something that might be missing.",
+      "The `findEmail` function returns `String?` because looking something up in a map may find nothing. The **`??`** operator gives a default value when the left side is `null`: `nickname ?? 'none'` prints `none`.",
+      "**`?.`** calls a method only when the value is not `null`; if it is, the result is `null` with no error. Marta is not in the address book, so `marta?.toUpperCase()` gives `null`, and `marta?.length ?? 0` combines both operators to give `0`.",
+      "After checking `if (ana != null)`, Dart knows that inside the block `ana` has a value and treats it as a plain `String`: you can call `split` straight away. The **`!`** operator says \"I am sure this is not null\": `emails['Luis']!` gives a `String`, but if the key were missing the program would crash, so use it with care.",
+      "Finally, **`??=`** assigns only if the variable is still `null`: the first `nickname ??= 'Nana'` gives it a value and the second one changes nothing."
+    ],
+    "points": [
+      "`String?` allows `null`; `String` does not.",
+      "`a ?? b` gives `b` when `a` is `null`.",
+      "`a?.method()` gives `null` instead of failing.",
+      "`a!` claims it is not `null` (and fails if it is).",
+      "After `if (a != null)`, `a` has the type without `?`."
+    ],
+    "exercise": "Add a `String? findPhone(String name)` function with a map of phone numbers and print, for three names (one of them missing), the phone number or `no phone` using `??`."
+  }
+}

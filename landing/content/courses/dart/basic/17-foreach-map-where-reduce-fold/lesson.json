@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "foreach-map-where-reduce-fold",
+    "title": "forEach, map, where, reduce y fold",
+    "summary": "Recorra y transforme colecciones en Dart con forEach, map, where, reduce y fold, y encadénelos para filtrar, convertir y sumar en una línea.",
+    "body": [
+      "Estos métodos reciben una **función anónima** (lección 13) y la aplican a cada elemento. **`forEach`** simplemente la ejecuta con cada uno: `names.forEach((name) => print('Welcome, $name'))` saluda a los tres.",
+      "**`map`** convierte cada elemento en otro: cada pedido pasa a ser un texto como `24.00 EUR`. **`where`** se queda solo con los elementos que cumplen la condición, aquí los pedidos de 20 euros o más. Los dos dan una secuencia, que **`toList()`** convierte en lista.",
+      "**`reduce`** combina los elementos de dos en dos hasta dejar uno solo: con `(a, b) => a + b` va sumando y da el total, `155.75`, y con `(a, b) => a > b ? a : b` se queda en cada paso con el mayor, `61.0`.",
+      "**`fold`** es como `reduce`, pero empieza desde un valor inicial, que además puede ser de otro tipo: `fold(0, ...)` cuenta los pedidos pequeños empezando en `0`, y `fold('', ...)` construye una cadena con las iniciales de una lista de nombres.",
+      "Como cada método devuelve una colección, se pueden **encadenar**: el último ejemplo filtra los pedidos de más de 10 euros con `where`, convierte cada uno en puntos con `map` y `~/` y los suma con `fold`. Se lee de arriba abajo, como una receta."
+    ],
+    "points": [
+      "`forEach` ejecuta una función con cada elemento.",
+      "`map` transforma; `where` filtra.",
+      "`toList()` convierte el resultado en una lista.",
+      "`reduce` combina todo en un valor; `fold` igual, desde un valor inicial.",
+      "Los métodos se encadenan: `where(...).map(...).fold(...)`."
+    ],
+    "exercise": "Con una lista de edades, use `where` para quedarse con los mayores de edad, `map` para convertirlas en textos `'X years'`, y `fold` para calcular la suma de todas las edades."
+  },
+  "en": {
+    "slug": "foreach-map-where-reduce-fold",
+    "title": "forEach, map, where, reduce and fold",
+    "summary": "Go through and transform Dart collections with forEach, map, where, reduce and fold, and chain them to filter, convert and add up in one go.",
+    "body": [
+      "These methods take an **anonymous function** (lesson 13) and apply it to each element. **`forEach`** simply runs it with each one: `names.forEach((name) => print('Welcome, $name'))` greets all three.",
+      "**`map`** turns each element into something else: each order becomes a label like `24.00 EUR`. **`where`** keeps only the elements that meet the condition, here orders of 20 euros or more. Both give back a sequence, which **`toList()`** turns into a list.",
+      "**`reduce`** combines the elements two at a time until only one is left: with `(a, b) => a + b` it keeps adding and gives the total, `155.75`, and with `(a, b) => a > b ? a : b` it keeps the larger one at each step, `61.0`.",
+      "**`fold`** is like `reduce`, but it starts from an initial value, which can even be of another type: `fold(0, ...)` counts the small orders starting from `0`, and `fold('', ...)` builds a string with the initials of a list of names.",
+      "Since each method returns a collection, they can be **chained**: the last example keeps the orders over 10 euros with `where`, turns each one into points with `map` and `~/`, and adds them up with `fold`. It reads from top to bottom, like a recipe."
+    ],
+    "points": [
+      "`forEach` runs a function with each element.",
+      "`map` transforms; `where` filters.",
+      "`toList()` turns the result into a list.",
+      "`reduce` combines everything into one value; `fold` too, from a starting value.",
+      "The methods chain: `where(...).map(...).fold(...)`."
+    ],
+    "exercise": "With a list of ages, use `where` to keep the adults, `map` to turn them into `'X years'` labels, and `fold` to add up all the ages."
+  }
+}

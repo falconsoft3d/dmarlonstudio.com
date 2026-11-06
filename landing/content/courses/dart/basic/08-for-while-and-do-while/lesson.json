@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "for-while-y-do-while",
+    "title": "for, while y do-while",
+    "summary": "Repita instrucciones en Dart con los bucles for, while y do-while, y controle cada vuelta con break y continue: una tabla, unos ahorros y una cuenta atrás.",
+    "body": [
+      "El bucle **`for`** tiene tres partes entre paréntesis, separadas por punto y coma: el inicio (`int i = 1`), la condición para seguir (`i <= 5`) y el paso de cada vuelta (`i++`). Así recorre los números del 1 al 5 y escribe la tabla del 7.",
+      "**`while`** repite mientras la condición sea verdadera, sin saber de antemano cuántas vueltas dará. Los ahorros crecen un 10 % al año (`savings *= 1.10`) hasta pasar de 150 euros, y `years` cuenta las vueltas: hacen falta `5` años.",
+      "**`do-while`** comprueba la condición al final, así que el bloque se ejecuta **al menos una vez**. La cuenta atrás escribe 3, 2 y 1, y se detiene cuando `countdown` llega a 0. Fíjese en el punto y coma tras `while (...)`.",
+      "Dentro de un bucle, **`continue`** salta directamente a la vuelta siguiente y **`break`** sale del bucle del todo. El último `for` va del 1 al 20, pero se salta los pares con `continue` y se detiene en cuanto `n` pasa de 11 con `break`."
+    ],
+    "points": [
+      "`for (inicio; condición; paso)` cuando se sabe cuántas vueltas.",
+      "`while (condición)` mientras algo se cumpla.",
+      "`do { } while (condición);` se ejecuta al menos una vez.",
+      "`continue` pasa a la vuelta siguiente; `break` sale."
+    ],
+    "exercise": "Con un `while`, calcule cuántas veces hay que doblar un folio (cada vez, el doble de grosor; empiece en 0,1 mm) hasta que su grosor pase de un metro."
+  },
+  "en": {
+    "slug": "for-while-and-do-while",
+    "title": "for, while and do-while",
+    "summary": "Repeat code in Dart with for, while and do-while loops, and control each turn with break and continue: a times table, savings and a countdown.",
+    "body": [
+      "A **`for`** loop has three parts in brackets, separated by semicolons: the start (`int i = 1`), the condition to keep going (`i <= 5`) and the step after each turn (`i++`). That way it goes through the numbers 1 to 5 and prints the 7 times table.",
+      "**`while`** repeats as long as its condition is true, without knowing in advance how many turns it will take. The savings grow by 10% a year (`savings *= 1.10`) until they pass 150 euros, and `years` counts the turns: it takes `5` years.",
+      "**`do-while`** checks the condition at the end, so the block runs **at least once**. The countdown prints 3, 2 and 1, and stops when `countdown` reaches 0. Note the semicolon after `while (...)`.",
+      "Inside a loop, **`continue`** jumps straight to the next turn and **`break`** leaves the loop altogether. The last `for` goes from 1 to 20, but skips even numbers with `continue` and stops as soon as `n` goes past 11 with `break`."
+    ],
+    "points": [
+      "`for (start; condition; step)` when you know how many turns.",
+      "`while (condition)` for as long as something holds.",
+      "`do { } while (condition);` runs at least once.",
+      "`continue` moves to the next turn; `break` leaves."
+    ],
+    "exercise": "With a `while`, work out how many times you must fold a sheet of paper (each fold doubles its thickness; start at 0.1 mm) until it is thicker than one metre."
+  }
+}

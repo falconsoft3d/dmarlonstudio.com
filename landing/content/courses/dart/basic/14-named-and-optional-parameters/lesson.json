@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "parametros-con-nombre-y-opcionales",
+    "title": "Parámetros con nombre y opcionales",
+    "summary": "Haga funciones flexibles en Dart con parámetros opcionales entre [ ], parámetros con nombre entre { }, valores por defecto y required.",
+    "body": [
+      "Un parámetro entre **corchetes** es **opcional y posicional**: en `greet(String name, [String greeting = 'Hello'])`, el saludo puede faltar y entonces vale `'Hello'`. `greet('Marta')` da `Hello, Marta!` y `greet('Marta', 'Good morning')` cambia el saludo.",
+      "Los parámetros entre **llaves** son **parámetros con nombre**: al llamar a la función se escribe el nombre delante del valor, como `nights: 3`. Así se ve enseguida qué significa cada número, y pueden ir **en cualquier orden**: `book('Hotel Mar', guests: 3, nights: 2)`.",
+      "Los parámetros con nombre son opcionales salvo que lleven **`required`**: `nights` es obligatorio y, si falta, como en la línea comentada, Dart no compila. Los demás tienen un **valor por defecto**: sin `guests` se cuentan 2 personas y sin `breakfast`, sin desayuno.",
+      "La función `button` muestra para qué sirven de verdad: las llamadas largas se leen solas. Es la forma en que se escribe **Flutter**: `Text('Hi', style: ..., textAlign: ...)` o `Padding(padding: ..., child: ...)` son llamadas con parámetros con nombre, y es lo que genera DMarlon Studio con los widgets que usted coloca en el lienzo de teléfono."
+    ],
+    "points": [
+      "`[tipo nombre = valor]` es opcional y va por posición.",
+      "`{tipo nombre = valor}` va por nombre: `nombre: valor`.",
+      "Los argumentos con nombre pueden ir en cualquier orden.",
+      "`required` hace obligatorio un parámetro con nombre.",
+      "Flutter usa parámetros con nombre en todos sus widgets."
+    ],
+    "exercise": "Escriba una función `pizza` con un parámetro `size` obligatorio con nombre y los parámetros `cheese` (por defecto `true`) y `toppings` (por defecto `0`), que escriba el pedido y su precio; llámela de tres maneras distintas."
+  },
+  "en": {
+    "slug": "named-and-optional-parameters",
+    "title": "Named and optional parameters",
+    "summary": "Make flexible Dart functions with optional parameters in [ ], named parameters in { }, default values and required.",
+    "body": [
+      "A parameter in **square brackets** is **optional and positional**: in `greet(String name, [String greeting = 'Hello'])`, the greeting can be left out and then it is `'Hello'`. `greet('Marta')` gives `Hello, Marta!` and `greet('Marta', 'Good morning')` changes the greeting.",
+      "Parameters in **braces** are **named parameters**: when calling the function you write the name before the value, as in `nights: 3`. That makes it obvious what each number means, and they can go **in any order**: `book('Hotel Mar', guests: 3, nights: 2)`.",
+      "Named parameters are optional unless they are marked **`required`**: `nights` is compulsory and, if it is missing, as in the commented-out line, Dart will not compile. The others have a **default value**: without `guests` it counts 2 people, and without `breakfast`, no breakfast.",
+      "The `button` function shows what they are really for: long calls read by themselves. This is how **Flutter** code is written: `Text('Hi', style: ..., textAlign: ...)` or `Padding(padding: ..., child: ...)` are calls with named parameters, and it is what DMarlon Studio generates for the widgets you place on the phone canvas."
+    ],
+    "points": [
+      "`[type name = value]` is optional and goes by position.",
+      "`{type name = value}` goes by name: `name: value`.",
+      "Named arguments can go in any order.",
+      "`required` makes a named parameter compulsory.",
+      "Flutter uses named parameters in all its widgets."
+    ],
+    "exercise": "Write a `pizza` function with a required named `size` parameter plus `cheese` (default `true`) and `toppings` (default `0`), which prints the order and its price; call it in three different ways."
+  }
+}

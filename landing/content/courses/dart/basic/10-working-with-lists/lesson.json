@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "trabajar-con-listas",
+    "title": "Trabajar con listas",
+    "summary": "Cambie listas en Dart: añada con add, addAll e insert, quite con remove, removeAt y removeLast, ordene con sort y copie partes con sublist.",
+    "body": [
+      "Las listas de Dart pueden crecer y encoger. **`add()`** pone un elemento al final y **`addAll()`** pone varios a la vez, aquí `Eva` y `Fran`. **`insert(0, 'Zoe')`** lo pone en una posición concreta, la primera, y los demás se desplazan.",
+      "Para quitar hay tres formas: **`remove('Ben')`** busca el valor y lo borra, **`removeAt(0)`** borra la posición indicada y **`removeLast()`** el último. `removeAt` y `removeLast` devuelven lo que han quitado, por eso `served` guarda a `Zoe`, la primera atendida.",
+      "**`sort()`** ordena la propia lista, de menor a mayor; no crea una nueva. **`reversed`** da los elementos al revés, pero no es una lista, sino una secuencia que se recorre; **`toList()`** la convierte en una lista para guardarla en `ranking`.",
+      "**`sublist(inicio, fin)`** copia una parte de la lista: incluye el inicio y no el fin, así que `ranking.sublist(0, 3)` son las posiciones 0, 1 y 2, las tres mejores notas. Sin el segundo número, `sublist(3)` llega hasta el final.",
+      "**`clear()`** vacía la lista: la cola cierra con `[]` y longitud `0`."
+    ],
+    "points": [
+      "`add`, `addAll` e `insert` añaden.",
+      "`remove` quita por valor; `removeAt`, por posición.",
+      "`sort()` ordena la propia lista.",
+      "`reversed.toList()` da una copia al revés.",
+      "`sublist(inicio, fin)` no incluye el fin."
+    ],
+    "exercise": "Parta de una lista de cinco tareas, añada una al principio y otra al final, quite la tercera, ordénela alfabéticamente y escriba solo las tres primeras con `sublist`."
+  },
+  "en": {
+    "slug": "working-with-lists",
+    "title": "Working with lists",
+    "summary": "Change lists in Dart: add with add, addAll and insert, take out with remove, removeAt and removeLast, order with sort and copy parts with sublist.",
+    "body": [
+      "Dart lists can grow and shrink. **`add()`** puts one element at the end and **`addAll()`** puts several at once, here `Eva` and `Fran`. **`insert(0, 'Zoe')`** puts it at a given position, the first, and everyone else moves along.",
+      "There are three ways to take things out: **`remove('Ben')`** looks for the value and deletes it, **`removeAt(0)`** deletes the given position and **`removeLast()`** the last one. `removeAt` and `removeLast` return what they removed, which is why `served` holds `Zoe`, the first to be served.",
+      "**`sort()`** orders the list itself, from lowest to highest; it does not create a new one. **`reversed`** gives the elements backwards, but it is not a list, just a sequence to go through; **`toList()`** turns it into a list to keep in `ranking`.",
+      "**`sublist(start, end)`** copies part of the list: it includes the start but not the end, so `ranking.sublist(0, 3)` is positions 0, 1 and 2, the three best scores. Without the second number, `sublist(3)` goes to the end.",
+      "**`clear()`** empties the list: the queue closes with `[]` and length `0`."
+    ],
+    "points": [
+      "`add`, `addAll` and `insert` add elements.",
+      "`remove` deletes by value; `removeAt` by position.",
+      "`sort()` orders the list itself.",
+      "`reversed.toList()` gives a reversed copy.",
+      "`sublist(start, end)` leaves out the end."
+    ],
+    "exercise": "Start from a list of five tasks, add one at the beginning and one at the end, remove the third, sort it alphabetically and print only the first three with `sublist`."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "excepciones",
+    "title": "Excepciones",
+    "summary": "Controle los errores en Dart con try, on, catch y finally, y lance los suyos con throw: un cajero que rechaza importes negativos o sin saldo.",
+    "body": [
+      "Cuando algo sale mal, Dart lanza una **excepción** y, si nadie la atiende, el programa se detiene. **`try`** marca el código que puede fallar y **`on FormatException`** atiende ese tipo de error: `int.parse('forty')` falla, se escribe el aviso y el bucle sigue con normalidad.",
+      "**`throw`** lanza una excepción propia cuando algo no está permitido. `withdraw` lanza un **`ArgumentError`** si el importe no es positivo y un **`StateError`** si no hay saldo suficiente; en los dos casos no llega al `return`, así que `balance` no cambia.",
+      "Un `try` puede tener varias ramas, que Dart prueba en orden. **`on ArgumentError catch (e)`** atiende ese tipo y guarda el error en `e`, cuyo `message` es el texto del `throw`. Un **`catch (e)`** sin `on` atiende cualquier otro error: el `StateError` se escribe entero como `Bad state: not enough money`.",
+      "**`finally`** se ejecuta siempre, haya error o no, y por eso cada operación termina con su línea `checked`. Es el sitio para lo que tiene que hacerse pase lo que pase, como cerrar un archivo.",
+      "Al final, el saldo es `70.0`: solo la primera retirada salió bien, y las otras dos se rechazaron sin detener el programa."
+    ],
+    "points": [
+      "`try { }` envuelve el código que puede fallar.",
+      "`on Tipo` atiende un tipo de error; `catch (e)` da el error.",
+      "`throw ArgumentError('...')` lanza un error propio.",
+      "`finally` se ejecuta siempre.",
+      "Un error atendido no detiene el programa."
+    ],
+    "exercise": "Añada una función `deposit` que lance un `ArgumentError` si el importe es mayor de 1000 y pruébela dentro de un `try` con tres importes, uno de ellos de 2000."
+  },
+  "en": {
+    "slug": "exceptions",
+    "title": "Exceptions",
+    "summary": "Handle errors in Dart with try, on, catch and finally, and raise your own with throw: a cash machine that refuses negative amounts and overdrafts.",
+    "body": [
+      "When something goes wrong, Dart throws an **exception** and, if nobody handles it, the program stops. **`try`** marks the code that might fail and **`on FormatException`** handles that kind of error: `int.parse('forty')` fails, the warning is printed and the loop carries on as normal.",
+      "**`throw`** raises an exception of your own when something is not allowed. `withdraw` throws an **`ArgumentError`** if the amount is not positive and a **`StateError`** if there is not enough money; either way it never reaches `return`, so `balance` does not change.",
+      "A `try` can have several branches, which Dart tries in order. **`on ArgumentError catch (e)`** handles that type and keeps the error in `e`, whose `message` is the text given to `throw`. A **`catch (e)`** without `on` handles any other error: the `StateError` is printed in full as `Bad state: not enough money`.",
+      "**`finally`** always runs, error or not, which is why every operation ends with its `checked` line. It is the place for anything that must happen no matter what, such as closing a file.",
+      "In the end the balance is `70.0`: only the first withdrawal worked, and the other two were refused without stopping the program."
+    ],
+    "points": [
+      "`try { }` wraps the code that might fail.",
+      "`on Type` handles one kind of error; `catch (e)` gives you the error.",
+      "`throw ArgumentError('...')` raises your own error.",
+      "`finally` always runs.",
+      "A handled error does not stop the program."
+    ],
+    "exercise": "Add a `deposit` function that throws an `ArgumentError` when the amount is over 1000, and try it inside a `try` with three amounts, one of them 2000."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "escribir-y-leer-archivos",
+    "title": "Escribir y leer archivos",
+    "summary": "Guarde y lea archivos de texto en Dart con la clase File de dart:io: writeAsStringSync, FileMode.append, readAsStringSync y readAsLinesSync.",
+    "body": [
+      "La clase **`File`** de `dart:io` representa un archivo a partir de su ruta. `File('shopping.txt')` es un archivo de la **carpeta actual**, la misma desde la que se ejecuta el programa; crear el objeto todavía no toca el disco.",
+      "**`writeAsStringSync()`** escribe el texto en el archivo: si no existe lo crea y, si existe, **reemplaza** lo que tenía. Cada `\\n` es un salto de línea. Con el argumento con nombre **`mode: FileMode.append`**, en cambio, añade al final sin borrar nada: la lista de la compra acaba con cuatro productos. `existsSync()` y `lengthSync()` confirman que el archivo está ahí y cuántos bytes ocupa.",
+      "**`readAsStringSync()`** lee el archivo entero como una sola cadena, y `trim()` quita el último salto de línea. **`readAsLinesSync()`** lo da ya partido en una lista, una cadena por línea, que es lo cómodo para volver a convertir el texto en datos: `split(',')` separa producto y cantidad, e `int.parse` suma las unidades.",
+      "Leer un archivo que no existe lanza una **`FileSystemException`**, que se atiende con `try` y `on` como en la lección anterior; su `path` dice qué archivo era. Si prefiere no llegar al error, **`existsSync()`** lo comprueba antes.",
+      "La terminación **`Sync`** indica que el programa espera a que termine cada operación. Dart tiene también versiones sin `Sync`, que no esperan y se usan con `await`; en una aplicación Flutter son las habituales, para no congelar la pantalla."
+    ],
+    "points": [
+      "`File('nombre.txt')` es un archivo de la carpeta actual.",
+      "`writeAsStringSync` crea o reemplaza el archivo.",
+      "`mode: FileMode.append` añade al final.",
+      "`readAsStringSync` lo da entero; `readAsLinesSync`, por líneas.",
+      "Un archivo que no existe lanza `FileSystemException`."
+    ],
+    "exercise": "Escriba en `notes.txt` tres notas de examen, una por línea, añada una cuarta con `FileMode.append` y después lea el archivo para escribir la media."
+  },
+  "en": {
+    "slug": "writing-and-reading-files",
+    "title": "Writing and reading files",
+    "summary": "Save and read text files in Dart with the File class from dart:io: writeAsStringSync, FileMode.append, readAsStringSync and readAsLinesSync.",
+    "body": [
+      "The **`File`** class from `dart:io` stands for a file given its path. `File('shopping.txt')` is a file in the **current folder**, the one the program runs from; creating the object does not touch the disk yet.",
+      "**`writeAsStringSync()`** writes the text into the file: if it does not exist it creates it and, if it does, it **replaces** what was there. Each `\\n` is a line break. With the named argument **`mode: FileMode.append`**, on the other hand, it adds at the end without deleting anything, so the shopping list ends up with four products. `existsSync()` and `lengthSync()` confirm the file is there and how many bytes it takes up.",
+      "**`readAsStringSync()`** reads the whole file as one string, and `trim()` removes the final line break. **`readAsLinesSync()`** gives it already split into a list, one string per line, which is the handy way to turn the text back into data: `split(',')` separates product and quantity, and `int.parse` adds up the units.",
+      "Reading a file that does not exist throws a **`FileSystemException`**, handled with `try` and `on` as in the previous lesson; its `path` tells you which file it was. If you would rather not reach the error, **`existsSync()`** checks first.",
+      "The **`Sync`** ending means the program waits for each operation to finish. Dart also has versions without `Sync`, which do not wait and are used with `await`; in a Flutter app those are the usual ones, so the screen does not freeze."
+    ],
+    "points": [
+      "`File('name.txt')` is a file in the current folder.",
+      "`writeAsStringSync` creates or replaces the file.",
+      "`mode: FileMode.append` adds at the end.",
+      "`readAsStringSync` gives all of it; `readAsLinesSync`, line by line.",
+      "A missing file throws `FileSystemException`."
+    ],
+    "exercise": "Write three exam marks to `marks.txt`, one per line, add a fourth with `FileMode.append`, then read the file back and print the average."
+  }
+}

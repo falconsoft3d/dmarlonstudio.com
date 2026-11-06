@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "leer-del-teclado",
+    "title": "Leer del teclado",
+    "summary": "Lea lo que escribe el usuario en Dart con stdin.readLineSync() de dart:io y conviértalo en números con int.parse, double.parse e int.tryParse.",
+    "body": [
+      "Para leer del teclado hay que importar la biblioteca **`dart:io`** con `import 'dart:io';` en la primera línea. Trae `stdin` (la entrada) y `stdout` (la salida). **`stdout.write()`** escribe como `print()` pero sin saltar de línea, que es justo lo que se quiere para una pregunta.",
+      "**`stdin.readLineSync()`** espera a que el usuario escriba una línea y pulse Intro, y la devuelve como texto. Si ya no queda nada que leer devuelve `null`, por eso se escribe `stdin.readLineSync() ?? ''`: el operador `??` pone una cadena vacía en ese caso. La lección 15 explica `null` y `??` con calma.",
+      "Lo que se teclea es **siempre texto**, aunque sean cifras. **`int.parse()`** convierte `'29'` en el entero `29`, con el que ya se puede sumar, y **`double.parse()`** hace lo mismo con números con decimales como `'1.40'`. Con ellos se calcula el gasto en café de un año: precio por tazas por 52 semanas.",
+      "Si el texto no es un número, `int.parse` produce un error y el programa se detiene. **`int.tryParse()`** es más prudente: devuelve `null` en lugar de fallar. El tipo `int?` admite ese `null`, y el operador condicional elige qué escribir: aquí `seven` no es un número.",
+      "Al ejecutarlo, lo que se teclea sale de `input.txt`, una línea por pregunta. En la salida no se ven las respuestas porque llegan del archivo, no de la pantalla; en DMarlon Studio puede escribirlas usted en la consola."
+    ],
+    "points": [
+      "`import 'dart:io';` trae `stdin` y `stdout`.",
+      "`stdin.readLineSync()` lee una línea (o `null`).",
+      "`stdout.write()` escribe sin saltar de línea.",
+      "`int.parse` y `double.parse` convierten texto en número.",
+      "`int.tryParse` devuelve `null` en vez de fallar."
+    ],
+    "exercise": "Pida el ancho y el alto de una habitación en metros (con decimales) y escriba su superficie con dos decimales."
+  },
+  "en": {
+    "slug": "reading-input",
+    "title": "Reading input",
+    "summary": "Read what the user types in Dart with stdin.readLineSync() from dart:io and turn it into numbers with int.parse, double.parse and int.tryParse.",
+    "body": [
+      "To read from the keyboard you import the **`dart:io`** library with `import 'dart:io';` on the first line. It brings `stdin` (input) and `stdout` (output). **`stdout.write()`** writes like `print()` but without a line break, which is exactly what you want for a question.",
+      "**`stdin.readLineSync()`** waits for the user to type a line and press Enter, and returns it as text. If there is nothing left to read it returns `null`, which is why the code says `stdin.readLineSync() ?? ''`: the `??` operator uses an empty string in that case. Lesson 15 explains `null` and `??` properly.",
+      "Whatever is typed is **always text**, even digits. **`int.parse()`** turns `'29'` into the integer `29`, which you can then add to, and **`double.parse()`** does the same for numbers with decimals such as `'1.40'`. With them the program works out a year of coffee: price times cups times 52 weeks.",
+      "If the text is not a number, `int.parse` raises an error and the program stops. **`int.tryParse()`** is more careful: it returns `null` instead of failing. The `int?` type allows that `null`, and the conditional operator picks what to print: here `seven` is not a number.",
+      "When it runs, the typing comes from `input.txt`, one line per question. The answers do not appear in the output because they come from the file, not the screen; in DMarlon Studio you can type them yourself in the console."
+    ],
+    "points": [
+      "`import 'dart:io';` brings `stdin` and `stdout`.",
+      "`stdin.readLineSync()` reads one line (or `null`).",
+      "`stdout.write()` writes without a line break.",
+      "`int.parse` and `double.parse` turn text into numbers.",
+      "`int.tryParse` returns `null` instead of failing."
+    ],
+    "exercise": "Ask for the width and length of a room in metres (with decimals) and print its area with two decimals."
+  }
+}

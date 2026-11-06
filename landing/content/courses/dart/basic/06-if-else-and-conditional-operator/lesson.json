@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "if-else-y-operador-condicional",
+    "title": "if, else y operador condicional",
+    "summary": "Tome decisiones en Dart con if, else if y else, combine condiciones con &&, || y !, y elija un valor en una línea con el operador ? :.",
+    "body": [
+      "**`if`** ejecuta su bloque solo cuando la condición entre paréntesis es verdadera. Como `temperature` vale `31`, `temperature > 30` es `true` y se escribe el aviso de beber agua. Los operadores de comparación son `>`, `<`, `>=`, `<=`, `==` (igual) y `!=` (distinto).",
+      "Con **`else if`** y **`else`** se elige un camino entre varios: Dart prueba las condiciones en orden y se queda con la primera que se cumple. Con `72` puntos, `score >= 90` es falso y `score >= 70` es verdadero, así que `grade` vale `'B'` y el resto ni se mira.",
+      "Fíjese en `String grade;`: la variable se declara sin valor y cada rama le da uno. Dart comprueba que, pase lo que pase, `grade` tendrá valor antes de usarse; si faltara el `else`, no compilaría.",
+      "Las condiciones se combinan con **`&&`** (y), **`||`** (o) y **`!`** (no). `age >= 18 || withParent` se cumple porque, aunque tenga 16 años, va con un adulto. Si el bloque es una sola instrucción, puede ir en la misma línea sin llaves.",
+      "El **operador condicional** `condición ? valorSiSí : valorSiNo` elige un valor en una sola expresión: `age < 18 ? 'junior' : 'adult'`. Cabe incluso dentro de `${}` para escribir `pass` o `fail` sin un `if` aparte."
+    ],
+    "points": [
+      "`if (condición) { }` solo se ejecuta si es `true`.",
+      "`else if` y `else` eligen el primer camino que se cumple.",
+      "`==` compara; `=` asigna.",
+      "`&&`, `||` y `!` combinan condiciones.",
+      "`c ? a : b` elige entre dos valores."
+    ],
+    "exercise": "Escriba un programa que, según una variable `hour` de 0 a 23, salude con `Good morning`, `Good afternoon` o `Good evening`, y añada `(weekend)` con el operador condicional si `isWeekend` es `true`."
+  },
+  "en": {
+    "slug": "if-else-and-conditional-operator",
+    "title": "if, else and the conditional operator",
+    "summary": "Make decisions in Dart with if, else if and else, combine conditions with &&, || and !, and pick a value in one line with the ? : operator.",
+    "body": [
+      "**`if`** runs its block only when the condition in brackets is true. Since `temperature` is `31`, `temperature > 30` is `true` and the program tells you to drink water. The comparison operators are `>`, `<`, `>=`, `<=`, `==` (equal) and `!=` (not equal).",
+      "**`else if`** and **`else`** choose one path out of several: Dart tries the conditions in order and takes the first one that holds. With `72` points, `score >= 90` is false and `score >= 70` is true, so `grade` becomes `'B'` and the rest is never checked.",
+      "Look at `String grade;`: the variable is declared without a value and each branch gives it one. Dart checks that, whatever happens, `grade` will have a value before it is used; without the final `else`, it would not compile.",
+      "Conditions combine with **`&&`** (and), **`||`** (or) and **`!`** (not). `age >= 18 || withParent` holds because, although they are 16, they come with an adult. When the block is a single statement, it can sit on the same line without braces.",
+      "The **conditional operator** `condition ? valueIfTrue : valueIfFalse` picks a value in a single expression: `age < 18 ? 'junior' : 'adult'`. It even fits inside `${}` to print `pass` or `fail` without a separate `if`."
+    ],
+    "points": [
+      "`if (condition) { }` only runs when it is `true`.",
+      "`else if` and `else` take the first path that holds.",
+      "`==` compares; `=` assigns.",
+      "`&&`, `||` and `!` combine conditions.",
+      "`c ? a : b` picks one of two values."
+    ],
+    "exercise": "Write a program that, depending on an `hour` variable from 0 to 23, says `Good morning`, `Good afternoon` or `Good evening`, and adds `(weekend)` with the conditional operator when `isWeekend` is `true`."
+  }
+}

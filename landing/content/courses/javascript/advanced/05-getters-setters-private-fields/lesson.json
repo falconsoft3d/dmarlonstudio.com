@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "getters-setters-campos-privados",
+    "title": "Getters, setters y campos privados",
+    "summary": "Proteja el estado de sus objetos en JavaScript con campos privados #, valide valores con setters y calcule propiedades con getters.",
+    "body": [
+      "Los campos que empiezan por **`#`** son **privados**: solo el código de dentro de la clase puede leerlos o cambiarlos. `#price` y `#changes` se declaran arriba, con su valor inicial, y desde fuera no existen: `mouse[\"#price\"]` da `undefined` y `Object.keys(mouse)` solo muestra `name`. Escribir `mouse.#price` fuera de la clase sería un error de sintaxis.",
+      "Un **setter** (`set price(value)`) parece una propiedad normal, pero ejecuta código al asignar. Por eso `mouse.price = 18` pasa por la validación y `mouse.price = -3` lanza un `RangeError`, que el programa captura y muestra. Incluso el constructor usa `this.price = price`, así que el precio inicial también se valida y cuenta como cambio: de ahí los `2 changes`.",
+      "Un **getter** (`get price()`) se lee sin paréntesis: `mouse.price`. Sirve además para **propiedades calculadas**: `priceWithVat` no se guarda en ningún sitio, se calcula cada vez a partir de `#price`. Como no tiene setter, la asignación `mouse.priceWithVat = 1` no hace nada (en modo estricto lanzaría un `TypeError`).",
+      "Juntos, los campos privados, los getters y los setters permiten **encapsular**: el objeto decide qué se ve, qué se puede cambiar y con qué reglas, y nadie puede dejarlo en un estado incorrecto, como un producto con precio negativo."
+    ],
+    "points": [
+      "Un campo `#privado` solo es accesible desde dentro de la clase.",
+      "Un setter valida o transforma el valor en cada asignación.",
+      "Un getter se lee como una propiedad y puede calcular su valor.",
+      "Un getter sin setter es una propiedad de solo lectura."
+    ],
+    "exercise": "Añada un setter `discount` que admita un porcentaje entre 0 y 50, lo guarde en un campo privado `#discount` y haga que `priceWithVat` lo descuente; pruebe un descuento válido y otro de 80."
+  },
+  "en": {
+    "slug": "getters-setters-private-fields",
+    "title": "Getters, setters and private fields",
+    "summary": "Protect object state in JavaScript with # private fields, validate values with setters and compute properties with getters.",
+    "body": [
+      "Fields that start with **`#`** are **private**: only code inside the class can read or change them. `#price` and `#changes` are declared at the top with their initial values, and from outside they simply do not exist: `mouse[\"#price\"]` is `undefined` and `Object.keys(mouse)` only shows `name`. Writing `mouse.#price` outside the class would be a syntax error.",
+      "A **setter** (`set price(value)`) looks like a normal property but runs code on assignment. That is why `mouse.price = 18` goes through validation while `mouse.price = -3` throws a `RangeError`, which the program catches and prints. Even the constructor uses `this.price = price`, so the starting price is validated and counted as a change too: hence `2 changes`.",
+      "A **getter** (`get price()`) is read without parentheses: `mouse.price`. It also gives you **computed properties**: `priceWithVat` is not stored anywhere; it is worked out from `#price` every time. Since it has no setter, the assignment `mouse.priceWithVat = 1` does nothing (in strict mode it would throw a `TypeError`).",
+      "Together, private fields, getters and setters give you **encapsulation**: the object decides what is visible, what can change and under which rules, so nobody can leave it in an invalid state, such as a product with a negative price."
+    ],
+    "points": [
+      "A `#private` field is only reachable from inside the class.",
+      "A setter validates or transforms the value on every assignment.",
+      "A getter reads like a property and can compute its value.",
+      "A getter with no setter is a read-only property."
+    ],
+    "exercise": "Add a `discount` setter that accepts a percentage between 0 and 50, stores it in a private `#discount` field and makes `priceWithVat` apply it; try one valid discount and one of 80."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "promesas",
+    "title": "Promesas",
+    "summary": "Aprenda cómo funcionan las promesas en JavaScript: resolve y reject, cadenas de then, catch para los errores y finally para cerrar.",
+    "body": [
+      "Una **promesa** representa un resultado que todavía no existe: empieza **pendiente** y termina **cumplida** (con un valor) o **rechazada** (con un error). `checkStock` crea una con `new Promise`, que recibe dos funciones: llama a `resolve` cuando tiene el dato y a `reject` cuando algo va mal. El `setTimeout` de 50 ms simula la espera de un almacén o de un servidor.",
+      "Fíjese en el orden de la salida: la línea `2` aparece antes que la `3`, aunque está al final del programa. JavaScript no se detiene a esperar la promesa; sigue ejecutando el código y, cuando llega la respuesta, ejecuta las funciones registradas con **`then`**.",
+      "Cada `then` devuelve una promesa nueva, así que se pueden **encadenar**: lo que devuelve un `then` (aquí, `info.units * 899`) es lo que recibe el siguiente. Si devuelve otra promesa, como `checkStock(\"mouse\")`, la cadena espera a que esta se resuelva.",
+      "Cuando una promesa se rechaza, la cadena salta todos los `then` hasta el primer **`catch`**: por eso no aparece `This line is skipped`. **`finally`** se ejecuta al final pase lo que pase, ideal para cerrar una conexión u ocultar un indicador de carga. En la próxima lección verá `async`/`await`, que permite escribir lo mismo como código secuencial."
+    ],
+    "points": [
+      "Una promesa está pendiente, cumplida o rechazada.",
+      "`resolve` entrega el valor y `reject`, el error.",
+      "Lo que devuelve un `then` llega al siguiente; si es una promesa, se espera.",
+      "Un rechazo salta hasta el primer `catch`; `finally` se ejecuta siempre."
+    ],
+    "exercise": "Cambie `checkStock(\"laptop\")` por `checkStock(\"tablet\")`, un producto que no existe, y observe qué pasos se saltan. Después ponga un `catch` intermedio que devuelva `0` para que la cadena continúe."
+  },
+  "en": {
+    "slug": "promises",
+    "title": "Promises",
+    "summary": "Learn how JavaScript promises work: resolve and reject, then chains, catch for errors and finally for clean-up.",
+    "body": [
+      "A **promise** stands for a result that does not exist yet: it starts **pending** and ends up **fulfilled** (with a value) or **rejected** (with an error). `checkStock` builds one with `new Promise`, which receives two functions: it calls `resolve` when it has the data and `reject` when something goes wrong. The 50 ms `setTimeout` mimics waiting for a warehouse or a server.",
+      "Look at the order of the output: line `2` appears before line `3`, even though it sits at the end of the program. JavaScript does not stop to wait for the promise; it keeps running the code and, when the answer arrives, it runs the functions registered with **`then`**.",
+      "Every `then` returns a new promise, so you can **chain** them: whatever one `then` returns (here, `info.units * 899`) is what the next one receives. If it returns another promise, like `checkStock(\"mouse\")`, the chain waits for it to settle.",
+      "When a promise is rejected, the chain skips every `then` until the first **`catch`**: that is why `This line is skipped` never appears. **`finally`** runs at the end no matter what, which makes it the place to close a connection or hide a loading spinner. In the next lesson you will see `async`/`await`, which lets you write the same thing as sequential code."
+    ],
+    "points": [
+      "A promise is pending, fulfilled or rejected.",
+      "`resolve` delivers the value and `reject` the error.",
+      "Whatever a `then` returns reaches the next one; a returned promise is awaited.",
+      "A rejection jumps to the first `catch`; `finally` always runs."
+    ],
+    "exercise": "Replace `checkStock(\"laptop\")` with `checkStock(\"tablet\")`, a product that does not exist, and see which steps are skipped. Then add a `catch` halfway that returns `0` so the chain carries on."
+  }
+}

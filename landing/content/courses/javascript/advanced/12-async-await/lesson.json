@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "async-await",
+    "title": "async y await",
+    "summary": "Escriba código asíncrono en JavaScript que se lee de arriba abajo con async y await, y trate sus errores con try/catch.",
+    "body": [
+      "Una función marcada con **`async`** siempre devuelve una promesa, aunque dentro haga `return` de un valor normal: la primera línea de la salida lo confirma (`Promise`). Lo que devuelve se convierte en el valor de la promesa, y lo que lanza con `throw`, en su rechazo, como hace `getUser` cuando el usuario no existe.",
+      "**`await`** espera a que una promesa se resuelva y entrega su valor. En `cartSummary`, el código se lee de arriba abajo, como si fuera síncrono: primero el usuario, luego su carrito y después el total. Mientras espera, solo se pausa esa función; el resto del programa (otros temporizadores, eventos) sigue funcionando.",
+      "Los errores se tratan con el **`try`/`catch`** de siempre: si la promesa de un `await` se rechaza, el error salta al `catch`. Así, el usuario 3 produce `Error: user 3 not found` sin detener el programa, y Luis, cuyo carrito no existe, aparece con `0 items` gracias a `?? []`.",
+      "Como en CommonJS no se puede usar `await` fuera de una función, el programa va dentro de `async function main()`, que se llama al final. En el bucle `for...of`, cada `await` espera a que termine un resumen antes de empezar el siguiente. En los destinos Electron, React, Next.js y React Native de DMarlon Studio, este es el estilo que verá para leer datos de una API o de una base de datos."
+    ],
+    "points": [
+      "Una función `async` siempre devuelve una promesa.",
+      "`await` pausa solo la función actual hasta que la promesa se resuelve.",
+      "Un rechazo dentro de `await` se captura con `try`/`catch`.",
+      "En CommonJS, el `await` va dentro de una función `async` como `main()`."
+    ],
+    "exercise": "Añada una función `async getDiscount(user)` que espere 10 ms y devuelva un 10 % para Ana y un 0 % para los demás, y úsela en `cartSummary` para mostrar el total con descuento."
+  },
+  "en": {
+    "slug": "async-await",
+    "title": "async and await",
+    "summary": "Write asynchronous JavaScript that reads top to bottom with async and await, and handle its errors with try/catch.",
+    "body": [
+      "A function marked **`async`** always returns a promise, even when it `return`s a plain value: the first line of output confirms it (`Promise`). What it returns becomes the promise's value, and what it `throw`s becomes its rejection, as `getUser` does when the user does not exist.",
+      "**`await`** waits for a promise to settle and hands you its value. In `cartSummary` the code reads top to bottom as if it were synchronous: first the user, then their cart, then the total. While it waits, only that function is paused; the rest of the program (other timers, events) keeps running.",
+      "Errors are handled with the familiar **`try`/`catch`**: if the promise behind an `await` is rejected, the error jumps to `catch`. So user 3 produces `Error: user 3 not found` without stopping the program, and Luis, whose cart does not exist, shows `0 items` thanks to `?? []`.",
+      "Because CommonJS does not allow `await` outside a function, the program lives in `async function main()`, called at the end. In the `for...of` loop, each `await` lets one summary finish before the next one starts. In DMarlon Studio's Electron, React, Next.js and React Native targets, this is the style you will see for reading data from an API or a database."
+    ],
+    "points": [
+      "An `async` function always returns a promise.",
+      "`await` pauses only the current function until the promise settles.",
+      "A rejection inside `await` is caught with `try`/`catch`.",
+      "In CommonJS, `await` goes inside an `async` function such as `main()`."
+    ],
+    "exercise": "Add an `async getDiscount(user)` function that waits 10 ms and returns 10% for Ana and 0% for everyone else, and use it in `cartSummary` to print the discounted total."
+  }
+}

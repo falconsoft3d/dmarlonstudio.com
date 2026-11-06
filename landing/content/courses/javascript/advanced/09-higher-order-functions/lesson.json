@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones-de-orden-superior",
+    "title": "Orden superior y composición",
+    "summary": "Cree en JavaScript funciones que reciben y devuelven funciones: pipe, compose, envoltorios y reglas combinables para sus pedidos.",
+    "body": [
+      "Una **función de orden superior** recibe funciones, devuelve funciones o ambas cosas. Ya conoce `map` o `filter`; aquí se crean las propias. `pipe` recibe varias funciones y devuelve una nueva que pasa el valor por todas, de izquierda a derecha, con `reduce`.",
+      "La **composición** consiste en construir una tarea grande a partir de pasos pequeños con una sola responsabilidad. `cleanUsername` encadena `trim`, `lower` y `dots`, y convierte `\"  Ana Maria Ruiz \"` en `ana.maria.ruiz`. `compose` hace lo mismo pero de derecha a izquierda, como en matemáticas: en `shout`, primero se pasa a mayúsculas y después se añade la exclamación.",
+      "`withLog` es un **envoltorio** (o decorador): recibe una función y devuelve otra que hace lo mismo y, además, escribe sus argumentos y su resultado. Gracias a `...args` funciona con cualquier número de parámetros. Al componer `addVat` y `coupon`, la salida muestra cada paso del cálculo antes del total.",
+      "Las funciones también son datos: `every` recibe una lista de reglas y devuelve un único predicado que las exige todas. `freeShipping` se pasa tal cual a `filter`, y solo el pedido 1 cumple las dos condiciones. Este estilo es muy habitual en React, uno de los destinos de DMarlon Studio que se programan en JavaScript."
+    ],
+    "points": [
+      "Una función de orden superior recibe o devuelve funciones.",
+      "`pipe` aplica las funciones de izquierda a derecha; `compose`, de derecha a izquierda.",
+      "Un envoltorio añade comportamiento sin cambiar la función original.",
+      "Las reglas en forma de función se pueden combinar como datos."
+    ],
+    "exercise": "Añada una regla más a `freeShipping` (por ejemplo, que el pedido no supere 10 artículos) y cree con `pipe` una función `formatPrice` que redondee a dos decimales y añada ` EUR`."
+  },
+  "en": {
+    "slug": "higher-order-functions",
+    "title": "Higher-order functions and composition",
+    "summary": "Build JavaScript functions that take and return functions: pipe, compose, logging wrappers and combinable rules for your orders.",
+    "body": [
+      "A **higher-order function** takes functions, returns functions, or both. You already know `map` and `filter`; here you build your own. `pipe` takes several functions and returns a new one that passes the value through all of them, left to right, using `reduce`.",
+      "**Composition** means building a big task out of small, single-purpose steps. `cleanUsername` chains `trim`, `lower` and `dots`, turning `\"  Ana Maria Ruiz \"` into `ana.maria.ruiz`. `compose` does the same right to left, as in maths: in `shout`, the text is upper-cased first and then gets its exclamation mark.",
+      "`withLog` is a **wrapper** (or decorator): it takes a function and returns another that does the same job and also logs its arguments and result. Thanks to `...args` it works with any number of parameters. When `addVat` and `coupon` are composed, the output shows each step of the calculation before the total.",
+      "Functions are data too: `every` takes a list of rules and returns a single predicate that requires all of them. `freeShipping` is passed straight to `filter`, and only order 1 meets both conditions. This style is everywhere in React, one of the DMarlon Studio targets written in JavaScript."
+    ],
+    "points": [
+      "A higher-order function takes or returns functions.",
+      "`pipe` applies functions left to right; `compose`, right to left.",
+      "A wrapper adds behaviour without changing the original function.",
+      "Rules written as functions can be combined like data."
+    ],
+    "exercise": "Add another rule to `freeShipping` (say, no more than 10 items) and use `pipe` to build a `formatPrice` function that rounds to two decimals and appends ` EUR`."
+  }
+}

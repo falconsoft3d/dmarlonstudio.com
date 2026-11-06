@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clases-y-herencia",
+    "title": "Clases y herencia",
+    "summary": "Escriba clases en JavaScript con constructor, métodos encadenables y herencia con extends y super, con cuentas bancarias de ejemplo.",
+    "body": [
+      "La palabra **`class`** ofrece una sintaxis clara para lo que en la lección anterior se hacía con prototipos. El **`constructor`** se ejecuta con `new` y prepara el objeto (`owner` y `balance`, con `0` por defecto); los métodos como `deposit` y `toString` van a parar a `Account.prototype` y los comparten todas las cuentas.",
+      "`deposit` termina con `return this`: devuelve la propia cuenta y así permite **encadenar** llamadas, como en `new Account(\"Ana\").deposit(150).deposit(50)`.",
+      "**`extends`** crea una subclase: `SavingsAccount` hereda todo de `Account` y añade `rate` y `addInterest()`. En su constructor, **`super(owner, balance)`** llama al constructor de la clase madre, y es obligatorio hacerlo antes de usar `this`. Por dentro, `extends` enlaza los prototipos: el prototipo de `SavingsAccount.prototype` es `Account.prototype`.",
+      "Una subclase puede **sobrescribir** un método: el `toString()` de `SavingsAccount` sustituye al de `Account`, pero reutiliza el original con `super.toString()` y le añade el tipo de interés. `String(savings)` llama a ese `toString`. Por último, `instanceof` confirma que una cuenta de ahorro también es una `Account`, y `typeof` revela que una clase es, en el fondo, una función."
+    ],
+    "points": [
+      "`constructor` prepara cada objeto creado con `new`.",
+      "Devolver `this` permite encadenar métodos.",
+      "`extends` hereda y `super(...)` llama al constructor de la clase madre.",
+      "`super.metodo()` reutiliza el método original al sobrescribirlo.",
+      "Una clase es una función que trabaja con prototipos."
+    ],
+    "exercise": "Cree una clase `CheckingAccount` que herede de `Account`, con un método `withdraw(amount)` que lance un error si el saldo quedara por debajo de cero, y pruebe a retirar 300 EUR de una cuenta con 200."
+  },
+  "en": {
+    "slug": "classes-and-inheritance",
+    "title": "Classes and inheritance",
+    "summary": "Write JavaScript classes with a constructor, chainable methods and inheritance through extends and super, using bank accounts.",
+    "body": [
+      "The **`class`** keyword gives a clean syntax for what the previous lesson did with prototypes. The **`constructor`** runs with `new` and sets up the object (`owner` and `balance`, which defaults to `0`); methods such as `deposit` and `toString` end up on `Account.prototype`, shared by every account.",
+      "`deposit` ends with `return this`: it returns the account itself, which lets you **chain** calls, as in `new Account(\"Ana\").deposit(150).deposit(50)`.",
+      "**`extends`** creates a subclass: `SavingsAccount` inherits everything from `Account` and adds `rate` and `addInterest()`. In its constructor, **`super(owner, balance)`** calls the parent's constructor, and you must do it before using `this`. Under the hood, `extends` links the prototypes: the prototype of `SavingsAccount.prototype` is `Account.prototype`.",
+      "A subclass can **override** a method: `SavingsAccount`'s `toString()` replaces `Account`'s, but reuses the original through `super.toString()` and appends the interest rate. `String(savings)` calls that `toString`. Finally, `instanceof` confirms that a savings account is also an `Account`, and `typeof` reveals that a class is really a function."
+    ],
+    "points": [
+      "`constructor` sets up each object created with `new`.",
+      "Returning `this` makes methods chainable.",
+      "`extends` inherits and `super(...)` calls the parent constructor.",
+      "`super.method()` reuses the original method when you override it.",
+      "A class is a function that works with prototypes."
+    ],
+    "exercise": "Create a `CheckingAccount` class that extends `Account`, with a `withdraw(amount)` method that throws an error if the balance would drop below zero, and try to withdraw 300 EUR from an account holding 200."
+  }
+}

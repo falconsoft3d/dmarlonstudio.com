@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "expresiones-regulares",
+    "title": "Expresiones regulares",
+    "summary": "Analice un log en JavaScript con expresiones regulares: grupos con nombre, test, matchAll, replace con función y validación de correos.",
+    "body": [
+      "Una **expresión regular** describe un patrón de texto y se escribe entre barras, como `/error/i`. El ejemplo analiza las líneas de un registro (log). En `lineRe`, `^` marca el inicio de la línea, `\\d{4}` son cuatro dígitos, `[A-Z]+` una o más mayúsculas, `\\s+` uno o más espacios y `\\w+` una palabra.",
+      "Los **grupos con nombre** `(?<name>...)` capturan cada trozo: `line.match(lineRe).groups` devuelve un objeto con `date`, `time`, `level` y `user`, que se desestructura directamente. Es mucho más legible que contar posiciones o encadenar `split`.",
+      "`test()` responde sí o no, y el indicador **`i`** no distingue mayúsculas de minúsculas. Con el indicador **`g`**, `matchAll` recorre todas las coincidencias de un texto, cada una con sus grupos: `m[1]` es lo que capturó el primer paréntesis, el número de pedido.",
+      "`replace()` admite una función que calcula cada sustitución a partir de lo capturado: aquí deja la primera letra del usuario y oculta el resto (`user=l***`). Para **validar** datos, `^` y `$` obligan a que todo el texto encaje con el patrón; por eso `luis@shop`, sin dominio de primer nivel, no pasa la comprobación del correo."
+    ],
+    "points": [
+      "`(?<name>...)` captura un trozo con nombre, accesible en `.groups`.",
+      "`test()` dice si hay coincidencia; `i` ignora mayúsculas y minúsculas.",
+      "Con `g`, `matchAll` devuelve todas las coincidencias.",
+      "`replace()` acepta una función para construir cada sustitución.",
+      "`^` y `$` anclan el patrón al principio y al final del texto."
+    ],
+    "exercise": "Escriba una expresión con un grupo con nombre `total` que extraiga los importes de `total=59.90` del log y sume todos los pedidos con `matchAll`."
+  },
+  "en": {
+    "slug": "regular-expressions",
+    "title": "Regular expressions",
+    "summary": "Parse a log in JavaScript with regular expressions: named groups, test, matchAll, replace with a function and email validation.",
+    "body": [
+      "A **regular expression** describes a text pattern and is written between slashes, like `/error/i`. The example parses the lines of a log. In `lineRe`, `^` marks the start of the line, `\\d{4}` means four digits, `[A-Z]+` one or more capital letters, `\\s+` one or more spaces and `\\w+` a word.",
+      "**Named groups** `(?<name>...)` capture each piece: `line.match(lineRe).groups` returns an object with `date`, `time`, `level` and `user`, which is destructured on the spot. It is far more readable than counting positions or chaining `split` calls.",
+      "`test()` answers yes or no, and the **`i`** flag makes the match case-insensitive. With the **`g`** flag, `matchAll` walks through every match in a text, each with its groups: `m[1]` is what the first pair of parentheses captured, the order number.",
+      "`replace()` accepts a function that builds each replacement from what was captured: here it keeps the first letter of the user and masks the rest (`user=l***`). To **validate** input, `^` and `$` force the whole text to match the pattern, which is why `luis@shop`, with no top-level domain, fails the email check."
+    ],
+    "points": [
+      "`(?<name>...)` captures a named piece, available in `.groups`.",
+      "`test()` tells you whether there is a match; `i` ignores case.",
+      "With `g`, `matchAll` returns every match.",
+      "`replace()` accepts a function to build each replacement.",
+      "`^` and `$` anchor the pattern to the start and end of the text."
+    ],
+    "exercise": "Write a pattern with a named group `total` that pulls the amounts out of `total=59.90` in the log, and add up all the orders with `matchAll`."
+  }
+}

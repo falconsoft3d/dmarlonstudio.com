@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "errores-personalizados-y-finally",
+    "title": "Errores propios y finally",
+    "summary": "Cree en JavaScript sus propias clases de error con extends Error, encadene la causa con cause y libere recursos siempre con finally.",
+    "body": [
+      "Para distinguir unos fallos de otros conviene crear **clases de error propias** que hereden de `Error`. `AppError` es la base de la aplicación: llama a `super(message, options)` y pone en `name` el nombre de la clase real con `this.constructor.name`, de modo que cada subclase se presenta sola como `ValidationError` o `PaymentError` sin repetir código.",
+      "Las subclases pueden llevar datos extra: `ValidationError` guarda el campo que ha fallado en `field`. `PaymentError` no necesita nada más que su nombre, así que basta con `class PaymentError extends AppError {}`. El segundo argumento de `Error`, `{ cause }`, **encadena** el error original: el rechazo del pago conserva el motivo técnico en `err.cause`.",
+      "En el `catch`, **`instanceof`** decide qué hacer con cada tipo de error: un aviso sobre el campo o un mensaje de pago rechazado. Los errores que no reconoce se vuelven a lanzar con `throw err`, para no ocultar fallos inesperados, como un error de programación.",
+      "El bloque **`finally`** se ejecuta siempre, tanto si `try` termina bien como si salta un error, e incluso si dentro hay un `return`. Por eso cada pedido escribe `closed`: es el sitio para liberar recursos, cerrar ficheros o conexiones y dejarlo todo en orden."
+    ],
+    "points": [
+      "Las clases de error propias heredan de `Error` y fijan su `name`.",
+      "Un error puede llevar datos extra y su causa en `{ cause }`.",
+      "`instanceof` distingue los tipos de error en el `catch`.",
+      "Los errores desconocidos se vuelven a lanzar.",
+      "`finally` se ejecuta siempre, haya error o no."
+    ],
+    "exercise": "Cree una clase `StockError` con una propiedad `item`, lánzela desde `charge` cuando el pedido tenga `item: \"lamp\"` y añada su caso en el `catch`."
+  },
+  "en": {
+    "slug": "custom-errors-and-finally",
+    "title": "Custom errors and finally",
+    "summary": "Create your own JavaScript error classes with extends Error, chain the original cause and always release resources with finally.",
+    "body": [
+      "To tell one failure from another, create your own **error classes** that extend `Error`. `AppError` is the application's base: it calls `super(message, options)` and sets `name` to the real class name with `this.constructor.name`, so every subclass introduces itself as `ValidationError` or `PaymentError` with no repeated code.",
+      "Subclasses can carry extra data: `ValidationError` stores the failing field in `field`. `PaymentError` needs nothing but its name, so `class PaymentError extends AppError {}` is enough. The second argument of `Error`, `{ cause }`, **chains** the original error: the declined payment keeps the technical reason in `err.cause`.",
+      "In the `catch`, **`instanceof`** decides what to do with each kind of error: a message about the field, or a declined-payment notice. Errors it does not recognise are rethrown with `throw err`, so unexpected failures such as programming bugs are not hidden.",
+      "The **`finally`** block always runs, whether `try` finishes normally or throws, and even if there is a `return` inside. That is why every order prints `closed`: it is the place to release resources, close files or connections and leave everything tidy."
+    ],
+    "points": [
+      "Custom error classes extend `Error` and set their `name`.",
+      "An error can carry extra data and its cause in `{ cause }`.",
+      "`instanceof` tells error types apart in `catch`.",
+      "Unknown errors should be rethrown.",
+      "`finally` always runs, error or not."
+    ],
+    "exercise": "Create a `StockError` class with an `item` property, throw it from `charge` when the order has `item: \"lamp\"`, and handle it in the `catch`."
+  }
+}

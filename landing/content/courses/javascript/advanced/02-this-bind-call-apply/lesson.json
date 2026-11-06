@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "this-bind-call-apply",
+    "title": "this, bind, call y apply",
+    "summary": "Entienda a qué apunta this en JavaScript y cómo fijarlo con bind, call y apply, con un carrito de la compra como ejemplo.",
+    "body": [
+      "Dentro de un método, **`this`** es el objeto que va delante del punto en la llamada. Por eso `cart.describe()` puede leer `this.owner` y llamar a `this.total()`: en esa llamada, `this` es `cart`. El valor de `this` no depende de dónde se escribió la función, sino de **cómo se llama**.",
+      "Si copia el método en una variable (`const loose = cart.describe`) y lo llama solo, ya no hay objeto delante del punto: `this` deja de ser el carrito y `this.total` no existe, de ahí el error `this.total is not a function`. Es el fallo típico al pasar un método como callback, por ejemplo a `setTimeout` o al clic de un botón.",
+      "**`bind`** lo arregla: `cart.describe.bind(cart)` devuelve una función nueva cuyo `this` queda fijado para siempre. **`call`** y **`apply`**, en cambio, ejecutan la función en ese momento con el `this` que usted elija: `describe.call(otherCart)` describe el carrito de Luis con el mismo código. Solo se diferencian en los argumentos: `call` los recibe uno a uno y `apply`, en un array.",
+      "Las **funciones flecha** no tienen `this` propio: usan el de la función que las rodea. En `labels()`, la flecha de `map` ve el mismo `this` que el método, y por eso cada etiqueta lleva `Ana`. En DMarlon Studio, JavaScript es el lenguaje de los destinos Electron, React, Next.js y React Native, y este detalle explica por qué se usan tantas flechas en los manejadores de eventos."
+    ],
+    "points": [
+      "`this` lo decide la forma de llamar, no el lugar donde se escribe la función.",
+      "Un método separado de su objeto pierde su `this`.",
+      "`bind` devuelve una función con `this` fijo; `call` y `apply` la ejecutan en el acto.",
+      "`call` recibe los argumentos sueltos; `apply`, en un array.",
+      "Las flechas toman el `this` de la función que las rodea."
+    ],
+    "exercise": "Cree un carrito para Marta con `owner` e `items` pero sin métodos y calcule su importe con `cart.total.call(...)`. Después cambie la flecha de `labels()` por una `function` normal y observe qué ocurre con `this.owner`."
+  },
+  "en": {
+    "slug": "this-bind-call-apply",
+    "title": "this, bind, call and apply",
+    "summary": "Understand what this points to in JavaScript and how to pin it down with bind, call and apply, using a shopping cart as the example.",
+    "body": [
+      "Inside a method, **`this`** is the object before the dot in the call. That is why `cart.describe()` can read `this.owner` and call `this.total()`: in that call, `this` is `cart`. The value of `this` does not depend on where the function was written but on **how it is called**.",
+      "If you copy the method into a variable (`const loose = cart.describe`) and call it on its own, there is no object before the dot any more: `this` is no longer the cart and `this.total` does not exist, hence the error `this.total is not a function`. This is the classic bug when you pass a method as a callback, for example to `setTimeout` or a button click.",
+      "**`bind`** fixes it: `cart.describe.bind(cart)` returns a new function whose `this` is locked for good. **`call`** and **`apply`**, on the other hand, run the function right away with whatever `this` you choose: `describe.call(otherCart)` describes Luis's cart with the same code. They differ only in how they take arguments: `call` takes them one by one, `apply` takes an array.",
+      "**Arrow functions** have no `this` of their own: they use the one from the surrounding function. In `labels()`, the arrow inside `map` sees the same `this` as the method, so every label carries `Ana`. In DMarlon Studio, JavaScript is the language of the Electron, React, Next.js and React Native targets, and this detail explains why event handlers use so many arrows."
+    ],
+    "points": [
+      "`this` is decided by how a function is called, not where it is written.",
+      "A method detached from its object loses its `this`.",
+      "`bind` returns a function with a fixed `this`; `call` and `apply` run it immediately.",
+      "`call` takes separate arguments; `apply` takes an array.",
+      "Arrow functions take `this` from the surrounding function."
+    ],
+    "exercise": "Create a cart for Marta with `owner` and `items` but no methods, and work out her total with `cart.total.call(...)`. Then replace the arrow in `labels()` with a regular `function` and see what happens to `this.owner`."
+  }
+}

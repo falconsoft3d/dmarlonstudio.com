@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "prototipos",
+    "title": "Prototipos y su cadena",
+    "summary": "Descubra cómo hereda JavaScript de verdad: prototipos, Object.create, funciones constructoras y la cadena que termina en null.",
+    "body": [
+      "En JavaScript, cada objeto tiene un enlace oculto a otro objeto: su **prototipo**. Cuando se pide una propiedad que el objeto no tiene, el lenguaje la busca en el prototipo, después en el prototipo de este, y así sucesivamente. Ese recorrido es la **cadena de prototipos**.",
+      "`Object.create(product)` crea `laptop` con `product` como prototipo. `laptop` solo tiene `name` y `price`; `describe` no es suya (`Object.hasOwn` da `false`), pero la encuentra subiendo por la cadena. Dentro de `describe`, `this` sigue siendo `laptop`, por eso escribe su nombre y su precio.",
+      "Antes de que existieran las clases se usaban **funciones constructoras**. `new User(...)` crea un objeto vacío, le asigna `User.prototype` como prototipo y ejecuta la función con `this` apuntando a él. Los métodos se añaden a `User.prototype`, de modo que todos los usuarios comparten la misma función: `ana.greet === luis.greet` es `true` y no se duplica en memoria.",
+      "Si un objeto define una propiedad con el mismo nombre, esta **tapa** la del prototipo: `luis.greet` tiene su propia versión y `ana` sigue usando la compartida. El bucle final recorre la cadena con `Object.getPrototypeOf` hasta llegar a `null`. De `Object.prototype` salen métodos como `toString` o `hasOwnProperty`, que tienen todos los objetos."
+    ],
+    "points": [
+      "Cada objeto tiene un prototipo, y las propiedades que le faltan se buscan en él.",
+      "`Object.create(proto)` crea un objeto con el prototipo que usted elija.",
+      "Los métodos en `Constructor.prototype` se comparten entre todas las instancias.",
+      "Una propiedad propia tapa la del prototipo con el mismo nombre.",
+      "La cadena termina en `Object.prototype` y, después, en `null`."
+    ],
+    "exercise": "Añada a `User.prototype` un método `isAdmin()` que devuelva `true` si `role` es `admin`, y compruebe con `Object.hasOwn` que el método no está en `ana` sino en su prototipo."
+  },
+  "en": {
+    "slug": "prototypes",
+    "title": "Prototypes and the chain",
+    "summary": "See how JavaScript inheritance really works: prototypes, Object.create, constructor functions and the chain that ends in null.",
+    "body": [
+      "In JavaScript every object has a hidden link to another object: its **prototype**. When you ask for a property the object does not have, the language looks in the prototype, then in that object's prototype, and so on. That lookup path is the **prototype chain**.",
+      "`Object.create(product)` creates `laptop` with `product` as its prototype. `laptop` only has `name` and `price`; `describe` is not its own (`Object.hasOwn` returns `false`), but it is found by walking up the chain. Inside `describe`, `this` is still `laptop`, so it prints the laptop's name and price.",
+      "Before classes existed, people used **constructor functions**. `new User(...)` creates an empty object, sets `User.prototype` as its prototype and runs the function with `this` pointing at it. Methods are added to `User.prototype`, so every user shares the same function: `ana.greet === luis.greet` is `true`, and it is not duplicated in memory.",
+      "If an object defines a property with the same name, it **shadows** the prototype's one: `luis.greet` has its own version while `ana` keeps using the shared one. The final loop walks the chain with `Object.getPrototypeOf` until it reaches `null`. `Object.prototype` is where methods such as `toString` and `hasOwnProperty`, available on every object, come from."
+    ],
+    "points": [
+      "Every object has a prototype, and missing properties are looked up there.",
+      "`Object.create(proto)` creates an object with the prototype you choose.",
+      "Methods on `Constructor.prototype` are shared by all instances.",
+      "An own property shadows a prototype property with the same name.",
+      "The chain ends at `Object.prototype` and then `null`."
+    ],
+    "exercise": "Add an `isAdmin()` method to `User.prototype` that returns `true` when `role` is `admin`, and use `Object.hasOwn` to check that the method lives on the prototype, not on `ana`."
+  }
+}

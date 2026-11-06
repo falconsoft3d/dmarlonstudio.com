@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "iteradores-y-generadores",
+    "title": "Iteradores y generadores",
+    "summary": "Cree secuencias bajo demanda en JavaScript con function* y yield, y haga sus objetos recorribles con for...of mediante Symbol.iterator.",
+    "body": [
+      "Una **función generadora** se declara con `function*` y, en vez de devolver un valor y terminar, se **pausa** en cada `yield`. Llamar a `invoiceNumbers(\"INV\", 7)` no ejecuta nada todavía: devuelve un generador. Cada `next()` reanuda el código hasta el siguiente `yield` y entrega un objeto `{ value, done }`, como muestra la tercera línea de la salida.",
+      "Por eso un generador puede ser **infinito** sin bloquear el programa: el bucle `for` sin condición de `invoiceNumbers` solo avanza cuando alguien pide otro número. Es una forma cómoda de producir valores bajo demanda: numeraciones, páginas de una API o líneas de un fichero.",
+      "El **protocolo de iteración** es lo que usan `for...of`, el operador `...` y la desestructuración: piden al objeto su método `[Symbol.iterator]()`. `Playlist` lo define como generador (`*[Symbol.iterator]()`), así que sus canciones se recorren con `for...of` y se copian a un array con `[...party]`.",
+      "`countdown` muestra lo que hay debajo, sin generadores: un **iterador** es simplemente un objeto con un método `next()` que devuelve `{ value, done }`. Cuando `done` es `true`, el recorrido termina. Como `[Symbol.iterator]()` devuelve `this`, el objeto es a la vez iterable e iterador."
+    ],
+    "points": [
+      "`function*` define un generador; `yield` entrega un valor y pausa.",
+      "Cada `next()` devuelve `{ value, done }`.",
+      "Un generador puede ser infinito porque solo calcula lo que se le pide.",
+      "Un objeto con `[Symbol.iterator]()` funciona con `for...of` y con `...`."
+    ],
+    "exercise": "Escriba un generador `take(iterable, n)` que entregue solo los `n` primeros valores de otro iterable, y úselo para obtener cinco números de factura con `[...take(invoiceNumbers(\"INV\", 1), 5)]`."
+  },
+  "en": {
+    "slug": "iterators-and-generators",
+    "title": "Iterators and generators",
+    "summary": "Produce values on demand in JavaScript with function* and yield, and make your own objects work with for...of through Symbol.iterator.",
+    "body": [
+      "A **generator function** is declared with `function*` and, instead of returning a value and finishing, it **pauses** at every `yield`. Calling `invoiceNumbers(\"INV\", 7)` runs nothing yet: it returns a generator. Each `next()` resumes the code up to the next `yield` and hands back a `{ value, done }` object, as the third line of output shows.",
+      "That is why a generator can be **infinite** without hanging the program: the condition-less `for` loop in `invoiceNumbers` only moves on when someone asks for another number. It is a handy way to produce values on demand: numbering schemes, pages from an API or lines from a file.",
+      "The **iteration protocol** is what `for...of`, the `...` operator and destructuring rely on: they ask the object for its `[Symbol.iterator]()` method. `Playlist` defines it as a generator (`*[Symbol.iterator]()`), so its songs can be looped with `for...of` and copied into an array with `[...party]`.",
+      "`countdown` shows what lies underneath, without generators: an **iterator** is just an object with a `next()` method that returns `{ value, done }`. When `done` is `true`, the loop stops. Because `[Symbol.iterator]()` returns `this`, the object is both an iterable and an iterator."
+    ],
+    "points": [
+      "`function*` defines a generator; `yield` hands out a value and pauses.",
+      "Each `next()` returns `{ value, done }`.",
+      "A generator can be infinite because it only computes what is asked for.",
+      "An object with `[Symbol.iterator]()` works with `for...of` and `...`."
+    ],
+    "exercise": "Write a `take(iterable, n)` generator that yields only the first `n` values of another iterable, and use it to get five invoice numbers with `[...take(invoiceNumbers(\"INV\", 1), 5)]`."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "proyecto-cola-de-pedidos",
+    "title": "Proyecto: cola de pedidos",
+    "summary": "Proyecto final en JavaScript: una cola de pedidos que combina clases con campos privados, eventos de EventEmitter y procesamiento con async/await.",
+    "body": [
+      "Este proyecto reúne buena parte del curso en una **cola de pedidos**. `OrderQueue` es una clase que hereda de `EventEmitter`, guarda su estado en campos privados (`#pending` y `#stock`) y procesa los pedidos de forma asíncrona. El constructor copia el inventario con `{ ...stock }`, de modo que nadie de fuera pueda cambiarlo.",
+      "`add()` mete el pedido en la cola y emite `queued`. La clase no escribe nada en la consola: solo **avisa** con eventos, y es el código de fuera el que decide qué hacer con cada aviso (aquí, escribir una línea; en una aplicación real, actualizar la pantalla o enviar un correo).",
+      "`run()` es un método `async`: saca los pedidos uno a uno con `shift()`, espera con `await delay(...)` para simular el empaquetado y comprueba las existencias. Si no hay bastantes, emite `failed` con el motivo y pasa al siguiente con `continue`; si las hay, las descuenta, suma el importe y emite `packed`. Al vaciarse la cola, emite `idle` con la facturación y el inventario final.",
+      "Los pedidos se crean a partir de un array de tuplas con desestructuración, y como `run()` devuelve una promesa, `then` escribe el mensaje final cuando todo ha terminado. Esta misma estructura (un servicio con estado, eventos y trabajo asíncrono) es la que encontrará en una tienda hecha con los destinos Electron, React o Next.js de DMarlon Studio."
+    ],
+    "points": [
+      "Los campos privados protegen la cola y el inventario.",
+      "Los eventos separan la lógica de lo que se hace con cada resultado.",
+      "Un método `async` procesa la cola en orden con `await`.",
+      "Un pedido que falla no detiene el resto de la cola."
+    ],
+    "exercise": "Añada un método `cancel(id)` que quite un pedido pendiente y emita `cancelled`, y cambie `run()` para que un pedido sin existencias vuelva al final de la cola una sola vez antes de darse por fallido."
+  },
+  "en": {
+    "slug": "order-queue-project",
+    "title": "Project: an order queue",
+    "summary": "Final JavaScript project: an order queue that combines classes with private fields, EventEmitter events and async/await processing.",
+    "body": [
+      "This project brings much of the course together in an **order queue**. `OrderQueue` is a class that extends `EventEmitter`, keeps its state in private fields (`#pending` and `#stock`) and processes orders asynchronously. The constructor copies the inventory with `{ ...stock }`, so no outside code can change it.",
+      "`add()` puts the order in the queue and emits `queued`. The class never writes to the console: it only **announces** things through events, and the outside code decides what to do with each one (here, print a line; in a real app, update the screen or send an email).",
+      "`run()` is an `async` method: it takes orders one by one with `shift()`, waits with `await delay(...)` to simulate packing, and checks the stock. If there is not enough, it emits `failed` with the reason and moves on with `continue`; otherwise it deducts the stock, adds the amount and emits `packed`. Once the queue is empty, it emits `idle` with the revenue and the final inventory.",
+      "Orders are built from an array of tuples using destructuring, and because `run()` returns a promise, `then` prints the closing message once everything is done. This same structure (a stateful service with events and async work) is what you will find in a shop built with DMarlon Studio's Electron, React or Next.js targets."
+    ],
+    "points": [
+      "Private fields protect the queue and the inventory.",
+      "Events separate the logic from what is done with each result.",
+      "An `async` method processes the queue in order with `await`.",
+      "A failing order does not stop the rest of the queue."
+    ],
+    "exercise": "Add a `cancel(id)` method that removes a pending order and emits `cancelled`, and change `run()` so an out-of-stock order goes back to the end of the queue once before it is marked as failed."
+  }
+}

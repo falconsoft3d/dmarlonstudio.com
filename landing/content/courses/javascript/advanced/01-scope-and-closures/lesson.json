@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "ambito-y-clausuras",
+    "title": "Ámbito y clausuras",
+    "summary": "Aprenda qué es el ámbito de una variable en JavaScript y cómo una clausura recuerda datos privados entre llamadas, con contadores de pedidos.",
+    "body": [
+      "Cada función crea su propio **ámbito**: las variables declaradas dentro solo existen ahí. En el ejemplo, `count` vive dentro de `createCounter` y, desde fuera, `typeof count` da `undefined`: el resto del programa no la ve.",
+      "Lo interesante es que `createCounter` devuelve otra función, `next`, que sigue usando `count` aunque `createCounter` ya haya terminado. Eso es una **clausura**: la función interna conserva el ámbito donde nació. Cada llamada a `createCounter` crea un ámbito nuevo; por eso `nextOrder` y `nextInvoice` llevan cuentas separadas (`Order #3` frente a `Invoice #1`).",
+      "`let` y `const` tienen **ámbito de bloque**: en un bucle `for`, `let i` crea una variable nueva en cada vuelta. Cada flecha guardada en `tasks` recuerda su propia `i`, así que salen `task 1, task 2, task 3`. Con el antiguo `var`, las tres compartirían la misma variable y escribirían `task 4` tres veces.",
+      "Las clausuras sirven también para fabricar funciones ya configuradas: `makeDiscount(0.3)` devuelve una función que recuerda el 30 % de descuento y lo aplica a cada precio que recibe. Es la base de patrones que verá más adelante en este curso, como la memoización o el patrón módulo."
+    ],
+    "points": [
+      "Una variable solo existe en el ámbito (función o bloque) donde se declara.",
+      "Una clausura es una función que recuerda las variables del ámbito donde se creó.",
+      "Cada llamada a la función externa crea un estado privado nuevo.",
+      "`let` crea una variable nueva en cada vuelta del bucle; `var`, no."
+    ],
+    "exercise": "Cambie `createCounter` para que devuelva un objeto con dos métodos, `next()` y `reset()` (que vuelva a poner `count` a cero), y compruebe que reiniciar los pedidos no afecta a las facturas."
+  },
+  "en": {
+    "slug": "scope-and-closures",
+    "title": "Scope and closures",
+    "summary": "Learn what variable scope means in JavaScript and how a closure keeps private data between calls, using order and invoice counters.",
+    "body": [
+      "Every function creates its own **scope**: variables declared inside it only exist there. In the example, `count` lives inside `createCounter`, and from the outside `typeof count` is `undefined`: the rest of the program cannot see it.",
+      "The interesting part is that `createCounter` returns another function, `next`, which keeps using `count` even after `createCounter` has finished. That is a **closure**: the inner function holds on to the scope it was born in. Each call to `createCounter` creates a fresh scope, which is why `nextOrder` and `nextInvoice` keep separate counts (`Order #3` versus `Invoice #1`).",
+      "`let` and `const` are **block-scoped**: in a `for` loop, `let i` creates a new variable on every turn. Each arrow function stored in `tasks` remembers its own `i`, so you get `task 1, task 2, task 3`. With the old `var`, all three would share one variable and print `task 4` three times.",
+      "Closures are also a way to build pre-configured functions: `makeDiscount(0.3)` returns a function that remembers the 30% discount and applies it to every price it receives. This is the foundation of patterns you will meet later in the course, such as memoization and the module pattern."
+    ],
+    "points": [
+      "A variable only exists in the scope (function or block) where it is declared.",
+      "A closure is a function that remembers the variables of the scope where it was created.",
+      "Each call to the outer function creates new private state.",
+      "`let` creates a new variable on every loop turn; `var` does not."
+    ],
+    "exercise": "Change `createCounter` so it returns an object with two methods, `next()` and `reset()` (which sets `count` back to zero), and check that resetting the orders does not affect the invoices."
+  }
+}

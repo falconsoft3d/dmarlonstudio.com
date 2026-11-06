@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "miembros-estaticos-y-symbol",
+    "title": "Miembros estáticos y Symbol",
+    "summary": "Use static en JavaScript para contadores y métodos factoría de clase, y Symbol para claves únicas y para cambiar cómo se convierte un objeto.",
+    "body": [
+      "Lo marcado con **`static`** pertenece a la clase, no a cada objeto. `Order.TAX` es una constante común a todos los pedidos y `static #nextId` es un contador privado de la clase: cada `new Order` lo lee y lo incrementa con `Order.#nextId++`, así que los pedidos reciben `1`, `2` y `3` sin repetirse.",
+      "Un **método estático** se llama sobre la clase: `Order.fromLine(\"Ana;100\")`. Es un patrón muy común, la **factoría**: convierte una línea de texto (de un CSV, por ejemplo) en un pedido, separando el cliente y el importe con `split`.",
+      "Un **`Symbol`** es un valor único que sirve como clave de propiedad. JavaScript define algunos **símbolos conocidos** que cambian el comportamiento del lenguaje: `Symbol.toPrimitive` decide en qué se convierte el objeto (en texto dentro de una plantilla, o en el importe con IVA en `Number(o)`, que la suma usa para el total) y `Symbol.toStringTag` cambia lo que muestra `Object.prototype.toString`: `[object Order]`.",
+      "También puede crear sus propios símbolos: `orders[2][internal]` guarda un dato que no aparece en `Object.keys` ni choca con ninguna otra propiedad, porque cada símbolo es distinto (`Symbol(\"id\") === Symbol(\"id\")` es `false`). `Symbol.for(\"id\")`, en cambio, usa un registro global y devuelve siempre el mismo."
+    ],
+    "points": [
+      "Los miembros `static` pertenecen a la clase y se usan como `Clase.miembro`.",
+      "Un método estático factoría crea objetos a partir de otros datos.",
+      "Cada `Symbol()` es único y sirve como clave que no choca con otras.",
+      "`Symbol.toPrimitive` y `Symbol.toStringTag` cambian cómo se convierte y se muestra un objeto."
+    ],
+    "exercise": "Añada a `Order` un método estático `count()` que devuelva cuántos pedidos se han creado (a partir de `#nextId`) y use un símbolo propio, `Symbol(\"notes\")`, para guardar una nota en el pedido de Luis."
+  },
+  "en": {
+    "slug": "static-members-and-symbol",
+    "title": "Static members and Symbol",
+    "summary": "Use static in JavaScript for class-wide counters and factory methods, and Symbol for unique keys and custom object conversion.",
+    "body": [
+      "Anything marked **`static`** belongs to the class, not to each object. `Order.TAX` is a constant shared by every order, and `static #nextId` is a private class-level counter: each `new Order` reads and bumps it with `Order.#nextId++`, so the orders get `1`, `2` and `3` with no repeats.",
+      "A **static method** is called on the class itself: `Order.fromLine(\"Ana;100\")`. This is a very common pattern, the **factory**: it turns a line of text (from a CSV, say) into an order, splitting customer and amount with `split`.",
+      "A **`Symbol`** is a unique value that can be used as a property key. JavaScript defines a few **well-known symbols** that change how the language behaves: `Symbol.toPrimitive` decides what the object turns into (text inside a template literal, or the amount with tax in `Number(o)`, which the sum uses for the total), and `Symbol.toStringTag` changes what `Object.prototype.toString` shows: `[object Order]`.",
+      "You can also create your own symbols: `orders[2][internal]` stores a value that does not show up in `Object.keys` and cannot clash with any other property, because every symbol is different (`Symbol(\"id\") === Symbol(\"id\")` is `false`). `Symbol.for(\"id\")`, on the other hand, uses a global registry and always returns the same one."
+    ],
+    "points": [
+      "`static` members belong to the class and are used as `Class.member`.",
+      "A static factory method builds objects from other data.",
+      "Every `Symbol()` is unique, so it makes a key that never clashes.",
+      "`Symbol.toPrimitive` and `Symbol.toStringTag` change how an object converts and displays."
+    ],
+    "exercise": "Add a static `count()` method to `Order` that returns how many orders have been created (based on `#nextId`), and use your own `Symbol(\"notes\")` to attach a note to Luis's order."
+  }
+}

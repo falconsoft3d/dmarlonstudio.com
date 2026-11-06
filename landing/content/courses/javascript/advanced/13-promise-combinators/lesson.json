@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "promise-all-allsettled-race",
+    "title": "Promise.all, allSettled y race",
+    "summary": "Lance varias tareas asíncronas a la vez en JavaScript y combine sus resultados con Promise.all, allSettled, race y any.",
+    "body": [
+      "Cuando hay varias tareas asíncronas independientes, no hace falta esperarlas una a una. **`Promise.all`** las lanza a la vez y espera a todas: la página de producto tarda lo que el servicio más lento (60 ms), no la suma de los tres. Los resultados llegan en el orden del array, no en el orden en que terminaron: `prices` sale primero aunque fue el último.",
+      "`Promise.all` es «todo o nada»: en cuanto una promesa se rechaza, el conjunto se rechaza con ese error, sin esperar a las demás. Por eso `payments failed` llega al `catch` a los 10 ms.",
+      "**`Promise.allSettled`** nunca se rechaza: espera a todas y devuelve un informe de cada una, con `status` igual a `fulfilled` (y su `value`) o `rejected` (y su `reason`). Es lo adecuado cuando quiere saber qué ha fallado sin perder lo que sí ha funcionado, como al enviar avisos por correo y por SMS.",
+      "**`Promise.race`** se queda con la primera promesa que termine, bien o mal: sirve para elegir el servidor más rápido o para poner un tiempo límite. **`Promise.any`** se queda con la primera que se cumpla e ignora los fallos: aunque `cache` falla a los 5 ms, gana `database`. Cada servicio usa un retraso distinto para que el resultado sea siempre el mismo."
+    ],
+    "points": [
+      "`Promise.all` espera a todas y conserva el orden; un solo fallo lo rechaza.",
+      "`Promise.allSettled` informa del resultado de cada una y nunca se rechaza.",
+      "`Promise.race` devuelve la primera que termine, cumplida o rechazada.",
+      "`Promise.any` devuelve la primera que se cumpla."
+    ],
+    "exercise": "Escriba una función `withTimeout(promise, ms)` que use `Promise.race` con una promesa que se rechace a los `ms` milisegundos, y pruébela con `service(\"prices\", 60)` y un límite de 30 ms."
+  },
+  "en": {
+    "slug": "promise-all-allsettled-race",
+    "title": "Promise.all, allSettled and race",
+    "summary": "Run several async tasks at once in JavaScript and combine their results with Promise.all, allSettled, race and any.",
+    "body": [
+      "When you have several independent async tasks, there is no need to wait for them one by one. **`Promise.all`** starts them together and waits for all of them: the product page takes as long as the slowest service (60 ms), not the sum of all three. Results come back in array order, not in the order they finished: `prices` comes first even though it was the last to arrive.",
+      "`Promise.all` is all-or-nothing: as soon as one promise rejects, the whole thing rejects with that error, without waiting for the rest. That is why `payments failed` reaches the `catch` after 10 ms.",
+      "**`Promise.allSettled`** never rejects: it waits for every promise and returns a report for each one, with `status` set to `fulfilled` (plus its `value`) or `rejected` (plus its `reason`). Use it when you need to know what failed without losing what worked, such as sending notifications by email and SMS.",
+      "**`Promise.race`** settles with the first promise to finish, successfully or not: handy for picking the fastest server or adding a time limit. **`Promise.any`** takes the first one that fulfils and ignores failures: even though `cache` fails after 5 ms, `database` wins. Each service uses a different delay so the result is always the same."
+    ],
+    "points": [
+      "`Promise.all` waits for all and keeps order; a single failure rejects it.",
+      "`Promise.allSettled` reports each outcome and never rejects.",
+      "`Promise.race` returns the first to settle, fulfilled or rejected.",
+      "`Promise.any` returns the first to fulfil."
+    ],
+    "exercise": "Write a `withTimeout(promise, ms)` function that uses `Promise.race` with a promise that rejects after `ms` milliseconds, and test it with `service(\"prices\", 60)` and a 30 ms limit."
+  }
+}

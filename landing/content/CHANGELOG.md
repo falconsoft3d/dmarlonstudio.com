@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.52 — 2026-11-07
+
+- **Curso de JavaScript avanzado** (20 lecciones, español e inglés): ámbito
+  y clausuras, `this`, prototipos, clases y campos privados, iteradores y
+  generadores, Map/Set, composición y memoización, promesas y async/await,
+  el bucle de eventos, módulos, errores propios, expresiones regulares,
+  Proxy, EventEmitter y una cola de pedidos como proyecto. Cada ejemplo, con
+  su salida real y su imagen en DMarlon Studio.
+
 ## 1.0.51 — 2026-11-07
 
 - **Cursos** (menú nuevo de la web, en español e inglés): un curso por cada

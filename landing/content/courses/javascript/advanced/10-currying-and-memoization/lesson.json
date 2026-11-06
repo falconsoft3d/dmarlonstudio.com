@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "currificacion-y-memoizacion",
+    "title": "Currificación y memoización",
+    "summary": "Fije argumentos por partes con currificación y evite cálculos repetidos con memoización en JavaScript, con precios y Fibonacci.",
+    "body": [
+      "**Currificar** es transformar una función de varios argumentos en una cadena de funciones de uno solo. `price` recibe el IVA y devuelve una función que recibe el descuento, que a su vez devuelve otra que recibe el precio neto. La ventaja es la **aplicación parcial**: `spain` ya tiene fijado el 21 % y `spainSale`, además, el 10 % de descuento, listas para reutilizar.",
+      "`curry` convierte cualquier función normal en currificada. Usa `fn.length`, el número de parámetros que declara la función: mientras falten argumentos, devuelve otra función que los va acumulando; cuando están todos, llama a la original. Por eso `shipping` admite varias formas de llamada: `toEurope(3)(true)`, `toEurope(1, false)` o los tres argumentos a la vez.",
+      "La **memoización** guarda el resultado de una función para cada argumento y, si se repite, lo devuelve sin recalcular. `memoize` usa un `Map` como caché dentro de una clausura. Solo vale para **funciones puras**, las que siempre devuelven lo mismo para la misma entrada y no tienen efectos secundarios.",
+      "La diferencia se ve con Fibonacci: la versión recursiva simple hace 242 785 llamadas para calcular `fib(25)`, porque repite los mismos cálculos una y otra vez. La memoizada solo necesita 26 (una por cada número del 0 al 25), y la segunda vez no hace ninguna. `fastFib` se llama a sí misma a través de la versión memoizada, y así aprovecha la caché también en la recursión."
+    ],
+    "points": [
+      "Currificar convierte `f(a, b, c)` en `f(a)(b)(c)`.",
+      "La aplicación parcial crea funciones especializadas a partir de una general.",
+      "`fn.length` indica cuántos parámetros declara una función.",
+      "Memoizar es guardar resultados en caché; solo sirve para funciones puras."
+    ],
+    "exercise": "Use `curry` con una función `formatLine(currency, decimals, amount)` y cree `euros = formatLine(\"EUR\")(2)`; después memoice una función factorial y cuente cuántas veces se ejecuta."
+  },
+  "en": {
+    "slug": "currying-and-memoization",
+    "title": "Currying and memoization",
+    "summary": "Fix arguments step by step with currying and skip repeated work with memoization in JavaScript, using prices and Fibonacci.",
+    "body": [
+      "**Currying** turns a function of several arguments into a chain of one-argument functions. `price` takes the VAT rate and returns a function that takes the discount, which in turn returns one that takes the net price. The payoff is **partial application**: `spain` already has 21% baked in and `spainSale` adds a 10% discount, ready to reuse.",
+      "`curry` turns any ordinary function into a curried one. It relies on `fn.length`, the number of parameters the function declares: while arguments are missing, it returns another function that collects more; once it has them all, it calls the original. That is why `shipping` can be called in several ways: `toEurope(3)(true)`, `toEurope(1, false)` or with all three arguments at once.",
+      "**Memoization** stores a function's result for each argument and, when that argument comes back, returns it without recomputing. `memoize` keeps a `Map` as its cache inside a closure. It only works for **pure functions**, which always return the same output for the same input and have no side effects.",
+      "Fibonacci shows the difference: the plain recursive version makes 242,785 calls to compute `fib(25)`, because it repeats the same work over and over. The memoized one needs only 26 (one for each number from 0 to 25), and none at all the second time. `fastFib` calls itself through the memoized version, so the recursion benefits from the cache too."
+    ],
+    "points": [
+      "Currying turns `f(a, b, c)` into `f(a)(b)(c)`.",
+      "Partial application creates specialised functions from a general one.",
+      "`fn.length` tells you how many parameters a function declares.",
+      "Memoizing caches results, and is only safe for pure functions."
+    ],
+    "exercise": "Use `curry` on a `formatLine(currency, decimals, amount)` function and create `euros = formatLine(\"EUR\")(2)`; then memoize a factorial function and count how many times it actually runs."
+  }
+}

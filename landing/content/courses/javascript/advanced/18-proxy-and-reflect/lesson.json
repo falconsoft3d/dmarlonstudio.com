@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "proxy-y-reflect",
+    "title": "Proxy y Reflect",
+    "summary": "Intercepte lecturas, asignaciones y borrados en JavaScript con Proxy, y delegue en Reflect el comportamiento normal, con un usuario validado.",
+    "body": [
+      "Un **`Proxy`** envuelve un objeto y permite interceptar las operaciones que se hacen con él: leer, asignar, borrar, comprobar con `in`... Cada operación interceptada es una **trampa** (trap) del manejador. `validated` devuelve un proxy de `{ id: 7 }` con tres trampas: `set`, `get` y `deleteProperty`.",
+      "La trampa `set` se ejecuta en cada asignación, como `user.age = 34`. Busca una regla para esa propiedad y, si el valor no la cumple, lanza un `TypeError`: así, `user.age = 15` se rechaza sin tocar el objeto. Si el valor es válido, escribe un registro y hace la asignación de verdad.",
+      "**`Reflect`** ofrece las operaciones normales del lenguaje como funciones: `Reflect.set`, `Reflect.get`, `Reflect.deleteProperty`, `Reflect.has`... Dentro de una trampa, llamarlas es la forma correcta de «hacer lo de siempre» después de añadir su propia lógica, y devuelven `true` o `false`, como espera el proxy.",
+      "La trampa `get` devuelve un texto por defecto, `(no phone)`, para las propiedades que no existen, y `deleteProperty` protege el `id`. Las operaciones sin trampa, como `Reflect.ownKeys` o el operador `in`, pasan directamente al objeto original. Con esta técnica se construyen validadores, registros de cambios y la reactividad de algunas librerías de interfaz."
+    ],
+    "points": [
+      "Un `Proxy` intercepta operaciones sobre un objeto mediante trampas.",
+      "`set`, `get` y `deleteProperty` son trampas habituales.",
+      "`Reflect` hace la operación normal y es el complemento natural de cada trampa.",
+      "Las operaciones sin trampa llegan sin cambios al objeto original."
+    ],
+    "exercise": "Añada una trampa `has` que oculte al operador `in` las propiedades que empiecen por `_`, y haga que `email` no se pueda cambiar una vez asignado."
+  },
+  "en": {
+    "slug": "proxy-and-reflect",
+    "title": "Proxy and Reflect",
+    "summary": "Intercept reads, writes and deletes in JavaScript with Proxy, and let Reflect do the default behaviour, using a validated user object.",
+    "body": [
+      "A **`Proxy`** wraps an object and lets you intercept the operations performed on it: reading, assigning, deleting, checking with `in` and more. Each intercepted operation is a **trap** in the handler. `validated` returns a proxy around `{ id: 7 }` with three traps: `set`, `get` and `deleteProperty`.",
+      "The `set` trap runs on every assignment, such as `user.age = 34`. It looks for a rule for that property and, if the value breaks it, throws a `TypeError`: so `user.age = 15` is rejected without touching the object. If the value is valid, it logs the change and performs the real assignment.",
+      "**`Reflect`** exposes the language's normal operations as functions: `Reflect.set`, `Reflect.get`, `Reflect.deleteProperty`, `Reflect.has` and so on. Inside a trap, calling them is the right way to do the default thing after adding your own logic, and they return `true` or `false` just as the proxy expects.",
+      "The `get` trap returns a default text, `(no phone)`, for properties that do not exist, and `deleteProperty` protects the `id`. Operations without a trap, such as `Reflect.ownKeys` or the `in` operator, go straight through to the original object. This technique powers validators, change logs and the reactivity of some UI libraries."
+    ],
+    "points": [
+      "A `Proxy` intercepts operations on an object through traps.",
+      "`set`, `get` and `deleteProperty` are common traps.",
+      "`Reflect` performs the default operation and pairs naturally with each trap.",
+      "Operations without a trap reach the original object unchanged."
+    ],
+    "exercise": "Add a `has` trap that hides properties starting with `_` from the `in` operator, and make `email` impossible to change once it has been set."
+  }
+}

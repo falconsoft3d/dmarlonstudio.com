@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "patron-modulo-iife",
+    "title": "Patrón módulo e IIFE",
+    "summary": "Oculte el estado interno en JavaScript con IIFE y el patrón módulo, y vea cómo Node envuelve cada fichero y qué exporta module.exports.",
+    "body": [
+      "Una **IIFE** (expresión de función invocada inmediatamente) es una función que se define y se ejecuta en el mismo momento: `(function () { ... })()`. Los paréntesis exteriores la convierten en una expresión y los últimos la llaman. Todo lo que se declara dentro, como `items` y `log`, queda en su ámbito privado.",
+      "El **patrón módulo** combina la IIFE con las clausuras: devuelve un objeto solo con lo que quiere hacer público (`add` y `count`), que siguen teniendo acceso a `items`. Desde fuera, `inventory.items` es `undefined`: el inventario solo se puede cambiar a través de su interfaz. Antes de que existieran los módulos, así se organizaba el JavaScript de las páginas web.",
+      "Node hace algo muy parecido con cada fichero CommonJS: lo envuelve en una función con cinco parámetros (`exports`, `require`, `module`, `__filename` y `__dirname`). Por eso `arguments.length` vale `5` en el nivel superior del fichero y sus variables no se mezclan con las de otros ficheros.",
+      "Lo que un fichero exporta es **`module.exports`**; `exports` es solo un atajo que al principio apunta al mismo objeto. Si asigna un objeto nuevo a `module.exports`, como hace el ejemplo, `exports` sigue apuntando al antiguo y deja de servir: use `exports.name = ...` para añadir o `module.exports = ...` para sustituir, nunca `exports = ...`. Además, `require()` guarda cada módulo en caché, así que dos llamadas devuelven el mismo objeto."
+    ],
+    "points": [
+      "Una IIFE se ejecuta al definirse y crea un ámbito privado.",
+      "El patrón módulo expone solo una interfaz y oculta el estado en una clausura.",
+      "Node envuelve cada fichero CommonJS en una función.",
+      "Lo exportado es `module.exports`; `exports` es solo una referencia inicial.",
+      "`require()` cachea los módulos."
+    ],
+    "exercise": "Añada al inventario un método `remove(name, qty)` que no permita dejar existencias negativas, y un contador privado de operaciones que se pueda consultar con un método `operations()`."
+  },
+  "en": {
+    "slug": "module-pattern-iife",
+    "title": "The module pattern and IIFEs",
+    "summary": "Hide internal state in JavaScript with IIFEs and the module pattern, and see how Node wraps each file and what module.exports exports.",
+    "body": [
+      "An **IIFE** (immediately invoked function expression) is a function that is defined and run in the same breath: `(function () { ... })()`. The outer parentheses make it an expression and the final pair calls it. Everything declared inside, like `items` and `log`, stays in its private scope.",
+      "The **module pattern** combines an IIFE with closures: it returns an object holding only what you want to make public (`add` and `count`), and those functions still have access to `items`. From outside, `inventory.items` is `undefined`: the inventory can only be changed through its interface. Before JavaScript had modules, this is how web page code was organised.",
+      "Node does something very similar with every CommonJS file: it wraps it in a function with five parameters (`exports`, `require`, `module`, `__filename` and `__dirname`). That is why `arguments.length` is `5` at the top level of the file, and why its variables never mix with those of other files.",
+      "What a file exports is **`module.exports`**; `exports` is just a shortcut that initially points to the same object. If you assign a new object to `module.exports`, as the example does, `exports` still points to the old one and becomes useless: use `exports.name = ...` to add and `module.exports = ...` to replace, never `exports = ...`. On top of that, `require()` caches every module, so two calls return the very same object."
+    ],
+    "points": [
+      "An IIFE runs as soon as it is defined and creates a private scope.",
+      "The module pattern exposes an interface and hides state in a closure.",
+      "Node wraps every CommonJS file in a function.",
+      "What gets exported is `module.exports`; `exports` is only an initial reference.",
+      "`require()` caches modules."
+    ],
+    "exercise": "Add a `remove(name, qty)` method to the inventory that refuses to leave negative stock, and a private operation counter that can be read with an `operations()` method."
+  }
+}

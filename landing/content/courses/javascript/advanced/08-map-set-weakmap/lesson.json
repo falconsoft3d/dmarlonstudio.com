@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "map-set-weakmap",
+    "title": "Map, Set y WeakMap",
+    "summary": "Agrupe y cuente datos en JavaScript con Map y Set, y asocie información a objetos sin modificarlos con WeakMap, usando pedidos reales.",
+    "body": [
+      "Un **`Set`** guarda valores sin repetir. Al crearlo con los productos de los pedidos, `Mouse` aparece una sola vez aunque se haya vendido dos veces. `size` dice cuántos hay y `has()` comprueba si existe uno, mucho más rápido que buscar en un array. `[...products]` lo convierte de nuevo en array.",
+      "Un **`Map`** es un diccionario de clave y valor con ventajas sobre un objeto normal: las claves pueden ser de cualquier tipo, conserva el orden de inserción y se recorre directamente con `for...of`, que entrega pares `[clave, valor]`. El ejemplo agrupa los pedidos por cliente con `get()` y `set()`; `?? []` da una lista vacía la primera vez que aparece un cliente.",
+      "Con objetos como clave, `Map` compara por **identidad**, no por contenido: `orders[0]` encuentra su estado, pero una copia con los mismos datos (`{ ...orders[0] }`) es otro objeto y devuelve `undefined`.",
+      "Un **`WeakMap`** solo admite objetos como clave y no impide que el recolector de basura los elimine cuando nadie más los usa. Es ideal para asociar datos a un objeto sin tocarlo: `visits` cuenta las visitas de `ana`, pero `ana` no recibe ninguna propiedad nueva (`\"visits\" in ana` es `false`). A cambio, un `WeakMap` no se puede recorrer ni tiene `size`."
+    ],
+    "points": [
+      "`Set` guarda valores únicos y responde rápido a `has()`.",
+      "`Map` admite claves de cualquier tipo y mantiene el orden de inserción.",
+      "Las claves que son objetos se comparan por identidad.",
+      "`WeakMap` asocia datos a objetos sin impedir que se liberen."
+    ],
+    "exercise": "Cree un `Map` que cuente cuántos pedidos tiene cada producto (`Mouse -> 2`) y escríbalo ordenado de mayor a menor con `[...map].sort(...)`."
+  },
+  "en": {
+    "slug": "map-set-weakmap",
+    "title": "Map, Set and WeakMap",
+    "summary": "Group and count data in JavaScript with Map and Set, and attach information to objects without touching them using WeakMap.",
+    "body": [
+      "A **`Set`** stores values without duplicates. Built from the order products, it holds `Mouse` only once even though it sold twice. `size` tells you how many there are and `has()` checks whether one exists, much faster than searching an array. `[...products]` turns it back into an array.",
+      "A **`Map`** is a key-value dictionary with advantages over a plain object: keys can be of any type, insertion order is preserved, and you can loop over it directly with `for...of`, which yields `[key, value]` pairs. The example groups orders by customer with `get()` and `set()`; `?? []` provides an empty list the first time a customer appears.",
+      "With objects as keys, a `Map` compares by **identity**, not by content: `orders[0]` finds its status, but a copy with the same data (`{ ...orders[0] }`) is a different object and returns `undefined`.",
+      "A **`WeakMap`** only accepts objects as keys and does not stop the garbage collector from removing them once nothing else uses them. It is ideal for attaching data to an object without touching it: `visits` counts `ana`'s visits, yet `ana` gets no new property (`\"visits\" in ana` is `false`). The trade-off is that a `WeakMap` cannot be iterated and has no `size`."
+    ],
+    "points": [
+      "`Set` stores unique values and answers `has()` quickly.",
+      "`Map` accepts keys of any type and keeps insertion order.",
+      "Object keys are compared by identity.",
+      "`WeakMap` attaches data to objects without keeping them alive."
+    ],
+    "exercise": "Build a `Map` that counts how many orders each product has (`Mouse -> 2`) and print it sorted from most to fewest with `[...map].sort(...)`."
+  }
+}

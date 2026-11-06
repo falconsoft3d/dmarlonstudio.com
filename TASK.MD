@@ -48,7 +48,7 @@ Trabajando
 =========
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
-51. Cursos en la web (menú Cursos): 7 lenguajes, básico y avanzado de 20 ejemplos con su imagen y su salida real. Hechos: Python básico, JavaScript básico | ⏳ |
+51. Cursos en la web (menú Cursos): 7 lenguajes, básico y avanzado de 20 ejemplos con su imagen y su salida real. Hechos: Python básico, JavaScript básico y avanzado | ⏳ |
 
 
 Pendiente

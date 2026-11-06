@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "bucle-de-eventos",
+    "title": "El bucle de eventos",
+    "summary": "Entienda en qué orden ejecuta JavaScript el código síncrono, las microtareas (promesas, nextTick) y las macrotareas (setTimeout) en Node.",
+    "body": [
+      "JavaScript ejecuta el código en un solo hilo, y el **bucle de eventos** decide qué toca después. La regla es: primero todo el código **síncrono**; después, todas las **microtareas** pendientes; luego, una **macrotarea** (como un temporizador), otra vez todas las microtareas, y así sucesivamente. Los números de la salida muestran ese orden, que no es el del fichero.",
+      "El código síncrono va primero: las líneas `1`, `2` y `3`. Llamar a `checkout()` ejecuta su cuerpo en el acto hasta el primer `await`; por eso `2` aparece antes que `3`. Los dos `setTimeout(..., 0)` no se ejecutan «ya»: se apuntan en la cola de temporizadores.",
+      "Al terminar el script, Node vacía las microtareas. `process.nextTick` tiene su propia cola, que en Node va incluso antes que la de las promesas (`4`). Después, por orden de llegada, el `then` (`5`), `queueMicrotask` (`6`) y la continuación de `checkout` tras el `await` (`7`): reanudar una función `async` también es una microtarea.",
+      "Solo entonces se ejecutan los temporizadores. La microtarea creada dentro de `timeout A` (`9`) va antes que `timeout B` (`10`), porque tras cada macrotarea se vacían las microtareas. La conclusión práctica: un `then` siempre se ejecuta antes que un `setTimeout(..., 0)`, y una cadena de microtareas sin fin dejaría los temporizadores esperando para siempre."
+    ],
+    "points": [
+      "Primero el código síncrono, después las microtareas y luego las macrotareas.",
+      "Las promesas, `queueMicrotask` y la vuelta de un `await` son microtareas.",
+      "`setTimeout` crea macrotareas, aunque el retraso sea 0.",
+      "En Node, `process.nextTick` se ejecuta antes que las promesas.",
+      "Tras cada macrotarea se vacían todas las microtareas."
+    ],
+    "exercise": "Añada un `setTimeout` de 0 ms dentro del `then` de la línea `5` y prediga en qué lugar aparecerá antes de ejecutar el programa; después compruébelo."
+  },
+  "en": {
+    "slug": "event-loop",
+    "title": "The event loop",
+    "summary": "Understand the order in which Node runs JavaScript: synchronous code, microtasks (promises, nextTick) and macrotasks (setTimeout).",
+    "body": [
+      "JavaScript runs your code on a single thread, and the **event loop** decides what comes next. The rule is: first all the **synchronous** code; then every pending **microtask**; then one **macrotask** (such as a timer), then all microtasks again, and so on. The numbers in the output show that order, which is not the order of the file.",
+      "Synchronous code goes first: lines `1`, `2` and `3`. Calling `checkout()` runs its body straight away up to the first `await`, which is why `2` comes before `3`. The two `setTimeout(..., 0)` calls do not run right now: they are queued as timers.",
+      "When the script ends, Node drains the microtasks. `process.nextTick` has its own queue, which in Node runs even before promises (`4`). Then, in the order they were queued, the `then` (`5`), `queueMicrotask` (`6`) and the rest of `checkout` after its `await` (`7`): resuming an `async` function is a microtask too.",
+      "Only then do the timers run. The microtask created inside `timeout A` (`9`) runs before `timeout B` (`10`), because microtasks are drained after every macrotask. The practical takeaway: a `then` always runs before a `setTimeout(..., 0)`, and an endless chain of microtasks would keep timers waiting forever."
+    ],
+    "points": [
+      "Synchronous code first, then microtasks, then macrotasks.",
+      "Promises, `queueMicrotask` and resuming after `await` are microtasks.",
+      "`setTimeout` creates macrotasks, even with a delay of 0.",
+      "In Node, `process.nextTick` runs before promises.",
+      "All microtasks are drained after each macrotask."
+    ],
+    "exercise": "Add a 0 ms `setTimeout` inside the `then` on line `5`, predict where its message will appear before running the program, and then check."
+  }
+}

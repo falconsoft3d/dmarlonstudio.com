@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "errores",
+    "title": "Errores como valores",
+    "summary": "Trate los errores en Go como valores: créelos con errors.New y fmt.Errorf, compruébelos con if err != nil y reconózcalos con errors.Is.",
+    "body": [
+      "Go no tiene excepciones: una función que puede fallar devuelve un **error** como último resultado. `withdraw` devuelve el saldo nuevo y un `error`; si todo va bien, el error es `nil`, es decir, «ningún error».",
+      "`errors.New(\"insufficient funds\")` crea un error con un mensaje. Guardado en la variable `ErrNoFunds`, es un **error centinela**: un valor conocido con el que se puede comparar después. `fmt.Errorf` crea un error con formato, igual que `Printf`: `invalid amount -5.00`.",
+      "Con `%w`, `fmt.Errorf` **envuelve** otro error: el mensaje añade detalle (`withdraw 90.00: insufficient funds`), pero el error original sigue dentro. `errors.Is(err, ErrNoFunds)` lo busca, y por eso da `true` para la retirada de 90 euros y `false` para la cantidad negativa.",
+      "Quien llama comprueba siempre: `if err != nil`. Si hay error, lo escribe y, con `continue`, pasa a la cantidad siguiente sin tocar el saldo; si no, guarda `newBalance`. Así, de 100 euros se sacan 30 y luego 45, y quedan `25.00`."
+    ],
+    "points": [
+      "El error es el último resultado; `nil` significa que no hubo error.",
+      "`errors.New` crea un error; `fmt.Errorf`, uno con formato.",
+      "`%w` envuelve un error dentro de otro.",
+      "`errors.Is` reconoce un error aunque esté envuelto.",
+      "Compruebe siempre con `if err != nil`."
+    ],
+    "exercise": "Añada un límite diario: un error centinela `ErrDailyLimit` que `withdraw` devuelva, envuelto con `%w`, si la cantidad supera 60 euros, y compruébelo en `main` con `errors.Is`."
+  },
+  "en": {
+    "slug": "errors",
+    "title": "Errors as values",
+    "summary": "Treat errors as values in Go: create them with errors.New and fmt.Errorf, check them with if err != nil and recognise them with errors.Is.",
+    "body": [
+      "Go has no exceptions: a function that can fail returns an **error** as its last result. `withdraw` returns the new balance and an `error`; when everything goes well, the error is `nil`, which means \"no error\".",
+      "`errors.New(\"insufficient funds\")` creates an error with a message. Stored in the `ErrNoFunds` variable, it is a **sentinel error**: a known value you can compare against later. `fmt.Errorf` builds an error with formatting, just like `Printf`: `invalid amount -5.00`.",
+      "With `%w`, `fmt.Errorf` **wraps** another error: the message adds detail (`withdraw 90.00: insufficient funds`), but the original error is still inside. `errors.Is(err, ErrNoFunds)` looks for it, which is why it gives `true` for the 90 euro withdrawal and `false` for the negative amount.",
+      "The caller always checks: `if err != nil`. If there is an error, it prints it and, with `continue`, moves on to the next amount without touching the balance; otherwise it keeps `newBalance`. So 30 and then 45 euros come out of 100, leaving `25.00`."
+    ],
+    "points": [
+      "The error is the last result; `nil` means no error.",
+      "`errors.New` creates an error; `fmt.Errorf` a formatted one.",
+      "`%w` wraps one error inside another.",
+      "`errors.Is` recognises an error even when it is wrapped.",
+      "Always check with `if err != nil`."
+    ],
+    "exercise": "Add a daily limit: a sentinel error `ErrDailyLimit` that `withdraw` returns, wrapped with `%w`, when the amount is over 60 euros, and check for it in `main` with `errors.Is`."
+  }
+}

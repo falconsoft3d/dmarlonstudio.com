@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "leer-del-teclado",
+    "title": "Leer del teclado",
+    "summary": "Lea líneas del teclado en Go con bufio.Scanner y conviértalas en números con strconv.Atoi y strconv.ParseFloat para hacer cuentas.",
+    "body": [
+      "`bufio.NewScanner(os.Stdin)` crea un **Scanner** que lee la **entrada estándar**, es decir, lo que se teclea. Cada `scanner.Scan()` espera una línea y `scanner.Text()` la devuelve, ya sin el salto de línea final.",
+      "En este ejemplo las respuestas salen del archivo `input.txt`, como si alguien las tecleara, y por eso no aparecen en la salida: se ve la pregunta, escrita con `fmt.Print` para que la respuesta quede en la misma línea, y a continuación la contestación del programa. En la consola de DMarlon Studio puede escribirlas usted mismo.",
+      "`Text()` siempre da un **texto**, aunque se teclee `29`. Para hacer cuentas hay que convertirlo: `strconv.Atoi` lo pasa a `int` y devuelve **dos** valores, el número y un error. Si el texto no es un número, `err` no es `nil`, y el programa avisa y termina con `return`. Los errores tienen su propia lección, la 13.",
+      "`strconv.ParseFloat(texto, 64)` convierte a `float64`. Aquí el error se descarta con `_`, el **identificador vacío**, porque el ejemplo da por hecho que el precio es correcto: tres entradas de `8.50` cuestan `25.50` euros."
+    ],
+    "points": [
+      "`bufio.NewScanner(os.Stdin)` lee el teclado.",
+      "`scanner.Scan()` lee una línea y `scanner.Text()` la da.",
+      "Lo leído es texto: `strconv.Atoi` y `strconv.ParseFloat` lo convierten.",
+      "Las conversiones devuelven también un error; `nil` es que todo fue bien.",
+      "`_` descarta un valor que no se va a usar."
+    ],
+    "exercise": "Pida también cuántas entradas se quieren comprar, conviértalo con `strconv.Atoi` comprobando el error, y escriba el precio total con dos decimales."
+  },
+  "en": {
+    "slug": "reading-input",
+    "title": "Reading input",
+    "summary": "Read lines from the keyboard in Go with bufio.Scanner and turn them into numbers with strconv.Atoi and strconv.ParseFloat to do maths.",
+    "body": [
+      "`bufio.NewScanner(os.Stdin)` creates a **Scanner** that reads **standard input**, that is, whatever is typed. Each `scanner.Scan()` waits for a line and `scanner.Text()` returns it, already without the final newline.",
+      "In this example the answers come from the `input.txt` file, as if someone were typing them, which is why they do not appear in the output: you see the question, printed with `fmt.Print` so that the answer stays on the same line, followed by the program's reply. In the DMarlon Studio console you can type them yourself.",
+      "`Text()` always gives a **string**, even if you type `29`. To do maths you have to convert it: `strconv.Atoi` turns it into an `int` and returns **two** values, the number and an error. If the text is not a number, `err` is not `nil`, so the program says so and stops with `return`. Errors get their own lesson, number 13.",
+      "`strconv.ParseFloat(text, 64)` converts to a `float64`. Here the error is thrown away with `_`, the **blank identifier**, because the example assumes the price is valid: three tickets at `8.50` cost `25.50` euros."
+    ],
+    "points": [
+      "`bufio.NewScanner(os.Stdin)` reads the keyboard.",
+      "`scanner.Scan()` reads a line and `scanner.Text()` gives it.",
+      "Input is text: `strconv.Atoi` and `strconv.ParseFloat` convert it.",
+      "Conversions also return an error; `nil` means it went well.",
+      "`_` throws away a value you will not use."
+    ],
+    "exercise": "Also ask how many tickets to buy, convert the answer with `strconv.Atoi` checking the error, and print the total price with two decimals."
+  }
+}

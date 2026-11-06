@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "variables-y-tipos",
+    "title": "Variables y tipos",
+    "summary": "Guarde datos en variables de Go con var y :=, conozca los tipos básicos (int, float64, string y bool) y el valor cero de cada uno.",
+    "body": [
+      "Una **variable** es un nombre para un dato. Con `var` se declara indicando su **tipo**: `var city string = \"Valencia\"` crea un texto y `var population int = 800000`, un número entero. En Go el tipo va **detrás** del nombre.",
+      "La forma corta `:=` declara la variable y deduce el tipo a partir del valor: `temperature := 21.5` es un `float64` (un número con decimales) e `isCoastal := true` es un `bool` (verdadero o falso). Solo se puede usar dentro de una función, y es la forma más habitual.",
+      "Si una variable se declara sin valor, Go le da su **valor cero**: `0` para los números, `\"\"` (texto vacío) para `string` y `false` para `bool`. Por eso `visitors` vale `0` y `note` sale vacía entre los corchetes.",
+      "`%T` dentro de `fmt.Printf` escribe el tipo de cada valor; en la lección 4 verá el resto de estos **verbos**. Al final, `=` (sin los dos puntos) da un valor nuevo a una variable que ya existe, siempre del mismo tipo, y `visitors += 1500` le suma 1500.",
+      "Go no permite declarar una variable y no usarla: el programa no compilaría. Es una de las reglas con las que el lenguaje mantiene el código limpio."
+    ],
+    "points": [
+      "`var nombre tipo = valor` declara con el tipo a la vista.",
+      "`nombre := valor` declara y deduce el tipo.",
+      "Tipos básicos: `int`, `float64`, `string` y `bool`.",
+      "Sin valor, cada variable empieza en su valor cero.",
+      "`:=` crea la variable; `=` cambia su valor."
+    ],
+    "exercise": "Añada `country := \"Spain\"` y `area := 134.6` (la superficie en km²), escríbalos con `Println` y compruebe con `%T` qué tipo ha deducido Go para cada uno."
+  },
+  "en": {
+    "slug": "variables-and-types",
+    "title": "Variables and types",
+    "summary": "Store data in Go variables with var and :=, meet the basic types (int, float64, string and bool) and the zero value of each one.",
+    "body": [
+      "A **variable** is a name for a piece of data. `var` declares one with its **type**: `var city string = \"Valencia\"` creates a string and `var population int = 800000` a whole number. In Go the type goes **after** the name.",
+      "The short form `:=` declares the variable and works out the type from the value: `temperature := 21.5` is a `float64` (a number with decimals) and `isCoastal := true` is a `bool` (true or false). It only works inside a function, and it is the form you will see most.",
+      "A variable declared without a value gets its **zero value**: `0` for numbers, `\"\"` (empty string) for `string` and `false` for `bool`. That is why `visitors` is `0` and `note` comes out empty between the brackets.",
+      "`%T` inside `fmt.Printf` prints the type of each value; lesson 4 covers the rest of these **verbs**. At the end, `=` (without the colon) gives an existing variable a new value, always of the same type, and `visitors += 1500` adds 1500 to it.",
+      "Go does not let you declare a variable and leave it unused: the program would not compile. It is one of the rules the language uses to keep code tidy."
+    ],
+    "points": [
+      "`var name type = value` declares with the type in sight.",
+      "`name := value` declares and infers the type.",
+      "Basic types: `int`, `float64`, `string` and `bool`.",
+      "Without a value, every variable starts at its zero value.",
+      "`:=` creates the variable; `=` changes its value."
+    ],
+    "exercise": "Add `country := \"Spain\"` and `area := 134.6` (the area in km²), print them with `Println` and check with `%T` which type Go inferred for each one."
+  }
+}

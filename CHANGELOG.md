@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.60 — 2026-11-07
+
+- **Curso de Go básico** (20 lecciones, español e inglés): variables y
+  `:=`, constantes, `Printf`, lectura del teclado, `if`, `switch` y `for`,
+  arrays, slices y mapas, funciones con varios resultados, errores como
+  valores, estructuras, métodos y punteros, `strings` y `strconv`, `range`,
+  archivos y el inventario de una tienda como proyecto: el lenguaje del
+  servidor del destino Web (Go) del estudio.
+
 ## 1.0.59 — 2026-11-07
 
 - **Curso de Dart básico** (20 lecciones, español e inglés): `var`,

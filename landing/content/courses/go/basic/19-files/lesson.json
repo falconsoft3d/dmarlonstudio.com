@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "archivos",
+    "title": "Escribir y leer archivos",
+    "summary": "Escriba y lea archivos de texto en Go con el paquete os: WriteFile, OpenFile para añadir, Open con bufio.Scanner y defer para cerrar.",
+    "body": [
+      "`os.WriteFile` crea un archivo (o lo **sustituye** si ya existía) con el contenido que se le pase, convertido en bytes con `[]byte(notes)`. `0644` son los **permisos** del archivo en sistemas tipo Unix: lectura y escritura para usted, solo lectura para los demás. El nombre `notes.txt`, sin carpeta, lo deja en la carpeta actual.",
+      "Casi todo lo que toca archivos puede fallar, así que devuelve un error. La función `check` evita repetir la misma comprobación: si `err` no es `nil`, lo escribe y termina el programa con `os.Exit(1)`.",
+      "Para **añadir** sin borrar lo que hay, `os.OpenFile` abre el archivo con `os.O_APPEND|os.O_WRONLY`: escribir al final y solo escribir. `fmt.Fprintln(f, ...)` funciona como `Println`, pero escribe en el archivo `f`. Después, `f.Close()` lo cierra.",
+      "`os.Open` abre el archivo para leerlo y un `bufio.Scanner`, como el de la lección 5, lo recorre línea a línea: `for n := 1; scanner.Scan(); n++` numera las líneas mientras queden. **`defer`** aplaza `file.Close()` hasta que termina `main`; es la forma habitual de no olvidarse de cerrar un archivo. Para leerlo entero de una vez también existe `os.ReadFile`."
+    ],
+    "points": [
+      "`os.WriteFile` crea o sustituye un archivo.",
+      "`os.OpenFile` con `os.O_APPEND` añade al final.",
+      "`fmt.Fprintln(f, ...)` escribe en un archivo.",
+      "`os.Open` y `bufio.Scanner` leen línea a línea.",
+      "`defer f.Close()` cierra el archivo al terminar la función."
+    ],
+    "exercise": "Escriba un archivo `prices.txt` con un precio por línea, léalo con un `Scanner`, convierta cada línea con `strconv.ParseFloat` y escriba la suma."
+  },
+  "en": {
+    "slug": "files",
+    "title": "Writing and reading files",
+    "summary": "Write and read text files in Go with the os package: WriteFile, OpenFile to append, Open with bufio.Scanner, and defer to close.",
+    "body": [
+      "`os.WriteFile` creates a file (or **replaces** it if it already exists) with the content you pass, turned into bytes with `[]byte(notes)`. `0644` are the file's **permissions** on Unix-like systems: read and write for you, read-only for everyone else. The name `notes.txt`, with no folder, puts it in the current folder.",
+      "Nearly everything that touches files can fail, so it returns an error. The `check` function saves repeating the same test: if `err` is not `nil`, it prints it and ends the program with `os.Exit(1)`.",
+      "To **append** without wiping what is there, `os.OpenFile` opens the file with `os.O_APPEND|os.O_WRONLY`: write at the end, and write only. `fmt.Fprintln(f, ...)` works like `Println` but writes into the file `f`. Then `f.Close()` closes it.",
+      "`os.Open` opens the file for reading and a `bufio.Scanner`, like the one in lesson 5, walks through it line by line: `for n := 1; scanner.Scan(); n++` numbers the lines while there are any left. **`defer`** postpones `file.Close()` until `main` ends; it is the usual way not to forget to close a file. To read a whole file in one go there is also `os.ReadFile`."
+    ],
+    "points": [
+      "`os.WriteFile` creates or replaces a file.",
+      "`os.OpenFile` with `os.O_APPEND` adds at the end.",
+      "`fmt.Fprintln(f, ...)` writes into a file.",
+      "`os.Open` and `bufio.Scanner` read line by line.",
+      "`defer f.Close()` closes the file when the function ends."
+    ],
+    "exercise": "Write a `prices.txt` file with one price per line, read it with a `Scanner`, convert each line with `strconv.ParseFloat` and print the sum."
+  }
+}

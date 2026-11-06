@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "inventario-de-una-tienda",
+    "title": "Proyecto: inventario de una tienda",
+    "summary": "Proyecto final del curso básico de Go: el inventario de una tienda con structs, métodos, errores, slices, bucles y Printf.",
+    "body": [
+      "Este programa reúne lo visto en el curso. `Product` es un **struct** con nombre, precio y existencias, y `shop` es un **slice** de productos escrito como literal, sin repetir el tipo en cada elemento.",
+      "`Value` es un **método** con receptor por valor: solo lee, y devuelve el precio por las existencias. `Sell` tiene que cambiar las existencias, así que su receptor es un **puntero**. Si se piden más unidades de las que hay, no toca nada y devuelve un **error** hecho con `fmt.Errorf`; si no, resta y devuelve `nil`.",
+      "En `main`, `sales` dice cuántas unidades se venden de cada producto, en el mismo orden, y `total` empieza en `0.0`. `for i := range shop` recorre los índices: con `shop[i].Sell(...)` el método trabaja sobre el producto del slice y no sobre una copia. El error se comprueba con `if err := ...; err != nil`: la tetera solo tiene 3 unidades y se piden 4.",
+      "Después, `p := shop[i]` toma el producto ya actualizado y `Printf` lo escribe en columnas con `%-9s`, `%6.2f`, `%5d` y `%9.2f`, mientras `total` va sumando su valor. Lo que queda en el almacén vale `239.40` euros.",
+      "En DMarlon Studio, una lógica como esta puede vivir en el servidor Go del destino Web (Go), con la interfaz en el navegador. Y el curso avanzado de Go continúa justo donde termina este."
+    ],
+    "points": [
+      "Un struct describe los datos; sus métodos, lo que se hace con ellos.",
+      "Receptor por valor para leer, por puntero para cambiar.",
+      "Las funciones que pueden fallar devuelven un `error`.",
+      "`shop[i].Metodo()` trabaja sobre el elemento del slice, no sobre una copia.",
+      "`Printf` con anchos convierte los datos en una tabla."
+    ],
+    "exercise": "Añada un campo `Category` y un mapa `map[string]float64` que acumule el valor por categoría; escríbalo al final en orden alfabético con `sort.Strings`."
+  },
+  "en": {
+    "slug": "shop-inventory",
+    "title": "Project: a shop inventory",
+    "summary": "The final project of the basic Go course: a shop inventory built with structs, methods, errors, slices, loops and Printf.",
+    "body": [
+      "This program brings together what the course has covered. `Product` is a **struct** with a name, a price and a stock, and `shop` is a **slice** of products written as a literal, without repeating the type for each element.",
+      "`Value` is a **method** with a value receiver: it only reads, and returns the price times the stock. `Sell` has to change the stock, so its receiver is a **pointer**. If more units are asked for than there are, it changes nothing and returns an **error** built with `fmt.Errorf`; otherwise it subtracts them and returns `nil`.",
+      "In `main`, `sales` says how many units of each product are sold, in the same order, and `total` starts at `0.0`. `for i := range shop` walks the indexes: with `shop[i].Sell(...)` the method works on the product inside the slice, not on a copy. The error is checked with `if err := ...; err != nil`: the teapot has only 3 units and 4 are asked for.",
+      "Then `p := shop[i]` takes the updated product and `Printf` prints it in columns with `%-9s`, `%6.2f`, `%5d` and `%9.2f`, while `total` adds up its value. What is left in the stockroom is worth `239.40` euros.",
+      "In DMarlon Studio, logic like this can live in the Go server of the Web (Go) target, with the interface in the browser. And the advanced Go course picks up right where this one ends."
+    ],
+    "points": [
+      "A struct describes the data; its methods, what you do with it.",
+      "Value receiver to read, pointer receiver to change.",
+      "Functions that can fail return an `error`.",
+      "`shop[i].Method()` works on the slice element, not on a copy.",
+      "`Printf` with widths turns the data into a table."
+    ],
+    "exercise": "Add a `Category` field and a `map[string]float64` that adds up the value per category; print it at the end in alphabetical order with `sort.Strings`."
+  }
+}

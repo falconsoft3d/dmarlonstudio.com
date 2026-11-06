@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "metodos",
+    "title": "Métodos",
+    "summary": "Añada métodos a sus tipos en Go: receptores por valor y por puntero, y el método String() que decide cómo se escribe un valor.",
+    "body": [
+      "Un **método** es una función unida a un tipo. Se escribe como una función, pero con un **receptor** entre paréntesis antes del nombre: `func (r Room) Area() float64`. Dentro, `r` es la habitación con la que se llama, y el método se usa con el punto: `flat[i].Area()`.",
+      "Con un receptor **por valor**, `(r Room)`, el método recibe una copia, que basta para leer, como en `Area`. Para cambiar la habitación original hace falta un receptor **por puntero**, `(r *Room)`: `Extend` alarga el baño un metro, de `2.5` a `3.5`. Al llamar a `flat[2].Extend(1)`, Go pasa la dirección por usted; la lección siguiente explica los punteros.",
+      "Si un tipo tiene un método `String() string`, `fmt` lo usa para escribirlo. Por eso `%v` muestra `Kitchen  3.0 x 4.5 m` en lugar de `{Kitchen 3 4.5}`. El propio método construye ese texto con `fmt.Sprintf`.",
+      "El `for` recorre el piso, escribe cada habitación con su superficie y las suma: `34.50` m². Go no tiene clases: un struct con sus métodos cumple ese papel."
+    ],
+    "points": [
+      "Un método lleva un receptor: `func (r T) Nombre()`.",
+      "El receptor por valor trabaja con una copia.",
+      "El receptor por puntero, `(r *T)`, cambia el original.",
+      "`String() string` decide cómo escribe `fmt` el tipo."
+    ],
+    "exercise": "Añada un método `Perimeter() float64` y otro `Rename(name string)` con receptor por puntero; cambie el nombre del dormitorio y escriba el perímetro de cada habitación."
+  },
+  "en": {
+    "slug": "methods",
+    "title": "Methods",
+    "summary": "Add methods to your own Go types: value and pointer receivers, and the String() method that decides how a value is printed.",
+    "body": [
+      "A **method** is a function attached to a type. It is written like a function, but with a **receiver** in parentheses before the name: `func (r Room) Area() float64`. Inside, `r` is the room it was called on, and you call it with the dot: `flat[i].Area()`.",
+      "With a **value** receiver, `(r Room)`, the method gets a copy, which is enough for reading, as in `Area`. To change the original room you need a **pointer** receiver, `(r *Room)`: `Extend` makes the bathroom one metre longer, from `2.5` to `3.5`. When you call `flat[2].Extend(1)`, Go passes the address for you; the next lesson explains pointers.",
+      "If a type has a `String() string` method, `fmt` uses it to print it. That is why `%v` shows `Kitchen  3.0 x 4.5 m` instead of `{Kitchen 3 4.5}`. The method itself builds that text with `fmt.Sprintf`.",
+      "The `for` walks through the flat, prints each room with its area and adds them up: `34.50` m². Go has no classes: a struct with its methods plays that role."
+    ],
+    "points": [
+      "A method has a receiver: `func (r T) Name()`.",
+      "A value receiver works on a copy.",
+      "A pointer receiver, `(r *T)`, changes the original.",
+      "`String() string` decides how `fmt` prints the type."
+    ],
+    "exercise": "Add a `Perimeter() float64` method and a `Rename(name string)` method with a pointer receiver; rename the bedroom and print the perimeter of every room."
+  }
+}

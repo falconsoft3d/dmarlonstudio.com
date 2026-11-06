@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "if-y-else",
+    "title": "Condiciones con if y else",
+    "summary": "Tome decisiones en Go con if, else if y else, combine condiciones con &&, || y !, y aproveche la instrucción inicial del if.",
+    "body": [
+      "`if` ejecuta su bloque solo si la condición es verdadera. En Go la condición no lleva paréntesis, pero las llaves son obligatorias, incluso para una sola línea. `else if` prueba otra condición y `else` recoge todo lo demás: con `31` grados se cumple la primera, y las otras ya ni se miran.",
+      "Las condiciones se combinan con `&&` (y), `||` (o) y `!` (no). `age >= 18 && hasTicket` necesita las dos cosas; como `age` es `17`, no se cumple y se pasa a `hasTicket && !(age < 16)`: tiene entrada y no es menor de 16, así que entra acompañado.",
+      "Go admite una **instrucción inicial** antes de la condición, separada por punto y coma: `if total := price * float64(units); total >= 50`. Primero calcula `total` y después lo compara. Esa variable solo existe dentro del `if` y de sus `else`, y así no quedan variables sueltas que ya no hacen falta.",
+      "Con `18.5` euros por `3` unidades, `total` es `55.5`, mayor que `50`, y el envío sale gratis. Esta forma es muy común en Go para comprobar errores, como verá en la lección 13: `if err := ...; err != nil`."
+    ],
+    "points": [
+      "La condición va sin paréntesis y las llaves son obligatorias.",
+      "`else if` encadena condiciones; `else` recoge el resto.",
+      "`&&` es «y», `||` es «o» y `!` es «no».",
+      "`if x := ...; condición` declara una variable solo para ese `if`."
+    ],
+    "exercise": "Cambie `units` a `2` y compruebe que se cobra el envío. Después añada un `else if` para los pedidos de 30 euros o más, con un envío de 2.95."
+  },
+  "en": {
+    "slug": "if-and-else",
+    "title": "If and else",
+    "summary": "Make decisions in Go with if, else if and else, combine conditions with &&, || and !, and use the if statement's init part.",
+    "body": [
+      "`if` runs its block only when the condition is true. In Go the condition has no parentheses, but the braces are required, even for a single line. `else if` tries another condition and `else` catches everything else: at `31` degrees the first one holds, and the others are not even checked.",
+      "Conditions combine with `&&` (and), `||` (or) and `!` (not). `age >= 18 && hasTicket` needs both; since `age` is `17`, it fails and Go moves on to `hasTicket && !(age < 16)`: there is a ticket and the person is not under 16, so they get in with an adult.",
+      "Go allows an **init statement** before the condition, separated by a semicolon: `if total := price * float64(units); total >= 50`. It works out `total` first and then compares it. That variable only exists inside the `if` and its `else` branches, so no leftover variables hang around.",
+      "At `18.5` euros for `3` units, `total` is `55.5`, more than `50`, so shipping is free. This form is very common in Go for checking errors, as you will see in lesson 13: `if err := ...; err != nil`."
+    ],
+    "points": [
+      "No parentheses around the condition; braces are required.",
+      "`else if` chains conditions; `else` catches the rest.",
+      "`&&` is \"and\", `||` is \"or\" and `!` is \"not\".",
+      "`if x := ...; condition` declares a variable just for that `if`."
+    ],
+    "exercise": "Change `units` to `2` and check that shipping is charged. Then add an `else if` for orders of 30 euros or more, with shipping at 2.95."
+  }
+}

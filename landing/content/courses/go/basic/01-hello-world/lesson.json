@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "hola-mundo",
+    "title": "Hola, mundo",
+    "summary": "Escriba su primer programa en Go: package main, la función main y fmt.Println para mostrar textos y números en la consola.",
+    "body": [
+      "Todo programa de Go empieza por `package main`: indica que el archivo es un **programa** que se puede ejecutar, y no una biblioteca. La ejecución comienza en la **función** `func main()`, y las llaves `{ }` marcan dónde empieza y dónde acaba.",
+      "`import \"fmt\"` trae el **paquete** `fmt`, el que escribe y da formato al texto. Sus funciones se llaman con el nombre del paquete delante: `fmt.Println`. Go no permite importar un paquete que no se use: si sobra, el programa no compila.",
+      "`fmt.Println` escribe sus valores separados por un espacio y termina la línea. Admite textos entre comillas dobles y números, y calcula antes de escribir: `\"2 + 3 =\", 2+3` muestra `2 + 3 = 5`.",
+      "`fmt.Print` no salta de línea y no pone espacios entre dos textos; por eso el segundo termina en `\\n`, el carácter de **salto de línea**, y los dos trozos forman `Step by step`. Un `fmt.Println()` vacío deja una línea en blanco.",
+      "El programa se ejecuta con `go run main.go`, que compila y ejecuta en un solo paso. En DMarlon Studio, Go es además el servidor del destino Web (Go): lo que aprenda en este curso le servirá allí."
+    ],
+    "points": [
+      "Un programa empieza en `package main` y `func main()`.",
+      "`import \"fmt\"` da acceso a `fmt.Println` y `fmt.Print`.",
+      "`Println` separa con espacios y salta de línea; `Print`, no.",
+      "`\\n` es un salto de línea dentro de un texto.",
+      "`go run main.go` compila y ejecuta."
+    ],
+    "exercise": "Escriba un programa que muestre su nombre, su ciudad y, en otra línea, cuántos días tienen tres semanas, calculándolo con `3*7`."
+  },
+  "en": {
+    "slug": "hello-world",
+    "title": "Hello, world",
+    "summary": "Write your first Go program: package main, the main function and fmt.Println to show text and numbers in the console.",
+    "body": [
+      "Every Go program starts with `package main`: it says the file is a **program** you can run, not a library. Execution begins in the **function** `func main()`, and the braces `{ }` mark where it starts and ends.",
+      "`import \"fmt\"` brings in the `fmt` **package**, the one that prints and formats text. Its functions are called with the package name in front: `fmt.Println`. Go does not let you import a package you do not use: if one is left over, the program will not compile.",
+      "`fmt.Println` prints its values separated by a space and ends the line. It takes text in double quotes and numbers, and it works things out before printing: `\"2 + 3 =\", 2+3` shows `2 + 3 = 5`.",
+      "`fmt.Print` does not end the line and puts no space between two strings; that is why the second one ends in `\\n`, the **newline** character, and the two pieces make `Step by step`. An empty `fmt.Println()` leaves a blank line.",
+      "The program runs with `go run main.go`, which compiles and runs it in one step. In DMarlon Studio, Go is also the server of the Web (Go) target, so what you learn in this course will be useful there."
+    ],
+    "points": [
+      "A program starts at `package main` and `func main()`.",
+      "`import \"fmt\"` gives you `fmt.Println` and `fmt.Print`.",
+      "`Println` adds spaces and a newline; `Print` does not.",
+      "`\\n` is a newline inside a string.",
+      "`go run main.go` compiles and runs."
+    ],
+    "exercise": "Write a program that shows your name, your city and, on another line, how many days there are in three weeks, working it out with `3*7`."
+  }
+}

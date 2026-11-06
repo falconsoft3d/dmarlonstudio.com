@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones",
+    "title": "Funciones y varios resultados",
+    "summary": "Escriba funciones en Go con parámetros y tipo de resultado, devuelva varios valores a la vez y use resultados con nombre.",
+    "body": [
+      "Una **función** se declara con `func`, su nombre, sus **parámetros** con su tipo y, al final, el tipo de lo que devuelve: `func vat(price float64) float64`. `return` entrega el resultado: `vat(40)` da `8.40` de IVA. Si el cuerpo es corto, puede ir en una sola línea.",
+      "En Go una función puede **devolver varios valores**. `share` devuelve dos `int`, lo que toca a cada niño y lo que sobra: `return sweets / children, sweets % children`. Cuando dos parámetros seguidos son del mismo tipo, basta con escribirlo una vez: `sweets, children int`.",
+      "Quien llama recoge los dos resultados a la vez: `each, left := share(17, 5)` da `3` y `2`. Hay que recoger todos o ninguno, así que si solo interesa uno, el otro se descarta con `_`, como en `_, rest := share(100, 7)`.",
+      "Los **resultados con nombre**, como `(low, high int)`, son variables que empiezan en su valor cero; la función las rellena y un `return` sin nada más las devuelve. `lowHigh` recibe un slice, empieza por el primer número y recorre el resto quedándose con el menor y el mayor: `9` y `31`."
+    ],
+    "points": [
+      "`func nombre(p tipo) resultado { }` declara una función.",
+      "`a, b int` comparte el tipo entre parámetros seguidos.",
+      "Una función puede devolver varios valores: `return x, y`.",
+      "`_` descarta un resultado que no hace falta.",
+      "Con resultados con nombre, un `return` solo los devuelve."
+    ],
+    "exercise": "Escriba `func average(numbers []int) (float64, int)`, que devuelva la media y cuántos números hay, y úsela con las mismas notas de `lowHigh`."
+  },
+  "en": {
+    "slug": "functions",
+    "title": "Functions and multiple results",
+    "summary": "Write Go functions with parameters and a result type, return several values at once and use named results.",
+    "body": [
+      "A **function** is declared with `func`, its name, its **parameters** with their types and, at the end, the type of what it returns: `func vat(price float64) float64`. `return` hands back the result: `vat(40)` gives `8.40` of VAT. When the body is short, it can sit on a single line.",
+      "In Go a function can **return several values**. `share` returns two `int`s, what each child gets and what is left over: `return sweets / children, sweets % children`. When two parameters in a row share a type, you only write it once: `sweets, children int`.",
+      "The caller picks up both results at once: `each, left := share(17, 5)` gives `3` and `2`. You take all of them or none, so if you only need one, throw the other away with `_`, as in `_, rest := share(100, 7)`.",
+      "**Named results**, like `(low, high int)`, are variables that start at their zero value; the function fills them in and a bare `return` sends them back. `lowHigh` takes a slice, starts from the first number and walks the rest, keeping the lowest and the highest: `9` and `31`."
+    ],
+    "points": [
+      "`func name(p type) result { }` declares a function.",
+      "`a, b int` shares the type between parameters in a row.",
+      "A function can return several values: `return x, y`.",
+      "`_` throws away a result you do not need.",
+      "With named results, a bare `return` sends them back."
+    ],
+    "exercise": "Write `func average(numbers []int) (float64, int)`, which returns the average and how many numbers there are, and use it with the same marks as `lowHigh`."
+  }
+}

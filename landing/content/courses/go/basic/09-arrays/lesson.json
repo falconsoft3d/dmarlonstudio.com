@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays",
+    "title": "Arrays",
+    "summary": "Guarde varios valores del mismo tipo en un array de Go: tamaño fijo, índices, len, recorrido con for, copia al asignar y comparación con ==.",
+    "body": [
+      "Un **array** guarda un número fijo de valores del mismo tipo. `var rainfall [7]float64` reserva siete números, uno por día, y todos empiezan en su valor cero, `0`. La longitud forma parte del **tipo**: `[7]float64` y `[8]float64` son tipos distintos.",
+      "Cada elemento se alcanza por su **índice**, que empieza en `0`: `rainfall[3] = 11` es el cuarto día, el jueves. `fmt.Println` escribe el array entero entre corchetes. En un literal, `[...]` deja que Go cuente los elementos: `days` tiene `7`, como dice `len(days)`.",
+      "El `for` clásico recorre los índices de `0` a `len(rainfall)-1`: suma la lluvia en `total` y guarda en `wettest` el índice del día más lluvioso. Como `days` sigue el mismo orden, `days[wettest]` da su nombre: `Thu`.",
+      "Asignar un array **lo copia entero**: `backup := rainfall` crea otro array, y cambiar `backup[0]` no toca el original. Por eso `==` da `false`: dos arrays del mismo tipo se pueden comparar, y son iguales solo si lo son todos sus elementos. En la práctica se usan más los slices, de la lección siguiente, que pueden crecer."
+    ],
+    "points": [
+      "`[n]tipo` es un array de `n` elementos; `n` no cambia.",
+      "Los índices van de `0` a `len(a)-1`.",
+      "`[...]` cuenta los elementos del literal.",
+      "Asignar un array copia todos sus elementos.",
+      "Dos arrays del mismo tipo se comparan con `==`."
+    ],
+    "exercise": "Añada un array `[7]float64` con las temperaturas de la semana y escriba la media y el día más frío, con su nombre sacado de `days`."
+  },
+  "en": {
+    "slug": "arrays",
+    "title": "Arrays",
+    "summary": "Store several values of one type in a Go array: fixed length, indexes, len, looping with for, copying on assignment and comparing with ==.",
+    "body": [
+      "An **array** holds a fixed number of values of the same type. `var rainfall [7]float64` sets aside seven numbers, one per day, and they all start at their zero value, `0`. The length is part of the **type**: `[7]float64` and `[8]float64` are different types.",
+      "Each element is reached by its **index**, which starts at `0`: `rainfall[3] = 11` is the fourth day, Thursday. `fmt.Println` prints the whole array in square brackets. In a literal, `[...]` lets Go count the elements: `days` has `7`, as `len(days)` says.",
+      "The classic `for` walks the indexes from `0` to `len(rainfall)-1`: it adds the rain into `total` and keeps in `wettest` the index of the wettest day. Since `days` follows the same order, `days[wettest]` gives its name: `Thu`.",
+      "Assigning an array **copies all of it**: `backup := rainfall` creates another array, and changing `backup[0]` leaves the original alone. That is why `==` gives `false`: two arrays of the same type can be compared, and they are equal only if every element is. In practice slices, from the next lesson, are used more, because they can grow."
+    ],
+    "points": [
+      "`[n]type` is an array of `n` elements; `n` never changes.",
+      "Indexes go from `0` to `len(a)-1`.",
+      "`[...]` counts the elements of the literal.",
+      "Assigning an array copies every element.",
+      "Two arrays of the same type compare with `==`."
+    ],
+    "exercise": "Add a `[7]float64` array with the week's temperatures and print the average and the coldest day, with its name taken from `days`."
+  }
+}

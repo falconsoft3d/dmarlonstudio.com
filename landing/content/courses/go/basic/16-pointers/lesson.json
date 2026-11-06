@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "punteros",
+    "title": "Punteros",
+    "summary": "Entienda los punteros en Go: & para obtener una dirección, * para llegar al valor, funciones que cambian el original y el valor nil.",
+    "body": [
+      "Un **puntero** guarda la **dirección** de una variable, el lugar donde está en la memoria. `&score` da esa dirección y `ptr := &score` la guarda; su tipo es `*int`, «puntero a `int`». Con `*ptr` se llega al valor: `120`, el mismo que tiene `score`.",
+      "Al escribir a través del puntero se cambia la variable original: `*ptr = 150` deja `score` en `150`, aunque esa línea ni siquiera la nombre.",
+      "En Go los argumentos se pasan **por copia**. `bonusCopy` recibe un `int` y le suma 50, pero solo a su copia, que se pierde al terminar: `score` sigue en `150`. `bonus`, en cambio, recibe un `*int`, la dirección, y `*score += 50` cambia el original, que pasa a `200`.",
+      "Con punteros a structs no hace falta el asterisco para los campos: dentro de `levelUp`, `p.Score` equivale a `(*p).Score`. `&Player{...}` crea el jugador y da directamente su dirección. El valor cero de un puntero es `nil`, que significa que no apunta a nada; usar un puntero `nil` detendría el programa, así que conviene comprobarlo antes."
+    ],
+    "points": [
+      "`&x` da la dirección de `x`; su tipo es `*T`.",
+      "`*p` lee o cambia el valor al que apunta `p`.",
+      "Pase un puntero para que una función cambie el original.",
+      "Con un puntero a struct, `p.Campo` basta.",
+      "Un puntero sin valor es `nil`."
+    ],
+    "exercise": "Escriba `func swap(a, b *int)`, que intercambie dos variables, y pruébela; después, `func resetScore(p *Player)`, que ponga la puntuación a cero."
+  },
+  "en": {
+    "slug": "pointers",
+    "title": "Pointers",
+    "summary": "Understand pointers in Go: & to get an address, * to reach the value, functions that change the original, and nil.",
+    "body": [
+      "A **pointer** holds the **address** of a variable, the place where it lives in memory. `&score` gives that address and `ptr := &score` stores it; its type is `*int`, \"pointer to `int`\". `*ptr` reaches the value: `120`, the same as `score`.",
+      "Writing through the pointer changes the original variable: `*ptr = 150` leaves `score` at `150`, even though that line does not even name it.",
+      "In Go arguments are passed **by copy**. `bonusCopy` gets an `int` and adds 50, but only to its copy, which is lost when it returns: `score` stays at `150`. `bonus`, on the other hand, gets an `*int`, the address, and `*score += 50` changes the original, which becomes `200`.",
+      "With pointers to structs you do not need the asterisk for fields: inside `levelUp`, `p.Score` means `(*p).Score`. `&Player{...}` creates the player and gives its address straight away. The zero value of a pointer is `nil`, meaning it points to nothing; using a `nil` pointer would stop the program, so it is worth checking first."
+    ],
+    "points": [
+      "`&x` gives the address of `x`; its type is `*T`.",
+      "`*p` reads or changes the value `p` points to.",
+      "Pass a pointer so a function can change the original.",
+      "With a pointer to a struct, `p.Field` is enough.",
+      "A pointer with no value is `nil`."
+    ],
+    "exercise": "Write `func swap(a, b *int)`, which swaps two variables, and try it; then `func resetScore(p *Player)`, which sets the score back to zero."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "recorrer-con-range",
+    "title": "Recorrer con range",
+    "summary": "Recorra slices, mapas y textos en Go con for y range: índice y valor, claves ordenadas con sort.Strings y runas para los caracteres.",
+    "body": [
+      "`range` recorre una colección y da, en cada vuelta, **dos valores**. Con un slice son el **índice** y el **valor**: `for i, t := range temps` escribe cada día (`i+1`, porque el índice empieza en 0) y suma su temperatura. `t` es una copia: cambiarla no cambia el slice.",
+      "Con un mapa, `range` da la **clave** y el **valor**, pero en un orden aleatorio que puede cambiar en cada ejecución. Con una sola variable, `for country := range capitals`, se recibe solo la clave. Las claves se guardan, se ordenan con `sort.Strings` y luego se recorren con `for _, country := range countries`; el `_` descarta el índice.",
+      "Un texto de Go es una secuencia de **bytes** en UTF-8, y una letra con tilde, como la `á`, ocupa dos. `range` sobre un texto no da bytes, sino **runas** (`rune`, un carácter Unicode), junto con la posición en bytes donde empieza cada una: por eso, tras `1:á`, viene `3:l`.",
+      "Así, `len(city)` da `7` bytes, mientras que `len([]rune(city))`, que convierte el texto en un slice de runas, da los `6` caracteres de `Málaga`. `%c` escribe una runa como carácter."
+    ],
+    "points": [
+      "`for i, v := range slice` da índice y valor.",
+      "`for k, v := range mapa` da clave y valor, en orden aleatorio.",
+      "`_` descarta el índice o la clave cuando no hacen falta.",
+      "`range` sobre un texto da runas, no bytes.",
+      "`len(s)` cuenta bytes; `len([]rune(s))`, caracteres."
+    ],
+    "exercise": "Recorra con `range` el texto `\"Cádiz y León\"` y cuente cuántas vocales tiene, con tilde o sin ella, con un `switch` sobre cada runa."
+  },
+  "en": {
+    "slug": "range",
+    "title": "Looping with range",
+    "summary": "Loop over slices, maps and strings in Go with for and range: index and value, keys sorted with sort.Strings, and runes for characters.",
+    "body": [
+      "`range` walks through a collection and gives **two values** on each turn. With a slice they are the **index** and the **value**: `for i, t := range temps` prints each day (`i+1`, because the index starts at 0) and adds up its temperature. `t` is a copy: changing it does not change the slice.",
+      "With a map, `range` gives the **key** and the **value**, but in a random order that may change from one run to the next. With a single variable, `for country := range capitals`, you get just the key. The keys are collected, sorted with `sort.Strings` and then walked with `for _, country := range countries`; the `_` throws away the index.",
+      "A Go string is a sequence of **bytes** in UTF-8, and an accented letter such as `á` takes two of them. `range` over a string does not give bytes but **runes** (`rune`, a Unicode character), together with the byte position where each one starts: that is why `1:á` is followed by `3:l`.",
+      "So `len(city)` gives `7` bytes, while `len([]rune(city))`, which turns the string into a slice of runes, gives the `6` characters of `Málaga`. `%c` prints a rune as a character."
+    ],
+    "points": [
+      "`for i, v := range slice` gives index and value.",
+      "`for k, v := range m` gives key and value, in random order.",
+      "`_` drops the index or the key when you do not need it.",
+      "`range` over a string gives runes, not bytes.",
+      "`len(s)` counts bytes; `len([]rune(s))` counts characters."
+    ],
+    "exercise": "Use `range` over the string `\"Cádiz y León\"` and count its vowels, with or without an accent, using a `switch` on each rune."
+  }
+}

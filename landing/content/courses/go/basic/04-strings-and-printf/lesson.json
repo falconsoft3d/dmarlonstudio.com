@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "textos-y-printf",
+    "title": "Textos y Printf",
+    "summary": "Junte textos con + y dé formato a la salida en Go con fmt.Printf y fmt.Sprintf: los verbos %s, %d, %.2f, %v y %q, y los anchos de columna.",
+    "body": [
+      "Los textos (`string`) se unen con `+`: `product + \" beans\"` da `Coffee beans`. `len(label)` cuenta su longitud en **bytes**, que coincide con los caracteres mientras no haya tildes ni símbolos especiales; en la lección 18 verá por qué.",
+      "`fmt.Printf` escribe un texto con **verbos** que se sustituyen, en orden, por los valores que siguen: `%s` para un texto, `%d` para un entero y `%.2f` para un número con dos decimales. A diferencia de `Println`, no salta de línea por sí solo: el `\\n` va al final del formato.",
+      "`%v` escribe cualquier valor en su forma natural y `%q` pone el texto entre comillas, útil para ver si sobran espacios. Un número entre el `%` y la letra fija el **ancho**: `%-8s` ocupa 8 posiciones alineado a la izquierda y `%6.2f`, 6 posiciones alineado a la derecha, así que las filas forman columnas.",
+      "`fmt.Sprintf` acepta lo mismo que `Printf` pero, en vez de escribir, **devuelve** el texto, que aquí se guarda en `receipt` para usarlo después. Por último, para escribir el propio signo del tanto por ciento se duplica: `%d%%` da `21%`."
+    ],
+    "points": [
+      "`+` une textos; `len` cuenta bytes.",
+      "`%s` texto, `%d` entero, `%.2f` decimales, `%v` cualquier valor.",
+      "`%-8s` y `%6.2f` fijan el ancho para alinear columnas.",
+      "`Printf` necesita `\\n` al final.",
+      "`Sprintf` devuelve el texto en vez de escribirlo."
+    ],
+    "exercise": "Escriba un tique con tres productos: el nombre a la izquierda en 10 posiciones, y la cantidad y el precio a la derecha; añada una última línea con el total, construida con `Sprintf`."
+  },
+  "en": {
+    "slug": "strings-and-printf",
+    "title": "Strings and Printf",
+    "summary": "Join strings with + and format output in Go with fmt.Printf and fmt.Sprintf: the %s, %d, %.2f, %v and %q verbs, and column widths.",
+    "body": [
+      "Strings (`string`) are joined with `+`: `product + \" beans\"` gives `Coffee beans`. `len(label)` counts its length in **bytes**, which matches the characters as long as there are no accents or special symbols; lesson 18 explains why.",
+      "`fmt.Printf` prints a string with **verbs** that are replaced, in order, by the values that follow: `%s` for a string, `%d` for an integer and `%.2f` for a number with two decimals. Unlike `Println`, it does not end the line by itself: the `\\n` goes at the end of the format.",
+      "`%v` prints any value in its natural form and `%q` puts a string in quotes, handy for spotting stray spaces. A number between the `%` and the letter sets the **width**: `%-8s` takes 8 places aligned left and `%6.2f` takes 6 places aligned right, so the rows line up in columns.",
+      "`fmt.Sprintf` takes the same as `Printf` but, instead of printing, it **returns** the string, which is kept here in `receipt` to use later. Finally, to print the percent sign itself you double it: `%d%%` gives `21%`."
+    ],
+    "points": [
+      "`+` joins strings; `len` counts bytes.",
+      "`%s` string, `%d` integer, `%.2f` decimals, `%v` any value.",
+      "`%-8s` and `%6.2f` set widths to line up columns.",
+      "`Printf` needs `\\n` at the end.",
+      "`Sprintf` returns the string instead of printing it."
+    ],
+    "exercise": "Print a receipt with three products: the name on the left in 10 places, and the quantity and price on the right; add a last line with the total, built with `Sprintf`."
+  }
+}

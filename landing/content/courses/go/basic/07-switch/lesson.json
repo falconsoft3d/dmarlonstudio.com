@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "switch",
+    "title": "Elegir con switch",
+    "summary": "Elija entre varios casos con switch en Go: varios valores por caso, default, switch sin expresión, instrucción inicial y fallthrough.",
+    "body": [
+      "`switch` compara un valor con varios **casos** y ejecuta el primero que coincide. `switch day` mira el valor de `day`; un caso puede tener varios valores separados por comas, como `\"Saturday\", \"Sunday\"`, y `default` se ejecuta cuando no coincide ninguno.",
+      "A diferencia de C o JavaScript, en Go cada caso termina solo: no hace falta `break`, y la ejecución nunca se cuela en el caso siguiente por descuido.",
+      "Un `switch` sin valor es una forma más limpia de escribir una cadena de `if` y `else if`: cada `case` lleva una condición y gana la primera que sea verdadera. Con `82` puntos no se cumple `score >= 90`, pero sí `score >= 80`, y la nota es una B.",
+      "Igual que `if`, `switch` admite una instrucción inicial: `switch level := 2; level`. Y si de verdad se quiere seguir en el caso siguiente, hay que pedirlo con `fallthrough`: tras el nivel 2 se ejecuta también el caso `1`, sin comprobarlo."
+    ],
+    "points": [
+      "`switch valor` busca el primer `case` que coincide.",
+      "Un `case` admite varios valores separados por comas.",
+      "No hace falta `break`; `fallthrough` pasa al caso siguiente.",
+      "`switch` sin valor sustituye a una cadena de `if` / `else if`.",
+      "`default` se ejecuta si no coincide ningún caso."
+    ],
+    "exercise": "Escriba un `switch` sobre un número de mes (de 1 a 12) que diga la estación (invierno, primavera, verano u otoño), con varios meses en cada caso y un `default` para los números no válidos."
+  },
+  "en": {
+    "slug": "switch",
+    "title": "Choosing with switch",
+    "summary": "Choose between several cases with switch in Go: several values per case, default, switch with no expression, init statement and fallthrough.",
+    "body": [
+      "`switch` compares a value with several **cases** and runs the first one that matches. `switch day` looks at the value of `day`; a case can list several values separated by commas, like `\"Saturday\", \"Sunday\"`, and `default` runs when none of them matches.",
+      "Unlike C or JavaScript, in Go each case ends on its own: there is no need for `break`, and execution never slips into the next case by accident.",
+      "A `switch` with no value is a tidier way to write a chain of `if` and `else if`: each `case` holds a condition and the first true one wins. With `82` points `score >= 90` does not hold, but `score >= 80` does, so the grade is a B.",
+      "Like `if`, `switch` accepts an init statement: `switch level := 2; level`. And if you really want to carry on into the next case, you have to ask for it with `fallthrough`: after level 2, case `1` runs too, without being checked."
+    ],
+    "points": [
+      "`switch value` looks for the first matching `case`.",
+      "A `case` can list several values separated by commas.",
+      "No `break` needed; `fallthrough` moves on to the next case.",
+      "`switch` with no value replaces an `if` / `else if` chain.",
+      "`default` runs when no case matches."
+    ],
+    "exercise": "Write a `switch` on a month number (1 to 12) that prints the season (winter, spring, summer or autumn), with several months in each case and a `default` for invalid numbers."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "constantes-y-aritmetica",
+    "title": "Constantes y aritmética",
+    "summary": "Use constantes e iota en Go, opere con + - * / y %, y convierta entre int y float64 para no perder los decimales.",
+    "body": [
+      "Una **constante** se declara con `const` y su valor no puede cambiar: `vatRate = 0.21` es el tipo de IVA. Varias constantes pueden ir agrupadas entre paréntesis y, dentro del grupo, `iota` vale `0` en la primera, `1` en la siguiente y así sucesivamente: `Small`, `Medium` y `Large` valen `0`, `1` y `2`.",
+      "Entre dos enteros, `/` hace la **división entera**: `7/3` da `2`, sin decimales. `%` da el **resto**: `7%3` es `1`, la pizza que sobra.",
+      "Go no mezcla tipos por su cuenta: `price * pizzas` sería un error, porque uno es `float64` y el otro `int`. Hay que **convertir** de forma explícita con `float64(pizzas)`. Con los dos convertidos, `float64(pizzas) / float64(guests)` da `2.3333333333333335`, con todos sus decimales.",
+      "`price * float64(pizzas)` da el total, `87.5`, y multiplicado por la constante sale el IVA. Los operadores abreviados cambian una variable sobre sí misma: `count += 5` es `count = count + 5`, `count *= 2` la duplica y `count++` le suma uno. De `10` se pasa a `15`, a `30` y a `31`."
+    ],
+    "points": [
+      "`const` declara valores que no cambian.",
+      "`iota` numera las constantes de un grupo desde 0.",
+      "`int / int` descarta los decimales; `%` da el resto.",
+      "Para mezclar `int` y `float64` hay que convertir: `float64(x)`.",
+      "`+=`, `-=`, `*=`, `/=` y `++` abrevian las operaciones."
+    ],
+    "exercise": "Con una constante `boxPrice = 2.40`, calcule cuántas cajas de 6 huevos se llenan con 75 huevos, cuántos sobran y cuánto cuestan las cajas llenas."
+  },
+  "en": {
+    "slug": "constants-and-arithmetic",
+    "title": "Constants and arithmetic",
+    "summary": "Use constants and iota in Go, calculate with + - * / and %, and convert between int and float64 so you keep the decimals.",
+    "body": [
+      "A **constant** is declared with `const` and its value cannot change: `vatRate = 0.21` is the VAT rate. Several constants can be grouped between parentheses and, inside the group, `iota` is `0` on the first one, `1` on the next, and so on: `Small`, `Medium` and `Large` are `0`, `1` and `2`.",
+      "Between two integers, `/` does **integer division**: `7/3` gives `2`, with no decimals. `%` gives the **remainder**: `7%3` is `1`, the pizza left over.",
+      "Go never mixes types on its own: `price * pizzas` would be an error, because one is a `float64` and the other an `int`. You have to **convert** explicitly with `float64(pizzas)`. With both converted, `float64(pizzas) / float64(guests)` gives `2.3333333333333335`, with all its decimals.",
+      "`price * float64(pizzas)` gives the total, `87.5`, and multiplying it by the constant gives the VAT. The shorthand operators update a variable in place: `count += 5` is `count = count + 5`, `count *= 2` doubles it and `count++` adds one. It goes from `10` to `15`, `30` and `31`."
+    ],
+    "points": [
+      "`const` declares values that never change.",
+      "`iota` numbers the constants of a group from 0.",
+      "`int / int` drops the decimals; `%` gives the remainder.",
+      "To mix `int` and `float64` you convert: `float64(x)`.",
+      "`+=`, `-=`, `*=`, `/=` and `++` shorten the operations."
+    ],
+    "exercise": "With a constant `boxPrice = 2.40`, work out how many boxes of 6 eggs you can fill with 75 eggs, how many eggs are left and what the full boxes cost."
+  }
+}

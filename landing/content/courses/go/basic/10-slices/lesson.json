@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "slices",
+    "title": "Slices",
+    "summary": "Trabaje con slices en Go, las listas que crecen: append, len, cap, make y cortes s[a:b] que comparten memoria con el original.",
+    "body": [
+      "Un **slice** es como un array sin longitud fija: `[]string{...}` se escribe sin número entre los corchetes. Es la lista más usada en Go, y `len(playlist)` dice cuántos elementos tiene: `3`.",
+      "`append` añade uno o varios elementos al final y **devuelve** el slice resultante, que hay que volver a guardar: `playlist = append(playlist, ...)`. Si no se asigna, el cambio se pierde.",
+      "`playlist[desde:hasta]` toma un **corte**: desde la posición `desde` hasta la anterior a `hasta`. Si falta el primero, empieza en `0` (`[:2]`); si falta el segundo, llega al final (`[2:]`). `[1:4]` da los elementos 1, 2 y 3.",
+      "Por dentro, un slice usa un array con sitio de reserva: su **capacidad**, `cap`. `make([]int, 0, 4)` crea un slice vacío con sitio para 4. Mientras cabe, `append` aprovecha ese hueco; con el quinto elemento ya no cabe, y Go crea un array mayor (aquí de `8`) y copia los datos.",
+      "Un corte no es una copia: **comparte memoria** con el original. Al cambiar `firstTwo[0]` cambia también `playlist[0]`, que pasa a ser `Overture`. Si necesita una copia independiente, use `copy` o añada los elementos a un slice nuevo."
+    ],
+    "points": [
+      "`[]tipo{...}` crea un slice; `len` da sus elementos.",
+      "`s = append(s, x)`: guarde siempre lo que devuelve.",
+      "`s[a:b]` va de `a` a `b-1`; `[:b]` y `[a:]` abrevian.",
+      "`make([]T, len, cap)` reserva sitio; `cap` lo muestra.",
+      "Un corte comparte memoria con su slice."
+    ],
+    "exercise": "Cree un slice con las notas `7, 4, 9, 6` y añada `8` con `append`. Escriba las tres del medio con un corte y, luego, la suma de todas con un `for` clásico."
+  },
+  "en": {
+    "slug": "slices",
+    "title": "Slices",
+    "summary": "Work with slices in Go, the lists that grow: append, len, cap, make and s[a:b] slicing that shares memory with the original.",
+    "body": [
+      "A **slice** is like an array without a fixed length: `[]string{...}` is written with no number between the brackets. It is the most used list in Go, and `len(playlist)` tells you how many elements it has: `3`.",
+      "`append` adds one or more elements at the end and **returns** the resulting slice, which you must store again: `playlist = append(playlist, ...)`. If you do not assign it, the change is lost.",
+      "`playlist[from:to]` takes a **slice of the slice**: from position `from` up to the one before `to`. Leave out the first and it starts at `0` (`[:2]`); leave out the second and it runs to the end (`[2:]`). `[1:4]` gives elements 1, 2 and 3.",
+      "Under the hood, a slice uses an array with spare room: its **capacity**, `cap`. `make([]int, 0, 4)` creates an empty slice with room for 4. While there is room, `append` uses it; at the fifth element it no longer fits, so Go creates a bigger array (here of `8`) and copies the data across.",
+      "A sub-slice is not a copy: it **shares memory** with the original. Changing `firstTwo[0]` also changes `playlist[0]`, which becomes `Overture`. If you need an independent copy, use `copy` or append the elements to a new slice."
+    ],
+    "points": [
+      "`[]type{...}` creates a slice; `len` gives its elements.",
+      "`s = append(s, x)`: always keep what it returns.",
+      "`s[a:b]` goes from `a` to `b-1`; `[:b]` and `[a:]` are shortcuts.",
+      "`make([]T, len, cap)` sets aside room; `cap` shows it.",
+      "A sub-slice shares memory with its slice."
+    ],
+    "exercise": "Create a slice with the marks `7, 4, 9, 6` and add `8` with `append`. Print the middle three with slicing and then the sum of them all with a classic `for`."
+  }
+}

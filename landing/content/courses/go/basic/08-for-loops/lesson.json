@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "bucles-for",
+    "title": "Bucles con for",
+    "summary": "Repita instrucciones en Go con for, el único bucle del lenguaje: la forma clásica, como while, sin condición, break y continue.",
+    "body": [
+      "Go tiene **un solo bucle**, `for`, que hace el trabajo de todos los demás. La forma clásica tiene tres partes separadas por punto y coma: `i := 1` se ejecuta al empezar, `i <= 5` se comprueba antes de cada vuelta e `i++` se ejecuta al final de cada una. Así sale la tabla del 7, del 1 al 5.",
+      "Con solo la condición, `for` es el **while** de otros lenguajes: `for savings < 150` repite mientras el ahorro no llegue a 150. Cada mes crece un 10 % (`savings *= 1.10`) y `months++` lleva la cuenta: hacen falta `5` meses.",
+      "Sin condición, `for { }` repite para siempre, así que hay que salir con **`break`**. **`continue`** salta directamente a la vuelta siguiente: aquí descarta los números pares. El bucle escribe los cuadrados de los impares, `1 9 25 49`, y se detiene en cuanto el cuadrado pasa de 50.",
+      "`fmt.Print(n*n, \" \")` escribe cada número seguido de un espacio en la misma línea, y el `Println` final cierra la línea con una explicación."
+    ],
+    "points": [
+      "`for` es el único bucle de Go.",
+      "`for inicio; condición; paso { }` es la forma clásica.",
+      "`for condición { }` funciona como un while.",
+      "`for { }` repite hasta un `break`.",
+      "`continue` pasa a la vuelta siguiente."
+    ],
+    "exercise": "Escriba con un `for` clásico la cuenta atrás de 10 a 1 (con `i--`) y, con un `for` de solo condición, cuántas veces se puede dividir 1000 entre 2 antes de bajar de 1."
+  },
+  "en": {
+    "slug": "for-loops",
+    "title": "For loops",
+    "summary": "Repeat code in Go with for, the language's only loop: the classic form, as a while, with no condition at all, break and continue.",
+    "body": [
+      "Go has **a single loop**, `for`, which does the job of all the others. The classic form has three parts separated by semicolons: `i := 1` runs at the start, `i <= 5` is checked before each turn and `i++` runs at the end of each one. That gives the 7 times table from 1 to 5.",
+      "With only a condition, `for` is the **while** of other languages: `for savings < 150` repeats as long as the savings have not reached 150. They grow 10% a month (`savings *= 1.10`) and `months++` keeps count: it takes `5` months.",
+      "With no condition, `for { }` repeats forever, so you leave it with **`break`**. **`continue`** jumps straight to the next turn: here it skips the even numbers. The loop prints the squares of the odd ones, `1 9 25 49`, and stops as soon as a square goes over 50.",
+      "`fmt.Print(n*n, \" \")` prints each number followed by a space on the same line, and the final `Println` closes the line with an explanation."
+    ],
+    "points": [
+      "`for` is Go's only loop.",
+      "`for init; condition; post { }` is the classic form.",
+      "`for condition { }` works like a while.",
+      "`for { }` repeats until a `break`.",
+      "`continue` moves on to the next turn."
+    ],
+    "exercise": "Write a classic `for` that counts down from 10 to 1 (with `i--`) and, with a condition-only `for`, find how many times you can halve 1000 before it drops below 1."
+  }
+}

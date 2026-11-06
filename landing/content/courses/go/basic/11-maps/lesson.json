@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "mapas",
+    "title": "Mapas",
+    "summary": "Guarde pares clave-valor en un mapa de Go: añadir, leer con ok, delete y len, y escribirlo siempre en el mismo orden con sort.Strings.",
+    "body": [
+      "Un **mapa** relaciona **claves** con **valores**. `map[string]int` tiene claves de texto y valores enteros, y el literal los empareja con dos puntos: `\"apples\": 12`. Para leer se pone la clave entre corchetes: `stock[\"apples\"]` da `12`.",
+      "Asignar a una clave cambia su valor si ya existe (`pears` pasa a `8`) y la crea si no existe (`kiwis`). Leer una clave que no está **no falla**: da el valor cero del tipo, `0`. Para saber si de verdad existe, se pide un segundo valor: `_, ok := stock[\"bananas\"]` deja `ok` en `false`.",
+      "`delete(stock, \"plums\")` borra una clave con su valor, y `len(stock)` cuenta las que quedan: `3`.",
+      "El **orden** de un mapa en Go es aleatorio a propósito: cada ejecución puede recorrerlo de otra manera. Para escribirlo siempre igual, se reúnen las claves en un slice con `for key := range stock` (la lección 18 explica `range`), se ordenan con `sort.Strings(keys)` y se recorren en ese orden, leyendo cada valor con `stock[keys[i]]`."
+    ],
+    "points": [
+      "`map[clave]valor` relaciona claves con valores.",
+      "`m[k] = v` cambia o añade; `delete(m, k)` borra.",
+      "Una clave que no existe da el valor cero.",
+      "`v, ok := m[k]` dice si la clave existe.",
+      "El orden de un mapa es aleatorio: ordene las claves con `sort.Strings`."
+    ],
+    "exercise": "Añada un mapa `prices` con el precio de cada fruta y escriba, en orden alfabético, cada fruta con el valor de sus existencias (`float64(stock[k]) * prices[k]`) y el total al final."
+  },
+  "en": {
+    "slug": "maps",
+    "title": "Maps",
+    "summary": "Store key-value pairs in a Go map: adding, reading with ok, delete and len, and printing it in the same order every time with sort.Strings.",
+    "body": [
+      "A **map** links **keys** to **values**. `map[string]int` has string keys and integer values, and the literal pairs them with a colon: `\"apples\": 12`. To read, put the key in square brackets: `stock[\"apples\"]` gives `12`.",
+      "Assigning to a key changes its value if it exists (`pears` becomes `8`) and creates it if it does not (`kiwis`). Reading a missing key **does not fail**: it gives the type's zero value, `0`. To find out whether it is really there, ask for a second value: `_, ok := stock[\"bananas\"]` leaves `ok` as `false`.",
+      "`delete(stock, \"plums\")` removes a key together with its value, and `len(stock)` counts the ones left: `3`.",
+      "The **order** of a Go map is random on purpose: each run may walk it differently. To print it the same way every time, gather the keys into a slice with `for key := range stock` (lesson 18 covers `range`), sort them with `sort.Strings(keys)` and go through them in that order, reading each value with `stock[keys[i]]`."
+    ],
+    "points": [
+      "`map[key]value` links keys to values.",
+      "`m[k] = v` changes or adds; `delete(m, k)` removes.",
+      "A missing key gives the zero value.",
+      "`v, ok := m[k]` tells you whether the key exists.",
+      "Map order is random: sort the keys with `sort.Strings`."
+    ],
+    "exercise": "Add a `prices` map with the price of each fruit and print, in alphabetical order, each fruit with the value of its stock (`float64(stock[k]) * prices[k]`) and the total at the end."
+  }
+}

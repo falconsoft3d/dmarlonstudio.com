@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "estructuras",
+    "title": "Estructuras",
+    "summary": "Agrupe datos relacionados en un struct de Go: campos, literales por nombre o por orden, %+v, copias y slices de estructuras.",
+    "body": [
+      "Un **struct** reúne varios datos relacionados en un tipo nuevo. `type Book struct` define un libro con cuatro **campos**: `Title` y `Author`, de texto (comparten tipo y van en la misma línea), `Pages`, entero, y `Read`, lógico. Los nombres empiezan por mayúscula, como es costumbre en Go para lo que se comparte con otros paquetes.",
+      "Un libro se crea con un **literal**. Con nombres, `Book{Title: \"Emma\", ...}`, se pueden omitir campos, que toman su valor cero: `Read` queda en `false`. Sin nombres hay que dar todos, en el orden de la definición, como en `tale`.",
+      "El **punto** lee y cambia un campo: `novel.Read = true`. `fmt.Println` escribe los valores entre llaves, y `%+v` añade el nombre de cada campo, muy útil para depurar.",
+      "Asignar un struct lo **copia**, como pasaba con los arrays: cambiar `gift.Title` no cambia `tale`. Un slice de estructuras, `[]Book`, forma una pequeña estantería; dentro del literal no hace falta repetir `Book` en cada elemento. El `for` escribe cada libro en columnas y suma las páginas: `1132`."
+    ],
+    "points": [
+      "`type Nombre struct { campos }` define un tipo nuevo.",
+      "`T{Campo: valor}` permite omitir campos; `T{v1, v2}` los pide todos.",
+      "`variable.Campo` lee o cambia un campo.",
+      "`%+v` escribe un struct con los nombres de sus campos.",
+      "Asignar un struct hace una copia."
+    ],
+    "exercise": "Añada a `Book` un campo `Year int`, dele un año a cada libro y escriba solo los que tengan más de 400 páginas, junto con su año."
+  },
+  "en": {
+    "slug": "structs",
+    "title": "Structs",
+    "summary": "Group related data into a Go struct: fields, literals by name or by order, %+v, copies and slices of structs.",
+    "body": [
+      "A **struct** gathers several related pieces of data into a new type. `type Book struct` defines a book with four **fields**: `Title` and `Author`, strings (they share a type and sit on one line), `Pages`, an integer, and `Read`, a boolean. The names start with a capital letter, as is the Go habit for anything shared with other packages.",
+      "A book is created with a **literal**. With names, `Book{Title: \"Emma\", ...}`, you can leave fields out and they take their zero value: `Read` stays `false`. Without names you must give them all, in the order of the definition, as with `tale`.",
+      "The **dot** reads and changes a field: `novel.Read = true`. `fmt.Println` prints the values between braces, and `%+v` adds each field's name, which is very handy for debugging.",
+      "Assigning a struct **copies** it, as with arrays: changing `gift.Title` does not change `tale`. A slice of structs, `[]Book`, makes a small bookshelf; inside the literal you need not repeat `Book` for each element. The `for` prints each book in columns and adds up the pages: `1132`."
+    ],
+    "points": [
+      "`type Name struct { fields }` defines a new type.",
+      "`T{Field: value}` lets you skip fields; `T{v1, v2}` needs them all.",
+      "`variable.Field` reads or changes a field.",
+      "`%+v` prints a struct with its field names.",
+      "Assigning a struct makes a copy."
+    ],
+    "exercise": "Add a `Year int` field to `Book`, give each book a year and print only the ones with more than 400 pages, together with their year."
+  }
+}

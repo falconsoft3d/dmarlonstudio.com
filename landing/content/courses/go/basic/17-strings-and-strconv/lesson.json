@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "strings-y-strconv",
+    "title": "Los paquetes strings y strconv",
+    "summary": "Trabaje con texto en Go con el paquete strings (Split, TrimSpace, Join, Contains, Replace) y convierta textos y números con strconv.",
+    "body": [
+      "El paquete **`strings`** reúne las funciones para trabajar con texto. `strings.Split(line, \",\")` corta la lista de la compra en cada coma y devuelve un slice. Los trozos llevan espacios de más, que `strings.TrimSpace` quita por los dos extremos; `%q` los muestra entre comillas para comprobarlo.",
+      "Los textos de Go no se pueden modificar: estas funciones **devuelven un texto nuevo** y dejan el original como estaba. Por eso `parts[i] = strings.TrimSpace(parts[i])` vuelve a guardar el resultado en el slice.",
+      "`strings.Join` hace lo contrario que `Split`: une el slice con el separador que se le indique, aquí `\" | \"`. `ToUpper` pasa a mayúsculas, `Contains` dice si un texto contiene otro, `Replace` sustituye (el `1` indica cuántas veces; `-1` serían todas), `Count` cuenta apariciones y `Repeat` repite un texto, útil para dibujar una raya.",
+      "El paquete **`strconv`** convierte entre textos y números. `Atoi` pasa a `int` y `ParseFloat` a `float64`, y los dos devuelven además un error: con `\"12\"` es `nil`, y con `\"twelve\"` explica que la sintaxis no es válida. En sentido contrario, `Itoa` convierte un entero en texto y `FormatFloat(x, 'f', 2, 64)` escribe un decimal con dos cifras."
+    ],
+    "points": [
+      "`strings.Split` corta y `strings.Join` une.",
+      "`TrimSpace`, `ToUpper` y `Replace` devuelven un texto nuevo.",
+      "`Contains`, `HasPrefix` y `Count` preguntan por el contenido.",
+      "`strconv.Atoi` y `ParseFloat` convierten texto en número, con error.",
+      "`strconv.Itoa` y `FormatFloat` convierten número en texto."
+    ],
+    "exercise": "Parta el texto `\"name=Ana;age=34;city=Bilbao\"` con `strings.Split` por `;` y cada trozo por `=`, escriba cada clave con su valor y convierta la edad con `strconv.Atoi` para sumarle 1."
+  },
+  "en": {
+    "slug": "strings-and-strconv",
+    "title": "The strings and strconv packages",
+    "summary": "Work with text in Go using the strings package (Split, TrimSpace, Join, Contains, Replace) and convert text and numbers with strconv.",
+    "body": [
+      "The **`strings`** package holds the functions for working with text. `strings.Split(line, \",\")` cuts the shopping list at each comma and returns a slice. The pieces carry extra spaces, which `strings.TrimSpace` removes from both ends; `%q` shows them in quotes so you can check.",
+      "Go strings cannot be modified: these functions **return a new string** and leave the original as it was. That is why `parts[i] = strings.TrimSpace(parts[i])` stores the result back in the slice.",
+      "`strings.Join` does the opposite of `Split`: it joins the slice with the separator you give it, here `\" | \"`. `ToUpper` turns text into capitals, `Contains` says whether one string contains another, `Replace` substitutes (the `1` says how many times; `-1` would mean all), `Count` counts occurrences and `Repeat` repeats a string, handy for drawing a line.",
+      "The **`strconv`** package converts between text and numbers. `Atoi` gives an `int` and `ParseFloat` a `float64`, and both also return an error: with `\"12\"` it is `nil`, and with `\"twelve\"` it explains that the syntax is invalid. The other way round, `Itoa` turns an integer into text and `FormatFloat(x, 'f', 2, 64)` writes a decimal with two digits."
+    ],
+    "points": [
+      "`strings.Split` cuts and `strings.Join` joins.",
+      "`TrimSpace`, `ToUpper` and `Replace` return a new string.",
+      "`Contains`, `HasPrefix` and `Count` ask about the content.",
+      "`strconv.Atoi` and `ParseFloat` turn text into numbers, with an error.",
+      "`strconv.Itoa` and `FormatFloat` turn numbers into text."
+    ],
+    "exercise": "Split the text `\"name=Ana;age=34;city=Bilbao\"` with `strings.Split` on `;` and each piece on `=`, print each key with its value, and convert the age with `strconv.Atoi` to add 1 to it."
+  }
+}

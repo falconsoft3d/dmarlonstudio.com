@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "left-join",
+    "title": "LEFT JOIN: también sin pareja",
+    "summary": "Use LEFT JOIN en SQLite para no perder filas sin pareja: encuentre clientes sin pedidos y cuánto ha gastado cada cliente, incluso cero.",
+    "body": [
+      "**`LEFT JOIN`** conserva todas las filas de la tabla de la izquierda (la del `FROM`), tengan o no pareja en la de la derecha. Cuando no la tienen, las columnas de la derecha salen a `NULL`.",
+      "La primera consulta aprovecha justo eso: `WHERE o.id IS NULL` se queda con los clientes cuyo pedido «vacío» es `NULL`, es decir, los que nunca han comprado. Sale uno: `Carlos Díaz`. Es la receta clásica para buscar «lo que no tiene».",
+      "La segunda resume a cada cliente: `GROUP BY c.id` hace un grupo por cliente, **`count(o.id)`** cuenta sus pedidos (los `NULL` no cuentan, así que Carlos tiene `0`) y `sum(o.total)` suma lo gastado. Para Carlos esa suma es `NULL`, y `coalesce(…, 0)` la convierte en `0`.",
+      "El resultado tiene los ocho clientes, del que más gasta, `Ana García` con `34.95`, al que nada, Carlos. Con un `JOIN` normal Carlos habría desaparecido de la lista. La rejilla se puede guardar con **CSV** para abrirla en una hoja de cálculo."
+    ],
+    "points": [
+      "`LEFT JOIN` conserva todas las filas de la izquierda.",
+      "Sin pareja, las columnas de la derecha son `NULL`.",
+      "`WHERE derecha.id IS NULL` busca lo que no tiene pareja.",
+      "`count(col)` de la derecha da `0` para quien no tiene filas."
+    ],
+    "exercise": "Con un `LEFT JOIN` de `products` con `order_items`, encuentre el producto que no se ha vendido nunca."
+  },
+  "en": {
+    "slug": "left-join",
+    "title": "LEFT JOIN: unmatched rows too",
+    "summary": "Use LEFT JOIN in SQLite so unmatched rows are not lost: find customers without orders and what each customer has spent, even zero.",
+    "body": [
+      "**`LEFT JOIN`** keeps every row of the left table (the one in `FROM`), whether or not it has a match in the right one. When it has none, the right-hand columns come out as `NULL`.",
+      "The first query takes advantage of exactly that: `WHERE o.id IS NULL` keeps the customers whose \"empty\" order is `NULL`, that is, those who have never bought anything. One comes back: `Carlos Díaz`. It is the classic recipe for finding \"what has none\".",
+      "The second one summarises each customer: `GROUP BY c.id` makes one group per customer, **`count(o.id)`** counts their orders (`NULL`s do not count, so Carlos gets `0`) and `sum(o.total)` adds up what they spent. For Carlos that sum is `NULL`, and `coalesce(…, 0)` turns it into `0`.",
+      "The result has all eight customers, from the biggest spender, `Ana García` with `34.95`, to the one who spent nothing, Carlos. With a plain `JOIN` Carlos would have vanished from the list. You can save the grid as **CSV** and open it in a spreadsheet."
+    ],
+    "points": [
+      "`LEFT JOIN` keeps every row on the left.",
+      "With no match, the right-hand columns are `NULL`.",
+      "`WHERE right.id IS NULL` finds rows with no match.",
+      "`count(col)` on the right gives `0` when there are no rows."
+    ],
+    "exercise": "With a `LEFT JOIN` from `products` to `order_items`, find the product that has never been sold."
+  }
+}

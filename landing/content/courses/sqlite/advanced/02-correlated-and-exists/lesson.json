@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "subconsultas-correlacionadas-y-exists",
+    "title": "Correlacionadas y EXISTS",
+    "summary": "Subconsultas que dependen de cada fila en SQLite: compare con la media de su propia categoría y pregunte si existe algo con EXISTS.",
+    "body": [
+      "Una **subconsulta correlacionada** usa columnas de la consulta de fuera, así que se evalúa otra vez para cada fila. En la primera, `x.category_id = p.category_id` hace que la media se calcule solo con los productos de la misma categoría que `p`. Sale el más caro de cada una: `Rye bread` en panadería (media `1.83`), `Espresso beans` en bebidas, `Manchego cheese` en lácteos y `Strawberries` en fruta.",
+      "Los dos alias, `p` para la tabla de fuera y `x` para la de dentro, son imprescindibles: es la misma tabla `products` dos veces, y sin ellos SQLite no sabría a cuál se refiere cada `category_id`.",
+      "**`EXISTS (…)`** es verdadero si la subconsulta devuelve al menos una fila; no importa qué columnas, por eso se escribe `SELECT 1`. La segunda consulta busca clientes con algún pedido de más de 15 euros: `Emma Brown`, `John Smith`, `Luis Pérez` y `Sofía Ruiz`. Aunque Ana tiene tres pedidos, ninguno pasa de 15.",
+      "**`NOT EXISTS`** es lo contrario: los productos sin ninguna reseña. Son siete, del `3` (`Rye bread`) al `11` (`Bananas 1 kg`). SQLite deja de buscar en cuanto encuentra la primera fila, así que `EXISTS` suele ser más rápido que contar."
+    ],
+    "points": [
+      "Una subconsulta correlacionada usa columnas de la consulta de fuera.",
+      "Se evalúa una vez por cada fila de fuera.",
+      "`EXISTS` pregunta si hay al menos una fila: `SELECT 1` basta.",
+      "`NOT EXISTS` encuentra lo que no tiene pareja."
+    ],
+    "exercise": "Con `NOT EXISTS`, liste las categorías que no tienen ningún producto vendido en un pedido `shipped`."
+  },
+  "en": {
+    "slug": "correlated-subqueries-and-exists",
+    "title": "Correlated subqueries and EXISTS",
+    "summary": "Subqueries that depend on each row in SQLite: compare with the average of the row's own category and ask whether something exists with EXISTS.",
+    "body": [
+      "A **correlated subquery** uses columns from the outer query, so it is evaluated again for every row. In the first one, `x.category_id = p.category_id` makes the average use only the products in the same category as `p`. Out comes the dearest of each: `Rye bread` in bakery (average `1.83`), `Espresso beans` in drinks, `Manchego cheese` in dairy and `Strawberries` in fruit.",
+      "The two aliases, `p` for the outer table and `x` for the inner one, are essential: it is the same `products` table twice, and without them SQLite could not tell which `category_id` each one means.",
+      "**`EXISTS (…)`** is true if the subquery returns at least one row; the columns do not matter, which is why it says `SELECT 1`. The second query looks for customers with some order over 15 euros: `Emma Brown`, `John Smith`, `Luis Pérez` and `Sofía Ruiz`. Ana has three orders, but none goes over 15.",
+      "**`NOT EXISTS`** is the opposite: the products without a single review. There are seven, from `3` (`Rye bread`) to `11` (`Bananas 1 kg`). SQLite stops looking as soon as it finds the first row, so `EXISTS` is usually faster than counting."
+    ],
+    "points": [
+      "A correlated subquery uses columns from the outer query.",
+      "It is evaluated once per outer row.",
+      "`EXISTS` asks whether there is at least one row: `SELECT 1` is enough.",
+      "`NOT EXISTS` finds rows with no match."
+    ],
+    "exercise": "With `NOT EXISTS`, list the categories that have no product sold in a `shipped` order."
+  }
+}

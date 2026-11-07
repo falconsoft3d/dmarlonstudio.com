@@ -90,6 +90,24 @@ Future<DevDb> openDevDb(String kind, Map<String, Object?> c) async {
   throw UserError(tr('Tipo no válido.'));
 }
 
+/// El texto de SQLite de una DatabaseException de sqflite, sin la consulta
+/// ni los detalles de la conexión: «FOREIGN KEY constraint failed».
+String sqliteMessage(String e) {
+  // «… SqliteException(2067): while executing, UNIQUE constraint failed:
+  // a.n, constraint failed (code 2067)\n  Causing statement: …»
+  final m = RegExp(
+    r'SqliteException\(\d+\):\s*(?:while (?:executing|preparing)[^,]*,\s*)?([^\n]+?)\s*(?:\(code \d+[^)]*\))?\s*(?:\n|$)',
+  ).firstMatch(e);
+  if (m == null) return e.split(' {details').first;
+  return m[1]!.replaceFirst(RegExp(r',\s*constraint failed$'), '').trim();
+}
+
+/// INSERT, UPDATE, DELETE… (las que cuentan filas afectadas).
+bool _isDml(String q) => RegExp(
+  r'^\s*(insert|update|delete|replace|merge|with)\b',
+  caseSensitive: false,
+).hasMatch(q);
+
 bool _isRead(String q) => RegExp(
   r'^\s*(select|with|pragma|explain|show|describe|desc|values)\b',
   caseSensitive: false,
@@ -119,18 +137,22 @@ class _Sqlite extends DevDb {
   @override
   Future<DevResult> run(String query) async {
     try {
-      if (_isRead(query)) return DevResult.fromMaps(await db.rawQuery(query));
+      // RETURNING: las filas que cambian, en la rejilla.
+      if (_isRead(query) ||
+          RegExp(r'\breturning\b', caseSensitive: false).hasMatch(query)) {
+        return DevResult.fromMaps(await db.rawQuery(query));
+      }
       if (RegExp(
         r'^\s*(insert|update|delete|replace)\b',
         caseSensitive: false,
       ).hasMatch(query)) {
         final n = await db.rawUpdate(query);
-        return DevResult(affected: n, message: tr('{0} filas afectadas', [n]));
+        return DevResult(affected: n, message: affectedMessage(n));
       }
       await db.execute(query);
       return DevResult(message: tr('Hecho'));
     } on DatabaseException catch (e) {
-      throw UserError('$e');
+      throw UserError(sqliteMessage('$e'));
     }
   }
 
@@ -175,15 +197,22 @@ class _Postgres extends DevDb {
     try {
       final r = await conn.execute(query);
       if (r.schema.columns.isEmpty) {
-        return DevResult(
-          affected: r.affectedRows,
-          message: tr('{0} filas afectadas', [r.affectedRows]),
-        );
+        return _isDml(query)
+            ? DevResult(
+                affected: r.affectedRows,
+                message: affectedMessage(r.affectedRows),
+              )
+            : DevResult(message: tr('Hecho'));
       }
       return DevResult(
         columns: [for (final c in r.schema.columns) c.columnName ?? '?'],
         rows: [
-          for (final row in r) [for (final v in row) DevResult.cell(v)],
+          // Tipos que el cliente no conoce (enum, dominios…): su texto.
+          for (final row in r)
+            [
+              for (final v in row)
+                DevResult.cell(v is pg.UndecodedBytes ? v.asString : v),
+            ],
         ],
       );
     } on pg.PgException catch (e) {
@@ -235,7 +264,9 @@ class _MySql extends DevDb {
       final cols = [for (final c in r.cols) c.name];
       if (cols.isEmpty) {
         final n = r.affectedRows.toInt();
-        return DevResult(affected: n, message: tr('{0} filas afectadas', [n]));
+        return _isDml(query)
+            ? DevResult(affected: n, message: affectedMessage(n))
+            : DevResult(message: tr('Hecho'));
       }
       return DevResult(
         columns: cols,
@@ -320,31 +351,73 @@ class _Mongo extends DevDb {
             ? spec['insert'] as List
             : [spec['insert']];
         for (final d in docs) {
-          await col.insertOne(map(d));
+          _check(await col.insertOne(map(d)));
         }
         return DevResult(
           affected: docs.length,
-          message: tr('{0} filas afectadas', [docs.length]),
+          message: affectedMessage(docs.length),
         );
       }
       if (spec['update'] is List && (spec['update'] as List).length == 2) {
         final u = spec['update'] as List;
         final r = await col.updateMany(map(u[0]), map(u[1]));
+        _check(r);
         return DevResult(
           affected: r.nModified,
-          message: tr('{0} filas afectadas', [r.nModified]),
+          message: affectedMessage(r.nModified),
         );
       }
       if (spec['delete'] != null) {
         final r = await col.deleteMany(map(spec['delete']));
+        _check(r);
         return DevResult(
           affected: r.nRemoved,
-          message: tr('{0} filas afectadas', [r.nRemoved]),
+          message: affectedMessage(r.nRemoved),
         );
+      }
+      if (spec['drop'] == true) {
+        await col.drop();
+        return DevResult(message: tr('Colección «{0}» borrada', [name]));
+      }
+      if (spec['createIndex'] is Map) {
+        final keys = map(spec['createIndex']);
+        await col.createIndex(
+          keys: keys,
+          unique: spec['unique'] == true ? true : null,
+          name: spec['name'] is String ? spec['name'] as String : null,
+        );
+        return DevResult(message: tr('Índice creado: {0}', [jsonEncode(keys)]));
+      }
+      if (spec['indexes'] == true) {
+        final ix = await col.getIndexes();
+        return DevResult.fromMaps([
+          for (final i in ix)
+            {
+              'name': i['name'],
+              'key': i['key'],
+              if (i['unique'] == true) 'unique': true,
+            },
+        ]);
+      }
+      if (spec['count'] == true) {
+        final n = await col.count(map(spec['find']));
+        return DevResult.fromMaps([
+          {'count': n},
+        ]);
+      }
+      if (spec['distinct'] is String) {
+        final field = spec['distinct'] as String;
+        final r = await col.distinct(field, map(spec['find']));
+        return DevResult.fromMaps([
+          for (final v in (r['values'] as List? ?? const [])) {field: v},
+        ]);
       }
       final docs = await col
           .modernFind(
             filter: map(spec['find']),
+            projection: spec['projection'] is Map
+                ? map(spec['projection']).cast<String, Object>()
+                : null,
             sort: spec['sort'] is Map
                 ? map(spec['sort']).cast<String, Object>()
                 : null,
@@ -359,6 +432,16 @@ class _Mongo extends DevDb {
       rethrow;
     } catch (e) {
       throw UserError('$e');
+    }
+  }
+
+  /// Un error de escritura (clave duplicada, tipo que no vale…): el
+  /// servidor no lanza, lo dice en el resultado.
+  static void _check(mongo.WriteResult r) {
+    if (r.hasWriteErrors || r.hasWriteConcernError) {
+      throw UserError(
+        r.writeError?.errmsg ?? r.writeConcernError?.errmsg ?? r.errmsg ?? '?',
+      );
     }
   }
 

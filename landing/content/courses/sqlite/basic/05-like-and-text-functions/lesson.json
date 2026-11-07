@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "like-y-funciones-de-texto",
+    "title": "LIKE y funciones de texto",
+    "summary": "Busque por patrones con LIKE y transforme textos en SQLite con upper, length, substr, instr y el operador || para unir cadenas.",
+    "body": [
+      "**`LIKE`** compara con un patrón: `%` es cualquier texto (también vacío) y `_`, exactamente un carácter. `name LIKE 'b%'` busca los nombres que empiezan por b, y salen `Baguette` y `Bananas 1 kg` aunque los dos empiecen por mayúscula: en SQLite, `LIKE` no distingue mayúsculas de minúsculas en las letras sin acento.",
+      "La segunda consulta usa `LIKE '%@example.com'` para quedarse con los clientes que tienen correo de ese dominio; Pedro, que no tiene correo, no sale. **`upper(city)`** pasa la ciudad a mayúsculas, `MADRID`, y **`length(name)`** cuenta caracteres, no bytes: `Ana García` tiene 10, con la í incluida.",
+      "**`substr(texto, inicio, largo)`** recorta un trozo, contando desde 1. **`instr(email, '@')`** dice en qué posición está la arroba, así que `substr(email, 1, instr(email, '@') - 1)` es lo que va antes de ella: `ana`, `carlos`, `emma`…",
+      "El operador **`||`** une textos: `name || ' (' || city || ')'` da `Ana García (Madrid)`. Ojo: en SQL el `+` suma números y no sirve para unir cadenas."
+    ],
+    "points": [
+      "`LIKE`: `%` es cualquier texto; `_`, un carácter.",
+      "En SQLite, `LIKE` no distingue mayúsculas en letras ASCII.",
+      "`upper`, `lower`, `length`, `substr`, `instr`, `trim` y `replace` trabajan con textos.",
+      "`||` une cadenas."
+    ],
+    "exercise": "Muestre los productos cuyo nombre termina en `kg` y, para cada uno, su nombre en minúsculas con `lower(name)` y `replace(name, ' 1 kg', '')`."
+  },
+  "en": {
+    "slug": "like-and-text-functions",
+    "title": "LIKE and text functions",
+    "summary": "Search by pattern with LIKE and transform text in SQLite with upper, length, substr, instr and the || operator to join strings.",
+    "body": [
+      "**`LIKE`** matches against a pattern: `%` is any text (including none) and `_` is exactly one character. `name LIKE 'b%'` looks for names starting with b, and both `Baguette` and `Bananas 1 kg` come back even though they start with a capital: in SQLite, `LIKE` ignores case for plain ASCII letters.",
+      "The second query uses `LIKE '%@example.com'` to keep the customers with an email on that domain; Pedro, who has no email, is left out. **`upper(city)`** turns the city into capitals, `MADRID`, and **`length(name)`** counts characters, not bytes: `Ana García` has 10, the í included.",
+      "**`substr(text, start, length)`** cuts out a piece, counting from 1. **`instr(email, '@')`** tells you where the at sign is, so `substr(email, 1, instr(email, '@') - 1)` is whatever comes before it: `ana`, `carlos`, `emma`…",
+      "The **`||`** operator joins text: `name || ' (' || city || ')'` gives `Ana García (Madrid)`. Careful: in SQL `+` adds numbers and does not concatenate strings."
+    ],
+    "points": [
+      "`LIKE`: `%` is any text; `_` is one character.",
+      "In SQLite, `LIKE` ignores case for ASCII letters.",
+      "`upper`, `lower`, `length`, `substr`, `instr`, `trim` and `replace` work on text.",
+      "`||` joins strings."
+    ],
+    "exercise": "Show the products whose name ends in `kg` and, for each one, its name in lower case with `lower(name)` and `replace(name, ' 1 kg', '')`."
+  }
+}

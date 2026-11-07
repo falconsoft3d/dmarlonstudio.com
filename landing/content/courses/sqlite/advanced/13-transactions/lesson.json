@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "transacciones",
+    "title": "Transacciones: todo o nada",
+    "summary": "Agrupe cambios en SQLite con BEGIN y COMMIT, deshágalos con ROLLBACK y vuelva atrás solo una parte con SAVEPOINT.",
+    "body": [
+      "Una **transacción** agrupa varios cambios para que ocurran todos o ninguno. Vender cinco croissants son tres órdenes: restar el `stock`, añadir la línea al pedido `7` y subir su total. Entre **`BEGIN`** y **`COMMIT`** nadie ve un estado a medias, y si algo fallara antes del `COMMIT` no quedaría nada hecho.",
+      "La segunda transacción borra todas las líneas de pedido, `23` filas afectadas, y dentro de ella `count(*)` dice `0`. Pero **`ROLLBACK`** deshace todo lo hecho desde el `BEGIN`: las líneas vuelven, como se ve en la última consulta (`lines` es `23`, las 22 de la tienda más la nueva).",
+      "**`SAVEPOINT before_milk`** pone una marca dentro de la transacción, y **`ROLLBACK TO before_milk`** deshace solo lo hecho desde ella. El precio de la leche vuelve a `1.1`, mientras que el cambio de la `Baguette`, anterior a la marca, sigue en pie y el `UPDATE` siguiente lo deja en `1.25`. El `COMMIT` final lo guarda.",
+      "El resultado reúne las tres historias: la `Baguette` a `1.25`, el `Croissant` con `20` unidades (tenía 25), la leche intacta y el pedido `7` con `16.5` euros (`9` + `7.5`). El estudio ejecuta cada orden del script en la misma conexión, así que las transacciones funcionan igual que en un programa."
+    ],
+    "points": [
+      "`BEGIN` … `COMMIT`: varios cambios que se guardan juntos.",
+      "`ROLLBACK` deshace todo desde el `BEGIN`.",
+      "`SAVEPOINT x` y `ROLLBACK TO x` deshacen solo una parte.",
+      "Dentro de la transacción se ven los cambios aún sin guardar."
+    ],
+    "exercise": "Escriba una transacción que cancele el pedido `7`: que cambie su `status` a `cancelled` y devuelva al `stock` las unidades de sus líneas. Termínela con `ROLLBACK` primero, compruebe que no ha cambiado nada y luego con `COMMIT`."
+  },
+  "en": {
+    "slug": "transactions",
+    "title": "Transactions: all or nothing",
+    "summary": "Group changes in SQLite with BEGIN and COMMIT, undo them with ROLLBACK and roll back just part of them with SAVEPOINT.",
+    "body": [
+      "A **transaction** groups several changes so that either all of them happen or none do. Selling five croissants takes three statements: take them off `stock`, add the line to order `7` and raise its total. Between **`BEGIN`** and **`COMMIT`** nobody sees a half-done state, and if something failed before the `COMMIT` nothing would be left done.",
+      "The second transaction deletes every order line, `23` rows affected, and inside it `count(*)` says `0`. But **`ROLLBACK`** undoes everything since the `BEGIN`: the lines come back, as the last query shows (`lines` is `23`, the shop's 22 plus the new one).",
+      "**`SAVEPOINT before_milk`** sets a marker inside the transaction, and **`ROLLBACK TO before_milk`** undoes only what came after it. The milk goes back to `1.1`, while the `Baguette` change, made before the marker, still stands and the next `UPDATE` sets it to `1.25`. The final `COMMIT` saves it.",
+      "The result brings the three stories together: the `Baguette` at `1.25`, the `Croissant` with `20` units (it had 25), the milk untouched and order `7` at `16.5` euros (`9` + `7.5`). The studio runs every statement of the script on the same connection, so transactions behave just as they would in a program."
+    ],
+    "points": [
+      "`BEGIN` … `COMMIT`: several changes saved together.",
+      "`ROLLBACK` undoes everything since `BEGIN`.",
+      "`SAVEPOINT x` and `ROLLBACK TO x` undo just part of it.",
+      "Inside the transaction you see the changes not yet saved."
+    ],
+    "exercise": "Write a transaction that cancels order `7`: set its `status` to `cancelled` and put the units of its lines back in `stock`. End it with `ROLLBACK` first, check that nothing changed, then with `COMMIT`."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "cte-recursiva",
+    "title": "Jerarquías con WITH RECURSIVE",
+    "summary": "Recorra el organigrama de la tienda con una CTE recursiva en SQLite: cada empleado con su nivel y la cadena de jefes hasta la directora.",
+    "body": [
+      "La tabla `employees` guarda la jerarquía con una columna que apunta a la misma tabla: `manager_id` es el `id` del jefe. Para recorrerla entera, nivel a nivel, se usa **`WITH RECURSIVE`**, una CTE que se usa a sí misma.",
+      "Tiene dos partes unidas por **`UNION ALL`**. La primera es el **punto de partida**: los empleados sin jefe (`manager_id IS NULL`), es decir, `Laura Martín`, la CEO, con nivel `0`. La segunda es el **paso recursivo**: une `employees` con lo que `chart` lleva encontrado (`e.manager_id = chart.id`), así que en cada vuelta baja un nivel, suma `1` a `level` y alarga el `path`.",
+      "SQLite repite el paso hasta que no salen filas nuevas: primero Laura; después sus subordinados directos, `Javier Ortiz` y `Raúl Moreno`; después los de Javier, `Elena Castro`, `Diego Vidal` y `Nuria Sanz`. Los de Raúl no hay, y ahí se para.",
+      "En la consulta final, `substr('        ', 1, level * 4)` pone cuatro espacios por nivel delante del nombre, y `ORDER BY path` deja a cada empleado justo debajo de su jefe: el organigrama queda dibujado en la rejilla."
+    ],
+    "points": [
+      "`WITH RECURSIVE` permite que una CTE se use a sí misma.",
+      "Punto de partida `UNION ALL` paso recursivo.",
+      "El paso se repite hasta que no devuelve filas nuevas.",
+      "Un `level` y un `path` acumulados dan la profundidad y el camino."
+    ],
+    "exercise": "Añada a `chart` una columna con el salario y calcule, en la consulta final, cuánto suman los salarios de todo el equipo de `Javier Ortiz` (filtrando por `path LIKE '%Javier Ortiz%'`)."
+  },
+  "en": {
+    "slug": "recursive-cte",
+    "title": "Hierarchies with WITH RECURSIVE",
+    "summary": "Walk the shop's org chart with a recursive CTE in SQLite: each employee with their level and the chain of managers up to the CEO.",
+    "body": [
+      "The `employees` table stores the hierarchy with a column pointing at the same table: `manager_id` is the boss's `id`. To walk all of it, level by level, you use **`WITH RECURSIVE`**, a CTE that refers to itself.",
+      "It has two parts joined by **`UNION ALL`**. The first is the **starting point**: the employees with no manager (`manager_id IS NULL`), that is, `Laura Martín`, the CEO, at level `0`. The second is the **recursive step**: it joins `employees` with whatever `chart` has found so far (`e.manager_id = chart.id`), so each round goes one level down, adds `1` to `level` and extends the `path`.",
+      "SQLite repeats the step until no new rows come out: first Laura; then her direct reports, `Javier Ortiz` and `Raúl Moreno`; then Javier's, `Elena Castro`, `Diego Vidal` and `Nuria Sanz`. Raúl has none, and there it stops.",
+      "In the final query, `substr('        ', 1, level * 4)` puts four spaces per level in front of the name, and `ORDER BY path` places each employee right under their manager: the org chart is drawn in the grid."
+    ],
+    "points": [
+      "`WITH RECURSIVE` lets a CTE refer to itself.",
+      "Starting point `UNION ALL` recursive step.",
+      "The step repeats until it returns no new rows.",
+      "An accumulated `level` and `path` give the depth and the route."
+    ],
+    "exercise": "Add a salary column to `chart` and work out, in the final query, the total salary of `Javier Ortiz`'s whole team (filtering with `path LIKE '%Javier Ortiz%'`)."
+  }
+}

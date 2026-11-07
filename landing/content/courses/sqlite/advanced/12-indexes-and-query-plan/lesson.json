@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "indices-y-plan-de-consulta",
+    "title": "Índices y EXPLAIN QUERY PLAN",
+    "summary": "Vea cómo busca SQLite con EXPLAIN QUERY PLAN, cree índices con CREATE INDEX y compruebe que la consulta pasa de SCAN a SEARCH.",
+    "body": [
+      "**`EXPLAIN QUERY PLAN`** delante de una consulta no la ejecuta: dice cómo la ejecutaría SQLite. Para `WHERE customer_id = 1` la columna `detail` dice **`SCAN orders`**: leer la tabla entera, fila a fila. Con diez pedidos da igual; con un millón, no.",
+      "**`CREATE INDEX idx_orders_customer ON orders (customer_id)`** crea un **índice**: una copia ordenada de esa columna con un puntero a cada fila, como el índice de un libro. La misma consulta pasa a **`SEARCH orders USING INDEX idx_orders_customer (customer_id=?)`**: salta directamente a los pedidos del cliente.",
+      "En un `JOIN` también se nota. Para los clientes de Madrid y sus pedidos, el plan recorre `customers` (`SCAN c`) y, por cada cliente, busca sus pedidos con el índice (`SEARCH o USING INDEX …`). Las columnas de las claves ajenas que se usan en los `JOIN` son las primeras candidatas a tener índice.",
+      "Un **`UNIQUE INDEX`** además impide los duplicados: ya no podrá haber dos productos con el mismo nombre. La última consulta lee los índices de `sqlite_master`: los dos creados aquí y los `sqlite_autoindex_…` que SQLite creó solo para las columnas `UNIQUE` de `categories` y `customers`; estos no tienen `sql`, y la columna `automatic` vale `1`. Los índices aceleran las lecturas, pero ocupan espacio y hacen algo más lentas las escrituras."
+    ],
+    "points": [
+      "`EXPLAIN QUERY PLAN` enseña el plan sin ejecutar la consulta.",
+      "`SCAN` lee toda la tabla; `SEARCH … USING INDEX` va directo.",
+      "Indexe las columnas de `WHERE` y de los `JOIN` que más se usan.",
+      "`UNIQUE` crea un índice que además impide duplicados."
+    ],
+    "exercise": "Mire el plan de `SELECT * FROM order_items WHERE order_id = 6`, cree un índice en `order_items (order_id)` y vuelva a mirarlo."
+  },
+  "en": {
+    "slug": "indexes-and-query-plan",
+    "title": "Indexes and EXPLAIN QUERY PLAN",
+    "summary": "See how SQLite searches with EXPLAIN QUERY PLAN, create indexes with CREATE INDEX and check that the query goes from SCAN to SEARCH.",
+    "body": [
+      "**`EXPLAIN QUERY PLAN`** in front of a query does not run it: it tells you how SQLite would. For `WHERE customer_id = 1` the `detail` column says **`SCAN orders`**: read the whole table, row by row. With ten orders it makes no difference; with a million, it does.",
+      "**`CREATE INDEX idx_orders_customer ON orders (customer_id)`** creates an **index**: a sorted copy of that column with a pointer to each row, like the index of a book. The same query becomes **`SEARCH orders USING INDEX idx_orders_customer (customer_id=?)`**: it jumps straight to that customer's orders.",
+      "It shows in a `JOIN` too. For the customers in Madrid and their orders, the plan walks `customers` (`SCAN c`) and, for each customer, looks up their orders through the index (`SEARCH o USING INDEX …`). Foreign key columns used in `JOIN`s are the first candidates for an index.",
+      "A **`UNIQUE INDEX`** also prevents duplicates: there can no longer be two products with the same name. The last query reads the indexes from `sqlite_master`: the two created here and the `sqlite_autoindex_…` ones SQLite made by itself for the `UNIQUE` columns of `categories` and `customers`; those have no `sql`, so `automatic` is `1`. Indexes speed up reads, but they take space and make writes a little slower."
+    ],
+    "points": [
+      "`EXPLAIN QUERY PLAN` shows the plan without running the query.",
+      "`SCAN` reads the whole table; `SEARCH … USING INDEX` goes straight there.",
+      "Index the columns most used in `WHERE` and `JOIN`s.",
+      "`UNIQUE` creates an index that also prevents duplicates."
+    ],
+    "exercise": "Look at the plan for `SELECT * FROM order_items WHERE order_id = 6`, create an index on `order_items (order_id)` and look at it again."
+  }
+}

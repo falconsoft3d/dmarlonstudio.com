@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "and-or-in-y-between",
+    "title": "AND, OR, IN y BETWEEN",
+    "summary": "Combine condiciones en SQLite: AND y OR con paréntesis, IN para una lista de valores y BETWEEN para un rango de fechas.",
+    "body": [
+      "**`AND`** exige que se cumplan las dos condiciones. `price < 2 AND stock > 20` deja tres productos baratos y con existencias: `Whole milk`, `Baguette` y `Croissant`. Los `Bananas 1 kg` cuestan `1.6`, pero tienen `stock` 0 y se quedan fuera.",
+      "**`IN`** compara con una lista: `status IN ('paid', 'new')` es lo mismo que `status = 'paid' OR status = 'new'`, pero más corto y más fácil de leer. Salen los cinco pedidos pagados o nuevos, el `3`, `6`, `7`, `9` y `10`.",
+      "**`BETWEEN`** pide un rango con los dos extremos incluidos. Las fechas de la tienda son texto con el formato `AAAA-MM-DD`, que se ordena igual que las fechas, así que `ordered BETWEEN '2024-04-01' AND '2024-05-31'` son los pedidos de abril y mayo.",
+      "**`OR`** basta con que se cumpla una. Como `AND` va antes que `OR`, los **paréntesis** son necesarios: `AND (status = 'shipped' OR total > 20)` se queda con los pedidos enviados o de más de 20 euros. Resultado: el `4` y el `8` (enviados) y el `6` (`20.5`). El `5`, de `19.8` y cancelado, no entra."
+    ],
+    "points": [
+      "`AND`: las dos condiciones; `OR`: al menos una.",
+      "`AND` se evalúa antes que `OR`: use paréntesis.",
+      "`IN (…)` compara con una lista de valores.",
+      "`BETWEEN a AND b` incluye los dos extremos."
+    ],
+    "exercise": "Busque los productos de las categorías 1 y 3 (`category_id IN (1, 3)`) que cuestan entre 2 y 8 euros. Después, quite los paréntesis de la última consulta y compare el resultado."
+  },
+  "en": {
+    "slug": "and-or-in-and-between",
+    "title": "AND, OR, IN and BETWEEN",
+    "summary": "Combine conditions in SQLite: AND and OR with parentheses, IN for a list of values and BETWEEN for a range of dates.",
+    "body": [
+      "**`AND`** requires both conditions to hold. `price < 2 AND stock > 20` leaves three cheap products that are in stock: `Whole milk`, `Baguette` and `Croissant`. The `Bananas 1 kg` cost `1.6` but have a `stock` of 0, so they are left out.",
+      "**`IN`** compares against a list: `status IN ('paid', 'new')` is the same as `status = 'paid' OR status = 'new'`, only shorter and easier to read. The five paid or new orders come back: `3`, `6`, `7`, `9` and `10`.",
+      "**`BETWEEN`** asks for a range with both ends included. The shop's dates are text in `YYYY-MM-DD` format, which sorts just like dates do, so `ordered BETWEEN '2024-04-01' AND '2024-05-31'` means the orders from April and May.",
+      "With **`OR`** one condition is enough. Since `AND` binds tighter than `OR`, the **parentheses** matter: `AND (status = 'shipped' OR total > 20)` keeps the orders that were shipped or are over 20 euros. Result: `4` and `8` (shipped) and `6` (`20.5`). Order `5`, `19.8` and cancelled, does not make it."
+    ],
+    "points": [
+      "`AND`: both conditions; `OR`: at least one.",
+      "`AND` is evaluated before `OR`: use parentheses.",
+      "`IN (…)` compares with a list of values.",
+      "`BETWEEN a AND b` includes both ends."
+    ],
+    "exercise": "Find the products in categories 1 and 3 (`category_id IN (1, 3)`) that cost between 2 and 8 euros. Then remove the parentheses from the last query and compare the result."
+  }
+}

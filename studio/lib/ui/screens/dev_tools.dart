@@ -11,6 +11,7 @@ import '../../core/errors.dart';
 import '../../dev/api_client.dart';
 import '../../dev/dev_client.dart';
 import '../../dev/dev_cloud_db.dart';
+import '../../dev/dev_script.dart';
 import '../../dev/dev_types.dart';
 import '../../i18n/i18n.dart';
 import '../save_file.dart';
@@ -410,7 +411,11 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
   DevDb? _db;
   List<DevTable> _schema = [];
   final _query = TextEditingController();
-  DevResult? _result;
+
+  /// Un resultado por consulta del script; [_shown]: el que se ve.
+  List<DevResult> _results = [];
+  int _shown = 0;
+  DevResult? get _result => _results.isEmpty ? null : _results[_shown];
   String? _error;
   bool _busy = false;
   String _filter = '';
@@ -442,7 +447,7 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
       _busy = true;
       _db = null;
       _schema = [];
-      _result = null;
+      _results = [];
       _error = null;
       _current = r;
     });
@@ -464,24 +469,32 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
     }
   }
 
+  /// Ejecuta el editor: la selección si la hay o todo el script (una
+  /// consulta tras otra).
   Future<void> _run() async {
     final db = _db;
-    final q = _query.text.trim();
-    if (db == null || q.isEmpty || _busy) return;
+    final sel = _query.selection;
+    final text = sel.isValid && !sel.isCollapsed
+        ? sel.textInside(_query.text)
+        : _query.text;
+    if (db == null || text.trim().isEmpty || _busy) return;
     final kind = '${_current?['kind']}';
-    final read = const {'mongodb', 'falcon', 'firebase'}.contains(kind)
-        ? !RegExp(r'"(insert|update|delete)"').hasMatch(q)
-        : RegExp(
-            r'^\s*(select|with|pragma|explain|values|show|describe|desc)\b',
-            caseSensitive: false,
-          ).hasMatch(q);
-    if (!read &&
+    final queries = splitScript(kind, text);
+    if (queries.isEmpty) return;
+    final writes = queries.where((q) => isWriteQuery(kind, q)).length;
+    if (writes > 0 &&
         !await confirmDialog(
           context,
           tr('Modificar datos'),
-          tr('Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?', [
-            _current?['name'],
-          ]),
+          queries.length == 1
+              ? tr(
+                  'Esta consulta cambia la base de datos «{0}». ¿Ejecutarla?',
+                  [_current?['name']],
+                )
+              : tr(
+                  'El script tiene {0} consultas y {1} cambian la base de datos «{2}». ¿Ejecutarlo?',
+                  [queries.length, writes, _current?['name']],
+                ),
           ok: tr('Ejecutar'),
           danger: true,
         )) {
@@ -491,17 +504,24 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
       _busy = true;
       _error = null;
     });
-    final watch = Stopwatch()..start();
     try {
-      final r = await db.run(q);
-      r.elapsed = watch.elapsed;
-      if (!read) _schema = await db.schema();
-      if (mounted) setState(() => _result = r);
-    } on UserError catch (e) {
+      final r = await runScript(db, queries);
+      if (writes > 0) _schema = await db.schema();
+      if (mounted) {
+        setState(() {
+          _results = r;
+          // Se ve el último resultado con filas (o el último).
+          final withRows = r.lastIndexWhere((x) => x.columns.isNotEmpty);
+          _shown = withRows >= 0 ? withRows : r.length - 1;
+        });
+      }
+    } on ScriptError catch (e) {
+      if (writes > 0) _schema = await db.schema();
       if (mounted) {
         setState(() {
           _error = e.message;
-          _result = null;
+          _results = e.done;
+          _shown = e.done.isEmpty ? 0 : e.done.length - 1;
         });
       }
     } finally {
@@ -692,7 +712,7 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
                     child: TextField(
                       controller: _query,
                       minLines: 5,
-                      maxLines: 10,
+                      maxLines: 14,
                       style: _mono,
                       decoration: InputDecoration(
                         border: const OutlineInputBorder(),
@@ -705,12 +725,12 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
                             ? FirebaseDb.example
                             : _db == null
                             ? tr('Elija una conexión a la izquierda.')
-                            : 'SELECT … (⌘↵ ${tr('para ejecutar')})',
+                            : 'SELECT … ; SELECT … (⌘↵ ${tr('para ejecutar')})',
                       ),
                     ),
                   ),
                 ),
-                Expanded(child: _results(t)),
+                Expanded(child: _resultsView(t)),
               ],
             ),
           ),
@@ -719,18 +739,57 @@ class _DbManagerScreenState extends State<DbManagerScreen> {
     );
   }
 
-  Widget _results(ThemeData t) {
-    if (_error != null) {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: SelectableText(
-          _error!,
-          style: const TextStyle(color: AppColors.danger),
-        ),
+  Widget _resultsView(ThemeData t) {
+    final error = _error == null
+        ? null
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 10),
+            child: SelectableText(
+              _error!,
+              style: const TextStyle(color: AppColors.danger),
+            ),
+          );
+    if (_results.length <= 1) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ?error,
+          if (_result != null) Expanded(child: _grid(t, _result!)),
+        ],
       );
     }
-    final r = _result;
-    if (r == null) return const SizedBox.shrink();
+    // Varias consultas: una pestaña por resultado.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ?error,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+          child: Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: [
+              for (final (i, r) in _results.indexed)
+                ChoiceChip(
+                  visualDensity: VisualDensity.compact,
+                  label: Text(
+                    r.columns.isEmpty
+                        ? '${i + 1} · ${tr('Hecho')}'
+                        : '${i + 1} · ${tr('{0} filas', [r.rows.length])}',
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  selected: i == _shown,
+                  onSelected: (_) => setState(() => _shown = i),
+                ),
+            ],
+          ),
+        ),
+        Expanded(child: _grid(t, _results[_shown])),
+      ],
+    );
+  }
+
+  Widget _grid(ThemeData t, DevResult r) {
     final ms = r.elapsed.inMilliseconds;
     if (r.columns.isEmpty) {
       return Padding(

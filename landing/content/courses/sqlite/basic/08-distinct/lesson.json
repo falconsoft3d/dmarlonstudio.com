@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "distinct",
+    "title": "Quitar repetidos con DISTINCT",
+    "summary": "Elimine las filas repetidas de un resultado con SELECT DISTINCT y cuente valores distintos con count(DISTINCT …) en SQLite.",
+    "body": [
+      "Hay ocho clientes pero solo cinco ciudades: **`SELECT DISTINCT city`** devuelve cada ciudad una vez, `Bilbao`, `London`, `Madrid`, `Seville` y `Valencia`. `DISTINCT` va justo después de `SELECT` y quita del resultado las filas repetidas.",
+      "**`count(DISTINCT product_id)`** cuenta valores distintos. Hay `22` líneas de pedido, pero solo `11` productos diferentes se han vendido alguna vez: de los doce, falta uno. Encontrar cuál es un buen ejercicio para la lección 14.",
+      "`DISTINCT` mira la **fila entera**, no una columna. En la última consulta cada fila es una pareja ciudad–año (el año sale de `substr(joined, 1, 4)`), y por eso `London` y `Seville` aparecen dos veces: tienen clientes de `2023` y de `2024`. Madrid tiene tres clientes, pero todos de `2023`, y sale una sola vez.",
+      "En el estudio verá tres pestañas de resultado, una por consulta. El número que aparece en cada una le permite comparar de un vistazo cuántas filas devuelve cada versión."
+    ],
+    "points": [
+      "`SELECT DISTINCT` quita las filas repetidas.",
+      "Compara la fila completa, con todas sus columnas.",
+      "`count(DISTINCT col)` cuenta los valores diferentes.",
+      "`DISTINCT` también trata los `NULL` como iguales entre sí."
+    ],
+    "exercise": "Averigüe qué estados distintos tienen los pedidos (`status`) y cuántos clientes distintos han hecho algún pedido (`count(DISTINCT customer_id)`)."
+  },
+  "en": {
+    "slug": "distinct",
+    "title": "Removing duplicates with DISTINCT",
+    "summary": "Remove repeated rows from a result with SELECT DISTINCT and count different values with count(DISTINCT …) in SQLite.",
+    "body": [
+      "There are eight customers but only five cities: **`SELECT DISTINCT city`** returns each city once, `Bilbao`, `London`, `Madrid`, `Seville` and `Valencia`. `DISTINCT` goes right after `SELECT` and removes repeated rows from the result.",
+      "**`count(DISTINCT product_id)`** counts different values. There are `22` order lines, but only `11` different products have ever been sold: one of the twelve is missing. Finding out which is a good exercise for lesson 14.",
+      "`DISTINCT` looks at the **whole row**, not one column. In the last query each row is a city–year pair (the year comes from `substr(joined, 1, 4)`), which is why `London` and `Seville` show up twice: they have customers from `2023` and from `2024`. Madrid has three customers, all from `2023`, so it appears once.",
+      "In the studio you get three result tabs, one per query. The row count on each lets you compare at a glance how many rows every version returns."
+    ],
+    "points": [
+      "`SELECT DISTINCT` removes repeated rows.",
+      "It compares the whole row, every column.",
+      "`count(DISTINCT col)` counts the different values.",
+      "`DISTINCT` treats `NULL`s as equal to each other."
+    ],
+    "exercise": "Find out which different statuses the orders have (`status`) and how many different customers have placed an order (`count(DISTINCT customer_id)`)."
+  }
+}

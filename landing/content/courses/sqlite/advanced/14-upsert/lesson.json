@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "upsert-on-conflict",
+    "title": "Insertar o actualizar: UPSERT",
+    "summary": "Inserte o actualice en una sola orden con INSERT … ON CONFLICT DO UPDATE en SQLite, use excluded y salte duplicados con DO NOTHING.",
+    "body": [
+      "La tabla `baskets` guarda la cesta de cada cliente con una **clave primaria compuesta**, `PRIMARY KEY (customer_id, product_id)`: un cliente no puede tener dos filas del mismo producto. Al añadir algo a la cesta hay dos casos: si el producto no está, hay que insertarlo; si ya está, sumar la cantidad.",
+      "**`INSERT … ON CONFLICT (customer_id, product_id) DO UPDATE SET …`** resuelve los dos casos en una sola orden, lo que se conoce como **UPSERT**. Si el `INSERT` choca con la clave, en lugar de dar error hace el `UPDATE`. Dentro de él, **`excluded`** es la fila que se intentaba insertar: `qty = qty + excluded.qty` suma la cantidad nueva a la que había.",
+      "El cliente `1` ya tenía `2` croissants y añade `3`: ahora tiene `5`. El cliente `3` no tenía té y la misma orden lo inserta con `2`. Cada pestaña dice «1 fila afectada», tanto si ha insertado como si ha actualizado.",
+      "**`ON CONFLICT DO NOTHING`** ignora la fila que choca: los `10` quesos del cliente `3` no entran y su pestaña dice «0 filas afectadas». La última consulta enseña las cuatro filas de las cestas con su importe."
+    ],
+    "points": [
+      "`ON CONFLICT (cols) DO UPDATE SET …` inserta o actualiza.",
+      "El conflicto lo detecta una clave primaria o un `UNIQUE`.",
+      "`excluded.col` es el valor que se intentaba insertar.",
+      "`ON CONFLICT DO NOTHING` ignora los duplicados sin error."
+    ],
+    "exercise": "Limite la cantidad a 6 con `DO UPDATE SET qty = min(qty + excluded.qty, 6)` y pruebe a añadir `4` croissants más al cliente `1`."
+  },
+  "en": {
+    "slug": "upsert-on-conflict",
+    "title": "Insert or update: UPSERT",
+    "summary": "Insert or update in a single statement with INSERT … ON CONFLICT DO UPDATE in SQLite, use excluded and skip duplicates with DO NOTHING.",
+    "body": [
+      "The `baskets` table stores each customer's basket with a **composite primary key**, `PRIMARY KEY (customer_id, product_id)`: a customer cannot have two rows for the same product. Adding something to the basket has two cases: if the product is not there, insert it; if it is, add to the quantity.",
+      "**`INSERT … ON CONFLICT (customer_id, product_id) DO UPDATE SET …`** handles both in one statement, which is known as an **UPSERT**. If the `INSERT` clashes with the key, it runs the `UPDATE` instead of failing. Inside it, **`excluded`** is the row you tried to insert: `qty = qty + excluded.qty` adds the new quantity to the old one.",
+      "Customer `1` already had `2` croissants and adds `3`: now they have `5`. Customer `3` had no tea, and the same statement inserts it with `2`. Each tab says \"1 row affected\", whether it inserted or updated.",
+      "**`ON CONFLICT DO NOTHING`** ignores the clashing row: customer `3`'s `10` cheeses do not go in and the tab says \"0 rows affected\". The last query shows the four basket rows with their amounts."
+    ],
+    "points": [
+      "`ON CONFLICT (cols) DO UPDATE SET …` inserts or updates.",
+      "The conflict is detected by a primary key or a `UNIQUE`.",
+      "`excluded.col` is the value you tried to insert.",
+      "`ON CONFLICT DO NOTHING` skips duplicates without an error."
+    ],
+    "exercise": "Cap the quantity at 6 (`DO UPDATE SET qty = min(qty + excluded.qty, 6)`) and try adding `4` more croissants for customer `1`."
+  }
+}

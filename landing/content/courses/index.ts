@@ -33,6 +33,23 @@ export type Lesson = {
   gui?: boolean;
   /** Ancho y alto de la imagen. */
   size?: [number, number];
+  /** Base de datos: el resultado de cada consulta del script. */
+  results?: DbResult[];
+  /** La consulta que falla a propósito (la última). */
+  error?: { index: number; message: string };
+  /** Tablas o colecciones al terminar. */
+  schema?: string[];
+  /** FalconDatabase: el usuario con el que entra (ana, luis o anon). */
+  as?: string;
+};
+
+/** Lo que muestra el módulo Bases de datos tras una consulta. */
+export type DbResult = {
+  columns?: string[];
+  rows?: (string | number | boolean | null)[][];
+  message?: string;
+  message_en?: string;
+  affected?: number;
 };
 
 type CourseData = { id: string; levels: Partial<Record<Level, Lesson[]>> };

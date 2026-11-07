@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "informe-de-ventas",
+    "title": "Un informe de ventas",
+    "summary": "Junte lo aprendido en una consulta SQLite: ventas por categoría con JOIN, GROUP BY, agregados, una subconsulta y el porcentaje del total.",
+    "body": [
+      "Este informe responde a una pregunta de negocio: ¿qué categoría vende más? Une cuatro tablas, **líneas → pedidos → productos → categorías**: las líneas dan cantidades e importes, los pedidos permiten quitar los cancelados (`WHERE o.status <> 'cancelled'`) y los productos llevan a la categoría.",
+      "`GROUP BY c.id` hace un grupo por categoría. En cada uno, **`count(DISTINCT i.order_id)`** cuenta en cuántos pedidos aparece (el pedido 1, con leche y queso, cuenta una sola vez en lácteos), `sum(i.qty)` suma las unidades y `sum(i.qty * i.price)` los ingresos.",
+      "La columna `pct` divide los ingresos de la categoría entre una **subconsulta** que calcula el total de los pedidos válidos, `126.85`, y lo multiplica por `100.0` (con decimales, para que no sea división entera). Las bebidas van primero con `42.9` euros, el `33.8 %`; después los lácteos, `40.95` (`32.3 %`); la panadería, `25` (`19.7 %`), y la fruta, `18` (`14.2 %`). Los cuatro suman 100.",
+      "La panadería es la que aparece en más pedidos (`6`) y la que más unidades vende (`17`), pero factura menos porque sus productos son baratos. Para llevar el informe a una hoja de cálculo, use **CSV** en la rejilla del resultado."
+    ],
+    "points": [
+      "Un informe empieza por la pregunta y las tablas que la responden.",
+      "`count(DISTINCT …)` evita contar dos veces el mismo pedido.",
+      "Una subconsulta puede dar el total para calcular porcentajes.",
+      "Multiplique por `100.0` para evitar la división entera."
+    ],
+    "exercise": "Haga el mismo informe por ciudad del cliente en lugar de por categoría: cambie el `JOIN` de productos y categorías por uno con `customers` y agrupe por `city`."
+  },
+  "en": {
+    "slug": "sales-report",
+    "title": "A sales report",
+    "summary": "Put it all together in one SQLite query: sales by category with JOIN, GROUP BY, aggregates, a subquery and the share of the total.",
+    "body": [
+      "This report answers a business question: which category sells the most? It joins four tables, **lines → orders → products → categories**: the lines give quantities and amounts, the orders let you drop the cancelled ones (`WHERE o.status <> 'cancelled'`) and the products lead to the category.",
+      "`GROUP BY c.id` makes one group per category. In each, **`count(DISTINCT i.order_id)`** counts how many orders it appears in (order 1, with milk and cheese, counts only once for dairy), `sum(i.qty)` adds up the units and `sum(i.qty * i.price)` the revenue.",
+      "The `pct` column divides the category's revenue by a **subquery** that works out the total of the valid orders, `126.85`, and multiplies by `100.0` (with decimals, so it is not integer division). Drinks come first with `42.9` euros, `33.8%`; then dairy, `40.95` (`32.3%`); bakery, `25` (`19.7%`); and fruit, `18` (`14.2%`). The four add up to 100.",
+      "Bakery appears in the most orders (`6`) and sells the most units (`17`), yet brings in less because its products are cheap. To take the report to a spreadsheet, use **CSV** on the result grid."
+    ],
+    "points": [
+      "A report starts from the question and the tables that answer it.",
+      "`count(DISTINCT …)` avoids counting the same order twice.",
+      "A subquery can supply the total for percentages.",
+      "Multiply by `100.0` to avoid integer division."
+    ],
+    "exercise": "Build the same report by customer city instead of by category: swap the products and categories `JOIN`s for one with `customers` and group by `city`."
+  }
+}

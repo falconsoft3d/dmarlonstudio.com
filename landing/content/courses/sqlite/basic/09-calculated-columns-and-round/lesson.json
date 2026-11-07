@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "calculos-y-redondeo",
+    "title": "Cálculos y redondeo",
+    "summary": "Haga cuentas en SQLite sin sorpresas: la división entera, el resto con %, los decimales y round() para dejar los importes en céntimos.",
+    "body": [
+      "La primera consulta no lee ninguna tabla: un `SELECT` sin `FROM` es una calculadora. `7 / 2` da `3`, no `3.5`: si los dos números son enteros, SQLite hace **división entera** y tira los decimales. Basta con que uno tenga decimales, `7 / 2.0`, para obtener `3.5`. **`%`** es el resto: `1`.",
+      "Las líneas de pedido guardan la cantidad (`qty`) y el precio unitario (`price`), y su importe es `qty * price`. Los decimales del ordenador no son exactos (`3 * 1.2` es en realidad `3.5999999999999996`), así que los importes se redondean con **`round(valor, 2)`**: `3.6`.",
+      "`round(qty * price * 0.9, 2)` aplica un 10 % de descuento y redondea al céntimo: los dos quesos del pedido 6 (`15.5`) se quedan en `13.95`. Redondee al final de la cuenta, no en cada paso, para no ir acumulando errores.",
+      "`WHERE order_id IN (4, 6)` limita el resultado a dos pedidos, y `ORDER BY id` mantiene las líneas en el orden en que se guardaron. Para cuentas con dinero que deban cuadrar al céntimo, otra opción es guardar los importes en céntimos como enteros."
+    ],
+    "points": [
+      "Entero entre entero da división entera: `7 / 2` es `3`.",
+      "`%` es el resto de la división.",
+      "`round(x, 2)` redondea a dos decimales.",
+      "Redondee al final del cálculo, no en cada paso."
+    ],
+    "exercise": "Añada una columna `with_vat` con el importe de la línea más el 21 % de IVA, redondeado a dos decimales. Pruebe también `SELECT 10 / 3, 10 / 3.0, round(10 / 3.0, 1)`."
+  },
+  "en": {
+    "slug": "calculations-and-rounding",
+    "title": "Calculations and rounding",
+    "summary": "Do arithmetic in SQLite without surprises: integer division, the remainder with %, decimals and round() to keep amounts in cents.",
+    "body": [
+      "The first query reads no table at all: a `SELECT` without `FROM` is a calculator. `7 / 2` gives `3`, not `3.5`: when both numbers are integers, SQLite does **integer division** and drops the decimals. One decimal number is enough, `7 / 2.0`, to get `3.5`. **`%`** is the remainder: `1`.",
+      "Order lines store the quantity (`qty`) and the unit price (`price`), and their amount is `qty * price`. Computer decimals are not exact (`3 * 1.2` is really `3.5999999999999996`), so the amounts are rounded with **`round(value, 2)`**: `3.6`.",
+      "`round(qty * price * 0.9, 2)` takes off 10% and rounds to the cent: the two cheeses in order 6 (`15.5`) come down to `13.95`. Round at the end of the calculation, not at every step, so errors do not pile up.",
+      "`WHERE order_id IN (4, 6)` limits the result to two orders, and `ORDER BY id` keeps the lines in the order they were stored. For money that must add up to the cent, another option is to store amounts in cents as integers."
+    ],
+    "points": [
+      "Integer divided by integer is integer division: `7 / 2` is `3`.",
+      "`%` is the remainder of a division.",
+      "`round(x, 2)` rounds to two decimals.",
+      "Round at the end of the calculation, not at every step."
+    ],
+    "exercise": "Add a `with_vat` column with the line amount plus 21% VAT, rounded to two decimals. Also try `SELECT 10 / 3, 10 / 3.0, round(10 / 3.0, 1)`."
+  }
+}

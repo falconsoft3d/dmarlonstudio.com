@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "delete",
+    "title": "Borrar filas con DELETE",
+    "summary": "Elimine filas con DELETE FROM … WHERE en SQLite, también eligiendo qué borrar con una subconsulta, y compruebe lo que queda.",
+    "body": [
+      "La primera consulta cuenta las reseñas antes de tocar nada: hay `8`. Es una buena costumbre: así se sabe qué esperar.",
+      "**`DELETE FROM tabla WHERE condición`** borra las filas que cumplen la condición. `rating < 3` elimina una reseña, la `7`: el «Not ripe» de las fresas. Como en `UPDATE`, un `DELETE` sin `WHERE` vacía la tabla entera, sin preguntar.",
+      "El `WHERE` puede usar una **subconsulta**: `product_id IN (SELECT id FROM products WHERE category_id = 2)` borra las reseñas de los productos de bebidas. La subconsulta devuelve los `id` `4`, `5` y `6`, y solo el café (`4`) tenía reseñas: «2 filas afectadas», la `4` y la `5`.",
+      "Quedan cinco reseñas, la `1`, `2`, `3`, `6` y `8`, como enseña el último `SELECT`. Los números de `id` no se reutilizan ni se «recolocan»: faltan el `4`, el `5` y el `7`, y no pasa nada."
+    ],
+    "points": [
+      "`DELETE FROM t WHERE …` borra las filas que cumplen la condición.",
+      "Sin `WHERE`, `DELETE` vacía la tabla.",
+      "Una subconsulta en `IN (…)` elige qué borrar a partir de otra tabla.",
+      "Cuente antes y después para comprobar lo borrado."
+    ],
+    "exercise": "Borre los pedidos cancelados y sus líneas: primero `order_items` cuyo `order_id` esté en los pedidos con `status = 'cancelled'`, y después esos pedidos."
+  },
+  "en": {
+    "slug": "delete",
+    "title": "Deleting rows with DELETE",
+    "summary": "Remove rows with DELETE FROM … WHERE in SQLite, also choosing what to delete with a subquery, and check what is left.",
+    "body": [
+      "The first query counts the reviews before touching anything: there are `8`. It is a good habit, so you know what to expect.",
+      "**`DELETE FROM table WHERE condition`** deletes the rows that meet the condition. `rating < 3` removes one review, number `7`: the strawberries' \"Not ripe\". As with `UPDATE`, a `DELETE` without `WHERE` empties the whole table, no questions asked.",
+      "The `WHERE` can use a **subquery**: `product_id IN (SELECT id FROM products WHERE category_id = 2)` deletes the reviews of drinks products. The subquery returns the ids `4`, `5` and `6`, and only the coffee (`4`) had reviews: \"2 rows affected\", numbers `4` and `5`.",
+      "Five reviews remain, `1`, `2`, `3`, `6` and `8`, as the last `SELECT` shows. Ids are neither reused nor \"shuffled up\": `4`, `5` and `7` are simply missing, and that is fine."
+    ],
+    "points": [
+      "`DELETE FROM t WHERE …` removes the rows that meet the condition.",
+      "Without `WHERE`, `DELETE` empties the table.",
+      "A subquery in `IN (…)` picks what to delete from another table.",
+      "Count before and after to check what was deleted."
+    ],
+    "exercise": "Delete the cancelled orders and their lines: first the `order_items` whose `order_id` is among the orders with `status = 'cancelled'`, then those orders."
+  }
+}

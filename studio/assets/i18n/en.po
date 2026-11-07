@@ -8432,6 +8432,10 @@ msgid "No se pudo conectar: {0}"
 msgstr "Could not connect: {0}"
 
 #: lib/dev/dev_client.dart
+msgid "Colección «{0}» borrada"
+msgstr "Collection «{0}» dropped"
+
+#: lib/dev/dev_client.dart
 msgid "El servidor no permitió: {0}"
 msgstr "The server did not allow: {0}"
 
@@ -8447,9 +8451,9 @@ msgstr "The MongoDB query is JSON: {\"collection\": \"customers\", \"find\": {}}
 msgid "No existe el archivo {0}."
 msgstr "The file {0} does not exist."
 
-#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
-msgid "{0} filas afectadas"
-msgstr "{0} rows affected"
+#: lib/dev/dev_client.dart
+msgid "Índice creado: {0}"
+msgstr "Index created: {0}"
 
 #: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
 msgid "Clave de API"
@@ -8484,12 +8488,24 @@ msgid "{0} filas en total"
 msgstr "{0} rows in total"
 
 #: lib/dev/dev_cloud_db.dart
-msgid "«update» es {\"id\": \"…\", \"set\": {…}}."
-msgstr "“update” is {\"id\": \"…\", \"set\": {…}}."
+msgid "«update» es {\"id\": \"…\", \"set\": {…}} o {\"where\": {…}, \"set\": {…}}."
+msgstr "«update» is {\"id\": \"…\", \"set\": {…}} or {\"where\": {…}, \"set\": {…}}."
 
 #: lib/dev/dev_cloud_db.dart
-msgid "«update» es {\"id\": 1, \"set\": {…}}."
-msgstr "“update” is {\"id\": 1, \"set\": {…}}."
+msgid "«update» es {\"id\": 1, \"set\": {…}} o {\"where\": {…}, \"set\": {…}}."
+msgstr "«update» is {\"id\": 1, \"set\": {…}} or {\"where\": {…}, \"set\": {…}}."
+
+#: lib/dev/dev_script.dart
+msgid "Consulta {0}: {1}"
+msgstr "Query {0}: {1}"
+
+#: lib/dev/dev_types.dart
+msgid "1 fila afectada"
+msgstr "1 row affected"
+
+#: lib/dev/dev_types.dart
+msgid "{0} filas afectadas"
+msgstr "{0} rows affected"
 
 #: lib/dev/diagram.dart
 msgid "La IA no devolvió un diseño válido."
@@ -9538,6 +9554,10 @@ msgstr "Body"
 #: lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Ejecutar"
 msgstr "Run"
+
+#: lib/ui/screens/dev_tools.dart
+msgid "El script tiene {0} consultas y {1} cambian la base de datos «{2}». ¿Ejecutarlo?"
+msgstr "The script has {0} queries and {1} change the database «{2}». Run it?"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Elegir archivo"

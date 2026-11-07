@@ -1,5 +1,18 @@
-import { ArrowLeft, ArrowRight, Download, GraduationCap, Lightbulb, ListChecks, Play, Terminal } from "lucide-react";
-import { siC, siCplusplus, siDart, siGo, siJavascript, siLazarus, siPython } from "simple-icons";
+import { ArrowLeft, ArrowRight, Database, Download, GraduationCap, Lightbulb, ListChecks, Play, Table2, Terminal } from "lucide-react";
+import {
+  siC,
+  siCplusplus,
+  siDart,
+  siFirebase,
+  siGo,
+  siJavascript,
+  siLazarus,
+  siMongodb,
+  siMysql,
+  siPostgresql,
+  siPython,
+  siSqlite,
+} from "simple-icons";
 import { Inline } from "@/components/manual/rich";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -18,6 +31,7 @@ import {
   levelAlternates,
   levelPath,
   type CourseInfo,
+  type DbResult,
   type Lesson,
   type Level,
 } from "@/content/courses";
@@ -34,6 +48,11 @@ const ICONS: Record<string, { path: string; hex: string }> = {
   pascal: siLazarus,
   go: siGo,
   dart: siDart,
+  sqlite: siSqlite,
+  postgres: siPostgresql,
+  mysql: siMysql,
+  mongodb: siMongodb,
+  firebase: siFirebase,
 };
 
 /** El logotipo del lenguaje en su color. */
@@ -45,10 +64,12 @@ export function CourseIcon({ course, className = "size-8" }: { course: CourseInf
       className={`inline-flex shrink-0 items-center justify-center rounded-lg ${className}`}
       style={{ background: `${course.color}1f` }}
     >
-      {icon && (
+      {icon ? (
         <svg viewBox="0 0 24 24" className="size-[60%]" fill={course.id === "javascript" ? "#c9a800" : course.color}>
           <path d={icon.path} />
         </svg>
+      ) : (
+        course.db && <Database className="size-[60%]" style={{ color: course.color }} />
       )}
     </span>
   );
@@ -143,6 +164,23 @@ function StudioBox({ lang, course }: { lang: Lang; course: CourseInfo }) {
           </li>
         ))}
       </ol>
+      {course.seed && (
+        <div className="mt-4 rounded-lg border border-line bg-canvas p-4 text-sm">
+          <p className="flex items-center gap-2 font-semibold">
+            <Table2 className="size-4 text-accent" aria-hidden />
+            {ui.seedTitle}
+          </p>
+          <p className="mt-1 leading-relaxed text-muted">{ui.seedText}</p>
+          <a
+            href={`/courses/${course.id}/${course.seed}`}
+            download
+            className="mt-2 inline-flex items-center gap-2 font-medium text-accent hover:underline"
+          >
+            <Download className="size-4" aria-hidden />
+            {fill(ui.seedDownload, course.seed)}
+          </a>
+        </div>
+      )}
       <a
         href={`${HOME[lang]}#${t.downloads.id}`}
         className="mt-4 inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
@@ -156,7 +194,49 @@ function StudioBox({ lang, course }: { lang: Lang; course: CourseInfo }) {
 
 // ------------------------------------------------------------- portada
 
-/** /cursos: los siete lenguajes. */
+/** Las tarjetas de [list] (las que aún no tienen lecciones, «Próximamente»). */
+function CourseGrid({ lang, list }: { lang: Lang; list: CourseInfo[] }) {
+  const ui = coursesUi(lang);
+  return (
+    <ul className="mx-auto grid max-w-6xl gap-4 px-4 pt-5 pb-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
+      {list.map((c) => {
+        const ready = LEVELS.filter((l) => hasLevel(c.id, l));
+        const body = (
+          <>
+            <div className="flex items-center gap-3">
+              <CourseIcon course={c} className="size-10" />
+              <div>
+                <h3 className="font-semibold">{fill(ui.courseTitle, c.name)}</h3>
+                <p className="text-xs text-muted">
+                  {ready.length
+                    ? ready.map((l) => `${LEVEL_NAME[l][lang]} · ${fill(ui.lessons, lessonsOf(c.id, l).length)}`).join(" — ")
+                    : ui.soon}
+                </p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{c.tagline[lang]}</p>
+          </>
+        );
+        return (
+          <li key={c.id}>
+            {ready.length ? (
+              <a
+                href={coursePath(lang, c.id)}
+                className="block h-full rounded-xl border border-line bg-canvas p-5 transition-colors hover:border-accent"
+              >
+                {body}
+              </a>
+            ) : (
+              <div className="h-full rounded-xl border border-dashed border-line bg-canvas p-5 opacity-70">{body}</div>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** /cursos: los lenguajes y las bases de datos. */
 export function CoursesIndex({ lang }: { lang: Lang }) {
   const ui = coursesUi(lang);
   return (
@@ -182,43 +262,18 @@ export function CoursesIndex({ lang }: { lang: Lang }) {
         <h1 className="mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{ui.title}</h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted text-pretty">{ui.intro}</p>
       </section>
-      <section className="border-t border-line bg-surface">
-        <ul className="mx-auto grid max-w-6xl gap-4 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
-          {COURSES.map((c) => {
-            const ready = LEVELS.filter((l) => hasLevel(c.id, l));
-            const body = (
-              <>
-                <div className="flex items-center gap-3">
-                  <CourseIcon course={c} className="size-10" />
-                  <div>
-                    <h2 className="font-semibold">{fill(ui.courseTitle, c.name)}</h2>
-                    <p className="text-xs text-muted">
-                      {ready.length
-                        ? ready.map((l) => `${LEVEL_NAME[l][lang]} · ${fill(ui.lessons, lessonsOf(c.id, l).length)}`).join(" — ")
-                        : ui.soon}
-                    </p>
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted">{c.tagline[lang]}</p>
-              </>
-            );
-            return (
-              <li key={c.id}>
-                {ready.length ? (
-                  <a
-                    href={coursePath(lang, c.id)}
-                    className="block h-full rounded-xl border border-line bg-canvas p-5 transition-colors hover:border-accent"
-                  >
-                    {body}
-                  </a>
-                ) : (
-                  <div className="h-full rounded-xl border border-dashed border-line bg-canvas p-5 opacity-70">{body}</div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+      {[
+        { title: ui.groupLanguages, intro: "", list: COURSES.filter((c) => !c.db) },
+        { title: ui.groupDatabases, intro: ui.groupDatabasesIntro, list: COURSES.filter((c) => c.db) },
+      ].map((g) => (
+        <section key={g.title} className="border-t border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
+            <h2 className="text-xl font-semibold tracking-tight">{g.title}</h2>
+            {g.intro && <p className="mt-1 max-w-3xl text-sm leading-relaxed text-muted">{g.intro}</p>}
+          </div>
+          <CourseGrid lang={lang} list={g.list} />
+        </section>
+      ))}
       <section className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <h2 className="text-xl font-semibold tracking-tight">{ui.whyTitle}</h2>
         <ul className="mt-4 grid gap-3 sm:grid-cols-3">
@@ -352,6 +407,71 @@ function Panel({ icon, title, children }: { icon: React.ReactNode; title: string
   );
 }
 
+/** Una celda de la rejilla, como en el estudio (NULL en gris). */
+function Cell({ v }: { v: string | number | boolean | null }) {
+  if (v == null) return <td className="px-3 py-1.5 text-[#6a6a72]">NULL</td>;
+  return (
+    <td className={`max-w-sm truncate px-3 py-1.5 whitespace-pre ${typeof v === "number" ? "text-right" : ""}`} title={String(v)}>
+      {String(v)}
+    </td>
+  );
+}
+
+/** Los resultados del script: una rejilla por consulta que devuelve filas
+ * y, para las demás, su mensaje. */
+function DbResults({ lang, lesson }: { lang: Lang; lesson: Lesson }) {
+  const ui = coursesUi(lang);
+  const results = lesson.results ?? [];
+  const msg = (r: DbResult) => (lang === "es" ? r.message : r.message_en) ?? (lang === "es" ? "Hecho" : "Done");
+  return (
+    <div className="space-y-4 px-4 py-3">
+      {results.map((r, i) => (
+        <div key={i}>
+          <p className="mb-1.5 font-mono text-xs text-[#8a8a92]">
+            {fill(ui.query, i + 1)} ·{" "}
+            {r.columns ? (r.rows?.length === 1 ? ui.oneRow : fill(ui.rows, r.rows?.length ?? 0)) : null}
+            {r.columns && r.message ? ` · ${msg(r)}` : null}
+            {!r.columns && <span className="text-[#4ade80]">{msg(r)}</span>}
+          </p>
+          {r.columns && (
+            <div className="overflow-x-auto rounded-md border border-white/10">
+              <table className="w-full border-collapse font-mono text-[13px]">
+                <thead>
+                  <tr className="bg-[#2c2c31] text-left font-sans text-xs text-[#e6e6ea]">
+                    {r.columns.map((c) => (
+                      <th key={c} className="px-3 py-1.5 font-semibold">
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {(r.rows ?? []).map((row, j) => (
+                    <tr key={j} className="border-t border-white/5">
+                      {row.map((v, k) => (
+                        <Cell key={k} v={v} />
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ))}
+      {lesson.error && (
+        <p className="font-mono text-[13px] text-[#f87171]">
+          <span className="text-xs text-[#8a8a92]">
+            {fill(ui.query, lesson.error.index + 1)} · {ui.failed}
+          </span>
+          <br />
+          {lesson.error.message}
+        </p>
+      )}
+    </div>
+  );
+}
+
 /** /cursos/<lenguaje>/<nivel>/<lección>. */
 export function LessonPage({
   lang,
@@ -435,7 +555,10 @@ export function LessonPage({
             src={lesson.image}
             width={w}
             height={h}
-            alt={fill(lesson.gui ? ui.imageAltGui : ui.imageAlt, `${course.name} · ${text.title}`)}
+            alt={fill(
+              lesson.results ? ui.imageAltDb : lesson.gui ? ui.imageAltGui : ui.imageAlt,
+              `${course.name} · ${text.title}`,
+            )}
             className="mt-6 h-auto w-full rounded-xl"
             loading={index < 2 ? "eager" : "lazy"}
           />
@@ -447,7 +570,12 @@ export function LessonPage({
             ))}
           </div>
           <div className="mt-8 space-y-4">
-            <Panel icon={<Terminal className="size-3.5" aria-hidden />} title={`${ui.code} · main.${course.ext}`}>
+            <Panel
+              icon={<Terminal className="size-3.5" aria-hidden />}
+              title={`${course.db ? ui.script : ui.code} · main.${course.ext}${
+                lesson.as ? ` · ${lesson.as === "anon" ? ui.anonUser : fill(ui.asUser, lesson.as)}` : ""
+              }`}
+            >
               <div
                 className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed [&_.line]:block [&_.line]:min-h-[1.4em] [&_pre]:!bg-transparent"
                 dangerouslySetInnerHTML={{ __html: lesson.html }}
@@ -458,7 +586,11 @@ export function LessonPage({
                 <pre className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed">{lesson.input}</pre>
               </Panel>
             )}
-            {(!lesson.gui || lesson.output) && (
+            {lesson.results ? (
+              <Panel icon={<Table2 className="size-3.5" aria-hidden />} title={`${ui.result} · ${course.name}`}>
+                <DbResults lang={lang} lesson={lesson} />
+              </Panel>
+            ) : (!lesson.gui || lesson.output) && (
               <Panel icon={<Play className="size-3.5 fill-current" aria-hidden />} title={`${ui.output} · ${course.command}`}>
                 <pre className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed whitespace-pre-wrap">
                   {lesson.output}

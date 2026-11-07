@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "unir-tres-tablas",
+    "title": "Unir tres tablas",
+    "summary": "Encadene varios JOIN en SQLite: las líneas de un pedido con el nombre del producto y su categoría, y el subtotal de cada línea.",
+    "body": [
+      "Una línea de pedido solo tiene números: `order_id`, `product_id`, `qty` y `price`. Para leerla como una persona hacen falta dos tablas más: **`JOIN products AS p ON p.id = i.product_id`** trae el nombre del producto, y **`JOIN categories AS c ON c.id = p.category_id`** trae el de su categoría a partir del producto.",
+      "Los `JOIN` se encadenan uno tras otro: cada uno puede usar las tablas que ya se han unido antes. Es como seguir flechas: línea → producto → categoría. La lista de tablas de la izquierda del estudio enseña las columnas de cada tabla, útil para no equivocarse de clave.",
+      "`i.order_id AS \"order\"` lleva comillas dobles porque `order` es una palabra reservada de SQL (la de `ORDER BY`). Las comillas dobles son para nombres; las simples, para textos.",
+      "El resultado tiene las seis líneas de los pedidos 1 y 6, ordenadas por pedido y, dentro de cada uno, por subtotal: el `Manchego cheese` es lo más caro en los dos, `7.75` en el primero y `15.5` (dos unidades) en el segundo."
+    ],
+    "points": [
+      "Los `JOIN` se encadenan: cada uno usa las tablas anteriores.",
+      "Cada `ON` relaciona una clave ajena con su `id`.",
+      "Comillas dobles para nombres (`\"order\"`), simples para textos.",
+      "Las columnas calculadas también sirven en `ORDER BY`."
+    ],
+    "exercise": "Añada el nombre del cliente a la consulta con dos `JOIN` más: `orders` (por `i.order_id`) y luego `customers` (por `customer_id`)."
+  },
+  "en": {
+    "slug": "three-table-join",
+    "title": "Joining three tables",
+    "summary": "Chain several JOINs in SQLite: the lines of an order with the product name and its category, and the subtotal of each line.",
+    "body": [
+      "An order line holds nothing but numbers: `order_id`, `product_id`, `qty` and `price`. To read it like a person you need two more tables: **`JOIN products AS p ON p.id = i.product_id`** brings in the product name, and **`JOIN categories AS c ON c.id = p.category_id`** brings in its category, starting from the product.",
+      "`JOIN`s are chained one after another: each one can use the tables already joined before it. It is like following arrows: line → product → category. The table list on the left of the studio shows each table's columns, handy for picking the right key.",
+      "`i.order_id AS \"order\"` uses double quotes because `order` is a reserved word in SQL (the one in `ORDER BY`). Double quotes are for names; single quotes, for text.",
+      "The result has the six lines of orders 1 and 6, sorted by order and, within each, by subtotal: the `Manchego cheese` is the dearest item in both, `7.75` in the first and `15.5` (two units) in the second."
+    ],
+    "points": [
+      "`JOIN`s chain: each one uses the tables before it.",
+      "Each `ON` links a foreign key to its `id`.",
+      "Double quotes for names (`\"order\"`), single quotes for text.",
+      "Computed columns can be used in `ORDER BY` too."
+    ],
+    "exercise": "Add the customer's name to the query with two more `JOIN`s: `orders` (on `i.order_id`) and then `customers` (on `customer_id`)."
+  }
+}

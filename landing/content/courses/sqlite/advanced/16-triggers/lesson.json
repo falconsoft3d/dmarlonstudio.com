@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "disparadores",
+    "title": "Disparadores (triggers)",
+    "summary": "Cree disparadores en SQLite con CREATE TRIGGER … BEGIN … END: un registro de cambios de precio y un stock que se descuenta solo al vender.",
+    "body": [
+      "Un **disparador** (*trigger*) es código que la base de datos ejecuta sola cuando ocurre algo en una tabla. **`CREATE TRIGGER log_price AFTER UPDATE OF price ON products`** se dispara después de cada cambio en la columna `price`, y **`WHEN OLD.price <> NEW.price`** lo limita a los cambios de verdad. Entre **`BEGIN`** y **`END`** van las órdenes, cada una con su `;`; el estudio entiende que el disparador entero es una sola consulta.",
+      "Dentro del disparador, **`OLD`** es la fila antes del cambio y **`NEW`**, después. `log_price` guarda las dos versiones del precio en `price_log`. El segundo, `sell`, se dispara con cada línea de pedido nueva: resta `NEW.qty` del `stock` del producto y suma el importe al total del pedido. En un `INSERT` solo existe `NEW`.",
+      "Las dos órdenes del final no mencionan `price_log` ni el `stock`: suben un 10 % los lácteos y venden un queso en el pedido `9`. Pero el resultado enseña tres cambios de precio registrados, `Whole milk` de `1.1` a `1.21`, `Greek yogurt` de `2.4` a `2.64` y `Manchego cheese` de `7.75` a `8.53`; el queso con `7` unidades (tenía 8) y el pedido `9` con `19.33` euros (`10.8` + `8.53`).",
+      "Los disparadores mantienen los datos coherentes pase lo que pase, venga el cambio de la aplicación o de una consulta escrita a mano. A cambio, hacen cosas que no se ven en la orden original: documéntelos bien."
+    ],
+    "points": [
+      "`CREATE TRIGGER t AFTER|BEFORE INSERT|UPDATE|DELETE ON tabla`.",
+      "`BEGIN … END;` encierra las órdenes del disparador.",
+      "`OLD` es la fila de antes y `NEW`, la de después.",
+      "`WHEN` decide si el disparador se ejecuta."
+    ],
+    "exercise": "Cree un disparador `BEFORE INSERT ON order_items` que, si `NEW.qty` es mayor que el `stock` del producto, haga `SELECT RAISE(ABORT, 'not enough stock')`, y pruébelo vendiendo 50 quesos."
+  },
+  "en": {
+    "slug": "triggers",
+    "title": "Triggers",
+    "summary": "Create triggers in SQLite with CREATE TRIGGER … BEGIN … END: a log of price changes and stock that goes down by itself on each sale.",
+    "body": [
+      "A **trigger** is code the database runs by itself when something happens in a table. **`CREATE TRIGGER log_price AFTER UPDATE OF price ON products`** fires after every change to the `price` column, and **`WHEN OLD.price <> NEW.price`** restricts it to real changes. The statements go between **`BEGIN`** and **`END`**, each with its own `;`; the studio understands that the whole trigger is a single query.",
+      "Inside the trigger, **`OLD`** is the row before the change and **`NEW`** the row after. `log_price` stores both versions of the price in `price_log`. The second one, `sell`, fires on every new order line: it subtracts `NEW.qty` from the product's `stock` and adds the amount to the order's total. In an `INSERT` only `NEW` exists.",
+      "The two statements at the end say nothing about `price_log` or `stock`: they raise dairy prices by 10% and sell one cheese in order `9`. Yet the result shows three price changes logged, `Whole milk` from `1.1` to `1.21`, `Greek yogurt` from `2.4` to `2.64` and `Manchego cheese` from `7.75` to `8.53`; the cheese down to `7` units (it had 8) and order `9` at `19.33` euros (`10.8` + `8.53`).",
+      "Triggers keep data consistent whatever happens, whether the change comes from the application or from a query typed by hand. The price is that they do things you cannot see in the original statement: document them well."
+    ],
+    "points": [
+      "`CREATE TRIGGER t AFTER|BEFORE INSERT|UPDATE|DELETE ON table`.",
+      "`BEGIN … END;` wraps the trigger's statements.",
+      "`OLD` is the row before and `NEW` the row after.",
+      "`WHEN` decides whether the trigger runs."
+    ],
+    "exercise": "Create a `BEFORE INSERT ON order_items` trigger that, if `NEW.qty` is greater than the product's `stock`, does `SELECT RAISE(ABORT, 'not enough stock')`, and test it by selling 50 cheeses."
+  }
+}

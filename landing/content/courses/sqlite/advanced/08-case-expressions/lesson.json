@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "expresiones-case",
+    "title": "Condiciones con CASE",
+    "summary": "Use CASE en SQLite para poner etiquetas según el valor y para contar o sumar con condiciones: una tabla de pedidos por mes y estado.",
+    "body": [
+      "**`CASE WHEN … THEN … ELSE … END`** es el «si… entonces» de SQL: evalúa las condiciones en orden y devuelve el valor de la primera que se cumple. Por debajo de 2 euros el producto es `cheap`; si no, por debajo de 5 es `regular`; y si no, `premium`. Como la primera condición ya ha descartado lo barato, la segunda no necesita decir `price >= 2`.",
+      "La otra forma, **`CASE stock WHEN 0 THEN …`**, compara una expresión con varios valores. Los `Bananas 1 kg`, sin existencias, salen como `sold out`, y el resto con su número. Sin `ELSE`, lo que no coincide sería `NULL`.",
+      "La segunda consulta es una **agregación condicional**: un `CASE` dentro de `sum` cuenta solo las filas que cumplen la condición. En SQLite una comparación vale `1` o `0`, así que `sum(status = 'paid')` es una forma corta de lo mismo. Así se convierten los estados en columnas: una fila por mes y una columna por estado.",
+      "En marzo hubo `3` pedidos, `2` enviados y `1` pagado; en abril, `2`, uno de ellos cancelado, y la columna `lost` suma lo que se perdió con él, `19.8` euros. Es el tipo de tabla que se exporta a **CSV** para un informe."
+    ],
+    "points": [
+      "`CASE WHEN cond THEN valor … ELSE valor END` elige un valor.",
+      "Las condiciones se evalúan en orden; gana la primera.",
+      "`CASE expr WHEN v1 THEN …` compara con valores concretos.",
+      "`sum(CASE WHEN … THEN 1 ELSE 0 END)` cuenta con condición."
+    ],
+    "exercise": "Añada a la segunda consulta una columna `big` que cuente los pedidos de más de 15 euros de cada mes, y otra con los ingresos sin los cancelados."
+  },
+  "en": {
+    "slug": "case-expressions",
+    "title": "Conditions with CASE",
+    "summary": "Use CASE in SQLite to label rows by value and to count or sum with conditions: a table of orders by month and status.",
+    "body": [
+      "**`CASE WHEN … THEN … ELSE … END`** is SQL's \"if… then\": it checks the conditions in order and returns the value of the first one that holds. Under 2 euros a product is `cheap`; otherwise, under 5 it is `regular`; otherwise, `premium`. Since the first condition has already ruled out the cheap ones, the second need not say `price >= 2`.",
+      "The other form, **`CASE stock WHEN 0 THEN …`**, compares one expression with several values. The `Bananas 1 kg`, out of stock, come out as `sold out`, and the rest with their number. Without `ELSE`, anything that does not match would be `NULL`.",
+      "The second query is a **conditional aggregation**: a `CASE` inside `sum` counts only the rows that meet the condition. In SQLite a comparison is worth `1` or `0`, so `sum(status = 'paid')` is a short way of doing the same. This is how statuses turn into columns: one row per month and one column per status.",
+      "In March there were `3` orders, `2` shipped and `1` paid; in April, `2`, one of them cancelled, and the `lost` column adds up what went with it, `19.8` euros. It is the kind of table you export to **CSV** for a report."
+    ],
+    "points": [
+      "`CASE WHEN cond THEN value … ELSE value END` picks a value.",
+      "Conditions are checked in order; the first one wins.",
+      "`CASE expr WHEN v1 THEN …` compares with specific values.",
+      "`sum(CASE WHEN … THEN 1 ELSE 0 END)` counts conditionally."
+    ],
+    "exercise": "Add a `big` column to the second query that counts each month's orders over 15 euros, and another with the revenue excluding cancelled orders."
+  }
+}

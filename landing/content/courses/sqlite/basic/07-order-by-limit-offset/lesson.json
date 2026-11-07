@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "order-by-limit-y-offset",
+    "title": "Ordenar y paginar resultados",
+    "summary": "Ordene por una o varias columnas con ORDER BY, ASC y DESC, y pagine el resultado con LIMIT y OFFSET en SQLite.",
+    "body": [
+      "`ORDER BY price DESC LIMIT 3` es la receta de un «top 3»: primero ordena de mayor a menor y después **`LIMIT`** se queda con las tres primeras filas. Los productos más caros son `Espresso beans` (`9.9`), `Manchego cheese` (`7.75`) y `Green tea` (`4.5`).",
+      "Se puede ordenar por **varias columnas**, separadas por comas: `ORDER BY category_id, price DESC` ordena primero por categoría (de menor a mayor) y, dentro de cada categoría, por precio de mayor a menor. Cada columna lleva su propio `ASC` o `DESC`.",
+      "**`OFFSET 4`** se salta las cuatro primeras filas. Con `LIMIT 4 OFFSET 4` se obtiene la «segunda página» de cuatro: las tres panaderías ocupan las primeras posiciones junto al café, así que la página empieza en `Green tea` y `Orange juice` (categoría 2) y sigue con `Manchego cheese` y `Greek yogurt` (categoría 3).",
+      "Así paginan las aplicaciones: página `n` de tamaño `t` es `LIMIT t OFFSET (n - 1) * t`. Y para que las páginas no se mezclen, el `ORDER BY` debe dar un orden único; si dos filas pudieran empatar, añada `id` como última columna."
+    ],
+    "points": [
+      "`ORDER BY a, b DESC`: varias columnas, cada una con su sentido.",
+      "`LIMIT n` devuelve como mucho `n` filas.",
+      "`OFFSET m` se salta las `m` primeras.",
+      "Sin un orden único, la paginación puede repetir o perder filas."
+    ],
+    "exercise": "Saque la tercera página de productos ordenados por nombre, con tres productos por página (`LIMIT 3 OFFSET 6`)."
+  },
+  "en": {
+    "slug": "order-by-limit-and-offset",
+    "title": "Sorting and paging results",
+    "summary": "Sort by one or more columns with ORDER BY, ASC and DESC, and page through the result with LIMIT and OFFSET in SQLite.",
+    "body": [
+      "`ORDER BY price DESC LIMIT 3` is the recipe for a top 3: first sort from highest to lowest, then **`LIMIT`** keeps the first three rows. The dearest products are `Espresso beans` (`9.9`), `Manchego cheese` (`7.75`) and `Green tea` (`4.5`).",
+      "You can sort by **several columns**, separated by commas: `ORDER BY category_id, price DESC` sorts by category first (lowest to highest) and, within each category, by price from highest to lowest. Each column takes its own `ASC` or `DESC`.",
+      "**`OFFSET 4`** skips the first four rows. `LIMIT 4 OFFSET 4` gives you the second page of four: the three bakery items and the coffee fill the first positions, so the page starts at `Green tea` and `Orange juice` (category 2) and goes on with `Manchego cheese` and `Greek yogurt` (category 3).",
+      "This is how applications page through data: page `n` of size `s` is `LIMIT s OFFSET (n - 1) * s`. And to keep pages from overlapping, the `ORDER BY` must give a unique order; if two rows could tie, add `id` as the last column."
+    ],
+    "points": [
+      "`ORDER BY a, b DESC`: several columns, each with its own direction.",
+      "`LIMIT n` returns at most `n` rows.",
+      "`OFFSET m` skips the first `m`.",
+      "Without a unique order, paging can repeat or lose rows."
+    ],
+    "exercise": "Get the third page of products ordered by name, three products per page (`LIMIT 3 OFFSET 6`)."
+  }
+}

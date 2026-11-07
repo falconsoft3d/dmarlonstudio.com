@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "create-table-y-restricciones",
+    "title": "Crear tablas con reglas",
+    "summary": "Cree una tabla en SQLite con CREATE TABLE y sus restricciones: PRIMARY KEY, NOT NULL, UNIQUE, DEFAULT y CHECK.",
+    "body": [
+      "**`CREATE TABLE`** define una tabla nueva: su nombre, sus columnas con su tipo (`INTEGER`, `TEXT`, `REAL`…) y las **restricciones**, las reglas que la base de datos hará cumplir en cada `INSERT` y cada `UPDATE`.",
+      "`id INTEGER PRIMARY KEY` es la **clave primaria**: identifica cada fila y SQLite la numera sola. **`NOT NULL`** obliga a dar un valor; **`UNIQUE`** impide que dos proveedores se llamen igual; **`DEFAULT 'Spain'`** es el valor que se pone si no se dice otro; y **`CHECK (rating BETWEEN 1 AND 5)`** rechaza cualquier nota fuera de ese rango.",
+      "Los dos primeros proveedores no dicen el país y reciben `Spain`; `Fresh Fruit Ltd` lo da, `UK`, y no dice desde cuándo trabaja con la tienda, así que su `since` queda en `NULL`. Tras ejecutar el script, `suppliers` aparece en la lista de tablas de la izquierda.",
+      "**`pragma_table_info('suppliers')`** describe la tabla como si fuera una consulta más: el nombre y el tipo de cada columna, si es `NOT NULL`, su valor por defecto (`'Spain'`) y cuál es la clave (`pk`). `\"notnull\"` va entre comillas dobles porque `NOTNULL` es una palabra de SQL."
+    ],
+    "points": [
+      "`CREATE TABLE` define columnas, tipos y restricciones.",
+      "`PRIMARY KEY` identifica la fila; `INTEGER PRIMARY KEY` se numera sola.",
+      "`NOT NULL`, `UNIQUE`, `DEFAULT` y `CHECK` hacen cumplir reglas.",
+      "`pragma_table_info('t')` describe las columnas de una tabla."
+    ],
+    "exercise": "Añada al final un `INSERT` de un proveedor con `rating` `7` y ejecute el script: verá el error del `CHECK`. Pruebe también a repetir el nombre `'Lácteos Norte'`."
+  },
+  "en": {
+    "slug": "create-table-and-constraints",
+    "title": "Creating tables with rules",
+    "summary": "Create a table in SQLite with CREATE TABLE and its constraints: PRIMARY KEY, NOT NULL, UNIQUE, DEFAULT and CHECK.",
+    "body": [
+      "**`CREATE TABLE`** defines a new table: its name, its columns with their types (`INTEGER`, `TEXT`, `REAL`…) and the **constraints**, the rules the database will enforce on every `INSERT` and `UPDATE`.",
+      "`id INTEGER PRIMARY KEY` is the **primary key**: it identifies each row and SQLite numbers it by itself. **`NOT NULL`** requires a value; **`UNIQUE`** stops two suppliers having the same name; **`DEFAULT 'Spain'`** is the value used when none is given; and **`CHECK (rating BETWEEN 1 AND 5)`** rejects any rating outside that range.",
+      "The first two suppliers do not give a country and get `Spain`; `Fresh Fruit Ltd` gives one, `UK`, and does not say since when it has worked with the shop, so its `since` stays `NULL`. After running the script, `suppliers` appears in the table list on the left.",
+      "**`pragma_table_info('suppliers')`** describes the table as if it were just another query: each column's name and type, whether it is `NOT NULL`, its default (`'Spain'`) and which one is the key (`pk`). `\"notnull\"` is in double quotes because `NOTNULL` is an SQL keyword."
+    ],
+    "points": [
+      "`CREATE TABLE` defines columns, types and constraints.",
+      "`PRIMARY KEY` identifies the row; `INTEGER PRIMARY KEY` numbers itself.",
+      "`NOT NULL`, `UNIQUE`, `DEFAULT` and `CHECK` enforce rules.",
+      "`pragma_table_info('t')` describes a table's columns."
+    ],
+    "exercise": "Add an `INSERT` of a supplier with a `rating` of `7` at the end and run the script: you will see the `CHECK` error. Also try repeating the name `'Lácteos Norte'`."
+  }
+}

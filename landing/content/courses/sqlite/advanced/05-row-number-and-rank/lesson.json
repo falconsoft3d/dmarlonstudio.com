@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "row-number-y-rank",
+    "title": "Numerar filas: ROW_NUMBER y RANK",
+    "summary": "Funciones de ventana en SQLite: numere productos por precio con ROW_NUMBER, dentro de cada categoría con PARTITION BY, y clasifique con RANK.",
+    "body": [
+      "Las **funciones de ventana** calculan un valor para cada fila mirando otras filas, pero sin agruparlas: el resultado conserva las 12 filas de productos. Se reconocen por **`OVER (…)`**, que dice qué filas forman la «ventana» y en qué orden.",
+      "**`row_number() OVER (ORDER BY price DESC)`** numera todos los productos del más caro al más barato: el `Espresso beans` es el `1` y la `Whole milk`, el `12`. Con **`PARTITION BY category_id`** la numeración vuelve a empezar en cada categoría: en `in_cat`, el `Rye bread` es el primero de la panadería y el `Strawberries`, de la fruta.",
+      "Cada función tiene su propia ventana, y el `ORDER BY` final de la consulta es otra cosa: solo ordena la rejilla. Aquí se ordena por categoría y posición, y `overall` enseña a la vez el puesto en toda la tienda.",
+      "La segunda consulta combina ventanas con `GROUP BY`: primero se agrupan las reseñas por producto y después se clasifican por su media. **`rank()`** da el mismo puesto a los empates y deja un hueco: los productos `4` y `9` empatan en el `3` y las fresas son el `5`. **`dense_rank()`** no deja huecos: las fresas son el `4`."
+    ],
+    "points": [
+      "`OVER (…)` convierte una función en función de ventana.",
+      "Las filas no se agrupan: cada una recibe su valor.",
+      "`PARTITION BY` reinicia el cálculo en cada grupo.",
+      "`row_number` no repite; `rank` repite y salta; `dense_rank` repite sin saltar."
+    ],
+    "exercise": "Con `row_number() OVER (PARTITION BY customer_id ORDER BY ordered)`, numere los pedidos de cada cliente y quédese solo con el primer pedido de cada uno (use la consulta en una CTE y filtre por `= 1`)."
+  },
+  "en": {
+    "slug": "row-number-and-rank",
+    "title": "Numbering rows: ROW_NUMBER and RANK",
+    "summary": "Window functions in SQLite: number products by price with ROW_NUMBER, within each category with PARTITION BY, and rank them with RANK.",
+    "body": [
+      "**Window functions** compute a value for each row by looking at other rows, but without grouping them: the result keeps all 12 product rows. You recognise them by **`OVER (…)`**, which says which rows make up the \"window\" and in what order.",
+      "**`row_number() OVER (ORDER BY price DESC)`** numbers every product from dearest to cheapest: `Espresso beans` is `1` and `Whole milk` is `12`. With **`PARTITION BY category_id`** the numbering starts again in each category: in `in_cat`, `Rye bread` is first in bakery and `Strawberries` first in fruit.",
+      "Each function has its own window, and the query's final `ORDER BY` is something else: it only sorts the grid. Here it sorts by category and position, while `overall` shows the place in the whole shop alongside.",
+      "The second query mixes windows with `GROUP BY`: first the reviews are grouped by product, then ranked by their average. **`rank()`** gives ties the same place and leaves a gap: products `4` and `9` tie at `3` and the strawberries come `5`th. **`dense_rank()`** leaves no gap: the strawberries are `4`."
+    ],
+    "points": [
+      "`OVER (…)` turns a function into a window function.",
+      "Rows are not grouped: each one gets its own value.",
+      "`PARTITION BY` restarts the calculation for each group.",
+      "`row_number` never repeats; `rank` repeats and skips; `dense_rank` repeats without skipping."
+    ],
+    "exercise": "With `row_number() OVER (PARTITION BY customer_id ORDER BY ordered)`, number each customer's orders and keep only each customer's first order (put the query in a CTE and filter on `= 1`)."
+  }
+}

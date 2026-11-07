@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.65 — 2026-11-07
+
+- **Curso de SQLite** en la web (/cursos/sqlite y /en/courses/sqlite): 40 lecciones, básico y avanzado, con scripts que se ejecutan de verdad en el módulo Bases de datos sobre una tienda de ejemplo que se puede descargar (`shop.sql`). Cada lección enseña su script, el resultado de cada consulta en tablas y la pantalla Bases de datos del estudio.
+- **Bases de datos: scripts.** Varias consultas en el editor se ejecutan una tras otra y cada una deja su resultado en una pestaña. Si hay texto seleccionado, solo se ejecuta la selección. Los `;` de las cadenas, los comentarios, los bloques `$$` de PostgreSQL y los disparadores de SQLite no cortan; en MySQL vale `DELIMITER //`. En MongoDB, FalconDatabase y Firebase, un JSON tras otro (con comentarios `//`).
+- **Bases de datos: más consultas.** MongoDB: `projection`, `count`, `distinct`, `createIndex`, `indexes` y `drop`, y los errores de escritura (clave duplicada…) ya se ven. FalconDatabase y Firebase: `update` y `delete` con `where`. Firebase: subcolecciones, consultas de grupo, `select`, `offset`, orden por varios campos y `count`, `sum` y `avg`.
+- **Bases de datos: mejor resultado.** `CREATE` y demás dicen «Hecho» en vez de «0 filas afectadas»; «1 fila afectada» en singular; fechas como `2024-01-05`; `RETURNING` de SQLite muestra sus filas; los errores de SQLite, con su texto («FOREIGN KEY constraint failed»); los `enum` de PostgreSQL se ven.
+- La web: la página de cursos separa **Lenguajes** y **Bases de datos**, y el código en negrita de los textos ya se ve bien.
+
 ## 1.0.64 — 2026-11-07
 
 - **Curso de tkinter** (básico y avanzado, 40 lecciones, español e

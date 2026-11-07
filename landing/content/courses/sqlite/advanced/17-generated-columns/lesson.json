@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "columnas-generadas",
+    "title": "Columnas generadas",
+    "summary": "Defina en SQLite columnas que se calculan solas a partir de otras con GENERATED/AS, virtuales o STORED, e indéxelas para buscar rápido.",
+    "body": [
+      "Una **columna generada** no se escribe nunca: su valor sale de una expresión sobre las otras columnas de la fila. `ALTER TABLE products ADD COLUMN price_vat REAL AS (round(price * 1.21, 2))` añade a los productos su precio con IVA, y `first_tag` saca la primera etiqueta del JSON de `tags` con `json_extract`.",
+      "Las que se añaden con `ALTER TABLE` son **virtuales**: se calculan al leerlas y no ocupan sitio. En una tabla nueva también pueden ser **`STORED`**: se calculan al escribir la fila y se guardan. En `invoice_lines`, `net` es `qty * price` y `vat` se calcula a partir de `net`, otra columna generada. El `INSERT` solo da `qty` y `price`, y la rejilla enseña `9.6` y `2.02` para la primera línea.",
+      "Una columna generada **sigue a los datos**: el `UPDATE` sube el café a `10.5` y su `price_vat` pasa a `12.71` sin hacer nada más. Si intentara escribir en ella con `INSERT` o `UPDATE`, SQLite daría error.",
+      "También se puede **indexar**. `idx_products_first_tag` permite buscar rápido por la primera etiqueta, algo que con el JSON obligaría a leerlo entero en cada fila. La última consulta filtra por `first_tag IN ('bread', 'coffee', 'fresh')` y salen siete productos."
+    ],
+    "points": [
+      "`col TIPO AS (expresión)` define una columna generada.",
+      "Virtual (por defecto): se calcula al leer; `STORED`: se guarda al escribir.",
+      "Su valor sigue a las columnas de las que depende y no se puede escribir.",
+      "Se puede indexar, también si sale de un JSON."
+    ],
+    "exercise": "Añada a `products` una columna generada `stock_value` con `round(price * stock, 2)` y busque los tres productos con más valor en el almacén."
+  },
+  "en": {
+    "slug": "generated-columns",
+    "title": "Generated columns",
+    "summary": "Define SQLite columns that compute themselves from other columns with GENERATED/AS, virtual or STORED, and index them for fast lookups.",
+    "body": [
+      "A **generated column** is never written to: its value comes from an expression over the other columns of the row. `ALTER TABLE products ADD COLUMN price_vat REAL AS (round(price * 1.21, 2))` gives the products their price with VAT, and `first_tag` takes the first tag from the `tags` JSON with `json_extract`.",
+      "Those added with `ALTER TABLE` are **virtual**: they are computed when read and take no space. In a new table they can also be **`STORED`**: computed when the row is written and saved with it. In `invoice_lines`, `net` is `qty * price` and `vat` is computed from `net`, another generated column. The `INSERT` only supplies `qty` and `price`, and the grid shows `9.6` and `2.02` for the first line.",
+      "A generated column **follows the data**: the `UPDATE` raises the coffee to `10.5` and its `price_vat` becomes `12.71` with nothing else to do. If you tried to write to it with `INSERT` or `UPDATE`, SQLite would raise an error.",
+      "It can be **indexed** too. `idx_products_first_tag` makes searching by the first tag fast, where the JSON would have to be read in full on every row. The last query filters on `first_tag IN ('bread', 'coffee', 'fresh')` and seven products come back."
+    ],
+    "points": [
+      "`col TYPE AS (expression)` defines a generated column.",
+      "Virtual (the default): computed on read; `STORED`: saved on write.",
+      "Its value follows the columns it depends on and cannot be written.",
+      "It can be indexed, even when it comes from JSON."
+    ],
+    "exercise": "Add a generated `stock_value` column to `products` with `round(price * stock, 2)` and find the three products with the most value in stock."
+  }
+}

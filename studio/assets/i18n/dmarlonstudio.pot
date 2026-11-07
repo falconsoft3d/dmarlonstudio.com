@@ -8311,6 +8311,10 @@ msgid "No se pudo conectar: {0}"
 msgstr ""
 
 #: lib/dev/dev_client.dart
+msgid "Colección «{0}» borrada"
+msgstr ""
+
+#: lib/dev/dev_client.dart
 msgid "El servidor no permitió: {0}"
 msgstr ""
 
@@ -8326,8 +8330,8 @@ msgstr ""
 msgid "No existe el archivo {0}."
 msgstr ""
 
-#: lib/dev/dev_client.dart lib/dev/dev_cloud_db.dart
-msgid "{0} filas afectadas"
+#: lib/dev/dev_client.dart
+msgid "Índice creado: {0}"
 msgstr ""
 
 #: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
@@ -8363,11 +8367,23 @@ msgid "{0} filas en total"
 msgstr ""
 
 #: lib/dev/dev_cloud_db.dart
-msgid "«update» es {\"id\": \"…\", \"set\": {…}}."
+msgid "«update» es {\"id\": \"…\", \"set\": {…}} o {\"where\": {…}, \"set\": {…}}."
 msgstr ""
 
 #: lib/dev/dev_cloud_db.dart
-msgid "«update» es {\"id\": 1, \"set\": {…}}."
+msgid "«update» es {\"id\": 1, \"set\": {…}} o {\"where\": {…}, \"set\": {…}}."
+msgstr ""
+
+#: lib/dev/dev_script.dart
+msgid "Consulta {0}: {1}"
+msgstr ""
+
+#: lib/dev/dev_types.dart
+msgid "1 fila afectada"
+msgstr ""
+
+#: lib/dev/dev_types.dart
+msgid "{0} filas afectadas"
 msgstr ""
 
 #: lib/dev/diagram.dart
@@ -9416,6 +9432,10 @@ msgstr ""
 
 #: lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart
 msgid "Ejecutar"
+msgstr ""
+
+#: lib/ui/screens/dev_tools.dart
+msgid "El script tiene {0} consultas y {1} cambian la base de datos «{2}». ¿Ejecutarlo?"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart

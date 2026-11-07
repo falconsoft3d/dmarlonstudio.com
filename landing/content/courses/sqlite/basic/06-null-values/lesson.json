@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "valores-null",
+    "title": "Los valores NULL",
+    "summary": "NULL es la ausencia de valor: búsquelo con IS NULL, vea por qué = NULL no funciona y sustitúyalo con coalesce() en SQLite.",
+    "body": [
+      "**`NULL`** significa «sin valor»: no es cero ni un texto vacío. En la tienda, `Pedro Gómez` no tiene correo y una reseña no tiene comentario. Para encontrarlos se usa **`IS NULL`** (y su contrario, **`IS NOT NULL`**): la primera consulta devuelve a Pedro, de `Seville`.",
+      "La segunda consulta enseña la trampa más común: `email = NULL` no da error, pero cuenta `0` filas. Cualquier comparación con `NULL` da `NULL` (ni verdadero ni falso), y `WHERE` solo deja pasar lo verdadero. Por eso con `NULL` siempre `IS`.",
+      "**`coalesce(a, b, …)`** devuelve el primer argumento que no es `NULL`. `coalesce(r.comment, '(no comment)')` deja los comentarios como están y pone `(no comment)` en la reseña `5`, la única sin texto. Es la forma de dar un valor por defecto en el resultado sin tocar los datos.",
+      "`FROM reviews AS r` le da a la tabla un alias corto, y `r.comment` dice de qué tabla es la columna. Aquí no hace falta, porque solo hay una tabla, pero se vuelve imprescindible en cuanto se unen varias, como en la lección 13."
+    ],
+    "points": [
+      "`NULL` es «sin valor», distinto de `0` y de `''`.",
+      "Use `IS NULL` / `IS NOT NULL`; `= NULL` nunca es verdadero.",
+      "`coalesce()` devuelve el primer valor que no es `NULL`.",
+      "Un alias de tabla (`AS r`) acorta los nombres de las columnas."
+    ],
+    "exercise": "Liste todos los clientes con una columna `contact` que sea su correo o, si no tiene, el texto `'no email'`. Después cuente cuántos clientes tienen correo con `WHERE email IS NOT NULL`."
+  },
+  "en": {
+    "slug": "null-values",
+    "title": "NULL values",
+    "summary": "NULL is the absence of a value: find it with IS NULL, see why = NULL fails and replace it with coalesce() in SQLite.",
+    "body": [
+      "**`NULL`** means \"no value\": it is neither zero nor an empty string. In the shop, `Pedro Gómez` has no email and one review has no comment. You find them with **`IS NULL`** (and its opposite, **`IS NOT NULL`**): the first query returns Pedro, from `Seville`.",
+      "The second query shows the most common trap: `email = NULL` raises no error, yet it counts `0` rows. Any comparison with `NULL` gives `NULL` (neither true nor false), and `WHERE` only lets true through. That is why `NULL` always goes with `IS`.",
+      "**`coalesce(a, b, …)`** returns the first argument that is not `NULL`. `coalesce(r.comment, '(no comment)')` leaves the comments as they are and puts `(no comment)` in review `5`, the only one without text. It is how you give a default in the result without touching the data.",
+      "`FROM reviews AS r` gives the table a short alias, and `r.comment` says which table the column belongs to. It is not needed here, with a single table, but it becomes essential as soon as you join several, as in lesson 13."
+    ],
+    "points": [
+      "`NULL` is \"no value\", different from `0` and `''`.",
+      "Use `IS NULL` / `IS NOT NULL`; `= NULL` is never true.",
+      "`coalesce()` returns the first value that is not `NULL`.",
+      "A table alias (`AS r`) shortens column references."
+    ],
+    "exercise": "List every customer with a `contact` column that is their email or, if they have none, the text `'no email'`. Then count how many customers have an email with `WHERE email IS NOT NULL`."
+  }
+}

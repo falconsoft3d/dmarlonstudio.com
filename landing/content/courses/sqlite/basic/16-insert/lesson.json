@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insert",
+    "title": "Añadir filas con INSERT",
+    "summary": "Añada datos con INSERT INTO en SQLite: una fila, varias a la vez, valores por defecto e INSERT … SELECT para copiar desde una consulta.",
+    "body": [
+      "**`INSERT INTO tabla (columnas) VALUES (valores)`** añade una fila. Nombrar las columnas es lo más seguro: los valores van en ese mismo orden y no depende de cómo esté definida la tabla. El `id` no se escribe: en una columna `INTEGER PRIMARY KEY`, SQLite pone el siguiente número libre. Lucía Romero queda como cliente `9`.",
+      "Con varios paréntesis separados por comas se insertan **varias filas** en una sola orden: `Butter` y `Lemonade`. Las columnas que no se nombran toman su valor por defecto (`DEFAULT`): `stock` queda a `0` y `active` a `1`, como se ve en la rejilla.",
+      "**`INSERT … SELECT`** inserta el resultado de una consulta en lugar de valores fijos: una reseña de 5 estrellas para cada producto con `id > 12`, es decir, los dos que se acaban de crear. Cada `INSERT` deja su pestaña con las filas afectadas: `1`, `2` y `2`.",
+      "La última consulta lo comprueba con un `LEFT JOIN`: los productos `13` y `14` aparecen con su precio, su `stock` por defecto y la reseña `New in the shop`. Recuerde que cada lección empieza con la tienda recién cargada, así que puede ejecutar el script las veces que quiera."
+    ],
+    "points": [
+      "`INSERT INTO t (cols) VALUES (…)` añade una fila.",
+      "Varios `(…), (…)` insertan varias filas de una vez.",
+      "Las columnas omitidas toman su `DEFAULT` (o `NULL`).",
+      "`INSERT … SELECT` inserta el resultado de una consulta."
+    ],
+    "exercise": "Inserte un pedido nuevo de Carlos Díaz (cliente `8`) del `'2024-06-20'` y, después, dos líneas para ese pedido. Consulte `orders` para ver qué `status` y qué `id` ha recibido."
+  },
+  "en": {
+    "slug": "insert",
+    "title": "Adding rows with INSERT",
+    "summary": "Add data with INSERT INTO in SQLite: one row, several at once, default values and INSERT … SELECT to copy from a query.",
+    "body": [
+      "**`INSERT INTO table (columns) VALUES (values)`** adds a row. Naming the columns is the safe way: the values go in that same order and nothing depends on how the table was defined. The `id` is not written: in an `INTEGER PRIMARY KEY` column SQLite uses the next free number. Lucía Romero becomes customer `9`.",
+      "Several parenthesised groups separated by commas insert **several rows** in one statement: `Butter` and `Lemonade`. The columns that are not named take their default (`DEFAULT`): `stock` ends up as `0` and `active` as `1`, as the grid shows.",
+      "**`INSERT … SELECT`** inserts the result of a query instead of fixed values: a 5-star review for every product with `id > 12`, that is, the two just created. Each `INSERT` leaves a tab with the rows affected: `1`, `2` and `2`.",
+      "The last query checks it all with a `LEFT JOIN`: products `13` and `14` appear with their price, their default `stock` and the review `New in the shop`. Every lesson starts with a freshly loaded shop, so you can run the script as many times as you like."
+    ],
+    "points": [
+      "`INSERT INTO t (cols) VALUES (…)` adds a row.",
+      "Several `(…), (…)` insert several rows at once.",
+      "Omitted columns take their `DEFAULT` (or `NULL`).",
+      "`INSERT … SELECT` inserts the result of a query."
+    ],
+    "exercise": "Insert a new order for Carlos Díaz (customer `8`) dated `'2024-06-20'` and then two lines for that order. Query `orders` to see which `status` and `id` it got."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "returning",
+    "title": "Ver lo que cambia con RETURNING",
+    "summary": "Use RETURNING en SQLite para que UPDATE, DELETE e INSERT devuelvan las filas que han cambiado, sin una consulta más.",
+    "body": [
+      "Normalmente un `UPDATE` solo dice cuántas filas ha cambiado. Con **`RETURNING`** al final, además devuelve esas filas, con las columnas que elija, como si fuera un `SELECT`: ya no hace falta una segunda consulta para saber cómo han quedado.",
+      "Cada orden empieza con un `WITH` que elige las filas por su nombre y no por su número, y el estudio enseña en una pestaña las filas que devuelve `RETURNING`. La primera sube un 5 % los lácteos y devuelve los precios nuevos: `Whole milk` a `1.16`, `Greek yogurt` a `2.52` y `Manchego cheese` a `8.14`.",
+      "En un `DELETE`, `RETURNING` devuelve las filas tal como eran antes de borrarlas: las dos reseñas de las fresas, la `7` («Not ripe», un 2) y la `8` («Sweet», un 4). Es una forma cómoda de guardar lo que se borra.",
+      "En un `INSERT`, `RETURNING` devuelve lo que ha puesto la base de datos: el pedido nuevo de Carlos recibe el `id` `11`, y los valores por defecto `status` `new` y `total` `0`. Es la forma de saber el `id` que se acaba de crear sin preguntar después."
+    ],
+    "points": [
+      "`RETURNING cols` devuelve las filas que cambia la orden.",
+      "Funciona con `INSERT`, `UPDATE` y `DELETE`.",
+      "En `DELETE` devuelve las filas como eran antes de borrarlas.",
+      "En `INSERT` devuelve el `id` y los valores por defecto."
+    ],
+    "exercise": "Con un `WITH` que elija el pedido nuevo (`SELECT max(id) FROM orders`), inserte dos líneas con `INSERT … SELECT … RETURNING id, product_id, qty`, y después actualice su total con otro `UPDATE … RETURNING`."
+  },
+  "en": {
+    "slug": "returning",
+    "title": "Seeing what changes with RETURNING",
+    "summary": "Use RETURNING in SQLite so UPDATE, DELETE and INSERT give back the rows they changed, without another query.",
+    "body": [
+      "Normally an `UPDATE` only tells you how many rows it changed. With **`RETURNING`** at the end it also gives you those rows, with the columns you choose, as if it were a `SELECT`: no second query is needed to see how they ended up.",
+      "Each statement starts with a `WITH` that picks the rows by name rather than by number, and the studio shows the rows `RETURNING` gives back in a tab. The first raises dairy by 5% and returns the new prices: `Whole milk` at `1.16`, `Greek yogurt` at `2.52` and `Manchego cheese` at `8.14`.",
+      "In a `DELETE`, `RETURNING` gives back the rows as they were before deletion: the strawberries' two reviews, `7` (\"Not ripe\", a 2) and `8` (\"Sweet\", a 4). It is a handy way of keeping what you delete.",
+      "In an `INSERT`, `RETURNING` gives back what the database filled in: Carlos's new order gets `id` `11` and the defaults `status` `new` and `total` `0`. It is how you learn the `id` just created without asking afterwards."
+    ],
+    "points": [
+      "`RETURNING cols` gives back the rows the statement changes.",
+      "It works with `INSERT`, `UPDATE` and `DELETE`.",
+      "In a `DELETE` it returns the rows as they were before.",
+      "In an `INSERT` it returns the `id` and the defaults."
+    ],
+    "exercise": "With a `WITH` that picks the new order (`SELECT max(id) FROM orders`), insert two lines with `INSERT … SELECT … RETURNING id, product_id, qty`, then update its total with another `UPDATE … RETURNING`."
+  }
+}

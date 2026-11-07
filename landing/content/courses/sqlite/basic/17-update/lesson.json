@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "update",
+    "title": "Cambiar datos con UPDATE",
+    "summary": "Modifique filas con UPDATE … SET … WHERE en SQLite: una fila, varias columnas a la vez y nuevos valores calculados con expresiones.",
+    "body": [
+      "**`UPDATE tabla SET columna = valor WHERE condición`** cambia las filas que cumplen la condición. La primera orden repone el zumo de naranja: `stock = 50` solo en la fila del `Orange juice`. Sin `WHERE`, el cambio se aplicaría a **todas** las filas de la tabla: es el error más caro de SQL.",
+      "`SET` admite varias columnas separadas por comas y **expresiones** que usan el valor actual. `price = round(price * 1.10, 2)` sube un 10 % los tres productos de panadería (`category_id = 1`): la `Baguette` pasa de `1.2` a `1.32`, el `Croissant` a `1.65` y el `Rye bread` a `3.08`. Además, a los tres se les cambian las etiquetas.",
+      "La tercera orden actualiza otra tabla con una condición doble: los pedidos pagados antes de junio pasan a `shipped`. Su pestaña dice «2 filas afectadas»: los pedidos `3` y `6`. El pedido `10`, pagado el 5 de junio, se queda como está.",
+      "Antes de un `UPDATE` importante, una buena costumbre es escribir primero un `SELECT` con el mismo `WHERE`, seleccionarlo y ejecutarlo solo a él (el estudio ejecuta solo la selección) para ver qué filas va a tocar."
+    ],
+    "points": [
+      "`UPDATE … SET … WHERE` cambia las filas que cumplen la condición.",
+      "Sin `WHERE` se cambian todas las filas.",
+      "`SET` puede usar el valor actual: `price = price * 1.10`.",
+      "Pruebe antes el `WHERE` con un `SELECT`."
+    ],
+    "exercise": "Baje un 5 % el precio de los productos con más de 30 unidades en el almacén y desactive (`active = 0`) los que tienen `stock = 0`. Compruebe el resultado con un `SELECT`."
+  },
+  "en": {
+    "slug": "update",
+    "title": "Changing data with UPDATE",
+    "summary": "Modify rows with UPDATE … SET … WHERE in SQLite: one row, several columns at once and new values computed with expressions.",
+    "body": [
+      "**`UPDATE table SET column = value WHERE condition`** changes the rows that meet the condition. The first statement restocks the orange juice: `stock = 50` only on the `Orange juice` row. Without `WHERE` the change would hit **every** row in the table: the most expensive mistake in SQL.",
+      "`SET` accepts several columns separated by commas and **expressions** that use the current value. `price = round(price * 1.10, 2)` raises the three bakery products (`category_id = 1`) by 10%: the `Baguette` goes from `1.2` to `1.32`, the `Croissant` to `1.65` and the `Rye bread` to `3.08`. All three also get new tags.",
+      "The third statement updates another table with a double condition: paid orders from before June become `shipped`. Its tab says \"2 rows affected\": orders `3` and `6`. Order `10`, paid on 5 June, stays as it is.",
+      "Before an important `UPDATE`, a good habit is to write a `SELECT` with the same `WHERE` first, select it and run just that (the studio runs only the selection) to see which rows it will touch."
+    ],
+    "points": [
+      "`UPDATE … SET … WHERE` changes the rows that meet the condition.",
+      "Without `WHERE`, every row changes.",
+      "`SET` can use the current value: `price = price * 1.10`.",
+      "Try the `WHERE` with a `SELECT` first."
+    ],
+    "exercise": "Cut the price of products with more than 30 units in stock by 5% and deactivate (`active = 0`) the ones with `stock = 0`. Check the result with a `SELECT`."
+  }
+}

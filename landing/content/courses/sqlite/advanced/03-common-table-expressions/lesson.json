@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "cte-con-with",
+    "title": "Consultas por pasos con WITH",
+    "summary": "Ordene una consulta larga en pasos con nombre usando WITH (CTE) en SQLite: pedidos válidos, gasto por cliente y comparación con la media.",
+    "body": [
+      "**`WITH`** define **expresiones de tabla comunes** (CTE): consultas con nombre que se usan después como si fueran tablas. Una consulta complicada se lee así de arriba abajo, paso a paso, en lugar de con subconsultas metidas unas dentro de otras.",
+      "El primer paso, `valid`, son los pedidos que no están cancelados. El segundo, `per_customer`, agrupa `valid` por cliente: cuenta pedidos y suma el gasto. El tercero, `overall`, calcula la media de esos gastos, `21.14`. Cada CTE puede usar las anteriores.",
+      "La consulta final une `per_customer` con `customers` para el nombre y con `overall` mediante **`CROSS JOIN`**: como `overall` tiene una sola fila, eso añade la media a todas las filas. `vs_avg` es la diferencia: `Ana García` gasta `13.81` euros más que la media, y `Marta López`, `10.64` menos.",
+      "Faltan dos clientes: Carlos, que no tiene pedidos, y John Smith, cuyo único pedido está cancelado y se quedó fuera en `valid`. Para comprobar un paso, seleccione su `SELECT` y ejecútelo solo con **Ejecutar**."
+    ],
+    "points": [
+      "`WITH nombre AS (…)` da nombre a una consulta intermedia.",
+      "Varias CTE se separan por comas y cada una puede usar las anteriores.",
+      "`CROSS JOIN` con una tabla de una fila añade ese valor a todas.",
+      "Una CTE hace legible lo que serían subconsultas anidadas."
+    ],
+    "exercise": "Añada un cuarto paso, `ranked`, que diga si cada cliente está por encima o por debajo de la media (`CASE WHEN … THEN 'above' ELSE 'below' END`) y úselo en la consulta final."
+  },
+  "en": {
+    "slug": "ctes-with-with",
+    "title": "Step-by-step queries with WITH",
+    "summary": "Break a long query into named steps with WITH (CTEs) in SQLite: valid orders, spending per customer and the comparison with the average.",
+    "body": [
+      "**`WITH`** defines **common table expressions** (CTEs): named queries that you then use as if they were tables. A complicated query reads top to bottom, one step at a time, instead of as subqueries nested inside each other.",
+      "The first step, `valid`, is the orders that are not cancelled. The second, `per_customer`, groups `valid` by customer, counting orders and adding up spending. The third, `overall`, works out the average of that spending, `21.14`. Each CTE can use the ones before it.",
+      "The final query joins `per_customer` with `customers` for the name and with `overall` through a **`CROSS JOIN`**: since `overall` has a single row, that adds the average to every row. `vs_avg` is the difference: `Ana García` spends `13.81` euros more than average, and `Marta López` `10.64` less.",
+      "Two customers are missing: Carlos, who has no orders, and John Smith, whose only order is cancelled and was dropped in `valid`. To check one step, select its `SELECT` and run it on its own with **Run**."
+    ],
+    "points": [
+      "`WITH name AS (…)` names an intermediate query.",
+      "Several CTEs are separated by commas and each can use the earlier ones.",
+      "A `CROSS JOIN` with a one-row table adds that value to every row.",
+      "A CTE makes readable what would be nested subqueries."
+    ],
+    "exercise": "Add a fourth step, `ranked`, that says whether each customer is above or below average (`CASE WHEN … THEN 'above' ELSE 'below' END`) and use it in the final query."
+  }
+}

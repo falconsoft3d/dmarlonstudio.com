@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "subconsultas",
+    "title": "Subconsultas",
+    "summary": "Use consultas dentro de consultas en SQLite: un valor para comparar, una lista para IN y una tabla temporal en el FROM.",
+    "body": [
+      "Una **subconsulta** es un `SELECT` entre paréntesis dentro de otra consulta. La más sencilla es **escalar**: devuelve un solo valor. `(SELECT avg(price) FROM products)` vale `3.5`, y `WHERE price > (…)` se queda con los cuatro productos que cuestan más que la media, del `Espresso beans` a las `Strawberries`.",
+      "Con **`IN (SELECT …)`** la subconsulta devuelve una lista. La de la tercera consulta une pedidos y líneas para sacar los clientes que han comprado café (el producto `4`): `Emma Brown`, `John Smith` y `Luis Pérez`. John sale aunque su pedido esté cancelado, porque la subconsulta no mira el estado; añadir esa condición es cosa suya.",
+      "Una subconsulta en el **`FROM`** funciona como una tabla temporal, y necesita un alias: aquí, `sold`. Calcula las unidades y el número de líneas de cada producto, y la consulta de fuera la une con `products` para poner el nombre y filtra con `sold.units >= 4`.",
+      "El resultado: el `Croissant` es lo más vendido, `10` unidades en `2` líneas, seguido de la `Baguette` y el `Greek yogurt` con `6`. Seleccione solo la subconsulta de dentro y pulse **Ejecutar**: el estudio la ejecuta sola y verá la tabla intermedia completa."
+    ],
+    "points": [
+      "Una subconsulta es un `SELECT` entre paréntesis dentro de otro.",
+      "Escalar: un solo valor, para comparar o como columna.",
+      "`IN (SELECT …)`: una lista de valores.",
+      "En el `FROM`: una tabla temporal con su alias."
+    ],
+    "exercise": "Muestre los pedidos cuyo `total` es mayor que la media de todos los pedidos, y añada una columna con la diferencia redondeada a dos decimales."
+  },
+  "en": {
+    "slug": "subqueries",
+    "title": "Subqueries",
+    "summary": "Use queries inside queries in SQLite: one value to compare against, a list for IN and a temporary table in the FROM.",
+    "body": [
+      "A **subquery** is a `SELECT` in parentheses inside another query. The simplest is **scalar**: it returns a single value. `(SELECT avg(price) FROM products)` is `3.5`, and `WHERE price > (…)` keeps the four products dearer than average, from `Espresso beans` to `Strawberries`.",
+      "With **`IN (SELECT …)`** the subquery returns a list. The one in the third query joins orders and lines to get the customers who have bought coffee (product `4`): `Emma Brown`, `John Smith` and `Luis Pérez`. John is there even though his order was cancelled, because the subquery does not look at the status; adding that condition is up to you.",
+      "A subquery in the **`FROM`** works like a temporary table and needs an alias: here, `sold`. It works out the units and the number of lines for each product, and the outer query joins it with `products` for the name and filters with `sold.units >= 4`.",
+      "The result: the `Croissant` is the best seller, `10` units over `2` lines, followed by the `Baguette` and the `Greek yogurt` with `6`. Select just the inner subquery and press **Run**: the studio runs it on its own and you see the full intermediate table."
+    ],
+    "points": [
+      "A subquery is a `SELECT` in parentheses inside another one.",
+      "Scalar: a single value, to compare or as a column.",
+      "`IN (SELECT …)`: a list of values.",
+      "In the `FROM`: a temporary table with an alias."
+    ],
+    "exercise": "Show the orders whose `total` is above the average of all orders, and add a column with the difference rounded to two decimals."
+  }
+}

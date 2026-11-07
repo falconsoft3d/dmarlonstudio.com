@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "claves-ajenas",
+    "title": "Claves ajenas que se cumplen",
+    "summary": "Active las claves ajenas en SQLite con PRAGMA foreign_keys = ON, encuentre referencias rotas con foreign_key_check y borre en cascada.",
+    "body": [
+      "`REFERENCES products (id)` declara una **clave ajena**, pero SQLite, por compatibilidad con bases de datos antiguas, **no la comprueba** si no se le pide. `PRAGMA foreign_keys` dice cómo está: `0`, desactivada. Por eso el `INSERT` mete sin protestar un deseo del producto `99`, que no existe.",
+      "**`PRAGMA foreign_key_check`** revisa toda la base de datos y devuelve una fila por cada referencia rota: la tabla (`wishlist`), el `rowid` de la fila culpable (`5`), la tabla a la que apunta (`products`) y qué clave ajena es. Es la forma de auditar una base de datos que ha funcionado tiempo sin comprobaciones.",
+      "Después de borrar la fila huérfana, **`PRAGMA foreign_keys = ON`** activa las comprobaciones para esta conexión; un programa debe ejecutarlo nada más abrir la base de datos. Desde ese momento, un `INSERT` con el producto `99` daría *FOREIGN KEY constraint failed*.",
+      "La clave de `customer_id` lleva **`ON DELETE CASCADE`**: al borrar a Carlos (cliente `8`), sus dos deseos desaparecen con él. La pestaña dice «1 fila afectada», porque solo cuenta la de `customers`, y la última consulta solo encuentra los de Sofía: `Croissant` y `Strawberries`. A Carlos se le puede borrar porque no tiene pedidos; si los tuviera, la clave ajena de `orders` lo impediría."
+    ],
+    "points": [
+      "SQLite no comprueba las claves ajenas hasta `PRAGMA foreign_keys = ON`.",
+      "El `PRAGMA` vale para la conexión: ejecútelo al abrir.",
+      "`PRAGMA foreign_key_check` lista las referencias rotas.",
+      "`ON DELETE CASCADE` borra las filas hijas con la madre."
+    ],
+    "exercise": "Mueva el `PRAGMA foreign_keys = ON` justo después del `CREATE TABLE` y ejecute el script: verá el error del producto `99`. Después cambie `ON DELETE CASCADE` por `ON DELETE SET NULL` (quitando el `NOT NULL`) y compare."
+  },
+  "en": {
+    "slug": "foreign-keys",
+    "title": "Foreign keys that are enforced",
+    "summary": "Turn on foreign keys in SQLite with PRAGMA foreign_keys = ON, find broken references with foreign_key_check and delete in cascade.",
+    "body": [
+      "`REFERENCES products (id)` declares a **foreign key**, but SQLite, for compatibility with old databases, **does not check it** unless asked to. `PRAGMA foreign_keys` tells you the setting: `0`, off. That is why the `INSERT` happily stores a wish for product `99`, which does not exist.",
+      "**`PRAGMA foreign_key_check`** inspects the whole database and returns one row per broken reference: the table (`wishlist`), the `rowid` of the offending row (`5`), the table it points to (`products`) and which foreign key it is. It is how you audit a database that has run for a while without checks.",
+      "After deleting the orphan row, **`PRAGMA foreign_keys = ON`** turns the checks on for this connection; a program should run it right after opening the database. From then on, an `INSERT` with product `99` would fail with *FOREIGN KEY constraint failed*.",
+      "The `customer_id` key has **`ON DELETE CASCADE`**: deleting Carlos (customer `8`) takes his two wishes with him. The tab says \"1 row affected\", because it only counts the one in `customers`, and the last query finds only Sofía's: `Croissant` and `Strawberries`. Carlos can be deleted because he has no orders; if he had, the foreign key on `orders` would stop it."
+    ],
+    "points": [
+      "SQLite does not check foreign keys until `PRAGMA foreign_keys = ON`.",
+      "The `PRAGMA` applies to the connection: run it on opening.",
+      "`PRAGMA foreign_key_check` lists the broken references.",
+      "`ON DELETE CASCADE` deletes child rows along with the parent."
+    ],
+    "exercise": "Move `PRAGMA foreign_keys = ON` right after the `CREATE TABLE` and run the script: you will see the error for product `99`. Then swap `ON DELETE CASCADE` for `ON DELETE SET NULL` (dropping the `NOT NULL`) and compare."
+  }
+}

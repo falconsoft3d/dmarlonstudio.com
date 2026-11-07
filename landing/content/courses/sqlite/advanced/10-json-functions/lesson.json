@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones-json",
+    "title": "Trabajar con datos JSON",
+    "summary": "Lea y genere JSON en SQLite: json_extract y json_array_length sobre las etiquetas, json_each para convertirlas en filas y json_group_array.",
+    "body": [
+      "La columna `tags` de `products` guarda un array JSON como texto, por ejemplo `[\"bread\", \"sweet\"]`. SQLite trae funciones para leerlo sin salir de SQL. **`json_array_length(tags)`** cuenta los elementos: `2` para el `Croissant` y `0` para la `Whole milk`, que tiene `[]`. **`json_extract(tags, '$[0]')`** saca el primero con una ruta JSON: `$` es el documento y `[0]`, la primera posición. Con un array vacío devuelve `NULL`.",
+      "**`json_each(p.tags)`** es una función de tabla: convierte el array en filas, una por elemento, con su valor en la columna `value`. Escrita en el `FROM` junto a `products`, se aplica a cada producto, y `WHERE t.value = 'sweet'` encuentra los tres productos dulces: `Croissant`, `Greek yogurt` y `Strawberries`.",
+      "La última consulta hace el camino inverso: agrupa por etiqueta y **`json_group_array(p.name ORDER BY p.name)`** junta los nombres de cada grupo en un array JSON nuevo, ordenado. `bread`, `fresh` y `sweet` tienen tres productos cada una; `cheese`, `coffee`, `juice` y `tea`, uno.",
+      "Ese texto JSON se puede devolver tal cual a un programa que lo lea con su propio analizador. Para buscar mucho por una propiedad de un JSON, conviene sacarla a una columna generada con índice (lo verá en la lección 17)."
+    ],
+    "points": [
+      "`json_extract(col, '$.a[0]')` lee un valor con una ruta JSON.",
+      "`json_array_length` cuenta los elementos de un array.",
+      "`json_each` convierte un array en filas (`value`, `key`…).",
+      "`json_group_array` y `json_object` construyen JSON a partir de filas."
+    ],
+    "exercise": "Construya para cada categoría un objeto JSON con `json_object('category', c.name, 'products', json_group_array(p.name))` uniendo `categories` y `products`."
+  },
+  "en": {
+    "slug": "json-functions",
+    "title": "Working with JSON data",
+    "summary": "Read and build JSON in SQLite: json_extract and json_array_length on the tags, json_each to turn them into rows, and json_group_array.",
+    "body": [
+      "The `tags` column of `products` stores a JSON array as text, for instance `[\"bread\", \"sweet\"]`. SQLite comes with functions to read it without leaving SQL. **`json_array_length(tags)`** counts the elements: `2` for the `Croissant` and `0` for the `Whole milk`, which has `[]`. **`json_extract(tags, '$[0]')`** gets the first one with a JSON path: `$` is the document and `[0]` the first position. On an empty array it returns `NULL`.",
+      "**`json_each(p.tags)`** is a table-valued function: it turns the array into rows, one per element, with its value in the `value` column. Written in the `FROM` next to `products`, it is applied to every product, and `WHERE t.value = 'sweet'` finds the three sweet products: `Croissant`, `Greek yogurt` and `Strawberries`.",
+      "The last query goes the other way: it groups by tag and **`json_group_array(p.name ORDER BY p.name)`** gathers the names of each group into a new, sorted JSON array. `bread`, `fresh` and `sweet` have three products each; `cheese`, `coffee`, `juice` and `tea`, one.",
+      "That JSON text can be handed as it is to a program that reads it with its own parser. If you search a lot by one property of a JSON value, it pays to pull it out into an indexed generated column (you will see this in lesson 17)."
+    ],
+    "points": [
+      "`json_extract(col, '$.a[0]')` reads a value with a JSON path.",
+      "`json_array_length` counts the elements of an array.",
+      "`json_each` turns an array into rows (`value`, `key`…).",
+      "`json_group_array` and `json_object` build JSON from rows."
+    ],
+    "exercise": "Build a JSON object for each category with `json_object('category', c.name, 'products', json_group_array(p.name))`, joining `categories` and `products`."
+  }
+}

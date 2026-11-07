@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "lag-y-lead",
+    "title": "La fila anterior y la siguiente",
+    "summary": "Compare cada fila con la anterior o la siguiente en SQLite con LAG y LEAD: cuánto cambia el gasto de un cliente y cuántos días pasan entre pedidos.",
+    "body": [
+      "**`lag(total)`** devuelve el `total` de la fila anterior dentro de la ventana, y **`lead`**, el de la siguiente. En la primera consulta la ventana es `PARTITION BY customer_id ORDER BY ordered`: los pedidos de cada cliente, por fecha. Ana pasa de `11.25` a `12.9` (`+1.65`) y después a `10.8` (`-2.1`); Luis, de `15.9` a `9`.",
+      "Como la ventana se usa dos veces, se define una sola vez con **`WINDOW w AS (…)`** al final de la consulta y se nombra con `OVER w`. El primer pedido de cada cliente no tiene anterior, y `lag` devuelve `NULL`; `lag(total, 1, 0)` daría `0` en su lugar.",
+      "La segunda consulta usa `lead(ordered)` sobre todos los pedidos para saber cuál es el siguiente, y **`julianday`** convierte las fechas en días para restarlas. El hueco más largo es de `21` días, entre el pedido `5` (10 de abril) y el `6` (1 de mayo); el más corto, de `2`, al principio de marzo.",
+      "El último pedido, el `10`, no tiene siguiente: `next_order` y `days` salen a `NULL`, que el estudio pinta como celda vacía. `LAG` y `LEAD` sustituyen a los autojoins de «la fila de antes», que eran mucho más largos."
+    ],
+    "points": [
+      "`lag(x)` es el valor de la fila anterior; `lead(x)`, el de la siguiente.",
+      "`lag(x, n, defecto)` mira `n` filas atrás y evita el `NULL`.",
+      "`WINDOW w AS (…)` define una ventana con nombre para reutilizarla.",
+      "`julianday(b) - julianday(a)` son los días entre dos fechas."
+    ],
+    "exercise": "Para cada producto, ordene sus líneas de pedido por `order_id` y muestre con `lag(qty)` cuántas unidades se pidieron la vez anterior."
+  },
+  "en": {
+    "slug": "lag-and-lead",
+    "title": "The previous and the next row",
+    "summary": "Compare each row with the previous or next one in SQLite with LAG and LEAD: how a customer's spending changes and the days between orders.",
+    "body": [
+      "**`lag(total)`** returns the `total` of the previous row in the window, and **`lead`** that of the next one. In the first query the window is `PARTITION BY customer_id ORDER BY ordered`: each customer's orders, by date. Ana goes from `11.25` to `12.9` (`+1.65`) and then to `10.8` (`-2.1`); Luis, from `15.9` to `9`.",
+      "Since the window is used twice, it is defined once with **`WINDOW w AS (…)`** at the end of the query and referred to with `OVER w`. Each customer's first order has no previous one, and `lag` returns `NULL`; `lag(total, 1, 0)` would give `0` instead.",
+      "The second query uses `lead(ordered)` over all the orders to find the next one, and **`julianday`** turns dates into days so they can be subtracted. The longest gap is `21` days, between order `5` (10 April) and `6` (1 May); the shortest, `2`, at the start of March.",
+      "The last order, `10`, has no next one: `next_order` and `days` come out `NULL`, which the studio shows as an empty cell. `LAG` and `LEAD` replace the \"previous row\" self-joins, which were much longer."
+    ],
+    "points": [
+      "`lag(x)` is the previous row's value; `lead(x)`, the next row's.",
+      "`lag(x, n, default)` looks `n` rows back and avoids the `NULL`.",
+      "`WINDOW w AS (…)` defines a named window you can reuse.",
+      "`julianday(b) - julianday(a)` is the number of days between two dates."
+    ],
+    "exercise": "For each product, order its order lines by `order_id` and use `lag(qty)` to show how many units were ordered the previous time."
+  }
+}

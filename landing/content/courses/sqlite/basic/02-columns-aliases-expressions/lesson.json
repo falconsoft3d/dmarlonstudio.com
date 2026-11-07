@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "columnas-alias-y-expresiones",
+    "title": "Columnas, alias y expresiones",
+    "summary": "Calcule columnas nuevas en una consulta SQLite con operaciones y póngales nombre con AS: el precio con IVA o el valor del almacén.",
+    "body": [
+      "Una columna de `SELECT` no tiene por qué existir en la tabla: puede ser una **expresión** que SQLite calcula fila a fila. `price * 1.21` es el precio con un 21 % de IVA: la `Baguette` de `1.2` pasa a `1.452`, y el `Espresso beans` de `9.9`, a `11.979`.",
+      "**`AS`** le da un nombre (un **alias**) a la columna calculada. Sin él, la cabecera de la rejilla sería el texto de la expresión; con él se lee `price_with_vat`. El alias es también el nombre que verá un programa que lea el resultado, y el que se usa al exportarlo a **CSV** desde el estudio.",
+      "`stock * price` multiplica dos columnas de la misma fila: lo que vale lo que hay en el almacén. Los 18 paquetes de café a `9.9` suman `178.2`. Va dentro de `round(…, 2)` porque los números con decimales no siempre son exactos en el ordenador (sin redondear, `12 * 2.8` sale `33.599999999999994`); `round` se ve con calma en la lección 9.",
+      "`'EUR' AS currency` es una **constante**: el mismo valor en todas las filas. Y `LIMIT 6` se queda con las seis primeras filas después de ordenar por `id`, para no llenar la pantalla."
+    ],
+    "points": [
+      "Una columna puede ser una expresión: `price * 1.21`.",
+      "`AS` pone nombre a la columna del resultado.",
+      "Las operaciones usan las columnas de la misma fila.",
+      "`LIMIT n` se queda con las primeras `n` filas."
+    ],
+    "exercise": "Añada una columna `price_in_cents` con el precio en céntimos (`price * 100`) y otra `low_stock` que valga `stock < 20` (SQLite devuelve `1` o `0`)."
+  },
+  "en": {
+    "slug": "columns-aliases-and-expressions",
+    "title": "Columns, aliases and expressions",
+    "summary": "Compute new columns in a SQLite query with arithmetic and name them with AS: the price with VAT or the value of the stock.",
+    "body": [
+      "A `SELECT` column does not have to exist in the table: it can be an **expression** that SQLite works out row by row. `price * 1.21` is the price with 21% VAT: the `Baguette` at `1.2` becomes `1.452`, and the `Espresso beans` at `9.9` becomes `11.979`.",
+      "**`AS`** gives the computed column a name (an **alias**). Without it the grid header would be the text of the expression; with it, it reads `price_with_vat`. The alias is also the name a program reading the result will see, and the one used when you export it to **CSV** from the studio.",
+      "`stock * price` multiplies two columns of the same row: what the stock on the shelf is worth. The 18 bags of coffee at `9.9` add up to `178.2`. It sits inside `round(…, 2)` because decimal numbers are not always exact on a computer (unrounded, `12 * 2.8` gives `33.599999999999994`); lesson 9 looks at `round` properly.",
+      "`'EUR' AS currency` is a **constant**: the same value on every row. And `LIMIT 6` keeps the first six rows after ordering by `id`, so the screen does not fill up."
+    ],
+    "points": [
+      "A column can be an expression: `price * 1.21`.",
+      "`AS` names a column of the result.",
+      "Arithmetic uses the columns of the same row.",
+      "`LIMIT n` keeps the first `n` rows."
+    ],
+    "exercise": "Add a `price_in_cents` column with the price in cents (`price * 100`) and a `low_stock` column equal to `stock < 20` (SQLite returns `1` or `0`)."
+  }
+}

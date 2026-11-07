@@ -40,7 +40,107 @@ const COURSES = {
   dart: { ext: "dart", shiki: "dart", name: "Dart", command: "dart run main.dart" },
   // Ventanas: la imagen lleva la captura de verdad de cada ventana.
   tkinter: { ext: "py", shiki: "python", name: "tkinter", command: "python3 main.py", gui: true },
+  // Bases de datos: el script se ejecuta con el módulo Bases de datos del
+  // estudio (studio/tool/db_course.dart) y la salida son sus rejillas.
+  sqlite: { ext: "sql", shiki: "sql", name: "SQLite", db: "sqlite", seed: "seed.sql" },
+  postgres: { ext: "sql", shiki: "sql", name: "PostgreSQL", db: "postgres", seed: "seed.sql" },
+  mysql: { ext: "sql", shiki: "sql", name: "MySQL", db: "mysql", seed: "seed.sql" },
+  mongodb: { ext: "json", shiki: "jsonc", name: "MongoDB", db: "mongodb", seed: "seed.json" },
+  falcondatabase: { ext: "json", shiki: "jsonc", name: "FalconDatabase", db: "falcon", seed: "seed.json" },
+  firebase: { ext: "json", shiki: "jsonc", name: "Firebase", db: "firebase", seed: "seed.json" },
 };
+const STUDIO = path.join(ROOT, "..", "studio");
+
+/** La conexión de cada base de datos (servidores de
+ * scripts/courses/db_servers.sh; PostgreSQL, el que haya). [as]: el usuario
+ * de FalconDatabase con el que entra la lección (course, ana, luis o anon). */
+function dbConn(kind, tmp, as = "course") {
+  switch (kind) {
+    case "sqlite":
+      return { path: path.join(tmp, "shop.db") };
+    case "postgres": {
+      const [host, port, user, password] = (process.env.DMS_COURSE_PG || `localhost:5434:${os.userInfo().username}:`).split(":");
+      return { host, port, user, password, database: "dms_course" };
+    }
+    case "mysql":
+      return { host: "127.0.0.1", port: process.env.DMS_COURSE_MYSQL_PORT || "3407", user: "root", password: "", database: "dms_course" };
+    case "mongodb":
+      return { uri: `mongodb://127.0.0.1:${process.env.DMS_COURSE_MONGO_PORT || "27027"}/dms_course` };
+    case "firebase":
+      return { project: "dms-cursos", emulator: `127.0.0.1:${process.env.DMS_COURSE_FIRESTORE_PORT || "8095"}` };
+    case "falcon": {
+      // El proyecto del curso: referencia, clave anon y sus usuarios.
+      const file = process.env.DMS_COURSE_FALCON || path.join(os.homedir(), ".config", "dmarlonstudio", "course-falcon.json");
+      const f = JSON.parse(fs.readFileSync(file, "utf8"));
+      const user = as === "anon" ? {} : f.users[as];
+      if (!user) throw new Error(`FalconDatabase: no existe el usuario ${as}`);
+      return { url: f.url, project: f.project, key: f.key, ...user };
+    }
+  }
+  throw new Error(`Base de datos: ${kind}`);
+}
+
+/** Ejecuta en el estudio los [jobs] ({kind, conn, script, seed}): un
+ * resultado por trabajo ({results, schema, error?} o {fatal}). */
+function runDbJobs(jobs) {
+  if (!jobs.length) return [];
+  const file = path.join(os.tmpdir(), `dms-db-jobs-${process.pid}.json`);
+  fs.writeFileSync(file, JSON.stringify(jobs));
+  try {
+    const r = spawnSync("dart", ["run", "tool/db_course.dart", "--batch", file], {
+      cwd: STUDIO,
+      encoding: "utf8",
+      timeout: 30 * 60_000,
+      maxBuffer: 256 * 1024 * 1024,
+      env: { ...process.env, TZ: "UTC", LANG: "en_US.UTF-8" },
+    });
+    if (r.status !== 0) throw new Error(`db_course: ${r.stderr.slice(-2000)}`);
+    // «Running build hooks…» va delante de la primera línea.
+    const lines = r.stdout
+      .split("\n")
+      .map((l) => l.slice(Math.max(0, l.indexOf("{"))))
+      .filter((l) => l.startsWith("{"));
+    if (lines.length !== jobs.length) throw new Error(`db_course: ${lines.length} de ${jobs.length} resultados`);
+    return lines.map((l) => JSON.parse(l));
+  } finally {
+    fs.rmSync(file, { force: true });
+  }
+}
+
+/** Lo que cambia de una ejecución a otra sin ser un error: la hora de
+ * created_at y los id que pone el servidor (FalconDatabase, ObjectId de
+ * MongoDB, documentos de Firestore sin _id). */
+function stable(kind, results) {
+  return JSON.stringify(results, function (k, v) {
+    if (k !== "rows" || !Array.isArray(v)) return v;
+    const cols = this.columns ?? [];
+    return v.map((row) =>
+      row.map((x, i) => {
+        const c = cols[i];
+        if (c === "created_at" || c === "updated_at") return "<time>";
+        if (kind === "falcon" && (c === "id" || c === "owner_id")) return "<id>";
+        if (c === "_id" && typeof x === "string" && /^([0-9a-f]{24}|[A-Za-z0-9]{20})$/.test(x)) return "<id>";
+        return x;
+      }),
+    );
+  });
+}
+
+/** Los resultados como texto (lo que se compara y la salida de respaldo). */
+function resultsText(results, lang = "en") {
+  const out = [];
+  for (const r of results) {
+    if (r.columns) {
+      out.push(r.columns.join(" | "));
+      for (const row of r.rows) out.push(row.map((v) => (v == null ? "NULL" : String(v))).join(" | "));
+      if (r.message) out.push(lang === "es" ? r.message : r.message_en);
+    } else if (r.message) {
+      out.push(lang === "es" ? r.message : r.message_en);
+    }
+    out.push("");
+  }
+  return out.join("\n").trim();
+}
 
 // tkinter: un Python con Tk (el de Homebrew no lo trae: brew install python-tk@3.12).
 const TK_PYTHON =
@@ -156,7 +256,7 @@ function checkTexts(where, t) {
 
 const highlighter = await createHighlighter({
   themes: ["dark-plus"],
-  langs: Object.values(COURSES).map((c) => c.shiki),
+  langs: [...new Set(Object.values(COURSES).map((c) => c.shiki))],
 });
 
 const built = [];
@@ -170,6 +270,38 @@ for (const id of ids) {
       ? fs.readdirSync(levelDir).filter((d) => /^\d\d-/.test(d)).sort()
       : [];
     const lessons = [];
+    // Bases de datos: todas las lecciones del nivel en un lote (dos veces
+    // cada una, para ver que el resultado no cambia).
+    const dbOut = new Map();
+    if (course.db) {
+      const seedFile = path.join(SRC, id, course.seed);
+      const seed = fs.existsSync(seedFile) ? fs.readFileSync(seedFile, "utf8") : null;
+      const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `curso-${id}-`));
+      const jobs = [];
+      for (const d of dirs) {
+        const dir = path.join(levelDir, d);
+        const file = path.join(dir, `main.${course.ext}`);
+        if (!fs.existsSync(file)) continue;
+        let meta = {};
+        try {
+          meta = JSON.parse(fs.readFileSync(path.join(dir, "lesson.json"), "utf8"));
+        } catch {
+          // Lo dice el bucle de abajo.
+        }
+        const job = {
+          kind: course.db,
+          conn: dbConn(course.db, tmp, meta.as),
+          script: fs.readFileSync(file, "utf8"),
+          ...(seed && meta.seed !== false ? { seed } : {}),
+        };
+        jobs.push({ d, job });
+      }
+      process.stdout.write(`${id}/${level}: ${jobs.length} lecciones en ${course.name}… `);
+      const res = runDbJobs(jobs.flatMap((j) => [j.job, j.job]));
+      console.log("hecho");
+      jobs.forEach((j, i) => dbOut.set(j.d, [res[2 * i], res[2 * i + 1]]));
+      fs.rmSync(tmp, { recursive: true, force: true });
+    }
     for (const [i, d] of dirs.entries()) {
       const where = `${id}/${level}/${d}`;
       const dir = path.join(levelDir, d);
@@ -198,13 +330,35 @@ for (const id of ids) {
           if (f.startsWith(path.basename(shotBase) + "-")) fs.rmSync(path.join(os.tmpdir(), f));
         }
       }
-      const output = runLesson(id, dir, where, shotBase);
+      let db = null;
+      if (course.db) {
+        const [a, b] = dbOut.get(d) ?? [];
+        if (!a || a.fatal) {
+          fail(where, a?.fatal ?? "no se ejecutó");
+          console.log("FALLA");
+          continue;
+        }
+        // Una lección puede enseñar un error: lo dice con "error": true y
+        // falla la última consulta.
+        const nQueries = a.results.length + (a.error ? 1 : 0);
+        if (a.error && !(meta.error && a.error.index === nQueries - 1)) {
+          fail(where, `la consulta ${a.error.index + 1} falla: ${a.error.message}`);
+        } else if (meta.error && !a.error) {
+          fail(where, "debería fallar (\"error\": true) y no falla");
+        }
+        if (stable(course.db, a) !== stable(course.db, b)) fail(where, "el resultado cambia de una ejecución a otra");
+        if (!a.results.length) fail(where, "no ejecuta nada");
+        db = a;
+      }
+      const output = course.db ? resultsText(db.results) : runLesson(id, dir, where, shotBase);
       if (output == null) {
         console.log("FALLA");
         continue;
       }
       let shots = [];
-      if (course.gui) {
+      if (course.db) {
+        // Ya comprobado.
+      } else if (course.gui) {
         if (shotBase !== "-") {
           shots = fs
             .readdirSync(os.tmpdir())
@@ -234,6 +388,14 @@ for (const id of ids) {
         output,
         image: `/courses/${id}/${level}-${String(n).padStart(2, "0")}.jpg`,
         ...(course.gui ? { gui: true, shots } : {}),
+        ...(db
+          ? {
+              results: db.results,
+              ...(db.error ? { error: db.error } : {}),
+              schema: db.schema.map((t) => t.name),
+              ...(meta.as && meta.as !== "course" ? { as: meta.as } : {}),
+            }
+          : {}),
       });
     }
     for (const lang of ["es", "en"]) {
@@ -249,6 +411,16 @@ for (const id of ids) {
 }
 
 if (!noImages) await drawImages(built);
+
+// Los datos de cada curso de bases de datos, para descargarlos.
+if (!check) {
+  for (const data of built) {
+    const c = COURSES[data.id];
+    if (!c.db || !fs.existsSync(path.join(SRC, data.id, c.seed))) continue;
+    fs.mkdirSync(path.join(IMAGES, data.id), { recursive: true });
+    fs.copyFileSync(path.join(SRC, data.id, c.seed), path.join(IMAGES, data.id, `shop.${c.ext}`));
+  }
+}
 
 // Con --check no se escribe. Con --level, el otro nivel se queda como estaba.
 // Sin imágenes nuevas, se conserva el tamaño de las que ya hay.
@@ -284,8 +456,104 @@ function esc(s) {
   return s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
+/** La pantalla Bases de datos del estudio: las tablas, el script de la
+ * lección y la rejilla de su último resultado (las demás, en pestañas). */
+function dbWindowHtml(course, level, l) {
+  const MAX_CODE = 34;
+  const MAX_ROWS = 12;
+  const lines = l.html.split('<span class="line">').length - 1;
+  const results = l.results ?? [];
+  const withRows = results.map((r, i) => (r.columns ? i : -1)).filter((i) => i >= 0);
+  const shown = l.error ? -1 : withRows.length ? withRows.at(-1) : results.length - 1;
+  const chip = (r, i) =>
+    `<span class="chip${i === shown ? " on" : ""}">${i + 1} · ${r.columns ? `${r.rows.length} ${r.rows.length === 1 ? "row" : "rows"}` : "Done"}</span>`;
+  const cell = (v) =>
+    v == null
+      ? '<td class="null">NULL</td>'
+      : `<td class="${typeof v === "number" ? "num" : ""}">${esc(String(v))}</td>`;
+  const r = shown >= 0 ? results[shown] : null;
+  let body = "";
+  if (l.error) {
+    body = `<div class="err">${esc(l.error.message)}</div>`;
+  } else if (r?.columns) {
+    const rows = r.rows.slice(0, MAX_ROWS);
+    body = `<div class="meta">${r.rows.length} ${r.rows.length === 1 ? "row" : "rows"}${r.message_en ? ` · ${esc(r.message_en)}` : ""}</div>
+    <table><thead><tr><th class="n"></th>${r.columns.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map((row, i) => `<tr><td class="n">${i + 1}</td>${row.map(cell).join("")}</tr>`).join("")}</tbody></table>
+    ${r.rows.length > MAX_ROWS ? `<div class="more">⋯ ${r.rows.length - MAX_ROWS} more rows</div>` : ""}`;
+  } else if (r) {
+    body = `<div class="ok">${esc(r.message_en ?? "Done")}</div>`;
+  }
+  const kindName = { sqlite: "SQLite", postgres: "PostgreSQL", mysql: "MySQL / MariaDB", mongodb: "MongoDB", falcon: "FalconDatabase", firebase: "Firebase (Firestore)" }[course.db];
+  const conn = { falcon: "shop · falcondatabase.com", firebase: "shop · Firestore" }[course.db] ?? "shop";
+  return `<!doctype html><html><head><meta charset="utf-8"><style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px; font-size: 14px; background: linear-gradient(135deg, #1b2a4a 0%, #3b2a5a 55%, #6b3a5a 100%); font-family: -apple-system, "Segoe UI", Inter, sans-serif; width: 1200px; }
+  .win { border-radius: 12px; overflow: hidden; background: #1e1e1e; box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); color: #d4d4d8; }
+  .bar { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; background: #2b2b2f; color: #a8a8b0; font-size: 13px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .title { margin-left: 10px; flex: 1; text-align: center; margin-right: 60px; }
+  .title b { color: #e6e6ea; font-weight: 600; }
+  .main { display: flex; }
+  .side { width: 230px; flex: none; background: #232326; border-right: 1px solid #333; padding: 12px 0; font-size: 13px; }
+  .side h4 { margin: 0 14px 8px; font-size: 11px; letter-spacing: .08em; color: #8a8a92; font-weight: 600; }
+  .conn { margin: 0 8px; padding: 7px 8px; border-radius: 6px; background: #4f8cff22; color: #e6e6ea; display: flex; gap: 8px; align-items: center; }
+  .conn i { width: 9px; height: 9px; border-radius: 50%; background: #4ade80; }
+  .filter { margin: 12px 12px 8px; padding: 6px 9px; border-radius: 6px; border: 1px solid #3a3a40; color: #6a6a72; font-size: 12px; }
+  .tb { padding: 4px 14px 4px 18px; color: #c4c4ca; display: flex; gap: 8px; align-items: center; }
+  .tb::before { content: ""; width: 11px; height: 9px; border: 1.5px solid #8a8a92; border-radius: 2px; flex: none; }
+  .pane { flex: 1; min-width: 0; }
+  .ctl { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 14px; border-bottom: 1px solid #333; background: #252528; font-size: 13px; }
+  .crumb { font-weight: 600; color: #e6e6ea; }
+  .btn { margin-left: auto; display: flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 6px; background: #4f8cff; color: #fff; font-weight: 600; font-size: 12.5px; }
+  .btn i { width: 0; height: 0; border-left: 8px solid #fff; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .btn2 { padding: 4px 11px; border-radius: 6px; border: 1px solid #4a4a52; color: #b8b8c0; font-size: 12.5px; }
+  .badge { padding: 3px 9px; border-radius: 999px; background: #38bdf822; color: #7dd3fc; font-size: 12px; }
+  .editor { margin: 12px 14px; border: 1px solid #3a3a40; border-radius: 6px; background: #1b1b1d; padding: 10px 0 12px; font: 13.5px/1.55 Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+  .editor pre { margin: 0; background: transparent !important; counter-reset: ln; font: inherit; white-space: pre-wrap; }
+  .editor code { font: inherit; }
+  .editor .line { display: block; padding-right: 16px; min-height: 1.55em; padding-left: 52px; text-indent: -52px; }
+  .editor .line::before { counter-increment: ln; content: counter(ln); display: inline-block; width: 34px; margin-right: 18px; text-align: right; color: #5a5a62; text-indent: 0; }
+  .moreCode { padding: 2px 0 0 52px; color: #6a6a72; }
+  .res { padding: 0 14px 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .chip { padding: 3px 10px; border-radius: 7px; border: 1px solid #3f3f46; color: #a1a1aa; font-size: 12px; }
+  .chip.on { background: #4f8cff2e; border-color: #4f8cff; color: #e6e6ea; }
+  .meta { color: #8a8a92; font-size: 12px; margin: 0 0 6px; }
+  table { border-collapse: collapse; font: 13px Menlo, Consolas, monospace; min-width: 60%; }
+  th, td { min-width: 120px; }
+  th.n, td.n { min-width: 34px; }
+  th { text-align: left; font: 600 12.5px -apple-system, "Segoe UI", sans-serif; color: #e6e6ea; background: #2c2c31; padding: 7px 10px; }
+  td { padding: 5px 10px; border-bottom: 1px solid #2c2c31; max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: pre; }
+  td.num { text-align: right; }
+  td.null { color: #6a6a72; }
+  .n { width: 34px; color: #6a6a72; text-align: center; font-size: 11px; }
+  .more { color: #6a6a72; font: 12.5px Menlo, monospace; padding: 6px 10px; }
+  .ok { color: #4ade80; padding: 4px 2px; }
+  .err { color: #f87171; padding: 4px 2px; font: 13px Menlo, monospace; white-space: pre-wrap; }
+  </style></head><body><div class="win" id="win">
+  <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
+    <span class="title"><b>DMarlon Studio</b> — Databases · ${esc(course.name)} ${level === "basic" ? "Basic" : "Advanced"} ${String(l.n).padStart(2, "0")}</span></div>
+  <div class="main">
+    <div class="side"><h4>CONNECTIONS</h4><div class="conn"><i></i>${esc(conn)}</div>
+      <div class="filter">Filter tables</div>
+      ${(l.schema ?? []).slice(0, 18).map((t) => `<div class="tb">${esc(t)}</div>`).join("")}
+    </div>
+    <div class="pane">
+      <div class="ctl"><span class="crumb">${esc(conn)}</span><span class="btn"><i></i>Run</span><span class="btn2">CSV</span><span class="badge">${esc(kindName)}</span></div>
+      <div class="editor">${trimHtml(l.html, MAX_CODE)}${lines > MAX_CODE ? `<div class="moreCode">⋯ ${lines - MAX_CODE} more lines</div>` : ""}</div>
+      <div class="res">
+        ${results.length > 1 || l.error ? `<div class="chips">${results.map(chip).join("")}${l.error ? `<span class="chip on" style="border-color:#f87171;color:#fca5a5">${results.length + 1} · Error</span>` : ""}</div>` : ""}
+        ${body}
+      </div>
+    </div>
+  </div>
+  </div></body></html>`;
+}
+
 /** La ventana del estudio con el código de la lección y su salida. */
 function windowHtml(course, level, l) {
+  if (course.db) return dbWindowHtml(course, level, l);
   const MAX_CODE = 34;
   const MAX_OUT = 14;
   const lines = l.html.split('<span class="line">').length - 1;

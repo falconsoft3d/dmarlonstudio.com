@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "vistas",
+    "title": "Guardar consultas como vistas",
+    "summary": "Cree una vista con CREATE VIEW en SQLite: una consulta con nombre que se usa como una tabla y que siempre lee los datos del momento.",
+    "body": [
+      "**`CREATE VIEW order_summary AS SELECT …`** guarda una consulta con un nombre. La vista no copia datos: cada vez que se consulta, SQLite ejecuta su `SELECT` sobre las tablas. Esta reúne lo que se pide a menudo de un pedido: la fecha, el nombre del cliente, el estado, cuántas líneas tiene (`count(i.id)` con un `LEFT JOIN`) y el total.",
+      "Después del script, `order_summary` aparece en la lista de la izquierda del estudio junto a las tablas, marcada como vista, y con un doble clic se consulta como cualquier otra.",
+      "Una vista se usa como una tabla: se le pueden poner `WHERE`, `GROUP BY` y `HAVING`. La tercera consulta agrupa la vista por cliente y deja los que tienen más de un pedido: `Ana García`, con 3 pedidos y 7 líneas, y `Luis Pérez`, con 2 y 3.",
+      "Como la vista lee los datos del momento, el `UPDATE` que marca el pedido `9` como enviado se nota enseguida: la última consulta lista cinco pedidos `shipped`, y el `9` de Ana ya está entre ellos. Una vista simplifica las consultas de la aplicación y da un único sitio donde cambiar la lógica."
+    ],
+    "points": [
+      "`CREATE VIEW v AS SELECT …` guarda una consulta con nombre.",
+      "Una vista no guarda datos: lee las tablas cada vez.",
+      "Se consulta como una tabla, con `WHERE`, `JOIN` o `GROUP BY`.",
+      "`DROP VIEW v` la borra sin tocar las tablas."
+    ],
+    "exercise": "Cree una vista `product_sales` con el nombre de cada producto, las unidades vendidas y los ingresos, y úsela para sacar los tres productos que más facturan."
+  },
+  "en": {
+    "slug": "views",
+    "title": "Saving queries as views",
+    "summary": "Create a view with CREATE VIEW in SQLite: a named query you use like a table and that always reads the current data.",
+    "body": [
+      "**`CREATE VIEW order_summary AS SELECT …`** saves a query under a name. A view copies no data: every time you query it, SQLite runs its `SELECT` against the tables. This one gathers what you often need about an order: the date, the customer's name, the status, how many lines it has (`count(i.id)` with a `LEFT JOIN`) and the total.",
+      "After running the script, `order_summary` appears in the studio's list on the left next to the tables, marked as a view, and double-clicking it queries it like any other.",
+      "A view is used like a table: you can add `WHERE`, `GROUP BY` and `HAVING`. The third query groups the view by customer and keeps those with more than one order: `Ana García`, with 3 orders and 7 lines, and `Luis Pérez`, with 2 and 3.",
+      "Since the view reads the current data, the `UPDATE` that marks order `9` as shipped shows up straight away: the last query lists five `shipped` orders, and Ana's `9` is already among them. A view simplifies the application's queries and gives you a single place to change the logic."
+    ],
+    "points": [
+      "`CREATE VIEW v AS SELECT …` saves a named query.",
+      "A view stores no data: it reads the tables each time.",
+      "You query it like a table, with `WHERE`, `JOIN` or `GROUP BY`.",
+      "`DROP VIEW v` removes it without touching the tables."
+    ],
+    "exercise": "Create a `product_sales` view with each product's name, units sold and revenue, and use it to get the three products that bring in the most."
+  }
+}

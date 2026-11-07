@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "cuadro-de-ventas-mensual",
+    "title": "Un cuadro de ventas mensual",
+    "summary": "Junte CTE, agregados y funciones de ventana en una consulta SQLite: pedidos, clientes, ingresos, crecimiento y el producto estrella de cada mes.",
+    "body": [
+      "Este cuadro de mando responde en una sola consulta a lo que se pregunta cada mes: cuántos pedidos, cuántos clientes, cuánto se ha facturado, cuánto ha cambiado respecto al mes anterior y qué producto ha vendido más. Se construye en tres pasos con `WITH`.",
+      "`valid` deja los pedidos que no están cancelados y les añade el mes, `substr(ordered, 1, 7)`. `monthly` agrupa por mes: `count(*)` pedidos, **`count(DISTINCT customer_id)`** clientes (en marzo Ana hizo dos pedidos, así que son `3` pedidos y `2` clientes) y la suma de los totales.",
+      "`best` calcula los ingresos de cada producto en cada mes y los numera con **`row_number() OVER (PARTITION BY v.month ORDER BY … DESC, p.name)`**; el producto estrella es el `pos = 1`. En junio el `Greek yogurt` y el `Orange juice` empatan con `9.6` euros: el `round` evita que un decimal inexacto decida y `p.name` desempata por orden alfabético.",
+      "En la consulta final, **`lag(m.revenue)`** trae los ingresos del mes anterior para calcular el crecimiento: abril cae un `73.8 %` (solo un pedido válido), mayo sube un `392.4 %` hasta `51.7` euros, con el `Manchego cheese` como estrella, y junio baja un `52.4 %`. Marzo no tiene mes anterior y su crecimiento es `NULL`. Exporte la rejilla a **CSV** y tendrá el informe listo para una hoja de cálculo."
+    ],
+    "points": [
+      "Una CTE por pregunta y una consulta final que las junta.",
+      "`count(DISTINCT …)` distingue pedidos de clientes.",
+      "`row_number() … = 1` elige el mejor de cada grupo.",
+      "`lag()` compara cada mes con el anterior."
+    ],
+    "exercise": "Añada una columna `avg_order` con el importe medio por pedido de cada mes y otra con el total acumulado del año (`sum(m.revenue) OVER (ORDER BY m.month)`)."
+  },
+  "en": {
+    "slug": "monthly-sales-dashboard",
+    "title": "A monthly sales dashboard",
+    "summary": "Combine CTEs, aggregates and window functions in one SQLite query: orders, customers, revenue, growth and each month's best seller.",
+    "body": [
+      "This dashboard answers, in a single query, what gets asked every month: how many orders, how many customers, how much revenue, how it changed from the month before and which product sold best. It is built in three steps with `WITH`.",
+      "`valid` keeps the orders that are not cancelled and adds the month, `substr(ordered, 1, 7)`. `monthly` groups by month: `count(*)` orders, **`count(DISTINCT customer_id)`** customers (in March Ana placed two orders, so that is `3` orders and `2` customers) and the sum of the totals.",
+      "`best` works out each product's revenue in each month and numbers them with **`row_number() OVER (PARTITION BY v.month ORDER BY … DESC, p.name)`**; the best seller is `pos = 1`. In June the `Greek yogurt` and the `Orange juice` tie at `9.6` euros: `round` keeps an inexact decimal from deciding, and `p.name` breaks the tie alphabetically.",
+      "In the final query, **`lag(m.revenue)`** brings in the previous month's revenue to compute growth: April drops `73.8%` (just one valid order), May jumps `392.4%` to `51.7` euros, with `Manchego cheese` as its best seller, and June falls `52.4%`. March has no previous month, so its growth is `NULL`. Export the grid to **CSV** and the report is ready for a spreadsheet."
+    ],
+    "points": [
+      "One CTE per question and a final query that brings them together.",
+      "`count(DISTINCT …)` tells orders apart from customers.",
+      "`row_number() … = 1` picks the best of each group.",
+      "`lag()` compares each month with the previous one."
+    ],
+    "exercise": "Add an `avg_order` column with each month's average order value and another with the year-to-date running total (`sum(m.revenue) OVER (ORDER BY m.month)`)."
+  }
+}

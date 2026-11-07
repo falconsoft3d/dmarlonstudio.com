@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "having",
+    "title": "Filtrar grupos con HAVING",
+    "summary": "Filtre los grupos de un GROUP BY con HAVING en SQLite y vea la diferencia con WHERE: los mejores clientes y productos mejor valorados.",
+    "body": [
+      "**`HAVING`** es el `WHERE` de los grupos: se aplica después de agrupar y puede usar agregados. `HAVING count(*) >= 2` se queda con los clientes que tienen al menos dos pedidos. Son dos: el cliente `1` (Ana) con 3 pedidos y `34.95` euros, y el `2` (Luis) con 2 y `24.9`.",
+      "La consulta usa los dos filtros, cada uno en su momento: **`WHERE status <> 'cancelled'`** quita filas *antes* de agrupar, y **`HAVING`** quita grupos *después*. `WHERE count(*) >= 2` daría error, porque cuando se evalúa `WHERE` todavía no hay grupos que contar.",
+      "La segunda consulta agrupa las reseñas por producto y se queda con los que tienen una media de 4 o más: el `2` (Croissant) con un 5, el `1` (Baguette) con `4.5`, y el `4` y el `9` con un 4. Las fresas (`12`), con un 2 y un 4, se quedan en 3 y no pasan.",
+      "`ORDER BY avg_rating DESC, product_id` ordena por la media y, cuando empatan, por el producto, para que el orden sea siempre el mismo. Pruebe a cambiar el `4` del `HAVING` y vuelva a pulsar **Ejecutar**: la rejilla se actualiza al momento."
+    ],
+    "points": [
+      "`HAVING` filtra grupos; `WHERE`, filas.",
+      "`WHERE` va antes del `GROUP BY` y `HAVING`, después.",
+      "En `HAVING` se pueden usar agregados.",
+      "Desempate el `ORDER BY` para un orden estable."
+    ],
+    "exercise": "Muestre las ciudades con más de un cliente: agrupe `customers` por `city` y use `HAVING count(*) > 1`."
+  },
+  "en": {
+    "slug": "having",
+    "title": "Filtering groups with HAVING",
+    "summary": "Filter the groups of a GROUP BY with HAVING in SQLite and see how it differs from WHERE: the best customers and top-rated products.",
+    "body": [
+      "**`HAVING`** is the `WHERE` of groups: it is applied after grouping and can use aggregates. `HAVING count(*) >= 2` keeps the customers with at least two orders. There are two: customer `1` (Ana) with 3 orders and `34.95` euros, and `2` (Luis) with 2 and `24.9`.",
+      "The query uses both filters, each at its moment: **`WHERE status <> 'cancelled'`** removes rows *before* grouping, and **`HAVING`** removes groups *after*. `WHERE count(*) >= 2` would be an error, because when `WHERE` runs there are no groups to count yet.",
+      "The second query groups the reviews by product and keeps the ones averaging 4 or more: `2` (Croissant) with a 5, `1` (Baguette) with `4.5`, and `4` and `9` with a 4. The strawberries (`12`), with a 2 and a 4, average 3 and do not make it.",
+      "`ORDER BY avg_rating DESC, product_id` sorts by the average and, on a tie, by product, so the order is always the same. Try changing the `4` in the `HAVING` and press **Run** again: the grid updates straight away."
+    ],
+    "points": [
+      "`HAVING` filters groups; `WHERE` filters rows.",
+      "`WHERE` comes before `GROUP BY`, `HAVING` after.",
+      "`HAVING` can use aggregates.",
+      "Break ties in `ORDER BY` for a stable order."
+    ],
+    "exercise": "Show the cities with more than one customer: group `customers` by `city` and use `HAVING count(*) > 1`."
+  }
+}

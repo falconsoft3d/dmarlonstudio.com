@@ -116,3 +116,93 @@ proceso, también las `Toplevel`) y la cierra. Solo funciona en macOS.
 
 Comprobar sin capturar: `node scripts/build-courses.mjs tkinter --level=basic --check`
 (abre y cierra cada ventana en un momento).
+
+## Bases de datos (sqlite, postgres, mysql, mongodb, falcondatabase, firebase)
+
+Cada lección es un **script del módulo Bases de datos** del estudio: varias
+consultas que se ejecutan una tras otra, como al pulsar **Ejecutar** (⌘↵)
+en el estudio. Las ejecuta `studio/tool/db_course.dart`, que usa el mismo
+cliente que el estudio (`studio/lib/dev/`): lo que sale en la página es lo
+que sale en el estudio. La imagen es la pantalla Bases de datos con el script
+y la rejilla del **último resultado con filas** (los demás, en pestañas); la
+página enseña todos.
+
+```
+content/courses/<curso>/seed.sql | seed.json   los datos del curso (la tienda)
+content/courses/<curso>/<nivel>/<NN>-<slug>/
+  main.sql | main.json   el script
+  lesson.json            los textos (como arriba) y, si hace falta:
+                         "error": true  → la última consulta falla a propósito
+                         "seed": false  → sin los datos del curso
+                         "as": "ana" | "luis" | "anon"  (solo FalconDatabase)
+```
+
+Antes de cada lección la base de datos se vacía y se cargan los datos del
+curso (`seed.*`, generados por `scripts/courses/make_seeds.py`; la misma
+tienda en todas: `categories`, `products` (con `tags`), `customers`, `orders`,
+`order_items`, `employees` (con `manager_id`) y `reviews`). La lección puede
+crear sus propias tablas o colecciones.
+
+- **34 líneas como mucho** (mejor 8–25). Código, nombres y comentarios en
+  inglés. En SQL, `--` para comentar; en JSON, `//` (una línea).
+- **Determinista**: `ORDER BY` / `sort` / `order` siempre que salga más de una
+  fila; nada de `now()`, `random()`, `CURRENT_DATE` sin fijar…
+- El resultado que se ve en la imagen (el último con filas): **12 filas y 6
+  columnas como mucho**, con valores cortos. Elija las columnas.
+- La última consulta debe ser la que enseña el resultado de la lección.
+- En el texto, refiérase al estudio cuando venga a cuento: **Ejecutar**
+  (⌘↵), una pestaña por consulta, ejecutar solo la selección, la lista de
+  tablas a la izquierda (doble clic → consulta de ejemplo), **CSV**.
+
+Comprobar (sin imágenes): `node scripts/build-courses.mjs <curso> --level=basic --check`.
+Hacen falta los servidores: `sh scripts/courses/db_servers.sh start` (MySQL
+8.4 en 3407, MongoDB 4.4 en 27027 y el emulador de Firestore en 8095) y un
+PostgreSQL (`DMS_COURSE_PG=host:puerto:usuario:clave`, por defecto
+`localhost:5434:<usuario>:`). FalconDatabase usa el proyecto del curso
+(`~/.config/dmarlonstudio/course-falcon.json`: referencia, clave anon y sus
+usuarios).
+
+### Qué devuelve cada base de datos
+
+| Curso | Versión | Notas |
+|---|---|---|
+| sqlite | SQLite 3.4x | JSON (`json_extract`, `json_each`), ventanas, CTE, `RETURNING`, `UPSERT`, `STRICT`, columnas generadas, disparadores (`BEGIN … END;`) |
+| postgres | PostgreSQL 16 | Funciones con `$$ … $$`. `numeric` sale como texto (`"1.20"`), las fechas `2024-01-05`, `json`/arrays como JSON. `RAISE NOTICE` no se ve: devuelva el dato con `SELECT` |
+| mysql | MySQL 8.4 | Procedimientos y disparadores con `DELIMITER //` … `DELIMITER ;`. Todos los valores salen como texto. **Los `SELECT` de dentro de un `CALL` no se ven**: use parámetros `OUT` (`CALL p(@x); SELECT @x;`). `ONLY_FULL_GROUP_BY` activo |
+| mongodb | MongoDB 4.4 | Sin `$setWindowFields` ni `$dateTrunc` (5.0+). Las fechas son texto `"2024-03-01"` |
+| falcondatabase | API REST | Sin joins (dos consultas). Los `id` de las filas que inserta la lección los pone el servidor: no los use (filtre con `where`) |
+| firebase | Emulador de Firestore 1.19 | Los `_id` de los datos son de texto (`p01`, `c1`, `o01`, `cat1`, `e1`, `r1`) |
+
+### Las consultas JSON (mongodb, falcondatabase, firebase)
+
+Un objeto por consulta, uno tras otro (con comentarios `//`):
+
+- **mongodb** — `"collection"` y una de: `"find": {filtro}` (con
+  `"projection"`, `"sort"`, `"limit"`, `"skip"`), `"aggregate": [pipeline]`,
+  `"insert": {…} | [{…}]`, `"update": [filtro, cambio]` (updateMany),
+  `"delete": {filtro}` (deleteMany), `"count": true` (con `"find"`),
+  `"distinct": "campo"` (con `"find"`), `"createIndex": {claves}` (con
+  `"unique"`, `"name"`), `"indexes": true`, `"drop": true`.
+- **falcondatabase** — `"table"` y: `"where": {"col": "op.valor"}`
+  (`eq neq gt gte lt lte like ilike is in`, p. ej. `"in.(1,2)"`,
+  `"is.null"`, `"ilike.%tea%"`; sin operador es `eq`), `"order":
+  "price.desc,name"`, `"limit"`, `"offset"`, `"select": "id,name"`;
+  `"insert": {…} | [{…}]`; `"update": {"id": 1 | "where": {…}, "set": {…}}`;
+  `"delete": 1 | {"where": {…}}`. Al listar dice cuántas filas hay en total.
+  Cada consulta es una petición REST (`GET /api/v1/<ref>/tables/products?price=gte.10&order=price.desc`)
+  y lo mismo que `db.table('products').list(where: {...}, order: ...)` en el
+  `lib/db.dart` que el estudio genera para Flutter. Las tablas son de
+  lectura pública y escritura con sesión; `notes` es «owner» (cada usuario ve
+  solo sus filas, `owner_id` lo pone el servidor). Usuarios: `course` (por
+  defecto, con sesión), `ana`, `luis` y `anon` (sin sesión: leer sí,
+  escribir da error).
+- **firebase** — `"collection"` (también una subcolección:
+  `"orders/o01/notes"`) y: `"where": {"campo": valor | {"op": valor}}`
+  (`eq neq gt gte lt lte in nin contains containsAny`; campos anidados con
+  punto), `"order": "price desc, name"`, `"limit"`, `"offset"`,
+  `"select": "name,price"`, `"group": true` (consulta de grupo en todas las
+  subcolecciones con ese nombre), `"id": "p01"` (un documento);
+  `"count": true`, `"sum": "campo"`, `"avg": "campo"` (una fila con el
+  agregado); `"insert": {…} | [{…}]` (con `"_id"` para elegir el id);
+  `"update": {"id": "p01" | "where": {…}, "set": {…}}`;
+  `"delete": "p01" | {"where": {…}}`.

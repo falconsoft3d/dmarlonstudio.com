@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "where-y-comparaciones",
+    "title": "Filtrar filas con WHERE",
+    "summary": "Quédese solo con las filas que cumplen una condición: WHERE con =, <>, <, >, <= y >= sobre números y textos en SQLite.",
+    "body": [
+      "**`WHERE`** va después de `FROM` y deja pasar solo las filas en las que la condición es verdadera. `WHERE id = 4` busca un cliente por su clave: sale una sola fila, `John Smith`, de `London`. En SQL la igualdad se escribe con un solo `=`.",
+      "**`<>`** significa «distinto de» (SQLite también acepta `!=`). `city <> 'Madrid'` devuelve los seis clientes que no son de Madrid. Los textos van entre comillas simples, y la comparación distingue mayúsculas de minúsculas: `'madrid'` no es `'Madrid'`.",
+      "`price >= 3` compara números: cinco productos cuestan 3 euros o más, del `Espresso beans` (`9.9`) al `Orange juice` (`3.2`). **`ORDER BY price DESC`** los ordena de mayor a menor; sin `DESC` (o con `ASC`) sería de menor a mayor.",
+      "Cada consulta tiene su pestaña en el estudio, y la imagen enseña la última. Si solo quiere probar una de las tres, selecciónela y pulse **Ejecutar**: el estudio ejecuta solo la selección."
+    ],
+    "points": [
+      "`WHERE` filtra las filas antes de devolverlas.",
+      "`=` es igual; `<>` (o `!=`) es distinto.",
+      "`<`, `>`, `<=` y `>=` sirven para números, textos y fechas.",
+      "`DESC` ordena de mayor a menor."
+    ],
+    "exercise": "Busque los productos sin existencias (`stock = 0`) y, en otra consulta, los clientes que se dieron de alta a partir del `'2024-01-01'` (`joined >= '2024-01-01'`)."
+  },
+  "en": {
+    "slug": "where-and-comparisons",
+    "title": "Filtering rows with WHERE",
+    "summary": "Keep only the rows that meet a condition: WHERE with =, <>, <, >, <= and >= on numbers and text in SQLite.",
+    "body": [
+      "**`WHERE`** comes after `FROM` and lets through only the rows where the condition is true. `WHERE id = 4` looks a customer up by key: a single row comes back, `John Smith` from `London`. In SQL equality is written with a single `=`.",
+      "**`<>`** means \"not equal to\" (SQLite also accepts `!=`). `city <> 'Madrid'` returns the six customers who are not from Madrid. Text goes in single quotes, and the comparison is case-sensitive: `'madrid'` is not `'Madrid'`.",
+      "`price >= 3` compares numbers: five products cost 3 euros or more, from the `Espresso beans` (`9.9`) down to the `Orange juice` (`3.2`). **`ORDER BY price DESC`** sorts them from highest to lowest; without `DESC` (or with `ASC`) it would be lowest first.",
+      "Each query gets its own tab in the studio, and the picture shows the last one. If you only want to try one of the three, select it and press **Run**: the studio runs just the selection."
+    ],
+    "points": [
+      "`WHERE` filters rows before they are returned.",
+      "`=` is equal; `<>` (or `!=`) is not equal.",
+      "`<`, `>`, `<=` and `>=` work for numbers, text and dates.",
+      "`DESC` sorts from highest to lowest."
+    ],
+    "exercise": "Find the products that are out of stock (`stock = 0`) and, in another query, the customers who joined on or after `'2024-01-01'` (`joined >= '2024-01-01'`)."
+  }
+}

@@ -134,30 +134,44 @@ class FalconDb extends DevDb {
       final out = rows(j is Map ? j['data'] : j);
       return DevResult.fromMaps(
         out,
-      )._with(tr('{0} filas afectadas', [out.length]), out.length);
+      )._with(affectedMessage(out.length), out.length);
     }
     if (s['update'] is Map) {
       final u = (s['update'] as Map).cast<String, Object?>();
-      final id = u['id'];
       final set = u['set'];
-      if (id == null || set is! Map) {
-        throw UserError(tr('«update» es {"id": 1, "set": {…}}.'));
+      if ((u['id'] == null && u['where'] is! Map) || set is! Map) {
+        throw UserError(
+          tr('«update» es {"id": 1, "set": {…}} o {"where": {…}, "set": {…}}.'),
+        );
       }
-      final j = await _call('PATCH', '$path/$id', set);
+      // Con «where»: cada fila que cumple el filtro.
+      final ids = u['id'] != null
+          ? [u['id']]
+          : await _ids(path, u['where'] as Map);
+      final out = <Map<String, Object?>>[];
+      for (final id in ids) {
+        final j = await _call('PATCH', '$path/$id', set);
+        out.addAll(rows(j is Map ? j['data'] : j));
+      }
       return DevResult.fromMaps(
-        rows(j is Map ? j['data'] : j),
-      )._with(tr('{0} filas afectadas', [1]), 1);
+        out,
+      )._with(affectedMessage(ids.length), ids.length);
     }
     if (s['delete'] != null) {
-      await _call('DELETE', '$path/${s['delete']}');
-      return DevResult(affected: 1, message: tr('{0} filas afectadas', [1]));
+      final d = s['delete'];
+      final ids = d is Map && d['where'] is Map
+          ? await _ids(path, d['where'] as Map)
+          : [d];
+      for (final id in ids) {
+        await _call('DELETE', '$path/$id');
+      }
+      return DevResult(
+        affected: ids.length,
+        message: affectedMessage(ids.length),
+      );
     }
     final q = <String, String>{
-      if (s['where'] is Map)
-        for (final MapEntry(:key, :value) in (s['where'] as Map).entries)
-          '$key': value is String && _op.hasMatch(value)
-              ? value
-              : 'eq.${value is String ? value : jsonEncode(value)}',
+      if (s['where'] is Map) ..._filters(s['where'] as Map),
       for (final k in ['order', 'limit', 'offset', 'select'])
         if (s[k] != null) k: '${s[k]}',
     };
@@ -168,6 +182,36 @@ class FalconDb extends DevDb {
     return count == null
         ? out
         : out._with(tr('{0} filas en total', [count]), null);
+  }
+
+  /// Los filtros de «where»: columna → «op.valor» (sin operador, eq).
+  static Map<String, String> _filters(Map where) => {
+    for (final MapEntry(:key, :value) in where.entries)
+      '$key': value is String && _op.hasMatch(value)
+          ? value
+          : 'eq.${value is String ? value : jsonEncode(value)}',
+  };
+
+  /// Los id de las filas de [path] que cumplen [where].
+  Future<List<Object?>> _ids(String path, Map where) async {
+    final ids = <Object?>[];
+    while (true) {
+      final q = {
+        ..._filters(where),
+        'select': 'id',
+        'order': 'id',
+        'limit': '1000',
+        'offset': '${ids.length}',
+      };
+      final j = await _call('GET', '$path?${Uri(queryParameters: q).query}');
+      final data = j is Map ? j['data'] : j;
+      final page = [
+        for (final r in data is List ? data : const [])
+          if (r is Map) r['id'],
+      ];
+      ids.addAll(page);
+      if (page.length < 1000) return ids;
+    }
   }
 
   @override
@@ -351,7 +395,9 @@ class FirebaseDb extends DevDb {
     'lt': 'LESS_THAN',
     'lte': 'LESS_THAN_OR_EQUAL',
     'in': 'IN',
+    'nin': 'NOT_IN',
     'contains': 'ARRAY_CONTAINS',
+    'containsAny': 'ARRAY_CONTAINS_ANY',
   };
 
   @override
@@ -377,40 +423,112 @@ class FirebaseDb extends DevDb {
       }
       return DevResult.fromMaps(
         out,
-      )._with(tr('{0} filas afectadas', [out.length]), out.length);
+      )._with(affectedMessage(out.length), out.length);
     }
     if (s['update'] is Map) {
       final u = (s['update'] as Map).cast<String, Object?>();
       final id = u['id'] ?? u['_id'];
       final set = u['set'];
-      if (id == null || set is! Map) {
-        throw UserError(tr('«update» es {"id": "…", "set": {…}}.'));
+      if ((id == null && u['where'] is! Map) || set is! Map) {
+        throw UserError(
+          tr(
+            '«update» es {"id": "…", "set": {…}} o {"where": {…}, "set": {…}}.',
+          ),
+        );
       }
       final m = set.cast<String, Object?>();
-      final j = await _call(
-        'PATCH',
-        '/$col/$id',
-        body: {'fields': fields(m)},
-        q: {'updateMask.fieldPaths': m.keys.toList()},
-      );
-      return DevResult.fromMaps([
-        if (j is Map) row(j),
-      ])._with(tr('{0} filas afectadas', [1]), 1);
+      // Con «where»: cada documento que cumple el filtro.
+      final paths = id != null
+          ? ['/$col/$id']
+          : await _paths(col, {...s, 'where': u['where']});
+      final out = <Map<String, Object?>>[];
+      for (final path in paths) {
+        final j = await _call(
+          'PATCH',
+          path,
+          body: {'fields': fields(m)},
+          q: {
+            'updateMask.fieldPaths': m.keys.toList(),
+            'currentDocument.exists': 'true',
+          },
+        );
+        if (j is Map) out.add(row(j));
+      }
+      return DevResult.fromMaps(
+        out,
+      )._with(affectedMessage(paths.length), paths.length);
     }
     if (s['delete'] != null) {
-      await _call('DELETE', '/$col/${s['delete']}');
-      return DevResult(affected: 1, message: tr('{0} filas afectadas', [1]));
+      final d = s['delete'];
+      final paths = d is Map && d['where'] is Map
+          ? await _paths(col, {...s, 'where': d['where']})
+          : ['/$col/$d'];
+      for (final path in paths) {
+        await _call('DELETE', path);
+      }
+      return DevResult(
+        affected: paths.length,
+        message: affectedMessage(paths.length),
+      );
     }
-    final limit = (s['limit'] as num?)?.toInt() ?? 100;
-    final where = s['where'] is Map ? s['where'] as Map : const {};
-    final order = '${s['order'] ?? ''}'.trim();
-    if (where.isEmpty && order.isEmpty) {
-      final j = await _call('GET', '/$col', q: {'pageSize': '$limit'});
-      final docs = j is Map ? j['documents'] as List? : null;
+    if (s['id'] != null) {
+      final j = await _call('GET', '/$col/${s['id']}');
+      return DevResult.fromMaps([if (j is Map) row(j)]);
+    }
+    final (parent, sq) = _query(col, s);
+    // count, sum y avg: una fila con el resultado.
+    final aggs = [
+      if (s['count'] == true) {'alias': 'count', 'count': <String, Object?>{}},
+      for (final k in const ['sum', 'avg'])
+        if (s[k] is String)
+          {
+            'alias': '${k}_${s[k]}',
+            k: {
+              'field': {'fieldPath': s[k]},
+            },
+          },
+    ];
+    if (aggs.isNotEmpty) {
+      sq.remove('limit');
+      final j = await _call(
+        'POST',
+        '$parent:runAggregationQuery',
+        body: {
+          'structuredAggregationQuery': {
+            'structuredQuery': sq,
+            'aggregations': aggs,
+          },
+        },
+      );
+      final first = j is List && j.isNotEmpty ? j.first : null;
+      final f = first is Map && first['result'] is Map
+          ? (first['result'] as Map)['aggregateFields'] as Map?
+          : null;
       return DevResult.fromMaps([
-        for (final d in docs ?? const []) row(d as Map),
+        {
+          for (final a in aggs)
+            '${a['alias']}': decode(f?[a['alias']] ?? {'nullValue': null}),
+        },
       ]);
     }
+    final j = await _call(
+      'POST',
+      '$parent:runQuery',
+      body: {'structuredQuery': sq},
+    );
+    return DevResult.fromMaps([
+      for (final r in j is List ? j : const [])
+        if (r is Map && r['document'] is Map) row(r['document'] as Map),
+    ]);
+  }
+
+  /// La consulta de [s] sobre [col] («pedidos» o la subcolección
+  /// «pedidos/p1/lineas»): (ruta del padre, structuredQuery).
+  (String, Map<String, Object?>) _query(String col, Map<String, Object?> s) {
+    final slash = col.lastIndexOf('/');
+    final parent = slash < 0 ? '' : '/${col.substring(0, slash)}';
+    final id = slash < 0 ? col : col.substring(slash + 1);
+    final where = s['where'] is Map ? s['where'] as Map : const {};
     final filters = <Map<String, Object?>>[];
     for (final MapEntry(:key, :value) in where.entries) {
       final conds = value is Map ? value : {'eq': value};
@@ -426,10 +544,15 @@ class FirebaseDb extends DevDb {
         });
       }
     }
-    final parts = order.split(RegExp(r'\s+'));
+    // «precio desc, nombre»: varios campos.
+    final order = [
+      for (final p in '${s['order'] ?? ''}'.split(','))
+        if (p.trim().isNotEmpty) p.trim().split(RegExp(r'\s+')),
+    ];
+    final select = s['select'];
     final sq = <String, Object?>{
       'from': [
-        {'collectionId': col},
+        {'collectionId': id, if (s['group'] == true) 'allDescendants': true},
       ],
       if (filters.length == 1) 'where': filters.single,
       if (filters.length > 1)
@@ -438,20 +561,46 @@ class FirebaseDb extends DevDb {
         },
       if (order.isNotEmpty)
         'orderBy': [
-          {
-            'field': {'fieldPath': parts.first},
-            'direction': parts.length > 1 && parts[1].toLowerCase() == 'desc'
-                ? 'DESCENDING'
-                : 'ASCENDING',
-          },
+          for (final o in order)
+            {
+              'field': {'fieldPath': o.first},
+              'direction': o.length > 1 && o[1].toLowerCase() == 'desc'
+                  ? 'DESCENDING'
+                  : 'ASCENDING',
+            },
         ],
-      'limit': limit,
+      if (select != null)
+        'select': {
+          'fields': [
+            for (final f in select is List ? select : '$select'.split(','))
+              if ('$f'.trim().isNotEmpty) {'fieldPath': '$f'.trim()},
+          ],
+        },
+      if (s['offset'] is num) 'offset': (s['offset'] as num).toInt(),
+      'limit': (s['limit'] as num?)?.toInt() ?? 100,
     };
-    final j = await _call('POST', ':runQuery', body: {'structuredQuery': sq});
-    return DevResult.fromMaps([
+    // Consulta de grupo: desde la raíz, en todas las subcolecciones con ese
+    // nombre.
+    return (s['group'] == true ? '' : parent, sq);
+  }
+
+  /// Las rutas (/colección/id) de los documentos que cumplen la consulta.
+  Future<List<String>> _paths(String col, Map<String, Object?> s) async {
+    final (parent, sq) = _query(col, {...s, 'limit': 10000});
+    sq.remove('select');
+    final j = await _call(
+      'POST',
+      '$parent:runQuery',
+      body: {'structuredQuery': sq},
+    );
+    return [
       for (final r in j is List ? j : const [])
-        if (r is Map && r['document'] is Map) row(r['document'] as Map),
-    ]);
+        if (r is Map && r['document'] is Map)
+          '${(r['document'] as Map)['name']}'
+              .split('/documents')
+              .skip(1)
+              .join('/documents'),
+    ];
   }
 
   @override

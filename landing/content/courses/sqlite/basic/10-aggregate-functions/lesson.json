@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones-de-agregado",
+    "title": "Contar, sumar y promediar",
+    "summary": "Resuma una tabla en una fila con las funciones de agregado de SQLite: count, sum, avg, min y max, y vea cómo tratan los NULL.",
+    "body": [
+      "Las **funciones de agregado** convierten muchas filas en una. La primera consulta resume los pedidos que no están cancelados: **`count(*)`** cuenta las filas, `9`; **`sum(total)`** suma los importes, `126.85`; **`avg(total)`** da la media, `14.09`; **`min`** y **`max`**, el más pequeño (`9`) y el más grande (`22.2`).",
+      "El `WHERE` se aplica antes de agregar: el pedido `5`, cancelado, no cuenta en ninguna de las cinco columnas. `sum` y `avg` van dentro de `round(…, 2)` para que el resultado salga en céntimos.",
+      "La segunda consulta enseña cómo tratan los agregados el `NULL`: **`count(*)`** cuenta todas las reseñas, `8`, pero **`count(comment)`** cuenta solo las que tienen comentario, `7`. `sum`, `avg`, `min` y `max` también se saltan los `NULL`.",
+      "`avg(rating)` da `4`: la media de las ocho notas. Todas las columnas de estas consultas son agregados; para mezclar agregados con columnas normales («cuánto por cada estado») hace falta `GROUP BY`, la lección siguiente."
+    ],
+    "points": [
+      "`count`, `sum`, `avg`, `min` y `max` resumen muchas filas en una.",
+      "`WHERE` filtra antes de agregar.",
+      "`count(*)` cuenta filas; `count(col)` cuenta valores no nulos.",
+      "Los agregados se saltan los `NULL`."
+    ],
+    "exercise": "Calcule cuántos productos hay, cuántas unidades suman en el almacén (`sum(stock)`) y cuál es el precio más bajo y el más alto, solo de los productos activos (`active = 1`)."
+  },
+  "en": {
+    "slug": "aggregate-functions",
+    "title": "Counting, summing and averaging",
+    "summary": "Summarise a table in one row with SQLite's aggregate functions: count, sum, avg, min and max, and see how they treat NULL.",
+    "body": [
+      "**Aggregate functions** turn many rows into one. The first query summarises the orders that are not cancelled: **`count(*)`** counts the rows, `9`; **`sum(total)`** adds up the amounts, `126.85`; **`avg(total)`** gives the mean, `14.09`; **`min`** and **`max`**, the smallest (`9`) and the largest (`22.2`).",
+      "The `WHERE` applies before aggregating: order `5`, cancelled, counts in none of the five columns. `sum` and `avg` sit inside `round(…, 2)` so the result comes out in cents.",
+      "The second query shows how aggregates treat `NULL`: **`count(*)`** counts every review, `8`, but **`count(comment)`** counts only the ones with a comment, `7`. `sum`, `avg`, `min` and `max` skip `NULL`s as well.",
+      "`avg(rating)` gives `4`: the mean of the eight ratings. Every column in these queries is an aggregate; to mix aggregates with ordinary columns (\"how much for each status\") you need `GROUP BY`, the next lesson."
+    ],
+    "points": [
+      "`count`, `sum`, `avg`, `min` and `max` summarise many rows into one.",
+      "`WHERE` filters before aggregating.",
+      "`count(*)` counts rows; `count(col)` counts non-null values.",
+      "Aggregates skip `NULL`s."
+    ],
+    "exercise": "Work out how many products there are, how many units they add up to in stock (`sum(stock)`) and the lowest and highest price, for active products only (`active = 1`)."
+  }
+}

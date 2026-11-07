@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "totales-acumulados",
+    "title": "Totales acumulados y medias móviles",
+    "summary": "Calcule en SQLite un total acumulado con SUM OVER, una media móvil de tres pedidos con ROWS BETWEEN y el porcentaje de cada pedido.",
+    "body": [
+      "Con `ORDER BY` dentro de `OVER`, **`sum(total) OVER (ORDER BY ordered, id)`** suma el pedido de la fila y todos los anteriores: es el **total acumulado**. Empieza en `11.25`, va creciendo pedido a pedido y termina en `126.85`, los ingresos de todos los pedidos válidos. El `id` desempata por si dos pedidos tuvieran la misma fecha.",
+      "**`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** cambia el **marco** de la ventana: solo la fila actual y las dos anteriores. Con `avg` eso es una **media móvil** de tres pedidos. En el pedido `8`, `17.23` es la media de `20.5`, `9` y `22.2`. En las dos primeras filas no hay tres pedidos y la media usa los que hay.",
+      "**`sum(total) OVER ()`**, con la ventana vacía, es el total de todas las filas, el mismo en cada una. Dividir entre él da el porcentaje de cada pedido: el `8` es el mayor, un `17.5 %` de las ventas.",
+      "`WHERE status <> 'cancelled'` se aplica antes que las ventanas, así que el pedido `5` no está en ninguna cuenta. Las ventanas se calculan sobre las filas que quedan, después de `WHERE` y `GROUP BY`."
+    ],
+    "points": [
+      "`sum(x) OVER (ORDER BY …)` es un total acumulado.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` limita el marco.",
+      "`OVER ()` vacío abarca todas las filas.",
+      "Las ventanas se calculan después de `WHERE`."
+    ],
+    "exercise": "Añada `PARTITION BY substr(ordered, 1, 7)` al total acumulado para que vuelva a empezar cada mes, y compare las dos columnas."
+  },
+  "en": {
+    "slug": "running-totals",
+    "title": "Running totals and moving averages",
+    "summary": "Compute in SQLite a running total with SUM OVER, a three-order moving average with ROWS BETWEEN and the share of each order.",
+    "body": [
+      "With `ORDER BY` inside `OVER`, **`sum(total) OVER (ORDER BY ordered, id)`** adds the row's order and every one before it: the **running total**. It starts at `11.25`, grows order by order and ends at `126.85`, the revenue of all valid orders. The `id` breaks ties in case two orders share a date.",
+      "**`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** changes the window's **frame**: just the current row and the two before it. With `avg` that is a three-order **moving average**. On order `8`, `17.23` is the mean of `20.5`, `9` and `22.2`. The first two rows do not have three orders yet, so the average uses what there is.",
+      "**`sum(total) OVER ()`**, with an empty window, is the total of all rows, the same on each one. Dividing by it gives each order's share: order `8` is the largest, `17.5%` of sales.",
+      "`WHERE status <> 'cancelled'` is applied before the windows, so order `5` is in none of the sums. Windows are computed over the rows that remain, after `WHERE` and `GROUP BY`."
+    ],
+    "points": [
+      "`sum(x) OVER (ORDER BY …)` is a running total.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` narrows the frame.",
+      "An empty `OVER ()` covers every row.",
+      "Windows are computed after `WHERE`."
+    ],
+    "exercise": "Add `PARTITION BY substr(ordered, 1, 7)` to the running total so it restarts every month, and compare the two columns."
+  }
+}

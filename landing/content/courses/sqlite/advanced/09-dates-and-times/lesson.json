@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "fechas-y-horas",
+    "title": "Fechas con date y strftime",
+    "summary": "Trabaje con fechas en SQLite: sume meses con date(), saque el año o el día de la semana con strftime() y cuente días con julianday().",
+    "body": [
+      "SQLite no tiene un tipo fecha: las guarda como texto `AAAA-MM-DD`, y sus funciones de fecha entienden ese formato. **`date(fecha, modificadores…)`** calcula fechas nuevas: `'+1 month'` lleva del 1 de marzo al `2024-04-01`, y `'start of month', '+1 month', '-1 day'` da el último día del mes, `2024-03-31`.",
+      "**`strftime(formato, fecha)`** saca partes de la fecha: `%Y` es el año, `%m` el mes y `%w` el día de la semana, de `0` (domingo) a `6`. El 1 de marzo de 2024 fue viernes, `5`. **`julianday`** convierte una fecha en un número de días, así que restar dos da los días entre ellas: `96` del primer pedido al último.",
+      "En la segunda consulta la fecha de referencia está escrita, `'2024-07-01'`, y no es «hoy» (`date('now')`): así el resultado es siempre el mismo. Ana llevaba `533` días en la tienda. `joined <= date('2024-07-01', '-1 year')` vale `1` para los tres clientes que llevaban más de un año: Ana, Luis y Marta.",
+      "La última consulta agrupa los pedidos por día de la semana y traduce el número con un `CASE`. Domingo y miércoles empatan con `3` pedidos; jueves y sábado no tienen ninguno, y por eso no salen."
+    ],
+    "points": [
+      "Las fechas son texto `AAAA-MM-DD`: se ordenan y comparan bien.",
+      "`date(f, '+1 month', 'start of month', …)` calcula fechas.",
+      "`strftime('%Y', f)`, `'%m'`, `'%w'` sacan partes de la fecha.",
+      "`julianday(b) - julianday(a)` son los días entre dos fechas.",
+      "Para resultados repetibles, escriba la fecha de referencia en lugar de `'now'`."
+    ],
+    "exercise": "Calcule para cada pedido la fecha prevista de entrega, tres días después (`date(ordered, '+3 days')`), y el nombre del mes con un `CASE` sobre `strftime('%m', ordered)`."
+  },
+  "en": {
+    "slug": "dates-and-times",
+    "title": "Dates with date and strftime",
+    "summary": "Work with dates in SQLite: add months with date(), get the year or weekday with strftime() and count days with julianday().",
+    "body": [
+      "SQLite has no date type: it stores dates as `YYYY-MM-DD` text, and its date functions understand that format. **`date(value, modifiers…)`** computes new dates: `'+1 month'` takes 1 March to `2024-04-01`, and `'start of month', '+1 month', '-1 day'` gives the last day of the month, `2024-03-31`.",
+      "**`strftime(format, value)`** extracts parts of a date: `%Y` is the year, `%m` the month and `%w` the weekday, from `0` (Sunday) to `6`. 1 March 2024 was a Friday, `5`. **`julianday`** turns a date into a number of days, so subtracting two gives the days between them: `96` from the first order to the last.",
+      "In the second query the reference date is written out, `'2024-07-01'`, rather than \"today\" (`date('now')`): that keeps the result the same every time. Ana had been with the shop for `533` days. `joined <= date('2024-07-01', '-1 year')` is `1` for the three customers with more than a year: Ana, Luis and Marta.",
+      "The last query groups the orders by weekday and translates the number with a `CASE`. Sunday and Wednesday tie with `3` orders; Thursday and Saturday have none, so they do not appear."
+    ],
+    "points": [
+      "Dates are `YYYY-MM-DD` text: they sort and compare correctly.",
+      "`date(d, '+1 month', 'start of month', …)` computes dates.",
+      "`strftime('%Y', d)`, `'%m'`, `'%w'` extract parts of a date.",
+      "`julianday(b) - julianday(a)` is the number of days between two dates.",
+      "For repeatable results, write the reference date instead of `'now'`."
+    ],
+    "exercise": "For each order, work out the expected delivery date three days later (`date(ordered, '+3 days')`) and the month name with a `CASE` on `strftime('%m', ordered)`."
+  }
+}

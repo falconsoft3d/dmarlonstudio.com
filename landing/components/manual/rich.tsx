@@ -10,7 +10,8 @@ export function Inline({ text }: { text: string }) {
       {parts.map((p, i) =>
         p.startsWith("**") && p.endsWith("**") ? (
           <strong key={i} className="font-semibold text-ink">
-            {p.slice(2, -2)}
+            {/* **`código`**: el código va dentro de la negrita. */}
+            <Inline text={p.slice(2, -2)} />
           </strong>
         ) : p.startsWith("`") && p.endsWith("`") ? (
           <code key={i} className="rounded bg-soft px-1 py-0.5 font-mono text-[0.88em] text-ink">

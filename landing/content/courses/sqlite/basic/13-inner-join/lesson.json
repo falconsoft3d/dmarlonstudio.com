@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "inner-join",
+    "title": "Unir tablas con JOIN",
+    "summary": "Combine dos tablas con JOIN … ON en SQLite: cada pedido con el nombre y la ciudad de su cliente, gracias a la clave customer_id.",
+    "body": [
+      "Un pedido no guarda el nombre del cliente, solo su número: `customer_id`. Es una **clave ajena**, que apunta al `id` de `customers`. **`JOIN customers AS c ON c.id = o.customer_id`** empareja cada pedido con la fila del cliente cuyo `id` coincide, y desde ese momento la consulta puede usar las columnas de las dos tablas.",
+      "Los alias `o` y `c` acortan la consulta y evitan ambigüedades: las dos tablas tienen una columna `id`, y `o.id` deja claro que es el número del pedido. `c.name AS customer` cambia la cabecera para que no se confunda con otros nombres.",
+      "`JOIN` a secas es un **`INNER JOIN`**: solo salen las filas que tienen pareja en las dos tablas. Aquí salen los 10 pedidos, porque todos tienen cliente. `Ana García`, de `Madrid`, aparece tres veces (pedidos 1, 3 y 9), una por pedido.",
+      "Lo que no sale es Carlos Díaz, de Bilbao: no tiene pedidos, así que no tiene pareja. Para listar también a los clientes sin pedidos hace falta un `LEFT JOIN`, el de la lección siguiente."
+    ],
+    "points": [
+      "`JOIN … ON` une las filas cuya condición se cumple.",
+      "Una clave ajena (`customer_id`) apunta al `id` de otra tabla.",
+      "Los alias de tabla evitan ambigüedades (`o.id`, `c.id`).",
+      "`INNER JOIN` solo devuelve las filas con pareja."
+    ],
+    "exercise": "Una `products` con `categories` para mostrar el nombre de cada producto, el nombre de su categoría y su precio, ordenados por categoría y precio."
+  },
+  "en": {
+    "slug": "inner-join",
+    "title": "Joining tables with JOIN",
+    "summary": "Combine two tables with JOIN … ON in SQLite: each order with the name and city of its customer, through the customer_id key.",
+    "body": [
+      "An order does not store the customer's name, only their number: `customer_id`. It is a **foreign key**, pointing to the `id` in `customers`. **`JOIN customers AS c ON c.id = o.customer_id`** pairs each order with the customer row whose `id` matches, and from then on the query can use the columns of both tables.",
+      "The aliases `o` and `c` shorten the query and avoid ambiguity: both tables have an `id` column, and `o.id` makes it clear we mean the order number. `c.name AS customer` renames the header so it is not mistaken for any other name.",
+      "A plain `JOIN` is an **`INNER JOIN`**: only rows with a match in both tables come out. Here all 10 orders appear, because they all have a customer. `Ana García`, from `Madrid`, shows up three times (orders 1, 3 and 9), once per order.",
+      "Who does not show up is Carlos Díaz from Bilbao: he has no orders, so there is nothing to match. To list customers without orders as well you need a `LEFT JOIN`, the topic of the next lesson."
+    ],
+    "points": [
+      "`JOIN … ON` combines the rows that meet the condition.",
+      "A foreign key (`customer_id`) points to the `id` of another table.",
+      "Table aliases avoid ambiguity (`o.id`, `c.id`).",
+      "`INNER JOIN` returns only rows that have a match."
+    ],
+    "exercise": "Join `products` with `categories` to show each product's name, its category's name and its price, ordered by category and price."
+  }
+}

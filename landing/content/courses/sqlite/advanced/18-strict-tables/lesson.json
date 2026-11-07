@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tablas-strict",
+    "title": "Tablas STRICT y tipos",
+    "summary": "Vea cómo SQLite acepta cualquier valor en una tabla normal, descúbralo con typeof() y haga que una tabla STRICT compruebe los tipos.",
+    "body": [
+      "SQLite es flexible con los tipos: en una tabla normal, el tipo de la columna es una **afinidad**, una preferencia. En `loose`, el texto `'42'` se convierte en el entero `42` y `'3'` en el real `3`, porque se puede hacer sin perder nada. Pero `'abc'` y `'cheap'` no son números, y SQLite los guarda tal cual, como texto, en columnas `INTEGER` y `REAL`. **`typeof()`** lo descubre: `text`.",
+      "Eso puede esconder errores durante mucho tiempo: un precio `'cheap'` no da problemas hasta que alguien intenta sumarlo. Con **`STRICT`** al final del `CREATE TABLE`, SQLite comprueba el tipo de cada valor. Solo admite los tipos `INTEGER`, `REAL`, `TEXT`, `BLOB` y `ANY`, y rechaza lo que no encaja.",
+      "Una tabla `STRICT` sigue convirtiendo lo que se convierte sin pérdida: `'1.80'` entra en `price` como el real `1.8`, y el entero `2` como `2.0`; en la rejilla, los tres precios son `real`. La columna **`ANY`** es la excepción: acepta cualquier tipo y lo guarda tal cual, `text` para `'abc'` e `integer` para `42`. Y la `CHECK (price > 0)` sigue funcionando como en cualquier tabla.",
+      "La orden comentada, con `'cheap'` como precio, es la que la tabla `STRICT` rechazaría: *cannot store TEXT value in REAL column strict_prices.price*. Quite los `--` y pulse **Ejecutar**: el script se detiene en ella, y el estudio enseña el error junto a las pestañas de las consultas que sí se ejecutaron."
+    ],
+    "points": [
+      "En una tabla normal, el tipo de la columna es solo una preferencia.",
+      "`typeof(x)` dice qué tipo tiene de verdad un valor.",
+      "`STRICT` rechaza los valores que no son del tipo de la columna.",
+      "Lo que se convierte sin pérdida (`'1.80'` → `1.8`) se acepta.",
+      "Una columna `ANY` de una tabla `STRICT` admite cualquier tipo."
+    ],
+    "exercise": "Busque en `loose` las filas con un precio que no es número (`WHERE typeof(price) NOT IN ('real', 'integer')`). Después quite el comentario del último `INSERT` y, en otra prueba, cambie `'cheap'` por `-1` para ver qué regla lo rechaza."
+  },
+  "en": {
+    "slug": "strict-tables",
+    "title": "STRICT tables and types",
+    "summary": "See how SQLite accepts any value in an ordinary table, uncover it with typeof() and make a STRICT table check the types.",
+    "body": [
+      "SQLite is relaxed about types: in an ordinary table a column's type is an **affinity**, a preference. In `loose`, the text `'42'` becomes the integer `42` and `'3'` the real `3`, because that can be done without losing anything. But `'abc'` and `'cheap'` are not numbers, and SQLite stores them as they are, as text, in `INTEGER` and `REAL` columns. **`typeof()`** gives it away: `text`.",
+      "That can hide bugs for a long time: a price of `'cheap'` causes no trouble until someone tries to add it up. With **`STRICT`** at the end of `CREATE TABLE`, SQLite checks the type of every value. It only allows the types `INTEGER`, `REAL`, `TEXT`, `BLOB` and `ANY`, and rejects whatever does not fit.",
+      "A `STRICT` table still converts whatever converts without loss: `'1.80'` goes into `price` as the real `1.8`, and the integer `2` as `2.0`; in the grid, all three prices are `real`. The **`ANY`** column is the exception: it takes any type and keeps it as it is, `text` for `'abc'` and `integer` for `42`. And the `CHECK (price > 0)` still works as in any table.",
+      "The commented-out statement, with `'cheap'` as a price, is the one the `STRICT` table would reject: *cannot store TEXT value in REAL column strict_prices.price*. Remove the `--` and press **Run**: the script stops there, and the studio shows the error alongside the tabs of the queries that did run."
+    ],
+    "points": [
+      "In an ordinary table, a column's type is only a preference.",
+      "`typeof(x)` tells you a value's real type.",
+      "`STRICT` rejects values that are not of the column's type.",
+      "What converts without loss (`'1.80'` → `1.8`) is accepted.",
+      "An `ANY` column in a `STRICT` table takes any type."
+    ],
+    "exercise": "Find the rows in `loose` whose price is not a number (`WHERE typeof(price) NOT IN ('real', 'integer')`). Then uncomment the last `INSERT` and, in another try, change `'cheap'` to `-1` to see which rule rejects it."
+  }
+}

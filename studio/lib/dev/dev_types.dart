@@ -1,6 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import '../i18n/tr.dart';
+
+/// «1 fila afectada», «3 filas afectadas».
+String affectedMessage(int n) =>
+    n == 1 ? tr('1 fila afectada') : tr('{0} filas afectadas', [n]);
+
 /// Resultado de una consulta del gestor de bases de datos.
 class DevResult {
   DevResult({
@@ -39,11 +45,25 @@ class DevResult {
     null || num() || String() || bool() => v,
     final Uint8List b => '<${b.length} bytes>',
     final List<int> b when b.length > 64 => '<${b.length} bytes>',
-    final DateTime d => d.toIso8601String(),
+    final DateTime d => _date(d),
     final Map m => _json(m),
     final List l => _json(l),
     _ => '$v',
   };
+
+  /// «2024-01-05» (una fecha sin hora) o «2024-01-05 10:30:00».
+  static String _date(DateTime d) {
+    String two(int n) => n.toString().padLeft(2, '0');
+    final day =
+        '${d.year.toString().padLeft(4, '0')}-${two(d.month)}-${two(d.day)}';
+    if (d.hour == 0 && d.minute == 0 && d.second == 0 && d.millisecond == 0) {
+      return day;
+    }
+    final ms = d.millisecond == 0
+        ? ''
+        : '.${d.millisecond.toString().padLeft(3, '0')}';
+    return '$day ${two(d.hour)}:${two(d.minute)}:${two(d.second)}$ms';
+  }
 
   static String _json(Object v) {
     try {

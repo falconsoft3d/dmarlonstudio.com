@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "primer-select",
+    "title": "Su primera consulta SELECT",
+    "summary": "Lea los datos de una tabla con SELECT y FROM: todas las columnas con * o solo las que necesite. El primer paso en SQLite.",
+    "body": [
+      "La tienda del curso ya está cargada: categorías, productos, clientes, pedidos, líneas de pedido, empleados y reseñas. Sus tablas aparecen en la lista de la izquierda del módulo **Bases de datos** de DMarlon Studio, y con un doble clic en una de ellas el estudio le escribe una consulta de ejemplo.",
+      "`SELECT * FROM categories` es la consulta más sencilla: **`SELECT`** dice qué columnas quiere, **`FROM`** de qué tabla, y el asterisco `*` significa «todas». Devuelve las cuatro categorías de la tienda: `Bakery`, `Drinks`, `Dairy` y `Fruit`, cada una con su `id`.",
+      "La segunda consulta nombra las columnas una a una: `name, price, stock`. Así obtiene solo lo que necesita y en el orden que quiere, aunque la tabla `products` tenga también `category_id`, `active` y `tags`. Es la forma recomendable: `*` está bien para echar un vistazo, pero en un programa conviene decir exactamente qué columnas se leen.",
+      "**`ORDER BY id`** fija el orden de las filas. Sin él, la base de datos puede devolverlas en el orden que le resulte más cómodo; con él, las 12 filas salen siempre igual, de `Baguette` a `Strawberries`. Cada consulta termina en `;`, y al pulsar **Ejecutar** (⌘↵) el estudio las ejecuta todas y abre una pestaña de resultado por cada una."
+    ],
+    "points": [
+      "`SELECT columnas FROM tabla` lee filas de una tabla.",
+      "`*` trae todas las columnas; mejor nombrar las que necesita.",
+      "`ORDER BY` fija el orden de las filas.",
+      "Cada consulta termina en `;` y tiene su propia pestaña de resultado."
+    ],
+    "exercise": "Escriba una consulta que muestre el nombre, la ciudad y la fecha de alta (`joined`) de todos los clientes de la tabla `customers`, ordenados por `id`."
+  },
+  "en": {
+    "slug": "first-select",
+    "title": "Your first SELECT query",
+    "summary": "Read data from a table with SELECT and FROM: every column with * or just the ones you need. The first step in SQLite.",
+    "body": [
+      "The course shop is already loaded: categories, products, customers, orders, order lines, employees and reviews. Its tables appear in the list on the left of DMarlon Studio's **Databases** module, and double-clicking one writes a sample query for you.",
+      "`SELECT * FROM categories` is the simplest query there is: **`SELECT`** says which columns you want, **`FROM`** which table, and the asterisk `*` means \"all of them\". It returns the shop's four categories, `Bakery`, `Drinks`, `Dairy` and `Fruit`, each with its `id`.",
+      "The second query names its columns one by one: `name, price, stock`. That way you get only what you need, in the order you want, even though `products` also has `category_id`, `active` and `tags`. This is the better habit: `*` is fine for a quick look, but in a program you should say exactly which columns you read.",
+      "**`ORDER BY id`** fixes the order of the rows. Without it the database may return them in whatever order suits it; with it, the 12 rows always come out the same way, from `Baguette` to `Strawberries`. Each query ends with `;`, and when you press **Run** (⌘↵) the studio runs them all and opens one result tab per query."
+    ],
+    "points": [
+      "`SELECT columns FROM table` reads rows from a table.",
+      "`*` brings every column; naming the ones you need is better.",
+      "`ORDER BY` fixes the order of the rows.",
+      "Each query ends with `;` and gets its own result tab."
+    ],
+    "exercise": "Write a query that shows the name, city and join date (`joined`) of every customer in the `customers` table, ordered by `id`."
+  }
+}

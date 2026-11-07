@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones-almacenadas",
+    "title": "Funciones propias",
+    "summary": "Cree funciones en MySQL con CREATE FUNCTION, RETURNS y DETERMINISTIC, con IF dentro, y úselas en un SELECT como las de serie.",
+    "body": [
+      "Una **función almacenada** devuelve un solo valor y, a diferencia de un procedimiento, se usa dentro de cualquier consulta, como `ROUND` o `UPPER`. Se define entre `DELIMITER //` y `DELIMITER ;`, igual que un procedimiento, porque su cuerpo lleva `;`.",
+      "`with_vat` recibe un importe y un tipo de IVA y declara con **`RETURNS DECIMAL(10,2)`** qué devuelve. **`DETERMINISTIC`** promete que con los mismos argumentos devuelve siempre lo mismo. No es decoración: con el registro binario activado (lo está por defecto desde MySQL 8.0), MySQL rechaza la función con el error 1418 si no lleva `DETERMINISTIC`, `NO SQL` o `READS SQL DATA`.",
+      "`stock_label` usa **`IF … ELSEIF … END IF`**, la versión de bloque del `IF()` (ojo: aquí cada rama termina en `;`). Devuelve en cuanto llega a un `RETURN`, así que el último `RETURN 'ok'` es el caso que queda.",
+      "En el `SELECT`, `with_vat(price, 10)` y `with_vat(price, 21)` dan `10.89` y `11.98` para `Espresso beans`, y `stock_label(stock)` marca `Manchego cheese` como `low` y `Orange juice` como `sold out`. La lógica queda en un solo sitio y todas las consultas la comparten."
+    ],
+    "points": [
+      "`CREATE FUNCTION f(args) RETURNS tipo … RETURN valor`.",
+      "Se usa dentro de cualquier consulta.",
+      "Con registro binario hace falta `DETERMINISTIC` (o `NO SQL`, `READS SQL DATA`).",
+      "`IF … ELSEIF … ELSE … END IF;` dentro del cuerpo."
+    ],
+    "exercise": "Cree una función `discount(price, pct)` que reste un porcentaje y úsela para mostrar los productos de la panadería con un 20 % menos."
+  },
+  "en": {
+    "slug": "stored-functions",
+    "title": "Your own functions",
+    "summary": "Create functions in MySQL with CREATE FUNCTION, RETURNS and DETERMINISTIC, with IF inside, and use them in a SELECT like the built-in ones.",
+    "body": [
+      "A **stored function** returns a single value and, unlike a procedure, can be used inside any query, like `ROUND` or `UPPER`. It is defined between `DELIMITER //` and `DELIMITER ;`, just like a procedure, because its body contains `;`.",
+      "`with_vat` takes an amount and a VAT rate and declares with **`RETURNS DECIMAL(10,2)`** what it returns. **`DETERMINISTIC`** promises that the same arguments always give the same result. It is not decoration: with binary logging on (the default since MySQL 8.0), MySQL rejects the function with error 1418 unless it says `DETERMINISTIC`, `NO SQL` or `READS SQL DATA`.",
+      "`stock_label` uses **`IF … ELSEIF … END IF`**, the block version of `IF()` (note that here each branch ends in `;`). It returns as soon as it reaches a `RETURN`, so the last `RETURN 'ok'` is the case that is left.",
+      "In the `SELECT`, `with_vat(price, 10)` and `with_vat(price, 21)` give `10.89` and `11.98` for `Espresso beans`, and `stock_label(stock)` marks `Manchego cheese` as `low` and `Orange juice` as `sold out`. The logic lives in one place and every query shares it."
+    ],
+    "points": [
+      "`CREATE FUNCTION f(args) RETURNS type … RETURN value`.",
+      "It can be used inside any query.",
+      "With binary logging you need `DETERMINISTIC` (or `NO SQL`, `READS SQL DATA`).",
+      "`IF … ELSEIF … ELSE … END IF;` inside the body."
+    ],
+    "exercise": "Create a function `discount(price, pct)` that takes off a percentage and use it to show the bakery products 20% cheaper."
+  }
+}

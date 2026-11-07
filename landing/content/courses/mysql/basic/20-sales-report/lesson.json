@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "informe-de-ventas",
+    "title": "Informe de ventas",
+    "summary": "Junte lo aprendido en un informe de ventas por cliente en MySQL: JOIN de cuatro tablas, WHERE, GROUP BY, HAVING y ORDER BY.",
+    "body": [
+      "Este informe reúne casi todo el curso en una consulta. Parte de `customers`, une sus pedidos (`orders`) y las líneas de cada pedido (`order_items`), y deja fuera los cancelados con `WHERE`.",
+      "`GROUP BY c.id, c.name, c.city` da una fila por cliente. En cada una: `COUNT(DISTINCT o.id)`, los pedidos (sin contar dos veces un pedido de varias líneas); `SUM(i.qty)`, las unidades; `SUM(i.qty * i.price)`, lo gastado, y `MAX(o.ordered)`, la fecha del último pedido.",
+      "**`HAVING spent > 10`** se queda con quien ha gastado más de 10 euros; MySQL permite usar ahí el alias. La primera es `Ana García`: `3` pedidos, `12` unidades y `34.95`, con el último el `2024-06-02`. `Marta López`, con `10.50`, entra por poco.",
+      "Faltan dos clientes, cada uno por un motivo: `John Smith` solo tiene un pedido y está cancelado, y `Carlos Díaz` no tiene ninguno, así que el `JOIN` no lo encuentra (con `LEFT JOIN` saldría con `NULL`). En el estudio, el botón **CSV** exporta este resultado tal cual."
+    ],
+    "points": [
+      "Un informe es `JOIN` + `WHERE` + `GROUP BY` + `HAVING` + `ORDER BY`.",
+      "Agrupe por la clave y las columnas que muestre.",
+      "`COUNT(DISTINCT …)` cuando las líneas repiten la cabecera.",
+      "Pregúntese siempre quién falta y por qué."
+    ],
+    "exercise": "Cambie el informe para agrupar por ciudad en lugar de por cliente y añada cuántos clientes distintos ha tenido cada una."
+  },
+  "en": {
+    "slug": "sales-report",
+    "title": "Sales report",
+    "summary": "Put it all together in a MySQL sales report per customer: a four-table JOIN, WHERE, GROUP BY, HAVING and ORDER BY.",
+    "body": [
+      "This report brings almost the whole course together in one query. It starts from `customers`, joins their orders (`orders`) and the lines of each order (`order_items`), and leaves out the cancelled ones with `WHERE`.",
+      "`GROUP BY c.id, c.name, c.city` gives one row per customer. In each: `COUNT(DISTINCT o.id)`, the orders (without counting a multi-line order twice); `SUM(i.qty)`, the units; `SUM(i.qty * i.price)`, the amount spent, and `MAX(o.ordered)`, the date of the latest order.",
+      "**`HAVING spent > 10`** keeps whoever has spent more than 10 euros; MySQL lets you use the alias there. First is `Ana García`: `3` orders, `12` units and `34.95`, the latest on `2024-06-02`. `Marta López`, with `10.50`, just makes it.",
+      "Two customers are missing, each for a reason: `John Smith` has only one order and it is cancelled, and `Carlos Díaz` has none, so the `JOIN` does not find him (with `LEFT JOIN` he would appear with `NULL`). In the studio, the **CSV** button exports this result as it is."
+    ],
+    "points": [
+      "A report is `JOIN` + `WHERE` + `GROUP BY` + `HAVING` + `ORDER BY`.",
+      "Group by the key and the columns you show.",
+      "`COUNT(DISTINCT …)` when the lines repeat the header.",
+      "Always ask who is missing and why."
+    ],
+    "exercise": "Change the report to group by city instead of by customer and add how many different customers each city has had."
+  }
+}

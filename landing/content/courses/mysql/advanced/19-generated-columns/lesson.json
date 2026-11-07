@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "columnas-generadas",
+    "title": "Columnas generadas",
+    "summary": "Añada en MySQL columnas que se calculan solas a partir de otras, STORED o VIRTUAL, e indexe una que sale de un JSON.",
+    "body": [
+      "Una **columna generada** no se escribe: su valor sale de una expresión con otras columnas de la misma fila. `line_total DECIMAL(10,2) AS (qty * price) STORED` es el importe de cada línea de pedido, y siempre cuadra con `qty` y `price`.",
+      "Hay dos clases. **`STORED`** calcula el valor al guardar la fila y lo guarda en disco, como una columna normal. **`VIRTUAL`** (la opción por defecto) no ocupa sitio: se calcula al leerla. `price_vat` y `first_tag`, en `products`, son virtuales.",
+      "`first_tag` sale del JSON, `tags ->> '$[0]'`, y lleva su índice, `idx_first_tag`. Es la forma de MySQL de indexar un dato que está dentro de un JSON: con él, `WHERE first_tag = 'bread'` puede usar el índice en lugar de leer todos los documentos.",
+      "El `UPDATE` cambia la cantidad de la línea `1` a `3`, y `line_total` pasa sola a `3.60`. `Whole milk` tiene `first_tag` `NULL` porque su lista de etiquetas está vacía. Una columna generada no se puede escribir: un `UPDATE … SET line_total = 0` daría un error."
+    ],
+    "points": [
+      "`col tipo AS (expresión) STORED | VIRTUAL`.",
+      "`STORED` se guarda; `VIRTUAL` se calcula al leer.",
+      "Siempre cuadra con las columnas de las que sale.",
+      "Indexar una columna generada permite buscar rápido dentro de un JSON."
+    ],
+    "exercise": "Añada a `customers` una columna virtual `domain` con `SUBSTRING_INDEX(email, '@', -1)` y cuente los clientes de cada dominio."
+  },
+  "en": {
+    "slug": "generated-columns",
+    "title": "Generated columns",
+    "summary": "Add columns in MySQL that compute themselves from others, STORED or VIRTUAL, and index one taken out of a JSON document.",
+    "body": [
+      "A **generated column** is never written: its value comes from an expression on other columns of the same row. `line_total DECIMAL(10,2) AS (qty * price) STORED` is the amount of each order line, and it always matches `qty` and `price`.",
+      "There are two kinds. **`STORED`** computes the value when the row is saved and keeps it on disk, like a normal column. **`VIRTUAL`** (the default) takes no space: it is computed when read. `price_vat` and `first_tag`, in `products`, are virtual.",
+      "`first_tag` comes out of the JSON, `tags ->> '$[0]'`, and has its own index, `idx_first_tag`. That is MySQL's way of indexing a value that lives inside a JSON document: with it, `WHERE first_tag = 'bread'` can use the index instead of reading every document.",
+      "The `UPDATE` changes the quantity of line `1` to `3`, and `line_total` becomes `3.60` by itself. `Whole milk` has a `NULL` `first_tag` because its tag list is empty. A generated column cannot be written to: `UPDATE … SET line_total = 0` would give an error."
+    ],
+    "points": [
+      "`col type AS (expression) STORED | VIRTUAL`.",
+      "`STORED` is saved; `VIRTUAL` is computed on read.",
+      "It always matches the columns it comes from.",
+      "Indexing a generated column lets you search inside JSON quickly."
+    ],
+    "exercise": "Add a virtual `domain` column to `customers` with `SUBSTRING_INDEX(email, '@', -1)` and count the customers per domain."
+  }
+}

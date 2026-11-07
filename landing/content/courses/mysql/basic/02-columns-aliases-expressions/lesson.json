@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "columnas-alias-y-expresiones",
+    "title": "Columnas, alias y expresiones",
+    "summary": "Calcule columnas nuevas en MySQL con operaciones y póngales nombre con AS: el valor del stock y el precio con IVA de cada producto.",
+    "body": [
+      "En `SELECT` no solo van columnas: van **expresiones**, y MySQL las calcula fila a fila. `price * stock` multiplica el precio por las unidades de cada producto: para `Espresso beans`, `9.90 * 18` da `178.20`, el stock más valioso de la tienda.",
+      "**`AS`** pone nombre a la columna calculada (un **alias**). Sin él, la cabecera sería el texto de la expresión, `price * stock`. Con el alias, `stock_value` se puede usar en `ORDER BY stock_value DESC` para ordenar de mayor a menor.",
+      "`price * 1.21` añade el 21 % de IVA. Sale `11.9790` y no `11.98`: al multiplicar dos decimales exactos, MySQL suma sus decimales (dos de `9.90` y dos de `1.21`) y no redondea por su cuenta. Lo de redondear se verá con `ROUND` en otra lección.",
+      "`'EUR' AS currency` es una constante: la misma en todas las filas. Y **`LIMIT 8`** se queda con las ocho primeras filas ya ordenadas, de `Espresso beans` a `Baguette` (`48.00`)."
+    ],
+    "points": [
+      "En `SELECT` puede calcular: `price * stock`.",
+      "`AS nombre` da nombre a una columna (alias).",
+      "El alias se puede usar en `ORDER BY`.",
+      "Multiplicar `DECIMAL` exactos conserva todos los decimales.",
+      "`LIMIT n` devuelve solo las primeras n filas."
+    ],
+    "exercise": "Añada una columna `half_price` con el precio a mitad (`price / 2`) y ordene por ella, de menor a mayor."
+  },
+  "en": {
+    "slug": "columns-aliases-and-expressions",
+    "title": "Columns, aliases and expressions",
+    "summary": "Compute new columns in MySQL with arithmetic and name them with AS: the stock value and the price with VAT of each product.",
+    "body": [
+      "A `SELECT` holds more than columns: it holds **expressions**, and MySQL computes them row by row. `price * stock` multiplies each product's price by its units: for `Espresso beans`, `9.90 * 18` gives `178.20`, the most valuable stock in the shop.",
+      "**`AS`** names the computed column (an **alias**). Without it the header would be the text of the expression, `price * stock`. With the alias, `stock_value` can be used in `ORDER BY stock_value DESC` to sort from highest to lowest.",
+      "`price * 1.21` adds 21% VAT. It shows `11.9790`, not `11.98`: when you multiply two exact decimals, MySQL adds up their decimals (two from `9.90` and two from `1.21`) and does not round by itself. Rounding with `ROUND` comes in another lesson.",
+      "`'EUR' AS currency` is a constant: the same in every row. And **`LIMIT 8`** keeps the first eight rows once they are sorted, from `Espresso beans` down to `Baguette` (`48.00`)."
+    ],
+    "points": [
+      "You can compute in `SELECT`: `price * stock`.",
+      "`AS name` names a column (an alias).",
+      "The alias can be used in `ORDER BY`.",
+      "Multiplying exact `DECIMAL` values keeps every decimal.",
+      "`LIMIT n` returns only the first n rows."
+    ],
+    "exercise": "Add a `half_price` column with the price halved (`price / 2`) and sort by it, lowest first."
+  }
+}

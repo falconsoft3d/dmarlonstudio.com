@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insert-on-duplicate-key-update",
+    "title": "Insertar o actualizar",
+    "summary": "Inserte o actualice en una sola sentencia con INSERT … ON DUPLICATE KEY UPDATE en MySQL, y compárelo con INSERT IGNORE y REPLACE.",
+    "body": [
+      "`stock_count` guarda un recuento por producto, con `product_id` como clave primaria. Primero se insertan los productos `1` y `2`. Al recontar llegan `2` (que ya existe) y `3` (que no): un `INSERT` normal fallaría por la clave duplicada.",
+      "**`ON DUPLICATE KEY UPDATE`** dice qué hacer en ese caso: actualizar la fila que ya está. **`AS new`** pone nombre a la fila que se intentaba insertar, y `counted = new.counted, times = times + 1` toma el recuento nuevo y suma una vez. El estudio dice `3 rows affected`: MySQL cuenta `1` por cada fila insertada y `2` por cada actualizada.",
+      "**`INSERT IGNORE`** se salta la fila con clave repetida sin dar error: `0 rows affected`, y `Baguette` conserva `40`. **`REPLACE`** borra la fila vieja e inserta la nueva (`2 rows affected`, el borrado y la inserción); por eso `Rye bread` queda con `11` pero `times` vuelve a `1`, su valor por defecto.",
+      "Al final, `Croissant` tiene `23` y `times` `2`. La sintaxis `AS new` existe desde MySQL 8.0.19; en código antiguo verá `VALUES(counted)`, que hoy está en desuso."
+    ],
+    "points": [
+      "`ON DUPLICATE KEY UPDATE` actualiza si la clave ya existe.",
+      "`AS new` nombra la fila nueva: `new.col`.",
+      "Cuenta `1` por inserción y `2` por actualización.",
+      "`INSERT IGNORE` se salta los duplicados; `REPLACE` borra e inserta."
+    ],
+    "exercise": "Añada una columna `max_counted` y haga que el `ON DUPLICATE KEY UPDATE` guarde el mayor recuento con `GREATEST(max_counted, new.counted)`."
+  },
+  "en": {
+    "slug": "insert-on-duplicate-key-update",
+    "title": "Insert or update",
+    "summary": "Insert or update in one statement with INSERT … ON DUPLICATE KEY UPDATE in MySQL, and compare it with INSERT IGNORE and REPLACE.",
+    "body": [
+      "`stock_count` keeps a count per product, with `product_id` as the primary key. First products `1` and `2` are inserted. Then a recount brings `2` (already there) and `3` (new): a plain `INSERT` would fail on the duplicate key.",
+      "**`ON DUPLICATE KEY UPDATE`** says what to do in that case: update the row that is already there. **`AS new`** names the row you were trying to insert, and `counted = new.counted, times = times + 1` takes the new count and adds one to the tally. The studio says `3 rows affected`: MySQL counts `1` for each inserted row and `2` for each updated one.",
+      "**`INSERT IGNORE`** skips the row with a duplicate key without an error: `0 rows affected`, and `Baguette` keeps `40`. **`REPLACE`** deletes the old row and inserts the new one (`2 rows affected`, the delete and the insert); that is why `Rye bread` ends up with `11` but `times` goes back to `1`, its default.",
+      "In the end, `Croissant` has `23` and `times` `2`. The `AS new` syntax exists since MySQL 8.0.19; in older code you will see `VALUES(counted)`, which is now deprecated."
+    ],
+    "points": [
+      "`ON DUPLICATE KEY UPDATE` updates when the key already exists.",
+      "`AS new` names the new row: `new.col`.",
+      "It counts `1` per insert and `2` per update.",
+      "`INSERT IGNORE` skips duplicates; `REPLACE` deletes and inserts."
+    ],
+    "exercise": "Add a `max_counted` column and make the `ON DUPLICATE KEY UPDATE` keep the highest count with `GREATEST(max_counted, new.counted)`."
+  }
+}

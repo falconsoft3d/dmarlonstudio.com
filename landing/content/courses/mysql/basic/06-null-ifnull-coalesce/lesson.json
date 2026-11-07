@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "null-ifnull-y-coalesce",
+    "title": "NULL, IFNULL y COALESCE",
+    "summary": "Entienda NULL en MySQL: por qué = NULL no encuentra nada, cómo preguntar con IS NULL y cómo sustituirlo con IFNULL y COALESCE.",
+    "body": [
+      "**`NULL`** significa «sin valor»: no es cero ni un texto vacío. Pedro Gómez no dio su correo, y su `email` es `NULL`. La primera consulta, `WHERE email = NULL`, no devuelve ninguna fila: cualquier comparación con `NULL` da `NULL` (ni verdadero ni falso), y `WHERE` solo deja pasar lo verdadero. Su pestaña sale vacía, solo con la cabecera.",
+      "La forma de preguntar es **`IS NULL`** (o `IS NOT NULL`): ahora sí sale `Pedro Gómez`, de `Seville`.",
+      "En `reviews`, la reseña `5` tiene la nota pero no el comentario. **`IFNULL(r.comment, '(no comment)')`** devuelve el comentario si existe y, si no, el texto de reserva: en esa fila, `(no comment)`.",
+      "**`COALESCE`** hace lo mismo con una lista de cualquier longitud y devuelve el primer valor que no sea `NULL`. Aquí la reserva se calcula con la propia fila: `CONCAT(r.rating, ' stars')` da `5 stars`. `COALESCE` es SQL estándar; `IFNULL`, de MySQL. La `r` tras `FROM reviews` es un alias de la tabla, para escribir menos."
+    ],
+    "points": [
+      "`NULL` es la ausencia de valor.",
+      "`= NULL` nunca es verdadero: use `IS NULL`.",
+      "`IFNULL(a, b)`: `a`, o `b` si `a` es `NULL`.",
+      "`COALESCE(a, b, c…)`: el primero que no sea `NULL`."
+    ],
+    "exercise": "Liste todos los clientes con su correo y, cuando falte, el texto `sin correo` con `COALESCE`."
+  },
+  "en": {
+    "slug": "null-ifnull-and-coalesce",
+    "title": "NULL, IFNULL and COALESCE",
+    "summary": "Understand NULL in MySQL: why = NULL finds nothing, how to ask with IS NULL and how to replace it with IFNULL and COALESCE.",
+    "body": [
+      "**`NULL`** means no value: it is not zero and not an empty string. Pedro Gómez did not give his email, so his `email` is `NULL`. The first query, `WHERE email = NULL`, returns no rows: any comparison with `NULL` gives `NULL` (neither true nor false), and `WHERE` only lets true through. Its tab comes back empty, just the header.",
+      "The way to ask is **`IS NULL`** (or `IS NOT NULL`): now `Pedro Gómez`, from `Seville`, does show up.",
+      "In `reviews`, review `5` has a rating but no comment. **`IFNULL(r.comment, '(no comment)')`** returns the comment if there is one and otherwise the fallback text: on that row, `(no comment)`.",
+      "**`COALESCE`** does the same with a list of any length and returns the first value that is not `NULL`. Here the fallback is built from the row itself: `CONCAT(r.rating, ' stars')` gives `5 stars`. `COALESCE` is standard SQL; `IFNULL` is MySQL's own. The `r` after `FROM reviews` is a table alias, to type less."
+    ],
+    "points": [
+      "`NULL` is the absence of a value.",
+      "`= NULL` is never true: use `IS NULL`.",
+      "`IFNULL(a, b)`: `a`, or `b` when `a` is `NULL`.",
+      "`COALESCE(a, b, c…)`: the first one that is not `NULL`."
+    ],
+    "exercise": "List every customer with their email and, when it is missing, the text `no email` using `COALESCE`."
+  }
+}

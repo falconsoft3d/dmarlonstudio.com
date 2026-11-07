@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "totales-acumulados",
+    "title": "Totales acumulados",
+    "summary": "Calcule en MySQL un total acumulado, una media móvil de tres pedidos y el porcentaje de cada uno con SUM y AVG sobre una ventana.",
+    "body": [
+      "**`SUM(total) OVER (ORDER BY ordered)`** suma, para cada pedido, su total y el de todos los anteriores: un **total acumulado**. Empieza en `11.25`, pasa a `27.15` con el segundo pedido y termina en `126.85`, lo que ha facturado la tienda sin los cancelados.",
+      "Cuando la ventana lleva `ORDER BY`, por defecto va desde la primera fila hasta la actual. **`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** la cambia por las dos anteriores y la actual: una **media móvil** de tres pedidos. En el pedido `3`, `(11.25 + 15.90 + 12.90) / 3` da `13.35`.",
+      "**`SUM(total) OVER ()`**, con la ventana vacía, es el total de todas las filas, `126.85`, repetido en cada una. Así `100 * total / SUM(total) OVER ()` da el peso de cada pedido: el `8`, el mayor, es el `17.5` %.",
+      "Hay un detalle: sin `ROWS`, la ventana por defecto es `RANGE`, y dos pedidos de la misma fecha se sumarían a la vez. Aquí todas las fechas son distintas; si no lo fueran, añada `id` al `ORDER BY` de la ventana."
+    ],
+    "points": [
+      "`SUM(…) OVER (ORDER BY …)` es un total acumulado.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` limita la ventana.",
+      "`OVER ()` es la tabla entera: sirve para porcentajes.",
+      "Con fechas repetidas, desempate el orden de la ventana."
+    ],
+    "exercise": "Calcule el total acumulado por cliente con `PARTITION BY customer_id`."
+  },
+  "en": {
+    "slug": "running-totals",
+    "title": "Running totals",
+    "summary": "Work out a running total, a three-order moving average and each order's share in MySQL with SUM and AVG over a window.",
+    "body": [
+      "**`SUM(total) OVER (ORDER BY ordered)`** adds up, for each order, its total and those of all the earlier ones: a **running total**. It starts at `11.25`, goes to `27.15` with the second order and ends at `126.85`, what the shop has earned without the cancelled ones.",
+      "When the window has an `ORDER BY`, by default it runs from the first row to the current one. **`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** changes that to the two previous rows and the current one: a three-order **moving average**. On order `3`, `(11.25 + 15.90 + 12.90) / 3` gives `13.35`.",
+      "**`SUM(total) OVER ()`**, with an empty window, is the total of every row, `126.85`, repeated on each one. So `100 * total / SUM(total) OVER ()` gives each order's weight: order `8`, the largest, is `17.5`%.",
+      "One detail: without `ROWS`, the default window is `RANGE`, and two orders on the same date would be added together. Here every date is different; if they were not, add `id` to the window's `ORDER BY`."
+    ],
+    "points": [
+      "`SUM(…) OVER (ORDER BY …)` is a running total.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` limits the window.",
+      "`OVER ()` is the whole table: handy for percentages.",
+      "With repeated dates, break ties in the window's order."
+    ],
+    "exercise": "Work out the running total per customer with `PARTITION BY customer_id`."
+  }
+}

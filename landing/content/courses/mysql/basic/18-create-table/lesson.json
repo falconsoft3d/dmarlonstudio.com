@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "crear-tablas",
+    "title": "Crear tablas",
+    "summary": "Cree una tabla en MySQL con CREATE TABLE: AUTO_INCREMENT, PRIMARY KEY, NOT NULL, UNIQUE, DEFAULT y una columna ENUM.",
+    "body": [
+      "**`CREATE TABLE suppliers`** define una tabla nueva columna a columna, con su tipo. `id INT AUTO_INCREMENT PRIMARY KEY` es la clave: un número que MySQL pone solo y que no se repite. `VARCHAR(60)` es un texto de hasta 60 caracteres y `CHAR(2)`, uno de exactamente dos.",
+      "Las **restricciones** protegen los datos: **`NOT NULL`** obliga a dar un valor, **`UNIQUE`** impide dos correos iguales (aunque admite varios `NULL`) y **`DEFAULT 'ES'`** rellena el país cuando no se dice. **`ENUM('farm', 'factory', 'wholesale')`** solo admite uno de esos tres textos: con cualquier otro, MySQL da un error.",
+      "**`SHOW COLUMNS FROM suppliers`** describe la tabla: tipo, si admite `NULL`, la clave (`PRI`, `UNI`) y el valor por defecto. La tabla nueva aparece también en la lista de la izquierda del estudio.",
+      "En el `SELECT` final, `Huerta Sol` y `Molinos Sur` tienen país `ES` sin haberlo escrito, y `Dairy Co`, que sí lo da (`FR`), se queda sin correo ni fecha: esas dos columnas admiten `NULL`."
+    ],
+    "points": [
+      "`CREATE TABLE nombre (columna tipo restricciones, …)`.",
+      "`AUTO_INCREMENT PRIMARY KEY` para el id.",
+      "`NOT NULL`, `UNIQUE` y `DEFAULT` protegen los datos.",
+      "`ENUM` limita una columna a una lista de valores.",
+      "`SHOW COLUMNS FROM tabla` describe la tabla."
+    ],
+    "exercise": "Añada al final un `INSERT` con `kind = 'shop'` y vea el error que da el `ENUM`."
+  },
+  "en": {
+    "slug": "creating-tables",
+    "title": "Creating tables",
+    "summary": "Create a table in MySQL with CREATE TABLE: AUTO_INCREMENT, PRIMARY KEY, NOT NULL, UNIQUE, DEFAULT and an ENUM column.",
+    "body": [
+      "**`CREATE TABLE suppliers`** defines a new table column by column, each with its type. `id INT AUTO_INCREMENT PRIMARY KEY` is the key: a number MySQL fills in by itself and never repeats. `VARCHAR(60)` is text up to 60 characters and `CHAR(2)` is exactly two.",
+      "**Constraints** protect the data: **`NOT NULL`** requires a value, **`UNIQUE`** prevents two identical emails (though it allows several `NULL`s) and **`DEFAULT 'ES'`** fills in the country when none is given. **`ENUM('farm', 'factory', 'wholesale')`** accepts only one of those three strings: with anything else MySQL raises an error.",
+      "**`SHOW COLUMNS FROM suppliers`** describes the table: the type, whether it allows `NULL`, the key (`PRI`, `UNI`) and the default value. The new table also appears in the studio's table list on the left.",
+      "In the final `SELECT`, `Huerta Sol` and `Molinos Sur` have country `ES` without anyone writing it, and `Dairy Co`, which does give one (`FR`), has no email or date: those two columns allow `NULL`."
+    ],
+    "points": [
+      "`CREATE TABLE name (column type constraints, …)`.",
+      "`AUTO_INCREMENT PRIMARY KEY` for the id.",
+      "`NOT NULL`, `UNIQUE` and `DEFAULT` protect the data.",
+      "`ENUM` limits a column to a list of values.",
+      "`SHOW COLUMNS FROM table` describes the table."
+    ],
+    "exercise": "Add an `INSERT` at the end with `kind = 'shop'` and look at the error the `ENUM` gives."
+  }
+}

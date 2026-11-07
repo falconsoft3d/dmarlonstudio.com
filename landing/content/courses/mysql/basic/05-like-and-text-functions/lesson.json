@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "like-y-funciones-de-texto",
+    "title": "LIKE y funciones de texto",
+    "summary": "Busque por patrones con LIKE y transforme textos en MySQL con CONCAT, UPPER, LEFT, CHAR_LENGTH y LENGTH.",
+    "body": [
+      "**`LIKE`** compara con un patrón: `%` es cualquier texto (también vacío) y `_`, exactamente un carácter. `'%bread%'` encuentra `Rye bread` y `'B_g%'`, `Baguette`: una `B`, una letra cualquiera, una `g` y lo que sea.",
+      "La segunda consulta transforma textos. **`UPPER(city)`** pasa la ciudad a mayúsculas (`MADRID`) y **`LEFT(name, 3)`** se queda con las tres primeras letras (`Ana`, `Mar`, `Sof`…), útil para hacer códigos.",
+      "**`CHAR_LENGTH`** cuenta caracteres y **`LENGTH`**, bytes. `Ana García` tiene `10` caracteres y `11` bytes, porque en UTF-8 la `í` ocupa dos; `Emma Brown`, sin acentos, da `10` y `10`. Para la longitud que ve una persona, use siempre `CHAR_LENGTH`.",
+      "**`CONCAT`** une textos: `Ana García <ana@example.com>`. Si uno de los trozos fuese `NULL`, el resultado entero sería `NULL`; por eso el correo va dentro de `IFNULL(email, '-')`. El filtro `name LIKE '%a%'` deja cinco clientes."
+    ],
+    "points": [
+      "`LIKE`: `%` cualquier texto, `_` un carácter.",
+      "`UPPER`, `LOWER`, `LEFT`, `RIGHT`, `SUBSTRING` transforman textos.",
+      "`CHAR_LENGTH` cuenta caracteres; `LENGTH`, bytes.",
+      "`CONCAT` con un `NULL` da `NULL`."
+    ],
+    "exercise": "Muestre el nombre de cada cliente y su dominio de correo con `SUBSTRING_INDEX(email, '@', -1)`."
+  },
+  "en": {
+    "slug": "like-and-text-functions",
+    "title": "LIKE and text functions",
+    "summary": "Search with patterns using LIKE and transform text in MySQL with CONCAT, UPPER, LEFT, CHAR_LENGTH and LENGTH.",
+    "body": [
+      "**`LIKE`** matches a pattern: `%` is any text (empty too) and `_` is exactly one character. `'%bread%'` finds `Rye bread` and `'B_g%'` finds `Baguette`: a `B`, any one letter, a `g` and anything after it.",
+      "The second query transforms text. **`UPPER(city)`** turns the city into capitals (`MADRID`) and **`LEFT(name, 3)`** keeps the first three letters (`Ana`, `Mar`, `Sof`…), handy for making codes.",
+      "**`CHAR_LENGTH`** counts characters and **`LENGTH`** counts bytes. `Ana García` has `10` characters and `11` bytes, because in UTF-8 the `í` takes two; `Emma Brown`, with no accents, gives `10` and `10`. For the length a person sees, always use `CHAR_LENGTH`.",
+      "**`CONCAT`** joins text: `Ana García <ana@example.com>`. If any of the pieces were `NULL`, the whole result would be `NULL`; that is why the email goes inside `IFNULL(email, '-')`. The filter `name LIKE '%a%'` leaves five customers."
+    ],
+    "points": [
+      "`LIKE`: `%` any text, `_` one character.",
+      "`UPPER`, `LOWER`, `LEFT`, `RIGHT`, `SUBSTRING` transform text.",
+      "`CHAR_LENGTH` counts characters; `LENGTH`, bytes.",
+      "`CONCAT` with a `NULL` gives `NULL`."
+    ],
+    "exercise": "Show each customer's name and email domain with `SUBSTRING_INDEX(email, '@', -1)`."
+  }
+}

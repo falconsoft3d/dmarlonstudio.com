@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "filtrar-con-where",
+    "title": "Filtrar con WHERE",
+    "summary": "Quédese solo con las filas que cumplen una condición: WHERE con >, = y <> sobre números y textos en MySQL.",
+    "body": [
+      "**`WHERE`** va detrás de `FROM` y deja pasar solo las filas en las que la condición es verdadera. `WHERE price > 3` devuelve cinco productos, de `Espresso beans` (`9.90`) a `Orange juice` (`3.20`).",
+      "`WHERE stock = 0` compara con `=` (un solo signo, no `==`): salen los dos productos agotados, `Orange juice` y `Bananas 1 kg`.",
+      "Los textos van entre comillas simples: `city = 'London'` encuentra a `Emma Brown` y `John Smith`. La intercalación por defecto de MySQL 8 (`utf8mb4_0900_ai_ci`) no distingue mayúsculas ni acentos, así que `'london'` encontraría lo mismo.",
+      "La última consulta usa **`<>`**, «distinto de» (también vale `!=`): los seis pedidos que no están enviados, con sus estados `paid`, `cancelled` y `new`. Es la que se ve en la imagen; las otras tres tienen su pestaña. Para probar solo una, selecciónela en el editor y ejecute la selección."
+    ],
+    "points": [
+      "`WHERE condición` filtra las filas.",
+      "Comparadores: `=`, `<>` (o `!=`), `<`, `>`, `<=`, `>=`.",
+      "El texto va entre comillas simples.",
+      "Por defecto, MySQL compara textos sin distinguir mayúsculas ni acentos."
+    ],
+    "exercise": "Busque los productos con menos de 15 unidades en stock, ordenados de menos a más unidades."
+  },
+  "en": {
+    "slug": "filtering-with-where",
+    "title": "Filtering with WHERE",
+    "summary": "Keep only the rows that meet a condition: WHERE with >, = and <> on numbers and text in MySQL.",
+    "body": [
+      "**`WHERE`** goes after `FROM` and lets through only the rows where the condition is true. `WHERE price > 3` returns five products, from `Espresso beans` (`9.90`) down to `Orange juice` (`3.20`).",
+      "`WHERE stock = 0` compares with `=` (a single sign, not `==`): out come the two sold-out products, `Orange juice` and `Bananas 1 kg`.",
+      "Text goes in single quotes: `city = 'London'` finds `Emma Brown` and `John Smith`. MySQL 8's default collation (`utf8mb4_0900_ai_ci`) ignores case and accents, so `'london'` would find the same rows.",
+      "The last query uses **`<>`**, not equal (`!=` works too): the six orders that have not been shipped, with the statuses `paid`, `cancelled` and `new`. That is the one in the picture; the other three have their own tab. To try just one, select it in the editor and run the selection."
+    ],
+    "points": [
+      "`WHERE condition` filters the rows.",
+      "Comparisons: `=`, `<>` (or `!=`), `<`, `>`, `<=`, `>=`.",
+      "Text goes in single quotes.",
+      "By default MySQL compares text ignoring case and accents."
+    ],
+    "exercise": "Find the products with fewer than 15 units in stock, sorted from fewest to most units."
+  }
+}

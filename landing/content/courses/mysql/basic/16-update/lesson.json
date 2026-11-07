@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "modificar-con-update",
+    "title": "Modificar con UPDATE",
+    "summary": "Cambie datos en MySQL con UPDATE … SET … WHERE: suba precios un 10 % y reponga los productos agotados.",
+    "body": [
+      "La primera consulta guarda una foto del antes: `Baguette` a `1.20`, `Croissant` a `1.50` y `Rye bread` a `2.80`. Tener el antes y el después en dos pestañas ayuda a comprobar que el cambio es el que quería.",
+      "**`UPDATE products SET price = ROUND(price * 1.10, 2) WHERE category_id = 1`** sube un 10 % la panadería. A la derecha del `=` se puede usar el valor actual de la fila. Afecta a `3` filas: `1.32`, `1.65` y `3.08`.",
+      "`SET` puede cambiar varias columnas a la vez, separadas por comas: `stock = stock + 20, active = TRUE` repone los `2` productos agotados y los vuelve a activar. `Bananas 1 kg`, que estaba inactivo, queda con `20` unidades y `active` a `1`.",
+      "El **`WHERE`** es lo más importante de un `UPDATE`: sin él, el cambio se aplica a **todas** las filas de la tabla. Antes de ejecutarlo, pruebe el mismo `WHERE` en un `SELECT` (seleccione esa línea y ejecute solo la selección) y mire cuántas filas salen."
+    ],
+    "points": [
+      "`UPDATE tabla SET col = valor WHERE …` cambia filas.",
+      "Se puede usar el valor actual: `stock = stock + 20`.",
+      "Varias columnas: `SET a = 1, b = 2`.",
+      "Sin `WHERE` cambian todas las filas: pruébelo antes con un `SELECT`."
+    ],
+    "exercise": "Baje un 5 % el precio de los productos con más de 30 unidades y muestre cómo quedan."
+  },
+  "en": {
+    "slug": "changing-data-with-update",
+    "title": "Changing data with UPDATE",
+    "summary": "Change data in MySQL with UPDATE … SET … WHERE: raise prices by 10% and restock the sold-out products.",
+    "body": [
+      "The first query takes a snapshot of the before: `Baguette` at `1.20`, `Croissant` at `1.50` and `Rye bread` at `2.80`. Having the before and the after in two tabs helps you check the change is the one you meant.",
+      "**`UPDATE products SET price = ROUND(price * 1.10, 2) WHERE category_id = 1`** raises the bakery by 10%. On the right of the `=` you can use the row's current value. It affects `3` rows: `1.32`, `1.65` and `3.08`.",
+      "`SET` can change several columns at once, separated by commas: `stock = stock + 20, active = TRUE` restocks the `2` sold-out products and switches them back on. `Bananas 1 kg`, which was inactive, ends up with `20` units and `active` set to `1`.",
+      "The **`WHERE`** is the most important part of an `UPDATE`: without it the change applies to **every** row in the table. Before running it, try the same `WHERE` in a `SELECT` (select that line and run just the selection) and see how many rows come out."
+    ],
+    "points": [
+      "`UPDATE table SET col = value WHERE …` changes rows.",
+      "You can use the current value: `stock = stock + 20`.",
+      "Several columns: `SET a = 1, b = 2`.",
+      "Without `WHERE` every row changes: test it first with a `SELECT`."
+    ],
+    "exercise": "Cut the price of the products with more than 30 units by 5% and show how they end up."
+  }
+}

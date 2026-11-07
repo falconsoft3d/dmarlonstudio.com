@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "expresiones-de-tabla-cte",
+    "title": "Consultas con nombre: WITH",
+    "summary": "Divida una consulta larga en pasos con WITH (CTE) en MySQL 8: calcule las ventas por producto y úselas después como una tabla.",
+    "body": [
+      "**`WITH`** da nombre a una consulta para usarla después como si fuera una tabla. Se llama **CTE** (*common table expression*) y existe en MySQL desde la versión 8.0. Sirve para leer una consulta larga de arriba abajo, paso a paso, en lugar de anidar subconsultas.",
+      "El primer paso, `sales`, suma por producto las unidades y lo facturado, sin los pedidos cancelados. El segundo, `top_sellers`, lee de `sales` (una CTE puede usar las anteriores) y se queda con los que han facturado al menos `5` euros. Se separan con comas y solo el primero lleva `WITH`.",
+      "La consulta final une `top_sellers` con `products` y `categories` para poner nombres. Lidera `Manchego cheese`, con `23.25`; `Croissant` es el que más unidades vende, `10`, pero queda tercero. `Whole milk` (`3.30`) y `Rye bread` (`2.80`) no llegan a 5 y no salen.",
+      "Para ver un paso intermedio, cambie la consulta final por `SELECT * FROM sales` y pulse **Ejecutar**: la CTE solo existe mientras dura la consulta, así que no aparece en la lista de tablas."
+    ],
+    "points": [
+      "`WITH nombre AS (SELECT …)` define una CTE.",
+      "Varias CTE se separan con comas; cada una puede usar las anteriores.",
+      "Solo existen durante esa consulta.",
+      "Hacen legibles las consultas largas."
+    ],
+    "exercise": "Añada una tercera CTE que agrupe `top_sellers` por categoría y muestre la facturación total de cada una."
+  },
+  "en": {
+    "slug": "common-table-expressions",
+    "title": "Named queries with WITH",
+    "summary": "Split a long query into steps with WITH (CTEs) in MySQL 8: work out the sales per product and then use them like a table.",
+    "body": [
+      "**`WITH`** names a query so you can use it later as if it were a table. It is called a **CTE** (common table expression) and MySQL has had it since version 8.0. It lets you read a long query from top to bottom, step by step, instead of nesting subqueries.",
+      "The first step, `sales`, adds up the units and revenue per product, without the cancelled orders. The second, `top_sellers`, reads from `sales` (a CTE can use the earlier ones) and keeps those that earned at least `5` euros. They are separated by commas and only the first one has `WITH`.",
+      "The final query joins `top_sellers` with `products` and `categories` to add names. `Manchego cheese` leads with `23.25`; `Croissant` sells the most units, `10`, but comes third. `Whole milk` (`3.30`) and `Rye bread` (`2.80`) do not reach 5 and are left out.",
+      "To see an intermediate step, replace the final query with `SELECT * FROM sales` and press **Run**: the CTE only exists while the query runs, so it does not show up in the table list."
+    ],
+    "points": [
+      "`WITH name AS (SELECT …)` defines a CTE.",
+      "Several CTEs are separated by commas; each can use the earlier ones.",
+      "They only exist during that query.",
+      "They make long queries readable."
+    ],
+    "exercise": "Add a third CTE that groups `top_sellers` by category and shows the total revenue of each one."
+  }
+}

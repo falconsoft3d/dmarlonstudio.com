@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "vistas",
+    "title": "Vistas",
+    "summary": "Guarde una consulta como vista en MySQL con CREATE VIEW y léala como una tabla: las ventas por producto, siempre al día.",
+    "body": [
+      "**`CREATE VIEW product_sales AS SELECT …`** guarda una consulta con nombre. La vista no copia los datos: cada vez que se lee, MySQL ejecuta su consulta. Aparece en la lista de tablas del estudio, marcada como vista, y se consulta igual que una tabla.",
+      "Esta vista une productos, categorías y líneas de pedido con `LEFT JOIN`, para que también salgan los productos sin ventas, y `COALESCE(…, 0)` pone `0` donde no hay ninguna. Quien la use no tiene que saber nada de esos joins.",
+      "Para ver que está siempre al día, el `UPDATE` suma `10` unidades a las `2` líneas de `Green tea`. Al leer la vista justo después, `Green tea` ya tiene `23` unidades y `103.50` de facturación y encabeza la lista; antes era la quinta.",
+      "Observe que la vista cuenta todas las líneas, también las del pedido cancelado: `Espresso beans` suma `4` unidades. Una vista hace exactamente lo que dice su consulta; si necesita otra regla, cámbiela con `CREATE OR REPLACE VIEW`."
+    ],
+    "points": [
+      "Una vista es una consulta guardada con nombre.",
+      "No guarda datos: se calcula al leerla.",
+      "Esconde joins y cálculos detrás de un nombre.",
+      "`CREATE OR REPLACE VIEW` la cambia; `DROP VIEW` la borra."
+    ],
+    "exercise": "Cambie la vista con `CREATE OR REPLACE VIEW` para que no cuente los pedidos cancelados (le hará falta unir `orders`)."
+  },
+  "en": {
+    "slug": "views",
+    "title": "Views",
+    "summary": "Save a query as a view in MySQL with CREATE VIEW and read it like a table: sales per product, always up to date.",
+    "body": [
+      "**`CREATE VIEW product_sales AS SELECT …`** saves a query under a name. The view does not copy the data: every time it is read, MySQL runs its query. It shows up in the studio's table list, marked as a view, and you query it just like a table.",
+      "This view joins products, categories and order lines with `LEFT JOIN`, so products with no sales come out too, and `COALESCE(…, 0)` puts `0` where there are none. Whoever uses it does not need to know anything about those joins.",
+      "To show it is always up to date, the `UPDATE` adds `10` units to the `2` lines of `Green tea`. Reading the view straight after, `Green tea` already has `23` units and `103.50` of revenue and tops the list; before, it was fifth.",
+      "Note that the view counts every line, including those of the cancelled order: `Espresso beans` adds up to `4` units. A view does exactly what its query says; if you need a different rule, change it with `CREATE OR REPLACE VIEW`."
+    ],
+    "points": [
+      "A view is a saved, named query.",
+      "It stores no data: it is computed when read.",
+      "It hides joins and calculations behind a name.",
+      "`CREATE OR REPLACE VIEW` changes it; `DROP VIEW` removes it."
+    ],
+    "exercise": "Change the view with `CREATE OR REPLACE VIEW` so it does not count cancelled orders (you will need to join `orders`)."
+  }
+}

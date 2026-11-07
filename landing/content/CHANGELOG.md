@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.66 — 2026-11-07
+
+- **Curso de MySQL** en la web (/cursos/mysql y /en/courses/mysql): 40 lecciones, básico y avanzado, de la primera consulta a JSON_TABLE, CTE recursivas, funciones de ventana, transacciones, procedimientos con `DELIMITER //`, funciones, disparadores y restricciones CHECK, con scripts que se ejecutan de verdad en el módulo Bases de datos sobre la tienda de ejemplo (`shop.sql`, MySQL 8.4).
+
 ## 1.0.65 — 2026-11-07
 
 - **Curso de SQLite** en la web (/cursos/sqlite y /en/courses/sqlite): 40 lecciones, básico y avanzado, con scripts que se ejecutan de verdad en el módulo Bases de datos sobre una tienda de ejemplo que se puede descargar (`shop.sql`). Cada lección enseña su script, el resultado de cada consulta en tablas y la pantalla Bases de datos del estudio.

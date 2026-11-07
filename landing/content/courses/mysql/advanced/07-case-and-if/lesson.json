@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "case-e-if",
+    "title": "CASE e IF()",
+    "summary": "Elija un valor según una condición en MySQL con CASE WHEN e IF(), y cuente por condiciones dentro de SUM.",
+    "body": [
+      "La primera consulta cuenta por condición en una sola pasada. `SUM(CASE WHEN status = 'shipped' THEN 1 ELSE 0 END)` suma un `1` por cada pedido enviado: `4`. En MySQL una comparación ya vale `1` o `0`, así que `SUM(status IN ('new', 'paid'))` cuenta los pendientes sin `CASE`: `5`.",
+      "**`IF(condición, sí, no)`** es la forma corta de MySQL para dos casos: `SUM(IF(status = 'cancelled', total, 0))` suma solo lo cancelado, `19.80`, lo que la tienda ha perdido.",
+      "En la segunda, **`CASE`** reparte los productos en bandas de precio. Las condiciones se prueban en orden y gana la primera que se cumple: `Rye bread` (`2.80`) no pasa `price < 2` pero sí `price < 5`, y queda en `normal`. Si ninguna se cumple, vale el `ELSE` (`premium`); sin `ELSE`, sería `NULL`.",
+      "Un `IF` puede ir dentro de otro: `stock_level` dice `sold out` con `0` unidades, `low` por debajo de `15` y `ok` en el resto. Con más de dos o tres casos, un `CASE` se lee mejor."
+    ],
+    "points": [
+      "`CASE WHEN … THEN … ELSE … END`: gana la primera condición verdadera.",
+      "Sin `ELSE`, el resultado es `NULL`.",
+      "`IF(c, a, b)` es el atajo de MySQL para dos casos.",
+      "Una condición vale `1` o `0`: `SUM(condición)` cuenta."
+    ],
+    "exercise": "Cuente cuántas reseñas son buenas (4 o 5), normales (3) y malas (1 o 2) en una sola fila."
+  },
+  "en": {
+    "slug": "case-and-if",
+    "title": "CASE and IF()",
+    "summary": "Pick a value depending on a condition in MySQL with CASE WHEN and IF(), and count by condition inside SUM.",
+    "body": [
+      "The first query counts by condition in a single pass. `SUM(CASE WHEN status = 'shipped' THEN 1 ELSE 0 END)` adds a `1` for each shipped order: `4`. In MySQL a comparison is already worth `1` or `0`, so `SUM(status IN ('new', 'paid'))` counts the pending ones without a `CASE`: `5`.",
+      "**`IF(condition, yes, no)`** is MySQL's short form for two cases: `SUM(IF(status = 'cancelled', total, 0))` adds up only what was cancelled, `19.80`, what the shop has lost.",
+      "In the second, **`CASE`** sorts the products into price bands. The conditions are tried in order and the first true one wins: `Rye bread` (`2.80`) fails `price < 2` but passes `price < 5`, so it lands in `normal`. If none is true, the `ELSE` applies (`premium`); with no `ELSE`, it would be `NULL`.",
+      "An `IF` can go inside another: `stock_level` says `sold out` with `0` units, `low` below `15` and `ok` otherwise. With more than two or three cases, a `CASE` reads better."
+    ],
+    "points": [
+      "`CASE WHEN … THEN … ELSE … END`: the first true condition wins.",
+      "With no `ELSE`, the result is `NULL`.",
+      "`IF(c, a, b)` is MySQL's shortcut for two cases.",
+      "A condition is worth `1` or `0`: `SUM(condition)` counts."
+    ],
+    "exercise": "Count how many reviews are good (4 or 5), average (3) and bad (1 or 2) in a single row."
+  }
+}

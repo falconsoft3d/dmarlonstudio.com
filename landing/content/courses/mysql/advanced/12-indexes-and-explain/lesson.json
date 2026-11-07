@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "indices-y-explain",
+    "title": "Índices y EXPLAIN",
+    "summary": "Vea con EXPLAIN cómo lee MySQL una consulta, cree índices simples y compuestos con CREATE INDEX y liste los índices de una tabla.",
+    "body": [
+      "**`EXPLAIN`** delante de un `SELECT` no lo ejecuta: dice cómo lo haría MySQL. Antes del índice, para buscar los clientes de Madrid, la columna `type` vale `ALL` y `key` está vacía: recorre la tabla entera (`rows` `8`) y descarta las que no sirven.",
+      "**`CREATE INDEX idx_customers_city ON customers (city)`** crea un índice: una estructura ordenada por ciudad que lleva directamente a las filas. El mismo `EXPLAIN` dice ahora `type` `ref`, `key` `idx_customers_city` y `rows` `2`: va a las dos filas de Madrid sin mirar las demás. Con ocho clientes no se nota; con ocho millones, sí.",
+      "`idx_orders_status_date` es un índice **compuesto**, de `status` y después `ordered`. Sirve para `WHERE status = 'paid'` y para `WHERE status = 'paid' AND ordered >= …`, pero no para buscar solo por `ordered`: un índice compuesto se usa de izquierda a derecha.",
+      "La última consulta lista los índices desde `information_schema.statistics`. Además de los nuevos, hay otros que MySQL creó solo: `PRIMARY` para cada clave primaria, `email` por el `UNIQUE` y `customer_id` por la clave ajena de `orders`. `dup` (`non_unique`) vale `0` en los que no admiten repetidos."
+    ],
+    "points": [
+      "`EXPLAIN SELECT …` enseña el plan sin ejecutarlo.",
+      "`type` `ALL` es leer toda la tabla; `ref`, usar un índice.",
+      "`CREATE INDEX nombre ON tabla (cols)`.",
+      "Un índice compuesto se usa de izquierda a derecha.",
+      "Las claves primarias, `UNIQUE` y claves ajenas ya tienen índice."
+    ],
+    "exercise": "Escriba `EXPLAIN SELECT * FROM orders WHERE status = 'paid' AND ordered >= '2024-05-01'` y compruebe qué índice usa."
+  },
+  "en": {
+    "slug": "indexes-and-explain",
+    "title": "Indexes and EXPLAIN",
+    "summary": "See with EXPLAIN how MySQL reads a query, create single and composite indexes with CREATE INDEX and list a table's indexes.",
+    "body": [
+      "**`EXPLAIN`** in front of a `SELECT` does not run it: it says how MySQL would. Before the index, to find the customers in Madrid, the `type` column says `ALL` and `key` is empty: it scans the whole table (`rows` `8`) and throws away what does not match.",
+      "**`CREATE INDEX idx_customers_city ON customers (city)`** creates an index: a structure sorted by city that leads straight to the rows. The same `EXPLAIN` now says `type` `ref`, `key` `idx_customers_city` and `rows` `2`: it goes to the two Madrid rows without looking at the others. With eight customers you will not notice; with eight million, you will.",
+      "`idx_orders_status_date` is a **composite** index, on `status` and then `ordered`. It serves `WHERE status = 'paid'` and `WHERE status = 'paid' AND ordered >= …`, but not a search on `ordered` alone: a composite index is used from left to right.",
+      "The last query lists the indexes from `information_schema.statistics`. Besides the new ones, there are others MySQL created by itself: `PRIMARY` for each primary key, `email` for the `UNIQUE` and `customer_id` for the foreign key in `orders`. `dup` (`non_unique`) is `0` on the ones that do not allow duplicates."
+    ],
+    "points": [
+      "`EXPLAIN SELECT …` shows the plan without running it.",
+      "`type` `ALL` means reading the whole table; `ref`, using an index.",
+      "`CREATE INDEX name ON table (cols)`.",
+      "A composite index is used from left to right.",
+      "Primary keys, `UNIQUE` and foreign keys already have an index."
+    ],
+    "exercise": "Write `EXPLAIN SELECT * FROM orders WHERE status = 'paid' AND ordered >= '2024-05-01'` and check which index it uses."
+  }
+}

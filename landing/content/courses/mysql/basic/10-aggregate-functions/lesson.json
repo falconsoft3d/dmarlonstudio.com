@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "funciones-de-agregado",
+    "title": "Funciones de agregado",
+    "summary": "Resuma una tabla en una fila con COUNT, SUM, MIN, MAX y AVG en MySQL: cuántos productos, cuántas unidades y la facturación.",
+    "body": [
+      "Las **funciones de agregado** reciben todas las filas y devuelven un solo valor. La primera consulta resume el catálogo en una fila: `12` productos, `264` unidades en total (`SUM(stock)`), el más barato a `1.10`, el más caro a `9.90` y un precio medio de `3.50`.",
+      "**`COUNT(*)`** cuenta filas. Con una columna, `COUNT(email)`, contaría solo las que no son `NULL`; en general, todos los agregados pasan por alto los `NULL`.",
+      "Los agregados trabajan sobre lo que deja `WHERE`. Sin los cancelados quedan `9` pedidos que suman `126.85`, con un ticket medio de `14.09`. `MIN` y `MAX` también sirven con fechas: el primero es del `2024-03-01` y el último, del `2024-06-05`.",
+      "`AVG` devuelve muchos decimales; por eso va dentro de `ROUND(…, 2)`. Una consulta con agregados y sin `GROUP BY` devuelve siempre una sola fila, aunque la tabla esté vacía."
+    ],
+    "points": [
+      "`COUNT`, `SUM`, `MIN`, `MAX`, `AVG` resumen filas.",
+      "`COUNT(*)` cuenta filas; `COUNT(col)`, valores no `NULL`.",
+      "Se aplican después de `WHERE`.",
+      "`MIN` y `MAX` sirven para números, textos y fechas."
+    ],
+    "exercise": "Calcule cuántas reseñas hay, la nota media y cuántas tienen comentario (`COUNT(comment)`)."
+  },
+  "en": {
+    "slug": "aggregate-functions",
+    "title": "Aggregate functions",
+    "summary": "Sum up a table in one row with COUNT, SUM, MIN, MAX and AVG in MySQL: how many products, how many units and the revenue.",
+    "body": [
+      "**Aggregate functions** take all the rows and return a single value. The first query sums up the catalogue in one row: `12` products, `264` units in total (`SUM(stock)`), the cheapest at `1.10`, the dearest at `9.90` and an average price of `3.50`.",
+      "**`COUNT(*)`** counts rows. With a column, `COUNT(email)` would count only the ones that are not `NULL`; in general every aggregate skips `NULL` values.",
+      "Aggregates work on what `WHERE` leaves. Without the cancelled ones there are `9` orders adding up to `126.85`, with an average ticket of `14.09`. `MIN` and `MAX` work with dates too: the first is from `2024-03-01` and the last from `2024-06-05`.",
+      "`AVG` returns many decimals; that is why it goes inside `ROUND(…, 2)`. A query with aggregates and no `GROUP BY` always returns exactly one row, even if the table is empty."
+    ],
+    "points": [
+      "`COUNT`, `SUM`, `MIN`, `MAX`, `AVG` sum up rows.",
+      "`COUNT(*)` counts rows; `COUNT(col)`, non-`NULL` values.",
+      "They apply after `WHERE`.",
+      "`MIN` and `MAX` work on numbers, text and dates."
+    ],
+    "exercise": "Work out how many reviews there are, the average rating and how many have a comment (`COUNT(comment)`)."
+  }
+}

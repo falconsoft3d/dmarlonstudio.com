@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "procedimientos-almacenados",
+    "title": "Procedimientos almacenados",
+    "summary": "Cree un procedimiento en MySQL con DELIMITER, parámetros IN y OUT y SELECT … INTO, llámelo con CALL y lea el resultado en variables @.",
+    "body": [
+      "Un **procedimiento almacenado** es un programa guardado en el servidor. Su cuerpo, entre `BEGIN` y `END`, lleva varias sentencias terminadas en `;`, y eso confundiría al que separa las consultas. **`DELIMITER //`** cambia el separador a `//` mientras se define el procedimiento y `DELIMITER ;` lo devuelve a su sitio, igual que en MySQL Workbench o en la consola `mysql`.",
+      "`customer_stats` recibe una ciudad (**`IN`**) y devuelve dos datos (**`OUT`**). **`SELECT … INTO p_orders, p_total`** guarda el resultado en esos parámetros en lugar de devolver filas.",
+      "**`CALL customer_stats('Madrid', @madrid_orders, @madrid_total)`** lo ejecuta. Las variables que empiezan por `@` son **variables de sesión**: viven mientras dura la conexión, y el procedimiento deja en ellas sus resultados. El `SELECT` final las lee: Madrid tiene `4` pedidos no cancelados por `45.45` y London, `1` por `22.20` (el de John Smith está cancelado).",
+      "¿Por qué no un `SELECT` dentro del procedimiento? Podría, pero los resultados que devuelve un `CALL` no se ven en la rejilla del estudio. Devolver los datos por parámetros `OUT` (o escribirlos en una tabla) funciona en cualquier cliente."
+    ],
+    "points": [
+      "`DELIMITER //` permite `;` dentro del cuerpo.",
+      "Parámetros `IN` (entrada) y `OUT` (salida).",
+      "`SELECT … INTO` guarda en variables o parámetros.",
+      "`CALL p(@x); SELECT @x;` lee el resultado."
+    ],
+    "exercise": "Añada un parámetro `OUT p_customers INT` con el número de clientes distintos de la ciudad y muéstrelo en el `SELECT` final."
+  },
+  "en": {
+    "slug": "stored-procedures",
+    "title": "Stored procedures",
+    "summary": "Create a procedure in MySQL with DELIMITER, IN and OUT parameters and SELECT … INTO, run it with CALL and read the result from @ variables.",
+    "body": [
+      "A **stored procedure** is a program kept on the server. Its body, between `BEGIN` and `END`, holds several statements ending in `;`, and that would confuse whatever splits the queries. **`DELIMITER //`** changes the separator to `//` while the procedure is defined and `DELIMITER ;` puts it back, just as in MySQL Workbench or the `mysql` console.",
+      "`customer_stats` takes a city (**`IN`**) and gives back two values (**`OUT`**). **`SELECT … INTO p_orders, p_total`** stores the result in those parameters instead of returning rows.",
+      "**`CALL customer_stats('Madrid', @madrid_orders, @madrid_total)`** runs it. Variables starting with `@` are **session variables**: they live as long as the connection, and the procedure leaves its results in them. The final `SELECT` reads them: Madrid has `4` non-cancelled orders worth `45.45` and London `1` worth `22.20` (John Smith's is cancelled).",
+      "Why not a `SELECT` inside the procedure? You could, but the results a `CALL` returns do not show in the studio's grid. Returning data through `OUT` parameters (or writing it to a table) works in any client."
+    ],
+    "points": [
+      "`DELIMITER //` allows `;` inside the body.",
+      "`IN` (input) and `OUT` (output) parameters.",
+      "`SELECT … INTO` stores into variables or parameters.",
+      "`CALL p(@x); SELECT @x;` reads the result."
+    ],
+    "exercise": "Add an `OUT p_customers INT` parameter with the number of different customers in the city and show it in the final `SELECT`."
+  }
+}

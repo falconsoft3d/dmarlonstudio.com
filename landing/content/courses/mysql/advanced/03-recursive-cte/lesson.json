@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cte-recursiva",
+    "title": "CTE recursiva: el organigrama",
+    "summary": "Recorra una jerarquía en MySQL con WITH RECURSIVE: el organigrama de la tienda a partir de manager_id, con su nivel y su camino.",
+    "body": [
+      "En `employees`, cada empleado guarda en `manager_id` el id de su jefe. Para recorrer el árbol entero, de la directora hacia abajo, hace falta **`WITH RECURSIVE`**: una CTE que se usa a sí misma.",
+      "Tiene dos partes unidas por **`UNION ALL`**. El **ancla** es el punto de partida: quien no tiene jefe, `Laura Martín`, con nivel `0`. El **paso recursivo** une `employees` con lo que ya hay en `chart` (`e.manager_id = c.id`) y añade a sus subordinados con un nivel más. MySQL repite el paso hasta que no encuentra filas nuevas.",
+      "`path` va acumulando los nombres: `Laura Martín > Javier Ortiz > Elena Castro`. El `CAST(name AS CHAR(200))` del ancla es importante: en una CTE recursiva el tipo de cada columna lo fija el ancla, y `name` es `VARCHAR(60)`. Sin el `CAST`, en cuanto un camino pasase de 60 caracteres MySQL pararía con el error 1406 («Data too long for column 'path'»).",
+      "Ordenar por `path` deja a cada uno debajo de su jefe, y `REPEAT('    ', level)` sangra los nombres para que se vea el árbol: Javier tiene a tres personas a su cargo y Raúl Moreno, el contable, depende directamente de Laura."
+    ],
+    "points": [
+      "`WITH RECURSIVE`: ancla `UNION ALL` paso recursivo.",
+      "El paso se une con la propia CTE.",
+      "Termina cuando el paso no devuelve filas.",
+      "El ancla fija los tipos: use `CAST` si la columna crece.",
+      "Ordenar por el camino dibuja el árbol."
+    ],
+    "exercise": "Añada una columna con el salario acumulado del camino (`salary` del ancla y `c.total + e.salary` en el paso)."
+  },
+  "en": {
+    "slug": "recursive-cte",
+    "title": "Recursive CTE: the org chart",
+    "summary": "Walk a hierarchy in MySQL with WITH RECURSIVE: the shop's org chart built from manager_id, with each person's level and path.",
+    "body": [
+      "In `employees`, each employee stores their boss's id in `manager_id`. To walk the whole tree, from the CEO down, you need **`WITH RECURSIVE`**: a CTE that uses itself.",
+      "It has two parts joined by **`UNION ALL`**. The **anchor** is the starting point: whoever has no boss, `Laura Martín`, at level `0`. The **recursive step** joins `employees` with what is already in `chart` (`e.manager_id = c.id`) and adds their direct reports one level down. MySQL repeats the step until it finds no new rows.",
+      "`path` keeps adding names: `Laura Martín > Javier Ortiz > Elena Castro`. The `CAST(name AS CHAR(200))` in the anchor matters: in a recursive CTE the anchor fixes each column's type, and `name` is `VARCHAR(60)`. Without the `CAST`, as soon as a path went past 60 characters MySQL would stop with error 1406 (Data too long for column 'path').",
+      "Sorting by `path` puts everyone below their boss, and `REPEAT('    ', level)` indents the names so the tree shows: Javier has three people under him and Raúl Moreno, the accountant, reports straight to Laura."
+    ],
+    "points": [
+      "`WITH RECURSIVE`: anchor `UNION ALL` recursive step.",
+      "The step joins with the CTE itself.",
+      "It stops when the step returns no rows.",
+      "The anchor fixes the types: use `CAST` if the column grows.",
+      "Sorting by the path draws the tree."
+    ],
+    "exercise": "Add a column with the accumulated salary along the path (`salary` in the anchor and `c.total + e.salary` in the step)."
+  }
+}

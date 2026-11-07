@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "inner-join",
+    "title": "Unir tablas con JOIN",
+    "summary": "Combine filas de dos tablas en MySQL con INNER JOIN y ON: cada pedido con el nombre de su cliente y cada producto con su categoría.",
+    "body": [
+      "Un pedido solo guarda `customer_id`, el número del cliente. Para ver su nombre hay que **unir** las dos tablas: **`JOIN customers c ON c.id = o.customer_id`** empareja cada fila de `orders` con la fila de `customers` cuyo `id` coincide.",
+      "`o` y `c` son alias de tabla, y `c.name` dice de qué tabla sale cada columna; hace falta cuando las dos tienen una columna con el mismo nombre, como `id`. El resultado son los cuatro pedidos enviados con su cliente: el `1` de `Ana García`, en `Madrid`, hasta el `8` de `Emma Brown`, en `London`.",
+      "**`INNER JOIN`** es lo mismo que `JOIN`: solo salen las filas que tienen pareja en las dos tablas. Un pedido sin cliente o un producto sin categoría desaparecerían del resultado.",
+      "La segunda consulta une `products` con `categories` y ordena por el alias `category`: `Manchego cheese` (`Dairy`), tres bebidas y `Strawberries` (`Fruit`), los cinco productos de `3` euros o más."
+    ],
+    "points": [
+      "`JOIN tabla ON condición` une dos tablas.",
+      "La condición suele ser clave ajena = clave primaria.",
+      "`INNER JOIN` y `JOIN` son lo mismo: solo filas con pareja.",
+      "Use alias (`o`, `c`) y prefije las columnas."
+    ],
+    "exercise": "Muestre cada línea de `order_items` con el nombre del producto y la cantidad, solo del pedido `6`."
+  },
+  "en": {
+    "slug": "inner-join",
+    "title": "Joining tables with JOIN",
+    "summary": "Combine rows from two tables in MySQL with INNER JOIN and ON: each order with its customer's name and each product with its category.",
+    "body": [
+      "An order only stores `customer_id`, the customer's number. To see the name you have to **join** the two tables: **`JOIN customers c ON c.id = o.customer_id`** pairs each row of `orders` with the row of `customers` whose `id` matches.",
+      "`o` and `c` are table aliases, and `c.name` says which table each column comes from; you need it when both have a column with the same name, such as `id`. The result is the four shipped orders with their customer: order `1` from `Ana García`, in `Madrid`, through order `8` from `Emma Brown`, in `London`.",
+      "**`INNER JOIN`** is the same as `JOIN`: only rows with a partner in both tables come out. An order with no customer or a product with no category would vanish from the result.",
+      "The second query joins `products` with `categories` and sorts by the alias `category`: `Manchego cheese` (`Dairy`), three drinks and `Strawberries` (`Fruit`), the five products costing `3` euros or more."
+    ],
+    "points": [
+      "`JOIN table ON condition` joins two tables.",
+      "The condition is usually foreign key = primary key.",
+      "`INNER JOIN` and `JOIN` are the same: only rows with a match.",
+      "Use aliases (`o`, `c`) and prefix the columns."
+    ],
+    "exercise": "Show each line of `order_items` with the product name and the quantity, for order `6` only."
+  }
+}

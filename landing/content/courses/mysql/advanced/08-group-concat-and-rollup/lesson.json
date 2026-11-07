@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "group-concat-y-rollup",
+    "title": "GROUP_CONCAT y WITH ROLLUP",
+    "summary": "Junte los valores de cada grupo en un texto con GROUP_CONCAT y añada subtotales y total general con WITH ROLLUP y GROUPING() en MySQL.",
+    "body": [
+      "**`GROUP_CONCAT`** es un agregado que, en lugar de sumar, une los valores del grupo en un texto. Admite su propio `ORDER BY` y un `SEPARATOR`: `Bakery` queda como `Baguette, Croissant, Rye bread`. Por defecto el texto se corta a 1024 bytes (`group_concat_max_len`).",
+      "**`WITH ROLLUP`**, detrás del `GROUP BY`, añade filas de resumen: un subtotal por cada valor de la primera columna y un total general al final. En esas filas, la columna resumida vale `NULL`.",
+      "Para distinguir ese `NULL` de uno de verdad está **`GROUPING(col)`**, que vale `1` en las filas añadidas por `ROLLUP`. Con `IF(GROUPING(o.status), 'all', o.status)` se ven como `all` y `ALL`.",
+      "El resultado: Madrid tiene `4` pedidos que suman `45.45`, Seville `3` con `38.70`, y entre las dos ciudades `7` pedidos y `84.15`. Las filas ya salen ordenadas por el agrupamiento, con cada subtotal detrás de su grupo."
+    ],
+    "points": [
+      "`GROUP_CONCAT(col ORDER BY … SEPARATOR ', ')` une textos.",
+      "Se corta en `group_concat_max_len` (1024 por defecto).",
+      "`WITH ROLLUP` añade subtotales y el total general.",
+      "`GROUPING(col)` vale `1` en las filas de resumen."
+    ],
+    "exercise": "Muestre, por categoría, los nombres de sus productos activos con `GROUP_CONCAT` y añada una fila de total con `WITH ROLLUP` que cuente todos."
+  },
+  "en": {
+    "slug": "group-concat-and-rollup",
+    "title": "GROUP_CONCAT and WITH ROLLUP",
+    "summary": "Join each group's values into one string with GROUP_CONCAT and add subtotals and a grand total with WITH ROLLUP and GROUPING() in MySQL.",
+    "body": [
+      "**`GROUP_CONCAT`** is an aggregate that, instead of adding, joins the group's values into one string. It takes its own `ORDER BY` and a `SEPARATOR`: `Bakery` becomes `Baguette, Croissant, Rye bread`. By default the text is cut at 1024 bytes (`group_concat_max_len`).",
+      "**`WITH ROLLUP`**, after the `GROUP BY`, adds summary rows: a subtotal for each value of the first column and a grand total at the end. In those rows, the summarised column is `NULL`.",
+      "To tell that `NULL` apart from a real one there is **`GROUPING(col)`**, which is `1` on the rows added by `ROLLUP`. With `IF(GROUPING(o.status), 'all', o.status)` they show as `all` and `ALL`.",
+      "The result: Madrid has `4` orders adding up to `45.45`, Seville `3` with `38.70`, and the two cities together `7` orders and `84.15`. The rows already come out in grouping order, each subtotal after its group."
+    ],
+    "points": [
+      "`GROUP_CONCAT(col ORDER BY … SEPARATOR ', ')` joins text.",
+      "It is cut at `group_concat_max_len` (1024 by default).",
+      "`WITH ROLLUP` adds subtotals and the grand total.",
+      "`GROUPING(col)` is `1` on the summary rows."
+    ],
+    "exercise": "Show, per category, the names of its active products with `GROUP_CONCAT` and add a total row with `WITH ROLLUP` that counts them all."
+  }
+}

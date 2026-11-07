@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insertar-filas",
+    "title": "Insertar filas con INSERT",
+    "summary": "Añada filas en MySQL con INSERT INTO, de una en una o varias a la vez, y recupere el id nuevo con LAST_INSERT_ID().",
+    "body": [
+      "**`INSERT INTO categories (name) VALUES ('Frozen')`** añade una fila. Solo se da `name`: el `id` lo pone **`AUTO_INCREMENT`**, que sigue la cuenta de la tabla. El estudio responde `1 row affected`.",
+      "**`LAST_INSERT_ID()`** devuelve el último id generado en esta conexión: `5`, el de la categoría nueva. Es seguro aunque otros usuarios inserten a la vez, porque cada conexión tiene el suyo.",
+      "Un solo `INSERT` puede llevar varias filas, separadas por comas, y es mucho más rápido que tres sueltos. Aquí `LAST_INSERT_ID()` se usa como valor de `category_id`, y las tres filas quedan en `Frozen` (`3 rows affected`).",
+      "Las columnas que no se nombran toman su **`DEFAULT`**: `active` vale `1` en las tres. `Pizza` lleva `NULL` en `tags`, porque esa columna lo admite. Los productos nuevos reciben los ids `13`, `14` y `15`. Si intentase insertar otra vez `'Frozen'`, el `UNIQUE` de `name` lo impediría con un error de clave duplicada."
+    ],
+    "points": [
+      "`INSERT INTO tabla (columnas) VALUES (…)` añade filas.",
+      "Varias filas: `VALUES (…), (…), (…)`.",
+      "`AUTO_INCREMENT` pone el id; `LAST_INSERT_ID()` lo devuelve.",
+      "Las columnas omitidas toman su `DEFAULT` (o `NULL`)."
+    ],
+    "exercise": "Inserte dos clientes nuevos de `Granada` en un solo `INSERT` y muéstrelos con su `id`."
+  },
+  "en": {
+    "slug": "inserting-rows",
+    "title": "Inserting rows with INSERT",
+    "summary": "Add rows in MySQL with INSERT INTO, one at a time or several at once, and get the new id back with LAST_INSERT_ID().",
+    "body": [
+      "**`INSERT INTO categories (name) VALUES ('Frozen')`** adds one row. Only `name` is given: the `id` comes from **`AUTO_INCREMENT`**, which keeps the table's count. The studio answers `1 row affected`.",
+      "**`LAST_INSERT_ID()`** returns the last id generated on this connection: `5`, the new category's. It is safe even if other users insert at the same time, because every connection has its own.",
+      "A single `INSERT` can carry several rows, separated by commas, and it is much faster than three separate ones. Here `LAST_INSERT_ID()` is used as the value of `category_id`, and all three rows land in `Frozen` (`3 rows affected`).",
+      "Columns you do not name take their **`DEFAULT`**: `active` is `1` in all three. `Pizza` has `NULL` in `tags`, because that column allows it. The new products get ids `13`, `14` and `15`. If you tried to insert `'Frozen'` again, the `UNIQUE` on `name` would stop it with a duplicate key error."
+    ],
+    "points": [
+      "`INSERT INTO table (columns) VALUES (…)` adds rows.",
+      "Several rows: `VALUES (…), (…), (…)`.",
+      "`AUTO_INCREMENT` sets the id; `LAST_INSERT_ID()` returns it.",
+      "Columns left out take their `DEFAULT` (or `NULL`)."
+    ],
+    "exercise": "Insert two new customers from `Granada` in a single `INSERT` and show them with their `id`."
+  }
+}

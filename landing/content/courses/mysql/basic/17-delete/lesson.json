@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "borrar-con-delete",
+    "title": "Borrar con DELETE",
+    "summary": "Elimine filas en MySQL con DELETE FROM … WHERE y respete las claves ajenas: primero las líneas, después el pedido.",
+    "body": [
+      "**`DELETE FROM reviews WHERE rating < 3`** borra las reseñas de menos de tres estrellas. Solo hay una, la de `Not ripe`, y el estudio lo dice: `1 row affected`.",
+      "Borrar un pedido tiene un orden. `order_items` tiene una **clave ajena** hacia `orders`: si borrase antes el pedido `5`, sus líneas apuntarían a un pedido que ya no existe, y MySQL lo impide con el error 1451 («Cannot delete or update a parent row»). Por eso se borran primero sus líneas y después el pedido.",
+      "La última consulta resume lo que queda: `2` pedidos nuevos, `3` pagados y `4` enviados. El estado `cancelled` ya no aparece, porque su único pedido se ha borrado.",
+      "Como con `UPDATE`, un `DELETE` sin `WHERE` vacía la tabla entera. Para vaciarla a propósito existe `TRUNCATE TABLE`, que además reinicia el `AUTO_INCREMENT`. Y si quiere poder echarse atrás, hágalo dentro de una transacción (se verá en el curso avanzado)."
+    ],
+    "points": [
+      "`DELETE FROM tabla WHERE …` borra filas.",
+      "Las claves ajenas obligan a borrar primero los hijos.",
+      "Sin `WHERE` se borra todo.",
+      "`TRUNCATE TABLE` vacía la tabla y reinicia el contador."
+    ],
+    "exercise": "Borre el pedido `7` (primero sus líneas) y compruebe con un `SELECT` que `order_items` ya no tiene líneas suyas."
+  },
+  "en": {
+    "slug": "deleting-with-delete",
+    "title": "Deleting with DELETE",
+    "summary": "Remove rows in MySQL with DELETE FROM … WHERE and respect the foreign keys: first the lines, then the order.",
+    "body": [
+      "**`DELETE FROM reviews WHERE rating < 3`** deletes the reviews under three stars. There is only one, `Not ripe`, and the studio says so: `1 row affected`.",
+      "Deleting an order has an order of its own. `order_items` has a **foreign key** to `orders`: if you deleted order `5` first, its lines would point to an order that no longer exists, and MySQL stops it with error 1451 (Cannot delete or update a parent row). That is why its lines go first and the order after.",
+      "The last query sums up what is left: `2` new orders, `3` paid and `4` shipped. The `cancelled` status no longer appears, because its only order is gone.",
+      "As with `UPDATE`, a `DELETE` without `WHERE` empties the whole table. To empty it on purpose there is `TRUNCATE TABLE`, which also resets the `AUTO_INCREMENT`. And if you want to be able to back out, do it inside a transaction (covered in the advanced course)."
+    ],
+    "points": [
+      "`DELETE FROM table WHERE …` deletes rows.",
+      "Foreign keys make you delete the children first.",
+      "Without `WHERE` everything goes.",
+      "`TRUNCATE TABLE` empties the table and resets the counter."
+    ],
+    "exercise": "Delete order `7` (its lines first) and check with a `SELECT` that `order_items` has no lines left for it."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "transacciones",
+    "title": "Transacciones",
+    "summary": "Agrupe varios cambios en una transacción en MySQL: START TRANSACTION, ROLLBACK para deshacerlos todos y COMMIT para guardarlos.",
+    "body": [
+      "Normalmente MySQL guarda cada sentencia en cuanto termina (**autocommit**). **`START TRANSACTION`** abre una transacción: desde ahí, los cambios quedan pendientes hasta que usted decida. O se guardan todos o ninguno.",
+      "Dentro de la transacción se crea el pedido `11`, su línea y se descuentan `5` croissants. El `SELECT` de dentro ve sus propios cambios: `stock` vale `20`. Pero **`ROLLBACK`** lo deshace todo, y la consulta siguiente vuelve a ver `25` unidades y `10` pedidos, como si nada hubiera pasado.",
+      "La segunda vez termina con **`COMMIT`**, que guarda los cambios de forma definitiva: pasan `5` unidades de `Croissant` (queda en `20`) a `Baguette` (`45`). Si algo hubiera fallado a mitad, un `ROLLBACK` habría evitado quedarse con una mitad hecha.",
+      "Funciona porque el estudio ejecuta todo el script en la misma conexión, consulta a consulta: cada sentencia tiene su pestaña (`1 row affected`, `Done`…). Ojo: las sentencias que cambian la estructura, como `CREATE TABLE` o `ALTER TABLE`, hacen un `COMMIT` implícito y no se pueden deshacer."
+    ],
+    "points": [
+      "`START TRANSACTION` … `COMMIT` guarda todo junto.",
+      "`ROLLBACK` deshace todo desde el inicio.",
+      "Dentro, la transacción ve sus propios cambios.",
+      "`CREATE`, `ALTER` y `DROP` confirman solos: no entran en el `ROLLBACK`."
+    ],
+    "exercise": "Haga una transacción que borre las reseñas del producto `1` y termine en `ROLLBACK`; compruebe después que siguen ahí."
+  },
+  "en": {
+    "slug": "transactions",
+    "title": "Transactions",
+    "summary": "Group several changes into a transaction in MySQL: START TRANSACTION, ROLLBACK to undo them all and COMMIT to keep them.",
+    "body": [
+      "Normally MySQL saves each statement as soon as it finishes (**autocommit**). **`START TRANSACTION`** opens a transaction: from then on, changes stay pending until you decide. Either all of them are kept or none.",
+      "Inside the transaction, order `11` and its line are created and `5` croissants are taken off the stock. The `SELECT` inside sees its own changes: `stock` is `20`. But **`ROLLBACK`** undoes everything, and the next query sees `25` units and `10` orders again, as if nothing had happened.",
+      "The second time it ends with **`COMMIT`**, which saves the changes for good: `5` units move from `Croissant` (down to `20`) to `Baguette` (`45`). Had something failed halfway, a `ROLLBACK` would have saved you from keeping half a change.",
+      "It works because the studio runs the whole script on the same connection, one query after another: each statement gets its own tab (`1 row affected`, `Done`…). Watch out: statements that change the structure, such as `CREATE TABLE` or `ALTER TABLE`, do an implicit `COMMIT` and cannot be rolled back."
+    ],
+    "points": [
+      "`START TRANSACTION` … `COMMIT` saves everything together.",
+      "`ROLLBACK` undoes everything since the start.",
+      "Inside, the transaction sees its own changes.",
+      "`CREATE`, `ALTER` and `DROP` commit by themselves: `ROLLBACK` cannot undo them."
+    ],
+    "exercise": "Write a transaction that deletes the reviews of product `1` and ends in `ROLLBACK`; then check they are still there."
+  }
+}

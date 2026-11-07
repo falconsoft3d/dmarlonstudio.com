@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-de-ventana",
+    "title": "Funciones de ventana",
+    "summary": "Numere, clasifique y compare filas sin agruparlas con OVER y PARTITION BY en MySQL 8: ROW_NUMBER, RANK y AVG por categoría.",
+    "body": [
+      "Una **función de ventana** calcula sobre un conjunto de filas relacionadas con la actual, pero, a diferencia de `GROUP BY`, no las junta: salen los doce productos, cada uno con sus cálculos al lado. Se reconoce por **`OVER (…)`**.",
+      "**`ROW_NUMBER() OVER (PARTITION BY p.category_id ORDER BY p.price DESC)`** numera los productos dentro de cada categoría, del más caro al más barato. `PARTITION BY` reparte las filas en grupos y la numeración vuelve a empezar en cada uno: `Rye bread` es el `1` de `Bakery` y `Manchego cheese`, el `1` de `Dairy`.",
+      "**`RANK() OVER (ORDER BY p.price DESC)`**, sin `PARTITION BY`, clasifica en toda la tienda: `Espresso beans` es el `1` y `Whole milk`, el `12`. Si dos precios empatasen, `RANK` les daría el mismo puesto y saltaría el siguiente; `DENSE_RANK` no salta.",
+      "`AVG(p.price) OVER (PARTITION BY p.category_id)` pone la media de su categoría en cada fila (`1.83` en la panadería), lista para comparar cada precio con ella. El `ORDER BY c.name, n` final puede usar el alias `n` de la ventana."
+    ],
+    "points": [
+      "`OVER (…)` convierte una función en función de ventana.",
+      "No agrupa: cada fila conserva sus columnas.",
+      "`PARTITION BY` reparte; `ORDER BY` dentro de `OVER` ordena la ventana.",
+      "`ROW_NUMBER` numera; `RANK` y `DENSE_RANK` clasifican con empates.",
+      "Los agregados (`AVG`, `SUM`…) también funcionan con `OVER`."
+    ],
+    "exercise": "Use `ROW_NUMBER` en una CTE y quédese solo con el producto más caro de cada categoría (`WHERE n = 1`)."
+  },
+  "en": {
+    "slug": "window-functions",
+    "title": "Window functions",
+    "summary": "Number, rank and compare rows without grouping them, using OVER and PARTITION BY in MySQL 8: ROW_NUMBER, RANK and AVG per category.",
+    "body": [
+      "A **window function** computes over a set of rows related to the current one but, unlike `GROUP BY`, it does not merge them: all twelve products come out, each with its calculations alongside. You recognise it by **`OVER (…)`**.",
+      "**`ROW_NUMBER() OVER (PARTITION BY p.category_id ORDER BY p.price DESC)`** numbers the products within each category, from dearest to cheapest. `PARTITION BY` splits the rows into groups and the numbering starts again in each one: `Rye bread` is number `1` in `Bakery` and `Manchego cheese` is number `1` in `Dairy`.",
+      "**`RANK() OVER (ORDER BY p.price DESC)`**, with no `PARTITION BY`, ranks across the whole shop: `Espresso beans` is `1` and `Whole milk` is `12`. If two prices tied, `RANK` would give them the same place and skip the next one; `DENSE_RANK` does not skip.",
+      "`AVG(p.price) OVER (PARTITION BY p.category_id)` puts the category average on every row (`1.83` in the bakery), ready to compare each price with it. The final `ORDER BY c.name, n` can use the window's alias `n`."
+    ],
+    "points": [
+      "`OVER (…)` turns a function into a window function.",
+      "It does not group: each row keeps its columns.",
+      "`PARTITION BY` splits; `ORDER BY` inside `OVER` orders the window.",
+      "`ROW_NUMBER` numbers; `RANK` and `DENSE_RANK` rank with ties.",
+      "Aggregates (`AVG`, `SUM`…) also work with `OVER`."
+    ],
+    "exercise": "Use `ROW_NUMBER` in a CTE and keep only the most expensive product of each category (`WHERE n = 1`)."
+  }
+}

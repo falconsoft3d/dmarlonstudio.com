@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "primer-select",
+    "title": "Su primer SELECT",
+    "summary": "Lea datos de MySQL con SELECT, FROM y ORDER BY: elija columnas y ordene las filas. Ejecútelo en el módulo Bases de datos de DMarlon Studio.",
+    "body": [
+      "Todas las consultas que leen datos empiezan por **`SELECT`**: detrás van las columnas que quiere ver y, tras **`FROM`**, la tabla de donde salen. El asterisco de `SELECT * FROM categories` significa «todas las columnas», y el resultado son las cuatro categorías de la tienda: `Bakery`, `Drinks`, `Dairy` y `Fruit`, con su `id`.",
+      "La segunda consulta no pide todo: nombra cuatro columnas, `id, name, price, stock`, en el orden en que quiere verlas. Es lo habitual en un programa de verdad: pida solo lo que va a usar. Salen los doce productos, de `Baguette` a `Strawberries`.",
+      "**`ORDER BY id`** fija el orden. Sin él, MySQL no promete ninguno: devuelve las filas como le resulte más cómodo leerlas (a veces siguiendo un índice), y ese orden puede cambiar. Si el orden importa, escríbalo siempre.",
+      "Fíjese en `price`: sale `1.20` y no `1.2`, porque la columna es `DECIMAL(8,2)`, un número exacto con dos decimales. El `;` separa las consultas del script: en DMarlon Studio, **Ejecutar** (⌘↵) las lanza una tras otra y cada una tiene su pestaña de resultados. Un doble clic en una tabla de la lista de la izquierda le escribe una consulta de ejemplo."
+    ],
+    "points": [
+      "`SELECT columnas FROM tabla` lee filas.",
+      "`*` son todas las columnas; mejor nombrar las que necesita.",
+      "Sin `ORDER BY` el orden de las filas no está garantizado.",
+      "`;` separa las consultas de un script."
+    ],
+    "exercise": "Escriba una tercera consulta que muestre el nombre, el correo y la ciudad de todos los clientes (`customers`), ordenados por nombre."
+  },
+  "en": {
+    "slug": "first-select",
+    "title": "Your first SELECT",
+    "summary": "Read data from MySQL with SELECT, FROM and ORDER BY: pick columns and sort the rows. Run it in the Databases module of DMarlon Studio.",
+    "body": [
+      "Every query that reads data starts with **`SELECT`**: then come the columns you want to see and, after **`FROM`**, the table they come from. The asterisk in `SELECT * FROM categories` means all columns, and the result is the four categories of the shop: `Bakery`, `Drinks`, `Dairy` and `Fruit`, with their `id`.",
+      "The second query does not ask for everything: it names four columns, `id, name, price, stock`, in the order you want to see them. That is the usual thing in a real program: ask only for what you will use. All twelve products come back, from `Baguette` to `Strawberries`.",
+      "**`ORDER BY id`** sets the order. Without it MySQL promises none: it returns the rows however it finds them easiest to read (sometimes following an index), and that order can change. If the order matters, always write it.",
+      "Look at `price`: it shows `1.20`, not `1.2`, because the column is `DECIMAL(8,2)`, an exact number with two decimals. The `;` separates the queries of the script: in DMarlon Studio, **Run** (⌘↵) sends them one after another and each gets its own result tab. Double-clicking a table in the list on the left writes a sample query for you."
+    ],
+    "points": [
+      "`SELECT columns FROM table` reads rows.",
+      "`*` means all columns; naming the ones you need is better.",
+      "Without `ORDER BY` the order of the rows is not guaranteed.",
+      "`;` separates the queries of a script."
+    ],
+    "exercise": "Write a third query that shows the name, email and city of every customer (`customers`), sorted by name."
+  }
+}

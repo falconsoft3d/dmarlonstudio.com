@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "cuadro-de-mando",
+    "title": "Cuadro de mando",
+    "summary": "Una consulta de cuadro de mando en MySQL que une lo aprendido: dos CTE, JOIN, GROUP BY, una ventana sobre un agregado y la nota media.",
+    "body": [
+      "El cuadro de mando da una fila por categoría con lo que miraría la dirección de la tienda. Se arma con dos CTE: `sold`, las líneas vendidas sin los pedidos cancelados, con su importe, y `stars`, la nota media de las reseñas por categoría.",
+      "La CTE se llama `sold` y no `lines` por un motivo: `LINES` es una palabra reservada de MySQL (de `LOAD DATA … LINES TERMINATED BY`), y con ese nombre la consulta da un error de sintaxis. Si necesitase ese nombre, tendría que escribirlo entre comillas invertidas.",
+      "**`SUM(SUM(l.amount)) OVER ()`** es una ventana sobre un agregado: el `SUM` de dentro da la facturación de cada categoría y el de fuera, con `OVER ()`, suma la de todas. Así `share` sale en la misma pasada: `Drinks` es el `33.8%` con `42.90`, y las cuatro suman `126.85`.",
+      "`stars` llega con `LEFT JOIN`, por si alguna categoría no tuviera reseñas, e `IFNULL(…, '-')` pondría un guion. La panadería es la mejor valorada (`4.7`) aunque factura menos que bebidas y lácteos, y la fruta, con `3.0`, la peor. Con **CSV** puede llevar el cuadro a una hoja de cálculo."
+    ],
+    "points": [
+      "Las CTE ordenan una consulta grande en pasos.",
+      "`SUM(SUM(x)) OVER ()` da porcentajes sobre el total del grupo.",
+      "`LEFT JOIN` a un resumen evita perder filas sin datos.",
+      "Las palabras reservadas (`lines`, `order`, `rank`…) van entre comillas invertidas."
+    ],
+    "exercise": "Añada una columna con el producto más vendido de cada categoría (pista: una CTE con `ROW_NUMBER()` por categoría)."
+  },
+  "en": {
+    "slug": "sales-dashboard",
+    "title": "Sales dashboard",
+    "summary": "A dashboard query in MySQL that ties it all together: two CTEs, JOINs, GROUP BY, a window over an aggregate and the average rating.",
+    "body": [
+      "The dashboard gives one row per category with what the shop's management would look at. It is built from two CTEs: `sold`, the lines sold without the cancelled orders, with their amount, and `stars`, the average review rating per category.",
+      "The CTE is called `sold` and not `lines` for a reason: `LINES` is a reserved word in MySQL (from `LOAD DATA … LINES TERMINATED BY`), and with that name the query gives a syntax error. If you needed that name, you would have to write it in backticks.",
+      "**`SUM(SUM(l.amount)) OVER ()`** is a window over an aggregate: the inner `SUM` gives each category's revenue and the outer one, with `OVER ()`, adds up all of them. So `share` comes out in the same pass: `Drinks` is `33.8%` with `42.90`, and the four add up to `126.85`.",
+      "`stars` comes in with a `LEFT JOIN`, in case a category had no reviews, and `IFNULL(…, '-')` would put a dash there. The bakery is the best rated (`4.7`) even though it earns less than drinks and dairy, and fruit, at `3.0`, is the lowest. With **CSV** you can take the dashboard to a spreadsheet."
+    ],
+    "points": [
+      "CTEs break a big query into steps.",
+      "`SUM(SUM(x)) OVER ()` gives percentages of the overall total.",
+      "A `LEFT JOIN` to a summary avoids losing rows with no data.",
+      "Reserved words (`lines`, `order`, `rank`…) go in backticks."
+    ],
+    "exercise": "Add a column with each category's best-selling product (hint: a CTE with `ROW_NUMBER()` per category)."
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "error": true,
+  "es": {
+    "slug": "restricciones-check-y-errores",
+    "title": "CHECK y errores",
+    "summary": "Proteja los datos con restricciones CHECK en MySQL 8: añádalas con ALTER TABLE, consúltelas y vea el error cuando una fila no las cumple.",
+    "body": [
+      "Una restricción **`CHECK`** es una condición que toda fila debe cumplir. MySQL las respeta desde la versión 8.0.16; antes las aceptaba sin quejarse y no hacía nada con ellas, así que en bases antiguas pueden estar escritas sin funcionar.",
+      "**`ALTER TABLE … ADD CONSTRAINT price_positive CHECK (price > 0)`** añade una a una tabla que ya tiene datos. MySQL comprueba antes las filas que hay: si alguna no cumpliese, el `ALTER` fallaría. Aquí se añaden tres: precio positivo, stock no negativo y nota de `1` a `5`.",
+      "La reseña con nota `4` entra sin problema (`1 row affected`). La consulta a `information_schema.check_constraints` lista las tres reglas con su condición tal como MySQL la guarda, en minúsculas y con los nombres de columna entre comillas invertidas.",
+      "La última sentencia intenta guardar una nota de `9`, y MySQL la rechaza con el error 3819: «Check constraint 'rating_1_to_5' is violated». El script se para ahí y el estudio enseña el error en su propia pestaña; las consultas anteriores ya se han ejecutado. Una restricción en la base de datos protege los datos venga de donde venga el cambio, aunque la aplicación tenga un fallo."
+    ],
+    "points": [
+      "`CHECK (condición)` funciona desde MySQL 8.0.16.",
+      "`ALTER TABLE … ADD CONSTRAINT nombre CHECK (…)` comprueba las filas que ya hay.",
+      "Póngales nombre: sale en el mensaje de error.",
+      "Una fila que no cumple da el error 3819 y no se guarda."
+    ],
+    "exercise": "Añada un `CHECK` a `orders` que solo admita los estados `new`, `paid`, `shipped` y `cancelled`, y pruebe a insertar uno con `lost`."
+  },
+  "en": {
+    "slug": "check-constraints-and-errors",
+    "title": "CHECK and errors",
+    "summary": "Protect your data with CHECK constraints in MySQL 8: add them with ALTER TABLE, list them and see the error when a row breaks one.",
+    "body": [
+      "A **`CHECK`** constraint is a condition every row must meet. MySQL enforces them since version 8.0.16; before that it accepted them without complaint and did nothing with them, so older databases may have them written down and not working.",
+      "**`ALTER TABLE … ADD CONSTRAINT price_positive CHECK (price > 0)`** adds one to a table that already has data. MySQL first checks the existing rows: if any failed, the `ALTER` would fail. Three are added here: positive price, non-negative stock and a rating from `1` to `5`.",
+      "The review rated `4` goes in without trouble (`1 row affected`). The query on `information_schema.check_constraints` lists the three rules with their condition as MySQL stores it, in lower case and with the column names in backticks.",
+      "The last statement tries to save a rating of `9`, and MySQL refuses it with error 3819: Check constraint 'rating_1_to_5' is violated. The script stops there and the studio shows the error in its own tab; the earlier queries have already run. A constraint in the database protects the data wherever the change comes from, even if the application has a bug."
+    ],
+    "points": [
+      "`CHECK (condition)` works since MySQL 8.0.16.",
+      "`ALTER TABLE … ADD CONSTRAINT name CHECK (…)` checks the existing rows.",
+      "Name them: the name appears in the error message.",
+      "A row that breaks one gives error 3819 and is not saved."
+    ],
+    "exercise": "Add a `CHECK` to `orders` that only allows the statuses `new`, `paid`, `shipped` and `cancelled`, and try inserting one with `lost`."
+  }
+}

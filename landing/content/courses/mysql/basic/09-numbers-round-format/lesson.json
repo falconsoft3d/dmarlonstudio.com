@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "numeros-round-y-format",
+    "title": "Números: ROUND y FORMAT",
+    "summary": "Haga cuentas en MySQL: división, DIV y MOD, ROUND y TRUNCATE con decimales exactos, FLOOR, CEIL y FORMAT para mostrar cifras.",
+    "body": [
+      "**`/`** divide siempre con decimales: `7 / 2` da `3.5000` (MySQL añade cuatro decimales por defecto). **`DIV`** es la división entera, `3`, y **`MOD`**, el resto, `1`.",
+      "**`ROUND(2.675, 2)`** da `2.68`. Con números de coma flotante a menudo sale `2.67`, porque `2.675` no se puede guardar exacto en binario; en MySQL un literal con decimales es `DECIMAL`, exacto, y redondea como se espera. **`TRUNCATE(2.675, 1)`** corta sin redondear: `2.6`.",
+      "**`FORMAT(número, decimales)`** devuelve un **texto** con separador de miles: `1,234,567.89`. Con un tercer argumento, el idioma: `'es_ES'` da `1.234.567,89`. Úselo solo para mostrar, nunca para seguir calculando.",
+      "La última consulta aplica todo a las bebidas: `ROUND(price * 1.21, 2)` deja el precio con IVA en dos decimales (`11.98` para `Espresso beans`), **`FLOOR`** redondea hacia abajo (`9`) y **`CEIL`** hacia arriba (`10`). `Orange juice`, sin stock, vale `0.00` en el almacén."
+    ],
+    "points": [
+      "`/` da decimales; `DIV`, la parte entera; `MOD`, el resto.",
+      "Los decimales de MySQL son exactos: `ROUND(2.675, 2)` es `2.68`.",
+      "`TRUNCATE` corta; `FLOOR` y `CEIL` van al entero de abajo y de arriba.",
+      "`FORMAT` devuelve texto, solo para mostrar."
+    ],
+    "exercise": "Muestre el precio de cada producto lácteo (`category_id = 3`) con un 15 % de descuento, redondeado a dos decimales."
+  },
+  "en": {
+    "slug": "numbers-round-and-format",
+    "title": "Numbers: ROUND and FORMAT",
+    "summary": "Do maths in MySQL: division, DIV and MOD, ROUND and TRUNCATE on exact decimals, FLOOR, CEIL and FORMAT for displaying figures.",
+    "body": [
+      "**`/`** always divides with decimals: `7 / 2` gives `3.5000` (MySQL adds four decimals by default). **`DIV`** is integer division, `3`, and **`MOD`** is the remainder, `1`.",
+      "**`ROUND(2.675, 2)`** gives `2.68`. With floating-point numbers you often get `2.67`, because `2.675` cannot be stored exactly in binary; in MySQL a literal with decimals is a `DECIMAL`, exact, and it rounds the way you expect. **`TRUNCATE(2.675, 1)`** cuts without rounding: `2.6`.",
+      "**`FORMAT(number, decimals)`** returns **text** with a thousands separator: `1,234,567.89`. A third argument picks the locale: `'es_ES'` gives `1.234.567,89`. Use it only for display, never to keep calculating.",
+      "The last query applies all this to the drinks: `ROUND(price * 1.21, 2)` leaves the price with VAT at two decimals (`11.98` for `Espresso beans`), **`FLOOR`** rounds down (`9`) and **`CEIL`** rounds up (`10`). `Orange juice`, with no stock, is worth `0.00` in the warehouse."
+    ],
+    "points": [
+      "`/` gives decimals; `DIV`, the whole part; `MOD`, the remainder.",
+      "MySQL decimals are exact: `ROUND(2.675, 2)` is `2.68`.",
+      "`TRUNCATE` cuts; `FLOOR` and `CEIL` go to the integer below and above.",
+      "`FORMAT` returns text, for display only."
+    ],
+    "exercise": "Show the price of each dairy product (`category_id = 3`) with a 15% discount, rounded to two decimals."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "order-by-limit-y-offset",
+    "title": "ORDER BY, LIMIT y OFFSET",
+    "summary": "Ordene por una o varias columnas en MySQL, quédese con las primeras filas con LIMIT y pagine los resultados con OFFSET.",
+    "body": [
+      "**`ORDER BY price DESC, name`** ordena por precio de mayor a menor (`DESC`) y, si dos productos costasen lo mismo, por nombre (sin nada detrás es `ASC`, ascendente). Con **`LIMIT 3`** queda el podio: `Espresso beans`, `Manchego cheese` y `Green tea`.",
+      "La segunda consulta ordena por dos columnas: primero `category_id` y, dentro de cada categoría, por precio. Así se ve el producto más barato de cada una al principio de su grupo: `Baguette` en la `1`, `Orange juice` en la `2`, `Whole milk` en la `3` y `Bananas 1 kg` en la `4`.",
+      "**`LIMIT 4 OFFSET 4`** se salta cuatro filas y devuelve las cuatro siguientes: la segunda página de un listado de cuatro en cuatro, los productos `5` a `8`. La página `n` es `OFFSET (n - 1) * 4`. MySQL también acepta la forma corta `LIMIT 4, 4` (primero el salto y después cuántas).",
+      "Para paginar, el `ORDER BY` es obligatorio en la práctica: sin un orden fijo, la página dos podría repetir filas de la uno. Ordene siempre por algo único, como `id`, al menos al final."
+    ],
+    "points": [
+      "`ASC` (por defecto) o `DESC` en cada columna.",
+      "Varias columnas: desempata la siguiente.",
+      "`LIMIT n` corta; `OFFSET m` se salta m filas.",
+      "Para paginar, ordene por algo único."
+    ],
+    "exercise": "Muestre la tercera página (cuatro productos por página) ordenando por precio de mayor a menor."
+  },
+  "en": {
+    "slug": "order-by-limit-and-offset",
+    "title": "ORDER BY, LIMIT and OFFSET",
+    "summary": "Sort by one or more columns in MySQL, keep the first rows with LIMIT and page through the results with OFFSET.",
+    "body": [
+      "**`ORDER BY price DESC, name`** sorts by price from highest to lowest (`DESC`) and, if two products cost the same, by name (nothing after it means `ASC`, ascending). With **`LIMIT 3`** you get the podium: `Espresso beans`, `Manchego cheese` and `Green tea`.",
+      "The second query sorts by two columns: first `category_id` and, within each category, by price. That puts the cheapest product of each one at the top of its group: `Baguette` in `1`, `Orange juice` in `2`, `Whole milk` in `3` and `Bananas 1 kg` in `4`.",
+      "**`LIMIT 4 OFFSET 4`** skips four rows and returns the next four: the second page of a list shown four at a time, products `5` to `8`. Page `n` is `OFFSET (n - 1) * 4`. MySQL also accepts the short form `LIMIT 4, 4` (the skip first, then how many).",
+      "When paging, `ORDER BY` is mandatory in practice: without a fixed order, page two could repeat rows from page one. Always sort by something unique, such as `id`, at least as the last column."
+    ],
+    "points": [
+      "`ASC` (the default) or `DESC` on each column.",
+      "Several columns: the next one breaks ties.",
+      "`LIMIT n` cuts; `OFFSET m` skips m rows.",
+      "When paging, sort by something unique."
+    ],
+    "exercise": "Show the third page (four products per page) sorted by price from highest to lowest."
+  }
+}

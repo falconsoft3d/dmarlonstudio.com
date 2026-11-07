@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "json-table",
+    "title": "JSON_TABLE: de JSON a filas",
+    "summary": "Convierta los elementos de un array JSON en filas con JSON_TABLE en MySQL 8 y agrúpelos después como cualquier tabla: productos por etiqueta.",
+    "body": [
+      "**`JSON_TABLE`** convierte un documento JSON en una tabla de verdad. Recibe el JSON (`p.tags`), una ruta que elige las filas (`'$[*]'`, cada elemento del array) y, en `COLUMNS`, qué columnas sacar de cada elemento.",
+      "`tag VARCHAR(20) PATH '$'` toma el propio elemento como texto, y **`pos FOR ORDINALITY`** numera los elementos desde `1`. Va después de `products p` con una coma, así que cada producto se une con sus propias etiquetas: `Croissant` da dos filas, `bread` en la posición `1` y `sweet` en la `2`.",
+      "Una vez convertidas en filas, las etiquetas se agrupan como cualquier columna. La segunda consulta cuenta los productos de cada etiqueta, su precio medio y sus nombres con `GROUP_CONCAT`: `bread`, `fresh` y `sweet` tienen tres cada una; `sweet` reúne productos de tres categorías, con una media de `2.60`.",
+      "`Whole milk` no aparece: su lista está vacía (`[]`) y no genera ninguna fila. Para conservarlo, use `LEFT JOIN JSON_TABLE(…) AS t ON TRUE` y su etiqueta saldría `NULL`."
+    ],
+    "points": [
+      "`JSON_TABLE(json, ruta COLUMNS (…))` devuelve filas.",
+      "`'$[*]'` da una fila por elemento del array.",
+      "`FOR ORDINALITY` numera; `PATH` extrae.",
+      "Después se filtra y agrupa como cualquier tabla.",
+      "Un array vacío no genera filas: `LEFT JOIN … ON TRUE` las conserva."
+    ],
+    "exercise": "Cambie la segunda consulta a `LEFT JOIN JSON_TABLE(…) AS t ON TRUE` y compruebe que aparece una etiqueta `NULL` con `Whole milk`."
+  },
+  "en": {
+    "slug": "json-table",
+    "title": "JSON_TABLE: from JSON to rows",
+    "summary": "Turn the elements of a JSON array into rows with JSON_TABLE in MySQL 8, then group them like any table: products per tag.",
+    "body": [
+      "**`JSON_TABLE`** turns a JSON document into a real table. It takes the JSON (`p.tags`), a path that picks the rows (`'$[*]'`, each element of the array) and, in `COLUMNS`, which columns to take from each element.",
+      "`tag VARCHAR(20) PATH '$'` takes the element itself as text, and **`pos FOR ORDINALITY`** numbers the elements from `1`. It goes after `products p` with a comma, so each product is joined with its own tags: `Croissant` gives two rows, `bread` at position `1` and `sweet` at `2`.",
+      "Once they are rows, the tags group like any other column. The second query counts the products per tag, their average price and their names with `GROUP_CONCAT`: `bread`, `fresh` and `sweet` have three each; `sweet` brings together products from three categories, averaging `2.60`.",
+      "`Whole milk` does not appear: its list is empty (`[]`) and produces no rows. To keep it, use `LEFT JOIN JSON_TABLE(…) AS t ON TRUE` and its tag would come out as `NULL`."
+    ],
+    "points": [
+      "`JSON_TABLE(json, path COLUMNS (…))` returns rows.",
+      "`'$[*]'` gives one row per array element.",
+      "`FOR ORDINALITY` numbers; `PATH` extracts.",
+      "Then you filter and group it like any table.",
+      "An empty array produces no rows: `LEFT JOIN … ON TRUE` keeps them."
+    ],
+    "exercise": "Change the second query to `LEFT JOIN JSON_TABLE(…) AS t ON TRUE` and check that a `NULL` tag appears with `Whole milk`."
+  }
+}

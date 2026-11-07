@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "joins-de-varias-tablas",
+    "title": "Joins de varias tablas",
+    "summary": "Encadene varios JOIN en MySQL para ir de las líneas de pedido a los productos y sus categorías y calcular la facturación de cada una.",
+    "body": [
+      "Los `JOIN` se encadenan: cada uno añade una tabla a las anteriores. Aquí se parte de **`order_items`**, la tabla con las líneas de cada pedido, y se sigue el camino de las claves: `i.product_id` lleva a `products`, `p.category_id` a `categories` e `i.order_id` a `orders`.",
+      "La tabla de `orders` está para poder filtrar: `WHERE o.status <> 'cancelled'` deja fuera las líneas del pedido cancelado. Después se agrupa por categoría y se calcula, con **`SUM(i.qty * i.price)`**, lo facturado en cada una.",
+      "`COUNT(DISTINCT i.order_id)` cuenta los pedidos diferentes en los que aparece la categoría: un pedido con dos productos de panadería cuenta una sola vez. La panadería (`Bakery`) está en `6` pedidos y vende `17` unidades, pero factura solo `25.00`; las bebidas (`Drinks`), con `8` unidades, son la primera con `42.90`.",
+      "Si suma la columna `revenue` sale `126.85`, el mismo total que dan los pedidos no cancelados: las líneas y las cabeceras cuadran. Con el botón **CSV** del estudio puede llevarse este resumen a una hoja de cálculo."
+    ],
+    "points": [
+      "Cada `JOIN` añade una tabla; siga las claves ajenas.",
+      "Una tabla se puede unir solo para filtrar por ella.",
+      "`COUNT(DISTINCT …)` evita contar dos veces el mismo pedido.",
+      "Compruebe los totales contra otra fuente."
+    ],
+    "exercise": "Cambie el agrupamiento para ver la facturación por cliente (`customers.name`) en lugar de por categoría."
+  },
+  "en": {
+    "slug": "joining-several-tables",
+    "title": "Joining several tables",
+    "summary": "Chain several JOINs in MySQL to go from order lines to products and their categories and work out the revenue of each one.",
+    "body": [
+      "`JOIN`s chain: each one adds a table to the ones before. Here the starting point is **`order_items`**, the table with each order's lines, and the query follows the keys: `i.product_id` leads to `products`, `p.category_id` to `categories` and `i.order_id` to `orders`.",
+      "The `orders` table is there so you can filter: `WHERE o.status <> 'cancelled'` leaves out the lines of the cancelled order. Then the rows are grouped by category and **`SUM(i.qty * i.price)`** works out what each one has earned.",
+      "`COUNT(DISTINCT i.order_id)` counts the different orders the category appears in: an order with two bakery products counts once. `Bakery` is in `6` orders and sells `17` units but earns only `25.00`; `Drinks`, with `8` units, comes first with `42.90`.",
+      "If you add up the `revenue` column you get `126.85`, the same total as the non-cancelled orders: the lines and the headers match. With the studio's **CSV** button you can take this summary to a spreadsheet."
+    ],
+    "points": [
+      "Each `JOIN` adds a table; follow the foreign keys.",
+      "You can join a table just to filter by it.",
+      "`COUNT(DISTINCT …)` avoids counting the same order twice.",
+      "Check the totals against another source."
+    ],
+    "exercise": "Change the grouping to see the revenue per customer (`customers.name`) instead of per category."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "group-by-y-having",
+    "title": "GROUP BY y HAVING",
+    "summary": "Agrupe filas con GROUP BY, filtre grupos con HAVING y entienda el modo ONLY_FULL_GROUP_BY de MySQL 8.",
+    "body": [
+      "**`GROUP BY category_id`** reparte los productos en grupos, uno por categoría, y los agregados se calculan dentro de cada grupo: la `1` (panadería) tiene `3` productos, `77` unidades y un precio medio de `1.83`; la `3` (lácteos) acumula más unidades, `90`.",
+      "**`HAVING`** filtra los grupos ya formados, igual que `WHERE` filtra filas. El orden es: `WHERE` quita los pedidos cancelados, `GROUP BY` junta los de cada cliente y `HAVING COUNT(*) >= 2` deja solo a quien tiene dos o más. Quedan el cliente `1`, con `3` pedidos y `34.95`, y el `2`, con `2` y `24.90`.",
+      "MySQL 8 trae activado **`ONLY_FULL_GROUP_BY`**: todo lo que vaya en el `SELECT` tiene que estar en el `GROUP BY` o dentro de un agregado. Si añade `name` a la primera consulta, MySQL responde con el error 1055 («is not in GROUP BY clause»), porque cada categoría tiene tres nombres y no sabría cuál elegir. Las versiones antiguas devolvían uno cualquiera, sin avisar.",
+      "Hay una excepción útil: si agrupa por la clave primaria de una tabla, puede mostrar las demás columnas de esa tabla, porque dependen de ella. Y si de verdad le da igual cuál salga, `ANY_VALUE(name)` se lo dice a MySQL."
+    ],
+    "points": [
+      "`GROUP BY` forma grupos; los agregados se calculan por grupo.",
+      "`WHERE` filtra filas antes; `HAVING` filtra grupos después.",
+      "Con `ONLY_FULL_GROUP_BY`, cada columna va en el `GROUP BY` o en un agregado.",
+      "Agrupar por la clave primaria permite mostrar el resto de columnas de esa tabla."
+    ],
+    "exercise": "Cuente los pedidos por estado (`status`) y muestre solo los estados con más de dos pedidos."
+  },
+  "en": {
+    "slug": "group-by-and-having",
+    "title": "GROUP BY and HAVING",
+    "summary": "Group rows with GROUP BY, filter groups with HAVING and understand MySQL 8's ONLY_FULL_GROUP_BY mode.",
+    "body": [
+      "**`GROUP BY category_id`** splits the products into groups, one per category, and the aggregates are computed inside each group: category `1` (bakery) has `3` products, `77` units and an average price of `1.83`; category `3` (dairy) holds the most units, `90`.",
+      "**`HAVING`** filters the groups once they are formed, just as `WHERE` filters rows. The order is: `WHERE` removes the cancelled orders, `GROUP BY` puts each customer's orders together and `HAVING COUNT(*) >= 2` keeps only those with two or more. Customer `1` is left, with `3` orders and `34.95`, and customer `2`, with `2` and `24.90`.",
+      "MySQL 8 ships with **`ONLY_FULL_GROUP_BY`** switched on: everything in the `SELECT` must be in the `GROUP BY` or inside an aggregate. If you add `name` to the first query, MySQL answers with error 1055 (is not in GROUP BY clause), because each category has three names and it would not know which to pick. Older versions silently returned any one of them.",
+      "There is a useful exception: if you group by a table's primary key, you can show that table's other columns, because they depend on it. And if you really do not care which one comes out, `ANY_VALUE(name)` tells MySQL so."
+    ],
+    "points": [
+      "`GROUP BY` forms groups; the aggregates are computed per group.",
+      "`WHERE` filters rows before; `HAVING` filters groups after.",
+      "With `ONLY_FULL_GROUP_BY`, every column is in the `GROUP BY` or in an aggregate.",
+      "Grouping by the primary key lets you show the rest of that table's columns."
+    ],
+    "exercise": "Count the orders by status (`status`) and show only the statuses with more than two orders."
+  }
+}

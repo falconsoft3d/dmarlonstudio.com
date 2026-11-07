@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "left-join",
+    "title": "LEFT JOIN",
+    "summary": "Conserve todas las filas de la tabla de la izquierda con LEFT JOIN en MySQL: clientes sin pedidos y productos sin vender ni reseñar.",
+    "body": [
+      "**`LEFT JOIN`** devuelve todas las filas de la tabla de la izquierda, tengan pareja o no; cuando no la tienen, las columnas de la derecha salen a `NULL`. Así aparece `Carlos Díaz`, que nunca ha pedido nada: `COUNT(o.id)` cuenta `0` (no cuenta los `NULL`) y `IFNULL(SUM(o.total), 0)` cambia su `NULL` por `0.00`. Con un `JOIN` normal, Carlos no saldría.",
+      "La segunda consulta usa el truco clásico para buscar lo que **no** tiene pareja: `LEFT JOIN` y después `WHERE i.id IS NULL`. Solo un producto no se ha pedido nunca: `Bananas 1 kg`, el `11`.",
+      "La tercera cuenta las reseñas de cada producto. `Baguette`, `Espresso beans` y `Strawberries` tienen dos (con medias de `4.5`, `4.0` y `3.0`); `Apples 1 kg`, `Bananas 1 kg` y `Greek yogurt` salen con `0` reseñas y una media `NULL`. `LIMIT 8` corta la lista.",
+      "Cuidado con dónde pone las condiciones de la tabla de la derecha: en el `ON` filtran las parejas; en el `WHERE`, eliminan las filas que no la tienen y el `LEFT JOIN` se comporta como un `JOIN`."
+    ],
+    "points": [
+      "`LEFT JOIN` conserva todas las filas de la izquierda.",
+      "Sin pareja, las columnas de la derecha son `NULL`.",
+      "`LEFT JOIN … WHERE derecha.id IS NULL` encuentra lo que falta.",
+      "`COUNT(col)` da `0` donde no hay pareja."
+    ],
+    "exercise": "Liste las categorías con cuántos productos activos tiene cada una, de modo que aparezcan también las que no tengan ninguno."
+  },
+  "en": {
+    "slug": "left-join",
+    "title": "LEFT JOIN",
+    "summary": "Keep every row of the left table with LEFT JOIN in MySQL: customers with no orders and products never sold or reviewed.",
+    "body": [
+      "**`LEFT JOIN`** returns every row of the left table, whether it has a match or not; when it does not, the right-hand columns come out as `NULL`. That is how `Carlos Díaz`, who has never ordered anything, shows up: `COUNT(o.id)` counts `0` (it skips `NULL`) and `IFNULL(SUM(o.total), 0)` turns his `NULL` into `0.00`. With a plain `JOIN`, Carlos would not appear.",
+      "The second query uses the classic trick to find what has **no** match: `LEFT JOIN` and then `WHERE i.id IS NULL`. Only one product has never been ordered: `Bananas 1 kg`, number `11`.",
+      "The third one counts each product's reviews. `Baguette`, `Espresso beans` and `Strawberries` have two (averaging `4.5`, `4.0` and `3.0`); `Apples 1 kg`, `Bananas 1 kg` and `Greek yogurt` come out with `0` reviews and a `NULL` average. `LIMIT 8` cuts the list.",
+      "Watch where you put conditions on the right-hand table: in the `ON` they filter the matches; in the `WHERE` they remove the rows without a match, and the `LEFT JOIN` behaves like a `JOIN`."
+    ],
+    "points": [
+      "`LEFT JOIN` keeps every row on the left.",
+      "With no match, the right-hand columns are `NULL`.",
+      "`LEFT JOIN … WHERE right.id IS NULL` finds what is missing.",
+      "`COUNT(col)` gives `0` where there is no match."
+    ],
+    "exercise": "List the categories with how many active products each one has, so that categories with none would also appear."
+  }
+}

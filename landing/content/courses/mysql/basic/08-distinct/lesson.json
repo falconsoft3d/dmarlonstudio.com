@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "distinct",
+    "title": "Valores distintos con DISTINCT",
+    "summary": "Quite las filas repetidas con DISTINCT y cuente valores diferentes con COUNT(DISTINCT …) en MySQL.",
+    "body": [
+      "**`SELECT DISTINCT city`** devuelve cada ciudad una sola vez: hay ocho clientes, pero solo cinco ciudades, de `Bilbao` a `Valencia`.",
+      "`DISTINCT` se aplica a la fila entera, no a la primera columna. `SELECT DISTINCT category_id, active` da cinco combinaciones: las categorías `1`, `2` y `3` solo tienen productos activos (`1`), y la `4` aparece dos veces porque tiene uno inactivo (`0`, `Bananas 1 kg`) y otros activos.",
+      "Dentro de `COUNT`, **`COUNT(DISTINCT customer_id)`** cuenta valores diferentes: `10` pedidos, pero de solo `7` clientes, en `4` estados distintos y `4` meses (`MONTH(ordered)` saca el mes de la fecha; se verá con calma en la lección de fechas).",
+      "`active` sale como `1` y `0`: en MySQL, `BOOLEAN` es en realidad `TINYINT(1)`, un número pequeño, y `TRUE` y `FALSE` valen `1` y `0`."
+    ],
+    "points": [
+      "`DISTINCT` quita las filas repetidas.",
+      "Actúa sobre todas las columnas del `SELECT` a la vez.",
+      "`COUNT(DISTINCT col)` cuenta valores diferentes.",
+      "En MySQL, `BOOLEAN` es `TINYINT(1)`: `1` o `0`."
+    ],
+    "exercise": "Cuente cuántos productos distintos aparecen en `order_items` con `COUNT(DISTINCT product_id)`."
+  },
+  "en": {
+    "slug": "distinct",
+    "title": "Distinct values with DISTINCT",
+    "summary": "Remove repeated rows with DISTINCT and count different values with COUNT(DISTINCT …) in MySQL.",
+    "body": [
+      "**`SELECT DISTINCT city`** returns each city once: there are eight customers but only five cities, from `Bilbao` to `Valencia`.",
+      "`DISTINCT` applies to the whole row, not to the first column. `SELECT DISTINCT category_id, active` gives five combinations: categories `1`, `2` and `3` only have active products (`1`), and `4` shows up twice because it has an inactive one (`0`, `Bananas 1 kg`) as well as active ones.",
+      "Inside `COUNT`, **`COUNT(DISTINCT customer_id)`** counts different values: `10` orders, but from only `7` customers, in `4` different statuses and `4` months (`MONTH(ordered)` takes the month out of the date; the dates lesson covers it properly).",
+      "`active` comes back as `1` and `0`: in MySQL, `BOOLEAN` is really `TINYINT(1)`, a small number, and `TRUE` and `FALSE` are `1` and `0`."
+    ],
+    "points": [
+      "`DISTINCT` removes repeated rows.",
+      "It works on all the columns of the `SELECT` at once.",
+      "`COUNT(DISTINCT col)` counts different values.",
+      "In MySQL, `BOOLEAN` is `TINYINT(1)`: `1` or `0`."
+    ],
+    "exercise": "Count how many different products appear in `order_items` with `COUNT(DISTINCT product_id)`."
+  }
+}

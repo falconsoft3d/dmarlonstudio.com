@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "and-or-in-y-between",
+    "title": "AND, OR, IN y BETWEEN",
+    "summary": "Combine condiciones en MySQL: AND y OR con paréntesis, IN para una lista de valores y BETWEEN para un intervalo de fechas.",
+    "body": [
+      "**`AND`** exige que se cumplan las dos condiciones. `price < 2 AND stock > 0` devuelve `Whole milk`, `Baguette` y `Croissant`; `Bananas 1 kg` cuesta `1.60` pero no tiene stock, y se queda fuera.",
+      "**`IN ('Madrid', 'Seville')`** es la forma corta de `city = 'Madrid' OR city = 'Seville'`: salen cuatro clientes, dos de cada ciudad, ordenados primero por ciudad y después por nombre.",
+      "**`BETWEEN '2024-04-01' AND '2024-05-31'`** incluye los dos extremos y sirve igual para números que para fechas. Los paréntesis de `(status = 'paid' OR status = 'shipped')` son imprescindibles: `AND` se evalúa antes que `OR`, y sin ellos la condición significaría otra cosa.",
+      "Quedan tres pedidos de abril y mayo: el `4` y el `8`, enviados, y el `6`, pagado. El `5` (cancelado) y el `7` (nuevo) son de esas fechas, pero no pasan el filtro del estado."
+    ],
+    "points": [
+      "`AND`: las dos; `OR`: al menos una.",
+      "`AND` va antes que `OR`: use paréntesis.",
+      "`IN (a, b, c)` compara con una lista.",
+      "`BETWEEN a AND b` incluye los extremos."
+    ],
+    "exercise": "Reescriba la última consulta con `status IN ('paid', 'shipped')` y compruebe que sale lo mismo."
+  },
+  "en": {
+    "slug": "and-or-in-and-between",
+    "title": "AND, OR, IN and BETWEEN",
+    "summary": "Combine conditions in MySQL: AND and OR with parentheses, IN for a list of values and BETWEEN for a range of dates.",
+    "body": [
+      "**`AND`** requires both conditions. `price < 2 AND stock > 0` returns `Whole milk`, `Baguette` and `Croissant`; `Bananas 1 kg` costs `1.60` but has no stock, so it is left out.",
+      "**`IN ('Madrid', 'Seville')`** is the short form of `city = 'Madrid' OR city = 'Seville'`: four customers come back, two from each city, sorted by city first and then by name.",
+      "**`BETWEEN '2024-04-01' AND '2024-05-31'`** includes both ends and works for numbers just as well as for dates. The parentheses in `(status = 'paid' OR status = 'shipped')` are essential: `AND` is evaluated before `OR`, and without them the condition would mean something else.",
+      "Three orders from April and May are left: `4` and `8`, shipped, and `6`, paid. Order `5` (cancelled) and `7` (new) fall in those dates but fail the status filter."
+    ],
+    "points": [
+      "`AND`: both; `OR`: at least one.",
+      "`AND` binds tighter than `OR`: use parentheses.",
+      "`IN (a, b, c)` compares against a list.",
+      "`BETWEEN a AND b` includes both ends."
+    ],
+    "exercise": "Rewrite the last query with `status IN ('paid', 'shipped')` and check that the result is the same."
+  }
+}

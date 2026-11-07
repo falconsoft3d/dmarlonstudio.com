@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "lag-y-lead",
+    "title": "LAG y LEAD",
+    "summary": "Compare cada fila con la anterior y la siguiente en MySQL con LAG y LEAD: días entre pedidos de un mismo cliente y una ventana con nombre.",
+    "body": [
+      "**`LAG(col)`** devuelve el valor de `col` en la fila anterior de la ventana y **`LEAD(col)`**, el de la siguiente. Sirven para comparar una fila con sus vecinas sin unir la tabla consigo misma.",
+      "La ventana es `PARTITION BY customer_id ORDER BY ordered`: los pedidos de cada cliente, por fecha. Como se usa tres veces, se declara una sola vez al final con **`WINDOW w AS (…)`** y cada función dice solo `OVER w`.",
+      "`LAG(ordered)` da la fecha del pedido anterior del mismo cliente; en el primero de cada uno no hay anterior y sale `NULL`. `DATEDIFF` con esa fecha cuenta los días entre pedidos: Ana García tardó `14` días en repetir y después `79`; Luis Pérez, `70`.",
+      "**`LEAD(total, 1, 0)`** mira una fila hacia delante y, si no la hay, devuelve el tercer argumento en lugar de `NULL`: el último pedido de cada cliente sale con `0.00` en `next_total`."
+    ],
+    "points": [
+      "`LAG` mira atrás; `LEAD`, adelante.",
+      "`LAG(col, n, por_defecto)`: n filas y el valor si no existe.",
+      "`PARTITION BY` impide mezclar clientes.",
+      "`WINDOW w AS (…)` reutiliza una ventana."
+    ],
+    "exercise": "Para todos los pedidos (sin filtrar clientes), muestre cuánto cambia el total respecto al pedido anterior de la tienda: `total - LAG(total) OVER (ORDER BY ordered)`."
+  },
+  "en": {
+    "slug": "lag-and-lead",
+    "title": "LAG and LEAD",
+    "summary": "Compare each row with the previous and next one in MySQL with LAG and LEAD: days between a customer's orders, and a named window.",
+    "body": [
+      "**`LAG(col)`** returns the value of `col` in the previous row of the window and **`LEAD(col)`** the value in the next one. They let you compare a row with its neighbours without joining the table to itself.",
+      "The window is `PARTITION BY customer_id ORDER BY ordered`: each customer's orders, by date. Since it is used three times, it is declared once at the end with **`WINDOW w AS (…)`** and each function just says `OVER w`.",
+      "`LAG(ordered)` gives the date of the same customer's previous order; for each customer's first one there is none, so it is `NULL`. `DATEDIFF` with that date counts the days between orders: Ana García took `14` days to come back and then `79`; Luis Pérez, `70`.",
+      "**`LEAD(total, 1, 0)`** looks one row ahead and, if there is none, returns the third argument instead of `NULL`: each customer's last order shows `0.00` in `next_total`."
+    ],
+    "points": [
+      "`LAG` looks back; `LEAD`, ahead.",
+      "`LAG(col, n, default)`: n rows, and the value when there is none.",
+      "`PARTITION BY` keeps customers apart.",
+      "`WINDOW w AS (…)` reuses a window."
+    ],
+    "exercise": "For every order (no customer filter), show how much the total changes from the shop's previous order: `total - LAG(total) OVER (ORDER BY ordered)`."
+  }
+}

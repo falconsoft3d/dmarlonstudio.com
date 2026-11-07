@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "subconsultas-y-exists",
+    "title": "Subconsultas y EXISTS",
+    "summary": "Use una consulta dentro de otra en MySQL: un valor para comparar, una lista para IN y EXISTS o NOT EXISTS para preguntar si hay filas.",
+    "body": [
+      "Una **subconsulta** es un `SELECT` entre paréntesis dentro de otro. La primera devuelve un solo valor, la media de precios (`3.50`), y la consulta de fuera lo usa como si fuera un número: salen los cuatro productos que la superan, de `Espresso beans` a `Strawberries`.",
+      "Con **`IN`**, la subconsulta devuelve una lista: los `customer_id` de los pedidos cancelados. Solo hay uno, el de `John Smith`.",
+      "**`EXISTS`** pregunta si la subconsulta devuelve alguna fila, sin importar cuáles. Esta subconsulta es **correlacionada**: usa `c.id`, de la consulta de fuera, y se evalúa para cada cliente. `NOT EXISTS` deja a los que no tienen ningún pedido enviado: `John Smith`, `Sofía Ruiz`, `Pedro Gómez` y `Carlos Díaz`.",
+      "La columna `orders` es otra subconsulta correlacionada, esta vez en el `SELECT`: cuenta los pedidos de cada cliente. Carlos sale con `0`. Con `NOT IN` habría que tener cuidado con los `NULL` de la lista (si hay uno, no sale nada); `NOT EXISTS` no tiene ese problema."
+    ],
+    "points": [
+      "Una subconsulta puede dar un valor, una lista o una tabla.",
+      "`IN (SELECT …)` compara con una lista.",
+      "`EXISTS` solo pregunta si hay filas.",
+      "Una subconsulta correlacionada usa columnas de la de fuera.",
+      "Prefiera `NOT EXISTS` a `NOT IN` si puede haber `NULL`."
+    ],
+    "exercise": "Liste los productos que no tienen ninguna reseña usando `NOT EXISTS` sobre `reviews`."
+  },
+  "en": {
+    "slug": "subqueries-and-exists",
+    "title": "Subqueries and EXISTS",
+    "summary": "Use a query inside another in MySQL: one value to compare with, a list for IN, and EXISTS or NOT EXISTS to ask whether there are rows.",
+    "body": [
+      "A **subquery** is a `SELECT` in parentheses inside another one. The first returns a single value, the average price (`3.50`), and the outer query uses it as if it were a number: out come the four products above it, from `Espresso beans` down to `Strawberries`.",
+      "With **`IN`**, the subquery returns a list: the `customer_id` of the cancelled orders. There is only one, `John Smith`'s.",
+      "**`EXISTS`** asks whether the subquery returns any row at all, no matter which. This subquery is **correlated**: it uses `c.id` from the outer query and is evaluated for each customer. `NOT EXISTS` keeps those with no shipped order: `John Smith`, `Sofía Ruiz`, `Pedro Gómez` and `Carlos Díaz`.",
+      "The `orders` column is another correlated subquery, this time in the `SELECT`: it counts each customer's orders. Carlos comes out with `0`. With `NOT IN` you would have to watch out for `NULL`s in the list (one is enough for nothing to come back); `NOT EXISTS` does not have that problem."
+    ],
+    "points": [
+      "A subquery can give a value, a list or a table.",
+      "`IN (SELECT …)` compares against a list.",
+      "`EXISTS` only asks whether there are rows.",
+      "A correlated subquery uses columns from the outer one.",
+      "Prefer `NOT EXISTS` to `NOT IN` when there may be `NULL`s."
+    ],
+    "exercise": "List the products that have no review using `NOT EXISTS` on `reviews`."
+  }
+}

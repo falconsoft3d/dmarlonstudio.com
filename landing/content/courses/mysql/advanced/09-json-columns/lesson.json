@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "columnas-json",
+    "title": "Columnas JSON",
+    "summary": "Lea y cambie una columna JSON en MySQL: los operadores -> y ->>, JSON_LENGTH, JSON_CONTAINS, JSON_ARRAY_APPEND y JSON_SEARCH.",
+    "body": [
+      "La columna `tags` es de tipo **`JSON`**: MySQL comprueba que el contenido es JSON válido y lo guarda en un formato binario que se consulta rápido. Cada producto lleva una lista de etiquetas, como `[\"bread\", \"sweet\"]`.",
+      "Las rutas empiezan por `$`: `$[0]` es el primer elemento. **`->`** devuelve JSON, con comillas (`\"bread\"`), y **`->>`** devuelve el texto limpio (`bread`), que es lo que suele querer para comparar o mostrar. **`JSON_LENGTH`** cuenta los elementos: `Croissant` y `Strawberries` tienen `2`.",
+      "**`JSON_CONTAINS(tags, '\"sweet\"')`** pregunta si la lista contiene ese valor. El segundo argumento también es JSON, por eso el texto va con comillas dobles dentro de las simples. Salen tres productos dulces: `Croissant`, `Greek yogurt` y `Strawberries`. Desde MySQL 8.0.17 también se puede escribir `'sweet' MEMBER OF (tags)`.",
+      "**`JSON_ARRAY_APPEND(tags, '$', 'offer')`** añade `offer` al final de la lista en esas `3` filas, y **`JSON_SEARCH`** dice dónde ha quedado: `$[2]` en el `Croissant`, `$[1]` en el yogur, que solo tenía una etiqueta."
+    ],
+    "points": [
+      "`JSON` valida y guarda documentos JSON.",
+      "`->` devuelve JSON; `->>`, texto sin comillas.",
+      "`JSON_CONTAINS(doc, valor_json)` busca un valor.",
+      "`JSON_ARRAY_APPEND`, `JSON_SET` y `JSON_REMOVE` cambian el documento."
+    ],
+    "exercise": "Quite la primera etiqueta de los productos de la categoría `4` con `JSON_REMOVE(tags, '$[0]')` y muestre cómo quedan."
+  },
+  "en": {
+    "slug": "json-columns",
+    "title": "JSON columns",
+    "summary": "Read and change a JSON column in MySQL: the -> and ->> operators, JSON_LENGTH, JSON_CONTAINS, JSON_ARRAY_APPEND and JSON_SEARCH.",
+    "body": [
+      "The `tags` column is of type **`JSON`**: MySQL checks that the content is valid JSON and stores it in a binary format that is quick to query. Each product holds a list of tags, such as `[\"bread\", \"sweet\"]`.",
+      "Paths start with `$`: `$[0]` is the first element. **`->`** returns JSON, with quotes (`\"bread\"`), and **`->>`** returns the plain text (`bread`), which is usually what you want for comparing or showing. **`JSON_LENGTH`** counts the elements: `Croissant` and `Strawberries` have `2`.",
+      "**`JSON_CONTAINS(tags, '\"sweet\"')`** asks whether the list contains that value. The second argument is JSON as well, which is why the text has double quotes inside the single ones. Three sweet products come out: `Croissant`, `Greek yogurt` and `Strawberries`. Since MySQL 8.0.17 you can also write `'sweet' MEMBER OF (tags)`.",
+      "**`JSON_ARRAY_APPEND(tags, '$', 'offer')`** adds `offer` to the end of the list on those `3` rows, and **`JSON_SEARCH`** says where it ended up: `$[2]` in the `Croissant`, `$[1]` in the yogurt, which had only one tag."
+    ],
+    "points": [
+      "`JSON` validates and stores JSON documents.",
+      "`->` returns JSON; `->>`, text without quotes.",
+      "`JSON_CONTAINS(doc, json_value)` looks for a value.",
+      "`JSON_ARRAY_APPEND`, `JSON_SET` and `JSON_REMOVE` change the document."
+    ],
+    "exercise": "Remove the first tag of the products in category `4` with `JSON_REMOVE(tags, '$[0]')` and show how they end up."
+  }
+}

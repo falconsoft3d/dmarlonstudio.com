@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "disparadores",
+    "title": "Disparadores",
+    "summary": "Ejecute código automáticamente al cambiar una tabla con CREATE TRIGGER en MySQL: un registro de cambios de precio con OLD y NEW.",
+    "body": [
+      "Un **disparador** (*trigger*) es código que MySQL ejecuta solo cuando ocurre algo en una tabla. `products_price_log` salta **`AFTER UPDATE ON products`**, después de cada actualización, y **`FOR EACH ROW`**, una vez por cada fila cambiada.",
+      "Dentro, **`OLD`** es la fila como estaba y **`NEW`**, como ha quedado. `IF NEW.price <> OLD.price` hace que solo se apunten los cambios de precio: el disparador salta en cualquier `UPDATE`, pero no todos tocan el precio.",
+      "Tres `UPDATE` lo ponen a prueba. El primero sube `0.20` la panadería y deja `3` líneas en `price_log`. El segundo solo cambia el `stock`: el disparador se ejecuta, pero el `IF` no deja pasar nada. El tercero baja `Espresso beans` de `9.90` a `9.50` y deja la cuarta línea.",
+      "El registro final muestra los cuatro cambios con el precio antiguo y el nuevo. También hay disparadores `BEFORE`, que pueden corregir los datos antes de guardarlos (`SET NEW.price = …`), y de `INSERT` y `DELETE`. Como el cuerpo lleva `;`, se define entre `DELIMITER //` y `DELIMITER ;`."
+    ],
+    "points": [
+      "`CREATE TRIGGER … AFTER|BEFORE INSERT|UPDATE|DELETE ON tabla FOR EACH ROW`.",
+      "`OLD` es la fila de antes; `NEW`, la de después.",
+      "Salta en cada fila afectada, cambie lo que cambie.",
+      "Un `BEFORE` puede modificar `NEW` antes de guardar."
+    ],
+    "exercise": "Cree un disparador `BEFORE INSERT ON reviews` que cambie un `comment` vacío (`''`) por `NULL`, y pruébelo."
+  },
+  "en": {
+    "slug": "triggers",
+    "title": "Triggers",
+    "summary": "Run code automatically when a table changes with CREATE TRIGGER in MySQL: a log of price changes using OLD and NEW.",
+    "body": [
+      "A **trigger** is code MySQL runs by itself when something happens to a table. `products_price_log` fires **`AFTER UPDATE ON products`**, after each update, and **`FOR EACH ROW`**, once for every changed row.",
+      "Inside, **`OLD`** is the row as it was and **`NEW`** as it is now. `IF NEW.price <> OLD.price` makes sure only price changes are logged: the trigger fires on any `UPDATE`, but not every one touches the price.",
+      "Three `UPDATE`s put it to the test. The first raises the bakery by `0.20` and leaves `3` lines in `price_log`. The second only changes `stock`: the trigger runs, but the `IF` lets nothing through. The third cuts `Espresso beans` from `9.90` to `9.50` and leaves the fourth line.",
+      "The final log shows the four changes with the old and new price. There are also `BEFORE` triggers, which can fix the data before it is saved (`SET NEW.price = …`), and triggers on `INSERT` and `DELETE`. Because the body contains `;`, it is defined between `DELIMITER //` and `DELIMITER ;`."
+    ],
+    "points": [
+      "`CREATE TRIGGER … AFTER|BEFORE INSERT|UPDATE|DELETE ON table FOR EACH ROW`.",
+      "`OLD` is the row before; `NEW`, the row after.",
+      "It fires on every affected row, whatever changed.",
+      "A `BEFORE` trigger can modify `NEW` before saving."
+    ],
+    "exercise": "Create a `BEFORE INSERT ON reviews` trigger that turns an empty `comment` (`''`) into `NULL`, and try it."
+  }
+}

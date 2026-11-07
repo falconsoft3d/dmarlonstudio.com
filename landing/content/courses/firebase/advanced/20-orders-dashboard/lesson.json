@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "panel-de-pedidos",
+    "title": "Proyecto: panel de pedidos",
+    "summary": "Un panel de pedidos con Firestore: cifras con consultas de agregación y la lista de pedidos por preparar, con filtro, orden y campos.",
+    "body": [
+      "Un panel tiene dos partes: **cifras** arriba y una **lista** debajo. Cada cifra es una consulta de agregación: `10` pedidos por 146.65 euros en total, `2` pedidos nuevos, 59.85 euros de pedidos ya enviados y `3` productos con menos de 10 unidades. Cada una cuesta una lectura, aunque la tienda tuviera mil pedidos.",
+      "La lista son los pedidos **por preparar**, nuevos o pagados, del más reciente al más antiguo: `in` en `status`, `order` por `ordered desc` y `select` con lo que se ve en la fila. Salen cinco, de `o10` (5 de junio, pagado) a `o03` (15 de marzo, pagado). En producción, `in` con un orden por otro campo necesita un índice compuesto (`status`, `ordered`).",
+      "En el SDK, cada cifra sería un `getCountFromServer` o un `getAggregateFromServer` con `sum`, lanzados en paralelo, y la lista un `onSnapshot`, que la mantiene al día **en tiempo real** cuando entra un pedido. Las agregaciones no se actualizan solas: si el panel debe moverse al segundo, guarde las cifras en un documento de estadísticas y actualícelo con cada pedido, como en la lección de contadores.",
+      "Este script resume el curso: agregaciones en lugar de descargar, filtros con la forma de los datos, orden con su índice y solo los campos necesarios. Ejecútelo en el estudio, revise cada cifra en su pestaña y exporte la lista con **CSV** si quiere compartirla."
+    ],
+    "points": [
+      "Cada cifra del panel es una consulta de agregación.",
+      "La lista combina `in`, `order` y `select`.",
+      "`in` con orden por otro campo pide un índice compuesto.",
+      "`onSnapshot` mantiene la lista en tiempo real.",
+      "Para cifras al segundo, un documento de estadísticas."
+    ],
+    "exercise": "Añada al panel el ticket medio de los pedidos enviados (`avg` de `total`) y cambie la lista para que muestre los cinco pedidos más caros que no están cancelados."
+  },
+  "en": {
+    "slug": "orders-dashboard",
+    "title": "Project: orders dashboard",
+    "summary": "An orders dashboard with Firestore: figures from aggregation queries and the list of orders to prepare, with filter, sort and chosen fields.",
+    "body": [
+      "A dashboard has two parts: **figures** at the top and a **list** below. Each figure is an aggregation query: `10` orders worth 146.65 euros in all, `2` new orders, 59.85 euros of orders already shipped and `3` products with fewer than 10 units. Each costs one read, even if the shop had a thousand orders.",
+      "The list is the orders **to prepare**, new or paid, newest first: `in` on `status`, `order` by `ordered desc` and `select` with what each row shows. Five come back, from `o10` (5 June, paid) to `o03` (15 March, paid). In production, `in` with a sort on another field needs a composite index (`status`, `ordered`).",
+      "In the SDK, each figure would be a `getCountFromServer` or a `getAggregateFromServer` with `sum`, fired in parallel, and the list an `onSnapshot`, which keeps it up to date **in real time** as orders come in. Aggregations do not update themselves: if the dashboard must move by the second, store the figures in a stats document and update it with every order, as in the counters lesson.",
+      "This script sums up the course: aggregations instead of downloads, filters shaped by the data, sorting backed by an index and only the fields you need. Run it in the studio, check each figure in its tab and export the list with **CSV** if you want to share it."
+    ],
+    "points": [
+      "Each dashboard figure is an aggregation query.",
+      "The list combines `in`, `order` and `select`.",
+      "`in` with a sort on another field needs a composite index.",
+      "`onSnapshot` keeps the list live.",
+      "For by-the-second figures, use a stats document."
+    ],
+    "exercise": "Add the average ticket of the shipped orders (`avg` of `total`) to the dashboard and change the list to show the five most expensive orders that are not cancelled."
+  }
+}

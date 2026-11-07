@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "ordenar",
+    "title": "Ordenar por uno o dos campos",
+    "summary": "Ordene los documentos de Firestore con «order»: de mayor a menor con desc y por dos campos, como orderBy encadenados en el SDK.",
+    "body": [
+      "`\"order\": \"price desc\"` ordena por precio de mayor a menor: empieza en **Espresso beans** (9.9) y termina en **Whole milk** (1.1). Sin `desc` el orden es ascendente. En el SDK es `orderBy('price', 'desc')`, y en la API REST un `orderBy` con `\"direction\": \"DESCENDING\"`.",
+      "Para ordenar por **dos campos**, sepárelos con comas: `\"category, price desc\"` agrupa por categoría (`cat1`, `cat2`…) y, dentro de cada una, va del más caro al más barato. En panadería, **Rye bread** (2.8), **Croissant** (1.5) y **Baguette** (1.2). Es `orderBy('category').orderBy('price', 'desc')`.",
+      "Un orden por un solo campo usa el índice automático de ese campo. Un orden por dos campos, o una igualdad con un orden en otro campo, necesita un **índice compuesto** en producción (aquí, `category` ascendente y `price` descendente). Si falta, Firestore responde con un error que incluye el enlace para crearlo.",
+      "Dos detalles más: los empates se deshacen por id, y **un orden deja fuera los documentos que no tienen ese campo**, porque no están en su índice. Con 12 productos, el resultado cabe entero en la rejilla; si quiere llevarlo a una hoja de cálculo, el botón **CSV** lo exporta."
+    ],
+    "points": [
+      "`\"order\": \"price desc\"` ordena de mayor a menor.",
+      "Varios campos van separados por comas.",
+      "Dos campos de orden necesitan un índice compuesto en producción.",
+      "Los empates se deshacen por id.",
+      "Ordenar por un campo excluye a quien no lo tiene."
+    ],
+    "exercise": "Ordene los clientes por `city` y, dentro de cada ciudad, por `name`, mostrando solo esos dos campos."
+  },
+  "en": {
+    "slug": "order-by",
+    "title": "Sorting by one or two fields",
+    "summary": "Sort Firestore documents with \"order\": descending with desc and by two fields, just like chained orderBy calls in the SDK.",
+    "body": [
+      "`\"order\": \"price desc\"` sorts by price from highest to lowest: it starts with **Espresso beans** (9.9) and ends with **Whole milk** (1.1). Without `desc` the order is ascending. In the SDK this is `orderBy('price', 'desc')`, and in the REST API an `orderBy` with `\"direction\": \"DESCENDING\"`.",
+      "To sort by **two fields**, separate them with commas: `\"category, price desc\"` groups by category (`cat1`, `cat2`…) and, inside each one, goes from most to least expensive. In the bakery, **Rye bread** (2.8), **Croissant** (1.5) and **Baguette** (1.2). That is `orderBy('category').orderBy('price', 'desc')`.",
+      "Sorting by one field uses that field's automatic index. Sorting by two fields, or an equality plus a sort on another field, needs a **composite index** in production (here, `category` ascending and `price` descending). If it is missing, Firestore replies with an error that includes the link to create it.",
+      "Two more details: ties are broken by id, and **sorting by a field leaves out documents that do not have it**, because they are not in its index. With 12 products the whole result fits in the grid; if you want it in a spreadsheet, the **CSV** button exports it."
+    ],
+    "points": [
+      "`\"order\": \"price desc\"` sorts from highest to lowest.",
+      "Several fields are separated by commas.",
+      "Two sort fields need a composite index in production.",
+      "Ties are broken by id.",
+      "Sorting by a field drops documents without it."
+    ],
+    "exercise": "Sort the customers by `city` and, within each city, by `name`, showing only those two fields."
+  }
+}

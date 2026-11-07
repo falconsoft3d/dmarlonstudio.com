@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "buscar-en-listas",
+    "title": "Buscar dentro de una lista",
+    "summary": "Busque en campos de lista de Firestore con contains (array-contains) y containsAny: productos con una etiqueta o con alguna de varias.",
+    "body": [
+      "Cada producto tiene `tags`, una lista de etiquetas. `{\"tags\": {\"contains\": \"sweet\"}}` encuentra los documentos cuya lista **contiene** `sweet`: **Croissant**, **Greek yogurt** y **Strawberries**. En el SDK es `where('tags', 'array-contains', 'sweet')`, y no importa en qué posición esté la etiqueta.",
+      "`containsAny` busca **al menos uno** de varios valores: `[\"tea\", \"coffee\", \"juice\"]` devuelve las tres bebidas, cada una por su etiqueta. Es `array-contains-any`, con hasta 30 valores, y un documento sale una sola vez aunque tenga varias de las etiquetas.",
+      "Firestore indexa cada elemento de una lista por separado, por eso estas búsquedas son rápidas. Pero solo admite **una cláusula `array-contains`** por consulta: «que tenga `bread` y también `sweet`» no se puede pedir con dos `contains`.",
+      "Si necesita eso, guarde las etiquetas también como un **mapa de booleanos**, `{\"bread\": true, \"sweet\": true}`, y filtre con dos igualdades sobre `tagMap.bread` y `tagMap.sweet`. Es un ejemplo de algo muy de Firestore: dar a los datos la forma de las consultas que va a hacer."
+    ],
+    "points": [
+      "`contains` (`array-contains`) busca un valor dentro de una lista.",
+      "`containsAny` busca cualquiera de hasta 30 valores.",
+      "Cada elemento de una lista tiene su entrada en el índice.",
+      "Solo cabe una cláusula `array-contains` por consulta.",
+      "Para «tiene A y B», use un mapa de booleanos."
+    ],
+    "exercise": "Busque los productos con la etiqueta `fresh` y muestre `name`, `price` y `tags`. Después pruebe `containsAny` con `fresh` y `bread`."
+  },
+  "en": {
+    "slug": "array-contains",
+    "title": "Searching inside an array",
+    "summary": "Search Firestore array fields with contains (array-contains) and containsAny: products with one tag or with any of several tags.",
+    "body": [
+      "Every product has `tags`, an array of labels. `{\"tags\": {\"contains\": \"sweet\"}}` finds the documents whose array **contains** `sweet`: **Croissant**, **Greek yogurt** and **Strawberries**. In the SDK it is `where('tags', 'array-contains', 'sweet')`, and the position of the tag in the array does not matter.",
+      "`containsAny` looks for **at least one** of several values: `[\"tea\", \"coffee\", \"juice\"]` returns the three drinks, each through its own tag. This is `array-contains-any`, with up to 30 values, and a document appears only once even if it has several of the tags.",
+      "Firestore indexes every array element separately, which is why these searches are fast. But it only allows **one `array-contains` clause** per query: has `bread` and also `sweet` cannot be written as two `contains`.",
+      "If you need that, also store the tags as a **map of booleans**, `{\"bread\": true, \"sweet\": true}`, and filter with two equalities on `tagMap.bread` and `tagMap.sweet`. It is a very Firestore idea: shape your data after the queries you are going to run."
+    ],
+    "points": [
+      "`contains` (`array-contains`) finds a value inside an array.",
+      "`containsAny` matches any of up to 30 values.",
+      "Each array element gets its own index entry.",
+      "Only one `array-contains` clause fits in a query.",
+      "For has A and B, use a map of booleans."
+    ],
+    "exercise": "Find the products tagged `fresh` and show `name`, `price` and `tags`. Then try `containsAny` with `fresh` and `bread`."
+  }
+}

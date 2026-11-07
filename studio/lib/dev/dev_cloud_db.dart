@@ -330,6 +330,28 @@ class FirebaseDb extends DevDb {
     _ => {'stringValue': '$v'},
   };
 
+  /// «hours.close»: el subcampo dentro de su mapa ({"hours": {"close": …}}),
+  /// para que la máscara «hours.close» cambie solo ese subcampo.
+  static Map<String, Object?> nest(Map<String, Object?> m) {
+    final out = <String, Object?>{};
+    for (final MapEntry(:key, :value) in m.entries) {
+      final parts = key.split('.');
+      var node = out;
+      for (final part in parts.take(parts.length - 1)) {
+        final next = node[part];
+        if (next is Map<String, Object?>) {
+          node = next;
+        } else {
+          final child = <String, Object?>{};
+          node[part] = child;
+          node = child;
+        }
+      }
+      node[parts.last] = value;
+    }
+    return out;
+  }
+
   static Map<String, Object?> fields(Map<String, Object?> m) => {
     for (final e in m.entries) e.key: encode(e.value),
   };
@@ -446,7 +468,7 @@ class FirebaseDb extends DevDb {
         final j = await _call(
           'PATCH',
           path,
-          body: {'fields': fields(m)},
+          body: {'fields': fields(nest(m))},
           q: {
             'updateMask.fieldPaths': m.keys.toList(),
             'currentDocument.exists': 'true',
@@ -533,6 +555,16 @@ class FirebaseDb extends DevDb {
     for (final MapEntry(:key, :value) in where.entries) {
       final conds = value is Map ? value : {'eq': value};
       for (final MapEntry(key: op, value: v) in conds.entries) {
+        // null: IS_NULL / IS_NOT_NULL (un campo que falta no es null).
+        if (v == null && (op == 'eq' || op == 'neq')) {
+          filters.add({
+            'unaryFilter': {
+              'field': {'fieldPath': '$key'},
+              'op': op == 'eq' ? 'IS_NULL' : 'IS_NOT_NULL',
+            },
+          });
+          continue;
+        }
         final fop = _ops['$op'];
         if (fop == null) throw UserError(tr('Operador no válido: {0}', [op]));
         filters.add({

@@ -1,0 +1,12 @@
+{"collection": "orders/o01/notes", "insert": [
+  {"_id": "n1", "text": "Call before delivery", "by": "e5"},
+  {"_id": "n2", "text": "Customer asked for a bag", "by": "e3"}
+]}
+{"collection": "orders/o03/notes", "insert": {"_id": "n1", "text": "Paid by card", "by": "e5"}}
+{"collection": "orders/o08/notes", "insert": {"_id": "n1", "text": "Fragile: glass jar", "by": "e4"}}
+
+// group: every collection called "notes", under any order
+{"collection": "notes", "group": true, "count": true}
+
+// The notes written by e5, whichever order they belong to
+{"collection": "notes", "group": true, "where": {"by": "e5"}, "order": "text", "select": "by,text"}

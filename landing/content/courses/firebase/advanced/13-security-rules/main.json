@@ -1,0 +1,11 @@
+// Each user's cart lives under their own document: users/{uid}/cart
+{"collection": "users/u1/cart", "insert": [
+  {"_id": "p01", "qty": 2},
+  {"_id": "p12", "qty": 1}
+]}
+{"collection": "users/u2/cart", "insert": {"_id": "p04", "qty": 1}}
+
+// With rules, u1 may read only users/u1/...; here (emulator, owner) all is open
+{"collection": "cart", "group": true, "count": true}
+
+{"collection": "users/u1/cart", "select": "qty"}

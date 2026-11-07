@@ -1,0 +1,10 @@
+// ISO dates as strings sort like dates: "2024-04-02" < "2024-05-01"
+{"collection": "orders",
+ "where": {"ordered": {"gte": "2024-04-01", "lt": "2024-05-01"}}, "select": "ordered,total"}
+
+// Sales in May
+{"collection": "orders",
+ "where": {"ordered": {"gte": "2024-05-01", "lt": "2024-06-01"}}, "count": true, "sum": "total"}
+
+// The latest five orders
+{"collection": "orders", "order": "ordered desc", "limit": 5, "select": "customer,ordered,status,total"}

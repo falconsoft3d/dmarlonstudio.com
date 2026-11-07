@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "actualizar-con-where",
+    "title": "Actualizar varios con where",
+    "summary": "Actualice en Firestore todos los documentos que cumplen un filtro con «update» y «where»: primero la consulta y luego una escritura por documento.",
+    "body": [
+      "En vez de un `id`, `update` puede llevar un `where`: `{\"where\": {\"stock\": 0}, \"set\": {\"active\": false}}` desactiva todos los productos agotados. Son dos, **Orange juice** y **Bananas 1 kg**, y la pestaña dice «2 filas afectadas». Las bananas ya estaban inactivas, pero se escriben igual.",
+      "La segunda pone `discount: 10` a los tres productos de panadería (`cat1`), un campo nuevo que solo ellos tendrán.",
+      "Firestore **no tiene un UPDATE … WHERE**. El estudio hace lo que haría usted en una app: primero ejecuta la consulta para saber qué documentos cumplen el filtro y luego envía un `PATCH` por cada uno. En el SDK lo normal es recorrer el resultado y meter las escrituras en un **lote** (`db.batch()`, hasta 500 operaciones), que se aplica entero o nada.",
+      "La consulta final enseña panadería y bebidas: `discount` 10 en los tres panes, `active` a `False` en el zumo agotado y la celda vacía donde el campo no existe. Recuerde que cada documento actualizado es una escritura: cambiar mil documentos cuesta mil."
+    ],
+    "points": [
+      "`update` con `where` cambia todos los documentos que lo cumplen.",
+      "Firestore no tiene UPDATE … WHERE: consulta y una escritura por documento.",
+      "En el SDK, use un lote (`batch`) de hasta 500 escrituras.",
+      "Cada documento actualizado cuenta como una escritura.",
+      "La pestaña dice cuántos documentos cambiaron."
+    ],
+    "exercise": "Marque con `premium: true` todos los productos de más de 5 euros y compruébelo con una consulta que muestre `name`, `price` y `premium`."
+  },
+  "en": {
+    "slug": "update-with-where",
+    "title": "Updating many with where",
+    "summary": "Update every Firestore document that matches a filter with \"update\" and \"where\": first the query, then one write per document.",
+    "body": [
+      "Instead of an `id`, `update` can take a `where`: `{\"where\": {\"stock\": 0}, \"set\": {\"active\": false}}` deactivates every sold-out product. There are two, **Orange juice** and **Bananas 1 kg**, and the tab says 2 rows affected. The bananas were already inactive, but they are written all the same.",
+      "The second one gives `discount: 10` to the three bakery products (`cat1`), a new field that only they will have.",
+      "Firestore **has no UPDATE … WHERE**. The studio does what you would do in an app: it first runs the query to find which documents match, then sends one `PATCH` per document. In the SDK you would usually loop over the result and put the writes in a **batch** (`db.batch()`, up to 500 operations), which is applied all or nothing.",
+      "The final query shows the bakery and drinks: `discount` 10 on the three breads, `active` set to `False` on the sold-out juice, and an empty cell wherever the field does not exist. Remember that every updated document is one write: changing a thousand documents costs a thousand."
+    ],
+    "points": [
+      "`update` with `where` changes every matching document.",
+      "Firestore has no UPDATE … WHERE: a query, then one write each.",
+      "In the SDK, use a `batch` of up to 500 writes.",
+      "Each updated document counts as one write.",
+      "The tab tells you how many documents changed."
+    ],
+    "exercise": "Mark every product over 5 euros with `premium: true` and check it with a query showing `name`, `price` and `premium`."
+  }
+}

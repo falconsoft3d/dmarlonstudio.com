@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "documentos-y-colecciones",
+    "title": "Documentos y colecciones",
+    "summary": "Qué son los documentos y las colecciones de Cloud Firestore y cómo se lee una colección entera con una consulta JSON en DMarlon Studio.",
+    "body": [
+      "Cloud Firestore no tiene tablas ni filas: guarda **documentos** dentro de **colecciones**. Un documento es un conjunto de campos con nombre (texto, números, booleanos, listas, mapas…) y un **id** que lo identifica dentro de su colección. La tienda del curso tiene seis colecciones: `categories`, `products`, `customers`, `orders`, `employees` y `reviews`; las verá en la lista de la izquierda del módulo Bases de datos.",
+      "Cada consulta del script es un objeto JSON. `{\"collection\": \"categories\"}` pide todos los documentos de `categories`: salen cuatro, de `cat1` (`Bakery`) a `cat4` (`Fruit`). La columna `_id` no es un campo del documento, es su id. Es lo mismo que `db.collection('categories').get()` en el SDK de JavaScript o una petición `runQuery` a la API REST con `\"from\": [{\"collectionId\": \"categories\"}]`.",
+      "La segunda consulta lee `customers`: ocho documentos con `name`, `email`, `city` y `joined`. Fíjese en `c6`, **Pedro Gómez**: su celda de `email` está vacía (`NULL`) porque ese documento **no tiene** el campo. En Firestore no hay esquema: cada documento de una colección puede tener campos distintos, y la rejilla junta todos los que aparecen.",
+      "Sin `order`, Firestore devuelve los documentos **ordenados por id** (`c1`, `c2`…), por eso el resultado es siempre el mismo. Y si no indica `limit`, el estudio pide como mucho 100 documentos, para no descargar una colección enorme por descuido. Al pulsar **Ejecutar** (⌘↵) cada consulta deja su propia pestaña de resultados."
+    ],
+    "points": [
+      "Firestore guarda documentos (campos con nombre) dentro de colecciones.",
+      "`_id` es el id del documento, no uno de sus campos.",
+      "Los documentos de una colección no tienen por qué tener los mismos campos.",
+      "Sin `order`, los documentos salen ordenados por id.",
+      "El estudio pone `limit` 100 si no indica otro."
+    ],
+    "exercise": "Añada una consulta que lea la colección `employees` y cuente cuántos empleados hay y qué empleado no tiene el campo `manager`."
+  },
+  "en": {
+    "slug": "documents-and-collections",
+    "title": "Documents and collections",
+    "summary": "What Cloud Firestore documents and collections are, and how to read a whole collection with a JSON query in DMarlon Studio.",
+    "body": [
+      "Cloud Firestore has no tables or rows: it stores **documents** inside **collections**. A document is a set of named fields (strings, numbers, booleans, arrays, maps…) plus an **id** that identifies it inside its collection. The course shop has six collections: `categories`, `products`, `customers`, `orders`, `employees` and `reviews`; you will see them in the list on the left of the Databases module.",
+      "Each query in the script is a JSON object. `{\"collection\": \"categories\"}` asks for every document in `categories`: four come back, from `cat1` (`Bakery`) to `cat4` (`Fruit`). The `_id` column is not a field of the document, it is its id. This is the same as `db.collection('categories').get()` in the JavaScript SDK, or a `runQuery` request to the REST API with `\"from\": [{\"collectionId\": \"categories\"}]`.",
+      "The second query reads `customers`: eight documents with `name`, `email`, `city` and `joined`. Look at `c6`, **Pedro Gómez**: his `email` cell is empty (`NULL`) because that document **does not have** the field. Firestore has no schema: each document in a collection can have different fields, and the grid simply gathers every field it finds.",
+      "Without `order`, Firestore returns documents **sorted by id** (`c1`, `c2`…), which is why the result is always the same. And if you do not give a `limit`, the studio asks for at most 100 documents, so you never download a huge collection by accident. When you press **Run** (⌘↵), every query gets its own results tab."
+    ],
+    "points": [
+      "Firestore stores documents (named fields) inside collections.",
+      "`_id` is the document id, not one of its fields.",
+      "Documents in one collection need not share the same fields.",
+      "Without `order`, documents come back sorted by id.",
+      "The studio uses a `limit` of 100 unless you set another."
+    ],
+    "exercise": "Add a query that reads the `employees` collection and find out how many employees there are and which one has no `manager` field."
+  }
+}

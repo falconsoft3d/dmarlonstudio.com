@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "insertar-con-su-id",
+    "title": "Insertar con su propio id",
+    "summary": "Cree documentos en Firestore con «insert» eligiendo el id con «_id»: uno o varios a la vez, y qué pasa si ese id ya existe.",
+    "body": [
+      "`{\"collection\": \"categories\", \"insert\": {\"_id\": \"cat5\", \"name\": \"Frozen\"}}` crea el documento `categories/cat5`. `_id` no se guarda como campo: es el id del documento nuevo. El estudio llama a `createDocument` de la API REST (`POST .../categories?documentId=cat5`) y la pestaña muestra el documento creado y «1 fila afectada».",
+      "`insert` también acepta una **lista**: la segunda consulta crea dos productos de la categoría nueva, **Ice cream** (`p13`) y **Frozen peas** (`p14`), cada uno con todos los campos que tienen los demás productos, `tags` incluidas. Firestore no lo exige, pero así funcionarán con las mismas consultas.",
+      "La última consulta comprueba el resultado: los dos productos de `cat5`, con su precio y sus existencias. Es la que se ve en la imagen.",
+      "Si el id ya existe, `createDocument` **falla** (error 409, `already exists`) y no toca nada. Cuidado con el SDK: `doc('cat5').set({...})` no falla, **sobrescribe** el documento entero. Para crear sin pisar use `create()` en el SDK de servidor o una transacción. Y en colecciones con muchas escrituras por segundo, Firestore recomienda ids aleatorios en vez de correlativos."
+    ],
+    "points": [
+      "`\"_id\"` elige el id del documento; no se guarda como campo.",
+      "`insert` admite un documento o una lista.",
+      "Crear con un id que ya existe da error 409.",
+      "`set()` del SDK sobrescribe sin avisar.",
+      "Con mucho tráfico, mejor ids aleatorios que correlativos."
+    ],
+    "exercise": "Inserte la categoría `cat6`, `Snacks`, con un producto `p15`, y después intente insertar otra vez `cat6`: lea el error."
+  },
+  "en": {
+    "slug": "insert-with-your-own-id",
+    "title": "Inserting with your own id",
+    "summary": "Create Firestore documents with \"insert\", picking the id with \"_id\": one or several at once, and what happens if that id exists.",
+    "body": [
+      "`{\"collection\": \"categories\", \"insert\": {\"_id\": \"cat5\", \"name\": \"Frozen\"}}` creates the document `categories/cat5`. `_id` is not stored as a field: it is the new document's id. The studio calls the REST API's `createDocument` (`POST .../categories?documentId=cat5`), and the tab shows the created document and 1 row affected.",
+      "`insert` also accepts a **list**: the second query creates two products in the new category, **Ice cream** (`p13`) and **Frozen peas** (`p14`), each with every field the other products have, `tags` included. Firestore does not require it, but this way they work with the same queries.",
+      "The last query checks the result: the two `cat5` products with their price and stock. It is the one in the picture.",
+      "If the id already exists, `createDocument` **fails** (error 409, `already exists`) and changes nothing. Watch out in the SDK: `doc('cat5').set({...})` does not fail, it **overwrites** the whole document. To create without clobbering, use `create()` in the server SDK or a transaction. And for collections with many writes per second, Firestore recommends random ids rather than sequential ones."
+    ],
+    "points": [
+      "`\"_id\"` picks the document id; it is not stored as a field.",
+      "`insert` takes one document or a list.",
+      "Creating with an existing id gives a 409 error.",
+      "The SDK's `set()` overwrites without warning.",
+      "Under heavy traffic, prefer random ids to sequential ones."
+    ],
+    "exercise": "Insert category `cat6`, `Snacks`, with a product `p15`, then try to insert `cat6` again and read the error."
+  }
+}

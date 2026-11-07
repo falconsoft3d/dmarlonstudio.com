@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "datos-incrustados",
+    "title": "Modelar: datos incrustados",
+    "summary": "Modele datos en Firestore incrustando listas de mapas dentro de un documento: cuándo conviene, qué cuesta y cómo leer solo la cabecera.",
+    "body": [
+      "En SQL, las líneas de un pedido irían en otra tabla (`order_items`) y se unirían con un JOIN. Firestore **no tiene joins**, así que la pregunta de diseño es otra: ¿qué va a leer la pantalla de una vez? Un pedido se enseña siempre con sus líneas, y por eso cada pedido de la tienda lleva sus líneas **dentro**, en `items`, una lista de mapas.",
+      "La primera consulta lee `o07` por su id y trae todo en una sola lectura: el cliente `c2`, el estado `new`, el total 9.0 y su única línea, seis croissants a 1.5. Las líneas guardan también el **precio del momento**: si mañana sube el croissant, el pedido no cambia. Esa copia es parte del modelo, no un descuido.",
+      "Incrustar tiene un precio: los `items` viajan con cada pedido que se lee. La segunda consulta pide los tres pedidos de Ana (`c1`) con sus líneas; la tercera, para un listado, elige solo `ordered`, `status` y `total`. Con `select` el servidor recorta los datos que envía, aunque la lectura se cobra igual.",
+      "La regla práctica: incruste lo que es **pequeño, acotado y se lee junto** (las líneas de un pedido, una dirección). Un documento admite como mucho **1 MiB**, y escribirlo reescribe el documento entero. Lo que crece sin límite, como los mensajes de un chat o las notas de un pedido, va mejor en una subcolección."
+    ],
+    "points": [
+      "Sin joins, se modela según lo que lee cada pantalla.",
+      "Incrustar trae el documento y sus partes en una lectura.",
+      "Copiar el precio en la línea guarda la historia del pedido.",
+      "Un documento tiene como mucho 1 MiB.",
+      "Lo pequeño y acotado se incrusta; lo que crece, en subcolección."
+    ],
+    "exercise": "Escriba una consulta para el listado de pedidos de Luis (`c2`) con `ordered`, `status` y `total`, ordenada del más reciente al más antiguo."
+  },
+  "en": {
+    "slug": "embedded-data",
+    "title": "Modelling: embedded data",
+    "summary": "Model Firestore data by embedding arrays of maps inside a document: when it pays off, what it costs and how to read just the header.",
+    "body": [
+      "In SQL, an order's lines would live in another table (`order_items`) and be combined with a JOIN. Firestore **has no joins**, so the design question changes: what does the screen read in one go? An order is always shown with its lines, which is why every order in the shop carries its lines **inside**, in `items`, an array of maps.",
+      "The first query reads `o07` by id and gets everything in a single read: customer `c2`, status `new`, total 9.0 and its only line, six croissants at 1.5. The lines also store the **price at the time**: if croissants go up tomorrow, the order stays the same. That copy is part of the model, not an oversight.",
+      "Embedding has a cost: the `items` travel with every order you read. The second query fetches Ana's three orders (`c1`) with their lines; the third, for a list screen, selects only `ordered`, `status` and `total`. With `select` the server trims what it sends, although the read is billed the same.",
+      "The rule of thumb: embed what is **small, bounded and read together** (an order's lines, an address). A document can hold at most **1 MiB**, and writing it rewrites the whole document. Anything that grows without limit, such as chat messages or notes on an order, fits better in a subcollection."
+    ],
+    "points": [
+      "Without joins, you model after what each screen reads.",
+      "Embedding brings a document and its parts in one read.",
+      "Copying the price into the line keeps the order's history.",
+      "A document holds at most 1 MiB.",
+      "Embed what is small and bounded; put what grows in a subcollection."
+    ],
+    "exercise": "Write a query for Luis's (`c2`) order list with `ordered`, `status` and `total`, sorted from newest to oldest."
+  }
+}

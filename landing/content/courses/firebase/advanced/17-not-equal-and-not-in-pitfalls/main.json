@@ -1,0 +1,11 @@
+// 8 customers in all
+{"collection": "customers", "count": true}
+
+// "Not from Madrid": 6 customers
+{"collection": "customers", "where": {"city": {"neq": "Madrid"}}, "count": true}
+
+// "Email is not Ana's": 6 too, because c6 has no email field
+{"collection": "customers", "where": {"email": {"neq": "ana@example.com"}}, "count": true}
+
+// nin also skips documents without the field, and sorts by it
+{"collection": "employees", "where": {"manager": {"nin": ["e1"]}}, "select": "name,manager"}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "mantener-las-copias",
+    "title": "Mantener las copias al día",
+    "summary": "Cuando cambia un dato desnormalizado en Firestore, actualice el original y todas sus copias con «update» y «where», en un lote.",
+    "body": [
+      "La primera consulta deja los pedidos de Ana con su nombre copiado, como en la lección anterior. Ahora Ana cambia de nombre: **Ana García Ruiz**. El dato vive en dos sitios, el cliente `c1` y cada uno de sus pedidos, y hay que cambiar los dos.",
+      "Primero el original: `update` con `\"id\": \"c1\"` cambia `name` del cliente. Después las copias: `update` con `\"where\": {\"customer\": \"c1\"}` busca sus pedidos y reescribe `customerName` en los tres. Es un **fan-out**: una escritura lógica que se convierte en una por cada copia.",
+      "La consulta final comprueba que `o01`, `o03` y `o09` dicen ya **Ana García Ruiz**. En una app, las dos actualizaciones irían en un mismo **lote** (`db.batch()`) para que se apliquen juntas o ninguna; otra opción habitual es una Cloud Function que se dispare cuando cambia `customers/{id}` y actualice las copias.",
+      "No todas las copias deben seguir al original. En una factura, el nombre del cliente **del día de la compra** es justo lo que se quiere guardar. Antes de desnormalizar, decida para cada copia si es una foto del momento o un reflejo que hay que mantener."
+    ],
+    "points": [
+      "Cambiar un dato copiado es cambiar el original y cada copia.",
+      "`update` con `where` actualiza todas las copias.",
+      "En una app, use un lote para que todo se aplique junto.",
+      "Una Cloud Function puede mantener las copias.",
+      "Algunas copias son fotos del momento y no se tocan."
+    ],
+    "exercise": "Copie el nombre de Luis (`c2`) en sus pedidos, cámbielo después a `Luis Pérez Gil` en el cliente y en las copias, y compruébelo con una consulta."
+  },
+  "en": {
+    "slug": "keeping-copies-in-sync",
+    "title": "Keeping copies in sync",
+    "summary": "When a denormalised value changes in Firestore, update the original and every copy with \"update\" and \"where\", ideally in one batch.",
+    "body": [
+      "The first query gives Ana's orders her copied name, as in the previous lesson. Now Ana changes her name to **Ana García Ruiz**. The value lives in two places, customer `c1` and each of her orders, and both have to change.",
+      "First the original: `update` with `\"id\": \"c1\"` changes the customer's `name`. Then the copies: `update` with `\"where\": {\"customer\": \"c1\"}` finds her orders and rewrites `customerName` in all three. This is a **fan-out**: one logical write that turns into one write per copy.",
+      "The final query confirms that `o01`, `o03` and `o09` now say **Ana García Ruiz**. In an app, both updates would go in the same **batch** (`db.batch()`) so they apply together or not at all; another common option is a Cloud Function that fires when `customers/{id}` changes and updates the copies.",
+      "Not every copy should follow the original. On an invoice, the customer's name **on the day of purchase** is exactly what you want to keep. Before denormalising, decide for each copy whether it is a snapshot in time or a mirror that must be maintained."
+    ],
+    "points": [
+      "Changing a copied value means changing the original and every copy.",
+      "`update` with `where` updates all the copies.",
+      "In an app, use a batch so everything applies together.",
+      "A Cloud Function can keep the copies in sync.",
+      "Some copies are snapshots and must not change."
+    ],
+    "exercise": "Copy Luis's (`c2`) name into his orders, then change it to `Luis Pérez Gil` in the customer and in the copies, and check it with a query."
+  }
+}

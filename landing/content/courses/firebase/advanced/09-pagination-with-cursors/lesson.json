@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "paginar-con-cursores",
+    "title": "Paginar con cursores",
+    "summary": "Pagine en Firestore sin «offset»: empiece cada página después del último documento visto, como hace startAfter, y ahorre lecturas.",
+    "body": [
+      "La primera consulta trae la página 3 con `offset`: `\"offset\": 8, \"limit\": 4` y salen de **Orange juice** a **Whole milk**. Funciona, pero Firestore lee los 8 documentos saltados y los **cobra**: 12 lecturas para enseñar 4. Cuanto más avanza el usuario, más cara es cada página.",
+      "La alternativa es un **cursor**: recordar dónde acabó la página anterior y empezar justo después. La segunda consulta es la página 1, de **Apples 1 kg** a **Croissant**. El último nombre visto es `Croissant`.",
+      "La última pide los nombres mayores que `Croissant` con el mismo orden y límite, y trae la página 2: de **Espresso beans** a **Manchego cheese**. Solo lee 4 documentos, sea la página que sea. En el SDK es `orderBy('name').startAfter(lastDoc).limit(4)`, y en la API REST un `startAt` con los valores del último documento y `\"before\": false`.",
+      "Dos precauciones. Si el campo de orden puede repetirse, ordene también por id y use los dos valores en el cursor, o perderá documentos empatados. Y un cursor **no salta**: no hay «ir a la página 7». A cambio, si se insertan documentos en páginas ya vistas, la siguiente no repite ni se salta ninguno, cosa que `offset` no garantiza."
+    ],
+    "points": [
+      "`offset` lee y cobra los documentos que salta.",
+      "Un cursor empieza después del último documento visto.",
+      "Con cursor, cada página cuesta lo mismo.",
+      "Es `startAfter` en el SDK y `startAt` en la API REST.",
+      "Si el orden tiene empates, añada el id al cursor."
+    ],
+    "exercise": "Escriba la página 3 con el cursor: los nombres mayores que el último de la página 2, con el mismo orden y límite. ¿Coincide con la consulta de `offset`?"
+  },
+  "en": {
+    "slug": "pagination-with-cursors",
+    "title": "Paginating with cursors",
+    "summary": "Paginate in Firestore without \"offset\": start each page right after the last document seen, the way startAfter does, and save reads.",
+    "body": [
+      "The first query fetches page 3 with `offset`: `\"offset\": 8, \"limit\": 4`, and out come **Orange juice** to **Whole milk**. It works, but Firestore reads the 8 skipped documents and **bills** them: 12 reads to show 4. The further the user goes, the more each page costs.",
+      "The alternative is a **cursor**: remember where the previous page ended and start right after it. The second query is page 1, from **Apples 1 kg** to **Croissant**. The last name seen is `Croissant`.",
+      "The last one asks for names greater than `Croissant` with the same order and limit, and brings page 2: **Espresso beans** to **Manchego cheese**. It reads only 4 documents, whatever the page. In the SDK it is `orderBy('name').startAfter(lastDoc).limit(4)`, and in the REST API a `startAt` with the last document's values and `\"before\": false`.",
+      "Two precautions. If the sort field can repeat, also sort by id and use both values in the cursor, or you will lose tied documents. And a cursor **cannot jump**: there is no go to page 7. In exchange, if documents are inserted into pages already seen, the next page neither repeats nor skips any, which `offset` does not guarantee."
+    ],
+    "points": [
+      "`offset` reads and bills every document it skips.",
+      "A cursor starts after the last document seen.",
+      "With a cursor, every page costs the same.",
+      "It is `startAfter` in the SDK and `startAt` in the REST API.",
+      "If the sort has ties, add the id to the cursor."
+    ],
+    "exercise": "Write page 3 with the cursor: names greater than the last one on page 2, same order and limit. Does it match the `offset` query?"
+  }
+}

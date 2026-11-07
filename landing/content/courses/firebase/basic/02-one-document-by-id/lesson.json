@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "un-documento-por-su-id",
+    "title": "Un documento por su id",
+    "summary": "Lea un único documento de Firestore por su id con «id» en una consulta JSON: la lectura más rápida y barata, sin filtros.",
+    "body": [
+      "Cuando conoce el id, no hace falta buscar: `{\"collection\": \"products\", \"id\": \"p04\"}` va directo al documento `products/p04`, **Espresso beans**, a 9.9 euros. En la API REST es un simple `GET .../documents/products/p04`, y en el SDK de JavaScript `db.collection('products').doc('p04').get()`. Cada documento tiene una **ruta** única: colección, barra, id.",
+      "La segunda consulta lee el pedido `o07`. Su campo `items` es una **lista de mapas**, `[{\"product\":\"p02\",\"qty\":6,\"price\":1.5}]`: el pedido lleva dentro sus líneas. La rejilla enseña los valores anidados como JSON.",
+      "La última lee el cliente `c6` y solo salen cuatro columnas: `_id`, `name`, `city` y `joined`. Un documento devuelve **los campos que tiene**, ni uno más; como `c6` no guarda `email`, esa columna ni aparece.",
+      "Leer por id cuesta una lectura y no necesita índices. Si el id no existe, el estudio muestra un error 404 (`not found`); en el SDK, en cambio, recibe un documento con `exists` a `false`. Por eso conviene que los ids tengan sentido o se guarden en otros documentos, como `customer: \"c2\"` en el pedido."
+    ],
+    "points": [
+      "`\"id\": \"p04\"` lee un documento sin consulta: `GET` a su ruta.",
+      "La ruta de un documento es `colección/id`.",
+      "Un documento devuelve solo los campos que tiene.",
+      "Las listas y los mapas salen en la rejilla como JSON.",
+      "Leer por id es lo más rápido y cuesta una lectura."
+    ],
+    "exercise": "Lea el pedido `o06` por su id y, con el valor de su campo `customer`, añada otra consulta que lea a ese cliente."
+  },
+  "en": {
+    "slug": "one-document-by-id",
+    "title": "One document by id",
+    "summary": "Read a single Firestore document by its id with \"id\" in a JSON query: the fastest, cheapest read, with no filters at all.",
+    "body": [
+      "When you know the id there is nothing to search for: `{\"collection\": \"products\", \"id\": \"p04\"}` goes straight to the document `products/p04`, **Espresso beans**, at 9.9 euros. In the REST API this is a plain `GET .../documents/products/p04`, and in the JavaScript SDK `db.collection('products').doc('p04').get()`. Every document has a unique **path**: collection, slash, id.",
+      "The second query reads order `o07`. Its `items` field is an **array of maps**, `[{\"product\":\"p02\",\"qty\":6,\"price\":1.5}]`: the order carries its own lines. The grid shows nested values as JSON.",
+      "The last one reads customer `c6`, and only four columns appear: `_id`, `name`, `city` and `joined`. A document returns **the fields it has** and nothing else; since `c6` stores no `email`, that column does not even show up.",
+      "Reading by id costs one read and needs no index. If the id does not exist, the studio shows a 404 error (`not found`); the SDK instead gives you a snapshot whose `exists` is `false`. That is why ids should be meaningful or stored in other documents, like `customer: \"c2\"` in the order."
+    ],
+    "points": [
+      "`\"id\": \"p04\"` reads a document without a query: a `GET` on its path.",
+      "A document path is `collection/id`.",
+      "A document returns only the fields it has.",
+      "Arrays and maps appear in the grid as JSON.",
+      "Reading by id is the fastest option and costs one read."
+    ],
+    "exercise": "Read order `o06` by its id and, using the value of its `customer` field, add another query that reads that customer."
+  }
+}

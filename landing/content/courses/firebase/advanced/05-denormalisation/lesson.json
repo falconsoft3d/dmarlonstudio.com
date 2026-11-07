@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "desnormalizar",
+    "title": "Desnormalizar: copiar datos",
+    "summary": "Copie en Firestore el nombre del cliente dentro de sus pedidos para listar pedidos con nombres en una sola consulta, sin joins.",
+    "body": [
+      "Un listado de pedidos quiere enseñar el **nombre** del cliente, pero el pedido solo guarda su id (`customer: \"c1\"`). Sin joins, habría que leer cada cliente aparte. La alternativa de Firestore es **desnormalizar**: copiar en el pedido el dato que se va a enseñar con él.",
+      "Las tres actualizaciones con `where` copian `customerName` en los pedidos de `c1` (tres), `c2` (dos) y `c3` (uno). La pestaña de cada una dice cuántos documentos cambiaron. En una app, el nombre se copiaría al crear el pedido, que es cuando la app ya tiene al cliente a mano.",
+      "La consulta final lista los seis pedidos de esos tres clientes, ordenados por fecha, con `customerName`, `ordered` y `total`: del 1 de marzo (`o01`, de **Ana García**) al 2 de junio (`o09`, también de Ana). Una sola consulta y ninguna lectura extra. Como combina `in` con un orden por otro campo, en producción pediría un índice compuesto.",
+      "Desnormalizar cambia lecturas por escrituras: se lee mucho más de lo que se escribe, así que sale a cuenta. El precio es que el dato vive en varios sitios y hay que decidir qué pasa cuando cambia. Copie solo lo que de verdad se enseña junto, y no lo que cambia a menudo."
+    ],
+    "points": [
+      "Desnormalizar es copiar un dato donde se va a leer.",
+      "Evita una lectura por documento relacionado.",
+      "Lo normal es copiarlo al crear el documento.",
+      "Cambia lecturas (muchas) por escrituras (pocas).",
+      "Copie lo que se enseña junto y cambia poco."
+    ],
+    "exercise": "Copie también la ciudad del cliente (`customerCity`) en los pedidos de `c1` y liste esos pedidos con `customerName`, `customerCity` y `total`."
+  },
+  "en": {
+    "slug": "denormalisation",
+    "title": "Denormalising: copying data",
+    "summary": "Copy the customer's name into their orders in Firestore so you can list orders with names in a single query, without joins.",
+    "body": [
+      "An order list wants to show the customer's **name**, but the order only stores the id (`customer: \"c1\"`). Without joins, you would have to read each customer separately. Firestore's alternative is to **denormalise**: copy into the order the value that will be shown with it.",
+      "The three updates with `where` copy `customerName` into the orders of `c1` (three), `c2` (two) and `c3` (one). Each tab says how many documents changed. In an app, the name would be copied when the order is created, which is when the app already has the customer at hand.",
+      "The final query lists the six orders of those three customers, sorted by date, with `customerName`, `ordered` and `total`: from 1 March (`o01`, **Ana García**'s) to 2 June (`o09`, Ana's again). One query and no extra reads. Because it combines `in` with a sort on another field, it would ask for a composite index in production.",
+      "Denormalising trades reads for writes: you read far more often than you write, so it pays off. The price is that the value lives in several places, and you must decide what happens when it changes. Copy only what is really shown together, and not what changes often."
+    ],
+    "points": [
+      "Denormalising means copying a value to where it is read.",
+      "It saves one read per related document.",
+      "The usual moment to copy is when creating the document.",
+      "It trades many reads for a few writes.",
+      "Copy what is shown together and rarely changes."
+    ],
+    "exercise": "Also copy the customer's city (`customerCity`) into `c1`'s orders and list them with `customerName`, `customerCity` and `total`."
+  }
+}

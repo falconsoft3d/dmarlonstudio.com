@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "contadores-y-totales",
+    "title": "Contadores y totales guardados",
+    "summary": "Guarde contadores y totales en los documentos de Firestore y actualícelos con cada pedido, en vez de recalcularlos en cada lectura.",
+    "body": [
+      "La primera consulta calcula la verdad: Ana (`c1`) tiene `3` pedidos por 34.95 euros. Una agregación es barata, pero un listado de clientes con su gasto necesitaría una por cliente. La alternativa es **guardar** el resultado en el propio cliente: `orders` 3 y `spent` 34.95.",
+      "Desde ese momento, cada pedido nuevo tiene **dos escrituras**: el pedido (`o11`, 5.0 euros) y la actualización del cliente, que pasa a `orders` 4 y `spent` 39.95. La consulta final lista los clientes de Madrid: Ana con sus contadores y **Marta López** con las celdas vacías, porque a ella no se le han calculado.",
+      "Aquí los valores nuevos se escriben a mano. En una app se usa `FieldValue.increment(1)` y `increment(5)`: el servidor suma sobre el valor que haya, sin leerlo antes, y dos pedidos simultáneos no se pisan. Pedido y contadores irían en el mismo lote, para que nunca quede uno sin el otro.",
+      "Un límite a tener en cuenta: un mismo documento aguanta del orden de **una escritura por segundo** de forma sostenida. Para un contador muy concurrido (los «me gusta» de una publicación viral) se usan **contadores distribuidos**: varios documentos que se suman al leer."
+    ],
+    "points": [
+      "Guardar totales evita recalcularlos en cada lectura.",
+      "Cada pedido nuevo escribe el pedido y el contador.",
+      "`FieldValue.increment` suma en el servidor sin leer.",
+      "Pedido y contador van en el mismo lote.",
+      "Un documento aguanta una escritura por segundo sostenida."
+    ],
+    "exercise": "Calcule `orders` y `spent` de Marta (`c3`) con una agregación, guárdelos en su documento y compruebe el listado de Madrid."
+  },
+  "en": {
+    "slug": "counters-and-totals",
+    "title": "Stored counters and totals",
+    "summary": "Store counters and totals in Firestore documents and update them with every order, instead of recomputing them on every read.",
+    "body": [
+      "The first query works out the truth: Ana (`c1`) has `3` orders worth 34.95 euros. An aggregation is cheap, but a list of customers with their spending would need one per customer. The alternative is to **store** the result in the customer itself: `orders` 3 and `spent` 34.95.",
+      "From then on, every new order means **two writes**: the order (`o11`, 5.0 euros) and the customer update, which becomes `orders` 4 and `spent` 39.95. The final query lists the Madrid customers: Ana with her counters and **Marta López** with empty cells, because hers were never computed.",
+      "Here the new values are written by hand. In an app you would use `FieldValue.increment(1)` and `increment(5)`: the server adds to whatever value is there without reading it first, and two simultaneous orders do not overwrite each other. The order and the counters would go in the same batch, so one never exists without the other.",
+      "A limit to bear in mind: a single document sustains roughly **one write per second**. For a very busy counter (the likes on a viral post) you use **distributed counters**: several documents that are added up when read."
+    ],
+    "points": [
+      "Stored totals avoid recomputing on every read.",
+      "Each new order writes the order and the counter.",
+      "`FieldValue.increment` adds on the server without reading.",
+      "Order and counter go in the same batch.",
+      "A document sustains about one write per second."
+    ],
+    "exercise": "Work out Marta's (`c3`) `orders` and `spent` with an aggregation, store them in her document and check the Madrid list again."
+  }
+}

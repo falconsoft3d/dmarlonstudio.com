@@ -1,0 +1,15 @@
+{"collection": "stores", "insert": [
+  {"_id": "s1", "name": "Centre", "address": {"city": "Madrid", "zip": "28001"},
+   "hours": {"open": "09:00", "close": "21:00"}},
+  {"_id": "s2", "name": "Harbour", "address": {"city": "Bilbao", "zip": "48001"},
+   "hours": {"open": "10:00", "close": "20:00"}},
+  {"_id": "s3", "name": "Retiro", "address": {"city": "Madrid", "zip": "28009"},
+   "hours": {"open": "08:30", "close": "22:00"}}
+]}
+
+// A map in "set" replaces the whole map: send every key you want to keep
+{"collection": "stores", "update": {"id": "s2", "set": {"hours": {"open": "10:00", "close": "22:00"}}}}
+
+// Dot paths inside maps work in where and order
+{"collection": "stores",
+ "where": {"hours.close": {"gte": "21:00"}}, "order": "hours.close desc, name", "select": "name,hours"}

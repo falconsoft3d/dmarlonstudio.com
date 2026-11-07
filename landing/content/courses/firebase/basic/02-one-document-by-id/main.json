@@ -1,0 +1,7 @@
+// Read one document by its id: a direct lookup, no query
+{"collection": "products", "id": "p04"}
+
+{"collection": "orders", "id": "o07"}
+
+// Only the fields this document really has
+{"collection": "customers", "id": "c6"}

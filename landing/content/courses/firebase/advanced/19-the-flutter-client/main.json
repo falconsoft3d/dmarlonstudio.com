@@ -1,0 +1,12 @@
+// db.table('products').list(where: {'price': 'lt.3'}, order: 'price', limit: 5)
+{"collection": "products", "where": {"price": {"lt": 3}}, "order": "price", "limit": 5}
+
+// db.table('products').get('p09')
+{"collection": "products", "id": "p09"}
+
+// db.table('products').update('p09', {'stock': 12})
+{"collection": "products", "update": {"id": "p09", "set": {"stock": 12}}}
+
+// db.table('orders').list(where: {'status': 'new'}, order: 'total.desc')
+{"collection": "orders",
+ "where": {"status": "new"}, "order": "total desc", "select": "customer,ordered,total"}

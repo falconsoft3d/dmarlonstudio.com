@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "joins-a-mano",
+    "title": "Joins a mano",
+    "summary": "Sin JOIN en Firestore, junte un pedido con su cliente, sus productos y sus reseñas con varias lecturas: por id y con un «in».",
+    "body": [
+      "Cuando hace falta lo que no se desnormalizó, se junta **a mano**, en la app, con varias lecturas. La primera lee el pedido `o08` por su id: es de `c7` y lleva `p04`, `p05` y `p12`.",
+      "Con esos ids, la segunda lectura trae al cliente, **Emma Brown**, de Londres, y la tercera el producto `p04`, **Espresso beans**. Leer por id es lo más barato y no necesita índices. Para varios productos a la vez, el SDK permite `where(documentId(), 'in', ids)` o `getAll` en el SDK de servidor; el `where` del estudio trabaja con campos, así que aquí se lee uno.",
+      "La última junta las reseñas de los tres productos en **una sola consulta** con `in`, ordenadas por producto: dos de `p04` (3 y 5 estrellas, la segunda sin comentario) y dos de `p12` (2 y 4). `p05` no tiene reseñas. Con `in` caben hasta 30 ids por consulta; con más, se trocea la lista.",
+      "Este pedido ha costado 1 + 1 + 1 + 4 lecturas. Si esa pantalla se abre a menudo, es la señal para desnormalizar (copiar el nombre del cliente en el pedido, por ejemplo). Las lecturas por id, además, se pueden lanzar **en paralelo** con `Promise.all` o `Future.wait`, porque no dependen unas de otras."
+    ],
+    "points": [
+      "Sin JOIN, se junta en la app con varias lecturas.",
+      "Los ids guardados en un documento llevan a los otros.",
+      "Un `in` junta hasta 30 valores en una consulta.",
+      "Las lecturas independientes pueden ir en paralelo.",
+      "Una pantalla con muchas lecturas pide desnormalizar."
+    ],
+    "exercise": "Haga el mismo «join» para el pedido `o04`: el pedido, su cliente y las reseñas de sus productos con un `in`."
+  },
+  "en": {
+    "slug": "joins-by-hand",
+    "title": "Joins by hand",
+    "summary": "With no JOIN in Firestore, combine an order with its customer, its products and their reviews using several reads: by id and with \"in\".",
+    "body": [
+      "When you need something you did not denormalise, you join **by hand**, in the app, with several reads. The first one reads order `o08` by id: it belongs to `c7` and contains `p04`, `p05` and `p12`.",
+      "With those ids, the second read fetches the customer, **Emma Brown**, from London, and the third the product `p04`, **Espresso beans**. Reading by id is the cheapest option and needs no index. For several products at once, the SDK allows `where(documentId(), 'in', ids)`, or `getAll` in the server SDK; the studio's `where` works on fields, so here you read one.",
+      "The last one gathers the reviews of all three products in **a single query** with `in`, sorted by product: two for `p04` (3 and 5 stars, the second without a comment) and two for `p12` (2 and 4). `p05` has no reviews. An `in` takes up to 30 ids per query; with more, you split the list.",
+      "This order cost 1 + 1 + 1 + 4 reads. If that screen opens often, it is the signal to denormalise (copying the customer's name into the order, for example). Reads by id can also be fired **in parallel** with `Promise.all` or `Future.wait`, since they do not depend on each other."
+    ],
+    "points": [
+      "Without JOIN, you combine in the app with several reads.",
+      "Ids stored in one document lead to the others.",
+      "An `in` gathers up to 30 values in one query.",
+      "Independent reads can run in parallel.",
+      "A screen with many reads is asking to be denormalised."
+    ],
+    "exercise": "Do the same join for order `o04`: the order, its customer and the reviews of its products with an `in`."
+  }
+}

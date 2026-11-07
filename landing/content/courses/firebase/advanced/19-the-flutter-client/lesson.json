@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "el-cliente-de-flutter",
+    "title": "El cliente de Flutter",
+    "summary": "Las consultas del estudio en el lib/db.dart que DMarlon Studio genera para una app de Flutter con Firebase: list, get, insert, update y delete.",
+    "body": [
+      "Cuando una app de Flutter del estudio usa Firebase, el estudio genera **`lib/db.dart`**: un cliente pequeño que habla con la API REST de Firestore y con Firebase Authentication. Cada comentario del script es la llamada de `lib/db.dart` que hace lo mismo que la consulta de debajo.",
+      "`db.table('products').list(where: {'price': 'lt.3'}, order: 'price', limit: 5)` es la primera: los cinco más baratos de los que cuestan menos de 3 euros, de **Whole milk** a **Apples 1 kg**. Los operadores van dentro del texto (`'lt.3'`, `'gte.10'`; sin prefijo es igualdad) y el orden es un campo con `.desc` opcional, como `'total.desc'` en la última consulta, que devuelve los dos pedidos nuevos, `o09` y `o07`.",
+      "`get('p09')` lee un documento por id y devuelve `null` si no existe, en vez de un error. `update('p09', {'stock': 12})` envía un `PATCH` con la máscara de los campos, como el estudio, pero **sin** la condición de que exista: si el id no existe, Firestore lo crea. `insert({...})` crea un documento con id automático y `delete(id)` lo borra. En los mapas que devuelve, el id está en `id` y no en `_id`.",
+      "`lib/db.dart` cubre lo de todos los días: `eq`, `neq`, `gt`, `gte`, `lt` y `lte`, un campo de orden, `limit` y `offset`, y `signIn` para que las reglas sepan quién es el usuario. Para `in`, `array-contains`, agregaciones o consultas de grupo, use el paquete oficial `cloud_firestore`. Pruebe antes la consulta aquí y pásela después al código."
+    ],
+    "points": [
+      "El estudio genera `lib/db.dart` para Flutter con Firebase.",
+      "`list(where:, order:, limit:, offset:)` es una consulta.",
+      "Los operadores van en el texto: `'lt.3'`, `'gte.10'`.",
+      "`get` devuelve `null` si no existe; `update` no exige que exista.",
+      "Para `in`, `contains` o agregaciones, `cloud_firestore`."
+    ],
+    "exercise": "Escriba la consulta del estudio equivalente a `db.table('customers').list(where: {'city': 'London'}, order: 'name')` y ejecútela."
+  },
+  "en": {
+    "slug": "the-flutter-client",
+    "title": "The Flutter client",
+    "summary": "The studio's queries in the lib/db.dart that DMarlon Studio generates for a Flutter app with Firebase: list, get, insert, update and delete.",
+    "body": [
+      "When a Flutter app in the studio uses Firebase, the studio generates **`lib/db.dart`**: a small client that talks to Firestore's REST API and to Firebase Authentication. Each comment in the script is the `lib/db.dart` call that does the same as the query below it.",
+      "`db.table('products').list(where: {'price': 'lt.3'}, order: 'price', limit: 5)` is the first: the five cheapest of the products under 3 euros, from **Whole milk** to **Apples 1 kg**. Operators go inside the string (`'lt.3'`, `'gte.10'`; no prefix means equality) and the order is a field with an optional `.desc`, like `'total.desc'` in the last query, which returns the two new orders, `o09` and `o07`.",
+      "`get('p09')` reads a document by id and returns `null` if it does not exist, instead of an error. `update('p09', {'stock': 12})` sends a `PATCH` with the field mask, like the studio, but **without** the must-exist precondition: if the id does not exist, Firestore creates it. `insert({...})` creates a document with an automatic id and `delete(id)` removes it. In the maps it returns, the id is in `id`, not `_id`.",
+      "`lib/db.dart` covers the everyday cases: `eq`, `neq`, `gt`, `gte`, `lt` and `lte`, one sort field, `limit` and `offset`, plus `signIn` so the rules know who the user is. For `in`, `array-contains`, aggregations or group queries, use the official `cloud_firestore` package. Try the query here first, then move it into your code."
+    ],
+    "points": [
+      "The studio generates `lib/db.dart` for Flutter with Firebase.",
+      "`list(where:, order:, limit:, offset:)` is a query.",
+      "Operators go in the string: `'lt.3'`, `'gte.10'`.",
+      "`get` returns `null` if missing; `update` does not require existence.",
+      "For `in`, `contains` or aggregations, use `cloud_firestore`."
+    ],
+    "exercise": "Write the studio query equivalent to `db.table('customers').list(where: {'city': 'London'}, order: 'name')` and run it."
+  }
+}

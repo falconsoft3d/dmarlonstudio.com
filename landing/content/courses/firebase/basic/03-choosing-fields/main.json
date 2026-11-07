@@ -1,0 +1,5 @@
+// select: return only some fields (a projection)
+{"collection": "products", "select": "name,price"}
+
+// _id always comes back: it is the document's name, not a field
+{"collection": "products", "select": "name,stock,tags"}

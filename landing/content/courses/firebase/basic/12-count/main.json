@@ -1,0 +1,8 @@
+// How many products? An aggregation query returns one row
+{"collection": "products", "count": true}
+
+// Count with a filter
+{"collection": "products", "where": {"stock": 0}, "count": true}
+
+// Orders already shipped
+{"collection": "orders", "where": {"status": "shipped"}, "count": true}

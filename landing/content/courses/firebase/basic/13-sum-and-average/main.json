@@ -1,0 +1,8 @@
+// Units in stock across the whole shop
+{"collection": "products", "sum": "stock"}
+
+// Average price of the dairy products (cat3)
+{"collection": "products", "where": {"category": "cat3"}, "avg": "price"}
+
+// count, sum and avg in the same query
+{"collection": "reviews", "where": {"product": "p04"}, "count": true, "sum": "rating", "avg": "rating"}

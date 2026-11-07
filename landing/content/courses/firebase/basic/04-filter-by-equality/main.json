@@ -1,0 +1,8 @@
+// Products in category cat2 (where field == value)
+{"collection": "products", "where": {"category": "cat2"}, "select": "name,price"}
+
+// Booleans work the same way
+{"collection": "products", "where": {"active": false}, "select": "name,stock"}
+
+// Customers who live in Madrid
+{"collection": "customers", "where": {"city": "Madrid"}, "select": "name,city,joined"}

@@ -1,0 +1,6 @@
+// The three cheapest products
+{"collection": "products", "order": "price", "limit": 3, "select": "name,price"}
+
+// Pages of four: page 1, then page 2 (skip the first four)
+{"collection": "products", "order": "name", "limit": 4, "select": "name,price"}
+{"collection": "products", "order": "name", "limit": 4, "offset": 4, "select": "name,price"}

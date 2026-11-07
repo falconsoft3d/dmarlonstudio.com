@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "trampas-de-neq-y-nin",
+    "title": "Las trampas de neq y nin",
+    "summary": "Los filtros «distinto de» y «no está en» de Firestore se saltan los documentos sin el campo: vea cuántos se pierden y cómo evitarlo.",
+    "body": [
+      "Hay `8` clientes. «Que no sean de Madrid» (`neq`) da `6`: los ocho menos Ana y Marta, las dos de Madrid. Cuadra, porque **todos** los clientes tienen `city`.",
+      "«Que su correo no sea el de Ana» también da `6`, y aquí no cuadra: deberían ser siete. Falta **Pedro Gómez** (`c6`), que no tiene `email`. Un `!=` en Firestore significa en realidad «el campo **existe** y es distinto»: los documentos sin el campo no están en el índice y no se ven.",
+      "`nin` tiene la misma trampa. «Empleados cuyo jefe no es `e1`» devuelve tres, **Elena**, **Diego** y **Nuria**, cuyo jefe es `e2`. Quedan fuera `e2` y `e6`, que dependen de `e1`, como se pedía, pero también **Laura Martín** (`e1`), la directora, que no tiene `manager`. Y el resultado sale ordenado por `manager`, como toda desigualdad.",
+      "La solución está en los datos: si va a filtrar por «distinto de», **escriba el campo en todos los documentos**, con un valor que signifique «ninguno» (por ejemplo, `\"manager\": \"\"`). Y compruebe siempre los recuentos con `count`: un número que no cuadra suele ser un campo que falta."
+    ],
+    "points": [
+      "`neq` significa «existe y es distinto».",
+      "`nin` también se salta los documentos sin el campo.",
+      "Las dos son desigualdades: ordenan por el campo.",
+      "Escriba el campo en todos los documentos, con un valor «ninguno».",
+      "Compruebe los recuentos con `count`."
+    ],
+    "exercise": "Ponga `\"manager\": \"\"` a `e1` y repita la consulta de `nin`. ¿Quién aparece ahora y en qué posición?"
+  },
+  "en": {
+    "slug": "not-equal-and-not-in-pitfalls",
+    "title": "The neq and nin pitfalls",
+    "summary": "Firestore's not-equal and not-in filters skip documents that lack the field: see how many go missing and how to avoid it.",
+    "body": [
+      "There are `8` customers. Not from Madrid (`neq`) gives `6`: all eight minus Ana and Marta, the two in Madrid. That adds up, because **every** customer has a `city`.",
+      "Email other than Ana's also gives `6`, and this time it does not add up: it should be seven. **Pedro Gómez** (`c6`) is missing, because he has no `email`. In Firestore, `!=` really means the field **exists** and is different: documents without the field are not in the index and are never seen.",
+      "`nin` has the same trap. Employees whose manager is not `e1` returns three, **Elena**, **Diego** and **Nuria**, who report to `e2`. Left out are `e2` and `e6`, who report to `e1`, as intended, but also **Laura Martín** (`e1`), the CEO, who has no `manager`. And the result is sorted by `manager`, like any inequality.",
+      "The fix is in the data: if you will filter on not equal, **write the field in every document**, with a value that means none (for example, `\"manager\": \"\"`). And always check your numbers with `count`: a total that does not add up is usually a missing field."
+    ],
+    "points": [
+      "`neq` means exists and is different.",
+      "`nin` also skips documents without the field.",
+      "Both are inequalities: they sort by the field.",
+      "Write the field in every document, with a none value.",
+      "Check your totals with `count`."
+    ],
+    "exercise": "Give `e1` a `\"manager\": \"\"` and rerun the `nin` query. Who shows up now, and in what position?"
+  }
+}

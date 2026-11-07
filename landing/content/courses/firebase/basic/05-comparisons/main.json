@@ -1,0 +1,8 @@
+// Cheaper than 2 euros
+{"collection": "products", "where": {"price": {"lt": 2}}, "select": "name,price"}
+
+// At least 30 units in stock
+{"collection": "products", "where": {"stock": {"gte": 30}}, "select": "name,stock"}
+
+// Strings compare too: customers who joined in 2024 or later
+{"collection": "customers", "where": {"joined": {"gte": "2024-01-01"}}, "select": "name,joined"}

@@ -1,0 +1,8 @@
+// The catalogue page: active products with stock, cheapest first
+{"collection": "products", "where": {"active": true, "stock": {"gt": 0}}, "count": true}
+
+{"collection": "products",
+ "where": {"active": true, "stock": {"gt": 0}, "price": {"lt": 5}},
+ "order": "price",
+ "limit": 6,
+ "select": "name,price,stock,tags"}

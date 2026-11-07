@@ -1,0 +1,8 @@
+// Two conditions on different fields: both must hold (AND)
+{"collection": "products", "where": {"category": "cat3", "price": {"lt": 3}}, "select": "name,price"}
+
+// A range on one field: from 2 up to (not including) 4 euros
+{"collection": "products", "where": {"price": {"gte": 2, "lt": 4}}, "select": "name,price"}
+
+// Inequalities on two fields
+{"collection": "products", "where": {"price": {"lt": 4}, "stock": {"gt": 20}}, "select": "name,price,stock"}

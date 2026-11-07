@@ -1,0 +1,5 @@
+// in: the field equals any value of the list
+{"collection": "orders", "where": {"status": {"in": ["new", "paid"]}}, "select": "customer,status,total"}
+
+// nin (not-in): none of the values
+{"collection": "products", "where": {"category": {"nin": ["cat1", "cat2"]}}, "select": "name,category"}

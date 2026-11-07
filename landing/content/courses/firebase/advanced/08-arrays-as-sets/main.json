@@ -1,0 +1,12 @@
+// Give the dairy products a tag (set replaces the whole array)
+{"collection": "products", "update": {"id": "p07", "set": {"tags": ["dairy"]}}}
+{"collection": "products", "update": {"id": "p08", "set": {"tags": ["dairy", "sweet"]}}}
+{"collection": "products", "update": {"id": "p09", "set": {"tags": ["cheese", "dairy"]}}}
+
+// One array-contains: products tagged "sweet" that are dairy (cat3)
+{"collection": "products",
+ "where": {"tags": {"contains": "sweet"}, "category": "cat3"}, "select": "name,tags"}
+
+// containsAny: dairy or fresh
+{"collection": "products",
+ "where": {"tags": {"containsAny": ["dairy", "fresh"]}}, "order": "name", "select": "name,tags"}

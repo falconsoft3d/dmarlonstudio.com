@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "listas-como-conjuntos",
+    "title": "Listas como conjuntos",
+    "summary": "Use las listas de Firestore como conjuntos de etiquetas: reescríbalas, combine array-contains con igualdades y busque con containsAny.",
+    "body": [
+      "Las etiquetas de un producto son un **conjunto**: no importa el orden y no se repiten. Las tres actualizaciones añaden la etiqueta `dairy` a la leche, el yogur y el queso. En el estudio, `set` con una lista **reescribe la lista entera**, así que cada una lleva todas las etiquetas que el producto debe tener.",
+      "En una app no haría falta leer la lista para cambiarla: el SDK tiene `arrayUnion('dairy')`, que añade la etiqueta solo si no está, y `arrayRemove('sweet')`, que la quita. Son operaciones **atómicas** en el servidor, así que dos usuarios que añaden etiquetas a la vez no se pisan.",
+      "La cuarta consulta combina `contains` con una igualdad: productos con la etiqueta `sweet` de la categoría `cat3`. Sale solo **Greek yogurt**. Se puede mezclar `array-contains` con otros filtros, pero solo cabe una cláusula `array-contains` por consulta, y no se combina con `array-contains-any`.",
+      "La última usa `containsAny` con `dairy` y `fresh`: seis productos, de **Apples 1 kg** a **Whole milk**, ordenados por nombre. Cada uno sale una vez aunque tenga las dos etiquetas. Si necesitara «tiene `dairy` y `sweet`», el truco es el mapa de booleanos de la lección básica."
+    ],
+    "points": [
+      "Una lista de etiquetas funciona como un conjunto.",
+      "En el estudio, `set` reescribe la lista entera.",
+      "`arrayUnion` y `arrayRemove` del SDK cambian la lista de forma atómica.",
+      "`array-contains` se combina con igualdades, pero solo uno por consulta.",
+      "`containsAny` devuelve cada documento una sola vez."
+    ],
+    "exercise": "Añada la etiqueta `breakfast` a **Croissant** y **Orange juice** sin perder sus etiquetas, y busque los productos con `breakfast` ordenados por precio."
+  },
+  "en": {
+    "slug": "arrays-as-sets",
+    "title": "Arrays as sets",
+    "summary": "Use Firestore arrays as sets of tags: rewrite them, combine array-contains with equalities and search with containsAny.",
+    "body": [
+      "A product's tags are a **set**: order does not matter and nothing repeats. The three updates add a `dairy` tag to the milk, the yogurt and the cheese. In the studio, `set` with an array **rewrites the whole array**, so each one carries every tag the product should have.",
+      "In an app you would not need to read the array to change it: the SDK has `arrayUnion('dairy')`, which adds the tag only if it is missing, and `arrayRemove('sweet')`, which takes it out. They are **atomic** operations on the server, so two users adding tags at the same time do not overwrite each other.",
+      "The fourth query combines `contains` with an equality: products tagged `sweet` in category `cat3`. Only **Greek yogurt** comes back. You can mix `array-contains` with other filters, but only one `array-contains` clause fits in a query, and it cannot be combined with `array-contains-any`.",
+      "The last one uses `containsAny` with `dairy` and `fresh`: six products, from **Apples 1 kg** to **Whole milk**, sorted by name. Each appears once even if it has both tags. If you needed has `dairy` and `sweet`, the trick is the map of booleans from the basic course."
+    ],
+    "points": [
+      "An array of tags works as a set.",
+      "In the studio, `set` rewrites the whole array.",
+      "The SDK's `arrayUnion` and `arrayRemove` change it atomically.",
+      "`array-contains` mixes with equalities, but only one per query.",
+      "`containsAny` returns each document only once."
+    ],
+    "exercise": "Add a `breakfast` tag to **Croissant** and **Orange juice** without losing their tags, then find the `breakfast` products sorted by price."
+  }
+}

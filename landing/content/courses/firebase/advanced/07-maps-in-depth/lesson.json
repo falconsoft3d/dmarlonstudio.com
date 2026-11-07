@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "mapas-a-fondo",
+    "title": "Mapas a fondo",
+    "summary": "Trabaje con mapas anidados en Firestore: actualícelos enteros, filtre y ordene por sus subcampos y elija qué parte devolver.",
+    "body": [
+      "Cada tienda de `stores` lleva dos mapas: `address` (`city`, `zip`) y `hours` (`open`, `close`). Los mapas agrupan datos que se leen juntos y se pueden anidar hasta 20 niveles, aunque rara vez hace falta pasar de uno o dos.",
+      "La segunda consulta alarga el horario de **Harbour** hasta las 22:00. Aquí `set` cambia el campo `hours` entero, así que el mapa nuevo **sustituye al anterior**: por eso lleva también `open`. Si enviara solo `{\"close\": \"22:00\"}`, la tienda perdería su hora de apertura. Para tocar solo el subcampo, use el punto: `\"set\": {\"hours.close\": \"22:00\"}`, igual que `update({'hours.close': '22:00'})` en el SDK.",
+      "La consulta final busca las tiendas que cierran a las 21:00 o más tarde (`hours.close` con `gte`) y las ordena por `hours.close desc, name`. **Harbour** y **Retiro** empatan a las 22:00 y el segundo campo de orden las pone por nombre; **Centre**, a las 21:00, va al final.",
+      "Con `select` en `hours`, la columna trae el mapa completo; con `hours.close` traería solo ese subcampo dentro del mapa. Cada subcampo tiene su índice, igual que un campo normal, y los textos `\"HH:MM\"` con dos cifras se ordenan como horas."
+    ],
+    "points": [
+      "Un mapa agrupa campos que se leen juntos.",
+      "Un mapa entero en `set` sustituye al anterior.",
+      "Con punto (`\"hours.close\"`) solo cambia ese subcampo.",
+      "Los subcampos se filtran y ordenan con punto.",
+      "Varios campos de orden deshacen los empates."
+    ],
+    "exercise": "Cambie la hora de apertura de **Centre** a `08:00` sin perder su hora de cierre y busque las tiendas que abren antes de las `09:00`."
+  },
+  "en": {
+    "slug": "maps-in-depth",
+    "title": "Maps in depth",
+    "summary": "Work with nested maps in Firestore: update them whole, filter and sort by their subfields and choose which part comes back.",
+    "body": [
+      "Each store in `stores` carries two maps: `address` (`city`, `zip`) and `hours` (`open`, `close`). Maps group data that is read together and can nest up to 20 levels deep, although you rarely need more than one or two.",
+      "The second query extends **Harbour**'s hours until 22:00. Here `set` changes the whole `hours` field, so the new map **replaces the old one**: that is why it includes `open` too. If you sent only `{\"close\": \"22:00\"}`, the store would lose its opening time. To touch just the subfield, use a dot path: `\"set\": {\"hours.close\": \"22:00\"}`, just like `update({'hours.close': '22:00'})` in the SDK.",
+      "The final query looks for the stores that close at 21:00 or later (`hours.close` with `gte`) and sorts them by `hours.close desc, name`. **Harbour** and **Retiro** tie at 22:00 and the second sort field puts them in name order; **Centre**, at 21:00, comes last.",
+      "With `select` on `hours`, the column brings the whole map; with `hours.close` it would bring only that subfield inside the map. Every subfield has its own index, just like a normal field, and two-digit `\"HH:MM\"` strings sort like times."
+    ],
+    "points": [
+      "A map groups fields that are read together.",
+      "A whole map in `set` replaces the old one.",
+      "With a dot path (`\"hours.close\"`) only that subfield changes.",
+      "Subfields are filtered and sorted with a dot.",
+      "Extra sort fields break ties."
+    ],
+    "exercise": "Change **Centre**'s opening time to `08:00` without losing its closing time, then find the stores that open before `09:00`."
+  }
+}

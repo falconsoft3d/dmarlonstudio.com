@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "actualizar-campos",
+    "title": "Actualizar campos",
+    "summary": "Cambie campos de un documento de Firestore con «update» y «set»: solo cambian los campos indicados y los nuevos se añaden.",
+    "body": [
+      "`{\"update\": {\"id\": \"p06\", \"set\": {\"stock\": 20}}}` cambia **solo** `stock` del zumo de naranja; el resto de campos sigue igual. El estudio envía un `PATCH` con `updateMask.fieldPaths=stock`: la **máscara** dice qué campos tocar. En el SDK es `doc('p06').update({stock: 20})`.",
+      "La segunda actualización cambia `price` del té verde a 4.25 y le pone `featured: true`, un campo que **no existía**: `update` lo añade. En la pestaña de cada `update` verá el documento tal como queda, con los campos cambiados al final.",
+      "La consulta final enseña las bebidas: **Orange juice** tiene ahora 20 unidades, **Green tea** cuesta 4.25 y es el único con `featured`; en los otros dos la celda está vacía porque ese campo no existe en ellos.",
+      "El estudio añade también `currentDocument.exists=true`: si el documento no existe, la actualización **falla** en vez de crearlo. Cada `update` cuenta como una escritura, y para cambiar un subcampo de un mapa use el punto en `set` (`\"hours.close\": \"22:00\"`): la máscara toca solo ese subcampo y el resto del mapa se queda como estaba."
+    ],
+    "points": [
+      "`update` con `id` y `set` cambia solo esos campos.",
+      "La máscara (`updateMask`) dice qué campos se tocan.",
+      "Un campo nuevo en `set` se añade al documento.",
+      "Actualizar un documento que no existe da error.",
+      "En el SDK es `update()`; `set()` reemplazaría el documento."
+    ],
+    "exercise": "Ponga `featured: true` también a **Espresso beans** y baje su precio a 8.9; después busque los productos con `featured` igual a `true`."
+  },
+  "en": {
+    "slug": "update-fields",
+    "title": "Updating fields",
+    "summary": "Change fields of a Firestore document with \"update\" and \"set\": only the fields you name change, and new ones are added.",
+    "body": [
+      "`{\"update\": {\"id\": \"p06\", \"set\": {\"stock\": 20}}}` changes **only** the orange juice's `stock`; every other field stays the same. The studio sends a `PATCH` with `updateMask.fieldPaths=stock`: the **mask** says which fields to touch. In the SDK it is `doc('p06').update({stock: 20})`.",
+      "The second update changes the green tea's `price` to 4.25 and gives it `featured: true`, a field that **did not exist**: `update` adds it. Each `update` tab shows the document as it ends up, with the changed fields at the end.",
+      "The final query shows the drinks: **Orange juice** now has 20 units, **Green tea** costs 4.25 and is the only one with `featured`; the other two have an empty cell because that field does not exist in them.",
+      "The studio also adds `currentDocument.exists=true`: if the document does not exist, the update **fails** instead of creating it. Each `update` counts as one write, and to change a subfield of a map, use a dot path in `set` (`\"hours.close\": \"22:00\"`): the mask touches only that subfield and the rest of the map stays as it was."
+    ],
+    "points": [
+      "`update` with `id` and `set` changes only those fields.",
+      "The mask (`updateMask`) says which fields are touched.",
+      "A new field in `set` is added to the document.",
+      "Updating a document that does not exist is an error.",
+      "In the SDK it is `update()`; `set()` would replace the document."
+    ],
+    "exercise": "Give **Espresso beans** `featured: true` as well and lower its price to 8.9, then find the products whose `featured` is `true`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "rangos-de-fechas",
+    "title": "Rangos de fechas",
+    "summary": "Filtre pedidos de Firestore por mes con rangos semiabiertos sobre fechas ISO en texto, súmelos y saque los más recientes.",
+    "body": [
+      "Las fechas de la tienda son textos ISO, `\"2024-04-02\"`, y en ese formato el orden alfabético es el cronológico. Para «abril» se usa un **rango semiabierto**: `gte` el primer día del mes y `lt` el primer día del mes siguiente. Así no hay que saber cuántos días tiene el mes, y funciona igual si algún día las fechas llevan hora.",
+      "La primera consulta trae los dos pedidos de abril, `o04` (10.5) y `o05` (19.8), ordenados por `ordered` aunque no hay `order`: es la desigualdad. La segunda agrega mayo con el mismo patrón: `3` pedidos por 51.7 euros.",
+      "La última no filtra: ordena por `ordered desc` y se queda con los cinco más recientes, del 5 de junio (`o10`) al 1 de mayo (`o06`). Es la base de cualquier pantalla «últimos pedidos».",
+      "En una app de verdad, guarde las fechas como **`Timestamp`**, el tipo de fecha de Firestore, con `serverTimestamp()` para que la hora la ponga el servidor y no el reloj del móvil. Las consultas son las mismas, con fechas en lugar de textos. Si usa textos, que tengan todos el mismo formato y la misma zona horaria."
+    ],
+    "points": [
+      "Las fechas ISO en texto se ordenan como fechas.",
+      "Un mes es `gte` su día 1 y `lt` el día 1 del siguiente.",
+      "Con una desigualdad, el resultado sale ordenado por ese campo.",
+      "`order desc` y `limit` dan los más recientes.",
+      "En producción, `Timestamp` y `serverTimestamp()`."
+    ],
+    "exercise": "Calcule el número de pedidos y la facturación de marzo, y liste los pedidos de junio con `customer`, `ordered` y `total`."
+  },
+  "en": {
+    "slug": "date-ranges",
+    "title": "Date ranges",
+    "summary": "Filter Firestore orders by month with half-open ranges over ISO date strings, total them up and pull out the most recent ones.",
+    "body": [
+      "The shop's dates are ISO strings, `\"2024-04-02\"`, and in that format alphabetical order is chronological order. For April you use a **half-open range**: `gte` the first day of the month and `lt` the first day of the next. That way you never need to know how many days the month has, and it still works if the dates one day include a time.",
+      "The first query brings the two April orders, `o04` (10.5) and `o05` (19.8), sorted by `ordered` even without `order`: that is the inequality at work. The second aggregates May with the same pattern: `3` orders for 51.7 euros.",
+      "The last one does not filter: it sorts by `ordered desc` and keeps the five most recent, from 5 June (`o10`) back to 1 May (`o06`). It is the basis of any latest orders screen.",
+      "In a real app, store dates as **`Timestamp`**, Firestore's date type, with `serverTimestamp()` so the server sets the time rather than the phone's clock. The queries are the same, with dates instead of strings. If you use strings, make sure they all share the same format and time zone."
+    ],
+    "points": [
+      "ISO date strings sort like dates.",
+      "A month is `gte` its 1st and `lt` the 1st of the next.",
+      "With an inequality, results are sorted by that field.",
+      "`order desc` plus `limit` gives the latest ones.",
+      "In production, use `Timestamp` and `serverTimestamp()`."
+    ],
+    "exercise": "Work out the number of orders and the revenue for March, and list June's orders with `customer`, `ordered` and `total`."
+  }
+}

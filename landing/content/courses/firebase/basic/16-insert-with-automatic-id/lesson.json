@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "insertar-con-id-automatico",
+    "title": "Insertar con id automático",
+    "summary": "Inserte documentos en Firestore sin «_id» para que el servidor invente uno aleatorio, y búsquelos después por sus campos.",
+    "body": [
+      "Sin `_id`, Firestore **inventa el id**: una cadena aleatoria de 20 letras y números. La lección añade dos reseñas de **Whole milk** (`p07`), y la pestaña de la primera consulta enseña sus ids nuevos. Es lo que hace `db.collection('reviews').add({...})` en el SDK.",
+      "Esos ids **cambian cada vez** que se ejecuta el script, así que no sirven para escribirlos a mano en la consulta siguiente. Lo normal es encontrar los documentos por sus campos: aquí, `\"where\": {\"product\": \"p07\"}`.",
+      "La última consulta resume esas reseñas sin enseñar ningún id: `count` 2 y `avg_rating` 4.0, la media de 5 y 3. Es la fila de la imagen.",
+      "Los ids automáticos son la opción recomendada cuando el documento no tiene un identificador natural (reseñas, mensajes, registros): se reparten bien por el índice y no chocan nunca. Si después necesita el id, la app lo recibe en la respuesta de `add`, igual que aquí en la pestaña del `insert`."
+    ],
+    "points": [
+      "Sin `_id`, Firestore crea un id aleatorio de 20 caracteres.",
+      "Es `add()` en el SDK.",
+      "El id cambia en cada ejecución: busque por campos.",
+      "Los ids automáticos no chocan y se reparten bien.",
+      "La respuesta del `insert` trae el id creado."
+    ],
+    "exercise": "Inserte tres pedidos nuevos sin `_id` para el cliente `c8` y cuente después cuántos pedidos tiene `c8`."
+  },
+  "en": {
+    "slug": "insert-with-automatic-id",
+    "title": "Inserting with an automatic id",
+    "summary": "Insert Firestore documents without \"_id\" so the server makes up a random one, then find them again by their fields.",
+    "body": [
+      "Without `_id`, Firestore **makes up the id**: a random string of 20 letters and digits. The lesson adds two reviews of **Whole milk** (`p07`), and the first query's tab shows their new ids. This is what `db.collection('reviews').add({...})` does in the SDK.",
+      "Those ids **change on every run** of the script, so you cannot type them into the next query. The usual approach is to find the documents by their fields: here, `\"where\": {\"product\": \"p07\"}`.",
+      "The last query summarises those reviews without showing any id: `count` 2 and `avg_rating` 4.0, the mean of 5 and 3. That is the row in the picture.",
+      "Automatic ids are the recommended choice when a document has no natural identifier (reviews, messages, logs): they spread evenly across the index and never collide. If you need the id afterwards, the app gets it in the response to `add`, just as you see it here in the `insert` tab."
+    ],
+    "points": [
+      "Without `_id`, Firestore creates a random 20-character id.",
+      "In the SDK it is `add()`.",
+      "The id changes on every run: search by fields.",
+      "Automatic ids never collide and spread well.",
+      "The `insert` response carries the new id."
+    ],
+    "exercise": "Insert three new orders without `_id` for customer `c8`, then count how many orders `c8` has."
+  }
+}

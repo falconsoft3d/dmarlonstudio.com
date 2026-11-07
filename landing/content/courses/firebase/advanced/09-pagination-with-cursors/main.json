@@ -1,0 +1,9 @@
+// Page 3 with offset: Firestore still reads (and bills) the 8 skipped docs
+{"collection": "products", "order": "name", "limit": 4, "offset": 8, "select": "name,price"}
+
+// A cursor instead: page 1, remember the last name...
+{"collection": "products", "order": "name", "limit": 4, "select": "name,price"}
+
+// ...and start the next page right after it (startAfter "Croissant")
+{"collection": "products",
+ "where": {"name": {"gt": "Croissant"}}, "order": "name", "limit": 4, "select": "name,price"}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "elegir-los-campos",
+    "title": "Elegir los campos",
+    "summary": "Use «select» en una consulta de Firestore para traer solo algunos campos de cada documento, como una proyección, en DMarlon Studio.",
+    "body": [
+      "Un producto tiene seis campos, pero muchas pantallas solo necesitan dos. `\"select\": \"name,price\"` pide a Firestore una **proyección**: los documentos llegan solo con esos campos. En la API REST es `\"select\": {\"fields\": [{\"fieldPath\": \"name\"}, {\"fieldPath\": \"price\"}]}` dentro de la `structuredQuery`; en el SDK de Node para servidores, `.select('name', 'price')`.",
+      "El resultado de la primera consulta tiene tres columnas: `_id`, `price` y `name`. El `_id` sale siempre, porque no es un campo: es el nombre del documento. Y las columnas aparecen en el orden en que Firestore devuelve los campos, que no tiene por qué ser el que escribió en `select`.",
+      "La segunda elige `name`, `stock` y `tags`. `tags` es una lista y se ve como JSON: `[\"bread\",\"sweet\"]` en el croissant y `[]` en la leche, una lista vacía. Pedir un campo que un documento no tiene no da error: la celda queda vacía.",
+      "Ojo: `select` reduce lo que viaja por la red, pero Firestore cobra **una lectura por documento** igual, traiga dos campos o todos. Los SDK de cliente (web, Flutter, móvil) no tienen proyecciones; por eso, si una pantalla lee siempre un resumen, a veces conviene guardar ese resumen en su propio documento."
+    ],
+    "points": [
+      "`select` trae solo los campos indicados (una proyección).",
+      "`_id` sale siempre: es el nombre del documento.",
+      "El orden de las columnas lo pone la respuesta de Firestore.",
+      "Una proyección ahorra datos, no lecturas.",
+      "Los SDK de cliente no tienen `select`; el SDK de servidor sí."
+    ],
+    "exercise": "Cambie la segunda consulta para elegir `name`, `category` y `active`, y compruebe qué producto tiene `active` a `false`."
+  },
+  "en": {
+    "slug": "choosing-fields",
+    "title": "Choosing fields",
+    "summary": "Use \"select\" in a Firestore query to fetch only some fields of each document, a projection, right from DMarlon Studio.",
+    "body": [
+      "A product has six fields, but many screens only need two. `\"select\": \"name,price\"` asks Firestore for a **projection**: the documents arrive with just those fields. In the REST API that is `\"select\": {\"fields\": [{\"fieldPath\": \"name\"}, {\"fieldPath\": \"price\"}]}` inside the `structuredQuery`; in the Node server SDK, `.select('name', 'price')`.",
+      "The first result has three columns: `_id`, `price` and `name`. `_id` is always there because it is not a field: it is the document's name. And the columns follow the order in which Firestore returns the fields, which is not necessarily the order you wrote in `select`.",
+      "The second query picks `name`, `stock` and `tags`. `tags` is an array and shows as JSON: `[\"bread\",\"sweet\"]` for the croissant and `[]` for the milk, an empty array. Asking for a field a document does not have is not an error: the cell is simply empty.",
+      "Note that `select` cuts what travels over the network, but Firestore still bills **one read per document**, whether you fetch two fields or all of them. The client SDKs (web, Flutter, mobile) have no projections, so if a screen always reads a summary, it is sometimes worth storing that summary in its own document."
+    ],
+    "points": [
+      "`select` returns only the fields you name (a projection).",
+      "`_id` always comes back: it is the document's name.",
+      "Column order follows Firestore's response.",
+      "A projection saves bandwidth, not reads.",
+      "Client SDKs have no `select`; the server SDK does."
+    ],
+    "exercise": "Change the second query to pick `name`, `category` and `active`, and check which product has `active` set to `false`."
+  }
+}

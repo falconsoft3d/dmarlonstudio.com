@@ -1,0 +1,8 @@
+// Every product without stock becomes inactive
+{"collection": "products", "update": {"where": {"stock": 0}, "set": {"active": false}}}
+
+// Every bakery product gets a 10% discount label
+{"collection": "products", "update": {"where": {"category": "cat1"}, "set": {"discount": 10}}}
+
+{"collection": "products",
+ "where": {"category": {"in": ["cat1", "cat2"]}}, "select": "name,stock,active,discount"}

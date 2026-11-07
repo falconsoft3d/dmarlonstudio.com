@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "varias-condiciones",
+    "title": "Varias condiciones",
+    "summary": "Combine varias condiciones en un «where» de Firestore: igualdad y rango, un rango en un campo y desigualdades en dos campos distintos.",
+    "body": [
+      "Cada clave de `where` es una condición, y se tienen que cumplir **todas** (un AND). `{\"category\": \"cat3\", \"price\": {\"lt\": 3}}` deja los lácteos de menos de 3 euros: **Whole milk** (1.1) y **Greek yogurt** (2.4). El estudio lo envía como un `compositeFilter` con `\"op\": \"AND\"`; en el SDK son dos `where` seguidos.",
+      "Un mismo campo puede llevar dos operadores: `{\"price\": {\"gte\": 2, \"lt\": 4}}` es un **rango**, de 2 incluido a 4 sin incluir. Salen cinco productos, de **Apples 1 kg** (2.1) a **Strawberries** (3.9).",
+      "La última consulta pone desigualdades en **dos campos**, `price < 4` y `stock > 20`, y devuelve cinco productos baratos con existencias, ordenados por precio. Hasta 2024 Firestore solo admitía desigualdades en un campo por consulta; hoy admite varios, pero cada combinación necesita un **índice compuesto** en producción. El emulador no los pide, así que aquí todo funciona a la primera.",
+      "No hay OR en el `where` del estudio. Para «este valor o este otro» en un mismo campo, use `in`, que verá en la lección siguiente; los SDK tienen además `or()` para combinar filtros distintos."
+    ],
+    "points": [
+      "Varias claves en `where` se combinan con AND.",
+      "Dos operadores en un campo forman un rango.",
+      "Hoy Firestore admite desigualdades en varios campos.",
+      "Las consultas compuestas necesitan índices compuestos en producción.",
+      "El emulador no exige índices."
+    ],
+    "exercise": "Busque los pedidos con `status` igual a `shipped` y `total` entre 10 y 12, y muestre `customer` y `total`."
+  },
+  "en": {
+    "slug": "several-conditions",
+    "title": "Several conditions",
+    "summary": "Combine several conditions in a Firestore \"where\": equality plus a range, a range on one field and inequalities on two different fields.",
+    "body": [
+      "Each key in `where` is a condition, and **all** of them must hold (an AND). `{\"category\": \"cat3\", \"price\": {\"lt\": 3}}` keeps the dairy products under 3 euros: **Whole milk** (1.1) and **Greek yogurt** (2.4). The studio sends it as a `compositeFilter` with `\"op\": \"AND\"`; in the SDK it is two chained `where` calls.",
+      "One field can carry two operators: `{\"price\": {\"gte\": 2, \"lt\": 4}}` is a **range**, from 2 inclusive to 4 exclusive. Five products come back, from **Apples 1 kg** (2.1) to **Strawberries** (3.9).",
+      "The last query puts inequalities on **two fields**, `price < 4` and `stock > 20`, and returns five cheap products with plenty of stock, sorted by price. Until 2024 Firestore only allowed inequalities on one field per query; it now allows several, but every combination needs a **composite index** in production. The emulator does not ask for indexes, so everything works first time here.",
+      "There is no OR in the studio's `where`. For this value or that one on the same field, use `in`, coming up in the next lesson; the SDKs also offer `or()` to combine different filters."
+    ],
+    "points": [
+      "Several keys in `where` are combined with AND.",
+      "Two operators on one field make a range.",
+      "Firestore now allows inequalities on several fields.",
+      "Compound queries need composite indexes in production.",
+      "The emulator does not require indexes."
+    ],
+    "exercise": "Find the orders whose `status` is `shipped` and whose `total` is between 10 and 12, showing `customer` and `total`."
+  }
+}

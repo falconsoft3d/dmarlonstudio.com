@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "in-y-not-in",
+    "title": "Uno de una lista: in y nin",
+    "summary": "Filtre en Firestore por varios valores a la vez con «in» y excluya una lista con «nin» (not-in), con sus límites y su orden.",
+    "body": [
+      "`{\"status\": {\"in\": [\"new\", \"paid\"]}}` es «`status` vale `new` o `paid`»: el OR de un mismo campo. Salen cinco pedidos, tres pagados (`o03`, `o06`, `o10`) y dos nuevos (`o07`, `o09`). En el SDK es `where('status', 'in', ['new', 'paid'])`, y Firestore admite hasta **30 valores** en la lista.",
+      "Como `in` es una igualdad, el resultado sale por id, igual que con un valor solo. Por dentro, Firestore hace una búsqueda por cada valor y junta los resultados, sin repetir documentos.",
+      "`nin` es `not-in`: `{\"category\": {\"nin\": [\"cat1\", \"cat2\"]}}` deja los productos que no son de panadería ni de bebidas, los seis de `cat3` y `cat4`. Fíjese en que salen **ordenados por categoría**: `not-in` es una desigualdad, y el resultado sigue el orden de ese campo.",
+      "`not-in` tiene sus reglas: como mucho **10 valores**, no se combina con `neq` en la misma consulta y **deja fuera los documentos que no tienen el campo**. Un producto sin `category` no saldría en ninguna de las dos consultas."
+    ],
+    "points": [
+      "`in` es un OR sobre un campo: hasta 30 valores.",
+      "`nin` (`not-in`) excluye una lista: hasta 10 valores.",
+      "`in` sale por id; `nin` sale ordenado por el campo.",
+      "`nin` no encuentra documentos sin el campo.",
+      "`nin` y `neq` no van juntos en una consulta."
+    ],
+    "exercise": "Busque los clientes de `Madrid` o `London` con `in` y, después, los que no son de esas dos ciudades con `nin`. ¿Cuántos hay en cada caso?"
+  },
+  "en": {
+    "slug": "in-and-not-in",
+    "title": "One of a list: in and nin",
+    "summary": "Filter Firestore by several values at once with \"in\" and exclude a list with \"nin\" (not-in), with their limits and their order.",
+    "body": [
+      "`{\"status\": {\"in\": [\"new\", \"paid\"]}}` means `status` is `new` or `paid`: an OR on a single field. Five orders come back, three paid (`o03`, `o06`, `o10`) and two new (`o07`, `o09`). In the SDK it is `where('status', 'in', ['new', 'paid'])`, and Firestore accepts up to **30 values** in the list.",
+      "Because `in` is an equality, the result comes back by id, just like with a single value. Internally, Firestore runs one lookup per value and merges the results without repeating documents.",
+      "`nin` is `not-in`: `{\"category\": {\"nin\": [\"cat1\", \"cat2\"]}}` keeps the products that are neither bakery nor drinks, the six in `cat3` and `cat4`. Notice they are **sorted by category**: `not-in` is an inequality, so the result follows that field's order.",
+      "`not-in` has its rules: at most **10 values**, it cannot be combined with `neq` in the same query, and it **leaves out documents that do not have the field**. A product without `category` would appear in neither query."
+    ],
+    "points": [
+      "`in` is an OR on one field: up to 30 values.",
+      "`nin` (`not-in`) excludes a list: up to 10 values.",
+      "`in` returns by id; `nin` sorts by the field.",
+      "`nin` never matches documents missing the field.",
+      "`nin` and `neq` cannot share a query."
+    ],
+    "exercise": "Find the customers from `Madrid` or `London` with `in`, and then those from neither city with `nin`. How many are there in each case?"
+  }
+}

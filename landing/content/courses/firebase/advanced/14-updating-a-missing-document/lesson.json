@@ -1,0 +1,41 @@
+{
+  "es": {
+    "slug": "actualizar-un-documento-que-no-existe",
+    "title": "Actualizar lo que no existe",
+    "summary": "Vea el error de Firestore al actualizar un documento que no existe: la condición currentDocument.exists del estudio evita crearlo por error.",
+    "body": [
+      "La primera actualización pone `stock` 20 a `p12`, que existe, y la pestaña enseña el documento cambiado. La segunda tiene una errata, `p21`, y **falla**: el emulador responde con un 404, `no entity to update`. El script se detiene ahí, y la imagen enseña el error.",
+      "El error es buscado. El estudio envía cada `update` como un `PATCH` con la condición **`currentDocument.exists=true`**: «aplica esto solo si el documento ya existe». Sin ella, un `PATCH` a una ruta vacía **crearía** el documento `p21` con un único campo, `stock`, un producto sin nombre ni precio colado en el catálogo.",
+      "En el SDK, `update()` se comporta igual y falla con `not-found`. Si lo que quiere es «actualiza o crea» (un *upsert*), use `set(datos, {merge: true})`: fusiona los campos si el documento existe y lo crea si no. Para crear sin pisar está `create()` en el SDK de servidor, o `insert` con `_id` en el estudio, que da error 409 si el id ya existe.",
+      "Elija la operación por lo que quiere que pase cuando el documento no está: que falle (`update`), que se cree (`set` con `merge`) o que falle si ya está (`create`). Con la condición, una errata en un id se convierte en un error visible en vez de en un dato basura."
+    ],
+    "points": [
+      "El `update` del estudio exige que el documento exista.",
+      "Usa la condición `currentDocument.exists=true`.",
+      "Sin ella, un `PATCH` crearía el documento.",
+      "`set` con `merge` es el «actualiza o crea» del SDK.",
+      "`create` o `insert` con `_id` fallan si el id ya existe."
+    ],
+    "exercise": "Corrija la errata (`p21` → el id que quería, por ejemplo `p02`) y compruebe con una consulta por id que el stock cambió."
+  },
+  "en": {
+    "slug": "updating-a-missing-document",
+    "title": "Updating what does not exist",
+    "summary": "See Firestore's error when updating a document that does not exist: the studio's currentDocument.exists precondition stops accidental creation.",
+    "body": [
+      "The first update sets `stock` to 20 on `p12`, which exists, and the tab shows the changed document. The second has a typo, `p21`, and **fails**: the emulator answers with a 404, `no entity to update`. The script stops there, and the picture shows the error.",
+      "The error is deliberate. The studio sends every `update` as a `PATCH` with the precondition **`currentDocument.exists=true`**: apply this only if the document already exists. Without it, a `PATCH` to an empty path would **create** document `p21` with a single field, `stock`: a product with no name or price sneaking into the catalogue.",
+      "In the SDK, `update()` behaves the same and fails with `not-found`. If what you want is update or create (an *upsert*), use `set(data, {merge: true})`: it merges the fields if the document exists and creates it if not. To create without overwriting there is `create()` in the server SDK, or `insert` with `_id` in the studio, which gives a 409 error if the id is taken.",
+      "Pick the operation by what should happen when the document is not there: fail (`update`), create it (`set` with `merge`) or fail if it already exists (`create`). With the precondition, a typo in an id becomes a visible error instead of junk data."
+    ],
+    "points": [
+      "The studio's `update` requires the document to exist.",
+      "It uses the `currentDocument.exists=true` precondition.",
+      "Without it, a `PATCH` would create the document.",
+      "`set` with `merge` is the SDK's update or create.",
+      "`create`, or `insert` with `_id`, fails if the id is taken."
+    ],
+    "exercise": "Fix the typo (`p21` → the id you meant, for example `p02`) and check with a query by id that the stock changed."
+  },
+  "error": true
+}

@@ -1,0 +1,8 @@
+// Equality on one field + order on another: needs a composite index
+// (status ASC, total DESC) in production; the emulator does not ask
+{"collection": "orders",
+ "where": {"status": "shipped"}, "order": "total desc", "select": "customer,status,total"}
+
+// Equality + range on another field: index (status, ordered)
+{"collection": "orders",
+ "where": {"status": "paid", "ordered": {"gte": "2024-05-01"}}, "order": "ordered", "select": "customer,ordered,total"}

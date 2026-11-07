@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "subcolecciones",
+    "title": "Subcolecciones",
+    "summary": "Cree subcolecciones en Firestore (orders/o01/notes), léalas como una colección y vea por qué no cambian el documento padre.",
+    "body": [
+      "Una **subcolección** es una colección que cuelga de un documento. `\"collection\": \"orders/o01/notes\"` escribe en las notas del pedido `o01`, y cada nota tiene su ruta completa, como `orders/o01/notes/n1`. No hay que crearla antes: nace con su primer documento, igual que una colección normal.",
+      "La lección añade dos notas a `o01` y una a `o03`. Las dos subcolecciones repiten el id `n1` sin problema, porque un id solo tiene que ser único **dentro de su colección**. En el SDK, `db.collection('orders').doc('o01').collection('notes').add({...})`.",
+      "La tercera consulta lee `o01` y sale igual que siempre, sin rastro de las notas: una subcolección **no es un campo** del documento, no cuenta para su 1 MiB y no se descarga al leerlo. Por eso las notas pueden crecer sin hacer más pesado el pedido. Tampoco aparecen en la lista de la izquierda del estudio, que muestra las colecciones de primer nivel.",
+      "La última consulta lee `orders/o01/notes` ordenada por `at`, como cualquier colección: primero la nota de las 09:40 de `e3` y después la de las 10:05 de `e5`. Recuerde que borrar el pedido no borraría estas notas: habría que borrarlas aparte."
+    ],
+    "points": [
+      "Una subcolección cuelga de un documento: `orders/o01/notes`.",
+      "Se crea con su primer documento.",
+      "Los ids solo son únicos dentro de su colección.",
+      "No es un campo: no pesa en el documento padre.",
+      "Se consulta como cualquier colección, con su ruta."
+    ],
+    "exercise": "Añada una nota al pedido `o05` explicando por qué se canceló y léala después con una consulta a su subcolección."
+  },
+  "en": {
+    "slug": "subcollections",
+    "title": "Subcollections",
+    "summary": "Create Firestore subcollections (orders/o01/notes), query them like any collection and see why they leave the parent document untouched.",
+    "body": [
+      "A **subcollection** is a collection that hangs from a document. `\"collection\": \"orders/o01/notes\"` writes to the notes of order `o01`, and every note has its full path, such as `orders/o01/notes/n1`. There is nothing to create first: it is born with its first document, like an ordinary collection.",
+      "The lesson adds two notes to `o01` and one to `o03`. Both subcollections reuse the id `n1` without trouble, because an id only has to be unique **inside its own collection**. In the SDK, `db.collection('orders').doc('o01').collection('notes').add({...})`.",
+      "The third query reads `o01` and it looks exactly as before, with no trace of the notes: a subcollection **is not a field** of the document, it does not count towards its 1 MiB and it is not downloaded when you read it. That is why notes can grow without making the order heavier. They do not show up in the studio's left-hand list either, which lists top-level collections.",
+      "The last query reads `orders/o01/notes` sorted by `at`, like any collection: first the 09:40 note from `e3`, then the 10:05 one from `e5`. Remember that deleting the order would not delete these notes: you would have to delete them separately."
+    ],
+    "points": [
+      "A subcollection hangs from a document: `orders/o01/notes`.",
+      "It is created with its first document.",
+      "Ids are only unique inside their collection.",
+      "It is not a field: it adds no weight to the parent.",
+      "You query it like any collection, by its path."
+    ],
+    "exercise": "Add a note to order `o05` explaining why it was cancelled, then read it with a query on its subcollection."
+  }
+}

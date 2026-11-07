@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "filtrar-por-igualdad",
+    "title": "Filtrar por igualdad",
+    "summary": "Filtre documentos de Firestore con «where» y un valor: productos de una categoría, inactivos o clientes de una ciudad, en DMarlon Studio.",
+    "body": [
+      "`\"where\": {\"category\": \"cat2\"}` deja solo los documentos cuyo campo `category` vale exactamente `cat2`: las tres bebidas, **Espresso beans**, **Green tea** y **Orange juice**. Es `db.collection('products').where('category', '==', 'cat2')` en el SDK de JavaScript, y en la API REST un `fieldFilter` con `\"op\": \"EQUAL\"`.",
+      "Un valor sin operador significa «igual a». Sirve para cualquier tipo: `\"active\": false` encuentra un solo producto, **Bananas 1 kg**, que además tiene `stock` 0. El tipo cuenta: `false` no es lo mismo que el texto `\"false\"`, ni `\"Madrid\"` lo mismo que `\"madrid\"`.",
+      "La última consulta busca clientes con `city` igual a `Madrid` y devuelve dos: **Ana García** (`c1`) y **Marta López** (`c3`). Como no hay `order`, salen por id.",
+      "Estas consultas funcionan sin preparar nada porque Firestore crea **un índice por cada campo** de cada documento automáticamente. Por eso una consulta de Firestore tarda lo mismo con diez documentos que con diez millones: depende de cuántos devuelve, no de cuántos hay."
+    ],
+    "points": [
+      "`\"where\": {\"campo\": valor}` es una igualdad (`==`).",
+      "El tipo del valor cuenta: `false` no es `\"false\"`.",
+      "Los textos distinguen mayúsculas y minúsculas.",
+      "Cada campo tiene su índice automático.",
+      "El tiempo depende de lo que devuelve, no del tamaño de la colección."
+    ],
+    "exercise": "Escriba una consulta que devuelva los pedidos (`orders`) con `status` igual a `new`, mostrando `customer` y `total`."
+  },
+  "en": {
+    "slug": "filter-by-equality",
+    "title": "Filter by equality",
+    "summary": "Filter Firestore documents with \"where\" and a value: products in a category, inactive ones or customers in a city, in DMarlon Studio.",
+    "body": [
+      "`\"where\": {\"category\": \"cat2\"}` keeps only the documents whose `category` field is exactly `cat2`: the three drinks, **Espresso beans**, **Green tea** and **Orange juice**. That is `db.collection('products').where('category', '==', 'cat2')` in the JavaScript SDK, and a `fieldFilter` with `\"op\": \"EQUAL\"` in the REST API.",
+      "A value with no operator means equals. It works for any type: `\"active\": false` finds a single product, **Bananas 1 kg**, which also has `stock` 0. Types matter: `false` is not the string `\"false\"`, and `\"Madrid\"` is not `\"madrid\"`.",
+      "The last query looks for customers whose `city` is `Madrid` and returns two: **Ana García** (`c1`) and **Marta López** (`c3`). With no `order`, they come back by id.",
+      "These queries work without any setup because Firestore automatically builds **an index for every field** of every document. That is why a Firestore query takes the same time with ten documents as with ten million: it depends on how many it returns, not on how many there are."
+    ],
+    "points": [
+      "`\"where\": {\"field\": value}` is an equality (`==`).",
+      "The value's type matters: `false` is not `\"false\"`.",
+      "String matches are case-sensitive.",
+      "Every field gets its own index automatically.",
+      "Speed depends on the result size, not the collection size."
+    ],
+    "exercise": "Write a query that returns the orders whose `status` is `new`, showing `customer` and `total`."
+  }
+}

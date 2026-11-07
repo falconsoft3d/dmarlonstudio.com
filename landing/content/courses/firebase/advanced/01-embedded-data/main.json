@@ -1,0 +1,8 @@
+// An order keeps its lines inside: one read brings everything
+{"collection": "orders", "id": "o07"}
+
+// The items array travels with every order you read
+{"collection": "orders", "where": {"customer": "c1"}, "select": "ordered,total,items"}
+
+// If you only need the header, ask only for the header
+{"collection": "orders", "where": {"customer": "c1"}, "order": "ordered", "select": "ordered,status,total"}

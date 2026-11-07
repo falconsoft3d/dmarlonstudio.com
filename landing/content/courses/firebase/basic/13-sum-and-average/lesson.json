@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "suma-y-media",
+    "title": "Suma y media",
+    "summary": "Sume y promedie campos numéricos en Firestore con «sum» y «avg», solos o junto a «count», sin descargar los documentos.",
+    "body": [
+      "`\"sum\": \"stock\"` suma el campo `stock` de todos los productos: `264` unidades. La columna se llama `sum_stock`, el alias que pone el estudio. Como `count`, es una agregación que se calcula en el servidor; en el SDK, `getAggregateFromServer(query, {units: sum('stock')})`.",
+      "`\"avg\": \"price\"` con `\"where\": {\"category\": \"cat3\"}` da el precio medio de los lácteos: `3.75`, la media de 1.1, 2.4 y 7.75. El filtro decide qué documentos entran en la cuenta.",
+      "Se pueden pedir varias agregaciones a la vez (Firestore admite hasta cinco por consulta). La última cuenta las reseñas de **Espresso beans** (`p04`): `count` 2, `sum_rating` 8 y `avg_rating` 4.0, de una reseña de 3 estrellas y otra de 5. Es la fila que se ve en la imagen.",
+      "`sum` y `avg` **ignoran** los documentos en los que el campo no existe o no es un número. Si ningún documento cumple el filtro, la suma es 0 y la media queda vacía. Y no hay GROUP BY: para la media de cada categoría haría una consulta por categoría."
+    ],
+    "points": [
+      "`sum` y `avg` agregan un campo numérico en el servidor.",
+      "Las columnas se llaman `sum_campo` y `avg_campo`.",
+      "Se combinan con `count` en la misma consulta (hasta cinco).",
+      "Los documentos sin ese campo numérico no cuentan.",
+      "No hay GROUP BY: una consulta por grupo."
+    ],
+    "exercise": "Calcule el total facturado (`sum` de `total`) y el ticket medio (`avg` de `total`) de los pedidos con `status` igual a `paid`."
+  },
+  "en": {
+    "slug": "sum-and-average",
+    "title": "Sum and average",
+    "summary": "Sum and average numeric fields in Firestore with \"sum\" and \"avg\", alone or together with \"count\", without downloading documents.",
+    "body": [
+      "`\"sum\": \"stock\"` adds up the `stock` field of every product: `264` units. The column is called `sum_stock`, the alias the studio uses. Like `count`, it is an aggregation computed on the server; in the SDK, `getAggregateFromServer(query, {units: sum('stock')})`.",
+      "`\"avg\": \"price\"` with `\"where\": {\"category\": \"cat3\"}` gives the average price of the dairy products: `3.75`, the mean of 1.1, 2.4 and 7.75. The filter decides which documents take part.",
+      "You can ask for several aggregations at once (Firestore allows up to five per query). The last one summarises the reviews of **Espresso beans** (`p04`): `count` 2, `sum_rating` 8 and `avg_rating` 4.0, from one 3-star review and one 5-star review. That is the row in the picture.",
+      "`sum` and `avg` **ignore** documents where the field is missing or not a number. If no document matches the filter, the sum is 0 and the average is empty. And there is no GROUP BY: for the average of each category you would run one query per category."
+    ],
+    "points": [
+      "`sum` and `avg` aggregate a numeric field on the server.",
+      "The columns are named `sum_field` and `avg_field`.",
+      "They combine with `count` in one query (up to five).",
+      "Documents without that numeric field are skipped.",
+      "No GROUP BY: one query per group."
+    ],
+    "exercise": "Work out the revenue (`sum` of `total`) and the average ticket (`avg` of `total`) of the orders whose `status` is `paid`."
+  }
+}

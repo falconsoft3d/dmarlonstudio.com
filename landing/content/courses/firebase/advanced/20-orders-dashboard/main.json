@@ -1,0 +1,11 @@
+// The tiles: one aggregation per figure
+{"collection": "orders", "count": true, "sum": "total"}
+{"collection": "orders", "where": {"status": "new"}, "count": true}
+{"collection": "orders", "where": {"status": "shipped"}, "sum": "total"}
+{"collection": "products", "where": {"stock": {"lt": 10}}, "count": true}
+
+// Orders still to prepare (new or paid), newest first
+{"collection": "orders",
+ "where": {"status": {"in": ["new", "paid"]}},
+ "order": "ordered desc",
+ "select": "customer,ordered,status,total"}

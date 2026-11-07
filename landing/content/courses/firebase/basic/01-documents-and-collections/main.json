@@ -1,0 +1,5 @@
+// A collection is a set of documents; each document has an id and fields
+{"collection": "categories"}
+
+// The customers: no fixed schema, c6 has no email field
+{"collection": "customers"}

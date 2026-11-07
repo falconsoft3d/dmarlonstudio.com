@@ -1,0 +1,6 @@
+// contains: the tags array holds "sweet"
+{"collection": "products", "where": {"tags": {"contains": "sweet"}}, "select": "name,tags"}
+
+// containsAny: the array holds at least one of the values
+{"collection": "products",
+ "where": {"tags": {"containsAny": ["tea", "coffee", "juice"]}}, "select": "name,tags"}

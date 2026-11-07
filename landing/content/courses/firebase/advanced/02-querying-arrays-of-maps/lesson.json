@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "consultar-listas-de-mapas",
+    "title": "Consultar listas de mapas",
+    "summary": "Por qué array-contains sobre una lista de mapas de Firestore exige el mapa entero, y cómo arreglarlo con una lista de ids al lado.",
+    "body": [
+      "«Pedidos con café en grano» parece fácil, pero `items` es una lista de **mapas**. `contains` compara elementos enteros, así que hay que darle el mapa exacto: `{\"product\": \"p04\", \"qty\": 1, \"price\": 9.9}`. Salen `o02` y `o08`, y falta `o05`, que también lleva `p04` pero con `qty` 2. Firestore no puede buscar «un elemento cuyo `product` sea `p04`».",
+      "La solución es **guardar los datos con la forma de la consulta**: junto a `items`, un campo `products` con la lista simple de ids. Las tres actualizaciones se lo añaden a los pedidos con `p04` (`o02`, `o05` y `o08`); en una app, `products` se escribiría al crear el pedido.",
+      "Ahora la pregunta es un `contains` normal: `{\"products\": {\"contains\": \"p04\"}}` devuelve los tres pedidos, también el cancelado `o05` de 19.8. Es `where('products', 'array-contains', 'p04')` en el SDK, y con `containsAny` podría buscar pedidos con cualquiera de varios productos.",
+      "Duplicar un dato para poder consultarlo es normal en Firestore: el espacio es barato y las lecturas son lo que más se repite. A cambio, quien escribe el pedido tiene que mantener `items` y `products` de acuerdo."
+    ],
+    "points": [
+      "`contains` sobre una lista de mapas exige el mapa completo.",
+      "No se puede buscar por un campo de los mapas de una lista.",
+      "Guarde al lado una lista simple con lo que va a buscar.",
+      "Dé a los datos la forma de sus consultas.",
+      "Los datos duplicados se mantienen al escribir."
+    ],
+    "exercise": "Añada el campo `products` a los pedidos con `p12` (`o03` y `o08`) y busque después los pedidos que llevan `p12` o `p05` con `containsAny`."
+  },
+  "en": {
+    "slug": "querying-arrays-of-maps",
+    "title": "Querying arrays of maps",
+    "summary": "Why array-contains on a Firestore array of maps needs the whole map, and how to fix it by storing a plain array of ids alongside.",
+    "body": [
+      "Orders with coffee beans sounds easy, but `items` is an array of **maps**. `contains` compares whole elements, so you have to give it the exact map: `{\"product\": \"p04\", \"qty\": 1, \"price\": 9.9}`. Out come `o02` and `o08`, and `o05` is missing: it also has `p04`, but with `qty` 2. Firestore cannot search for an element whose `product` is `p04`.",
+      "The fix is to **store data in the shape of the query**: next to `items`, a `products` field with a plain array of ids. The three updates add it to the orders that contain `p04` (`o02`, `o05` and `o08`); in an app, `products` would be written when the order is created.",
+      "Now the question is an ordinary `contains`: `{\"products\": {\"contains\": \"p04\"}}` returns all three orders, including the cancelled `o05` for 19.8. In the SDK that is `where('products', 'array-contains', 'p04')`, and with `containsAny` you could look for orders with any of several products.",
+      "Duplicating a value so it can be queried is normal in Firestore: storage is cheap and reads are what happen most. In exchange, whoever writes the order must keep `items` and `products` in step."
+    ],
+    "points": [
+      "`contains` on an array of maps needs the complete map.",
+      "You cannot query one field of the maps in an array.",
+      "Store a plain array of whatever you need to search for.",
+      "Give your data the shape of your queries.",
+      "Duplicated data is kept in sync when writing."
+    ],
+    "exercise": "Add the `products` field to the orders with `p12` (`o03` and `o08`), then find the orders containing `p12` or `p05` with `containsAny`."
+  }
+}

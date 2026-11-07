@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "catalogo-de-productos",
+    "title": "Proyecto: el catálogo",
+    "summary": "Junte lo aprendido en una consulta de Firestore para un catálogo: filtros, desigualdades, orden, límite y campos elegidos.",
+    "body": [
+      "La página de catálogo de una tienda enseña los productos **activos y con existencias**. La primera consulta cuenta cuántos hay: `10` de los 12, porque **Bananas 1 kg** está inactivo y **Orange juice** no tiene stock. Ese número sirve para decir «10 productos» en la cabecera, sin descargar ninguno.",
+      "La segunda es la primera página: `active` igual a `true`, `stock` mayor que 0 y `price` menor que 5, ordenada por precio y con `limit` 6. Combina una igualdad y desigualdades en dos campos; en producción necesitaría un índice compuesto, y Firestore le daría el enlace para crearlo la primera vez.",
+      "`select` elige lo que pinta la tarjeta de cada producto: `name`, `price`, `stock` y `tags`. Salen seis, de **Whole milk** (1.1) a **Rye bread** (2.8); los `tags` permitirían enseñar etiquetas como «dulce» o «pan».",
+      "En el SDK sería `db.collection('products').where('active', '==', true).where('stock', '>', 0).where('price', '<', 5).orderBy('price').limit(6)`. Para la página siguiente, el curso avanzado le enseña a usar un cursor en lugar de `offset`. Y si quiere los datos en una hoja de cálculo, el botón **CSV** exporta el resultado."
+    ],
+    "points": [
+      "`count` con el mismo filtro da el total del listado.",
+      "Igualdad, desigualdades, orden y límite en una sola consulta.",
+      "`select` trae solo lo que pinta la pantalla.",
+      "Las consultas compuestas piden su índice en producción.",
+      "La consulta del estudio se traduce casi palabra a palabra al SDK."
+    ],
+    "exercise": "Haga la página de «dulces»: productos activos con la etiqueta `sweet` (`contains`), ordenados por precio, mostrando `name`, `price` y `stock`."
+  },
+  "en": {
+    "slug": "product-catalogue",
+    "title": "Project: the catalogue",
+    "summary": "Put everything together in one Firestore query for a catalogue page: filters, inequalities, ordering, a limit and chosen fields.",
+    "body": [
+      "A shop's catalogue page shows the products that are **active and in stock**. The first query counts them: `10` out of 12, because **Bananas 1 kg** is inactive and **Orange juice** has no stock. That number lets the header say 10 products without downloading any.",
+      "The second one is the first page: `active` equal to `true`, `stock` greater than 0 and `price` below 5, sorted by price with a `limit` of 6. It mixes an equality with inequalities on two fields; in production it would need a composite index, and Firestore would give you the link to create it the first time.",
+      "`select` picks what each product card shows: `name`, `price`, `stock` and `tags`. Six come back, from **Whole milk** (1.1) to **Rye bread** (2.8); the `tags` would let you show labels such as sweet or bread.",
+      "In the SDK it would be `db.collection('products').where('active', '==', true).where('stock', '>', 0).where('price', '<', 5).orderBy('price').limit(6)`. For the next page, the advanced course shows you how to use a cursor instead of `offset`. And if you want the data in a spreadsheet, the **CSV** button exports the result."
+    ],
+    "points": [
+      "`count` with the same filter gives the list's total.",
+      "Equality, inequalities, order and limit in one query.",
+      "`select` fetches only what the screen shows.",
+      "Compound queries need their index in production.",
+      "The studio query maps almost word for word to the SDK."
+    ],
+    "exercise": "Build the sweets page: active products tagged `sweet` (`contains`), sorted by price, showing `name`, `price` and `stock`."
+  }
+}

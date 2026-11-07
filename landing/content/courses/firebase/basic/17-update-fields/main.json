@@ -1,0 +1,7 @@
+// Orange juice is back in stock: only "stock" changes
+{"collection": "products", "update": {"id": "p06", "set": {"stock": 20}}}
+
+// A field that did not exist is added
+{"collection": "products", "update": {"id": "p05", "set": {"price": 4.25, "featured": true}}}
+
+{"collection": "products", "where": {"category": "cat2"}, "select": "name,price,stock,featured"}

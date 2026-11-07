@@ -1,0 +1,12 @@
+// contains on an array of maps needs the WHOLE map, every field equal
+{"collection": "orders",
+ "where": {"items": {"contains": {"product": "p04", "qty": 1, "price": 9.9}}}, "select": "customer,total"}
+
+// The fix: keep a plain array of product ids next to the items
+{"collection": "orders", "update": {"id": "o02", "set": {"products": ["p04", "p02"]}}}
+{"collection": "orders", "update": {"id": "o05", "set": {"products": ["p04"]}}}
+{"collection": "orders", "update": {"id": "o08", "set": {"products": ["p04", "p05", "p12"]}}}
+
+// Now "every order with espresso beans" is a simple query
+{"collection": "orders",
+ "where": {"products": {"contains": "p04"}}, "select": "customer,status,total,products"}

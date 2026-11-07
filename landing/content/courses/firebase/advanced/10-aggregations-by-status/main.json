@@ -1,0 +1,9 @@
+// Firestore has no GROUP BY: one aggregation query per group
+{"collection": "orders", "where": {"status": "new"}, "count": true, "sum": "total"}
+{"collection": "orders", "where": {"status": "paid"}, "count": true, "sum": "total"}
+{"collection": "orders", "where": {"status": "cancelled"}, "count": true, "sum": "total"}
+
+// Or a filter that covers several groups at once
+{"collection": "orders", "where": {"status": {"in": ["paid", "shipped"]}}, "count": true}
+
+{"collection": "orders", "where": {"status": "shipped"}, "count": true, "sum": "total", "avg": "total"}

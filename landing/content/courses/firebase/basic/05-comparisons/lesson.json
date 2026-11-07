@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "comparaciones",
+    "title": "Mayor, menor y distinto",
+    "summary": "Compare campos en Firestore con lt, lte, gt, gte y neq: precios, existencias y fechas en texto, y vea por qué salen ya ordenados.",
+    "body": [
+      "Para comparar, el valor del campo es un objeto con un **operador**: `{\"price\": {\"lt\": 2}}` es «precio menor que 2». Los operadores son `lt` (`<`), `lte` (`<=`), `gt` (`>`), `gte` (`>=`) y `neq` (`!=`), los mismos que `where('price', '<', 2)` en el SDK. Salen cuatro productos, de **Whole milk** (1.1) a **Bananas 1 kg** (1.6).",
+      "Fíjese en que esos cuatro llegan **ordenados por precio** aunque no hay `order`. Firestore recorre el índice del campo de la desigualdad, así que el resultado sale ordenado por ese campo. Lo mismo pasa con `{\"stock\": {\"gte\": 30}}`: **Green tea** (30), **Apples 1 kg** (35), **Baguette** (40) y **Whole milk** (60).",
+      "Los textos también se comparan, letra a letra. Las fechas del curso son textos como `\"2024-01-08\"`, y en ese formato (año, mes, día) el orden de los textos es el de las fechas: `{\"joined\": {\"gte\": \"2024-01-01\"}}` devuelve los cuatro clientes que llegaron en 2024, de **Sofía Ruiz** a **Carlos Díaz**.",
+      "Las comparaciones solo encuentran valores **del mismo tipo**: un número nunca es mayor ni menor que un texto. En una app de verdad las fechas suelen guardarse como `Timestamp`, el tipo de fecha de Firestore, que se compara igual de bien."
+    ],
+    "points": [
+      "`lt`, `lte`, `gt`, `gte` y `neq` van en un objeto: `{\"price\": {\"lt\": 2}}`.",
+      "Con una desigualdad, el resultado sale ordenado por ese campo.",
+      "Los textos se comparan letra a letra.",
+      "Las fechas `AAAA-MM-DD` en texto se ordenan como fechas.",
+      "Solo se comparan valores del mismo tipo."
+    ],
+    "exercise": "Busque los pedidos con `total` mayor que 15 y muestre `customer`, `ordered` y `total`. ¿En qué orden salen?"
+  },
+  "en": {
+    "slug": "comparisons",
+    "title": "Greater, less and not equal",
+    "summary": "Compare fields in Firestore with lt, lte, gt, gte and neq: prices, stock and dates stored as strings, and see why they come back sorted.",
+    "body": [
+      "To compare, the field's value becomes an object holding an **operator**: `{\"price\": {\"lt\": 2}}` means price below 2. The operators are `lt` (`<`), `lte` (`<=`), `gt` (`>`), `gte` (`>=`) and `neq` (`!=`), the same as `where('price', '<', 2)` in the SDK. Four products come back, from **Whole milk** (1.1) to **Bananas 1 kg** (1.6).",
+      "Notice that those four arrive **sorted by price** even without `order`. Firestore walks the index of the inequality field, so the result is ordered by that field. The same happens with `{\"stock\": {\"gte\": 30}}`: **Green tea** (30), **Apples 1 kg** (35), **Baguette** (40) and **Whole milk** (60).",
+      "Strings compare too, character by character. The course dates are strings like `\"2024-01-08\"`, and in that format (year, month, day) string order is date order: `{\"joined\": {\"gte\": \"2024-01-01\"}}` returns the four customers who joined in 2024, from **Sofía Ruiz** to **Carlos Díaz**.",
+      "Comparisons only match values **of the same type**: a number is never greater or less than a string. In a real app dates are usually stored as `Timestamp`, Firestore's date type, which compares just as well."
+    ],
+    "points": [
+      "`lt`, `lte`, `gt`, `gte` and `neq` go in an object: `{\"price\": {\"lt\": 2}}`.",
+      "With an inequality, results are sorted by that field.",
+      "Strings compare character by character.",
+      "`YYYY-MM-DD` date strings sort like dates.",
+      "Only values of the same type are compared."
+    ],
+    "exercise": "Find the orders with a `total` greater than 15 and show `customer`, `ordered` and `total`. In what order do they come back?"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "contar-documentos",
+    "title": "Contar documentos",
+    "summary": "Cuente documentos en Firestore con una consulta de agregación («count»): sin descargarlos, con filtro o sin él, en DMarlon Studio.",
+    "body": [
+      "`\"count\": true` convierte la consulta en una **consulta de agregación**: en vez de los documentos, devuelve una sola fila con la columna `count`. La tienda tiene `12` productos. El estudio lo envía a `runAggregationQuery`; en el SDK de JavaScript es `getCountFromServer(query)`.",
+      "El recuento admite el mismo `where` que cualquier consulta: `{\"stock\": 0}` cuenta `2` productos agotados (**Orange juice** y **Bananas 1 kg**) y `{\"status\": \"shipped\"}` cuenta `4` pedidos enviados.",
+      "La gracia es que Firestore cuenta **en el servidor**, recorriendo el índice, sin enviar los documentos. Se cobra una lectura por cada bloque de hasta 1000 entradas del índice: contar mil pedidos cuesta una lectura, frente a las mil de descargarlos y contarlos en la app.",
+      "Cada consulta deja su pestaña con su fila; la imagen muestra la última. Si un número se consulta muchísimo (los seguidores de alguien, por ejemplo), a veces compensa guardarlo ya contado en un documento, una idea que verá en el curso avanzado."
+    ],
+    "points": [
+      "`\"count\": true` devuelve una fila con el número de documentos.",
+      "Admite `where` como cualquier consulta.",
+      "Firestore cuenta en el servidor, sin enviar documentos.",
+      "Se cobra una lectura por cada 1000 entradas del índice.",
+      "Es `getCountFromServer` en el SDK."
+    ],
+    "exercise": "Cuente cuántos clientes hay en `Seville` y cuántos productos cuestan más de 3 euros."
+  },
+  "en": {
+    "slug": "count",
+    "title": "Counting documents",
+    "summary": "Count Firestore documents with an aggregation query (\"count\"): without downloading them, with or without a filter, in DMarlon Studio.",
+    "body": [
+      "`\"count\": true` turns the query into an **aggregation query**: instead of the documents, it returns a single row with a `count` column. The shop has `12` products. The studio sends it to `runAggregationQuery`; in the JavaScript SDK it is `getCountFromServer(query)`.",
+      "The count accepts the same `where` as any other query: `{\"stock\": 0}` counts `2` sold-out products (**Orange juice** and **Bananas 1 kg**) and `{\"status\": \"shipped\"}` counts `4` shipped orders.",
+      "The point is that Firestore counts **on the server**, walking the index, without sending the documents. It bills one read for every batch of up to 1,000 index entries: counting a thousand orders costs one read, against a thousand to download them and count them in the app.",
+      "Each query leaves its own tab with its row; the picture shows the last one. If a number is read extremely often (someone's follower count, say), it can pay to store it already counted in a document, an idea you will see in the advanced course."
+    ],
+    "points": [
+      "`\"count\": true` returns one row with the number of documents.",
+      "It accepts `where` like any query.",
+      "Firestore counts on the server without sending documents.",
+      "It bills one read per 1,000 index entries.",
+      "In the SDK it is `getCountFromServer`."
+    ],
+    "exercise": "Count how many customers live in `Seville` and how many products cost more than 3 euros."
+  }
+}

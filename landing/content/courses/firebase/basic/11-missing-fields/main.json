@@ -1,0 +1,8 @@
+// All customers: c6 has no email field at all
+{"collection": "customers", "count": true}
+
+// Ordering by a field leaves out the documents without it
+{"collection": "customers", "order": "email", "select": "name,email"}
+
+// So does "not equal": 8 customers, but only 6 come back
+{"collection": "customers", "where": {"email": {"neq": "ana@example.com"}}, "select": "name,email"}

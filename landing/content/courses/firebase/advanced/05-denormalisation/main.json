@@ -1,0 +1,8 @@
+// No joins: copy the customer's name into each of their orders
+{"collection": "orders", "update": {"where": {"customer": "c1"}, "set": {"customerName": "Ana García"}}}
+{"collection": "orders", "update": {"where": {"customer": "c2"}, "set": {"customerName": "Luis Pérez"}}}
+{"collection": "orders", "update": {"where": {"customer": "c3"}, "set": {"customerName": "Marta López"}}}
+
+// Now one query is enough to list orders with names
+{"collection": "orders",
+ "where": {"customer": {"in": ["c1", "c2", "c3"]}}, "order": "ordered", "select": "customerName,ordered,total"}

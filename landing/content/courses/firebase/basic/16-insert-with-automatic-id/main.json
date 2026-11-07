@@ -1,0 +1,8 @@
+// Without _id, Firestore makes up a random 20-character id
+{"collection": "reviews", "insert": [
+  {"product": "p07", "rating": 5, "comment": "Fresh every day"},
+  {"product": "p07", "rating": 3, "comment": "Fine"}
+]}
+
+// The ids change on every run: query by fields instead
+{"collection": "reviews", "where": {"product": "p07"}, "count": true, "avg": "rating"}

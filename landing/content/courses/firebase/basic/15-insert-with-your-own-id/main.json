@@ -1,0 +1,10 @@
+// _id chooses the document id; the rest are its fields
+{"collection": "categories", "insert": {"_id": "cat5", "name": "Frozen"}}
+
+// Several documents at once
+{"collection": "products", "insert": [
+  {"_id": "p13", "name": "Ice cream", "category": "cat5", "price": 4.2, "stock": 10, "active": true, "tags": ["sweet"]},
+  {"_id": "p14", "name": "Frozen peas", "category": "cat5", "price": 1.9, "stock": 24, "active": true, "tags": []}
+]}
+
+{"collection": "products", "where": {"category": "cat5"}, "select": "name,price,stock"}

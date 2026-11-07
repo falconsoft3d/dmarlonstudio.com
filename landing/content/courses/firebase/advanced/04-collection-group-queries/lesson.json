@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "consultas-de-grupo",
+    "title": "Consultas de grupo",
+    "summary": "Consulte a la vez todas las subcolecciones con el mismo nombre en Firestore con «group»: las notas de todos los pedidos en una consulta.",
+    "body": [
+      "Con las notas en subcolecciones, «todas las notas de `e5`» parece obligar a consultar pedido por pedido. Para eso existen las **consultas de grupo de colecciones**: `\"collection\": \"notes\", \"group\": true` busca en **todas** las colecciones que se llaman `notes`, cuelguen de donde cuelguen.",
+      "La lección reparte cuatro notas entre `o01`, `o03` y `o08`, y la primera consulta de grupo las cuenta: `4`. El estudio envía la `structuredQuery` desde la raíz de la base de datos con `\"allDescendants\": true`; en el SDK es `db.collectionGroup('notes')`.",
+      "La segunda filtra por `by` igual a `e5` y ordena por `text`: salen dos notas, y las dos tienen `_id` `n1`. No es un error: una es `orders/o01/notes/n1` y la otra `orders/o03/notes/n1`, y el estudio enseña solo el último tramo de la ruta. En una app, la referencia del documento le da la ruta completa y, con ella, el pedido.",
+      "En producción, filtrar u ordenar en una consulta de grupo necesita un índice con ámbito de **grupo de colecciones**, y las reglas de seguridad tienen que permitirla con un comodín como `match /{path=**}/notes/{id}`. Elija los nombres de las subcolecciones pensando en esto: el grupo junta todas las que se llamen igual."
+    ],
+    "points": [
+      "`\"group\": true` consulta todas las colecciones con ese nombre.",
+      "Es `collectionGroup('notes')` en el SDK.",
+      "Varios documentos pueden compartir id en colecciones distintas.",
+      "En producción necesita un índice de grupo de colecciones.",
+      "Las reglas deben permitirla con `{path=**}`."
+    ],
+    "exercise": "Cuente con una consulta de grupo cuántas notas escribió `e3` y cuántas `e4`."
+  },
+  "en": {
+    "slug": "collection-group-queries",
+    "title": "Collection group queries",
+    "summary": "Query every Firestore subcollection with the same name at once using \"group\": the notes of every order in a single query.",
+    "body": [
+      "With notes in subcollections, all of `e5`'s notes seems to require querying order by order. That is what **collection group queries** are for: `\"collection\": \"notes\", \"group\": true` searches **every** collection named `notes`, wherever it hangs.",
+      "The lesson spreads four notes across `o01`, `o03` and `o08`, and the first group query counts them: `4`. The studio sends the `structuredQuery` from the root of the database with `\"allDescendants\": true`; in the SDK it is `db.collectionGroup('notes')`.",
+      "The second one filters on `by` equal to `e5` and sorts by `text`: two notes come back, and both have `_id` `n1`. That is not a mistake: one is `orders/o01/notes/n1` and the other `orders/o03/notes/n1`, and the studio shows only the last part of the path. In an app, the document reference gives you the full path and, from it, the order.",
+      "In production, filtering or sorting in a group query needs an index with **collection group** scope, and the security rules must allow it with a wildcard such as `match /{path=**}/notes/{id}`. Pick subcollection names with this in mind: the group gathers every collection with the same name."
+    ],
+    "points": [
+      "`\"group\": true` queries every collection with that name.",
+      "In the SDK it is `collectionGroup('notes')`.",
+      "Documents in different collections may share an id.",
+      "In production it needs a collection group index.",
+      "Rules must allow it with `{path=**}`."
+    ],
+    "exercise": "Use a group query to count how many notes `e3` wrote and how many `e4` wrote."
+  }
+}

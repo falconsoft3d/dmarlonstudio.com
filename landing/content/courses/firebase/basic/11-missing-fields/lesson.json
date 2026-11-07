@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "campos-que-faltan",
+    "title": "Campos que faltan",
+    "summary": "Vea qué pasa en Firestore con los documentos que no tienen un campo: no salen al ordenar por él ni al filtrar con neq o nin.",
+    "body": [
+      "Hay ocho clientes, como dice la primera consulta (`count`), pero `c6`, **Pedro Gómez**, no tiene `email`. En una tabla SQL sería una columna con `NULL`; en Firestore, sencillamente, ese campo **no existe** en ese documento.",
+      "La segunda consulta ordena por `email` y devuelve **siete** clientes: Pedro no está. Firestore resuelve un orden con el índice de ese campo, y un documento sin el campo no tiene entrada en ese índice. Ordenar por un campo es, sin decirlo, filtrar «que exista».",
+      "Con `neq` pasa lo mismo. «Correo distinto del de Ana» debería dejar fuera solo a Ana, pero devuelve **seis**: falta Ana, como se esperaba, y falta Pedro, que no tiene correo. Y salen ordenados por `email`, como toda desigualdad. `nin` se comporta igual.",
+      "La lección práctica: si un campo se va a usar para ordenar o filtrar, **escríbalo en todos los documentos**, aunque sea con un valor por defecto. Y recuerde que la lista de la izquierda del estudio enseña los campos del primer documento de cada colección: en Firestore son una pista, no un esquema."
+    ],
+    "points": [
+      "En Firestore, un campo puede no existir en un documento.",
+      "Ordenar por un campo deja fuera a quien no lo tiene.",
+      "`neq` y `nin` tampoco encuentran documentos sin el campo.",
+      "Escriba siempre los campos por los que va a consultar.",
+      "Los campos de la lista de la izquierda son una pista, no un esquema."
+    ],
+    "exercise": "Ordene los empleados (`employees`) por `manager`. ¿Quién falta en el resultado y por qué?"
+  },
+  "en": {
+    "slug": "missing-fields",
+    "title": "Missing fields",
+    "summary": "See what Firestore does with documents that lack a field: they vanish when you sort by it or filter with neq or nin.",
+    "body": [
+      "There are eight customers, as the first query (`count`) says, but `c6`, **Pedro Gómez**, has no `email`. In a SQL table that would be a `NULL` column; in Firestore the field simply **does not exist** in that document.",
+      "The second query sorts by `email` and returns **seven** customers: Pedro is gone. Firestore answers a sort with that field's index, and a document without the field has no entry in that index. Sorting by a field is, silently, filtering on the field existing.",
+      "`neq` does the same. Email other than Ana's should leave out only Ana, yet it returns **six**: Ana is missing, as expected, and so is Pedro, who has no email. And they come back sorted by `email`, like any inequality. `nin` behaves the same way.",
+      "The practical lesson: if a field will be used to sort or filter, **write it in every document**, even with a default value. And remember that the list on the left of the studio shows the fields of the first document in each collection: in Firestore they are a hint, not a schema."
+    ],
+    "points": [
+      "In Firestore a field can be missing from a document.",
+      "Sorting by a field drops documents without it.",
+      "`neq` and `nin` do not match documents without the field either.",
+      "Always write the fields you will query on.",
+      "The fields in the left-hand list are a hint, not a schema."
+    ],
+    "exercise": "Sort the `employees` by `manager`. Who is missing from the result, and why?"
+  }
+}

@@ -1,0 +1,12 @@
+// Order o08 says who bought it and which products
+{"collection": "orders", "id": "o08"}
+
+// Second read: the customer, by the id stored in the order
+{"collection": "customers", "id": "c7"}
+
+// Third read: one product (in an app, all of them in one batch)
+{"collection": "products", "id": "p04"}
+
+// Fourth read: the reviews of its three products, in one "in" query
+{"collection": "reviews",
+ "where": {"product": {"in": ["p04", "p05", "p12"]}}, "order": "product", "select": "product,rating,comment"}

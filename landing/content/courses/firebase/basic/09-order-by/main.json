@@ -1,0 +1,5 @@
+// Most expensive first
+{"collection": "products", "order": "price desc", "select": "name,price"}
+
+// Two fields: by category, and inside each one by price (high to low)
+{"collection": "products", "order": "category, price desc", "select": "name,category,price"}

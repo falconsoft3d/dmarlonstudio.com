@@ -1,0 +1,13 @@
+// Reviews as subcollections of each product
+{"collection": "products/p01/reviews", "insert": [{"_id": "r1", "rating": 5}, {"_id": "r2", "rating": 4}]}
+{"collection": "products/p04/reviews", "insert": [{"_id": "r1", "rating": 3}, {"_id": "r2", "rating": 5}]}
+{"collection": "products/p12/reviews", "insert": [{"_id": "r1", "rating": 2}, {"_id": "r2", "rating": 4}]}
+
+// One product: the subcollection itself
+{"collection": "products/p04/reviews", "count": true, "avg": "rating"}
+
+// The whole shop: a collection group aggregation
+{"collection": "reviews", "group": true, "count": true, "avg": "rating"}
+
+// Good reviews anywhere (top-level "reviews" too: same name)
+{"collection": "reviews", "group": true, "where": {"rating": {"gte": 4}}, "count": true}

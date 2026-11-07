@@ -1,0 +1,13 @@
+// The truth: count and sum the orders of customer c1
+{"collection": "orders", "where": {"customer": "c1"}, "count": true, "sum": "total"}
+
+// Store the result in the customer so lists don't recompute it
+{"collection": "customers", "update": {"id": "c1", "set": {"orders": 3, "spent": 34.95}}}
+
+// A new order: write the order AND update the counters
+{"collection": "orders",
+ "insert": {"_id": "o11", "customer": "c1", "ordered": "2024-06-10", "status": "new",
+            "total": 5.0, "items": [{"product": "p05", "qty": 1, "price": 5.0}]}}
+{"collection": "customers", "update": {"id": "c1", "set": {"orders": 4, "spent": 39.95}}}
+
+{"collection": "customers", "where": {"city": "Madrid"}, "select": "name,orders,spent"}

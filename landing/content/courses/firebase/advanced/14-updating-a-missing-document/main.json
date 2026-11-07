@@ -1,0 +1,5 @@
+// p12 exists: the update works
+{"collection": "products", "update": {"id": "p12", "set": {"stock": 20}}}
+
+// A typo in the id: p21 does not exist, so the update fails
+{"collection": "products", "update": {"id": "p21", "set": {"stock": 20}}}

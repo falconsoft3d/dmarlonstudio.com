@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "mapas-y-punto",
+    "title": "Mapas y notación con punto",
+    "summary": "Guarde mapas (objetos anidados) en documentos de Firestore y filtre, ordene y elija sus subcampos con la notación con punto.",
+    "body": [
+      "Un campo puede ser un **mapa**: un objeto con sus propios campos. La lección crea la colección `stores` con tres tiendas cuyo `address` lleva `city` y `zip`. Las colecciones de Firestore se crean solas con su primer documento: no hay `CREATE`. Tras ejecutar, `stores` aparece en la lista de la izquierda.",
+      "Para llegar dentro del mapa se usa el **punto**: `\"address.city\"`. La consulta final filtra por `address.city` igual a `Madrid`, ordena por `address.zip desc` y elige `address.zip`. Salen **Retiro** (28009) y **Centre** (28001). En el SDK es `where('address.city', '==', 'Madrid').orderBy('address.zip', 'desc')`.",
+      "Fíjese en la columna `address` del resultado: vale `{\"zip\":\"28009\"}`. Al proyectar un subcampo, Firestore devuelve el mapa **solo con ese subcampo**, no un campo suelto llamado `address.zip`.",
+      "Firestore indexa cada subcampo como si fuera un campo más, así que filtrar por él es igual de rápido. Los mapas sirven para agrupar datos que se leen juntos (una dirección, unos horarios); para listas que crecen sin límite es mejor una subcolección, como verá en el curso avanzado."
+    ],
+    "points": [
+      "Un campo puede ser un mapa con sus propios campos.",
+      "Una colección se crea con su primer documento.",
+      "`address.city` llega dentro del mapa en `where`, `order` y `select`.",
+      "Proyectar un subcampo devuelve el mapa con ese subcampo.",
+      "Cada subcampo tiene su propio índice."
+    ],
+    "exercise": "Añada a cada tienda un mapa `hours` con `open` y `close`, y busque las que abren antes de las `09:30`."
+  },
+  "en": {
+    "slug": "maps-and-dot-notation",
+    "title": "Maps and dot notation",
+    "summary": "Store maps (nested objects) in Firestore documents and filter, sort and select their subfields using dot notation.",
+    "body": [
+      "A field can be a **map**: an object with its own fields. The lesson creates the `stores` collection with three stores whose `address` holds `city` and `zip`. Firestore collections create themselves with their first document: there is no `CREATE`. After running, `stores` shows up in the list on the left.",
+      "To reach inside the map you use a **dot**: `\"address.city\"`. The final query filters on `address.city` equal to `Madrid`, sorts by `address.zip desc` and selects `address.zip`. Out come **Retiro** (28009) and **Centre** (28001). In the SDK it is `where('address.city', '==', 'Madrid').orderBy('address.zip', 'desc')`.",
+      "Look at the `address` column in the result: it holds `{\"zip\":\"28009\"}`. When you project a subfield, Firestore returns the map **with just that subfield**, not a loose field called `address.zip`.",
+      "Firestore indexes every subfield as if it were one more field, so filtering on it is just as fast. Maps are good for grouping data that is read together (an address, opening hours); for lists that grow without limit a subcollection is better, as you will see in the advanced course."
+    ],
+    "points": [
+      "A field can be a map with its own fields.",
+      "A collection is created by its first document.",
+      "`address.city` reaches into the map in `where`, `order` and `select`.",
+      "Projecting a subfield returns the map with that subfield.",
+      "Every subfield has its own index."
+    ],
+    "exercise": "Give each store an `hours` map with `open` and `close`, and find the ones that open before `09:30`."
+  }
+}

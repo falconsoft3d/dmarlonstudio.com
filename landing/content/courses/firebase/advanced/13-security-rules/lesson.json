@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "reglas-de-seguridad",
+    "title": "Reglas de seguridad",
+    "summary": "Cómo protegen las reglas de seguridad de Firestore los datos de cada usuario, con carritos en users/{uid}/cart, y por qué el emulador entra como owner.",
+    "body": [
+      "Una app de Firebase habla con Firestore **desde el móvil o el navegador**, sin servidor propio en medio. Lo que impide que un usuario lea los datos de otro son las **reglas de seguridad**, que Firestore evalúa en cada lectura y escritura. Un diseño habitual es guardar lo de cada usuario bajo su id: `users/u1/cart`, `users/u2/cart`.",
+      "La lección crea esos dos carritos. Con reglas como `match /users/{uid}/cart/{item} { allow read, write: if request.auth != null && request.auth.uid == uid; }`, el usuario `u1` solo puede leer y escribir en `users/u1/...`. La última consulta, su carrito (`p01` por 2 y `p12` por 1), es justo lo que su app podría pedir.",
+      "La consulta de grupo sobre `cart` cuenta los tres artículos de **todos** los usuarios. Aquí funciona porque el estudio, conectado al **emulador**, entra como `owner`, sin reglas. Con reglas de verdad, esa consulta fallaría para un usuario normal: las reglas **no filtran** resultados, rechazan la consulta entera si podría devolver algo prohibido. Por eso la app de `u1` debe pedir `users/u1/cart`, nunca «todos los carritos y ya filtraré».",
+      "En la conexión del estudio puede indicar la **clave web** del proyecto y un correo y contraseña de Firebase Authentication: entonces el estudio entra como ese usuario y sus consultas pasan por las reglas, como las de la app. Es la forma de comprobar que un usuario ve lo que debe y nada más."
+    ],
+    "points": [
+      "Las reglas deciden cada lectura y escritura desde el cliente.",
+      "Guardar los datos bajo `users/{uid}` facilita las reglas.",
+      "Las reglas no filtran: rechazan la consulta entera.",
+      "El emulador, como `owner`, no aplica reglas.",
+      "Con correo y contraseña, el estudio consulta como ese usuario."
+    ],
+    "exercise": "Añada al carrito de `u2` dos unidades de `p08` y lea solo ese carrito. Después escriba (en un comentario) la regla que dejaría a `u2` leerlo."
+  },
+  "en": {
+    "slug": "security-rules",
+    "title": "Security rules",
+    "summary": "How Firestore security rules protect each user's data, with carts in users/{uid}/cart, and why the emulator connects as owner.",
+    "body": [
+      "A Firebase app talks to Firestore **straight from the phone or browser**, with no server of its own in between. What stops one user reading another's data is the **security rules**, which Firestore evaluates on every read and write. A common design is to keep each user's data under their id: `users/u1/cart`, `users/u2/cart`.",
+      "The lesson creates those two carts. With rules such as `match /users/{uid}/cart/{item} { allow read, write: if request.auth != null && request.auth.uid == uid; }`, user `u1` can only read and write in `users/u1/...`. The last query, their cart (`p01` times 2 and `p12` times 1), is exactly what their app could ask for.",
+      "The group query on `cart` counts the three items of **every** user. It works here because the studio, connected to the **emulator**, signs in as `owner`, with no rules. With real rules that query would fail for a normal user: rules **do not filter** results, they reject the whole query if it could return something forbidden. That is why `u1`'s app must ask for `users/u1/cart`, never every cart and I will filter later.",
+      "In the studio's connection you can enter the project's **web key** and a Firebase Authentication email and password: the studio then signs in as that user and its queries go through the rules, just like the app's. That is how you check that a user sees what they should and nothing more."
+    ],
+    "points": [
+      "Rules decide every read and write coming from the client.",
+      "Storing data under `users/{uid}` keeps rules simple.",
+      "Rules do not filter: they reject the whole query.",
+      "The emulator, as `owner`, applies no rules.",
+      "With email and password, the studio queries as that user."
+    ],
+    "exercise": "Add two units of `p08` to `u2`'s cart and read only that cart. Then write (in a comment) the rule that would let `u2` read it."
+  }
+}

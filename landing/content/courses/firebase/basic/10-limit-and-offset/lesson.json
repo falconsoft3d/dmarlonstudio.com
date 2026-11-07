@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "limite-y-desplazamiento",
+    "title": "Límite y desplazamiento",
+    "summary": "Pida solo los primeros documentos con «limit» y salte los de las páginas anteriores con «offset» en una consulta de Firestore.",
+    "body": [
+      "`\"limit\": 3` con `\"order\": \"price\"` devuelve los tres productos más baratos: **Whole milk**, **Baguette** y **Croissant**. Es `limit(3)` en el SDK. Sin `order`, el límite se aplicaría por id, que rara vez es lo que quiere: ordene siempre que limite.",
+      "Las dos consultas siguientes parten el catálogo en **páginas de cuatro** ordenadas por nombre. La primera trae de **Apples 1 kg** a **Croissant**; la segunda añade `\"offset\": 4`, que salta esos cuatro, y trae de **Espresso beans** a **Manchego cheese**.",
+      "`offset` es cómodo pero caro: Firestore **lee y cobra** los documentos que salta. La página 100 de un listado de 20 costaría 2000 lecturas. Los SDK de cliente ni siquiera lo tienen (solo el de servidor); usan **cursores**, como `startAfter`, que empiezan justo después del último documento visto. Lo verá en el curso avanzado.",
+      "El estudio pone `limit` 100 cuando no indica otro, así que una colección grande nunca se descarga entera por descuido. Ejecute cada página por separado seleccionando su línea: se ejecuta solo la selección."
+    ],
+    "points": [
+      "`limit` corta el resultado: ordene siempre antes.",
+      "`offset` salta documentos para paginar.",
+      "Los documentos saltados se leen y se cobran.",
+      "Los SDK de cliente paginan con cursores (`startAfter`).",
+      "Sin `limit`, el estudio pide como mucho 100."
+    ],
+    "exercise": "Muestre la tercera página de cuatro productos ordenados por nombre. ¿Cuántos documentos salen y por qué?"
+  },
+  "en": {
+    "slug": "limit-and-offset",
+    "title": "Limit and offset",
+    "summary": "Fetch only the first documents with \"limit\" and skip earlier pages with \"offset\" in a Firestore query, in DMarlon Studio.",
+    "body": [
+      "`\"limit\": 3` together with `\"order\": \"price\"` returns the three cheapest products: **Whole milk**, **Baguette** and **Croissant**. In the SDK it is `limit(3)`. Without `order` the limit would apply in id order, which is rarely what you want: always sort when you limit.",
+      "The next two queries split the catalogue into **pages of four** sorted by name. The first brings **Apples 1 kg** to **Croissant**; the second adds `\"offset\": 4`, which skips those four, and brings **Espresso beans** to **Manchego cheese**.",
+      "`offset` is handy but expensive: Firestore **reads and bills** every document it skips. Page 100 of a list of 20 would cost 2,000 reads. The client SDKs do not even have it (only the server one does); they use **cursors** such as `startAfter`, which start right after the last document you saw. You will meet them in the advanced course.",
+      "The studio uses a `limit` of 100 when you do not set one, so a large collection is never downloaded whole by accident. Run each page on its own by selecting its line: only the selection runs."
+    ],
+    "points": [
+      "`limit` cuts the result: always sort first.",
+      "`offset` skips documents to paginate.",
+      "Skipped documents are still read and billed.",
+      "Client SDKs paginate with cursors (`startAfter`).",
+      "Without `limit`, the studio asks for at most 100."
+    ],
+    "exercise": "Show the third page of four products sorted by name. How many documents come back, and why?"
+  }
+}

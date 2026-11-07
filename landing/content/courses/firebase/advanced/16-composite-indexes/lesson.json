@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "indices-compuestos",
+    "title": "Índices compuestos",
+    "summary": "Qué consultas de Firestore necesitan un índice compuesto, cómo se declara en firestore.indexes.json y por qué el emulador no lo pide.",
+    "body": [
+      "Firestore crea solo un índice por cada campo, y con eso resuelve igualdades, rangos y órdenes **sobre un campo**. En cuanto una consulta mezcla campos (una igualdad en `status` y un orden por `total`), necesita un **índice compuesto** que guarde los dos juntos, en ese orden.",
+      "La primera consulta, pedidos enviados del más caro al más barato, necesita el índice `status` ascendente + `total` descendente. Devuelve `o08` (22.2), `o02` (15.9), `o01` (11.25) y `o04` (10.5). La segunda, pedidos pagados desde mayo, necesita `status` + `ordered`, y devuelve `o06` y `o10`.",
+      "El emulador **no exige índices**: todas las consultas funcionan. En producción, la primera vez que lance una de estas Firestore responde `FAILED_PRECONDITION: The query requires an index` con un enlace que crea el índice en la consola. Para tenerlos en el código, se declaran en `firestore.indexes.json`, por ejemplo `{\"collectionGroup\": \"orders\", \"queryScope\": \"COLLECTION\", \"fields\": [{\"fieldPath\": \"status\", \"order\": \"ASCENDING\"}, {\"fieldPath\": \"total\", \"order\": \"DESCENDING\"}]}`, y se suben con `firebase deploy --only firestore:indexes`.",
+      "Cada índice ocupa espacio y hace un poco más lenta cada escritura, así que cree los que usan sus consultas, no todos los posibles. Y como el emulador no avisa, pruebe las consultas nuevas también contra un proyecto real antes de publicar."
+    ],
+    "points": [
+      "Los índices de un campo los crea Firestore solo.",
+      "Mezclar campos (igualdad + orden, varios rangos) pide un índice compuesto.",
+      "Sin el índice, Firestore responde con un enlace para crearlo.",
+      "Se declaran en `firestore.indexes.json` y se suben con la CLI.",
+      "El emulador no los pide: pruebe también en real."
+    ],
+    "exercise": "Escriba la consulta de los productos de `cat3` ordenados por `stock` descendente y, en un comentario, el índice compuesto que necesitaría."
+  },
+  "en": {
+    "slug": "composite-indexes",
+    "title": "Composite indexes",
+    "summary": "Which Firestore queries need a composite index, how to declare it in firestore.indexes.json and why the emulator never asks for one.",
+    "body": [
+      "Firestore builds one index per field on its own, and with that it answers equalities, ranges and sorts **on a single field**. As soon as a query mixes fields (an equality on `status` and a sort by `total`), it needs a **composite index** that stores both together, in that order.",
+      "The first query, shipped orders from most to least expensive, needs the index `status` ascending + `total` descending. It returns `o08` (22.2), `o02` (15.9), `o01` (11.25) and `o04` (10.5). The second, paid orders since May, needs `status` + `ordered` and returns `o06` and `o10`.",
+      "The emulator **does not require indexes**: every query just works. In production, the first time you run one of these Firestore answers `FAILED_PRECONDITION: The query requires an index` with a link that creates the index in the console. To keep them in code, you declare them in `firestore.indexes.json`, for example `{\"collectionGroup\": \"orders\", \"queryScope\": \"COLLECTION\", \"fields\": [{\"fieldPath\": \"status\", \"order\": \"ASCENDING\"}, {\"fieldPath\": \"total\", \"order\": \"DESCENDING\"}]}`, and deploy them with `firebase deploy --only firestore:indexes`.",
+      "Every index takes storage and makes each write a little slower, so create the ones your queries use, not every possible one. And since the emulator gives no warning, test new queries against a real project too before you ship."
+    ],
+    "points": [
+      "Single-field indexes are created automatically.",
+      "Mixing fields (equality + sort, several ranges) needs a composite index.",
+      "Without it, Firestore replies with a link to create it.",
+      "Declare them in `firestore.indexes.json` and deploy with the CLI.",
+      "The emulator never asks: test against a real project too."
+    ],
+    "exercise": "Write the query for the `cat3` products sorted by `stock` descending and, in a comment, the composite index it would need."
+  }
+}

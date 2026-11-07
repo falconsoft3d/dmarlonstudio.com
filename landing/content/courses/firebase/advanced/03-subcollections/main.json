@@ -1,0 +1,13 @@
+// A subcollection hangs from one document: orders/o01/notes
+{"collection": "orders/o01/notes", "insert": [
+  {"_id": "n1", "text": "Call before delivery", "by": "e5", "at": "2024-03-01 10:05"},
+  {"_id": "n2", "text": "Customer asked for a bag", "by": "e3", "at": "2024-03-01 09:40"}
+]}
+{"collection": "orders/o03/notes",
+ "insert": {"_id": "n1", "text": "Paid by card", "by": "e5", "at": "2024-03-15 18:20"}}
+
+// The parent order does not change: notes are not one of its fields
+{"collection": "orders", "id": "o01"}
+
+// Query one subcollection like any other collection
+{"collection": "orders/o01/notes", "order": "at", "select": "at,by,text"}

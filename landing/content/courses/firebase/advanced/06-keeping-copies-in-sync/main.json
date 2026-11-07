@@ -1,0 +1,9 @@
+{"collection": "orders", "update": {"where": {"customer": "c1"}, "set": {"customerName": "Ana García"}}}
+
+// Ana changes her name: first the customer document...
+{"collection": "customers", "update": {"id": "c1", "set": {"name": "Ana García Ruiz"}}}
+
+// ...then every copy of it (one write per order)
+{"collection": "orders", "update": {"where": {"customer": "c1"}, "set": {"customerName": "Ana García Ruiz"}}}
+
+{"collection": "orders", "where": {"customer": "c1"}, "select": "customer,customerName,total"}

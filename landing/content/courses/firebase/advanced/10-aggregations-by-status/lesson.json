@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "agregaciones-por-estado",
+    "title": "Agregar por grupos",
+    "summary": "Firestore no tiene GROUP BY: calcule recuentos y totales por estado del pedido con una consulta de agregación por grupo.",
+    "body": [
+      "En SQL, `GROUP BY status` daría una fila por estado. Firestore **no agrupa**: cada consulta de agregación devuelve una sola fila. Para un informe por estado se hace una consulta por estado, con `count` y `sum` en cada una.",
+      "Las tres primeras dan los pedidos nuevos (`2`, por 19.8), los pagados (`3`, por 47.2) y los cancelados (`1`, por 19.8). Cada una deja su pestaña, y cuesta una lectura por cada bloque de hasta 1000 documentos contados: muy barato aunque sean muchas.",
+      "Un `in` permite agregar varios grupos juntos: pagados y enviados son `7` pedidos. La última saca la fila de los enviados con las tres agregaciones: `count` 4, `sum_total` 59.85 y `avg_total` 14.9625. Un consejo para las sumas de dinero: guarde los importes en **céntimos** (enteros). Sumar decimales en otro orden puede dar `107.05000000000001` en vez de `107.05`, y con enteros eso no pasa.",
+      "Si el número de grupos es grande o desconocido (las ventas de cada cliente, por ejemplo), una consulta por grupo deja de ser práctica. Entonces se guardan los totales ya calculados en un documento, como en la lección de contadores, o se exportan los datos a BigQuery para el análisis."
+    ],
+    "points": [
+      "Firestore no tiene GROUP BY.",
+      "Una consulta de agregación por grupo.",
+      "`in` agrega varios grupos a la vez.",
+      "Cada agregación cuesta una lectura por cada 1000 documentos.",
+      "Con muchos grupos, guarde los totales calculados."
+    ],
+    "exercise": "Calcule `count` y `sum` de `total` de los pedidos de cada uno de los clientes `c1`, `c2` y `c5`."
+  },
+  "en": {
+    "slug": "aggregations-by-status",
+    "title": "Aggregating by group",
+    "summary": "Firestore has no GROUP BY: work out counts and totals for each order status with one aggregation query per group.",
+    "body": [
+      "In SQL, `GROUP BY status` would give one row per status. Firestore **does not group**: each aggregation query returns a single row. For a report by status you run one query per status, with `count` and `sum` in each.",
+      "The first three give the new orders (`2`, for 19.8), the paid ones (`3`, for 47.2) and the cancelled ones (`1`, for 19.8). Each leaves its own tab and costs one read per batch of up to 1,000 documents counted: very cheap, even if you run many.",
+      "An `in` lets you aggregate several groups together: paid and shipped come to `7` orders. The last one gives the shipped row with all three aggregations: `count` 4, `sum_total` 59.85 and `avg_total` 14.9625. A tip for summing money: store amounts in **cents** (integers). Adding decimals in a different order can give `107.05000000000001` instead of `107.05`, and with integers that never happens.",
+      "If there are many groups or you do not know them in advance (sales per customer, for example), one query per group stops being practical. Then you store the totals already computed in a document, as in the counters lesson, or export the data to BigQuery for analysis."
+    ],
+    "points": [
+      "Firestore has no GROUP BY.",
+      "One aggregation query per group.",
+      "`in` aggregates several groups at once.",
+      "Each aggregation costs one read per 1,000 documents.",
+      "With many groups, store precomputed totals."
+    ],
+    "exercise": "Work out the `count` and `sum` of `total` for the orders of each of the customers `c1`, `c2` and `c5`."
+  }
+}

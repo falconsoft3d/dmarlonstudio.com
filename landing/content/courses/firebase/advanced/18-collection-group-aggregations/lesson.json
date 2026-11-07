@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "agregaciones-de-grupo",
+    "title": "Agregar en grupos de colecciones",
+    "summary": "Combine consultas de grupo y agregaciones en Firestore: la media de reseñas de un producto y de toda la tienda, y la trampa de los nombres.",
+    "body": [
+      "Esta vez las reseñas se guardan como subcolección de cada producto: `products/p01/reviews`, `products/p04/reviews` y `products/p12/reviews`, dos en cada una. Es un modelo habitual: la página de un producto lee solo sus reseñas.",
+      "Una subcolección se agrega como cualquier colección: las de `p04` dan `count` 2 y `avg_rating` 4.0. Para **toda la tienda** se combina `\"group\": true` con la agregación; en el SDK, `getAggregateFromServer(collectionGroup(db, 'reviews'), {...})`.",
+      "Pero el grupo cuenta `14` reseñas, no seis, con una media de 3.93. La razón: un grupo de colecciones junta **todas** las colecciones llamadas `reviews`, y la colección de primer nivel `reviews` de la tienda, con sus ocho reseñas, se llama igual. La última consulta, reseñas de 4 estrellas o más en todo el grupo, cuenta `10`: seis de arriba y cuatro de las subcolecciones.",
+      "La lección: el nombre de una subcolección es también el nombre de su grupo. Si dos cosas distintas se llaman igual, una consulta de grupo las mezcla. Elija nombres que no choquen (por ejemplo, `productReviews`) o no tenga la misma colección en dos sitios del modelo."
+    ],
+    "points": [
+      "Una subcolección se agrega como cualquier colección.",
+      "`group` y `count`/`avg` juntos agregan todo el grupo.",
+      "Un grupo incluye todas las colecciones con ese nombre.",
+      "También la de primer nivel, si se llama igual.",
+      "Dé nombres que no choquen a las subcolecciones."
+    ],
+    "exercise": "Calcule la media de las reseñas de `p12` en su subcolección y compárela con la media de la colección de primer nivel `reviews` filtrando por `product` igual a `p12`."
+  },
+  "en": {
+    "slug": "collection-group-aggregations",
+    "title": "Aggregating collection groups",
+    "summary": "Combine group queries and aggregations in Firestore: the average rating for one product and for the whole shop, and the naming trap.",
+    "body": [
+      "This time reviews are stored as a subcollection of each product: `products/p01/reviews`, `products/p04/reviews` and `products/p12/reviews`, two in each. It is a common model: a product page reads only its own reviews.",
+      "A subcollection aggregates like any collection: `p04`'s give `count` 2 and `avg_rating` 4.0. For **the whole shop** you combine `\"group\": true` with the aggregation; in the SDK, `getAggregateFromServer(collectionGroup(db, 'reviews'), {...})`.",
+      "But the group counts `14` reviews, not six, with an average of 3.93. The reason: a collection group gathers **every** collection named `reviews`, and the shop's top-level `reviews` collection, with its eight reviews, has the same name. The last query, reviews of 4 stars or more across the group, counts `10`: six from the top level and four from the subcollections.",
+      "The lesson: a subcollection's name is also its group's name. If two different things share a name, a group query mixes them. Choose names that do not clash (for example, `productReviews`), or do not keep the same collection in two places in your model."
+    ],
+    "points": [
+      "A subcollection aggregates like any collection.",
+      "`group` plus `count`/`avg` aggregates the whole group.",
+      "A group includes every collection with that name.",
+      "The top-level one too, if it shares the name.",
+      "Give subcollections names that do not clash."
+    ],
+    "exercise": "Work out the average rating of `p12` in its subcollection and compare it with the top-level `reviews` collection filtered by `product` equal to `p12`."
+  }
+}

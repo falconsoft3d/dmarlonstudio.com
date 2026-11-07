@@ -1,0 +1,7 @@
+// Delete one document by its id
+{"collection": "reviews", "delete": "r5"}
+
+// Delete every document that matches a filter
+{"collection": "reviews", "delete": {"where": {"rating": {"lte": 2}}}}
+
+{"collection": "reviews", "order": "rating desc, product", "select": "product,rating,comment"}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "borrar-documentos",
+    "title": "Borrar documentos",
+    "summary": "Borre documentos de Firestore por su id o todos los que cumplen un filtro con «delete», y conozca lo que un borrado no se lleva.",
+    "body": [
+      "`{\"collection\": \"reviews\", \"delete\": \"r5\"}` borra el documento `reviews/r5`, la reseña de 5 estrellas sin comentario. Es un `DELETE` a su ruta en la API REST y `doc('r5').delete()` en el SDK. Borrar un id que no existe **no da error**: Firestore lo trata como hecho.",
+      "Con `{\"where\": {...}}` se borran todos los que cumplen el filtro: `{\"rating\": {\"lte\": 2}}` encuentra una reseña, `r7` (**Not ripe**, 2 estrellas). Como al actualizar con `where`, el estudio primero consulta y después borra uno a uno; Firestore no tiene DELETE … WHERE.",
+      "La última consulta enseña las seis reseñas que quedan, ordenadas por `rating desc, product`: dos de 5 estrellas, tres de 4 y una de 3.",
+      "Un detalle importante: borrar un documento **no borra sus subcolecciones**. Si un pedido tuviera notas en `orders/o01/notes`, seguirían ahí, huérfanas. Para borrar una colección entera hay que borrar sus documentos uno a uno (o con la consola o la CLI de Firebase). El estudio pide confirmación antes de ejecutar un script que cambia datos."
+    ],
+    "points": [
+      "`\"delete\": \"r5\"` borra un documento por su id.",
+      "`\"delete\": {\"where\": {...}}` borra todos los que cumplen el filtro.",
+      "Borrar un id que no existe no da error.",
+      "Borrar un documento no borra sus subcolecciones.",
+      "No hay DELETE … WHERE: consulta y un borrado por documento."
+    ],
+    "exercise": "Borre todas las reseñas de **Espresso beans** (`p04`) con un `where` y cuente después cuántas reseñas quedan."
+  },
+  "en": {
+    "slug": "delete-documents",
+    "title": "Deleting documents",
+    "summary": "Delete Firestore documents by id, or every document that matches a filter, with \"delete\", and learn what a delete leaves behind.",
+    "body": [
+      "`{\"collection\": \"reviews\", \"delete\": \"r5\"}` deletes the document `reviews/r5`, the 5-star review with no comment. It is a `DELETE` on its path in the REST API and `doc('r5').delete()` in the SDK. Deleting an id that does not exist is **not an error**: Firestore treats it as done.",
+      "With `{\"where\": {...}}` every matching document goes: `{\"rating\": {\"lte\": 2}}` finds one review, `r7` (**Not ripe**, 2 stars). As with updating by `where`, the studio queries first and then deletes one by one; Firestore has no DELETE … WHERE.",
+      "The last query shows the six remaining reviews, sorted by `rating desc, product`: two with 5 stars, three with 4 and one with 3.",
+      "An important detail: deleting a document **does not delete its subcollections**. If an order had notes in `orders/o01/notes`, they would stay there, orphaned. To delete a whole collection you delete its documents one by one (or use the Firebase console or CLI). The studio asks for confirmation before running any script that changes data."
+    ],
+    "points": [
+      "`\"delete\": \"r5\"` deletes one document by id.",
+      "`\"delete\": {\"where\": {...}}` deletes every match.",
+      "Deleting a missing id is not an error.",
+      "Deleting a document keeps its subcollections.",
+      "No DELETE … WHERE: a query, then one delete each."
+    ],
+    "exercise": "Delete every review of **Espresso beans** (`p04`) with a `where`, then count how many reviews are left."
+  }
+}

@@ -1,0 +1,10 @@
+// A field can be a map with its own fields
+{"collection": "stores", "insert": [
+  {"_id": "s1", "name": "Centre", "address": {"city": "Madrid", "zip": "28001"}},
+  {"_id": "s2", "name": "Harbour", "address": {"city": "Bilbao", "zip": "48001"}},
+  {"_id": "s3", "name": "Retiro", "address": {"city": "Madrid", "zip": "28009"}}
+]}
+
+// Dot notation reaches inside the map: filter, order and select
+{"collection": "stores",
+ "where": {"address.city": "Madrid"}, "order": "address.zip desc", "select": "name,address.zip"}

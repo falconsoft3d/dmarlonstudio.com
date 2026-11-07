@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "distinct-y-distinct-on",
+    "title": "DISTINCT y DISTINCT ON",
+    "summary": "Quite filas repetidas con DISTINCT, cuente valores distintos y use DISTINCT ON de PostgreSQL para quedarse con la primera fila de cada grupo.",
+    "body": [
+      "**`DISTINCT`** elimina las filas repetidas del resultado. Hay ocho clientes, pero `SELECT DISTINCT city` devuelve cinco ciudades, cada una una vez: `Bilbao`, `London`, `Madrid`, `Seville` y `Valencia`.",
+      "Dentro de un agregado, **`count(DISTINCT city)`** cuenta valores diferentes: `5` ciudades. La segunda columna es una subconsulta entre paréntesis que hace lo mismo con los estados de los pedidos: `4` (`new`, `paid`, `shipped` y `cancelled`).",
+      "**`DISTINCT ON (category_id)`** es una extensión de PostgreSQL muy práctica: se queda con **una fila por cada valor** de `category_id`, la primera según el `ORDER BY`. Como se ordena por `category_id, price`, la primera de cada categoría es la más barata: `Baguette` (`1.20`), `Orange juice` (`3.20`), `Whole milk` (`1.10`) y `Bananas 1 kg` (`1.60`).",
+      "La regla es que el `ORDER BY` empiece por las mismas columnas que el `DISTINCT ON`; lo que va después decide cuál de las filas del grupo gana. Cambie `price` por `price DESC` y obtendrá el producto más caro de cada categoría."
+    ],
+    "points": [
+      "`DISTINCT` quita las filas repetidas.",
+      "`count(DISTINCT x)` cuenta valores diferentes.",
+      "`DISTINCT ON (x)` deja una fila por cada valor de `x`.",
+      "El `ORDER BY` empieza por `x` y decide qué fila se queda."
+    ],
+    "exercise": "Con `DISTINCT ON (customer_id)` sobre `orders`, saque el último pedido de cada cliente (`ORDER BY customer_id, ordered DESC`)."
+  },
+  "en": {
+    "slug": "distinct-and-distinct-on",
+    "title": "DISTINCT and DISTINCT ON",
+    "summary": "Remove repeated rows with DISTINCT, count distinct values and use PostgreSQL's DISTINCT ON to keep the first row of each group.",
+    "body": [
+      "**`DISTINCT`** removes the repeated rows of a result. There are eight customers, but `SELECT DISTINCT city` returns five cities, each one once: `Bilbao`, `London`, `Madrid`, `Seville` and `Valencia`.",
+      "Inside an aggregate, **`count(DISTINCT city)`** counts different values: `5` cities. The second column is a subquery in parentheses that does the same with the order statuses: `4` (`new`, `paid`, `shipped` and `cancelled`).",
+      "**`DISTINCT ON (category_id)`** is a very handy PostgreSQL extension: it keeps **one row for each value** of `category_id`, the first one according to `ORDER BY`. Since the rows are sorted by `category_id, price`, the first of each category is the cheapest: `Baguette` (`1.20`), `Orange juice` (`3.20`), `Whole milk` (`1.10`) and `Bananas 1 kg` (`1.60`).",
+      "The rule is that `ORDER BY` must start with the same columns as `DISTINCT ON`; whatever comes next decides which row of the group wins. Change `price` to `price DESC` and you get the most expensive product of each category."
+    ],
+    "points": [
+      "`DISTINCT` removes repeated rows.",
+      "`count(DISTINCT x)` counts different values.",
+      "`DISTINCT ON (x)` keeps one row per value of `x`.",
+      "`ORDER BY` starts with `x` and decides which row stays."
+    ],
+    "exercise": "Use `DISTINCT ON (customer_id)` on `orders` to get each customer's latest order (`ORDER BY customer_id, ordered DESC`)."
+  }
+}

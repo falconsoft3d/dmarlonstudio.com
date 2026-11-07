@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "order-by-limit-y-offset",
+    "title": "Ordenar, paginar y empates",
+    "summary": "Ordene por varias columnas, decida dónde van los NULL con NULLS LAST, pagine con LIMIT y OFFSET y use FETCH FIRST WITH TIES en PostgreSQL.",
+    "body": [
+      "`ORDER BY` admite **varias claves**: `ORDER BY category_id, price DESC` ordena por categoría y, dentro de cada una, del más caro al más barato. Por eso el pan sale `Rye bread` (`2.80`), `Croissant`, `Baguette`, y luego empiezan las bebidas con `Espresso beans`. Cada clave lleva su propio `ASC` o `DESC`.",
+      "**`LIMIT`** corta el resultado y **`OFFSET`** se salta filas: `LIMIT 3 OFFSET 3` es la segunda página de tres, `Bananas 1 kg`, `Apples 1 kg` y `Greek yogurt`. Así se pagina un listado; sin `ORDER BY` las páginas no tendrían sentido.",
+      "En PostgreSQL los `NULL` cuentan como **mayores que cualquier valor**: van al final con `ASC` y al principio con `DESC`. Por eso `ORDER BY email DESC` empieza por `Pedro Gómez`, sin correo. **`NULLS LAST`** (o `NULLS FIRST`) lo decide usted: con `DESC NULLS LAST` la lista empieza por `sofia@example.com` y `marta@example.com`.",
+      "**`FETCH FIRST n ROWS`** es la forma del estándar SQL de `LIMIT`, y con **`WITH TIES`** añade las filas que empatan con la última: se pide `1` fila, pero salen dos, `Bananas 1 kg` y `Orange juice`, porque las dos tienen `stock` `0`. Con `LIMIT 1` se habría perdido una de ellas."
+    ],
+    "points": [
+      "`ORDER BY a, b DESC`: cada clave con su sentido.",
+      "`LIMIT n OFFSET m` pagina; siempre con `ORDER BY`.",
+      "Los `NULL` son los mayores: al final en `ASC`, al principio en `DESC`.",
+      "`NULLS FIRST` / `NULLS LAST` deciden dónde van.",
+      "`FETCH FIRST n ROWS WITH TIES` incluye los empates."
+    ],
+    "exercise": "Saque la tercera página de cuatro productos ordenados por nombre (`LIMIT 4 OFFSET 8`) y compruebe que es la última."
+  },
+  "en": {
+    "slug": "order-by-limit-and-offset",
+    "title": "Sorting, paging and ties",
+    "summary": "Sort by several columns, decide where NULLs go with NULLS LAST, page with LIMIT and OFFSET and use FETCH FIRST WITH TIES in PostgreSQL.",
+    "body": [
+      "`ORDER BY` accepts **several keys**: `ORDER BY category_id, price DESC` sorts by category and, within each one, from the most expensive to the cheapest. That is why the bread comes out as `Rye bread` (`2.80`), `Croissant`, `Baguette`, and then the drinks start with `Espresso beans`. Each key has its own `ASC` or `DESC`.",
+      "**`LIMIT`** cuts the result and **`OFFSET`** skips rows: `LIMIT 3 OFFSET 3` is the second page of three, `Bananas 1 kg`, `Apples 1 kg` and `Greek yogurt`. That is how a listing is paged; without `ORDER BY` the pages would make no sense.",
+      "In PostgreSQL `NULL` counts as **larger than any value**: it goes last with `ASC` and first with `DESC`. That is why `ORDER BY email DESC` starts with `Pedro Gómez`, who has no email. **`NULLS LAST`** (or `NULLS FIRST`) lets you decide: with `DESC NULLS LAST` the list starts with `sofia@example.com` and `marta@example.com`.",
+      "**`FETCH FIRST n ROWS`** is the SQL-standard form of `LIMIT`, and **`WITH TIES`** adds the rows that tie with the last one: you ask for `1` row but get two, `Bananas 1 kg` and `Orange juice`, because both have a `stock` of `0`. With `LIMIT 1` one of them would have been lost."
+    ],
+    "points": [
+      "`ORDER BY a, b DESC`: each key with its own direction.",
+      "`LIMIT n OFFSET m` pages; always with `ORDER BY`.",
+      "NULLs are the largest: last in `ASC`, first in `DESC`.",
+      "`NULLS FIRST` / `NULLS LAST` decide where they go.",
+      "`FETCH FIRST n ROWS WITH TIES` includes the ties."
+    ],
+    "exercise": "Get the third page of four products sorted by name (`LIMIT 4 OFFSET 8`) and check that it is the last one."
+  }
+}

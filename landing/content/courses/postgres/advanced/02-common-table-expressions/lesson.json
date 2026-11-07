@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "consultas-con-with-cte",
+    "title": "Consultas por pasos con WITH",
+    "summary": "Divida una consulta larga en pasos con nombre usando WITH (CTE) en PostgreSQL, y modifique y registre datos en una sola sentencia con un CTE de escritura.",
+    "body": [
+      "Una **CTE** (*common table expression*) es una consulta con nombre que se define con **`WITH nombre AS (…)`** y se usa después como si fuera una tabla. La primera consulta tiene dos: `sales` suma unidades y facturación por producto sin el pedido cancelado, y `ratings` calcula la nota media y el número de reseñas. El `SELECT` final las une con `products` y se lee como una frase.",
+      "El `LEFT JOIN ratings` mantiene los productos vendidos que no tienen reseñas, con `NULL`. El queso manchego es el que más factura, `23.25` euros en `3` unidades, con `4.0` estrellas; el café le sigue con `19.80` y dos reseñas; y el yogur griego y el té verde, quinto, salen con `NULL` en la nota porque nadie los ha valorado.",
+      "PostgreSQL tiene algo que pocas bases de datos ofrecen: **CTE que modifican datos**. Dentro de un `WITH` puede ir un `UPDATE`, `INSERT` o `DELETE` con `RETURNING`, y la consulta siguiente usa esas filas. Aquí, `old` guarda los precios de antes, `changed` baja un 10 % los productos con 30 o más unidades y devuelve el precio viejo y el nuevo, y el `INSERT` final los apunta en `price_log`.",
+      "Todo ocurre en una sola sentencia, así que o se hace entero o no se hace. El resultado son los cuatro productos rebajados: la baguette pasa de `1.20` a `1.08`, el té de `4.50` a `4.05`, la leche de `1.10` a `0.99` y las manzanas de `2.10` a `1.89`. En la pestaña de la primera consulta sigue visible la tabla de ventas, cada resultado en la suya."
+    ],
+    "points": [
+      "`WITH nombre AS (…)` da nombre a un paso de la consulta.",
+      "Varias CTE se separan con comas y cada una puede usar las anteriores.",
+      "Una CTE puede llevar `UPDATE`, `INSERT` o `DELETE` con `RETURNING`.",
+      "Un `WITH` de escritura se ejecuta entero en una sola sentencia."
+    ],
+    "exercise": "Añada a la primera consulta una tercera CTE, `stock_value`, con `price * stock` por producto, y enséñela como otra columna."
+  },
+  "en": {
+    "slug": "queries-with-ctes",
+    "title": "Step-by-step queries with WITH",
+    "summary": "Split a long query into named steps with WITH (CTEs) in PostgreSQL, and change and log data in a single statement with a data-modifying CTE.",
+    "body": [
+      "A **CTE** (common table expression) is a named query defined with **`WITH name AS (…)`** and then used as if it were a table. The first query has two: `sales` adds up units and revenue per product without the cancelled order, and `ratings` computes the average rating and the number of reviews. The final `SELECT` joins them with `products` and reads like a sentence.",
+      "`LEFT JOIN ratings` keeps the products that were sold but have no reviews, with `NULL`. Manchego cheese brings in the most, `23.25` euros from `3` units, with `4.0` stars; the coffee follows with `19.80` and two reviews; and the Greek yogurt and the green tea, fifth, show `NULL` ratings because nobody has reviewed them.",
+      "PostgreSQL has something few databases offer: **data-modifying CTEs**. A `WITH` can contain an `UPDATE`, `INSERT` or `DELETE` with `RETURNING`, and the next query uses those rows. Here `old` keeps the previous prices, `changed` cuts by 10% the products with 30 or more units and returns the old and new price, and the final `INSERT` writes them into `price_log`.",
+      "It all happens in a single statement, so it either runs completely or not at all. The result is the four discounted products: the baguette goes from `1.20` to `1.08`, the tea from `4.50` to `4.05`, the milk from `1.10` to `0.99` and the apples from `2.10` to `1.89`. The sales table is still there in the first query's tab, each result in its own."
+    ],
+    "points": [
+      "`WITH name AS (…)` names one step of the query.",
+      "Several CTEs are separated by commas and each can use the earlier ones.",
+      "A CTE can hold an `UPDATE`, `INSERT` or `DELETE` with `RETURNING`.",
+      "A data-modifying `WITH` runs as one single statement."
+    ],
+    "exercise": "Add a third CTE, `stock_value`, with `price * stock` per product to the first query, and show it as another column."
+  }
+}

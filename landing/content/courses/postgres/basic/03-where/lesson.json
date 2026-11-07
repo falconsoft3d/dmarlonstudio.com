@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "filtrar-filas-con-where",
+    "title": "Filtrar filas con WHERE",
+    "summary": "Quédese solo con las filas que cumplen una condición en PostgreSQL: comparaciones con números y texto, columnas booleanas y NOT.",
+    "body": [
+      "**`WHERE`** va después de `FROM` y deja pasar solo las filas para las que la condición es verdadera. `WHERE price < 2` devuelve los cuatro productos de menos de 2 euros, de `Whole milk` (`1.10`) a `Bananas 1 kg` (`1.60`). Los operadores son los de siempre: `=`, `<>` (distinto; también vale `!=`), `<`, `<=`, `>` y `>=`.",
+      "`WHERE stock = 0` encuentra lo que está agotado: `Bananas 1 kg` y `Orange juice`. En SQL la igualdad se escribe con un solo `=`, no con `==`.",
+      "`active` es una columna **`boolean`**, y en PostgreSQL un booleano ya es una condición: no hace falta escribir `active = true`. `WHERE NOT active` da la vuelta a la condición y devuelve el único producto retirado, `Bananas 1 kg`, con `false` en la columna.",
+      "Con texto, la comparación va entre comillas simples: `status <> 'shipped'` deja los seis pedidos que no se han enviado, del `3` (`paid`, el `2024-03-15`) al `10`. Las comillas dobles en PostgreSQL son para nombres de columnas o tablas, no para valores. Si quiere probar una sola de las cuatro consultas, selecciónela en el editor y el estudio ejecutará solo la selección."
+    ],
+    "points": [
+      "`WHERE` filtra filas antes de devolverlas.",
+      "La igualdad es `=` y lo distinto, `<>` o `!=`.",
+      "Una columna `boolean` se usa como condición tal cual; `NOT` la invierte.",
+      "Los textos van entre comillas simples; las dobles son para nombres."
+    ],
+    "exercise": "Busque los pedidos de más de 15 euros (`total > 15`), ordenados del más caro al más barato."
+  },
+  "en": {
+    "slug": "filtering-rows-with-where",
+    "title": "Filtering rows with WHERE",
+    "summary": "Keep only the rows that meet a condition in PostgreSQL: comparisons with numbers and text, boolean columns and NOT.",
+    "body": [
+      "**`WHERE`** comes after `FROM` and lets through only the rows for which the condition is true. `WHERE price < 2` returns the four products under 2 euros, from `Whole milk` (`1.10`) to `Bananas 1 kg` (`1.60`). The operators are the usual ones: `=`, `<>` (not equal; `!=` works too), `<`, `<=`, `>` and `>=`.",
+      "`WHERE stock = 0` finds what is sold out: `Bananas 1 kg` and `Orange juice`. In SQL equality is written with a single `=`, not `==`.",
+      "`active` is a **`boolean`** column, and in PostgreSQL a boolean already is a condition: there is no need to write `active = true`. `WHERE NOT active` flips the condition and returns the only withdrawn product, `Bananas 1 kg`, with `false` in the column.",
+      "With text, the value goes in single quotes: `status <> 'shipped'` keeps the six orders that have not been shipped, from `3` (`paid`, on `2024-03-15`) to `10`. In PostgreSQL double quotes are for column or table names, not for values. To try just one of the four queries, select it in the editor and the studio will run only the selection."
+    ],
+    "points": [
+      "`WHERE` filters rows before returning them.",
+      "Equality is `=` and not equal is `<>` or `!=`.",
+      "A `boolean` column is a condition on its own; `NOT` inverts it.",
+      "Text values go in single quotes; double quotes are for names."
+    ],
+    "exercise": "Find the orders over 15 euros (`total > 15`), from the most expensive to the cheapest."
+  }
+}

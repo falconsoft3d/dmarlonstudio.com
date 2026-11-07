@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "update-returning",
+    "title": "Modificar con UPDATE",
+    "summary": "Cambie filas en PostgreSQL con UPDATE … SET, calcule el valor nuevo con el viejo, use otra tabla con FROM y vea el cambio con RETURNING.",
+    "body": [
+      "**`UPDATE tabla SET columna = valor WHERE …`** cambia las filas que cumplen el `WHERE`. El valor nuevo puede calcularse con el viejo: `price = round(price * 1.10, 2)` sube un 10 % las tres bebidas, y **`RETURNING`** enseña los precios nuevos sin otra consulta: el café pasa de `9.90` a `10.89`, el té a `4.95` y el zumo a `3.52`.",
+      "Se pueden cambiar **varias columnas a la vez**, separadas por comas. `stock = stock + 20, active = true` repone los dos productos agotados, `Bananas 1 kg` y `Orange juice`, y de paso vuelve a activar las bananas. Todas las expresiones de la derecha ven los valores de antes del cambio.",
+      "**`UPDATE … FROM`** es la forma de PostgreSQL de actualizar con datos de otra tabla: el `FROM customers c` y la condición `c.id = o.customer_id` del `WHERE` hacen de `JOIN`. Así se marcan como enviados los pedidos pagados de clientes de Madrid: solo el `3`, de `Ana García`. El `RETURNING` puede incluir columnas de la tabla del `FROM`, como `c.name`.",
+      "La última consulta comprueba el efecto: ahora hay `5` pedidos `shipped` y `2` `paid`. Un consejo práctico: **escriba antes el `SELECT` con el mismo `WHERE`** y ejecútelo solo (seleccionándolo en el editor del estudio); cuando vea exactamente las filas que quiere cambiar, convierta la consulta en `UPDATE`. Un `UPDATE` sin `WHERE` cambia la tabla entera."
+    ],
+    "points": [
+      "`UPDATE t SET a = …, b = … WHERE …` cambia las filas que cumplen el `WHERE`.",
+      "El valor nuevo puede usar el viejo (`stock = stock + 20`).",
+      "`UPDATE … FROM` actualiza con datos de otra tabla.",
+      "`RETURNING` enseña cómo han quedado las filas.",
+      "Sin `WHERE`, cambian todas: pruebe antes con un `SELECT`."
+    ],
+    "exercise": "Baje un 5 % (redondeado a dos decimales) los productos con más de 30 unidades y devuelva con `RETURNING` el nombre, el precio y el stock."
+  },
+  "en": {
+    "slug": "update-returning",
+    "title": "Changing rows with UPDATE",
+    "summary": "Change rows in PostgreSQL with UPDATE … SET, compute the new value from the old one, update from another table with FROM and see the change with RETURNING.",
+    "body": [
+      "**`UPDATE table SET column = value WHERE …`** changes the rows that meet the `WHERE`. The new value can be computed from the old one: `price = round(price * 1.10, 2)` raises the three drinks by 10%, and **`RETURNING`** shows the new prices without another query: the coffee goes from `9.90` to `10.89`, the tea to `4.95` and the juice to `3.52`.",
+      "You can change **several columns at once**, separated by commas. `stock = stock + 20, active = true` restocks the two sold-out products, `Bananas 1 kg` and `Orange juice`, and reactivates the bananas along the way. Every expression on the right sees the values from before the change.",
+      "**`UPDATE … FROM`** is PostgreSQL's way of updating with data from another table: `FROM customers c` plus the condition `c.id = o.customer_id` in the `WHERE` act as a `JOIN`. That marks as shipped the paid orders of customers from Madrid: only `3`, from `Ana García`. `RETURNING` may include columns from the `FROM` table, such as `c.name`.",
+      "The last query checks the effect: there are now `5` `shipped` orders and `2` `paid`. A practical tip: **write the `SELECT` with the same `WHERE` first** and run it on its own (by selecting it in the studio's editor); once you see exactly the rows you want to change, turn the query into an `UPDATE`. An `UPDATE` without `WHERE` changes the whole table."
+    ],
+    "points": [
+      "`UPDATE t SET a = …, b = … WHERE …` changes the rows that meet the `WHERE`.",
+      "The new value can use the old one (`stock = stock + 20`).",
+      "`UPDATE … FROM` updates with data from another table.",
+      "`RETURNING` shows how the rows ended up.",
+      "Without `WHERE` every row changes: try a `SELECT` first."
+    ],
+    "exercise": "Lower by 5% (rounded to two decimals) the products with more than 30 units and use `RETURNING` to show their name, price and stock."
+  }
+}

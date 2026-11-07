@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "consulta-de-cuadro-de-mando",
+    "title": "La consulta del cuadro de mando",
+    "summary": "Junte CTE, DISTINCT ON, funciones de ventana y to_char en una consulta de PostgreSQL que da el cuadro de mando mensual de la tienda.",
+    "body": [
+      "La consulta final del curso es un **cuadro de mando**: una fila por mes con lo que un responsable quiere ver de un vistazo. Está hecha de tres CTE, cada una con un trabajo. **`sales`** junta pedidos y líneas sin el cancelado y apunta el mes de cada línea con `date_trunc`. **`monthly`** cuenta los pedidos (con `DISTINCT`, porque un pedido tiene varias líneas) y suma la facturación de cada mes.",
+      "**`best`** busca el producto estrella de cada mes con **`DISTINCT ON (month)`**: agrupa por mes y producto, ordena por facturación de mayor a menor y se queda con la primera fila de cada mes. El `p.name` del final del `ORDER BY` decide los empates; en junio, el yogur griego y el zumo de naranja facturan lo mismo, `9.60`, y gana el yogur por orden alfabético.",
+      "El `SELECT` final une `monthly` y `best` con **`JOIN … USING (month)`**, la forma corta de `ON` cuando la columna se llama igual en las dos. `avg_ticket` divide facturación entre pedidos, y `growth` compara con el mes anterior con **`lag(…) OVER w`**: el primer mes no tiene anterior, el `NULL` se propaga al concatenar con `|| '%'`, y `coalesce` lo cambia por `-`.",
+      "El resultado cuenta la historia de la tienda: marzo arranca con `40.05` euros en `3` pedidos; abril cae un `-74%` con un solo pedido; mayo es el mejor mes, `51.70` euros, un `392%` más, con el queso manchego como estrella; y junio baja a `24.60`. Guardada como vista, o exportada a **CSV** desde el estudio, esta consulta es ya el informe mensual."
+    ],
+    "points": [
+      "Cada CTE hace un trabajo; la consulta final solo las junta.",
+      "`DISTINCT ON` con `ORDER BY` da el primero de cada grupo.",
+      "`JOIN … USING (col)` abrevia el `ON` cuando la columna se llama igual.",
+      "`lag() OVER` compara con el periodo anterior.",
+      "`NULL || texto` es `NULL`; `coalesce` pone un valor en su lugar."
+    ],
+    "exercise": "Añada una CTE con los clientes nuevos de cada mes (los que hacen su primer pedido) y enséñela como otra columna del cuadro de mando."
+  },
+  "en": {
+    "slug": "dashboard-query",
+    "title": "The dashboard query",
+    "summary": "Bring together CTEs, DISTINCT ON, window functions and to_char in one PostgreSQL query that produces the shop's monthly dashboard.",
+    "body": [
+      "The final query of the course is a **dashboard**: one row per month with what a manager wants to see at a glance. It is made of three CTEs, each with one job. **`sales`** joins orders and lines without the cancelled one and records each line's month with `date_trunc`. **`monthly`** counts the orders (with `DISTINCT`, since an order has several lines) and adds up each month's revenue.",
+      "**`best`** finds each month's star product with **`DISTINCT ON (month)`**: it groups by month and product, sorts by revenue from highest to lowest and keeps the first row of each month. The `p.name` at the end of the `ORDER BY` settles ties; in June the Greek yogurt and the orange juice bring in the same, `9.60`, and the yogurt wins alphabetically.",
+      "The final `SELECT` joins `monthly` and `best` with **`JOIN … USING (month)`**, the short form of `ON` when the column has the same name on both sides. `avg_ticket` divides revenue by orders, and `growth` compares with the previous month using **`lag(…) OVER w`**: the first month has no previous one, the `NULL` spreads when concatenated with `|| '%'`, and `coalesce` replaces it with `-`.",
+      "The result tells the shop's story: March starts with `40.05` euros from `3` orders; April drops `-74%` with a single order; May is the best month, `51.70` euros, up `392%`, with Manchego cheese as the star; and June falls to `24.60`. Saved as a view, or exported to **CSV** from the studio, this query already is the monthly report."
+    ],
+    "points": [
+      "Each CTE does one job; the final query just joins them.",
+      "`DISTINCT ON` with `ORDER BY` gives the first of each group.",
+      "`JOIN … USING (col)` shortens the `ON` when the column has the same name.",
+      "`lag() OVER` compares with the previous period.",
+      "`NULL || text` is `NULL`; `coalesce` puts a value in its place."
+    ],
+    "exercise": "Add a CTE with each month's new customers (those placing their first order) and show it as another column of the dashboard."
+  }
+}

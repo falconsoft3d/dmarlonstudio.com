@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "inner-join-y-left-join",
+    "title": "INNER JOIN y LEFT JOIN",
+    "summary": "Una tablas en PostgreSQL con JOIN … ON, encuentre las filas sin pareja con LEFT JOIN e IS NULL y cuente incluso los clientes sin pedidos.",
+    "body": [
+      "**`JOIN … ON`** (o `INNER JOIN`, es lo mismo) junta cada fila de `products` con la fila de `categories` que cumple la condición `c.id = p.category_id`. Las letras `p` y `c` son **alias de tabla**: abrevian y evitan la ambigüedad, porque las dos tablas tienen una columna `name`. Los productos de más de 4 euros salen ya con su categoría: `Espresso beans` en `Drinks`, `Manchego cheese` en `Dairy`…",
+      "Un `INNER JOIN` solo devuelve las filas que tienen pareja. **`LEFT JOIN`** conserva **todas las filas de la tabla de la izquierda**, y cuando no encuentra pareja rellena las columnas de la derecha con `NULL`. Por eso `WHERE o.id IS NULL` encuentra a los clientes sin ningún pedido: solo `Carlos Díaz`, de `Bilbao`, con `NULL` en `order_id` y `total`.",
+      "La última consulta combina `LEFT JOIN` y `GROUP BY` para contar los pedidos de cada cliente. La clave está en **`count(o.id)`**: cuenta los `id` de pedido que no son `NULL`, así que Carlos sale con `0`. Con `count(*)` saldría con `1`, porque su fila existe aunque esté vacía. `coalesce(sum(o.total), 0)` hace lo mismo con el importe.",
+      "Ana encabeza la lista con `3` pedidos y `34.95` euros. Agrupar por `c.id, c.name` es la forma segura: dos clientes podrían llamarse igual, pero no tener el mismo `id`. En el estudio, la lista de tablas de la izquierda le recuerda qué columnas tiene cada tabla mientras escribe el `ON`."
+    ],
+    "points": [
+      "`JOIN … ON` junta las filas que cumplen la condición.",
+      "Los alias de tabla (`p`, `c`) evitan columnas ambiguas.",
+      "`LEFT JOIN` conserva todas las filas de la izquierda, con `NULL` si no hay pareja.",
+      "`LEFT JOIN … WHERE derecha.id IS NULL` encuentra lo que no tiene pareja.",
+      "Con `LEFT JOIN`, cuente `count(columna)`, no `count(*)`."
+    ],
+    "exercise": "Con un `LEFT JOIN` de `products` a `reviews`, cuente cuántas reseñas tiene cada producto, incluidos los que no tienen ninguna."
+  },
+  "en": {
+    "slug": "inner-join-and-left-join",
+    "title": "INNER JOIN and LEFT JOIN",
+    "summary": "Join tables in PostgreSQL with JOIN … ON, find the rows without a match using LEFT JOIN and IS NULL, and count even the customers with no orders.",
+    "body": [
+      "**`JOIN … ON`** (or `INNER JOIN`, the same thing) pairs each row of `products` with the row of `categories` that meets the condition `c.id = p.category_id`. The letters `p` and `c` are **table aliases**: they shorten the query and avoid ambiguity, since both tables have a `name` column. The products over 4 euros come out with their category: `Espresso beans` in `Drinks`, `Manchego cheese` in `Dairy`…",
+      "An `INNER JOIN` only returns rows that have a match. **`LEFT JOIN`** keeps **every row of the left-hand table**, and when there is no match it fills the right-hand columns with `NULL`. That is why `WHERE o.id IS NULL` finds the customers without a single order: just `Carlos Díaz`, from `Bilbao`, with `NULL` in `order_id` and `total`.",
+      "The last query combines `LEFT JOIN` and `GROUP BY` to count each customer's orders. The key is **`count(o.id)`**: it counts the order ids that are not `NULL`, so Carlos gets `0`. With `count(*)` he would get `1`, because his row exists even if it is empty. `coalesce(sum(o.total), 0)` does the same for the amount.",
+      "Ana tops the list with `3` orders and `34.95` euros. Grouping by `c.id, c.name` is the safe way: two customers could share a name, but not an `id`. In the studio, the table list on the left reminds you which columns each table has while you write the `ON`."
+    ],
+    "points": [
+      "`JOIN … ON` pairs the rows that meet the condition.",
+      "Table aliases (`p`, `c`) avoid ambiguous columns.",
+      "`LEFT JOIN` keeps every left-hand row, with `NULL` when there is no match.",
+      "`LEFT JOIN … WHERE right.id IS NULL` finds what has no match.",
+      "With `LEFT JOIN`, use `count(column)`, not `count(*)`."
+    ],
+    "exercise": "With a `LEFT JOIN` from `products` to `reviews`, count how many reviews each product has, including those with none."
+  }
+}

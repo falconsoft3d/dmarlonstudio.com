@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "valores-null-coalesce-y-nullif",
+    "title": "NULL, coalesce y nullif",
+    "summary": "Entienda NULL en PostgreSQL: por qué = NULL no encuentra nada, cómo buscarlo con IS NULL y cómo sustituirlo con coalesce o crearlo con nullif.",
+    "body": [
+      "**`NULL`** no es cero ni texto vacío: significa «no se sabe». Por eso casi cualquier operación con él da otro `NULL`. La primera consulta lo enseña: `NULL = NULL` no es `true` sino `NULL` (no se sabe si dos cosas desconocidas son iguales), `1 + NULL` es `NULL`, y solo **`IS NULL`** responde con un `true` de verdad.",
+      "De ahí el error más típico: `WHERE email = NULL` no devuelve ninguna fila, nunca. Su pestaña en el estudio sale vacía. La forma correcta es `WHERE email IS NULL` (o `IS NOT NULL`), que encuentra a `Pedro Gómez`, de `Seville`, el único cliente sin correo.",
+      "**`coalesce(a, b, …)`** devuelve el primer valor que no sea `NULL`. Es la manera de poner un valor por defecto al mostrar los datos: la reseña `5` no tiene comentario y sale `(no comment)`; las demás enseñan el suyo.",
+      "**`nullif(a, b)`** hace lo contrario: devuelve `NULL` si `a` es igual a `b`, y `a` si no. En la columna `not_five`, las reseñas de 5 estrellas (`1`, `3` y `5`) quedan en `NULL` y el resto conserva su nota. Su uso más famoso es evitar la división por cero: `price / nullif(stock, 0)` da `NULL` en lugar de un error cuando el `stock` es `0`."
+    ],
+    "points": [
+      "`NULL` significa «desconocido»: casi todo lo que lo toca da `NULL`.",
+      "`= NULL` nunca es verdad: use `IS NULL` o `IS NOT NULL`.",
+      "`coalesce(a, b)` da el primer valor no nulo.",
+      "`nullif(a, b)` convierte `b` en `NULL`; útil contra la división por cero."
+    ],
+    "exercise": "Enseñe el nombre y `coalesce(email, 'no email')` de todos los clientes de `Seville`."
+  },
+  "en": {
+    "slug": "null-values-coalesce-and-nullif",
+    "title": "NULL, coalesce and nullif",
+    "summary": "Understand NULL in PostgreSQL: why = NULL finds nothing, how to look for it with IS NULL and how to replace it with coalesce or create it with nullif.",
+    "body": [
+      "**`NULL`** is not zero or empty text: it means “unknown”. That is why almost any operation with it gives another `NULL`. The first query shows it: `NULL = NULL` is not `true` but `NULL` (nobody knows whether two unknown things are equal), `1 + NULL` is `NULL`, and only **`IS NULL`** answers with a real `true`.",
+      "Hence the most common mistake: `WHERE email = NULL` returns no rows, ever. Its tab in the studio is empty. The right way is `WHERE email IS NULL` (or `IS NOT NULL`), which finds `Pedro Gómez`, from `Seville`, the only customer without an email.",
+      "**`coalesce(a, b, …)`** returns the first value that is not `NULL`. It is the way to show a default value: review `5` has no comment and shows `(no comment)`; the others show their own.",
+      "**`nullif(a, b)`** does the opposite: it returns `NULL` when `a` equals `b`, and `a` otherwise. In the `not_five` column, the 5-star reviews (`1`, `3` and `5`) become `NULL` and the rest keep their rating. Its best-known use is avoiding division by zero: `price / nullif(stock, 0)` gives `NULL` instead of an error when `stock` is `0`."
+    ],
+    "points": [
+      "`NULL` means “unknown”: almost everything it touches becomes `NULL`.",
+      "`= NULL` is never true: use `IS NULL` or `IS NOT NULL`.",
+      "`coalesce(a, b)` gives the first non-null value.",
+      "`nullif(a, b)` turns `b` into `NULL`; handy against division by zero."
+    ],
+    "exercise": "Show the name and `coalesce(email, 'no email')` of every customer from `Seville`."
+  }
+}

@@ -49,7 +49,7 @@ Hechos
 Trabajando
 =========
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
-53. Cursos de bases de datos (SQLite, PostgreSQL, MySQL, MongoDB, FalconDatabase y Firebase), básico y avanzado de 20 lecciones, con scripts que se ejecutan en el módulo Bases de datos del estudio (que ahora ejecuta scripts con una pestaña por resultado). Hechos: SQLite, MySQL, MongoDB | ⏳ |
+53. Cursos de bases de datos (SQLite, PostgreSQL, MySQL, MongoDB, FalconDatabase y Firebase), básico y avanzado de 20 lecciones, con scripts que se ejecutan en el módulo Bases de datos del estudio (que ahora ejecuta scripts con una pestaña por resultado). Hechos: SQLite, MySQL, MongoDB, PostgreSQL | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
 
 

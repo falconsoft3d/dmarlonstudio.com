@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "disparadores-triggers",
+    "title": "Disparadores (triggers)",
+    "summary": "Ejecute código al cambiar una fila en PostgreSQL: una función que devuelve trigger, OLD y NEW, BEFORE UPDATE OF y un registro de cambios de precio.",
+    "body": [
+      "Un **disparador** (*trigger*) ejecuta una función cada vez que pasa algo en una tabla. En PostgreSQL son dos piezas: primero una **función que devuelve `trigger`** y después el **`CREATE TRIGGER`** que la conecta con la tabla y el suceso. La tabla `price_changes` es donde quedará apuntado cada cambio de precio.",
+      "Dentro de la función, **`OLD`** es la fila como era y **`NEW`**, como va a quedar. Como el disparador es **`BEFORE`**, se ejecuta antes de guardar la fila y puede cambiarla: si alguien pone un precio negativo, `NEW.price := 0` lo corrige. Después, si el precio ha cambiado de verdad, inserta una fila en `price_changes`. La fecha es fija, `2024-07-01`, para que el ejemplo dé siempre lo mismo; en una aplicación sería `current_date`. **`RETURN NEW`** devuelve la fila que se guardará (con `RETURN NULL` se cancelaría la operación).",
+      "**`BEFORE UPDATE OF price ON products FOR EACH ROW`** dice cuándo saltar: antes de cada `UPDATE` que toque la columna `price`, una vez por fila. Por eso el primer `UPDATE`, que sube 10 céntimos los tres panes, deja tres filas en el registro.",
+      "El segundo intenta poner las bananas a `-1`: el disparador lo corrige y en el registro queda de `1.60` a `0.00`. El tercero cambia solo el `stock` de la leche y el disparador ni se entera, porque no toca `price`. El resultado son cuatro cambios: los tres panes y las bananas. Los disparadores pueden ser también `AFTER`, `FOR EACH STATEMENT` y para `INSERT` o `DELETE`."
+    ],
+    "points": [
+      "Un trigger son dos piezas: la función `RETURNS trigger` y el `CREATE TRIGGER`.",
+      "`OLD` es la fila de antes y `NEW`, la de después.",
+      "Un trigger `BEFORE` puede cambiar `NEW` antes de que se guarde.",
+      "`UPDATE OF columna` hace que salte solo si cambia esa columna.",
+      "`RETURN NEW` guarda la fila; `RETURN NULL` la descarta."
+    ],
+    "exercise": "Cree un segundo disparador `BEFORE UPDATE OF stock` que impida un `stock` negativo dejándolo en `0`, y pruébelo con `UPDATE products SET stock = stock - 100 WHERE id = 1`."
+  },
+  "en": {
+    "slug": "triggers",
+    "title": "Triggers",
+    "summary": "Run code automatically when a row changes in PostgreSQL: a function returning trigger, OLD and NEW, BEFORE UPDATE OF, and a log of price changes.",
+    "body": [
+      "A **trigger** runs a function every time something happens in a table. In PostgreSQL it takes two pieces: first a **function that returns `trigger`**, then the **`CREATE TRIGGER`** that connects it to the table and the event. The `price_changes` table is where every price change will be written down.",
+      "Inside the function, **`OLD`** is the row as it was and **`NEW`** as it is about to be. Because the trigger is **`BEFORE`**, it runs before the row is saved and can change it: if someone sets a negative price, `NEW.price := 0` fixes it. Then, if the price really changed, it inserts a row into `price_changes`. The date is fixed, `2024-07-01`, so the example always gives the same result; in an application it would be `current_date`. **`RETURN NEW`** returns the row to be saved (`RETURN NULL` would cancel the operation).",
+      "**`BEFORE UPDATE OF price ON products FOR EACH ROW`** says when to fire: before every `UPDATE` that touches the `price` column, once per row. That is why the first `UPDATE`, which adds 10 cents to the three breads, leaves three rows in the log.",
+      "The second one tries to set the bananas to `-1`: the trigger corrects it and the log shows `1.60` to `0.00`. The third changes only the milk's `stock` and the trigger never notices, since `price` is not touched. The result is four changes: the three breads and the bananas. Triggers can also be `AFTER`, `FOR EACH STATEMENT`, and fire on `INSERT` or `DELETE`."
+    ],
+    "points": [
+      "A trigger is two pieces: the `RETURNS trigger` function and the `CREATE TRIGGER`.",
+      "`OLD` is the row before and `NEW` the row after.",
+      "A `BEFORE` trigger can change `NEW` before it is saved.",
+      "`UPDATE OF column` fires only when that column changes.",
+      "`RETURN NEW` saves the row; `RETURN NULL` discards it."
+    ],
+    "exercise": "Create a second `BEFORE UPDATE OF stock` trigger that prevents a negative `stock` by setting it to `0`, and test it with `UPDATE products SET stock = stock - 100 WHERE id = 1`."
+  }
+}

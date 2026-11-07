@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "columnas-expresiones-y-conversiones",
+    "title": "Columnas, alias y conversiones",
+    "summary": "Calcule columnas nuevas con expresiones, póngales nombre con AS y convierta tipos con :: en PostgreSQL: división entera, números, fechas y texto.",
+    "body": [
+      "La primera consulta no lee ninguna tabla: en PostgreSQL un `SELECT` puede calcular sin `FROM`. `7 / 2` da `3` porque los dos números son enteros y la **división entera** descarta los decimales. En cuanto uno de los dos es decimal, `7 / 2.0`, el resultado es `numeric`: `3.5000000000000000`.",
+      "**`::`** es la forma de PostgreSQL de **convertir un valor a otro tipo** (equivale a `CAST(x AS tipo)`). `7::numeric / 2` vuelve a dar `3.5…`; `'42'::int + 1` convierte el texto en número y suma, `43`; `'2024-03-01'::date` convierte el texto en una fecha de verdad. Y `9.90::int` no trunca sino que redondea: `10`.",
+      "En la última consulta, **`AS`** da nombre a las columnas calculadas. `price * stock AS stock_value` es el valor del almacén de cada bebida: `178.20` para el café en grano (`9.90 × 18`). `stock::text || ' units'` convierte el número en texto para pegarle la palabra con `||`: `18 units`.",
+      "El alias se puede usar en `ORDER BY`: `ORDER BY stock_value DESC` deja primero el café, luego el té (`135.00`) y al final el zumo de naranja, que tiene `0` unidades. En el estudio, la rejilla enseña el alias como cabecera de la columna, y eso es lo que saldría también en el **CSV**."
+    ],
+    "points": [
+      "Entero entre entero es división entera: `7 / 2` da `3`.",
+      "`valor::tipo` convierte (`::int`, `::numeric`, `::date`, `::text`).",
+      "`::int` redondea, no trunca.",
+      "`AS` da nombre a una columna calculada.",
+      "El alias se puede usar en `ORDER BY`."
+    ],
+    "exercise": "Añada a la última consulta una columna `price * 1.21 AS with_vat` y ordene por ella. ¿Cuántos decimales salen?"
+  },
+  "en": {
+    "slug": "columns-expressions-and-casts",
+    "title": "Columns, aliases and casts",
+    "summary": "Compute new columns with expressions, name them with AS and convert types with :: in PostgreSQL: integer division, numbers, dates and text.",
+    "body": [
+      "The first query reads no table at all: in PostgreSQL a `SELECT` can compute without `FROM`. `7 / 2` gives `3` because both numbers are integers and **integer division** drops the decimals. As soon as one of them is a decimal, `7 / 2.0`, the result is `numeric`: `3.5000000000000000`.",
+      "**`::`** is PostgreSQL's way of **casting a value to another type** (the same as `CAST(x AS type)`). `7::numeric / 2` gives `3.5…` again; `'42'::int + 1` turns the text into a number and adds, `43`; `'2024-03-01'::date` turns the text into a real date. And `9.90::int` does not truncate, it rounds: `10`.",
+      "In the last query, **`AS`** names the computed columns. `price * stock AS stock_value` is the value in stock of each drink: `178.20` for the espresso beans (`9.90 × 18`). `stock::text || ' units'` turns the number into text so that the word can be glued on with `||`: `18 units`.",
+      "The alias can be used in `ORDER BY`: `ORDER BY stock_value DESC` puts the coffee first, then the tea (`135.00`) and the orange juice, with `0` units, last. In the studio the grid uses the alias as the column header, and that is also what a **CSV** export would contain."
+    ],
+    "points": [
+      "Integer divided by integer is integer division: `7 / 2` is `3`.",
+      "`value::type` casts (`::int`, `::numeric`, `::date`, `::text`).",
+      "`::int` rounds, it does not truncate.",
+      "`AS` names a computed column.",
+      "The alias can be used in `ORDER BY`."
+    ],
+    "exercise": "Add a column `price * 1.21 AS with_vat` to the last query and sort by it. How many decimals do you get?"
+  }
+}

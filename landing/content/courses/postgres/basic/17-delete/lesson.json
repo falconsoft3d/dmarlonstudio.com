@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "borrar-filas-con-delete",
+    "title": "Borrar filas con DELETE",
+    "summary": "Borre filas en PostgreSQL con DELETE … WHERE, respete el orden que imponen las claves foráneas, borre con datos de otra tabla con USING y vea lo borrado.",
+    "body": [
+      "**`DELETE FROM tabla WHERE …`** borra las filas que cumplen la condición. Pero aquí hay un orden obligado: las líneas de `order_items` tienen una **clave foránea** (`REFERENCES orders(id)`) hacia su pedido, y PostgreSQL no deja borrar un pedido mientras alguna línea lo señale. Por eso primero se borran las líneas del pedido cancelado, con una subconsulta en el `WHERE`: solo había una, la `11`, dos paquetes de café (`product_id` `4`).",
+      "Con las líneas fuera, ya se puede borrar el pedido `5`, el cancelado, de `19.80` euros. **`RETURNING`** funciona igual que en `INSERT` y `UPDATE`: devuelve las filas tal como eran justo antes de desaparecer, y es una buena forma de dejar constancia de lo borrado.",
+      "**`DELETE … USING`** es el equivalente de `UPDATE … FROM`: permite usar otra tabla en la condición. Aquí borra las reseñas de los productos de menos de 2 euros, que resultan ser las tres de la panadería: dos de `Baguette` y una de `Croissant`.",
+      "La última consulta cuenta lo que queda con tres subconsultas en una fila: `9` pedidos, `21` líneas y `5` reseñas. Como en `UPDATE`, un `DELETE` sin `WHERE` vacía la tabla entera; ante la duda, ejecute antes el `SELECT` equivalente y compruebe en la rejilla qué filas saldrían."
+    ],
+    "points": [
+      "`DELETE FROM t WHERE …` borra las filas que cumplen la condición.",
+      "Una clave foránea impide borrar una fila a la que otras apuntan: borre primero las hijas.",
+      "`DELETE … USING` usa otra tabla en la condición.",
+      "`RETURNING` devuelve las filas borradas.",
+      "Sin `WHERE` se borra todo."
+    ],
+    "exercise": "Borre las reseñas con nota menor que 3 y devuelva con `RETURNING` su `id`, `rating` y `comment`."
+  },
+  "en": {
+    "slug": "deleting-rows",
+    "title": "Deleting rows with DELETE",
+    "summary": "Delete rows in PostgreSQL with DELETE … WHERE, respect the order foreign keys impose, delete using another table with USING and see what was removed.",
+    "body": [
+      "**`DELETE FROM table WHERE …`** deletes the rows that meet the condition. But there is a required order here: the rows of `order_items` have a **foreign key** (`REFERENCES orders(id)`) to their order, and PostgreSQL will not delete an order while a line still points to it. So the lines of the cancelled order go first, with a subquery in the `WHERE`: there was only one, line `11`, two bags of coffee (`product_id` `4`).",
+      "With the lines gone, order `5`, the cancelled one worth `19.80` euros, can be deleted. **`RETURNING`** works just as in `INSERT` and `UPDATE`: it returns the rows as they were right before they disappeared, which is a good way to keep a record of what was deleted.",
+      "**`DELETE … USING`** is the counterpart of `UPDATE … FROM`: it lets you use another table in the condition. Here it deletes the reviews of products under 2 euros, which turn out to be the three bakery ones: two for `Baguette` and one for `Croissant`.",
+      "The last query counts what is left with three subqueries in one row: `9` orders, `21` lines and `5` reviews. As with `UPDATE`, a `DELETE` without `WHERE` empties the whole table; when in doubt, run the equivalent `SELECT` first and check in the grid which rows would go."
+    ],
+    "points": [
+      "`DELETE FROM t WHERE …` deletes the rows that meet the condition.",
+      "A foreign key prevents deleting a row others point to: delete the children first.",
+      "`DELETE … USING` uses another table in the condition.",
+      "`RETURNING` returns the deleted rows.",
+      "Without `WHERE` everything goes."
+    ],
+    "exercise": "Delete the reviews rated below 3 and use `RETURNING` to show their `id`, `rating` and `comment`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "crear-tablas",
+    "title": "Crear tablas con restricciones",
+    "summary": "Cree una tabla en PostgreSQL con columna identity, NOT NULL, UNIQUE, CHECK, DEFAULT y clave foránea, y añádale después una columna con ALTER TABLE.",
+    "body": [
+      "**`CREATE TABLE`** define cada columna con su tipo y sus reglas. El `id` es **`GENERATED ALWAYS AS IDENTITY`**: PostgreSQL lo numera solo y, con `ALWAYS`, ni siquiera deja escribirlo a mano (con `BY DEFAULT`, como en las tablas de la tienda, sí se puede). `PRIMARY KEY` lo hace único y no nulo, y crea un índice.",
+      "Las **restricciones** protegen los datos: **`NOT NULL`** obliga a dar el nombre, **`UNIQUE`** impide dos proveedores con el mismo, **`CHECK (rating BETWEEN 1 AND 5)`** rechaza una nota de `7` y **`REFERENCES categories (id)`** solo admite categorías que existan. **`DEFAULT`** pone un valor cuando no se da ninguno: `'Spain'` para el país y `'2024-01-01'` para la fecha.",
+      "El primer `INSERT` no da ni país ni fecha, y los dos proveedores quedan con `Spain` y `2024-01-01`; el segundo los da y `Café Andino` es de `Colombia` desde el `2024-03-10`. Los `id` `1`, `2` y `3` los ha puesto la identity.",
+      "**`ALTER TABLE … ADD COLUMN`** cambia una tabla que ya existe: `email` aparece en todas las filas con `NULL`. Después de ejecutar el script, la tabla `suppliers` aparece en la lista de tablas del estudio; un doble clic le prepara una consulta para verla. La lección de errores del curso avanzado enseña qué responde PostgreSQL cuando un dato no cumple estas reglas."
+    ],
+    "points": [
+      "`GENERATED ALWAYS AS IDENTITY` numera solo y no deja escribir el `id`.",
+      "`NOT NULL`, `UNIQUE` y `CHECK` hacen cumplir reglas en cada fila.",
+      "`REFERENCES` crea una clave foránea hacia otra tabla.",
+      "`DEFAULT` da valor a las columnas omitidas.",
+      "`ALTER TABLE … ADD COLUMN` añade columnas a una tabla existente."
+    ],
+    "exercise": "Añada a `suppliers` una columna `phone text` y un `CHECK (country <> '')`, e intente insertar un proveedor con `rating` `6` para ver el error."
+  },
+  "en": {
+    "slug": "creating-tables",
+    "title": "Creating tables with constraints",
+    "summary": "Create a PostgreSQL table with an identity column, NOT NULL, UNIQUE, CHECK, DEFAULT and a foreign key, then add a column with ALTER TABLE.",
+    "body": [
+      "**`CREATE TABLE`** defines each column with its type and its rules. The `id` is **`GENERATED ALWAYS AS IDENTITY`**: PostgreSQL numbers it by itself and, with `ALWAYS`, does not even let you write it by hand (with `BY DEFAULT`, as in the shop tables, you can). `PRIMARY KEY` makes it unique and not null, and creates an index.",
+      "**Constraints** protect the data: **`NOT NULL`** makes the name mandatory, **`UNIQUE`** prevents two suppliers with the same one, **`CHECK (rating BETWEEN 1 AND 5)`** rejects a rating of `7`, and **`REFERENCES categories (id)`** only accepts categories that exist. **`DEFAULT`** supplies a value when none is given: `'Spain'` for the country and `'2024-01-01'` for the date.",
+      "The first `INSERT` gives neither country nor date, and both suppliers end up with `Spain` and `2024-01-01`; the second gives them, and `Café Andino` is from `Colombia` since `2024-03-10`. Ids `1`, `2` and `3` come from the identity.",
+      "**`ALTER TABLE … ADD COLUMN`** changes an existing table: `email` appears in every row as `NULL`. After running the script, the `suppliers` table shows up in the studio's table list; a double click writes a query to look at it. The errors lesson of the advanced course shows what PostgreSQL says when a value breaks these rules."
+    ],
+    "points": [
+      "`GENERATED ALWAYS AS IDENTITY` numbers by itself and forbids writing the `id`.",
+      "`NOT NULL`, `UNIQUE` and `CHECK` enforce rules on every row.",
+      "`REFERENCES` creates a foreign key to another table.",
+      "`DEFAULT` fills the omitted columns.",
+      "`ALTER TABLE … ADD COLUMN` adds columns to an existing table."
+    ],
+    "exercise": "Add a `phone text` column and a `CHECK (country <> '')` to `suppliers`, then try inserting a supplier with a `rating` of `6` to see the error."
+  }
+}

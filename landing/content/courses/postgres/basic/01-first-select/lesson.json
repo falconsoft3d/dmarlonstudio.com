@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "primera-consulta-select",
+    "title": "Su primera consulta",
+    "summary": "Escriba su primer SELECT en PostgreSQL: todas las columnas con *, solo las que necesita y en el orden que usted elija con ORDER BY.",
+    "body": [
+      "Una consulta empieza por **`SELECT`**, que dice qué columnas quiere ver, y sigue con **`FROM`**, que dice de qué tabla salen. `SELECT * FROM categories` pide todas las columnas de `categories`: salen sus cuatro filas, de `1 Bakery` a `4 Fruit`. El `ORDER BY id` del final no es adorno: sin él, PostgreSQL devuelve las filas en el orden que le resulte más cómodo, que no tiene por qué ser siempre el mismo.",
+      "El asterisco va bien para curiosear, pero en una consulta de verdad conviene nombrar las columnas: `SELECT name, price, stock` trae solo esas tres, en ese orden, aunque `products` tenga también `category_id`, `active` y `tags`.",
+      "**`ORDER BY price`** ordena de menor a mayor (es lo mismo que `ORDER BY price ASC`). La primera fila es `Whole milk` a `1.10` y la última, `Espresso beans` a `9.90`. Fíjese en que el precio sale con dos decimales, `1.10` y no `1.1`: la columna es `numeric(8,2)`, un número exacto que guarda siempre dos cifras decimales.",
+      "Cada `;` termina una consulta. Al pulsar **Ejecutar** (⌘↵) en el módulo Bases de datos de DMarlon Studio se ejecutan las dos, una tras otra, y cada una deja su resultado en una pestaña: la primera con las categorías y la segunda con los doce productos. Las líneas que empiezan por `--` son comentarios y PostgreSQL las ignora."
+    ],
+    "points": [
+      "`SELECT columnas FROM tabla` es la forma básica de toda consulta.",
+      "`*` trae todas las columnas; en el código de verdad, nómbrelas.",
+      "Sin `ORDER BY`, el orden de las filas no está garantizado.",
+      "`numeric(8,2)` guarda importes exactos con dos decimales.",
+      "`;` separa consultas y `--` empieza un comentario."
+    ],
+    "exercise": "Cambie la segunda consulta para que enseñe también `category_id` y ordene del producto más caro al más barato con `ORDER BY price DESC`."
+  },
+  "en": {
+    "slug": "first-select-query",
+    "title": "Your first query",
+    "summary": "Write your first PostgreSQL SELECT: every column with *, just the ones you need, and in the order you choose with ORDER BY.",
+    "body": [
+      "A query starts with **`SELECT`**, which says which columns you want to see, followed by **`FROM`**, which says which table they come from. `SELECT * FROM categories` asks for every column of `categories`: you get its four rows, from `1 Bakery` to `4 Fruit`. The final `ORDER BY id` is not decoration: without it PostgreSQL returns the rows in whatever order suits it, and that order is not guaranteed to stay the same.",
+      "The asterisk is fine for a quick look, but in real queries it is better to name the columns: `SELECT name, price, stock` brings just those three, in that order, even though `products` also has `category_id`, `active` and `tags`.",
+      "**`ORDER BY price`** sorts from lowest to highest (the same as `ORDER BY price ASC`). The first row is `Whole milk` at `1.10` and the last one `Espresso beans` at `9.90`. Notice that the price has two decimals, `1.10` rather than `1.1`: the column is `numeric(8,2)`, an exact number that always keeps two decimal places.",
+      "Each `;` ends a query. When you press **Run** (⌘↵) in the Databases module of DMarlon Studio both are executed, one after the other, and each leaves its result in its own tab: the first with the categories and the second with the twelve products. Lines starting with `--` are comments and PostgreSQL ignores them."
+    ],
+    "points": [
+      "`SELECT columns FROM table` is the basic shape of every query.",
+      "`*` brings every column; in real code, name them.",
+      "Without `ORDER BY` the order of the rows is not guaranteed.",
+      "`numeric(8,2)` stores exact amounts with two decimals.",
+      "`;` separates queries and `--` starts a comment."
+    ],
+    "exercise": "Change the second query so that it also shows `category_id` and sorts from the most expensive product to the cheapest with `ORDER BY price DESC`."
+  }
+}

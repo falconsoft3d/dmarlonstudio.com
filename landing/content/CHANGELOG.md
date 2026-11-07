@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.68 — 2026-11-07
+
+- **Curso de PostgreSQL** en la web (/cursos/postgres y /en/courses/postgres): 40 lecciones, básico y avanzado, de la primera consulta a `DISTINCT ON`, `RETURNING`, CTE recursivas, funciones de ventana, `FILTER`, `jsonb`, arrays, `generate_series`, vistas materializadas, `EXPLAIN`, `SAVEPOINT`, `ON CONFLICT`, PL/pgSQL, disparadores, enums, dominios y `LATERAL`, con scripts que se ejecutan de verdad en el módulo Bases de datos sobre la tienda de ejemplo (`shop.sql`, PostgreSQL 16).
+
 ## 1.0.67 — 2026-11-07
 
 - **Curso de MongoDB** en la web (/cursos/mongodb y /en/courses/mongodb): 40 lecciones, básico y avanzado, de `find` y los operadores de consulta a los arrays, el pipeline de agregación (`$group`, `$unwind`, `$lookup`, `$facet`, `$bucket`, `$graphLookup`), índices únicos y el diseño de documentos, con consultas JSON que se ejecutan de verdad en el módulo Bases de datos sobre la tienda de ejemplo (`shop.json`).

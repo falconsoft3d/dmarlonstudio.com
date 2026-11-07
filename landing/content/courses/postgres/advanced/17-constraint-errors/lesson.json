@@ -1,0 +1,41 @@
+{
+  "es": {
+    "slug": "errores-de-restricciones",
+    "title": "Errores de restricciones",
+    "summary": "Vea qué responde PostgreSQL cuando un dato rompe un CHECK, NOT NULL, UNIQUE o una clave foránea, capture el error en PL/pgSQL y lea su SQLSTATE.",
+    "body": [
+      "Las restricciones son la última defensa de los datos: da igual qué programa escriba en la tabla, PostgreSQL las comprueba siempre. Primero se añade una nueva a `products` con **`ALTER TABLE … ADD CONSTRAINT price_positive CHECK (price > 0)`**; si alguna fila existente no la cumpliera, el `ALTER` mismo fallaría.",
+      "Un error detiene el script, así que para enseñar varios a la vez la función `try` los **captura**: ejecuta el texto que recibe con **`EXECUTE`** y, si falla, el bloque **`EXCEPTION WHEN others`** recoge el error en lugar de propagarlo. **`GET STACKED DIAGNOSTICS`** saca el nombre de la restricción (o de la columna) y **`SQLSTATE`** es el código del error, el que conviene usar en una aplicación en lugar del mensaje.",
+      "La tabla del resultado enseña cada caso: la fila buena da `ok`; el precio `-1` rompe el `CHECK` (`23514 price_positive`); un producto sin nombre, el `NOT NULL` (`23502`, columna `name`); el correo repetido de Ana, el `UNIQUE` (`23505 customers_email_key`); y la categoría `99`, que no existe, la clave foránea (`23503`). Borrar una categoría con productos da el mismo `23503`: la clave foránea protege en los dos sentidos.",
+      "La última consulta no pasa por `try`, y el error llega tal cual: el cliente `99` no existe y `orders_customer_id_fkey` rechaza el pedido. El estudio para el script en esa consulta y enseña el mensaje en lugar de la rejilla; los resultados anteriores siguen en sus pestañas. Cada bloque con `EXCEPTION` crea un *savepoint* interno, por eso el error de dentro no estropea la transacción."
+    ],
+    "points": [
+      "`CHECK`, `NOT NULL`, `UNIQUE` y `REFERENCES` se comprueban siempre, escriba quien escriba.",
+      "Códigos: `23514` CHECK, `23502` NOT NULL, `23505` UNIQUE, `23503` clave foránea.",
+      "`EXCEPTION WHEN others` captura un error en PL/pgSQL.",
+      "`GET STACKED DIAGNOSTICS` da la restricción, la columna, el mensaje…",
+      "Use el `SQLSTATE` en su aplicación, no el texto del mensaje."
+    ],
+    "exercise": "Añada a la lista de `try` una reseña con `rating` `7` después de crear `ALTER TABLE reviews ADD CHECK (rating BETWEEN 1 AND 5)`. ¿Qué nombre le pone PostgreSQL a la restricción?"
+  },
+  "en": {
+    "slug": "constraint-errors",
+    "title": "Constraint errors",
+    "summary": "See what PostgreSQL says when data breaks a CHECK, NOT NULL, UNIQUE or foreign key, catch the error in PL/pgSQL and read its SQLSTATE.",
+    "body": [
+      "Constraints are the last line of defence for your data: whichever program writes to the table, PostgreSQL always checks them. First a new one is added to `products` with **`ALTER TABLE … ADD CONSTRAINT price_positive CHECK (price > 0)`**; if any existing row broke it, the `ALTER` itself would fail.",
+      "An error stops the script, so to show several at once the `try` function **catches** them: it runs the text it receives with **`EXECUTE`** and, if that fails, the **`EXCEPTION WHEN others`** block picks up the error instead of passing it on. **`GET STACKED DIAGNOSTICS`** extracts the name of the constraint (or the column), and **`SQLSTATE`** is the error code, the thing an application should rely on instead of the message.",
+      "The result table shows each case: the good row gives `ok`; the `-1` price breaks the `CHECK` (`23514 price_positive`); a product without a name, the `NOT NULL` (`23502`, column `name`); Ana's repeated email, the `UNIQUE` (`23505 customers_email_key`); and category `99`, which does not exist, the foreign key (`23503`). Deleting a category that has products gives the same `23503`: a foreign key protects both ways.",
+      "The last query does not go through `try`, and the error arrives as it is: customer `99` does not exist and `orders_customer_id_fkey` rejects the order. The studio stops the script at that query and shows the message instead of the grid; the earlier results stay in their tabs. Each block with `EXCEPTION` creates an internal savepoint, which is why the error inside does not spoil the transaction."
+    ],
+    "points": [
+      "`CHECK`, `NOT NULL`, `UNIQUE` and `REFERENCES` are always enforced, whoever writes.",
+      "Codes: `23514` CHECK, `23502` NOT NULL, `23505` UNIQUE, `23503` foreign key.",
+      "`EXCEPTION WHEN others` catches an error in PL/pgSQL.",
+      "`GET STACKED DIAGNOSTICS` gives the constraint, the column, the message…",
+      "Use the `SQLSTATE` in your application, not the message text."
+    ],
+    "exercise": "After running `ALTER TABLE reviews ADD CHECK (rating BETWEEN 1 AND 5)`, add a review with a `rating` of `7` to the `try` list. What name does PostgreSQL give the constraint?"
+  },
+  "error": true
+}

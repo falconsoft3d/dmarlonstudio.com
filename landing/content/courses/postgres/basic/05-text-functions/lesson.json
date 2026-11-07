@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "like-ilike-y-funciones-de-texto",
+    "title": "LIKE, ILIKE y funciones de texto",
+    "summary": "Busque por patrones con LIKE e ILIKE y transforme texto en PostgreSQL con ||, upper, initcap, length y split_part.",
+    "body": [
+      "**`LIKE`** compara con un patrón en el que `%` es «cualquier cosa» y `_` es «un carácter». Pero distingue mayúsculas: `name LIKE 'g%'` no encuentra nada, porque los nombres empiezan por `G`. **`ILIKE`**, propio de PostgreSQL, no las distingue, y `ILIKE 'g%'` devuelve `Greek yogurt` y `Green tea`.",
+      "La tercera consulta transforma columnas. **`upper(city)`** pasa a mayúsculas (`MADRID`); **`length(name)`** cuenta caracteres, no bytes, así que `Marta López` da `11` aunque la `ó` ocupe dos bytes en UTF-8.",
+      "**`split_part(email, '@', 1)`** parte el texto por la `@` y se queda con el primer trozo: `ana`, `luis`, `marta`… **`initcap`** pone en mayúscula la primera letra de cada palabra, y **`||`** encadena textos: `Ana from Madrid`. El correo de Sofía es `sofia@…`, sin tilde, y por eso su saludo es `Sofia from Valencia`.",
+      "El `WHERE email LIKE '%@example.com'` deja fuera a Pedro Gómez, que no tiene correo (un `NULL` no cumple ningún `LIKE`), y `LIMIT 6` se queda con los seis primeros por `id`. Ojo con `||`: si una de las partes es `NULL`, el resultado entero es `NULL`; para eso está `concat()`, que trata los `NULL` como texto vacío."
+    ],
+    "points": [
+      "`%` es cualquier texto y `_`, un carácter.",
+      "`LIKE` distingue mayúsculas; `ILIKE` no.",
+      "`||` encadena textos (y `NULL` lo anula todo).",
+      "`upper`, `lower`, `initcap`, `length` y `split_part` transforman texto.",
+      "`length` cuenta caracteres, no bytes."
+    ],
+    "exercise": "Liste los productos cuyo nombre termina en `kg` (`ILIKE '%kg'`) y enseñe `replace(name, ' 1 kg', '')` como nombre corto."
+  },
+  "en": {
+    "slug": "like-ilike-and-text-functions",
+    "title": "LIKE, ILIKE and text functions",
+    "summary": "Search by pattern with LIKE and ILIKE and transform text in PostgreSQL with ||, upper, initcap, length and split_part.",
+    "body": [
+      "**`LIKE`** matches a pattern where `%` means “anything” and `_` means “one character”. But it is case-sensitive: `name LIKE 'g%'` finds nothing, because the names start with `G`. **`ILIKE`**, a PostgreSQL extension, ignores case, and `ILIKE 'g%'` returns `Greek yogurt` and `Green tea`.",
+      "The third query transforms columns. **`upper(city)`** turns it into capitals (`MADRID`); **`length(name)`** counts characters, not bytes, so `Marta López` gives `11` even though the `ó` takes two bytes in UTF-8.",
+      "**`split_part(email, '@', 1)`** splits the text at the `@` and keeps the first piece: `ana`, `luis`, `marta`… **`initcap`** capitalises the first letter of each word, and **`||`** joins texts: `Ana from Madrid`. Sofía's address is `sofia@…`, without the accent, which is why her greeting reads `Sofia from Valencia`.",
+      "`WHERE email LIKE '%@example.com'` leaves out Pedro Gómez, who has no email (a `NULL` never matches a `LIKE`), and `LIMIT 6` keeps the first six by `id`. Watch out with `||`: if any part is `NULL` the whole result is `NULL`; that is what `concat()` is for, as it treats `NULL` as empty text."
+    ],
+    "points": [
+      "`%` is any text and `_` one character.",
+      "`LIKE` is case-sensitive; `ILIKE` is not.",
+      "`||` joins text (and a `NULL` wipes it all out).",
+      "`upper`, `lower`, `initcap`, `length` and `split_part` transform text.",
+      "`length` counts characters, not bytes."
+    ],
+    "exercise": "List the products whose name ends in `kg` (`ILIKE '%kg'`) and show `replace(name, ' 1 kg', '')` as a short name."
+  }
+}

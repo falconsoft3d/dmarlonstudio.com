@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "tipos-enum-y-dominios",
+    "title": "Tipos enum y dominios",
+    "summary": "Cree sus propios tipos en PostgreSQL: un enum con los estados de un pedido, que ordena por su lista, y un dominio que valida correos con una expresión regular.",
+    "body": [
+      "**`CREATE TYPE order_status AS ENUM (…)`** crea un tipo con una lista cerrada de valores. Una columna de ese tipo no admite nada fuera de la lista (`'sent'` daría error) y ocupa 4 bytes, sea cual sea la longitud de la etiqueta. **`enum_range(NULL::order_status)`** devuelve todos los valores, en su orden: `[\"new\",\"paid\",\"shipped\",\"cancelled\"]`.",
+      "Para convertir la columna `status` de `orders`, que era `text`, se usa **`ALTER COLUMN … TYPE … USING status::order_status`**: `USING` dice cómo transformar cada valor viejo. El `DEFAULT 'new'` se quita antes y se vuelve a poner después, porque el de texto no sirve para el tipo nuevo. Si algún pedido tuviera un estado fuera de la lista, el `ALTER` fallaría y la tabla quedaría como estaba.",
+      "Un **dominio** es un tipo existente con una regla añadida. **`CREATE DOMAIN email_address AS text CHECK (VALUE ~ …)`** solo admite texto que encaje con la expresión regular (`~` es el operador de PostgreSQL para eso): algo, una `@`, algo, un punto y letras. Al cambiar la columna `email` a ese tipo, PostgreSQL comprueba los siete correos que hay; el `NULL` de Pedro pasa, porque un `CHECK` solo rechaza lo que es falso, no lo desconocido.",
+      "La gracia del enum está en la última consulta: **`ORDER BY o.status` sigue el orden de la lista**, no el alfabético, así que salen `new`, `paid`, `shipped` y `cancelled`, y la comparación `status < 'shipped'` tiene sentido: `true` para los pendientes. `::text` convierte la etiqueta en texto normal para enseñarla; el orden lo sigue marcando la columna original."
+    ],
+    "points": [
+      "`CREATE TYPE … AS ENUM` crea un tipo con una lista cerrada de valores.",
+      "Un enum ordena y compara según su lista, no alfabéticamente.",
+      "`ALTER COLUMN … TYPE … USING` convierte una columna existente.",
+      "`CREATE DOMAIN … CHECK (VALUE …)` es un tipo con una regla.",
+      "`~` compara con una expresión regular."
+    ],
+    "exercise": "Añada un estado nuevo con `ALTER TYPE order_status ADD VALUE 'refunded' AFTER 'shipped'` y compruébelo con `enum_range`."
+  },
+  "en": {
+    "slug": "enum-types-and-domains",
+    "title": "Enum types and domains",
+    "summary": "Create your own types in PostgreSQL: an enum with the order statuses that sorts by its list, and a domain that validates emails with a regular expression.",
+    "body": [
+      "**`CREATE TYPE order_status AS ENUM (…)`** creates a type with a closed list of values. A column of that type accepts nothing outside the list (`'sent'` would be an error) and takes 4 bytes whatever the length of the label. **`enum_range(NULL::order_status)`** returns every value, in order: `[\"new\",\"paid\",\"shipped\",\"cancelled\"]`.",
+      "To convert the `status` column of `orders`, which was `text`, you use **`ALTER COLUMN … TYPE … USING status::order_status`**: `USING` says how to transform each old value. The `DEFAULT 'new'` is dropped first and set again afterwards, because the text one does not fit the new type. If any order had a status outside the list, the `ALTER` would fail and the table would stay as it was.",
+      "A **domain** is an existing type with an extra rule. **`CREATE DOMAIN email_address AS text CHECK (VALUE ~ …)`** only accepts text that matches the regular expression (`~` is PostgreSQL's operator for that): something, an `@`, something, a dot and letters. When the `email` column is switched to that type, PostgreSQL checks the seven addresses there are; Pedro's `NULL` passes, because a `CHECK` only rejects what is false, not what is unknown.",
+      "The beauty of the enum is in the last query: **`ORDER BY o.status` follows the list order**, not alphabetical order, so you get `new`, `paid`, `shipped` and `cancelled`, and the comparison `status < 'shipped'` makes sense: `true` for the pending ones. `::text` turns the label into plain text for display; the order still comes from the original column."
+    ],
+    "points": [
+      "`CREATE TYPE … AS ENUM` creates a type with a closed list of values.",
+      "An enum sorts and compares by its list, not alphabetically.",
+      "`ALTER COLUMN … TYPE … USING` converts an existing column.",
+      "`CREATE DOMAIN … CHECK (VALUE …)` is a type with a rule.",
+      "`~` matches a regular expression."
+    ],
+    "exercise": "Add a new status with `ALTER TYPE order_status ADD VALUE 'refunded' AFTER 'shipped'` and check it with `enum_range`."
+  }
+}

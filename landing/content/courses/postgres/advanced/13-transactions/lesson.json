@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "transacciones-y-savepoints",
+    "title": "Transacciones y SAVEPOINT",
+    "summary": "Agrupe cambios en PostgreSQL con BEGIN y COMMIT, deshaga una parte con SAVEPOINT y ROLLBACK TO, y descarte una transacción entera con ROLLBACK.",
+    "body": [
+      "Una **transacción** agrupa varios cambios para que se hagan **todos o ninguno**. **`BEGIN`** la abre y, desde ese momento, nada es definitivo hasta **`COMMIT`**. Aquí se venden dos quesos: se resta el `stock` del producto `9` y se crea el pedido `11`, de `15.50` euros. Si algo fallara entre los dos pasos, no quedaría un pedido sin descontar el almacén ni al revés.",
+      "Un **`SAVEPOINT`** es un punto de retorno dentro de la transacción. Después de `SAVEPOINT before_discount`, un `UPDATE` deja el pedido a `0.00` y el `SELECT` lo confirma: dentro de la transacción el cambio ya se ve. **`ROLLBACK TO SAVEPOINT before_discount`** deshace solo lo que vino después del punto; el descuento del almacén y el pedido siguen en pie, y `COMMIT` los hace definitivos.",
+      "La segunda transacción borra todas las reseñas: dentro, `reviews_inside` vale `0`. Pero termina con **`ROLLBACK`**, que la descarta entera, como si no hubiera pasado nada. Mientras una transacción no termina, las demás conexiones siguen viendo los datos de antes.",
+      "La consulta final lo comprueba todo: el queso tiene `6` unidades (eran `8`), el pedido `11` vale `15.50` y no `0`, y siguen las `8` reseñas. El módulo Bases de datos del estudio ejecuta cada consulta del script en la misma conexión, una detrás de otra, por eso `BEGIN`, `SAVEPOINT` y `COMMIT` pueden ir como consultas sueltas, cada una con su pestaña."
+    ],
+    "points": [
+      "`BEGIN` … `COMMIT`: todos los cambios o ninguno.",
+      "Dentro de la transacción, sus propios cambios ya se ven.",
+      "`SAVEPOINT x` y `ROLLBACK TO SAVEPOINT x` deshacen solo una parte.",
+      "`ROLLBACK` descarta la transacción entera.",
+      "Las demás conexiones no ven nada hasta el `COMMIT`."
+    ],
+    "exercise": "Abra una transacción, suba un 50 % todos los precios, compruebe el precio medio con un `SELECT` y termine con `ROLLBACK`. ¿Cuánto vale la media después?"
+  },
+  "en": {
+    "slug": "transactions-and-savepoints",
+    "title": "Transactions and SAVEPOINT",
+    "summary": "Group changes in PostgreSQL with BEGIN and COMMIT, undo part of them with SAVEPOINT and ROLLBACK TO, and throw away a whole transaction with ROLLBACK.",
+    "body": [
+      "A **transaction** groups several changes so that **all or none** of them happen. **`BEGIN`** opens it and from then on nothing is final until **`COMMIT`**. Here two cheeses are sold: the `stock` of product `9` goes down and order `11` is created, for `15.50` euros. If anything failed between the two steps, you would never end up with an order whose stock was not taken off, or the other way round.",
+      "A **`SAVEPOINT`** is a point you can return to inside the transaction. After `SAVEPOINT before_discount`, an `UPDATE` sets the order to `0.00` and the `SELECT` confirms it: inside the transaction the change is already visible. **`ROLLBACK TO SAVEPOINT before_discount`** undoes only what came after that point; the stock change and the order stay, and `COMMIT` makes them final.",
+      "The second transaction deletes every review: inside it, `reviews_inside` is `0`. But it ends with **`ROLLBACK`**, which throws it away completely, as if nothing had happened. While a transaction is still open, other connections keep seeing the data as it was before.",
+      "The final query checks it all: the cheese has `6` units (there were `8`), order `11` is worth `15.50` and not `0`, and all `8` reviews are still there. The studio's Databases module runs each query of the script on the same connection, one after another, which is why `BEGIN`, `SAVEPOINT` and `COMMIT` can be separate queries, each with its own tab."
+    ],
+    "points": [
+      "`BEGIN` … `COMMIT`: all the changes or none.",
+      "Inside the transaction its own changes are already visible.",
+      "`SAVEPOINT x` and `ROLLBACK TO SAVEPOINT x` undo only part of it.",
+      "`ROLLBACK` throws away the whole transaction.",
+      "Other connections see nothing until `COMMIT`."
+    ],
+    "exercise": "Open a transaction, raise every price by 50%, check the average price with a `SELECT` and finish with `ROLLBACK`. What is the average afterwards?"
+  }
+}

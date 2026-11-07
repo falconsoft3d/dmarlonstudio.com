@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "generate-series-calendario",
+    "title": "Series y calendarios",
+    "summary": "Genere filas con generate_series en PostgreSQL: números, fechas con un paso y un calendario de meses que enseña también los meses sin ventas.",
+    "body": [
+      "**`generate_series(inicio, fin)`** es una función que devuelve filas: `generate_series(1, 4)` da los números del 1 al 4, y se usa en el `FROM` como si fuera una tabla. Aquí cada `n` sale con su cuadrado, de `1` a `16`.",
+      "Con fechas admite un tercer argumento, el **paso**, que es un `interval`: del `2024-03-01` al `2024-03-22` de semana en semana salen cuatro días, `03-01`, `03-08`, `03-15` y `03-22`. La función devuelve `timestamp`, y `d::date` lo deja en fecha.",
+      "El uso más práctico es el **calendario**. Agrupar los pedidos por mes, como en el curso básico, solo enseña los meses que tienen pedidos; un informe de verdad necesita también los que no. La solución es generar los meses de enero a julio de 2024 y hacer un **`LEFT JOIN`** con los pedidos: cada mes encuentra los suyos con `o.ordered >= m AND o.ordered < m + interval '1 month'`, y el que no encuentra ninguno se queda con `NULL`.",
+      "`count(o.id)` da `0` en enero, febrero y julio, y `coalesce(sum(o.total), 0)` pone `0` en lugar de `NULL`. La condición del estado va en el `ON` y no en el `WHERE`: en el `WHERE` quitaría las filas vacías del `LEFT JOIN` y los meses sin ventas volverían a desaparecer. **`repeat('#', n)`** dibuja una barra con el número de pedidos: un pequeño gráfico dentro de la rejilla."
+    ],
+    "points": [
+      "`generate_series(a, b)` genera filas de números.",
+      "Con fechas, el tercer argumento es el paso (`interval '1 month'`).",
+      "Un calendario con `LEFT JOIN` enseña también los huecos.",
+      "Las condiciones de la tabla de la derecha, en el `ON`, no en el `WHERE`.",
+      "`repeat('#', n)` hace barras de texto."
+    ],
+    "exercise": "Haga el calendario por semanas en lugar de por meses, de `2024-03-01` a `2024-04-26`, con `interval '1 week'`."
+  },
+  "en": {
+    "slug": "generate-series-calendar",
+    "title": "Series and calendars",
+    "summary": "Generate rows with generate_series in PostgreSQL: numbers, dates with a step and a calendar of months that also shows the months without sales.",
+    "body": [
+      "**`generate_series(start, stop)`** is a function that returns rows: `generate_series(1, 4)` gives the numbers 1 to 4 and is used in the `FROM` as if it were a table. Here each `n` comes with its square, from `1` to `16`.",
+      "With dates it takes a third argument, the **step**, which is an `interval`: from `2024-03-01` to `2024-03-22` one week at a time you get four days, `03-01`, `03-08`, `03-15` and `03-22`. The function returns `timestamp`, and `d::date` turns it into a date.",
+      "The most practical use is a **calendar**. Grouping orders by month, as in the basic course, only shows the months that have orders; a real report needs the empty ones too. The answer is to generate the months from January to July 2024 and **`LEFT JOIN`** the orders: each month finds its own with `o.ordered >= m AND o.ordered < m + interval '1 month'`, and one that finds none is left with `NULL`.",
+      "`count(o.id)` gives `0` for January, February and July, and `coalesce(sum(o.total), 0)` shows `0` instead of `NULL`. The status condition goes in the `ON`, not in the `WHERE`: in the `WHERE` it would remove the empty rows of the `LEFT JOIN` and the months without sales would vanish again. **`repeat('#', n)`** draws a bar with the number of orders: a little chart inside the grid."
+    ],
+    "points": [
+      "`generate_series(a, b)` generates rows of numbers.",
+      "With dates, the third argument is the step (`interval '1 month'`).",
+      "A calendar with `LEFT JOIN` also shows the gaps.",
+      "Conditions on the right-hand table go in the `ON`, not the `WHERE`.",
+      "`repeat('#', n)` makes text bars."
+    ],
+    "exercise": "Make the calendar weekly instead of monthly, from `2024-03-01` to `2024-04-26`, with `interval '1 week'`."
+  }
+}

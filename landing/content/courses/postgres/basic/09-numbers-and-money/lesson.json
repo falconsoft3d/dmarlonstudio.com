@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "numeric-round-y-to-char",
+    "title": "Números exactos y dinero",
+    "summary": "Por qué el dinero va en numeric y no en float en PostgreSQL, cómo redondear con round, ceil, floor y trunc, y cómo darle formato con to_char.",
+    "body": [
+      "La primera consulta es la razón de que los precios sean `numeric`. Con **`float8`** (coma flotante, binaria), `0.1 + 0.2 = 0.3` da `false`, porque ninguno de los dos números se puede guardar exacto en binario. Con **`numeric`** la cuenta es exacta y da `true`. Para dinero, siempre `numeric`.",
+      "Las cuatro formas de quitar decimales: **`round(7.756, 2)`** redondea a dos cifras, `7.76`; **`ceil`** sube al entero siguiente (`8`); **`floor`** baja (`7`); y **`trunc`** corta sin más, así que `trunc(-7.8)` es `-7`, mientras que `floor(-7.8)` sería `-8`.",
+      "En la última consulta, `round(price * 1.21, 2)` es el precio con el 21 % de IVA: los `9.90` del café son `11.98`. Sin el `round`, saldrían cuatro decimales (`11.9790`), porque al multiplicar dos `numeric` se suman sus decimales.",
+      "**`to_char(valor, formato)`** convierte un número en texto con el aspecto que usted quiera. En `'FM990.00'`, cada `9` es una cifra opcional, cada `0` una obligatoria, y `FM` quita los espacios de relleno; luego `|| ' €'` añade el símbolo: `11.98 €`. Con `'FM9,990.00'` se pone separador de miles cuando hace falta. Recuerde que el resultado ya es texto: ordene por la columna numérica, no por la formateada."
+    ],
+    "points": [
+      "`float` es aproximado; `numeric`, exacto: el dinero, en `numeric`.",
+      "`round(x, 2)` redondea; `ceil`, `floor` y `trunc` suben, bajan o cortan.",
+      "Multiplicar `numeric` suma decimales: redondee el resultado.",
+      "`to_char(x, 'FM990.00')` da formato; el resultado es texto."
+    ],
+    "exercise": "Añada una columna con el precio rebajado un 15 % (`price * 0.85`), redondeado a dos decimales y formateado con `to_char`."
+  },
+  "en": {
+    "slug": "numeric-round-and-to-char",
+    "title": "Exact numbers and money",
+    "summary": "Why money belongs in numeric rather than float in PostgreSQL, how to round with round, ceil, floor and trunc, and how to format it with to_char.",
+    "body": [
+      "The first query is the reason prices are `numeric`. With **`float8`** (binary floating point), `0.1 + 0.2 = 0.3` is `false`, because neither number can be stored exactly in binary. With **`numeric`** the sum is exact and gives `true`. For money, always `numeric`.",
+      "The four ways of dropping decimals: **`round(7.756, 2)`** rounds to two places, `7.76`; **`ceil`** goes up to the next integer (`8`); **`floor`** goes down (`7`); and **`trunc`** simply cuts, so `trunc(-7.8)` is `-7`, whereas `floor(-7.8)` would be `-8`.",
+      "In the last query, `round(price * 1.21, 2)` is the price with 21% VAT: the coffee's `9.90` becomes `11.98`. Without `round` it would show four decimals (`11.9790`), because multiplying two `numeric` values adds up their decimal places.",
+      "**`to_char(value, format)`** turns a number into text that looks the way you want. In `'FM990.00'` each `9` is an optional digit, each `0` a mandatory one, and `FM` removes the padding spaces; then `|| ' €'` appends the symbol: `11.98 €`. With `'FM9,990.00'` a thousands separator appears when needed. Remember the result is text now: sort by the numeric column, not by the formatted one."
+    ],
+    "points": [
+      "`float` is approximate and `numeric` exact: money goes in `numeric`.",
+      "`round(x, 2)` rounds; `ceil`, `floor` and `trunc` go up, down or cut.",
+      "Multiplying `numeric` adds decimals: round the result.",
+      "`to_char(x, 'FM990.00')` formats; the result is text."
+    ],
+    "exercise": "Add a column with the price 15% off (`price * 0.85`), rounded to two decimals and formatted with `to_char`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "upsert-on-conflict",
+    "title": "UPSERT con ON CONFLICT",
+    "summary": "Inserte o actualice en una sola sentencia con INSERT … ON CONFLICT en PostgreSQL: DO NOTHING, DO UPDATE con EXCLUDED y cómo saber qué filas eran nuevas.",
+    "body": [
+      "Un **UPSERT** es «inserta esta fila y, si ya existe, haz otra cosa». En PostgreSQL se escribe **`INSERT … ON CONFLICT (columnas)`**, y las columnas tienen que tener una restricción `UNIQUE` o ser la clave primaria. En la primera consulta, `Dairy` ya existe y **`DO NOTHING`** la salta sin error; solo se inserta `Frozen`, y `RETURNING` solo devuelve esa fila.",
+      "Un detalle curioso: `Frozen` recibe el `id` `6` y no el `5`. La fila de `Dairy` llegó a pedir un número a la secuencia antes de descubrir el conflicto, y las secuencias nunca devuelven los números. Los huecos en los `id` son normales en PostgreSQL y no hay que intentar evitarlos.",
+      "La tabla `cart` tiene una **clave primaria de dos columnas**, `(customer_id, product_id)`: un cliente tiene como mucho una fila por producto. El segundo `INSERT` mete tres filas y **`DO UPDATE SET qty = cart.qty + EXCLUDED.qty`** decide qué hacer con las que chocan. **`EXCLUDED`** es la fila que se quería insertar; `cart.qty`, la que ya estaba. Ana tenía `2` croissants y añade `3`: queda con `5`.",
+      "Las otras dos filas, el queso de Ana y el croissant de Luis, no chocan con nada y se insertan. La columna **`xmax = 0 AS inserted`** es un truco propio de PostgreSQL para distinguirlas en el `RETURNING`: `xmax` es una columna del sistema que vale `0` en las filas recién insertadas, así que sale `false` en la actualizada y `true` en las dos nuevas."
+    ],
+    "points": [
+      "`ON CONFLICT (cols)` necesita un `UNIQUE` o la clave primaria en esas columnas.",
+      "`DO NOTHING` salta las filas que ya existen.",
+      "`DO UPDATE SET …` las actualiza; `EXCLUDED` es la fila rechazada.",
+      "Los conflictos también gastan números de la secuencia: los huecos son normales.",
+      "`RETURNING xmax = 0` dice qué filas se insertaron."
+    ],
+    "exercise": "Haga que el upsert solo actualice si la cantidad nueva es mayor: añada `WHERE EXCLUDED.qty > cart.qty` al final del `DO UPDATE`."
+  },
+  "en": {
+    "slug": "upsert-on-conflict",
+    "title": "UPSERT with ON CONFLICT",
+    "summary": "Insert or update in a single statement with INSERT … ON CONFLICT in PostgreSQL: DO NOTHING, DO UPDATE with EXCLUDED, and how to tell which rows were new.",
+    "body": [
+      "An **UPSERT** means “insert this row and, if it already exists, do something else”. In PostgreSQL it is written **`INSERT … ON CONFLICT (columns)`**, and those columns must have a `UNIQUE` constraint or be the primary key. In the first query `Dairy` already exists and **`DO NOTHING`** skips it without an error; only `Frozen` is inserted, and `RETURNING` returns just that row.",
+      "A curious detail: `Frozen` gets `id` `6`, not `5`. The `Dairy` row had already taken a number from the sequence before the conflict was found, and sequences never give numbers back. Gaps in ids are normal in PostgreSQL and you should not try to avoid them.",
+      "The `cart` table has a **two-column primary key**, `(customer_id, product_id)`: a customer has at most one row per product. The second `INSERT` brings three rows, and **`DO UPDATE SET qty = cart.qty + EXCLUDED.qty`** decides what to do with those that clash. **`EXCLUDED`** is the row you tried to insert; `cart.qty`, the one already there. Ana had `2` croissants and adds `3`: she ends up with `5`.",
+      "The other two rows, Ana's cheese and Luis's croissant, clash with nothing and are inserted. The **`xmax = 0 AS inserted`** column is a PostgreSQL trick to tell them apart in the `RETURNING`: `xmax` is a system column that is `0` on freshly inserted rows, so it shows `false` for the updated row and `true` for the two new ones."
+    ],
+    "points": [
+      "`ON CONFLICT (cols)` needs a `UNIQUE` or primary key on those columns.",
+      "`DO NOTHING` skips the rows that already exist.",
+      "`DO UPDATE SET …` updates them; `EXCLUDED` is the rejected row.",
+      "Conflicts also use up sequence numbers: gaps are normal.",
+      "`RETURNING xmax = 0` tells you which rows were inserted."
+    ],
+    "exercise": "Make the upsert update only when the new quantity is larger: add `WHERE EXCLUDED.qty > cart.qty` at the end of the `DO UPDATE`."
+  }
+}

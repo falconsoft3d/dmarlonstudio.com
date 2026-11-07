@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "vistas-y-vistas-materializadas",
+    "title": "Vistas y vistas materializadas",
+    "summary": "Guarde consultas como vistas en PostgreSQL, vea la diferencia con una vista materializada que guarda el resultado y actualícela con REFRESH.",
+    "body": [
+      "**`CREATE VIEW nombre AS SELECT …`** guarda una consulta con nombre. La vista `customer_sales` no guarda datos: cada vez que se consulta, PostgreSQL ejecuta su `SELECT`, así que **siempre está al día**. Se usa como una tabla (`SELECT … FROM customer_sales WHERE id = 8`) y esconde el `LEFT JOIN` y el `GROUP BY` a quien la lee. Agrupar por `c.id` basta para poder sacar `c.name` y `c.city`: PostgreSQL sabe que dependen de la clave primaria.",
+      "**`CREATE MATERIALIZED VIEW`** sí guarda el resultado, como una tabla. Leerla es rápido, porque no recalcula nada, pero es una **foto** del momento en que se creó. `city_sales` resume la vista anterior por ciudad: se puede construir una vista sobre otra.",
+      "Después se añade un pedido de Carlos Díaz, de Bilbao, que hasta ahora no había comprado. La vista normal lo ve enseguida: `1` pedido y `12.00` euros. La materializada no: Bilbao sigue con `0` pedidos y `0` euros, porque su contenido se calculó antes del `INSERT`.",
+      "**`REFRESH MATERIALIZED VIEW city_sales`** vuelve a ejecutar la consulta y sustituye la foto. Ahora Bilbao aparece con su pedido, al final de la lista; Madrid sigue en cabeza con `4` pedidos y `45.45` euros. Las vistas materializadas son para resúmenes caros que no necesitan estar al segundo; se refrescan cada cierto tiempo. En el estudio, las vistas aparecen en la lista de tablas junto a las tablas normales."
+    ],
+    "points": [
+      "Una vista es una consulta guardada: no guarda datos y siempre está al día.",
+      "Una vista materializada guarda el resultado: rápida, pero es una foto.",
+      "`REFRESH MATERIALIZED VIEW` la recalcula.",
+      "Se pueden construir vistas sobre otras vistas.",
+      "Con `GROUP BY` por la clave primaria se pueden sacar sus demás columnas."
+    ],
+    "exercise": "Cree una vista `product_sales` con las unidades vendidas de cada producto y consulte los tres más vendidos."
+  },
+  "en": {
+    "slug": "views-and-materialized-views",
+    "title": "Views and materialized views",
+    "summary": "Save queries as views in PostgreSQL, see how a materialized view that stores its result differs, and bring it up to date with REFRESH.",
+    "body": [
+      "**`CREATE VIEW name AS SELECT …`** saves a query under a name. The `customer_sales` view stores no data: each time it is queried PostgreSQL runs its `SELECT`, so it is **always up to date**. It is used like a table (`SELECT … FROM customer_sales WHERE id = 8`) and hides the `LEFT JOIN` and `GROUP BY` from whoever reads it. Grouping by `c.id` is enough to select `c.name` and `c.city`: PostgreSQL knows they depend on the primary key.",
+      "**`CREATE MATERIALIZED VIEW`** does store the result, like a table. Reading it is fast, since nothing is recomputed, but it is a **snapshot** of the moment it was created. `city_sales` summarises the previous view per city: you can build a view on top of another.",
+      "Next, an order is added for Carlos Díaz, from Bilbao, who had not bought anything until now. The ordinary view sees it straight away: `1` order and `12.00` euros. The materialized one does not: Bilbao still shows `0` orders and `0` euros, because its contents were computed before the `INSERT`.",
+      "**`REFRESH MATERIALIZED VIEW city_sales`** runs the query again and replaces the snapshot. Now Bilbao shows its order, at the bottom of the list; Madrid still leads with `4` orders and `45.45` euros. Materialized views are for expensive summaries that do not need to be accurate to the second; you refresh them every so often. In the studio, views appear in the table list next to the ordinary tables."
+    ],
+    "points": [
+      "A view is a saved query: it stores no data and is always current.",
+      "A materialized view stores the result: fast, but a snapshot.",
+      "`REFRESH MATERIALIZED VIEW` recomputes it.",
+      "Views can be built on top of other views.",
+      "Grouping by the primary key lets you select its other columns."
+    ],
+    "exercise": "Create a `product_sales` view with the units sold of each product and query the three best sellers."
+  }
+}

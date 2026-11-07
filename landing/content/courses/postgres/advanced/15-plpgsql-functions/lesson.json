@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-sql-y-plpgsql",
+    "title": "Funciones en SQL y PL/pgSQL",
+    "summary": "Cree sus propias funciones en PostgreSQL con CREATE FUNCTION y $$: una en SQL con valor por defecto y otra en PL/pgSQL con variables, SELECT INTO e IF.",
+    "body": [
+      "**`CREATE FUNCTION`** añade una función que luego se usa como cualquier otra. El cuerpo va entre **`$$ … $$`**, un texto sin comillas que escapar (el estudio sabe que los `;` de dentro no terminan la consulta). `with_vat` está escrita en **`LANGUAGE sql`**: una sola expresión. Su segundo parámetro tiene **`DEFAULT 21`**, así que `with_vat(10)` da `12.10` y `with_vat(10, 10)` da `11.00`. **`IMMUTABLE`** promete que con los mismos datos da siempre lo mismo, lo que permite usarla en índices.",
+      "`customer_level` está en **PL/pgSQL**, el lenguaje procedural de PostgreSQL. Tiene una zona **`DECLARE`** para las variables (`spent numeric`) y un bloque **`BEGIN … END`** con el código. **`SELECT … INTO spent`** guarda el resultado de una consulta en la variable: lo gastado por el cliente sin contar los pedidos cancelados.",
+      "**`IF … ELSIF … END IF`** decide el nivel: `gold` desde 30 euros, `silver` desde 15 y `bronze` el resto, con **`RETURN`** para devolver el valor. Fíjese en que es `ELSIF`, sin la `E` de `ELSE IF`.",
+      "Al final, la función se usa en un `SELECT` normal, una vez por cliente: Ana es `gold` con sus `34.95` euros; Luis, Sofía y Emma son `silver`; y Marta, John (cuyo único pedido se canceló), Pedro y Carlos, `bronze`. Recuerde que `RAISE NOTICE` no se ve en la rejilla: para ver un valor, devuélvalo con `RETURN` o con un `SELECT`."
+    ],
+    "points": [
+      "`CREATE FUNCTION nombre(params) RETURNS tipo LANGUAGE … AS $$ … $$`.",
+      "`LANGUAGE sql` para una expresión; `plpgsql` para variables y control.",
+      "Los parámetros pueden tener `DEFAULT`.",
+      "`SELECT … INTO variable` guarda un resultado; `IF … ELSIF … END IF` decide.",
+      "`IMMUTABLE` promete el mismo resultado para los mismos argumentos."
+    ],
+    "exercise": "Añada a `customer_level` un nivel `platinum` para quien haya gastado 50 euros o más y pruébelo con `SELECT customer_level(1)` tras insertar otro pedido de Ana."
+  },
+  "en": {
+    "slug": "sql-and-plpgsql-functions",
+    "title": "Functions in SQL and PL/pgSQL",
+    "summary": "Write your own PostgreSQL functions with CREATE FUNCTION and $$: one in SQL with a default value and one in PL/pgSQL with variables, SELECT INTO and IF.",
+    "body": [
+      "**`CREATE FUNCTION`** adds a function you can then use like any other. The body goes between **`$$ … $$`**, a string with no quotes to escape (the studio knows the `;` inside do not end the query). `with_vat` is written in **`LANGUAGE sql`**: a single expression. Its second parameter has **`DEFAULT 21`**, so `with_vat(10)` gives `12.10` and `with_vat(10, 10)` gives `11.00`. **`IMMUTABLE`** promises that the same input always gives the same output, which allows it to be used in indexes.",
+      "`customer_level` is written in **PL/pgSQL**, PostgreSQL's procedural language. It has a **`DECLARE`** section for variables (`spent numeric`) and a **`BEGIN … END`** block with the code. **`SELECT … INTO spent`** stores the result of a query in the variable: what the customer has spent, not counting cancelled orders.",
+      "**`IF … ELSIF … END IF`** decides the level: `gold` from 30 euros, `silver` from 15 and `bronze` for the rest, with **`RETURN`** handing back the value. Note that it is `ELSIF`, without the `E` of `ELSE IF`.",
+      "Finally the function is used in an ordinary `SELECT`, once per customer: Ana is `gold` with her `34.95` euros; Luis, Sofía and Emma are `silver`; and Marta, John (whose only order was cancelled), Pedro and Carlos are `bronze`. Remember that `RAISE NOTICE` does not show up in the grid: to see a value, return it with `RETURN` or a `SELECT`."
+    ],
+    "points": [
+      "`CREATE FUNCTION name(params) RETURNS type LANGUAGE … AS $$ … $$`.",
+      "`LANGUAGE sql` for one expression; `plpgsql` for variables and control flow.",
+      "Parameters can have a `DEFAULT`.",
+      "`SELECT … INTO variable` stores a result; `IF … ELSIF … END IF` decides.",
+      "`IMMUTABLE` promises the same result for the same arguments."
+    ],
+    "exercise": "Add a `platinum` level to `customer_level` for anyone who has spent 50 euros or more, and test it with `SELECT customer_level(1)` after inserting another order for Ana."
+  }
+}

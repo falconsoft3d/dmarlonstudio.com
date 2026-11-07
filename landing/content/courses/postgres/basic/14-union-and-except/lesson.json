@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "union-intersect-y-except",
+    "title": "UNION, INTERSECT y EXCEPT",
+    "summary": "Combine resultados de varias consultas en PostgreSQL: lo común con INTERSECT, lo que falta con EXCEPT y todo junto con UNION o UNION ALL.",
+    "body": [
+      "Las **operaciones de conjuntos** combinan dos consultas completas, fila a fila. **`INTERSECT`** se queda con las filas que están en las dos: los productos que se han vendido **y** tienen reseña son `1`, `2`, `4`, `9` y `12`. Como el resultado no tiene filas repetidas, cada `product_id` sale una vez aunque se haya vendido muchas veces.",
+      "**`EXCEPT`** devuelve las filas de la primera consulta que no están en la segunda: todos los productos menos los vendidos. Solo queda `11`, `Bananas 1 kg`, el producto retirado. Es una alternativa al `LEFT JOIN … IS NULL` de la lección anterior.",
+      "**`UNION`** suma los dos resultados y quita los duplicados; **`UNION ALL`** los suma tal cual. Si se une la lista de ciudades consigo misma, `UNION` da `5` filas (las cinco ciudades distintas) y `UNION ALL` da `16` (ocho más ocho). `UNION ALL` es más rápido porque no tiene que buscar repetidos: úselo cuando sepa que no los hay o no le importen.",
+      "La última consulta hace un directorio con gente de dos tablas: clientes de Madrid y Sevilla y empleados a cargo de Javier (`manager_id = 2`). La regla es que las dos partes tengan **el mismo número de columnas, con tipos compatibles**; los nombres los pone la primera (`kind`, `detail`). El `ORDER BY` final ordena el resultado completo: primero los cuatro clientes y luego los tres empleados."
+    ],
+    "points": [
+      "`INTERSECT`: lo que está en las dos consultas.",
+      "`EXCEPT`: lo de la primera que no está en la segunda.",
+      "`UNION` quita duplicados; `UNION ALL` no (y es más rápido).",
+      "Mismo número de columnas y tipos compatibles; los nombres, de la primera.",
+      "Un solo `ORDER BY`, al final, para todo el resultado."
+    ],
+    "exercise": "Con `EXCEPT`, saque las ciudades de los clientes que no tienen ningún pedido `shipped`."
+  },
+  "en": {
+    "slug": "union-intersect-and-except",
+    "title": "UNION, INTERSECT and EXCEPT",
+    "summary": "Combine the results of several queries in PostgreSQL: what they share with INTERSECT, what is missing with EXCEPT and everything with UNION or UNION ALL.",
+    "body": [
+      "**Set operations** combine two complete queries, row by row. **`INTERSECT`** keeps the rows found in both: the products that have been sold **and** have a review are `1`, `2`, `4`, `9` and `12`. Since the result has no repeated rows, each `product_id` appears once even if it was sold many times.",
+      "**`EXCEPT`** returns the rows of the first query that are not in the second: every product minus the ones sold. Only `11`, `Bananas 1 kg`, the withdrawn product, is left. It is an alternative to the `LEFT JOIN … IS NULL` of the previous lesson.",
+      "**`UNION`** adds both results together and removes duplicates; **`UNION ALL`** adds them as they are. Joining the list of cities with itself, `UNION` gives `5` rows (the five different cities) and `UNION ALL` gives `16` (eight plus eight). `UNION ALL` is faster because it does not have to look for repeats: use it when you know there are none or do not care.",
+      "The last query builds a directory of people from two tables: customers from Madrid and Seville and the employees who report to Javier (`manager_id = 2`). The rule is that both parts must have **the same number of columns, with compatible types**; the names come from the first one (`kind`, `detail`). The final `ORDER BY` sorts the whole result: the four customers first and then the three employees."
+    ],
+    "points": [
+      "`INTERSECT`: what is in both queries.",
+      "`EXCEPT`: what is in the first but not in the second.",
+      "`UNION` removes duplicates; `UNION ALL` does not (and is faster).",
+      "Same number of columns and compatible types; names from the first.",
+      "A single `ORDER BY`, at the end, for the whole result."
+    ],
+    "exercise": "Use `EXCEPT` to get the cities of the customers who have no `shipped` order."
+  }
+}

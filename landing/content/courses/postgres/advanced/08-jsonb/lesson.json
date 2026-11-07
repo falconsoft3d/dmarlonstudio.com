@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "datos-json-con-jsonb",
+    "title": "Datos JSON con jsonb",
+    "summary": "Lea y busque en columnas jsonb de PostgreSQL con ->, ->> y @>, cree JSON con jsonb_build_object y pase arrays a filas con jsonb_array_elements_text.",
+    "body": [
+      "La columna `tags` de `products` es **`jsonb`**: JSON guardado en binario, que PostgreSQL entiende y puede indexar. Cada producto tiene un array de etiquetas, como `[\"bread\",\"sweet\"]` en el croissant. **`->`** entra en el JSON y devuelve **`jsonb`**; **`->>`** devuelve **texto**. Los arrays empiezan en `0`, así que `tags -> 0` es la primera etiqueta. En la rejilla las dos columnas se ven igual, `bread`, pero la primera sigue siendo JSON (en `psql` saldría entre comillas) y la segunda ya es texto que se puede comparar con `=` o concatenar. **`jsonb_array_length`** cuenta los elementos.",
+      "**`@>`** significa «contiene»: `tags @> '[\"sweet\"]'` es verdadero si el array tiene `sweet`, esté donde esté. Salen `Croissant`, `Greek yogurt` y `Strawberries`. Es el operador que aprovecha un índice `GIN` sobre la columna, la forma habitual de buscar rápido en JSON.",
+      "En sentido contrario, **`jsonb_build_object`** construye JSON a partir de columnas: `{\"id\":4,\"name\":\"Espresso beans\",\"price\":9.9}`. Fíjese en que el precio pierde el cero final: en JSON es un número, no un `numeric(8,2)`.",
+      "**`jsonb_array_elements_text(tags)`** convierte cada array en filas, una por etiqueta. Al ponerla en el `FROM` junto a `products`, cada producto se repite tantas veces como etiquetas tenga, y ya se puede agrupar: `bread`, `fresh` y `sweet` tienen `3` productos cada una, y el precio medio de los dulces es `2.60`. La leche, con `[]`, no da ninguna fila y no aparece."
+    ],
+    "points": [
+      "`jsonb` guarda JSON en binario: se consulta y se indexa.",
+      "`->` devuelve `jsonb`; `->>`, texto. Los arrays empiezan en 0.",
+      "`@>` pregunta si un JSON contiene a otro.",
+      "`jsonb_build_object` crea JSON a partir de columnas.",
+      "`jsonb_array_elements_text` convierte un array en filas."
+    ],
+    "exercise": "Añada la etiqueta `organic` a las manzanas con `UPDATE products SET tags = tags || '[\"organic\"]' WHERE id = 10` y repita el recuento por etiqueta."
+  },
+  "en": {
+    "slug": "json-data-with-jsonb",
+    "title": "JSON data with jsonb",
+    "summary": "Read and search jsonb columns in PostgreSQL with ->, ->> and @>, build JSON with jsonb_build_object and turn arrays into rows with jsonb_array_elements_text.",
+    "body": [
+      "The `tags` column of `products` is **`jsonb`**: JSON stored in binary form, which PostgreSQL understands and can index. Each product has an array of tags, such as `[\"bread\",\"sweet\"]` for the croissant. **`->`** goes into the JSON and returns **`jsonb`**; **`->>`** returns **text**. Arrays start at `0`, so `tags -> 0` is the first tag. In the grid both columns look the same, `bread`, but the first is still JSON (`psql` would show it in quotes) and the second is already text you can compare with `=` or concatenate. **`jsonb_array_length`** counts the elements.",
+      "**`@>`** means “contains”: `tags @> '[\"sweet\"]'` is true when the array has `sweet`, wherever it is. You get `Croissant`, `Greek yogurt` and `Strawberries`. It is the operator that can use a `GIN` index on the column, the usual way to search JSON quickly.",
+      "Going the other way, **`jsonb_build_object`** builds JSON from columns: `{\"id\":4,\"name\":\"Espresso beans\",\"price\":9.9}`. Notice that the price loses its trailing zero: in JSON it is a number, not a `numeric(8,2)`.",
+      "**`jsonb_array_elements_text(tags)`** turns each array into rows, one per tag. Placed in the `FROM` next to `products`, each product is repeated once per tag, and now you can group: `bread`, `fresh` and `sweet` have `3` products each, and the average price of the sweet ones is `2.60`. The milk, with `[]`, produces no rows and does not appear."
+    ],
+    "points": [
+      "`jsonb` stores JSON in binary: it can be queried and indexed.",
+      "`->` returns `jsonb`; `->>`, text. Arrays start at 0.",
+      "`@>` asks whether one JSON value contains another.",
+      "`jsonb_build_object` builds JSON from columns.",
+      "`jsonb_array_elements_text` turns an array into rows."
+    ],
+    "exercise": "Add the tag `organic` to the apples with `UPDATE products SET tags = tags || '[\"organic\"]' WHERE id = 10` and run the per-tag count again."
+  }
+}

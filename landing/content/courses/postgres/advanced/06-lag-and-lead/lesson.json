@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "lag-lead-fila-anterior-y-siguiente",
+    "title": "LAG y LEAD",
+    "summary": "Compare cada fila con la anterior y la siguiente en PostgreSQL con LAG, LEAD y first_value, y calcule el crecimiento de las ventas mes a mes.",
+    "body": [
+      "**`lag(columna)`** devuelve el valor de esa columna en la **fila anterior** de la ventana, y **`lead(columna)`**, el de la **siguiente**. En la primera consulta la ventana es `PARTITION BY customer_id ORDER BY ordered`: los pedidos de cada cliente, por fecha. Ana pasa de `11.25` a `12.90` (`change` `1.65`) y luego a `10.80` (`-2.10`); Luis, de `15.90` a `9.00` (`-6.90`).",
+      "La primera fila de cada cliente no tiene anterior y la última no tiene siguiente: ahí salen `NULL`. `lead(ordered)` responde a «¿cuándo volvió a comprar?»: Ana repitió el `2024-03-15` y el `2024-06-02`. Si prefiere otro valor en lugar de `NULL`, `lag(total, 1, 0)` lo da como tercer argumento.",
+      "La cláusula **`WINDOW w AS (…)`** pone nombre a una ventana para no repetirla: las tres funciones usan `OVER w`. Va después del `WHERE` (y del `GROUP BY` y `HAVING` si los hay) y antes del `ORDER BY`.",
+      "La segunda consulta calcula las ventas por mes en una CTE y las compara con el mes anterior. El **crecimiento** es `revenue / lag(revenue) - 1`: abril cae un `-73.8` % frente a marzo, mayo sube un `392.4` % (de `10.50` a `51.70`) y junio baja un `-52.4` %. **`first_value(revenue)`** da el primer valor de la ventana, `40.05`, útil para comparar todo con el punto de partida."
+    ],
+    "points": [
+      "`lag(x)` es el valor de la fila anterior; `lead(x)`, el de la siguiente.",
+      "Sin fila anterior o siguiente sale `NULL` (o el tercer argumento).",
+      "`WINDOW w AS (…)` nombra una ventana para reutilizarla.",
+      "`x / lag(x) - 1` es el crecimiento respecto al periodo anterior.",
+      "`first_value` y `last_value` dan los extremos de la ventana."
+    ],
+    "exercise": "Calcule los días que pasan entre un pedido y el siguiente de cada cliente con `lead(ordered) OVER w - ordered`."
+  },
+  "en": {
+    "slug": "lag-lead-previous-and-next-row",
+    "title": "LAG and LEAD",
+    "summary": "Compare each row with the previous and the next one in PostgreSQL with LAG, LEAD and first_value, and compute month-over-month sales growth.",
+    "body": [
+      "**`lag(column)`** returns that column's value in the **previous row** of the window, and **`lead(column)`** the value in the **next** one. In the first query the window is `PARTITION BY customer_id ORDER BY ordered`: each customer's orders, by date. Ana goes from `11.25` to `12.90` (`change` `1.65`) and then to `10.80` (`-2.10`); Luis, from `15.90` to `9.00` (`-6.90`).",
+      "Each customer's first row has no previous one and the last has no next one: those show `NULL`. `lead(ordered)` answers “when did they buy again?”: Ana came back on `2024-03-15` and `2024-06-02`. If you would rather have another value instead of `NULL`, `lag(total, 1, 0)` takes it as the third argument.",
+      "The **`WINDOW w AS (…)`** clause names a window so you do not repeat it: all three functions use `OVER w`. It goes after the `WHERE` (and after `GROUP BY` and `HAVING`, if any) and before `ORDER BY`.",
+      "The second query computes the sales per month in a CTE and compares them with the month before. **Growth** is `revenue / lag(revenue) - 1`: April drops `-73.8`% against March, May jumps `392.4`% (from `10.50` to `51.70`) and June falls `-52.4`%. **`first_value(revenue)`** gives the first value of the window, `40.05`, handy for comparing everything with the starting point."
+    ],
+    "points": [
+      "`lag(x)` is the previous row's value; `lead(x)`, the next one's.",
+      "Without a previous or next row you get `NULL` (or the third argument).",
+      "`WINDOW w AS (…)` names a window for reuse.",
+      "`x / lag(x) - 1` is the growth against the previous period.",
+      "`first_value` and `last_value` give the ends of the window."
+    ],
+    "exercise": "Work out the days between each order and the customer's next one with `lead(ordered) OVER w - ordered`."
+  }
+}

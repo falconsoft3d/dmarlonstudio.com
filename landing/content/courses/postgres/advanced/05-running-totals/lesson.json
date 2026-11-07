@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "totales-acumulados-y-medias-moviles",
+    "title": "Acumulados y medias móviles",
+    "summary": "Calcule totales acumulados, porcentajes del total y medias móviles en PostgreSQL con sum() y avg() OVER, ORDER BY y un marco ROWS BETWEEN.",
+    "body": [
+      "Cuando una ventana lleva **`ORDER BY`**, el agregado se calcula desde la primera fila hasta la actual: es un **total acumulado**. `sum(total) OVER (ORDER BY ordered)` va sumando pedido a pedido: `11.25`, `27.15`, `40.05`, `50.55`… En la misma fila, `sum(total) OVER ()`, sin orden, es el total de todo, `126.85`, y dividir por él da el **porcentaje** de cada pedido: el primero es el `8.9` %.",
+      "El `LIMIT 4` corta las filas del resultado, pero las ventanas ya se han calculado con todas: por eso el porcentaje se refiere al total completo y no a los cuatro que se ven. Las funciones de ventana se evalúan después del `WHERE` y del `GROUP BY`, y antes del `ORDER BY` y el `LIMIT` finales.",
+      "El **marco** de la ventana dice exactamente qué filas entran en el cálculo. **`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** son la fila actual y las dos anteriores: una **media móvil** de tres pedidos. El primer pedido solo se tiene a sí mismo (`11.25`), el segundo promedia dos (`13.58`) y desde el tercero ya son tres: `(11.25 + 15.90 + 12.90) / 3 = 13.35`.",
+      "`cust_running` combina las dos ideas: `PARTITION BY customer_id ORDER BY ordered` acumula por separado para cada cliente. Ana (cliente `1`) pasa de `11.25` a `24.15` y termina en `34.95`, mientras que los que solo tienen un pedido muestran su propio total. Todo en una consulta, sin juntar ni una fila."
+    ],
+    "points": [
+      "`sum(x) OVER (ORDER BY …)` es un total acumulado.",
+      "`sum(x) OVER ()` es el total de todo: sirve para porcentajes.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` es un marco móvil.",
+      "`PARTITION BY` con `ORDER BY` acumula por grupo.",
+      "Las ventanas se calculan antes del `LIMIT`."
+    ],
+    "exercise": "Añada una columna con el máximo de los tres últimos pedidos (`max(total) OVER (… ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)`)."
+  },
+  "en": {
+    "slug": "running-totals-and-moving-averages",
+    "title": "Running totals and moving averages",
+    "summary": "Compute running totals, percentages of the total and moving averages in PostgreSQL with sum() and avg() OVER, ORDER BY and a ROWS BETWEEN frame.",
+    "body": [
+      "When a window has an **`ORDER BY`**, the aggregate is computed from the first row up to the current one: a **running total**. `sum(total) OVER (ORDER BY ordered)` adds order after order: `11.25`, `27.15`, `40.05`, `50.55`… On the same row, `sum(total) OVER ()`, with no order, is the grand total, `126.85`, and dividing by it gives each order's **percentage**: the first is `8.9`%.",
+      "`LIMIT 4` cuts the result rows, but the windows were computed over all of them: that is why the percentage refers to the full total and not to the four rows you see. Window functions are evaluated after `WHERE` and `GROUP BY`, and before the final `ORDER BY` and `LIMIT`.",
+      "The window **frame** says exactly which rows go into the calculation. **`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW`** is the current row and the two before it: a three-order **moving average**. The first order only has itself (`11.25`), the second averages two (`13.58`), and from the third on there are three: `(11.25 + 15.90 + 12.90) / 3 = 13.35`.",
+      "`cust_running` combines both ideas: `PARTITION BY customer_id ORDER BY ordered` accumulates separately for each customer. Ana (customer `1`) goes from `11.25` to `24.15` and ends at `34.95`, while those with a single order show their own total. All in one query, without collapsing a single row."
+    ],
+    "points": [
+      "`sum(x) OVER (ORDER BY …)` is a running total.",
+      "`sum(x) OVER ()` is the grand total: handy for percentages.",
+      "`ROWS BETWEEN n PRECEDING AND CURRENT ROW` is a moving frame.",
+      "`PARTITION BY` with `ORDER BY` accumulates per group.",
+      "Windows are computed before `LIMIT`."
+    ],
+    "exercise": "Add a column with the largest of the last three orders (`max(total) OVER (… ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)`)."
+  }
+}

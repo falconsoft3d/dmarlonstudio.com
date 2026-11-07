@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "cte-recursivas-jerarquias",
+    "title": "Jerarquías con WITH RECURSIVE",
+    "summary": "Recorra un organigrama con WITH RECURSIVE en PostgreSQL: un ancla, una parte recursiva, el nivel de cada empleado y su camino como array.",
+    "body": [
+      "**`WITH RECURSIVE`** permite que una CTE se use a sí misma. Tiene dos partes unidas por `UNION ALL`: el **ancla**, que da las primeras filas, y la **parte recursiva**, que se ejecuta una y otra vez con las filas que salieron en la vuelta anterior, hasta que no salga ninguna nueva. La primera consulta lo enseña sin tablas: empieza en `1, 1` y cada vuelta suma uno a `i` y multiplica el factorial, hasta `5` y `120`; el `WHERE i < 5` es lo que la detiene.",
+      "En el organigrama, el ancla es la empleada sin jefe, `manager_id IS NULL`: Laura Martín, la CEO, en el nivel `1`. La parte recursiva une `employees` con lo ya encontrado (`chart`) por `e.manager_id = c.id`: en la segunda vuelta salen Javier Ortiz y Raúl Moreno, que dependen de ella, y en la tercera, las tres personas que dependen de Javier.",
+      "Cada vuelta suma uno a `level` y alarga **`path`**, un **array** de `id` que empieza en `ARRAY[id]` y crece con `c.path || e.id`. En la rejilla se ve como `[1,2,3]`. Ordenar por ese array deja a cada persona justo debajo de su jefe, que es lo que hace falta para leer un árbol: `[1,2]` va antes que `[1,2,3]`, y este antes que `[1,6]`.",
+      "La columna `employee` sangra cada nombre con **`repeat('· ', level - 1)`**, así que el árbol se lee de un vistazo: Laura, Javier un nivel más adentro, Elena, Diego y Nuria dos niveles, y Raúl, el contable, de vuelta al nivel `2`. Si los datos tuvieran un ciclo (alguien jefe de su propio jefe), la recursión no acabaría nunca: PostgreSQL 14 o posterior lo detecta con la cláusula `CYCLE`."
+    ],
+    "points": [
+      "`WITH RECURSIVE`: ancla `UNION ALL` parte recursiva.",
+      "La parte recursiva ve solo las filas de la vuelta anterior.",
+      "Para cuando la parte recursiva no devuelve filas nuevas.",
+      "Un array como `path` sirve para ordenar un árbol.",
+      "`repeat` con el nivel sangra la jerarquía."
+    ],
+    "exercise": "Añada una columna con la suma de salarios de la cadena de mando de cada empleado (`c.total + e.salary`, empezando en `salary` en el ancla)."
+  },
+  "en": {
+    "slug": "recursive-ctes-hierarchies",
+    "title": "Hierarchies with WITH RECURSIVE",
+    "summary": "Walk an org chart with WITH RECURSIVE in PostgreSQL: an anchor, a recursive part, each employee's level and their path as an array.",
+    "body": [
+      "**`WITH RECURSIVE`** lets a CTE refer to itself. It has two parts joined by `UNION ALL`: the **anchor**, which gives the first rows, and the **recursive part**, which runs again and again on the rows produced in the previous round until no new ones appear. The first query shows it without tables: it starts at `1, 1` and each round adds one to `i` and multiplies the factorial, up to `5` and `120`; `WHERE i < 5` is what stops it.",
+      "In the org chart, the anchor is the employee without a manager, `manager_id IS NULL`: Laura Martín, the CEO, at level `1`. The recursive part joins `employees` with what has already been found (`chart`) on `e.manager_id = c.id`: the second round brings Javier Ortiz and Raúl Moreno, who report to her, and the third the three people who report to Javier.",
+      "Each round adds one to `level` and extends **`path`**, an **array** of ids that starts as `ARRAY[id]` and grows with `c.path || e.id`. The grid shows it as `[1,2,3]`. Sorting by that array puts each person right under their manager, which is what you need to read a tree: `[1,2]` comes before `[1,2,3]`, and that before `[1,6]`.",
+      "The `employee` column indents each name with **`repeat('· ', level - 1)`**, so the tree reads at a glance: Laura, Javier one level in, Elena, Diego and Nuria two levels in, and Raúl, the accountant, back at level `2`. If the data had a cycle (someone managing their own manager) the recursion would never end: PostgreSQL 14 and later detect it with the `CYCLE` clause."
+    ],
+    "points": [
+      "`WITH RECURSIVE`: anchor `UNION ALL` recursive part.",
+      "The recursive part only sees the rows of the previous round.",
+      "It stops when the recursive part returns no new rows.",
+      "An array such as `path` is a way to sort a tree.",
+      "`repeat` with the level indents the hierarchy."
+    ],
+    "exercise": "Add a column with the total salary of each employee's chain of command (`c.total + e.salary`, starting from `salary` in the anchor)."
+  }
+}

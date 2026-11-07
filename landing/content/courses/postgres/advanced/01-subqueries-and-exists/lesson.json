@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "subconsultas-y-exists",
+    "title": "Subconsultas, IN y EXISTS",
+    "summary": "Use consultas dentro de consultas en PostgreSQL: un valor escalar, una lista con IN, una comprobación con EXISTS y NOT EXISTS y subconsultas correlacionadas.",
+    "body": [
+      "Una **subconsulta escalar** devuelve un solo valor y se puede usar donde iría un número. `(SELECT avg(price) FROM products)` es la media de precios, `3.50` redondeada, y el `WHERE` la usa para quedarse con los cuatro productos que la superan, del café (`9.90`) a las fresas (`3.90`). La misma subconsulta aparece en el `SELECT` como columna, igual en todas las filas.",
+      "**`IN (SELECT …)`** compara con la lista que devuelve otra consulta: los clientes cuyo `id` está entre los que compraron el producto `4`, el café en grano. Salen `Emma Brown`, `John Smith` y `Luis Pérez`. La subconsulta lleva su propio `JOIN`; para la consulta de fuera es solo una lista de `id`.",
+      "**`EXISTS`** pregunta si la subconsulta devuelve alguna fila; no le importa qué columnas, por eso se escribe `SELECT 1`. Es una **subconsulta correlacionada**: usa `p.id`, la fila de fuera, y se evalúa para cada producto. `NOT EXISTS` encuentra los seis productos activos sin reseñas, de `Apples 1 kg` a `Whole milk`. A diferencia de `NOT IN`, `NOT EXISTS` no tiene sorpresas con los `NULL`.",
+      "La última consulta usa correlacionadas en el `SELECT` para calcular, por cliente, cuántos pedidos tiene y el mayor, y un `EXISTS` en el `WHERE` para quedarse con quien tenga al menos un pedido `shipped`: Ana con `3` pedidos (el mayor, `12.90`), Emma, Luis y Marta. El planificador de PostgreSQL suele convertir `EXISTS` e `IN` en joins por dentro, así que escriba la forma que se lea mejor."
+    ],
+    "points": [
+      "Una subconsulta escalar devuelve un valor y va donde iría un número.",
+      "`IN (SELECT …)` compara con una lista calculada.",
+      "`EXISTS` solo pregunta si hay filas: `SELECT 1` basta.",
+      "Una subconsulta correlacionada usa columnas de la consulta de fuera.",
+      "Prefiera `NOT EXISTS` a `NOT IN` cuando pueda haber `NULL`."
+    ],
+    "exercise": "Con `NOT EXISTS`, liste los clientes que nunca han comprado nada de la categoría `Dairy` (`category_id = 3`)."
+  },
+  "en": {
+    "slug": "subqueries-and-exists",
+    "title": "Subqueries, IN and EXISTS",
+    "summary": "Use queries inside queries in PostgreSQL: a scalar value, a list with IN, a check with EXISTS and NOT EXISTS, and correlated subqueries.",
+    "body": [
+      "A **scalar subquery** returns a single value and can go wherever a number would. `(SELECT avg(price) FROM products)` is the average price, `3.50` rounded, and the `WHERE` uses it to keep the four products above it, from the coffee (`9.90`) to the strawberries (`3.90`). The same subquery appears in the `SELECT` as a column, equal on every row.",
+      "**`IN (SELECT …)`** compares with the list another query returns: the customers whose `id` is among those who bought product `4`, the espresso beans. You get `Emma Brown`, `John Smith` and `Luis Pérez`. The subquery has its own `JOIN`; for the outer query it is just a list of ids.",
+      "**`EXISTS`** asks whether the subquery returns any row; it does not care about the columns, which is why it is written `SELECT 1`. It is a **correlated subquery**: it uses `p.id`, the outer row, and is evaluated for each product. `NOT EXISTS` finds the six active products without reviews, from `Apples 1 kg` to `Whole milk`. Unlike `NOT IN`, `NOT EXISTS` holds no surprises with `NULL`.",
+      "The last query uses correlated subqueries in the `SELECT` to work out, per customer, how many orders they have and the largest one, and an `EXISTS` in the `WHERE` to keep whoever has at least one `shipped` order: Ana with `3` orders (the largest, `12.90`), Emma, Luis and Marta. PostgreSQL's planner usually turns `EXISTS` and `IN` into joins internally, so write whichever reads better."
+    ],
+    "points": [
+      "A scalar subquery returns one value and goes where a number would.",
+      "`IN (SELECT …)` compares with a computed list.",
+      "`EXISTS` only asks whether there are rows: `SELECT 1` is enough.",
+      "A correlated subquery uses columns of the outer query.",
+      "Prefer `NOT EXISTS` to `NOT IN` when `NULL` may appear."
+    ],
+    "exercise": "Use `NOT EXISTS` to list the customers who have never bought anything from the `Dairy` category (`category_id = 3`)."
+  }
+}

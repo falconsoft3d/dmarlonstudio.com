@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "informe-de-ventas",
+    "title": "Informe de ventas por cliente",
+    "summary": "Junte lo aprendido en una consulta de PostgreSQL: JOIN de tres tablas, WHERE, GROUP BY, HAVING, agregados, to_char y ORDER BY para un informe de ventas.",
+    "body": [
+      "La consulta final reúne casi todo el curso. Parte de `customers`, une sus pedidos y las líneas de cada pedido con dos `JOIN`, y el `WHERE` deja fuera el pedido cancelado antes de agrupar. Cada fila que entra en los grupos es una línea de pedido con su cliente.",
+      "**`GROUP BY c.id, c.name, c.city`** da una fila por cliente. Los agregados calculan el informe: `count(DISTINCT o.id)` pedidos (sin `DISTINCT` contaría líneas), `sum(i.qty)` unidades, `sum(i.qty * i.price)` facturación y `max(o.ordered)` la fecha del último pedido.",
+      "**`to_char(…, 'FM990.00')`** deja la facturación con dos decimales para leerla, pero el `ORDER BY` usa la suma numérica: si ordenara por la columna de texto, `'9.00'` iría detrás de `'22.20'`. **`HAVING sum(…) > 12`** quita a los clientes que gastaron 12 euros o menos.",
+      "El resultado: Ana García encabeza el informe con `3` pedidos, `12` unidades y `34.95` euros, y su último pedido es del `2024-06-02`. Luis Pérez sigue con `24.90`, y Pedro Gómez cierra la lista con `13.80`. Marta López (`10.50`) se queda fuera por el `HAVING`; John Smith, porque su único pedido fue el cancelado, y Carlos Díaz, porque no ha comprado nada. Con el botón **CSV** del estudio, el informe sale tal cual para una hoja de cálculo."
+    ],
+    "points": [
+      "Primero `JOIN` y `WHERE`, luego `GROUP BY`, luego `HAVING`, por último `ORDER BY`.",
+      "`count(DISTINCT o.id)` cuenta pedidos, no líneas.",
+      "Formatee con `to_char` para leer, pero ordene por el número.",
+      "`HAVING` filtra con el resultado de los agregados."
+    ],
+    "exercise": "Convierta el informe en uno por ciudad: agrupe por `c.city` y añada cuántos clientes distintos compraron en cada una (`count(DISTINCT c.id)`)."
+  },
+  "en": {
+    "slug": "sales-report",
+    "title": "Sales report per customer",
+    "summary": "Bring it all together in one PostgreSQL query: a three-table JOIN, WHERE, GROUP BY, HAVING, aggregates, to_char and ORDER BY for a sales report.",
+    "body": [
+      "The final query brings together almost the whole course. It starts from `customers`, joins their orders and each order's lines with two `JOIN`s, and the `WHERE` leaves out the cancelled order before grouping. Each row that goes into the groups is an order line with its customer.",
+      "**`GROUP BY c.id, c.name, c.city`** gives one row per customer. The aggregates compute the report: `count(DISTINCT o.id)` orders (without `DISTINCT` it would count lines), `sum(i.qty)` units, `sum(i.qty * i.price)` revenue and `max(o.ordered)` the date of the last order.",
+      "**`to_char(…, 'FM990.00')`** shows the revenue with two decimals for reading, but `ORDER BY` uses the numeric sum: sorting by the text column would put `'9.00'` after `'22.20'`. **`HAVING sum(…) > 12`** drops the customers who spent 12 euros or less.",
+      "The result: Ana García tops the report with `3` orders, `12` units and `34.95` euros, and her last order is from `2024-06-02`. Luis Pérez follows with `24.90`, and Pedro Gómez closes the list with `13.80`. Marta López (`10.50`) is left out by the `HAVING`, John Smith because his only order was the cancelled one, and Carlos Díaz because he has bought nothing. With the studio's **CSV** button the report goes straight into a spreadsheet."
+    ],
+    "points": [
+      "First `JOIN` and `WHERE`, then `GROUP BY`, then `HAVING`, finally `ORDER BY`.",
+      "`count(DISTINCT o.id)` counts orders, not lines.",
+      "Format with `to_char` for reading, but sort by the number.",
+      "`HAVING` filters on the result of the aggregates."
+    ],
+    "exercise": "Turn the report into one per city: group by `c.city` and add how many different customers bought in each (`count(DISTINCT c.id)`)."
+  }
+}

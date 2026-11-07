@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "fechas-extract-y-date-trunc",
+    "title": "Trabajar con fechas",
+    "summary": "Sume días a una fecha, reste fechas, sepárelas con extract y to_char y agrupe por mes con date_trunc en PostgreSQL, con las fechas de los pedidos.",
+    "body": [
+      "En PostgreSQL las fechas se pueden sumar y restar. **`date + 30`** suma días y da otra fecha, `2024-03-31`; **`date - date`** da un entero, los días entre las dos: del `2024-03-01` al `2024-06-05` van `96`. Para sumar meses se usa un **`interval`**: `date '2024-03-31' + interval '1 month'` da el `2024-04-30`, porque abril no tiene día 31. El resultado es un `timestamp`, y `::date` lo deja en fecha.",
+      "La forma `date '2024-03-01'` es un **literal con tipo**: le dice a PostgreSQL que el texto es una fecha. No use `now()` ni `CURRENT_DATE` en consultas que tengan que dar siempre lo mismo; aquí todas las fechas salen de los datos.",
+      "**`extract(dow FROM ordered)`** saca una parte de la fecha: `dow` es el día de la semana, de `0` (domingo) a `6`. El `2024-03-01` fue viernes, `5`, y el `2024-03-03`, domingo, `0`. **`to_char(ordered, 'Dy DD Mon')`** la convierte en texto con formato: `Fri 01 Mar`. Otras partes útiles: `year`, `month`, `day`, `week`, `quarter`.",
+      "**`date_trunc('month', ordered)`** recorta la fecha al principio de su mes, y así todos los pedidos de marzo quedan en el `2024-03-01`: es la forma de **agrupar por mes**. `GROUP BY 1` y `ORDER BY 1` se refieren a la primera columna del `SELECT`. Mayo es el mes con más ventas, `3` pedidos y `51.70` euros, y sus pedidos se reparten en `19` días."
+    ],
+    "points": [
+      "`fecha + n` suma días; `fecha - fecha` da días.",
+      "Los meses y años se suman con `interval`.",
+      "`extract(parte FROM fecha)` saca año, mes, día de la semana…",
+      "`to_char(fecha, 'Dy DD Mon')` da formato de texto.",
+      "`date_trunc('month', fecha)` agrupa por mes."
+    ],
+    "exercise": "Agrupe los clientes por el año en que se dieron de alta (`extract(year FROM joined)`) y cuente cuántos hay en cada año."
+  },
+  "en": {
+    "slug": "dates-extract-and-date-trunc",
+    "title": "Working with dates",
+    "summary": "Add days to a date, subtract dates, take them apart with extract and to_char and group by month with date_trunc in PostgreSQL, using the order dates.",
+    "body": [
+      "In PostgreSQL dates can be added and subtracted. **`date + 30`** adds days and gives another date, `2024-03-31`; **`date - date`** gives an integer, the days between them: from `2024-03-01` to `2024-06-05` there are `96`. To add months you use an **`interval`**: `date '2024-03-31' + interval '1 month'` gives `2024-04-30`, because April has no 31st. The result is a `timestamp`, and `::date` turns it back into a date.",
+      "The form `date '2024-03-01'` is a **typed literal**: it tells PostgreSQL that the text is a date. Do not use `now()` or `CURRENT_DATE` in queries that must always give the same answer; here every date comes from the data.",
+      "**`extract(dow FROM ordered)`** takes out one part of the date: `dow` is the day of the week, from `0` (Sunday) to `6`. `2024-03-01` was a Friday, `5`, and `2024-03-03` a Sunday, `0`. **`to_char(ordered, 'Dy DD Mon')`** turns it into formatted text: `Fri 01 Mar`. Other useful parts: `year`, `month`, `day`, `week`, `quarter`.",
+      "**`date_trunc('month', ordered)`** cuts the date back to the start of its month, so every March order lands on `2024-03-01`: that is how you **group by month**. `GROUP BY 1` and `ORDER BY 1` refer to the first column of the `SELECT`. May is the best month, with `3` orders and `51.70` euros, spread over `19` days."
+    ],
+    "points": [
+      "`date + n` adds days; `date - date` gives days.",
+      "Months and years are added with `interval`.",
+      "`extract(part FROM date)` takes out year, month, weekday…",
+      "`to_char(date, 'Dy DD Mon')` formats as text.",
+      "`date_trunc('month', date)` groups by month."
+    ],
+    "exercise": "Group the customers by the year they joined (`extract(year FROM joined)`) and count how many there are each year."
+  }
+}

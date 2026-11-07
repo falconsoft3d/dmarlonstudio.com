@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-de-agregado",
+    "title": "Contar, sumar y promediar",
+    "summary": "Resuma una tabla entera en una fila con count, sum, avg, min y max en PostgreSQL, y vea por qué count(columna) no cuenta los NULL.",
+    "body": [
+      "Una **función de agregado** convierte muchas filas en un solo valor. Sin `GROUP BY`, toda la tabla es un grupo y el resultado es una fila: `10` pedidos, `146.65` euros en total, una media de `14.67` (redondeada con `round(…, 2)`, porque `avg` de un `numeric` sale con muchos decimales), el más pequeño de `9.00` y el más grande de `22.20`.",
+      "**`count(*)`** cuenta filas; **`count(columna)`** cuenta solo las filas en las que esa columna **no es `NULL`**. Por eso hay `8` clientes pero solo `7` con correo. Lo mismo pasa con `sum`, `avg`, `min` y `max`: todos saltan los `NULL`.",
+      "Los agregados funcionan igual sobre una consulta con `JOIN` y `WHERE`: primero se filtran las filas y después se resumen. La última consulta une las líneas de pedido con su pedido para dejar fuera el cancelado: quedan `21` líneas, `43` unidades y `126.85` euros. `min` y `max` también sirven con fechas: del `2024-03-01` al `2024-06-05`.",
+      "Fíjese en que `126.85` es justo `146.65` menos los `19.80` del pedido cancelado: el `total` de cada pedido cuadra con sus líneas. Este tipo de comprobación se hace en un momento en el estudio, con una consulta en cada pestaña."
+    ],
+    "points": [
+      "Sin `GROUP BY`, un agregado resume toda la tabla en una fila.",
+      "`count(*)` cuenta filas; `count(col)`, valores no nulos.",
+      "`sum`, `avg`, `min` y `max` ignoran los `NULL`.",
+      "`avg` de `numeric` tiene muchos decimales: redondéelo.",
+      "El `WHERE` se aplica antes de agregar."
+    ],
+    "exercise": "Calcule cuántos productos activos hay, cuántas unidades suman en almacén (`sum(stock)`) y el precio medio, en una sola fila."
+  },
+  "en": {
+    "slug": "aggregate-functions",
+    "title": "Counting, summing and averaging",
+    "summary": "Sum up a whole table in one row with count, sum, avg, min and max in PostgreSQL, and see why count(column) skips NULLs.",
+    "body": [
+      "An **aggregate function** turns many rows into a single value. Without `GROUP BY` the whole table is one group and the result is one row: `10` orders, `146.65` euros in total, an average of `14.67` (rounded with `round(…, 2)`, because `avg` of a `numeric` comes with many decimals), the smallest at `9.00` and the largest at `22.20`.",
+      "**`count(*)`** counts rows; **`count(column)`** counts only the rows where that column **is not `NULL`**. That is why there are `8` customers but only `7` with an email. The same goes for `sum`, `avg`, `min` and `max`: they all skip `NULL`.",
+      "Aggregates work the same way on a query with `JOIN` and `WHERE`: the rows are filtered first and summarised afterwards. The last query joins the order lines to their order in order to leave out the cancelled one: `21` lines, `43` units and `126.85` euros remain. `min` and `max` work with dates too: from `2024-03-01` to `2024-06-05`.",
+      "Notice that `126.85` is exactly `146.65` minus the `19.80` of the cancelled order: each order's `total` matches its lines. This kind of check takes a moment in the studio, with one query per tab."
+    ],
+    "points": [
+      "Without `GROUP BY` an aggregate sums up the whole table in one row.",
+      "`count(*)` counts rows; `count(col)` counts non-null values.",
+      "`sum`, `avg`, `min` and `max` ignore `NULL`.",
+      "`avg` of `numeric` has many decimals: round it.",
+      "`WHERE` is applied before aggregating."
+    ],
+    "exercise": "Work out how many active products there are, how many units they add up to in stock (`sum(stock)`) and their average price, in a single row."
+  }
+}

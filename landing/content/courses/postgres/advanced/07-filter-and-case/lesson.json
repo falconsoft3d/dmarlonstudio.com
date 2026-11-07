@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "case-y-filter",
+    "title": "CASE y agregados con FILTER",
+    "summary": "Clasifique valores con CASE y calcule varios agregados condicionales en una sola pasada con la cláusula FILTER de PostgreSQL, hasta hacer una tabla dinámica.",
+    "body": [
+      "**`CASE WHEN … THEN … ELSE … END`** es el «si… entonces» de SQL. Las condiciones se prueban en orden y gana la primera que se cumple, así que la segunda (`price < 5`) solo ve los precios que no eran menores que 2. La baguette y el croissant son `cheap`, el centeno, el zumo y el té `normal`, y el café `premium`. Sin `ELSE`, lo que no encaja en ningún `WHEN` sería `NULL`.",
+      "**`FILTER (WHERE …)`** limita un agregado a ciertas filas sin tocar las demás columnas. En una sola pasada por `orders` salen `10` pedidos en total, `4` enviados, `5` pendientes (`new` o `paid`) y `126.85` euros sin el cancelado. Con un `WHERE` normal habría que hacer una consulta por cada cifra.",
+      "La última consulta es una **tabla dinámica** (*pivot*): una fila por mes y una columna por estado, cada una con su `count(*) FILTER`. En marzo hubo `1` pedido pagado y `2` enviados; en abril solo `1` enviado, porque el otro fue el cancelado y no cuenta en ninguna columna.",
+      "La columna `revenue` hace lo mismo a la manera clásica, con `sum(CASE WHEN status = 'cancelled' THEN 0 ELSE total END)`, que funciona en cualquier base de datos. `FILTER` es del estándar SQL y PostgreSQL lo admite desde hace años; es más corto y se lee mejor. Exportada a **CSV** desde el estudio, esta rejilla ya es una tabla lista para un gráfico."
+    ],
+    "points": [
+      "`CASE` prueba las condiciones en orden; gana la primera.",
+      "Sin `ELSE`, lo que no encaja da `NULL`.",
+      "`agregado FILTER (WHERE …)` cuenta o suma solo ciertas filas.",
+      "Varios `FILTER` en un `GROUP BY` hacen una tabla dinámica.",
+      "`sum(CASE … END)` es la alternativa portable."
+    ],
+    "exercise": "Añada a la tabla dinámica una columna `big` con los pedidos de más de 15 euros: `count(*) FILTER (WHERE total > 15)`."
+  },
+  "en": {
+    "slug": "case-and-filter",
+    "title": "CASE and aggregates with FILTER",
+    "summary": "Classify values with CASE and compute several conditional aggregates in one pass with PostgreSQL's FILTER clause, all the way to a pivot table.",
+    "body": [
+      "**`CASE WHEN … THEN … ELSE … END`** is SQL's “if… then”. The conditions are tried in order and the first that holds wins, so the second one (`price < 5`) only sees the prices that were not below 2. The baguette and the croissant are `cheap`, the rye bread, the juice and the tea `normal`, and the coffee `premium`. Without `ELSE`, anything that matches no `WHEN` would be `NULL`.",
+      "**`FILTER (WHERE …)`** limits an aggregate to certain rows without affecting the other columns. A single pass over `orders` gives `10` orders in total, `4` shipped, `5` pending (`new` or `paid`) and `126.85` euros without the cancelled one. With an ordinary `WHERE` you would need one query per figure.",
+      "The last query is a **pivot table**: one row per month and one column per status, each with its own `count(*) FILTER`. March had `1` paid order and `2` shipped; April only `1` shipped, because the other one was the cancelled order, which counts in no column.",
+      "The `revenue` column does the same thing the classic way, with `sum(CASE WHEN status = 'cancelled' THEN 0 ELSE total END)`, which works in any database. `FILTER` is standard SQL and PostgreSQL has supported it for years; it is shorter and reads better. Exported to **CSV** from the studio, this grid is already a table ready for a chart."
+    ],
+    "points": [
+      "`CASE` tries the conditions in order; the first one wins.",
+      "Without `ELSE`, whatever does not match is `NULL`.",
+      "`aggregate FILTER (WHERE …)` counts or sums only some rows.",
+      "Several `FILTER`s in a `GROUP BY` make a pivot table.",
+      "`sum(CASE … END)` is the portable alternative."
+    ],
+    "exercise": "Add a `big` column to the pivot table with the orders over 15 euros: `count(*) FILTER (WHERE total > 15)`."
+  }
+}

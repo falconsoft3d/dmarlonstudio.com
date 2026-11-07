@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "unir-tres-tablas",
+    "title": "Unir tres y cuatro tablas",
+    "summary": "Encadene varios JOIN en PostgreSQL para seguir el camino pedido → líneas → producto → categoría y sacar las ventas por categoría.",
+    "body": [
+      "Una tienda reparte la información en varias tablas: el pedido está en `orders`, lo que lleva en `order_items` y el nombre de cada cosa en `products`. Para verlo junto se **encadenan los `JOIN`**, cada uno con su `ON`: `orders` con `order_items` por `order_id`, y `order_items` con `products` por `product_id`.",
+      "La primera consulta enseña las tres líneas del pedido `6`: dos quesos manchegos a `7.75` (`15.50`), un pan de centeno (`2.80`) y dos de leche entera (`2.20`). La columna `amount` se calcula en la propia consulta, `i.qty * i.price`, y sirve para ordenar.",
+      "La segunda añade una cuarta tabla, `categories`, y agrupa. **`count(DISTINCT o.id)`** cuenta pedidos sin repetir: un pedido con dos productos de panadería tiene dos líneas, pero es un solo pedido. Las bebidas son lo que más factura, `42.90` euros en `4` pedidos; la panadería, en cambio, aparece en `6` pedidos y vende `17` unidades, pero solo suma `25.00` euros porque el pan es barato.",
+      "Los cuatro importes suman `126.85`, lo mismo que dio la lección de agregados sin el pedido cancelado: buena señal de que los `JOIN` no duplican ni pierden filas. El orden de los `JOIN` no cambia el resultado; escríbalos en el orden en que se lee la relación."
+    ],
+    "points": [
+      "Cada `JOIN` añade una tabla con su propia condición `ON`.",
+      "Las tablas intermedias (`order_items`) unen las demás.",
+      "`count(DISTINCT id)` evita contar dos veces lo que tiene varias líneas.",
+      "Compruebe los totales: un `JOIN` mal hecho duplica filas."
+    ],
+    "exercise": "Saque las unidades vendidas por ciudad del cliente: una `customers` con `orders` y `order_items` y agrupe por `c.city`."
+  },
+  "en": {
+    "slug": "joining-three-tables",
+    "title": "Joining three and four tables",
+    "summary": "Chain several JOINs in PostgreSQL to follow the path order → lines → product → category and get the sales per category.",
+    "body": [
+      "A shop spreads its information over several tables: the order is in `orders`, what it contains in `order_items`, and the name of each item in `products`. To see it together you **chain `JOIN`s**, each with its own `ON`: `orders` with `order_items` on `order_id`, and `order_items` with `products` on `product_id`.",
+      "The first query shows the three lines of order `6`: two Manchego cheeses at `7.75` (`15.50`), a rye bread (`2.80`) and two cartons of milk (`2.20`). The `amount` column is computed in the query itself, `i.qty * i.price`, and is used for sorting.",
+      "The second one adds a fourth table, `categories`, and groups. **`count(DISTINCT o.id)`** counts orders without repeats: an order with two bakery products has two lines but is a single order. Drinks bring in the most, `42.90` euros in `4` orders; the bakery, on the other hand, appears in `6` orders and sells `17` units, but only adds up to `25.00` euros because bread is cheap.",
+      "The four amounts add up to `126.85`, the same as in the aggregates lesson without the cancelled order: a good sign that the joins neither duplicate nor lose rows. The order of the `JOIN`s does not change the result; write them in the order the relationship reads."
+    ],
+    "points": [
+      "Each `JOIN` adds a table with its own `ON` condition.",
+      "Linking tables (`order_items`) connect the others.",
+      "`count(DISTINCT id)` avoids counting twice what has several lines.",
+      "Check the totals: a wrong join duplicates rows."
+    ],
+    "exercise": "Get the units sold per customer city: join `customers` with `orders` and `order_items` and group by `c.city`."
+  }
+}

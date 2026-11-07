@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "funciones-de-ventana-ranking",
+    "title": "Rankings con funciones de ventana",
+    "summary": "Calcule sin agrupar con funciones de ventana en PostgreSQL: OVER (), ROW_NUMBER, RANK y DENSE_RANK ante empates, y PARTITION BY para un ranking por categoría.",
+    "body": [
+      "Una **función de ventana** calcula sobre un conjunto de filas, como un agregado, pero **no las junta**: cada fila conserva su sitio y recibe además el valor calculado. Lo que la convierte en ventana es **`OVER (…)`**. Con `OVER ()` vacío, la ventana es todo el resultado: cada producto de panadería lleva al lado la media de los tres, `1.83`, y el total, `3`. Con `GROUP BY` solo habría quedado una fila.",
+      "Las tres funciones de ranking solo se diferencian en los empates, y la segunda consulta lo enseña con cuatro filas inventadas con **`VALUES`**: `B` y `C` empatan a `25`. **`row_number()`** numera sin más, `1, 2, 3, 4`; **`rank()`** da el mismo puesto a los empatados y luego salta (`1, 2, 2, 4`), como en una carrera; **`dense_rank()`** no deja huecos (`1, 2, 2, 3`).",
+      "**`PARTITION BY`** divide la ventana en grupos y la función vuelve a empezar en cada uno. `rank() OVER (PARTITION BY p.category_id ORDER BY p.price DESC)` da el puesto de cada producto **dentro de su categoría**: en `Bakery`, el pan de centeno es el `1` y la baguette el `3`; en `Drinks`, el café es el `1`.",
+      "El `ORDER BY` de dentro de `OVER` decide el orden del ranking; el `ORDER BY` del final, el de las filas del resultado. Son independientes. Para quedarse solo con los primeros de cada grupo no se puede poner la función en el `WHERE`: hay que envolver la consulta en una CTE y filtrar fuera (o usar `LATERAL`, que verá más adelante)."
+    ],
+    "points": [
+      "`OVER (…)` convierte un agregado o un ranking en función de ventana.",
+      "Una función de ventana no junta filas: añade un valor a cada una.",
+      "`row_number`, `rank` y `dense_rank` solo difieren en los empates.",
+      "`PARTITION BY` reinicia el cálculo en cada grupo.",
+      "Para filtrar por el ranking, envuelva la consulta en una CTE."
+    ],
+    "exercise": "Saque solo el producto más caro de cada categoría: ponga la última consulta en una CTE y filtre con `WHERE pos = 1`."
+  },
+  "en": {
+    "slug": "window-functions-ranking",
+    "title": "Rankings with window functions",
+    "summary": "Compute without grouping using PostgreSQL window functions: OVER (), ROW_NUMBER, RANK and DENSE_RANK with ties, and PARTITION BY for a per-category ranking.",
+    "body": [
+      "A **window function** computes over a set of rows, like an aggregate, but **does not collapse them**: each row keeps its place and also gets the computed value. What makes it a window is **`OVER (…)`**. With an empty `OVER ()` the window is the whole result: each bakery product carries the average of the three, `1.83`, and the count, `3`, next to it. With `GROUP BY` only one row would have remained.",
+      "The three ranking functions only differ on ties, and the second query shows it with four made-up rows built with **`VALUES`**: `B` and `C` tie at `25`. **`row_number()`** just numbers, `1, 2, 3, 4`; **`rank()`** gives tied rows the same place and then skips (`1, 2, 2, 4`), as in a race; **`dense_rank()`** leaves no gaps (`1, 2, 2, 3`).",
+      "**`PARTITION BY`** splits the window into groups and the function starts again in each one. `rank() OVER (PARTITION BY p.category_id ORDER BY p.price DESC)` gives each product's position **within its category**: in `Bakery` the rye bread is `1` and the baguette `3`; in `Drinks` the coffee is `1`.",
+      "The `ORDER BY` inside `OVER` decides the order of the ranking; the final `ORDER BY`, the order of the result rows. They are independent. To keep only the top rows of each group you cannot put the function in the `WHERE`: wrap the query in a CTE and filter outside (or use `LATERAL`, coming later)."
+    ],
+    "points": [
+      "`OVER (…)` turns an aggregate or a ranking into a window function.",
+      "A window function does not collapse rows: it adds a value to each.",
+      "`row_number`, `rank` and `dense_rank` only differ on ties.",
+      "`PARTITION BY` restarts the calculation in each group.",
+      "To filter on the ranking, wrap the query in a CTE."
+    ],
+    "exercise": "Get only the most expensive product of each category: put the last query in a CTE and filter with `WHERE pos = 1`."
+  }
+}

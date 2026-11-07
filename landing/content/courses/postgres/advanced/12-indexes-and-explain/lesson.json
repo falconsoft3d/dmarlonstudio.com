@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "indices-y-explain",
+    "title": "Índices y EXPLAIN",
+    "summary": "Vea con EXPLAIN cómo ejecuta PostgreSQL una consulta, compare Seq Scan con Index Scan y Bitmap Scan y cree índices simples y compuestos.",
+    "body": [
+      "Con doce productos cualquier consulta es instantánea, así que el script crea una tabla de **20.000 filas** con `generate_series` y `CREATE TABLE … AS SELECT`: `n % 500` reparte las filas en 500 pedidos, 40 líneas por pedido. **`ANALYZE`** recoge estadísticas de la tabla, que es lo que usa el **planificador** para decidir cómo ejecutar cada consulta.",
+      "**`EXPLAIN`** no ejecuta la consulta: enseña su **plan**. Con **`(COSTS OFF)`** quita las estimaciones de coste, que cambian de un ordenador a otro, y deja solo la estructura. Sin índice, buscar `order_id = 42` es un **`Seq Scan`**: leer las 20.000 filas y quedarse con las que pasan el `Filter`.",
+      "**`CREATE INDEX … ON big_items (order_id)`** crea un índice B-tree, un árbol ordenado por esa columna. El mismo `EXPLAIN` cambia de plan: un **`Bitmap Index Scan`** encuentra en el índice dónde están las 40 filas y un **`Bitmap Heap Scan`** va a leer solo esas páginas de la tabla (`Recheck Cond` es la comprobación de seguridad). Cuando son muy pocas filas, PostgreSQL suele elegir un `Index Scan` directo.",
+      "Un **índice compuesto** `(product_id, qty DESC)` sirve para filtrar por la primera columna y, a la vez, para leer ya ordenado por la segunda. Por eso el último plan es un `Index Scan` bajo un `Limit` y **no tiene ningún paso `Sort`**: el índice entrega las filas en el orden pedido y PostgreSQL se detiene en la quinta. En el estudio, el plan sale como una rejilla de una columna, `QUERY PLAN`, con una fila por línea; `EXPLAIN ANALYZE` además ejecutaría la consulta y daría los tiempos reales."
+    ],
+    "points": [
+      "`EXPLAIN` enseña el plan; `(COSTS OFF)` quita las estimaciones.",
+      "`ANALYZE` actualiza las estadísticas que usa el planificador.",
+      "`Seq Scan` lee toda la tabla; con índice, `Index Scan` o `Bitmap Scan`.",
+      "Un índice compuesto filtra por la primera columna y ordena por la siguiente.",
+      "Con tablas pequeñas, PostgreSQL prefiere a menudo el `Seq Scan`."
+    ],
+    "exercise": "Pruebe `EXPLAIN (COSTS OFF)` con `WHERE qty = 3` (sin `product_id`): ¿usa el índice compuesto? Cree uno solo sobre `qty` y compare."
+  },
+  "en": {
+    "slug": "indexes-and-explain",
+    "title": "Indexes and EXPLAIN",
+    "summary": "See how PostgreSQL runs a query with EXPLAIN, compare Seq Scan with Index Scan and Bitmap Scan, and create simple and composite indexes.",
+    "body": [
+      "With twelve products any query is instant, so the script builds a **20,000-row** table with `generate_series` and `CREATE TABLE … AS SELECT`: `n % 500` spreads the rows over 500 orders, 40 lines per order. **`ANALYZE`** gathers statistics on the table, which is what the **planner** uses to decide how to run each query.",
+      "**`EXPLAIN`** does not run the query: it shows its **plan**. **`(COSTS OFF)`** removes the cost estimates, which vary from machine to machine, and leaves just the structure. Without an index, looking for `order_id = 42` is a **`Seq Scan`**: read all 20,000 rows and keep those that pass the `Filter`.",
+      "**`CREATE INDEX … ON big_items (order_id)`** creates a B-tree index, a tree sorted by that column. The same `EXPLAIN` now shows a different plan: a **`Bitmap Index Scan`** finds in the index where the 40 rows are, and a **`Bitmap Heap Scan`** reads only those pages of the table (`Recheck Cond` is the safety check). For just a handful of rows PostgreSQL usually picks a plain `Index Scan`.",
+      "A **composite index** on `(product_id, qty DESC)` can filter on the first column and, at the same time, read already sorted by the second. That is why the last plan is an `Index Scan` under a `Limit` with **no `Sort` step**: the index hands over the rows in the requested order and PostgreSQL stops at the fifth. In the studio the plan comes out as a one-column grid, `QUERY PLAN`, one row per line; `EXPLAIN ANALYZE` would also run the query and report the real timings."
+    ],
+    "points": [
+      "`EXPLAIN` shows the plan; `(COSTS OFF)` drops the estimates.",
+      "`ANALYZE` refreshes the statistics the planner uses.",
+      "`Seq Scan` reads the whole table; with an index, `Index Scan` or `Bitmap Scan`.",
+      "A composite index filters on its first column and sorts by the next.",
+      "On small tables PostgreSQL often prefers a `Seq Scan`."
+    ],
+    "exercise": "Try `EXPLAIN (COSTS OFF)` with `WHERE qty = 3` (no `product_id`): does it use the composite index? Create one on `qty` alone and compare."
+  }
+}

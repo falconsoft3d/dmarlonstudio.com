@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "arrays-array-agg-y-any",
+    "title": "Arrays, array_agg y ANY",
+    "summary": "Use los arrays nativos de PostgreSQL: júntelos con array_agg y string_agg, acceda por posición, cuente con cardinality y busque dentro con = ANY.",
+    "body": [
+      "PostgreSQL tiene **arrays** de verdad como tipo de columna: `int[]`, `text[]`… **`array_agg(p.id ORDER BY p.id)`** es un agregado que junta los valores del grupo en un array, `[1,2,3]` para `Bakery`, y **`string_agg(p.name, ', ' ORDER BY p.name)`** los junta en un texto con separador: `Baguette, Croissant, Rye bread`. El `ORDER BY` de dentro del agregado decide el orden de los elementos.",
+      "Un array se escribe con **`ARRAY[3, 1, 2]`**. Sus posiciones empiezan en **`1`** (no en 0, como en JSON), así que `a[1]` es `3`. **`cardinality(a)`** da el número de elementos, `3`; **`3 = ANY (a)`** pregunta si alguno vale 3, `true`; y **`||`** añade un elemento al final: `[3,1,2,9]`. La rejilla del estudio enseña los arrays en formato JSON.",
+      "**`= ANY (ARRAY[…])`** hace lo mismo que `IN (…)` con una lista, con una ventaja: el array puede venir de una columna, de un parámetro o de una subconsulta. `id = ANY (ARRAY[2, 5, 9])` devuelve el croissant, el té verde y el queso.",
+      "La última consulta junta los productos de cada pedido en un array y le hace una pregunta con `ANY`: ¿lleva café (`4`)? Los pedidos `2`, `5` y `8` sí. Para el camino inverso, de array a filas, está **`unnest(array)`**, que se usa en el `FROM` igual que `jsonb_array_elements_text` en la lección anterior."
+    ],
+    "points": [
+      "`array_agg` junta valores en un array; `string_agg`, en un texto.",
+      "Los arrays de PostgreSQL empiezan en 1.",
+      "`cardinality(a)` cuenta y `a || x` añade.",
+      "`x = ANY (array)` equivale a `IN` con una lista.",
+      "`unnest(array)` convierte un array en filas."
+    ],
+    "exercise": "Liste, por cliente, el array de fechas de sus pedidos (`array_agg(ordered ORDER BY ordered)`) y cuántas son con `cardinality`."
+  },
+  "en": {
+    "slug": "arrays-array-agg-and-any",
+    "title": "Arrays, array_agg and ANY",
+    "summary": "Use PostgreSQL's native arrays: build them with array_agg and string_agg, read by position, count with cardinality and search inside with = ANY.",
+    "body": [
+      "PostgreSQL has real **arrays** as a column type: `int[]`, `text[]`… **`array_agg(p.id ORDER BY p.id)`** is an aggregate that gathers the group's values into an array, `[1,2,3]` for `Bakery`, and **`string_agg(p.name, ', ' ORDER BY p.name)`** joins them into text with a separator: `Baguette, Croissant, Rye bread`. The `ORDER BY` inside the aggregate decides the order of the elements.",
+      "An array is written as **`ARRAY[3, 1, 2]`**. Its positions start at **`1`** (not 0, as in JSON), so `a[1]` is `3`. **`cardinality(a)`** gives the number of elements, `3`; **`3 = ANY (a)`** asks whether any of them is 3, `true`; and **`||`** appends an element: `[3,1,2,9]`. The studio's grid shows arrays in JSON format.",
+      "**`= ANY (ARRAY[…])`** does the same as `IN (…)` with a list, with one advantage: the array can come from a column, a parameter or a subquery. `id = ANY (ARRAY[2, 5, 9])` returns the croissant, the green tea and the cheese.",
+      "The last query gathers the products of each order into an array and asks it a question with `ANY`: does it include coffee (`4`)? Orders `2`, `5` and `8` do. For the reverse trip, from array to rows, there is **`unnest(array)`**, used in the `FROM` just like `jsonb_array_elements_text` in the previous lesson."
+    ],
+    "points": [
+      "`array_agg` gathers values into an array; `string_agg`, into text.",
+      "PostgreSQL arrays start at 1.",
+      "`cardinality(a)` counts and `a || x` appends.",
+      "`x = ANY (array)` is the same as `IN` with a list.",
+      "`unnest(array)` turns an array into rows."
+    ],
+    "exercise": "List, per customer, the array of their order dates (`array_agg(ordered ORDER BY ordered)`) and how many there are with `cardinality`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "and-or-in-y-between",
+    "title": "AND, OR, IN y BETWEEN",
+    "summary": "Combine condiciones en PostgreSQL con AND y OR, ordénelas con paréntesis y abrévielas con IN para listas y BETWEEN para rangos de fechas.",
+    "body": [
+      "**`AND`** exige que se cumplan las dos condiciones: `category_id = 1 AND price < 2` deja solo el pan barato, `Baguette` (`1.20`) y `Croissant` (`1.50`); el pan de centeno, a `2.80`, se queda fuera.",
+      "**`OR`** se conforma con una, y aquí los **paréntesis** importan: `AND` se evalúa antes que `OR`. `(category_id = 2 OR category_id = 4) AND price > 3` da cuatro productos, las tres bebidas de más de 3 euros y las fresas (`3.90`). Sin los paréntesis, la condición sería «bebidas de cualquier precio, o fruta de más de 3 euros», y saldrían otras filas.",
+      "**`IN`** es la forma corta de varios `OR` sobre la misma columna: `status IN ('paid', 'new')`. **`BETWEEN`** marca un rango con los **dos extremos incluidos**: `ordered BETWEEN '2024-04-01' AND '2024-06-30'`. PostgreSQL convierte el texto `'2024-04-01'` en fecha porque lo compara con una columna `date`.",
+      "El resultado son los cuatro pedidos pagados o nuevos del segundo trimestre: del `6` (`2024-05-01`, `20.50`) al `10` (`2024-06-05`, `13.80`). El pedido `3` también está pagado, pero es de marzo y `BETWEEN` lo deja fuera."
+    ],
+    "points": [
+      "`AND`: las dos condiciones; `OR`: basta una.",
+      "`AND` va antes que `OR`: use paréntesis para no equivocarse.",
+      "`IN (a, b, c)` abrevia varios `OR` sobre una columna.",
+      "`BETWEEN a AND b` incluye los dos extremos.",
+      "Las fechas se escriben como texto `'AAAA-MM-DD'`."
+    ],
+    "exercise": "Busque los productos con `stock BETWEEN 10 AND 30` que no sean de la categoría 3 (`category_id <> 3`), ordenados por `stock`."
+  },
+  "en": {
+    "slug": "and-or-in-and-between",
+    "title": "AND, OR, IN and BETWEEN",
+    "summary": "Combine conditions in PostgreSQL with AND and OR, group them with parentheses and shorten them with IN for lists and BETWEEN for date ranges.",
+    "body": [
+      "**`AND`** requires both conditions to hold: `category_id = 1 AND price < 2` keeps only the cheap bread, `Baguette` (`1.20`) and `Croissant` (`1.50`); the rye bread, at `2.80`, is left out.",
+      "**`OR`** is happy with either one, and here the **parentheses** matter: `AND` is evaluated before `OR`. `(category_id = 2 OR category_id = 4) AND price > 3` gives four products, the three drinks over 3 euros and the strawberries (`3.90`). Without the parentheses the condition would read “drinks at any price, or fruit over 3 euros”, and other rows would appear.",
+      "**`IN`** is the short form of several `OR`s on the same column: `status IN ('paid', 'new')`. **`BETWEEN`** marks a range with **both ends included**: `ordered BETWEEN '2024-04-01' AND '2024-06-30'`. PostgreSQL turns the text `'2024-04-01'` into a date because it is compared with a `date` column.",
+      "The result is the four paid or new orders of the second quarter: from `6` (`2024-05-01`, `20.50`) to `10` (`2024-06-05`, `13.80`). Order `3` is paid too, but it is from March and `BETWEEN` leaves it out."
+    ],
+    "points": [
+      "`AND`: both conditions; `OR`: one is enough.",
+      "`AND` binds before `OR`: use parentheses to be safe.",
+      "`IN (a, b, c)` shortens several `OR`s on one column.",
+      "`BETWEEN a AND b` includes both ends.",
+      "Dates are written as text, `'YYYY-MM-DD'`."
+    ],
+    "exercise": "Find the products with `stock BETWEEN 10 AND 30` that are not in category 3 (`category_id <> 3`), sorted by `stock`."
+  }
+}

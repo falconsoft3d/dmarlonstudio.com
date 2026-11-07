@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "joins-lateral-top-n-por-grupo",
+    "title": "LATERAL: los N primeros de cada grupo",
+    "summary": "Use JOIN LATERAL en PostgreSQL para ejecutar una subconsulta por cada fila: los dos productos más vendidos de cada categoría y el último pedido de cada cliente.",
+    "body": [
+      "Una subconsulta en el `FROM` normalmente no puede ver las otras tablas del mismo `FROM`. Con **`LATERAL`** sí: se ejecuta **una vez por cada fila** de lo que tiene a la izquierda y puede usar sus columnas. Aquí, por cada fila de `categories`, la subconsulta usa `c.id` para sumar las ventas de los productos de esa categoría, las ordena y se queda con dos (`LIMIT 2`).",
+      "Es la forma más clara de resolver el problema de los **N primeros de cada grupo**, que con `GROUP BY` no se puede hacer y con funciones de ventana necesita una CTE y un filtro. El resultado son ocho filas, dos por categoría: en `Bakery`, el croissant (`15.00` euros) y la baguette (`7.20`); en `Drinks`, el café (`19.80`) y el té (`13.50`). El pedido cancelado se descarta en el `JOIN` con `orders`.",
+      "**`CROSS JOIN LATERAL`** descarta las filas de la izquierda para las que la subconsulta no devuelve nada. **`LEFT JOIN LATERAL … ON true`** las conserva con `NULL`: el `ON true` está porque un `LEFT JOIN` exige una condición, y la de verdad ya va dentro de la subconsulta.",
+      "La segunda consulta lo usa para el **último pedido de cada cliente**: `ORDER BY o.ordered DESC LIMIT 1` dentro del `LATERAL`. Ana compró por última vez el `2024-06-02` (pedido `9`), John Smith tiene como último el pedido `5`, el cancelado, y Carlos Díaz sale con `NULL` en todo porque no tiene ninguno. Con un índice sobre `orders (customer_id, ordered)` esta consulta sería rapidísima incluso con millones de pedidos."
+    ],
+    "points": [
+      "`LATERAL` deja que una subconsulta del `FROM` use las filas anteriores.",
+      "La subconsulta se ejecuta una vez por cada fila de la izquierda.",
+      "`ORDER BY … LIMIT n` dentro del `LATERAL` da los N primeros de cada grupo.",
+      "`CROSS JOIN LATERAL` descarta las filas sin resultado; `LEFT JOIN LATERAL … ON true` las conserva."
+    ],
+    "exercise": "Saque, para cada cliente, sus dos pedidos más caros con `LEFT JOIN LATERAL` y `ORDER BY o.total DESC LIMIT 2`."
+  },
+  "en": {
+    "slug": "lateral-joins-top-n-per-group",
+    "title": "LATERAL: top N per group",
+    "summary": "Use JOIN LATERAL in PostgreSQL to run a subquery for each row: the two best-selling products of each category and each customer's latest order.",
+    "body": [
+      "A subquery in the `FROM` normally cannot see the other tables of the same `FROM`. With **`LATERAL`** it can: it runs **once for each row** on its left and may use that row's columns. Here, for each row of `categories`, the subquery uses `c.id` to add up the sales of that category's products, sorts them and keeps two (`LIMIT 2`).",
+      "It is the clearest way to solve the **top N per group** problem, which `GROUP BY` cannot do and window functions need a CTE and a filter for. The result is eight rows, two per category: in `Bakery`, the croissant (`15.00` euros) and the baguette (`7.20`); in `Drinks`, the coffee (`19.80`) and the tea (`13.50`). The cancelled order is dropped in the `JOIN` with `orders`.",
+      "**`CROSS JOIN LATERAL`** drops the left-hand rows for which the subquery returns nothing. **`LEFT JOIN LATERAL … ON true`** keeps them with `NULL`: the `ON true` is there because a `LEFT JOIN` requires a condition, and the real one is already inside the subquery.",
+      "The second query uses it for **each customer's latest order**: `ORDER BY o.ordered DESC LIMIT 1` inside the `LATERAL`. Ana last bought on `2024-06-02` (order `9`), John Smith's latest is order `5`, the cancelled one, and Carlos Díaz shows `NULL` everywhere because he has none. With an index on `orders (customer_id, ordered)` this query would be very fast even with millions of orders."
+    ],
+    "points": [
+      "`LATERAL` lets a subquery in the `FROM` use the rows before it.",
+      "The subquery runs once for each row on its left.",
+      "`ORDER BY … LIMIT n` inside the `LATERAL` gives the top N per group.",
+      "`CROSS JOIN LATERAL` drops rows with no result; `LEFT JOIN LATERAL … ON true` keeps them."
+    ],
+    "exercise": "Get each customer's two most expensive orders with `LEFT JOIN LATERAL` and `ORDER BY o.total DESC LIMIT 2`."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "group-by-y-having",
+    "title": "Agrupar con GROUP BY y HAVING",
+    "summary": "Calcule totales por grupo con GROUP BY en PostgreSQL y filtre los grupos con HAVING: ventas por estado, precios por categoría y clientes que repiten.",
+    "body": [
+      "**`GROUP BY status`** reparte las filas de `orders` en un grupo por cada estado y calcula los agregados de cada uno. Salen cuatro filas: `shipped` con `4` pedidos y `59.85` euros, `paid` con `3` y `47.20`, y `cancelled` y `new`, que empatan a `19.80`. Por ese empate el `ORDER BY` lleva una segunda clave, `status`, que decide el orden entre los dos.",
+      "La regla de oro: en el `SELECT` solo pueden ir las columnas del `GROUP BY` y agregados. `category_id` está en el `GROUP BY`; `name` no, y si lo añade PostgreSQL le dirá que debe aparecer en el `GROUP BY` o dentro de un agregado. La segunda consulta da, por categoría, `3` productos en cada una, el precio medio (`5.87` en las bebidas, por el café) y las unidades en almacén.",
+      "**`HAVING`** es el `WHERE` de los grupos: se aplica **después** de agrupar, así que puede usar agregados. `HAVING count(*) > 1` deja solo a los clientes con más de un pedido: el `1` (Ana) con `3` pedidos y `34.95` euros, y el `2` (Luis) con `2` y `24.90`.",
+      "La diferencia en una frase: `WHERE` decide qué filas entran en los grupos y `HAVING` decide qué grupos salen. `WHERE count(*) > 1` sería un error, porque cuando se evalúa el `WHERE` todavía no hay grupos que contar."
+    ],
+    "points": [
+      "`GROUP BY` hace un grupo por cada valor y un resultado por grupo.",
+      "En el `SELECT`: columnas del `GROUP BY` y agregados, nada más.",
+      "`HAVING` filtra grupos y puede usar agregados.",
+      "`WHERE` va antes de agrupar; `HAVING`, después.",
+      "Con empates, añada otra clave al `ORDER BY`."
+    ],
+    "exercise": "Agrupe los pedidos por `customer_id` y quédese con los que gastaron más de 20 euros en total (`HAVING sum(total) > 20`)."
+  },
+  "en": {
+    "slug": "group-by-and-having",
+    "title": "Grouping with GROUP BY and HAVING",
+    "summary": "Compute totals per group with GROUP BY in PostgreSQL and filter the groups with HAVING: sales per status, prices per category and repeat customers.",
+    "body": [
+      "**`GROUP BY status`** splits the rows of `orders` into one group per status and computes the aggregates of each. There are four rows: `shipped` with `4` orders and `59.85` euros, `paid` with `3` and `47.20`, and `cancelled` and `new`, tied at `19.80`. Because of that tie `ORDER BY` has a second key, `status`, which settles the order between them.",
+      "The golden rule: the `SELECT` may only contain the `GROUP BY` columns and aggregates. `category_id` is in the `GROUP BY`; `name` is not, and if you add it PostgreSQL will tell you it must appear in the `GROUP BY` or inside an aggregate. The second query gives, per category, `3` products each, the average price (`5.87` for drinks, thanks to the coffee) and the units in stock.",
+      "**`HAVING`** is the `WHERE` of groups: it is applied **after** grouping, so it can use aggregates. `HAVING count(*) > 1` keeps only the customers with more than one order: `1` (Ana) with `3` orders and `34.95` euros, and `2` (Luis) with `2` and `24.90`.",
+      "The difference in one sentence: `WHERE` decides which rows go into the groups and `HAVING` decides which groups come out. `WHERE count(*) > 1` would be an error, because when `WHERE` is evaluated there are no groups to count yet."
+    ],
+    "points": [
+      "`GROUP BY` makes one group per value and one result per group.",
+      "In the `SELECT`: `GROUP BY` columns and aggregates, nothing else.",
+      "`HAVING` filters groups and can use aggregates.",
+      "`WHERE` runs before grouping; `HAVING`, after.",
+      "With ties, add another key to `ORDER BY`."
+    ],
+    "exercise": "Group the orders by `customer_id` and keep those who spent more than 20 euros in total (`HAVING sum(total) > 20`)."
+  }
+}

@@ -1,0 +1,6 @@
+// tags is a json column: it comes back as a list
+{"table": "products", "select": "name,tags", "where": {"category_id": 1}, "order": "name"}
+// like searches the text of the list
+{"table": "products", "select": "name,tags", "where": {"tags": "like.%sweet%"}, "order": "name"}
+// An empty list
+{"table": "products", "select": "name,tags", "where": {"tags": "eq.[]"}}

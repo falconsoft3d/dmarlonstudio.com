@@ -1,0 +1,7 @@
+// No GROUP BY: one count per status, one request each
+{"table": "orders", "where": {"status": "new"}, "limit": 0}
+{"table": "orders", "where": {"status": "paid"}, "limit": 0}
+{"table": "orders", "where": {"status": "shipped"}, "limit": 0}
+{"table": "orders", "where": {"status": "cancelled"}, "limit": 0}
+// Or one request and the app counts: 10 short rows
+{"table": "orders", "select": "status,total", "order": "status,total"}

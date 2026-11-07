@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clave-anon-y-reglas-de-acceso",
+    "title": "La clave anon y las reglas",
+    "summary": "Las reglas de acceso de FalconDatabase por tabla: lectura pública, solo con sesión, solo el dueño o privada, y qué puede hacer la clave anon.",
+    "body": [
+      "La **clave anon** es pública: va dentro de la app y cualquiera puede verla. Por eso la seguridad no está en la clave sino en las **reglas de acceso** de cada tabla, que el servidor aplica en cada petición.",
+      "Hay cinco reglas: **pública** (todos leen y escriben), **lectura pública** (`public_read`: todos leen, escriben los usuarios con sesión), **con sesión** (leen y escriben solo los que han entrado), **dueño** (`owner`: cada usuario lee y escribe solo sus filas) y **privada** (solo la clave de servicio).",
+      "Las tablas de la tienda son `public_read`: las categorías y las `3` reseñas de cinco estrellas se leen con la clave anon sola, sin entrar. Pero si una petición anónima intenta escribir, el servidor responde `HTTP 401: You need to sign in for this operation.`",
+      "`notes` es `owner`. El usuario del curso no tiene notas, así que la tercera consulta devuelve `0 filas en total`, aunque la tabla tenga las de otros usuarios: para él no existen. Las reglas se eligen al crear la tabla en FalconDatabase; el estudio las respeta porque habla con la misma API que la app."
+    ],
+    "points": [
+      "La clave anon es pública: la seguridad está en las reglas.",
+      "Cinco reglas: pública, lectura pública, con sesión, dueño y privada.",
+      "`public_read`: leer sin sesión, escribir con ella.",
+      "Escribir sin sesión en `public_read` da `HTTP 401`.",
+      "En una tabla `owner`, las filas ajenas no existen para usted."
+    ],
+    "exercise": "Cuente con `limit` `0` cuántas reseñas y cuántos pedidos puede leer la clave anon. ¿Qué regla pondría a `orders` en una tienda de verdad?"
+  },
+  "en": {
+    "slug": "anon-key-and-access-rules",
+    "title": "The anon key and the rules",
+    "summary": "FalconDatabase's per-table access rules: public read, signed-in only, owner or private, and what the anon key can do.",
+    "body": [
+      "The **anon key** is public: it ships inside the app and anyone can see it. So security does not rest on the key but on each table's **access rules**, which the server applies to every request.",
+      "There are five rules: **public** (everyone reads and writes), **public read** (`public_read`: everyone reads, signed-in users write), **signed-in** (only signed-in users read and write), **owner** (`owner`: each user reads and writes only their own rows) and **private** (only the service key).",
+      "The shop tables are `public_read`: the categories and the `3` five-star reviews can be read with the anon key alone, without signing in. But if an anonymous request tries to write, the server answers `HTTP 401: You need to sign in for this operation.`",
+      "`notes` is `owner`. The course user has no notes, so the third query returns `0 rows in total`, even if the table holds other users' notes: for this user they do not exist. You choose the rules when you create the table in FalconDatabase; the studio follows them because it talks to the same API as the app."
+    ],
+    "points": [
+      "The anon key is public: security lives in the rules.",
+      "Five rules: public, public read, signed-in, owner and private.",
+      "`public_read`: read without a session, write with one.",
+      "Writing to `public_read` without a session gives `HTTP 401`.",
+      "In an `owner` table, other people's rows do not exist for you."
+    ],
+    "exercise": "Use `limit` `0` to count how many reviews and how many orders the anon key can read. Which rule would you give `orders` in a real shop?"
+  }
+}

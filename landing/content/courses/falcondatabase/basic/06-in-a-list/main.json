@@ -1,0 +1,5 @@
+// in.(…): any of several values
+{"table": "customers", "select": "name,city", "where": {"city": "in.(Madrid,London)"}, "order": "city,name"}
+{"table": "orders", "select": "ordered,status,total", "where": {"status": "in.(new,paid)"}, "order": "ordered"}
+// Numbers too: the drinks (2) and the fruit (4)
+{"table": "products", "select": "name,category_id,price", "where": {"category_id": "in.(2,4)"}, "order": "category_id,name"}

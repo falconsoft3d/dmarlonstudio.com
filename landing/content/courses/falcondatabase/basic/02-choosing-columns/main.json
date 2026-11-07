@@ -1,0 +1,4 @@
+// Without "select" you get every column, id and created_at too
+{"table": "customers", "order": "name", "limit": 3}
+// With "select": only the columns you ask for, in that order
+{"table": "customers", "select": "name,city,joined", "order": "name"}

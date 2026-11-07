@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "pantalla-de-pedidos",
+    "title": "La pantalla de pedidos",
+    "summary": "Proyecto final: el flujo de datos de una pantalla «Mis pedidos» con FalconDatabase y Flutter: lista, detalle, valoraciones e insignia.",
+    "body": [
+      "Para terminar, las peticiones de una pantalla «Mis pedidos» completa, en el orden en que la app las hace. La lista sale de `orders` con el total guardado: los `3` pedidos de la clienta `1`, del más reciente (`2024-06-02`, `new`) al primero. En Flutter, `db.table('orders').list(where: {'customer_id': 1}, order: 'ordered.desc')`.",
+      "Al tocar el del 15 de marzo (el pedido `3`), el detalle pide sus líneas: `2` líneas, `2` × `4.5` del producto `5` y `1` × `3.9` del `12`, que suman sus `12.9`. Los nombres de los productos no hacen falta pedirlos: el catálogo es pequeño y la app lo cargó una vez en la pantalla de la tienda, así que traduce `product_id` → nombre en memoria.",
+      "Las estrellas de esos productos llegan en una sola petición con `product_id=in.(5,12)`: `2` reseñas, ambas de `Strawberries` (`4` y `2`); el `5` no tiene. La app las coloca junto a cada línea.",
+      "La última consulta es la insignia de «pendientes»: `limit` `0` con `status=in.(new,paid)`, `2` pedidos. Cuatro peticiones, cada una con lo justo, y ningún join: la lista lee el total desnormalizado, el detalle une a mano con `in`, el catálogo vive en memoria y la cifra no descarga filas."
+    ],
+    "points": [
+      "Una pantalla: pocas peticiones, en el orden en que se necesitan.",
+      "La lista usa el total guardado en `orders`.",
+      "El detalle une a mano con `in.(…)`.",
+      "Las tablas pequeñas se cargan una vez y se usan en memoria.",
+      "Las insignias se cuentan con `limit` `0`."
+    ],
+    "exercise": "Haga la misma pantalla para la clienta `2`: sus pedidos, las líneas del más reciente, las reseñas de sus productos y cuántos tiene pendientes."
+  },
+  "en": {
+    "slug": "orders-screen",
+    "title": "The orders screen",
+    "summary": "Final project: the data flow of a My orders screen with FalconDatabase and Flutter: list, details, ratings and a badge.",
+    "body": [
+      "To finish, the requests of a complete My orders screen, in the order the app makes them. The list comes from `orders` with the stored total: customer `1`'s `3` orders, from the newest (`2024-06-02`, `new`) to the first. In Flutter, `db.table('orders').list(where: {'customer_id': 1}, order: 'ordered.desc')`.",
+      "When she taps the one from 15 March (order `3`), the details screen asks for its lines: `2` lines, `2` × `4.5` of product `5` and `1` × `3.9` of product `12`, adding up to its `12.9`. The product names need no request: the catalogue is small and the app loaded it once on the shop screen, so it maps `product_id` → name in memory.",
+      "The stars for those products arrive in a single request with `product_id=in.(5,12)`: `2` reviews, both for `Strawberries` (`4` and `2`); product `5` has none. The app places them next to each line.",
+      "The last query is the pending badge: `limit` `0` with `status=in.(new,paid)`, `2` orders. Four requests, each with just what it needs, and no join: the list reads the denormalised total, the details join by hand with `in`, the catalogue lives in memory and the figure downloads no rows."
+    ],
+    "points": [
+      "A screen: few requests, in the order they are needed.",
+      "The list uses the total stored in `orders`.",
+      "The details join by hand with `in.(…)`.",
+      "Small tables are loaded once and used from memory.",
+      "Badges are counted with `limit` `0`."
+    ],
+    "exercise": "Build the same screen for customer `2`: her orders, the lines of the newest one, the reviews of its products and how many are pending."
+  }
+}

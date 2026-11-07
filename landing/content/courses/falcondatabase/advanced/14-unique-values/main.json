@@ -1,0 +1,5 @@
+// customers.email is unique: one account per address
+{"table": "customers", "insert": {"name": "Nora Gil", "email": "nora@example.com", "city": "Bilbao"}}
+{"table": "customers", "select": "name,email,city", "where": {"city": "Bilbao"}, "order": "name"}
+// The same email again: the database refuses it
+{"table": "customers", "insert": {"name": "Nora Gil Ruiz", "email": "nora@example.com"}}

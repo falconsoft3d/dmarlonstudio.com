@@ -1,0 +1,6 @@
+// eq: customers from Madrid
+{"table": "customers", "select": "name,city", "where": {"city": "eq.Madrid"}, "order": "name"}
+// Without an operator, the filter is eq
+{"table": "orders", "select": "ordered,status,total", "where": {"status": "shipped"}, "order": "ordered"}
+// neq: every order that is not shipped
+{"table": "orders", "select": "ordered,status,total", "where": {"status": "neq.shipped"}, "order": "ordered"}

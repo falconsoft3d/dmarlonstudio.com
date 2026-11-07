@@ -1,0 +1,4 @@
+// No sum(): bring back just the column to add up
+{"table": "orders", "select": "ordered,total", "where": {"status": "neq.cancelled"}, "order": "ordered"}
+// The lines of order 6: qty × price, added up in the app
+{"table": "order_items", "select": "product_id,qty,price", "where": {"order_id": 6}, "order": "product_id"}

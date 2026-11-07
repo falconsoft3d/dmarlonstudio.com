@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "escribir-con-sesion",
+    "title": "Escribir con sesión",
+    "summary": "Con un usuario que ha iniciado sesión, FalconDatabase deja escribir en las tablas public_read: insertar y cambiar reseñas con el token.",
+    "body": [
+      "Al conectar, el estudio entra con el correo y la contraseña del usuario del curso (`POST /auth/login`) y guarda el **token** que devuelve el servidor. Desde ese momento todas las peticiones llevan `Authorization: Bearer <token>`, y en las tablas `public_read` eso basta para escribir.",
+      "El primer `insert` añade `2` reseñas del producto `3` (`Rye bread`) en una sola petición. El `update` corrige una reseña que ya existía: la de `Not ripe` pasa de `2` a `3` estrellas.",
+      "La lista final junta las reseñas de los productos `3` y `12`: las dos nuevas y las dos de `Strawberries`, `4` en total, ordenadas por producto y de más a menos estrellas.",
+      "Con `public_read`, cualquier usuario con sesión puede cambiar cualquier fila, también las reseñas de otros. Para una tabla de reseñas de verdad haría falta la regla `owner` (cada uno edita las suyas) o validar en un servidor propio con la clave de servicio."
+    ],
+    "points": [
+      "La sesión es un token en `Authorization: Bearer …`.",
+      "En `public_read`, con sesión se inserta, cambia y borra.",
+      "Cualquier usuario con sesión puede tocar cualquier fila.",
+      "Para que cada uno edite lo suyo, la regla es `owner`."
+    ],
+    "exercise": "Añada una reseña de `1` estrella para el producto `6` y, después, bórrela con `delete` y un `where` por su comentario. Compruébelo con una lista."
+  },
+  "en": {
+    "slug": "writing-with-a-session",
+    "title": "Writing with a session",
+    "summary": "With a signed-in user, FalconDatabase allows writes to public_read tables: insert and update reviews with the token.",
+    "body": [
+      "When it connects, the studio signs in with the course user's email and password (`POST /auth/login`) and keeps the **token** the server returns. From then on every request carries `Authorization: Bearer <token>`, and on `public_read` tables that is enough to write.",
+      "The first `insert` adds `2` reviews for product `3` (`Rye bread`) in a single request. The `update` fixes an existing review: the `Not ripe` one goes from `2` to `3` stars.",
+      "The final list gathers the reviews of products `3` and `12`: the two new ones and the two for `Strawberries`, `4` in all, sorted by product and from most to fewest stars.",
+      "With `public_read`, any signed-in user can change any row, other people's reviews included. A real reviews table would need the `owner` rule (everyone edits their own) or validation on your own server with the service key."
+    ],
+    "points": [
+      "The session is a token in `Authorization: Bearer …`.",
+      "On `public_read`, a session lets you insert, update and delete.",
+      "Any signed-in user can touch any row.",
+      "For each user to edit only their own, the rule is `owner`."
+    ],
+    "exercise": "Add a `1` star review for product `6`, then delete it with `delete` and a `where` on its comment. Check it with a list."
+  }
+}

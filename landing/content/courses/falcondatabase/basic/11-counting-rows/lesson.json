@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "contar-filas",
+    "title": "Contar filas",
+    "summary": "FalconDatabase no tiene count(), pero cada lista dice su total: con limit 0 cuenta filas sin descargarlas. Pruébelo en DMarlon Studio.",
+    "body": [
+      "La API REST no tiene `count(*)`, pero cada respuesta de una lista trae dos cosas: `data`, las filas, y **`count`**, cuántas cumplen la consulta en total. El estudio lo enseña en el pie: `10 filas en total`.",
+      "Con **`\"limit\": 0`** el servidor no envía ninguna fila, solo el total: es la forma más barata de contar. La tienda tiene `10` pedidos, `3` de ellos pagados, y `2` clientes en Madrid. Esas pestañas no tienen rejilla, solo el mensaje.",
+      "El total no depende de la página: la última consulta pide `2` pedidos enviados y el pie dice `4 filas en total`. Así una lista puede enseñar «2 de 4» y un botón de «ver más».",
+      "Con un filtro distinto por consulta se pueden sacar varios números seguidos; en el nivel avanzado se usa para montar un panel de cifras sin `GROUP BY`."
+    ],
+    "points": [
+      "Cada lista responde `data` y `count`.",
+      "`count` es el total sin paginar.",
+      "`limit` `0` cuenta sin descargar filas.",
+      "Un número por consulta: un filtro por cifra."
+    ],
+    "exercise": "Cuente con tres consultas `limit` `0` cuántos productos hay en total, cuántos están activos y cuántos tienen la etiqueta `fresh` (`tags` con `like`)."
+  },
+  "en": {
+    "slug": "counting-rows",
+    "title": "Counting rows",
+    "summary": "FalconDatabase has no count(), but every list reports its total: with limit 0 you count rows without downloading them. Try it in DMarlon Studio.",
+    "body": [
+      "The REST API has no `count(*)`, but every list response carries two things: `data`, the rows, and **`count`**, how many match the query in total. The studio shows it in the footer: `10 rows in total`.",
+      "With **`\"limit\": 0`** the server sends no rows, only the total: it is the cheapest way to count. The shop has `10` orders, `3` of them paid, and `2` customers in Madrid. Those tabs have no grid, just the message.",
+      "The total does not depend on the page: the last query asks for `2` shipped orders and the footer says `4 rows in total`. That is how a list can show 2 of 4 and a show-more button.",
+      "With a different filter per query you can get several numbers in a row; the advanced level uses this to build a figures dashboard without `GROUP BY`."
+    ],
+    "points": [
+      "Every list answers `data` and `count`.",
+      "`count` is the total before paging.",
+      "`limit` `0` counts without downloading rows.",
+      "One number per query: one filter per figure."
+    ],
+    "exercise": "With three `limit` `0` queries, count how many products there are, how many are active and how many have the `fresh` tag (`tags` with `like`)."
+  }
+}

@@ -1,0 +1,7 @@
+// Signed in (Authorization: Bearer <token>), the user can write
+{"table": "reviews", "insert": [
+  {"product_id": 3, "rating": 5, "comment": "Proper rye"},
+  {"product_id": 3, "rating": 4, "comment": "Dense, as it should be"}
+]}
+{"table": "reviews", "update": {"where": {"comment": "Not ripe"}, "set": {"rating": 3}}}
+{"table": "reviews", "select": "product_id,rating,comment", "where": {"product_id": "in.(3,12)"}, "order": "product_id,rating.desc"}

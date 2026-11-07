@@ -54,6 +54,40 @@ export type DbResult = {
 
 type CourseData = { id: string; levels: Partial<Record<Level, Lesson[]>> };
 
+/** El proyecto con el IDE de un curso de base de datos
+ * (content/courses/projects/<curso>.json). */
+export type ProjectText = { title: string; summary: string; intro: string[]; steps: string[]; points: string[] };
+export type CourseProject = {
+  seed: string;
+  /** El destino del estudio («Escritorio (Python)», «Flutter (móvil)»…). */
+  target: Record<Lang, string>;
+  es: ProjectText;
+  en: ProjectText;
+  /** El código que se escribe (la unidad), no el generado. */
+  files: { name: string; lang: string; code: string; html?: string }[];
+  /** El proyecto abierto en el Diseñador, en cada idioma. */
+  designer: { es: string; en: string; size: [number, number] };
+  /** La app funcionando con los datos del curso. */
+  app: { src: string; size: [number, number] };
+  /** La carpeta del proyecto, para «Abrir proyecto». */
+  download: string;
+};
+
+/** La parte de la ruta del proyecto (en el lugar del nivel). */
+export const PROJECT_SLUG: Record<Lang, string> = { es: "proyecto", en: "project" };
+
+const PROJECTS = path.join(process.cwd(), "content", "courses", "projects");
+const projects = new Map<string, CourseProject | null>();
+
+/** El proyecto del curso [id] (null si no tiene). */
+export function projectOf(id: string): CourseProject | null {
+  if (!projects.has(id)) {
+    const file = path.join(PROJECTS, `${id}.json`);
+    projects.set(id, fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, "utf8")) as CourseProject) : null);
+  }
+  return projects.get(id) ?? null;
+}
+
 const DATA = path.join(process.cwd(), "content", "courses", "data");
 const cache = new Map<string, CourseData | null>();
 
@@ -91,6 +125,8 @@ export const levelAlternates = (id: string, level: Level): Alternates => ({
   es: levelPath("es", id, level),
   en: levelPath("en", id, level),
 });
+export const projectPath = (lang: Lang, id: string) => `${coursePath(lang, id)}/${PROJECT_SLUG[lang]}`;
+export const projectAlternates = (id: string): Alternates => ({ es: projectPath("es", id), en: projectPath("en", id) });
 export const lessonAlternates = (id: string, level: Level, lesson: Lesson): Alternates => ({
   es: lessonPath("es", id, level, lesson),
   en: lessonPath("en", id, level, lesson),
@@ -101,9 +137,11 @@ export const courseParams = () => publishedCourses().map((c) => ({ course: c.id 
 
 /** Para generateStaticParams: cada nivel con lecciones, en [lang]. */
 export const levelParams = (lang: Lang) =>
-  publishedCourses().flatMap((c) =>
-    LEVELS.filter((l) => hasLevel(c.id, l)).map((l) => ({ course: c.id, level: LEVEL_SLUG[l][lang] })),
-  );
+  publishedCourses().flatMap((c) => [
+    ...LEVELS.filter((l) => hasLevel(c.id, l)).map((l) => ({ course: c.id, level: LEVEL_SLUG[l][lang] })),
+    // El proyecto va en el lugar de un nivel: /cursos/<curso>/proyecto.
+    ...(projectOf(c.id) ? [{ course: c.id, level: PROJECT_SLUG[lang] }] : []),
+  ]);
 
 /** Para generateStaticParams: cada lección, en [lang]. */
 export const lessonParams = (lang: Lang) =>

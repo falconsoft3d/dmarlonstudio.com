@@ -1,0 +1,7 @@
+// like: % is any text and capitals count
+{"table": "products", "select": "name", "where": {"name": "like.Gr%"}, "order": "name"}
+{"table": "products", "select": "name", "where": {"name": "like.gr%"}, "order": "name"}
+// _ is exactly one character
+{"table": "products", "select": "name,price", "where": {"name": "like.% _ kg"}, "order": "name"}
+// ilike ignores capitals: surnames ending in "ez"
+{"table": "customers", "select": "name,city", "where": {"name": "ilike.%EZ"}, "order": "name"}

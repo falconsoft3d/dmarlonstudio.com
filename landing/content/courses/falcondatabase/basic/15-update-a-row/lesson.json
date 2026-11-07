@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "modificar-una-fila",
+    "title": "Modificar una fila",
+    "summary": "Cambie columnas de una fila de FalconDatabase con update: un PATCH a /tables/<tabla>/<id>, eligiendo la fila por id o por un valor único.",
+    "body": [
+      "La API cambia filas de una en una: **`PATCH /tables/customers/<id>`** con las columnas nuevas en el cuerpo. En el estudio se escribe `{\"update\": {\"id\": 7, \"set\": {…}}}` con el id que vea en la rejilla.",
+      "En este script la fila se elige con `where`, por el **email**, que es único: `{\"where\": {\"email\": \"luis@example.com\"}, \"set\": {\"city\": \"Malaga\"}}`. El estudio busca antes los id que cumplen el filtro (un `GET` con `select=id`) y luego envía el `PATCH`. Así el script no depende de un id que pone el servidor.",
+      "`set` puede cambiar varias columnas a la vez: a `John Smith` se le cambian la ciudad (`Leeds`) y el correo. Cada `update` responde `1 fila afectada` y la fila tal como queda.",
+      "La última consulta lo comprueba: `Luis Pérez` ya es de `Malaga` y `John Smith`, de `Leeds`. Las columnas que no van en `set` no se tocan."
+    ],
+    "points": [
+      "Una fila se cambia con `PATCH /tables/<tabla>/<id>`.",
+      "`set` lleva solo las columnas que cambian.",
+      "Con `where` por un valor único, el estudio busca el id por usted.",
+      "La respuesta trae la fila modificada."
+    ],
+    "exercise": "Cambie el puesto (`role`) de `Nuria Sanz` a `Head cashier` y su sueldo (`salary`) a `1950`, y liste los empleados con `name`, `role` y `salary`."
+  },
+  "en": {
+    "slug": "update-a-row",
+    "title": "Updating a row",
+    "summary": "Change columns of a FalconDatabase row with update: a PATCH to /tables/<table>/<id>, picking the row by id or by a unique value.",
+    "body": [
+      "The API changes rows one at a time: **`PATCH /tables/customers/<id>`** with the new columns in the body. In the studio you write `{\"update\": {\"id\": 7, \"set\": {…}}}` with the id you see in the grid.",
+      "In this script the row is picked with `where`, by **email**, which is unique: `{\"where\": {\"email\": \"luis@example.com\"}, \"set\": {\"city\": \"Malaga\"}}`. The studio first looks up the ids that match (a `GET` with `select=id`) and then sends the `PATCH`. That way the script does not depend on an id the server assigns.",
+      "`set` can change several columns at once: `John Smith` gets a new city (`Leeds`) and a new email. Each `update` answers `1 row affected` and the row as it now stands.",
+      "The last query checks it: `Luis Pérez` is now in `Malaga` and `John Smith` in `Leeds`. Columns not in `set` are left alone."
+    ],
+    "points": [
+      "A row changes with `PATCH /tables/<table>/<id>`.",
+      "`set` carries only the columns that change.",
+      "With `where` on a unique value, the studio finds the id for you.",
+      "The response carries the updated row."
+    ],
+    "exercise": "Change `Nuria Sanz`'s job (`role`) to `Head cashier` and her salary (`salary`) to `1950`, then list the employees with `name`, `role` and `salary`."
+  }
+}

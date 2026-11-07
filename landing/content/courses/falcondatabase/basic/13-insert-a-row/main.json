@@ -1,0 +1,4 @@
+// POST /tables/products with one object
+{"table": "products", "insert": {"name": "Muffin", "category_id": 1, "price": 2.25, "tags": ["sweet"]}}
+// The server filled in id, created_at, stock and active
+{"table": "products", "select": "name,price,stock,active,tags", "where": {"category_id": 1}, "order": "price"}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "nulos-y-booleanos",
+    "title": "Nulos y booleanos: is",
+    "summary": "El operador is de FalconDatabase: is.null para los valores que faltan e is.true / is.false para las columnas booleanas.",
+    "body": [
+      "Un valor que falta es **`NULL`**, y no se busca con `eq` sino con **`is.null`**. `email=is.null` encuentra al único cliente sin correo: `Pedro Gómez`, de Seville.",
+      "Cuidado con `neq` y los nulos: `comment=neq.Sweet` no devuelve 7 reseñas de 8, sino `6`. La que no tiene comentario también se queda fuera, porque para PostgreSQL `NULL` no es ni igual ni distinto de nada. Si la quiere, pídala aparte con `is.null`.",
+      "Para las columnas booleanas están **`is.true`** e **`is.false`**. `active=is.false` devuelve el producto que no se vende: `Bananas 1 kg`, con stock `0`.",
+      "La última consulta busca lo contrario, un producto activo pero agotado (`is.true` y `stock` `0`): `Orange juice`. Es el que convendría reponer o desactivar."
+    ],
+    "points": [
+      "Los nulos se buscan con `is.null`, no con `eq`.",
+      "`neq` también deja fuera las filas con `NULL`.",
+      "`is.true` e `is.false` para columnas booleanas.",
+      "`is` se combina con otros filtros como cualquier operador."
+    ],
+    "exercise": "Liste las reseñas (`reviews`) que sí tienen comentario. Pista: `is` solo admite `null`, `true` y `false` (no hay `is.not.null`); piense en un `like` que valga para cualquier texto."
+  },
+  "en": {
+    "slug": "null-and-booleans",
+    "title": "Nulls and booleans: is",
+    "summary": "FalconDatabase's is operator: is.null for missing values and is.true / is.false for boolean columns.",
+    "body": [
+      "A missing value is **`NULL`**, and you look for it with **`is.null`**, not with `eq`. `email=is.null` finds the only customer without an email: `Pedro Gómez`, from Seville.",
+      "Watch out for `neq` and nulls: `comment=neq.Sweet` does not return 7 of the 8 reviews but `6`. The one without a comment is left out as well, because for PostgreSQL `NULL` is neither equal nor different to anything. If you want it, ask for it separately with `is.null`.",
+      "Boolean columns have **`is.true`** and **`is.false`**. `active=is.false` returns the product no longer on sale: `Bananas 1 kg`, with a stock of `0`.",
+      "The last query looks for the opposite, a product that is active but sold out (`is.true` and `stock` `0`): `Orange juice`. That one should be restocked or switched off."
+    ],
+    "points": [
+      "Look for nulls with `is.null`, not `eq`.",
+      "`neq` also leaves out rows with `NULL`.",
+      "`is.true` and `is.false` for boolean columns.",
+      "`is` combines with other filters like any operator."
+    ],
+    "exercise": "List the reviews (`reviews`) that do have a comment. Hint: `is` only accepts `null`, `true` and `false` (there is no `is.not.null`); think of a `like` that matches any text."
+  }
+}

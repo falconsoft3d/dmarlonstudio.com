@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "panel-de-cifras-a-mano",
+    "title": "Un panel de cifras a mano",
+    "summary": "Sin GROUP BY en la API de FalconDatabase: un panel de pedidos por estado con una cuenta por consulta o con una lista que agrupa la app.",
+    "body": [
+      "Un panel con «pedidos por estado» es un `GROUP BY` en SQL. La API REST no agrupa, así que hay dos caminos, y el script enseña los dos.",
+      "El primero, **una cuenta por valor**: cuatro consultas con `limit` `0`, una por estado. Salen `2` nuevos, `3` pagados, `4` enviados y `1` cancelado, que suman los `10` pedidos. Hacen falta tantas peticiones como valores, y hay que saber de antemano qué valores existen.",
+      "El segundo, **una lista corta y la cuenta en la app**: la última consulta trae solo `status` y `total` de los `10` pedidos, ordenados por estado. En Flutter: `final rows = await db.table('orders').list(order: 'status');` y luego `for (final r in rows) counts.update(r['status'], (n) => n + 1, ifAbsent: () => 1);`.",
+      "Con pocas filas, la lista gana: una petición y salen también las sumas por estado. Con muchas, las cuentas con `limit` `0` no descargan nada. Si el panel se abre a menudo y la tabla es grande, lo mejor es guardar las cifras ya calculadas en una tabla propia."
+    ],
+    "points": [
+      "La API no agrupa: no hay `GROUP BY`.",
+      "Una consulta `limit` `0` por cada valor que se cuenta.",
+      "O una lista con solo las columnas necesarias, y agrupar en la app.",
+      "Pocas filas: lista. Muchas: cuentas o cifras guardadas."
+    ],
+    "exercise": "Monte el panel de reseñas: cuántas hay de `5`, `4`, `3` y `2` estrellas, primero con cuatro cuentas y después con una lista de `rating`."
+  },
+  "en": {
+    "slug": "dashboard-by-hand",
+    "title": "A dashboard by hand",
+    "summary": "No GROUP BY in FalconDatabase's API: an orders-by-status dashboard with one count per query, or one list the app groups.",
+    "body": [
+      "A dashboard with orders by status is a `GROUP BY` in SQL. The REST API does not group, so there are two ways, and the script shows both.",
+      "The first, **one count per value**: four queries with `limit` `0`, one per status. You get `2` new, `3` paid, `4` shipped and `1` cancelled, which add up to the `10` orders. It takes as many requests as values, and you must know the values in advance.",
+      "The second, **one short list and counting in the app**: the last query brings only `status` and `total` for the `10` orders, sorted by status. In Flutter: `final rows = await db.table('orders').list(order: 'status');` then `for (final r in rows) counts.update(r['status'], (n) => n + 1, ifAbsent: () => 1);`.",
+      "With few rows, the list wins: one request, and you get the totals per status as well. With many, `limit` `0` counts download nothing. If the dashboard is opened often and the table is large, it is best to store the figures, already worked out, in a table of their own."
+    ],
+    "points": [
+      "The API does not group: there is no `GROUP BY`.",
+      "One `limit` `0` query for each value you count.",
+      "Or one list with only the needed columns, grouped in the app.",
+      "Few rows: a list. Many: counts or stored figures."
+    ],
+    "exercise": "Build the reviews dashboard: how many `5`, `4`, `3` and `2` star reviews there are, first with four counts and then with one list of `rating`."
+  }
+}

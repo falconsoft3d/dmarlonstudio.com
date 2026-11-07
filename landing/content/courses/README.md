@@ -170,7 +170,7 @@ usuarios).
 | postgres | PostgreSQL 16 | Funciones con `$$ … $$`. `numeric` sale como texto (`"1.20"`), las fechas `2024-01-05`, `json`/arrays como JSON. `RAISE NOTICE` no se ve: devuelva el dato con `SELECT` |
 | mysql | MySQL 8.4 | Procedimientos y disparadores con `DELIMITER //` … `DELIMITER ;`. Todos los valores salen como texto. **Los `SELECT` de dentro de un `CALL` no se ven**: use parámetros `OUT` (`CALL p(@x); SELECT @x;`). `ONLY_FULL_GROUP_BY` activo |
 | mongodb | MongoDB 4.4 | Sin `$setWindowFields` ni `$dateTrunc` (5.0+). Las fechas son texto `"2024-03-01"` |
-| falcondatabase | API REST | Sin joins (dos consultas). Los `id` de las filas que inserta la lección los pone el servidor: no los use (filtre con `where`) |
+| falcondatabase | API REST | Sin joins (dos consultas). La tienda no se vacía: se **restaura** (sus `id` son siempre 1…N, como en los datos) con el usuario del curso, y las notas de cada usuario se vacían con su sesión. Los `id` de las filas que inserta la lección los pone el servidor: no los use (filtre con `where`) |
 | firebase | Emulador de Firestore 1.19 | Los `_id` de los datos son de texto (`p01`, `c1`, `o01`, `cat1`, `e1`, `r1`) |
 
 ### Las consultas JSON (mongodb, falcondatabase, firebase)

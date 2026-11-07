@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "comparaciones",
+    "title": "Mayor y menor que",
+    "summary": "Los operadores gt, gte, lt y lte de FalconDatabase con números y fechas: precios altos, poco stock y clientes recientes.",
+    "body": [
+      "Para comparar hay cuatro operadores: **`gt`** (mayor que), **`gte`** (mayor o igual), **`lt`** (menor que) y **`lte`** (menor o igual). Se escriben igual que `eq`: `\"price\": \"gt.5\"` es `price=gt.5` en la URL.",
+      "La primera consulta trae los productos de más de 5 euros, del más caro al más barato: `Espresso beans` (`9.9`) y `Manchego cheese` (`7.75`). La segunda, los que tienen `15` unidades o menos: son `5`, desde los dos agotados (`Bananas 1 kg` y `Orange juice`, con `0`) hasta `Strawberries` con `14`.",
+      "En esa segunda consulta el orden es `stock,name`: hay dos productos con `0` y, si solo se ordenara por `stock`, el servidor podría darlos en cualquier orden. Con el nombre como desempate, la respuesta es siempre la misma.",
+      "Las fechas también se comparan: `joined=gte.2024-01-01` devuelve los `4` clientes que llegaron en 2024 o después, de `Sofía Ruiz` (`2024-01-08`) a `Carlos Díaz` (`2024-05-05`). Las fechas van como texto `AAAA-MM-DD`."
+    ],
+    "points": [
+      "`gt`, `gte`, `lt` y `lte`: mayor, mayor o igual, menor, menor o igual.",
+      "Funcionan con números y con fechas `AAAA-MM-DD`.",
+      "Con empates, añada una segunda columna al `order`.",
+      "El filtro y el orden van juntos en la misma petición."
+    ],
+    "exercise": "Liste los productos que cuestan `2` euros o menos (`lte`), del más barato al más caro, con `name` y `price`."
+  },
+  "en": {
+    "slug": "comparisons",
+    "title": "Greater and less than",
+    "summary": "FalconDatabase's gt, gte, lt and lte operators with numbers and dates: high prices, low stock and recent customers.",
+    "body": [
+      "There are four comparison operators: **`gt`** (greater than), **`gte`** (greater than or equal), **`lt`** (less than) and **`lte`** (less than or equal). You write them like `eq`: `\"price\": \"gt.5\"` is `price=gt.5` in the URL.",
+      "The first query brings the products over 5 euros, dearest first: `Espresso beans` (`9.9`) and `Manchego cheese` (`7.75`). The second, those with `15` units or fewer: there are `5`, from the two sold out (`Bananas 1 kg` and `Orange juice`, with `0`) up to `Strawberries` with `14`.",
+      "That second query orders by `stock,name`: two products have `0`, and sorting by `stock` alone would let the server return them in either order. With the name as a tie-breaker, the answer is always the same.",
+      "Dates compare too: `joined=gte.2024-01-01` returns the `4` customers who joined in 2024 or later, from `Sofía Ruiz` (`2024-01-08`) to `Carlos Díaz` (`2024-05-05`). Dates are written as `YYYY-MM-DD` text."
+    ],
+    "points": [
+      "`gt`, `gte`, `lt` and `lte`: greater, greater or equal, less, less or equal.",
+      "They work with numbers and with `YYYY-MM-DD` dates.",
+      "When values tie, add a second column to `order`.",
+      "The filter and the order travel in the same request."
+    ],
+    "exercise": "List the products that cost `2` euros or less (`lte`), cheapest first, with `name` and `price`."
+  }
+}

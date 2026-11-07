@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "fechas",
+    "title": "Trabajar con fechas",
+    "summary": "Las fechas de FalconDatabase viajan como texto AAAA-MM-DD: filtre con gte y lt, busque un mes con like y ordene por fecha.",
+    "body": [
+      "Las columnas de fecha (`ordered`, `joined`) viajan como texto **`AAAA-MM-DD`**. Ese formato ordena bien tanto como fecha que como texto, así que `gte`, `lt` y `order` hacen lo esperado.",
+      "`ordered=gte.2024-05-01` devuelve los `5` pedidos desde mayo, en orden de fecha: del `2024-05-01` al `2024-06-05`.",
+      "Para un mes entero, `like.2024-04%`: todas las fechas que empiezan por `2024-04`. Salen `2` pedidos, el del `2024-04-02` y el cancelado del `2024-04-10`.",
+      "`joined=lt.2024-01-01` con `order` `joined.desc` lista los `4` clientes de 2023, del más reciente (`John Smith`, septiembre) al primero (`Ana García`, enero). Como cada columna va una sola vez en `where`, un rango «entre dos fechas» se resuelve de otra forma; lo verá en el nivel avanzado."
+    ],
+    "points": [
+      "Las fechas son texto `AAAA-MM-DD`.",
+      "`gte`, `lt` y `order` funcionan con fechas.",
+      "`like.2024-04%` es un mes entero.",
+      "`.desc` pone primero lo más reciente."
+    ],
+    "exercise": "Liste los pedidos de junio de 2024 (`like`) con `ordered`, `status` y `total`, del más reciente al más antiguo."
+  },
+  "en": {
+    "slug": "dates",
+    "title": "Working with dates",
+    "summary": "FalconDatabase dates travel as YYYY-MM-DD text: filter with gte and lt, find a month with like and sort by date.",
+    "body": [
+      "Date columns (`ordered`, `joined`) travel as **`YYYY-MM-DD`** text. That format sorts correctly both as a date and as text, so `gte`, `lt` and `order` do what you expect.",
+      "`ordered=gte.2024-05-01` returns the `5` orders since May, in date order: from `2024-05-01` to `2024-06-05`.",
+      "For a whole month, `like.2024-04%`: every date starting with `2024-04`. You get `2` orders, the one on `2024-04-02` and the cancelled one on `2024-04-10`.",
+      "`joined=lt.2024-01-01` with `order` `joined.desc` lists the `4` customers from 2023, newest first (`John Smith`, September) to the first one (`Ana García`, January). Since each column appears only once in `where`, a range between two dates needs another approach; you will see it in the advanced level."
+    ],
+    "points": [
+      "Dates are `YYYY-MM-DD` text.",
+      "`gte`, `lt` and `order` work with dates.",
+      "`like.2024-04%` is a whole month.",
+      "`.desc` puts the most recent first."
+    ],
+    "exercise": "List the orders from June 2024 (`like`) with `ordered`, `status` and `total`, newest first."
+  }
+}

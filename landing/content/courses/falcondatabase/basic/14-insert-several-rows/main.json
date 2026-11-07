@@ -1,0 +1,7 @@
+// A list: several rows in one request
+{"table": "customers", "insert": [
+  {"name": "Lucía Romero", "email": "lucia@example.com", "city": "Madrid", "joined": "2024-06-01"},
+  {"name": "Tom Wilson", "email": "tom@example.com", "city": "London", "joined": "2024-06-03"},
+  {"name": "Irene Vega", "city": "Valencia", "joined": "2024-06-10"}
+]}
+{"table": "customers", "select": "name,email,city,joined", "where": {"joined": "gte.2024-05-01"}, "order": "joined"}

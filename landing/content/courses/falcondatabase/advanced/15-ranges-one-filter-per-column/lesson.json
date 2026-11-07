@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "rangos-un-filtro-por-columna",
+    "title": "Rangos con un filtro por columna",
+    "summary": "En FalconDatabase cada columna lleva un filtro en where: cómo pedir un mes, un periodo o un rango de fechas con like, gte, orden y límite.",
+    "body": [
+      "`where` es un objeto JSON y cada clave sale una vez: `{\"ordered\": \"gte.2024-03-10\", \"ordered\": \"lt.2024-05-01\"}` no es un rango, la segunda clave sustituye a la primera. El `list()` de Flutter recibe también un `Map`, con el mismo límite. Hay varias salidas.",
+      "**Un mes o un año: `like`.** Las fechas son texto `AAAA-MM-DD`, así que `like.2024-05%` es mayo entero: `3` pedidos, del día `1` al `20`.",
+      "**Desde una fecha, ordenado y con límite.** `ordered=gte.2024-03-10` ordenado por fecha devuelve los pedidos en orden; la app se queda con los que caen dentro del rango y deja de pedir páginas en cuanto aparece uno de después. Aquí, de los `4` primeros de un total de `8`, los `3` hasta abril están en el periodo «del 10 de marzo a fin de abril».",
+      "**Un extremo en la fecha y otro filtro en otra columna.** `ordered=lt.2024-05-01` junto a `total=gt.12` sí se combinan, porque son columnas distintas: `3` pedidos anteriores a mayo de más de 12 euros. Si un rango se usa a menudo, guarde una columna que lo resuelva (por ejemplo, el mes como texto)."
+    ],
+    "points": [
+      "Una clave por columna en `where`: la segunda sustituye a la primera.",
+      "Un mes o un año se piden con `like`.",
+      "Un rango: `gte`, `order` y la app corta al final.",
+      "Columnas distintas sí se combinan.",
+      "Para rangos frecuentes, una columna que los resuelva."
+    ],
+    "exercise": "Pida los clientes que llegaron entre el `2023-06-01` y el `2024-02-28`: un `gte` ordenado por `joined` y cuente en el resultado los que entran."
+  },
+  "en": {
+    "slug": "ranges-one-filter-per-column",
+    "title": "Ranges with one filter per column",
+    "summary": "In FalconDatabase each column takes one filter in where: how to ask for a month, a period or a date range with like, gte, order and limit.",
+    "body": [
+      "`where` is a JSON object and each key appears once: `{\"ordered\": \"gte.2024-03-10\", \"ordered\": \"lt.2024-05-01\"}` is not a range, the second key replaces the first. Flutter's `list()` also takes a `Map`, with the same limit. There are several ways round it.",
+      "**A month or a year: `like`.** Dates are `YYYY-MM-DD` text, so `like.2024-05%` is all of May: `3` orders, from the 1st to the 20th.",
+      "**From a date, sorted and limited.** `ordered=gte.2024-03-10` sorted by date returns the orders in order; the app keeps the ones inside the range and stops asking for pages as soon as one past the end appears. Here, of the first `4` out of `8`, the `3` up to April fall in the period from 10 March to the end of April.",
+      "**One end on the date and another filter on another column.** `ordered=lt.2024-05-01` together with `total=gt.12` do combine, because they are different columns: `3` orders before May worth more than 12 euros. If a range is used often, store a column that answers it (the month as text, for example)."
+    ],
+    "points": [
+      "One key per column in `where`: the second replaces the first.",
+      "Ask for a month or a year with `like`.",
+      "A range: `gte`, `order`, and the app stops at the end.",
+      "Different columns do combine.",
+      "For frequent ranges, a column that answers them."
+    ],
+    "exercise": "Ask for the customers who joined between `2023-06-01` and `2024-02-28`: a `gte` sorted by `joined`, then count the ones that fit in the result."
+  }
+}

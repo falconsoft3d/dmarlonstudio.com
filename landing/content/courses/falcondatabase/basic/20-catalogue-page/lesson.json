@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "pagina-de-catalogo",
+    "title": "Una página de catálogo",
+    "summary": "Proyecto final: los datos de la página de catálogo de una tienda con FalconDatabase: menú, escaparate filtrado, ordenado y por páginas.",
+    "body": [
+      "Para terminar, las consultas que necesita la página de catálogo de la tienda. La primera llena el menú: las `4` categorías por nombre.",
+      "La segunda es el escaparate: solo lo que se puede vender (`active=is.true` y `stock=gt.0`), del más barato al más caro, de `6` en `6`. Son `10` productos en total; la primera página va de `Whole milk` (`1.1`) a `Rye bread` (`2.8`), con sus etiquetas para pintar las insignias.",
+      "La tercera es la página 2 (`offset` `6`): los `4` que faltan, hasta `Espresso beans`. Con el total, `10`, la app sabe que no hay página 3. El `order` lleva `price,name` para que dos productos con el mismo precio no bailen entre páginas.",
+      "Todo lo del curso está aquí: `select` con lo justo, filtros que se suman, `order`, `limit` y `offset`, y el total que da la API. Filtrar por una categoría del menú es añadir `category_id`; buscar, un `ilike` en `name`."
+    ],
+    "points": [
+      "Una pantalla son pocas consultas, cada una con lo justo.",
+      "Filtros, orden y página van en la misma petición.",
+      "El total de la API dice cuántas páginas hay.",
+      "Un desempate en `order` hace estables las páginas."
+    ],
+    "exercise": "Añada a la consulta del escaparate una búsqueda: los productos cuyo nombre contiene `e` (`ilike`), de la categoría `3`, en páginas de `2`."
+  },
+  "en": {
+    "slug": "catalogue-page",
+    "title": "A catalogue page",
+    "summary": "Final project: the data for a shop's catalogue page with FalconDatabase: menu, filtered shop window, sorted and paginated.",
+    "body": [
+      "To finish, the queries the shop's catalogue page needs. The first fills the menu: the `4` categories by name.",
+      "The second is the shop window: only what can be sold (`active=is.true` and `stock=gt.0`), cheapest first, `6` at a time. There are `10` products in total; the first page runs from `Whole milk` (`1.1`) to `Rye bread` (`2.8`), with their tags to draw the badges.",
+      "The third is page 2 (`offset` `6`): the remaining `4`, up to `Espresso beans`. With the total, `10`, the app knows there is no page 3. The `order` is `price,name` so two products with the same price cannot jump between pages.",
+      "Everything in the course is here: `select` with just what is needed, filters that add up, `order`, `limit` and `offset`, and the total the API gives. Filtering by a menu category means adding `category_id`; searching, an `ilike` on `name`."
+    ],
+    "points": [
+      "A screen is a few queries, each with just what it needs.",
+      "Filters, order and page travel in the same request.",
+      "The API's total tells you how many pages there are.",
+      "A tie-breaker in `order` keeps pages stable."
+    ],
+    "exercise": "Add a search to the shop-window query: products whose name contains `e` (`ilike`), in category `3`, in pages of `2`."
+  }
+}

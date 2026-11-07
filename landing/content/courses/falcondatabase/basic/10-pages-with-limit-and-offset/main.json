@@ -1,0 +1,7 @@
+// Four products per page, always in the same order
+// Page 1
+{"table": "products", "select": "name,price", "order": "name", "limit": 4}
+// Page 2: skip the first 4
+{"table": "products", "select": "name,price", "order": "name", "limit": 4, "offset": 4}
+// Page 3: skip 8
+{"table": "products", "select": "name,price", "order": "name", "limit": 4, "offset": 8}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "flutter-leer-con-list",
+    "title": "Flutter: leer con list()",
+    "summary": "El lib/db.dart que genera DMarlon Studio para Flutter lee FalconDatabase con db.table().list(): where, order, limit y offset, como en el script.",
+    "body": [
+      "Cuando una app de Flutter usa FalconDatabase, DMarlon Studio genera **`lib/db.dart`**: un cliente de la API REST con el paquete `http`, la URL, la referencia del proyecto y la clave anon. Se usa a través de `db`, que el archivo ya crea.",
+      "Leer es **`db.table('products').list(...)`**, con los mismos nombres que el script: `where` es un `Map` columna → valor u `operador.valor`, `order` un texto y `limit` y `offset` números. La primera consulta es `await db.table('products').list(where: {'category_id': 2}, order: 'price.desc')`: las `3` bebidas, de `Espresso beans` a `Orange juice`.",
+      "La segunda es la página 2 de una búsqueda: `list(where: {'name': 'ilike.%e%', 'active': 'is.true'}, order: 'name', limit: 4, offset: 4)`. Hay `10` coincidencias; esta página va de `Green tea` a `Rye bread`.",
+      "Dos diferencias con el estudio: `list()` no tiene `select` (llegan todas las columnas; el script lo añade solo para que la rejilla sea legible) y devuelve `List<Map<String, dynamic>>`, solo las filas. Cada fila se lee como un mapa: `row['name']`, `row['price']`. Para el total, `db.send`, como vio al contar."
+    ],
+    "points": [
+      "El estudio genera `lib/db.dart` con la conexión ya puesta.",
+      "`db.table('t').list(where:, order:, limit:, offset:)`.",
+      "Los valores de `where` llevan los mismos operadores: `'gte.10'`.",
+      "Devuelve una lista de mapas; sin `select` ni total.",
+      "Cada consulta del estudio es una llamada de Flutter."
+    ],
+    "exercise": "Escriba la llamada `list()` para los pedidos pagados del cliente `5`, del más reciente al más antiguo, y compruébela como consulta en el estudio."
+  },
+  "en": {
+    "slug": "flutter-reading-with-list",
+    "title": "Flutter: reading with list()",
+    "summary": "The lib/db.dart DMarlon Studio generates for Flutter reads FalconDatabase with db.table().list(): where, order, limit and offset, as in the script.",
+    "body": [
+      "When a Flutter app uses FalconDatabase, DMarlon Studio generates **`lib/db.dart`**: a REST API client built on the `http` package, with the URL, the project reference and the anon key. You use it through `db`, which the file already creates.",
+      "Reading is **`db.table('products').list(...)`**, with the same names as the script: `where` is a `Map` of column → value or `operator.value`, `order` is a string, and `limit` and `offset` are numbers. The first query is `await db.table('products').list(where: {'category_id': 2}, order: 'price.desc')`: the `3` drinks, from `Espresso beans` to `Orange juice`.",
+      "The second is page 2 of a search: `list(where: {'name': 'ilike.%e%', 'active': 'is.true'}, order: 'name', limit: 4, offset: 4)`. There are `10` matches; this page runs from `Green tea` to `Rye bread`.",
+      "Two differences from the studio: `list()` has no `select` (every column arrives; the script adds it only to keep the grid readable), and it returns `List<Map<String, dynamic>>`, just the rows. You read each row as a map: `row['name']`, `row['price']`. For the total, `db.send`, as you saw when counting."
+    ],
+    "points": [
+      "The studio generates `lib/db.dart` with the connection set up.",
+      "`db.table('t').list(where:, order:, limit:, offset:)`.",
+      "`where` values use the same operators: `'gte.10'`.",
+      "It returns a list of maps; no `select` and no total.",
+      "Each studio query is one Flutter call."
+    ],
+    "exercise": "Write the `list()` call for customer `5`'s paid orders, newest first, and check it as a query in the studio."
+  }
+}

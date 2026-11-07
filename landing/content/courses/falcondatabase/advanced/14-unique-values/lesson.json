@@ -1,0 +1,41 @@
+{
+  "error": true,
+  "es": {
+    "slug": "valores-unicos",
+    "title": "Valores únicos",
+    "summary": "Una columna unique en FalconDatabase no admite repetidos: el segundo cliente con el mismo email recibe un HTTP 400 de clave duplicada.",
+    "body": [
+      "`customers.email` es **única**: no puede haber dos clientes con el mismo correo. La regla está en la base de datos, así que vale para todas las apps y usuarios a la vez, sin que ninguno tenga que comprobarlo antes.",
+      "`Nora Gil` entra con `nora@example.com`, y la lista de Bilbao enseña los `2` clientes de allí: `Carlos Díaz` y ella. Sin `joined`, esa columna queda en `NULL`.",
+      "El segundo `insert` repite el correo y el servidor lo rechaza: `HTTP 400: duplicate key value violates unique constraint \"customers_email_key\"`. El nombre de la restricción dice qué columna ha chocado.",
+      "Comprobar antes con una lista no basta: entre la comprobación y el `insert` otro usuario podría registrar el mismo correo. Lo seguro es intentar el `insert` y tratar el error: en Flutter, capturar el `DbError` y decir «ese correo ya está registrado». En una inserción en bloque, un solo repetido hace fallar todas las filas."
+    ],
+    "points": [
+      "Una columna `unique` no admite valores repetidos.",
+      "Un repetido da `HTTP 400` con el nombre de la restricción.",
+      "La regla vale para todos los clientes de la API a la vez.",
+      "Inserte y trate el error, en vez de comprobar antes.",
+      "En bloque, un repetido hace fallar todo el lote."
+    ],
+    "exercise": "`categories.name` también es única. Inserte la categoría `Bakery` otra vez y lea el nombre de la restricción en el error."
+  },
+  "en": {
+    "slug": "unique-values",
+    "title": "Unique values",
+    "summary": "A unique column in FalconDatabase allows no repeats: the second customer with the same email gets an HTTP 400 duplicate key error.",
+    "body": [
+      "`customers.email` is **unique**: no two customers can share an email. The rule lives in the database, so it holds for every app and user at once, without any of them having to check first.",
+      "`Nora Gil` goes in with `nora@example.com`, and the Bilbao list shows the `2` customers there: `Carlos Díaz` and her. Without `joined`, that column stays `NULL`.",
+      "The second `insert` repeats the email and the server rejects it: `HTTP 400: duplicate key value violates unique constraint \"customers_email_key\"`. The constraint's name tells you which column clashed.",
+      "Checking first with a list is not enough: between the check and the `insert` another user could register the same email. The safe way is to try the `insert` and handle the error: in Flutter, catch the `DbError` and say that email is already registered. In a bulk insert, a single repeat makes every row fail."
+    ],
+    "points": [
+      "A `unique` column allows no repeated values.",
+      "A repeat gives `HTTP 400` with the constraint's name.",
+      "The rule holds for every API client at once.",
+      "Insert and handle the error rather than checking first.",
+      "In bulk, one repeat fails the whole batch."
+    ],
+    "exercise": "`categories.name` is unique too. Insert the `Bakery` category again and read the constraint's name in the error."
+  }
+}

@@ -1,0 +1,5 @@
+// Change one customer: the unique email picks the row
+{"table": "customers", "update": {"where": {"email": "luis@example.com"}, "set": {"city": "Malaga"}}}
+// Several columns at once
+{"table": "customers", "update": {"where": {"email": "john@example.com"}, "set": {"city": "Leeds", "email": "john.smith@example.com"}}}
+{"table": "customers", "select": "name,email,city", "where": {"name": "in.(Luis Pérez,John Smith)"}, "order": "name"}

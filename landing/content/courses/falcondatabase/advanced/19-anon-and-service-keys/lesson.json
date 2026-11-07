@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "clave-anon-y-clave-de-servicio",
+    "title": "Clave anon y clave de servicio",
+    "summary": "Seguridad en FalconDatabase: la clave anon va en la app y obedece las reglas; la de servicio se las salta y solo va en un servidor.",
+    "body": [
+      "Un proyecto tiene dos claves. La **anon** va en la app (es la que escribe DMarlon Studio en `lib/db.dart`) y está sujeta a las reglas de cada tabla. La **de servicio** se salta todas las reglas: es para un servidor propio, nunca para una app ni para una web, porque cualquiera puede extraerla.",
+      "Las reglas se aplican a tablas enteras. `employees` es `public_read`, así que cualquiera con la clave anon (es decir, cualquiera) lee los `6` empleados con su puesto. Hasta ahí, quizá bien: es el equipo de la tienda.",
+      "Pero la tabla también tiene `salary`, y la segunda consulta lo lee sin problema: los `2` sueldos de 3000 o más, `5200` y `3400`. Con la API no hay columnas ocultas: lo que está en una tabla legible se puede leer entero, con `select` o sin él.",
+      "La solución es separar: los datos públicos en una tabla `public_read` y los sensibles en otra `private` (solo la clave de servicio) o `owner`. Y lo que valida dinero, permisos o stock, en un servidor propio con la clave de servicio; la app solo le pide que lo haga."
+    ],
+    "points": [
+      "Anon: en la app, sujeta a las reglas.",
+      "Servicio: se salta las reglas; solo en un servidor.",
+      "Las reglas son por tabla, no por columna.",
+      "Lo sensible, en una tabla `private` u `owner`.",
+      "Las operaciones críticas, en un servidor con la clave de servicio."
+    ],
+    "exercise": "Diseñe el reparto: qué columnas de `employees` dejaría en una tabla pública y cuáles movería a una `employee_pay` privada, y qué consulta leería la app."
+  },
+  "en": {
+    "slug": "anon-and-service-keys",
+    "title": "Anon key and service key",
+    "summary": "Security in FalconDatabase: the anon key ships in the app and obeys the rules; the service key bypasses them and belongs only on a server.",
+    "body": [
+      "A project has two keys. The **anon** key ships in the app (it is the one DMarlon Studio writes into `lib/db.dart`) and is bound by each table's rules. The **service** key bypasses every rule: it is for your own server, never for an app or a website, because anyone can extract it.",
+      "Rules apply to whole tables. `employees` is `public_read`, so anyone with the anon key (that is, anyone) reads the `6` employees and their jobs. So far, perhaps fine: it is the shop's team.",
+      "But the table also has `salary`, and the second query reads it with no trouble: the `2` salaries of 3000 or more, `5200` and `3400`. The API has no hidden columns: whatever is in a readable table can be read in full, with `select` or without it.",
+      "The fix is to split: public data in a `public_read` table and sensitive data in a `private` one (service key only) or an `owner` one. And anything that checks money, permissions or stock belongs on your own server with the service key; the app just asks it to do so."
+    ],
+    "points": [
+      "Anon: in the app, bound by the rules.",
+      "Service: bypasses the rules; only on a server.",
+      "Rules are per table, not per column.",
+      "Sensitive data goes in a `private` or `owner` table.",
+      "Critical operations run on a server with the service key."
+    ],
+    "exercise": "Plan the split: which `employees` columns would you keep in a public table and which would you move to a private `employee_pay`, and which query would the app run?"
+  }
+}

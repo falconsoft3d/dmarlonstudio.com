@@ -1,0 +1,9 @@
+// final row = await db.table('categories').insert({'name': 'Frozen'});
+{"table": "categories", "insert": {"name": "Frozen"}}
+// await db.table('categories').update(row['id'], {'name': 'Frozen food'});
+{"table": "categories", "update": {"where": {"name": "Frozen"}, "set": {"name": "Frozen food"}}}
+// await db.table('categories').list(order: 'name')
+{"table": "categories", "select": "name", "order": "name"}
+// await db.table('categories').delete(row['id']);
+{"table": "categories", "delete": {"where": {"name": "Frozen food"}}}
+{"table": "categories", "select": "name", "order": "name"}

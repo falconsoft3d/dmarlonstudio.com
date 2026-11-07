@@ -31,6 +31,11 @@ Future<void> main(List<String> args) async {
             (j['conn'] as Map).cast<String, Object?>(),
             '${j['script']}',
             j['seed'] as String?,
+            admin: (j['admin'] as Map?)?.cast<String, Object?>(),
+            others: [
+              for (final o in (j['others'] as List? ?? const []))
+                (o as Map).cast<String, Object?>(),
+            ],
           ),
         ),
       );
@@ -55,18 +60,34 @@ Future<void> main(List<String> args) async {
 
 /// Una lección: {results, schema, error?} o {fatal} si no se pudo ni
 /// empezar (sin conexión, datos que fallan…).
+///
+/// FalconDatabase no deja elegir el id al insertar ni reinicia el contador al
+/// vaciar una tabla: en vez de vaciar y cargar, se **restaura** (cada fila de
+/// los datos vuelve a sus valores, sobra lo que no es de los datos) con
+/// [admin] (el usuario del curso), y las tablas que no son de los datos
+/// (las «owner», como notes) se vacían con cada usuario de [others]. Así los
+/// id de la tienda siguen siendo 1, 2, 3…
 Future<Map<String, Object?>> _job(
   String kind,
   Map<String, Object?> conn,
   String script,
-  String? seed,
-) async {
+  String? seed, {
+  Map<String, Object?>? admin,
+  List<Map<String, Object?>> others = const [],
+}) async {
   final out = <String, Object?>{};
   DevDb? db;
   try {
-    await _reset(kind, conn);
+    if (kind == 'falcon') {
+      await _falconRestore(admin ?? conn, seed ?? '', [
+        admin ?? conn,
+        ...others,
+      ]);
+    } else {
+      await _reset(kind, conn);
+    }
     db = await openDevDb(kind, conn);
-    if (seed != null) {
+    if (seed != null && kind != 'falcon') {
       try {
         await runScript(db, splitScript(kind, seed));
       } on ScriptError catch (e) {
@@ -113,8 +134,15 @@ var _en = <String, String>{};
 /// estudio: «3 filas afectadas» → «3 rows affected».
 String _english(String es) {
   if (_en[es] != null) return _en[es]!;
-  for (final MapEntry(key: k, value: v) in _en.entries) {
-    if (!k.contains('{0}')) continue;
+  // La plantilla con más texto fijo primero: «Índice creado: {0}» antes
+  // que «{0}: {1}».
+  final templates = _en.entries.where((e) => e.key.contains('{0}')).toList()
+    ..sort(
+      (a, b) =>
+          b.key.replaceAll(RegExp(r'\{\d+\}'), '').length -
+          a.key.replaceAll(RegExp(r'\{\d+\}'), '').length,
+    );
+  for (final MapEntry(key: k, value: v) in templates) {
     final names = <String>[];
     final pattern = k.splitMapJoin(
       RegExp(r'\{(\d+)\}'),
@@ -178,11 +206,54 @@ Future<void> _reset(String kind, Map<String, Object?> c) async {
         ),
       );
       if (r.statusCode >= 400) throw UserError('emulador: ${r.body}');
-    case 'falcon':
-      // Las tablas las crea el proyecto del curso; aquí se vacían.
-      final db = await openDevDb(kind, c);
-      try {
-        for (final t in await db.schema()) {
+  }
+}
+
+/// FalconDatabase: deja las tablas como dicen los datos ([seed]: un insert
+/// por tabla, con su id) sin borrar sus filas, y vacía las demás tablas con
+/// cada conexión de [cleaners] (cada usuario solo ve las suyas).
+Future<void> _falconRestore(
+  Map<String, Object?> admin,
+  String seed,
+  List<Map<String, Object?>> cleaners,
+) async {
+  final want = <String, List<Map<String, Object?>>>{};
+  for (final q in splitScript('falcon', seed)) {
+    final j = jsonDecode(q) as Map;
+    want[j['table'] as String] = [
+      for (final r in j['insert'] as List) (r as Map).cast<String, Object?>(),
+    ];
+  }
+  String norm(Object? v) {
+    if (v is String) {
+      final n = num.tryParse(v);
+      if (n != null) return n.toDouble().toString();
+      final t = v.trim();
+      if (t.startsWith('[') || t.startsWith('{')) {
+        try {
+          return jsonEncode(jsonDecode(t));
+        } on FormatException {
+          return v;
+        }
+      }
+      // Fechas: «2024-03-01» y «2024-03-01T00:00:00…» son la misma.
+      final d = RegExp(
+        r'^(\d{4}-\d{2}-\d{2})T00:00:00(\.0+)?Z?$',
+      ).firstMatch(t);
+      return d?[1] ?? v;
+    }
+    if (v is num) return v.toDouble().toString();
+    if (v is List || v is Map) return jsonEncode(v);
+    return '$v';
+  }
+
+  for (final (i, c) in cleaners.indexed) {
+    final db = await openDevDb('falcon', c);
+    try {
+      for (final t in await db.schema()) {
+        final rows = want[t.name];
+        if (rows == null) {
+          // No es de los datos (notes): fuera todo lo de este usuario.
           await db.run(
             jsonEncode({
               'table': t.name,
@@ -191,9 +262,44 @@ Future<void> _reset(String kind, Map<String, Object?> c) async {
               },
             }),
           );
+          continue;
         }
-      } finally {
-        await db.close();
+        if (i > 0) continue; // Las de los datos, solo con el del curso.
+        final r = await db.run(jsonEncode({'table': t.name, 'limit': 1000}));
+        final have = <Object?, Map<String, Object?>>{
+          for (final row in r.rows)
+            row[r.columns.indexOf('id')]: {
+              for (final (k, col) in r.columns.indexed) col: row[k],
+            },
+        };
+        final ids = {for (final w in rows) w['id']};
+        for (final id in have.keys) {
+          if (!ids.contains(id)) {
+            await db.run(jsonEncode({'table': t.name, 'delete': id}));
+          }
+        }
+        for (final w in rows) {
+          final h = have[w['id']];
+          final set = {
+            for (final e in w.entries)
+              if (e.key != 'id') e.key: e.value,
+          };
+          if (h == null) {
+            // Borrada por una lección: vuelve con otro id (solo pasa en
+            // tablas de las que no depende nada, como reviews).
+            await db.run(jsonEncode({'table': t.name, 'insert': set}));
+          } else if (set.entries.any((e) => norm(h[e.key]) != norm(e.value))) {
+            await db.run(
+              jsonEncode({
+                'table': t.name,
+                'update': {'id': w['id'], 'set': set},
+              }),
+            );
+          }
+        }
       }
+    } finally {
+      await db.close();
+    }
   }
 }

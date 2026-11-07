@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "patrones-de-paginacion",
+    "title": "Paginación sin sorpresas",
+    "summary": "Pagine de verdad con FalconDatabase: orden estable con desempate, la fórmula del offset, la última página y qué pasa al salirse del final.",
+    "body": [
+      "Una lista paginada necesita un **orden estable**: si dos filas empatan en la columna de orden, el servidor puede darlas en cualquier orden y una fila saltaría de página. Por eso aquí el orden es `price,name`: el nombre desempata.",
+      "Con páginas de `5`, la página 1 va de `Whole milk` (`1.1`) a `Apples 1 kg` y la 2, con `offset` `5`, de `Greek yogurt` a `Green tea`. La fórmula es siempre `offset = (página - 1) × tamaño`.",
+      "El total, `12`, dice cuántas páginas hay: `12 / 5` redondeado hacia arriba, `3`. La última (`offset` `10`) trae solo `2` filas, `Manchego cheese` y `Espresso beans`; que lleguen menos que el tamaño también avisa de que se acabó.",
+      "Si se pide más allá del final (`offset` `15`), no hay error: `0` filas y el mismo total. En Flutter cada página es `db.table('products').list(order: 'price,name', limit: 5, offset: (page - 1) * 5)`; para un scroll infinito, la app pide la siguiente hasta que llega una página corta."
+    ],
+    "points": [
+      "Añada siempre un desempate al `order`.",
+      "`offset = (página - 1) × tamaño`.",
+      "Páginas = total / tamaño, redondeado hacia arriba.",
+      "Pasado el final: `0` filas, sin error.",
+      "Una página corta es la última."
+    ],
+    "exercise": "Pagine las reseñas de `3` en `3` por `rating.desc` con un desempate. ¿Cuántas páginas salen y cuántas filas tiene la última?"
+  },
+  "en": {
+    "slug": "pagination-patterns",
+    "title": "Paging without surprises",
+    "summary": "Real pagination with FalconDatabase: a stable order with a tie-breaker, the offset formula, the last page and what happens past the end.",
+    "body": [
+      "A paged list needs a **stable order**: if two rows tie on the sort column, the server may return them either way round and a row could jump between pages. That is why the order here is `price,name`: the name breaks ties.",
+      "With pages of `5`, page 1 runs from `Whole milk` (`1.1`) to `Apples 1 kg` and page 2, with `offset` `5`, from `Greek yogurt` to `Green tea`. The formula is always `offset = (page - 1) × size`.",
+      "The total, `12`, tells you how many pages there are: `12 / 5` rounded up, `3`. The last one (`offset` `10`) brings only `2` rows, `Manchego cheese` and `Espresso beans`; getting fewer rows than the page size also tells you it is the end.",
+      "Asking past the end (`offset` `15`) is not an error: `0` rows and the same total. In Flutter each page is `db.table('products').list(order: 'price,name', limit: 5, offset: (page - 1) * 5)`; for infinite scroll, the app keeps asking for the next page until a short one arrives."
+    ],
+    "points": [
+      "Always add a tie-breaker to `order`.",
+      "`offset = (page - 1) × size`.",
+      "Pages = total / size, rounded up.",
+      "Past the end: `0` rows, no error.",
+      "A short page is the last one."
+    ],
+    "exercise": "Page through the reviews `3` at a time by `rating.desc` with a tie-breaker. How many pages are there, and how many rows does the last one have?"
+  }
+}

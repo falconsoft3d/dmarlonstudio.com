@@ -1,0 +1,6 @@
+// gt: more than 5 euros, dearest first
+{"table": "products", "select": "name,price", "where": {"price": "gt.5"}, "order": "price.desc"}
+// lte: 15 units or fewer left
+{"table": "products", "select": "name,stock", "where": {"stock": "lte.15"}, "order": "stock,name"}
+// gte on a date: customers who joined in 2024 or later
+{"table": "customers", "select": "name,joined", "where": {"joined": "gte.2024-01-01"}, "order": "joined"}

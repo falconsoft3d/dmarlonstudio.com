@@ -1,0 +1,5 @@
+// Each query is one HTTP request to /api/v1/<ref>/tables/<table>
+// GET …/tables/products?price=gte.2&active=is.true&order=price.desc&limit=5&select=name,price,stock
+{"table": "products", "select": "name,price,stock", "where": {"price": "gte.2", "active": "is.true"}, "order": "price.desc", "limit": 5}
+// GET …/tables/orders?status=eq.paid&order=ordered&select=ordered,total&limit=100
+{"table": "orders", "select": "ordered,total", "where": {"status": "paid"}, "order": "ordered"}

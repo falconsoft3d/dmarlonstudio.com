@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "modificar-muchas-filas",
+    "title": "Modificar muchas filas",
+    "summary": "Un update con where en FalconDatabase cambia todas las filas que cumplen el filtro: desactivar lo agotado y marcar pedidos como pagados.",
+    "body": [
+      "Con `where`, un `update` cambia **todas** las filas que cumplen el filtro. `{\"where\": {\"stock\": 0}, \"set\": {\"active\": false}}` desactiva los productos agotados: `2 filas afectadas` (`Orange juice` y `Bananas 1 kg`, que ya lo estaba).",
+      "Por dentro no es una sola petición: el estudio pide los id que cumplen el filtro y envía un `PATCH` por fila. Para dos filas da igual; para miles, piense si de verdad quiere hacerlo desde la app.",
+      "El segundo `update` pasa los pedidos nuevos a pagados: otros `2`. La última consulta lista los pagados, que ahora son `5`.",
+      "`set` pone un valor fijo: la API no calcula (`price * 1.1` no existe). Para subir cada precio un 10 % hay que leer los precios, calcularlos en la app y enviar un `PATCH` por producto."
+    ],
+    "points": [
+      "`update` con `where` cambia todas las filas del filtro.",
+      "El estudio busca los id y envía un `PATCH` por fila.",
+      "`set` pone valores fijos: nada de expresiones.",
+      "Antes de un cambio masivo, pruebe el mismo `where` en una lista."
+    ],
+    "exercise": "Marque como inactivos los productos de la categoría `4` con menos de `20` unidades y liste los de esa categoría con `name`, `stock` y `active`."
+  },
+  "en": {
+    "slug": "update-many-rows",
+    "title": "Updating many rows",
+    "summary": "An update with where in FalconDatabase changes every row that matches: switch off sold-out products and mark orders as paid.",
+    "body": [
+      "With `where`, an `update` changes **every** row that matches. `{\"where\": {\"stock\": 0}, \"set\": {\"active\": false}}` switches off the sold-out products: `2 rows affected` (`Orange juice` and `Bananas 1 kg`, which already was).",
+      "Underneath it is not one request: the studio asks for the matching ids and sends one `PATCH` per row. For two rows it does not matter; for thousands, think twice before doing it from the app.",
+      "The second `update` turns new orders into paid ones: another `2`. The last query lists the paid orders, now `5`.",
+      "`set` stores a fixed value: the API does no maths (`price * 1.1` does not exist). To raise every price by 10 % you read the prices, work them out in the app and send one `PATCH` per product."
+    ],
+    "points": [
+      "`update` with `where` changes every matching row.",
+      "The studio finds the ids and sends one `PATCH` per row.",
+      "`set` stores fixed values: no expressions.",
+      "Before a mass change, try the same `where` in a list."
+    ],
+    "exercise": "Mark as inactive the category `4` products with fewer than `20` units, then list that category with `name`, `stock` and `active`."
+  }
+}

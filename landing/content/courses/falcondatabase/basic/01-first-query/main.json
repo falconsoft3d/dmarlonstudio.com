@@ -1,0 +1,4 @@
+// The four categories of the shop
+{"table": "categories", "select": "name", "order": "name"}
+// Every product: one GET request per query
+{"table": "products", "select": "name,price,stock", "order": "name"}

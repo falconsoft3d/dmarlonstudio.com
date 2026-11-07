@@ -1,0 +1,4 @@
+// No joins: first the lines of order 1…
+{"table": "order_items", "select": "product_id,qty,price", "where": {"order_id": 1}, "order": "product_id"}
+// …then the reviews of those products, with the ids from the first answer
+{"table": "reviews", "select": "product_id,rating,comment", "where": {"product_id": "in.(1,7,9)"}, "order": "product_id,rating.desc"}

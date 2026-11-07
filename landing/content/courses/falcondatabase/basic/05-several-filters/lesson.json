@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "varios-filtros",
+    "title": "Varios filtros a la vez",
+    "summary": "Combine filtros en FalconDatabase: cada columna de where es una condición más y la fila tiene que cumplirlas todas (AND).",
+    "body": [
+      "Un `where` puede tener varias columnas. La API las une con **Y** (AND): una fila sale solo si cumple todas. `{\"category_id\": 1, \"price\": \"lt.2\"}` es la petición `?category_id=eq.1&price=lt.2` y devuelve el pan de menos de 2 euros: `Baguette` y `Croissant`.",
+      "La segunda consulta pone tres condiciones: activo (`is.true`), con existencias (`stock=gt.0`) y por debajo de 3 euros. Salen `6` productos, de `Whole milk` (`1.1`) a `Rye bread` (`2.8`). `Bananas 1 kg` cuesta `1.6`, pero no aparece: no tiene stock y además está inactivo.",
+      "Fíjese en el número `1` sin comillas: el estudio lo convierte en `eq.1`. Puede escribir los valores como números o como texto, la URL es la misma.",
+      "Dos límites: en estas consultas no hay **O** (OR) entre columnas distintas (eso son dos consultas, o una con `in` si es la misma columna) y cada columna aparece **una sola vez**, porque `where` es un objeto JSON: un segundo `\"price\"` sustituiría al primero."
+    ],
+    "points": [
+      "Varias columnas en `where` se unen con Y (AND).",
+      "Cada una es un parámetro más de la URL, separado por `&`.",
+      "Los números pueden ir sin comillas: se convierten en `eq.`.",
+      "No hay OR entre columnas: use dos consultas.",
+      "Cada columna, una vez por `where`."
+    ],
+    "exercise": "Busque los pedidos pagados (`status` `paid`) de más de `13` euros (`total`), con `ordered` y `total`, ordenados por fecha."
+  },
+  "en": {
+    "slug": "several-filters",
+    "title": "Several filters at once",
+    "summary": "Combine filters in FalconDatabase: each column in where is one more condition, and a row must meet all of them (AND).",
+    "body": [
+      "A `where` can hold several columns. The API joins them with **AND**: a row comes back only if it meets every one. `{\"category_id\": 1, \"price\": \"lt.2\"}` is the request `?category_id=eq.1&price=lt.2` and returns the bread under 2 euros: `Baguette` and `Croissant`.",
+      "The second query sets three conditions: active (`is.true`), in stock (`stock=gt.0`) and under 3 euros. You get `6` products, from `Whole milk` (`1.1`) to `Rye bread` (`2.8`). `Bananas 1 kg` costs `1.6` but is missing: it has no stock and is inactive as well.",
+      "Notice the number `1` without quotes: the studio turns it into `eq.1`. You can write values as numbers or as text; the URL is the same.",
+      "Two limits: these queries have no **OR** between different columns (that is two queries, or one with `in` if it is the same column), and each column appears **only once**, because `where` is a JSON object: a second `\"price\"` key would replace the first."
+    ],
+    "points": [
+      "Several columns in `where` are joined with AND.",
+      "Each one is another URL parameter, separated by `&`.",
+      "Numbers can go without quotes: they become `eq.`.",
+      "There is no OR between columns: use two queries.",
+      "Each column once per `where`."
+    ],
+    "exercise": "Find the paid orders (`status` `paid`) over `13` euros (`total`), with `ordered` and `total`, sorted by date."
+  }
+}

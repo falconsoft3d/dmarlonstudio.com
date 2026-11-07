@@ -1,0 +1,7 @@
+// is.null: the customer without an email
+{"table": "customers", "select": "name,email,city", "where": {"email": "is.null"}}
+// neq leaves out NULL: 6 reviews, not 7
+{"table": "reviews", "select": "rating,comment", "where": {"comment": "neq.Sweet"}, "order": "rating,comment"}
+// is.false / is.true on a boolean column
+{"table": "products", "select": "name,stock,active", "where": {"active": "is.false"}}
+{"table": "products", "select": "name,stock,active", "where": {"active": "is.true", "stock": 0}}

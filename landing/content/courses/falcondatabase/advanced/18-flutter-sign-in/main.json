@@ -1,0 +1,6 @@
+// await db.signIn('ana@…', password);   (the studio signs in as Ana)
+// await db.table('notes').insert({'title': 'Reorder jam'});
+{"table": "notes", "insert": {"title": "Reorder jam", "body": "Strawberry, 12 jars"}}
+{"table": "notes", "insert": {"title": "Holiday rota"}}
+// final notes = await db.table('notes').list(order: 'title');
+{"table": "notes", "select": "title,body,done", "order": "title"}

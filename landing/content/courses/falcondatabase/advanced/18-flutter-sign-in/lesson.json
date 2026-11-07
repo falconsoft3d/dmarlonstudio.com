@@ -1,0 +1,41 @@
+{
+  "as": "ana",
+  "es": {
+    "slug": "flutter-iniciar-sesion",
+    "title": "Flutter: iniciar sesión",
+    "summary": "Inicie sesión en FalconDatabase desde Flutter con db.signIn(): el token viaja en cada petición y las tablas owner devuelven solo lo del usuario.",
+    "body": [
+      "**`db.signIn(email, password)`** envía `POST /auth/login` y guarda en `db` el token y el usuario (`db.user`). Desde ahí, cada llamada lleva `Authorization: Bearer <token>`. El script se ejecuta con la sesión de Ana, igual que si la app hubiera hecho `await db.signIn('ana@dmarlonstudio.com', password);`.",
+      "Las dos inserciones son `await db.table('notes').insert({'title': 'Reorder jam', 'body': 'Strawberry, 12 jars'});` y otra con solo el título. No hay que pasar el usuario: el servidor pone `owner_id` con el del token.",
+      "La lista, `await db.table('notes').list(order: 'title')`, devuelve las `2` notas de Ana: `Holiday rota` (sin `body`, `NULL`) y `Reorder jam`. Otro usuario, con la misma línea de código, vería las suyas.",
+      "**`db.signUp(email, password)`** crea la cuenta y entra, si el proyecto permite el registro (el del curso no). **`db.signOut()`** borra el token: las siguientes peticiones vuelven a ser anónimas. Si la contraseña no es correcta, `signIn` lanza un `DbError` con el mensaje del servidor."
+    ],
+    "points": [
+      "`signIn` envía `POST /auth/login` y guarda el token.",
+      "Después, todas las llamadas llevan la sesión.",
+      "`db.user` es el usuario que ha entrado.",
+      "`signUp` crea la cuenta si el proyecto lo permite; `signOut` cierra.",
+      "Una contraseña incorrecta lanza `DbError`."
+    ],
+    "exercise": "Escriba en Dart la pantalla de notas: `signIn`, `list(where: {'done': 'is.false'}, order: 'title')` y, al tocar una, `update(id, {'done': true})`. Pruebe las consultas en el estudio."
+  },
+  "en": {
+    "slug": "flutter-sign-in",
+    "title": "Flutter: signing in",
+    "summary": "Sign in to FalconDatabase from Flutter with db.signIn(): the token travels with every request and owner tables return only the user's rows.",
+    "body": [
+      "**`db.signIn(email, password)`** sends `POST /auth/login` and keeps the token and the user (`db.user`) in `db`. From then on, every call carries `Authorization: Bearer <token>`. The script runs with Ana's session, just as if the app had done `await db.signIn('ana@dmarlonstudio.com', password);`.",
+      "The two inserts are `await db.table('notes').insert({'title': 'Reorder jam', 'body': 'Strawberry, 12 jars'});` and another with just the title. You do not pass the user: the server sets `owner_id` from the token.",
+      "The list, `await db.table('notes').list(order: 'title')`, returns Ana's `2` notes: `Holiday rota` (no `body`, `NULL`) and `Reorder jam`. Another user, with the same line of code, would see their own.",
+      "**`db.signUp(email, password)`** creates the account and signs in, if the project allows sign-up (the course one does not). **`db.signOut()`** drops the token: the next requests are anonymous again. If the password is wrong, `signIn` throws a `DbError` with the server's message."
+    ],
+    "points": [
+      "`signIn` sends `POST /auth/login` and keeps the token.",
+      "After that, every call carries the session.",
+      "`db.user` is the signed-in user.",
+      "`signUp` creates the account if allowed; `signOut` signs out.",
+      "A wrong password throws `DbError`."
+    ],
+    "exercise": "Write the notes screen in Dart: `signIn`, `list(where: {'done': 'is.false'}, order: 'title')` and, when one is tapped, `update(id, {'done': true})`. Try the queries in the studio."
+  }
+}

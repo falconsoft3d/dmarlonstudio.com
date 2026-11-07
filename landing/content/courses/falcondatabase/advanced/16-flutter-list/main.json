@@ -1,0 +1,4 @@
+// db.table('products').list(where: {'category_id': 2}, order: 'price.desc')
+{"table": "products", "where": {"category_id": 2}, "order": "price.desc", "select": "name,price,stock"}
+// db.table('products').list(where: {'name': 'ilike.%e%', 'active': 'is.true'}, order: 'name', limit: 4, offset: 4)
+{"table": "products", "where": {"name": "ilike.%e%", "active": "is.true"}, "order": "name", "limit": 4, "offset": 4, "select": "name,price"}

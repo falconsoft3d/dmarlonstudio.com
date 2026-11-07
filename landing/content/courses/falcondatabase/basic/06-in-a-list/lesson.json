@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "valores-en-una-lista",
+    "title": "Uno de varios valores: in",
+    "summary": "El operador in de FalconDatabase busca filas cuyo valor está en una lista: varias ciudades, varios estados o varias categorías en una petición.",
+    "body": [
+      "**`in.(…)`** es «cualquiera de estos valores». `{\"city\": \"in.(Madrid,London)\"}` devuelve los `4` clientes de Madrid o de Londres. Es el «O» que sí tiene la API: dentro de una misma columna.",
+      "Los valores van entre paréntesis, separados por comas y sin comillas, aunque sean textos. La petición queda `GET …/tables/customers?city=in.(Madrid,London)&order=city,name…`; el estudio codifica la URL por usted.",
+      "La segunda consulta junta los pedidos nuevos y los pagados: `status=in.(new,paid)` da `5` pedidos (`3` pagados y `2` nuevos), ordenados por fecha.",
+      "Con números es igual: `category_id=in.(2,4)` trae las bebidas y la fruta, `6` productos, ordenados primero por categoría y luego por nombre. Este operador será clave para unir tablas a mano: con los id que devuelve una consulta se piden las filas relacionadas en otra."
+    ],
+    "points": [
+      "`in.(a,b,c)`: el valor es uno de la lista.",
+      "Sin comillas dentro de los paréntesis, también para textos.",
+      "Es la forma de hacer un «O» en una misma columna.",
+      "Sirve para pedir varias filas por sus id de una vez."
+    ],
+    "exercise": "Liste los pedidos de los clientes `1` y `2` (`customer_id` con `in`), con `customer_id`, `ordered` y `total`, ordenados por fecha."
+  },
+  "en": {
+    "slug": "values-in-a-list",
+    "title": "One of several values: in",
+    "summary": "FalconDatabase's in operator finds rows whose value is in a list: several cities, statuses or categories in one request.",
+    "body": [
+      "**`in.(…)`** means any of these values. `{\"city\": \"in.(Madrid,London)\"}` returns the `4` customers from Madrid or London. It is the OR the API does have: within one column.",
+      "The values go in brackets, separated by commas and without quotes, even when they are text. The request becomes `GET …/tables/customers?city=in.(Madrid,London)&order=city,name…`; the studio encodes the URL for you.",
+      "The second query puts new and paid orders together: `status=in.(new,paid)` gives `5` orders (`3` paid and `2` new), sorted by date.",
+      "Numbers work the same way: `category_id=in.(2,4)` brings drinks and fruit, `6` products, sorted first by category and then by name. This operator is the key to joining tables by hand: with the ids one query returns, you ask for the related rows in another."
+    ],
+    "points": [
+      "`in.(a,b,c)`: the value is one of the list.",
+      "No quotes inside the brackets, text included.",
+      "It is how you write an OR on a single column.",
+      "It fetches several rows by their ids in one go."
+    ],
+    "exercise": "List the orders of customers `1` and `2` (`customer_id` with `in`), with `customer_id`, `ordered` and `total`, sorted by date."
+  }
+}

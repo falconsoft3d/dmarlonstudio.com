@@ -1,0 +1,10 @@
+// A to-do list per user: list, add, tick and clear
+{"table": "notes", "insert": [
+  {"title": "Bake 40 baguettes"},
+  {"title": "Clean the oven"},
+  {"title": "Write the menu"}
+]}
+// Tick one off
+{"table": "notes", "update": {"where": {"title": "Clean the oven"}, "set": {"done": true}}}
+// The screen: pending first, then the done ones
+{"table": "notes", "select": "title,done", "order": "done,title"}

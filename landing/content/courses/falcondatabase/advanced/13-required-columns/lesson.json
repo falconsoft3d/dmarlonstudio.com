@@ -1,0 +1,41 @@
+{
+  "error": true,
+  "es": {
+    "slug": "columnas-obligatorias",
+    "title": "Columnas obligatorias",
+    "summary": "Qué responde FalconDatabase cuando falta una columna obligatoria: un HTTP 400 con el mensaje de PostgreSQL, y cómo enseñarlo en la app.",
+    "body": [
+      "Cada columna de una tabla es obligatoria (`not null`) o no, y puede tener un valor por defecto. En `products`, `name` y `price` son obligatorias; `stock` vale `0` si no se envía y `active`, `true`.",
+      "El primer `insert` envía `name`, `category_id` y `price`, y entra sin problema. La lista lo confirma: `Brioche` a `3.1`, con `stock` `0` y `active` `true` que ha puesto el servidor.",
+      "El segundo no envía `name`, y el servidor lo rechaza: `HTTP 400: null value in column \"name\" of relation \"products\" violates not-null constraint`. Es el mensaje de PostgreSQL, tal cual. El estudio para el script en esa consulta y la marca como error; las anteriores ya se guardaron.",
+      "En Flutter el `lib/db.dart` convierte esa respuesta en un `DbError`: `try { await db.table('products').insert(row); } on DbError catch (e) { … e.message … }`. Compruebe en la app los campos obligatorios antes de enviar, para dar un mensaje claro; el servidor es la última barrera, no la primera."
+    ],
+    "points": [
+      "Las columnas obligatorias no admiten `NULL`.",
+      "Las que tienen valor por defecto se pueden omitir.",
+      "Si falta una obligatoria: `HTTP 400` y nada se guarda.",
+      "En Flutter, el error llega como `DbError`.",
+      "Valide en la app; el servidor es la última barrera."
+    ],
+    "exercise": "Cambie el último `insert` para que envíe el nombre pero no el precio. ¿Qué columna cita ahora el mensaje?"
+  },
+  "en": {
+    "slug": "required-columns",
+    "title": "Required columns",
+    "summary": "What FalconDatabase answers when a required column is missing: an HTTP 400 with PostgreSQL's message, and how to show it in the app.",
+    "body": [
+      "Each column of a table is required (`not null`) or not, and may have a default. In `products`, `name` and `price` are required; `stock` is `0` if you do not send it and `active` is `true`.",
+      "The first `insert` sends `name`, `category_id` and `price`, and goes in without trouble. The list confirms it: `Brioche` at `3.1`, with the `stock` `0` and `active` `true` the server filled in.",
+      "The second sends no `name`, and the server rejects it: `HTTP 400: null value in column \"name\" of relation \"products\" violates not-null constraint`. It is PostgreSQL's message, word for word. The studio stops the script at that query and marks it as an error; the earlier ones were already saved.",
+      "In Flutter, `lib/db.dart` turns that answer into a `DbError`: `try { await db.table('products').insert(row); } on DbError catch (e) { … e.message … }`. Check the required fields in the app before sending, so you can give a clear message; the server is the last barrier, not the first."
+    ],
+    "points": [
+      "Required columns do not accept `NULL`.",
+      "Columns with a default can be left out.",
+      "A missing required column: `HTTP 400` and nothing is saved.",
+      "In Flutter, the error arrives as a `DbError`.",
+      "Validate in the app; the server is the last barrier."
+    ],
+    "exercise": "Change the last `insert` so it sends the name but not the price. Which column does the message mention now?"
+  }
+}

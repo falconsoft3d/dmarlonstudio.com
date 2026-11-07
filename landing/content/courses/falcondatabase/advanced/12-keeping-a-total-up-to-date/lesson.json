@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "mantener-un-total-al-dia",
+    "title": "Mantener un total al día",
+    "summary": "Desnormalizar con FalconDatabase: orders.total guarda la suma de las líneas y la app lo actualiza con un update cada vez que cambian.",
+    "body": [
+      "`orders.total` repite un dato que se podría calcular con las líneas: es un dato **desnormalizado**. A cambio, la lista de pedidos es una sola petición, sin bajar las líneas de cada uno. Sin joins ni sumas en la API, es lo habitual.",
+      "El precio es que la app tiene que mantenerlo al día. El pedido `7` tenía `6` croissants a `1.5` (`9`); el script le añade `2` yogures a `2.4` y vuelve a leer sus líneas: ahora son `2`.",
+      "La app suma `9 + 4.8` y guarda `13.8` con un `update`. En Flutter, `await db.table('orders').update(7, {'total': total});`. En el script, el pedido se elige por su cliente y su fecha, porque en el proyecto del curso los id los pone el servidor en cada carga.",
+      "La última consulta lo comprueba: el pedido del `2024-05-12` vale ya `13.8`. Si la app falla entre el `insert` y el `update`, el total queda mal: para datos de dinero de verdad, haga los dos pasos en un servidor propio con la clave de servicio."
+    ],
+    "points": [
+      "Desnormalizar: guardar un dato calculado para leer rápido.",
+      "Cada cambio en las líneas obliga a recalcular el total.",
+      "El total nuevo se guarda con un `update`.",
+      "Son dos peticiones: si una falla, el dato queda desfasado."
+    ],
+    "exercise": "Borre la línea del yogur del pedido `7` (`delete` con `where` `order_id` y `product_id`) y deje su `total` otra vez en `9`."
+  },
+  "en": {
+    "slug": "keeping-a-total-up-to-date",
+    "title": "Keeping a total up to date",
+    "summary": "Denormalising with FalconDatabase: orders.total stores the sum of the lines, and the app refreshes it with an update whenever they change.",
+    "body": [
+      "`orders.total` repeats something you could work out from the lines: it is **denormalised** data. In return, the orders list is a single request, without fetching each order's lines. With no joins or sums in the API, this is the usual approach.",
+      "The price is that the app must keep it up to date. Order `7` had `6` croissants at `1.5` (`9`); the script adds `2` yogurts at `2.4` and reads its lines again: there are `2` now.",
+      "The app adds `9 + 4.8` and saves `13.8` with an `update`. In Flutter, `await db.table('orders').update(7, {'total': total});`. In the script the order is picked by its customer and date, because in the course project the server assigns the ids on every load.",
+      "The last query checks it: the order of `2024-05-12` is now `13.8`. If the app fails between the `insert` and the `update`, the total is wrong: for real money, do both steps on your own server with the service key."
+    ],
+    "points": [
+      "Denormalising: storing a computed value for fast reads.",
+      "Every change to the lines means recomputing the total.",
+      "The new total is saved with an `update`.",
+      "It is two requests: if one fails, the value goes stale."
+    ],
+    "exercise": "Delete the yogurt line from order `7` (`delete` with `where` on `order_id` and `product_id`) and set its `total` back to `9`."
+  }
+}

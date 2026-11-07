@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "columna-json",
+    "title": "Una columna JSON: tags",
+    "summary": "Las columnas json de FalconDatabase guardan listas y objetos: lea las etiquetas de los productos y búsquelas con like.",
+    "body": [
+      "`products` tiene una columna **`json`**, `tags`, con una lista de etiquetas por producto. La API la devuelve como JSON de verdad, no como texto: `Croissant` lleva `[\"bread\",\"sweet\"]` y `Rye bread`, `[\"bread\"]`.",
+      "Para buscar dentro, `like` compara con el texto de la lista: `tags=like.%sweet%` encuentra los `3` productos dulces, `Croissant`, `Greek yogurt` y `Strawberries`. Ponga las comillas en el patrón (`%\"sweet\"%`) si una etiqueta pudiera estar contenida en otra.",
+      "`eq.[]` busca la lista vacía exacta: solo `Whole milk` no tiene etiquetas.",
+      "Una columna JSON es cómoda para datos que no merecen una tabla propia (etiquetas, opciones, una dirección). Si va a filtrar mucho por ellos o a relacionarlos con otras filas, mejor una tabla aparte."
+    ],
+    "points": [
+      "Las columnas `json` llegan como listas u objetos.",
+      "`like` busca en el texto del JSON.",
+      "`eq.[]` encuentra la lista vacía.",
+      "Para relaciones y filtros frecuentes, una tabla aparte."
+    ],
+    "exercise": "Busque los productos con la etiqueta `bread` que no tienen también `sweet`. Necesitará dos consultas, o una y mirar el resultado."
+  },
+  "en": {
+    "slug": "json-column",
+    "title": "A JSON column: tags",
+    "summary": "FalconDatabase json columns hold lists and objects: read the products' tags and search them with like.",
+    "body": [
+      "`products` has a **`json`** column, `tags`, with a list of tags per product. The API returns it as real JSON, not as text: `Croissant` has `[\"bread\",\"sweet\"]` and `Rye bread`, `[\"bread\"]`.",
+      "To search inside it, `like` matches against the list's text: `tags=like.%sweet%` finds the `3` sweet products, `Croissant`, `Greek yogurt` and `Strawberries`. Put the quotes in the pattern (`%\"sweet\"%`) if one tag could be part of another.",
+      "`eq.[]` looks for exactly the empty list: only `Whole milk` has no tags.",
+      "A JSON column is handy for data that does not deserve its own table (tags, options, an address). If you will filter by it a lot or relate it to other rows, a separate table is better."
+    ],
+    "points": [
+      "`json` columns arrive as lists or objects.",
+      "`like` searches the JSON's text.",
+      "`eq.[]` finds the empty list.",
+      "For relations and frequent filters, use a separate table."
+    ],
+    "exercise": "Find the products tagged `bread` that are not also tagged `sweet`. You will need two queries, or one and a look at the result."
+  }
+}

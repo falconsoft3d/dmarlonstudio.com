@@ -1,0 +1,7 @@
+// orders.total is stored (denormalised): reading an order is one request
+// Order 7 has 6 croissants at 1.50 = 9.00; add 2 yogurts at 2.40
+{"table": "order_items", "insert": {"order_id": 7, "product_id": 8, "qty": 2, "price": 2.4}}
+{"table": "order_items", "select": "product_id,qty,price", "where": {"order_id": 7}, "order": "product_id"}
+// The app adds up 9.00 + 4.80 and saves the new total
+{"table": "orders", "update": {"where": {"customer_id": 2, "ordered": "2024-05-12"}, "set": {"total": 13.8}}}
+{"table": "orders", "select": "customer_id,ordered,status,total", "where": {"customer_id": 2}, "order": "ordered"}

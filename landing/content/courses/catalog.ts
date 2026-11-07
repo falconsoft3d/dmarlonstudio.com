@@ -406,13 +406,13 @@ export const COURSES: CourseInfo[] = [
     steps: {
       es: [
         "Abra DMarlon Studio y entre en el módulo **Bases de datos**.",
-        "Pulse **+** y elija **FalconDatabase**. Para leer, use el proyecto de ejemplo del curso: **Proyecto** `sqvnzyefdotjlgrawbho` y **Clave de API** `fdb_anon_15c496309eaa28085f4a99d683107a4babb14107014ef20f` (solo lectura).",
+        "Pulse **+** y elija **FalconDatabase**. Para leer, use el proyecto de ejemplo del curso: **Proyecto** `ddbsnwfthlcufjjezqqf` y **Clave de API** `fdb_anon_01574d098100502b15344a0d9ba01bb4bcaeb60953030895` (solo lectura).",
         "Para las lecciones que escriben, cree su proyecto gratis en falcondatabase.com con las tablas de la tienda (`shop.json`, abajo, lleva las filas), un usuario y su correo y contraseña en la conexión.",
         "Pegue el script de la lección y pulse **Ejecutar** (⌘↵): cada consulta deja su resultado en una pestaña, como en la imagen.",
       ],
       en: [
         "Open DMarlon Studio and go to the **Databases** module.",
-        "Click **+** and choose **FalconDatabase**. To read, use the course's sample project: **Project** `sqvnzyefdotjlgrawbho` and **API key** `fdb_anon_15c496309eaa28085f4a99d683107a4babb14107014ef20f` (read only).",
+        "Click **+** and choose **FalconDatabase**. To read, use the course's sample project: **Project** `ddbsnwfthlcufjjezqqf` and **API key** `fdb_anon_01574d098100502b15344a0d9ba01bb4bcaeb60953030895` (read only).",
         "For the lessons that write, create your free project at falcondatabase.com with the shop tables (`shop.json`, below, has the rows), a user and their email and password in the connection.",
         "Paste the lesson's script and click **Run** (⌘↵): each query leaves its result in a tab, as in the picture.",
       ],

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "sumas-en-la-app",
+    "title": "Sumas y totales en la app",
+    "summary": "La API de FalconDatabase no suma: traiga solo la columna que hace falta y calcule en la app el total facturado o el de un pedido.",
+    "body": [
+      "Tampoco hay `sum()` ni `avg()`. Para el total facturado, la primera consulta pide solo `ordered` y `total` de los pedidos no cancelados: `9` filas pequeñas. La app las suma: `126.85` euros.",
+      "En Flutter: `final rows = await db.table('orders').list(where: {'status': 'neq.cancelled'});` y `final sum = rows.fold<num>(0, (s, r) => s + r['total']);`. Redondee al mostrarlo (`sum.toStringAsFixed(2)`): los decimales de coma flotante no son exactos.",
+      "La segunda consulta trae las líneas del pedido `6`: `1 × 2.8 + 2 × 1.1 + 2 × 7.75`, que dan `20.5`, lo mismo que guarda su `total`. Cada línea lleva su propio `price`, el del día de la compra, para que el pedido no cambie si luego cambia el precio del producto.",
+      "Pida solo las columnas que suma (`select`) y filtre en el servidor: la app recibe lo mínimo. Si una suma se necesita en cada pantalla, guárdela ya hecha, como `orders.total`: es la siguiente lección."
+    ],
+    "points": [
+      "Sin `sum()` ni `avg()`: se calcula en la app.",
+      "Traiga solo las columnas que va a sumar.",
+      "Redondee al mostrar importes.",
+      "Las líneas guardan el precio del momento de la compra."
+    ],
+    "exercise": "Calcule la media de estrellas del producto `4`: traiga sus `rating` con un `where` y haga la cuenta. ¿Cuántas reseñas tiene y qué media sale?"
+  },
+  "en": {
+    "slug": "sums-in-the-app",
+    "title": "Sums and totals in the app",
+    "summary": "FalconDatabase's API does not add up: fetch only the column you need and work out the turnover or an order's total in the app.",
+    "body": [
+      "There is no `sum()` or `avg()` either. For the turnover, the first query asks only for `ordered` and `total` of the orders that are not cancelled: `9` small rows. The app adds them up: `126.85` euros.",
+      "In Flutter: `final rows = await db.table('orders').list(where: {'status': 'neq.cancelled'});` and `final sum = rows.fold<num>(0, (s, r) => s + r['total']);`. Round it for display (`sum.toStringAsFixed(2)`): floating-point decimals are not exact.",
+      "The second query brings the lines of order `6`: `1 × 2.8 + 2 × 1.1 + 2 × 7.75`, which make `20.5`, the same as its stored `total`. Each line carries its own `price`, the one on the day of purchase, so the order does not change if the product's price changes later.",
+      "Ask only for the columns you add up (`select`) and filter on the server: the app receives the minimum. If a sum is needed on every screen, store it ready-made, like `orders.total`: that is the next lesson."
+    ],
+    "points": [
+      "No `sum()` or `avg()`: work it out in the app.",
+      "Fetch only the columns you will add up.",
+      "Round amounts for display.",
+      "Lines keep the price at the time of purchase."
+    ],
+    "exercise": "Work out product `4`'s average rating: fetch its `rating` values with a `where` and do the maths. How many reviews does it have, and what is the average?"
+  }
+}

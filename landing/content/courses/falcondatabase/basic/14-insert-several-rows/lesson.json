@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insertar-varias-filas",
+    "title": "Insertar varias filas",
+    "summary": "Con una lista, FalconDatabase inserta varias filas en una sola petición POST: tres clientes nuevos de una vez.",
+    "body": [
+      "Si `insert` recibe una **lista** de objetos, la API los guarda todos en una sola petición: es la inserción **en bloque**. Aquí entran tres clientes y la respuesta dice `3 filas afectadas`.",
+      "Cada objeto puede llevar columnas distintas: `Irene Vega` no trae `email`, así que se queda en `NULL` (la columna lo permite). Lo que no se puede es dejar fuera una columna obligatoria, como `name`.",
+      "Una petición con tres filas es mucho más rápida que tres peticiones, sobre todo desde un móvil. Y o entran todas o ninguna: si una falla, el servidor no guarda las otras.",
+      "La comprobación lista los clientes desde el `2024-05-01`: `Carlos Díaz`, que ya estaba, y los tres nuevos, `4` en total. El JSON puede ocupar varias líneas en el script: el estudio sabe dónde acaba cada consulta."
+    ],
+    "points": [
+      "`insert` con una lista: varias filas en un `POST`.",
+      "Las columnas que faltan toman su valor por defecto o `NULL`.",
+      "Una petición en bloque es más rápida que varias sueltas.",
+      "Una consulta puede ocupar varias líneas del script."
+    ],
+    "exercise": "Inserte de una vez dos reseñas para el producto `10` (`rating` `5` y `4`, con comentario) y liste las reseñas de ese producto."
+  },
+  "en": {
+    "slug": "insert-several-rows",
+    "title": "Inserting several rows",
+    "summary": "Given a list, FalconDatabase inserts several rows in one POST request: three new customers at once.",
+    "body": [
+      "When `insert` gets a **list** of objects, the API saves them all in a single request: a **bulk** insert. Three customers go in here and the answer says `3 rows affected`.",
+      "Each object can carry different columns: `Irene Vega` has no `email`, so it stays `NULL` (the column allows it). What you cannot do is leave out a required column such as `name`.",
+      "One request with three rows is much faster than three requests, especially from a phone. And either all of them go in or none does: if one fails, the server keeps none of the others.",
+      "The check lists the customers since `2024-05-01`: `Carlos Díaz`, who was already there, and the three new ones, `4` in all. The JSON can span several lines in the script: the studio knows where each query ends."
+    ],
+    "points": [
+      "`insert` with a list: several rows in one `POST`.",
+      "Missing columns take their default or `NULL`.",
+      "A bulk request is faster than several single ones.",
+      "A query can span several lines of the script."
+    ],
+    "exercise": "Insert two reviews for product `10` at once (`rating` `5` and `4`, with a comment) and list that product's reviews."
+  }
+}

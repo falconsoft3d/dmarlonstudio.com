@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "ordenar",
+    "title": "Ordenar los resultados",
+    "summary": "Ordene en FalconDatabase con order: ascendente o desc, y por varias columnas, para listas predecibles en la app.",
+    "body": [
+      "**`order`** es el parámetro `order=` de la URL. Un nombre solo ordena de menor a mayor (o de la A a la Z); con **`.desc`** detrás, al revés. `\"order\": \"price.desc\"` con `\"limit\": 5` da los cinco productos más caros: `Espresso beans`, `Manchego cheese`, `Green tea`, `Strawberries` y `Orange juice`.",
+      "Para ordenar por varias columnas se separan con comas: `category_id,price.desc` agrupa por categoría (de la `1` a la `4`) y, dentro de cada una, va del más caro al más barato. Cada columna lleva su propio sentido; `.asc` existe, pero es el de siempre.",
+      "Sin `order`, el servidor devuelve las filas en el orden que le resulte cómodo, que puede cambiar. Una lista que ve un usuario debería llevar siempre `order`, y con paginación es imprescindible.",
+      "En el estudio, la rejilla también ordena al hacer clic en una cabecera, pero solo lo que ya ha llegado: el orden de verdad, el que decide qué filas entran en un `limit`, es el de la consulta."
+    ],
+    "points": [
+      "`order=col` ordena de menor a mayor; `col.desc`, al revés.",
+      "Varias columnas, separadas por comas, cada una con su sentido.",
+      "Sin `order`, el orden no está garantizado.",
+      "`order` decide qué filas entran en un `limit`."
+    ],
+    "exercise": "Liste los clientes por ciudad (de la A a la Z) y, dentro de cada ciudad, del que llegó más tarde al que llegó antes (`joined.desc`)."
+  },
+  "en": {
+    "slug": "sorting",
+    "title": "Sorting the results",
+    "summary": "Sort in FalconDatabase with order: ascending or desc, and by several columns, for predictable lists in your app.",
+    "body": [
+      "**`order`** is the URL's `order=` parameter. A bare name sorts from lowest to highest (or A to Z); with **`.desc`** after it, the other way round. `\"order\": \"price.desc\"` with `\"limit\": 5` gives the five dearest products: `Espresso beans`, `Manchego cheese`, `Green tea`, `Strawberries` and `Orange juice`.",
+      "To sort by several columns, separate them with commas: `category_id,price.desc` groups by category (`1` to `4`) and, within each one, goes from dearest to cheapest. Each column has its own direction; `.asc` exists, but it is the default.",
+      "Without `order`, the server returns rows in whatever order suits it, and that can change. A list a user sees should always have an `order`, and with pagination it is a must.",
+      "In the studio, the grid also sorts when you click a header, but only what has already arrived: the real order, the one that decides which rows fit in a `limit`, is the query's."
+    ],
+    "points": [
+      "`order=col` sorts lowest first; `col.desc`, the other way.",
+      "Several columns, comma-separated, each with its direction.",
+      "Without `order`, the order is not guaranteed.",
+      "`order` decides which rows fit in a `limit`."
+    ],
+    "exercise": "List the customers by city (A to Z) and, within each city, from the one who joined last to the one who joined first (`joined.desc`)."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "primera-consulta",
+    "title": "Su primera consulta",
+    "summary": "Qué es FalconDatabase y cómo se leen sus tablas: una consulta JSON que el estudio convierte en una petición REST. Pruébela en DMarlon Studio.",
+    "body": [
+      "**FalconDatabase** es un backend en la nube: tablas de PostgreSQL detrás de una **API REST**, con usuarios (correo y contraseña), reglas de acceso por tabla y almacenamiento de archivos. No hay que montar ningún servidor: la app habla con `https://falcondatabase.com/api/v1/<ref>`, donde `<ref>` es la referencia del proyecto.",
+      "En el módulo **Bases de datos** de DMarlon Studio cada consulta es un objeto JSON. Este script tiene dos: `{\"table\": \"categories\", ...}` y `{\"table\": \"products\", ...}`. La clave `table` es la única obligatoria; `select` elige las columnas y `order` ordena. Las líneas que empiezan por `//` son comentarios.",
+      "El estudio traduce cada objeto en una petición HTTP. La primera es `GET /api/v1/<ref>/tables/categories?order=name&select=name&limit=100`: el `limit=100` lo añade el estudio cuando usted no pone ninguno, para no traerse una tabla enorme sin querer.",
+      "Al pulsar **Ejecutar** (⌘↵) salen dos pestañas de resultados, una por consulta: las `4` categorías (`Bakery`, `Dairy`, `Drinks`, `Fruit`) y los `12` productos de la tienda ordenados por nombre, de `Apples 1 kg` a `Whole milk`. Debajo de cada rejilla, el servidor dice cuántas filas hay: `12 filas en total`.",
+      "A la izquierda está la lista de tablas del proyecto (`categories`, `products`, `customers`, `orders`…): con doble clic en una, el estudio escribe una consulta de ejemplo para ella."
+    ],
+    "points": [
+      "FalconDatabase es PostgreSQL detrás de una API REST, con usuarios y reglas.",
+      "Cada consulta es un objeto JSON con, al menos, `table`.",
+      "Cada objeto es una petición `GET /api/v1/<ref>/tables/<tabla>`.",
+      "Sin `limit`, el estudio pide 100 filas como mucho.",
+      "Una pestaña de resultados por consulta."
+    ],
+    "exercise": "Añada una tercera consulta que liste los empleados (`employees`) con solo su nombre (`name`) y su puesto (`role`), ordenados por nombre."
+  },
+  "en": {
+    "slug": "first-query",
+    "title": "Your first query",
+    "summary": "What FalconDatabase is and how to read its tables: a JSON query that the studio turns into a REST request. Try it in DMarlon Studio.",
+    "body": [
+      "**FalconDatabase** is a cloud backend: PostgreSQL tables behind a **REST API**, with users (email and password), per-table access rules and file storage. There is no server to set up: the app talks to `https://falcondatabase.com/api/v1/<ref>`, where `<ref>` is the project reference.",
+      "In the **Databases** module of DMarlon Studio each query is a JSON object. This script has two: `{\"table\": \"categories\", ...}` and `{\"table\": \"products\", ...}`. The `table` key is the only one you must give; `select` picks the columns and `order` sorts. Lines starting with `//` are comments.",
+      "The studio turns each object into an HTTP request. The first one is `GET /api/v1/<ref>/tables/categories?order=name&select=name&limit=100`: the studio adds `limit=100` when you set no limit, so you never pull a huge table by accident.",
+      "When you press **Run** (⌘↵) you get two result tabs, one per query: the `4` categories (`Bakery`, `Dairy`, `Drinks`, `Fruit`) and the shop's `12` products sorted by name, from `Apples 1 kg` to `Whole milk`. Under each grid the server says how many rows there are: `12 rows in total`.",
+      "On the left is the project's table list (`categories`, `products`, `customers`, `orders`…): double-click one and the studio writes a sample query for it."
+    ],
+    "points": [
+      "FalconDatabase is PostgreSQL behind a REST API, with users and rules.",
+      "Each query is a JSON object with at least `table`.",
+      "Each object is a `GET /api/v1/<ref>/tables/<table>` request.",
+      "Without `limit`, the studio asks for 100 rows at most.",
+      "One result tab per query."
+    ],
+    "exercise": "Add a third query that lists the employees (`employees`) with just their name (`name`) and job (`role`), sorted by name."
+  }
+}

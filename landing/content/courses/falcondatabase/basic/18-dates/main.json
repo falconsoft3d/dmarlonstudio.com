@@ -1,0 +1,6 @@
+// Dates are YYYY-MM-DD: gte, lt and order work as expected
+{"table": "orders", "select": "ordered,status,total", "where": {"ordered": "gte.2024-05-01"}, "order": "ordered"}
+// A whole month with like
+{"table": "orders", "select": "ordered,status,total", "where": {"ordered": "like.2024-04%"}, "order": "ordered"}
+// Customers before 2024, newest first
+{"table": "customers", "select": "name,joined", "where": {"joined": "lt.2024-01-01"}, "order": "joined.desc"}

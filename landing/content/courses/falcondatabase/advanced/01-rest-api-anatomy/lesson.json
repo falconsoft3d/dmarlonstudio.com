@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "anatomia-de-la-api-rest",
+    "title": "Anatomía de la API REST",
+    "summary": "Qué envía DMarlon Studio a FalconDatabase en cada consulta: la URL, los parámetros, las cabeceras apikey y Authorization y la respuesta data/count.",
+    "body": [
+      "Cada objeto del script es **una petición HTTP** a `https://falcondatabase.com/api/v1/<ref>`. Leer es `GET /tables/<tabla>`; insertar, `POST /tables/<tabla>`; cambiar y borrar, `PATCH` y `DELETE` sobre `/tables/<tabla>/<id>`. No hay más: no se envía SQL.",
+      "La URL lleva la consulta en parámetros: primero un parámetro por cada filtro de `where` (`price=gte.2&active=is.true`), después `order`, `limit`, `offset` y `select`. Los comentarios del script enseñan la URL exacta de cada consulta; en la segunda, el `limit=100` lo añade el estudio al final porque el script no pone ninguno.",
+      "Cada petición lleva dos cabeceras. **`apikey`** identifica el proyecto: es la clave anon, la que va dentro de la app. **`Authorization: Bearer <token>`** es la sesión: el estudio entra con `POST /auth/login` (correo y contraseña) al conectar y añade el token que le devuelve. Sin ella, la petición es anónima.",
+      "La respuesta de una lista es un JSON con **`data`** (las filas) y **`count`** (el total sin paginar). La primera consulta trae `5` productos y `count` vale `8`: hay ocho activos de 2 euros o más. La segunda, los `3` pedidos pagados con su fecha y su total.",
+      "En el nivel avanzado verá también la llamada de Flutter equivalente: el `lib/db.dart` que genera DMarlon Studio envía exactamente estas peticiones. Esta, por ejemplo, es `db.table('orders').list(where: {'status': 'paid'}, order: 'ordered')`."
+    ],
+    "points": [
+      "Una consulta, una petición: `GET`, `POST`, `PATCH` o `DELETE`.",
+      "Filtros, `order`, `limit`, `offset` y `select` van en la URL.",
+      "`apikey` dice el proyecto; `Authorization`, quién es el usuario.",
+      "Una lista responde `{\"data\": […], \"count\": N}`.",
+      "El `lib/db.dart` de Flutter envía las mismas peticiones."
+    ],
+    "exercise": "Escriba, como comentario, la URL de `{\"table\": \"customers\", \"where\": {\"city\": \"in.(Madrid,Bilbao)\"}, \"order\": \"name\", \"limit\": 3, \"offset\": 3}`, y después ejecútela para ver qué devuelve."
+  },
+  "en": {
+    "slug": "rest-api-anatomy",
+    "title": "Anatomy of the REST API",
+    "summary": "What DMarlon Studio sends to FalconDatabase for each query: the URL, its parameters, the apikey and Authorization headers and the data/count answer.",
+    "body": [
+      "Each object in the script is **one HTTP request** to `https://falcondatabase.com/api/v1/<ref>`. Reading is `GET /tables/<table>`; inserting, `POST /tables/<table>`; updating and deleting, `PATCH` and `DELETE` on `/tables/<table>/<id>`. That is all: no SQL is sent.",
+      "The URL carries the query as parameters: first one per `where` filter (`price=gte.2&active=is.true`), then `order`, `limit`, `offset` and `select`. The script's comments show each query's exact URL; in the second one the studio appends `limit=100` because the script sets no limit.",
+      "Every request carries two headers. **`apikey`** identifies the project: it is the anon key, the one that ships inside the app. **`Authorization: Bearer <token>`** is the session: the studio signs in with `POST /auth/login` (email and password) when it connects and adds the token it gets back. Without it, the request is anonymous.",
+      "A list response is JSON with **`data`** (the rows) and **`count`** (the total before paging). The first query brings `5` products and `count` is `8`: there are eight active ones at 2 euros or more. The second, the `3` paid orders with their date and total.",
+      "In the advanced level you will also see the matching Flutter call: the `lib/db.dart` DMarlon Studio generates sends exactly these requests. This one, for example, is `db.table('orders').list(where: {'status': 'paid'}, order: 'ordered')`."
+    ],
+    "points": [
+      "One query, one request: `GET`, `POST`, `PATCH` or `DELETE`.",
+      "Filters, `order`, `limit`, `offset` and `select` go in the URL.",
+      "`apikey` names the project; `Authorization`, the user.",
+      "A list answers `{\"data\": […], \"count\": N}`.",
+      "Flutter's `lib/db.dart` sends the same requests."
+    ],
+    "exercise": "Write, as a comment, the URL for `{\"table\": \"customers\", \"where\": {\"city\": \"in.(Madrid,Bilbao)\"}, \"order\": \"name\", \"limit\": 3, \"offset\": 3}`, then run it and see what comes back."
+  }
+}

@@ -293,6 +293,11 @@ for (const id of ids) {
           conn: dbConn(course.db, tmp, meta.as),
           script: fs.readFileSync(file, "utf8"),
           ...(seed && meta.seed !== false ? { seed } : {}),
+          // FalconDatabase: se restaura con el usuario del curso y las notas
+          // de cada usuario se vacían con su sesión (db_course.dart).
+          ...(course.db === "falcon"
+            ? { admin: dbConn("falcon", tmp, "course"), others: ["ana", "luis"].map((u) => dbConn("falcon", tmp, u)) }
+            : {}),
         };
         jobs.push({ d, job });
       }

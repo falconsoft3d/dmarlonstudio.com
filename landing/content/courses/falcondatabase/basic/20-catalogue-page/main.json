@@ -1,0 +1,6 @@
+// The menu: the categories by name
+{"table": "categories", "select": "name", "order": "name"}
+// The shop window: what can be sold, cheapest first, 6 per page
+{"table": "products", "select": "name,price,stock,tags", "where": {"active": "is.true", "stock": "gt.0"}, "order": "price,name", "limit": 6}
+// Page 2
+{"table": "products", "select": "name,price,stock,tags", "where": {"active": "is.true", "stock": "gt.0"}, "order": "price,name", "limit": 6, "offset": 6}

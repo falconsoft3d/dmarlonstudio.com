@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insertar-una-fila",
+    "title": "Insertar una fila",
+    "summary": "Inserte en FalconDatabase con insert: un POST con un objeto JSON, y el servidor completa id, created_at y los valores por defecto.",
+    "body": [
+      "**`insert`** con un objeto es un `POST /api/v1/<ref>/tables/products` con ese objeto como cuerpo. Escribir pide sesión: el estudio entra con el usuario del curso y envía su token en la cabecera `Authorization`.",
+      "El objeto lleva solo cuatro columnas: `name`, `category_id`, `price` y `tags`. El servidor contesta con la fila completa (`1 fila afectada`) y en esa pestaña se ve lo que puso él: un `id` nuevo, la hora en `created_at`, `stock` `0` y `active` `true`, los valores por defecto de la tabla.",
+      "El `id` lo decide siempre el servidor: no lo envíe, y no cuente con que sea un número concreto. Si lo necesita, léalo de la respuesta del `insert`.",
+      "La segunda consulta comprueba el resultado: la categoría `1` ya tiene `4` productos y `Muffin` (`2.25`) queda entre `Croissant` y `Rye bread`. Las listas JSON, como `[\"sweet\"]`, se envían tal cual."
+    ],
+    "points": [
+      "`insert` con un objeto es un `POST` a la tabla.",
+      "Para escribir hace falta sesión (`Authorization: Bearer …`).",
+      "El servidor pone `id`, `created_at` y los valores por defecto.",
+      "La respuesta trae la fila tal como quedó guardada."
+    ],
+    "exercise": "Inserte un producto de la categoría `2` llamado `Lemonade` a `2.6` euros con `stock` `20`, y liste las bebidas por precio."
+  },
+  "en": {
+    "slug": "insert-a-row",
+    "title": "Inserting a row",
+    "summary": "Insert into FalconDatabase with insert: a POST with a JSON object, and the server fills in id, created_at and the defaults.",
+    "body": [
+      "**`insert`** with an object is a `POST /api/v1/<ref>/tables/products` with that object as its body. Writing needs a session: the studio signs in as the course user and sends its token in the `Authorization` header.",
+      "The object carries just four columns: `name`, `category_id`, `price` and `tags`. The server answers with the full row (`1 row affected`), and that tab shows what it filled in: a new `id`, the time in `created_at`, `stock` `0` and `active` `true`, the table's defaults.",
+      "The server always decides the `id`: do not send one, and do not count on it being a particular number. If you need it, read it from the `insert` response.",
+      "The second query checks the result: category `1` now has `4` products and `Muffin` (`2.25`) sits between `Croissant` and `Rye bread`. JSON lists such as `[\"sweet\"]` are sent as they are."
+    ],
+    "points": [
+      "`insert` with an object is a `POST` to the table.",
+      "Writing needs a session (`Authorization: Bearer …`).",
+      "The server sets `id`, `created_at` and the defaults.",
+      "The response carries the row as it was saved."
+    ],
+    "exercise": "Insert a category `2` product called `Lemonade` at `2.6` euros with a `stock` of `20`, then list the drinks by price."
+  }
+}

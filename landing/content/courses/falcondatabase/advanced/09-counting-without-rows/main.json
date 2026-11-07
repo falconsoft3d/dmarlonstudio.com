@@ -1,0 +1,7 @@
+// No count(): limit 0 brings back only the total
+{"table": "products", "limit": 0}
+{"table": "products", "where": {"active": "is.true", "stock": "gt.0"}, "limit": 0}
+{"table": "products", "where": {"stock": "lt.15"}, "limit": 0}
+{"table": "reviews", "where": {"rating": "gte.4"}, "limit": 0}
+// A badge with "3 low stock" needs the rows only when it is opened
+{"table": "products", "select": "name,stock", "where": {"stock": "lt.15"}, "order": "stock,name"}

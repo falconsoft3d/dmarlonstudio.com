@@ -1,0 +1,8 @@
+// "where" is a JSON object: one filter per column.
+// A second "ordered" key would replace the first, so for a range:
+// 1) a month or a year, with like
+{"table": "orders", "select": "ordered,status,total", "where": {"ordered": "like.2024-05%"}, "order": "ordered"}
+// 2) from a date, sorted, and the app stops at the end of the range
+{"table": "orders", "select": "ordered,status,total", "where": {"ordered": "gte.2024-03-10"}, "order": "ordered", "limit": 4}
+// 3) a range on one column and a filter on another
+{"table": "orders", "select": "ordered,status,total", "where": {"ordered": "lt.2024-05-01", "total": "gt.12"}, "order": "ordered"}

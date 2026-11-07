@@ -1,0 +1,39 @@
+{
+  "as": "ana",
+  "es": {
+    "slug": "la-columna-owner-id",
+    "title": "La columna owner_id",
+    "summary": "owner_id lo escribe FalconDatabase con el usuario de la sesión: aunque la app envíe otro valor, la fila es de quien la crea.",
+    "body": [
+      "Las tablas `owner` tienen una columna **`owner_id`** con el id del usuario dueño de cada fila. Ana inserta tres notas, y en una envía `\"owner_id\": 1`, como si quisiera dársela a otro usuario.",
+      "No funciona: en la respuesta las tres notas tienen el mismo `owner_id`, el de Ana, y no `1`. El servidor sustituye lo que llegue por el usuario del token, así que nadie puede crear filas a nombre de otro.",
+      "Ana sí puede cambiar y borrar lo suyo: el `update` marca `Count the till` como hecha y el `delete` se lleva `Pay the rent`. La lista final enseña las `2` notas que quedan con su `owner_id`.",
+      "`owner_id` sirve para leer, no para decidir: si la app necesita saber de quién es una fila, la lee de ahí y la compara con el `id` del usuario que devolvió el inicio de sesión."
+    ],
+    "points": [
+      "`owner_id` guarda el id del dueño de la fila.",
+      "Lo pone el servidor con el usuario del token.",
+      "Enviar otro `owner_id` no cambia nada.",
+      "El dueño puede cambiar y borrar sus filas."
+    ],
+    "exercise": "Intente cambiar con `update` el `owner_id` de `Paint the sign` a `1` y liste las notas: ¿de quién es ahora?"
+  },
+  "en": {
+    "slug": "the-owner-id-column",
+    "title": "The owner_id column",
+    "summary": "FalconDatabase writes owner_id from the session user: even if the app sends another value, the row belongs to whoever creates it.",
+    "body": [
+      "`owner` tables have an **`owner_id`** column with the id of the user who owns each row. Ana inserts three notes, and in one of them she sends `\"owner_id\": 1`, as if she wanted to give it to another user.",
+      "It does not work: in the response all three notes have the same `owner_id`, Ana's, not `1`. The server replaces whatever arrives with the token's user, so nobody can create rows in someone else's name.",
+      "Ana can change and delete her own rows: the `update` marks `Count the till` as done and the `delete` removes `Pay the rent`. The final list shows the `2` notes left with their `owner_id`.",
+      "`owner_id` is for reading, not deciding: if the app needs to know whose row it is, it reads it there and compares it with the `id` of the user returned at sign-in."
+    ],
+    "points": [
+      "`owner_id` holds the id of the row's owner.",
+      "The server sets it from the token's user.",
+      "Sending another `owner_id` changes nothing.",
+      "The owner can change and delete their rows."
+    ],
+    "exercise": "Try to change `Paint the sign`'s `owner_id` to `1` with `update` and list the notes: whose is it now?"
+  }
+}

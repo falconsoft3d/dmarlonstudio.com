@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "unir-tablas-a-mano",
+    "title": "Unir tablas a mano",
+    "summary": "La API REST de FalconDatabase no hace joins: se resuelven con dos consultas, los id de la primera y in.(…) en la segunda.",
+    "body": [
+      "La API REST no tiene **joins**: cada petición lee una tabla. Para juntar datos de dos se hacen dos consultas, y la segunda usa lo que devolvió la primera.",
+      "La primera pide las líneas del pedido `1` en `order_items`: `3` líneas, con los productos `1` (2 unidades), `7` y `9`. Sus importes, `2 × 1.2 + 1.1 + 7.75`, suman los `11.25` que guarda el pedido.",
+      "La segunda pide las reseñas de esos tres productos de una vez, con **`product_id=in.(1,7,9)`**: `3` reseñas, dos del producto `1` (`5` y `4` estrellas) y una del `9`. El producto `7` no tiene ninguna, y simplemente no sale.",
+      "Igual se piden sus nombres: `products` con `id=in.(1,7,9)`. En una app los id los toma el código de la primera respuesta; aquí van escritos. Son dos peticiones y no tres ni una por línea: con `in` el número de peticiones no crece con las filas."
+    ],
+    "points": [
+      "Sin joins: una consulta por tabla.",
+      "Los id de la primera respuesta filtran la segunda con `in.(…)`.",
+      "Dos peticiones, tenga el pedido 3 líneas o 30.",
+      "Lo que no tiene pareja, simplemente no sale."
+    ],
+    "exercise": "Haga lo mismo con el pedido `8`: sus líneas y, con `in`, las reseñas de sus productos."
+  },
+  "en": {
+    "slug": "join-by-hand",
+    "title": "Joining tables by hand",
+    "summary": "FalconDatabase's REST API has no joins: you do them with two queries, the ids from the first and in.(…) in the second.",
+    "body": [
+      "The REST API has no **joins**: each request reads one table. To combine data from two, you run two queries, and the second uses what the first returned.",
+      "The first asks `order_items` for the lines of order `1`: `3` lines, with products `1` (2 units), `7` and `9`. Their amounts, `2 × 1.2 + 1.1 + 7.75`, add up to the `11.25` the order stores.",
+      "The second asks for the reviews of those three products in one go, with **`product_id=in.(1,7,9)`**: `3` reviews, two for product `1` (`5` and `4` stars) and one for `9`. Product `7` has none and simply does not appear.",
+      "You fetch their names the same way: `products` with `id=in.(1,7,9)`. In an app the code takes the ids from the first answer; here they are written in. It is two requests, not three or one per line: with `in`, the number of requests does not grow with the rows."
+    ],
+    "points": [
+      "No joins: one query per table.",
+      "The ids from the first answer filter the second with `in.(…)`.",
+      "Two requests, whether the order has 3 lines or 30.",
+      "Rows without a match simply do not appear."
+    ],
+    "exercise": "Do the same for order `8`: its lines and, with `in`, the reviews of its products."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "elegir-columnas",
+    "title": "Elegir las columnas",
+    "summary": "Con select, FalconDatabase devuelve solo las columnas que pide, en ese orden: respuestas más pequeñas y rejillas más claras en DMarlon Studio.",
+    "body": [
+      "La primera consulta no lleva `select`, así que el servidor devuelve **todas las columnas** de `customers`: `id`, `created_at`, `name`, `email`, `city` y `joined`. Las dos primeras las tiene toda tabla de FalconDatabase: `id` es un número que pone el servidor al insertar y `created_at`, la fecha y hora de creación.",
+      "Esa consulta lleva `\"limit\": 3`, así que trae tres clientes (`Ana García`, `Carlos Díaz`, `Emma Brown`), pero el pie dice `8 filas en total`: el servidor cuenta todas las que cumplen la consulta, aunque solo envíe tres.",
+      "La segunda añade `\"select\": \"name,city,joined\"`: la petición es `GET …/tables/customers?order=name&select=name,city,joined&limit=100` y la rejilla tiene esas tres columnas, en ese orden, para los `8` clientes.",
+      "Pida siempre solo lo que va a usar: la respuesta pesa menos (importa en el móvil), y en este curso además deja fuera `created_at`, que cambia cada vez que se cargan los datos. Con el botón **CSV** del estudio exporta exactamente las columnas que ve."
+    ],
+    "points": [
+      "Sin `select` llegan todas las columnas, también `id` y `created_at`.",
+      "`select` lleva los nombres separados por comas, sin espacios.",
+      "Las columnas salen en el orden en que las escribe.",
+      "El total del pie cuenta todas las filas, no solo las enviadas."
+    ],
+    "exercise": "Cambie la segunda consulta para que muestre `email` y `name`, en ese orden, de los clientes ordenados por ciudad (`city`)."
+  },
+  "en": {
+    "slug": "choosing-columns",
+    "title": "Choosing the columns",
+    "summary": "With select, FalconDatabase returns only the columns you ask for, in that order: smaller answers and clearer grids in DMarlon Studio.",
+    "body": [
+      "The first query has no `select`, so the server returns **every column** of `customers`: `id`, `created_at`, `name`, `email`, `city` and `joined`. Every FalconDatabase table has the first two: `id` is a number the server sets on insert, and `created_at` is the date and time the row was created.",
+      "That query has `\"limit\": 3`, so it brings three customers (`Ana García`, `Carlos Díaz`, `Emma Brown`), yet the footer says `8 rows in total`: the server counts every row that matches, even if it only sends three.",
+      "The second one adds `\"select\": \"name,city,joined\"`: the request is `GET …/tables/customers?order=name&select=name,city,joined&limit=100` and the grid has those three columns, in that order, for the `8` customers.",
+      "Always ask only for what you will use: the answer is lighter (it matters on a phone), and in this course it also leaves out `created_at`, which changes every time the data is loaded. The studio's **CSV** button exports exactly the columns you see."
+    ],
+    "points": [
+      "Without `select` you get every column, `id` and `created_at` included.",
+      "`select` takes the names separated by commas, with no spaces.",
+      "Columns come out in the order you write them.",
+      "The footer total counts every matching row, not just the ones sent."
+    ],
+    "exercise": "Change the second query so it shows `email` and `name`, in that order, for the customers sorted by city (`city`)."
+  }
+}

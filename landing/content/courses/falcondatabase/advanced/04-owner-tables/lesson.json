@@ -1,0 +1,39 @@
+{
+  "as": "ana",
+  "es": {
+    "slug": "tablas-del-dueno",
+    "title": "Tablas con dueño",
+    "summary": "En una tabla owner de FalconDatabase cada usuario solo ve y cambia sus filas: Ana guarda sus notas y las lista sin filtrar por usuario.",
+    "body": [
+      "Esta lección se ejecuta con la sesión de **Ana** (`ana@dmarlonstudio.com`), uno de los usuarios del proyecto del curso. La tabla `notes` tiene la regla **`owner`**: cada fila es de quien la creó.",
+      "Ana inserta `3` notas con `title`, `body` y, en una, `done` `true`. No envía nada que diga que son suyas: el servidor rellena `owner_id` con el id de Ana, como se ve en la primera pestaña.",
+      "La lista no lleva ningún `where` y aun así devuelve solo las `3` notas de Ana, por título: `Call the dairy`, `New prices` y `Order flour`. El filtro por dueño lo pone el servidor en cada petición; la app no puede olvidarlo ni saltárselo.",
+      "Es el patrón de los datos personales (notas, favoritos, carritos, ajustes): una sola tabla para todos los usuarios y una consulta igual para todos, sin riesgo de enseñar lo de otro."
+    ],
+    "points": [
+      "La regla `owner` une cada fila a quien la creó.",
+      "`owner_id` lo pone el servidor, no la app.",
+      "Una lista sin filtros devuelve solo sus filas.",
+      "Una tabla y una consulta para todos los usuarios."
+    ],
+    "exercise": "Añada a Ana una cuarta nota ya hecha (`done` `true`) y liste solo las pendientes (`done` `is.false`), por título."
+  },
+  "en": {
+    "slug": "owner-tables",
+    "title": "Tables with an owner",
+    "summary": "In a FalconDatabase owner table each user sees and changes only their own rows: Ana saves her notes and lists them without filtering by user.",
+    "body": [
+      "This lesson runs with **Ana**'s session (`ana@dmarlonstudio.com`), one of the users of the course project. The `notes` table has the **`owner`** rule: each row belongs to whoever created it.",
+      "Ana inserts `3` notes with `title`, `body` and, in one of them, `done` `true`. She sends nothing saying they are hers: the server fills `owner_id` with Ana's id, as the first tab shows.",
+      "The list has no `where` at all and still returns only Ana's `3` notes, by title: `Call the dairy`, `New prices` and `Order flour`. The server adds the owner filter to every request; the app cannot forget it or skip it.",
+      "This is the pattern for personal data (notes, favourites, baskets, settings): one table for every user and the same query for everyone, with no risk of showing someone else's."
+    ],
+    "points": [
+      "The `owner` rule ties each row to whoever created it.",
+      "The server sets `owner_id`, not the app.",
+      "A list with no filters returns only your rows.",
+      "One table and one query for every user."
+    ],
+    "exercise": "Give Ana a fourth note that is already done (`done` `true`) and list only the pending ones (`done` `is.false`), by title."
+  }
+}

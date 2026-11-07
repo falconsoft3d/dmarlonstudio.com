@@ -1,0 +1,6 @@
+// limit 0: no rows, only how many there are
+{"table": "orders", "limit": 0}
+{"table": "orders", "where": {"status": "paid"}, "limit": 0}
+{"table": "customers", "where": {"city": "Madrid"}, "limit": 0}
+// The count is the total, not the page: 2 rows of 4
+{"table": "orders", "select": "ordered,status,total", "where": {"status": "shipped"}, "order": "ordered", "limit": 2}

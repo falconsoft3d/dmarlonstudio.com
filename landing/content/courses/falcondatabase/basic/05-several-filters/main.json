@@ -1,0 +1,4 @@
+// Two filters: a row must pass both (AND)
+{"table": "products", "select": "name,category_id,price", "where": {"category_id": 1, "price": "lt.2"}, "order": "price"}
+// Three filters: active, in stock and under 3 euros
+{"table": "products", "select": "name,price,stock", "where": {"active": "is.true", "stock": "gt.0", "price": "lt.3"}, "order": "price"}

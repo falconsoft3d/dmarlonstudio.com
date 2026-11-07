@@ -1,0 +1,6 @@
+// Every shop table is "public_read": the anon key alone can read it
+{"table": "categories", "select": "name", "order": "name"}
+{"table": "reviews", "select": "product_id,rating,comment", "where": {"rating": 5}, "order": "product_id"}
+// "notes" is "owner": a user sees only their own rows
+// (the course user has none yet)
+{"table": "notes", "select": "title,done"}

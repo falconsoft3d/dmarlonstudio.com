@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.70 — 2026-11-07
+
+- **Curso de FalconDatabase** en la web (/cursos/falcondatabase y /en/courses/falcondatabase): 40 lecciones, básico y avanzado, de la primera consulta a los filtros, la paginación, la columna JSON, insertar, cambiar y borrar, las reglas de acceso, las tablas con dueño, el inicio de sesión, los errores de validación y el cliente de Flutter (`lib/db.dart`) que genera el estudio. Se ejecutan de verdad contra un proyecto de FalconDatabase con la tienda de ejemplo, que se puede leer con su clave pública desde el módulo Bases de datos.
+- FalconDatabase: «1 fila en total» en singular. Los mensajes en inglés de MongoDB («Index created…») ya salen traducidos en el curso.
+
 ## 1.0.69 — 2026-11-07
 
 - **Curso de Firebase (Cloud Firestore)** en la web (/cursos/firebase y /en/courses/firebase): 40 lecciones, básico y avanzado, de documentos y colecciones a mapas, listas, subcolecciones, consultas de grupo, agregados, desnormalización, paginación, reglas de seguridad y el cliente de Flutter que genera el estudio, con consultas que se ejecutan de verdad en el módulo Bases de datos contra el emulador de Firestore sobre la tienda de ejemplo (`shop.json`).

@@ -1,0 +1,8 @@
+// A stable order: price can tie, so add a second column
+{"table": "products", "select": "name,price", "order": "price,name", "limit": 5}
+// Page 2: offset = (page - 1) * size
+{"table": "products", "select": "name,price", "order": "price,name", "limit": 5, "offset": 5}
+// The last page: count 12, size 5 → 3 pages, offset 10
+{"table": "products", "select": "name,price", "order": "price,name", "limit": 5, "offset": 10}
+// Past the end: no rows, the count stays
+{"table": "products", "select": "name,price", "order": "price,name", "limit": 5, "offset": 15}

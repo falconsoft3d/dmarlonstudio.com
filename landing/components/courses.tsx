@@ -1,4 +1,17 @@
-import { ArrowLeft, ArrowRight, Database, Download, GraduationCap, Lightbulb, ListChecks, Play, Table2, Terminal } from "lucide-react";
+import {
+  AppWindow,
+  ArrowLeft,
+  ArrowRight,
+  Database,
+  Download,
+  GraduationCap,
+  Lightbulb,
+  ListChecks,
+  Play,
+  Table2,
+  Terminal,
+} from "lucide-react";
+import { codeToHtml } from "shiki";
 import {
   siC,
   siCplusplus,
@@ -30,7 +43,11 @@ import {
   lessonsOf,
   levelAlternates,
   levelPath,
+  projectOf,
+  projectAlternates,
+  projectPath,
   type CourseInfo,
+  type CourseProject,
   type DbResult,
   type Lesson,
   type Level,
@@ -344,9 +361,189 @@ export function CoursePage({ lang, course }: { lang: Lang; course: CourseInfo })
           </div>
         </section>
       ))}
+      <ProjectBand lang={lang} course={course} />
       <section className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
         <StudioBox lang={lang} course={course} />
       </section>
+    </Shell>
+  );
+}
+
+/** El proyecto con el IDE del curso (si tiene): la app y el enlace. */
+function ProjectBand({ lang, course }: { lang: Lang; course: CourseInfo }) {
+  const ui = coursesUi(lang);
+  const project = projectOf(course.id);
+  if (!project) return null;
+  const text = project[lang];
+  return (
+    <section className="border-t border-line bg-surface">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_1.1fr]">
+        <div>
+          <p className="inline-flex items-center gap-2 text-sm font-medium text-accent">
+            <AppWindow className="size-4" aria-hidden />
+            {ui.projectBand}
+          </p>
+          <h2 className="mt-2 text-xl font-semibold tracking-tight">{text.title}</h2>
+          <p className="mt-2 leading-relaxed text-muted text-pretty">{text.summary}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted text-pretty">{ui.projectBandText}</p>
+          <a
+            href={projectPath(lang, course.id)}
+            className="mt-5 inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
+          >
+            {ui.projectOpen}
+            <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
+        <a href={projectPath(lang, course.id)} className="block">
+          {/* eslint-disable-next-line @next/next/no-img-element -- captura ya a su tamaño */}
+          <img
+            src={project.app.src}
+            width={project.app.size[0]}
+            height={project.app.size[1]}
+            alt={ui.projectApp}
+            loading="lazy"
+            className="h-auto w-full rounded-xl border border-line shadow-sm"
+          />
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/** /cursos/<curso>/proyecto: la aplicación hecha con el IDE. */
+export async function ProjectPage({ lang, course, project }: { lang: Lang; course: CourseInfo; project: CourseProject }) {
+  const ui = coursesUi(lang);
+  const text = project[lang];
+  const crumbs = [
+    { name: ui.menu, path: coursesPath(lang) },
+    { name: course.name, path: coursePath(lang, course.id) },
+    { name: ui.project, path: projectPath(lang, course.id) },
+  ];
+  const files = await Promise.all(
+    project.files.map(async (f) => ({
+      ...f,
+      html: (await codeToHtml(f.code, { lang: f.lang, theme: "dark-plus" })).replaceAll(
+        '</span>\n<span class="line">',
+        '</span><span class="line">',
+      ),
+    })),
+  );
+  const designer = project.designer[lang];
+  return (
+    <Shell lang={lang} alternates={projectAlternates(course.id)}>
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "LearningResource",
+          name: fill(ui.projectTitle, text.title),
+          description: text.summary,
+          inLanguage: lang,
+          learningResourceType: "Project",
+          teaches: course.name,
+          isAccessibleForFree: true,
+          image: `${SITE_URL}${project.app.src}`,
+          isPartOf: { "@type": "Course", name: fill(ui.courseTitle, course.name), url: `${SITE_URL}${coursePath(lang, course.id)}` },
+          provider: { "@type": "Organization", name: "DMarlon Studio", url: SITE_URL },
+        }}
+      />
+      <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+        <Crumbs items={crumbs.slice(0, 2)} />
+        <p className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-accent">
+          <AppWindow className="size-4" aria-hidden />
+          {ui.projectBand} · {fill(ui.projectTarget, project.target[lang])}
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          {text.title} <span className="text-muted">· {course.name}</span>
+        </h1>
+        <p className="mt-3 text-lg leading-relaxed text-muted text-pretty">{text.summary}</p>
+        <figure className="mt-6">
+          {/* eslint-disable-next-line @next/next/no-img-element -- captura ya a su tamaño */}
+          <img
+            src={project.app.src}
+            width={project.app.size[0]}
+            height={project.app.size[1]}
+            alt={ui.projectApp}
+            className="h-auto w-full rounded-xl border border-line"
+          />
+          <figcaption className="mt-2 text-center text-sm text-muted">{ui.projectApp}</figcaption>
+        </figure>
+        <div className="mt-8 space-y-4 leading-relaxed text-pretty">
+          {text.intro.map((p, i) => (
+            <p key={i}>
+              <Inline text={p} />
+            </p>
+          ))}
+        </div>
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold tracking-tight">{ui.projectSteps}</h2>
+          <ol className="mt-4 list-decimal space-y-2 pl-5 leading-relaxed">
+            {text.steps.map((s, i) => (
+              <li key={i}>
+                <Inline text={s} />
+              </li>
+            ))}
+          </ol>
+        </section>
+        <figure className="mt-10">
+          {/* eslint-disable-next-line @next/next/no-img-element -- captura ya a su tamaño */}
+          <img
+            src={designer}
+            width={project.designer.size[0]}
+            height={project.designer.size[1]}
+            alt={ui.projectDesigner}
+            loading="lazy"
+            className="h-auto w-full rounded-xl border border-line"
+          />
+          <figcaption className="mt-2 text-center text-sm text-muted">{ui.projectDesigner}</figcaption>
+        </figure>
+        <section className="mt-10 space-y-4">
+          <h2 className="text-xl font-semibold tracking-tight">{ui.projectCode}</h2>
+          {files.map((f) => (
+            <Panel key={f.name} icon={<Terminal className="size-3.5" aria-hidden />} title={f.name}>
+              <div
+                className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed [&_.line]:block [&_.line]:min-h-[1.4em] [&_pre]:!bg-transparent"
+                dangerouslySetInnerHTML={{ __html: f.html }}
+              />
+            </Panel>
+          ))}
+        </section>
+        <section className="mt-8 rounded-xl border border-line p-5">
+          <h2 className="flex items-center gap-2 font-semibold">
+            <ListChecks className="size-4 text-accent" aria-hidden />
+            {ui.keyPoints}
+          </h2>
+          <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed">
+            {text.points.map((p, i) => (
+              <li key={i}>
+                <Inline text={p} />
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="mt-4 rounded-xl border border-accent/30 bg-accent/5 p-5">
+          <a
+            href={project.download}
+            download
+            className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
+          >
+            <Download className="size-4" aria-hidden />
+            {ui.projectDownload}
+          </a>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            <Inline text={ui.projectDownloadText} />
+          </p>
+        </section>
+        <div className="mt-8">
+          <StudioBox lang={lang} course={course} />
+        </div>
+        <nav className="mt-10 border-t border-line pt-6 text-sm">
+          <a href={coursePath(lang, course.id)} className="flex items-center gap-2 text-muted hover:text-ink">
+            <ArrowLeft className="size-4" aria-hidden />
+            {fill(ui.courseTitle, course.name)}
+          </a>
+        </nav>
+      </article>
     </Shell>
   );
 }

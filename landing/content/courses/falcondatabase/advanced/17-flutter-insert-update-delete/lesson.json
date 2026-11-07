@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "flutter-insertar-cambiar-borrar",
+    "title": "Flutter: insert, update y delete",
+    "summary": "Escriba en FalconDatabase desde Flutter con lib/db.dart: insert devuelve la fila con su id, y update y delete trabajan con ese id.",
+    "body": [
+      "**`insert`** recibe un mapa y devuelve la fila guardada: `final row = await db.table('categories').insert({'name': 'Frozen'});`. De ahí sale el `id` que ha puesto el servidor, `row['id']`, y con él se hace todo lo demás.",
+      "**`update(id, valores)`** es el `PATCH`: `await db.table('categories').update(row['id'], {'name': 'Frozen food'});` y devuelve la fila cambiada. La lista intermedia enseña las `5` categorías con la nueva, `Frozen food`, entre `Drinks` y `Fruit`.",
+      "**`delete(id)`** es el `DELETE`: `await db.table('categories').delete(row['id']);`. Después, la lista vuelve a tener las `4` de siempre. Para leer una fila suelta está `get(id)`, que devuelve `null` si no existe.",
+      "El script hace lo mismo con `where` por el nombre, porque no puede guardar el `id` de una respuesta para la siguiente. Una diferencia más: el `insert` de `lib/db.dart` es de una fila; para varias a la vez, `db.send('POST', '/tables/categories', [ … ])`."
+    ],
+    "points": [
+      "`insert(mapa)` devuelve la fila con su `id`.",
+      "`update(id, mapa)` es un `PATCH`; `delete(id)`, un `DELETE`.",
+      "`get(id)` lee una fila, o `null`.",
+      "En la app, el `id` viene de la respuesta del `insert` o de la lista.",
+      "Varias filas a la vez: `db.send('POST', …, [ … ])`."
+    ],
+    "exercise": "Escriba en Dart (como comentario) y como consultas: insertar el producto `Lemonade` a `2.6`, subirle el precio a `2.8` y borrarlo."
+  },
+  "en": {
+    "slug": "flutter-insert-update-delete",
+    "title": "Flutter: insert, update and delete",
+    "summary": "Write to FalconDatabase from Flutter with lib/db.dart: insert returns the row with its id, and update and delete work with that id.",
+    "body": [
+      "**`insert`** takes a map and returns the saved row: `final row = await db.table('categories').insert({'name': 'Frozen'});`. That is where the `id` the server assigned comes from, `row['id']`, and you use it for everything else.",
+      "**`update(id, values)`** is the `PATCH`: `await db.table('categories').update(row['id'], {'name': 'Frozen food'});`, and it returns the changed row. The list in the middle shows the `5` categories with the new one, `Frozen food`, between `Drinks` and `Fruit`.",
+      "**`delete(id)`** is the `DELETE`: `await db.table('categories').delete(row['id']);`. Afterwards the list has the usual `4` again. To read a single row there is `get(id)`, which returns `null` if it does not exist.",
+      "The script does the same with `where` on the name, because it cannot keep the `id` from one answer for the next. One more difference: `lib/db.dart`'s `insert` takes one row; for several at once, `db.send('POST', '/tables/categories', [ … ])`."
+    ],
+    "points": [
+      "`insert(map)` returns the row with its `id`.",
+      "`update(id, map)` is a `PATCH`; `delete(id)`, a `DELETE`.",
+      "`get(id)` reads one row, or `null`.",
+      "In the app, the `id` comes from the `insert` answer or the list.",
+      "Several rows at once: `db.send('POST', …, [ … ])`."
+    ],
+    "exercise": "Write in Dart (as a comment) and as queries: insert the product `Lemonade` at `2.6`, raise its price to `2.8` and delete it."
+  }
+}

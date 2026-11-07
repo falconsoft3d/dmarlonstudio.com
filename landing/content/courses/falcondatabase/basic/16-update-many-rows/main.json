@@ -1,0 +1,5 @@
+// Every product without stock stops being sold
+{"table": "products", "update": {"where": {"stock": 0}, "set": {"active": false}}}
+// Every new order is now paid
+{"table": "orders", "update": {"where": {"status": "new"}, "set": {"status": "paid"}}}
+{"table": "orders", "select": "ordered,status,total", "where": {"status": "paid"}, "order": "ordered"}

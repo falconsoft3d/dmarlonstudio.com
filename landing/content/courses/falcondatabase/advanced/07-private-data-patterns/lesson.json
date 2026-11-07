@@ -1,0 +1,39 @@
+{
+  "as": "ana",
+  "es": {
+    "slug": "patrones-de-datos-privados",
+    "title": "Una lista de tareas privada",
+    "summary": "El patrón de datos privados con FalconDatabase: la lista de tareas de cada usuario con añadir, marcar y ordenar, sin un solo filtro por usuario.",
+    "body": [
+      "Con la regla `owner`, una lista de tareas por usuario cabe en tres consultas. Ana añade `3` tareas de golpe (`Bake 40 baguettes`, `Clean the oven`, `Write the menu`); `done` no se envía y toma su valor por defecto, `false`.",
+      "Marcar una tarea es un `update` de una columna: `Clean the oven` pasa a `done` `true`. En la app, el `where` sería el id de la fila que se ha tocado.",
+      "La pantalla ordena por `done,title`: como `false` va antes que `true`, primero salen las `2` pendientes por orden alfabético y al final la hecha. Un solo `order` hace la lista entera, sin ordenar en la app.",
+      "Ninguna consulta menciona a Ana: el mismo script con la sesión de Luis enseñaría la lista de Luis. Es lo que permite escribir la pantalla una vez y que sirva a todos los usuarios."
+    ],
+    "points": [
+      "Añadir, marcar y listar: tres consultas.",
+      "Las columnas que no se envían toman su valor por defecto.",
+      "`order` por un booleano pone primero los `false`.",
+      "Ninguna consulta nombra al usuario: lo pone la sesión."
+    ],
+    "exercise": "Añada una consulta que borre las tareas hechas (`delete` con `where` `done` `is.true`) y otra que cuente con `limit` `0` las que quedan."
+  },
+  "en": {
+    "slug": "private-data-patterns",
+    "title": "A private to-do list",
+    "summary": "The private-data pattern with FalconDatabase: each user's to-do list with add, tick and sort, without a single filter by user.",
+    "body": [
+      "With the `owner` rule, a per-user to-do list fits in three queries. Ana adds `3` tasks at once (`Bake 40 baguettes`, `Clean the oven`, `Write the menu`); `done` is not sent and takes its default, `false`.",
+      "Ticking a task is a one-column `update`: `Clean the oven` becomes `done` `true`. In the app, the `where` would be the id of the row that was tapped.",
+      "The screen sorts by `done,title`: since `false` comes before `true`, the `2` pending tasks come first in alphabetical order and the done one last. A single `order` builds the whole list, with no sorting in the app.",
+      "No query mentions Ana: the same script with Luis's session would show Luis's list. That is what lets you write the screen once and have it work for every user."
+    ],
+    "points": [
+      "Add, tick and list: three queries.",
+      "Columns you do not send take their default.",
+      "`order` on a boolean puts `false` first.",
+      "No query names the user: the session does."
+    ],
+    "exercise": "Add a query that deletes the done tasks (`delete` with `where` `done` `is.true`) and another that counts the rest with `limit` `0`."
+  }
+}

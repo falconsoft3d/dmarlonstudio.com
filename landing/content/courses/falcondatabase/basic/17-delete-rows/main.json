@@ -1,0 +1,5 @@
+// Delete the reviews of 3 stars or fewer
+{"table": "reviews", "delete": {"where": {"rating": "lte.3"}}}
+// And the ones without a comment
+{"table": "reviews", "delete": {"where": {"comment": "is.null"}}}
+{"table": "reviews", "select": "product_id,rating,comment", "order": "rating.desc,product_id"}

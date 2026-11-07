@@ -1,0 +1,39 @@
+{
+  "as": "luis",
+  "es": {
+    "slug": "cada-usuario-sus-filas",
+    "title": "Cada usuario, sus filas",
+    "summary": "Con la sesión de Luis, las notas de Ana no existen en FalconDatabase: ni se leen, ni se cuentan, ni las alcanza un update.",
+    "body": [
+      "Ahora el script entra como **Luis**. Las notas de Ana de la lección anterior siguen en la tabla, pero la primera consulta, que busca `Order flour` con `limit` `0`, cuenta `0`: para Luis no existen.",
+      "Luis inserta su nota, `Shelf for the jams`. El `update` con `where` `done` `is.false` cambia `1` fila, la suya, aunque en la tabla hay notas pendientes de Ana: el estudio busca los id con un `GET`, y ese `GET` ya viene filtrado por el servidor.",
+      "La lista final tiene `1` fila: la nota de Luis, ya marcada como hecha. Si Luis enviara un `PATCH` o un `DELETE` con el id de una nota de Ana, la respuesta sería `HTTP 404: Row not found.`, igual que con un id que no existe: el servidor no le dice ni que esa fila está ahí.",
+      "Eso es lo que hace segura la regla `owner`: no depende de que la app filtre bien. Aunque alguien copie la clave anon y escriba sus propias peticiones, con su token solo llega a sus filas."
+    ],
+    "points": [
+      "Cada sesión ve una tabla distinta: solo sus filas.",
+      "Los filtros, las cuentas y los `update` solo alcanzan lo propio.",
+      "Una fila ajena responde igual que una que no existe: `404`.",
+      "La seguridad está en el servidor, no en la app."
+    ],
+    "exercise": "Como Luis, inserte dos notas más y borre con `delete` y `where` las que estén hechas. ¿Cuántas le quedan?"
+  },
+  "en": {
+    "slug": "each-user-their-rows",
+    "title": "Each user, their own rows",
+    "summary": "With Luis's session, Ana's notes do not exist in FalconDatabase: they cannot be read, counted or reached by an update.",
+    "body": [
+      "Now the script signs in as **Luis**. Ana's notes from the previous lesson are still in the table, but the first query, which looks for `Order flour` with `limit` `0`, counts `0`: for Luis they do not exist.",
+      "Luis inserts his own note, `Shelf for the jams`. The `update` with `where` `done` `is.false` changes `1` row, his, even though the table holds pending notes of Ana's: the studio looks up the ids with a `GET`, and that `GET` is already filtered by the server.",
+      "The final list has `1` row: Luis's note, now marked as done. If Luis sent a `PATCH` or a `DELETE` with the id of one of Ana's notes, the answer would be `HTTP 404: Row not found.`, just as with an id that does not exist: the server does not even tell him the row is there.",
+      "That is what makes the `owner` rule safe: it does not rely on the app filtering correctly. Even if someone copies the anon key and writes their own requests, their token only reaches their own rows."
+    ],
+    "points": [
+      "Each session sees a different table: only its rows.",
+      "Filters, counts and `update` only reach your own rows.",
+      "Someone else's row answers like a missing one: `404`.",
+      "Security lives on the server, not in the app."
+    ],
+    "exercise": "As Luis, insert two more notes and use `delete` with `where` to remove the done ones. How many are left?"
+  }
+}

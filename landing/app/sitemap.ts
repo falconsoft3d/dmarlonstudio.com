@@ -1,6 +1,16 @@
 import type { MetadataRoute } from "next";
 import { ALL_DEMOS } from "@/components/demos";
-import { LEVELS, courseAlternates, hasLevel, lessonAlternates, lessonsOf, levelAlternates, publishedCourses } from "@/content/courses";
+import {
+  LEVELS,
+  courseAlternates,
+  hasLevel,
+  lessonAlternates,
+  lessonsOf,
+  levelAlternates,
+  projectAlternates,
+  projectOf,
+  publishedCourses,
+} from "@/content/courses";
 import { chapterAlternates, manualOf } from "@/content/manual";
 import { demoAlternates } from "@/lib/demos";
 import { HOME, LANGS, PATHS, type Alternates } from "@/lib/i18n";
@@ -31,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...both(levelAlternates(c.id, l), 0.7, "monthly"),
         ...lessonsOf(c.id, l).flatMap((x) => both(lessonAlternates(c.id, l, x), 0.6, "monthly")),
       ]),
+      ...(projectOf(c.id) ? both(projectAlternates(c.id), 0.7, "monthly") : []),
     ]),
     ...both(PATHS.dossier, 0.7, "monthly"),
     ...both(PATHS.changelog, 0.6, "weekly"),

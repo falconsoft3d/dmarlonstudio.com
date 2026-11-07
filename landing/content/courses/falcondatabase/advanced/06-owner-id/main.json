@@ -1,0 +1,10 @@
+// Ana: owner_id is filled in by the server, whatever you send
+{"table": "notes", "insert": [
+  {"title": "Pay the rent", "done": true},
+  {"title": "Count the till", "owner_id": 1},
+  {"title": "Paint the sign"}
+]}
+// She can change and delete her own rows
+{"table": "notes", "update": {"where": {"title": "Count the till"}, "set": {"done": true}}}
+{"table": "notes", "delete": {"where": {"title": "Pay the rent"}}}
+{"table": "notes", "select": "title,done,owner_id", "order": "title"}

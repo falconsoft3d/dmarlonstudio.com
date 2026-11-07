@@ -1,0 +1,5 @@
+// The app ships the anon key: rules apply. Reading the shop is public…
+{"table": "employees", "select": "name,role", "order": "name"}
+// …so anything sensitive must not live in a public_read table:
+// anyone with the anon key can read it (salaries!)
+{"table": "employees", "select": "name,role,salary", "where": {"salary": "gte.3000"}, "order": "salary.desc"}

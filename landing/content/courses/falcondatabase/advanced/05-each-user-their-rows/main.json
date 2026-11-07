@@ -1,0 +1,6 @@
+// Luis is signed in: Ana's notes are not there for him
+{"table": "notes", "where": {"title": "Order flour"}, "limit": 0}
+{"table": "notes", "insert": {"title": "Shelf for the jams"}}
+// A filter only reaches his own rows: Ana's done notes stay as they are
+{"table": "notes", "update": {"where": {"done": false}, "set": {"done": true}}}
+{"table": "notes", "select": "title,done", "order": "title"}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "paginas-limit-offset",
+    "title": "Páginas con limit y offset",
+    "summary": "Pagine en FalconDatabase con limit (cuántas filas) y offset (cuántas saltar), siempre con order, como una lista que carga por páginas.",
+    "body": [
+      "Una app no carga una tabla entera: la pide **por páginas**. **`limit`** dice cuántas filas quiere y **`offset`**, cuántas saltar antes de empezar. Las tres consultas piden páginas de `4` productos ordenados por nombre.",
+      "La página 1 no salta nada: `Apples 1 kg`, `Baguette`, `Bananas 1 kg` y `Croissant`. La 2 lleva `offset` `4` (`…?order=name&limit=4&offset=4`) y empieza en `Espresso beans`. La 3 salta `8` y termina en `Whole milk`.",
+      "La fórmula es `offset = (página - 1) × tamaño`. Y el pie de cada pestaña dice `12 filas en total`: con eso la app sabe que hay `12 / 4 = 3` páginas y que no hace falta pedir una cuarta.",
+      "El `order` es lo que hace que las páginas encajen: sin él, una fila podría salir en dos páginas o en ninguna. Pruebe a ejecutar una sola de las tres seleccionándola y pulsando **Ejecutar**: el estudio ejecuta solo la selección."
+    ],
+    "points": [
+      "`limit`: cuántas filas; `offset`: cuántas saltar.",
+      "`offset = (página - 1) × tamaño`.",
+      "El total del pie dice cuántas páginas hay.",
+      "Paginar sin `order` mezcla las páginas."
+    ],
+    "exercise": "Pagine los pedidos (`orders`) de `3` en `3` por fecha (`ordered`). ¿Cuántas páginas hay y qué `offset` lleva la última?"
+  },
+  "en": {
+    "slug": "pages-limit-offset",
+    "title": "Pages with limit and offset",
+    "summary": "Paginate in FalconDatabase with limit (how many rows) and offset (how many to skip), always with order, like a list that loads by pages.",
+    "body": [
+      "An app does not load a whole table: it asks for it **in pages**. **`limit`** says how many rows you want and **`offset`** how many to skip first. The three queries ask for pages of `4` products sorted by name.",
+      "Page 1 skips nothing: `Apples 1 kg`, `Baguette`, `Bananas 1 kg` and `Croissant`. Page 2 has an `offset` of `4` (`…?order=name&limit=4&offset=4`) and starts at `Espresso beans`. Page 3 skips `8` and ends at `Whole milk`.",
+      "The formula is `offset = (page - 1) × size`. And each tab's footer says `12 rows in total`: from that the app knows there are `12 / 4 = 3` pages and no fourth one to ask for.",
+      "The `order` is what makes the pages fit together: without it, a row could appear on two pages or on none. Try running just one of the three by selecting it and pressing **Run**: the studio runs only the selection."
+    ],
+    "points": [
+      "`limit`: how many rows; `offset`: how many to skip.",
+      "`offset = (page - 1) × size`.",
+      "The footer total tells you how many pages there are.",
+      "Paging without `order` mixes the pages up."
+    ],
+    "exercise": "Page through the orders (`orders`) `3` at a time by date (`ordered`). How many pages are there, and what `offset` does the last one use?"
+  }
+}

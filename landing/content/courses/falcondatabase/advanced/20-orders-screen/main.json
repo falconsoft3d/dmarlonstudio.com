@@ -1,0 +1,9 @@
+// The "My orders" screen of customer 1, step by step
+// 1) The list: newest first, with the stored total
+{"table": "orders", "select": "ordered,status,total", "where": {"customer_id": 1}, "order": "ordered.desc"}
+// 2) She taps the order of 15 March (order 3): its lines
+{"table": "order_items", "select": "product_id,qty,price", "where": {"order_id": 3}, "order": "product_id"}
+// 3) The stars of those products, in one request
+{"table": "reviews", "select": "product_id,rating,comment", "where": {"product_id": "in.(5,12)"}, "order": "product_id,rating.desc"}
+// 4) Her open orders, for the badge
+{"table": "orders", "where": {"customer_id": 1, "status": "in.(new,paid)"}, "limit": 0}

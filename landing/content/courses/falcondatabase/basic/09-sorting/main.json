@@ -1,0 +1,4 @@
+// The five dearest products
+{"table": "products", "select": "name,price", "order": "price.desc", "limit": 5}
+// Two columns: by category, then dearest first inside each one
+{"table": "products", "select": "category_id,name,price", "order": "category_id,price.desc"}

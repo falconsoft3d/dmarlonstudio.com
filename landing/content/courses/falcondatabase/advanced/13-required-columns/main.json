@@ -1,0 +1,5 @@
+// name and price are required (not null); stock has a default
+{"table": "products", "insert": {"name": "Brioche", "category_id": 1, "price": 3.1}}
+{"table": "products", "select": "name,price,stock,active", "where": {"name": "Brioche"}}
+// Without a name the database says no
+{"table": "products", "insert": {"category_id": 1, "price": 2.5}}

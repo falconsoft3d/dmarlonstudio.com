@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "borrar-filas",
+    "title": "Borrar filas",
+    "summary": "Borre en FalconDatabase con delete: por id (DELETE /tables/<tabla>/<id>) o con un where que elige todas las filas que se van.",
+    "body": [
+      "La API borra filas de una en una: **`DELETE /tables/reviews/<id>`**. En el estudio, `{\"table\": \"reviews\", \"delete\": 7}` borra la fila de id `7`.",
+      "Con **`{\"delete\": {\"where\": {…}}}`** el estudio busca los id que cumplen el filtro y envía un `DELETE` por cada uno. `rating=lte.3` se lleva `2` reseñas (las de `3` y `2` estrellas) y `comment=is.null`, `1` más.",
+      "La respuesta de un borrado no trae filas, solo `2 filas afectadas`: por eso esas pestañas no tienen rejilla. La lista final enseña las `5` reseñas que quedan, de las de `5` estrellas a las de `4`.",
+      "No hay papelera ni borrado en cascada: si borrara un producto, sus reseñas seguirían ahí con un `product_id` que ya no existe. Antes de borrar con `where`, ejecute el mismo filtro como lista y mire qué sale."
+    ],
+    "points": [
+      "Una fila se borra con `DELETE /tables/<tabla>/<id>`.",
+      "`\"delete\": 7` borra por id; `{\"where\": …}`, por filtro.",
+      "La respuesta solo dice cuántas filas se fueron.",
+      "No hay cascada: las filas relacionadas se quedan."
+    ],
+    "exercise": "Borre los pedidos cancelados (`status` `cancelled`) y cuente con `limit` `0` cuántos pedidos quedan."
+  },
+  "en": {
+    "slug": "delete-rows",
+    "title": "Deleting rows",
+    "summary": "Delete in FalconDatabase with delete: by id (DELETE /tables/<table>/<id>) or with a where that picks every row to go.",
+    "body": [
+      "The API deletes rows one at a time: **`DELETE /tables/reviews/<id>`**. In the studio, `{\"table\": \"reviews\", \"delete\": 7}` deletes the row with id `7`.",
+      "With **`{\"delete\": {\"where\": {…}}}`** the studio finds the ids that match and sends one `DELETE` for each. `rating=lte.3` removes `2` reviews (the `3` and `2` star ones) and `comment=is.null` `1` more.",
+      "A delete response carries no rows, just `2 rows affected`: that is why those tabs have no grid. The final list shows the `5` reviews left, from the `5` star ones to the `4` star ones.",
+      "There is no recycle bin and no cascade: if you deleted a product, its reviews would stay with a `product_id` that no longer exists. Before deleting with `where`, run the same filter as a list and look at what comes out."
+    ],
+    "points": [
+      "A row is deleted with `DELETE /tables/<table>/<id>`.",
+      "`\"delete\": 7` deletes by id; `{\"where\": …}`, by filter.",
+      "The response only says how many rows went.",
+      "No cascade: related rows stay behind."
+    ],
+    "exercise": "Delete the cancelled orders (`status` `cancelled`) and count with `limit` `0` how many orders are left."
+  }
+}

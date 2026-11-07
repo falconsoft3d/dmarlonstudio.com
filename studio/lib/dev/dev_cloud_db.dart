@@ -181,7 +181,12 @@ class FalconDb extends DevDb {
     final count = j is Map ? j['count'] : null;
     return count == null
         ? out
-        : out._with(tr('{0} filas en total', [count]), null);
+        : out._with(
+            count == 1
+                ? tr('1 fila en total')
+                : tr('{0} filas en total', [count]),
+            null,
+          );
   }
 
   /// Los filtros de «where»: columna → «op.valor» (sin operador, eq).

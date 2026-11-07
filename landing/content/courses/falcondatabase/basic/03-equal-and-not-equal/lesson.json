@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "igual-y-distinto",
+    "title": "Igual y distinto: eq y neq",
+    "summary": "Filtre filas en FalconDatabase con where: eq para un valor exacto y neq para todo lo demás, tal como los envía la API REST.",
+    "body": [
+      "**`where`** filtra las filas. Es un objeto: cada clave es una columna y cada valor, `operador.valor`. `{\"city\": \"eq.Madrid\"}` se convierte en el parámetro `city=eq.Madrid` de la URL, y el servidor devuelve los `2` clientes de Madrid: `Ana García` y `Marta López`.",
+      "Si el valor no empieza por un operador, el estudio pone `eq.` delante: `{\"status\": \"shipped\"}` es lo mismo que `{\"status\": \"eq.shipped\"}`. Salen los `4` pedidos enviados, del `2024-03-01` al `2024-05-20`.",
+      "**`neq`** es «distinto de»: `status=neq.shipped` devuelve los otros `6` pedidos (`3` pagados, `2` nuevos y `1` cancelado). Los dos resultados suman los `10` pedidos de la tienda.",
+      "La comparación es exacta: `eq.madrid` no encontraría nada, porque las mayúsculas cuentan. Para buscar sin distinguirlas está `ilike`, que verá más adelante."
+    ],
+    "points": [
+      "`where` es un objeto: columna → `operador.valor`.",
+      "Cada filtro es un parámetro de la URL: `city=eq.Madrid`.",
+      "Sin operador, el estudio entiende `eq`.",
+      "`neq` devuelve todo lo que no es ese valor.",
+      "`eq` distingue mayúsculas y minúsculas."
+    ],
+    "exercise": "Liste los productos (`name`, `price`) de la categoría `3` con `eq` y, en otra consulta, los que no son de esa categoría con `neq`."
+  },
+  "en": {
+    "slug": "equal-and-not-equal",
+    "title": "Equal and not equal: eq and neq",
+    "summary": "Filter rows in FalconDatabase with where: eq for an exact value and neq for everything else, just as the REST API receives them.",
+    "body": [
+      "**`where`** filters rows. It is an object: each key is a column and each value is `operator.value`. `{\"city\": \"eq.Madrid\"}` becomes the URL parameter `city=eq.Madrid`, and the server returns the `2` customers from Madrid: `Ana García` and `Marta López`.",
+      "If the value does not start with an operator, the studio puts `eq.` in front: `{\"status\": \"shipped\"}` is the same as `{\"status\": \"eq.shipped\"}`. You get the `4` shipped orders, from `2024-03-01` to `2024-05-20`.",
+      "**`neq`** means not equal: `status=neq.shipped` returns the other `6` orders (`3` paid, `2` new and `1` cancelled). Together the two answers make up the shop's `10` orders.",
+      "The comparison is exact: `eq.madrid` would find nothing, because capitals matter. To search without caring about them there is `ilike`, coming up later."
+    ],
+    "points": [
+      "`where` is an object: column → `operator.value`.",
+      "Each filter is a URL parameter: `city=eq.Madrid`.",
+      "With no operator, the studio assumes `eq`.",
+      "`neq` returns everything that is not that value.",
+      "`eq` is case-sensitive."
+    ],
+    "exercise": "List the products (`name`, `price`) of category `3` with `eq` and, in another query, the ones outside that category with `neq`."
+  }
+}

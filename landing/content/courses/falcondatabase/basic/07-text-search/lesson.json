@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "buscar-texto-like-ilike",
+    "title": "Buscar texto: like e ilike",
+    "summary": "Busque por partes de un texto en FalconDatabase con like (distingue mayúsculas) e ilike (no las distingue), con los comodines % y _.",
+    "body": [
+      "**`like`** compara con un patrón: **`%`** es cualquier texto (también ninguno) y **`_`**, exactamente un carácter. `like.Gr%` son los nombres que empiezan por `Gr`: `Greek yogurt` y `Green tea`.",
+      "`like` distingue mayúsculas: `like.gr%` no encuentra nada (`0 filas en total`), porque los dos nombres empiezan por `G` mayúscula. La pestaña de esa consulta sale vacía, pero sin error.",
+      "`like.% _ kg` pide un espacio, un carácter cualquiera, otro espacio y `kg` al final: `Apples 1 kg` y `Bananas 1 kg`. En la URL el `%` viaja codificado como `%25`; el estudio lo hace solo.",
+      "**`ilike`** es igual pero sin distinguir mayúsculas: `ilike.%EZ` encuentra los apellidos que terminan en «ez», aunque estén en minúsculas: `Luis Pérez`, `Marta López` y `Pedro Gómez`. Es el operador de las cajas de búsqueda de las apps."
+    ],
+    "points": [
+      "`%` es cualquier texto; `_`, un solo carácter.",
+      "`like` distingue mayúsculas y minúsculas.",
+      "`ilike` no las distingue: el de los buscadores.",
+      "Sin coincidencias, la respuesta es vacía, no un error."
+    ],
+    "exercise": "Busque con `ilike` los productos cuyo nombre contiene `an` en cualquier posición, con `name` y `price`, ordenados por nombre."
+  },
+  "en": {
+    "slug": "text-search-like-ilike",
+    "title": "Searching text: like and ilike",
+    "summary": "Search by part of a text in FalconDatabase with like (case-sensitive) and ilike (case-insensitive), using the % and _ wildcards.",
+    "body": [
+      "**`like`** matches a pattern: **`%`** is any text (or none) and **`_`** is exactly one character. `like.Gr%` is the names that start with `Gr`: `Greek yogurt` and `Green tea`.",
+      "`like` is case-sensitive: `like.gr%` finds nothing (`0 rows in total`), because both names start with a capital `G`. That query's tab is empty, but there is no error.",
+      "`like.% _ kg` asks for a space, any one character, another space and `kg` at the end: `Apples 1 kg` and `Bananas 1 kg`. In the URL the `%` travels encoded as `%25`; the studio does that for you.",
+      "**`ilike`** is the same but ignores case: `ilike.%EZ` finds the surnames ending in ez even though they are lower-case: `Luis Pérez`, `Marta López` and `Pedro Gómez`. It is the operator behind an app's search box."
+    ],
+    "points": [
+      "`%` is any text; `_`, a single character.",
+      "`like` is case-sensitive.",
+      "`ilike` ignores case: the one for search boxes.",
+      "No matches gives an empty answer, not an error."
+    ],
+    "exercise": "Use `ilike` to find the products whose name contains `an` anywhere, with `name` and `price`, sorted by name."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "contar-sin-descargar",
+    "title": "Contar sin descargar filas",
+    "summary": "FalconDatabase no tiene count(), pero limit 0 devuelve solo el total: cifras e insignias de una app con peticiones mínimas.",
+    "body": [
+      "Muchas pantallas necesitan números y no filas: «12 productos», «3 con poco stock». La API no tiene `count()`, pero cada lista devuelve `count`, y con **`\"limit\": 0`** la respuesta es solo eso: `{\"data\": [], \"count\": 12}`.",
+      "Las cuatro primeras consultas son cuatro cifras: `12` productos, `10` a la venta (activos y con stock), `5` con menos de 15 unidades y `6` reseñas de cuatro estrellas o más. Cada pestaña enseña solo el mensaje.",
+      "La última consulta es la que se haría al tocar la insignia: ahora sí con filas, los `5` productos con poco stock, de los dos agotados a `Strawberries` con `14`. Primero el número, barato; las filas, solo cuando hacen falta.",
+      "El `list()` del `lib/db.dart` de Flutter devuelve solo las filas. Para leer el total se usa `send`, que devuelve la respuesta entera: `final j = await db.send('GET', '/tables/products?stock=lt.15&limit=0');` y el número está en `j['count']`."
+    ],
+    "points": [
+      "`limit` `0` devuelve solo `count`.",
+      "Una cifra por consulta, con su filtro.",
+      "Primero el número; las filas, cuando se pidan.",
+      "En Flutter, el total se lee con `db.send` y `j['count']`."
+    ],
+    "exercise": "Cuente cuántos pedidos hay de cada cliente `1`, `2` y `3` (tres consultas `limit` `0`) y liste después los pedidos del que tenga más."
+  },
+  "en": {
+    "slug": "counting-without-rows",
+    "title": "Counting without downloading rows",
+    "summary": "FalconDatabase has no count(), but limit 0 returns just the total: an app's figures and badges with minimal requests.",
+    "body": [
+      "Many screens need numbers, not rows: 12 products, 3 low on stock. The API has no `count()`, but every list returns `count`, and with **`\"limit\": 0`** that is all the answer contains: `{\"data\": [], \"count\": 12}`.",
+      "The first four queries are four figures: `12` products, `10` on sale (active and in stock), `5` with fewer than 15 units and `6` reviews of four stars or more. Each tab shows only the message.",
+      "The last query is the one you would run when the badge is tapped: rows this time, the `5` low-stock products, from the two sold out to `Strawberries` with `14`. The number first, which is cheap; the rows only when they are needed.",
+      "The `list()` in Flutter's `lib/db.dart` returns just the rows. To read the total you use `send`, which returns the whole answer: `final j = await db.send('GET', '/tables/products?stock=lt.15&limit=0');` and the number is in `j['count']`."
+    ],
+    "points": [
+      "`limit` `0` returns only `count`.",
+      "One figure per query, with its filter.",
+      "The number first; the rows when asked for.",
+      "In Flutter, read the total with `db.send` and `j['count']`."
+    ],
+    "exercise": "Count the orders of customers `1`, `2` and `3` (three `limit` `0` queries), then list the orders of the one with the most."
+  }
+}

@@ -1,0 +1,8 @@
+// Ana is signed in: her rows get her owner_id
+{"table": "notes", "insert": [
+  {"title": "Order flour", "body": "25 kg for Monday"},
+  {"title": "Call the dairy", "body": "Milk arrived late", "done": true},
+  {"title": "New prices", "body": "Check the coffee"}
+]}
+// She lists the table and sees only her own notes
+{"table": "notes", "select": "title,body,done", "order": "title"}

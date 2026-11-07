@@ -1,0 +1,39 @@
+{
+  "es": {
+    "slug": "indice-unico-y-clave-duplicada",
+    "title": "Índice único y clave duplicada",
+    "summary": "Impida valores repetidos en MongoDB con un índice unique y vea el error E11000 de clave duplicada al cargar un cliente con un correo que ya existe.",
+    "body": [
+      "Con **`\"unique\": true`** el índice, además de acelerar, **impide valores repetidos**: no puede haber dos clientes con el mismo `email`. La lista de índices lo marca con `unique: true`. En mongosh: `db.customers.createIndex({email: 1}, {unique: true, name: \"email_unique\"})`.",
+      "Las altas llegan a una colección intermedia, `signups`, y se pasan a `customers` con **`$merge`** (lo verá a fondo en la lección siguiente). Iris Vega, con un correo nuevo, entra sin problemas: la consulta de después enseña a Carlos Díaz y a ella, con `_id` 9.",
+      "La segunda alta, «Ana G.», tiene `_id` 10, que es nuevo, pero su correo, `ana@example.com`, ya es de Ana García. El índice la rechaza con el error **E11000 duplicate key**, que dice el índice (`email_unique`) y el valor repetido. El estudio para el script en esa consulta y enseña el error en su pestaña, en rojo. Un `insertOne` en mongosh daría el mismo error.",
+      "Ojo con los campos que faltan: para el índice, un cliente sin `email` (Pedro Gómez) cuenta como `null`, y un segundo cliente sin correo también chocaría. En mongosh se evita con un índice parcial: `{unique: true, partialFilterExpression: {email: {$exists: true}}}`. La lección termina en el error a propósito: es lo que quiere ver."
+    ],
+    "points": [
+      "`\"unique\": true` impide valores repetidos.",
+      "Un valor repetido da el error E11000 duplicate key.",
+      "El mensaje dice el índice y el valor que choca.",
+      "Un campo que falta cuenta como `null` en un índice único."
+    ],
+    "exercise": "Cree un índice único sobre `name` en `categories` e intente insertar otra categoría `\"Bakery\"` con `$merge` desde una colección intermedia."
+  },
+  "en": {
+    "slug": "unique-index-and-duplicate-key",
+    "title": "Unique index and duplicate key",
+    "summary": "Prevent repeated values in MongoDB with a unique index and see the E11000 duplicate key error when loading a customer whose e-mail already exists.",
+    "body": [
+      "With **`\"unique\": true`** the index not only speeds things up, it also **forbids repeated values**: no two customers can share an `email`. The index list marks it with `unique: true`. In mongosh: `db.customers.createIndex({email: 1}, {unique: true, name: \"email_unique\"})`.",
+      "New sign-ups land in a staging collection, `signups`, and are moved into `customers` with **`$merge`** (covered properly in the next lesson). Iris Vega, with a new e-mail, goes in without trouble: the query after it shows Carlos Díaz and her, with `_id` 9.",
+      "The second sign-up, \"Ana G.\", has `_id` 10, which is new, but her e-mail, `ana@example.com`, already belongs to Ana García. The index rejects it with the **E11000 duplicate key** error, which names the index (`email_unique`) and the repeated value. The studio stops the script at that query and shows the error in red in its tab. An `insertOne` in mongosh would raise the same error.",
+      "Watch out for missing fields: for the index, a customer without an `email` (Pedro Gómez) counts as `null`, and a second customer without one would clash too. In mongosh you avoid that with a partial index: `{unique: true, partialFilterExpression: {email: {$exists: true}}}`. The lesson ends in the error on purpose: that is what it is here to show."
+    ],
+    "points": [
+      "`\"unique\": true` forbids repeated values.",
+      "A repeated value raises the E11000 duplicate key error.",
+      "The message names the index and the clashing value.",
+      "A missing field counts as `null` in a unique index."
+    ],
+    "exercise": "Create a unique index on `name` in `categories` and try to insert another `\"Bakery\"` category with `$merge` from a staging collection."
+  },
+  "error": true
+}

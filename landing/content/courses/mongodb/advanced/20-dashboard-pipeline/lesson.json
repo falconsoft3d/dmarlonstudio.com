@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "panel-de-clientes",
+    "title": "Panel de clientes",
+    "summary": "Repase el nivel avanzado de MongoDB con un pipeline de panel: cada cliente con sus pedidos, lo gastado, su último pedido y su categoría.",
+    "body": [
+      "El último pipeline junta las piezas del nivel en una fila por cliente, lista para un panel. Parte de `customers` y no de `orders`: así salen también los clientes sin pedidos.",
+      "El `$lookup` trae todos los pedidos de cada cliente al array `orders`, y un `$addFields` con **`$filter`** deja en `valid` los que no están cancelados. Desde ahí todo se calcula sobre el array, sin `$unwind` ni `$group`: `$size` cuenta los pedidos, `$sum` de `\"$valid.total\"` suma lo gastado y `$max` de `\"$valid.ordered\"` da la fecha más reciente, que con texto `AAAA-MM-DD` funciona igual.",
+      "**`$switch`** pone la categoría: `gold` desde 30 euros, `silver` desde 15 y `bronze` el resto. Ana García es la única `gold`, con 3 pedidos y 34.95; Luis Pérez, Emma Brown y Sofía Ruiz son `silver`.",
+      "Al final de la lista, Carlos Díaz y John Smith tienen 0 pedidos válidos, 0 gastado y la fecha vacía: el `$max` de un array vacío es `null`. John sí hizo un pedido, pero cancelado. Ordenar por `spent` y, en caso de empate, por nombre deja el resultado siempre igual. Con **CSV**, el panel se va a una hoja de cálculo."
+    ],
+    "points": [
+      "Empiece por la colección de la que quiere una fila por documento.",
+      "`$lookup` + `$filter` preparan un array por cliente.",
+      "`$size`, `$sum` y `$max` sobre arrays evitan `$unwind`.",
+      "`$switch` clasifica; el desempate hace el orden determinista."
+    ],
+    "exercise": "Añada una columna `avg` con el gasto medio por pedido válido (cuidado con dividir entre 0: use `$cond`)."
+  },
+  "en": {
+    "slug": "customer-dashboard",
+    "title": "Customer dashboard",
+    "summary": "Review the MongoDB advanced level with a dashboard pipeline: each customer with their orders, amount spent, latest order and tier.",
+    "body": [
+      "The last pipeline brings the pieces of this level together into one row per customer, ready for a dashboard. It starts from `customers`, not from `orders`: that way customers without orders appear too.",
+      "The `$lookup` brings every order of each customer into the `orders` array, and an `$addFields` with **`$filter`** keeps the ones that are not cancelled in `valid`. From there everything is computed on the array, without `$unwind` or `$group`: `$size` counts the orders, `$sum` of `\"$valid.total\"` adds up the spending and `$max` of `\"$valid.ordered\"` gives the latest date, which works just as well with `YYYY-MM-DD` text.",
+      "**`$switch`** assigns the tier: `gold` from 30 euros, `silver` from 15 and `bronze` for the rest. Ana García is the only `gold`, with 3 orders and 34.95; Luis Pérez, Emma Brown and Sofía Ruiz are `silver`.",
+      "At the bottom, Carlos Díaz and John Smith have 0 valid orders, 0 spent and an empty date: the `$max` of an empty array is `null`. John did place an order, but it was cancelled. Sorting by `spent` and, on a tie, by name keeps the result always the same. With **CSV**, the dashboard goes to a spreadsheet."
+    ],
+    "points": [
+      "Start from the collection you want one row per document of.",
+      "`$lookup` + `$filter` prepare one array per customer.",
+      "`$size`, `$sum` and `$max` on arrays avoid `$unwind`.",
+      "`$switch` classifies; a tie-breaker makes the order deterministic."
+    ],
+    "exercise": "Add an `avg` column with the average spend per valid order (careful with dividing by 0: use `$cond`)."
+  }
+}

@@ -1,0 +1,17 @@
+// $unset removes a field from the document
+{"collection": "products", "update": [{"active": false},
+ {"$unset": {"tags": ""}}]}
+
+// $rename changes the name of a field in every document
+{"collection": "customers", "update": [{},
+ {"$rename": {"joined": "since"}}]}
+
+// Fill in the e-mail that was missing
+{"collection": "customers", "update": [{"email": {"$exists": false}},
+ {"$set": {"email": "pedro@example.com", "checked": "2024-07-01"}}]}
+
+{"collection": "products", "find": {"_id": {"$in": [10, 11]}},
+ "projection": {"name": 1, "tags": 1}}
+{"collection": "customers", "find": {"city": "Seville"},
+ "projection": {"name": 1, "email": 1, "since": 1, "checked": 1},
+ "sort": {"_id": 1}}

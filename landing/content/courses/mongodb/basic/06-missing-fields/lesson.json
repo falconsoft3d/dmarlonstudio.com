@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "campos-que-faltan-exists",
+    "title": "Campos que faltan y $exists",
+    "summary": "Distinga en MongoDB un campo a null de uno que no existe, y búsquelos con null y con $exists. Un cliente sin correo como ejemplo.",
+    "body": [
+      "En una colección de MongoDB no todos los documentos tienen los mismos campos. La primera consulta lista las 8 reseñas: la 5 tiene la celda `comment` vacía porque su documento **no tiene** ese campo. La rejilla lo enseña igual que un `null`, pero no es lo mismo.",
+      "Filtrar por **`null`** encuentra las dos cosas: el campo puesto a `null` y el campo que falta. `{\"manager_id\": null}` da Laura Martín, la directora, que tiene `manager_id: null`; `{\"comment\": null}` da la reseña 5, que no tiene `comment`.",
+      "**`$exists`** pregunta solo si el campo está, valga lo que valga. `{\"email\": {\"$exists\": true}}` con `\"count\": true` cuenta 7 clientes con correo. En mongosh: `db.customers.countDocuments({email: {$exists: true}})`.",
+      "La última consulta, con `$exists: false`, da el único cliente sin correo: Pedro Gómez. Aunque la proyección pide `email`, la columna no aparece: un campo que no existe no se puede devolver. Antes de mandar un boletín, una consulta así le dice a quién le falta el dato."
+    ],
+    "points": [
+      "Un campo puede faltar en algunos documentos.",
+      "`{\"campo\": null}` encuentra el `null` y el campo que falta.",
+      "`$exists: true` o `false` mira solo si el campo está.",
+      "Proyectar un campo que falta no crea la columna."
+    ],
+    "exercise": "Cuente las reseñas que sí tienen `comment` y liste la que no lo tiene con su `product_id`."
+  },
+  "en": {
+    "slug": "missing-fields-and-exists",
+    "title": "Missing fields and $exists",
+    "summary": "Tell a field set to null from a missing one in MongoDB, and find them with null and $exists. A customer with no e-mail as the example.",
+    "body": [
+      "In a MongoDB collection not every document has the same fields. The first query lists the 8 reviews: number 5 has an empty `comment` cell because its document **has no** such field. The grid shows it just like a `null`, but it is not the same thing.",
+      "Filtering on **`null`** finds both: the field set to `null` and the missing field. `{\"manager_id\": null}` returns Laura Martín, the CEO, who has `manager_id: null`; `{\"comment\": null}` returns review 5, which has no `comment`.",
+      "**`$exists`** only asks whether the field is there, whatever its value. `{\"email\": {\"$exists\": true}}` with `\"count\": true` counts 7 customers with an e-mail. In mongosh: `db.customers.countDocuments({email: {$exists: true}})`.",
+      "The last query, with `$exists: false`, returns the only customer without an e-mail: Pedro Gómez. Although the projection asks for `email`, the column does not appear: a field that does not exist cannot be returned. Before sending a newsletter, a query like this tells you who is missing the data."
+    ],
+    "points": [
+      "A field may be missing from some documents.",
+      "`{\"field\": null}` matches both `null` and a missing field.",
+      "`$exists: true` or `false` only checks whether the field is there.",
+      "Projecting a missing field does not create the column."
+    ],
+    "exercise": "Count the reviews that do have a `comment` and list the one that does not, with its `product_id`."
+  }
+}

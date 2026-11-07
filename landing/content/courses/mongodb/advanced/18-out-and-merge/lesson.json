@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "guardar-resultados-out-y-merge",
+    "title": "Guardar resultados con $out y $merge",
+    "summary": "Guarde el resultado de una agregación en MongoDB con $out y actualícelo con $merge, que inserta o actualiza como un upsert.",
+    "body": [
+      "**`$out`** escribe el resultado del pipeline en una colección y la **sustituye** entera. La primera consulta agrupa por cliente los pedidos no cancelados y guarda el resumen en `customer_stats`. Su pestaña no tiene filas: la agregación no devuelve documentos, los escribe. Es una **vista materializada**: un resumen calculado una vez que se lee muchas.",
+      "Después llegan dos pedidos: el 11, del cliente 8, que aún no tenía ninguno, y el 12, del cliente 1. Rehacer el resumen entero con `$out` funcionaría, pero con muchos pedidos es caro.",
+      "**`$merge`** mezcla en lugar de sustituir: para cada documento del pipeline busca uno con el mismo `on` (aquí `_id`) en `customer_stats`. Si existe, **`whenMatched`** dice qué hacer: este pipeline suma a lo guardado (`$orders`, `$spent`) lo nuevo (`$$new.orders`, `$$new.spent`). Si no existe, **`whenNotMatched: \"insert\"`** lo añade. Es el **upsert** de las agregaciones.",
+      "La última consulta lee el resumen: el cliente 1 pasa a 4 pedidos y 39.45, el 8 aparece con 1 pedido y 7.75, y los demás siguen igual. El cliente 4 no está: su único pedido está cancelado. `$out` y `$merge` tienen que ser la **última etapa** del pipeline, y `customer_stats` aparece en la lista de colecciones después de ejecutar."
+    ],
+    "points": [
+      "`$out` sustituye una colección por el resultado.",
+      "`$merge` inserta o actualiza por el campo `on`.",
+      "`whenMatched` puede ser un pipeline con `$$new`.",
+      "Ambos van al final y no devuelven filas.",
+      "Un resumen guardado se lee rápido y se refresca con `$merge`."
+    ],
+    "exercise": "Haga un `$merge` en `product_stats` con las unidades vendidas por producto y luego ejecútelo otra vez con `whenMatched: \"replace\"`: ¿cambia algo?"
+  },
+  "en": {
+    "slug": "saving-results-with-out-and-merge",
+    "title": "Saving results with $out and $merge",
+    "summary": "Save the result of a MongoDB aggregation with $out and update it with $merge, which inserts or updates like an upsert.",
+    "body": [
+      "**`$out`** writes the result of the pipeline into a collection and **replaces** it entirely. The first query groups the non-cancelled orders by customer and saves the summary in `customer_stats`. Its tab has no rows: the aggregation does not return documents, it writes them. It is a **materialised view**: a summary computed once and read many times.",
+      "Then two orders arrive: number 11, from customer 8, who had none yet, and number 12, from customer 1. Rebuilding the whole summary with `$out` would work, but with many orders it is expensive.",
+      "**`$merge`** merges instead of replacing: for each document of the pipeline it looks for one with the same `on` (here `_id`) in `customer_stats`. If it exists, **`whenMatched`** says what to do: this pipeline adds the new values (`$$new.orders`, `$$new.spent`) to the stored ones (`$orders`, `$spent`). If it does not, **`whenNotMatched: \"insert\"`** adds it. It is the **upsert** of aggregations.",
+      "The last query reads the summary: customer 1 goes up to 4 orders and 39.45, customer 8 appears with 1 order and 7.75, and the rest are unchanged. Customer 4 is missing: their only order was cancelled. `$out` and `$merge` must be the **last stage** of the pipeline, and `customer_stats` shows up in the collection list after running."
+    ],
+    "points": [
+      "`$out` replaces a collection with the result.",
+      "`$merge` inserts or updates by the `on` field.",
+      "`whenMatched` can be a pipeline using `$$new`.",
+      "Both go last and return no rows.",
+      "A saved summary reads fast and is refreshed with `$merge`."
+    ],
+    "exercise": "Write a `$merge` into `product_stats` with the units sold per product, then run it again with `whenMatched: \"replace\"`: does anything change?"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "consultar-arrays",
+    "title": "Consultar arrays",
+    "summary": "Consulte campos array en MongoDB: un elemento, el array exacto, $size, $all y $in, con las etiquetas de los productos.",
+    "body": [
+      "Un campo puede guardar una lista. Al filtrar con un valor suelto, `{\"tags\": \"sweet\"}`, MongoDB mira **cada elemento** del array: salen Croissant, Greek yogurt y Strawberries, cada uno con `sweet` entre sus etiquetas.",
+      "Si el valor del filtro es un array, se pide **ese array exacto**, con los mismos elementos y en el mismo orden: `{\"tags\": [\"bread\", \"sweet\"]}` da Croissant; `[\"sweet\", \"bread\"]` no daría nada.",
+      "**`$size`** compara el número de elementos: `{\"$size\": 0}` encuentra Whole milk, con `tags` vacío. `$size` solo admite un número exacto; para «más de dos» hay que guardar el tamaño en otro campo o usar una agregación.",
+      "**`$all`** pide que estén todos los valores, en cualquier orden: `[\"sweet\", \"fresh\"]` da Strawberries. **`$in`** pide alguno: la última consulta encuentra las bebidas por su etiqueta, Orange juice, Green tea y Espresso beans, ordenadas por precio. En mongosh: `db.products.find({tags: {$in: [\"tea\", \"coffee\", \"juice\"]}})`."
+    ],
+    "points": [
+      "Un valor suelto encuentra cualquier elemento del array.",
+      "Un array en el filtro pide el array exacto.",
+      "`$size` compara el número de elementos.",
+      "`$all`: todos los valores; `$in`: alguno."
+    ],
+    "exercise": "Busque los productos que tengan la etiqueta `\"bread\"` y exactamente una etiqueta (`$size: 1`)."
+  },
+  "en": {
+    "slug": "querying-arrays",
+    "title": "Querying arrays",
+    "summary": "Query array fields in MongoDB: one element, the exact array, $size, $all and $in, using the product tags.",
+    "body": [
+      "A field can hold a list. When you filter with a single value, `{\"tags\": \"sweet\"}`, MongoDB looks at **every element** of the array: Croissant, Greek yogurt and Strawberries match, each with `sweet` among its tags.",
+      "If the filter value is an array, it asks for **that exact array**, with the same elements in the same order: `{\"tags\": [\"bread\", \"sweet\"]}` returns Croissant; `[\"sweet\", \"bread\"]` would return nothing.",
+      "**`$size`** compares the number of elements: `{\"$size\": 0}` finds Whole milk, with an empty `tags`. `$size` only takes an exact number; for \"more than two\" you need to store the size in another field or use an aggregation.",
+      "**`$all`** requires every value, in any order: `[\"sweet\", \"fresh\"]` returns Strawberries. **`$in`** requires any of them: the last query finds the drinks by their tag, Orange juice, Green tea and Espresso beans, sorted by price. In mongosh: `db.products.find({tags: {$in: [\"tea\", \"coffee\", \"juice\"]}})`."
+    ],
+    "points": [
+      "A single value matches any element of the array.",
+      "An array in the filter asks for the exact array.",
+      "`$size` compares the number of elements.",
+      "`$all`: every value; `$in`: any of them."
+    ],
+    "exercise": "Find the products that have the `\"bread\"` tag and exactly one tag (`$size: 1`)."
+  }
+}

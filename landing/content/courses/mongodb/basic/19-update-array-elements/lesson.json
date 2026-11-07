@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "cambiar-elementos-de-un-array",
+    "title": "Cambiar elementos de un array",
+    "summary": "Actualice líneas dentro de un array en MongoDB con el operador posicional $ y con $[], y añada una línea a un pedido.",
+    "body": [
+      "Para cambiar una línea concreta de un pedido, el filtro la busca y el **operador posicional `$`** la señala: con `{\"_id\": 7, \"items.product_id\": 2}`, `\"items.$.qty\"` es la cantidad de la primera línea que cumplió, la de Croissant. Pasa a 8 unidades y, en la misma operación, el total a 12.",
+      "**`$[]`** significa todos los elementos del array. `{\"$mul\": {\"items.$[].price\": 0.5, \"total\": 0.5}}` deja el pedido 1 a mitad de precio: 0.6, 0.55 y 3.875 en las líneas y 5.625 de total. En mongosh: `db.orders.updateMany({_id: 1}, {$mul: {\"items.$[].price\": 0.5, total: 0.5}})`.",
+      "Un mismo cambio puede llevar varios operadores. El pedido 9 recibe una línea nueva con `$push` y, a la vez, `$inc` le suma 1.10 al total, que pasa de 10.80 a 11.90. Al ir en un solo documento, el cambio es **atómico**: nadie puede ver la línea nueva con el total viejo.",
+      "La última consulta proyecta `items.qty` e `items.price` de los tres pedidos para comprobarlo. Con datos incrustados, mantener el total al día es tarea de quien escribe; en la lección 11 del nivel avanzado se calcula a partir de las líneas."
+    ],
+    "points": [
+      "`$` es el primer elemento que cumplió el filtro.",
+      "`$[]` es cada elemento del array.",
+      "Un update puede combinar `$push`, `$inc`, `$set`…",
+      "Los cambios en un documento son atómicos."
+    ],
+    "exercise": "Suba en 1 la cantidad de la línea del producto `8` del pedido `4` con `$`, y ajuste su `total` sumándole `2.4`."
+  },
+  "en": {
+    "slug": "updating-array-elements",
+    "title": "Updating array elements",
+    "summary": "Update lines inside an array in MongoDB with the positional $ operator and with $[], and add a line to an order.",
+    "body": [
+      "To change one particular line of an order, the filter finds it and the **positional `$` operator** points at it: with `{\"_id\": 7, \"items.product_id\": 2}`, `\"items.$.qty\"` is the quantity of the first line that matched, the Croissant one. It becomes 8 units and, in the same operation, the total becomes 12.",
+      "**`$[]`** means every element of the array. `{\"$mul\": {\"items.$[].price\": 0.5, \"total\": 0.5}}` puts order 1 at half price: 0.6, 0.55 and 3.875 on the lines and 5.625 in total. In mongosh: `db.orders.updateMany({_id: 1}, {$mul: {\"items.$[].price\": 0.5, total: 0.5}})`.",
+      "One change can carry several operators. Order 9 gets a new line with `$push` and, at the same time, `$inc` adds 1.10 to the total, which goes from 10.80 to 11.90. Since it all happens in one document, the change is **atomic**: nobody can see the new line with the old total.",
+      "The last query projects `items.qty` and `items.price` of the three orders to check it. With embedded data, keeping the total up to date is the writer's job; lesson 11 of the advanced level computes it from the lines."
+    ],
+    "points": [
+      "`$` is the first element that matched the filter.",
+      "`$[]` is every element of the array.",
+      "One update can combine `$push`, `$inc`, `$set`…",
+      "Changes to a single document are atomic."
+    ],
+    "exercise": "Raise by 1 the quantity of product `8`'s line in order `4` using `$`, and adjust its `total` by adding `2.4`."
+  }
+}

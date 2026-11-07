@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "lookup-con-pipeline",
+    "title": "$lookup con pipeline",
+    "summary": "Use $lookup con let y pipeline en MongoDB para agregar en la colección unida: número de reseñas, nota media y peor nota de cada producto.",
+    "body": [
+      "El `$lookup` sencillo trae los documentos enteros. La forma con **`let`** y **`pipeline`** ejecuta un pipeline propio en la colección unida: aquí, en `reviews`, agrupa las reseñas de cada producto y devuelve solo tres números, en lugar de todos los comentarios.",
+      "**`let`** pasa valores del documento de fuera al pipeline: `{\"pid\": \"$_id\"}` hace que `$$pid` sea el `_id` del producto. Dentro, el `$match` necesita **`$expr`** para comparar un campo con una variable: `{\"$expr\": {\"$eq\": [\"$product_id\", \"$$pid\"]}}`.",
+      "El `$group` interno calcula `n`, `avg` y `low` y el resultado va al array `stats`. Los productos sin reseñas reciben un array vacío, y el `$unwind` los quita: de 12 productos quedan los 5 con opiniones.",
+      "Croissant encabeza con un 5 (una sola reseña), seguido de Baguette con 4.5 de media en dos. Strawberries cierra con un 3: tiene un 4 y un 2. A igual nota, el orden lo decide el nombre. En mongosh es el mismo objeto dentro de `db.products.aggregate([...])`."
+    ],
+    "points": [
+      "`let` + `pipeline` ejecutan etapas en la colección unida.",
+      "`$$variable` lleva valores de fuera hacia dentro.",
+      "Dentro, comparar con una variable pide `$expr`.",
+      "Agregar dentro del `$lookup` trae menos datos."
+    ],
+    "exercise": "Cambie el pipeline interno para que traiga solo las reseñas de 4 o más estrellas y cuente cuántas tiene cada producto."
+  },
+  "en": {
+    "slug": "lookup-with-a-pipeline",
+    "title": "$lookup with a pipeline",
+    "summary": "Use $lookup with let and pipeline in MongoDB to aggregate in the joined collection: number of reviews, average rating and worst rating per product.",
+    "body": [
+      "The plain `$lookup` brings back whole documents. The form with **`let`** and **`pipeline`** runs a pipeline of its own in the joined collection: here, in `reviews`, it groups each product's reviews and returns just three numbers instead of every comment.",
+      "**`let`** passes values from the outer document into the pipeline: `{\"pid\": \"$_id\"}` makes `$$pid` the product's `_id`. Inside, the `$match` needs **`$expr`** to compare a field with a variable: `{\"$expr\": {\"$eq\": [\"$product_id\", \"$$pid\"]}}`.",
+      "The inner `$group` computes `n`, `avg` and `low` and the result goes into the `stats` array. Products without reviews get an empty array, and the `$unwind` removes them: out of 12 products, the 5 with reviews remain.",
+      "Croissant leads with a 5 (a single review), followed by Baguette with an average of 4.5 over two. Strawberries comes last with a 3: it has a 4 and a 2. On equal ratings, the name decides the order. In mongosh it is the same object inside `db.products.aggregate([...])`."
+    ],
+    "points": [
+      "`let` + `pipeline` run stages in the joined collection.",
+      "`$$variable` carries values from outside in.",
+      "Inside, comparing with a variable needs `$expr`.",
+      "Aggregating inside the `$lookup` brings back less data."
+    ],
+    "exercise": "Change the inner pipeline so it only brings reviews of 4 stars or more, and count how many each product has."
+  }
+}

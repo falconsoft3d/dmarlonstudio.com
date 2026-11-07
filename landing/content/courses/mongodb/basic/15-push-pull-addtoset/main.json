@@ -1,0 +1,20 @@
+// $push appends to the array
+{"collection": "products", "update": [{"_id": 10},
+ {"$push": {"tags": "organic"}}]}
+
+// $addToSet only adds it if it is not there yet
+{"collection": "products", "update": [{"_id": 2},
+ {"$addToSet": {"tags": "sweet"}}]}
+{"collection": "products", "update": [{"_id": 7},
+ {"$addToSet": {"tags": "dairy"}}]}
+
+// $push with $each: several at once
+{"collection": "products", "update": [{"_id": 5},
+ {"$push": {"tags": {"$each": ["hot", "organic"]}}}]}
+
+// $pull removes every element equal to the value
+{"collection": "products", "update": [{"tags": "fresh"},
+ {"$pull": {"tags": "fresh"}}]}
+
+{"collection": "products", "find": {"_id": {"$in": [2, 5, 7, 10, 11, 12]}},
+ "projection": {"name": 1, "tags": 1}, "sort": {"_id": 1}}

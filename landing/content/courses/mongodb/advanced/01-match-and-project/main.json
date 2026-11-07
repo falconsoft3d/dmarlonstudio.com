@@ -1,0 +1,21 @@
+// A pipeline: each stage receives the documents of the one before
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": "shipped"}},
+  {"$sort": {"_id": 1}},
+  {"$limit": 3},
+  {"$project": {"customer_id": 1, "ordered": 1, "total": 1}}
+]}
+
+// $project shapes the output: keep, drop, rename, compute
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}, "total": {"$gte": 12}}},
+  {"$project": {
+    "_id": 0,
+    "order": "$_id",
+    "customer": "$customer_id",
+    "date": "$ordered",
+    "lines": {"$size": "$items"},
+    "total": "$total"
+  }},
+  {"$sort": {"total": -1}}
+]}

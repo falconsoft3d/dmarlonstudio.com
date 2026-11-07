@@ -1,0 +1,21 @@
+// $addFields keeps every field and adds new ones
+{"collection": "products", "aggregate": [
+  {"$match": {"category_id": 3}},
+  {"$addFields": {"stock_value": {"$multiply": ["$price", "$stock"]}}},
+  {"$project": {"name": 1, "price": 1, "stock": 1, "stock_value": 1}}
+]}
+
+// Expressions nest: price with 21 % VAT, rounded, and margin
+{"collection": "products", "aggregate": [
+  {"$match": {"stock": {"$gt": 0}}},
+  {"$addFields": {
+    "with_vat": {"$round": [{"$multiply": ["$price", 1.21]}, 2]},
+    "cost": {"$round": [{"$divide": ["$price", 1.6]}, 2]}
+  }},
+  {"$addFields": {"margin": {"$round": [{"$subtract": ["$price", "$cost"]}, 2]},
+    "value": {"$trunc": [{"$multiply": ["$price", "$stock"]}]}}},
+  {"$project": {"_id": 0, "name": 1, "price": 1, "with_vat": 1,
+    "margin": 1, "value": 1}},
+  {"$sort": {"value": -1}},
+  {"$limit": 8}
+]}

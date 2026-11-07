@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "campos-calculados-y-aritmetica",
+    "title": "Campos calculados y aritmética",
+    "summary": "Añada campos calculados con $addFields en MongoDB y use $multiply, $divide, $subtract, $round y $trunc: IVA, margen y valor del almacén.",
+    "body": [
+      "**`$addFields`** añade campos y conserva todos los que ya había (en `$project` habría que nombrarlos uno a uno). La primera consulta calcula el valor en almacén de los lácteos, `{\"$multiply\": [\"$price\", \"$stock\"]}`: 66 en leche, 52.8 en yogur y 62 en queso. En MongoDB 4.2+ también existe con el nombre `$set`.",
+      "Los operadores aritméticos reciben una lista de argumentos: **`$multiply`**, **`$divide`**, **`$subtract`** y `$add`. Se anidan como funciones: el precio con IVA es `$round` de `$multiply` por 1.21, y el coste se supone el precio dividido entre 1.6.",
+      "Un campo creado en un `$addFields` no se puede usar en el mismo: por eso el margen, `price - cost`, va en una **segunda etapa**, que ya ve `cost`. **`$round`** redondea a los decimales que se indican; **`$trunc`** corta sin redondear, y el valor de Espresso beans (178.2) queda en 178.",
+      "La última consulta deja los productos con existencias, los ordena por valor y se queda con 8. Espresso beans encabeza la lista: 9.90 de precio, 11.98 con IVA, 3.71 de margen y 178 euros en almacén. Baguette cierra con 48."
+    ],
+    "points": [
+      "`$addFields` añade campos y conserva los demás.",
+      "`$multiply`, `$divide`, `$subtract`, `$add` toman una lista.",
+      "Un campo nuevo se usa en la etapa siguiente, no en la misma.",
+      "`$round` redondea; `$trunc` corta."
+    ],
+    "exercise": "Añada un campo `discounted` con el precio rebajado un 15 % y redondeado a 2 decimales, y ordene por él de menor a mayor."
+  },
+  "en": {
+    "slug": "computed-fields-and-arithmetic",
+    "title": "Computed fields and arithmetic",
+    "summary": "Add computed fields with $addFields in MongoDB and use $multiply, $divide, $subtract, $round and $trunc: VAT, margin and stock value.",
+    "body": [
+      "**`$addFields`** adds fields and keeps all the existing ones (with `$project` you would have to name each one). The first query computes the stock value of the dairy products, `{\"$multiply\": [\"$price\", \"$stock\"]}`: 66 for milk, 52.8 for yoghurt and 62 for cheese. Since MongoDB 4.2 it is also available as `$set`.",
+      "The arithmetic operators take a list of arguments: **`$multiply`**, **`$divide`**, **`$subtract`** and `$add`. They nest like functions: the price with VAT is `$round` of `$multiply` by 1.21, and the cost is assumed to be the price divided by 1.6.",
+      "A field created in an `$addFields` cannot be used in that same stage: that is why the margin, `price - cost`, goes in a **second stage**, which can already see `cost`. **`$round`** rounds to the decimals you give; **`$trunc`** cuts without rounding, so the value of Espresso beans (178.2) becomes 178.",
+      "The last query keeps the products in stock, sorts them by value and keeps 8. Espresso beans tops the list: 9.90 price, 11.98 with VAT, 3.71 margin and 178 euros in stock. Baguette closes it with 48."
+    ],
+    "points": [
+      "`$addFields` adds fields and keeps the rest.",
+      "`$multiply`, `$divide`, `$subtract`, `$add` take a list.",
+      "A new field is usable in the next stage, not the same one.",
+      "`$round` rounds; `$trunc` cuts."
+    ],
+    "exercise": "Add a `discounted` field with the price cut by 15 % and rounded to 2 decimals, and sort by it from lowest to highest."
+  }
+}

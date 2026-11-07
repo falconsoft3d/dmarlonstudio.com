@@ -1,0 +1,16 @@
+// Two conditions on the array... met by DIFFERENT lines
+{"collection": "orders",
+ "find": {"items.product_id": 1, "items.qty": {"$gte": 3}},
+ "projection": {"total": 1}, "sort": {"_id": 1}}
+
+// $elemMatch: both conditions on the SAME line
+{"collection": "orders",
+ "find": {"items": {"$elemMatch": {"product_id": 1, "qty": {"$gte": 3}}}},
+ "projection": {"total": 1}}
+
+// $elemMatch in the projection: only the first matching line
+{"collection": "orders",
+ "find": {"items.product_id": 9},
+ "projection": {"customer_id": 1,
+   "items": {"$elemMatch": {"product_id": 9}}},
+ "sort": {"_id": 1}}

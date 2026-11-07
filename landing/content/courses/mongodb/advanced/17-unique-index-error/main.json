@@ -1,0 +1,23 @@
+// unique: no two customers may share an e-mail
+{"collection": "customers", "createIndex": {"email": 1}, "unique": true,
+ "name": "email_unique"}
+{"collection": "customers", "indexes": true}
+
+// Sign-ups arrive in a staging collection
+{"collection": "signups", "insert": [
+  {"_id": 9, "name": "Iris Vega", "email": "iris@example.com",
+   "city": "Madrid", "joined": "2024-06-10"},
+  {"_id": 10, "name": "Ana G.", "email": "ana@example.com",
+   "city": "Madrid", "joined": "2024-06-11"}]}
+
+// $merge copies them into customers: a new e-mail goes in...
+{"collection": "signups", "aggregate": [
+  {"$match": {"_id": 9}},
+  {"$merge": {"into": "customers", "whenNotMatched": "insert"}}]}
+{"collection": "customers", "find": {"_id": {"$gte": 8}},
+ "projection": {"name": 1, "email": 1}, "sort": {"_id": 1}}
+
+// ...but an e-mail that is already there breaks the unique index
+{"collection": "signups", "aggregate": [
+  {"$match": {"_id": 10}},
+  {"$merge": {"into": "customers", "whenNotMatched": "insert"}}]}

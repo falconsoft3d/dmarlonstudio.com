@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "primera-consulta-con-find",
+    "title": "Primera consulta con find",
+    "summary": "Lea documentos de una colección de MongoDB con find: el filtro vacío, la igualdad y la búsqueda por _id, en el módulo Bases de datos de DMarlon Studio.",
+    "body": [
+      "En MongoDB los datos son **documentos** (objetos parecidos a JSON) guardados en **colecciones**, el equivalente a las tablas. En el módulo Bases de datos del estudio cada consulta es un objeto JSON: `\"collection\"` dice dónde buscar y `\"find\"` qué buscar. Con el filtro vacío `{}` salen todos los documentos: las 4 categorías de la tienda. En la consola de MongoDB (mongosh) sería `db.categories.find({})`.",
+      "Un filtro como `{\"city\": \"Madrid\"}` pide los documentos cuyo campo `city` vale exactamente `\"Madrid\"`: salen Ana García y Marta López. Cada documento lleva un **`_id`**, su clave primaria, único dentro de la colección; en estos datos es un número entero.",
+      "`{\"_id\": 5}` trae un único documento, Green tea. Fíjese en la columna `tags`: es un array, `[\"tea\"]`, y la rejilla lo enseña como JSON. Un documento puede guardar listas y otros documentos dentro, algo que una fila de SQL no hace.",
+      "La última consulta lista los 8 clientes ordenados por `_id` (el orden se ve a fondo en la lección 7). Pedro Gómez tiene el correo vacío: su documento **no tiene** el campo `email`. Los documentos de una colección no tienen por qué tener los mismos campos; la rejilla junta todos los que aparecen.",
+      "Al pulsar **Ejecutar** (⌘↵) se lanzan las cuatro consultas en orden y cada resultado queda en su pestaña. En la lista de colecciones de la izquierda, un doble clic escribe una consulta de ejemplo como `{\"collection\": \"customers\", \"find\": {}, \"limit\": 100}`."
+    ],
+    "points": [
+      "Una colección guarda documentos; un documento es un objeto JSON.",
+      "`\"find\": {}` devuelve todos los documentos.",
+      "`{\"campo\": valor}` filtra por igualdad.",
+      "Todo documento tiene un `_id` único.",
+      "Los documentos de una colección pueden tener campos distintos."
+    ],
+    "exercise": "Busque los clientes de `\"London\"` y, después, el producto con `_id` `9`. ¿Qué campos tiene ese documento?"
+  },
+  "en": {
+    "slug": "first-query-with-find",
+    "title": "First query with find",
+    "summary": "Read documents from a MongoDB collection with find: the empty filter, equality and lookup by _id, in the Databases module of DMarlon Studio.",
+    "body": [
+      "In MongoDB, data lives in **documents** (JSON-like objects) stored in **collections**, the counterpart of tables. In the studio's Databases module each query is a JSON object: `\"collection\"` says where to look and `\"find\"` what to look for. The empty filter `{}` returns every document: the 4 categories of the shop. In the MongoDB shell (mongosh) this is `db.categories.find({})`.",
+      "A filter such as `{\"city\": \"Madrid\"}` asks for the documents whose `city` field is exactly `\"Madrid\"`: Ana García and Marta López. Every document carries an **`_id`**, its primary key, unique within the collection; in this data it is an integer.",
+      "`{\"_id\": 5}` brings back a single document, Green tea. Look at the `tags` column: it is an array, `[\"tea\"]`, and the grid shows it as JSON. A document can hold lists and other documents inside it, which a SQL row cannot.",
+      "The last query lists the 8 customers ordered by `_id` (sorting is covered properly in lesson 7). Pedro Gómez's e-mail is empty: his document **has no** `email` field. Documents in the same collection do not need the same fields; the grid gathers every field that appears.",
+      "Pressing **Run** (⌘↵) executes the four queries in order and each result gets its own tab. In the collection list on the left, a double click writes a sample query such as `{\"collection\": \"customers\", \"find\": {}, \"limit\": 100}`."
+    ],
+    "points": [
+      "A collection holds documents; a document is a JSON object.",
+      "`\"find\": {}` returns every document.",
+      "`{\"field\": value}` filters by equality.",
+      "Every document has a unique `_id`.",
+      "Documents in one collection may have different fields."
+    ],
+    "exercise": "Find the customers in `\"London\"` and then the product with `_id` `9`. Which fields does that document have?"
+  }
+}

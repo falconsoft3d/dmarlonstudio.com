@@ -1,0 +1,24 @@
+// The dates are "YYYY-MM-DD" text: the first 7 characters are the month
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}}},
+  {"$group": {
+    "_id": {"$substrCP": ["$ordered", 0, 7]},
+    "orders": {"$sum": 1},
+    "revenue": {"$sum": "$total"},
+    "first": {"$min": "$ordered"},
+    "last": {"$max": "$ordered"}
+  }},
+  {"$sort": {"_id": 1}}
+]}
+
+// Text compares in order, so a range of dates works with $gte / $lt.
+// $dateFromString turns it into a real date: the day of the week
+{"collection": "orders", "aggregate": [
+  {"$match": {"ordered": {"$gte": "2024-05-01", "$lt": "2024-07-01"}}},
+  {"$project": {"ordered": 1, "total": 1,
+    "weekday": {"$dayOfWeek": {"$dateFromString": {"dateString": "$ordered"}}},
+    "days_since_may": {"$divide": [{"$subtract": [
+      {"$dateFromString": {"dateString": "$ordered"}},
+      {"$dateFromString": {"dateString": "2024-05-01"}}]}, 86400000]}}},
+  {"$sort": {"ordered": 1}}
+]}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "unir-colecciones-con-lookup",
+    "title": "Unir colecciones con $lookup",
+    "summary": "Una los pedidos con sus clientes en MongoDB con $lookup, el JOIN de las agregaciones, y aplane el resultado con $unwind.",
+    "body": [
+      "**`$lookup`** trae documentos de otra colección: es el JOIN de MongoDB. Con `\"from\": \"customers\"`, `\"localField\": \"customer_id\"` y `\"foreignField\": \"_id\"`, busca en `customers` los documentos cuyo `_id` es el `customer_id` del pedido y los guarda en el array que dice `\"as\"`.",
+      "El resultado siempre es un **array**, aunque haya un solo cliente: el pedido 3 sale con `customer` igual a `[{\"name\": \"Ana García\", \"city\": \"Madrid\"}]`. Si no encontrara ninguno, el array quedaría vacío; por eso es una unión externa izquierda (*left outer join*): el pedido no se pierde.",
+      "Un **`$unwind`** después convierte ese array de un elemento en un documento, y `\"$customer.name\"` ya es un valor que se puede proyectar. Ojo: `$unwind` descarta los documentos con el array vacío, salvo que se use `{\"path\": \"$customer\", \"preserveNullAndEmptyArrays\": true}`.",
+      "La última consulta lista los 10 pedidos con el nombre y la ciudad del cliente: Ana García tiene tres (1, 3 y 9) y Luis Pérez dos. En mongosh: `db.orders.aggregate([{$lookup: {from: \"customers\", localField: \"customer_id\", foreignField: \"_id\", as: \"customer\"}}])`. Para que `$lookup` sea rápido, el campo `foreignField` debe tener índice; `_id` lo tiene siempre."
+    ],
+    "points": [
+      "`$lookup` une con otra colección por un campo.",
+      "El resultado es un array en el campo `as`.",
+      "Sin coincidencias, el array queda vacío (left outer join).",
+      "`$unwind` después aplana el array de un elemento.",
+      "El `foreignField` debe tener índice."
+    ],
+    "exercise": "Una cada reseña (`reviews`) con su producto y devuelva el nombre del producto, la nota y el comentario."
+  },
+  "en": {
+    "slug": "joining-collections-with-lookup",
+    "title": "Joining collections with $lookup",
+    "summary": "Join the orders with their customers in MongoDB using $lookup, the JOIN of aggregations, and flatten the result with $unwind.",
+    "body": [
+      "**`$lookup`** brings in documents from another collection: it is MongoDB's JOIN. With `\"from\": \"customers\"`, `\"localField\": \"customer_id\"` and `\"foreignField\": \"_id\"`, it looks in `customers` for the documents whose `_id` is the order's `customer_id` and stores them in the array named by `\"as\"`.",
+      "The result is always an **array**, even with a single customer: order 3 comes back with `customer` equal to `[{\"name\": \"Ana García\", \"city\": \"Madrid\"}]`. If none were found, the array would be empty; that is why it is a left outer join: the order is not lost.",
+      "An **`$unwind`** afterwards turns that one-element array into a document, and `\"$customer.name\"` becomes a value you can project. Careful: `$unwind` drops documents with an empty array, unless you use `{\"path\": \"$customer\", \"preserveNullAndEmptyArrays\": true}`.",
+      "The last query lists the 10 orders with the customer's name and city: Ana García has three (1, 3 and 9) and Luis Pérez two. In mongosh: `db.orders.aggregate([{$lookup: {from: \"customers\", localField: \"customer_id\", foreignField: \"_id\", as: \"customer\"}}])`. For `$lookup` to be fast, the `foreignField` should be indexed; `_id` always is."
+    ],
+    "points": [
+      "`$lookup` joins with another collection on a field.",
+      "The result is an array in the `as` field.",
+      "With no match the array is empty (left outer join).",
+      "`$unwind` afterwards flattens the one-element array.",
+      "The `foreignField` should be indexed."
+    ],
+    "exercise": "Join each review (`reviews`) with its product and return the product name, the rating and the comment."
+  }
+}

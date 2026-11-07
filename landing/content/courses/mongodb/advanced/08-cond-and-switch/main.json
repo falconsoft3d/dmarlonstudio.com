@@ -1,0 +1,24 @@
+// $cond: if / then / else inside an expression
+{"collection": "products", "aggregate": [
+  {"$project": {"name": 1, "stock": 1,
+    "reorder": {"$cond": {"if": {"$lt": ["$stock", 15]},
+      "then": "yes", "else": "no"}}}},
+  {"$match": {"reorder": "yes"}},
+  {"$sort": {"stock": 1, "_id": 1}}
+]}
+
+// $switch: the first branch whose case is true
+{"collection": "products", "aggregate": [
+  {"$addFields": {"band": {"$switch": {
+    "branches": [
+      {"case": {"$lt": ["$price", 2]}, "then": "cheap"},
+      {"case": {"$lt": ["$price", 5]}, "then": "mid"}
+    ],
+    "default": "premium"
+  }}}},
+  {"$group": {"_id": "$band", "products": {"$sum": 1},
+    "from": {"$min": "$price"}, "to": {"$max": "$price"},
+    // $cond inside an accumulator: count only those in stock
+    "in_stock": {"$sum": {"$cond": [{"$gt": ["$stock", 0]}, 1, 0]}}}},
+  {"$sort": {"from": 1}}
+]}

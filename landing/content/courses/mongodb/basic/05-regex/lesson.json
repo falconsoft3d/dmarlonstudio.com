@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "buscar-texto-con-regex",
+    "title": "Buscar texto con $regex",
+    "summary": "Busque texto en MongoDB con $regex: principio y final de cadena, sin distinguir mayúsculas y con clases como \\d.",
+    "body": [
+      "**`$regex`** filtra con una expresión regular. `{\"name\": {\"$regex\": \"^M\"}}` pide los nombres que **empiezan** por M: Marta López. El `^` ancla el patrón al principio; sin él, la M podría estar en cualquier sitio.",
+      "**`$options`** cambia cómo se compara: `\"i\"` no distingue mayúsculas, así que `\"BREAD\"` encuentra Rye bread. Baguette no sale: su nombre no contiene esa palabra. En mongosh se suele escribir con barras: `db.products.find({name: /bread/i})`.",
+      "En JSON la barra invertida se escribe doble: `\"\\\\d\"` es el patrón `\\d`, una cifra. Así salen Apples 1 kg y Bananas 1 kg. Lo mismo pasa con el punto: `\"@example\\\\.com$\"` busca un punto de verdad y `$` ancla el final.",
+      "La última consulta da los 7 clientes con correo de example.com, ordenados por nombre; Pedro Gómez no sale porque no tiene `email`. Un patrón con `^` puede aprovechar un índice; uno sin anclar obliga a mirar todos los documentos, algo que se nota en colecciones grandes."
+    ],
+    "points": [
+      "`$regex` filtra con una expresión regular.",
+      "`^` ancla el principio y `$` el final.",
+      "`\"$options\": \"i\"` no distingue mayúsculas.",
+      "En JSON, `\\` se escribe `\\\\`.",
+      "Un campo que no existe nunca cumple el patrón."
+    ],
+    "exercise": "Busque los productos cuyo nombre termina en `\"s\"` sin distinguir mayúsculas, con solo el nombre y el precio."
+  },
+  "en": {
+    "slug": "searching-text-with-regex",
+    "title": "Searching text with $regex",
+    "summary": "Search text in MongoDB with $regex: start and end of the string, case-insensitive matching and classes such as \\d.",
+    "body": [
+      "**`$regex`** filters with a regular expression. `{\"name\": {\"$regex\": \"^M\"}}` asks for names that **start** with M: Marta López. The `^` anchors the pattern at the start; without it, the M could be anywhere.",
+      "**`$options`** changes how it compares: `\"i\"` ignores case, so `\"BREAD\"` finds Rye bread. Baguette does not appear: its name does not contain that word. In mongosh it is usually written between slashes: `db.products.find({name: /bread/i})`.",
+      "In JSON the backslash is written twice: `\"\\\\d\"` is the pattern `\\d`, a digit. That brings Apples 1 kg and Bananas 1 kg. The same goes for the dot: `\"@example\\\\.com$\"` looks for a real dot and `$` anchors the end.",
+      "The last query returns the 7 customers with an example.com address, sorted by name; Pedro Gómez is missing because he has no `email`. A pattern starting with `^` can use an index; an unanchored one has to look at every document, which shows on large collections."
+    ],
+    "points": [
+      "`$regex` filters with a regular expression.",
+      "`^` anchors the start and `$` the end.",
+      "`\"$options\": \"i\"` ignores case.",
+      "In JSON, `\\` is written `\\\\`.",
+      "A missing field never matches the pattern."
+    ],
+    "exercise": "Find the products whose name ends in `\"s\"`, ignoring case, with just the name and the price."
+  }
+}

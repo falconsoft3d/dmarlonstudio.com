@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "fechas-guardadas-como-texto",
+    "title": "Fechas guardadas como texto",
+    "summary": "Agrupe por mes fechas guardadas como texto en MongoDB con $substrCP, filtre rangos y conviértalas con $dateFromString para calcular días.",
+    "body": [
+      "En esta tienda las fechas son texto `\"2024-03-01\"`. Como el formato va de lo grande a lo pequeño, los 7 primeros caracteres son el mes: `{\"$substrCP\": [\"$ordered\", 0, 7]}` da `\"2024-03\"`. Usado como `_id` del `$group`, saca las ventas por mes: 3 pedidos y 40.05 en marzo, 1 en abril (el cancelado no cuenta), 3 y 51.70 en mayo y 2 en junio.",
+      "`$min` y `$max` funcionan con texto, así que dan la primera y la última fecha de cada mes. Por el mismo motivo, un **rango de fechas** se filtra con `$gte` y `$lt` sobre el texto: `{\"$gte\": \"2024-05-01\", \"$lt\": \"2024-07-01\"}` son mayo y junio.",
+      "Para cálculos de calendario hay que convertir el texto en fecha con **`$dateFromString`**. **`$dayOfWeek`** devuelve de 1 (domingo) a 7 (sábado): el 1 de mayo de 2024 fue miércoles, 4, y el 12 de mayo domingo, 1.",
+      "Restar dos fechas da milisegundos; dividir entre 86 400 000 los pasa a días: el pedido del 5 de junio está a 35 días del 1 de mayo. Este servidor es MongoDB 4.4, que no tiene `$dateTrunc` ni `$dateDiff` (llegaron en la 5.0); el texto y la resta hacen el mismo trabajo. Si diseña la colección desde cero, guarde fechas de verdad (tipo `Date`)."
+    ],
+    "points": [
+      "Con texto `AAAA-MM-DD`, el mes son los 7 primeros caracteres.",
+      "Los rangos de fechas en texto se filtran con `$gte` y `$lt`.",
+      "`$dateFromString` convierte texto en fecha.",
+      "Restar fechas da milisegundos.",
+      "MongoDB 4.4 no tiene `$dateTrunc` ni `$dateDiff`."
+    ],
+    "exercise": "Agrupe los pedidos por año y mes (`$substrCP`) y por `status` a la vez (`_id` con dos campos), y ordene por mes."
+  },
+  "en": {
+    "slug": "dates-stored-as-text",
+    "title": "Dates stored as text",
+    "summary": "Group dates stored as text by month in MongoDB with $substrCP, filter ranges and convert them with $dateFromString to work out days.",
+    "body": [
+      "In this shop, dates are text such as `\"2024-03-01\"`. Because the format runs from largest to smallest, the first 7 characters are the month: `{\"$substrCP\": [\"$ordered\", 0, 7]}` gives `\"2024-03\"`. Used as the `$group` `_id`, it yields sales per month: 3 orders and 40.05 in March, 1 in April (the cancelled one does not count), 3 and 51.70 in May and 2 in June.",
+      "`$min` and `$max` work on text, so they give the first and last date of each month. For the same reason, a **date range** is filtered with `$gte` and `$lt` on the text: `{\"$gte\": \"2024-05-01\", \"$lt\": \"2024-07-01\"}` is May and June.",
+      "For calendar arithmetic, turn the text into a date with **`$dateFromString`**. **`$dayOfWeek`** returns 1 (Sunday) to 7 (Saturday): 1 May 2024 was a Wednesday, 4, and 12 May a Sunday, 1.",
+      "Subtracting two dates gives milliseconds; dividing by 86,400,000 turns them into days: the order of 5 June is 35 days after 1 May. This server is MongoDB 4.4, which has neither `$dateTrunc` nor `$dateDiff` (they arrived in 5.0); text and subtraction do the same job. If you design the collection from scratch, store real dates (the `Date` type)."
+    ],
+    "points": [
+      "With `YYYY-MM-DD` text, the month is the first 7 characters.",
+      "Text date ranges are filtered with `$gte` and `$lt`.",
+      "`$dateFromString` turns text into a date.",
+      "Subtracting dates gives milliseconds.",
+      "MongoDB 4.4 has no `$dateTrunc` or `$dateDiff`."
+    ],
+    "exercise": "Group the orders by year-month (`$substrCP`) and by `status` at the same time (an `_id` with two fields), and sort by month."
+  }
+}

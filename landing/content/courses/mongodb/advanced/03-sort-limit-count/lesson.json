@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "ordenar-limitar-y-contar",
+    "title": "Ordenar, limitar y contar",
+    "summary": "Use $sort, $limit, $count y $sortByCount en los pipelines de MongoDB: los mejores clientes, cuántos pedidos grandes y clientes por ciudad.",
+    "body": [
+      "Las etapas **`$sort`** y **`$limit`** hacen en el pipeline lo que `sort` y `limit` en `find`, pero en el punto que usted elija. La primera consulta agrupa por cliente lo gastado en pedidos no cancelados, ordena de mayor a menor y se queda con 3: el cliente 1 (34.95), el 2 (24.90) y el 7 (22.20).",
+      "El orden de las etapas importa: `$limit` antes del `$group` limitaría pedidos, no clientes. Y un `$sort` seguido de `$limit` es eficiente: el servidor solo guarda los primeros mientras ordena.",
+      "**`$count`** sustituye todos los documentos por uno con su número: hay 6 pedidos de más de 12 euros. El nombre del campo, `big_orders`, lo elige usted.",
+      "**`$sortByCount`** es un atajo: agrupa por un valor, cuenta y ordena por la cuenta de mayor a menor. Con `\"$city\"` salen London, Madrid y Seville con 2 clientes y Bilbao y Valencia con 1. Como hay empates, el `$sort` de después añade el nombre para que el orden sea siempre el mismo. En mongosh: `db.customers.aggregate([{$sortByCount: \"$city\"}])`."
+    ],
+    "points": [
+      "`$sort` y `$limit` actúan donde se pongan.",
+      "`$sort` + `$limit` da un «top N» eficiente.",
+      "`$count` devuelve un documento con el número.",
+      "`$sortByCount` = `$group` + `$sum: 1` + `$sort`.",
+      "Desempate los órdenes para que sean deterministas."
+    ],
+    "exercise": "Cuente los pedidos por estado con `$sortByCount` de `\"$status\"` y quédese solo con los 2 más frecuentes con `$limit`."
+  },
+  "en": {
+    "slug": "sorting-limiting-and-counting",
+    "title": "Sorting, limiting and counting",
+    "summary": "Use $sort, $limit, $count and $sortByCount in MongoDB pipelines: the best customers, how many big orders and customers per city.",
+    "body": [
+      "The **`$sort`** and **`$limit`** stages do in a pipeline what `sort` and `limit` do in `find`, but at whatever point you choose. The first query groups by customer what was spent on non-cancelled orders, sorts from highest to lowest and keeps 3: customer 1 (34.95), 2 (24.90) and 7 (22.20).",
+      "Stage order matters: `$limit` before `$group` would limit orders, not customers. And a `$sort` followed by `$limit` is efficient: the server only keeps the top ones while it sorts.",
+      "**`$count`** replaces all the documents with one holding their number: there are 6 orders above 12 euros. You choose the field name, `big_orders`.",
+      "**`$sortByCount`** is a shortcut: it groups by a value, counts and sorts by the count, highest first. With `\"$city\"` you get London, Madrid and Seville with 2 customers and Bilbao and Valencia with 1. Because there are ties, the `$sort` after it adds the name so the order is always the same. In mongosh: `db.customers.aggregate([{$sortByCount: \"$city\"}])`."
+    ],
+    "points": [
+      "`$sort` and `$limit` act wherever you put them.",
+      "`$sort` + `$limit` makes an efficient top N.",
+      "`$count` returns one document with the number.",
+      "`$sortByCount` = `$group` + `$sum: 1` + `$sort`.",
+      "Break ties so orderings are deterministic."
+    ],
+    "exercise": "Count the orders per status with `$sortByCount` of `\"$status\"` and keep only the 2 most frequent with `$limit`."
+  }
+}

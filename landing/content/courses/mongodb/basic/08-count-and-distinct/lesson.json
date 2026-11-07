@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "contar-y-valores-distintos",
+    "title": "Contar y valores distintos",
+    "summary": "Cuente documentos con count y saque los valores distintos de un campo con distinct en MongoDB, también dentro de arrays.",
+    "body": [
+      "**`\"count\": true`** junto a un `\"find\"` devuelve una fila con cuántos documentos cumplen el filtro: 12 productos en total y 4 pedidos enviados (`shipped`). En mongosh: `db.orders.countDocuments({status: \"shipped\"})`.",
+      "**`\"distinct\"`** devuelve los valores diferentes de un campo, cada uno una vez: los pedidos tienen 4 estados, `cancelled`, `new`, `paid` y `shipped`. Es la forma rápida de ver qué valores hay antes de filtrar por ellos. En mongosh: `db.orders.distinct(\"status\")`.",
+      "Si el campo es un array, `distinct` entra en él y cuenta cada elemento: las etiquetas de los productos activos son 7, de `bread` a `tea`. Whole milk, con `tags` vacío, no aporta ninguna.",
+      "`distinct` también admite un filtro en `\"find\"`. La última consulta da las ciudades de los clientes que llegaron desde 2024: Bilbao, London, Seville y Valencia. Las fechas son texto `\"2024-01-01\"`, y como el formato va de año a día, compararlas como texto da el orden correcto."
+    ],
+    "points": [
+      "`\"count\": true` cuenta lo que cumple el filtro.",
+      "`\"distinct\": \"campo\"` da cada valor una vez.",
+      "En un array, `distinct` devuelve los elementos.",
+      "Las fechas `AAAA-MM-DD` se comparan bien como texto."
+    ],
+    "exercise": "Cuente los clientes de `\"London\"` y saque los `customer_id` distintos de los pedidos `\"paid\"`."
+  },
+  "en": {
+    "slug": "count-and-distinct-values",
+    "title": "Count and distinct values",
+    "summary": "Count documents with count and get the different values of a field with distinct in MongoDB, inside arrays too.",
+    "body": [
+      "**`\"count\": true`** next to a `\"find\"` returns one row with how many documents match the filter: 12 products in all and 4 shipped orders. In mongosh: `db.orders.countDocuments({status: \"shipped\"})`.",
+      "**`\"distinct\"`** returns the different values of a field, each once: orders have 4 statuses, `cancelled`, `new`, `paid` and `shipped`. It is the quick way to see which values exist before filtering on them. In mongosh: `db.orders.distinct(\"status\")`.",
+      "If the field is an array, `distinct` goes inside it and counts each element: the tags of the active products are 7, from `bread` to `tea`. Whole milk, with an empty `tags`, adds none.",
+      "`distinct` also accepts a filter in `\"find\"`. The last query returns the cities of the customers who joined from 2024 on: Bilbao, London, Seville and Valencia. Dates are text such as `\"2024-01-01\"`, and because the format runs from year to day, comparing them as text gives the right order."
+    ],
+    "points": [
+      "`\"count\": true` counts what matches the filter.",
+      "`\"distinct\": \"field\"` gives each value once.",
+      "On an array, `distinct` returns its elements.",
+      "`YYYY-MM-DD` dates compare correctly as text."
+    ],
+    "exercise": "Count the customers in `\"London\"` and get the distinct `customer_id` values of the `\"paid\"` orders."
+  }
+}

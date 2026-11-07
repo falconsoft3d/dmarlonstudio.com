@@ -1,0 +1,23 @@
+// $bucket: groups by ranges you choose [0, 2) [2, 4) [4, 10)
+{"collection": "products", "aggregate": [
+  {"$bucket": {
+    "groupBy": "$price",
+    "boundaries": [0, 2, 4, 10],
+    "default": "other",
+    "output": {
+      "products": {"$sum": 1},
+      "stock": {"$sum": "$stock"},
+      "names": {"$push": "$name"}
+    }
+  }},
+  {"$project": {"products": 1, "stock": 1,
+    "first": {"$arrayElemAt": ["$names", 0]}}}
+]}
+
+// $bucketAuto: you say how many, MongoDB picks the ranges
+{"collection": "orders", "aggregate": [
+  {"$bucketAuto": {"groupBy": "$total", "buckets": 3,
+    "output": {"orders": {"$sum": 1}, "avg": {"$avg": "$total"}}}},
+  {"$project": {"_id": 0, "from": "$_id.min", "to": "$_id.max",
+    "orders": 1, "avg": {"$round": ["$avg", 2]}}}
+]}

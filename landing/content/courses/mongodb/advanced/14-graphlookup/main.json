@@ -1,0 +1,27 @@
+// $graphLookup follows a reference again and again:
+// from each employee up through manager_id to the top
+{"collection": "employees", "aggregate": [
+  {"$match": {"_id": 3}},
+  {"$graphLookup": {"from": "employees", "startWith": "$manager_id",
+    "connectFromField": "manager_id", "connectToField": "_id",
+    "as": "bosses", "depthField": "level"}},
+  {"$unwind": "$bosses"},
+  {"$project": {"_id": 0, "boss": "$bosses.name", "level": {"$toInt": "$bosses.level"}}},
+  {"$sort": {"level": 1}}
+]}
+
+// Downwards: everyone under each person, at any depth
+{"collection": "employees", "aggregate": [
+  {"$graphLookup": {"from": "employees", "startWith": "$_id",
+    "connectFromField": "_id", "connectToField": "manager_id",
+    "as": "team", "depthField": "depth"}},
+  {"$project": {
+    "name": 1,
+    "role": 1,
+    "team": {"$size": "$team"},
+    "direct": {"$size": {"$filter": {"input": "$team", "as": "t",
+      "cond": {"$eq": ["$$t.depth", 0]}}}},
+    "payroll": {"$add": ["$salary", {"$sum": "$team.salary"}]}
+  }},
+  {"$sort": {"team": -1, "_id": 1}}
+]}

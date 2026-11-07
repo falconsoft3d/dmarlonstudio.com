@@ -1,0 +1,21 @@
+// Report: what to reorder, and who has open orders
+
+// 1. Active products with little stock, lowest first
+{"collection": "products",
+ "find": {"active": true, "stock": {"$lt": 15}},
+ "projection": {"_id": 0, "name": 1, "stock": 1},
+ "sort": {"stock": 1, "name": 1}}
+
+// 2. How many orders are still open
+{"collection": "orders", "find": {"status": {"$in": ["new", "paid"]}},
+ "count": true}
+
+// 3. Which customers they belong to
+{"collection": "orders", "find": {"status": {"$in": ["new", "paid"]}},
+ "distinct": "customer_id"}
+
+// 4. The open orders, newest first, with their size
+{"collection": "orders",
+ "find": {"status": {"$in": ["new", "paid"]}},
+ "projection": {"customer_id": 1, "ordered": 1, "status": 1, "total": 1},
+ "sort": {"ordered": -1}}

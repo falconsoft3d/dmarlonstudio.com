@@ -1,0 +1,11 @@
+// Every document of a collection: an empty filter
+{"collection": "categories", "find": {}}
+
+// Only the customers who live in Madrid
+{"collection": "customers", "find": {"city": "Madrid"}}
+
+// One document by its _id
+{"collection": "products", "find": {"_id": 5}}
+
+// All the customers, in _id order
+{"collection": "customers", "find": {}, "sort": {"_id": 1}}

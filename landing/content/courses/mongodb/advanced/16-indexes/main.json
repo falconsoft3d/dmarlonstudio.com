@@ -1,0 +1,18 @@
+// Every collection has the _id index
+{"collection": "orders", "indexes": true}
+
+// A single field, descending (-1): newest orders first
+{"collection": "orders", "createIndex": {"ordered": -1}}
+
+// A compound index, with its own name: status, then date
+{"collection": "orders", "createIndex": {"status": 1, "ordered": -1},
+ "name": "status_date"}
+
+// A multikey index: on a field inside the items array
+{"collection": "orders", "createIndex": {"items.product_id": 1}}
+
+// A query that the compound index can answer, already sorted
+{"collection": "orders", "find": {"status": "shipped"},
+ "projection": {"ordered": 1, "total": 1}, "sort": {"ordered": -1}}
+
+{"collection": "orders", "indexes": true}

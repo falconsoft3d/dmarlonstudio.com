@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "indices",
+    "title": "Índices",
+    "summary": "Cree índices en MongoDB con createIndex: de un campo, compuestos y sobre arrays (multikey), y liste los de una colección.",
+    "body": [
+      "Sin índice, MongoDB tiene que mirar todos los documentos para responder a un filtro. Un **índice** es una estructura ordenada por uno o varios campos que le permite ir directo a los que cumplen. Toda colección tiene uno sobre `_id`, como enseña la primera consulta, `\"indexes\": true`: se llama `_id_`.",
+      "**`\"createIndex\"`** recibe las claves y su sentido: `{\"ordered\": -1}` ordena por fecha de la más nueva a la más vieja, y el nombre que le pone MongoDB es `ordered_-1`. Con `\"name\"` se elige otro: el índice **compuesto** `{\"status\": 1, \"ordered\": -1}` se llama `status_date`. En mongosh: `db.orders.createIndex({status: 1, ordered: -1}, {name: \"status_date\"})`.",
+      "Un índice compuesto sirve a las consultas que usan sus **primeros campos**: filtrar por `status`, o por `status` y ordenar por `ordered`. No sirve para filtrar solo por `ordered`, y para eso está el primero. Un índice sobre un campo de un array, `items.product_id`, es **multikey**: guarda una entrada por cada línea, y acelera consultas como «pedidos con el producto 4».",
+      "La quinta consulta es justo la que responde el índice compuesto: los 4 pedidos `shipped` del más reciente (el 8, del 20 de mayo) al más antiguo. La última lista los 4 índices. Los índices aceleran las lecturas pero cuestan en cada escritura y ocupan espacio: cree los que usan sus consultas frecuentes, no uno por campo."
+    ],
+    "points": [
+      "Toda colección tiene el índice `_id_`.",
+      "`\"createIndex\": {\"campo\": 1}` crea un índice; `-1`, descendente.",
+      "Un índice compuesto sirve a sus primeros campos.",
+      "Sobre un campo de un array, el índice es multikey.",
+      "Cada índice cuesta en las escrituras."
+    ],
+    "exercise": "Cree un índice compuesto en `products` sobre `category_id` y `price` y escriba una consulta que lo aproveche (filtrar por categoría y ordenar por precio)."
+  },
+  "en": {
+    "slug": "indexes",
+    "title": "Indexes",
+    "summary": "Create indexes in MongoDB with createIndex: single-field, compound and on arrays (multikey), and list the indexes of a collection.",
+    "body": [
+      "Without an index, MongoDB has to look at every document to answer a filter. An **index** is a structure ordered by one or more fields that lets it go straight to the matching ones. Every collection has one on `_id`, as the first query, `\"indexes\": true`, shows: it is called `_id_`.",
+      "**`\"createIndex\"`** takes the keys and their direction: `{\"ordered\": -1}` orders by date from newest to oldest, and MongoDB names it `ordered_-1`. With `\"name\"` you pick another: the **compound** index `{\"status\": 1, \"ordered\": -1}` is called `status_date`. In mongosh: `db.orders.createIndex({status: 1, ordered: -1}, {name: \"status_date\"})`.",
+      "A compound index serves queries that use its **leading fields**: filtering by `status`, or by `status` and sorting by `ordered`. It does not help when filtering by `ordered` alone, which is what the first one is for. An index on a field inside an array, `items.product_id`, is **multikey**: it stores one entry per line and speeds up queries such as \"orders with product 4\".",
+      "The fifth query is exactly what the compound index answers: the 4 `shipped` orders from newest (order 8, 20 May) to oldest. The last one lists the 4 indexes. Indexes speed up reads but cost something on every write and take up space: create the ones your frequent queries use, not one per field."
+    ],
+    "points": [
+      "Every collection has the `_id_` index.",
+      "`\"createIndex\": {\"field\": 1}` creates an index; `-1`, descending.",
+      "A compound index serves its leading fields.",
+      "On a field inside an array, the index is multikey.",
+      "Every index has a cost on writes."
+    ],
+    "exercise": "Create a compound index on `products` over `category_id` and `price` and write a query that uses it (filter by category, sort by price)."
+  }
+}

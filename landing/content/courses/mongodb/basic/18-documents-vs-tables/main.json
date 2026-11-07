@@ -1,0 +1,22 @@
+// In SQL an order is one row in orders plus N rows in order_items.
+// Here it is one document: the lines travel with it.
+{"collection": "orders", "find": {"_id": 4}}
+
+// A new model: the address embedded, the phones as an array
+{"collection": "suppliers", "insert": [
+  {"_id": 1, "name": "Harina Sur", "phones": ["954000111"],
+   "address": {"street": "Calle Feria 3", "city": "Seville"}},
+  {"_id": 2, "name": "Lácteos Norte", "phones": ["944000222", "944000333"],
+   "address": {"street": "Gran Vía 10", "city": "Bilbao"}}
+]}
+
+// Query and project inside the embedded document
+{"collection": "suppliers", "find": {"address.city": "Bilbao"},
+ "projection": {"name": 1, "address.city": 1}}
+
+// The other model: reference by id, like a foreign key
+{"collection": "products", "update": [{"category_id": 1},
+ {"$set": {"supplier_id": 1}}]}
+{"collection": "products", "find": {"supplier_id": 1},
+ "projection": {"name": 1, "category_id": 1, "supplier_id": 1},
+ "sort": {"_id": 1}}

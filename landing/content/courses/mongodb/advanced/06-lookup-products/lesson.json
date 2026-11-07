@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "lineas-con-producto-y-categoria",
+    "title": "Líneas con producto y categoría",
+    "summary": "Encadene $unwind y dos $lookup en MongoDB para llevar cada línea de pedido a su producto y su categoría, y sume los ingresos por categoría.",
+    "body": [
+      "Las líneas de pedido solo guardan `product_id`; el nombre y la categoría están en `products`, y el nombre de la categoría en `categories`. El pipeline hace el camino completo: `$unwind` de las líneas, `$lookup` con `products` por `items.product_id` y otro `$lookup` con `categories` por `product.category_id`.",
+      "Tras cada `$lookup` va un `$unwind`, que convierte el array de un elemento en un documento. Así el segundo `$lookup` puede usar `\"product.category_id\"` como `localField` y el `$group` puede agrupar por `\"$category.name\"`. Es la cadena de JOIN de SQL, etapa a etapa.",
+      "El `$group` cuenta líneas, suma unidades e ingresos (`$multiply` de cantidad por precio pagado) y junta los nombres con **`$addToSet`**, que no repite. El `$project` final redondea los ingresos y cambia la lista de nombres por su tamaño, **`$size`**, para que la rejilla quede corta.",
+      "Drinks lidera con 42.90 en 5 líneas, seguida de Dairy (40.95) y Bakery (25.00), que es la que más unidades vende, 17. En Fruit solo se han vendido 2 productos distintos: Bananas 1 kg no se ha pedido nunca. Encadenar `$lookup` cuesta: si una consulta así se repite mucho, quizá convenga guardar el dato que hace falta en el propio pedido (lección 19)."
+    ],
+    "points": [
+      "Encadene `$unwind` y `$lookup` para seguir referencias.",
+      "Un `$unwind` tras cada `$lookup` deja los campos a mano.",
+      "`$addToSet` junta valores sin repetir.",
+      "Cada `$lookup` es una consulta más: úselos con cabeza."
+    ],
+    "exercise": "Cambie el `$group` para agrupar por `\"$product.name\"` y saque los ingresos de cada producto con el nombre de su categoría (`$first` de `\"$category.name\"`)."
+  },
+  "en": {
+    "slug": "lines-with-product-and-category",
+    "title": "Lines with product and category",
+    "summary": "Chain $unwind and two $lookup stages in MongoDB to take each order line to its product and category, and add up revenue per category.",
+    "body": [
+      "Order lines only store `product_id`; the name and category live in `products`, and the category name in `categories`. The pipeline walks the whole path: `$unwind` of the lines, `$lookup` into `products` on `items.product_id` and another `$lookup` into `categories` on `product.category_id`.",
+      "Each `$lookup` is followed by an `$unwind`, which turns the one-element array into a document. That lets the second `$lookup` use `\"product.category_id\"` as its `localField` and the `$group` group by `\"$category.name\"`. It is SQL's chain of JOINs, stage by stage.",
+      "The `$group` counts lines, adds up units and revenue (`$multiply` of quantity by price paid) and gathers the names with **`$addToSet`**, which never repeats. The final `$project` rounds the revenue and swaps the list of names for its length, **`$size`**, to keep the grid short.",
+      "Drinks leads with 42.90 from 5 lines, followed by Dairy (40.95) and Bakery (25.00), which sells the most units, 17. In Fruit only 2 different products have been sold: nobody has ever ordered Bananas 1 kg. Chaining `$lookup` has a cost: if a query like this runs often, it may pay to store the data it needs in the order itself (lesson 19)."
+    ],
+    "points": [
+      "Chain `$unwind` and `$lookup` to follow references.",
+      "An `$unwind` after each `$lookup` keeps the fields at hand.",
+      "`$addToSet` gathers values without repeats.",
+      "Each `$lookup` is one more query: use them wisely."
+    ],
+    "exercise": "Change the `$group` to group by `\"$product.name\"` and get each product's revenue with its category name (`$first` of `\"$category.name\"`)."
+  }
+}

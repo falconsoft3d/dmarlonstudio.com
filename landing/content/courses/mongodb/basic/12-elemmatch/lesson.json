@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "elemmatch-en-el-mismo-elemento",
+    "title": "$elemMatch: en el mismo elemento",
+    "summary": "Use $elemMatch en MongoDB para que varias condiciones se cumplan en la misma línea de un array, y para proyectar solo esa línea.",
+    "body": [
+      "Con la notación de punto, cada condición sobre un array se mira por separado. `{\"items.product_id\": 1, \"items.qty\": {\"$gte\": 3}}` da los pedidos 4 y 9. Pero el 9 tiene una Baguette de 1 unidad y otra línea, de yogur, con 4: las dos condiciones se cumplen en **líneas distintas**.",
+      "**`$elemMatch`** exige que **el mismo elemento** cumpla todas las condiciones: `{\"items\": {\"$elemMatch\": {\"product_id\": 1, \"qty\": {\"$gte\": 3}}}}` deja solo el pedido 4, el que tiene una línea de 3 baguettes. En mongosh: `db.orders.find({items: {$elemMatch: {product_id: 1, qty: {$gte: 3}}}})`.",
+      "Es la pregunta que casi siempre se quiere hacer cuando el array guarda documentos: «una línea de este producto y con esta cantidad», no «este producto en una línea y esta cantidad en otra».",
+      "`$elemMatch` también sirve en la **proyección**: devuelve solo el primer elemento que cumple. La última consulta busca los pedidos con Manchego cheese (producto 9) y, de sus líneas, enseña solo esa: el pedido 1 con 1 unidad y el 6 con 2, ambos a 7.75."
+    ],
+    "points": [
+      "Varias condiciones con punto pueden cumplirse en elementos distintos.",
+      "`$elemMatch` las exige en el mismo elemento.",
+      "En la proyección, `$elemMatch` devuelve el primer elemento que cumple.",
+      "Con arrays de documentos, casi siempre conviene `$elemMatch`."
+    ],
+    "exercise": "Busque los pedidos con una línea de `qty` 2 o más y `price` menor que `2`, en la misma línea."
+  },
+  "en": {
+    "slug": "elemmatch-on-the-same-element",
+    "title": "$elemMatch: on the same element",
+    "summary": "Use $elemMatch in MongoDB so several conditions hold on the same line of an array, and to project just that line.",
+    "body": [
+      "With dot notation, each condition on an array is checked on its own. `{\"items.product_id\": 1, \"items.qty\": {\"$gte\": 3}}` returns orders 4 and 9. But order 9 has one Baguette and another line, yoghurt, with 4: the two conditions are met by **different lines**.",
+      "**`$elemMatch`** requires **the same element** to meet every condition: `{\"items\": {\"$elemMatch\": {\"product_id\": 1, \"qty\": {\"$gte\": 3}}}}` leaves only order 4, the one with a line of 3 baguettes. In mongosh: `db.orders.find({items: {$elemMatch: {product_id: 1, qty: {$gte: 3}}}})`.",
+      "That is nearly always the question you mean when the array holds documents: \"a line of this product with this quantity\", not \"this product on one line and this quantity on another\".",
+      "`$elemMatch` also works in the **projection**: it returns only the first element that matches. The last query finds the orders with Manchego cheese (product 9) and shows just that line of each: order 1 with 1 unit and order 6 with 2, both at 7.75."
+    ],
+    "points": [
+      "Several dotted conditions may be met by different elements.",
+      "`$elemMatch` requires them on the same element.",
+      "In the projection, `$elemMatch` returns the first element that matches.",
+      "With arrays of documents, `$elemMatch` is usually what you want."
+    ],
+    "exercise": "Find the orders with a line of `qty` 2 or more and `price` under `2`, on the same line."
+  }
+}

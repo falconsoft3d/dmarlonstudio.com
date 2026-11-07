@@ -1,0 +1,17 @@
+// $ is the first line that matched the filter
+{"collection": "orders",
+ "update": [{"_id": 7, "items.product_id": 2},
+ {"$set": {"items.$.qty": 8, "total": 12}}]}
+
+// $[] is every line: order 1 at half price, total included
+{"collection": "orders", "update": [{"_id": 1},
+ {"$mul": {"items.$[].price": 0.5, "total": 0.5}}]}
+
+// Add a line to an order and fix its total
+{"collection": "orders", "update": [{"_id": 9},
+ {"$push": {"items": {"product_id": 7, "qty": 1, "price": 1.1}},
+  "$inc": {"total": 1.1}}]}
+
+{"collection": "orders", "find": {"_id": {"$in": [1, 7, 9]}},
+ "projection": {"total": 1, "items.qty": 1, "items.price": 1},
+ "sort": {"_id": 1}}

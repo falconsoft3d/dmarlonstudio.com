@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "borrar-documentos",
+    "title": "Borrar documentos",
+    "summary": "Borre documentos de MongoDB con delete (deleteMany), compruebe antes el filtro con count y elimine una colección entera con drop.",
+    "body": [
+      "**`\"delete\"`** recibe un filtro y borra **todos** los documentos que lo cumplen, como `deleteMany` en mongosh. `{\"rating\": {\"$lt\": 3}}` borra la única reseña con menos de 3 estrellas, y `{\"status\": \"cancelled\"}` el pedido 5, el único cancelado.",
+      "Un filtro que no encuentra nada no borra nada: no hay pedidos `returned`, así que el resultado es «0 filas afectadas». Y cuidado con el filtro vacío: `{\"delete\": {}}` vaciaría la colección.",
+      "La buena costumbre es probar el filtro antes con `find` o `count`. `{\"active\": false}` cuenta 1 producto, Bananas 1 kg, y el `delete` con el mismo filtro borra justo ese. En el estudio puede seleccionar solo la consulta de recuento y ejecutarla antes de seguir.",
+      "**`\"drop\": true`** borra la colección entera, con sus índices: `employees` desaparece de la lista de colecciones. La última consulta enseña los 9 pedidos que quedan; falta el 5."
+    ],
+    "points": [
+      "`\"delete\": {filtro}` borra todos los que cumplen.",
+      "Pruebe el filtro con `count` antes de borrar.",
+      "`{}` como filtro borra toda la colección.",
+      "`\"drop\": true` elimina la colección y sus índices."
+    ],
+    "exercise": "Borre los pedidos `\"new\"` del cliente `1` y cuente cuántos pedidos le quedan a ese cliente."
+  },
+  "en": {
+    "slug": "deleting-documents",
+    "title": "Deleting documents",
+    "summary": "Delete MongoDB documents with delete (deleteMany), check the filter first with count and remove a whole collection with drop.",
+    "body": [
+      "**`\"delete\"`** takes a filter and removes **every** document that matches it, like `deleteMany` in mongosh. `{\"rating\": {\"$lt\": 3}}` deletes the only review with fewer than 3 stars, and `{\"status\": \"cancelled\"}` deletes order 5, the only cancelled one.",
+      "A filter that matches nothing deletes nothing: there are no `returned` orders, so the result is \"0 rows affected\". And watch out for the empty filter: `{\"delete\": {}}` would empty the collection.",
+      "The good habit is to try the filter first with `find` or `count`. `{\"active\": false}` counts 1 product, Bananas 1 kg, and the `delete` with the same filter removes exactly that one. In the studio you can select just the count query and run it before going on.",
+      "**`\"drop\": true`** removes the whole collection, indexes included: `employees` disappears from the collection list. The last query shows the 9 remaining orders; number 5 is gone."
+    ],
+    "points": [
+      "`\"delete\": {filter}` removes every match.",
+      "Test the filter with `count` before deleting.",
+      "`{}` as the filter deletes the whole collection.",
+      "`\"drop\": true` removes the collection and its indexes."
+    ],
+    "exercise": "Delete the `\"new\"` orders of customer `1` and count how many orders that customer has left."
+  }
+}

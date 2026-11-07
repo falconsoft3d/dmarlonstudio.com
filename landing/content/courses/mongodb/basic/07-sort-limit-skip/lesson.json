@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "ordenar-limitar-y-saltar",
+    "title": "Ordenar, limitar y saltar",
+    "summary": "Ordene resultados de MongoDB con sort, quédese con los primeros con limit y pagine con skip, con uno o varios criterios.",
+    "body": [
+      "**`\"sort\"`** ordena: `1` de menor a mayor y `-1` al revés. Con `{\"price\": -1}` y **`\"limit\": 3`** salen los tres productos más caros: Espresso beans (9.90), Manchego cheese (7.75) y Green tea (4.50). En mongosh: `db.products.find().sort({price: -1}).limit(3)`.",
+      "Con varias claves, el orden de las claves cuenta: `{\"category_id\": 1, \"price\": -1}` ordena por categoría y, dentro de cada una, del precio más alto al más bajo. Por eso Rye bread (2.80) va antes que Baguette (1.20), y Espresso beans abre la categoría 2.",
+      "**`\"skip\"`** se salta documentos: es la base de la paginación. Con páginas de 4 por nombre, la primera es Apples 1 kg, Baguette, Bananas 1 kg y Croissant; la segunda, con `\"skip\": 4`, es Espresso beans, Greek yogurt, Green tea y Manchego cheese. La página `n` es `skip = (n - 1) × 4`.",
+      "Sin `sort`, MongoDB no promete ningún orden, así que pagine siempre sobre un orden fijo; si el campo puede repetirse, añada `_id` como desempate. Si no pone `limit`, el estudio pide como mucho 100 documentos, para no traer una colección enorme a la rejilla."
+    ],
+    "points": [
+      "`\"sort\": {\"campo\": 1}` ascendente; `-1` descendente.",
+      "Con varias claves de orden, manda la primera.",
+      "`\"limit\"` corta; `\"skip\"` se salta los primeros.",
+      "Pagine siempre sobre un orden fijo."
+    ],
+    "exercise": "Muestre la tercera página de 4 productos ordenados por nombre. ¿Cuántos quedan en ella?"
+  },
+  "en": {
+    "slug": "sort-limit-and-skip",
+    "title": "Sort, limit and skip",
+    "summary": "Sort MongoDB results with sort, keep the first ones with limit and paginate with skip, with one or several keys.",
+    "body": [
+      "**`\"sort\"`** orders the result: `1` ascending and `-1` descending. With `{\"price\": -1}` and **`\"limit\": 3`** you get the three most expensive products: Espresso beans (9.90), Manchego cheese (7.75) and Green tea (4.50). In mongosh: `db.products.find().sort({price: -1}).limit(3)`.",
+      "With several keys, the order of the keys matters: `{\"category_id\": 1, \"price\": -1}` sorts by category and, within each one, from the highest price to the lowest. That is why Rye bread (2.80) comes before Baguette (1.20), and Espresso beans opens category 2.",
+      "**`\"skip\"`** jumps over documents: the basis of pagination. With pages of 4 by name, the first page is Apples 1 kg, Baguette, Bananas 1 kg and Croissant; the second, with `\"skip\": 4`, is Espresso beans, Greek yogurt, Green tea and Manchego cheese. Page `n` is `skip = (n - 1) × 4`.",
+      "Without `sort`, MongoDB promises no order at all, so always paginate over a fixed order; if the field can repeat, add `_id` as a tie-breaker. If you leave out `limit`, the studio asks for 100 documents at most, so a huge collection does not land in the grid."
+    ],
+    "points": [
+      "`\"sort\": {\"field\": 1}` ascending; `-1` descending.",
+      "With several sort keys, the first one rules.",
+      "`\"limit\"` cuts; `\"skip\"` jumps over the first ones.",
+      "Always paginate over a fixed order."
+    ],
+    "exercise": "Show the third page of 4 products sorted by name. How many are on it?"
+  }
+}

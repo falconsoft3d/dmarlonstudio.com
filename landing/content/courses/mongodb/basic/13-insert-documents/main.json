@@ -1,0 +1,20 @@
+// One document: with its own _id
+{"collection": "products", "insert": {"_id": 13, "name": "Rice pudding",
+ "category_id": 3, "price": 2.9, "stock": 10, "active": true,
+ "tags": ["sweet"]}}
+
+// Several at once; they need not have the same fields
+{"collection": "products", "insert": [
+  {"_id": 14, "name": "Lemonade", "category_id": 2, "price": 2.2,
+   "stock": 20, "active": true, "tags": ["juice"]},
+  {"_id": 15, "name": "Muffin", "category_id": 1, "price": 1.8,
+   "stock": 15, "active": true, "tags": ["sweet"], "vegan": true}
+]}
+
+// A new collection is created by its first insert
+{"collection": "suppliers", "insert": {"_id": 1, "name": "Harina Sur"}}
+
+// The products added, and the new field where it exists
+{"collection": "products", "find": {"_id": {"$gte": 12}},
+ "projection": {"name": 1, "price": 1, "stock": 1, "vegan": 1},
+ "sort": {"_id": 1}}

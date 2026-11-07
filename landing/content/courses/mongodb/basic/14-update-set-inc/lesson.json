@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "actualizar-con-set-e-inc",
+    "title": "Actualizar con $set e $inc",
+    "summary": "Cambie documentos de MongoDB con update y los operadores $set, $inc y $mul, y vea cuántos documentos se han modificado.",
+    "body": [
+      "**`\"update\"`** recibe dos objetos: el filtro y el cambio. En el estudio es un **updateMany**: cambia todos los documentos que cumplen el filtro. `{\"_id\": 3}` con `{\"$set\": {\"price\": 2.95, \"stock\": 20}}` cambia el precio y las existencias de Rye bread: «1 fila afectada». En mongosh: `db.products.updateMany({_id: 3}, {$set: {price: 2.95, stock: 20}})`.",
+      "**`$set`** pone un valor (y crea el campo si no existe). **`$inc`** suma: `{\"$inc\": {\"stock\": 10}}` repone las 3 frutas, y Apples 1 kg pasa de 35 a 45. Con un número negativo, resta.",
+      "**`$mul`** multiplica: `{\"$mul\": {\"price\": 1.1}}` sube un 10 % las 3 bebidas; Espresso beans pasa de 9.90 a 10.89. Con estos operadores el servidor hace la cuenta sobre el valor que tiene, sin leerlo antes: dos cambios a la vez no se pisan.",
+      "Un filtro que no encuentra nada no cambia nada: `{\"_id\": 99}` da «0 filas afectadas». La última consulta comprueba el resultado. El estudio pide confirmación antes de ejecutar consultas que cambian datos; aquí, cada lección empieza con la tienda recién cargada."
+    ],
+    "points": [
+      "`\"update\": [filtro, cambio]` actualiza todos los que cumplen.",
+      "`$set` pone un valor; `$inc` suma; `$mul` multiplica.",
+      "Los operadores calculan en el servidor, sin leer antes.",
+      "El número de filas afectadas dice cuántos cambiaron."
+    ],
+    "exercise": "Baje un 20 % el precio de los productos con `stock` mayor que `30` (con `$mul`) y liste su nombre y su nuevo precio."
+  },
+  "en": {
+    "slug": "updating-with-set-and-inc",
+    "title": "Updating with $set and $inc",
+    "summary": "Change MongoDB documents with update and the $set, $inc and $mul operators, and see how many documents were modified.",
+    "body": [
+      "**`\"update\"`** takes two objects: the filter and the change. In the studio it is an **updateMany**: it changes every document that matches the filter. `{\"_id\": 3}` with `{\"$set\": {\"price\": 2.95, \"stock\": 20}}` changes Rye bread's price and stock: \"1 row affected\". In mongosh: `db.products.updateMany({_id: 3}, {$set: {price: 2.95, stock: 20}})`.",
+      "**`$set`** sets a value (and creates the field if it does not exist). **`$inc`** adds: `{\"$inc\": {\"stock\": 10}}` restocks the 3 fruits, and Apples 1 kg goes from 35 to 45. With a negative number, it subtracts.",
+      "**`$mul`** multiplies: `{\"$mul\": {\"price\": 1.1}}` raises the 3 drinks by 10 %; Espresso beans goes from 9.90 to 10.89. With these operators the server does the arithmetic on the value it holds, without reading it first: two changes at the same time do not overwrite each other.",
+      "A filter that matches nothing changes nothing: `{\"_id\": 99}` gives \"0 rows affected\". The last query checks the result. The studio asks for confirmation before running queries that change data; here, each lesson starts with a freshly loaded shop."
+    ],
+    "points": [
+      "`\"update\": [filter, change]` updates every match.",
+      "`$set` sets a value; `$inc` adds; `$mul` multiplies.",
+      "The operators compute on the server, without reading first.",
+      "The rows-affected count tells you how many changed."
+    ],
+    "exercise": "Cut by 20 % the price of the products with `stock` above `30` (with `$mul`) and list their name and new price."
+  }
+}

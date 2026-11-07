@@ -1,0 +1,18 @@
+// A single value matches any element of the array
+{"collection": "products", "find": {"tags": "sweet"},
+ "projection": {"name": 1, "tags": 1}, "sort": {"_id": 1}}
+
+// A whole array matches only that exact array, in that order
+{"collection": "products", "find": {"tags": ["bread", "sweet"]},
+ "projection": {"name": 1}}
+
+// $size: by the number of elements
+{"collection": "products", "find": {"tags": {"$size": 0}},
+ "projection": {"name": 1, "tags": 1}}
+
+// $all: every one of these, in any order; $in: any of them
+{"collection": "products", "find": {"tags": {"$all": ["sweet", "fresh"]}},
+ "projection": {"name": 1}}
+{"collection": "products", "find": {"tags": {"$in": ["tea", "coffee", "juice"]}},
+ "projection": {"_id": 0, "name": 1, "tags": 1, "price": 1},
+ "sort": {"price": 1}}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "operadores-de-comparacion",
+    "title": "Operadores de comparación",
+    "summary": "Filtre documentos de MongoDB con $lt, $gt, $gte, $lte, $eq y $ne, y combine dos operadores para pedir un rango de precios.",
+    "body": [
+      "Para algo más que la igualdad, el valor del campo se convierte en un objeto con un **operador**: `{\"price\": {\"$lt\": 2}}` pide los precios menores que 2. Salen 4 productos, de Whole milk (`1.1`) a Bananas 1 kg (`1.6`). En mongosh: `db.products.find({price: {$lt: 2}})`.",
+      "Los operadores de comparación son `$eq` (igual), `$ne` (distinto), `$gt` y `$gte` (mayor, mayor o igual) y `$lt` y `$lte` (menor, menor o igual). `{\"stock\": {\"$eq\": 0}}` equivale a `{\"stock\": 0}` y da los dos productos agotados; `{\"category_id\": {\"$ne\": 1}}` deja fuera la panadería: 9 productos.",
+      "Dos operadores en el mismo campo forman un **rango**: `{\"$gte\": 2, \"$lte\": 4}` pide precios entre 2 y 4, ambos incluidos. La última consulta añade `\"stock\": {\"$gt\": 0}`, otra condición sobre otro campo, y por eso Orange juice (3.20, sin existencias) no aparece: quedan Apples 1 kg, Greek yogurt, Rye bread y Strawberries.",
+      "Cada consulta tiene su pestaña de resultado. Si solo quiere repetir una, selecciónela en el editor y pulse **Ejecutar**: el estudio lanza solo la selección."
+    ],
+    "points": [
+      "Los operadores van dentro de un objeto: `{\"campo\": {\"$op\": valor}}`.",
+      "`$gt`, `$gte`, `$lt`, `$lte`, `$eq` y `$ne` comparan valores.",
+      "Dos operadores sobre el mismo campo forman un rango.",
+      "Varios campos en el filtro deben cumplirse todos."
+    ],
+    "exercise": "Busque los productos con `stock` entre `10` y `25`, ambos incluidos, ordenados de menos a más existencias."
+  },
+  "en": {
+    "slug": "comparison-operators",
+    "title": "Comparison operators",
+    "summary": "Filter MongoDB documents with $lt, $gt, $gte, $lte, $eq and $ne, and combine two operators to ask for a price range.",
+    "body": [
+      "For anything beyond equality, the field's value becomes an object holding an **operator**: `{\"price\": {\"$lt\": 2}}` asks for prices below 2. Four products match, from Whole milk (`1.1`) to Bananas 1 kg (`1.6`). In mongosh: `db.products.find({price: {$lt: 2}})`.",
+      "The comparison operators are `$eq` (equal), `$ne` (not equal), `$gt` and `$gte` (greater, greater or equal) and `$lt` and `$lte` (less, less or equal). `{\"stock\": {\"$eq\": 0}}` is the same as `{\"stock\": 0}` and returns the two products that are sold out; `{\"category_id\": {\"$ne\": 1}}` leaves the bakery out: 9 products.",
+      "Two operators on the same field make a **range**: `{\"$gte\": 2, \"$lte\": 4}` asks for prices between 2 and 4, both included. The last query adds `\"stock\": {\"$gt\": 0}`, another condition on another field, which is why Orange juice (3.20, out of stock) is missing: Apples 1 kg, Greek yogurt, Rye bread and Strawberries remain.",
+      "Each query has its own result tab. To repeat just one, select it in the editor and press **Run**: the studio executes only the selection."
+    ],
+    "points": [
+      "Operators go inside an object: `{\"field\": {\"$op\": value}}`.",
+      "`$gt`, `$gte`, `$lt`, `$lte`, `$eq` and `$ne` compare values.",
+      "Two operators on the same field make a range.",
+      "Several fields in the filter must all be met."
+    ],
+    "exercise": "Find the products with `stock` between `10` and `25`, both included, sorted from least to most stock."
+  }
+}

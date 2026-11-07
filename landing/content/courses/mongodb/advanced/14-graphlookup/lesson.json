@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "jerarquias-con-graphlookup",
+    "title": "Jerarquías con $graphLookup",
+    "summary": "Recorra la jerarquía de empleados en MongoDB con $graphLookup: los jefes de alguien, el equipo de cada uno a cualquier profundidad y su nómina.",
+    "body": [
+      "Cada empleado guarda el `_id` de su jefe en `manager_id`. **`$graphLookup`** sigue esa referencia una y otra vez: parte de `startWith`, busca en `from` los documentos cuyo `connectToField` es ese valor y repite con su `connectFromField` hasta que no encuentra más. Es la consulta recursiva (`WITH RECURSIVE` en SQL) de MongoDB.",
+      "Hacia arriba: desde Elena Castro (`_id` 3), `startWith: \"$manager_id\"` y `connectToField: \"_id\"` encuentran a Javier Ortiz y, a partir de él, a Laura Martín. **`depthField`** guarda en qué vuelta apareció cada uno: Javier en el nivel 0 y Laura en el 1. Ese número es un entero largo; `$toInt` lo deja como un entero corriente.",
+      "Hacia abajo basta con darle la vuelta a los campos: `startWith: \"$_id\"` y `connectToField: \"manager_id\"` dan, para cada persona, todos los que dependen de ella a cualquier profundidad. Laura tiene 5 personas en su equipo, 2 directas (Javier y Raúl), y Javier tiene 3.",
+      "Con el equipo en un array se calcula lo demás: los directos son los de `depth` 0 (`$filter`) y la nómina es su sueldo más `$sum` de `\"$team.salary\"`: 17 450 en el caso de Laura, toda la empresa, y 9 350 en el de Javier. `maxDepth` limitaría las vueltas y `restrictSearchWithMatch` filtraría por el camino."
+    ],
+    "points": [
+      "`$graphLookup` sigue una referencia de forma recursiva.",
+      "`connectFromField` → `connectToField` dan la dirección.",
+      "`depthField` guarda la vuelta (desde 0).",
+      "Con el resultado en un array, `$filter` y `$sum` hacen el resto."
+    ],
+    "exercise": "Saque, para Nuria Sanz (`_id` 5), la cadena de jefes con sus cargos (`role`), ordenada del más cercano al más alto."
+  },
+  "en": {
+    "slug": "hierarchies-with-graphlookup",
+    "title": "Hierarchies with $graphLookup",
+    "summary": "Walk the employee hierarchy in MongoDB with $graphLookup: someone's bosses, each person's team at any depth and its payroll.",
+    "body": [
+      "Each employee stores their manager's `_id` in `manager_id`. **`$graphLookup`** follows that reference again and again: it starts from `startWith`, looks in `from` for the documents whose `connectToField` is that value and repeats with their `connectFromField` until it finds no more. It is MongoDB's recursive query (`WITH RECURSIVE` in SQL).",
+      "Upwards: from Elena Castro (`_id` 3), `startWith: \"$manager_id\"` and `connectToField: \"_id\"` find Javier Ortiz and, through him, Laura Martín. **`depthField`** records the round in which each one appeared: Javier at level 0 and Laura at 1. That number is a long integer; `$toInt` turns it into an ordinary one.",
+      "Downwards you just swap the fields: `startWith: \"$_id\"` and `connectToField: \"manager_id\"` return, for each person, everyone who reports to them at any depth. Laura has 5 people in her team, 2 of them direct (Javier and Raúl), and Javier has 3.",
+      "With the team in an array the rest is easy: the direct reports are those at `depth` 0 (`$filter`) and the payroll is their own salary plus the `$sum` of `\"$team.salary\"`: 17,450 for Laura, the whole company, and 9,350 for Javier. `maxDepth` would limit the rounds and `restrictSearchWithMatch` would filter along the way."
+    ],
+    "points": [
+      "`$graphLookup` follows a reference recursively.",
+      "`connectFromField` → `connectToField` set the direction.",
+      "`depthField` stores the round (from 0).",
+      "With the result in an array, `$filter` and `$sum` do the rest."
+    ],
+    "exercise": "For Nuria Sanz (`_id` 5), get the chain of bosses with their job titles (`role`), sorted from the nearest to the top."
+  }
+}

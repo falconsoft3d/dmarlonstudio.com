@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "quitar-y-renombrar-campos",
+    "title": "Quitar y renombrar campos",
+    "summary": "Quite campos con $unset y cámbieles el nombre con $rename en MongoDB, y complete un dato que faltaba con $set.",
+    "body": [
+      "**`$unset`** quita un campo del documento; el valor que se le da (`\"\"`) no importa. Bananas 1 kg, el único producto inactivo, se queda sin `tags`. No es lo mismo que vaciarlo: `{\"$set\": {\"tags\": []}}` dejaría el campo con un array vacío, y `$unset` lo hace desaparecer.",
+      "**`$rename`** cambia el nombre de un campo. Con el filtro vacío `{}` se aplica a toda la colección: los 8 clientes pasan de `joined` a `since`. Es la forma de corregir un nombre de campo sin reescribir los documentos uno a uno. En mongosh: `db.customers.updateMany({}, {$rename: {joined: \"since\"}})`.",
+      "La tercera consulta busca a quien no tiene correo, `{\"email\": {\"$exists\": false}}`, y le pone uno con `$set`, junto a un campo nuevo, `checked`, con la fecha de la revisión. Cambia 1 documento: el de Pedro Gómez.",
+      "Las dos últimas consultas lo comprueban. Apples 1 kg conserva `[\"fresh\"]` y Bananas 1 kg sale con `tags` vacío porque ya no tiene el campo. En los clientes de Seville, los dos tienen `since`; `checked` solo lo tiene Pedro."
+    ],
+    "points": [
+      "`$unset` quita un campo.",
+      "`$rename` cambia el nombre de un campo.",
+      "Con el filtro `{}`, el cambio va a toda la colección.",
+      "Quitar un campo no es lo mismo que dejarlo vacío."
+    ],
+    "exercise": "Renombre `since` otra vez a `joined` solo en los clientes de `\"London\"` y compruebe con una consulta que los demás conservan `since`."
+  },
+  "en": {
+    "slug": "removing-and-renaming-fields",
+    "title": "Removing and renaming fields",
+    "summary": "Remove fields with $unset and rename them with $rename in MongoDB, and fill in a missing value with $set.",
+    "body": [
+      "**`$unset`** removes a field from the document; the value you give it (`\"\"`) does not matter. Bananas 1 kg, the only inactive product, loses its `tags`. That is not the same as emptying it: `{\"$set\": {\"tags\": []}}` would leave the field holding an empty array, while `$unset` makes it disappear.",
+      "**`$rename`** changes the name of a field. With the empty filter `{}` it applies to the whole collection: the 8 customers go from `joined` to `since`. It is how you fix a field name without rewriting the documents one by one. In mongosh: `db.customers.updateMany({}, {$rename: {joined: \"since\"}})`.",
+      "The third query looks for whoever has no e-mail, `{\"email\": {\"$exists\": false}}`, and gives them one with `$set`, along with a new field, `checked`, holding the date of the check. It changes 1 document: Pedro Gómez's.",
+      "The last two queries check the work. Apples 1 kg keeps `[\"fresh\"]` and Bananas 1 kg shows an empty `tags` because it no longer has the field. Among the Seville customers, both have `since`; only Pedro has `checked`."
+    ],
+    "points": [
+      "`$unset` removes a field.",
+      "`$rename` renames a field.",
+      "With the `{}` filter, the change applies to the whole collection.",
+      "Removing a field is not the same as leaving it empty."
+    ],
+    "exercise": "Rename `since` back to `joined` only for the customers in `\"London\"` and check with a query that the others keep `since`."
+  }
+}

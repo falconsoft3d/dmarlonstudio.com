@@ -1,0 +1,18 @@
+// $set changes (or adds) fields; updateMany by default
+{"collection": "products", "update": [{"_id": 3},
+ {"$set": {"price": 2.95, "stock": 20}}]}
+
+// $inc adds to a number: restock the fruit
+{"collection": "products", "update": [{"category_id": 4},
+ {"$inc": {"stock": 10}}]}
+
+// $mul multiplies: Drinks 10 % dearer
+{"collection": "products", "update": [{"category_id": 2},
+ {"$mul": {"price": 1.1}}]}
+
+// A filter that matches nothing changes nothing
+{"collection": "products", "update": [{"_id": 99},
+ {"$set": {"price": 1}}]}
+
+{"collection": "products", "find": {"_id": {"$in": [3, 4, 5, 10, 11, 12]}},
+ "projection": {"name": 1, "price": 1, "stock": 1}, "sort": {"_id": 1}}

@@ -1,0 +1,22 @@
+// Order lines with the product name and its category name
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}}},
+  {"$unwind": "$items"},
+  {"$lookup": {"from": "products", "localField": "items.product_id",
+    "foreignField": "_id", "as": "product"}},
+  {"$unwind": "$product"},
+  {"$lookup": {"from": "categories", "localField": "product.category_id",
+    "foreignField": "_id", "as": "category"}},
+  {"$unwind": "$category"},
+  // Revenue per category, and how many different products
+  {"$group": {
+    "_id": "$category.name",
+    "lines": {"$sum": 1},
+    "units": {"$sum": "$items.qty"},
+    "revenue": {"$sum": {"$multiply": ["$items.qty", "$items.price"]}},
+    "products": {"$addToSet": "$product.name"}
+  }},
+  {"$project": {"lines": 1, "units": 1, "revenue": {"$round": ["$revenue", 2]},
+    "products": {"$size": "$products"}}},
+  {"$sort": {"revenue": -1}}
+]}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "proyeccion-elegir-campos",
+    "title": "Proyección: elegir campos",
+    "summary": "Elija qué campos devuelve una consulta de MongoDB con projection: incluir, excluir y quitar el _id. Pruébelo en DMarlon Studio.",
+    "body": [
+      "La **proyección** decide qué campos de cada documento salen en el resultado. Va aparte del filtro, en `\"projection\"`. Con `{\"name\": 1, \"price\": 1}` se **incluyen** solo esos campos: los 3 productos de Drinks salen con su nombre y su precio. El `_id` viene siempre, salvo que se quite.",
+      "Con ceros se hace lo contrario: `{\"tags\": 0, \"active\": 0}` **excluye** esos campos y deja el resto. Los lácteos salen con `_id`, `name`, `category_id`, `price` y `stock`. Es útil cuando sobran uno o dos campos de muchos.",
+      "No se pueden mezclar unos y ceros en la misma proyección, con una excepción: `_id`. La última consulta usa `{\"_id\": 0, \"name\": 1, \"price\": 1, \"stock\": 1}` y ordena por nombre: 12 filas de tres columnas, de Apples 1 kg a Whole milk. En mongosh la proyección es el segundo argumento: `db.products.find({}, {_id: 0, name: 1, price: 1, stock: 1})`.",
+      "Proyectar no es solo estética: viajan menos datos del servidor al estudio y la rejilla queda legible. Si quiere llevarse el resultado a una hoja de cálculo, el botón **CSV** exporta justo las columnas que ha elegido."
+    ],
+    "points": [
+      "`\"projection\"` elige los campos del resultado.",
+      "`1` incluye un campo; `0` lo excluye.",
+      "No se mezclan unos y ceros, salvo `_id`.",
+      "`\"_id\": 0` quita el `_id`, que si no sale siempre."
+    ],
+    "exercise": "Liste los productos de la categoría `4` con solo `name` y `tags`, sin `_id`."
+  },
+  "en": {
+    "slug": "projection-choosing-fields",
+    "title": "Projection: choosing fields",
+    "summary": "Choose which fields a MongoDB query returns with projection: include, exclude and drop the _id. Try it in DMarlon Studio.",
+    "body": [
+      "The **projection** decides which fields of each document appear in the result. It sits apart from the filter, in `\"projection\"`. With `{\"name\": 1, \"price\": 1}` only those fields are **included**: the 3 Drinks products come back with their name and price. `_id` always comes along unless you remove it.",
+      "Zeros do the opposite: `{\"tags\": 0, \"active\": 0}` **excludes** those fields and keeps the rest. The dairy products appear with `_id`, `name`, `category_id`, `price` and `stock`. Handy when only one or two fields out of many are in the way.",
+      "You cannot mix ones and zeros in the same projection, with one exception: `_id`. The last query uses `{\"_id\": 0, \"name\": 1, \"price\": 1, \"stock\": 1}` and sorts by name: 12 rows of three columns, from Apples 1 kg to Whole milk. In mongosh the projection is the second argument: `db.products.find({}, {_id: 0, name: 1, price: 1, stock: 1})`.",
+      "Projecting is not just cosmetic: less data travels from the server to the studio and the grid stays readable. If you want the result in a spreadsheet, the **CSV** button exports exactly the columns you chose."
+    ],
+    "points": [
+      "`\"projection\"` picks the fields of the result.",
+      "`1` includes a field; `0` excludes it.",
+      "Ones and zeros do not mix, except for `_id`.",
+      "`\"_id\": 0` drops the `_id`, which otherwise always appears."
+    ],
+    "exercise": "List the products in category `4` with only `name` and `tags`, without `_id`."
+  }
+}

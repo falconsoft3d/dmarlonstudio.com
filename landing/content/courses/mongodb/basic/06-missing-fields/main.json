@@ -1,0 +1,16 @@
+// Review 5 has no comment: the grid shows it empty
+{"collection": "reviews", "find": {},
+ "projection": {"product_id": 1, "rating": 1, "comment": 1},
+ "sort": {"_id": 1}}
+
+// null matches a field set to null... and a missing one
+{"collection": "employees", "find": {"manager_id": null},
+ "projection": {"name": 1, "manager_id": 1}}
+{"collection": "reviews", "find": {"comment": null},
+ "projection": {"rating": 1}}
+
+// $exists asks only whether the field is there
+{"collection": "customers", "find": {"email": {"$exists": true}},
+ "count": true}
+{"collection": "customers", "find": {"email": {"$exists": false}},
+ "projection": {"name": 1, "city": 1, "email": 1}}

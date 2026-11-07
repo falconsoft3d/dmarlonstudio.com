@@ -1,0 +1,20 @@
+// $lookup with let + pipeline: the joined side has its own stages
+{"collection": "products", "aggregate": [
+  {"$lookup": {
+    "from": "reviews",
+    "let": {"pid": "$_id"},
+    "pipeline": [
+      {"$match": {"$expr": {"$eq": ["$product_id", "$$pid"]}}},
+      {"$group": {"_id": null, "n": {"$sum": 1},
+        "avg": {"$avg": "$rating"}, "low": {"$min": "$rating"}}}
+    ],
+    "as": "stats"
+  }},
+  // Without reviews the array is empty: keep only those that have some
+  {"$unwind": "$stats"},
+  {"$project": {"_id": 0, "name": 1,
+    "reviews": "$stats.n",
+    "rating": {"$round": ["$stats.avg", 1]},
+    "worst": "$stats.low"}},
+  {"$sort": {"rating": -1, "name": 1}}
+]}

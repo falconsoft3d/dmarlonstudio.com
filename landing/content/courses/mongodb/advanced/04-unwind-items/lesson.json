@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "desplegar-arrays-con-unwind",
+    "title": "Desplegar arrays con $unwind",
+    "summary": "Despliegue las líneas de los pedidos con $unwind en MongoDB y calcule unidades e ingresos por producto con $group y $multiply.",
+    "body": [
+      "**`$unwind`** convierte un documento con un array en un documento por elemento. El pedido 1 tiene 3 líneas, así que `{\"$unwind\": \"$items\"}` lo convierte en 3 documentos, todos con `_id` 1, y en cada uno `items` ya no es un array sino una sola línea. Por eso el `$project` puede leer `\"$items.qty\"` directamente.",
+      "Es la etapa clave con datos incrustados: una vez desplegadas, las líneas se agrupan como si fueran filas de `order_items` en SQL. En mongosh: `db.orders.aggregate([{$unwind: \"$items\"}, ...])`.",
+      "La segunda consulta despliega las líneas de los pedidos no cancelados y agrupa por `items.product_id`. Las unidades son `$sum` de `qty`; los ingresos, `$sum` de una expresión, **`$multiply`** de cantidad por precio; y `\"orders\": {\"$sum\": 1}` cuenta en cuántas líneas aparece.",
+      "Salen los 11 productos vendidos. Manchego cheese (9) es el que más ingresa, 23.25 con 3 unidades; Croissant (2) el que más unidades vende, 10. Las sumas de decimales dejan restos como 14.399999…, y el `$round` de `$addFields` los deja en dos decimales. Bananas 1 kg no aparece: nadie lo ha pedido."
+    ],
+    "points": [
+      "`$unwind` da un documento por elemento del array.",
+      "Los documentos desplegados conservan el `_id` original.",
+      "Tras `$unwind`, `\"$items.qty\"` es un valor, no un array.",
+      "`$sum` acepta expresiones como `$multiply`."
+    ],
+    "exercise": "Despliegue las líneas y agrupe por `customer_id` para saber cuántas unidades ha comprado cada cliente, de más a menos."
+  },
+  "en": {
+    "slug": "unwinding-arrays-with-unwind",
+    "title": "Unwinding arrays with $unwind",
+    "summary": "Unwind the order lines with $unwind in MongoDB and compute units and revenue per product with $group and $multiply.",
+    "body": [
+      "**`$unwind`** turns a document holding an array into one document per element. Order 1 has 3 lines, so `{\"$unwind\": \"$items\"}` turns it into 3 documents, all with `_id` 1, and in each one `items` is no longer an array but a single line. That is why `$project` can read `\"$items.qty\"` directly.",
+      "It is the key stage with embedded data: once unwound, the lines can be grouped as if they were rows of `order_items` in SQL. In mongosh: `db.orders.aggregate([{$unwind: \"$items\"}, ...])`.",
+      "The second query unwinds the lines of the non-cancelled orders and groups by `items.product_id`. Units are the `$sum` of `qty`; revenue is the `$sum` of an expression, **`$multiply`** of quantity by price; and `\"orders\": {\"$sum\": 1}` counts how many lines it appears on.",
+      "The 11 products that were sold appear. Manchego cheese (9) brings in the most, 23.25 from 3 units; Croissant (2) sells the most units, 10. Sums of decimals leave tails such as 14.399999…, and the `$round` in `$addFields` brings them to two decimals. Bananas 1 kg is missing: nobody ordered it."
+    ],
+    "points": [
+      "`$unwind` outputs one document per array element.",
+      "Unwound documents keep the original `_id`.",
+      "After `$unwind`, `\"$items.qty\"` is a value, not an array.",
+      "`$sum` accepts expressions such as `$multiply`."
+    ],
+    "exercise": "Unwind the lines and group by `customer_id` to find how many units each customer has bought, from most to least."
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "documentos-frente-a-tablas",
+    "title": "Documentos frente a tablas",
+    "summary": "Compare el modelo de documentos de MongoDB con las tablas de SQL: datos incrustados (líneas, dirección) frente a referencias por id.",
+    "body": [
+      "En SQL, un pedido son dos tablas: una fila en `orders` y una fila por línea en `order_items`, que se juntan con un JOIN. En MongoDB, el pedido 4 es **un solo documento**: sus 3 líneas viajan dentro, en `items`. Se lee y se escribe de una vez, sin juntar nada.",
+      "Ese es el modelo **incrustado**: lo que pertenece a un documento y se usa junto va dentro. La lección crea `suppliers` con la dirección como documento (`address`) y los teléfonos como array (`phones`); el segundo proveedor tiene dos teléfonos, y no hace falta otra colección para ello.",
+      "Lo incrustado se consulta y se proyecta con la notación de punto: `{\"address.city\": \"Bilbao\"}` da Lácteos Norte, y la proyección `\"address.city\": 1` devuelve solo la ciudad de su dirección.",
+      "El otro modelo es la **referencia**: guardar el `_id` de otro documento, como una clave ajena. Un proveedor sirve muchos productos y cambia por su cuenta, así que no se copia en cada producto: los 3 de panadería reciben `\"supplier_id\": 1`. La regla práctica: incruste lo que se lee siempre con el padre y no crece sin límite; referencie lo que se comparte o vive por su cuenta."
+    ],
+    "points": [
+      "Un documento puede llevar dentro lo que en SQL serían otras tablas.",
+      "Incrustar: un documento, una lectura, sin JOIN.",
+      "Referenciar: guardar el `_id` de otro documento.",
+      "Incruste lo que va siempre con el padre; referencie lo compartido."
+    ],
+    "exercise": "Añada a Harina Sur un segundo teléfono con `$push` y busque los proveedores que tienen más de un teléfono (`\"phones.1\": {\"$exists\": true}`)."
+  },
+  "en": {
+    "slug": "documents-versus-tables",
+    "title": "Documents versus tables",
+    "summary": "Compare MongoDB's document model with SQL tables: embedded data (order lines, an address) versus references by id.",
+    "body": [
+      "In SQL, an order is two tables: a row in `orders` and one row per line in `order_items`, put together with a JOIN. In MongoDB, order 4 is **a single document**: its 3 lines travel inside it, in `items`. It is read and written in one go, with nothing to join.",
+      "That is the **embedded** model: whatever belongs to a document and is used with it goes inside. The lesson creates `suppliers` with the address as a document (`address`) and the phones as an array (`phones`); the second supplier has two phones, and no extra collection is needed for that.",
+      "Embedded data is queried and projected with dot notation: `{\"address.city\": \"Bilbao\"}` returns Lácteos Norte, and the projection `\"address.city\": 1` returns just the city of its address.",
+      "The other model is the **reference**: storing the `_id` of another document, like a foreign key. A supplier serves many products and changes on its own, so it is not copied into each product: the 3 bakery products get `\"supplier_id\": 1`. Rule of thumb: embed what is always read with the parent and does not grow without bound; reference what is shared or lives on its own."
+    ],
+    "points": [
+      "A document can hold what SQL would put in other tables.",
+      "Embedding: one document, one read, no JOIN.",
+      "Referencing: storing another document's `_id`.",
+      "Embed what always goes with the parent; reference what is shared."
+    ],
+    "exercise": "Add a second phone to Harina Sur with `$push` and find the suppliers with more than one phone (`\"phones.1\": {\"$exists\": true}`)."
+  }
+}

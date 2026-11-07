@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "agrupar-con-group",
+    "title": "Agrupar con $group",
+    "summary": "Agrupe documentos en MongoDB con $group y calcule totales con $sum, $avg, $min y $max: pedidos por estado y productos por categoría.",
+    "body": [
+      "**`$group`** junta los documentos que tienen el mismo **`_id`** de grupo y saca un documento por grupo. `{\"_id\": \"$status\", \"orders\": {\"$sum\": 1}}` cuenta los pedidos de cada estado: sumar `1` por documento es contar. Salen 1 cancelado, 2 nuevos, 3 pagados y 4 enviados. Es el `GROUP BY` de SQL.",
+      "Con `\"_id\": null` todo cae en un único grupo: los 12 productos, 264 unidades en el almacén y un precio medio de 3.50. **`$sum`** con un campo (`\"$stock\"`) suma sus valores; **`$avg`** hace la media.",
+      "La última consulta agrupa por `category_id` con cinco **acumuladores**: cuántos, la media, el más barato (**`$min`**), el más caro (**`$max`**) y el stock total. La panadería (1) va de 1.20 a 2.80 con 77 unidades; las bebidas (2) tienen la media más alta, 5.87.",
+      "La media sale con muchos decimales (1.8333…), así que una etapa **`$addFields`** con `$round` la deja en dos. `$round` es una expresión, no un acumulador: va después del `$group`. Otros acumuladores útiles son `$push` y `$addToSet` (juntan valores en un array) y `$first`/`$last`."
+    ],
+    "points": [
+      "`$group` da un documento por cada `_id` distinto.",
+      "`{\"$sum\": 1}` cuenta; `{\"$sum\": \"$campo\"}` suma.",
+      "`\"_id\": null` agrupa toda la colección.",
+      "`$avg`, `$min`, `$max`, `$push`, `$addToSet` son acumuladores.",
+      "Redondee después, con `$round` en otra etapa."
+    ],
+    "exercise": "Agrupe los pedidos por `customer_id` y saque cuántos tiene cada cliente y su total medio redondeado a 2 decimales."
+  },
+  "en": {
+    "slug": "grouping-with-group",
+    "title": "Grouping with $group",
+    "summary": "Group documents in MongoDB with $group and compute totals with $sum, $avg, $min and $max: orders per status and products per category.",
+    "body": [
+      "**`$group`** gathers the documents that share the same group **`_id`** and outputs one document per group. `{\"_id\": \"$status\", \"orders\": {\"$sum\": 1}}` counts the orders of each status: adding `1` per document is counting. That gives 1 cancelled, 2 new, 3 paid and 4 shipped. It is SQL's `GROUP BY`.",
+      "With `\"_id\": null` everything falls into a single group: the 12 products, 264 units in the warehouse and an average price of 3.50. **`$sum`** with a field (`\"$stock\"`) adds up its values; **`$avg`** takes the mean.",
+      "The last query groups by `category_id` with five **accumulators**: how many, the mean, the cheapest (**`$min`**), the dearest (**`$max`**) and the total stock. The bakery (1) ranges from 1.20 to 2.80 with 77 units; drinks (2) have the highest mean, 5.87.",
+      "The mean comes out with many decimals (1.8333…), so an **`$addFields`** stage with `$round` trims it to two. `$round` is an expression, not an accumulator: it goes after the `$group`. Other useful accumulators are `$push` and `$addToSet` (collect values into an array) and `$first`/`$last`."
+    ],
+    "points": [
+      "`$group` outputs one document per distinct `_id`.",
+      "`{\"$sum\": 1}` counts; `{\"$sum\": \"$field\"}` adds up.",
+      "`\"_id\": null` groups the whole collection.",
+      "`$avg`, `$min`, `$max`, `$push`, `$addToSet` are accumulators.",
+      "Round afterwards, with `$round` in another stage."
+    ],
+    "exercise": "Group the orders by `customer_id` and get how many each customer has and their average total rounded to 2 decimals."
+  }
+}

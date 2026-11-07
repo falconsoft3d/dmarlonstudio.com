@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "informe-final-con-find",
+    "title": "Informe final con find",
+    "summary": "Repase el nivel básico de MongoDB con un pequeño informe: productos que reponer, pedidos abiertos y sus clientes, con find, count y distinct.",
+    "body": [
+      "El script junta lo visto en el nivel en cuatro preguntas que haría el encargado de la tienda. Al pulsar **Ejecutar** (⌘↵) se responden todas, cada una en su pestaña.",
+      "La primera pide los productos activos con menos de 15 unidades, `{\"active\": true, \"stock\": {\"$lt\": 15}}`, ordenados por existencias y, en caso de empate, por nombre. Son 4: Orange juice (agotado), Manchego cheese (8), Rye bread (12) y Strawberries (14). Bananas 1 kg también está a 0, pero no sale porque está inactivo.",
+      "Los pedidos abiertos son los `new` y los `paid`: `$in` con `\"count\": true` dice que hay 5, y `\"distinct\": \"customer_id\"` que son de 4 clientes, el 1, el 2, el 5 y el 6. El cliente 1 tiene dos pedidos abiertos, pero `distinct` lo cuenta una vez.",
+      "La última consulta lista esos 5 pedidos del más reciente al más antiguo: del 10 (2024-06-05) al 3 (2024-03-15). La fecha es texto `AAAA-MM-DD`, así que `\"sort\": {\"ordered\": -1}` ordena bien. Con **CSV** se lleva la lista a una hoja de cálculo. Para unir pedidos con nombres de clientes, sumar por cliente o por mes hacen falta las **agregaciones**: el nivel avanzado."
+    ],
+    "points": [
+      "Un informe son varias consultas cortas, cada una con su pestaña.",
+      "`sort` con dos claves desempata.",
+      "`count` cuenta documentos; `distinct`, valores.",
+      "Para sumar y unir colecciones, el nivel avanzado: `aggregate`."
+    ],
+    "exercise": "Añada una consulta que liste los pedidos `\"shipped\"` con `total` mayor que `11`, ordenados por total de mayor a menor."
+  },
+  "en": {
+    "slug": "final-report-with-find",
+    "title": "Final report with find",
+    "summary": "Review the MongoDB basic level with a small report: products to reorder, open orders and their customers, using find, count and distinct.",
+    "body": [
+      "The script gathers what this level has covered into four questions a shop manager would ask. Pressing **Run** (⌘↵) answers them all, each in its own tab.",
+      "The first asks for the active products with fewer than 15 units, `{\"active\": true, \"stock\": {\"$lt\": 15}}`, sorted by stock and, on a tie, by name. There are 4: Orange juice (sold out), Manchego cheese (8), Rye bread (12) and Strawberries (14). Bananas 1 kg is at 0 too, but it is left out because it is inactive.",
+      "The open orders are the `new` and `paid` ones: `$in` with `\"count\": true` says there are 5, and `\"distinct\": \"customer_id\"` that they belong to 4 customers, 1, 2, 5 and 6. Customer 1 has two open orders, but `distinct` counts them once.",
+      "The last query lists those 5 orders from newest to oldest: from 10 (2024-06-05) to 3 (2024-03-15). The date is `YYYY-MM-DD` text, so `\"sort\": {\"ordered\": -1}` orders it correctly. **CSV** takes the list to a spreadsheet. To join orders with customer names, or add up per customer or per month, you need **aggregations**: the advanced level."
+    ],
+    "points": [
+      "A report is several short queries, each with its own tab.",
+      "`sort` with two keys breaks ties.",
+      "`count` counts documents; `distinct`, values.",
+      "To sum and join collections, the advanced level: `aggregate`."
+    ],
+    "exercise": "Add a query that lists the `\"shipped\"` orders with a `total` above `11`, sorted by total from highest to lowest."
+  }
+}

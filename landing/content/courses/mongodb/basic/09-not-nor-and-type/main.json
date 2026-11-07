@@ -1,0 +1,17 @@
+// $not negates one operator (and keeps missing fields)
+{"collection": "reviews", "find": {"rating": {"$not": {"$gte": 4}}},
+ "projection": {"product_id": 1, "rating": 1}}
+
+// $nor: none of the conditions is true
+{"collection": "orders",
+ "find": {"$nor": [{"status": "cancelled"}, {"total": {"$lt": 12}}]},
+ "projection": {"status": 1, "total": 1}, "sort": {"_id": 1}}
+
+// $type: by the BSON type of the value
+{"collection": "employees", "find": {"manager_id": {"$type": "null"}},
+ "projection": {"name": 1}}
+
+// A mixed field: some prices written as text by mistake
+{"collection": "prices", "insert": [{"_id": 1, "price": 2.5},
+ {"_id": 2, "price": "3,10"}, {"_id": 3, "price": 4}]}
+{"collection": "prices", "find": {"price": {"$type": "string"}}}

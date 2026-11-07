@@ -1,0 +1,23 @@
+// Order lines EMBED the price paid: a copy, frozen at order time.
+// They REFERENCE the product by id: name and price live in products.
+{"collection": "products", "update": [{"_id": 1}, {"$set": {"price": 1.35}}]}
+{"collection": "products", "update": [{"_id": 8},
+ {"$set": {"name": "Greek yogurt 500 g"}}]}
+
+// The embedded copy keeps the old price; the reference sees the new name
+{"collection": "orders", "aggregate": [
+  {"$unwind": "$items"},
+  {"$match": {"items.product_id": {"$in": [1, 8]}}},
+  {"$lookup": {"from": "products", "localField": "items.product_id",
+    "foreignField": "_id", "as": "p"}},
+  {"$unwind": "$p"},
+  {"$project": {
+    "_id": 0,
+    "order": "$_id",
+    "product": "$p.name",
+    "paid": "$items.price",
+    "today": "$p.price",
+    "diff": {"$round": [{"$subtract": ["$p.price", "$items.price"]}, 2]}
+  }},
+  {"$sort": {"order": 1, "product": 1}}
+]}

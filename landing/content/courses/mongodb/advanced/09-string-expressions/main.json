@@ -1,0 +1,15 @@
+// Join, change case, cut and measure text
+{"collection": "customers", "aggregate": [
+  {"$match": {"email": {"$exists": true}}},
+  {"$project": {
+    "_id": 0,
+    "label": {"$concat": [{"$toUpper": "$city"}, " · ", "$name"]},
+    "initials": {"$concat": [
+      {"$substrCP": ["$name", 0, 1]},
+      {"$substrCP": [{"$arrayElemAt": [{"$split": ["$name", " "]}, 1]}, 0, 1]}
+    ]},
+    "user": {"$arrayElemAt": [{"$split": ["$email", "@"]}, 0]},
+    "length": {"$strLenCP": "$name"}
+  }},
+  {"$sort": {"label": 1}}
+]}

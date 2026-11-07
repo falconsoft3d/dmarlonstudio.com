@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "listas-y-condiciones-or",
+    "title": "Listas y condiciones con $or",
+    "summary": "Use $in y $nin para comparar con una lista, y $or para pedir una condición u otra en las consultas de MongoDB.",
+    "body": [
+      "**`$in`** compara con una lista: `{\"status\": {\"$in\": [\"paid\", \"new\"]}}` pide los pedidos cuyo estado es uno de esos dos. Salen 5 pedidos: 3, 6 y 10 pagados, 7 y 9 nuevos. Es más corto y más claro que repetir la condición.",
+      "**`$nin`** es lo contrario, ninguno de la lista: los clientes que no son de Madrid ni de Seville son John Smith, Sofía Ruiz, Emma Brown y Carlos Díaz.",
+      "Varias claves en el mismo filtro son un **`$and` implícito**: `{\"category_id\": 4, \"active\": true}` exige las dos cosas, y de la fruta solo quedan Apples 1 kg y Strawberries (Bananas 1 kg está inactiva). El `$and` explícito, `{\"$and\": [{…}, {…}]}`, solo hace falta cuando se repite la misma clave, por ejemplo dos `$or`.",
+      "**`$or`** recibe una lista de filtros y basta con que se cumpla uno. La última consulta pide lo agotado o lo caro: Espresso beans (9.90) y Manchego cheese (7.75) por precio, Orange juice y Bananas 1 kg por `stock` 0. En mongosh: `db.products.find({$or: [{stock: 0}, {price: {$gt: 5}}]})`."
+    ],
+    "points": [
+      "`$in`: el valor es uno de la lista; `$nin`: ninguno.",
+      "Varias claves en un filtro se cumplen todas (`$and` implícito).",
+      "`$or` recibe una lista de filtros y basta con uno.",
+      "`$and` explícito solo cuando se repite una clave."
+    ],
+    "exercise": "Pida los pedidos de los clientes `1` o `2` (con `$in`) cuyo `total` sea mayor que `10`."
+  },
+  "en": {
+    "slug": "lists-and-or-conditions",
+    "title": "Lists and $or conditions",
+    "summary": "Use $in and $nin to compare against a list, and $or to ask for one condition or another in MongoDB queries.",
+    "body": [
+      "**`$in`** compares against a list: `{\"status\": {\"$in\": [\"paid\", \"new\"]}}` asks for orders whose status is either of the two. Five orders match: 3, 6 and 10 paid, 7 and 9 new. It is shorter and clearer than repeating the condition.",
+      "**`$nin`** is the opposite, none of the list: the customers who are neither in Madrid nor in Seville are John Smith, Sofía Ruiz, Emma Brown and Carlos Díaz.",
+      "Several keys in the same filter are an **implicit `$and`**: `{\"category_id\": 4, \"active\": true}` requires both, and of the fruit only Apples 1 kg and Strawberries remain (Bananas 1 kg is inactive). An explicit `$and`, `{\"$and\": [{…}, {…}]}`, is needed only when the same key repeats, for example two `$or`.",
+      "**`$or`** takes a list of filters and one is enough. The last query asks for what is sold out or expensive: Espresso beans (9.90) and Manchego cheese (7.75) by price, Orange juice and Bananas 1 kg by `stock` 0. In mongosh: `db.products.find({$or: [{stock: 0}, {price: {$gt: 5}}]})`."
+    ],
+    "points": [
+      "`$in`: the value is one of the list; `$nin`: none of it.",
+      "Several keys in a filter must all match (implicit `$and`).",
+      "`$or` takes a list of filters and one is enough.",
+      "Explicit `$and` only when a key repeats."
+    ],
+    "exercise": "Ask for the orders of customers `1` or `2` (with `$in`) whose `total` is greater than `10`."
+  }
+}

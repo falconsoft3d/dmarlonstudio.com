@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "incrustar-o-referenciar",
+    "title": "Incrustar o referenciar",
+    "summary": "Diseñe el esquema en MongoDB: qué incrustar y qué referenciar. El precio pagado se copia en el pedido; el nombre del producto se consulta con $lookup.",
+    "body": [
+      "Cada línea de pedido **incrusta** el precio pagado (`items.price`) y **referencia** el producto por su `_id` (`items.product_id`). No es casualidad: son dos decisiones de diseño distintas, y la lección las pone a prueba cambiando dos productos.",
+      "Primero, Baguette sube de 1.20 a 1.35 y Greek yogurt pasa a llamarse «Greek yogurt 500 g». Después, el pipeline despliega las líneas de esos dos productos y, con `$lookup`, trae el producto actual de cada una.",
+      "El resultado enseña las dos caras. La columna `paid`, la copia incrustada, sigue en 1.20 en los pedidos 1, 4 y 9: lo que se cobró no debe cambiar aunque cambie la tarifa, y `diff` lo cuantifica, 0.15. La columna `product`, que sale de la referencia, ya enseña el nombre nuevo en los pedidos 4 y 9, sin tocar ningún pedido.",
+      "La regla: **incruste** lo que pertenece al documento, se lee con él y debe quedar como estaba (el precio del día, la dirección de envío); **referencie** lo que se comparte, cambia por su cuenta o crecería sin límite (el catálogo, las reseñas). A veces se combinan: copiar el nombre en la línea ahorra el `$lookup`, a cambio de tener que actualizar las copias si el nombre cambia."
+    ],
+    "points": [
+      "Incrustar copia el dato y lo congela.",
+      "Referenciar guarda el `_id` y siempre ve el dato actual.",
+      "Los datos históricos (precio pagado) se incrustan.",
+      "Lo compartido o lo que crece sin límite se referencia."
+    ],
+    "exercise": "Copie el nombre del producto en cada línea de los pedidos (un pipeline con `$unwind`, `$lookup`, `$group` y `$merge` en una colección nueva) y compare las dos versiones."
+  },
+  "en": {
+    "slug": "embedding-or-referencing",
+    "title": "Embedding or referencing",
+    "summary": "Design a MongoDB schema: what to embed and what to reference. The price paid is copied into the order; the product name is looked up with $lookup.",
+    "body": [
+      "Each order line **embeds** the price paid (`items.price`) and **references** the product by its `_id` (`items.product_id`). That is no accident: they are two different design decisions, and the lesson puts them to the test by changing two products.",
+      "First, Baguette goes up from 1.20 to 1.35 and Greek yogurt is renamed \"Greek yogurt 500 g\". Then the pipeline unwinds the lines of those two products and, with `$lookup`, brings in each line's current product.",
+      "The result shows both sides. The `paid` column, the embedded copy, stays at 1.20 in orders 1, 4 and 9: what was charged must not change when the price list does, and `diff` measures it, 0.15. The `product` column, which comes through the reference, already shows the new name in orders 4 and 9, without touching any order.",
+      "The rule: **embed** what belongs to the document, is read with it and must stay as it was (the price of the day, the delivery address); **reference** what is shared, changes on its own or would grow without bound (the catalogue, the reviews). Sometimes you combine them: copying the name into the line saves the `$lookup`, at the cost of having to update the copies when the name changes."
+    ],
+    "points": [
+      "Embedding copies the data and freezes it.",
+      "Referencing stores the `_id` and always sees the current data.",
+      "Historical data (the price paid) is embedded.",
+      "Shared data, or data that grows without bound, is referenced."
+    ],
+    "exercise": "Copy the product name into each order line (a pipeline with `$unwind`, `$lookup`, `$group` and `$merge` into a new collection) and compare the two versions."
+  }
+}

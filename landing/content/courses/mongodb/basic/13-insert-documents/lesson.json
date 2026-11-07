@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "insertar-documentos",
+    "title": "Insertar documentos",
+    "summary": "Inserte uno o varios documentos en MongoDB con insert, con su _id y con campos distintos, y cree una colección nueva al vuelo.",
+    "body": [
+      "**`\"insert\"`** con un objeto añade un documento: Rice pudding, con `_id` 13. Equivale a `db.products.insertOne({...})` en mongosh. El estudio responde «1 fila afectada» y la pestaña de esa consulta no tiene rejilla, porque no devuelve documentos.",
+      "Con una lista se insertan varios a la vez, como `insertMany`: Lemonade y Muffin. Los documentos no tienen por qué tener los mismos campos: Muffin trae además `\"vegan\": true`. Si no se pone `_id`, MongoDB genera un **ObjectId** único; aquí se ponen números para que el resultado sea siempre el mismo.",
+      "No hace falta crear la colección antes: el primer `insert` en `suppliers` la crea. Después de ejecutar, aparece en la lista de colecciones de la izquierda.",
+      "La última consulta lista los productos desde el 12: Strawberries y los tres nuevos. La columna `vegan` solo tiene valor en Muffin; en los demás está vacía porque esos documentos no tienen el campo. El `_id` es único: insertar otro documento con `_id` 13 daría un error de clave duplicada."
+    ],
+    "points": [
+      "`\"insert\": {…}` añade uno; `\"insert\": [{…}, …]`, varios.",
+      "Sin `_id`, MongoDB pone un ObjectId.",
+      "El primer insert crea la colección.",
+      "Cada documento puede llevar sus propios campos."
+    ],
+    "exercise": "Inserte dos categorías nuevas (`_id` 5 y 6) y liste todas las categorías ordenadas por nombre."
+  },
+  "en": {
+    "slug": "inserting-documents",
+    "title": "Inserting documents",
+    "summary": "Insert one or several documents into MongoDB with insert, with your own _id and different fields, and create a new collection on the fly.",
+    "body": [
+      "**`\"insert\"`** with an object adds one document: Rice pudding, with `_id` 13. It is the same as `db.products.insertOne({...})` in mongosh. The studio answers \"1 row affected\" and that query's tab has no grid, because it returns no documents.",
+      "With a list, several are inserted at once, like `insertMany`: Lemonade and Muffin. The documents do not need the same fields: Muffin also carries `\"vegan\": true`. If you leave out `_id`, MongoDB generates a unique **ObjectId**; here numbers are used so the result is always the same.",
+      "There is no need to create the collection first: the first `insert` into `suppliers` creates it. After running, it shows up in the collection list on the left.",
+      "The last query lists the products from 12 up: Strawberries and the three new ones. The `vegan` column only has a value for Muffin; for the rest it is empty because those documents lack the field. `_id` is unique: inserting another document with `_id` 13 would raise a duplicate key error."
+    ],
+    "points": [
+      "`\"insert\": {…}` adds one; `\"insert\": [{…}, …]`, several.",
+      "Without `_id`, MongoDB assigns an ObjectId.",
+      "The first insert creates the collection.",
+      "Each document may carry its own fields."
+    ],
+    "exercise": "Insert two new categories (`_id` 5 and 6) and list every category sorted by name."
+  }
+}

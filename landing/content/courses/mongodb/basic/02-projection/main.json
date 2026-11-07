@@ -1,0 +1,12 @@
+// Inclusion: only name and price (_id comes along)
+{"collection": "products", "find": {"category_id": 2},
+ "projection": {"name": 1, "price": 1}}
+
+// Exclusion: everything except tags and active
+{"collection": "products", "find": {"category_id": 3},
+ "projection": {"tags": 0, "active": 0}}
+
+// Three fields and no _id
+{"collection": "products", "find": {},
+ "projection": {"_id": 0, "name": 1, "price": 1, "stock": 1},
+ "sort": {"name": 1}}

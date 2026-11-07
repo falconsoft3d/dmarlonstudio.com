@@ -1,0 +1,13 @@
+// How many documents match
+{"collection": "products", "find": {}, "count": true}
+{"collection": "orders", "find": {"status": "shipped"}, "count": true}
+
+// The different values of a field, each once
+{"collection": "orders", "find": {}, "distinct": "status"}
+
+// distinct goes inside arrays: every tag in use
+{"collection": "products", "find": {"active": true}, "distinct": "tags"}
+
+// Distinct also takes a filter: cities of customers since 2024
+{"collection": "customers", "find": {"joined": {"$gte": "2024-01-01"}},
+ "distinct": "city"}

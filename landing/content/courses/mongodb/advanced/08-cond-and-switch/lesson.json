@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "condiciones-con-cond-y-switch",
+    "title": "Condiciones con $cond y $switch",
+    "summary": "Use $cond y $switch en las expresiones de MongoDB para clasificar productos por precio y contar solo los que cumplen una condición.",
+    "body": [
+      "**`$cond`** es un *if* dentro de una expresión: `{\"if\": …, \"then\": …, \"else\": …}`. La primera consulta marca con `\"yes\"` los productos con menos de 15 unidades y luego filtra por ese campo calculado con `$match`. Salen 5, de Orange juice y Bananas 1 kg (0) a Strawberries (14).",
+      "Las comparaciones dentro de expresiones se escriben distinto que en un filtro: `{\"$lt\": [\"$stock\", 15]}`, con una lista de dos valores, no `{\"stock\": {\"$lt\": 15}}`. Así se pueden comparar dos campos entre sí.",
+      "**`$switch`** elige entre varias ramas: se queda con la primera `case` que se cumple y, si no se cumple ninguna, con `default`. Clasifica los precios en `cheap` (menos de 2), `mid` (menos de 5) y `premium`, y el `$group` cuenta cada franja.",
+      "Dentro de un acumulador, `$cond` cuenta solo lo que interesa: `{\"$sum\": {\"$cond\": [{\"$gt\": [\"$stock\", 0]}, 1, 0]}}` suma 1 por cada producto con existencias (esta es la forma corta, con una lista). Hay 4 productos baratos y 3 con existencias, 6 medios y 5 con existencias, y 2 premium, de 7.75 a 9.90."
+    ],
+    "points": [
+      "`$cond`: if / then / else en una expresión.",
+      "En expresiones, `{\"$lt\": [\"$a\", valor]}` compara con una lista.",
+      "`$switch` toma la primera rama que se cumple, o `default`.",
+      "`$sum` de un `$cond` cuenta solo lo que cumple."
+    ],
+    "exercise": "Clasifique los pedidos con `$switch` en `small` (menos de 11), `medium` (menos de 16) y `large`, y cuente cuántos hay de cada uno."
+  },
+  "en": {
+    "slug": "conditions-with-cond-and-switch",
+    "title": "Conditions with $cond and $switch",
+    "summary": "Use $cond and $switch in MongoDB expressions to classify products by price and count only the ones that meet a condition.",
+    "body": [
+      "**`$cond`** is an *if* inside an expression: `{\"if\": …, \"then\": …, \"else\": …}`. The first query marks with `\"yes\"` the products with fewer than 15 units and then filters on that computed field with `$match`. Five appear, from Orange juice and Bananas 1 kg (0) to Strawberries (14).",
+      "Comparisons inside expressions are written differently from a filter: `{\"$lt\": [\"$stock\", 15]}`, with a list of two values, not `{\"stock\": {\"$lt\": 15}}`. That way you can compare two fields with each other.",
+      "**`$switch`** picks between several branches: it takes the first `case` that is true and, if none is, the `default`. It sorts the prices into `cheap` (under 2), `mid` (under 5) and `premium`, and the `$group` counts each band.",
+      "Inside an accumulator, `$cond` counts only what you care about: `{\"$sum\": {\"$cond\": [{\"$gt\": [\"$stock\", 0]}, 1, 0]}}` adds 1 for each product in stock (this is the short form, with a list). There are 4 cheap products with 3 in stock, 6 mid ones with 5 in stock, and 2 premium ones, from 7.75 to 9.90."
+    ],
+    "points": [
+      "`$cond`: if / then / else inside an expression.",
+      "In expressions, `{\"$lt\": [\"$a\", value]}` compares with a list.",
+      "`$switch` takes the first true branch, or `default`.",
+      "`$sum` of a `$cond` counts only the matches."
+    ],
+    "exercise": "Classify the orders with `$switch` into `small` (under 11), `medium` (under 16) and `large`, and count how many there are of each."
+  }
+}

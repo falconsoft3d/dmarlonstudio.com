@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "varios-resultados-con-facet",
+    "title": "Varios resultados con $facet",
+    "summary": "Calcule varios resúmenes a la vez en MongoDB con $facet, sobre los mismos documentos y en una sola consulta, y aplánelos en una fila.",
+    "body": [
+      "**`$facet`** ejecuta varios pipelines sobre la misma entrada y devuelve un único documento con un array por pipeline. Aquí, tras el `$match` de los productos activos, hay tres: `by_category` (cuántos por categoría), `top_price` (el más caro) y `totals` (cuántos y cuántas unidades).",
+      "La gracia es que los documentos se leen una vez y cada faceta los trabaja a su manera. Es lo que hace una tienda en línea con los filtros laterales: cuántos productos hay por categoría, por precio, por marca, todo en una sola petición.",
+      "Cada faceta es un array, aunque tenga un solo elemento. El `$project` final saca de ellos valores sueltos: `$size` de `by_category` da 4 categorías, y `$arrayElemAt` de `\"$totals.products\"` toma el número de productos. `\"$totals.products\"` es un array con el campo `products` de cada elemento.",
+      "El resultado es una fila: 11 productos activos en 4 categorías, 264 unidades en el almacén, y el más caro es Espresso beans, a 9.90. Así cabe en la rejilla, y en una aplicación sería la cabecera de un panel."
+    ],
+    "points": [
+      "`$facet` ejecuta varios pipelines sobre la misma entrada.",
+      "Devuelve un documento con un array por faceta.",
+      "`$arrayElemAt` y `$size` sacan valores de las facetas.",
+      "Ideal para filtros laterales y paneles."
+    ],
+    "exercise": "Añada una faceta `cheapest` con el producto más barato y saque su nombre en otra columna."
+  },
+  "en": {
+    "slug": "several-results-with-facet",
+    "title": "Several results with $facet",
+    "summary": "Compute several summaries at once in MongoDB with $facet, over the same documents and in a single query, then flatten them into one row.",
+    "body": [
+      "**`$facet`** runs several pipelines over the same input and returns a single document with one array per pipeline. Here, after the `$match` of the active products, there are three: `by_category` (how many per category), `top_price` (the dearest) and `totals` (how many and how many units).",
+      "The point is that the documents are read once and each facet works on them its own way. It is what an online shop does with its side filters: how many products per category, per price, per brand, all in one request.",
+      "Each facet is an array, even with a single element. The final `$project` pulls single values out of them: `$size` of `by_category` gives 4 categories, and `$arrayElemAt` of `\"$totals.products\"` takes the number of products. `\"$totals.products\"` is an array with the `products` field of each element.",
+      "The result is one row: 11 active products in 4 categories, 264 units in stock, and the dearest is Espresso beans at 9.90. That way it fits in the grid, and in an application it would be the header of a dashboard."
+    ],
+    "points": [
+      "`$facet` runs several pipelines over the same input.",
+      "It returns one document with an array per facet.",
+      "`$arrayElemAt` and `$size` pull values out of the facets.",
+      "Ideal for side filters and dashboards."
+    ],
+    "exercise": "Add a `cheapest` facet with the cheapest product and show its name in another column."
+  }
+}

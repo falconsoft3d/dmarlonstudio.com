@@ -1,0 +1,21 @@
+// $unwind: one document per element of the array
+{"collection": "orders", "aggregate": [
+  {"$match": {"_id": 1}},
+  {"$unwind": "$items"},
+  {"$project": {"order": "$_id", "product": "$items.product_id",
+    "qty": "$items.qty", "price": "$items.price"}}
+]}
+
+// Units and revenue per product, from every order line
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}}},
+  {"$unwind": "$items"},
+  {"$group": {
+    "_id": "$items.product_id",
+    "units": {"$sum": "$items.qty"},
+    "revenue": {"$sum": {"$multiply": ["$items.qty", "$items.price"]}},
+    "orders": {"$sum": 1}
+  }},
+  {"$addFields": {"revenue": {"$round": ["$revenue", 2]}}},
+  {"$sort": {"revenue": -1, "_id": 1}}
+]}

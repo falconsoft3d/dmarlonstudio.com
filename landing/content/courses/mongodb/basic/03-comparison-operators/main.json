@@ -1,0 +1,15 @@
+// Cheaper than 2 euros
+{"collection": "products", "find": {"price": {"$lt": 2}},
+ "projection": {"name": 1, "price": 1}, "sort": {"price": 1}}
+
+// Out of stock, and everything except Bakery
+{"collection": "products", "find": {"stock": {"$eq": 0}},
+ "projection": {"name": 1, "stock": 1}}
+{"collection": "products", "find": {"category_id": {"$ne": 1}},
+ "projection": {"name": 1, "category_id": 1}, "sort": {"_id": 1}}
+
+// A range: two operators on the same field
+{"collection": "products",
+ "find": {"price": {"$gte": 2, "$lte": 4}, "stock": {"$gt": 0}},
+ "projection": {"_id": 0, "name": 1, "price": 1, "stock": 1},
+ "sort": {"price": 1}}

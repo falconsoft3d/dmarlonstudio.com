@@ -1,0 +1,18 @@
+// Names that start with "M"
+{"collection": "customers", "find": {"name": {"$regex": "^M"}},
+ "projection": {"name": 1}}
+
+// "bread" anywhere, ignoring case
+{"collection": "products",
+ "find": {"name": {"$regex": "BREAD", "$options": "i"}},
+ "projection": {"name": 1}}
+
+// Names with a digit in them
+{"collection": "products", "find": {"name": {"$regex": "\\d"}},
+ "projection": {"name": 1}, "sort": {"_id": 1}}
+
+// Customers with an e-mail at example.com, by name
+{"collection": "customers",
+ "find": {"email": {"$regex": "@example\\.com$"}},
+ "projection": {"_id": 0, "name": 1, "email": 1},
+ "sort": {"name": 1}}

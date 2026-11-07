@@ -1,0 +1,20 @@
+// Dashboard: one row per customer with everything a manager asks for
+{"collection": "customers", "aggregate": [
+  {"$lookup": {"from": "orders", "localField": "_id",
+    "foreignField": "customer_id", "as": "orders"}},
+  {"$addFields": {"valid": {"$filter": {"input": "$orders", "as": "o",
+    "cond": {"$ne": ["$$o.status", "cancelled"]}}}}},
+  {"$project": {
+    "_id": 0,
+    "customer": "$name",
+    "city": "$city",
+    "orders": {"$size": "$valid"},
+    "spent": {"$round": [{"$sum": "$valid.total"}, 2]},
+    "last": {"$max": "$valid.ordered"},
+    "tier": {"$switch": {"branches": [
+      {"case": {"$gte": [{"$sum": "$valid.total"}, 30]}, "then": "gold"},
+      {"case": {"$gte": [{"$sum": "$valid.total"}, 15]}, "then": "silver"}],
+      "default": "bronze"}}
+  }},
+  {"$sort": {"spent": -1, "customer": 1}}
+]}

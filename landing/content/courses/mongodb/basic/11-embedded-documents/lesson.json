@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "documentos-anidados-y-punto",
+    "title": "Documentos anidados y notación de punto",
+    "summary": "Consulte documentos dentro de documentos en MongoDB con la notación de punto: las líneas de cada pedido en el array items.",
+    "body": [
+      "Un pedido de la tienda no guarda sus líneas en otra colección: las lleva dentro, en el array **`items`**, y cada línea es un **documento anidado** con `product_id`, `qty` y `price`. La primera consulta enseña el pedido 2 con sus dos líneas, que la rejilla muestra como JSON.",
+      "La **notación de punto** llega dentro: `\"items.product_id\"` es el campo `product_id` de las líneas. `{\"items.product_id\": 4}` pide los pedidos que tienen alguna línea de Espresso beans: el 2, el 5 y el 8. Las comillas son obligatorias porque la clave lleva un punto. En mongosh: `db.orders.find({\"items.product_id\": 4})`.",
+      "La notación de punto también sirve en la proyección: `{\"items.product_id\": 1, \"items.qty\": 1}` devuelve el array con solo esos dos campos de cada línea, sin el precio.",
+      "Con un operador funciona igual: `{\"items.qty\": {\"$gte\": 4}}` da los pedidos con alguna línea de 4 unidades o más. Son el 2 (4 croissants), el 7 (6 croissants) y el 9 (4 yogures). La última consulta proyecta solo campos planos, que se leen mejor en la rejilla y se exportan limpios con **CSV**."
+    ],
+    "points": [
+      "Un documento puede llevar otros dentro, también en arrays.",
+      "`\"a.b\"` llega al campo `b` del documento `a`.",
+      "En un array, `\"items.qty\"` mira todas las líneas.",
+      "La notación de punto vale en el filtro y en la proyección."
+    ],
+    "exercise": "Busque los pedidos con alguna línea de precio mayor que `5` y muestre solo `customer_id` y `total`."
+  },
+  "en": {
+    "slug": "embedded-documents-and-dot-notation",
+    "title": "Embedded documents and dot notation",
+    "summary": "Query documents inside documents in MongoDB with dot notation: the lines of each order in the items array.",
+    "body": [
+      "An order in the shop does not keep its lines in another collection: it carries them inside, in the **`items`** array, and each line is an **embedded document** with `product_id`, `qty` and `price`. The first query shows order 2 with its two lines, which the grid displays as JSON.",
+      "**Dot notation** reaches inside: `\"items.product_id\"` is the `product_id` field of the lines. `{\"items.product_id\": 4}` asks for the orders with any line of Espresso beans: 2, 5 and 8. The quotes are required because the key contains a dot. In mongosh: `db.orders.find({\"items.product_id\": 4})`.",
+      "Dot notation works in the projection too: `{\"items.product_id\": 1, \"items.qty\": 1}` returns the array with just those two fields of each line, without the price.",
+      "With an operator it is the same: `{\"items.qty\": {\"$gte\": 4}}` returns the orders with any line of 4 units or more. Those are 2 (4 croissants), 7 (6 croissants) and 9 (4 yoghurts). The last query projects only flat fields, which read better in the grid and export cleanly with **CSV**."
+    ],
+    "points": [
+      "A document can hold others inside, arrays included.",
+      "`\"a.b\"` reaches field `b` of document `a`.",
+      "On an array, `\"items.qty\"` looks at every line.",
+      "Dot notation works in the filter and in the projection."
+    ],
+    "exercise": "Find the orders with any line priced above `5` and show only `customer_id` and `total`."
+  }
+}

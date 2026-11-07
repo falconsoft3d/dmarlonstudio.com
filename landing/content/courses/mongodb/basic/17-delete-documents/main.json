@@ -1,0 +1,17 @@
+// deleteMany: every document that matches the filter
+{"collection": "reviews", "delete": {"rating": {"$lt": 3}}}
+{"collection": "orders", "delete": {"status": "cancelled"}}
+
+// A filter that matches nothing deletes nothing
+{"collection": "orders", "delete": {"status": "returned"}}
+
+// Check the filter with find (or count) before deleting
+{"collection": "products", "find": {"active": false}, "count": true}
+{"collection": "products", "delete": {"active": false}}
+
+// drop removes the whole collection, indexes included
+{"collection": "employees", "drop": true}
+
+{"collection": "orders", "find": {},
+ "projection": {"customer_id": 1, "status": 1, "total": 1},
+ "sort": {"_id": 1}}

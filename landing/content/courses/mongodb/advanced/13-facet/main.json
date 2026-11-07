@@ -1,0 +1,26 @@
+// $facet: several pipelines over the same input, in one query
+{"collection": "products", "aggregate": [
+  {"$match": {"active": true}},
+  {"$facet": {
+    "by_category": [
+      {"$group": {"_id": "$category_id", "n": {"$sum": 1}}},
+      {"$sort": {"_id": 1}}
+    ],
+    "top_price": [
+      {"$sort": {"price": -1}}, {"$limit": 1},
+      {"$project": {"_id": 0, "name": 1, "price": 1}}
+    ],
+    "totals": [
+      {"$group": {"_id": null, "products": {"$sum": 1},
+        "stock": {"$sum": "$stock"}}}
+    ]
+  }},
+  // Each facet is an array: pick values out to get a flat row
+  {"$project": {
+    "categories": {"$size": "$by_category"},
+    "products": {"$arrayElemAt": ["$totals.products", 0]},
+    "stock": {"$arrayElemAt": ["$totals.stock", 0]},
+    "dearest": {"$arrayElemAt": ["$top_price.name", 0]},
+    "price": {"$arrayElemAt": ["$top_price.price", 0]}
+  }}
+]}

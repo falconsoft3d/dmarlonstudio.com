@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "expresiones-de-texto",
+    "title": "Expresiones de texto",
+    "summary": "Trabaje con texto en las agregaciones de MongoDB: $concat, $toUpper, $substrCP, $split, $arrayElemAt y $strLenCP sobre los clientes.",
+    "body": [
+      "**`$concat`** junta textos: `[{\"$toUpper\": \"$city\"}, \" · \", \"$name\"]` construye etiquetas como `MADRID · Ana García`. **`$toUpper`** y `$toLower` cambian mayúsculas. Si alguno de los valores falta o es `null`, `$concat` da `null`; por eso el `$match` deja fuera a quien no tiene correo.",
+      "**`$substrCP`** corta por caracteres: `[\"$name\", 0, 1]` es la primera letra. Para la inicial del apellido, **`$split`** parte el nombre por el espacio y **`$arrayElemAt`** toma el elemento 1 (el segundo): Carlos Díaz da `CD`.",
+      "La misma pareja saca el usuario del correo: se parte por `@` y se toma el elemento 0, `carlos`. Con estas piezas se hacen casi todas las transformaciones de texto sin salir de la base de datos.",
+      "**`$strLenCP`** cuenta caracteres: «Carlos Díaz» tiene 11. Las versiones con `CP` (*code points*) cuentan letras; `$strLenBytes` y `$substr` cuentan bytes, y la «í» ocupa dos en UTF-8: con nombres en español, use siempre las de `CP`. La rejilla enseña los 7 clientes con correo, ordenados por la etiqueta."
+    ],
+    "points": [
+      "`$concat` junta textos (y da `null` si falta uno).",
+      "`$toUpper` y `$toLower` cambian mayúsculas.",
+      "`$split` + `$arrayElemAt` sacan una parte.",
+      "Use `$substrCP` y `$strLenCP` con acentos: cuentan caracteres."
+    ],
+    "exercise": "Construya para cada producto un código con las 3 primeras letras del nombre en mayúsculas, un guion y su `_id` (`$toString`)."
+  },
+  "en": {
+    "slug": "string-expressions",
+    "title": "String expressions",
+    "summary": "Work with text in MongoDB aggregations: $concat, $toUpper, $substrCP, $split, $arrayElemAt and $strLenCP on the customers.",
+    "body": [
+      "**`$concat`** joins strings: `[{\"$toUpper\": \"$city\"}, \" · \", \"$name\"]` builds labels such as `MADRID · Ana García`. **`$toUpper`** and `$toLower` change case. If any value is missing or `null`, `$concat` returns `null`; that is why the `$match` leaves out whoever has no e-mail.",
+      "**`$substrCP`** cuts by characters: `[\"$name\", 0, 1]` is the first letter. For the surname's initial, **`$split`** breaks the name at the space and **`$arrayElemAt`** takes element 1 (the second): Carlos Díaz gives `CD`.",
+      "The same pair extracts the user from the e-mail: split at `@` and take element 0, `carlos`. With these pieces you can do most text transformations without leaving the database.",
+      "**`$strLenCP`** counts characters: \"Carlos Díaz\" has 11. The `CP` (code point) versions count letters; `$strLenBytes` and `$substr` count bytes, and \"í\" takes two in UTF-8: with accented names, always use the `CP` ones. The grid shows the 7 customers with an e-mail, sorted by label."
+    ],
+    "points": [
+      "`$concat` joins strings (and returns `null` if one is missing).",
+      "`$toUpper` and `$toLower` change case.",
+      "`$split` + `$arrayElemAt` pick out a part.",
+      "Use `$substrCP` and `$strLenCP` with accents: they count characters."
+    ],
+    "exercise": "Build a code for each product with the first 3 letters of its name in capitals, a hyphen and its `_id` (`$toString`)."
+  }
+}

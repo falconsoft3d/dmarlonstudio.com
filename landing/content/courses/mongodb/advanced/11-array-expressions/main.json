@@ -1,0 +1,19 @@
+// Work on the items array without $unwind
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}}},
+  {"$project": {
+    // $map: one value per element
+    "units": {"$sum": {"$map": {"input": "$items", "as": "i",
+      "in": "$$i.qty"}}},
+    // $filter: only the elements that pass the condition
+    "big_lines": {"$size": {"$filter": {"input": "$items", "as": "i",
+      "cond": {"$gte": ["$$i.qty", 2]}}}},
+    // $reduce: fold the array into one value
+    "computed": {"$round": [{"$reduce": {"input": "$items",
+      "initialValue": 0,
+      "in": {"$add": ["$$value", {"$multiply": ["$$this.qty", "$$this.price"]}]}}}, 2]},
+    "total": 1
+  }},
+  {"$addFields": {"ok": {"$eq": ["$computed", "$total"]}}},
+  {"$sort": {"_id": 1}}
+]}

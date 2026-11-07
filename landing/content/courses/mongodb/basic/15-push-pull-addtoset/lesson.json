@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "push-pull-y-addtoset",
+    "title": "Arrays: $push, $pull y $addToSet",
+    "summary": "Modifique arrays en MongoDB: añada con $push y $each, sin repetir con $addToSet y quite elementos con $pull, sobre las etiquetas.",
+    "body": [
+      "**`$push`** añade un elemento al final del array: Apples 1 kg recibe la etiqueta `organic`. Si el campo no existiera, `$push` lo crearía con ese único elemento.",
+      "**`$addToSet`** solo añade si el valor no está ya. Croissant ya tenía `sweet`, así que la consulta da «0 filas afectadas»: el documento no ha cambiado. Whole milk, con `tags` vacío, sí recibe `dairy`. Es la forma de tratar un array como un conjunto.",
+      "Con **`$each`** se añaden varios de una vez: Green tea queda con `[\"tea\", \"hot\", \"organic\"]`. En mongosh: `db.products.updateMany({_id: 5}, {$push: {tags: {$each: [\"hot\", \"organic\"]}}})`.",
+      "**`$pull`** quita todos los elementos iguales al valor. El filtro `{\"tags\": \"fresh\"}` encuentra las 3 frutas y les quita `fresh`: Apples 1 kg se queda con `organic`, Strawberries con `sweet` y Bananas 1 kg con el array vacío. La última consulta enseña cómo han quedado las etiquetas."
+    ],
+    "points": [
+      "`$push` añade al final; con `$each`, varios.",
+      "`$addToSet` no añade lo que ya está.",
+      "`$pull` quita los elementos iguales al valor.",
+      "«0 filas afectadas» también significa «no hacía falta cambiar nada»."
+    ],
+    "exercise": "Añada a todos los productos de la categoría `1` la etiqueta `\"bakery\"` sin repetirla, y luego quite `\"bread\"` de Croissant."
+  },
+  "en": {
+    "slug": "push-pull-and-addtoset",
+    "title": "Arrays: $push, $pull and $addToSet",
+    "summary": "Modify arrays in MongoDB: append with $push and $each, avoid duplicates with $addToSet and remove elements with $pull, on the tags.",
+    "body": [
+      "**`$push`** appends an element to the end of the array: Apples 1 kg gets the `organic` tag. If the field did not exist, `$push` would create it with that single element.",
+      "**`$addToSet`** only adds the value if it is not there already. Croissant already had `sweet`, so the query gives \"0 rows affected\": the document did not change. Whole milk, with an empty `tags`, does get `dairy`. It is how you treat an array as a set.",
+      "With **`$each`** you add several at once: Green tea ends up with `[\"tea\", \"hot\", \"organic\"]`. In mongosh: `db.products.updateMany({_id: 5}, {$push: {tags: {$each: [\"hot\", \"organic\"]}}})`.",
+      "**`$pull`** removes every element equal to the value. The filter `{\"tags\": \"fresh\"}` finds the 3 fruits and removes `fresh` from them: Apples 1 kg keeps `organic`, Strawberries keeps `sweet` and Bananas 1 kg is left with an empty array. The last query shows how the tags ended up."
+    ],
+    "points": [
+      "`$push` appends; with `$each`, several.",
+      "`$addToSet` does not add what is already there.",
+      "`$pull` removes the elements equal to the value.",
+      "\"0 rows affected\" can also mean \"nothing needed changing\"."
+    ],
+    "exercise": "Add the `\"bakery\"` tag to every product in category `1` without repeating it, then remove `\"bread\"` from Croissant."
+  }
+}

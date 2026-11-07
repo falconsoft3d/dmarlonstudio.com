@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "pipeline-match-y-project",
+    "title": "El pipeline: $match y $project",
+    "summary": "Empiece con las agregaciones de MongoDB: un pipeline de etapas con $match para filtrar y $project para dar forma, renombrar y calcular.",
+    "body": [
+      "**`\"aggregate\"`** recibe un **pipeline**: una lista de etapas por la que pasan los documentos, cada una con la salida de la anterior. En mongosh es `db.orders.aggregate([...])`. La primera consulta encadena `$match` (los pedidos `shipped`), `$sort`, `$limit` (los 3 primeros) y `$project`: los pedidos 1, 2 y 4.",
+      "**`$match`** filtra con la misma sintaxis que `find`. Póngalo lo antes posible: cuantos menos documentos lleguen a las etapas siguientes, menos trabajo, y al principio del pipeline puede usar los índices.",
+      "**`$project`** da forma a cada documento y hace más que la proyección de `find`: `\"order\": \"$_id\"` **renombra** (con `$` delante, el valor es el de ese campo), `\"_id\": 0` lo quita y `\"lines\": {\"$size\": \"$items\"}` **calcula** un campo nuevo, el número de líneas del pedido.",
+      "La segunda consulta deja fuera los cancelados, pide totales de 12 o más y ordena del mayor al menor: 5 pedidos, del 8 (22.20, 3 líneas) al 3 (12.90). El pedido 5 suma 19.80, pero está cancelado. Cada consulta del script tiene su pestaña, y la imagen enseña la última."
+    ],
+    "points": [
+      "Un pipeline es una lista de etapas en orden.",
+      "`$match` filtra como `find`; mejor al principio.",
+      "`$project` incluye, quita, renombra y calcula.",
+      "`\"$campo\"` es el valor de ese campo en una expresión."
+    ],
+    "exercise": "Haga un pipeline con los pedidos del cliente `1` que devuelva `order`, `date` y `lines`, ordenados por fecha."
+  },
+  "en": {
+    "slug": "the-pipeline-match-and-project",
+    "title": "The pipeline: $match and $project",
+    "summary": "Get started with MongoDB aggregations: a pipeline of stages with $match to filter and $project to shape, rename and compute.",
+    "body": [
+      "**`\"aggregate\"`** takes a **pipeline**: a list of stages the documents flow through, each one receiving the output of the one before. In mongosh it is `db.orders.aggregate([...])`. The first query chains `$match` (the `shipped` orders), `$sort`, `$limit` (the first 3) and `$project`: orders 1, 2 and 4.",
+      "**`$match`** filters with the same syntax as `find`. Put it as early as you can: the fewer documents reach the following stages, the less work there is, and at the start of the pipeline it can use indexes.",
+      "**`$project`** shapes each document and does more than the projection in `find`: `\"order\": \"$_id\"` **renames** (with a leading `$`, the value is that field's value), `\"_id\": 0` drops it and `\"lines\": {\"$size\": \"$items\"}` **computes** a new field, the number of lines in the order.",
+      "The second query leaves out the cancelled orders, asks for totals of 12 or more and sorts from highest to lowest: 5 orders, from 8 (22.20, 3 lines) to 3 (12.90). Order 5 adds up to 19.80, but it is cancelled. Each query in the script has its own tab, and the picture shows the last one."
+    ],
+    "points": [
+      "A pipeline is an ordered list of stages.",
+      "`$match` filters like `find`; best at the start.",
+      "`$project` includes, drops, renames and computes.",
+      "`\"$field\"` is that field's value inside an expression."
+    ],
+    "exercise": "Build a pipeline for customer `1`'s orders that returns `order`, `date` and `lines`, sorted by date."
+  }
+}

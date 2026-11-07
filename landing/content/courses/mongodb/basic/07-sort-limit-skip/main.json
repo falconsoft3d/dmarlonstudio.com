@@ -1,0 +1,16 @@
+// The three most expensive products
+{"collection": "products", "find": {},
+ "projection": {"name": 1, "price": 1},
+ "sort": {"price": -1}, "limit": 3}
+
+// Two sort keys: category first, then price high to low
+{"collection": "products", "find": {"category_id": {"$lte": 2}},
+ "projection": {"category_id": 1, "name": 1, "price": 1},
+ "sort": {"category_id": 1, "price": -1}}
+
+// Pages of 4 by name: page 1, then page 2 (skip 4)
+{"collection": "products", "find": {},
+ "projection": {"name": 1}, "sort": {"name": 1}, "limit": 4}
+{"collection": "products", "find": {},
+ "projection": {"_id": 0, "name": 1, "price": 1},
+ "sort": {"name": 1}, "skip": 4, "limit": 4}

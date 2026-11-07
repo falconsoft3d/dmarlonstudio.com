@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "not-nor-y-type",
+    "title": "Negar con $not y $nor, y $type",
+    "summary": "Niegue condiciones con $not y $nor y filtre por el tipo del valor con $type en MongoDB, útil para encontrar datos mal guardados.",
+    "body": [
+      "**`$not`** niega un operador: `{\"rating\": {\"$not\": {\"$gte\": 4}}}` pide las reseñas que no tienen 4 o más. Salen la 4 (un 3) y la 7 (un 2). Ojo: `$not` también deja pasar los documentos que no tienen el campo, cosa que `{\"$lt\": 4}` no haría.",
+      "**`$nor`** recibe una lista de filtros y se queda con los documentos que no cumplen ninguno. La segunda consulta quita los pedidos cancelados y los de menos de 12: quedan 5, del 2 (15.90) al 10 (13.80).",
+      "**`$type`** filtra por el tipo BSON del valor: `\"null\"`, `\"string\"`, `\"int\"`, `\"double\"`, `\"array\"`, `\"object\"`… o `\"number\"` para cualquier número. `{\"manager_id\": {\"$type\": \"null\"}}` da Laura Martín, y a diferencia de `{\"manager_id\": null}` no encontraría un campo que falta.",
+      "Donde más se usa es para encontrar datos sucios. La lección crea la colección `prices` con tres documentos y uno lleva el precio escrito como texto, `\"3,10\"`. `{\"price\": {\"$type\": \"string\"}}` lo encuentra: el documento 2. En mongosh: `db.prices.find({price: {$type: \"string\"}})`."
+    ],
+    "points": [
+      "`$not` niega un operador (y acepta campos que faltan).",
+      "`$nor`: no se cumple ninguna de las condiciones.",
+      "`$type` filtra por el tipo del valor.",
+      "`\"number\"` vale para enteros y decimales."
+    ],
+    "exercise": "Con `$type: \"number\"`, cuente cuántos documentos de `prices` tienen un precio numérico."
+  },
+  "en": {
+    "slug": "not-nor-and-type",
+    "title": "Negating with $not and $nor, and $type",
+    "summary": "Negate conditions with $not and $nor and filter by the type of a value with $type in MongoDB, handy for spotting badly stored data.",
+    "body": [
+      "**`$not`** negates an operator: `{\"rating\": {\"$not\": {\"$gte\": 4}}}` asks for the reviews that do not have 4 or more. Reviews 4 (a 3) and 7 (a 2) match. Note that `$not` also lets through documents that lack the field, which `{\"$lt\": 4}` would not.",
+      "**`$nor`** takes a list of filters and keeps the documents that match none of them. The second query removes the cancelled orders and those under 12: 5 remain, from order 2 (15.90) to order 10 (13.80).",
+      "**`$type`** filters by the BSON type of the value: `\"null\"`, `\"string\"`, `\"int\"`, `\"double\"`, `\"array\"`, `\"object\"`… or `\"number\"` for any number. `{\"manager_id\": {\"$type\": \"null\"}}` returns Laura Martín, and unlike `{\"manager_id\": null}` it would not match a missing field.",
+      "Where it really helps is finding dirty data. The lesson creates a `prices` collection with three documents, one of which has its price written as text, `\"3,10\"`. `{\"price\": {\"$type\": \"string\"}}` finds it: document 2. In mongosh: `db.prices.find({price: {$type: \"string\"}})`."
+    ],
+    "points": [
+      "`$not` negates an operator (and accepts missing fields).",
+      "`$nor`: none of the conditions is met.",
+      "`$type` filters by the type of the value.",
+      "`\"number\"` covers both integers and decimals."
+    ],
+    "exercise": "Using `$type: \"number\"`, count how many documents in `prices` have a numeric price."
+  }
+}

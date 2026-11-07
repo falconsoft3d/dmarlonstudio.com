@@ -1,0 +1,26 @@
+// $group: one output document per distinct _id
+{"collection": "orders", "aggregate": [
+  {"$group": {"_id": "$status", "orders": {"$sum": 1}}},
+  {"$sort": {"_id": 1}}
+]}
+
+// _id null: the whole collection in one group
+{"collection": "products", "aggregate": [
+  {"$group": {"_id": null, "products": {"$sum": 1},
+    "units": {"$sum": "$stock"}, "avg_price": {"$avg": "$price"}}},
+  {"$addFields": {"avg_price": {"$round": ["$avg_price", 2]}}}
+]}
+
+// Per category: count, average, cheapest and dearest
+{"collection": "products", "aggregate": [
+  {"$group": {
+    "_id": "$category_id",
+    "products": {"$sum": 1},
+    "avg_price": {"$avg": "$price"},
+    "min_price": {"$min": "$price"},
+    "max_price": {"$max": "$price"},
+    "stock": {"$sum": "$stock"}
+  }},
+  {"$addFields": {"avg_price": {"$round": ["$avg_price", 2]}}},
+  {"$sort": {"_id": 1}}
+]}

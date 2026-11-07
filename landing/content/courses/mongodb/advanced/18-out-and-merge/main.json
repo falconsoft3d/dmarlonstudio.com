@@ -1,0 +1,28 @@
+// $out writes the result into a collection (replacing it)
+{"collection": "orders", "aggregate": [
+  {"$match": {"status": {"$ne": "cancelled"}}},
+  {"$group": {"_id": "$customer_id", "orders": {"$sum": 1},
+    "spent": {"$sum": "$total"}}},
+  {"$out": "customer_stats"}
+]}
+
+// A new order for customer 8, and one more for customer 1
+{"collection": "orders", "insert": [
+  {"_id": 11, "customer_id": 8, "ordered": "2024-06-09", "status": "paid",
+   "total": 7.75, "items": [{"product_id": 9, "qty": 1, "price": 7.75}]},
+  {"_id": 12, "customer_id": 1, "ordered": "2024-06-10", "status": "new",
+   "total": 4.5, "items": [{"product_id": 5, "qty": 1, "price": 4.5}]}]}
+
+// $merge upserts: updates the ones that exist, inserts the rest
+{"collection": "orders", "aggregate": [
+  {"$match": {"_id": {"$gt": 10}}},
+  {"$group": {"_id": "$customer_id", "orders": {"$sum": 1},
+    "spent": {"$sum": "$total"}}},
+  {"$merge": {"into": "customer_stats", "on": "_id",
+    "whenMatched": [{"$set": {
+      "orders": {"$add": ["$orders", "$$new.orders"]},
+      "spent": {"$add": ["$spent", "$$new.spent"]}}}],
+    "whenNotMatched": "insert"}}
+]}
+
+{"collection": "customer_stats", "find": {}, "sort": {"_id": 1}}

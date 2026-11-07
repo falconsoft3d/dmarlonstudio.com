@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "rangos-con-bucket",
+    "title": "Rangos con $bucket y $bucketAuto",
+    "summary": "Agrupe por rangos en MongoDB: $bucket con los límites que usted elige y $bucketAuto con los que calcula el servidor, sobre precios y pedidos.",
+    "body": [
+      "**`$bucket`** reparte los documentos en **rangos** de un valor. Con `\"groupBy\": \"$price\"` y `\"boundaries\": [0, 2, 4, 10]` hay tres cubos: de 0 a 2, de 2 a 4 y de 4 a 10. Cada rango incluye su límite inferior y excluye el superior, y el `_id` de cada cubo es su límite inferior: 0, 2 y 4.",
+      "`\"output\"` dice qué calcular en cada cubo, con los mismos acumuladores que `$group`. Hay 4 productos de menos de 2 euros con 125 unidades, 5 entre 2 y 4 con 83, y 3 de 4 en adelante con 56. `$push` junta los nombres y el `$project` enseña el primero. `\"default\"` recoge lo que cae fuera de los límites; sin él, un precio de 12 daría error.",
+      "**`$bucketAuto`** no pide límites, sino cuántos cubos: `\"buckets\": 3`, y MongoDB los elige para que tengan un número de documentos parecido. Con los totales de los pedidos salen de 9 a 11.25 (3 pedidos), de 11.25 a 15.90 (3) y de 15.90 a 22.20 (4).",
+      "El `_id` de `$bucketAuto` es un documento `{min, max}`; el `$project` lo aplana en `from` y `to` para que la rejilla no enseñe JSON. Es la herramienta para histogramas y tramos de precio en un informe, sin escribir un `$switch` con cada rango."
+    ],
+    "points": [
+      "`$bucket` agrupa por los límites que usted da.",
+      "Cada rango incluye el inferior y excluye el superior.",
+      "`\"default\"` recoge lo que queda fuera.",
+      "`$bucketAuto` reparte en N cubos parecidos."
+    ],
+    "exercise": "Haga un `$bucket` de los pedidos por `total` con límites `[0, 10, 15, 25]` que cuente pedidos y sume sus totales."
+  },
+  "en": {
+    "slug": "ranges-with-bucket",
+    "title": "Ranges with $bucket and $bucketAuto",
+    "summary": "Group by ranges in MongoDB: $bucket with boundaries you choose and $bucketAuto with ones the server works out, on prices and orders.",
+    "body": [
+      "**`$bucket`** sorts documents into **ranges** of a value. With `\"groupBy\": \"$price\"` and `\"boundaries\": [0, 2, 4, 10]` there are three buckets: 0 to 2, 2 to 4 and 4 to 10. Each range includes its lower bound and excludes the upper one, and each bucket's `_id` is its lower bound: 0, 2 and 4.",
+      "`\"output\"` says what to compute in each bucket, with the same accumulators as `$group`. There are 4 products under 2 euros with 125 units, 5 between 2 and 4 with 83, and 3 from 4 up with 56. `$push` gathers the names and the `$project` shows the first. `\"default\"` catches whatever falls outside the bounds; without it, a price of 12 would raise an error.",
+      "**`$bucketAuto`** asks not for bounds but for how many buckets: `\"buckets\": 3`, and MongoDB chooses them so they hold a similar number of documents. With the order totals you get 9 to 11.25 (3 orders), 11.25 to 15.90 (3) and 15.90 to 22.20 (4).",
+      "The `_id` of `$bucketAuto` is a `{min, max}` document; the `$project` flattens it into `from` and `to` so the grid does not show JSON. It is the tool for histograms and price bands in a report, without writing a `$switch` with every range."
+    ],
+    "points": [
+      "`$bucket` groups by the boundaries you give.",
+      "Each range includes the lower bound and excludes the upper.",
+      "`\"default\"` catches what falls outside.",
+      "`$bucketAuto` splits into N similar buckets."
+    ],
+    "exercise": "Write a `$bucket` of the orders by `total` with bounds `[0, 10, 15, 25]` that counts orders and adds up their totals."
+  }
+}

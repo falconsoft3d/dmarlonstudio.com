@@ -1,0 +1,23 @@
+// $lookup: a left outer join with another collection
+{"collection": "orders", "aggregate": [
+  {"$match": {"_id": 3}},
+  {"$lookup": {"from": "customers", "localField": "customer_id",
+    "foreignField": "_id", "as": "customer"}},
+  {"$project": {"total": 1, "customer.name": 1, "customer.city": 1}}
+]}
+
+// The array has one element: $unwind it and take the fields
+{"collection": "orders", "aggregate": [
+  {"$lookup": {"from": "customers", "localField": "customer_id",
+    "foreignField": "_id", "as": "customer"}},
+  {"$unwind": "$customer"},
+  {"$project": {
+    "_id": 0,
+    "order": "$_id",
+    "name": "$customer.name",
+    "city": "$customer.city",
+    "status": "$status",
+    "total": "$total"
+  }},
+  {"$sort": {"order": 1}}
+]}

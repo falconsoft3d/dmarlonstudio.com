@@ -1,0 +1,38 @@
+{
+  "es": {
+    "slug": "expresiones-de-array",
+    "title": "Expresiones de array: $map, $filter, $reduce",
+    "summary": "Calcule sobre los arrays de MongoDB sin $unwind: $map, $filter y $reduce sobre las líneas de cada pedido, y compruebe sus totales.",
+    "body": [
+      "`$unwind` despliega el array y multiplica los documentos. Cuando solo hace falta un dato por pedido, es mejor calcular **dentro del array**, con las expresiones de array. El pipeline devuelve una fila por pedido no cancelado: 9 filas.",
+      "**`$map`** aplica una expresión a cada elemento y devuelve un array nuevo: con `\"as\": \"i\"`, `\"$$i.qty\"` es la cantidad de cada línea (dos `$`: es una variable, no un campo). `$sum` de ese array da las unidades: 4 en el pedido 1 y 6 en el 4 y en el 7.",
+      "**`$filter`** se queda con los elementos que cumplen `cond`: las líneas de 2 unidades o más. Su `$size` dice cuántas hay: 2 en los pedidos 4, 6 y 10, y 1 en los demás.",
+      "**`$reduce`** pliega el array en un único valor: empieza en `initialValue` (0) y, para cada elemento **`$$this`**, calcula el nuevo **`$$value`**, aquí la suma de cantidad por precio. Redondeado, ese `computed` coincide con el `total` guardado en los 9 pedidos, y la columna `ok` (`$eq` de los dos) sale `true` en todas: los totales incrustados están al día."
+    ],
+    "points": [
+      "Las expresiones de array evitan `$unwind` cuando basta un valor por documento.",
+      "`$map` transforma cada elemento; `$filter` elige algunos.",
+      "`$reduce` pliega el array con `$$value` y `$$this`.",
+      "`$$nombre` es una variable; `$nombre`, un campo."
+    ],
+    "exercise": "Añada un campo `products` con la lista de `product_id` de cada pedido (`$map`) y otro `max_qty` con la mayor cantidad (`$max` de un `$map`)."
+  },
+  "en": {
+    "slug": "array-expressions",
+    "title": "Array expressions: $map, $filter, $reduce",
+    "summary": "Compute over MongoDB arrays without $unwind: $map, $filter and $reduce on the lines of each order, and check their totals.",
+    "body": [
+      "`$unwind` spreads the array out and multiplies the documents. When you only need one value per order, it is better to compute **inside the array**, with the array expressions. The pipeline returns one row per non-cancelled order: 9 rows.",
+      "**`$map`** applies an expression to each element and returns a new array: with `\"as\": \"i\"`, `\"$$i.qty\"` is each line's quantity (two `$`: it is a variable, not a field). `$sum` of that array gives the units: 4 in order 1 and 6 in orders 4 and 7.",
+      "**`$filter`** keeps the elements that pass `cond`: the lines of 2 units or more. Its `$size` tells how many there are: 2 in orders 4, 6 and 10, and 1 in the rest.",
+      "**`$reduce`** folds the array into a single value: it starts at `initialValue` (0) and, for each element **`$$this`**, computes the new **`$$value`**, here the running sum of quantity times price. Rounded, that `computed` matches the stored `total` in all 9 orders, and the `ok` column (`$eq` of the two) is `true` throughout: the embedded totals are up to date."
+    ],
+    "points": [
+      "Array expressions avoid `$unwind` when one value per document is enough.",
+      "`$map` transforms each element; `$filter` picks some.",
+      "`$reduce` folds the array with `$$value` and `$$this`.",
+      "`$$name` is a variable; `$name`, a field."
+    ],
+    "exercise": "Add a `products` field with the list of each order's `product_id` values (`$map`) and a `max_qty` field with the largest quantity (`$max` of a `$map`)."
+  }
+}

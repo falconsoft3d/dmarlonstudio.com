@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "formulario-de-registro",
+    "title": "Proyecto: formulario de registro",
+    "summary": "Un formulario de registro con tkinter y grid: campos, contraseña, lista desplegable, opciones, casilla y un botón que comprueba los datos.",
+    "body": [
+      "El formulario es un `ttk.Frame` con `grid`: las etiquetas van en la columna 0, pegadas a la derecha con `sticky=\"e\"`, y los componentes en la columna 1, que crece con `columnconfigure(1, weight=1)`.",
+      "`put` coloca un componente en la columna 1 de una fila y lo **devuelve**; así se crea, se coloca y se guarda en una sola línea: `name = put(ttk.Entry(form), 0)`. Por defecto lo estira (`\"ew\"`), pero las opciones y la casilla van a la izquierda (`\"w\"`) y el botón, a la derecha (`\"e\"`).",
+      "Aquí se juntan los componentes del curso: dos `ttk.Entry` rellenados con `insert` (el segundo con `show=\"•\"`), un `ttk.Combobox` de solo lectura con `current(0)`, tres `Radiobutton` que comparten la `StringVar` `plan` dentro de un marco y un `Checkbutton` con su `BooleanVar`.",
+      "`register` lee los datos con `name.get()`, `plan.get()` y `country.get()`. Si la casilla de las condiciones está marcada, da la bienvenida; si no, pide que se acepten. El mensaje va a la etiqueta `status`, que ocupa las dos columnas con `columnspan=2`.",
+      "Todo el formulario se puede diseñar en DMarlon Studio arrastrando desde la paleta el **Campo de texto**, la **Contraseña**, la **Lista desplegable**, las **Opciones**, la **Casilla** y el **Botón**; el estudio escribe el código de tkinter y usted solo rellena el método del botón."
+    ],
+    "points": [
+      "`grid` en dos columnas es la forma clásica de un formulario.",
+      "Una función que coloca y devuelve el componente ahorra líneas.",
+      "Cada dato se lee con `get()` de su campo o de su variable.",
+      "Compruebe los datos antes de aceptarlos."
+    ],
+    "exercise": "Añada un campo «Email» y haga que `register` rechace el registro si el correo no contiene «@»."
+  },
+  "en": {
+    "slug": "registration-form",
+    "title": "Project: a registration form",
+    "summary": "A registration form with tkinter and grid: entries, a password, a drop-down list, options, a checkbox and a button that checks the data.",
+    "body": [
+      "The form is a `ttk.Frame` using `grid`: the labels go in column 0, stuck to the right with `sticky=\"e\"`, and the widgets in column 1, which grows thanks to `columnconfigure(1, weight=1)`.",
+      "`put` places a widget in column 1 of a row and **returns** it, so you create, place and keep it in a single line: `name = put(ttk.Entry(form), 0)`. By default it stretches the widget (`\"ew\"`), but the options and the checkbox go to the left (`\"w\"`) and the button to the right (`\"e\"`).",
+      "This is where the course's widgets come together: two `ttk.Entry` widgets filled with `insert` (the second with `show=\"•\"`), a read-only `ttk.Combobox` with `current(0)`, three `Radiobutton`s sharing the `plan` `StringVar` inside a frame, and a `Checkbutton` with its `BooleanVar`.",
+      "`register` reads the data with `name.get()`, `plan.get()` and `country.get()`. If the terms checkbox is ticked, it welcomes the user; otherwise it asks them to accept. The message goes to the `status` label, which spans both columns with `columnspan=2`.",
+      "You can design the whole form in DMarlon Studio by dragging the **Text field**, **Password**, **Drop-down list**, **Option**, **Checkbox** and **Button** from the palette; the studio writes the tkinter code and you only fill in the button's method."
+    ],
+    "points": [
+      "`grid` with two columns is the classic shape of a form.",
+      "A function that places and returns the widget saves lines.",
+      "Each value is read with `get()` from its field or its variable.",
+      "Check the data before accepting it."
+    ],
+    "exercise": "Add an «Email» field and make `register` refuse the sign-up if the address does not contain «@»."
+  }
+}

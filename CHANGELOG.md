@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.64 — 2026-11-07
+
+- **Curso de tkinter** (básico y avanzado, 40 lecciones, español e
+  inglés): todos los componentes de tkinter y ttk, uno por lección, de la
+  primera ventana y las etiquetas a la tabla de datos, las pestañas, los
+  menús, los diálogos, el lienzo con un gráfico y una aplicación de
+  productos como proyecto. Cada imagen lleva **la ventana de verdad** que
+  abre el ejemplo, capturada al ejecutarlo, y cada lección dice qué
+  componente de la paleta del destino Escritorio (Python) es.
+- Los cursos ya pueden mostrar ventanas: `scripts/courses/tk_run.py` abre
+  cada ejemplo, captura sus ventanas (también las secundarias) y las cierra.
+
 ## 1.0.63 — 2026-11-07
 
 - **Curso de Go avanzado** (20 lecciones, español e inglés): interfaces,

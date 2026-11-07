@@ -29,6 +29,8 @@ export type Lesson = {
   /** Lo que escribe el programa al ejecutarlo de verdad. */
   output: string;
   image: string;
+  /** Abre ventanas (tkinter): la imagen es la ventana de verdad. */
+  gui?: boolean;
   /** Ancho y alto de la imagen. */
   size?: [number, number];
 };

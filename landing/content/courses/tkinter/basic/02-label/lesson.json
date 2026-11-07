@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "etiquetas",
+    "title": "Etiquetas: texto y colores",
+    "summary": "Muestre texto en una ventana de tkinter con Label: fuente, colores, alineación con anchor y saltos de línea con wraplength.",
+    "body": [
+      "Una **etiqueta** muestra un texto que el usuario no edita. La primera es un `ttk.Label` con `font=(\"Helvetica\", 20, \"bold\")`: familia, tamaño y estilo. `pack(pady=(18, 10))` deja aire por encima y por debajo.",
+      "Para los colores se usa `tk.Label`: `fg` es el color del texto y `bg` el del fondo, en formato `#rrggbb`. `ttk.Label` también tiene `foreground` y `background`, pero el tema de macOS no pinta ese fondo; cuando el color importa, conviene la etiqueta clásica de `tk`. `padx` y `pady` le dan margen por dentro.",
+      "`width=40` hace la etiqueta más ancha que su texto (se mide en caracteres). Entonces **`anchor`** decide dónde va el texto dentro: `\"e\"` (este) a la derecha, `\"w\"` (oeste) a la izquierda y `\"center\"` en medio. Estos puntos cardinales (`n`, `s`, `e`, `w`, `ne`…) se usan en todo tkinter.",
+      "**`wraplength=320`** parte el texto en líneas de 320 píxeles como mucho, y `justify=\"center\"` centra esas líneas entre sí. Sin `wraplength`, una etiqueta larga se saldría de la ventana.",
+      "En la paleta de DMarlon Studio es la **Etiqueta**: se arrastra al formulario y en el inspector se cambian el texto, los colores, la fuente, la alineación (`anchor`) y el ajuste de línea (`wraplength`). El estudio escribe el código de tkinter."
+    ],
+    "points": [
+      "`ttk.Label` toma el aspecto del sistema; `tk.Label` respeta siempre `bg` y `fg`.",
+      "`font` es una tupla: familia, tamaño y estilo.",
+      "`anchor` coloca el texto dentro de la etiqueta con puntos cardinales.",
+      "`wraplength` (en píxeles) parte un texto largo en varias líneas."
+    ],
+    "exercise": "Añada una etiqueta con fondo rojo y texto blanco centrada con `anchor=\"center\"`, y baje `wraplength` a 200 para ver cómo cambian las líneas."
+  },
+  "en": {
+    "slug": "labels",
+    "title": "Labels: text and colours",
+    "summary": "Show text in a tkinter window with Label: font, colours, alignment with anchor and line breaks with wraplength.",
+    "body": [
+      "A **label** shows text the user does not edit. The first one is a `ttk.Label` with `font=(\"Helvetica\", 20, \"bold\")`: family, size and style. `pack(pady=(18, 10))` leaves some space above and below it.",
+      "For colours we use `tk.Label`: `fg` is the colour of the text and `bg` the background, written as `#rrggbb`. `ttk.Label` also has `foreground` and `background`, but the macOS theme does not paint that background, so when colour matters the classic `tk` label is the safe choice. `padx` and `pady` add inner padding.",
+      "`width=40` makes the label wider than its text (measured in characters). Then **`anchor`** decides where the text sits inside it: `\"e\"` (east) on the right, `\"w\"` (west) on the left and `\"center\"` in the middle. These compass points (`n`, `s`, `e`, `w`, `ne`…) are used all over tkinter.",
+      "**`wraplength=320`** breaks the text into lines of at most 320 pixels, and `justify=\"center\"` centres those lines. Without `wraplength`, a long label would run off the window.",
+      "In the DMarlon Studio palette this is the **Label**: drag it onto the form and change its text, colours, font, alignment (`anchor`) and line wrap (`wraplength`) in the inspector. The studio writes the tkinter code."
+    ],
+    "points": [
+      "`ttk.Label` takes the system look; `tk.Label` always honours `bg` and `fg`.",
+      "`font` is a tuple: family, size and style.",
+      "`anchor` places the text inside the label using compass points.",
+      "`wraplength` (in pixels) breaks a long text into several lines."
+    ],
+    "exercise": "Add a label with a red background and white text, centred with `anchor=\"center\"`, and lower `wraplength` to 200 to see how the lines change."
+  }
+}

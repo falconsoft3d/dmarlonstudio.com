@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "listas-desplegables",
+    "title": "Listas desplegables",
+    "summary": "El Combobox de ttk: lista de valores, valor inicial con current() o set(), modo de solo lectura y el evento <<ComboboxSelected>>.",
+    "body": [
+      "Un **Combobox** (`ttk.Combobox`) es un campo con una lista que se despliega al pulsar la flecha. Sus opciones van en **`values`**, una lista de textos.",
+      "Con **`state=\"readonly\"`** solo se puede elegir uno de los valores, no escribir. **`current(4)`** elige por posición, empezando en 0: el quinto valor, «Spain».",
+      "El segundo está en estado normal: se puede elegir de la lista o escribir otra cosa. **`set(\"Seville\")`** pone un texto aunque no esté en `values`.",
+      "`get()` devuelve el texto de cada uno. El evento **`<<ComboboxSelected>>`** llega al elegir de la lista, y `<KeyRelease>`, al soltar una tecla; los dos llaman a `show`, que escribe «ciudad, país» en la etiqueta grande.",
+      "En DMarlon Studio es la **Lista desplegable** de la paleta: sus *Elementos (uno por línea)*, el *Texto inicial* y el *Estado* (`readonly`) se ponen en el inspector, y el estudio la escribe como `ttk.Combobox` unida a una `StringVar`."
+    ],
+    "points": [
+      "`values` es la lista de opciones.",
+      "`current(i)` elige por posición; `set(texto)` pone cualquier texto.",
+      "`state=\"readonly\"` impide escribir valores que no estén en la lista.",
+      "`<<ComboboxSelected>>` avisa al elegir una opción."
+    ],
+    "exercise": "Haga que, al elegir un país, la lista de ciudades cambie con `city.config(values=...)` y muestre la primera ciudad de ese país."
+  },
+  "en": {
+    "slug": "drop-down-lists",
+    "title": "Drop-down lists",
+    "summary": "The ttk Combobox: a list of values, the initial value with current() or set(), read-only mode and the <<ComboboxSelected>> event.",
+    "body": [
+      "A **Combobox** (`ttk.Combobox`) is a field with a list that drops down when you press the arrow. Its options go in **`values`**, a list of strings.",
+      "With **`state=\"readonly\"`** you can only pick one of the values, not type. **`current(4)`** selects by position, starting at 0: the fifth value, «Spain».",
+      "The second one is in the normal state: you can pick from the list or type something else. **`set(\"Seville\")`** puts in a text even if it is not in `values`.",
+      "`get()` returns the text of each one. The **`<<ComboboxSelected>>`** event arrives when an item is picked from the list, and `<KeyRelease>` when a key is released; both call `show`, which writes «city, country» in the big label.",
+      "In DMarlon Studio this is the **Drop-down list** in the palette: you set its *Items (one per line)*, *Initial text* and *State* (`readonly`) in the inspector, and the studio writes it as a `ttk.Combobox` bound to a `StringVar`."
+    ],
+    "points": [
+      "`values` is the list of options.",
+      "`current(i)` selects by position; `set(text)` puts in any text.",
+      "`state=\"readonly\"` stops users typing values that are not in the list.",
+      "`<<ComboboxSelected>>` fires when an option is picked."
+    ],
+    "exercise": "Make the city list change with `city.config(values=...)` when a country is picked, showing the first city of that country."
+  }
+}

@@ -43,6 +43,7 @@ Hechos
 48. Demos: la de Pascal ya no se cierra al tocar un campo de texto y cada demo lleva su icono (macOS y Windows) | ✅ |
 49. 500 iconos de aplicación en el estudio: se asignan solos por el nombre del proyecto y se cambian en la Galería | ✅ |
 51. Cursos en la web (menú Cursos y portada): 7 lenguajes (Python, JavaScript, C, C++, Pascal, Go y Dart), básico y avanzado de 20 ejemplos cada uno (280 lecciones en español e inglés) con su imagen en DMarlon Studio y su salida real | ✅ |
+52. Curso de tkinter con todos los componentes (básico y avanzado, 40 lecciones) con la captura de la ventana de verdad de cada ejemplo | ✅ |
 
 
 Trabajando

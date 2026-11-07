@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "dialogos-de-mensaje",
+    "title": "Diálogos de mensaje y de datos",
+    "summary": "Use messagebox y simpledialog de tkinter: avisos, preguntas y peticiones de datos, y qué devuelve cada función al cerrarse.",
+    "body": [
+      "Los diálogos son **modales**: la función abre la ventanita, espera a que el usuario la cierre y entonces devuelve un valor. Por eso nunca se abren al arrancar, sino desde un botón: cada botón del ejemplo llama a `run`, que ejecuta el diálogo y escribe lo que ha devuelto. Al empezar, la etiqueta enseña un resultado de ejemplo.",
+      "`messagebox.showinfo`, `showwarning` y `showerror` solo avisan, con el icono de información, aviso o error, y devuelven `\"ok\"`. Reciben el título y el mensaje.",
+      "Las preguntas devuelven lo que se eligió: `askyesno` da `True` (sí) o `False` (no); `askokcancel`, `True` o `False`, y `askyesnocancel`, `True`, `False` o `None` si se cancela, justo lo que pide «¿Guardar los cambios?». También existen `askquestion`, que devuelve `\"yes\"` o `\"no\"`, y `askretrycancel`.",
+      "`simpledialog` pide un dato: `askstring` devuelve el texto, `askinteger` un entero (con `minvalue` y `maxvalue` rechaza los que se salen) y `askfloat` un número decimal; `initialvalue` rellena el campo. Todos devuelven `None` si se pulsa Cancel, así que compruébelo antes de usar el valor.",
+      "El diccionario `dialogs` guarda una función sin argumentos (`lambda`) por diálogo, y el bucle crea un botón para cada una en una rejilla de tres columnas, con `i // 3` como fila e `i % 3` como columna. Estos diálogos no están en la paleta de DMarlon Studio, pero se llaman igual desde el código de cualquier ventana que diseñe."
+    ],
+    "points": [
+      "Los diálogos son modales: devuelven el valor al cerrarse.",
+      "Los `show*` devuelven `\"ok\"`; los `ask*`, la respuesta.",
+      "`askyesnocancel` y `simpledialog` devuelven `None` al cancelar.",
+      "Ábralos desde un botón, nunca al arrancar."
+    ],
+    "exercise": "Añada un botón que pida con `askinteger` un número de copias entre 1 y 10 y, si no se cancela, escriba «Printing N copies» en la etiqueta."
+  },
+  "en": {
+    "slug": "message-dialogs",
+    "title": "Message and input dialogs",
+    "summary": "Use tkinter's messagebox and simpledialog: notices, questions and input prompts, and what each function returns when closed.",
+    "body": [
+      "Dialogs are **modal**: the function opens the little window, waits for the user to close it and then returns a value. That is why they never open at start but from a button: each button calls `run`, which runs the dialog and shows what it returned. At start, the label shows a sample result.",
+      "`messagebox.showinfo`, `showwarning` and `showerror` just inform, with an info, warning or error icon, and return `\"ok\"`. They take the title and the message.",
+      "Questions return the choice: `askyesno` gives `True` (yes) or `False` (no); `askokcancel`, `True` or `False`; and `askyesnocancel`, `True`, `False` or `None` when cancelled, exactly what \"Save the changes?\" needs. There are also `askquestion`, which returns `\"yes\"` or `\"no\"`, and `askretrycancel`.",
+      "`simpledialog` asks for a value: `askstring` returns the text, `askinteger` an integer (with `minvalue` and `maxvalue` it rejects values out of range) and `askfloat` a decimal number; `initialvalue` fills the field. All of them return `None` when Cancel is pressed, so check before using the value.",
+      "The `dialogs` dictionary holds one no-argument function (`lambda`) per dialog, and the loop makes a button for each in a three-column grid, with `i // 3` as the row and `i % 3` as the column. These dialogs are not in the DMarlon Studio palette, but you call them the same way from the code of any window you design."
+    ],
+    "points": [
+      "Dialogs are modal: they return the value when closed.",
+      "`show*` return `\"ok\"`; `ask*` return the answer.",
+      "`askyesnocancel` and `simpledialog` return `None` on cancel.",
+      "Open them from a button, never at start."
+    ],
+    "exercise": "Add a button that asks with `askinteger` for a number of copies between 1 and 10 and, unless cancelled, writes \"Printing N copies\" in the label."
+  }
+}

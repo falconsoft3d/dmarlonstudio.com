@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "casillas",
+    "title": "Casillas de verificación",
+    "summary": "Casillas de tkinter (Checkbutton), cada una con su BooleanVar: unas marcadas al empezar y un resumen que cambia con cada clic.",
+    "body": [
+      "Un **Checkbutton** es una casilla que se marca y se desmarca. Su estado vive en una variable: aquí, una **`BooleanVar`**, que vale `True` si está marcada y `False` si no.",
+      "El diccionario `toppings` dice qué casillas empiezan marcadas. El bucle crea para cada ingrediente `tk.BooleanVar(value=checked)` y la casilla con `variable=choices[name]`. Las variables se guardan en el diccionario `choices` para leerlas después: si una variable de tkinter se pierde, la casilla se queda sin estado.",
+      "`command=update` se llama con cada clic. `update` recorre `choices`, se queda con los nombres cuyo `var.get()` es `True` y los une con `\", \".join(...)`; si no hay ninguno, escribe `none`.",
+      "La etiqueta `summary` se crea antes del bucle para que `update` pueda usarla, pero se coloca con `pack` después, debajo de las casillas: lo que decide la posición es el orden de `pack`, no el de creación.",
+      "En DMarlon Studio es la **Casilla** de la paleta: en el inspector se pone su texto y si empieza *Marcada*. El estudio la une a una `IntVar` llamada `self.<Nombre>_var`, que vale `1` si está marcada y `0` si no."
+    ],
+    "points": [
+      "Cada casilla tiene su propia variable (`BooleanVar` o `IntVar`).",
+      "El valor inicial de la variable decide si empieza marcada.",
+      "`command` se llama cada vez que se marca o se desmarca.",
+      "Guarde las variables: si se pierden, la casilla se queda sin estado."
+    ],
+    "exercise": "Añada un precio a cada ingrediente y muestre en el resumen el total de los que estén marcados."
+  },
+  "en": {
+    "slug": "checkboxes",
+    "title": "Checkboxes",
+    "summary": "tkinter checkboxes (Checkbutton), each with its own BooleanVar: some checked at the start and a summary that changes on every click.",
+    "body": [
+      "A **Checkbutton** is a box you tick and untick. Its state lives in a variable: here, a **`BooleanVar`**, which is `True` when checked and `False` when not.",
+      "The `toppings` dictionary says which boxes start checked. For every topping the loop creates `tk.BooleanVar(value=checked)` and the checkbox with `variable=choices[name]`. The variables are kept in the `choices` dictionary to read them later: if a tkinter variable is lost, the checkbox loses its state.",
+      "`command=update` runs on every click. `update` goes through `choices`, keeps the names whose `var.get()` is `True` and joins them with `\", \".join(...)`; if there are none, it writes `none`.",
+      "The `summary` label is created before the loop so `update` can use it, but it is packed afterwards, below the checkboxes: the position depends on the order of `pack`, not on the order of creation.",
+      "In DMarlon Studio this is the **Checkbox** in the palette: in the inspector you set its text and whether it starts *Checked*. The studio binds it to an `IntVar` named `self.<Name>_var`, which is `1` when checked and `0` when not."
+    ],
+    "points": [
+      "Every checkbox has its own variable (`BooleanVar` or `IntVar`).",
+      "The variable's initial value decides whether it starts checked.",
+      "`command` runs every time the box is ticked or unticked.",
+      "Keep the variables: if they are lost, the checkbox loses its state."
+    ],
+    "exercise": "Give each topping a price and show the total of the checked ones in the summary."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "validar-lo-que-se-escribe",
+    "title": "Validar lo que se escribe",
+    "summary": "Valide campos en tkinter con validate y validatecommand: rechace teclas no válidas y marque los errores con el estado invalid y un estilo rojo.",
+    "body": [
+      "Un `Entry` valida con dos opciones: `validate` dice **cuándo** comprobar (`\"key\"` en cada tecla, `\"focusout\"` al salir del campo, `\"all\"` siempre) y `validatecommand` dice **con qué**: una tupla con una función registrada y los datos que debe recibir.",
+      "La función se registra con `root.register(...)`, que la convierte en una orden de Tcl, y los datos se piden con códigos: `%P` es el texto tal como quedaría si se acepta el cambio, `%S` lo que se inserta y `%W` el nombre del componente. La de la edad acepta el texto vacío o hasta tres dígitos; si devuelve `False` con `validate=\"key\"`, la tecla se **rechaza** y se llama a `invalidcommand` (aquí, un pitido).",
+      "Con `\"focusout\"` no se rechaza nada: `check_email` comprueba que haya una arroba y un punto detrás, marca el campo con `state([\"invalid\"])` o lo desmarca con `\"!invalid\"`, y escribe debajo qué falta.",
+      "`ttk.Style().map(\"TEntry\", foreground=[(\"invalid\", ...)])` pinta de rojo el texto de cualquier `ttk.Entry` en estado inválido, sin tocar los demás. Al final, `email.validate()` lanza la comprobación sin esperar a que el usuario salga del campo; por eso la ventana se abre ya con el error a la vista.",
+      "En DMarlon Studio, el **Campo de texto** de la paleta es un `Entry` como estos; `validate` y `validatecommand` se le añaden desde el código de la ventana con `config(...)`."
+    ],
+    "points": [
+      "`validate` dice cuándo y `validatecommand`, con qué.",
+      "`register()` y `%P`: el texto que quedaría.",
+      "Con `\"key\"`, devolver `False` rechaza la tecla.",
+      "El estado `invalid` y `Style().map` marcan el error."
+    ],
+    "exercise": "Añada un campo «Postcode» que solo acepte cinco dígitos y que se marque en rojo al salir de él si tiene menos."
+  },
+  "en": {
+    "slug": "input-validation",
+    "title": "Validating input",
+    "summary": "Validate tkinter fields with validate and validatecommand: reject invalid keys and flag errors with the invalid state and a red style.",
+    "body": [
+      "An `Entry` validates with two options: `validate` says **when** to check (`\"key\"` on every key, `\"focusout\"` on leaving the field, `\"all\"` always) and `validatecommand` says **with what**: a tuple with a registered function and the data it should receive.",
+      "The function is registered with `root.register(...)`, which turns it into a Tcl command, and the data is requested with codes: `%P` is the text as it would be if the change is accepted, `%S` what is being inserted and `%W` the widget's name. The age check accepts empty text or up to three digits; if it returns `False` with `validate=\"key\"`, the key is **rejected** and `invalidcommand` runs (here, a beep).",
+      "With `\"focusout\"` nothing is rejected: `check_email` checks there is an @ with a dot after it, flags the field with `state([\"invalid\"])` or clears it with `\"!invalid\"`, and writes below what is missing.",
+      "`ttk.Style().map(\"TEntry\", foreground=[(\"invalid\", ...)])` paints red the text of any `ttk.Entry` in the invalid state, leaving the others alone. At the end, `email.validate()` runs the check without waiting for the user to leave the field; that is why the window opens with the error already showing.",
+      "In DMarlon Studio, the **Text field** in the palette is an `Entry` like these; you add `validate` and `validatecommand` to it from the window's code with `config(...)`."
+    ],
+    "points": [
+      "`validate` says when and `validatecommand` with what.",
+      "`register()` and `%P`: the text it would become.",
+      "With `\"key\"`, returning `False` rejects the key.",
+      "The `invalid` state and `Style().map` flag the error."
+    ],
+    "exercise": "Add a \"Postcode\" field that only accepts five digits and turns red on leaving it if it has fewer."
+  }
+}

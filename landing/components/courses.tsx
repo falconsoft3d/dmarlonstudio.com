@@ -27,6 +27,7 @@ import { SITE_URL } from "@/lib/site";
 
 const ICONS: Record<string, { path: string; hex: string }> = {
   python: siPython,
+  tkinter: siPython,
   javascript: siJavascript,
   c: siC,
   cpp: siCplusplus,
@@ -434,7 +435,7 @@ export function LessonPage({
             src={lesson.image}
             width={w}
             height={h}
-            alt={fill(ui.imageAlt, `${course.name} · ${text.title}`)}
+            alt={fill(lesson.gui ? ui.imageAltGui : ui.imageAlt, `${course.name} · ${text.title}`)}
             className="mt-6 h-auto w-full rounded-xl"
             loading={index < 2 ? "eager" : "lazy"}
           />
@@ -457,11 +458,13 @@ export function LessonPage({
                 <pre className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed">{lesson.input}</pre>
               </Panel>
             )}
-            <Panel icon={<Play className="size-3.5 fill-current" aria-hidden />} title={`${ui.output} · ${course.command}`}>
-              <pre className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed whitespace-pre-wrap">
-                {lesson.output}
-              </pre>
-            </Panel>
+            {(!lesson.gui || lesson.output) && (
+              <Panel icon={<Play className="size-3.5 fill-current" aria-hidden />} title={`${ui.output} · ${course.command}`}>
+                <pre className="overflow-x-auto px-4 py-3 font-mono text-[13.5px] leading-relaxed whitespace-pre-wrap">
+                  {lesson.output}
+                </pre>
+              </Panel>
+            )}
           </div>
           <section className="mt-8 rounded-xl border border-line p-5">
             <h2 className="flex items-center gap-2 font-semibold">

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "paneles-redimensionables",
+    "title": "Paneles redimensionables",
+    "summary": "Divida una ventana de tkinter en paneles que se ajustan arrastrando con ttk.Panedwindow: horizontales, verticales, anidados y con pesos.",
+    "body": [
+      "`ttk.Panedwindow` reparte su espacio entre varios componentes, los **paneles**, separados por un divisor que se arrastra con el ratón. Con `orient=\"horizontal\"` los pone en fila y con `\"vertical\"`, en columna.",
+      "Los paneles se añaden con `add(componente, weight=n)`. El **peso** decide cómo se reparte el espacio que sobra al agrandar la ventana: la parte derecha tiene peso 4 y las carpetas 1, así que el correo crece cuatro veces más deprisa.",
+      "Se pueden anidar: el panel derecho es otro `Panedwindow`, vertical, con la lista de mensajes arriba y el texto del mensaje abajo. Es la distribución típica de un programa de correo.",
+      "Los tres componentes comparten opciones con el diccionario `look` y `**look`. `exportselection=False` es importante: sin ella, elegir algo en una lista borraría la selección de la otra. La etiqueta se empaqueta la primera, con `side=\"bottom\"`, para que nunca quede tapada.",
+      "Desde el código, `sashpos(0, 200)` coloca el primer divisor (cuando la ventana ya se ve) y `forget(panel)` quita un panel. Este componente no está en la paleta de DMarlon Studio, pero puede escribirlo en el código de cualquier ventana que diseñe."
+    ],
+    "points": [
+      "`add(panel, weight=n)` añade un panel con su peso.",
+      "El usuario arrastra el divisor para cambiar los tamaños.",
+      "Los `Panedwindow` se pueden anidar.",
+      "`exportselection=False` mantiene la selección de cada lista."
+    ],
+    "exercise": "Añada un tercer panel, a la derecha del todo, con una lista de contactos y peso 1; luego cambie los pesos y agrande la ventana para ver la diferencia."
+  },
+  "en": {
+    "slug": "paned-window",
+    "title": "Resizable panes",
+    "summary": "Split a tkinter window into panes the user resizes by dragging, with ttk.Panedwindow: horizontal, vertical, nested and weighted.",
+    "body": [
+      "`ttk.Panedwindow` shares its space among several widgets, the **panes**, separated by a divider (the sash) you drag with the mouse. `orient=\"horizontal\"` lays them out in a row and `\"vertical\"` in a column.",
+      "Panes are added with `add(widget, weight=n)`. The **weight** decides how spare space is shared when the window grows: the right side has weight 4 and the folders 1, so the mail area grows four times as fast.",
+      "They can be nested: the right pane is another `Panedwindow`, vertical, with the message list on top and the message text below. It is the classic layout of a mail program.",
+      "The three widgets share options through the `look` dictionary and `**look`. `exportselection=False` matters: without it, selecting in one list would clear the selection of the other. The label is packed first, with `side=\"bottom\"`, so it is never covered.",
+      "From code, `sashpos(0, 200)` moves the first divider (once the window is shown) and `forget(pane)` removes a pane. This widget is not in the DMarlon Studio palette, but you can write it in the code of any window you design."
+    ],
+    "points": [
+      "`add(pane, weight=n)` adds a pane with its weight.",
+      "The user drags the divider to resize.",
+      "`Panedwindow`s can be nested.",
+      "`exportselection=False` keeps each list's selection."
+    ],
+    "exercise": "Add a third pane on the far right with a contact list and weight 1; then change the weights and enlarge the window to see the difference."
+  }
+}

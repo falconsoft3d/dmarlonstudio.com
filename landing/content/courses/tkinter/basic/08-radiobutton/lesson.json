@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "botones-de-opcion",
+    "title": "Botones de opción",
+    "summary": "Un grupo de Radiobutton en tkinter: una sola StringVar para todo el grupo, una opción elegida al empezar y un precio que cambia con ella.",
+    "body": [
+      "Los **botones de opción** (`ttk.Radiobutton`) van en grupo y solo uno puede estar elegido. Lo que los agrupa es que comparten la **misma variable**: `method`, una `StringVar`.",
+      "Cada botón tiene su **`value`**: `\"standard\"`, `\"express\"` o `\"pickup\"`. Al pulsar uno, la variable toma ese valor y los demás se desmarcan solos. Como `method` empieza en `\"express\"`, ese botón sale elegido al abrir la ventana.",
+      "La lista `options` reúne el texto que se ve y el valor que se guarda, y el bucle crea los tres botones con dos líneas. El texto puede cambiar (o traducirse) sin tocar los valores que usa el programa.",
+      "`update` busca el precio en el diccionario `prices` con `method.get()` y lo escribe con dos decimales (`:.2f`). Se llama desde `command` con cada cambio y una vez al principio.",
+      "En DMarlon Studio es la **Opción** de la paleta. Las opciones con el mismo *Grupo* en el inspector comparten variable, cada una con su *Valor*, y la que esté *Marcada* empieza elegida."
+    ],
+    "points": [
+      "Los botones de un grupo comparten una sola variable.",
+      "Cada botón guarda en ella su `value` al pulsarlo.",
+      "El valor inicial de la variable decide cuál empieza elegido.",
+      "Separe el texto que se ve del valor que usa el programa."
+    ],
+    "exercise": "Añada la opción «Overnight (1 day)» con el valor `\"overnight\"` y un precio de 19.99."
+  },
+  "en": {
+    "slug": "radio-buttons",
+    "title": "Radio buttons",
+    "summary": "A group of tkinter Radiobuttons: one StringVar for the whole group, one option chosen at the start and a price that follows it.",
+    "body": [
+      "**Radio buttons** (`ttk.Radiobutton`) come in groups and only one can be chosen. What groups them is that they share the **same variable**: `method`, a `StringVar`.",
+      "Each button has its **`value`**: `\"standard\"`, `\"express\"` or `\"pickup\"`. When you press one, the variable takes that value and the others are cleared automatically. Since `method` starts as `\"express\"`, that button is chosen when the window opens.",
+      "The `options` list pairs the text you see with the value that is stored, so the loop builds the three buttons in two lines. The text can change (or be translated) without touching the values the program uses.",
+      "`update` looks up the price in the `prices` dictionary with `method.get()` and writes it with two decimals (`:.2f`). It runs from `command` on every change and once at the start.",
+      "In DMarlon Studio this is the **Option** in the palette. Options with the same *Group* in the inspector share a variable, each with its own *Value*, and the one marked *Checked* starts chosen."
+    ],
+    "points": [
+      "The buttons of a group share a single variable.",
+      "Each button stores its `value` there when pressed.",
+      "The variable's initial value decides which one starts chosen.",
+      "Keep the text you show apart from the value the program uses."
+    ],
+    "exercise": "Add the option «Overnight (1 day)» with the value `\"overnight\"` and a price of 19.99."
+  }
+}

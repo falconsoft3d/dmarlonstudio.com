@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "listas",
+    "title": "Listas de elementos",
+    "summary": "La Listbox de tkinter: añadir elementos, dejar uno o varios elegidos con selection_set, selectmode y leer la selección con curselection().",
+    "body": [
+      "Una **Listbox** (`tk.Listbox`) muestra una lista de textos. Se rellena con `insert(\"end\", *fruits)`: el asterisco pasa cada fruta como un argumento aparte, así que entran todas de una vez.",
+      "**`selectmode`** dice cuántos elementos se pueden elegir: `\"browse\"` (el valor por defecto), solo uno; `\"multiple\"`, varios, y cada clic marca o desmarca; `\"extended\"`, varios con las teclas Mayúsculas y Control (Cmd en macOS).",
+      "**`selection_set(índice)`** deja elegido un elemento por su posición, empezando en 0: en la primera lista, `2` es «Cherry». `exportselection=False` hace falta cuando hay dos listas: sin esa opción, elegir en una borraría la selección de la otra.",
+      "**`curselection()`** devuelve las posiciones elegidas y `get(i)` el texto de cada una. El evento `<<ListboxSelect>>` llega cada vez que cambia la selección, y `show` escribe los nombres en la etiqueta de abajo.",
+      "`make_list` crea cada columna: un `ttk.Frame` con su título y su lista, colocado con `pack(side=\"left\", fill=\"both\", expand=True)` para repartir el ancho. En DMarlon Studio es la **Lista** de la paleta: sus *Elementos (uno por línea)* y la *Selección* (`selectmode`) se ponen en el inspector, y tiene el evento *Al seleccionar*."
+    ],
+    "points": [
+      "`insert(\"end\", ...)` añade elementos al final.",
+      "`selectmode` decide si se elige uno o varios.",
+      "`selection_set` elige por código; `curselection()` lee lo elegido.",
+      "`<<ListboxSelect>>` avisa cuando cambia la selección."
+    ],
+    "exercise": "Cambie la segunda lista a `selectmode=\"extended\"` y añada un botón que borre los elementos elegidos con `delete(i)`."
+  },
+  "en": {
+    "slug": "lists",
+    "title": "Lists of items",
+    "summary": "The tkinter Listbox: adding items, leaving one or more selected with selection_set, selectmode, and reading the selection with curselection().",
+    "body": [
+      "A **Listbox** (`tk.Listbox`) shows a list of strings. It is filled with `insert(\"end\", *fruits)`: the asterisk passes every fruit as a separate argument, so they all go in at once.",
+      "**`selectmode`** says how many items can be chosen: `\"browse\"` (the default), just one; `\"multiple\"`, several, with each click toggling an item; `\"extended\"`, several using the Shift and Control keys (Cmd on macOS).",
+      "**`selection_set(index)`** selects an item by its position, starting at 0: in the first list, `2` is «Cherry». `exportselection=False` is needed when there are two lists: without it, selecting in one would clear the selection of the other.",
+      "**`curselection()`** returns the selected positions and `get(i)` the text of each one. The `<<ListboxSelect>>` event arrives every time the selection changes, and `show` writes the names in the label at the bottom.",
+      "`make_list` builds each column: a `ttk.Frame` with its title and its list, placed with `pack(side=\"left\", fill=\"both\", expand=True)` so they share the width. In DMarlon Studio this is the **List** in the palette: you set its *Items (one per line)* and *Selection* (`selectmode`) in the inspector, and it has an *On select* event."
+    ],
+    "points": [
+      "`insert(\"end\", ...)` adds items at the end.",
+      "`selectmode` decides whether one or several can be chosen.",
+      "`selection_set` selects from code; `curselection()` reads the selection.",
+      "`<<ListboxSelect>>` fires when the selection changes."
+    ],
+    "exercise": "Switch the second list to `selectmode=\"extended\"` and add a button that removes the selected items with `delete(i)`."
+  }
+}

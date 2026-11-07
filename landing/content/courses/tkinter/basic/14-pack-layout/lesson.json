@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "colocar-con-pack",
+    "title": "Colocar con pack",
+    "summary": "El gestor pack de tkinter: side, fill y expand para montar una cabecera, una barra de herramientas, los laterales y una zona central que crece.",
+    "body": [
+      "**`pack`** coloca cada componente pegado a un lado del espacio que queda libre. **`side`** dice cuál: `\"top\"` (el valor por defecto), `\"bottom\"`, `\"left\"` o `\"right\"`. El orden importa: cada uno se queda con su franja y deja el resto al siguiente.",
+      "**`fill`** estira el componente dentro de su franja: `\"x\"` a lo ancho, `\"y\"` a lo alto y `\"both\"` en las dos direcciones. La cabecera azul y el pie gris llevan `fill=\"x\"`; los laterales, `fill=\"y\"`.",
+      "**`expand=True`** le da al componente el espacio que sobra. El cuadro morado se coloca el último, con `expand=True` y `fill=\"both\"`: ocupa todo lo que queda y crece si se agranda la ventana. `padx` y `pady` dejan un margen alrededor.",
+      "La barra de herramientas es un `ttk.Frame` con tres botones en fila (`side=\"left\"`) y **Help** en el otro extremo (`side=\"right\"`). Dentro de cada marco, `pack` empieza de cero.",
+      "`box` crea las etiquetas de colores con `tk.Label`, porque el tema de macOS no pinta el fondo de las `ttk`. El diseñador de DMarlon Studio coloca cada componente justo donde se suelta (con `place`); `pack` se puede usar a mano en la pestaña **Código**."
+    ],
+    "points": [
+      "`side` elige el borde; el orden de `pack` decide quién se queda cada franja.",
+      "`fill` estira el componente: `\"x\"`, `\"y\"` o `\"both\"`.",
+      "`expand=True` reparte el espacio sobrante.",
+      "Cada marco tiene su propio `pack` por dentro."
+    ],
+    "exercise": "Mueva la línea del lateral verde para que se ejecute antes que la del pie gris y observe cómo cambia el reparto de la ventana."
+  },
+  "en": {
+    "slug": "layout-with-pack",
+    "title": "Layout with pack",
+    "summary": "tkinter's pack manager: side, fill and expand to build a header, a toolbar, side panels and a central area that grows.",
+    "body": [
+      "**`pack`** places each widget against one side of the space that is still free. **`side`** says which: `\"top\"` (the default), `\"bottom\"`, `\"left\"` or `\"right\"`. Order matters: each widget takes its strip and leaves the rest for the next one.",
+      "**`fill`** stretches the widget inside its strip: `\"x\"` across, `\"y\"` down and `\"both\"` in both directions. The blue header and the grey footer use `fill=\"x\"`; the side panels, `fill=\"y\"`.",
+      "**`expand=True`** gives the widget the space left over. The purple box is packed last, with `expand=True` and `fill=\"both\"`: it takes everything that remains and grows when the window gets bigger. `padx` and `pady` leave a margin around it.",
+      "The toolbar is a `ttk.Frame` with three buttons in a row (`side=\"left\"`) and **Help** at the far end (`side=\"right\"`). Inside each frame, `pack` starts from scratch.",
+      "`box` creates the coloured labels with `tk.Label`, because the macOS theme does not paint the background of `ttk` ones. The DMarlon Studio designer places each widget exactly where you drop it (with `place`); you can use `pack` by hand in the **Code** tab."
+    ],
+    "points": [
+      "`side` picks the edge; the order of `pack` decides who gets each strip.",
+      "`fill` stretches the widget: `\"x\"`, `\"y\"` or `\"both\"`.",
+      "`expand=True` shares out the leftover space.",
+      "Each frame has its own `pack` inside."
+    ],
+    "exercise": "Move the green side panel's line so it runs before the grey footer's and see how the window is shared out differently."
+  }
+}

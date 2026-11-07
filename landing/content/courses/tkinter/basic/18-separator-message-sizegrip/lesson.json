@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "separador-message-sizegrip",
+    "title": "Separador, Message y Sizegrip",
+    "summary": "Tres componentes pequeños de tkinter: ttk.Separator para dividir, tk.Message para texto que se ajusta solo y ttk.Sizegrip para redimensionar.",
+    "body": [
+      "La barra de estado se coloca primero, con `pack(side=\"bottom\", fill=\"x\")`, para que quede siempre abajo: un marco con el texto «Ready» a la izquierda y, a la derecha, un **`ttk.Sizegrip`**, el asa de la esquina con la que se arrastra el tamaño de la ventana.",
+      "Un **`ttk.Separator`** es una línea fina que divide. Con `orient=\"horizontal\"` y `fill=\"x\"` cruza todo el ancho: uno separa la barra de estado del resto y otro va debajo del texto.",
+      "**`tk.Message`** se parece a una etiqueta, pero parte su texto en líneas por sí mismo. Con `width=440` (en píxeles) las líneas llegan hasta ese ancho; sin `width`, usa `aspect`, la proporción entre el ancho y el alto (150 por defecto).",
+      "Con `orient=\"vertical\"` y `fill=\"y\"`, el separador divide una fila, como entre «Left», «Middle» y «Right». En el bucle, `if i:` lo pone antes de cada palabra salvo la primera (`i` vale 0 en la primera vuelta).",
+      "Ninguno de los tres está en la paleta de DMarlon Studio; se pueden añadir en la pestaña **Código**. Para textos largos, la **Etiqueta** del estudio ya tiene *Ajuste de línea*."
+    ],
+    "points": [
+      "`ttk.Separator` dibuja una línea horizontal o vertical.",
+      "`tk.Message` ajusta su texto solo, con `width` o con `aspect`.",
+      "`ttk.Sizegrip` es el asa para cambiar el tamaño de la ventana.",
+      "Lo que va con `side=\"bottom\"` se coloca antes que el resto."
+    ],
+    "exercise": "Cambie `width=440` por `aspect=300` en el Message y compare cómo reparte el texto; luego pruebe con `aspect=100`."
+  },
+  "en": {
+    "slug": "separator-message-sizegrip",
+    "title": "Separator, Message and Sizegrip",
+    "summary": "Three small tkinter widgets: ttk.Separator to divide, tk.Message for text that wraps by itself and ttk.Sizegrip to resize.",
+    "body": [
+      "The status bar is packed first, with `pack(side=\"bottom\", fill=\"x\")`, so it always stays at the bottom: a frame with the text «Ready» on the left and, on the right, a **`ttk.Sizegrip`**, the corner handle you drag to resize the window.",
+      "A **`ttk.Separator`** is a thin dividing line. With `orient=\"horizontal\"` and `fill=\"x\"` it spans the full width: one separates the status bar from the rest and another sits below the text.",
+      "**`tk.Message`** is like a label, but it breaks its text into lines by itself. With `width=440` (in pixels) the lines reach that width; without `width`, it uses `aspect`, the ratio between width and height (150 by default).",
+      "With `orient=\"vertical\"` and `fill=\"y\"`, the separator divides a row, as between «Left», «Middle» and «Right». In the loop, `if i:` adds one before every word except the first (`i` is 0 on the first pass).",
+      "None of the three is in the DMarlon Studio palette; you can add them in the **Code** tab. For long texts, the studio's **Label** already has *Line wrap*."
+    ],
+    "points": [
+      "`ttk.Separator` draws a horizontal or vertical line.",
+      "`tk.Message` wraps its text by itself, with `width` or `aspect`.",
+      "`ttk.Sizegrip` is the handle for resizing the window.",
+      "Whatever uses `side=\"bottom\"` is packed before the rest."
+    ],
+    "exercise": "Replace `width=440` with `aspect=300` in the Message and compare how it lays out the text; then try `aspect=100`."
+  }
+}

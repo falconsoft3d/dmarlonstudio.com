@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "dialogos-de-archivo-y-color",
+    "title": "Diálogos de archivo y de color",
+    "summary": "Elija archivos, carpetas y colores con filedialog y colorchooser de tkinter, y sepa qué devuelve cada diálogo al aceptar o cancelar.",
+    "body": [
+      "`filedialog` abre los diálogos de archivo del sistema. `askopenfilename` devuelve la ruta del archivo elegido como texto, o `\"\"` si se cancela; `askopenfilenames` (con ese final) deja elegir varios y devuelve una tupla de rutas. Ninguno abre el archivo: solo dicen cuál es.",
+      "`asksaveasfilename` pregunta dónde guardar: `initialfile` propone un nombre, `defaultextension=\".txt\"` añade la extensión si el usuario no la escribe y el sistema avisa si el archivo ya existe. `askdirectory` elige una carpeta. `filetypes` es una lista de pares (descripción, patrón) que filtra lo que se ve.",
+      "`colorchooser.askcolor` abre el selector de color y devuelve el color de dos formas: `(rojo, verde, azul)` y en hexadecimal, `\"#4f8cf7\"`; si se cancela, `(None, None)`. Por eso `run` comprueba `value[1]` antes de pintar la muestra.",
+      "Como son modales, van detrás de botones. Cada fila tiene un botón y una etiqueta con el último resultado escrito con `repr`, para ver bien si es texto, tupla o vacío; al empezar enseñan los valores de ejemplo del diccionario `shown`. `root.configure(padx=16, pady=12)` deja un margen alrededor de la rejilla.",
+      "En DMarlon Studio están en la paleta el **Diálogo Abrir** y el **Diálogo Guardar**: no se ven en la ventana, se configuran en el inspector (título, filtro, extensión, carpeta inicial…) y el estudio genera el código que llama a `askopenfilename` y `asksaveasfilename`."
+    ],
+    "points": [
+      "`askopenfilename` devuelve una ruta, o `\"\"` si se cancela.",
+      "`asksaveasfilename` admite `defaultextension` e `initialfile`.",
+      "`askcolor` devuelve `((r, g, b), \"#hex\")` o `(None, None)`.",
+      "`filetypes` filtra con pares (descripción, patrón)."
+    ],
+    "exercise": "Haga que «Open…» lea el archivo elegido (si no se canceló) y escriba en su etiqueta cuántas líneas tiene."
+  },
+  "en": {
+    "slug": "file-and-color-dialogs",
+    "title": "File and colour dialogs",
+    "summary": "Pick files, folders and colours with tkinter's filedialog and colorchooser, and learn what each dialog returns on OK or Cancel.",
+    "body": [
+      "`filedialog` opens the system's file dialogs. `askopenfilename` returns the chosen file's path as text, or `\"\"` when cancelled; `askopenfilenames` (plural) lets you pick several and returns a tuple of paths. Neither opens the file: they only tell you which one it is.",
+      "`asksaveasfilename` asks where to save: `initialfile` suggests a name, `defaultextension=\".txt\"` adds the extension if the user doesn't type one, and the system warns if the file already exists. `askdirectory` picks a folder. `filetypes` is a list of (description, pattern) pairs that filters what is shown.",
+      "`colorchooser.askcolor` opens the colour picker and returns the colour in two forms: `(red, green, blue)` and hexadecimal, `\"#4f8cf7\"`; when cancelled, `(None, None)`. That is why `run` checks `value[1]` before painting the swatch.",
+      "Being modal, they sit behind buttons. Each row has a button and a label with the last result written with `repr`, so you can tell text from tuple or empty; at start they show the sample values of the `shown` dictionary. `root.configure(padx=16, pady=12)` leaves a margin around the grid.",
+      "In DMarlon Studio the **Open dialog** and **Save dialog** are in the palette: they don't show in the window, you set them up in the inspector (title, filter, extension, initial folder…) and the studio generates the code that calls `askopenfilename` and `asksaveasfilename`."
+    ],
+    "points": [
+      "`askopenfilename` returns a path, or `\"\"` when cancelled.",
+      "`asksaveasfilename` takes `defaultextension` and `initialfile`.",
+      "`askcolor` returns `((r, g, b), \"#hex\")` or `(None, None)`.",
+      "`filetypes` filters with (description, pattern) pairs."
+    ],
+    "exercise": "Make \"Open…\" read the chosen file (unless cancelled) and show in its label how many lines it has."
+  }
+}

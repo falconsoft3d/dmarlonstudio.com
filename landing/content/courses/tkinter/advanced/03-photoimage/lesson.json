@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "imagenes-creadas-en-codigo",
+    "title": "Imágenes creadas en código",
+    "summary": "Cree imágenes en tkinter sin archivos: tk.PhotoImage, put() para pintar píxeles y zoom() para ampliarlas, en una etiqueta y en un botón.",
+    "body": [
+      "`tk.PhotoImage(width=8, height=8)` crea una imagen vacía de 8 × 8 píxeles. Lo normal es cargarla de un archivo (`file=\"logo.png\"`), pero también se puede pintar desde el código, y así este ejemplo no necesita ninguna imagen aparte.",
+      "`put()` pinta. Con una cadena de filas, cada una entre llaves y con un color por píxel (`\"{#3b5bdb #dbe4ff ...} {...}\"`), rellena la imagen de una vez: el tablero de ajedrez sale de `(x + y) % 2`. Con `to=(x1, y1, x2, y2)` pinta un rectángulo de un color, y con `to=(x, y)`, un solo píxel, como la diagonal roja del icono.",
+      "`zoom(16)` devuelve una imagen nueva 16 veces más grande, en la que cada píxel se convierte en un cuadrado (lo contrario es `subsample`). Por eso el tablero de 8 × 8 se ve de 128 × 128 y el icono de 16 × 16, de 48 × 48.",
+      "Las imágenes se muestran con `image=`: sola en una `ttk.Label`, y junto al texto en un `ttk.Button`. `compound` dice dónde va la imagen respecto al texto: `\"left\"`, `\"top\"`, `\"right\"` o `\"bottom\"`. Importante: guarde la imagen en una variable; si Python la libera, el componente se queda en blanco.",
+      "En DMarlon Studio, el componente **Imagen** de la paleta muestra un archivo de imagen del proyecto, ajustado como elija en el inspector, y el estudio escribe el código. Las imágenes hechas en código, como estas, sirven para iconos pequeños y dibujos que cambian."
+    ],
+    "points": [
+      "`tk.PhotoImage(width=..., height=...)` crea una imagen vacía.",
+      "`put(color, to=...)` pinta píxeles o rectángulos.",
+      "`zoom(n)` amplía y `subsample(n)` reduce.",
+      "Guarde la imagen en una variable o desaparecerá."
+    ],
+    "exercise": "Dibuje una cara sonriente de 16 × 16 con `put` (ojos y boca) y póngala, ampliada con `zoom(4)`, en un tercer botón."
+  },
+  "en": {
+    "slug": "images-made-in-code",
+    "title": "Images made in code",
+    "summary": "Create tkinter images without files: tk.PhotoImage, put() to paint pixels and zoom() to enlarge them, shown in a label and a button.",
+    "body": [
+      "`tk.PhotoImage(width=8, height=8)` creates an empty 8 × 8 pixel image. Usually you load one from a file (`file=\"logo.png\"`), but you can also paint it from code, so this example needs no image files at all.",
+      "`put()` paints. Given a string of rows, each in braces with one colour per pixel (`\"{#3b5bdb #dbe4ff ...} {...}\"`), it fills the image in one go: the chessboard comes from `(x + y) % 2`. With `to=(x1, y1, x2, y2)` it paints a rectangle in one colour, and with `to=(x, y)` a single pixel, like the red diagonal of the icon.",
+      "`zoom(16)` returns a new image 16 times bigger, where each pixel becomes a square (the opposite is `subsample`). That is why the 8 × 8 board shows as 128 × 128 and the 16 × 16 icon as 48 × 48.",
+      "Images are shown with `image=`: alone in a `ttk.Label`, and next to the text in a `ttk.Button`. `compound` says where the image goes relative to the text: `\"left\"`, `\"top\"`, `\"right\"` or `\"bottom\"`. Important: keep the image in a variable; if Python frees it, the widget goes blank.",
+      "In DMarlon Studio, the **Image** component in the palette shows an image file from the project, fitted the way you choose in the inspector, and the studio writes the code. Images made in code, like these, are handy for small icons and drawings that change."
+    ],
+    "points": [
+      "`tk.PhotoImage(width=..., height=...)` creates an empty image.",
+      "`put(color, to=...)` paints pixels or rectangles.",
+      "`zoom(n)` enlarges and `subsample(n)` shrinks.",
+      "Keep the image in a variable or it disappears."
+    ],
+    "exercise": "Draw a 16 × 16 smiley face with `put` (eyes and mouth) and show it, enlarged with `zoom(4)`, on a third button."
+  }
+}

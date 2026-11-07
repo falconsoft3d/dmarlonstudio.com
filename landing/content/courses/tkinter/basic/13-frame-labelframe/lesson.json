@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "marcos",
+    "title": "Marcos para agrupar",
+    "summary": "Agrupe un formulario de tkinter con Frame y LabelFrame: secciones con título, filas de etiqueta y campo, y una barra de botones.",
+    "body": [
+      "Un **marco** (`ttk.Frame`) es un contenedor sin borde: sirve para agrupar componentes y colocarlos juntos. Los hijos se crean con el marco como primer argumento, por ejemplo `ttk.Label(row, ...)`, y se colocan dentro de él.",
+      "`field` crea cada fila: un `Frame` con la etiqueta a la izquierda (`side=\"left\"` y `width=8`, para que todas midan lo mismo) y el campo, que ocupa el resto con `fill=\"x\", expand=True`. Así las etiquetas y los campos quedan alineados en columna.",
+      "Un **`ttk.LabelFrame`** es un marco con borde y título (`text=\"Personal data\"`); `padding=12` deja margen por dentro. Cada sección se coloca con `pack(fill=\"x\")` para que ocupe todo el ancho, y `padx` y `pady` la separan de lo demás.",
+      "La barra de abajo es otro marco con los botones a la derecha: `pack(side=\"right\")` coloca primero **Save** en el borde y después **Cancel** a su izquierda.",
+      "En DMarlon Studio es el **Marco** de la paleta: los componentes que se sueltan encima quedan dentro de él al generar el código. El LabelFrame no está en la paleta; se puede añadir en la pestaña **Código**."
+    ],
+    "points": [
+      "Un `Frame` agrupa componentes; dentro, cada uno se coloca de nuevo.",
+      "El primer argumento de un componente es su contenedor.",
+      "`LabelFrame` añade un borde y un título a la sección.",
+      "Una función que crea filas evita repetir código."
+    ],
+    "exercise": "Añada una tercera sección «Contact» con los campos «Phone» y «Website» usando la misma función `field`."
+  },
+  "en": {
+    "slug": "frames",
+    "title": "Frames for grouping",
+    "summary": "Group a tkinter form with Frame and LabelFrame: titled sections, rows of label and field, and a bar of buttons.",
+    "body": [
+      "A **frame** (`ttk.Frame`) is a container without a border: it groups widgets so they are placed together. Children are created with the frame as their first argument, for example `ttk.Label(row, ...)`, and they are placed inside it.",
+      "`field` builds each row: a `Frame` with the label on the left (`side=\"left\"` and `width=8`, so they are all the same size) and the entry, which takes the rest with `fill=\"x\", expand=True`. That keeps the labels and fields lined up in columns.",
+      "A **`ttk.LabelFrame`** is a frame with a border and a title (`text=\"Personal data\"`); `padding=12` adds space inside. Each section is packed with `pack(fill=\"x\")` so it takes the full width, and `padx` and `pady` keep it apart from the rest.",
+      "The bar at the bottom is another frame with the buttons on the right: `pack(side=\"right\")` puts **Save** against the edge first, then **Cancel** to its left.",
+      "In DMarlon Studio this is the **Frame** in the palette: widgets you drop on it end up inside it in the generated code. LabelFrame is not in the palette; you can add it in the **Code** tab."
+    ],
+    "points": [
+      "A `Frame` groups widgets; inside it, each one is placed again.",
+      "A widget's first argument is its container.",
+      "`LabelFrame` adds a border and a title to a section.",
+      "A function that builds rows avoids repeating code."
+    ],
+    "exercise": "Add a third section, «Contact», with the fields «Phone» and «Website», using the same `field` function."
+  }
+}

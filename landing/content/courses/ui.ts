@@ -4,7 +4,7 @@ import type { Lang } from "@/lib/i18n";
 const ES = {
   menu: "Cursos",
   title: "Cursos de programación gratis con ejemplos",
-  metaTitle: "Cursos de programación gratis: Python, JavaScript, C, C++, Pascal, Go y Dart",
+  metaTitle: "Cursos de programación gratis: Python, tkinter, JavaScript, C, C++, Pascal, Go y Dart",
   intro:
     "Aprenda a programar con ejemplos que funcionan: cada lección es un programa completo, con su explicación, su salida real y una imagen de cómo se ve en DMarlon Studio, el IDE visual con el que puede probarlo con un clic.",
   lessons: "{0} lecciones",
@@ -34,6 +34,7 @@ const ES = {
   nextLevel: "Siga con el curso avanzado",
   allCourses: "Todos los cursos",
   imageAlt: "{0} en DMarlon Studio: el código del ejemplo y su salida en la terminal",
+  imageAltGui: "{0} en DMarlon Studio: el código del ejemplo y la ventana que abre al ejecutarlo",
   whyTitle: "Por qué aprender con DMarlon Studio",
   why: [
     "Cada ejemplo se ha ejecutado de verdad: la salida que ve es la que obtendrá.",
@@ -47,7 +48,7 @@ type Ui = typeof ES;
 const EN: Ui = {
   menu: "Courses",
   title: "Free programming courses with examples",
-  metaTitle: "Free programming courses: Python, JavaScript, C, C++, Pascal, Go and Dart",
+  metaTitle: "Free programming courses: Python, tkinter, JavaScript, C, C++, Pascal, Go and Dart",
   intro:
     "Learn to code with examples that work: every lesson is a complete program with its explanation, its real output and a picture of how it looks in DMarlon Studio, the visual IDE where you can try it with one click.",
   lessons: "{0} lessons",
@@ -77,6 +78,7 @@ const EN: Ui = {
   nextLevel: "Continue with the advanced course",
   allCourses: "All courses",
   imageAlt: "{0} in DMarlon Studio: the example's code and its output in the terminal",
+  imageAltGui: "{0} in DMarlon Studio: the example's code and the window it opens when run",
   whyTitle: "Why learn with DMarlon Studio",
   why: [
     "Every example has actually been run: the output you see is the output you will get.",

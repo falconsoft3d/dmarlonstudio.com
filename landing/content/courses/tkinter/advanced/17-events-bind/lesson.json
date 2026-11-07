@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "eventos-y-bind",
+    "title": "Eventos y bind",
+    "summary": "Responda al ratón y al teclado en tkinter con bind: clics, doble clic, movimiento, salida del ratón y teclas, con los datos de cada evento.",
+    "body": [
+      "`bind(secuencia, función)` une un evento de un componente con una función. La secuencia va entre `< >` con la forma `<Modificador-Tipo-Detalle>`: `<Button-1>` es el botón izquierdo, `<Double-Button-1>` el doble clic, `<Motion>` el movimiento, `<Leave>` la salida del ratón, `<Key>` cualquier tecla y `<Control-s>`, Ctrl+S.",
+      "La función recibe un objeto **Event** con los detalles: `x` e `y` (la posición dentro del componente), `num` (qué botón del ratón), `keysym` (el nombre de la tecla, como `\"Return\"` o `\"a\"`) y `char` (el carácter que escribe, vacío en teclas como las flechas). `clicked` los usa para escribir el evento y dibujar un punto donde se hizo clic.",
+      "`<Button>` sin número vale para cualquier botón, y `num` dice cuál. Las teclas se enlazan a `root` porque solo las recibe el componente que tiene el foco del teclado, y aquí lo tiene la ventana. Si dos enlaces encajan con la misma tecla, gana el más concreto: Ctrl+S va a su función y no a `key`.",
+      "Al empezar, el lienzo enseña tres puntos de clics anteriores y las etiquetas, un evento de ejemplo; con el ratón encima, la segunda etiqueta sigue la posición en directo.",
+      "En DMarlon Studio, la pestaña **Eventos** del inspector lista los eventos de cada componente (clic, doble clic, clic derecho, entrar, salir…): escriba el nombre de un método y el estudio genera el `bind` con su secuencia."
+    ],
+    "points": [
+      "`bind(\"<Secuencia>\", función)` une evento y función.",
+      "El `Event` trae `x`, `y`, `num`, `keysym` y `char`.",
+      "Las teclas llegan al componente que tiene el foco.",
+      "Entre dos enlaces que encajan, gana el más concreto."
+    ],
+    "exercise": "Ponga la tag «dot» a los puntos del lienzo y haga que la tecla Escape los borre todos con `pad.delete(\"dot\")`, sin borrar el texto."
+  },
+  "en": {
+    "slug": "events-and-bind",
+    "title": "Events and bind",
+    "summary": "Respond to the mouse and keyboard in tkinter with bind: clicks, double clicks, motion, the mouse leaving and keys, with each event's data.",
+    "body": [
+      "`bind(sequence, function)` ties a widget's event to a function. The sequence goes between `< >` in the form `<Modifier-Type-Detail>`: `<Button-1>` is the left button, `<Double-Button-1>` a double click, `<Motion>` mouse movement, `<Leave>` the mouse leaving, `<Key>` any key and `<Control-s>` Ctrl+S.",
+      "The function receives an **Event** object with the details: `x` and `y` (the position inside the widget), `num` (which mouse button), `keysym` (the key's name, like `\"Return\"` or `\"a\"`) and `char` (the character it types, empty for keys such as the arrows). `clicked` uses them to write the event and draw a dot where you clicked.",
+      "`<Button>` with no number matches any button, and `num` says which. Keys are bound on `root` because only the widget with the keyboard focus gets them, and here that is the window. When two bindings match the same key, the most specific wins: Ctrl+S goes to its own function and not to `key`.",
+      "At start the canvas shows three dots from earlier clicks and the labels a sample event; with the mouse over it, the second label follows the position live.",
+      "In DMarlon Studio, the inspector's **Events** tab lists each widget's events (click, double click, right click, enter, leave…): type a method name and the studio generates the `bind` with its sequence."
+    ],
+    "points": [
+      "`bind(\"<Sequence>\", function)` ties an event to a function.",
+      "The `Event` carries `x`, `y`, `num`, `keysym` and `char`.",
+      "Keys go to the widget that has the focus.",
+      "When two bindings match, the most specific wins."
+    ],
+    "exercise": "Give the canvas dots the tag \"dot\" and make the Escape key delete them all with `pad.delete(\"dot\")`, leaving the text alone."
+  }
+}

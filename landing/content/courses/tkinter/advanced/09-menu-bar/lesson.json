@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "barra-de-menus",
+    "title": "La barra de menús",
+    "summary": "Cree la barra de menús de una ventana de tkinter con tk.Menu: menús en cascada, separadores, atajos, casillas y opciones de radio.",
+    "body": [
+      "La barra es un `tk.Menu` que se pone en la ventana con `root.config(menu=bar)`. Cada menú desplegable es otro `tk.Menu` que se cuelga de ella con `add_cascade(label=\"File\", menu=file)`. `tearoff=0` quita la línea discontinua que, en Windows y Linux, permite arrancar el menú a una ventanita.",
+      "Dentro van las opciones: `add_command` (una orden; `command=` es la función que ejecuta), `add_separator` (una raya) y dos tipos con estado: `add_checkbutton`, que se activa y desactiva unido a una `BooleanVar`, y `add_radiobutton`, una entre varias que comparten la misma `StringVar` (queda marcada la del valor actual, `100%`).",
+      "`accelerator=\"Ctrl+N\"` solo **escribe** el atajo junto a la opción; para que la tecla funcione hace falta `root.bind(\"<Control-n>\", ...)`. Por eso el ejemplo hace las dos cosas.",
+      "En macOS la barra no está dentro de la ventana sino arriba de la pantalla, así que el ejemplo recorre los menús y los escribe en un `Text`: `index(\"end\")` da el último índice, `type(i)` el tipo de cada entrada y `entrycget(i, \"label\")` su texto.",
+      "En DMarlon Studio es el **Menú** de la paleta: escribe las opciones en el inspector, con submenús y separadores, y el estudio genera el `tk.Menu` con sus cascadas y lo pone en la ventana; cada opción llama a un método con su ruta."
+    ],
+    "points": [
+      "`root.config(menu=bar)` pone la barra en la ventana.",
+      "`add_cascade` cuelga un menú y `add_command` añade una orden.",
+      "`add_checkbutton` y `add_radiobutton` guardan su estado en variables.",
+      "`accelerator` es solo texto: el atajo necesita `bind`."
+    ],
+    "exercise": "Añada un menú «Help» con la opción «About» que escriba un mensaje con `print`, y haga que Ctrl+O también funcione."
+  },
+  "en": {
+    "slug": "menu-bar",
+    "title": "The menu bar",
+    "summary": "Build a tkinter window's menu bar with tk.Menu: cascading menus, separators, shortcuts, check items and radio items.",
+    "body": [
+      "The bar is a `tk.Menu` set on the window with `root.config(menu=bar)`. Each drop-down menu is another `tk.Menu` hung from it with `add_cascade(label=\"File\", menu=file)`. `tearoff=0` removes the dashed line that, on Windows and Linux, lets you tear the menu off into a little window.",
+      "Inside go the entries: `add_command` (an action; `command=` is the function it runs), `add_separator` (a line) and two kinds with state: `add_checkbutton`, toggled on and off and tied to a `BooleanVar`, and `add_radiobutton`, one of several sharing the same `StringVar` (the one matching the current value, `100%`, is ticked).",
+      "`accelerator=\"Ctrl+N\"` only **writes** the shortcut next to the entry; for the key to work you need `root.bind(\"<Control-n>\", ...)`. That is why the example does both.",
+      "On macOS the menu bar is not inside the window but at the top of the screen, so the example walks the menus and writes them into a `Text`: `index(\"end\")` gives the last index, `type(i)` each entry's kind and `entrycget(i, \"label\")` its text.",
+      "In DMarlon Studio it is the **Menu** in the palette: type the entries in the inspector, with submenus and separators, and the studio generates the `tk.Menu` with its cascades and sets it on the window; each entry calls a method with its path."
+    ],
+    "points": [
+      "`root.config(menu=bar)` puts the bar on the window.",
+      "`add_cascade` hangs a menu and `add_command` adds an action.",
+      "`add_checkbutton` and `add_radiobutton` keep their state in variables.",
+      "`accelerator` is just text: the shortcut needs `bind`."
+    ],
+    "exercise": "Add a \"Help\" menu with an \"About\" entry that prints a message, and make Ctrl+O work too."
+  }
+}

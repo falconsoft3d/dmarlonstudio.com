@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "texto-de-varias-lineas",
+    "title": "Texto de varias líneas",
+    "summary": "El componente Text de tkinter: varias líneas, ajuste por palabras, tags para negrita y colores, y posiciones del tipo línea.columna.",
+    "body": [
+      "`tk.Text` es un cuadro de **texto de varias líneas** (no tiene versión `ttk`). `wrap=\"word\"` parte las líneas largas por palabras; `padx` y `pady` dejan margen por dentro, y `highlightthickness` con `highlightbackground` le dibujan un borde fino.",
+      "La etiqueta de estado se coloca primero, con `pack(side=\"bottom\")`, para reservarle su sitio abajo; después el texto ocupa el resto con `fill=\"both\", expand=True`.",
+      "Las **tags** dan estilo a trozos del texto. `tag_configure(\"bold\", font=...)` define cómo se ve la tag `bold`; `red` cambia el color con `foreground`, y `mark` el fondo con `background`.",
+      "**`insert(posición, texto, tag)`** añade texto: `\"end\"` es el final, y el tercer argumento aplica la tag a ese trozo. Así «bread» sale en negrita y «milk» en rojo. Los saltos de línea se escriben `\\n`.",
+      "Las posiciones tienen la forma `\"línea.columna\"`: `\"1.0\"` es el primer carácter y `\"end-1c\"` el último (el final menos un carácter, porque Text siempre añade un salto de línea). `text.get(\"1.0\", \"end-1c\")` devuelve todo el texto. En DMarlon Studio es el **Texto largo** de la paleta: su texto inicial y el ajuste de línea se ponen en el inspector."
+    ],
+    "points": [
+      "`tk.Text` edita varias líneas; `wrap` decide cómo se parten.",
+      "Las tags dan fuente y colores a una parte del texto.",
+      "`insert(\"end\", texto, tag)` añade texto con estilo.",
+      "Las posiciones son `\"línea.columna\"`; las líneas empiezan en 1 y las columnas en 0."
+    ],
+    "exercise": "Cree una tag `italic` con la fuente en cursiva (`\"italic\"`) y añada al final una línea en cursiva y en verde."
+  },
+  "en": {
+    "slug": "multi-line-text",
+    "title": "Multi-line text",
+    "summary": "The tkinter Text widget: several lines, word wrapping, tags for bold and colours, and positions written as line.column.",
+    "body": [
+      "`tk.Text` is a box for **multi-line text** (there is no `ttk` version). `wrap=\"word\"` breaks long lines between words; `padx` and `pady` add inner padding, and `highlightthickness` with `highlightbackground` draw a thin border.",
+      "The status label is placed first, with `pack(side=\"bottom\")`, so its place at the bottom is reserved; then the text takes the rest with `fill=\"both\", expand=True`.",
+      "**Tags** give a style to parts of the text. `tag_configure(\"bold\", font=...)` defines how the `bold` tag looks; `red` changes the colour with `foreground`, and `mark` the background with `background`.",
+      "**`insert(position, text, tag)`** adds text: `\"end\"` is the end, and the third argument applies the tag to that piece. That is how «bread» comes out in bold and «milk» in red. Line breaks are written `\\n`.",
+      "Positions look like `\"line.column\"`: `\"1.0\"` is the first character and `\"end-1c\"` the last one (the end minus one character, because Text always adds a final newline). `text.get(\"1.0\", \"end-1c\")` returns all the text. In DMarlon Studio this is the **Long text** in the palette: you set its initial text and line wrap in the inspector."
+    ],
+    "points": [
+      "`tk.Text` edits several lines; `wrap` decides how they break.",
+      "Tags give a font and colours to part of the text.",
+      "`insert(\"end\", text, tag)` adds styled text.",
+      "Positions are `\"line.column\"`; lines start at 1 and columns at 0."
+    ],
+    "exercise": "Create an `italic` tag with an italic font (`\"italic\"`) and add a final line in italics and green."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "barras-de-progreso",
+    "title": "Barras de progreso",
+    "summary": "Muestre el avance de una tarea con ttk.Progressbar de tkinter: modo determinado con valor y máximo, modo indeterminado y barras verticales.",
+    "body": [
+      "`ttk.Progressbar` tiene dos modos. En el **determinado** (el de serie) enseña cuánto se ha hecho: `maximum=100` es el total y el valor, la parte hecha. Aquí el valor vive en una `IntVar` (`variable=copied`), así que basta con cambiar la variable para mover la barra; también vale `bar[\"value\"] = 65`.",
+      "`step(10)` suma 10 al valor; el botón **+10** lo usa y actualiza el texto «65 of 100 files». Al pasar del máximo, la barra vuelve a empezar desde cero, así que en un programa real se comprueba antes de llegar al final.",
+      "El modo **indeterminado** (`mode=\"indeterminate\"`) no sabe cuánto falta: un bloque va y viene mientras se espera. `start(15)` lo mueve cada 15 milisegundos y `stop()` lo para. Es para búsquedas o conexiones de duración desconocida.",
+      "Con `orient=\"vertical\"` la barra crece hacia arriba; `length` es su largo en píxeles, en las dos orientaciones. Las cuatro del final, con valores 30, 80, 55 y 100, parecen un medidor de niveles.",
+      "En DMarlon Studio es la **Barra de progreso** de la paleta: su valor, su máximo, el modo y la orientación se cambian en el inspector, y el estudio escribe el `ttk.Progressbar`."
+    ],
+    "points": [
+      "Determinado: `value` sobre `maximum`.",
+      "`variable=` une la barra a una `IntVar`.",
+      "Indeterminado: `start(ms)` para moverla y `stop()` para pararla.",
+      "`orient=\"vertical\"` la pone de pie."
+    ],
+    "exercise": "Haga que el botón solo sume si el valor es menor que 100 y que, al llegar a 100, pare la barra indeterminada con `stop()`."
+  },
+  "en": {
+    "slug": "progress-bars",
+    "title": "Progress bars",
+    "summary": "Show how a task is going with tkinter's ttk.Progressbar: determinate mode with value and maximum, indeterminate mode and vertical bars.",
+    "body": [
+      "`ttk.Progressbar` has two modes. In **determinate** mode (the default) it shows how much is done: `maximum=100` is the total and the value is the part done. Here the value lives in an `IntVar` (`variable=copied`), so changing the variable moves the bar; `bar[\"value\"] = 65` works too.",
+      "`step(10)` adds 10 to the value; the **+10** button uses it and updates the text \"65 of 100 files\". Past the maximum the bar wraps round to zero, so a real program checks before reaching the end.",
+      "**Indeterminate** mode (`mode=\"indeterminate\"`) does not know how much is left: a block moves back and forth while you wait. `start(15)` moves it every 15 milliseconds and `stop()` stops it. It suits searches or connections of unknown length.",
+      "With `orient=\"vertical\"` the bar grows upwards; `length` is its length in pixels in either orientation. The four at the bottom, at 30, 80, 55 and 100, look like a level meter.",
+      "In DMarlon Studio it is the **Progress bar** in the palette: its value, maximum, mode and orientation are set in the inspector, and the studio writes the `ttk.Progressbar`."
+    ],
+    "points": [
+      "Determinate: `value` out of `maximum`.",
+      "`variable=` ties the bar to an `IntVar`.",
+      "Indeterminate: `start(ms)` to move it and `stop()` to stop it.",
+      "`orient=\"vertical\"` stands it upright."
+    ],
+    "exercise": "Make the button add only while the value is below 100 and, on reaching 100, stop the indeterminate bar with `stop()`."
+  }
+}

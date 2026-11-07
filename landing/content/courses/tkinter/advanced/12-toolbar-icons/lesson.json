@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "barra-de-herramientas-con-iconos",
+    "title": "Barra de herramientas con iconos",
+    "summary": "Construya una cinta de botones en tkinter: grupos con LabelFrame y botones con iconos dibujados en código con PhotoImage.",
+    "body": [
+      "Los iconos no vienen de archivos: `icon()` crea un `PhotoImage` de 24 × 24 y le pinta rectángulos de colores con `put(color, to=(x1, y1, x2, y2))`. Una hoja, una carpeta, un disquete, dos hojas superpuestas y un portapapeles salen de dos o tres rectángulos cada uno.",
+      "Se guardan en el diccionario `icons`, y no es un detalle: si ninguna variable sujeta una imagen de tkinter, Python la libera y el botón se queda sin icono.",
+      "La cinta es un `ttk.Frame` arriba con un `ttk.LabelFrame` por grupo («File» y «Clipboard»). Cada botón lleva `image=`, `text=` y `compound=\"top\"`, que pone el icono encima del texto, y `style=\"Toolbutton\"`, el estilo de ttk para botones de barra de herramientas: más compactos y, en Windows y Linux, planos hasta que pasa el ratón.",
+      "Todos los botones comparten una función: `lambda n=name: ...` guarda el nombre de cada uno (el `n=name` hace falta para que cada botón recuerde el suyo y no el último del bucle), y la etiqueta hundida de abajo dice cuál se ha pulsado.",
+      "En DMarlon Studio está la **Cinta de opciones** en la paleta: pestañas, grupos y botones grandes con símbolos que se definen en el inspector; el estudio escribe el código de tkinter y cada botón llama a un método con su ruta."
+    ],
+    "points": [
+      "`put(color, to=...)` basta para iconos sencillos.",
+      "Guarde las imágenes en una variable o un diccionario.",
+      "`compound=\"top\"` pone el icono encima del texto.",
+      "`lambda n=name:` fija el valor de cada botón."
+    ],
+    "exercise": "Añada un grupo «Font» con un botón «Bold» cuyo icono sea una B hecha con rectángulos negros."
+  },
+  "en": {
+    "slug": "toolbar-with-icons",
+    "title": "A toolbar with icons",
+    "summary": "Build a ribbon-like row of buttons in tkinter: groups with LabelFrame and buttons with icons drawn in code with PhotoImage.",
+    "body": [
+      "The icons come from no files: `icon()` creates a 24 × 24 `PhotoImage` and paints coloured rectangles on it with `put(color, to=(x1, y1, x2, y2))`. A sheet, a folder, a floppy disk, two overlapping sheets and a clipboard take two or three rectangles each.",
+      "They are kept in the `icons` dictionary, and that is no detail: if no variable holds a tkinter image, Python frees it and the button loses its icon.",
+      "The ribbon is a `ttk.Frame` at the top with a `ttk.LabelFrame` per group (\"File\" and \"Clipboard\"). Each button has `image=`, `text=` and `compound=\"top\"`, which puts the icon above the text, plus `style=\"Toolbutton\"`, ttk's style for toolbar buttons: more compact and, on Windows and Linux, flat until the mouse is over them.",
+      "All the buttons share one function: `lambda n=name: ...` stores each button's name (the `n=name` is needed so each button remembers its own and not the loop's last one), and the sunken label at the bottom says which one was clicked.",
+      "In DMarlon Studio the **Ribbon** is in the palette: tabs, groups and big buttons with symbols, defined in the inspector; the studio writes the tkinter code and each button calls a method with its path."
+    ],
+    "points": [
+      "`put(color, to=...)` is enough for simple icons.",
+      "Keep images in a variable or a dictionary.",
+      "`compound=\"top\"` puts the icon above the text.",
+      "`lambda n=name:` fixes each button's value."
+    ],
+    "exercise": "Add a \"Font\" group with a \"Bold\" button whose icon is a B made of black rectangles."
+  }
+}

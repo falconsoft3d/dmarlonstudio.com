@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "spinbox",
+    "title": "Spinbox: valores con flechas",
+    "summary": "El ttk.Spinbox de tkinter: números con from_, to e increment, una lista fija de valores con wrap y decimales con format.",
+    "body": [
+      "Un **Spinbox** es un campo con dos flechas que suben y bajan el valor. Se puede escribir en él, como en un `Entry`, o pulsar las flechas.",
+      "El de la cantidad es numérico: **`from_=1`**, **`to=20`** e **`increment=1`**, el paso de cada clic. El del precio va de 0,25 en 0,25, y **`format=\"%.2f\"`** lo muestra siempre con dos decimales.",
+      "El de la talla usa **`values`**: una lista fija en vez de un rango. **`wrap=True`** hace que después de «XL» se vuelva a «XS», y `state=\"readonly\"` impide escribir otra cosa.",
+      "Cada uno está unido a una `StringVar` con `textvariable`, y `trace_add` llama a `update` con cada cambio. `update` comprueba que haya números válidos (`isdigit()`) antes de convertirlos con `int()` y `float()`, y escribe el total; si no, pide un número válido.",
+      "La función `spinbox` evita repetir código: crea la etiqueta y el Spinbox, y le pasa con `**options` las opciones de cada uno. El Spinbox no está en la paleta de DMarlon Studio, pero se puede añadir a mano en la pestaña **Código** del estudio."
+    ],
+    "points": [
+      "`from_`, `to` e `increment` definen un rango numérico.",
+      "`values` da una lista fija; `wrap=True` la recorre en círculo.",
+      "`format` fija cómo se escribe el número.",
+      "Lo escrito a mano puede no ser un número: compruébelo antes de usarlo."
+    ],
+    "exercise": "Añada un Spinbox «Discount %» de 0 a 50 con paso 5 y aplique ese descuento al total."
+  },
+  "en": {
+    "slug": "spinbox",
+    "title": "Spinbox: values with arrows",
+    "summary": "tkinter's ttk.Spinbox: numbers with from_, to and increment, a fixed list of values with wrap, and decimals with format.",
+    "body": [
+      "A **Spinbox** is a field with two arrows that raise and lower its value. You can type in it, like an `Entry`, or press the arrows.",
+      "The quantity one is numeric: **`from_=1`**, **`to=20`** and **`increment=1`**, the step of each click. The price one moves 0.25 at a time, and **`format=\"%.2f\"`** always shows it with two decimals.",
+      "The size one uses **`values`**: a fixed list instead of a range. **`wrap=True`** goes back to «XS» after «XL», and `state=\"readonly\"` stops anything else being typed.",
+      "Each one is bound to a `StringVar` with `textvariable`, and `trace_add` calls `update` on every change. `update` checks that the numbers are valid (`isdigit()`) before converting them with `int()` and `float()`, and writes the total; otherwise it asks for a valid number.",
+      "The `spinbox` function avoids repeating code: it creates the label and the Spinbox and passes each one's options through `**options`. The Spinbox is not in the DMarlon Studio palette, but you can add it by hand in the studio's **Code** tab."
+    ],
+    "points": [
+      "`from_`, `to` and `increment` define a numeric range.",
+      "`values` gives a fixed list; `wrap=True` cycles through it.",
+      "`format` sets how the number is written.",
+      "Typed text may not be a number: check it before using it."
+    ],
+    "exercise": "Add a «Discount %» Spinbox from 0 to 50 with a step of 5 and apply that discount to the total."
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "barra-de-estado",
+    "title": "La barra de estado",
+    "summary": "Añada una barra de estado a una ventana de tkinter: un marco abajo con etiquetas hundidas que se actualizan desde el código.",
+    "body": [
+      "La barra de estado es un `tk.Frame` hundido (`relief=\"sunken\"`) pegado abajo con `pack(side=\"bottom\", fill=\"x\")`. Se empaqueta **antes** que el texto: así, aunque la ventana se encoja, cede espacio el editor y la barra no desaparece.",
+      "Dentro hay una etiqueta de mensajes que ocupa el sitio libre (`fill=\"x\", expand=True`) y tres casillas de ancho fijo, también hundidas: posición, palabras y codificación. Se guardan en el diccionario `cells` para cambiarlas por su nombre.",
+      "`update()` lee el editor y escribe la barra: `index(\"insert\")` devuelve la posición del cursor como `\"línea.columna\"` (la columna empieza en 0, por eso se suma 1) y `get(\"1.0\", \"end\").split()` cuenta las palabras. Se llama tras cada tecla (`<KeyRelease>`), tras cada clic y una vez al empezar, con el cursor puesto con `mark_set` después de «Bread,».",
+      "Los mensajes de paso se escriben con `config(text=...)` y se quitan con `after`: «Opened notes.txt» vuelve a «Ready» a los 4 segundos.",
+      "En DMarlon Studio es la **Barra de estado** de la paleta: el estudio la genera como una etiqueta hundida pegada al borde de abajo, con un icono opcional, y su texto se cambia desde el código con `configure(text=...)`."
+    ],
+    "points": [
+      "Empaquete la barra primero, con `side=\"bottom\"`.",
+      "`relief=\"sunken\"` le da el aspecto hundido.",
+      "Actualícela desde los eventos con `config(text=...)`.",
+      "`after` quita los mensajes de paso."
+    ],
+    "exercise": "Añada a la barra una casilla con el número de caracteres y haga que el mensaje cambie a «Modified» en cuanto se escriba algo."
+  },
+  "en": {
+    "slug": "status-bar",
+    "title": "The status bar",
+    "summary": "Add a status bar to a tkinter window: a frame at the bottom with sunken labels that are updated from code.",
+    "body": [
+      "The status bar is a sunken `tk.Frame` (`relief=\"sunken\"`) docked at the bottom with `pack(side=\"bottom\", fill=\"x\")`. It is packed **before** the text: that way, if the window shrinks, the editor gives up space and the bar never disappears.",
+      "Inside there is a message label that takes the free space (`fill=\"x\", expand=True`) and three fixed-width cells, also sunken: position, words and encoding. They are kept in the `cells` dictionary so you can change them by name.",
+      "`update()` reads the editor and writes the bar: `index(\"insert\")` returns the cursor position as `\"line.column\"` (the column starts at 0, hence the + 1) and `get(\"1.0\", \"end\").split()` counts the words. It runs after every key (`<KeyRelease>`), every click, and once at start, with the cursor placed after \"Bread,\" by `mark_set`.",
+      "Passing messages are written with `config(text=...)` and removed with `after`: \"Opened notes.txt\" goes back to \"Ready\" after 4 seconds.",
+      "In DMarlon Studio it is the **Status bar** in the palette: the studio generates it as a sunken label docked to the bottom edge, with an optional icon, and you change its text from code with `configure(text=...)`."
+    ],
+    "points": [
+      "Pack the bar first, with `side=\"bottom\"`.",
+      "`relief=\"sunken\"` gives it the sunken look.",
+      "Update it from events with `config(text=...)`.",
+      "`after` clears passing messages."
+    ],
+    "exercise": "Add a cell with the number of characters and make the message change to \"Modified\" as soon as something is typed."
+  }
+}

@@ -38,6 +38,8 @@ export type CourseInfo = {
   color: string;
   /** La orden con la que se ejecuta cada ejemplo (se ve en la imagen). */
   command: string;
+  /** Abre ventanas: la imagen lleva su captura y la salida puede estar vacía. */
+  gui?: boolean;
   /** Una línea: para qué sirve el lenguaje. */
   tagline: Record<Lang, string>;
   /** Cómo se usa en DMarlon Studio (destinos donde se escribe). */
@@ -79,6 +81,38 @@ export const COURSES: CourseInfo[] = [
       en: "In DMarlon Studio, Python powers desktop apps (tkinter), Flask websites and the console: design the window and the studio writes the Python code.",
     },
     steps: consoleSteps("Python", "main.py"),
+  },
+  {
+    id: "tkinter",
+    name: "tkinter",
+    ext: "py",
+    shiki: "python",
+    icon: "python",
+    color: "#2E6DA4",
+    command: "python3 main.py",
+    gui: true,
+    tagline: {
+      es: "Aplicaciones de escritorio con Python: todos los componentes de tkinter y ttk, de la etiqueta a la tabla de datos, con la ventana de verdad.",
+      en: "Desktop apps with Python: every tkinter and ttk component, from labels to data tables, with the real window.",
+    },
+    studio: {
+      es: "En DMarlon Studio, tkinter es el destino Escritorio (Python): arrastra los componentes de la paleta al formulario, ajusta sus propiedades en el inspector y el estudio escribe este mismo código tkinter.",
+      en: "In DMarlon Studio, tkinter is the Desktop (Python) target: drag components from the palette onto the form, set their properties in the inspector and the studio writes this same tkinter code.",
+    },
+    steps: {
+      es: [
+        "Abra DMarlon Studio, pulse **Nuevo proyecto** y elija el destino **Escritorio (Python)**.",
+        "Arrastre el componente de la lección desde la paleta al formulario, o pegue el código en la pestaña **Código**.",
+        "Pulse **Ejecutar** (F9): se abre la misma ventana de la imagen.",
+        "Cambie sus propiedades en el inspector y vea el código tkinter que genera el estudio en **Generado**.",
+      ],
+      en: [
+        "Open DMarlon Studio, click **New project** and choose the **Desktop (Python)** target.",
+        "Drag the lesson's component from the palette onto the form, or paste the code into the **Code** tab.",
+        "Click **Run** (F9): the same window as in the picture opens.",
+        "Change its properties in the inspector and see the tkinter code the studio generates in **Generated**.",
+      ],
+    },
   },
   {
     id: "javascript",

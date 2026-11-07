@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "treeview-como-tabla",
+    "title": "Treeview como tabla",
+    "summary": "Muestre datos en filas y columnas con ttk.Treeview de tkinter: columnas, cabeceras, alineación, filas en color y una fila elegida desde el código.",
+    "body": [
+      "`ttk.Treeview` sirve para tablas y para árboles. Para una tabla se le dan los nombres de las columnas (`columns=(\"code\", \"name\", ...)`) y `show=\"headings\"`, que oculta la columna del árbol (`#0`) y deja solo las cabeceras.",
+      "Para cada columna, `heading()` pone el texto de la cabecera y `column()`, el ancho y la alineación: el precio y las existencias van a la derecha (`anchor=\"e\"`), como se hace con los números.",
+      "`insert(\"\", \"end\", iid=code, values=(...))` añade una fila al final. `\"\"` es el padre (la raíz: en una tabla, todas las filas cuelgan de ella), `iid` le da un identificador propio —aquí, el código del producto— y `values` lleva un valor por columna, en orden. Con `tags=(\"low\",)` y `tag_configure(\"low\", foreground=...)`, las filas con menos de 5 unidades salen en rojo.",
+      "La selección se maneja con `selection_set()` y `focus()`, y cada vez que cambia se lanza el evento virtual `<<TreeviewSelect>>`. La función `show` lee la fila con `item(..., \"values\")` y escribe el resumen en la etiqueta de abajo; por eso la ventana se abre con el monitor ya elegido.",
+      "En DMarlon Studio es la **Tabla de datos** de la paleta: define sus columnas en el inspector y el estudio genera el `ttk.Treeview` con `show=\"headings\"`, sus cabeceras y una barra de desplazamiento vertical."
+    ],
+    "points": [
+      "`columns` y `show=\"headings\"` hacen una tabla sin columna de árbol.",
+      "`heading()` pone el título; `column()`, el ancho y la alineación.",
+      "`insert(\"\", \"end\", values=...)` añade una fila.",
+      "`<<TreeviewSelect>>` avisa cuando cambia la selección."
+    ],
+    "exercise": "Añada una columna «Total» con precio × existencias, alineada a la derecha, y ordene los productos por precio antes de insertarlos."
+  },
+  "en": {
+    "slug": "treeview-as-a-table",
+    "title": "Treeview as a table",
+    "summary": "Show data in rows and columns with tkinter's ttk.Treeview: columns, headings, alignment, coloured rows and a row selected from code.",
+    "body": [
+      "`ttk.Treeview` does both tables and trees. For a table you give it the column names (`columns=(\"code\", \"name\", ...)`) and `show=\"headings\"`, which hides the tree column (`#0`) and leaves only the headings.",
+      "For each column, `heading()` sets the heading text and `column()` the width and alignment: price and stock are right-aligned (`anchor=\"e\"`), as numbers should be.",
+      "`insert(\"\", \"end\", iid=code, values=(...))` adds a row at the end. `\"\"` is the parent (the root: in a table every row hangs from it), `iid` gives the row its own id (here, the product code) and `values` holds one value per column, in order. With `tags=(\"low\",)` and `tag_configure(\"low\", foreground=...)`, rows with fewer than 5 units turn red.",
+      "The selection is handled with `selection_set()` and `focus()`, and every change fires the virtual event `<<TreeviewSelect>>`. The `show` function reads the row with `item(..., \"values\")` and writes a summary in the label below; that is why the window opens with the monitor already selected.",
+      "In DMarlon Studio it is the **Data table** in the palette: you define its columns in the inspector and the studio generates the `ttk.Treeview` with `show=\"headings\"`, its headings and a vertical scrollbar."
+    ],
+    "points": [
+      "`columns` plus `show=\"headings\"` make a table with no tree column.",
+      "`heading()` sets the title; `column()` the width and alignment.",
+      "`insert(\"\", \"end\", values=...)` adds a row.",
+      "`<<TreeviewSelect>>` tells you when the selection changes."
+    ],
+    "exercise": "Add a right-aligned \"Total\" column with price × stock, and sort the products by price before inserting them."
+  }
+}

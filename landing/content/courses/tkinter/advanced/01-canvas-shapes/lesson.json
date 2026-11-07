@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "lienzo-formas-y-texto",
+    "title": "El lienzo: formas y texto",
+    "summary": "Dibuje rectángulos, óvalos, polígonos, líneas, arcos y texto en un Canvas de tkinter, y entienda sus coordenadas, sus identificadores y sus tags.",
+    "body": [
+      "`tk.Canvas` es una superficie de dibujo. Sus coordenadas empiezan en la esquina superior izquierda, `(0, 0)`: la **x** crece hacia la derecha y la **y**, hacia abajo (al revés que en las gráficas del colegio). Las dos flechas grises, dibujadas con `create_line(..., arrow=\"last\")`, lo recuerdan.",
+      "Cada figura se crea con un método `create_*` y sus coordenadas: `create_rectangle` y `create_oval` reciben las dos esquinas del rectángulo que las contiene; `create_polygon`, los vértices; `create_line`, tantos puntos como quiera (con `smooth=True` la línea se curva), y `create_arc`, el rectángulo del óvalo más `start` y `extent` en grados. `fill`, `outline` y `width` ponen el relleno, el borde y su grosor.",
+      "`create_text` coloca un texto en un punto; `anchor` dice qué lado del texto toca ese punto (`\"e\"`: el derecho; `\"w\"`: el izquierdo). Cada `create_*` devuelve el **identificador** numérico del elemento, y `coords(id)` lee (o cambia) sus coordenadas, como hace la etiqueta de abajo con el arco.",
+      "Las **tags** agrupan elementos: las dos letras de los ejes llevan `tags=\"axis\"`, e `itemconfigure(\"axis\", ...)` les cambia el color y la letra a la vez. Con una tag también se usan `move`, `delete` o `tag_bind` para mover, borrar o responder a clics. `find_all()` devuelve todos los identificadores.",
+      "En DMarlon Studio el **Lienzo** está en la paleta: lo arrastra a la ventana y el estudio escribe el `tk.Canvas` (sin el borde de foco, con `highlightthickness=0`); el dibujo se hace desde el código, como aquí."
+    ],
+    "points": [
+      "`(0, 0)` es la esquina superior izquierda y la y crece hacia abajo.",
+      "Cada `create_*` devuelve el identificador del elemento.",
+      "`fill`, `outline` y `width` dan relleno, borde y grosor.",
+      "Una tag agrupa elementos para cambiarlos todos a la vez."
+    ],
+    "exercise": "Escriba su nombre con `create_text` en el punto (260, 300) y póngale la tag «axis»: verá que toma el color y la letra de los ejes."
+  },
+  "en": {
+    "slug": "canvas-shapes-and-text",
+    "title": "Canvas: shapes and text",
+    "summary": "Draw rectangles, ovals, polygons, lines, arcs and text on a tkinter Canvas, and understand its coordinates, item ids and tags.",
+    "body": [
+      "`tk.Canvas` is a drawing surface. Its coordinates start at the top-left corner, `(0, 0)`: **x** grows to the right and **y** grows downwards (the opposite of a school graph). The two grey arrows, drawn with `create_line(..., arrow=\"last\")`, are there as a reminder.",
+      "Each shape is made with a `create_*` method and its coordinates: `create_rectangle` and `create_oval` take the two corners of the box around them; `create_polygon`, the vertices; `create_line`, as many points as you like (`smooth=True` curves it); and `create_arc`, the oval's box plus `start` and `extent` in degrees. `fill`, `outline` and `width` set the fill, the border and its thickness.",
+      "`create_text` places text at a point; `anchor` says which side of the text touches that point (`\"e\"`: the right; `\"w\"`: the left). Every `create_*` returns the item's numeric **id**, and `coords(id)` reads (or changes) its coordinates, as the label at the bottom does with the arc.",
+      "**Tags** group items: the two axis letters have `tags=\"axis\"`, and `itemconfigure(\"axis\", ...)` changes their colour and font at once. A tag also works with `move`, `delete` or `tag_bind` to move, delete or react to clicks. `find_all()` returns every id.",
+      "In DMarlon Studio the **Canvas** is in the palette: drag it onto the window and the studio writes the `tk.Canvas` (without the focus border, `highlightthickness=0`); the drawing is done in code, as here."
+    ],
+    "points": [
+      "`(0, 0)` is the top-left corner and y grows downwards.",
+      "Every `create_*` returns the item's id.",
+      "`fill`, `outline` and `width` set fill, border and thickness.",
+      "A tag groups items so you can change them all at once."
+    ],
+    "exercise": "Write your name with `create_text` at (260, 300) and give it the tag \"axis\": it takes the colour and font of the axis letters."
+  }
+}

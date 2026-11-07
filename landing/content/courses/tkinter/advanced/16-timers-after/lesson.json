@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "temporizadores-con-after",
+    "title": "Temporizadores con after()",
+    "summary": "Programe tareas en el tiempo con after() de tkinter: una cuenta atrás que se repite cada segundo, se pausa con after_cancel y no bloquea la ventana.",
+    "body": [
+      "`root.after(1000, tick)` pide a tkinter que llame a `tick` **una vez**, dentro de 1000 milisegundos, y vuelve enseguida: la ventana sigue respondiendo mientras tanto. No use nunca `time.sleep` en una aplicación de ventanas: lo congela todo hasta que termina.",
+      "Para que se repita, `tick` se vuelve a programar a sí misma: resta un segundo, actualiza el texto (`:02d` rellena con ceros, `04:59`) y la barra, y pide otra llamada mientras queden segundos. Al llegar a cero deja `job` en `None` y se para.",
+      "`after` devuelve un identificador, que se guarda en `job`. Con él, `after_cancel(job)` anula la llamada pendiente: es lo que hace `toggle` para pausar. Al reanudar, programa otra llamada, y el botón cambia entre «Pause» y «Start».",
+      "La cuenta atrás empieza sola en 05:00; por eso la ventana de la imagen, capturada un instante después de abrirse, ya marca 04:59. La barra de progreso, con `value=left`, se va vaciando a medida que pasa el tiempo.",
+      "En DMarlon Studio es el **Temporizador** de la paleta: no se ve en la ventana; en el inspector se elige el intervalo y el método que se llama, y el estudio genera una pequeña clase que usa `after` para llamarlo una y otra vez y que se activa o se detiene con `enabled`."
+    ],
+    "points": [
+      "`after(ms, función)` llama una vez, más tarde, sin bloquear.",
+      "Para repetir, la función se vuelve a programar.",
+      "`after_cancel(id)` anula la llamada pendiente.",
+      "Nunca `time.sleep` en una ventana."
+    ],
+    "exercise": "Añada un botón «Reset» que vuelva a 05:00 y haga que, al llegar a cero, el texto se ponga rojo y diga «Time's up!»."
+  },
+  "en": {
+    "slug": "timers-with-after",
+    "title": "Timers with after()",
+    "summary": "Schedule work over time with tkinter's after(): a countdown that repeats every second, pauses with after_cancel and never blocks the window.",
+    "body": [
+      "`root.after(1000, tick)` asks tkinter to call `tick` **once**, 1000 milliseconds from now, and returns at once: the window keeps responding in the meantime. Never use `time.sleep` in a windowed application: it freezes everything until it ends.",
+      "To repeat, `tick` schedules itself again: it takes away a second, updates the text (`:02d` pads with zeros, `04:59`) and the bar, and books another call while there are seconds left. At zero it sets `job` to `None` and stops.",
+      "`after` returns an id, stored in `job`. With it, `after_cancel(job)` cancels the pending call: that is how `toggle` pauses. To resume it books a new call, and the button switches between \"Pause\" and \"Start\".",
+      "The countdown starts on its own at 05:00; that is why the window in the picture, captured a moment after opening, already shows 04:59. The progress bar, with `value=left`, empties as time goes by.",
+      "In DMarlon Studio it is the **Timer** in the palette: it doesn't show in the window; in the inspector you choose the interval and the method to call, and the studio generates a small class that uses `after` to call it again and again and is switched on or off with `enabled`."
+    ],
+    "points": [
+      "`after(ms, function)` calls once, later, without blocking.",
+      "To repeat, the function schedules itself again.",
+      "`after_cancel(id)` cancels the pending call.",
+      "Never `time.sleep` in a window."
+    ],
+    "exercise": "Add a \"Reset\" button that goes back to 05:00 and make the text turn red and say \"Time's up!\" when it reaches zero."
+  }
+}

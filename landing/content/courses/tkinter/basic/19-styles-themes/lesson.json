@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "estilos-y-temas",
+    "title": "Estilos y temas de ttk",
+    "summary": "Cambie el aspecto de los componentes ttk con ttk.Style: temas, configure() para un estilo, estilos propios como Accent.TButton y map().",
+    "body": [
+      "Los componentes `ttk` se dibujan con un **tema**. `ttk.Style()` da acceso a los estilos y `theme_names()` lista los temas instalados: en macOS, `aqua` (el del sistema), `clam`, `alt`, `default` y `classic`. **`theme_use(\"clam\")`** cambia a uno que deja cambiar los colores de todo, cosa que `aqua` no permite.",
+      "Cada clase de componente tiene su estilo: `TButton` para `ttk.Button`, `TLabel` para `ttk.Label`, `TEntry` para `ttk.Entry`… **`style.configure(\"TButton\", ...)`** cambia todos los botones a la vez: aquí, la fuente y el `padding`.",
+      "Un **estilo propio** se llama `Nombre.TButton` y hereda todo de `TButton`. `Accent.TButton` pone el fondo azul y el texto blanco, y solo se aplica a los botones con `style=\"Accent.TButton\"`. `Danger.TButton` hace lo mismo en rojo, y `Title.TLabel` es un estilo de título para etiquetas.",
+      "**`style.map`** da valores según el estado: `(\"active\", \"#1d4ed8\")` oscurece el azul con el ratón encima y `(\"disabled\", \"#93c5fd\")` lo aclara cuando el botón está desactivado, como el último.",
+      "El fondo gris es el de `clam`: todo va dentro de un `ttk.Frame` para que la ventana entera lo tome. Los estilos no se tocan desde la paleta de DMarlon Studio, pero se pueden escribir en la pestaña **Código**, antes de crear los componentes."
+    ],
+    "points": [
+      "`theme_use()` cambia el tema de todos los componentes `ttk`.",
+      "`configure(\"TButton\", ...)` cambia todos los botones.",
+      "`Nombre.TButton` es un estilo propio que hereda de `TButton`.",
+      "`map()` da valores distintos según el estado: `active`, `disabled`…"
+    ],
+    "exercise": "Cree un estilo `Big.TLabel` con letra de 16 puntos y color verde y úselo en la etiqueta de los temas."
+  },
+  "en": {
+    "slug": "styles-and-themes",
+    "title": "ttk styles and themes",
+    "summary": "Change how ttk widgets look with ttk.Style: themes, configure() for a style, custom styles such as Accent.TButton, and map().",
+    "body": [
+      "`ttk` widgets are drawn with a **theme**. `ttk.Style()` gives access to the styles, and `theme_names()` lists the installed themes: on macOS, `aqua` (the system one), `clam`, `alt`, `default` and `classic`. **`theme_use(\"clam\")`** switches to one that lets you change the colours of everything, which `aqua` does not.",
+      "Every widget class has its style: `TButton` for `ttk.Button`, `TLabel` for `ttk.Label`, `TEntry` for `ttk.Entry`… **`style.configure(\"TButton\", ...)`** changes every button at once: here, the font and the `padding`.",
+      "A **custom style** is named `Name.TButton` and inherits everything from `TButton`. `Accent.TButton` sets a blue background and white text, and it only applies to buttons with `style=\"Accent.TButton\"`. `Danger.TButton` does the same in red, and `Title.TLabel` is a heading style for labels.",
+      "**`style.map`** sets values by state: `(\"active\", \"#1d4ed8\")` darkens the blue while the mouse is over it, and `(\"disabled\", \"#93c5fd\")` lightens it when the button is disabled, like the last one.",
+      "The grey background is `clam`'s: everything goes inside a `ttk.Frame` so the whole window takes it. Styles are not set from the DMarlon Studio palette, but you can write them in the **Code** tab, before the widgets are created."
+    ],
+    "points": [
+      "`theme_use()` changes the theme of every `ttk` widget.",
+      "`configure(\"TButton\", ...)` changes every button.",
+      "`Name.TButton` is a custom style that inherits from `TButton`.",
+      "`map()` sets different values by state: `active`, `disabled`…"
+    ],
+    "exercise": "Create a `Big.TLabel` style with a 16-point green font and use it for the themes label."
+  }
+}

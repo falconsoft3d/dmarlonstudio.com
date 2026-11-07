@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "barras-de-desplazamiento",
+    "title": "Barras de desplazamiento",
+    "summary": "Una ttk.Scrollbar unida a una Listbox y a un Text de tkinter: yview, xview y yscrollcommand, en vertical y en horizontal.",
+    "body": [
+      "Una **barra de desplazamiento** (`ttk.Scrollbar`) no se mueve sola: hay que unirla con su componente en los dos sentidos. **`command=items.yview`** hace que, al arrastrar la barra, la lista se desplace.",
+      "**`items.config(yscrollcommand=bar.set)`** es el otro sentido: cuando la lista se desplaza (con la rueda del ratón, por ejemplo), avisa a la barra para que mueva su cursor. Sin esta línea, la barra no sabría por dónde va la lista.",
+      "La barra se coloca antes que la lista, con `side=\"right\"`, para que tenga su sitio asegurado. La lista tiene 40 elementos y no caben: `yview_moveto(0.3)` la desplaza al 30 % al arrancar, y `selection_set(15)` deja elegido «Item 16».",
+      "El `Text` lleva `wrap=\"none\"`, así que las líneas largas no se parten y hace falta una barra **horizontal** (`orient=\"horizontal\"`, con `xview` y `xscrollcommand`). Las tres piezas se colocan con `grid`: el texto en la celda (0, 0), la barra vertical a su derecha y la horizontal debajo; los pesos hacen que el texto crezca.",
+      "La barra de desplazamiento no está en la paleta de DMarlon Studio; se puede añadir a mano en la pestaña **Código**, unida a una **Lista** o a un **Texto largo** del formulario."
+    ],
+    "points": [
+      "`command=widget.yview` mueve el componente al arrastrar la barra.",
+      "`yscrollcommand=barra.set` mueve la barra cuando se desplaza el componente.",
+      "Para la horizontal: `orient=\"horizontal\"`, `xview` y `xscrollcommand`.",
+      "`yview_moveto(fracción)` desplaza por código."
+    ],
+    "exercise": "Añada una barra horizontal a la lista y escriba elementos más largos que su ancho para comprobar que funciona."
+  },
+  "en": {
+    "slug": "scrollbars",
+    "title": "Scrollbars",
+    "summary": "A ttk.Scrollbar connected to a tkinter Listbox and Text: yview, xview and yscrollcommand, both vertical and horizontal.",
+    "body": [
+      "A **scrollbar** (`ttk.Scrollbar`) does not move on its own: it has to be connected to its widget both ways. **`command=items.yview`** makes the list scroll when you drag the bar.",
+      "**`items.config(yscrollcommand=bar.set)`** is the other way round: when the list scrolls (with the mouse wheel, for example), it tells the bar to move its thumb. Without this line, the bar would not know where the list is.",
+      "The bar is packed before the list, with `side=\"right\"`, so its place is guaranteed. The list has 40 items and they do not fit: `yview_moveto(0.3)` scrolls it to 30 % at start-up, and `selection_set(15)` selects «Item 16».",
+      "The `Text` has `wrap=\"none\"`, so long lines are not broken and a **horizontal** bar is needed (`orient=\"horizontal\"`, with `xview` and `xscrollcommand`). The three pieces are placed with `grid`: the text in cell (0, 0), the vertical bar to its right and the horizontal one below; the weights make the text grow.",
+      "The scrollbar is not in the DMarlon Studio palette; you can add it by hand in the **Code** tab, connected to a **List** or a **Long text** on the form."
+    ],
+    "points": [
+      "`command=widget.yview` scrolls the widget when you drag the bar.",
+      "`yscrollcommand=bar.set` moves the bar when the widget scrolls.",
+      "For a horizontal bar: `orient=\"horizontal\"`, `xview` and `xscrollcommand`.",
+      "`yview_moveto(fraction)` scrolls from code."
+    ],
+    "exercise": "Add a horizontal bar to the list and give it items longer than its width to check that it works."
+  }
+}

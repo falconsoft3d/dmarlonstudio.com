@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "grafico-de-barras-en-lienzo",
+    "title": "Un gráfico de barras",
+    "summary": "Dibuje un gráfico de barras en un Canvas de tkinter a partir de un diccionario de datos: escala, rejilla, ejes y etiquetas.",
+    "body": [
+      "Los datos están en un diccionario, `sales`: cada mes con sus unidades vendidas. El gráfico no se dibuja a mano: el bucle lo construye a partir de los datos, así que si cambia un número, cambia la barra.",
+      "La clave es **escalar**: `y_of(value)` convierte un valor (de 0 a `MAX`) en una coordenada y entre `BOTTOM` y `TOP`. Como la y del lienzo crece hacia abajo, se resta: el 0 queda abajo y el 100, arriba. Cada barra tiene un hueco de ancho `step` (el ancho útil entre el número de meses) y se le quitan 12 píxeles por cada lado para separarlas.",
+      "Primero se dibuja el fondo: la rejilla cada 25 unidades, con su valor a la izquierda (`anchor=\"e\"` alinea el texto por la derecha), y el eje x. Después, cada barra con `create_rectangle` (`width=0`: sin borde), su valor encima y el mes debajo. Lo que se dibuja después queda encima.",
+      "`max(sales, key=sales.get)` busca el mes con más ventas, y su barra sale en verde. La etiqueta `ttk.Label` de abajo suma el total con `sum(sales.values())`.",
+      "En DMarlon Studio no hace falta dibujarlo: el componente **Gráfico** de la paleta dibuja líneas, áreas, barras o velas, con el título, los ejes, la leyenda y la rejilla que elija en el inspector, y el estudio escribe el código de tkinter. Esta lección enseña lo que hay debajo: un lienzo y un poco de aritmética."
+    ],
+    "points": [
+      "Escalar es pasar de valores a píxeles con una regla de tres.",
+      "La y crece hacia abajo: por eso se resta de `BOTTOM`.",
+      "Lo que se dibuja después queda encima.",
+      "El bucle dibuja lo que haya en los datos."
+    ],
+    "exercise": "Añada julio (95) y agosto (60) al diccionario y compruebe que las barras se reparten solas; después pinte de rojo las que no lleguen a 40."
+  },
+  "en": {
+    "slug": "canvas-bar-chart",
+    "title": "A bar chart",
+    "summary": "Draw a bar chart on a tkinter Canvas from a dictionary of data: scale, grid lines, axes and labels.",
+    "body": [
+      "The data is a dictionary, `sales`: each month with its units sold. The chart is not drawn by hand: the loop builds it from the data, so if a number changes, its bar changes.",
+      "The key is **scaling**: `y_of(value)` turns a value (from 0 to `MAX`) into a y coordinate between `BOTTOM` and `TOP`. Since the canvas y grows downwards, we subtract: 0 sits at the bottom and 100 at the top. Each bar gets a slot `step` wide (the usable width divided by the number of months), minus 12 pixels on each side to keep them apart.",
+      "The background goes first: a grid line every 25 units, with its value on the left (`anchor=\"e\"` right-aligns the text), and the x axis. Then each bar with `create_rectangle` (`width=0`: no border), its value above and the month below. Whatever is drawn later sits on top.",
+      "`max(sales, key=sales.get)` finds the best month, and its bar is green. The `ttk.Label` at the bottom adds up the total with `sum(sales.values())`.",
+      "In DMarlon Studio you don't have to draw it: the **Chart** component in the palette draws lines, areas, bars or candles, with the title, axes, legend and grid you choose in the inspector, and the studio writes the tkinter code. This lesson shows what lies underneath: a canvas and a little arithmetic."
+    ],
+    "points": [
+      "Scaling turns values into pixels with a simple proportion.",
+      "y grows downwards, so subtract from `BOTTOM`.",
+      "Whatever is drawn later sits on top.",
+      "The loop draws whatever is in the data."
+    ],
+    "exercise": "Add July (95) and August (60) to the dictionary and check the bars share the space by themselves; then paint the bars below 40 in red."
+  }
+}

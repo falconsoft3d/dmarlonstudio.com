@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "ventanas-secundarias",
+    "title": "Ventanas secundarias",
+    "summary": "Abra más ventanas en una aplicación de tkinter con Toplevel: título, tamaño y posición, ventanas modales y destroy() para cerrarlas.",
+    "body": [
+      "Una aplicación tiene una sola `tk.Tk()`, pero puede tener muchas `tk.Toplevel`: ventanas secundarias, con su propia barra de título, que comparten el mismo `mainloop`. No hay que llamar a nada más para que se vean.",
+      "`open_details` crea una ventana por contacto con `title()` y `geometry(\"360x220+500+110\")`, que además del tamaño lleva la **posición**: `+x+y` desde la esquina superior izquierda de la pantalla. La principal se coloca en `+80+80` para que las dos se vean juntas.",
+      "`resizable(False, False)` le da un tamaño fijo, como a un cuadro de diálogo. Si quiere que se quede siempre delante de la principal y se minimice con ella, añada `win.transient(root)`; y si debe ser **modal** —que no se pueda tocar la principal hasta cerrarla—, `win.grab_set()`.",
+      "El botón «Close» llama a `win.destroy`, que cierra solo esa ventana; cerrar la principal las cierra todas. «Open details» abre otra para el contacto elegido en la lista, y al empezar ya hay una abierta, la de Ana.",
+      "En DMarlon Studio cada ventana que diseña es un formulario de la aplicación; las ventanas secundarias como esta se abren desde su código con `tk.Toplevel`."
+    ],
+    "points": [
+      "Una sola `Tk()` y tantas `Toplevel` como hagan falta.",
+      "`geometry(\"AxB+x+y\")` da tamaño y posición.",
+      "`transient()` la ata a la principal y `grab_set()` la hace modal.",
+      "`destroy()` cierra solo esa ventana."
+    ],
+    "exercise": "Haga modal la ventana de detalles con `grab_set()` y evite que se abran dos ventanas para el mismo contacto."
+  },
+  "en": {
+    "slug": "toplevel-windows",
+    "title": "Secondary windows",
+    "summary": "Open more windows in a tkinter application with Toplevel: title, size and position, modal windows and destroy() to close them.",
+    "body": [
+      "An application has a single `tk.Tk()`, but it can have many `tk.Toplevel`s: secondary windows with their own title bar that share the same `mainloop`. Nothing else has to be called for them to show.",
+      "`open_details` creates one window per contact with `title()` and `geometry(\"360x220+500+110\")`, which carries the **position** as well as the size: `+x+y` from the top-left corner of the screen. The main window sits at `+80+80` so both are seen side by side.",
+      "`resizable(False, False)` gives it a fixed size, like a dialog box. To keep it always in front of the main window and minimise with it, add `win.transient(root)`; and if it must be **modal** (the main window can't be used until it is closed), `win.grab_set()`.",
+      "The \"Close\" button calls `win.destroy`, which closes only that window; closing the main window closes them all. \"Open details\" opens another one for the contact selected in the list, and one is already open at start, Ana's.",
+      "In DMarlon Studio each window you design is a form of the application; secondary windows like this one are opened from its code with `tk.Toplevel`."
+    ],
+    "points": [
+      "One `Tk()` and as many `Toplevel`s as you need.",
+      "`geometry(\"WxH+x+y\")` sets size and position.",
+      "`transient()` ties it to the main window and `grab_set()` makes it modal.",
+      "`destroy()` closes only that window."
+    ],
+    "exercise": "Make the details window modal with `grab_set()` and stop two windows opening for the same contact."
+  }
+}

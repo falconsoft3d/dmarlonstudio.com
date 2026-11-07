@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "deslizadores",
+    "title": "Deslizadores",
+    "summary": "Elija números arrastrando con Scale de tkinter: horizontal y vertical, con título, rango, paso y valor visible, y también ttk.Scale.",
+    "body": [
+      "Un **deslizador** (`Scale`) elige un número entre dos límites arrastrando el cursor. `tk.Scale` muestra su título (`label`) y, encima del cursor, el valor actual.",
+      "El vertical va de **`from_=30`**, arriba, a **`to=10`**, abajo (`from_` lleva guion bajo porque `from` es una palabra reservada de Python). **`resolution=0.5`** es el paso: el valor avanza de medio en medio grado, y `length` es el largo en píxeles. Se coloca primero, con `pack(side=\"right\")`, para que ocupe el borde derecho.",
+      "Cada deslizador está unido a una variable con `variable=`: `IntVar(value=70)` y `DoubleVar(value=21.5)` deciden dónde empieza el cursor. Como con `StringVar`, `volume.get()` lee el valor y `set()` mueve el cursor.",
+      "**`ttk.Scale`** tiene el aspecto del sistema, pero no muestra texto y su valor siempre es decimal. Por eso una etiqueta enseña el zoom con un decimal (`:.1f`); su `command` recibe el valor nuevo con cada movimiento. Los otros dos avisan con `trace_add`.",
+      "En DMarlon Studio es el **Deslizador** de la paleta: el título, los límites, el paso, el valor, la orientación y si se muestra el valor se cambian en el inspector, y el estudio lo escribe como `tk.Scale` unido a una `DoubleVar`."
+    ],
+    "points": [
+      "`from_` y `to` son los límites; `resolution`, el paso.",
+      "`orient` es `\"horizontal\"` o `\"vertical\"`.",
+      "La variable unida decide dónde empieza el cursor.",
+      "`ttk.Scale` no muestra el valor: enséñelo con una etiqueta."
+    ],
+    "exercise": "Añada un deslizador «Brightness» de 0 a 10 con paso 2 y muestre su valor en el resumen."
+  },
+  "en": {
+    "slug": "sliders",
+    "title": "Sliders",
+    "summary": "Pick numbers by dragging with tkinter's Scale: horizontal and vertical, with a title, range, step and visible value, plus ttk.Scale.",
+    "body": [
+      "A **slider** (`Scale`) picks a number between two limits as you drag its handle. `tk.Scale` shows its title (`label`) and, above the handle, the current value.",
+      "The vertical one goes from **`from_=30`** at the top to **`to=10`** at the bottom (`from_` has an underscore because `from` is a Python keyword). **`resolution=0.5`** is the step: the value moves half a degree at a time, and `length` is its length in pixels. It is packed first, with `pack(side=\"right\")`, so it takes the right-hand edge.",
+      "Each slider is bound to a variable with `variable=`: `IntVar(value=70)` and `DoubleVar(value=21.5)` decide where the handle starts. Just like with `StringVar`, `volume.get()` reads the value and `set()` moves the handle.",
+      "**`ttk.Scale`** has the system look, but it shows no text and its value is always a float. That is why a label shows the zoom with one decimal (`:.1f`); its `command` receives the new value on every move. The other two report changes with `trace_add`.",
+      "In DMarlon Studio this is the **Slider** in the palette: its title, limits, step, value, orientation and whether the value is shown are set in the inspector, and the studio writes it as a `tk.Scale` bound to a `DoubleVar`."
+    ],
+    "points": [
+      "`from_` and `to` are the limits; `resolution` is the step.",
+      "`orient` is `\"horizontal\"` or `\"vertical\"`.",
+      "The bound variable decides where the handle starts.",
+      "`ttk.Scale` does not show its value: display it with a label."
+    ],
+    "exercise": "Add a «Brightness» slider from 0 to 10 with a step of 2 and show its value in the summary."
+  }
+}

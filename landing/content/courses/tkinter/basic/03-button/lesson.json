@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "botones",
+    "title": "Botones y su acción",
+    "summary": "Un botón de tkinter con command: cada clic llama a una función que actualiza un contador. También, botones desactivados con state.",
+    "body": [
+      "`count = 5` guarda el número de clics. Empieza en 5 para que la etiqueta enseñe ya un valor al abrir la ventana: `text=f\"Clicks: {count}\"`.",
+      "Un **botón** (`ttk.Button`) lleva su texto y, en **`command`**, la función que se ejecuta al pulsarlo. Se pasa el nombre de la función, `add`, sin paréntesis: con `add()` se llamaría una sola vez, al crear el botón, y no con cada clic.",
+      "`add()` suma uno y cambia el texto con **`label.config(text=...)`**: `config` (o `configure`) modifica cualquier opción de un componente ya creado. `global count` hace falta porque la función cambia una variable de fuera. `reset()` la pone a cero.",
+      "Los dos botones van dentro de un `ttk.Frame` y se colocan con `pack(side=\"left\")`, uno al lado del otro (los marcos y `pack` se ven a fondo más adelante). El último lleva **`state=\"disabled\"`**: se ve en gris y no responde.",
+      "En DMarlon Studio es el **Botón** de la paleta. En el inspector se le asigna el evento *Al pulsar* y el estudio escribe el método al que apunta `command`; usted solo escribe lo que hace."
+    ],
+    "points": [
+      "`command` recibe la función, sin paréntesis.",
+      "`config(text=...)` cambia un componente ya creado.",
+      "`state=\"disabled\"` desactiva un botón; `\"normal\"` lo vuelve a activar.",
+      "`global` permite cambiar una variable de fuera desde una función."
+    ],
+    "exercise": "Añada un botón «Subtract one» que reste uno al contador sin dejarlo bajar de cero."
+  },
+  "en": {
+    "slug": "buttons",
+    "title": "Buttons and their action",
+    "summary": "A tkinter button with command: every click calls a function that updates a counter. Plus disabled buttons with state.",
+    "body": [
+      "`count = 5` stores the number of clicks. It starts at 5 so the label already shows a value when the window opens: `text=f\"Clicks: {count}\"`.",
+      "A **button** (`ttk.Button`) has its text and, in **`command`**, the function to run when it is pressed. You pass the function's name, `add`, without parentheses: `add()` would call it just once, while creating the button, and never on a click.",
+      "`add()` adds one and changes the text with **`label.config(text=...)`**: `config` (or `configure`) changes any option of a widget that already exists. `global count` is needed because the function changes a variable defined outside it. `reset()` sets it back to zero.",
+      "The two buttons live inside a `ttk.Frame` and are placed with `pack(side=\"left\")`, side by side (frames and `pack` get their own lessons later). The last one has **`state=\"disabled\"`**: it is greyed out and does not respond.",
+      "In DMarlon Studio this is the **Button** in the palette. In the inspector you assign its *On press* event, and the studio writes the method that `command` points to; you only fill in what it does."
+    ],
+    "points": [
+      "`command` takes the function, without parentheses.",
+      "`config(text=...)` changes a widget that already exists.",
+      "`state=\"disabled\"` disables a button; `\"normal\"` enables it again.",
+      "`global` lets a function change a variable defined outside it."
+    ],
+    "exercise": "Add a «Subtract one» button that takes one from the counter without letting it go below zero."
+  }
+}

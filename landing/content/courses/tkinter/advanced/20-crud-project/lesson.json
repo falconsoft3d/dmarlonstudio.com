@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "proyecto-lista-de-productos",
+    "title": "Proyecto: lista de productos",
+    "summary": "Proyecto final con tkinter: una pequeña aplicación CRUD de productos con Treeview, formulario, barra de menús y barra de estado.",
+    "body": [
+      "El proyecto junta lo visto: una tabla (`ttk.Treeview`) de productos, un formulario debajo para el nombre, el precio y las existencias, las órdenes Add, Update y Delete en la barra de menús y en botones, y una barra de estado que cuenta lo que pasa. Es un **CRUD**: crear, leer, actualizar y borrar.",
+      "`form` es un diccionario con una `StringVar` por campo, y de él sale todo: las columnas de la tabla (`columns=tuple(form)`), sus cabeceras y los `Entry` del formulario, en el mismo bucle. Si añade un campo al diccionario, aparece en los tres sitios.",
+      "`act` es la única función de las tres órdenes, y la llaman tanto el menú **Edit** como los botones (`lambda a=action: act(a)`). **Add** inserta una fila con los valores del formulario y la elige; **Update** reescribe la fila elegida con `item(..., values=...)`; **Delete** la borra con `delete`. Después, la barra de estado dice qué se hizo y cuántos productos hay.",
+      "Al elegir una fila, `<<TreeviewSelect>>` copia sus datos en el formulario con `tree.set(fila, columna)`, que da el valor de una celda. Las filas usan el nombre como `iid`, así que `selection_set(\"Mouse\")` deja el ratón elegido y el formulario relleno al abrir. El marco del formulario se crea y se empaqueta en una sola línea gracias al operador `:=`.",
+      "En DMarlon Studio esta ventana se diseña arrastrando una **Tabla de datos**, tres campos de texto, tres botones, un **Menú** y una **Barra de estado**; el estudio escribe el código de tkinter y usted completa los métodos de Add, Update y Delete."
+    ],
+    "points": [
+      "Un diccionario de variables genera columnas, cabeceras y campos.",
+      "El menú y los botones llaman a la misma función.",
+      "`tree.set(fila, columna)` lee una celda.",
+      "La barra de estado confirma cada acción."
+    ],
+    "exercise": "Antes de añadir o actualizar, compruebe que el nombre no esté vacío y que el precio sea un número; si no, escriba el error en la barra de estado y no toque la tabla."
+  },
+  "en": {
+    "slug": "project-product-list",
+    "title": "Project: a product list",
+    "summary": "Final tkinter project: a small CRUD app for products with a Treeview, a form, a menu bar and a status bar.",
+    "body": [
+      "The project brings it all together: a table (`ttk.Treeview`) of products, a form below for name, price and stock, the Add, Update and Delete actions in the menu bar and in buttons, and a status bar that reports what happens. It is a **CRUD**: create, read, update and delete.",
+      "`form` is a dictionary with one `StringVar` per field, and everything comes from it: the table's columns (`columns=tuple(form)`), their headings and the form's `Entry` widgets, in the same loop. Add a field to the dictionary and it appears in all three places.",
+      "`act` is the single function behind the three actions, called by both the **Edit** menu and the buttons (`lambda a=action: act(a)`). **Add** inserts a row with the form's values and selects it; **Update** rewrites the selected row with `item(..., values=...)`; **Delete** removes it with `delete`. Then the status bar says what was done and how many products there are.",
+      "When a row is selected, `<<TreeviewSelect>>` copies its data into the form with `tree.set(row, column)`, which gives the value of one cell. Rows use the name as their `iid`, so `selection_set(\"Mouse\")` leaves the mouse selected and the form filled at start. The form's frame is created and packed in a single line thanks to the `:=` operator.",
+      "In DMarlon Studio you design this window by dragging a **Data table**, three text fields, three buttons, a **Menu** and a **Status bar**; the studio writes the tkinter code and you fill in the Add, Update and Delete methods."
+    ],
+    "points": [
+      "A dictionary of variables builds columns, headings and fields.",
+      "The menu and the buttons call the same function.",
+      "`tree.set(row, column)` reads one cell.",
+      "The status bar confirms every action."
+    ],
+    "exercise": "Before adding or updating, check that the name is not empty and the price is a number; if not, write the error in the status bar and leave the table alone."
+  }
+}

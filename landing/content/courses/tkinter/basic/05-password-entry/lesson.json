@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "campos-de-contrasena",
+    "title": "Campos de contraseña",
+    "summary": "Oculte lo que se escribe en un Entry de tkinter con show=\"•\" y añada un botón para mostrar u ocultar la contraseña.",
+    "body": [
+      "El campo **User** es un `ttk.Entry` normal. Esta vez no lleva variable: se rellena con **`user.insert(0, \"marlon\")`**, que inserta el texto en la posición 0, al principio.",
+      "El de la contraseña lleva **`show=\"•\"`**: cada carácter se dibuja como un punto. El texto de verdad sigue dentro; solo cambia cómo se ve. Vale cualquier carácter, por ejemplo `show=\"*\"`.",
+      "`toggle()` consulta la opción actual con **`cget(\"show\")`**. Si está oculta, pone `show=\"\"` (se ve el texto) y el botón pasa a decir «Hide»; si no, vuelve a `\"•\"` y a «Show». Como `toggle` cambia el botón, este se guarda en la variable `button`.",
+      "`password.get()` devuelve el texto real, no los puntos: la etiqueta de abajo muestra su longitud, `9 characters`. `trace_add` la actualiza en cuanto se escribe, y la llamada a `show_length()` la rellena al arrancar.",
+      "En DMarlon Studio hay dos caminos: el **Campo de texto** tiene la propiedad *Ocultar con*, que es este mismo `show`, y la paleta trae además la **Contraseña**, un campo ya preparado con un botón para ver la contraseña que se activa en el inspector."
+    ],
+    "points": [
+      "`show=\"•\"` oculta lo que se escribe; `show=\"\"` lo vuelve a mostrar.",
+      "`get()` devuelve el texto real, no los puntos.",
+      "`insert(0, texto)` rellena un `Entry` sin variable.",
+      "`cget(\"opción\")` lee el valor actual de una opción."
+    ],
+    "exercise": "Use `show=\"*\"` y haga que la etiqueta diga «Too short» en rojo cuando la contraseña tenga menos de 8 caracteres."
+  },
+  "en": {
+    "slug": "password-fields",
+    "title": "Password fields",
+    "summary": "Hide what is typed in a tkinter Entry with show=\"•\" and add a button that shows or hides the password.",
+    "body": [
+      "The **User** field is a plain `ttk.Entry`. This time it has no variable: it is filled with **`user.insert(0, \"marlon\")`**, which inserts the text at position 0, the start.",
+      "The password field has **`show=\"•\"`**: every character is drawn as a dot. The real text is still there; only the way it looks changes. Any character works, for example `show=\"*\"`.",
+      "`toggle()` reads the current option with **`cget(\"show\")`**. If the text is hidden, it sets `show=\"\"` (the text is visible) and the button changes to «Hide»; otherwise it goes back to `\"•\"` and «Show». Because `toggle` changes the button, the button is kept in the variable `button`.",
+      "`password.get()` returns the real text, not the dots: the label underneath shows its length, `9 characters`. `trace_add` updates it as soon as you type, and the call to `show_length()` fills it in at start-up.",
+      "DMarlon Studio offers two ways: the **Text field** has a *Mask with* property, which is this same `show`, and the palette also has a **Password** component, a ready-made field with a button to reveal the password that you switch on in the inspector."
+    ],
+    "points": [
+      "`show=\"•\"` hides what is typed; `show=\"\"` shows it again.",
+      "`get()` returns the real text, not the dots.",
+      "`insert(0, text)` fills an `Entry` that has no variable.",
+      "`cget(\"option\")` reads the current value of an option."
+    ],
+    "exercise": "Use `show=\"*\"` and make the label say «Too short» in red when the password has fewer than 8 characters."
+  }
+}

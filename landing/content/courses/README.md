@@ -91,3 +91,28 @@ PLAYWRIGHT_DIR=<carpeta con node_modules/playwright> node scripts/build-courses.
 `--check` debe terminar en «Listo» sin problemas. La segunda orden escribe
 `content/courses/data/<curso>.json` (lo que leen las páginas) y las imágenes en
 `public/courses/<curso>/`.
+
+## tkinter (ventanas)
+
+El curso `tkinter` no muestra la salida de la terminal sino **la ventana de
+verdad**: `scripts/courses/tk_run.py` ejecuta el ejemplo con un Python que
+tenga Tk (`brew install python-tk@3.12`; o `DMS_TK_PYTHON=<python>`), la deja
+en aspecto claro, la captura con `screencapture -l` (cada ventana del
+proceso, también las `Toplevel`) y la cierra. Solo funciona en macOS.
+
+- La ventana tiene que **enseñar el componente en un estado con sentido nada
+  más abrirse** (nadie hace clic al capturarla): campos rellenos, una fila
+  elegida, la barra de progreso a medias, una pestaña con contenido…
+- `root.geometry("ANCHOxALTO")` siempre, entre 360×220 y 760×520 (es lo que
+  cabe bien en la imagen).
+- Nada de diálogos modales al arrancar (`messagebox`, `filedialog`): solo
+  desde un botón. Las ventanas secundarias (`Toplevel`) sí se capturan.
+- Sin imágenes de archivo: las imágenes se crean en el código
+  (`tk.PhotoImage` con `put`, o dibujadas en un `Canvas`).
+- `ttk` siempre que exista el componente (Label, Button, Entry, Combobox…);
+  `tk` para Text, Listbox, Canvas, Menu y Message.
+- Puede escribir en la terminal (`print`) desde un evento, pero no hace falta:
+  si no escribe nada, la página no muestra el panel de salida.
+
+Comprobar sin capturar: `node scripts/build-courses.mjs tkinter --level=basic --check`
+(abre y cierra cada ventana en un momento).

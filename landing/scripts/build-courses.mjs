@@ -38,7 +38,31 @@ const COURSES = {
   pascal: { ext: "pas", shiki: "pascal", name: "Pascal", command: "fpc main.pas && ./main" },
   go: { ext: "go", shiki: "go", name: "Go", command: "go run main.go" },
   dart: { ext: "dart", shiki: "dart", name: "Dart", command: "dart run main.dart" },
+  // Ventanas: la imagen lleva la captura de verdad de cada ventana.
+  tkinter: { ext: "py", shiki: "python", name: "tkinter", command: "python3 main.py", gui: true },
 };
+
+// tkinter: un Python con Tk (el de Homebrew no lo trae: brew install python-tk@3.12).
+const TK_PYTHON =
+  process.env.DMS_TK_PYTHON ||
+  ["/opt/homebrew/opt/python@3.12/bin/python3.12", "/usr/local/opt/python@3.12/bin/python3.12"].find((p) =>
+    fs.existsSync(p),
+  ) ||
+  "python3";
+const TK_RUN = path.join(ROOT, "scripts", "courses", "tk_run.py");
+
+/** El ayudante que dice qué ventanas tiene un proceso (macOS). */
+let winid = null;
+function winidTool() {
+  if (winid) return winid;
+  winid = path.join(os.tmpdir(), "dms-courses-winid");
+  const src = path.join(ROOT, "scripts", "courses", "winid.swift");
+  if (!fs.existsSync(winid) || fs.statSync(winid).mtimeMs < fs.statSync(src).mtimeMs) {
+    const r = spawnSync("swiftc", ["-O", "-o", winid, src], { encoding: "utf8" });
+    if (r.status !== 0) throw new Error(`swiftc winid.swift: ${r.stderr}`);
+  }
+  return winid;
+}
 
 // macOS: Free Pascal enlaza con la libc del SDK de Xcode.
 const SDK =
@@ -46,8 +70,9 @@ const SDK =
     ? spawnSync("xcrun", ["--show-sdk-path"], { encoding: "utf8" }).stdout.trim()
     : "";
 
-/** Cómo se compila (si hace falta) y se ejecuta un ejemplo en [dir]. */
-function steps(id, dir) {
+/** Cómo se compila (si hace falta) y se ejecuta un ejemplo en [dir]. [shot]:
+ * dónde dejar las capturas de las ventanas (tkinter; "-" sin capturas). */
+function steps(id, dir, shot = "-") {
   const exe = path.join(dir, "main");
   return {
     python: [["python3", ["-I", "main.py"]]],
@@ -60,6 +85,7 @@ function steps(id, dir) {
     ],
     go: [["go", ["run", "main.go"]]],
     dart: [["dart", ["run", "main.dart"]]],
+    tkinter: [[TK_PYTHON, ["-I", TK_RUN, "main.py", shot]]],
   }[id];
 }
 
@@ -76,13 +102,13 @@ const problems = [];
 const fail = (where, msg) => problems.push(`${where}: ${msg}`);
 
 /** Ejecuta la lección [lessonDir]: su salida (o null si falla). */
-function runLesson(id, lessonDir, where) {
+function runLesson(id, lessonDir, where, shot) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `curso-${id}-`));
   try {
     fs.cpSync(lessonDir, tmp, { recursive: true });
     const inputFile = path.join(tmp, "input.txt");
     const input = fs.existsSync(inputFile) ? fs.readFileSync(inputFile, "utf8") : "";
-    const all = steps(id, tmp);
+    const all = steps(id, tmp, shot);
     let out = "";
     for (const [i, [cmd, argv]] of all.entries()) {
       const last = i === all.length - 1;
@@ -93,7 +119,14 @@ function runLesson(id, lessonDir, where) {
         timeout: 60_000,
         // Go sin cgo: el mismo binario en todas partes (y Go 1.19 con cgo
         // no arranca en macOS 26 si usa la red).
-        env: { ...process.env, NO_COLOR: "1", LANG: "en_US.UTF-8", TZ: "UTC", CGO_ENABLED: "0" },
+        env: {
+          ...process.env,
+          NO_COLOR: "1",
+          LANG: "en_US.UTF-8",
+          TZ: "UTC",
+          CGO_ENABLED: "0",
+          ...(COURSES[id].gui ? { WINID: winidTool() } : {}),
+        },
       });
       if (r.error) {
         fail(where, `${cmd}: ${r.error.message}`);
@@ -158,15 +191,34 @@ for (const id of ids) {
       checkTexts(`${where} (en)`, meta.en);
       const code = fs.readFileSync(codeFile, "utf8").replace(/\s+$/, "");
       process.stdout.write(`${where} … `);
-      const output = runLesson(id, dir, where);
+      // Con ventanas: una vez, con sus capturas (si hay imágenes que hacer).
+      const shotBase = course.gui && !noImages ? path.join(os.tmpdir(), `dms-shot-${id}-${level}-${d.slice(0, 2)}`) : "-";
+      if (shotBase !== "-") {
+        for (const f of fs.readdirSync(os.tmpdir())) {
+          if (f.startsWith(path.basename(shotBase) + "-")) fs.rmSync(path.join(os.tmpdir(), f));
+        }
+      }
+      const output = runLesson(id, dir, where, shotBase);
       if (output == null) {
         console.log("FALLA");
         continue;
       }
-      // La misma salida dos veces: nada de azar ni de horas.
-      const again = runLesson(id, dir, where);
-      if (again !== output) fail(where, "la salida cambia de una ejecución a otra");
-      if (!output) fail(where, "no escribe nada");
+      let shots = [];
+      if (course.gui) {
+        if (shotBase !== "-") {
+          shots = fs
+            .readdirSync(os.tmpdir())
+            .filter((f) => f.startsWith(path.basename(shotBase) + "-") && f.endsWith(".png"))
+            .sort()
+            .map((f) => fs.readFileSync(path.join(os.tmpdir(), f)).toString("base64"));
+          if (!shots.length) fail(where, "no se pudo capturar ninguna ventana");
+        }
+      } else {
+        // La misma salida dos veces: nada de azar ni de horas.
+        const again = runLesson(id, dir, where);
+        if (again !== output) fail(where, "la salida cambia de una ejecución a otra");
+        if (!output) fail(where, "no escribe nada");
+      }
       console.log("ok");
       // Sin saltos entre las líneas: cada una ya es un bloque.
       const html = highlighter
@@ -181,6 +233,7 @@ for (const id of ids) {
         input: fs.existsSync(path.join(dir, "input.txt")) ? fs.readFileSync(path.join(dir, "input.txt"), "utf8") : undefined,
         output,
         image: `/courses/${id}/${level}-${String(n).padStart(2, "0")}.jpg`,
+        ...(course.gui ? { gui: true, shots } : {}),
       });
     }
     for (const lang of ["es", "en"]) {
@@ -215,7 +268,7 @@ if (!check) {
         l.size ??= before?.levels?.[level]?.find((x) => x.image === l.image)?.size;
       }
     }
-    fs.writeFileSync(file, `${JSON.stringify(data, null, 1)}\n`);
+    fs.writeFileSync(file, `${JSON.stringify(data, (k, v) => (k === "shots" ? undefined : v), 1)}\n`);
   }
 }
 
@@ -264,6 +317,10 @@ function windowHtml(course, level, l) {
   .termbar span:first-child { color: #e6e6ea; border-bottom: 1px solid #4f8cff; padding-bottom: 3px; }
   .out { margin: 0; padding: 12px 18px 16px; font: 14px/1.5 Menlo, Consolas, "DejaVu Sans Mono", monospace; color: #d4d4d4; white-space: pre-wrap; word-break: break-word; }
   .prompt { color: #4ade80; }
+  .run-app { border-top: 1px solid #333; background: #18181a; }
+  .app { display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; align-items: flex-start; padding: 30px 24px 34px;
+    background: radial-gradient(circle at 1px 1px, #ffffff10 1px, transparent 0) 0 0 / 18px 18px, #232327; }
+  .app img { max-width: 100%; border-radius: 10px; box-shadow: 0 14px 34px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.4); }
   </style></head><body><div class="win" id="win">
   <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span>
     <span class="title"><b>DMarlon Studio</b> — ${esc(course.name)} · ${level === "basic" ? "Basic" : "Advanced"} ${String(l.n).padStart(2, "0")}</span></div>
@@ -271,8 +328,14 @@ function windowHtml(course, level, l) {
   <div class="tabs"><span class="tab">${esc(file)}</span></div>
   <div class="code">${trimHtml(l.html, MAX_CODE)}</div>
   ${lines > MAX_CODE ? `<div class="more">⋯ ${lines - MAX_CODE} more lines</div>` : ""}
-  <div class="term"><div class="termbar"><span>TERMINAL</span><span>OUTPUT</span></div>
-  <pre class="out"><span class="prompt">$</span> ${esc(course.command)}${l.input ? `  <span style="color:#8a8a92">&lt; input.txt</span>` : ""}\n${esc(shownOut.join("\n"))}</pre></div>
+  ${
+    l.gui
+      ? `<div class="run-app"><div class="termbar"><span>▶ ${esc(course.command)}</span><span>RUNNING</span></div>
+  <div class="app">${(l.shots ?? []).map((b) => `<img src="data:image/png;base64,${b}">`).join("")}</div></div>
+  ${l.output ? `<div class="term"><pre class="out">${esc(shownOut.join("\n"))}</pre></div>` : ""}`
+      : `<div class="term"><div class="termbar"><span>TERMINAL</span><span>OUTPUT</span></div>
+  <pre class="out"><span class="prompt">$</span> ${esc(course.command)}${l.input ? `  <span style="color:#8a8a92">&lt; input.txt</span>` : ""}\n${esc(shownOut.join("\n"))}</pre></div>`
+  }
   </div></body></html>`;
 }
 

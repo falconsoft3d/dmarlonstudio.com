@@ -1,0 +1,42 @@
+{
+  "es": {
+    "slug": "colocar-con-grid",
+    "title": "Colocar con grid",
+    "summary": "El gestor grid de tkinter: filas, columnas, sticky, columnspan y pesos para un formulario que se adapta al tamaño de la ventana.",
+    "body": [
+      "**`grid`** coloca los componentes en una cuadrícula: `row` es la fila y `column` la columna, empezando en 0. Es lo más cómodo para formularios: las etiquetas en una columna y los campos en otra.",
+      "**`sticky`** pega el componente a los bordes de su celda con puntos cardinales: `\"e\"` a la derecha (las etiquetas), `\"ew\"` de izquierda a derecha (los campos se estiran) y `\"nsew\"` a los cuatro lados (las notas llenan su celda). La etiqueta «Notes:» usa `\"ne\"` para quedarse arriba.",
+      "**`columnspan=2`** hace que un componente ocupe dos columnas. Así los campos llegan hasta el borde derecho de **Save**, que está en la columna 2, y los dos botones comparten la fila 4.",
+      "Por defecto, filas y columnas miden lo justo. **`columnconfigure(1, weight=1)`** da a la columna 1 el espacio sobrante, y **`rowconfigure(3, weight=1)`** hace lo mismo con la fila de las notas: si se agranda la ventana, crecen ellas.",
+      "En un mismo contenedor no se mezclan `grid` y `pack`; por eso el formulario es un `ttk.Frame` colocado con `pack` y con `grid` por dentro. El diseñador de DMarlon Studio coloca cada componente donde se suelta, pero `grid` se puede usar en la pestaña **Código**."
+    ],
+    "points": [
+      "`row` y `column` empiezan en 0.",
+      "`sticky` pega el componente a los bordes de su celda.",
+      "`columnspan` y `rowspan` ocupan varias celdas.",
+      "`weight` decide qué filas y columnas crecen.",
+      "No mezcle `grid` y `pack` en el mismo contenedor."
+    ],
+    "exercise": "Añada una fila «Phone» entre «Email» y «Notes» y mueva las notas y los botones una fila más abajo (recuerde el `rowconfigure`)."
+  },
+  "en": {
+    "slug": "layout-with-grid",
+    "title": "Layout with grid",
+    "summary": "tkinter's grid manager: rows, columns, sticky, columnspan and weights for a form that adapts to the size of the window.",
+    "body": [
+      "**`grid`** places widgets on a grid: `row` is the row and `column` the column, both starting at 0. It is the handiest choice for forms: labels in one column and fields in another.",
+      "**`sticky`** sticks the widget to the edges of its cell using compass points: `\"e\"` to the right (the labels), `\"ew\"` from left to right (the fields stretch) and `\"nsew\"` to all four sides (the notes fill their cell). The «Notes:» label uses `\"ne\"` to stay at the top.",
+      "**`columnspan=2`** makes a widget span two columns. That way the fields reach the right edge of **Save**, which sits in column 2, and the two buttons share row 4.",
+      "By default rows and columns are just as big as they need to be. **`columnconfigure(1, weight=1)`** gives column 1 the spare space, and **`rowconfigure(3, weight=1)`** does the same for the notes row: when the window grows, they grow.",
+      "Never mix `grid` and `pack` in the same container; that is why the form is a `ttk.Frame` placed with `pack` and using `grid` inside. The DMarlon Studio designer places each widget where you drop it, but you can use `grid` in the **Code** tab."
+    ],
+    "points": [
+      "`row` and `column` start at 0.",
+      "`sticky` sticks the widget to the edges of its cell.",
+      "`columnspan` and `rowspan` span several cells.",
+      "`weight` decides which rows and columns grow.",
+      "Do not mix `grid` and `pack` in the same container."
+    ],
+    "exercise": "Add a «Phone» row between «Email» and «Notes» and move the notes and the buttons one row down (remember the `rowconfigure`)."
+  }
+}

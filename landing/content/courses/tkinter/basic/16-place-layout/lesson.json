@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "colocar-con-place",
+    "title": "Colocar con place",
+    "summary": "El gestor place de tkinter: posiciones absolutas en píxeles, relativas al tamaño de la ventana y con anchor. Es el que usa DMarlon Studio.",
+    "body": [
+      "**`place`** pone cada componente en una posición exacta. Con **`x`** e **`y`** se mide en píxeles desde la esquina superior izquierda, y con **`width`** y **`height`** se fija también su tamaño, como en el botón y el campo de la izquierda.",
+      "Las opciones **relativas** van de 0.0 a 1.0: `relx=0.45` es el 45 % del ancho de la ventana. El panel azul (`tk.Frame`) usa además `relwidth=0.5` y `relheight=0.55`, así que crece si se agranda la ventana.",
+      "**`anchor`** dice qué punto del componente cae en esa posición. Con `anchor=\"center\"`, `relx=0.5, rely=0.5` deja la etiqueta justo en medio del panel, y la amarilla queda centrada a lo ancho. Con `\"se\"` (sureste), lo que se coloca es la esquina inferior derecha.",
+      "Las dos formas se suman: el botón **OK** usa `relx=1.0, rely=1.0` (la esquina inferior derecha de la ventana) y `x=-16, y=-16` para separarse 16 píxeles hacia dentro. Seguirá en la esquina aunque cambie el tamaño.",
+      "Es el gestor que usa DMarlon Studio: cada componente que se suelta en el formulario se escribe con `place(x=..., y=..., width=..., height=...)`, con la posición y el tamaño que tiene en el diseñador."
+    ],
+    "points": [
+      "`x` e `y` son píxeles desde la esquina superior izquierda.",
+      "`relx`, `rely`, `relwidth` y `relheight` van de 0.0 a 1.0.",
+      "`anchor` elige qué punto del componente se coloca.",
+      "Las posiciones absolutas y relativas se pueden sumar."
+    ],
+    "exercise": "Coloque un botón «Back» en la esquina inferior izquierda, a 16 píxeles de los bordes, con `rely=1.0` y `anchor=\"sw\"`."
+  },
+  "en": {
+    "slug": "layout-with-place",
+    "title": "Layout with place",
+    "summary": "tkinter's place manager: absolute positions in pixels, positions relative to the window's size, and anchor. It is the one DMarlon Studio uses.",
+    "body": [
+      "**`place`** puts each widget at an exact position. With **`x`** and **`y`** it is measured in pixels from the top-left corner, and **`width`** and **`height`** also fix its size, as with the button and the entry on the left.",
+      "**Relative** options go from 0.0 to 1.0: `relx=0.45` is 45 % of the window's width. The blue panel (`tk.Frame`) also uses `relwidth=0.5` and `relheight=0.55`, so it grows when the window gets bigger.",
+      "**`anchor`** says which point of the widget lands on that position. With `anchor=\"center\"`, `relx=0.5, rely=0.5` puts the label right in the middle of the panel, and the yellow one is centred across the window. With `\"se\"` (south-east), what gets placed is the bottom-right corner.",
+      "Both kinds add up: the **OK** button uses `relx=1.0, rely=1.0` (the window's bottom-right corner) and `x=-16, y=-16` to move 16 pixels inwards. It stays in the corner even when the size changes.",
+      "This is the manager DMarlon Studio uses: every widget you drop on the form is written with `place(x=..., y=..., width=..., height=...)`, using the position and size it has in the designer."
+    ],
+    "points": [
+      "`x` and `y` are pixels from the top-left corner.",
+      "`relx`, `rely`, `relwidth` and `relheight` go from 0.0 to 1.0.",
+      "`anchor` chooses which point of the widget is placed.",
+      "Absolute and relative positions can be added together."
+    ],
+    "exercise": "Place a «Back» button in the bottom-left corner, 16 pixels from the edges, with `rely=1.0` and `anchor=\"sw\"`."
+  }
+}

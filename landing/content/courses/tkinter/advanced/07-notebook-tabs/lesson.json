@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "pestanas-con-notebook",
+    "title": "Pestañas con Notebook",
+    "summary": "Organice una ventana de tkinter en pestañas con ttk.Notebook: páginas, una pestaña desactivada, la pestaña inicial y el aviso de cambio.",
+    "body": [
+      "`ttk.Notebook` es un contenedor con pestañas que enseña una página cada vez. Cada página es un componente —normalmente un `ttk.Frame`— creado con el cuaderno como padre y añadido con `add(página, text=\"General\")`.",
+      "La primera página es un marco con su propio `grid`: nombre, idioma y una casilla, con los valores puestos desde el código (`StringVar`, `set(\"English\")` y `BooleanVar`). La segunda demuestra que una página puede ser cualquier componente, aquí una sola etiqueta con `padding`.",
+      "`state=\"disabled\"` deja una pestaña gris que no se puede abrir, útil para opciones que todavía no aplican. `select(general)` elige la página visible al empezar; también acepta su número (`select(0)`).",
+      "Al cambiar de pestaña, el cuaderno lanza el evento virtual `<<NotebookTabChanged>>`. La etiqueta de abajo lo aprovecha: `index(\"current\")` es el número de la pestaña visible, `index(\"end\")` el total y `tab(\"current\", \"text\")` su texto.",
+      "En DMarlon Studio es el **Control de páginas** de la paleta: añade las páginas en el inspector, arrastra componentes a cada una y el estudio genera el `ttk.Notebook` con un marco por página."
+    ],
+    "points": [
+      "`add(página, text=...)` añade una pestaña.",
+      "`select()` elige la pestaña visible.",
+      "`state=\"disabled\"` desactiva una pestaña.",
+      "`<<NotebookTabChanged>>` avisa del cambio."
+    ],
+    "exercise": "Cambie la pestaña «Appearance» por un marco con dos opciones (Light y Dark) y haga que la ventana se abra en ella."
+  },
+  "en": {
+    "slug": "tabs-with-notebook",
+    "title": "Tabs with Notebook",
+    "summary": "Organise a tkinter window into tabs with ttk.Notebook: pages, a disabled tab, the starting tab and the tab-changed event.",
+    "body": [
+      "`ttk.Notebook` is a container with tabs that shows one page at a time. Each page is a widget (usually a `ttk.Frame`) created with the notebook as its parent and added with `add(page, text=\"General\")`.",
+      "The first page is a frame with its own `grid`: name, language and a checkbox, with values set from code (`StringVar`, `set(\"English\")` and `BooleanVar`). The second shows that a page can be any widget, here a single label with `padding`.",
+      "`state=\"disabled\"` leaves a greyed-out tab that cannot be opened, useful for options that don't apply yet. `select(general)` picks the page shown at start; it also takes its number (`select(0)`).",
+      "When the tab changes, the notebook fires the virtual event `<<NotebookTabChanged>>`. The label at the bottom uses it: `index(\"current\")` is the visible tab's number, `index(\"end\")` the total and `tab(\"current\", \"text\")` its text.",
+      "In DMarlon Studio it is the **Page control** in the palette: add the pages in the inspector, drag widgets onto each one and the studio generates the `ttk.Notebook` with one frame per page."
+    ],
+    "points": [
+      "`add(page, text=...)` adds a tab.",
+      "`select()` picks the visible tab.",
+      "`state=\"disabled\"` disables a tab.",
+      "`<<NotebookTabChanged>>` reports the change."
+    ],
+    "exercise": "Replace the \"Appearance\" tab with a frame holding two options (Light and Dark) and make the window open on it."
+  }
+}

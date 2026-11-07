@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "campos-de-texto",
+    "title": "Campos de texto con StringVar",
+    "summary": "El campo de texto de tkinter (Entry) unido a una StringVar: valor inicial, lectura con get() y una etiqueta que cambia mientras se escribe.",
+    "body": [
+      "Una **`StringVar`** es una variable de tkinter que guarda texto. `tk.StringVar(value=\"Ada Lovelace\")` la crea ya con un valor, así que el campo aparece relleno.",
+      "`ttk.Entry(root, textvariable=name, width=36)` es el **campo de texto**: una sola línea que se puede editar. Con **`textvariable`**, campo y variable quedan unidos: lo que se escribe va a la variable y lo que se pone con `name.set(...)` aparece en el campo. `width` es el ancho en caracteres y `entry.focus()` deja el cursor en él.",
+      "**`name.trace_add(\"write\", update)`** pide que se llame a `update` cada vez que cambie la variable, es decir, con cada tecla. `update` lee el texto con **`name.get()`** y lo pone en el saludo; se llama una vez al principio para que la etiqueta no empiece vacía.",
+      "El botón **Clear** hace `name.set(\"\")`: vacía el campo y, gracias a la traza, el saludo pasa a «Hello, nobody!». El `lambda` sirve para pasar a `command` una función de una sola línea.",
+      "En DMarlon Studio es el **Campo de texto** de la paleta. Su *Texto inicial* se pone en el inspector, y el estudio crea para cada campo una `StringVar` llamada `self.<Nombre>_var`, con la que se lee y se cambia su valor desde el código."
+    ],
+    "points": [
+      "`textvariable` une el campo con una `StringVar`.",
+      "`get()` lee el texto y `set()` lo cambia.",
+      "`trace_add(\"write\", función)` avisa de cada cambio.",
+      "`width` en un `Entry` se mide en caracteres."
+    ],
+    "exercise": "Añada un segundo campo para el apellido y haga que el saludo muestre el nombre y el apellido juntos."
+  },
+  "en": {
+    "slug": "text-fields",
+    "title": "Text fields with StringVar",
+    "summary": "The tkinter text field (Entry) bound to a StringVar: an initial value, reading it with get() and a label that changes as you type.",
+    "body": [
+      "A **`StringVar`** is a tkinter variable that holds text. `tk.StringVar(value=\"Ada Lovelace\")` creates it with a value, so the field opens already filled in.",
+      "`ttk.Entry(root, textvariable=name, width=36)` is the **text field**: a single editable line. With **`textvariable`** the field and the variable are bound: what you type goes into the variable, and whatever you put there with `name.set(...)` shows up in the field. `width` is the width in characters, and `entry.focus()` puts the cursor in it.",
+      "**`name.trace_add(\"write\", update)`** asks tkinter to call `update` every time the variable changes, that is, on every key. `update` reads the text with **`name.get()`** and puts it in the greeting; it is also called once at the start so the label does not begin empty.",
+      "The **Clear** button runs `name.set(\"\")`: it empties the field and, thanks to the trace, the greeting becomes «Hello, nobody!». The `lambda` is a quick way to give `command` a one-line function.",
+      "In DMarlon Studio this is the **Text field** in the palette. You set its *Initial text* in the inspector, and the studio creates a `StringVar` for each field, named `self.<Name>_var`, to read and change its value from your code."
+    ],
+    "points": [
+      "`textvariable` binds the field to a `StringVar`.",
+      "`get()` reads the text and `set()` changes it.",
+      "`trace_add(\"write\", function)` reports every change.",
+      "The `width` of an `Entry` is measured in characters."
+    ],
+    "exercise": "Add a second field for the surname and make the greeting show the first name and the surname together."
+  }
+}

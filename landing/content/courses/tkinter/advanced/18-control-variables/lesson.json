@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "variables-de-control-y-trace",
+    "title": "Variables de control y trace",
+    "summary": "Use StringVar, IntVar y BooleanVar de tkinter con trace_add para recalcular un total en directo cada vez que cambia un campo.",
+    "body": [
+      "Las **variables de control** (`StringVar`, `IntVar`, `DoubleVar`, `BooleanVar`) guardan un valor que comparten los componentes unidos a ellas: el `Combobox` con `textvariable=product`, el `Spinbox` con `quantity`, la casilla con `variable=member` y la etiqueta del total con `textvariable=total`. Se leen con `get()` y se cambian con `set()`, y el componente se actualiza solo.",
+      "`trace_add(\"write\", recalc)` pide que se llame a `recalc` cada vez que la variable cambie, tanto si lo hace el usuario como el código. El bucle lo hace con las tres variables, así que elegir otro producto, cambiar la cantidad o marcar la casilla recalcula el total al momento.",
+      "Las funciones de trace reciben tres argumentos (el nombre de la variable, un índice y el modo) que aquí no hacen falta: por eso `*args`. Al final, `recalc()` se llama una vez a mano para que el total aparezca desde el principio: 3 × 4,50 € con un 10 % de descuento son 12,15 €.",
+      "`IntVar.get()` lanza `tk.TclError` si el campo está vacío o tiene letras (por ejemplo, mientras el usuario borra el número). El `try` lo captura y enseña «Total: -» en vez de romper la función.",
+      "En DMarlon Studio, el estudio crea estas variables por usted: cada campo de texto, lista desplegable, casilla o deslizador tiene la suya (por ejemplo, `self.Entry1_var`), las opciones comparten una por grupo, y se leen y se cambian igual desde el código."
+    ],
+    "points": [
+      "Una variable de control une un valor con sus componentes.",
+      "`get()` lee y `set()` cambia; la pantalla se actualiza sola.",
+      "`trace_add(\"write\", f)` avisa de cada cambio.",
+      "`IntVar.get()` falla con texto no numérico: use `try`."
+    ],
+    "exercise": "Añada un campo «Tip (%)» con su propia `IntVar` y su trace, y súmelo al total."
+  },
+  "en": {
+    "slug": "control-variables-and-trace",
+    "title": "Control variables and trace",
+    "summary": "Use tkinter's StringVar, IntVar and BooleanVar with trace_add to recalculate a live total every time a field changes.",
+    "body": [
+      "**Control variables** (`StringVar`, `IntVar`, `DoubleVar`, `BooleanVar`) hold a value shared by the widgets tied to them: the `Combobox` with `textvariable=product`, the `Spinbox` with `quantity`, the checkbox with `variable=member` and the total label with `textvariable=total`. You read them with `get()` and change them with `set()`, and the widget updates itself.",
+      "`trace_add(\"write\", recalc)` asks for `recalc` to be called every time the variable changes, whether the user or the code changes it. The loop does this for the three variables, so choosing another product, changing the quantity or ticking the box recalculates the total at once.",
+      "Trace callbacks get three arguments (the variable's name, an index and the mode) that are not needed here: hence `*args`. At the end, `recalc()` is called once by hand so the total shows from the start: 3 × 4.50 € with 10% off is 12.15 €.",
+      "`IntVar.get()` raises `tk.TclError` if the field is empty or has letters (for example while the user deletes the number). The `try` catches it and shows \"Total: -\" instead of breaking the function.",
+      "In DMarlon Studio, the studio creates these variables for you: every text field, drop-down list, checkbox or slider has its own (for example, `self.Entry1_var`), radio buttons share one per group, and you read and change them the same way from code."
+    ],
+    "points": [
+      "A control variable ties a value to its widgets.",
+      "`get()` reads and `set()` changes; the screen updates itself.",
+      "`trace_add(\"write\", f)` reports every change.",
+      "`IntVar.get()` fails on non-numeric text: use `try`."
+    ],
+    "exercise": "Add a \"Tip (%)\" field with its own `IntVar` and trace, and add it to the total."
+  }
+}

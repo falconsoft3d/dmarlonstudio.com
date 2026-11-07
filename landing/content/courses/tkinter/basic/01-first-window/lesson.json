@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "primera-ventana",
+    "title": "Su primera ventana",
+    "summary": "Cree una ventana de escritorio con Python y tkinter: Tk(), título, tamaño y mainloop(). La misma que diseña DMarlon Studio en Escritorio (Python).",
+    "body": [
+      "Toda aplicación de tkinter empieza con **una** ventana principal: `tk.Tk()`. Con `title()` se le pone el texto de la barra de título y con `geometry(\"420x220\")`, el ancho y el alto en píxeles.",
+      "`resizable(False, False)` impide que se cambie de tamaño arrastrando el borde. Es útil en ventanas pequeñas como esta, donde el contenido tiene un sitio fijo.",
+      "Dentro van los **componentes** (en inglés, *widgets*). Aquí, una etiqueta (`ttk.Label`) y un botón (`ttk.Button`). Se usan los de `ttk`, que toman el aspecto del sistema: en macOS parecen de macOS y en Windows, de Windows. `pack()` los coloca uno debajo de otro.",
+      "`mainloop()` muestra la ventana y se queda esperando: cada clic o tecla llega a la aplicación hasta que se cierra. El botón llama a `root.destroy`, que la cierra.",
+      "En DMarlon Studio esta ventana es el **formulario** del destino **Escritorio (Python)**: su título y su tamaño se cambian en el inspector, y el estudio genera este mismo código."
+    ],
+    "points": [
+      "`tk.Tk()` crea la ventana principal; solo hay una por aplicación.",
+      "`title()` y `geometry()` ponen el título y el tamaño.",
+      "Los componentes de `ttk` tienen el aspecto del sistema.",
+      "`mainloop()` muestra la ventana y atiende los eventos."
+    ],
+    "exercise": "Cambie el tamaño a 500 × 300, ponga su nombre en la etiqueta y añada un segundo botón que no haga nada."
+  },
+  "en": {
+    "slug": "first-window",
+    "title": "Your first window",
+    "summary": "Create a desktop window with Python and tkinter: Tk(), title, size and mainloop(). The same window DMarlon Studio designs in Desktop (Python).",
+    "body": [
+      "Every tkinter application starts with **one** main window: `tk.Tk()`. `title()` sets the text of the title bar and `geometry(\"420x220\")` the width and height in pixels.",
+      "`resizable(False, False)` stops the window from being resized by dragging its edge. It is handy for small windows like this one, where the content has a fixed place.",
+      "Inside go the **widgets**. Here, a label (`ttk.Label`) and a button (`ttk.Button`). We use the `ttk` ones, which take the system's look: on macOS they look like macOS and on Windows like Windows. `pack()` places them one below the other.",
+      "`mainloop()` shows the window and waits: every click or key reaches the application until it is closed. The button calls `root.destroy`, which closes it.",
+      "In DMarlon Studio this window is the **form** of the **Desktop (Python)** target: you change its title and size in the inspector, and the studio generates this same code."
+    ],
+    "points": [
+      "`tk.Tk()` creates the main window; there is only one per application.",
+      "`title()` and `geometry()` set the title and the size.",
+      "`ttk` widgets take the system's look.",
+      "`mainloop()` shows the window and handles events."
+    ],
+    "exercise": "Change the size to 500 × 300, put your name in the label and add a second button that does nothing."
+  }
+}

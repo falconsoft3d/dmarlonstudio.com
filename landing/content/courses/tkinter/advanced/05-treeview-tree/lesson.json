@@ -1,0 +1,40 @@
+{
+  "es": {
+    "slug": "treeview-como-arbol",
+    "title": "Treeview como árbol",
+    "summary": "Construya un árbol de carpetas con ttk.Treeview de tkinter: nodos padre e hijo, ramas abiertas o cerradas y una función recursiva.",
+    "body": [
+      "El mismo `ttk.Treeview` muestra jerarquías. Aquí no se oculta la columna `#0`: es la del árbol, con las flechas para abrir y cerrar ramas. `heading(\"#0\", ...)` le pone título, y `size` es una columna más, a la derecha.",
+      "Los datos son diccionarios dentro de diccionarios: una carpeta es un diccionario y un archivo, su tamaño. La función `add` los recorre y se llama a sí misma con cada carpeta (es **recursiva**), así que sirve para cualquier profundidad.",
+      "La clave está en el primer argumento de `insert`: el **padre**. Con `\"\"`, el nodo cuelga de la raíz; con el identificador de otro nodo, se convierte en su hijo. Cada nodo usa su ruta (`project/src/app.py`) como `iid`, así que es único y fácil de buscar. `open=True` deja la carpeta abierta; aquí, todas salvo `photos`.",
+      "`text` es lo que se ve en la columna del árbol y `values`, el resto de columnas (las carpetas no llevan tamaño). Al elegir un nodo, la etiqueta enseña su ruta y la de su padre, que da `parent()`. También existen `get_children(iid)` para los hijos e `item(iid, open=False)` para cerrar una rama.",
+      "En DMarlon Studio, la **Tabla de datos** de la paleta es este mismo `ttk.Treeview`, preparado como tabla; los árboles se rellenan desde el código con `insert(padre, ...)`, como aquí."
+    ],
+    "points": [
+      "La columna `#0` es el árbol; las demás son `values`.",
+      "El primer argumento de `insert` es el padre.",
+      "`open=True` deja una rama abierta.",
+      "Una función recursiva recorre cualquier profundidad."
+    ],
+    "exercise": "Añada la carpeta `project/tests` con dos archivos, haga que empiece cerrada y que, al abrirse la ventana, esté elegido `README.md`."
+  },
+  "en": {
+    "slug": "treeview-as-a-tree",
+    "title": "Treeview as a tree",
+    "summary": "Build a folder tree with tkinter's ttk.Treeview: parent and child nodes, open or closed branches and a recursive function.",
+    "body": [
+      "The same `ttk.Treeview` shows hierarchies. Here the `#0` column is not hidden: it is the tree itself, with the arrows that open and close branches. `heading(\"#0\", ...)` gives it a title, and `size` is one more column, on the right.",
+      "The data is dictionaries inside dictionaries: a folder is a dictionary and a file is its size. The `add` function walks through them and calls itself for each folder (it is **recursive**), so it works at any depth.",
+      "The key is the first argument of `insert`: the **parent**. With `\"\"` the node hangs from the root; with another node's id, it becomes its child. Each node uses its path (`project/src/app.py`) as its `iid`, so it is unique and easy to find. `open=True` leaves a folder open; here, all of them except `photos`.",
+      "`text` is what shows in the tree column and `values` fills the other columns (folders have no size). When a node is selected, the label shows its path and its parent's, given by `parent()`. There are also `get_children(iid)` for the children and `item(iid, open=False)` to close a branch.",
+      "In DMarlon Studio, the **Data table** in the palette is this same `ttk.Treeview`, set up as a table; trees are filled from code with `insert(parent, ...)`, as here."
+    ],
+    "points": [
+      "Column `#0` is the tree; the others are `values`.",
+      "The first argument of `insert` is the parent.",
+      "`open=True` leaves a branch open.",
+      "A recursive function handles any depth."
+    ],
+    "exercise": "Add a `project/tests` folder with two files, make it start closed and have `README.md` selected when the window opens."
+  }
+}

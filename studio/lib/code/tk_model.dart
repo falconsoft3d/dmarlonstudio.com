@@ -1207,7 +1207,12 @@ final tkComponents = <TkComponent>[
         def: '',
         refKind: 'Connection',
       ),
-      TkProp('query', markTr('Consulta SQL'), TkPropType.multiline, def: ''),
+      TkProp(
+        'query',
+        markTr('Consulta (SQL; en MongoDB, JSON)'),
+        TkPropType.multiline,
+        def: '',
+      ),
       TkProp(
         'columns',
         markTr('Columnas (campo|título|ancho)'),

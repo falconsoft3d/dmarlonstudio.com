@@ -43,6 +43,8 @@ import {
   lessonsOf,
   levelAlternates,
   levelPath,
+  projectApp,
+  projectDownload,
   projectOf,
   projectAlternates,
   projectPath,
@@ -375,6 +377,7 @@ function ProjectBand({ lang, course }: { lang: Lang; course: CourseInfo }) {
   const project = projectOf(course.id);
   if (!project) return null;
   const text = project[lang];
+  const app = projectApp(project, lang);
   return (
     <section className="border-t border-line bg-surface">
       <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_1.1fr]">
@@ -397,9 +400,9 @@ function ProjectBand({ lang, course }: { lang: Lang; course: CourseInfo }) {
         <a href={projectPath(lang, course.id)} className="block">
           {/* eslint-disable-next-line @next/next/no-img-element -- captura ya a su tamaño */}
           <img
-            src={project.app.src}
-            width={project.app.size[0]}
-            height={project.app.size[1]}
+            src={app.src}
+            width={app.size[0]}
+            height={app.size[1]}
             alt={ui.projectApp}
             loading="lazy"
             className="h-auto w-full rounded-xl border border-line shadow-sm"
@@ -429,6 +432,7 @@ export async function ProjectPage({ lang, course, project }: { lang: Lang; cours
     })),
   );
   const designer = project.designer[lang];
+  const app = projectApp(project, lang);
   return (
     <Shell lang={lang} alternates={projectAlternates(course.id)}>
       <JsonLd data={breadcrumbLd(crumbs)} />
@@ -442,7 +446,7 @@ export async function ProjectPage({ lang, course, project }: { lang: Lang; cours
           learningResourceType: "Project",
           teaches: course.name,
           isAccessibleForFree: true,
-          image: `${SITE_URL}${project.app.src}`,
+          image: `${SITE_URL}${app.src}`,
           isPartOf: { "@type": "Course", name: fill(ui.courseTitle, course.name), url: `${SITE_URL}${coursePath(lang, course.id)}` },
           provider: { "@type": "Organization", name: "DMarlon Studio", url: SITE_URL },
         }}
@@ -460,9 +464,9 @@ export async function ProjectPage({ lang, course, project }: { lang: Lang; cours
         <figure className="mt-6">
           {/* eslint-disable-next-line @next/next/no-img-element -- captura ya a su tamaño */}
           <img
-            src={project.app.src}
-            width={project.app.size[0]}
-            height={project.app.size[1]}
+            src={app.src}
+            width={app.size[0]}
+            height={app.size[1]}
             alt={ui.projectApp}
             className="h-auto w-full rounded-xl border border-line"
           />
@@ -523,7 +527,7 @@ export async function ProjectPage({ lang, course, project }: { lang: Lang; cours
         </section>
         <section className="mt-4 rounded-xl border border-accent/30 bg-accent/5 p-5">
           <a
-            href={project.download}
+            href={projectDownload(project, lang)}
             download
             className="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-medium text-on-accent transition-colors hover:bg-accent-strong"
           >

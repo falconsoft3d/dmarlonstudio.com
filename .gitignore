@@ -3,3 +3,6 @@
 
 # Demos compiladas en local para probarlas (scripts/build_demos.py)
 demos-local/
+
+# Los proyectos de los cursos de bases de datos (se descargan desde la web).
+!landing/public/courses/*/shop-project*.zip

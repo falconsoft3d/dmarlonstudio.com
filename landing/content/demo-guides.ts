@@ -121,6 +121,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Presupuestos de obra (BIM 2.0)", text: "Con el módulo BIM 2.0 en Odoo, la página Obras BIM es su árbol de conceptos: capítulos, partidas y recursos con cantidad y precio, los importes como en BIM y sus atajos (N, Mayús + N, Supr, U). Se hace sin conexión y UPD lo sube a Odoo." },
     ],
   },
+  cpp_explorer: {
+    intro:
+      "Un explorador de archivos nativo hecho en C++ con FLTK y diseñado en el estudio, con el aspecto azulado de los exploradores de la época de Aero. Árbol de carpetas, vistas de iconos, lista y detalles, pestañas, marcadores, copiar y pegar con el Finder o el Explorador de Windows, Papelera y tema claro u oscuro. Todos sus iconos se dibujan en código.",
+    steps: [
+      { title: "Navegue por sus carpetas", text: "El árbol de la izquierda se carga al abrir cada rama; la barra de direcciones muestra la ruta en «migas» (la flecha de cada una abre sus subcarpetas) y se vuelve editable con un clic. Ordene la vista de detalles por cualquier columna." },
+      { title: "Marcadores y pestañas", text: "Ctrl+D (⌘D en el Mac) añade la carpeta a los marcadores, con su nombre, su carpeta, una descripción y si sale en la barra. Cada pestaña recuerda su carpeta y su historial de Atrás y Adelante." },
+      { title: "Copie entre ventanas, en claro u oscuro", text: "Copiar, cortar y pegar usan el portapapeles de archivos del sistema: funcionan entre dos exploradores y con el Finder o el Explorador de Windows. Las copias grandes van en segundo plano, y eliminar siempre pregunta y manda a la Papelera. Ver → Tema elige claro, oscuro o el del sistema." },
+    ],
+  },
   flutter_store: {
     intro: "Una tienda móvil hecha con el editor de pantallas de Flutter: login, catálogo, carrito y pago, con la lógica en Dart. La misma app funciona en Android, iPhone y la web.",
     steps: [
@@ -275,6 +284,15 @@ const en: Record<string, DemoGuide> = {
       { title: "The sales dashboard", text: "Month KPIs, sales by month, orders by status and top customers, drawn from the data downloaded from Odoo." },
       { title: "Sell offline", text: "Create customers, quotations or point-of-sale sales with no network: they are saved as pending and, when the connection is back, reach Odoo with a unique reference, without duplicates even if it stops halfway." },
       { title: "Construction budgets (BIM 2.0)", text: "With the BIM 2.0 module in Odoo, the BIM projects page is its concept tree: chapters, items and resources with quantity and price, amounts worked out as in BIM and its shortcuts (N, Shift + N, Del, U). It works offline and UPD uploads it to Odoo." },
+    ],
+  },
+  cpp_explorer: {
+    intro:
+      "A native file explorer made in C++ with FLTK and designed in the studio, with the bluish look of the Aero-era explorers. Folder tree, icon, list and details views, tabs, bookmarks, copy and paste with Finder or Windows Explorer, Trash and a light or dark theme. Every icon is drawn in code.",
+    steps: [
+      { title: "Browse your folders", text: "The tree on the left loads each branch when you open it; the address bar shows the path as breadcrumbs (each arrow opens its subfolders) and becomes editable with a click. Sort the details view by any column." },
+      { title: "Bookmarks and tabs", text: "Ctrl+D (⌘D on a Mac) adds the folder to the bookmarks, with its name, folder, a description and whether it shows on the bar. Each tab remembers its folder and its Back and Forward history." },
+      { title: "Copy between windows, light or dark", text: "Copy, cut and paste use the system file clipboard: they work between two explorers and with Finder or Windows Explorer. Big copies run in the background, and deleting always asks first and uses the Trash. View → Theme picks light, dark or the system one." },
     ],
   },
   flutter_store: {

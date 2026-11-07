@@ -1118,7 +1118,12 @@ class SqlClient:
 
     Queries always go with parameters: write ? and pass the values apart,
     never joined into the text. SQLite needs nothing else; PostgreSQL needs
-    psycopg or psycopg2, and MySQL needs pymysql.
+    psycopg or psycopg2, MySQL needs pymysql and MongoDB needs pymongo.
+
+    In MongoDB a query is the JSON of the Databases module (a text or a
+    dict): {"collection": "products", "find": {...}, "sort": {...}} or
+    "aggregate", "count", "distinct"; and, with execute, "insert",
+    "update" and "delete". Each "?" value takes the next parameter.
     """
 
     def __init__(self, name):
@@ -1163,6 +1168,8 @@ class SqlClient:
                     password=self.value("PASSWORD"),
                     ssl={"ssl": {}} if ssl else None,
                 )
+            elif self.kind == "mongodb":
+                self.connection = self.mongo_database()
             else:
                 raise DataError(
                     "Open this window from DMarlon Studio: it needs " + self.name + "."
@@ -1193,7 +1200,11 @@ class SqlClient:
                 out.append(char)
         return "".join(out)
 
-    def run(self, text, params):
+    def run(self, text, params=()):
+        """SQL: the cursor of the statement. MongoDB: the rows of a read, or
+        how many documents changed."""
+        if self.kind == "mongodb":
+            return self.mongo(text, params)
         connection = self.open()
         cursor = connection.cursor()
         values = tuple(params)
@@ -1208,7 +1219,10 @@ class SqlClient:
             raise DataError(str(error)) from None
 
     def query(self, text, params=()):
-        """The rows of a SELECT, as dictionaries."""
+        """The rows of a SELECT (or of a MongoDB query), as dictionaries."""
+        if self.kind == "mongodb":
+            rows = self.mongo(text, params)
+            return rows if isinstance(rows, list) else []
         cursor = self.run(text, params)
         names = [column[0] for column in cursor.description or []]
         rows = [dict(zip(names, row)) for row in cursor.fetchall()]
@@ -1218,11 +1232,134 @@ class SqlClient:
 
     def execute(self, text, params=()):
         """Run INSERT, UPDATE or DELETE; returns the rows changed."""
+        if self.kind == "mongodb":
+            done = self.mongo(text, params)
+            return done if isinstance(done, int) else len(done)
         cursor = self.run(text, params)
         count = cursor.rowcount
         cursor.close()
         self.connection.commit()
         return count
+
+    # ------------------------------------------------------------ MongoDB
+    def mongo_database(self):
+        import pymongo
+
+        uri = self.value("URI")
+        if not uri:
+            from urllib.parse import quote_plus
+
+            user = self.value("USER")
+            auth = ""
+            if user:
+                auth = quote_plus(user) + ":" + quote_plus(self.value("PASSWORD")) + "@"
+            uri = "mongodb://{}{}:{}/{}".format(
+                auth,
+                self.value("HOST") or "localhost",
+                self.value("PORT") or 27017,
+                self.value("DATABASE"),
+            )
+        options = {"serverSelectionTimeoutMS": 15000}
+        if self.value("SSL") == "1":
+            options["tls"] = True
+        client = pymongo.MongoClient(uri, **options)
+        try:
+            return client.get_default_database()
+        except Exception:
+            raise DataError(
+                "Indicate the database of " + self.name + " (in its URI or its settings)."
+            ) from None
+
+    @staticmethod
+    def mongo_spec(query, params=()):
+        """The query as a dict, with each "?" value replaced by the next
+        parameter (never joined into the text)."""
+        import json
+
+        if isinstance(query, dict):
+            spec = json.loads(json.dumps(query))
+        else:
+            try:
+                spec = json.loads(query)
+            except (TypeError, ValueError):
+                spec = None
+            if not isinstance(spec, dict):
+                raise DataError(
+                    'A MongoDB query is JSON: {"collection": "customers", "find": {}}'
+                )
+        values = list(params)
+        if not values:
+            return spec
+        left = iter(values)
+
+        def fill(value):
+            if isinstance(value, dict):
+                return {k: fill(v) for k, v in value.items()}
+            if isinstance(value, list):
+                return [fill(v) for v in value]
+            if value == "?":
+                try:
+                    return next(left)
+                except StopIteration:
+                    raise DataError("The query has more ? than parameters.") from None
+            return value
+
+        spec = fill(spec)
+        if next(left, fill) is not fill:
+            raise DataError("There are more parameters than ? in the query.")
+        return spec
+
+    @classmethod
+    def mongo_value(cls, value):
+        """Values of a document for Python: an ObjectId becomes its text."""
+        if isinstance(value, dict):
+            return {k: cls.mongo_value(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [cls.mongo_value(v) for v in value]
+        if type(value).__name__ == "ObjectId":
+            return str(value)
+        return value
+
+    def mongo(self, query, params=()):
+        spec = self.mongo_spec(query, params)
+        name = spec.get("collection")
+        if not name:
+            raise DataError('Indicate the collection ("collection").')
+        try:
+            collection = self.open()[name]
+            where = spec.get("find") if isinstance(spec.get("find"), dict) else {}
+            limit = int(spec.get("limit") or 0)
+            if isinstance(spec.get("aggregate"), list):
+                rows = list(collection.aggregate(spec["aggregate"]))
+                return [self.mongo_value(r) for r in (rows[:limit] if limit else rows)]
+            if "insert" in spec:
+                docs = spec["insert"] if isinstance(spec["insert"], list) else [spec["insert"]]
+                if docs:
+                    collection.insert_many(docs)
+                return len(docs)
+            update = spec.get("update")
+            if isinstance(update, list) and len(update) == 2:
+                return collection.update_many(update[0], update[1]).modified_count
+            if isinstance(spec.get("delete"), dict):
+                return collection.delete_many(spec["delete"]).deleted_count
+            if spec.get("count") is True:
+                return [{"count": collection.count_documents(where)}]
+            if isinstance(spec.get("distinct"), str):
+                field = spec["distinct"]
+                return [{field: self.mongo_value(v)} for v in collection.distinct(field, where)]
+            projection = spec.get("projection") if isinstance(spec.get("projection"), dict) else None
+            cursor = collection.find(where, projection)
+            if isinstance(spec.get("sort"), dict) and spec["sort"]:
+                cursor = cursor.sort(list(spec["sort"].items()))
+            if spec.get("skip"):
+                cursor = cursor.skip(int(spec["skip"]))
+            if limit:
+                cursor = cursor.limit(limit)
+            return [self.mongo_value(r) for r in cursor]
+        except DataError:
+            raise
+        except Exception as error:
+            raise DataError(str(error)) from None
 ''';
 
   static const gridFill = r'''

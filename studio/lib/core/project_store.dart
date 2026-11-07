@@ -861,8 +861,8 @@ class ProjectStore {
     return f.path;
   }
 
-  /// Motores que una ventana puede usar.
-  static const sqlKinds = {'sqlite', 'postgres', 'mysql'};
+  /// Motores que una ventana puede usar (MongoDB, con consultas en JSON).
+  static const sqlKinds = {'sqlite', 'postgres', 'mysql', 'mongodb'};
 
   /// Conexiones guardadas, para el inspector (solo el nombre).
   static Future<List<String>> savedConnections() async => [

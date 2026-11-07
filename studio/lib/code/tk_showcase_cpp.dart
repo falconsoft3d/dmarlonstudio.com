@@ -3,7 +3,10 @@ part of 'tk_examples.dart';
 // Ejemplos de C++ con FLTK: el mismo diseño, con el código en C++.
 
 /// Los ejemplos de C++.
-List<TkExample> tkCppExamples(String Function(String) t) => [_cppCalculator(t)];
+List<TkExample> tkCppExamples(String Function(String) t) => [
+  _cppCalculator(t),
+  tkCppExplorer(t),
+];
 
 TkExample _cppCalculator(String Function(String) t) {
   final base = _calculator(t);

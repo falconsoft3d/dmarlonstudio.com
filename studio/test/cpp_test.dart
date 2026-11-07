@@ -54,7 +54,7 @@ void main() {
   });
 
   test('design.h: métodos virtuales y menú', () {
-    final e = tkCppExamples(id).single;
+    final e = tkCppExamples(id).firstWhere((e) => e.seed == 'cpp_calculator');
     final files = TkCpp.files(e.design, e.code);
     expect(
       files.keys,
@@ -88,7 +88,7 @@ void main() {
     }
     final tmp = await Directory.systemTemp.createTemp('dms_cpp_');
     addTearDown(() => tmp.delete(recursive: true));
-    final e = tkCppExamples(id).single;
+    final e = tkCppExamples(id).firstWhere((e) => e.seed == 'cpp_calculator');
     expect(await build(TkCpp.files(e.design, e.code), tmp.path), isNull);
     expect(File(p.join(tmp.path, 'app')).existsSync(), isTrue);
   });

@@ -91,6 +91,7 @@ export const en: Content = {
       { seed: "chrome_words", name: "Word counter (Chrome)", text: "An extension that reads the open page and counts its words." },
       { seed: "next_tasks", name: "Task list (Next.js)", text: "A Next.js page with tasks saved in the browser." },
       { seed: "cpp_calculator", name: "Calculator (C++)", text: "The calculator as a native C++ app with FLTK." },
+      { seed: "cpp_explorer", name: "File Explorer (C++)", text: "Tree, icons, details, tabs, bookmarks and a light or dark theme, native with FLTK." },
       { seed: "flutter_store", name: "Shop with login (Flutter)", text: "Login, searchable catalog, cart and checkout in a mobile app." },
       { seed: "rn_store", name: "Shop (React Native)", text: "Login, catalog, cart and checkout in a React Native app." },
       { seed: "web_next_store", name: "Web shop (Next.js)", text: "A real website made with screens: responsive for desktop and mobile." },

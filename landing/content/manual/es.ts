@@ -129,11 +129,12 @@ export const manualEs: Manual = {
                 ["**Odoo sin conexión (Pascal)**", "Una app nativa de Lazarus para Odoo 8 a 20 por JSON-RPC: panel con gráficos, clientes, productos, presupuestos y un punto de venta que crea pedido, entrega y factura, con y sin conexión y sin duplicados. Con BIM 2.0 (base_bim_2) en Odoo, también obras y presupuestos por conceptos (capítulos, partidas y recursos de mano de obra, equipo, material y subcontrata) que se hacen sin conexión y se suben a Odoo"],
                 ["**Seguimiento de trenes**", "Datos públicos en directo (GTFS-Realtime de Renfe) en segundo plano, alertas de proximidad, malla de circulación y mapa dibujados en lienzos, y una simulación sin conexión"],
                 ["**Reproductor MP3**", "Una interfaz propia dibujada en lienzos (reloj digital, espectro), etiquetas ID3, listas M3U y sonido con `pygame`"],
+                ["**Explorador de archivos (C++)**", "Una app nativa en C++ con FLTK: componentes propios dibujados en código (árbol que se carga al abrirlo, vistas de iconos, lista y detalles, pestañas, migas en la dirección), marcadores guardados, copiar y pegar con el portapapeles de archivos del sistema (entre ventanas y con el Finder o el Explorador), Papelera, propiedades calculadas en segundo plano y tema claro u oscuro"],
               ],
             },
             {
               type: "p",
-              text: "Trece de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Catorce de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },
@@ -293,7 +294,7 @@ export const manualEs: Manual = {
                 ["**Deslizador** (`Scale`)", "Título, Desde, Hasta, Paso, Valor, Orientación, Mostrar el valor", "**Al cambiar** (recibe el valor)"],
                 ["**Marco** (`Frame`)", "Relieve, Borde. Contiene otros componentes", "Ratón"],
                 ["**Lienzo** (`Canvas`)", "Color de fondo. Para dibujar desde el código", "Ratón, **Arrastrar**, **Soltar el botón**, **Mover el ratón**"],
-                ["**Tabla de datos** (`Treeview`)", "Fuente de datos, Consulta SQL, Columnas (campo|título|ancho), Límite, Orden, Cargar al abrir", "**Al seleccionar**"],
+                ["**Tabla de datos** (`Treeview`)", "Fuente de datos, Consulta (SQL; en MongoDB, JSON), Columnas (campo|título|ancho), Límite, Orden, Cargar al abrir", "**Al seleccionar**"],
                 ["**Barra de progreso** (`Progressbar`)", "Valor, Máximo, Modo (determinate o indeterminate), Orientación", "Ratón"],
                 ["**Control de páginas** (`PageControl`)", "Páginas (una por línea), Página activa. Cada página contiene sus componentes", "**Al cambiar de página**"],
                 ["**Barra de estado** (`StatusBar`)", "Texto. Ocupa siempre el borde inferior de la ventana", "Ratón"],
@@ -412,15 +413,19 @@ export const manualEs: Manual = {
             {
               type: "ol",
               items: [
-                "Guarde la base de datos en el módulo **Bases de datos** (SQLite, PostgreSQL o MySQL/MariaDB).",
+                "Guarde la base de datos en el módulo **Bases de datos** (SQLite, PostgreSQL, MySQL/MariaDB o MongoDB).",
                 "Añada una **Conexión de datos** al formulario y elija esa conexión en su propiedad **Conexión**.",
-                "Añada una **Tabla de datos**, elija la conexión en **Fuente de datos** y escriba la **Consulta SQL** y las **Columnas** (`campo|título|ancho`).",
+                "Añada una **Tabla de datos**, elija la conexión en **Fuente de datos** y escriba la **Consulta** y las **Columnas** (`campo|título|ancho`). En MongoDB, la consulta es el mismo JSON del módulo Bases de datos (`find`, `aggregate`, `count` o `distinct`).",
                 "Para editar la fila elegida, enlace un **Campo de texto** con **Tabla enlazada** y **Campo enlazado**.",
               ],
             },
             {
               type: "p",
               text: "Desde el código, `self.Connection1.query(sql, params)` devuelve filas y `self.Connection1.execute(sql, params)` modifica datos (siempre con parámetros `?`, nunca uniendo texto). `self.Treeview1_refresh()` vuelve a cargar la tabla.",
+            },
+            {
+              type: "p",
+              text: "Con MongoDB, `query` y `execute` reciben el JSON en texto o como diccionario (`insert`, `update` y `delete` con `execute`), y cada valor `\"?\"` del JSON toma el siguiente parámetro. Necesita pymongo: si falta, el estudio ofrece **Instalar**.",
             },
             {
               type: "note",

@@ -600,13 +600,28 @@ class DmsMenu : public Fl_Menu_Bar {
 public:
   DmsMenu(int x, int y, int w, int h) : Fl_Menu_Bar(x, y, w, h) {}
   void item(const std::string& path) {
-    if (!path.empty() && path.back() == '-') return;  // separadores: aún no
+    if (!path.empty() && path.back() == '-') {
+      // Un separador: una raya bajo la opción anterior de su mismo menú.
+      std::string prefix = path.substr(0, path.size() - 1);
+      for (auto it = added_.rbegin(); it != added_.rend(); ++it) {
+        if (it->compare(0, prefix.size(), prefix) != 0) continue;
+        std::string rest = it->substr(prefix.size());
+        int i = find_index((prefix + rest.substr(0, rest.find('/'))).c_str());
+        if (i >= 0) mode(i, mode(i) | FL_MENU_DIVIDER);
+        break;
+      }
+      return;
+    }
     add(path.c_str());
+    added_.push_back(path);
   }
   std::string chosen() {
     char buf[512];
     return item_pathname(buf, sizeof(buf)) == 0 ? std::string(buf) : std::string();
   }
+
+private:
+  std::vector<std::string> added_;
 };
 
 /// Temporizador: interval en segundos, start() y stop().

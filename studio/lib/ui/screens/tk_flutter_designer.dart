@@ -1623,7 +1623,11 @@ class TkFlutterProps extends StatelessWidget {
                     tr('Conectar con'),
                     app.backend.kind,
                     const ['falcon', 'firebase'],
-                    (v) => app.backend = app.backend.copyWith(kind: v),
+                    // El servidor de uno no es el emulador del otro.
+                    (v) => app.backend = app.backend.copyWith(
+                      kind: v,
+                      url: v == app.backend.kind ? null : '',
+                    ),
                     labels: const {
                       'falcon': 'FalconDatabase',
                       'firebase': 'Firebase',
@@ -1636,6 +1640,14 @@ class TkFlutterProps extends StatelessWidget {
                       app.backend.url,
                       (v) => app.backend = app.backend.copyWith(url: v.trim()),
                       hint: 'https://falcondatabase.com',
+                    ),
+                  if (app.backend.kind == 'firebase')
+                    _field(
+                      'db-url',
+                      tr('Emulador de Firestore (vacío: la nube)'),
+                      app.backend.url,
+                      (v) => app.backend = app.backend.copyWith(url: v.trim()),
+                      hint: '127.0.0.1:8080',
                     ),
                   if (app.backend.on) ...[
                     _field(

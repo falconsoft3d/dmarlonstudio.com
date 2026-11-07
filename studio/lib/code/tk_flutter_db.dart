@@ -21,6 +21,7 @@ class FlBackend {
   final String kind;
 
   /// FalconDatabase: el servidor (por defecto https://falcondatabase.com).
+  /// Firebase: el emulador de Firestore (host:puerto; vacío, la nube).
   final String url;
 
   /// La referencia del proyecto (FalconDatabase) o su ID (Firebase).
@@ -231,6 +232,12 @@ final db = Db(${_str(server)}, ${_str(project.trim())}, ${_str(key.trim())});
 ''';
   }
 
+  /// Firebase: la dirección del emulador (vacía: la nube de Google).
+  String get _emulator {
+    final e = url.trim().replaceAll(RegExp(r'/+$'), '');
+    return e.isEmpty || e.startsWith('http') ? e : 'http://$e';
+  }
+
   String _firebase() =>
       '''// Generado por DMarlon Studio: Firebase (Cloud Firestore y
 // Authentication por REST). No lo edite (cambie la conexión en las
@@ -243,18 +250,20 @@ $_common
 /// Firebase: colecciones de Firestore como tablas, y sesión con correo y
 /// contraseña.
 class Db {
-  Db(this.project, this.key);
+  Db(this.project, this.key, [this.emulator = '']);
 
-  final String project, key;
+  /// emulator: el emulador de Firestore (http://host:puerto) o '' (la nube).
+  final String project, key, emulator;
 
   /// La sesión: el token y el usuario (null: sin sesión).
   String? token;
   Map<String, dynamic>? user;
 
-  bool get configured => project.isNotEmpty && key.isNotEmpty;
+  bool get configured =>
+      project.isNotEmpty && (key.isNotEmpty || emulator.isNotEmpty);
 
   String get _base =>
-      'https://firestore.googleapis.com/v1/projects/\$project/databases/(default)/documents';
+      '\${emulator.isEmpty ? 'https://firestore.googleapis.com' : emulator}/v1/projects/\$project/databases/(default)/documents';
 
   Future<dynamic> send(String method, Uri uri, [Object? body]) async {
     if (!configured) throw DbError('Falta configurar Firebase.');
@@ -283,7 +292,7 @@ class Db {
   }
 
   Uri uri(String path, [Map<String, dynamic>? q]) => Uri.parse('\$_base\$path')
-      .replace(queryParameters: {...?q, if (token == null) 'key': key});
+      .replace(queryParameters: {...?q, if (token == null && key.isNotEmpty) 'key': key});
 
   Future<Map<String, dynamic>> _auth(String what, String email, String password) async {
     final j = await send(
@@ -432,6 +441,6 @@ class DbTable {
 }
 
 /// La base de datos de la app.
-final db = Db(${_str(project.trim())}, ${_str(key.trim())});
+final db = Db(${_str(project.trim())}, ${_str(key.trim())}${_emulator.isEmpty ? '' : ', ${_str(_emulator)}'});
 ''';
 }

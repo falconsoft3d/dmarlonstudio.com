@@ -241,7 +241,7 @@ export const manualEn: Manual = {
                 ["**Slider** (`Scale`)", "Title, From, Until, Step, Value, Orientation, Show value", "**On change** (receives the value)"],
                 ["**Frame** (`Frame`)", "Relief, Border. Holds other components", "Mouse"],
                 ["**Canvas** (`Canvas`)", "Background color. For drawing from code", "Mouse, **Drag**, **Button release**, **Mouse move**"],
-                ["**Data table** (`Treeview`)", "Data source, SQL query, Columns (field|title|width), Limit, Sequence, Load on open", "**On select**"],
+                ["**Data table** (`Treeview`)", "Data source, Query (SQL; in MongoDB, JSON), Columns (field|title|width), Limit, Sequence, Load on open", "**On select**"],
                 ["**Progress bar** (`Progressbar`)", "Value, Maximum, Mode (determinate or indeterminate), Orientation", "Mouse"],
                 ["**Page control** (`PageControl`)", "Pages (one per line), Active page. Each page holds its own components", "**On page change**"],
                 ["**Status bar** (`StatusBar`)", "Text. Always takes the bottom edge of the window", "Mouse"],
@@ -397,11 +397,12 @@ export const manualEn: Manual = {
                 ["**Offline Odoo (Pascal)**", "A native Lazarus app for Odoo 8 to 20 over JSON-RPC: dashboard with charts, customers, products, quotations and a point of sale that creates order, delivery and invoice, online and offline, without duplicates. With BIM 2.0 (base_bim_2) in Odoo, also projects and budgets by concepts (chapters, items and labour, equipment, material and subcontract resources) made offline and uploaded to Odoo"],
                 ["**Train tracking**", "Live public data (Renfe's GTFS-Realtime) in the background, proximity alerts, a train graph and a map drawn on canvases, and an offline simulation"],
                 ["**MP3 player**", "A custom interface drawn on canvases (digital clock, spectrum), ID3 tags, M3U lists and sound with `pygame`"],
+                ["**File Explorer (C++)**", "A native C++ app with FLTK: custom components drawn in code (a tree that loads as you open it, icon, list and details views, tabs, breadcrumbs in the address bar), saved bookmarks, copy and paste with the system file clipboard (between windows and with Finder or Explorer), Trash, properties worked out in the background and a light or dark theme"],
               ],
             },
             {
               type: "p",
-              text: "Thirteen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK). Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
+              text: "Fourteen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK). Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
             },
           ],
         },
@@ -412,15 +413,19 @@ export const manualEn: Manual = {
             {
               type: "ol",
               items: [
-                "Save the database in the **Databases** module (SQLite, PostgreSQL or MySQL/MariaDB).",
+                "Save the database in the **Databases** module (SQLite, PostgreSQL, MySQL/MariaDB or MongoDB).",
                 "Add a **Data connection** to the form and choose that connection in its **Connection** property.",
-                "Add a **Data table**, choose the connection in **Data source** and write the **SQL query** and the **Columns** (`field|title|width`).",
+                "Add a **Data table**, choose the connection in **Data source** and write the **Query** and the **Columns** (`field|title|width`). In MongoDB, the query is the same JSON as in the Databases module (`find`, `aggregate`, `count` or `distinct`).",
                 "To edit the selected row, link a **Text field** with **Linked table** and **Linked field**.",
               ],
             },
             {
               type: "p",
               text: "From code, `self.Connection1.query(sql, params)` returns rows and `self.Connection1.execute(sql, params)` changes data (always with `?` parameters, never by joining text). `self.Treeview1_refresh()` reloads the table.",
+            },
+            {
+              type: "p",
+              text: "With MongoDB, `query` and `execute` take the JSON as text or as a dictionary (`insert`, `update` and `delete` with `execute`), and each `\"?\"` value in the JSON takes the next parameter. It needs pymongo: if it is missing, the studio offers **Install**.",
             },
             {
               type: "note",

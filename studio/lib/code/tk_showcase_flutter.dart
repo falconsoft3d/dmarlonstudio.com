@@ -15,6 +15,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _goStore(t),
   _flutterShipping(t),
   _flutterTodo(t),
+  ...tkShopMobileExamples(t),
 ];
 
 TkDesign _flutterDesign(FlApp app) {

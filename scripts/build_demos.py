@@ -7,6 +7,9 @@ Las demos las exporta el estudio (studio/test/demos_export_test.dart) en
 PyInstaller (una .app en macOS, una carpeta con el .exe en Windows) y queda en
 <salida>/<ejemplo>-<idioma>-<macOS|Windows>.zip. Los paquetes de pip que
 necesite los declara su código con una línea `REQUIRES = ["paquete", ...]`.
+Las de Pascal se compilan con lazbuild y las de C++ (main.cpp), con FLTK
+enlazado de forma estática: fltk-config de FLTK_CONFIG o del PATH en macOS
+(Homebrew) y el de MSYS2 (UCRT64, en MSYS2_ROOT o C:\\msys64) en Windows.
 
   python3 scripts/build_demos.py <entrada> <salida> [ejemplo ...]
 """
@@ -121,13 +124,15 @@ def python_demo(d: Path, name: str, title: str, seed: str) -> Path:
     return app
 
 
-def light_and_sign(app: Path, title: str):
+def light_and_sign(app: Path, title: str, aqua: bool = True):
     """macOS: las demos se diseñan en claro; que no las oscurezca el modo
-    oscuro del sistema. Cambiar Info.plist rompe la firma: se vuelve a firmar."""
+    oscuro del sistema (salvo las que tienen su tema oscuro: aqua=False).
+    Cambiar Info.plist rompe la firma: se vuelve a firmar."""
     info = app / "Contents" / "Info.plist"
     with open(info, "rb") as f:
         plist = plistlib.load(f)
-    plist["NSRequiresAquaSystemAppearance"] = True
+    if aqua:
+        plist["NSRequiresAquaSystemAppearance"] = True
     plist["CFBundleDisplayName"] = title
     with open(info, "wb") as f:
         plistlib.dump(plist, f)
@@ -319,6 +324,105 @@ def pascal_demo(d: Path, name: str, title: str, seed: str) -> Path:
     return folder
 
 
+def fltk_flags():
+    """(cxxflags, ldflags) de FLTK en macOS, con las bibliotecas de FLTK,
+    libpng y libjpeg como .a (que la .app no dependa de Homebrew)."""
+    import shutil as sh
+    cfg = os.environ.get("FLTK_CONFIG") or sh.which("fltk-config")
+    if not cfg:
+        raise SystemExit("Falta FLTK (brew install fltk)")
+
+    def ask(what):
+        out = subprocess.run([cfg, "--use-images", what], capture_output=True, text=True, check=True).stdout
+        return out.split()
+
+    ld = ask("--ldflags")
+    dirs = [f[2:] for f in ld if f.startswith("-L")] + ["/opt/homebrew/lib", "/usr/local/lib"]
+    out = []
+    for f in ld:
+        name = f[2:] if f.startswith("-l") else None
+        archive = None
+        if name and name not in ("z", "pthread", "c++", "m"):
+            archive = next((Path(d) / f"lib{name}.a" for d in dirs if (Path(d) / f"lib{name}.a").exists()), None)
+        out.append(str(archive) if archive else f)
+    return ask("--cxxflags"), out
+
+
+def cpp_demo(d: Path, name: str, title: str, seed: str) -> Path:
+    """C++ con FLTK: en macOS, una .app hecha a mano; en Windows, un solo .exe
+    (estático, compilado con el g++ de MSYS2)."""
+    import shutil as sh
+    out = d / "dist"
+    ico = icon(seed, d)
+    sh.rmtree(out, ignore_errors=True)
+    if MAC:
+        cflags, ldflags = fltk_flags()
+        env = {**os.environ, "MACOSX_DEPLOYMENT_TARGET": os.environ.get("MACOSX_DEPLOYMENT_TARGET", "11.0")}
+        cmd = ["c++", "-std=c++17", "-O2", *cflags, "main.cpp", "-o", "app", *ldflags]
+        print("$", " ".join(cmd), flush=True)
+        subprocess.run(cmd, cwd=d, check=True, env=env)
+        # Nada de Homebrew dentro: si quedara alguna biblioteca suya, se avisa.
+        deps = subprocess.run(["otool", "-L", d / "app"], capture_output=True, text=True).stdout
+        for line in deps.splitlines()[1:]:
+            if "/opt/homebrew/" in line or "/usr/local/" in line:
+                print(f"aviso: la demo depende de {line.strip().split(' (')[0]}", flush=True)
+        archs = subprocess.run(["lipo", "-archs", d / "app"], capture_output=True, text=True).stdout.split()
+        app = out / f"{name}.app"
+        (app / "Contents" / "MacOS").mkdir(parents=True)
+        (app / "Contents" / "Resources").mkdir()
+        sh.copy(d / "app", app / "Contents" / "MacOS" / "app")
+        if ico:
+            sh.copy(ico, app / "Contents" / "Resources" / "app.icns")
+        with open(app / "Contents" / "Info.plist", "wb") as f:
+            plistlib.dump({
+                **({"CFBundleIconFile": "app.icns"} if ico else {}),
+                "CFBundleExecutable": "app",
+                "CFBundleIdentifier": "com.dmarlonstudio.demo." + re.sub(r"[^A-Za-z0-9]", "", name).lower(),
+                "CFBundleName": title,
+                "CFBundleDisplayName": title,
+                "CFBundlePackageType": "APPL",
+                "CFBundleShortVersionString": "1.0",
+                "LSMinimumSystemVersion": env["MACOSX_DEPLOYMENT_TARGET"],
+                "NSHighResolutionCapable": True,
+            }, f)
+        print(f"{name}: {' + '.join(archs)}", flush=True)
+        # Tiene tema oscuro propio: se deja que siga al del sistema.
+        light_and_sign(app, title, aqua=False)
+        return app
+    # Windows: el g++ y el fltk-config de MSYS2 (UCRT64), desde su bash para
+    # que las rutas de fltk-config (/ucrt64/...) se entiendan. Primero todo
+    # estático (un solo .exe); si no se puede, con las DLL al lado.
+    root = Path(os.environ.get("MSYS2_ROOT", r"C:\msys64"))
+    bash = root / "usr" / "bin" / "bash.exe"
+    if not bash.exists():
+        raise SystemExit(f"Falta MSYS2 en {root} (pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-fltk)")
+    env = {**os.environ, "MSYSTEM": "UCRT64", "CHERE_INVOKING": "1"}
+    base = ("g++ -std=c++17 -O2 -s $(fltk-config --use-images --cxxflags) main.cpp -o app.exe "
+            "-mwindows -static-libgcc -static-libstdc++ ")
+    static = base + "-static $(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32"
+    shared = base + "$(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32"
+
+    def sh_run(script):
+        print("$", script, flush=True)
+        return subprocess.run([str(bash), "-lc", script], cwd=d, env=env).returncode
+
+    folder = out / name
+    folder.mkdir(parents=True)
+    if sh_run(static) != 0:
+        print("aviso: no se pudo enlazar estático; se copian las DLL de MSYS2", flush=True)
+        if sh_run(shared) != 0:
+            raise SystemExit(f"{name}: no compila")
+        listing = subprocess.run([str(bash), "-lc", "ldd app.exe"], cwd=d, env=env, capture_output=True, text=True).stdout
+        for line in listing.splitlines():
+            m = re.search(r"=> (/ucrt64/bin/\S+\.dll)", line)
+            if m:
+                sh.copy(root / m.group(1).lstrip("/"), folder)
+    sh.copy(d / "app.exe", folder / f"{name}.exe")
+    if ico:
+        rcedit_icon(folder / f"{name}.exe", ico)
+    return folder
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit(__doc__)
@@ -335,6 +439,8 @@ def main():
         print(f"\n== {seed} ({lang}) ==", flush=True)
         if demo.get("kind") == "pascal":
             result = pascal_demo(d, name, demo["name"], seed)
+        elif demo.get("kind") == "cpp":
+            result = cpp_demo(d, name, demo["name"], seed)
         else:
             result = python_demo(d, name, demo["name"], seed)
         built.append((result, out / f"{seed}-{lang}-{OS}.zip"))

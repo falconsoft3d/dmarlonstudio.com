@@ -55,7 +55,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Trece aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Catorce aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -110,7 +110,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: trece aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: catorce aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -207,13 +207,18 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Cambie el nombre de muchos archivos a la vez con reglas, viendo el resultado antes de aplicarlo.",
         shows: ["Expresiones regulares y numeración", "Vista previa en vivo con conflictos marcados", "Deshacer el último cambio"],
       },
+      cpp_explorer: {
+        name: "Explorador de archivos (C++)",
+        text: "Un explorador de archivos nativo con el aspecto azulado de Aero: árbol de carpetas, iconos, lista y detalles, pestañas, marcadores, copiar y pegar con el Finder o el Explorador, Papelera y tema claro u oscuro. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Componentes propios dibujados en código, sin imágenes", "Portapapeles de archivos del sistema y trabajo en segundo plano"],
+      },
     },
   },
   en: {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Thirteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Fourteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -268,7 +273,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: thirteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: fourteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -365,6 +370,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Rename many files at once with rules, seeing the result before applying it.",
         shows: ["Regular expressions and numbering", "Live preview with conflicts marked", "Undo the last change"],
       },
+      cpp_explorer: {
+        name: "File Explorer (C++)",
+        text: "A native file explorer with a bluish Aero look: folder tree, icons, list and details, tabs, bookmarks, copy and paste with Finder or Explorer, Trash and a light or dark theme. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK, designed in the studio", "Custom components drawn in code, no images", "The system file clipboard and background work"],
+      },
     },
   },
 };
@@ -399,13 +409,17 @@ export function demoInfo(lang: Lang, seed: string) {
       ? { icon: "flutter", label: "Flutter" }
       : kind === "web"
         ? WEB_TECH[seed as WebSeed]
-        : seed === "pascal_odoo"
-          ? { icon: "lazarus", label: "Pascal · Lazarus" }
-          : { icon: "python", label: x.tech };
+        : DESKTOP_TECH[seed] ?? { icon: "python", label: x.tech };
   return { kind, d, tech, x };
 }
 
 const POINT_ICONS = [Blocks, Package, Code2];
+
+/** Las demos de escritorio que no son de Python. */
+const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>> = {
+  pascal_odoo: { icon: "lazarus", label: "Pascal · Lazarus" },
+  cpp_explorer: { icon: "cpp", label: "C++ · FLTK" },
+};
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   html_store: { icon: "html", label: "HTML · CSS · JS" },
@@ -550,8 +564,8 @@ export function Demos({ lang }: { lang: Lang }) {
               href={demoPath(lang, seed)}
               how={x.how2}
               image={demoImage(seed, lang)}
-              icon={seed === "pascal_odoo" ? "lazarus" : "python"}
-              tech={seed === "pascal_odoo" ? "Pascal · Lazarus" : x.tech}
+              icon={DESKTOP_TECH[seed]?.icon ?? "python"}
+              tech={DESKTOP_TECH[seed]?.label ?? x.tech}
               d={x.items[seed]}
               shows={x.shows}
             >

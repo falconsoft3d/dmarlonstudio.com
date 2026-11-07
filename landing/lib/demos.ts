@@ -28,6 +28,7 @@ export const DEMO_SEEDS = [
   "mp3_player",
   "train_monitor",
   "pascal_odoo",
+  "cpp_explorer",
 ] as const;
 
 export type DemoSeed = (typeof DEMO_SEEDS)[number];

@@ -44,12 +44,13 @@ Hechos
 49. 500 iconos de aplicación en el estudio: se asignan solos por el nombre del proyecto y se cambian en la Galería | ✅ |
 51. Cursos en la web (menú Cursos y portada): 7 lenguajes (Python, JavaScript, C, C++, Pascal, Go y Dart), básico y avanzado de 20 ejemplos cada uno (280 lecciones en español e inglés) con su imagen en DMarlon Studio y su salida real | ✅ |
 52. Curso de tkinter con todos los componentes (básico y avanzado, 40 lecciones) con la captura de la ventana de verdad de cada ejemplo | ✅ |
+53. Cursos de bases de datos (SQLite, PostgreSQL, MySQL, MongoDB, FalconDatabase y Firebase): básico y avanzado de 20 lecciones que se ejecutan en el módulo Bases de datos del estudio (que ahora ejecuta scripts) y, en cada curso, un proyecto hecho con el IDE (página «Proyecto», con descarga) | ✅ |
+54. Explorador de archivos en C++ (FLTK) al estilo de Windows 7: ejemplo del estudio y demo para macOS y Windows, con copiar y pegar entre exploradores (portapapeles del sistema), favoritos y modo claro y oscuro | ✅ |
 
 
 Trabajando
 =========
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
-53. Cursos de bases de datos (SQLite, PostgreSQL, MySQL, MongoDB, FalconDatabase y Firebase), básico y avanzado de 20 lecciones, con scripts que se ejecutan en el módulo Bases de datos del estudio (que ahora ejecuta scripts con una pestaña por resultado). Hechos: SQLite, MySQL, MongoDB, PostgreSQL, Firebase y FalconDatabase | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
 
 

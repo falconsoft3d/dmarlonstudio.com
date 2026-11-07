@@ -3,7 +3,9 @@
 // scripts/demo-icons/lucide). build_demos.py los convierte en .icns y .ico.
 // Para cambiar uno: editar `demos` y volver a generarlos (hace falta Playwright):
 //
-//   PLAYWRIGHT_DIR=<carpeta con node_modules/playwright> node scripts/demo-icons/render.mjs
+//   PLAYWRIGHT_DIR=<carpeta con node_modules/playwright> node scripts/demo-icons/render.mjs [ejemplo ...]
+//
+// Con ejemplos, solo esos (los demás PNG no se tocan).
 import { createRequire } from 'module';
 import fs from 'fs';
 import path from 'path';
@@ -16,6 +18,7 @@ const dir = path.join(here, 'lucide'), out = here;
 const demos = {
   agenda: ['calendar-days', '#ff7a59', '#e8433b'],
   calculator: ['calculator', '#7b8794', '#3e4c59'],
+  cpp_explorer: ['folder-open', '#5aaef5', '#1c5fc6'],
   currency: ['coins', '#ffc53d', '#e08e0b'],
   disk_usage: ['hard-drive', '#5ac8fa', '#1f7fd6'],
   file_renamer: ['file-pen-line', '#a78bfa', '#6d3fd6'],
@@ -30,7 +33,9 @@ const demos = {
 };
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1024, height: 1024 } });
+const only = process.argv.slice(2);
 for (const [seed, [icon, a, b]] of Object.entries(demos)) {
+  if (only.length && !only.includes(seed)) continue;
   const svg = fs.readFileSync(`${dir}/${icon}.svg`, 'utf8').replace(/<!--.*?-->/, '')
     .replace(/width="24"/, 'width="520"').replace(/height="24"/, 'height="520"')
     .replace(/stroke="currentColor"/, 'stroke="#fff"').replace(/stroke-width="2"/, 'stroke-width="1.7"');

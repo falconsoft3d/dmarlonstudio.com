@@ -1,0 +1,95 @@
+{
+  "seed": "shop_mongodb",
+  "target": {
+    "es": "Escritorio (Python)",
+    "en": "Desktop (Python)"
+  },
+  "es": {
+    "title": "Panel de la tienda con MongoDB",
+    "summary": "Una ventana de escritorio en Python que lee la tienda del curso de MongoDB con pipelines de agregación: productos, pedidos, cifras y un gráfico.",
+    "intro": [
+      "El **Panel de la tienda** es una aplicación de escritorio hecha con DMarlon Studio que trabaja con los mismos datos que las lecciones: la tienda del curso, guardada en una base de datos de MongoDB. Muestra los productos con un buscador, cada pedido con su cliente y su importe, cuatro cifras de ventas, las ventas por categoría en un gráfico de barras y los cinco mejores clientes.",
+      "Casi todo está hecho con componentes y propiedades. Una **Conexión de datos** (`Shop`) apunta a la conexión `shop` que usted guarda en el módulo **Bases de datos**, y tres **Tablas de datos** leen de ella. Su **Consulta** es el mismo JSON que se escribe en el módulo Bases de datos: aquí, pipelines con `$lookup` (el `JOIN` de MongoDB), `$group`, `$sort` y `$project`, que deja cada documento con los campos de las **Columnas** (`campo|título|ancho`).",
+      "El código de `Form1.py` es corto: el buscador recarga la tabla de productos con un parámetro (en el JSON, el valor `\"?\"`), y el evento **Al abrir** rellena las cifras y el gráfico con dos pipelines más, escritos como diccionarios de Python: `self.Shop.query()` acepta el JSON en texto o el diccionario."
+    ],
+    "steps": [
+      "En **Bases de datos**, pulse **+**, elija **MongoDB**, escriba la URI (`mongodb://localhost:27017/shop`) y llame a la conexión `shop`. Abra en ella `shop.json`, los datos del curso, y pulse **Ejecutar** (⌘↵) para cargar la tienda.",
+      "En **Proyectos**, cree un proyecto nuevo con el destino **Escritorio (Python)** y llámelo «Panel de la tienda». Si prefiere verlo hecho, descomprima `shop-project.zip` y ábralo con **Abrir proyecto**: la conexión `shop` del paso anterior es lo único que necesita.",
+      "Dé a la ventana un **Ancho** de 1180 y un **Alto** de 780, y añada las **Etiquetas** del título y de las cuatro cifras (`KpiOrders`, `KpiSales`, `KpiAverage` y `KpiCustomers`).",
+      "Añada una **Conexión de datos**, llámela `Shop` y elija `shop` en su propiedad **Conexión**.",
+      "Añada la **Tabla de datos** `Products`: **Fuente de datos** `Shop`; en **Consulta**, un `aggregate` sobre `products` con `{\"$match\": {\"name\": {\"$regex\": \"?\", \"$options\": \"i\"}}}`, un `$lookup` a `categories` y un `$project`; en **Columnas**, `name|Producto|200`, `category|Categoría|130`, `price|Precio|100` y `stock|Stock|80`, y **Cargar al abrir** desactivado: la carga el buscador, con su parámetro.",
+      "Añada las tablas `OrderList` (cada pedido con `$lookup` a `customers` y el total de sus líneas, que van dentro del pedido: `$sum` de un `$map` sobre `items`) y `TopCustomers` (un `$group` por cliente sin los pedidos cancelados, ordenado y con `$limit` 5), con **Cargar al abrir** activado.",
+      "Añada el **Campo de texto** `Search` con el evento **Tecla Intro**, el **Botón** `BtnSearch` con **Al pulsar**, el **Gráfico** `SalesChart` de tipo **Barras** y una **Barra de estado**. En la ventana, el evento **Al abrir** es `form_create`.",
+      "En la pestaña **Código**, escriba `Form1.py`: `search()` hace `self.Products_refresh((re.escape(texto),))` (el texto se escapa porque es una expresión regular) y `summary()` usa `self.Shop.query(SUMMARY)` y `self.SalesChart.set_series(...)`.",
+      "Pulse **Ejecutar** (F9). Si falta el controlador de Python (pymongo), el estudio lo dice y ofrece **Instalar** antes de abrir la ventana."
+    ],
+    "points": [
+      "Las consultas de las tablas son propiedades del diseño: cámbielas en el inspector y pulse F9, sin tocar el código.",
+      "Cada valor `\"?\"` del JSON toma el siguiente parámetro, como en SQL: el texto del buscador nunca se mezcla con la consulta.",
+      "MongoDB 4.4 no da dos decimales a un `double`: la consulta los pone con `$round` y `$concat` (`1.20`, no `1.2`).",
+      "La Conexión de datos usa pymongo y la URI de la conexión guardada (o el servidor, el puerto y la base de datos); `self.Shop.execute()` hace `insert`, `update` y `delete` con el mismo JSON.",
+      "Es el mismo panel de los cursos de SQLite, PostgreSQL, MySQL y MongoDB: solo cambia el dialecto de las consultas, y los cuatro dan las mismas cifras."
+    ]
+  },
+  "en": {
+    "title": "Shop dashboard with MongoDB",
+    "summary": "A Python desktop window that reads the course shop from MongoDB with aggregation pipelines: products, orders, figures and a chart.",
+    "intro": [
+      "The **Shop dashboard** is a desktop app built with DMarlon Studio that works with the same data as the lessons: the course shop, stored in a MongoDB database. It shows the products with a search box, every order with its customer and amount, four sales figures, sales by category in a bar chart and the five best customers.",
+      "Almost everything is done with components and properties. A **Data connection** (`Shop`) points to the `shop` connection you save in the **Databases** module, and three **Data tables** read from it. Their **Query** is the same JSON you write in the Databases module: here, pipelines with `$lookup` (MongoDB's `JOIN`), `$group`, `$sort` and `$project`, which leaves each document with the fields of the **Columns** (`field|title|width`).",
+      "The code in `Form1.py` is short: the search box reloads the products table with a parameter (in the JSON, the value `\"?\"`), and the **On open** event fills the figures and the chart with two more pipelines, written as Python dictionaries: `self.Shop.query()` takes the JSON as text or as a dictionary."
+    ],
+    "steps": [
+      "In **Databases**, click **+**, choose **MongoDB**, enter the URI (`mongodb://localhost:27017/shop`) and name the connection `shop`. Open `shop.json`, the course data, in it and click **Run** (⌘↵) to load the shop.",
+      "In **Projects**, create a new project with the **Desktop (Python)** target and call it “Shop dashboard”. If you would rather see it finished, unzip `shop-project-en.zip` and open it with **Open project**: the `shop` connection from the previous step is all it needs.",
+      "Give the window a **Width** of 1180 and a **Height** of 780, and add the **Labels** for the title and the four figures (`KpiOrders`, `KpiSales`, `KpiAverage` and `KpiCustomers`).",
+      "Add a **Data connection**, name it `Shop` and choose `shop` in its **Connection** property.",
+      "Add the **Data table** `Products`: **Data source** `Shop`; in **Query**, an `aggregate` on `products` with `{\"$match\": {\"name\": {\"$regex\": \"?\", \"$options\": \"i\"}}}`, a `$lookup` to `categories` and a `$project`; in **Columns**, `name|Product|200`, `category|Category|130`, `price|Price|100` and `stock|Stock|80`, and **Load on open** turned off: the search loads it, with its parameter.",
+      "Add the tables `OrderList` (every order with a `$lookup` to `customers` and the total of its lines, which live inside the order: the `$sum` of a `$map` over `items`) and `TopCustomers` (a `$group` per customer leaving out cancelled orders, sorted and with `$limit` 5), with **Load on open** turned on.",
+      "Add the **Text field** `Search` with the **Enter key** event, the **Button** `BtnSearch` with **On press**, the **Chart** `SalesChart` of type **Bars** and a **Status bar**. On the window, the **On open** event is `form_create`.",
+      "In the **Code** tab, write `Form1.py`: `search()` calls `self.Products_refresh((re.escape(text),))` (the text is escaped because it is a regular expression) and `summary()` uses `self.Shop.query(SUMMARY)` and `self.SalesChart.set_series(...)`.",
+      "Press **Run** (F9). If the Python driver (pymongo) is missing, the studio says so and offers **Install** before opening the window."
+    ],
+    "points": [
+      "The tables' queries are design properties: change them in the inspector and press F9, without touching the code.",
+      "Each `\"?\"` value in the JSON takes the next parameter, as in SQL: the search text never mixes with the query.",
+      "MongoDB 4.4 does not give a `double` two decimals: the query adds them with `$round` and `$concat` (`1.20`, not `1.2`).",
+      "The Data connection uses pymongo and the URI of the saved connection (or the server, port and database); `self.Shop.execute()` runs `insert`, `update` and `delete` with the same JSON.",
+      "It is the same dashboard as in the SQLite, PostgreSQL, MySQL and MongoDB courses: only the query dialect changes, and all four give the same figures."
+    ]
+  },
+  "files": [
+    {
+      "name": "Form1.py",
+      "lang": "python",
+      "code": "import re\n\n# Shop dashboard (MongoDB). The three tables load the query of their\n# \"Query\" property from the Shop connection; this code runs the search and\n# fills the four figures and the chart.\nSUMMARY = {\"collection\": \"orders\", \"aggregate\": [\n    {\"$match\": {\"status\": {\"$ne\": \"cancelled\"}}},\n    {\"$group\": {\"_id\": None, \"orders\": {\"$sum\": 1}, \"sales\": {\"$sum\": \"$total\"},\n                \"average\": {\"$avg\": \"$total\"}, \"customers\": {\"$addToSet\": \"$customer_id\"}}},\n    {\"$project\": {\"_id\": 0, \"orders\": 1, \"sales\": 1, \"average\": 1,\n                  \"customers\": {\"$size\": \"$customers\"}}},\n]}\n\nBY_CATEGORY = {\"collection\": \"orders\", \"aggregate\": [\n    {\"$match\": {\"status\": {\"$ne\": \"cancelled\"}}},\n    {\"$unwind\": \"$items\"},\n    {\"$lookup\": {\"from\": \"products\", \"localField\": \"items.product_id\",\n                 \"foreignField\": \"_id\", \"as\": \"product\"}},\n    {\"$lookup\": {\"from\": \"categories\", \"localField\": \"product.category_id\",\n                 \"foreignField\": \"_id\", \"as\": \"category\"}},\n    {\"$group\": {\"_id\": {\"$arrayElemAt\": [\"$category.name\", 0]},\n                \"sales\": {\"$sum\": {\"$multiply\": [\"$items.qty\", \"$items.price\"]}}}},\n    {\"$sort\": {\"_id\": 1}},\n    {\"$project\": {\"_id\": 0, \"category\": \"$_id\", \"sales\": 1}},\n]}\n\n\ndef money(value):\n    return \"%.2f €\" % float(value or 0)\n\n\nclass Form1(FormDesign):\n    def form_create(self):\n        self.search()\n        self.summary()\n\n    def BtnSearch_click(self):\n        self.search()\n\n    def Search_return(self, event=None):\n        self.search()\n\n    def search(self):\n        # The \"?\" of the query takes the text (escaped: it is a regex).\n        text = re.escape(self.Search.get().strip())\n        self.Products_refresh((text,))\n\n    def summary(self):\n        try:\n            row = self.Shop.query(SUMMARY)[0]\n            sales = self.Shop.query(BY_CATEGORY)\n        except DataError as error:\n            tkinter.messagebox.showerror(self.root.title(), str(error))\n            return\n        self.KpiOrders.config(text=str(row[\"orders\"]))\n        self.KpiSales.config(text=money(row[\"sales\"]))\n        self.KpiAverage.config(text=money(row[\"average\"]))\n        self.KpiCustomers.config(text=str(row[\"customers\"]))\n        self.SalesChart.set_series(\n            \"sales\",\n            [float(r[\"sales\"]) for r in sales],\n            x=[r[\"category\"] for r in sales],\n        )\n"
+    }
+  ],
+  "designer": {
+    "es": "/courses/mongodb/project-designer-es.png",
+    "en": "/courses/mongodb/project-designer-en.png",
+    "size": [
+      1600,
+      980
+    ]
+  },
+  "app": {
+    "src": "/courses/mongodb/project-app.png",
+    "size": [
+      1180,
+      812
+    ],
+    "en": {
+      "src": "/courses/mongodb/project-app-en.png",
+      "size": [
+        1180,
+        812
+      ]
+    }
+  },
+  "download": "/courses/mongodb/shop-project.zip",
+  "downloads": {
+    "es": "/courses/mongodb/shop-project.zip",
+    "en": "/courses/mongodb/shop-project-en.zip"
+  }
+}

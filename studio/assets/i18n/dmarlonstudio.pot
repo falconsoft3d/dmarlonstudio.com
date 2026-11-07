@@ -165,7 +165,7 @@ msgstr ""
 msgid "Escribiendo {0}"
 msgstr ""
 
-#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
+#: lib/code/claude_code.dart lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_3d.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart
 msgid "Listo"
 msgstr ""
 
@@ -381,7 +381,7 @@ msgid ""
 "// También ShowMessage(texto), Ask(pregunta), Close y NumToStr(número)."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -433,7 +433,7 @@ msgstr ""
 msgid "Borrar todo"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr ""
 
@@ -461,7 +461,7 @@ msgstr ""
 msgid "Cargar"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ciudad"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Decimales"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Edición"
 msgstr ""
 
@@ -577,7 +577,7 @@ msgstr ""
 msgid "Escriba un número"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -921,7 +921,7 @@ msgstr ""
 msgid "La app no tiene pantallas."
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/project_browser.dart
 msgid "Lista"
 msgstr ""
 
@@ -1021,7 +1021,7 @@ msgstr ""
 msgid "Casa y trabajo"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart
 msgid "Categoría"
 msgstr ""
 
@@ -1317,7 +1317,7 @@ msgstr ""
 msgid "Pedido enviado"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Pedidos"
 msgstr ""
 
@@ -1393,7 +1393,7 @@ msgstr ""
 msgid "Todo lo que necesita, en un solo lugar"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Total"
 msgstr ""
 
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Valoración media"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ventas"
 msgstr ""
 
@@ -1698,7 +1698,7 @@ msgid "Consola (Python)"
 msgstr ""
 
 #: lib/code/tk_model.dart
-msgid "Consulta SQL"
+msgid "Consulta (SQL; en MongoDB, JSON)"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -1773,7 +1773,7 @@ msgstr ""
 msgid "Esfuerzo"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_util_train_monitor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_util_train_monitor.dart lib/code/tk_showcase_web.dart
 msgid "Estado"
 msgstr ""
 
@@ -2591,11 +2591,11 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_designer.dart
 msgid "Cortar"
 msgstr ""
 
@@ -2627,7 +2627,7 @@ msgstr ""
 msgid "Elija la cita que quiere eliminar."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Eliminar"
 msgstr ""
 
@@ -2727,7 +2727,7 @@ msgstr ""
 msgid "Pausa"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_designer.dart
 msgid "Pegar"
 msgstr ""
 
@@ -2759,7 +2759,7 @@ msgstr ""
 msgid "Récord: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart
 msgid "Seleccionar todo"
 msgstr ""
 
@@ -3311,6 +3311,681 @@ msgstr ""
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid " - copia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "%d/%m/%Y %H:%M"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "(Sin marcadores)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid ","
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "1 elemento"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "1 elemento seleccionado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Abrir en una pestaña nueva"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Abrir un terminal aquí"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Acceso rápido"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgctxt "explorer"
+msgid "Acciones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Aceptar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Acerca del Explorador de archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Actualizar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Adelante"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Aplicación"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Archivo comprimido {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Archivo {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Archivos ocultos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Atajos de teclado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Atributos:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Atrás"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Audio {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Añadir marcador"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Añadir marcador…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Bajar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Barra de marcadores"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Buscar en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Calculando…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Cambiar nombre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Capacidad:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Carpeta de archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Carpeta personal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Carpetas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+msgid "Cerrar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Cerrar la pestaña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Cerrar las demás pestañas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Conservar ambos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Contiene:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Copiando {0} elementos a «{1}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/code_studio.dart
+msgid "Copiar la ruta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Creado:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Crear en:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Código fuente {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Del sistema"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Descargas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Descendente"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Descripción:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Destino:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Detalles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Disco local"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Documento PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Documento de texto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Documento {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Documentos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Editar marcador"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Editar…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "El nombre no puede contener ninguno de estos caracteres: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Eliminando {0} elementos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Eliminar definitivamente"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgctxt "explorer"
+msgid "Equipo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Escriba las primeras letras de un nombre para ir a él. Doble clic o Intro abre; Retroceso vuelve atrás; Esc cancela el cambio de nombre o borra la búsqueda."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Escriba un nombre para el marcador."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Escritorio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Espacio disponible"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Espacio disponible: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Espacio libre:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Espacio libre: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Esta carpeta está vacía."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Explorador de archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Explorador de archivos (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Explorador de archivos en C++ con FLTK: árbol de carpetas, vistas de iconos, lista y detalles, pestañas, marcadores, copiar y pegar, Papelera y propiedades."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Fecha de modificación"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Fecha de modificación: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Fuente {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Hacer lo mismo con los demás conflictos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart
+msgid "Herramientas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Hoja de cálculo {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Iconos grandes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Imagen de disco {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Imagen {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Invertir la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ir a la dirección…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "La carpeta no se toca: solo se quita el marcador."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "La ubicación no existe: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Marcadores"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Modificado:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Mostrar en el gestor de archivos del sistema"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Mostrar en la barra de marcadores"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Mostrar los archivos ocultos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Mover a la Papelera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Moviendo {0} elementos a «{1}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Música"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ningún elemento coincide con la búsqueda."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_windows.dart
+msgid "No"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se encuentra «{0}». Compruebe la ortografía e inténtelo de nuevo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se podrán recuperar."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudieron completar algunas operaciones:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudo abrir el terminal."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudo abrir «{0}»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudo cambiar el nombre: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudo crear la carpeta: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se pudo mover a la Papelera:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se puede abrir esta carpeta: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No se puede copiar ni mover «{0}» dentro de sí misma."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "No tiene permiso para ver el contenido de esta carpeta."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Nombre de la carpeta nueva de marcadores:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Nombre:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
+msgid "Nueva carpeta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Nueva carpeta…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Nueva pestaña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Oculto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Omitir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ordenar por"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Organizar marcadores"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Organizar marcadores…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Panel de carpetas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Panel de detalles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Papelera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Para tener aquí una carpeta, pulse {0} y marque «Mostrar en la barra de marcadores»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Podrá recuperarlos desde la Papelera."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Presentación {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_inspector.dart
+msgid "Propiedades"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Propiedades de {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Página web {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Reemplazar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Se muestran {0} de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Si cambia la extensión, puede que el archivo deje de abrirse. ¿Desea cambiarla?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/code_studio.dart
+msgid "Solo lectura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Subir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Subir un nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_windows.dart
+msgid "Sí"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Tamaño"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tamaño total"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tamaño total: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tamaño:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tamaño: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tema"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Tipo:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ubicación:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Un explorador de archivos nativo en C++ con FLTK, con el aspecto azulado de Aero: árbol de carpetas, iconos grandes, lista y detalles, pestañas, marcadores, copiar y pegar, Papelera, propiedades y filtro."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Una demo de DMarlon Studio: un explorador de archivos nativo hecho en C++17 con FLTK {0}. La ventana se diseñó en el Diseñador del estudio; el resto es el código de Form1.cpp."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Unidad de CD o DVD"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Unidad de red"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Unidad extraíble"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Varios tipos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Ver"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Vídeo {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Vídeos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ya existe un elemento llamado «{0}» en esta carpeta."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Ya hay un elemento llamado «{0}» en «{1}»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} (enlace)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} ({1} bytes)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} archivos, {1} carpetas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} bytes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} de {1} archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgctxt "explorer"
+msgid "{0} elementos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} elementos seleccionados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "{0} libres de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Desea eliminarlo definitivamente? No se podrá recuperar."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Eliminar el marcador «{0}»?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Qué desea hacer?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Seguro que desea eliminar estos {0} elementos definitivamente?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Seguro que desea eliminar «{0}» definitivamente?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Seguro que desea mover estos {0} elementos a la Papelera?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "¿Seguro que desea mover «{0}» a la Papelera?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_explorer.dart
+msgid "Último acceso:"
+msgstr ""
+
 #: lib/code/tk_showcase_electron.dart
 msgid "Bloc de notas (Electron)"
 msgstr ""
@@ -3351,7 +4026,7 @@ msgstr ""
 msgid "Borrar las hechas"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Cliente"
 msgstr ""
 
@@ -3439,7 +4114,7 @@ msgstr ""
 msgid "Tareas: los datos y la lógica de la app. Se guardan en el teléfono con shared_preferences."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter.dart
+#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_shop.dart
 msgid "Todas"
 msgstr ""
 
@@ -3499,10 +4174,6 @@ msgstr ""
 msgid "Buscar por nombre o categoría"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
-msgstr ""
-
 #: lib/code/tk_showcase_flutter_desktop.dart
 msgid "Cinta métrica"
 msgstr ""
@@ -3524,10 +4195,6 @@ msgid "Guantes de trabajo"
 msgstr ""
 
 #: lib/code/tk_showcase_flutter_desktop.dart
-msgid "Herramientas"
-msgstr ""
-
-#: lib/code/tk_showcase_flutter_desktop.dart
 msgid "Inventario"
 msgstr ""
 
@@ -3539,7 +4206,7 @@ msgstr ""
 msgid "Inventario: productos, existencias y avisos de poco stock. Las pantallas lo usan como app."
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "No hay productos que coincidan."
 msgstr ""
 
@@ -3559,11 +4226,11 @@ msgstr ""
 msgid "Por debajo del mínimo ({0} uds.)"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Precio"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Productos"
 msgstr ""
 
@@ -3611,7 +4278,7 @@ msgstr ""
 msgid "Añadir al carrito"
 msgstr ""
 
-#: lib/code/tk_showcase_flutter_store.dart
+#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_shop.dart
 msgid "Buscar productos"
 msgstr ""
 
@@ -3911,7 +4578,7 @@ msgstr ""
 msgid "Por categoría"
 msgstr ""
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
 msgid "Producto"
 msgstr ""
 
@@ -3937,6 +4604,98 @@ msgstr ""
 
 #: lib/code/tk_showcase_reports.dart
 msgid "ventas.xlsx"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Aún no hay opiniones de este producto."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Cada pedido, con su cliente y el total de sus líneas."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart
+msgid "Categorías"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Catálogo de la tienda"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Catálogo de la tienda ({0})"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Clientes"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Conexión «shop» ({0}): créela en Bases de datos y cargue en ella los datos del curso."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Elegir categoría"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/ui/screens/budget_screen.dart
+msgid "Gastado"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Los productos, los pedidos y las ventas de la tienda del curso de {0}, con una Conexión de datos y tres Tablas de datos."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Mejores clientes"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Nº"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Opiniones · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart
+msgid "Panel de la tienda"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Panel de la tienda ({0})"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Stock"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Ticket medio"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todas las categorías"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Una app móvil con la tienda del curso en Cloud Firestore (el emulador): productos, filtro por categoría, búsqueda y opiniones."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "Una app móvil con la tienda del curso en FalconDatabase, de solo lectura: productos, filtro por categoría, búsqueda y opiniones."
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart
+msgid "Ventas por categoría"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "{0} en stock"
+msgstr ""
+
+#: lib/code/tk_showcase_shop.dart
+msgid "{0} · la tienda del curso, leída de la conexión «shop» del módulo Bases de datos."
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -4027,14 +4786,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart lib/ui/screens/tk_designer.dart
 msgid "Cambiar"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Categorías"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
-msgid "Clientes"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -4389,10 +5140,6 @@ msgid "Pago seguro"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Panel de la tienda"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Panel del blog"
 msgstr ""
 
@@ -4502,10 +5249,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Solo quedan {0} unidades de «{1}»."
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Stock"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -4619,10 +5362,6 @@ msgid "Vendidos"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Ventas por categoría"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Ver detalles"
 msgstr ""
 
@@ -4706,10 +5445,6 @@ msgstr ""
 msgid "(sin extensión)"
 msgstr ""
 
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
-msgid ","
-msgstr ""
-
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Analizando «{0}»…"
 msgstr ""
@@ -4747,10 +5482,6 @@ msgid "Carpeta"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Carpetas"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Clic: elegir   ·   Doble clic: entrar en la carpeta   ·   Clic derecho: acciones"
 msgstr ""
 
@@ -4764,10 +5495,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Disco de «{0}»"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Documentos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
@@ -4804,10 +5531,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Espere a que termine el análisis."
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Imágenes"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/project_browser.dart
@@ -4860,22 +5583,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Solo este disco"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Subir"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Subir un nivel"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Tamaño"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Ver"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
@@ -4940,10 +5647,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_file_renamer.dart
 msgid "4. Mayúsculas y extensión"
-msgstr ""
-
-#: lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Actualizar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_file_renamer.dart
@@ -6101,10 +6804,6 @@ msgid "Material"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Mejores clientes"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Mismo nivel"
 msgstr ""
 
@@ -6420,10 +7119,6 @@ msgid ""
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Todas las categorías"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todo enviado"
 msgstr ""
 
@@ -6567,10 +7262,6 @@ msgstr ""
 msgid "Abrir un PDF"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Aceptar"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Azul"
 msgstr ""
@@ -6581,10 +7272,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "BORRADOR"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Bajar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -6736,10 +7423,6 @@ msgid "No se pudo abrir «{0}»: {1}"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Nº"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Ordene, gire, elimine, duplique e inserte páginas de otro PDF; extraiga, divida, cambie las propiedades, añada sellos y proteja con contraseña. Con pypdf."
 msgstr ""
 
@@ -6749,10 +7432,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Primero abra un PDF."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_inspector.dart
-msgid "Propiedades"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -8091,10 +8770,6 @@ msgid "Modo oscuro"
 msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
-msgid "No"
-msgstr ""
-
-#: lib/code/tk_showcase_windows.dart
 msgid "No se pudo conectar con el servidor."
 msgstr ""
 
@@ -8136,10 +8811,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
 msgid "Queda poco espacio en el disco."
-msgstr ""
-
-#: lib/code/tk_showcase_windows.dart
-msgid "Sí"
 msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
@@ -8334,6 +9005,10 @@ msgstr ""
 msgid "Índice creado: {0}"
 msgstr ""
 
+#: lib/dev/dev_cloud_db.dart
+msgid "1 fila en total"
+msgstr ""
+
 #: lib/dev/dev_cloud_db.dart lib/ui/screens/dev_tools.dart
 msgid "Clave de API"
 msgstr ""
@@ -8402,7 +9077,7 @@ msgstr ""
 msgid "Bases de datos"
 msgstr ""
 
-#: lib/main.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/settings_screen.dart
 msgid "Claro"
 msgstr ""
 
@@ -8422,7 +9097,7 @@ msgstr ""
 msgid "FTP"
 msgstr ""
 
-#: lib/main.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/settings_screen.dart
 msgid "Oscuro"
 msgstr ""
 
@@ -8452,14 +9127,6 @@ msgstr ""
 
 #: lib/ui/bottom_panel.dart
 msgid "Restaurar"
-msgstr ""
-
-#: lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
-msgid "Cerrar"
-msgstr ""
-
-#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Reemplazar"
 msgstr ""
 
 #: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
@@ -8536,10 +9203,6 @@ msgstr ""
 
 #: lib/ui/screens/budget_screen.dart
 msgid "Escriba un importe mayor que cero."
-msgstr ""
-
-#: lib/ui/screens/budget_screen.dart
-msgid "Gastado"
 msgstr ""
 
 #: lib/ui/screens/budget_screen.dart
@@ -9238,10 +9901,6 @@ msgstr ""
 msgid "Copiar el código"
 msgstr ""
 
-#: lib/ui/screens/code_studio.dart
-msgid "Copiar la ruta"
-msgstr ""
-
 #: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Copiar la salida"
 msgstr ""
@@ -9286,10 +9945,6 @@ msgstr ""
 msgid "No guardar"
 msgstr ""
 
-#: lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart
-msgid "Nueva carpeta"
-msgstr ""
-
 #: lib/ui/screens/code_studio.dart
 msgid "Nuevo archivo"
 msgstr ""
@@ -9316,10 +9971,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "Si no los guarda, se perderán."
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "Solo lectura"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart
@@ -11007,11 +11658,11 @@ msgid "Eliminar la pantalla"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "En blanco"
+msgid "Emulador de Firestore (vacío: la nube)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
-msgid "Escritorio"
+msgid "En blanco"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

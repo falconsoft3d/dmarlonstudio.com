@@ -24,6 +24,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   next_tasks: { icon: "next", label: "Next.js" },
   web_next_store: { icon: "next", label: "Next.js" },
   cpp_calculator: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_explorer: { icon: "cpp", label: "C++ · FLTK" },
   pascal_calculator: { icon: "lazarus", label: "Pascal · Lazarus" },
   console_animals: { icon: "console", label: "Python" },
   flutter_store: { icon: "flutter", label: "Flutter" },

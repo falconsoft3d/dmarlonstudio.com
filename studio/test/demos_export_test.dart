@@ -1,7 +1,7 @@
 // Exporta las demos descargables de la landing (dmarlonstudio.com/demos):
 // los ejemplos del estudio en español y en inglés, cada uno como el proyecto
-// que daría «Exportar» (app.py), listos para que scripts/build_demos.py los
-// compile con PyInstaller para macOS y Windows.
+// que daría «Exportar» (app.py; el proyecto de Lazarus o el de C++ con FLTK),
+// listos para que scripts/build_demos.py los compile para macOS y Windows.
 //
 //   DMS_DEMOS_OUT=/ruta flutter test test/demos_export_test.dart
 //
@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dmarlon_studio/code/tk_codegen.dart';
+import 'package:dmarlon_studio/code/tk_cpp.dart';
 import 'package:dmarlon_studio/code/tk_examples.dart';
 import 'package:dmarlon_studio/code/tk_flutter.dart';
 import 'package:dmarlon_studio/code/tk_pascal.dart';
@@ -22,7 +23,8 @@ import 'package:dmarlon_studio/i18n/tr.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:path/path.dart' as p;
 
-/// Las demos: utilidades de tkinter y una de Pascal (Lazarus). Deben coincidir con
+/// Las demos: utilidades de tkinter, una de Pascal (Lazarus) y una de C++
+/// (FLTK). Deben coincidir con
 /// landing/lib/demos.ts.
 const demos = [
   'calculator',
@@ -38,6 +40,7 @@ const demos = [
   'mp3_player',
   'train_monitor',
   'pascal_odoo',
+  'cpp_explorer',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)
@@ -97,14 +100,16 @@ void main() {
             ? {}
             : catalogOf(File('assets/i18n/$lang.po').readAsStringSync()),
       );
-      final all = [...tkExamples(tr), ...tkPascalExamples(tr)];
+      final all = [...tkExamples(tr), ...tkPascalExamples(tr), ...tkCppExamples(tr)];
       for (final seed in demos) {
         final e = all.firstWhere((x) => x.seed == seed);
-        // tkinter (PyInstaller) o Pascal (lazbuild).
-        final pascal = e.design.isPascal;
-        expect(pascal || (e.design.isPython && !e.design.isWeb), isTrue, reason: seed);
+        // tkinter (PyInstaller), Pascal (lazbuild) o C++ (FLTK).
+        final pascal = e.design.isPascal, cpp = e.design.isCpp;
+        expect(pascal || cpp || (e.design.isPython && !e.design.isWeb), isTrue, reason: seed);
         final files = pascal
             ? TkPascal.files(e.design, e.code, options: await TkPascalTools.options())
+            : cpp
+            ? TkCpp.files(e.design, e.code)
             : {'app.py': TkCodegen.generate(e.design, e.code)};
         if (out == null) continue;
         final dir = Directory(p.join(out, lang, seed));
@@ -117,7 +122,7 @@ void main() {
         await File(p.join(dir.path, 'demo.json')).writeAsString(
           jsonEncode({
             'seed': seed,
-            'kind': pascal ? 'pascal' : 'python',
+            'kind': pascal ? 'pascal' : cpp ? 'cpp' : 'python',
             'lang': lang,
             'name': e.name,
           }),

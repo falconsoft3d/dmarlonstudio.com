@@ -67,11 +67,16 @@ export type CourseProject = {
   files: { name: string; lang: string; code: string; html?: string }[];
   /** El proyecto abierto en el Diseñador, en cada idioma. */
   designer: { es: string; en: string; size: [number, number] };
-  /** La app funcionando con los datos del curso. */
-  app: { src: string; size: [number, number] };
-  /** La carpeta del proyecto, para «Abrir proyecto». */
+  /** La app funcionando con los datos del curso (en español; en: en inglés). */
+  app: { src: string; size: [number, number]; en?: { src: string; size: [number, number] } };
+  /** La carpeta del proyecto, para «Abrir proyecto» (downloads: por idioma). */
   download: string;
+  downloads?: Record<Lang, string>;
 };
+
+/** La captura de la app y la descarga del proyecto en [lang]. */
+export const projectApp = (p: CourseProject, lang: Lang) => (lang === "en" && p.app.en ? p.app.en : p.app);
+export const projectDownload = (p: CourseProject, lang: Lang) => p.downloads?.[lang] ?? p.download;
 
 /** La parte de la ruta del proyecto (en el lugar del nivel). */
 export const PROJECT_SLUG: Record<Lang, string> = { es: "proyecto", en: "project" };

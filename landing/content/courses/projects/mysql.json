@@ -1,0 +1,95 @@
+{
+  "seed": "shop_mysql",
+  "target": {
+    "es": "Escritorio (Python)",
+    "en": "Desktop (Python)"
+  },
+  "es": {
+    "title": "Panel de la tienda con MySQL",
+    "summary": "Una ventana de escritorio en Python que lee la tienda del curso de MySQL: productos con buscador, pedidos, cifras de ventas y un gráfico.",
+    "intro": [
+      "El **Panel de la tienda** es una aplicación de escritorio hecha con DMarlon Studio que trabaja con los mismos datos que las lecciones: la tienda del curso, guardada en una base de datos de MySQL. Muestra los productos con un buscador, cada pedido con su cliente y su importe, cuatro cifras de ventas, las ventas por categoría en un gráfico de barras y los cinco mejores clientes.",
+      "Casi todo está hecho con componentes y propiedades. Una **Conexión de datos** (`Shop`) apunta a la conexión `shop` que usted guarda en el módulo **Bases de datos**, y tres **Tablas de datos** leen de ella, cada una con su propia consulta en la propiedad **Consulta** (con `JOIN` y `GROUP BY`) y sus **Columnas** (`campo|título|ancho`). Los datos de la conexión no se escriben en el código: llegan a la ventana por el entorno.",
+      "El código de `Form1.py` es corto: el buscador recarga la tabla de productos con un parámetro `?` (nunca uniendo el texto a la consulta), y el evento **Al abrir** rellena las cifras y el gráfico con dos consultas más, `SUMMARY` y `BY_CATEGORY`."
+    ],
+    "steps": [
+      "En **Bases de datos**, pulse **+**, elija **MySQL**, escriba el servidor, el puerto (3306), una base de datos vacía y su usuario, y llame a la conexión `shop`. Abra en ella `shop.sql`, los datos del curso, y pulse **Ejecutar** (⌘↵) para cargar la tienda.",
+      "En **Proyectos**, cree un proyecto nuevo con el destino **Escritorio (Python)** y llámelo «Panel de la tienda». Si prefiere verlo hecho, descomprima `shop-project.zip` y ábralo con **Abrir proyecto**: la conexión `shop` del paso anterior es lo único que necesita.",
+      "Dé a la ventana un **Ancho** de 1180 y un **Alto** de 780, y añada las **Etiquetas** del título y de las cuatro cifras (`KpiOrders`, `KpiSales`, `KpiAverage` y `KpiCustomers`).",
+      "Añada una **Conexión de datos**, llámela `Shop` y elija `shop` en su propiedad **Conexión**.",
+      "Añada la **Tabla de datos** `Products`: **Fuente de datos** `Shop`; en **Consulta**, los productos con su categoría (`JOIN categories`) y `WHERE p.name LIKE ?`; en **Columnas**, `name|Producto|200`, `category|Categoría|130`, `price|Precio|100` y `stock|Stock|80`, y **Cargar al abrir** desactivado: la carga el buscador, con su parámetro.",
+      "Añada las tablas `OrderList` (cada pedido con `JOIN customers` y el total de sus líneas, `SUM(i.qty * i.price)`) y `TopCustomers` (los cinco clientes que más han gastado, sin los pedidos cancelados), con **Cargar al abrir** activado: se llenan solas al abrir la ventana.",
+      "Añada el **Campo de texto** `Search` con el evento **Tecla Intro**, el **Botón** `BtnSearch` con **Al pulsar**, el **Gráfico** `SalesChart` de tipo **Barras** y una **Barra de estado**. En la ventana, el evento **Al abrir** es `form_create`.",
+      "En la pestaña **Código**, escriba `Form1.py`: `search()` hace `self.Products_refresh((\"%\" + texto + \"%\",))` y `summary()` usa `self.Shop.query(SUMMARY)` para las cifras y `self.SalesChart.set_series(...)` para el gráfico.",
+      "Pulse **Ejecutar** (F9). Si falta el controlador de Python (pymysql), el estudio lo dice y ofrece **Instalar** antes de abrir la ventana."
+    ],
+    "points": [
+      "Las consultas de las tablas son propiedades del diseño: cámbielas en el inspector y pulse F9, sin tocar el código.",
+      "El texto del buscador va aparte, como parámetro `?`: nunca se une a la consulta, así que no hay inyección de SQL.",
+      "En MySQL, con la intercalación `utf8mb4_0900_ai_ci`, `LIKE` no distingue mayúsculas ni acentos. Los importes son `DECIMAL(8,2)` y salen con dos decimales.",
+      "Con `ONLY_FULL_GROUP_BY` activo, cada columna que no se agrega va en el `GROUP BY`, como en las consultas de los pedidos y los clientes.",
+      "Es el mismo panel de los cursos de SQLite, PostgreSQL, MySQL y MongoDB: solo cambia el dialecto de las consultas, y los cuatro dan las mismas cifras."
+    ]
+  },
+  "en": {
+    "title": "Shop dashboard with MySQL",
+    "summary": "A Python desktop window that reads the course shop from MySQL: products with a search box, orders, sales figures and a chart.",
+    "intro": [
+      "The **Shop dashboard** is a desktop app built with DMarlon Studio that works with the same data as the lessons: the course shop, stored in a MySQL database. It shows the products with a search box, every order with its customer and amount, four sales figures, sales by category in a bar chart and the five best customers.",
+      "Almost everything is done with components and properties. A **Data connection** (`Shop`) points to the `shop` connection you save in the **Databases** module, and three **Data tables** read from it, each with its own query in the **Query** property (with `JOIN` and `GROUP BY`) and its **Columns** (`field|title|width`). The connection details are not written in the code: they reach the window through the environment.",
+      "The code in `Form1.py` is short: the search box reloads the products table with a `?` parameter (never joining the text into the query), and the **On open** event fills the figures and the chart with two more queries, `SUMMARY` and `BY_CATEGORY`."
+    ],
+    "steps": [
+      "In **Databases**, click **+**, choose **MySQL**, enter the server, the port (3306), an empty database and its user, and name the connection `shop`. Open `shop.sql`, the course data, in it and click **Run** (⌘↵) to load the shop.",
+      "In **Projects**, create a new project with the **Desktop (Python)** target and call it “Shop dashboard”. If you would rather see it finished, unzip `shop-project-en.zip` and open it with **Open project**: the `shop` connection from the previous step is all it needs.",
+      "Give the window a **Width** of 1180 and a **Height** of 780, and add the **Labels** for the title and the four figures (`KpiOrders`, `KpiSales`, `KpiAverage` and `KpiCustomers`).",
+      "Add a **Data connection**, name it `Shop` and choose `shop` in its **Connection** property.",
+      "Add the **Data table** `Products`: **Data source** `Shop`; in **Query**, the products with their category (`JOIN categories`) and `WHERE p.name LIKE ?`; in **Columns**, `name|Product|200`, `category|Category|130`, `price|Price|100` and `stock|Stock|80`, and **Load on open** turned off: the search loads it, with its parameter.",
+      "Add the tables `OrderList` (every order with `JOIN customers` and the total of its lines, `SUM(i.qty * i.price)`) and `TopCustomers` (the five customers who spent the most, leaving out cancelled orders), with **Load on open** turned on: they fill themselves when the window opens.",
+      "Add the **Text field** `Search` with the **Enter key** event, the **Button** `BtnSearch` with **On press**, the **Chart** `SalesChart` of type **Bars** and a **Status bar**. On the window, the **On open** event is `form_create`.",
+      "In the **Code** tab, write `Form1.py`: `search()` calls `self.Products_refresh((\"%\" + text + \"%\",))` and `summary()` uses `self.Shop.query(SUMMARY)` for the figures and `self.SalesChart.set_series(...)` for the chart.",
+      "Press **Run** (F9). If the Python driver (pymysql) is missing, the studio says so and offers **Install** before opening the window."
+    ],
+    "points": [
+      "The tables' queries are design properties: change them in the inspector and press F9, without touching the code.",
+      "The search text travels separately, as a `?` parameter: it is never joined into the query, so there is no SQL injection.",
+      "In MySQL, with the `utf8mb4_0900_ai_ci` collation, `LIKE` ignores case and accents. The amounts are `DECIMAL(8,2)` and come with two decimals.",
+      "With `ONLY_FULL_GROUP_BY` on, every column that is not aggregated goes in the `GROUP BY`, as in the orders and customers queries.",
+      "It is the same dashboard as in the SQLite, PostgreSQL, MySQL and MongoDB courses: only the query dialect changes, and all four give the same figures."
+    ]
+  },
+  "files": [
+    {
+      "name": "Form1.py",
+      "lang": "python",
+      "code": "# Shop dashboard (MySQL). The three tables load the query of their\n# \"Query\" property from the Shop connection; this code runs the search and\n# fills the four figures and the chart.\nSUMMARY = \"\"\"\nSELECT COUNT(*) AS orders, SUM(total) AS sales, AVG(total) AS average,\n       COUNT(DISTINCT customer_id) AS customers\nFROM orders\nWHERE status <> 'cancelled'\n\"\"\"\n\nBY_CATEGORY = \"\"\"\nSELECT c.name AS category, SUM(i.qty * i.price) AS sales\nFROM order_items i\nJOIN orders o ON o.id = i.order_id\nJOIN products p ON p.id = i.product_id\nJOIN categories c ON c.id = p.category_id\nWHERE o.status <> 'cancelled'\nGROUP BY c.name\nORDER BY c.name\n\"\"\"\n\n\ndef money(value):\n    return \"%.2f €\" % float(value or 0)\n\n\nclass Form1(FormDesign):\n    def form_create(self):\n        self.search()\n        self.summary()\n\n    def BtnSearch_click(self):\n        self.search()\n\n    def Search_return(self, event=None):\n        self.search()\n\n    def search(self):\n        # The ? of the query takes the text: never joined into the SQL.\n        text = \"%\" + self.Search.get().strip() + \"%\"\n        self.Products_refresh((text,))\n\n    def summary(self):\n        try:\n            row = self.Shop.query(SUMMARY)[0]\n            sales = self.Shop.query(BY_CATEGORY)\n        except DataError as error:\n            tkinter.messagebox.showerror(self.root.title(), str(error))\n            return\n        self.KpiOrders.config(text=str(row[\"orders\"]))\n        self.KpiSales.config(text=money(row[\"sales\"]))\n        self.KpiAverage.config(text=money(row[\"average\"]))\n        self.KpiCustomers.config(text=str(row[\"customers\"]))\n        self.SalesChart.set_series(\n            \"sales\",\n            [float(r[\"sales\"]) for r in sales],\n            x=[r[\"category\"] for r in sales],\n        )\n"
+    }
+  ],
+  "designer": {
+    "es": "/courses/mysql/project-designer-es.png",
+    "en": "/courses/mysql/project-designer-en.png",
+    "size": [
+      1600,
+      980
+    ]
+  },
+  "app": {
+    "src": "/courses/mysql/project-app.png",
+    "size": [
+      1180,
+      812
+    ],
+    "en": {
+      "src": "/courses/mysql/project-app-en.png",
+      "size": [
+        1180,
+        812
+      ]
+    }
+  },
+  "download": "/courses/mysql/shop-project.zip",
+  "downloads": {
+    "es": "/courses/mysql/shop-project.zip",
+    "en": "/courses/mysql/shop-project-en.zip"
+  }
+}

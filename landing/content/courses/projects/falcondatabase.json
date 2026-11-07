@@ -1,0 +1,91 @@
+{
+  "seed": "shop_falcon",
+  "target": {
+    "es": "Flutter (móvil)",
+    "en": "Flutter (mobile)"
+  },
+  "es": {
+    "title": "Catálogo de la tienda con FalconDatabase",
+    "summary": "Una app de Flutter que lee la tienda del curso de FalconDatabase con la clave pública: productos, buscador, filtro por categoría y opiniones.",
+    "intro": [
+      "El **Catálogo de la tienda** es una app móvil de Flutter hecha con DMarlon Studio que lee la tienda del curso en FalconDatabase: los productos con su precio, su categoría y su stock, un buscador, el filtro por categoría y la ficha de cada producto con sus opiniones.",
+      "La conexión no se programa: en las propiedades de la **App**, **Base de datos** → **FalconDatabase**, con la referencia del proyecto del curso (`ddbsnwfthlcufjjezqqf`) y su clave anon. El estudio genera `lib/db.dart`, y el código pide las filas con `db.table('products').list(where: …, order: 'name')`, la misma petición REST de las lecciones. Las tablas de la tienda son de lectura pública: la app funciona tal cual, sin usuario ni contraseña.",
+      "Las pantallas se diseñan con widgets enlazados a la clase `App` de `lib/app.dart`: una **Lista** de `app.products` con una **Tarjeta** por producto, **Etiquetas** para el filtro y una pantalla `Producto` que recibe el producto elegido."
+    ],
+    "steps": [
+      "En **Proyectos**, cree un proyecto con el destino **Flutter (móvil)** y llámelo «Catálogo de la tienda». Si prefiere verlo hecho, descomprima `shop-project.zip` y ábralo con **Abrir proyecto**: funciona sin configurar nada.",
+      "Elija la **App** en el árbol y, en **Base de datos**, **Conectar con** FalconDatabase. En **Proyecto (referencia)**, `ddbsnwfthlcufjjezqqf`; en **Clave anon (pública)**, la clave del curso (`fdb_anon_0157…`). El estudio genera `lib/db.dart`.",
+      "Cree tres pantallas: `Catalogo`, `Categorias` y `Producto`. En `Producto`, **Recibe (tipo de Dart)** es `Map<String, dynamic>`: el producto que se toca.",
+      "En `Catalogo`, ponga un **Campo de texto** enlazado a `app.search` que al pulsar Intro haga `app.load()`, una **Fila** de **Etiquetas** (Todas, la categoría elegida y Elegir categoría, que hace `go:Categorias`) y una **Lista** con **Elementos** `=app.products`.",
+      "Dentro de la lista, una **Tarjeta** que al tocarla hace `app.open(p); go:Producto(p)`, con el icono y el color de la categoría (`=app.icon(...)`, `=app.color(...)`), el nombre, la categoría con el stock y el precio (`${app.price(p)}`).",
+      "En `Categorias`, una **Lista** de `=app.categories` cuyas filas hacen `app.pick(c); back`; en `Producto`, la ficha y una **Lista** de `=app.reviews` con las estrellas y el comentario de cada opinión.",
+      "En la pestaña **Código**, escriba `lib/app.dart`: `start()` lee las categorías, `load()` pide los productos con `where` (`category_id` y `name: 'ilike.%texto%'`) y `order: 'name'`, y `open()` lee las opiniones del producto.",
+      "Pulse **Ejecutar** (F9): la app se abre en el emulador de teléfono con los datos del curso."
+    ],
+    "points": [
+      "La API REST de FalconDatabase no tiene joins: la categoría de cada producto sale de la lista de categorías que la app ya tiene, y las opiniones son una segunda consulta (`reviews` con `product_id`).",
+      "El filtro y la búsqueda van al servidor (`GET /tables/products?category_id=eq.2&name=ilike.%tea%&order=name`): `ilike` no distingue mayúsculas y solo llegan las filas que coinciden.",
+      "La clave anon va dentro de la app y es pública: por eso las tablas de la tienda son de lectura pública, y escribir exige un usuario con sesión (`db.signIn`).",
+      "Con su propio proyecto de falcondatabase.com, cambie solo la referencia y la clave en las propiedades de la App: el código no cambia."
+    ]
+  },
+  "en": {
+    "title": "Shop catalogue with FalconDatabase",
+    "summary": "A Flutter app that reads the course shop from FalconDatabase with the public key: products, search, category filter and reviews.",
+    "intro": [
+      "The **Shop catalogue** is a Flutter mobile app built with DMarlon Studio that reads the course shop from FalconDatabase: the products with their price, category and stock, a search box, the category filter and each product's page with its reviews.",
+      "The connection is not programmed: in the **App** properties, **Database** → **FalconDatabase**, with the course project's reference (`ddbsnwfthlcufjjezqqf`) and its anon key. The studio generates `lib/db.dart`, and the code asks for the rows with `db.table('products').list(where: …, order: 'name')`, the same REST request as in the lessons. The shop tables are publicly readable: the app works as it is, with no user or password.",
+      "The screens are designed with widgets bound to the `App` class in `lib/app.dart`: a **List** of `app.products` with a **Card** per product, **Label** chips for the filter and a `Producto` screen that receives the chosen product."
+    ],
+    "steps": [
+      "In **Projects**, create a project with the **Flutter (mobile)** target and call it “Shop catalogue”. If you would rather see it finished, unzip `shop-project-en.zip` and open it with **Open project**: it works without any setup.",
+      "Choose the **App** in the tree and, under **Database**, **Connect to** FalconDatabase. In **Project (reference)**, `ddbsnwfthlcufjjezqqf`; in **Anon key (public)**, the course key (`fdb_anon_0157…`). The studio generates `lib/db.dart`.",
+      "Create three screens: `Catalogo`, `Categorias` and `Producto`. On `Producto`, **Receives (Dart type)** is `Map<String, dynamic>`: the product that was tapped.",
+      "On `Catalogo`, add a **Text field** bound to `app.search` that runs `app.load()` when Enter is pressed, a **Row** of **Label** chips (All, the chosen category and Choose a category, which runs `go:Categorias`) and a **List** with **Items** `=app.products`.",
+      "Inside the list, a **Card** that runs `app.open(p); go:Producto(p)` when tapped, with the category's icon and colour (`=app.icon(...)`, `=app.color(...)`), the name, the category with the stock and the price (`${app.price(p)}`).",
+      "On `Categorias`, a **List** of `=app.categories` whose rows run `app.pick(c); back`; on `Producto`, the product card and a **List** of `=app.reviews` with the stars and the comment of each review.",
+      "In the **Code** tab, write `lib/app.dart`: `start()` reads the categories, `load()` asks for the products with `where` (`category_id` and `name: 'ilike.%text%'`) and `order: 'name'`, and `open()` reads the product's reviews.",
+      "Press **Run** (F9): the app opens in the phone emulator with the course data."
+    ],
+    "points": [
+      "FalconDatabase's REST API has no joins: each product's category comes from the list of categories the app already has, and the reviews are a second query (`reviews` with `product_id`).",
+      "The filter and the search run on the server (`GET /tables/products?category_id=eq.2&name=ilike.%tea%&order=name`): `ilike` ignores case and only the matching rows arrive.",
+      "The anon key goes inside the app and is public: that is why the shop tables are publicly readable, and writing needs a signed-in user (`db.signIn`).",
+      "With your own falcondatabase.com project, change only the reference and the key in the App properties: the code stays the same."
+    ]
+  },
+  "files": [
+    {
+      "name": "lib/app.dart",
+      "lang": "dart",
+      "code": "// Shop catalogue: categories, products and reviews read from FalconDatabase\n// with lib/db.dart (App → Database). The anon key only reads: the shop\n// tables are public_read.\nimport 'package:flutter/material.dart';\n\nimport 'db.dart';\n\nclass App extends ChangeNotifier {\n  List<Map<String, dynamic>> categories = [];\n  List<Map<String, dynamic>> products = [];\n  List<Map<String, dynamic>> reviews = [];\n  String search = '';\n  Object? category;\n  bool loading = false;\n  String error = '';\n\n  Future<void> start() async {\n    try {\n      categories = await db.table('categories').list(order: 'name');\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    await load();\n  }\n\n  /// The products of the chosen category whose name contains the search:\n  /// GET /tables/products?category_id=eq.2&name=ilike.%tea%&order=name\n  Future<void> load() async {\n    loading = true;\n    notifyListeners();\n    final text = search.trim();\n    try {\n      products = await db.table('products').list(\n        where: {\n          if (category != null) 'category_id': category,\n          if (text.isNotEmpty) 'name': 'ilike.%$text%',\n        },\n        order: 'name',\n      );\n      error = '';\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    loading = false;\n    notifyListeners();\n  }\n\n  void pick(Map<String, dynamic>? c) {\n    category = c?['id'];\n    load();\n  }\n\n  /// The reviews of a product (a second query: the REST API has no joins).\n  Future<void> open(Map<String, dynamic> p) async {\n    reviews = [];\n    notifyListeners();\n    try {\n      reviews = await db.table('reviews').list(where: {'product_id': p['id']}, order: 'id');\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    notifyListeners();\n  }\n\n  // ------------------------------------------------------------ to show\n  Object? categoryId(Map<String, dynamic> p) => p['category_id'];\n\n  String categoryName(Object? id) =>\n      '${categories.where((c) => c['id'] == id).firstOrNull?['name'] ?? ''}';\n\n  String get filter => categoryName(category);\n\n  String price(Map<String, dynamic> p) => '${(p['price'] as num).toStringAsFixed(2)} €';\n\n  bool soldOut(Map<String, dynamic> p) => (p['stock'] as num? ?? 0) <= 0;\n\n  String tags(Map<String, dynamic> p) =>\n      [for (final t in (p['tags'] as List?) ?? const []) '#$t'].join('  ');\n\n  String stars(Map<String, dynamic> r) {\n    final n = (r['rating'] as num? ?? 0).toInt().clamp(0, 5);\n    return '★' * n + '☆' * (5 - n);\n  }\n\n  String get rating => reviews.isEmpty\n      ? '—'\n      : '${(reviews.fold<num>(0, (s, r) => s + (r['rating'] as num)) / reviews.length).toStringAsFixed(1)} ★ (${reviews.length})';\n\n  static const _icons = {1: Icons.bakery_dining, 2: Icons.local_cafe, 3: Icons.icecream, 4: Icons.eco};\n  static const _colors = {1: Color(0xFF8D6E63), 2: Color(0xFF5C6BC0), 3: Color(0xFF26A69A), 4: Color(0xFF7CB342)};\n\n  IconData icon(Object? category) => _icons[category] ?? Icons.shopping_basket;\n\n  Color color(Object? category) => _colors[category] ?? const Color(0xFF78909C);\n}\n"
+    }
+  ],
+  "designer": {
+    "es": "/courses/falcondatabase/project-designer-es.png",
+    "en": "/courses/falcondatabase/project-designer-en.png",
+    "size": [
+      1600,
+      980
+    ]
+  },
+  "app": {
+    "src": "/courses/falcondatabase/project-app.png",
+    "size": [
+      1935,
+      1410
+    ],
+    "en": {
+      "src": "/courses/falcondatabase/project-app-en.png",
+      "size": [
+        1935,
+        1410
+      ]
+    }
+  },
+  "download": "/courses/falcondatabase/shop-project.zip",
+  "downloads": {
+    "es": "/courses/falcondatabase/shop-project.zip",
+    "en": "/courses/falcondatabase/shop-project-en.zip"
+  }
+}

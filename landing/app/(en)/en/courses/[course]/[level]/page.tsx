@@ -9,6 +9,7 @@ import {
   levelBySlug,
   levelParams,
   projectAlternates,
+  projectApp,
   projectOf,
 } from "@/content/courses";
 import { coursesUi, fill } from "@/content/courses/ui";
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps<"/en/courses/[cours
       title: `${fill(ui.projectTitle, f.project.en.title)} · ${f.course.name}`,
       description: f.project.en.summary,
       paths: projectAlternates(f.course.id),
-      image: f.project.app.src,
+      image: projectApp(f.project, "en").src,
     });
   }
   const name = LEVEL_NAME[f.level!].en;

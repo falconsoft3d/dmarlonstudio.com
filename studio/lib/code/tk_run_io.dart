@@ -263,17 +263,23 @@ class TkRunner {
     final modules = switch (kind) {
       'postgres' => const ['psycopg', 'psycopg2'],
       'mysql' => const ['pymysql'],
+      'mongodb' => const ['pymongo'],
       _ => const <String>[],
     };
     if (modules.isEmpty) return null;
     for (final m in modules) {
       if (await _hasModule(py, m)) return null;
     }
-    // Sin «rsa», pymysql no entra en un MySQL 8 con su autenticación de serie.
-    final package = kind == 'postgres' ? '"psycopg[binary]"' : '"pymysql[rsa]"';
-    return '"${py.command}"${py.args.map((a) => ' $a').join()} '
-        '-m pip install $package';
+    return pipCommand(py, [driverPackage(kind)]);
   }
+
+  /// El paquete de pip con el controlador de Python de [kind]. Sin «rsa»,
+  /// pymysql no entra en un MySQL 8 con su autenticación de serie.
+  static String driverPackage(String kind) => switch (kind) {
+    'postgres' => 'psycopg[binary]',
+    'mongodb' => 'pymongo',
+    _ => 'pymysql[rsa]',
+  };
 
   /// Orden exacta para instalar Flask (null: ya está).
   /// Orden exacta para instalar lo que necesita el icono de bandeja (null:
@@ -351,7 +357,7 @@ class TkRunner {
         need(
           tr('Falta un controlador de base de datos'),
           tr('«{0}» necesita un controlador de Python.', [l.name]),
-          [l.kind == 'postgres' ? 'psycopg[binary]' : 'pymysql[rsa]'],
+          [driverPackage(l.kind)],
         ),
       );
     }
@@ -1420,6 +1426,9 @@ class TkRunner {
           if (l.kind == 'sqlite')
             '${prefix}PATH': s('path').trim()
           else ...{
+            // MongoDB: la URI, si la tiene, manda sobre lo demás.
+            if (l.kind == 'mongodb' && s('uri').trim().isNotEmpty)
+              '${prefix}URI': s('uri').trim(),
             '${prefix}HOST': s('host').trim(),
             '${prefix}PORT': s('port').trim(),
             '${prefix}DATABASE': s('database').trim(),

@@ -60,6 +60,7 @@ const carousel = [
   'chrome_words',
   'next_tasks',
   'cpp_calculator',
+  'cpp_explorer',
   'pascal_calculator',
   'console_animals',
   'flutter_store',

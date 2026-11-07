@@ -57,6 +57,30 @@ jobs:
           choco install lazarus -y --no-progress
           "LAZBUILD=C:\lazarus\lazbuild.exe" | Out-File -FilePath $env:GITHUB_ENV -Append
           Get-ChildItem "C:\Program Files\OpenSSL\bin" -Filter *.dll | Select-Object Name
+      # FLTK para la demo de C++ (cpp_explorer). En macOS, la de Homebrew
+      # (build_demos.py enlaza sus .a: la .app no depende de Homebrew; sale
+      # para Apple Silicon, la arquitectura del runner). En Windows, el g++ y
+      # el FLTK de MSYS2 (UCRT64): un solo .exe estático.
+      - name: FLTK (macOS)
+        if: runner.os == 'macOS'
+        continue-on-error: true
+        run: brew install fltk
+      - name: MSYS2 con g++ y FLTK (Windows)
+        if: runner.os == 'Windows'
+        id: msys2
+        continue-on-error: true
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: false
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-fltk
+      - name: Dónde está MSYS2
+        if: runner.os == 'Windows' && steps.msys2.outcome == 'success'
+        shell: pwsh
+        run: |
+          "MSYS2_ROOT=${{ steps.msys2.outputs.msys2-location }}" | Out-File -FilePath $env:GITHUB_ENV -Append
       - name: Exportar las demos
         working-directory: studio
         shell: bash

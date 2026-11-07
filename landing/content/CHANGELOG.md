@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.71 — 2026-11-07
+
+- **Un proyecto con el IDE en cada curso de bases de datos** (página «Proyecto» de cada curso, con la captura del Diseñador, la app funcionando con la tienda del curso, los pasos, el código y el proyecto para descargar y abrir con **Abrir proyecto**): un **Panel de la tienda** de escritorio (Python) con Conexión de datos, Tablas de datos, cifras y un gráfico para SQLite, PostgreSQL, MySQL y MongoDB, y un **Catálogo de la tienda** de Flutter con FalconDatabase (funciona tal cual con el proyecto del curso) y con Firebase. Son también ejemplos del estudio.
+- **MongoDB en Conexión de datos**: las Tablas de datos y el código de las ventanas de escritorio leen MongoDB con la misma consulta JSON del módulo Bases de datos (`?` para los parámetros); el estudio ofrece instalar `pymongo`.
+- **Firebase en Flutter**: `lib/db.dart` puede usar el emulador de Firestore (nuevo campo en las propiedades de la app).
+- **Nueva demo: Explorador de archivos en C++ (FLTK)** al estilo de Windows 7, para macOS y Windows: árbol de carpetas, pestañas, vistas de iconos, lista y detalles, barra de dirección por partes, favoritos, copiar, cortar y pegar con Ctrl/Cmd+C, X y V usando el portapapeles del sistema (entre dos exploradores y con el Finder), papelera, propiedades, buscador y modo claro, oscuro o del sistema. También es un ejemplo del destino C++.
+- Los menús de las apps de C++ dibujan sus separadores.
+
 ## 1.0.70 — 2026-11-07
 
 - **Curso de FalconDatabase** en la web (/cursos/falcondatabase y /en/courses/falcondatabase): 40 lecciones, básico y avanzado, de la primera consulta a los filtros, la paginación, la columna JSON, insertar, cambiar y borrar, las reglas de acceso, las tablas con dueño, el inicio de sesión, los errores de validación y el cliente de Flutter (`lib/db.dart`) que genera el estudio. Se ejecutan de verdad contra un proyecto de FalconDatabase con la tienda de ejemplo, que se puede leer con su clave pública desde el módulo Bases de datos.

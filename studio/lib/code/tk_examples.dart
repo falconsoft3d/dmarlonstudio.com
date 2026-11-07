@@ -18,6 +18,8 @@ part 'tk_showcase_electron.dart';
 part 'tk_showcase_chrome.dart';
 part 'tk_showcase_next.dart';
 part 'tk_showcase_cpp.dart';
+part 'tk_showcase_cpp_explorer.dart';
+part 'tk_showcase_cpp_explorer_code.dart';
 part 'tk_showcase_pascal.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
@@ -36,6 +38,7 @@ part 'tk_showcase_util_file_renamer.dart';
 part 'tk_showcase_util_mp3_player.dart';
 part 'tk_showcase_util_train_monitor.dart';
 part 'tk_showcase_util_pascal_odoo.dart';
+part 'tk_showcase_shop.dart';
 
 /// Comentario con el que empieza la unidad de una ventana nueva.
 String tkUnitComment({
@@ -159,6 +162,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   tkUtilFileRenamer(t),
   tkUtilMp3Player(t),
   tkUtilTrainMonitor(t),
+  ...tkShopDesktopExamples(t),
 ];
 
 /// Los ejemplos web: el mismo diseño y el mismo código que los de escritorio,

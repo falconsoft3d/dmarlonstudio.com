@@ -85,7 +85,7 @@ class TkDbLink {
   /// Nombre de la conexión guardada en Bases de datos.
   final String name;
 
-  /// sqlite, postgres o mysql.
+  /// sqlite, postgres, mysql o mongodb.
   final String kind;
   final Map<String, Object?> config;
 }

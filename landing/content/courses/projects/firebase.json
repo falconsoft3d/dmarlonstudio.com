@@ -1,0 +1,95 @@
+{
+  "seed": "shop_firebase",
+  "target": {
+    "es": "Flutter (móvil)",
+    "en": "Flutter (mobile)"
+  },
+  "es": {
+    "title": "Catálogo de la tienda con Firebase",
+    "summary": "Una app de Flutter que lee la tienda del curso de Cloud Firestore (en el emulador): productos, buscador, filtro por categoría y opiniones.",
+    "intro": [
+      "El **Catálogo de la tienda** es una app móvil de Flutter hecha con DMarlon Studio que lee la tienda del curso en Cloud Firestore: los productos con su precio, su categoría y su stock, un buscador, el filtro por categoría y la ficha de cada producto con sus opiniones.",
+      "La conexión no se programa: en las propiedades de la **App**, **Base de datos** → **Firebase**, con el ID del proyecto (`dms-cursos`) y el **Emulador de Firestore** (`127.0.0.1:8080`), para practicar sin tocar datos de verdad. El estudio genera `lib/db.dart`, que habla con Firestore por su API REST: `db.table('products').list(where: {'category': 'cat2'})` es una consulta estructurada con `where`.",
+      "Firestore no busca dentro de un texto: la app pide los productos de la categoría y el buscador filtra en la propia app, al escribir. Los identificadores son de texto (`p01`, `cat1`), como en las lecciones."
+    ],
+    "steps": [
+      "Arranque el emulador de Firestore con `firebase emulators:start --only firestore` (escucha en `127.0.0.1:8080`).",
+      "En **Bases de datos**, pulse **+**, elija **Firebase**, escriba el ID del proyecto `dms-cursos` y el **Emulador** `localhost:8080`. Abra `shop.json`, los datos del curso, y pulse **Ejecutar** (⌘↵) para cargar la tienda.",
+      "En **Proyectos**, cree un proyecto con el destino **Flutter (móvil)** y llámelo «Catálogo de la tienda» (o descomprima `shop-project.zip` y ábralo con **Abrir proyecto**).",
+      "Elija la **App** en el árbol y, en **Base de datos**, **Conectar con** Firebase: **ID del proyecto** `dms-cursos` y **Emulador de Firestore** `127.0.0.1:8080`. Con el emulador, la **Clave web (apiKey)** puede quedar vacía.",
+      "Cree tres pantallas: `Catalogo`, `Categorias` y `Producto`. En `Producto`, **Recibe (tipo de Dart)** es `Map<String, dynamic>`: el producto que se toca.",
+      "En `Catalogo`, ponga un **Campo de texto** enlazado a `app.search`, una **Fila** de **Etiquetas** (Todas, la categoría elegida y Elegir categoría, que hace `go:Categorias`) y una **Lista** con **Elementos** `=app.products`.",
+      "Dentro de la lista, una **Tarjeta** que al tocarla hace `app.open(p); go:Producto(p)`, con el icono y el color de la categoría (`=app.icon(...)`, `=app.color(...)`), el nombre, la categoría con el stock y el precio (`${app.price(p)}`).",
+      "En `Categorias`, una **Lista** de `=app.categories` cuyas filas hacen `app.pick(c); back`; en `Producto`, la ficha y una **Lista** de `=app.reviews` con las estrellas y el comentario de cada opinión.",
+      "En la pestaña **Código**, escriba `lib/app.dart`: `load()` pide los productos con `where: {'category': category}`, `products` filtra por el texto buscado y `open()` lee las opiniones con `where: {'product': p['id']}`.",
+      "Pulse **Ejecutar** (F9): la app se abre con los datos del emulador."
+    ],
+    "points": [
+      "Para usar un proyecto de Firebase de verdad, deje vacío el **Emulador de Firestore**, escriba el **ID del proyecto** y la **Clave web (apiKey)** de la consola de Firebase, y cargue `shop.json` con una conexión de Firebase sin emulador. Sus reglas deben dejar leer `products`, `categories` y `reviews`.",
+      "La app ordena los productos por nombre en el propio teléfono: en Firestore, un `where` por un campo y un orden por otro necesitan un índice compuesto.",
+      "En un emulador de Android, `127.0.0.1` es el propio teléfono: use `10.0.2.2:8080` para llegar al emulador de Firestore de su equipo.",
+      "Es la misma app que el catálogo del curso de FalconDatabase: cambian la base de datos de la App y las tres consultas de `lib/app.dart`."
+    ]
+  },
+  "en": {
+    "title": "Shop catalogue with Firebase",
+    "summary": "A Flutter app that reads the course shop from Cloud Firestore (in the emulator): products, search, category filter and reviews.",
+    "intro": [
+      "The **Shop catalogue** is a Flutter mobile app built with DMarlon Studio that reads the course shop from Cloud Firestore: the products with their price, category and stock, a search box, the category filter and each product's page with its reviews.",
+      "The connection is not programmed: in the **App** properties, **Database** → **Firebase**, with the project ID (`dms-cursos`) and the **Firestore emulator** (`127.0.0.1:8080`), to practise without touching real data. The studio generates `lib/db.dart`, which talks to Firestore through its REST API: `db.table('products').list(where: {'category': 'cat2'})` is a structured query with `where`.",
+      "Firestore cannot search inside a text: the app asks for the category's products and the search box filters them in the app itself, as you type. The ids are text (`p01`, `cat1`), as in the lessons."
+    ],
+    "steps": [
+      "Start the Firestore emulator with `firebase emulators:start --only firestore` (it listens on `127.0.0.1:8080`).",
+      "In **Databases**, click **+**, choose **Firebase**, enter the project ID `dms-cursos` and the **Emulator** `localhost:8080`. Open `shop.json`, the course data, and click **Run** (⌘↵) to load the shop.",
+      "In **Projects**, create a project with the **Flutter (mobile)** target and call it “Shop catalogue” (or unzip `shop-project-en.zip` and open it with **Open project**).",
+      "Choose the **App** in the tree and, under **Database**, **Connect to** Firebase: **Project ID** `dms-cursos` and **Firestore emulator** `127.0.0.1:8080`. With the emulator, the **Web key (apiKey)** can stay empty.",
+      "Create three screens: `Catalogo`, `Categorias` and `Producto`. On `Producto`, **Receives (Dart type)** is `Map<String, dynamic>`: the product that was tapped.",
+      "On `Catalogo`, add a **Text field** bound to `app.search`, a **Row** of **Label** chips (All, the chosen category and Choose a category, which runs `go:Categorias`) and a **List** with **Items** `=app.products`.",
+      "Inside the list, a **Card** that runs `app.open(p); go:Producto(p)` when tapped, with the category's icon and colour (`=app.icon(...)`, `=app.color(...)`), the name, the category with the stock and the price (`${app.price(p)}`).",
+      "On `Categorias`, a **List** of `=app.categories` whose rows run `app.pick(c); back`; on `Producto`, the product card and a **List** of `=app.reviews` with the stars and the comment of each review.",
+      "In the **Code** tab, write `lib/app.dart`: `load()` asks for the products with `where: {'category': category}`, `products` filters by the search text and `open()` reads the reviews with `where: {'product': p['id']}`.",
+      "Press **Run** (F9): the app opens with the emulator's data."
+    ],
+    "points": [
+      "To use a real Firebase project, leave the **Firestore emulator** empty, enter the **Project ID** and the **Web key (apiKey)** from the Firebase console, and load `shop.json` with a Firebase connection without the emulator. Its rules must allow reading `products`, `categories` and `reviews`.",
+      "The app sorts the products by name on the phone itself: in Firestore, a `where` on one field and an order on another need a composite index.",
+      "In an Android emulator, `127.0.0.1` is the phone itself: use `10.0.2.2:8080` to reach the Firestore emulator on your computer.",
+      "It is the same app as the FalconDatabase course catalogue: only the App's database and the three queries in `lib/app.dart` change."
+    ]
+  },
+  "files": [
+    {
+      "name": "lib/app.dart",
+      "lang": "dart",
+      "code": "// Shop catalogue: categories, products and reviews read from Cloud Firestore\n// with lib/db.dart (App → Database). Firestore filters by category; the\n// search runs here, because Firestore cannot search inside a text.\nimport 'package:flutter/material.dart';\n\nimport 'db.dart';\n\nclass App extends ChangeNotifier {\n  List<Map<String, dynamic>> categories = [];\n  List<Map<String, dynamic>> all = [];\n  List<Map<String, dynamic>> reviews = [];\n  String search = '';\n  Object? category;\n  bool loading = false;\n  String error = '';\n\n  Future<void> start() async {\n    try {\n      categories = await db.table('categories').list();\n      categories.sort((a, b) => '${a['name']}'.compareTo('${b['name']}'));\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    await load();\n  }\n\n  /// The products of the chosen category (a structured query with where).\n  Future<void> load() async {\n    loading = true;\n    notifyListeners();\n    try {\n      all = await db.table('products').list(\n        where: {if (category != null) 'category': category},\n      );\n      all.sort((a, b) => '${a['name']}'.compareTo('${b['name']}'));\n      error = '';\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    loading = false;\n    notifyListeners();\n  }\n\n  /// What the list shows: the products whose name contains the search.\n  List<Map<String, dynamic>> get products {\n    final text = search.trim().toLowerCase();\n    return [\n      for (final p in all)\n        if ('${p['name']}'.toLowerCase().contains(text)) p,\n    ];\n  }\n\n  void pick(Map<String, dynamic>? c) {\n    category = c?['id'];\n    load();\n  }\n\n  /// The reviews of a product: the documents of reviews whose product is\n  /// its id.\n  Future<void> open(Map<String, dynamic> p) async {\n    reviews = [];\n    notifyListeners();\n    try {\n      reviews = await db.table('reviews').list(where: {'product': p['id']});\n    } on DbError catch (e) {\n      error = e.message;\n    }\n    notifyListeners();\n  }\n\n  // ------------------------------------------------------------ to show\n  Object? categoryId(Map<String, dynamic> p) => p['category'];\n\n  String categoryName(Object? id) =>\n      '${categories.where((c) => c['id'] == id).firstOrNull?['name'] ?? ''}';\n\n  String get filter => categoryName(category);\n\n  String price(Map<String, dynamic> p) => '${(p['price'] as num).toStringAsFixed(2)} €';\n\n  bool soldOut(Map<String, dynamic> p) => (p['stock'] as num? ?? 0) <= 0;\n\n  String tags(Map<String, dynamic> p) =>\n      [for (final t in (p['tags'] as List?) ?? const []) '#$t'].join('  ');\n\n  String stars(Map<String, dynamic> r) {\n    final n = (r['rating'] as num? ?? 0).toInt().clamp(0, 5);\n    return '★' * n + '☆' * (5 - n);\n  }\n\n  String get rating => reviews.isEmpty\n      ? '—'\n      : '${(reviews.fold<num>(0, (s, r) => s + (r['rating'] as num)) / reviews.length).toStringAsFixed(1)} ★ (${reviews.length})';\n\n  static const _icons = {'cat1': Icons.bakery_dining, 'cat2': Icons.local_cafe, 'cat3': Icons.icecream, 'cat4': Icons.eco};\n  static const _colors = {'cat1': Color(0xFF8D6E63), 'cat2': Color(0xFF5C6BC0), 'cat3': Color(0xFF26A69A), 'cat4': Color(0xFF7CB342)};\n\n  IconData icon(Object? category) => _icons[category] ?? Icons.shopping_basket;\n\n  Color color(Object? category) => _colors[category] ?? const Color(0xFF78909C);\n}\n"
+    }
+  ],
+  "designer": {
+    "es": "/courses/firebase/project-designer-es.png",
+    "en": "/courses/firebase/project-designer-en.png",
+    "size": [
+      1600,
+      980
+    ]
+  },
+  "app": {
+    "src": "/courses/firebase/project-app.png",
+    "size": [
+      1935,
+      1410
+    ],
+    "en": {
+      "src": "/courses/firebase/project-app-en.png",
+      "size": [
+        1935,
+        1410
+      ]
+    }
+  },
+  "download": "/courses/firebase/shop-project.zip",
+  "downloads": {
+    "es": "/courses/firebase/shop-project.zip",
+    "en": "/courses/firebase/shop-project-en.zip"
+  }
+}

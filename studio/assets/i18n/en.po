@@ -1069,7 +1069,7 @@ msgstr "Key figures and progress."
 msgid "Clientes nuevos"
 msgstr "New customers"
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Compras"
 msgstr "Purchase"
 
@@ -4244,7 +4244,7 @@ msgstr "Inventory: products, stock and low-stock alerts. The screens use it as a
 msgid "No hay productos que coincidan."
 msgstr "No products match."
 
-#: lib/code/tk_showcase_flutter_desktop.dart
+#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Nuevo producto"
 msgstr "New product"
 
@@ -6407,6 +6407,10 @@ msgid "%d clientes · %d sin enviar"
 msgstr "%d customers · %d not sent"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "%d compras · %s"
+msgstr "%d purchases · %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "%d creados sin conexión"
 msgstr "%d created offline"
 
@@ -6467,6 +6471,10 @@ msgid "BIM 2.0: %d obras y %d presupuestos."
 msgstr "BIM 2.0: %d projects and %d budgets."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Banco"
+msgstr "Bank"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Base de datos (vacía: la única del servidor)"
 msgstr "Database (empty: the server's only one)"
 
@@ -6493,6 +6501,10 @@ msgstr "Search by name, email or city…"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Buscar por número o cliente…"
 msgstr "Search by number or customer…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Buscar por número o proveedor…"
+msgstr "Search by number or vendor…"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Buscar producto…"
@@ -6567,6 +6579,24 @@ msgid "Cockpit de ventas para Odoo 8 a 20 en Pascal con Lazarus: JSON-RPC, datos
 msgstr "Sales cockpit for Odoo 8 to 20 in Pascal with Lazarus: JSON-RPC, offline data and sync without duplicates."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Compra %s: %s"
+msgstr "Purchase %s: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Compra: %s\n"
+"Proveedor: %s\n"
+"Fecha: %s\n"
+"Total: %s\n"
+"Estado: %s"
+msgstr ""
+"Purchase: %s\n"
+"Vendor: %s\n"
+"Date: %s\n"
+"Total: %s\n"
+"Status: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgctxt "bim"
 msgid "Concepto"
 msgstr "Concept"
@@ -6592,12 +6622,24 @@ msgid "Configuración"
 msgstr "Settings"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Confirmar"
+msgstr "Confirm"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Confirme primero el pedido."
+msgstr "Confirm the order first."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Contraseña o clave de API"
 msgstr "Password or API key"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Conéctese para ver los conceptos de este presupuesto."
 msgstr "Connect to see the concepts of this budget."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/budget_screen.dart
+msgid "Coste"
+msgstr "Cost"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Costo"
@@ -6664,8 +6706,20 @@ msgid "El descuento va de 0 a 100."
 msgstr "The discount goes from 0 to 100."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El módulo Compras no está instalado en esta base de datos de Odoo."
+msgstr "The Purchase app is not installed in this Odoo database."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El módulo Ventas no está instalado en esta base de datos de Odoo: no hay pedidos ni presupuestos."
 msgstr "The Sales module is not installed in this Odoo database: there are no orders or quotations."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El pedido está cancelado."
+msgstr "The order is cancelled."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El pedido ya está así: %s."
+msgstr "The order is already at this step: %s."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El presupuesto %s ya estaba en Odoo: no se duplica."
@@ -6674,6 +6728,14 @@ msgstr "Quotation %s was already in Odoo: not duplicated."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El presupuesto «%s» ya estaba en Odoo: se añaden solo los conceptos que faltan."
 msgstr "Budget «%s» was already in Odoo: only the missing concepts are added."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El producto «%s» aún no está en Odoo."
+msgstr "The product “%s” is not in Odoo yet."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "El producto «%s» ya estaba en Odoo (id %d): no se duplica."
+msgstr "The product “%s” was already in Odoo (id %d): not duplicated."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "El servidor no muestra sus bases de datos: escriba el nombre de la suya."
@@ -6704,6 +6766,10 @@ msgid "Elija el cliente del presupuesto."
 msgstr "Choose the quotation's customer."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija el proveedor."
+msgstr "Choose the vendor."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Elija en el árbol el capítulo donde va la partida."
 msgstr "Choose in the tree the chapter the item goes in."
 
@@ -6726,6 +6792,10 @@ msgstr "Choose a change from the list."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Elija un concepto del árbol."
 msgstr "Choose a concept in the tree."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Elija un pedido de la lista."
+msgstr "Choose an order from the list."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Elija un producto."
@@ -6768,6 +6838,10 @@ msgid "Escriba el nombre de la obra."
 msgstr "Type the project name."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba el nombre del producto."
+msgstr "Enter the product name."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Escriba la descripción del concepto."
 msgstr "Type the concept description."
 
@@ -6778,6 +6852,10 @@ msgstr "Type the Odoo server address."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Escriba la dirección, el usuario y la contraseña de Odoo y pulse Conectar y descargar."
 msgstr "Type the Odoo address, user and password and press Connect and download."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Escriba precios de 0 o más."
+msgstr "Enter prices of 0 or more."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Escriba una cantidad mayor que cero y un precio (0 o más)."
@@ -6812,12 +6890,40 @@ msgid "Está trabajando sin conexión: desmarque esa casilla en Sincronización 
 msgstr "You are working offline: untick that box in Sync to send the changes."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Factura %s pagada (%s)."
+msgstr "Invoice %s paid (%s)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Factura %s publicada."
 msgstr "Invoice %s posted."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Factura de proveedor %s publicada."
+msgstr "Vendor bill %s posted."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid ""
+"Factura: %s\n"
+"Pago: %s"
+msgstr ""
+"Invoice: %s\n"
+"Payment: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Facturado"
 msgstr "Invoiced"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Facturar"
+msgstr "Invoice"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Facturar compras desde aquí necesita Odoo 14 o posterior."
+msgstr "Billing purchases from here needs Odoo 14 or later."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Facture primero el pedido."
+msgstr "Invoice the order first."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid ""
@@ -6858,6 +6964,14 @@ msgid "Guardar presupuesto"
 msgstr "Save quotation"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Guardar producto"
+msgstr "Save product"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Guardar solicitud"
+msgstr "Save request"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Hay %d cambios sin enviar a Odoo, que se perderán. ¿Borrar de todos modos?"
 msgstr "There are %d changes not sent to Odoo, which will be lost. Delete anyway?"
 
@@ -6880,6 +6994,14 @@ msgstr "Delivery %s could not be validated (status %s)."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "La obra «%s» ya estaba en Odoo: no se duplica."
 msgstr "Project «%s» was already in Odoo: not duplicated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "La solicitud %s ya estaba en Odoo: no se duplica."
+msgstr "The request %s was already in Odoo: not duplicated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Las ventas del punto de venta se confirman, entregan y facturan solas."
+msgstr "Point of sale sales are confirmed, delivered and invoiced on their own."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Los capítulos van en el primer nivel del presupuesto."
@@ -6910,6 +7032,10 @@ msgid "No hay clientes: sincronice o cree uno en Clientes."
 msgstr "There are no customers: sync or create one in Customers."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "No hay contactos: sincronice o cree uno en Clientes (marque «Proveedor»)."
+msgstr "No contacts: sync or create one in Customers (tick “Vendor”)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "No se encuentra OpenSSL, que hace falta para HTTPS. En Windows, copie libssl-3-x64.dll y libcrypto-3-x64.dll junto al programa; en macOS, instale OpenSSL con Homebrew (brew install openssl@3); en Linux, instale libssl."
 msgstr "OpenSSL, which HTTPS needs, cannot be found. On Windows, copy libssl-3-x64.dll and libcrypto-3-x64.dll next to the program; on macOS, install OpenSSL with Homebrew (brew install openssl@3); on Linux, install libssl."
 
@@ -6936,6 +7062,14 @@ msgstr "Budget name (optional)"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Nueva obra…"
 msgstr "New project…"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nueva solicitud"
+msgstr "New request"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nueva solicitud de presupuesto"
+msgstr "New budget request"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Nuevo cliente"
@@ -6983,6 +7117,14 @@ msgid "Odoo no creó la factura del pedido %s."
 msgstr "Odoo did not create the invoice for order %s."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo no creó la factura del pedido de compra %s."
+msgstr "Odoo did not create the bill for purchase order %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Odoo no dejó pagada la factura %s."
+msgstr "Odoo did not leave invoice %s paid."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Odoo sin conexión"
 msgstr "Offline Odoo"
 
@@ -6991,12 +7133,28 @@ msgid "Odoo sin conexión (Pascal)"
 msgstr "Offline Odoo (Pascal)"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pagado"
+msgstr "Paid"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Partida"
 msgstr "Item"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Pedido %s confirmado."
 msgstr "Order %s confirmed."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedido %s: %s"
+msgstr "Order %s: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedido de compra"
+msgstr "Purchase order"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedido de compra %s confirmado."
+msgstr "Purchase order %s confirmed."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Pedido de venta"
@@ -7017,6 +7175,10 @@ msgstr ""
 "Status: %s"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Pedidos de compra"
+msgstr "Purchase orders"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Pedidos de venta"
 msgstr "Sales orders"
 
@@ -7035,6 +7197,10 @@ msgstr "Waiting to be sent"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Por %s"
 msgstr "Worth %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Precio de venta"
+msgstr "Sales price"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgctxt "bim"
@@ -7095,8 +7261,28 @@ msgid "Probar conexión"
 msgstr "Test connection"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Producto %d de Odoo: sus cambios se hacen en Odoo."
+msgstr "Odoo product %d: change it in Odoo."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Producto nuevo: %s"
+msgstr "New product: %s"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Producto «%s» creado en Odoo (id %d)."
+msgstr "Product “%s” created in Odoo (id %d)."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Productos que se pueden vender"
 msgstr "Products that can be sold"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/settings_screen.dart
+msgid "Proveedor"
+msgstr "Vendor"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Proveedor (también se le compra)"
+msgstr "Vendor (you also buy from them)"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Punto de venta"
@@ -7111,12 +7297,32 @@ msgid "Quitar línea"
 msgstr "Remove line"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Recepción %s validada."
+msgstr "Receipt %s validated."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Referencia interna"
+msgstr "Internal reference"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Registrar pago"
+msgstr "Register payment"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Registrar pagos desde aquí necesita Odoo 9 o posterior."
+msgstr "Registering payments from here needs Odoo 9 or later."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Reintentar automáticamente"
 msgstr "Retry automatically"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Rellene la ficha y pulse Guardar: funciona también sin conexión."
 msgstr "Fill in the form and press Save: it works offline too."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Rellene la ficha y pulse Guardar: funciona también sin conexión. Se crea como consumible, para vender y comprar; sin referencia interna, lleva la de este equipo."
+msgstr "Fill in the form and press Save: it also works offline. It is created as a consumable, to sell and to buy; without an internal reference, it gets this computer's one."
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Resumen de las ventas de los últimos doce meses"
@@ -7189,6 +7395,30 @@ msgstr "Sync"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Sincronizar ahora"
 msgstr "Sync now"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitud %s creada en Odoo para %s."
+msgstr "Request %s created in Odoo for %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitud a %s (%s)"
+msgstr "Request to %s (%s)"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitud de presupuesto"
+msgstr "Request for quotation"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitud guardada: se enviará a Odoo al sincronizar."
+msgstr "Request saved: it will be sent to Odoo when you sync."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitudes de presupuesto"
+msgstr "Requests for quotation"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Solicitudes y pedidos a proveedores, con su factura y su pago"
+msgstr "Requests and orders to vendors, with their bill and payment"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Su cliente aún no está en Odoo."
@@ -7305,6 +7535,10 @@ msgid "Volver al primer nivel del presupuesto"
 msgstr "Back to the budget top level"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Ya hay un producto con la referencia %s."
+msgstr "There is already a product with reference %s."
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "dto. %s %%"
 msgstr "disc. %s %%"
 
@@ -7327,6 +7561,10 @@ msgstr "orders"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "pendiente"
 msgstr "pending"
+
+#: lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "proveedor"
+msgstr "vendor"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "sin Inventario en Odoo"
@@ -9307,10 +9545,6 @@ msgid "Cerca del límite ({0} %)."
 msgstr "Close to the limit ({0}%)."
 
 #: lib/ui/screens/budget_screen.dart
-msgid "Coste"
-msgstr "Cost"
-
-#: lib/ui/screens/budget_screen.dart
 msgid "Costes calculados con la tarifa de la API de Anthropic. Con una suscripción de Claude, el coste de Claude Code es su equivalente en API, no lo que se cobra."
 msgstr "Costs calculated with Anthropic API pricing. With a Claude subscription, the Claude Code cost is its API equivalent, not what you are charged."
 
@@ -10793,10 +11027,6 @@ msgstr "Artificial intelligence"
 #: lib/ui/screens/settings_screen.dart
 msgid "La IA diseña ventanas, escribe los manejadores de eventos, propone cambios en el Editor y dibuja diagramas. La clave se guarda solo en este equipo."
 msgstr "The AI designs windows, writes event handlers, proposes changes in the Editor and draws diagrams. The key is stored only on this computer."
-
-#: lib/ui/screens/settings_screen.dart
-msgid "Proveedor"
-msgstr "Vendor"
 
 #: lib/ui/screens/settings_screen.dart
 msgid "Sistema"

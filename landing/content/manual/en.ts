@@ -394,7 +394,7 @@ export const manualEn: Manual = {
                 ["**Stock investor (demo)**", "Live simulated prices, buying and selling with commission, a saved portfolio and a chart"],
                 ["**Point of sale**", "A POS in the style of Odoo's with pictures: quantity, discount and price keypad, payment, receipt and sales in SQLite. It connects to Odoo with URL, user and password to download products and prices and send the orders to Sales"],
                 ["**File renamer**", "Rules with regular expressions and numbering, a preview with conflicts and undo"],
-                ["**Offline Odoo (Pascal)**", "A native Lazarus app for Odoo 8 to 20 over JSON-RPC: dashboard with charts, customers, products, quotations and a point of sale that creates order, delivery and invoice, online and offline, without duplicates. With BIM 2.0 (base_bim_2) in Odoo, also projects and budgets by concepts (chapters, items and labour, equipment, material and subcontract resources) made offline and uploaded to Odoo"],
+                ["**Offline Odoo (Pascal)**", "A native Lazarus app for Odoo 8 to 20 over JSON-RPC: dashboard with charts, customers, vendors, products, sales and purchases end to end (quotation or request, confirmation, invoice and payment by bank or cash) and a point of sale that creates order, delivery and invoice, online and offline, without duplicates. With BIM 2.0 (base_bim_2) in Odoo, also projects and budgets by concepts (chapters, items and labour, equipment, material and subcontract resources) made offline and uploaded to Odoo"],
                 ["**Train tracking**", "Live public data (Renfe's GTFS-Realtime) in the background, proximity alerts, a train graph and a map drawn on canvases, and an offline simulation"],
                 ["**MP3 player**", "A custom interface drawn on canvases (digital clock, spectrum), ID3 tags, M3U lists and sound with `pygame`"],
                 ["**File Explorer (C++)**", "A native C++ app with FLTK: custom components drawn in code (a tree that loads as you open it, icon, list and details views, tabs, breadcrumbs in the address bar), saved bookmarks, copy and paste with the system file clipboard (between windows and with Finder or Explorer), Trash, properties worked out in the background and a light or dark theme"],
@@ -951,7 +951,7 @@ export const manualEn: Manual = {
           blocks: [
             {
               type: "p",
-              text: "The **Offline Odoo (Pascal)** example is a native app that works with Odoo 8 to 20 over JSON-RPC, online and offline: dashboard, customers, products, sales, point of sale and, if the Odoo database has **BIM 2.0** (the `base_bim_2` module), the **BIM projects** page to make projects and budgets by concepts. It can be downloaded already built from the **Demos** page.",
+              text: "The **Offline Odoo (Pascal)** example is a native app that works with Odoo 8 to 20 over JSON-RPC, online and offline: dashboard, customers and vendors, products (which can also be created offline), sales and purchases with their steps (**Confirm**, **Invoice** and **Register payment**, which Odoo repeats when you sync), point of sale and, if the Odoo database has **BIM 2.0** (the `base_bim_2` module), the **BIM projects** page to make projects and budgets by concepts. It can be downloaded already built from the **Demos** page.",
             },
             {
               type: "img",

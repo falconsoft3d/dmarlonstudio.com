@@ -27,6 +27,7 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
     t(markTr('Sincronización')),
     t(markTr('Configuración')),
     t(markTr('Obras BIM')),
+    t(markTr('Compras')),
   ];
   const navNames = [
     'NavPanel',
@@ -37,10 +38,12 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
     'NavSync',
     'NavSettings',
     'NavBim',
+    'NavPurchases',
   ];
-  // El hueco de cada botón en el menú: Obras BIM va detrás del punto de
-  // venta (y, sin BIM en Odoo, se oculta y los de abajo suben).
-  const navSlot = [0, 1, 2, 3, 4, 6, 7, 5];
+  // El hueco de cada botón en el menú: Compras va detrás de Ventas y Obras
+  // BIM detrás del punto de venta (y, sin BIM en Odoo, se oculta y los de
+  // abajo suben).
+  const navSlot = [0, 1, 2, 3, 5, 7, 8, 6, 4];
   // Los componentes de una página llevan 24 px más en y: la fila de
   // pestañas, que la aplicación oculta (se navega con el menú lateral).
   const oy = 24;
@@ -281,25 +284,42 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             inside(_w('Entry', 'Cust$n', 16, 68 + i * 58, 292, 28), 'CustCard'),
           ],
           inside(
-            primary('CustSave', 16, 404, 140, 34, t(markTr('Guardar'))),
+            _w('Checkbutton', 'CustSupplier', 16, 394, 292, 24, {
+              'text': t(markTr('Proveedor (también se le compra)')),
+            }),
             'CustCard',
           ),
           inside(
-            button('CustCancel', 168, 404, 140, 34, t(markTr('Cancelar'))),
+            primary('CustSave', 16, 428, 140, 34, t(markTr('Guardar'))),
             'CustCard',
           ),
           inside(
-            text('CustInfo', 16, 452, 292, 140, '', fg: muted, size: 10),
+            button('CustCancel', 168, 428, 140, 34, t(markTr('Cancelar'))),
             'CustCard',
           ),
-          // Productos: lista con columnas.
-          onPage(_w('Entry', 'ProdSearch', 20, oy + 16, 300, 28), 2),
+          inside(
+            text('CustInfo', 16, 474, 292, 120, '', fg: muted, size: 10),
+            'CustCard',
+          ),
+          // Productos: lista con columnas y la ficha de un producto nuevo.
+          onPage(_w('Entry', 'ProdSearch', 20, oy + 16, 200, 28), 2),
+          onPage(
+            primary(
+              'ProdNew',
+              228,
+              oy + 16,
+              150,
+              28,
+              t(markTr('Nuevo producto')),
+            ),
+            2,
+          ),
           onPage(
             text(
               'ProdCount',
-              336,
+              386,
               oy + 16,
-              544,
+              154,
               28,
               '',
               fg: muted,
@@ -307,21 +327,21 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             ),
             2,
           ),
-          onPage(box('ProdHeader', 20, oy + 56, 860, 28, '#e3e8ee'), 2),
+          onPage(box('ProdHeader', 20, oy + 56, 520, 28, '#e3e8ee'), 2),
           inside(
-            text('LblPCode', 12, 2, 110, 24, t(markTr('Código')), fg: muted),
+            text('LblPCode', 12, 2, 84, 24, t(markTr('Código')), fg: muted),
             'ProdHeader',
           ),
           inside(
-            text('LblPName', 140, 2, 400, 24, t(markTr('Producto')), fg: muted),
+            text('LblPName', 104, 2, 190, 24, t(markTr('Producto')), fg: muted),
             'ProdHeader',
           ),
           inside(
             text(
               'LblPPrice',
-              560,
+              300,
               2,
-              130,
+              110,
               24,
               t(markTr('Precio')),
               fg: muted,
@@ -332,9 +352,9 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
           inside(
             text(
               'LblPStock',
-              700,
+              414,
               2,
-              130,
+              84,
               24,
               t(markTr('Stock')),
               fg: muted,
@@ -342,7 +362,46 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             ),
             'ProdHeader',
           ),
-          onPage(_w('Listbox', 'ProdList', 20, oy + 84, 860, 540), 2),
+          onPage(
+            _w('Listbox', 'ProdList', 20, oy + 84, 520, 540, const {}, {
+              'select': 'ProdList_select',
+            }),
+            2,
+          ),
+          onPage(box('ProdCard', 556, oy + 16, 324, 610), 2),
+          inside(
+            text(
+              'ProdCardTitle',
+              16,
+              12,
+              292,
+              26,
+              t(markTr('Nuevo producto')),
+              size: 13,
+              bold: true,
+            ),
+            'ProdCard',
+          ),
+          for (final (i, (n, caption)) in [
+            ('Name', t(markTr('Nombre *'))),
+            ('Code', t(markTr('Referencia interna'))),
+            ('Price', t(markTr('Precio de venta'))),
+            ('Cost', t(markTr('Coste'))),
+          ].indexed) ...[
+            inside(
+              text('LblProd$n', 16, 48 + i * 58, 292, 20, caption, fg: muted),
+              'ProdCard',
+            ),
+            inside(_w('Entry', 'Prod$n', 16, 68 + i * 58, 292, 28), 'ProdCard'),
+          ],
+          inside(
+            primary('ProdSave', 16, 290, 292, 34, t(markTr('Guardar producto'))),
+            'ProdCard',
+          ),
+          inside(
+            text('ProdInfo', 16, 336, 292, 140, '', fg: muted, size: 10),
+            'ProdCard',
+          ),
           // Ventas: pedidos y presupuesto nuevo.
           onPage(_w('Entry', 'SaleSearch', 20, oy + 16, 200, 28), 3),
           onPage(
@@ -380,8 +439,22 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
             3,
           ),
           onPage(
-            _w('Listbox', 'SaleList', 20, oy + 56, 520, 540, const {}, {
+            _w('Listbox', 'SaleList', 20, oy + 56, 520, 496, const {}, {
               'double': 'SaleList_double',
+            }),
+            3,
+          ),
+          // Los pasos del pedido elegido: confirmar, facturar y cobrar.
+          for (final (n, x, w, caption) in [
+            ('SaleConfirm', 20, 120, t(markTr('Confirmar'))),
+            ('SaleInvoice', 146, 120, t(markTr('Facturar'))),
+            ('SalePay', 272, 130, t(markTr('Registrar pago'))),
+          ])
+            onPage(button(n, x, oy + 560, w, 32, caption), 3),
+          onPage(
+            _w('Combobox', 'SalePayKind', 408, oy + 562, 132, 28, {
+              'items': [t(markTr('Banco')), t(markTr('Efectivo'))].join('\n'),
+              'state': 'readonly',
             }),
             3,
           ),
@@ -491,6 +564,158 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
               size: 9,
             ),
             'QuoteCard',
+          ),
+          // Compras: solicitudes y pedidos a proveedores, con sus pasos.
+          onPage(_w('Entry', 'PurSearch', 20, oy + 16, 200, 28), 8),
+          onPage(
+            _w(
+              'Combobox',
+              'PurFilter',
+              228,
+              oy + 16,
+              160,
+              28,
+              {
+                'items': [
+                  t(markTr('Todos')),
+                  t(markTr('Solicitudes de presupuesto')),
+                  t(markTr('Pedidos de compra')),
+                  t(markTr('Sin enviar')),
+                ].join('\n'),
+                'state': 'readonly',
+              },
+              {'select': 'PurFilter_select'},
+            ),
+            8,
+          ),
+          onPage(
+            button('PurNew', 396, oy + 16, 144, 28, t(markTr('Nueva solicitud'))),
+            8,
+          ),
+          onPage(
+            _w('Listbox', 'PurList', 20, oy + 56, 520, 496, const {}, {
+              'double': 'PurList_double',
+            }),
+            8,
+          ),
+          for (final (n, x, w, caption) in [
+            ('PurConfirm', 20, 120, t(markTr('Confirmar'))),
+            ('PurBill', 146, 120, t(markTr('Facturar'))),
+            ('PurPay', 272, 130, t(markTr('Registrar pago'))),
+          ])
+            onPage(button(n, x, oy + 560, w, 32, caption), 8),
+          onPage(
+            _w('Combobox', 'PurPayKind', 408, oy + 562, 132, 28, {
+              'items': [t(markTr('Banco')), t(markTr('Efectivo'))].join('\n'),
+              'state': 'readonly',
+            }),
+            8,
+          ),
+          onPage(text('PurCount', 20, oy + 602, 520, 22, '', fg: muted), 8),
+          onPage(box('PurCard', 556, oy + 16, 324, 610), 8),
+          inside(
+            text(
+              'PurTitle',
+              16,
+              12,
+              292,
+              26,
+              t(markTr('Nueva solicitud de presupuesto')),
+              size: 13,
+              bold: true,
+            ),
+            'PurCard',
+          ),
+          inside(
+            text('LblPurSupp', 16, 46, 292, 20, t(markTr('Proveedor')), fg: muted),
+            'PurCard',
+          ),
+          inside(
+            _w('Combobox', 'PurSupp', 16, 66, 292, 28, {'state': 'readonly'}),
+            'PurCard',
+          ),
+          inside(
+            text('LblPurProd', 16, 102, 292, 20, t(markTr('Producto')), fg: muted),
+            'PurCard',
+          ),
+          inside(
+            _w(
+              'Combobox',
+              'PurProd',
+              16,
+              122,
+              292,
+              28,
+              {'state': 'readonly'},
+              {'select': 'PurProd_select'},
+            ),
+            'PurCard',
+          ),
+          inside(
+            text('LblPurQty', 16, 158, 64, 20, t(markTr('Cantidad')), fg: muted),
+            'PurCard',
+          ),
+          inside(
+            text('LblPurPrice', 88, 158, 84, 20, t(markTr('Coste')), fg: muted),
+            'PurCard',
+          ),
+          for (final (n, x, w) in [('PurQty', 16, 64), ('PurPrice', 88, 84)])
+            inside(
+              _w('Entry', n, x, 178, w, 28, const {}, {
+                'enter_key': 'PurAdd_click',
+              }),
+              'PurCard',
+            ),
+          inside(
+            button('PurAdd', 180, 178, 60, 28, t(markTr('Añadir'))),
+            'PurCard',
+          ),
+          inside(
+            button('PurDel', 248, 178, 60, 28, t(markTr('Quitar'))),
+            'PurCard',
+          ),
+          inside(_w('Listbox', 'PurLines', 16, 216, 292, 250), 'PurCard'),
+          inside(
+            text(
+              'PurTotal',
+              16,
+              474,
+              292,
+              28,
+              '',
+              size: 13,
+              bold: true,
+              anchor: 'e',
+            ),
+            'PurCard',
+          ),
+          inside(
+            primary(
+              'PurSave',
+              16,
+              512,
+              292,
+              36,
+              t(markTr('Guardar solicitud')),
+            ),
+            'PurCard',
+          ),
+          inside(
+            text(
+              'PurInfo',
+              16,
+              556,
+              292,
+              44,
+              t(
+                markTr(
+                  'Se guarda en este equipo y se envía a Odoo al sincronizar.',
+                ),
+              ),
+              fg: muted,
+              size: 9,
+            ),
+            'PurCard',
           ),
           // Punto de venta: productos en mosaico y el ticket.
           onPage(_w('Entry', 'PosSearch', 20, oy + 16, 250, 28), 4),
@@ -1090,6 +1315,7 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
       t(markTr('Cambios pendientes de enviar y registro')),
       t(markTr('Servidor de Odoo, base de datos y usuario')),
       t(markTr('Obras y presupuestos por conceptos de BIM 2.0, también sin conexión')),
+      t(markTr('Solicitudes y pedidos a proveedores, con su factura y su pago')),
     ].join('|'),
     'SPageNames': pageNames.join('|'),
     'SMonths': t(markTr('ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic')),
@@ -1283,6 +1509,88 @@ TkExample tkUtilPascalOdoo(String Function(String) t) {
     'SDeliveryFailed': t(markTr('La entrega %s no se pudo validar (estado %s).')),
     'SNoInvoice': t(markTr('Odoo no creó la factura del pedido %s.')),
     'SNoSsl': t(markTr('no encontrada')),
+    // Productos, pasos de los pedidos (confirmar, facturar, pagar) y compras.
+    'SStInvoiced': t(markTr('Facturado')),
+    'SStPaid': t(markTr('Pagado')),
+    'SPoDraft': t(markTr('Solicitud de presupuesto')),
+    'SPoOrder': t(markTr('Pedido de compra')),
+    'SBank': t(markTr('Banco')),
+    'SSupplierTag': t(markTr('proveedor')),
+    'SChooseOrder': t(markTr('Elija un pedido de la lista.')),
+    'SPosNoSteps': t(
+      markTr(
+        'Las ventas del punto de venta se confirman, entregan y facturan solas.',
+      ),
+    ),
+    'SIsCancelled': t(markTr('El pedido está cancelado.')),
+    'SAlreadyStep': t(markTr('El pedido ya está así: %s.')),
+    'SConfirmFirst': t(markTr('Confirme primero el pedido.')),
+    'SInvoiceFirst': t(markTr('Facture primero el pedido.')),
+    'SOrderSteps': t(markTr('Factura: %s\nPago: %s')),
+    'SOpOrderStep': t(markTr('Pedido %s: %s')),
+    'SOpPurStep': t(markTr('Compra %s: %s')),
+    'SOpNewProduct': t(markTr('Producto nuevo: %s')),
+    'SOpNewPurchase': t(markTr('Solicitud a %s (%s)')),
+    'SSentProduct': t(markTr('Producto «%s» creado en Odoo (id %d).')),
+    'SFoundProduct': t(
+      markTr('El producto «%s» ya estaba en Odoo (id %d): no se duplica.'),
+    ),
+    'SProductNotSent': t(markTr('El producto «%s» aún no está en Odoo.')),
+    'SPaidLog': t(markTr('Factura %s pagada (%s).')),
+    'SNotPaid': t(markTr('Odoo no dejó pagada la factura %s.')),
+    'SPayOld': t(
+      markTr('Registrar pagos desde aquí necesita Odoo 9 o posterior.'),
+    ),
+    'SPurchaseMissing': t(
+      markTr(
+        'El módulo Compras no está instalado en esta base de datos de Odoo.',
+      ),
+    ),
+    'SSentPurchase': t(markTr('Solicitud %s creada en Odoo para %s.')),
+    'SFoundPurchase': t(
+      markTr('La solicitud %s ya estaba en Odoo: no se duplica.'),
+    ),
+    'SPurConfirmed': t(markTr('Pedido de compra %s confirmado.')),
+    'SReceivedLog': t(markTr('Recepción %s validada.')),
+    'SBillOld': t(
+      markTr('Facturar compras desde aquí necesita Odoo 14 o posterior.'),
+    ),
+    'SNoBill': t(markTr('Odoo no creó la factura del pedido de compra %s.')),
+    'SBilledLog': t(markTr('Factura de proveedor %s publicada.')),
+    'SChooseSupp': t(markTr('Elija el proveedor.')),
+    'SNoSuppliers': t(
+      markTr(
+        'No hay contactos: sincronice o cree uno en Clientes (marque «Proveedor»).',
+      ),
+    ),
+    'SPurSaved': t(
+      markTr('Solicitud guardada: se enviará a Odoo al sincronizar.'),
+    ),
+    'SSearchPur': t(markTr('Buscar por número o proveedor…')),
+    'SPurCount': t(markTr('%d compras · %s')),
+    'SPurInfo': t(
+      markTr(
+        'Compra: %s\nProveedor: %s\nFecha: %s\nTotal: %s\nEstado: %s',
+      ),
+    ),
+    'SNewProd': t(markTr('Nuevo producto')),
+    'SShowProd': t(markTr('Producto')),
+    'SProdLocal': t(
+      markTr(
+        'Creado en este equipo: se enviará a Odoo al sincronizar (con la referencia %s).',
+      ),
+    ),
+    'SProdOdoo': t(
+      markTr('Producto %d de Odoo: sus cambios se hacen en Odoo.'),
+    ),
+    'SProdHint': t(
+      markTr(
+        'Rellene la ficha y pulse Guardar: funciona también sin conexión. Se crea como consumible, para vender y comprar; sin referencia interna, lleva la de este equipo.',
+      ),
+    ),
+    'SProdNameReq': t(markTr('Escriba el nombre del producto.')),
+    'SBadPrice': t(markTr('Escriba precios de 0 o más.')),
+    'SDupCode': t(markTr('Ya hay un producto con la referencia %s.')),
     'SBimNoCust': t(markTr('(sin cliente)')),
     'SBimCrumb': tc('bim', markTrc('bim', 'Presupuestos')),
     'SBimConcept': tc('bim', markTrc('bim', 'Concepto')),
@@ -1470,10 +1778,13 @@ type
     procedure Queue(const Op, Ref: string; Id: Integer);
     procedure AddLog(const Line: string);
     function AddPartner(const Name, Email, Phone, Street, City,
-      Vat: string): TJSONObject;
+      Vat: string; Supplier: Boolean = False): TJSONObject;
     procedure EditPartner(P: TJSONObject; const Name, Email, Phone, Street,
       City, Vat: string);
+    function AddProduct(const Name, Code: string; Price, Cost: Double): TJSONObject;
     function AddOrder(Partner: TJSONObject; Lines: TJSONArray): TJSONObject;
+    function AddPurchase(Partner: TJSONObject; Lines: TJSONArray): TJSONObject;
+    function SetStep(O: TJSONObject; Step: Integer; const Pay: string): string;
     function AddPos(Partner: TJSONObject; Lines: TJSONArray;
       const Payment: string): TJSONObject;
     function CounterPartner: TJSONObject;
@@ -1495,11 +1806,19 @@ type
     procedure RefreshOrder(O: TJSONObject; Id: Integer);
     procedure PushOrder(Op: TJSONObject);
     procedure PushPos(Op: TJSONObject);
-    procedure Confirm(Id: Integer);
-    function Deliver(Id: Integer): string;
-    function Invoice(Id: Integer): string;
+    procedure PushProduct(Op: TJSONObject);
+    function LinesVals(O: TJSONObject; const Model, QtyField: string): TJSONArray;
+    function PartnerOf(O: TJSONObject): Integer;
+    procedure Advance(O: TJSONObject; Id: Integer);
+    function EnsurePurchase(O: TJSONObject): Integer;
+    procedure RefreshPurchase(O: TJSONObject; Id: Integer);
+    procedure PushPurchase(Op: TJSONObject);
+    procedure ConfirmPurchase(Id: Integer);
+    function Bill(Id: Integer): string;
+    function JournalId(const Kind: string): Integer;
+    function PayInvoices(const Model: string; Id: Integer; const Kind: string): string;
+    function InvoiceLevels(Rows: TJSONArray): TJSONObject;
     procedure RunWizard(R: TJSONData);
-    function Ids(const Model: string; Id: Integer; const Field: string): TJSONArray;
     procedure LoadCurrency;
     function CompanyCurrency: Integer;
     function BimUomId(const Name: string): Integer;
@@ -1517,6 +1836,10 @@ type
     procedure Connect;
     procedure Download;
     function Push: Integer;
+    procedure Confirm(Id: Integer);
+    function Deliver(const Model: string; Id: Integer): string;
+    function Invoice(Id: Integer): string;
+    function Ids(const Model: string; Id: Integer; const Field: string): TJSONArray;
     procedure LoadBimConcepts(B: TJSONObject);
   end;
 
@@ -1547,6 +1870,9 @@ type
     BimProjKey, BimBudKey, BimSelRef, BimRowRef: string;
     BimOpen: TStringList;
     BimSibMode: Boolean;
+    PurRows, PurSuppChoice: array of Integer;
+    PurDraft: TJSONArray;
+    EditingProd: TJSONObject;
     destructor Destroy; override;
     procedure form_create; override;
     procedure form_close; override;
@@ -1592,7 +1918,7 @@ type
     procedure SaleNew_click; override;
     procedure SaleList_double; override;
     procedure RecentList_double; override;
-    procedure ShowOrder(Index: Integer);
+    procedure ShowOrder(O: TJSONObject);
     procedure QuoteAdd_click; override;
     procedure QuoteDel_click; override;
     procedure QuoteSave_click; override;
@@ -1678,6 +2004,32 @@ type
       ARect: TRect; State: TOwnerDrawState);
     procedure DrawBimRow(Control: TWinControl; Index: Integer;
       ARect: TRect; State: TOwnerDrawState);
+    // productos, pasos de los pedidos y compras
+    procedure ShowProduct(P: TJSONObject);
+    procedure ProdNew_click; override;
+    procedure ProdSave_click; override;
+    procedure ProdList_select; override;
+    procedure StepSelected(L: TListBox; const Rows: array of Integer;
+      const Key: string; Step: Integer; PayKind: TComboBox);
+    procedure SaleConfirm_click; override;
+    procedure SaleInvoice_click; override;
+    procedure SalePay_click; override;
+    procedure NavPurchases_click; override;
+    procedure RefreshPurchases;
+    procedure RefreshPurChoices;
+    procedure RefreshPurDraft;
+    procedure PurFilter_select; override;
+    procedure PurNew_click; override;
+    procedure PurList_double; override;
+    procedure PurProd_select; override;
+    procedure PurAdd_click; override;
+    procedure PurDel_click; override;
+    procedure PurSave_click; override;
+    procedure PurConfirm_click; override;
+    procedure PurBill_click; override;
+    procedure PurPay_click; override;
+    procedure DrawPurchase(Control: TWinControl; Index: Integer;
+      ARect: TRect; State: TOwnerDrawState);
   end;
 
 { Prepara OpenSSL para HTTPS (antes de la primera conexión). }
@@ -1700,6 +2052,7 @@ const
   CPurple = $00C44B5B;   // #5b4bc4
   CSide = $003A2A1B;     // #1b2a3a
   CSideFg = $00DCD0C5;   // #c5d0dc
+  CTeal = $00887A00;     // #007a88
 
 var
   SSLFrom: string = ''; // la OpenSSL que se cargó (vacío: ninguna)
@@ -1859,9 +2212,45 @@ var
 begin
   if JBool(O, 'pending') then Exit(3);
   S := JStr(O, 'state');
-  if (S = 'draft') or (S = 'sent') then Result := 0
+  if (S = 'draft') or (S = 'sent') or (S = 'to approve') then Result := 0
   else if S = 'cancel' then Result := 2
   else Result := 1;
+end;
+
+{ ¿Confirmado en Odoo? Venta: sale, done (y progress o manual en la 8);
+  compra: purchase, done (approved en la 8). }
+function Confirmed(O: TJSONObject): Boolean;
+var
+  S: string;
+begin
+  S := JStr(O, 'state');
+  Result := (S <> '') and (S <> 'draft') and (S <> 'sent') and (S <> 'cancel') and
+    (S <> 'to approve') and (S <> 'bid') and not (JBool(O, 'purchase') and (S = 'confirmed'));
+end;
+
+{ Hasta dónde llegó un pedido en Odoo: 0 presupuesto (o solicitud), 1
+  confirmado, 2 facturado y 3 pagado. «want» es hasta dónde se pidió aquí
+  (puede que aún sin enviar). }
+function OrderLevel(O: TJSONObject): Integer;
+begin
+  Result := JInt(O, 'level');
+  if (Result = 0) and Confirmed(O) then Result := 1;
+end;
+
+function StepLabel(O: TJSONObject; Step: Integer): string;
+begin
+  case Step of
+    3: Result := SStPaid;
+    2: Result := SStInvoiced;
+    1:
+      if JBool(O, 'purchase') then Result := SPoOrder
+      else if JStr(O, 'state') = 'done' then Result := SStDone
+      else Result := SStSale;
+  else
+    if JBool(O, 'purchase') then Result := SPoDraft
+    else if JStr(O, 'state') = 'sent' then Result := SStSent
+    else Result := SStDraft;
+  end;
 end;
 
 { El paso de una venta del punto de venta. }
@@ -1879,16 +2268,15 @@ end;
 
 function StateLabel(O: TJSONObject): string;
 var
-  S: string;
+  Want, Level: Integer;
 begin
   if JBool(O, 'pos') then Exit(PosLabel(O));
-  if JBool(O, 'pending') then Exit(SStPending);
-  S := JStr(O, 'state');
-  if S = 'draft' then Result := SStDraft
-  else if S = 'sent' then Result := SStSent
-  else if S = 'cancel' then Result := SStCancel
-  else if S = 'done' then Result := SStDone
-  else Result := SStSale;
+  if JStr(O, 'state') = 'cancel' then Exit(SStCancel);
+  Want := JInt(O, 'want');
+  Level := OrderLevel(O);
+  if (JInt(O, 'id') = 0) and (Want = 0) then Exit(SStPending);
+  Result := StepLabel(O, Max(Want, Level));
+  if (Want > Level) or (JInt(O, 'id') = 0) then Result := Result + ' · ' + SPendingTag;
 end;
 
 function KindColor(Kind: Integer): TColor;
@@ -1912,7 +2300,15 @@ begin
     if JStr(O, 'step') = 'order' then Exit(CBlue);
     Exit(COrange);
   end;
-  Result := KindColor(StateKind(O));
+  if JStr(O, 'state') = 'cancel' then Exit(CGrey);
+  if (JInt(O, 'id') = 0) or (JInt(O, 'want') > OrderLevel(O)) then Exit(COrange);
+  case OrderLevel(O) of
+    3: Result := CTeal;
+    2: Result := CPurple;
+    1: Result := CGreen;
+  else
+    Result := CBlue;
+  end;
 end;
 
 function OrderTitle(O: TJSONObject): string;
@@ -1941,6 +2337,29 @@ begin
     if R = nil then Exit(SOpGone);
     Exit(Format(SOpBimBudget, [JStr(R, 'name'), Money(JNum(R, 'amount'))]));
   end;
+  if K = 'product_create' then
+  begin
+    R := Store.Find('products', 0, JStr(Op, 'ref'));
+    if R = nil then Exit(SOpGone);
+    Exit(Format(SOpNewProduct, [JStr(R, 'name')]));
+  end;
+  if (K = 'order_step') or (K = 'purchase_step') then
+  begin
+    if K = 'order_step' then R := Store.Find('orders', JInt(Op, 'id'), '')
+    else R := Store.Find('purchases', JInt(Op, 'id'), '');
+    if R = nil then Exit(SOpGone);
+    if K = 'order_step' then
+      Exit(Format(SOpOrderStep, [OrderTitle(R), StepLabel(R, JInt(R, 'want'))]));
+    Exit(Format(SOpPurStep, [OrderTitle(R), StepLabel(R, JInt(R, 'want'))]));
+  end;
+  if K = 'purchase_create' then
+  begin
+    R := Store.Find('purchases', 0, JStr(Op, 'ref'));
+    if R = nil then Exit(SOpGone);
+    Result := Format(SOpNewPurchase, [JStr(R, 'partner'), Money(JNum(R, 'amount'))]);
+    if JInt(R, 'want') > 0 then Result := Result + ' → ' + StepLabel(R, JInt(R, 'want'));
+    Exit;
+  end;
   if (K = 'order_create') or (K = 'pos_sale') then
   begin
     R := Store.Find('orders', 0, JStr(Op, 'ref'));
@@ -1948,7 +2367,10 @@ begin
     if K = 'pos_sale' then
       Result := Format(SOpPos, [JStr(R, 'partner'), Money(JNum(R, 'amount'))])
     else
+    begin
       Result := Format(SOpNewOrder, [JStr(R, 'partner'), Money(JNum(R, 'amount'))]);
+      if JInt(R, 'want') > 0 then Result := Result + ' → ' + StepLabel(R, JInt(R, 'want'));
+    end;
   end
   else
   begin
@@ -2392,15 +2814,26 @@ var
 begin
   if FFields.Find(Model) <> nil then Exit;
   if Model = 'res.partner' then
-    Names := 'name,email,phone,mobile,street,city,vat,ref,is_company,customer,customer_rank,user_ids'
+    Names := 'name,email,phone,mobile,street,city,vat,ref,is_company,customer,customer_rank,' +
+      'supplier,supplier_rank,user_ids'
   else if Model = 'product.product' then
-    Names := 'name,default_code,lst_price,list_price,qty_available,uom_id,sale_ok,categ_id'
+    Names := 'name,default_code,lst_price,list_price,standard_price,qty_available,uom_id,' +
+      'sale_ok,purchase_ok,categ_id,type,invoice_policy,purchase_method'
   else if Model = 'sale.order' then
     Names := 'name,partner_id,date_order,amount_total,state,client_order_ref,' +
       'origin,picking_ids,invoice_ids'
   else if Model = 'sale.order.line' then
     Names := 'name,product_id,product_uom_qty,price_unit,product_uom,' +
-      'product_uom_id,discount,qty_delivered,order_id'
+      'product_uom_id,discount,qty_delivered,qty_to_invoice,order_id'
+  else if Model = 'purchase.order' then
+    Names := 'name,partner_id,date_order,amount_total,state,origin,picking_ids,invoice_ids'
+  else if Model = 'purchase.order.line' then
+    Names := 'name,product_id,product_qty,price_unit,product_uom,product_uom_id,' +
+      'date_planned,qty_to_invoice,order_id'
+  else if Model = 'account.journal' then
+    Names := 'name,type'
+  else if Model = 'account.payment' then
+    Names := 'payment_type,partner_type,partner_id,amount,journal_id,payment_method_id,invoice_ids'
   else if Model = 'stock.picking' then
     Names := 'name,state,move_ids,move_lines'
   else if Model = 'stock.move' then
@@ -2408,7 +2841,8 @@ begin
   else if Model = 'sale.advance.payment.inv' then
     Names := 'advance_payment_method,sale_order_ids'
   else if (Model = 'account.invoice') or (Model = 'account.move') then
-    Names := 'name,number,state'
+    Names := 'name,number,state,payment_state,invoice_payment_state,amount_residual,' +
+      'residual,invoice_date,type,move_type,partner_id'
   else if Model = 'bim.project' then
     Names := 'name,nombre,notes,customer_id'
   else if Model = 'bim.budget' then
@@ -2679,11 +3113,11 @@ begin
 end;
 
 function TOdooStore.AddPartner(const Name, Email, Phone, Street, City,
-  Vat: string): TJSONObject;
+  Vat: string; Supplier: Boolean): TJSONObject;
 begin
   Result := TJSONObject.Create(['id', 0, 'ref', NewRef, 'name', Trim(Name),
     'email', Trim(Email), 'phone', Trim(Phone), 'street', Trim(Street),
-    'city', Trim(City), 'vat', Trim(Vat), 'pending', True]);
+    'city', Trim(City), 'vat', Trim(Vat), 'supplier', Supplier, 'pending', True]);
   List('partners').Add(Result);
   Queue('partner_create', JStr(Result, 'ref'), 0);
   Save;
@@ -2719,6 +3153,76 @@ begin
   Result.Add('lines', Lines);
   List('orders').Insert(0, Result);
   Queue('order_create', JStr(Result, 'ref'), 0);
+  Save;
+end;
+
+{ Un producto hecho aquí: en Odoo, un consumible que se vende y se compra,
+  con la referencia interna escrita o, si no, la de este equipo (DMS-…),
+  que es la que se busca antes de crearlo. }
+function TOdooStore.AddProduct(const Name, Code: string; Price,
+  Cost: Double): TJSONObject;
+var
+  R: string;
+begin
+  R := NewRef;
+  Result := TJSONObject.Create(['id', 0, 'ref', R, 'name', Trim(Name),
+    'code', Trim(Code), 'price', Price, 'cost', Cost, 'uom', 0, 'categ', '',
+    'pending', True]);
+  if JStr(Result, 'code') = '' then Result.Strings['code'] := R;
+  List('products').Add(Result);
+  Queue('product_create', R, 0);
+  Save;
+end;
+
+{ Una solicitud de presupuesto a un proveedor (purchase.order); en Odoo
+  lleva la referencia DMS-… en «origin». }
+function TOdooStore.AddPurchase(Partner: TJSONObject; Lines: TJSONArray): TJSONObject;
+var
+  I: Integer;
+  Total: Double;
+begin
+  Total := 0;
+  for I := 0 to Lines.Count - 1 do
+    Total := Total + JNum(Lines.Objects[I], 'qty') * JNum(Lines.Objects[I], 'price');
+  Result := TJSONObject.Create(['id', 0, 'ref', NewRef, 'name', '',
+    'partner_id', JInt(Partner, 'id'), 'partner_ref', JStr(Partner, 'ref'),
+    'partner', JStr(Partner, 'name'), 'date', NowStamp, 'amount', Total,
+    'state', 'draft', 'pending', True, 'purchase', True, 'want', 0, 'level', 0]);
+  Result.Add('lines', Lines);
+  List('purchases').Insert(0, Result);
+  Queue('purchase_create', JStr(Result, 'ref'), 0);
+  Save;
+end;
+
+{ Pide un paso de un pedido de venta o de compra: 1 confirmar, 2 facturar y
+  3 pagar (Pay: bank o cash). Se apunta aquí y va a la bandeja de salida;
+  al sincronizar, Odoo hace los pasos que falten, en orden. Devuelve el
+  motivo si no se puede (vacío si se apuntó). }
+function TOdooStore.SetStep(O: TJSONObject; Step: Integer; const Pay: string): string;
+var
+  Cur: Integer;
+  Pur: Boolean;
+begin
+  Result := '';
+  if O = nil then Exit(SChooseOrder);
+  if JBool(O, 'pos') then Exit(SPosNoSteps);
+  if JStr(O, 'state') = 'cancel' then Exit(SIsCancelled);
+  Cur := Max(JInt(O, 'want'), OrderLevel(O));
+  if Cur >= Step then Exit(Format(SAlreadyStep, [StepLabel(O, Cur)]));
+  if (Step = 2) and (Cur < 1) then Exit(SConfirmFirst);
+  if (Step = 3) and (Cur < 2) then Exit(SInvoiceFirst);
+  Pur := JBool(O, 'purchase');
+  O.Integers['want'] := Step;
+  if Step = 3 then O.Strings['pay'] := Pay;
+  O.Booleans['pending'] := True;
+  O.Strings['error'] := '';
+  if JInt(O, 'id') = 0 then
+  begin
+    if Pur then Queue('purchase_create', JStr(O, 'ref'), 0)
+    else Queue('order_create', JStr(O, 'ref'), 0);
+  end
+  else if Pur then Queue('purchase_step', '', JInt(O, 'id'))
+  else Queue('order_step', '', JInt(O, 'id'));
   Save;
 end;
 
@@ -2833,30 +3337,38 @@ begin
   end;
 end;
 
+procedure KeepLevel(O, R: TJSONObject; Levels: TJSONObject); forward;
+procedure KeepWant(O, Keep: TJSONObject); forward;
+
 procedure TOdooSync.Download;
 const
   PosKeys: array[0..7] of string = ('pos', 'payment', 'step', 'picking',
     'invoice', 'error', 'lines', 'nostock');
 var
   Rows, Fresh, Old: TJSONArray;
-  R, O, Keep: TJSONObject;
+  R, O, Keep, Levels: TJSONObject;
   Dom: TJSONArray;
   I, J: Integer;
   Since: string;
 begin
   // Clientes: customer = True hasta la 12; desde la 13, customer_rank > 0
   // (solo los que ya compraron) o los contactos que no son usuarios.
+  // Los proveedores también (supplier_rank o, hasta la 12, supplier).
   if Client.Has('res.partner', 'customer_rank') and
     Client.Has('res.partner', 'user_ids') then
-    Dom := TJSONArray(GetJSON('["|", ["customer_rank", ">", 0], ["user_ids", "=", false]]'))
+    Dom := TJSONArray(GetJSON('["|", "|", ["customer_rank", ">", 0], ' +
+      '["supplier_rank", ">", 0], ["user_ids", "=", false]]'))
   else if Client.Has('res.partner', 'customer_rank') then
-    Dom := Domain1('customer_rank', '>', TJSONIntegerNumber.Create(0))
+    Dom := TJSONArray(GetJSON('["|", ["customer_rank", ">", 0], ["supplier_rank", ">", 0]]'))
+  else if Client.Has('res.partner', 'supplier') then
+    Dom := TJSONArray(GetJSON('["|", ["customer", "=", true], ["supplier", "=", true]]'))
   else if Client.Has('res.partner', 'customer') then
     Dom := Domain1('customer', '=', TJSONBoolean.Create(True))
   else
     Dom := TJSONArray.Create;
   Rows := Client.SearchRead('res.partner', Dom, ['name', 'email', 'phone',
-    'mobile', 'street', 'city', 'vat', 'ref', 'is_company'], 2000, 'name');
+    'mobile', 'street', 'city', 'vat', 'ref', 'is_company', 'supplier',
+    'supplier_rank'], 2000, 'name');
   if Rows.Count = 0 then
   begin
     Rows.Free;
@@ -2879,6 +3391,8 @@ begin
         'street', JStr(R, 'street'), 'city', JStr(R, 'city'),
         'vat', JStr(R, 'vat'), 'ref', JStr(R, 'ref'), 'pending', False]);
       if JStr(O, 'phone') = '' then O.Strings['phone'] := JStr(R, 'mobile');
+      O.Booleans['supplier'] := (JInt(R, 'supplier_rank') > 0) or JBool(R, 'supplier');
+      O.Booleans['supplier_odoo'] := JBool(O, 'supplier');
       Fresh.Add(O);
     end;
     Old := Store.List('partners');
@@ -2895,7 +3409,8 @@ begin
   else
     Dom := TJSONArray.Create;
   Rows := Client.SearchRead('product.product', Dom, ['name', 'default_code',
-    'lst_price', 'list_price', 'qty_available', 'uom_id', 'categ_id'], 2000, 'name');
+    'lst_price', 'list_price', 'standard_price', 'qty_available', 'uom_id',
+    'categ_id'], 2000, 'name');
   Fresh := TJSONArray.Create;
   try
     for I := 0 to Rows.Count - 1 do
@@ -2903,7 +3418,7 @@ begin
       R := Rows.Objects[I];
       O := TJSONObject.Create(['id', JInt(R, 'id'), 'name', JStr(R, 'name'),
         'code', JStr(R, 'default_code'), 'uom', M2OId(R, 'uom_id'),
-        'categ', M2OName(R, 'categ_id')]);
+        'categ', M2OName(R, 'categ_id'), 'cost', JNum(R, 'standard_price')]);
       // «All / Saleable / Office» → «Office»
       while Pos(' / ', JStr(O, 'categ')) > 0 do
         O.Strings['categ'] := Copy(JStr(O, 'categ'), Pos(' / ', JStr(O, 'categ')) + 3, MaxInt);
@@ -2912,6 +3427,10 @@ begin
       if R.Find('qty_available') <> nil then O.Floats['qty'] := JNum(R, 'qty_available');
       Fresh.Add(O);
     end;
+    // Los hechos aquí que aún no están en Odoo.
+    Old := Store.List('products');
+    for I := 0 to Old.Count - 1 do
+      if JInt(Old.Objects[I], 'id') = 0 then Fresh.Add(Old.Objects[I].Clone);
   finally
     Rows.Free;
   end;
@@ -2929,8 +3448,10 @@ begin
     Since := FormatDateTime('yyyy-mm', IncMonth(Now, -11)) + '-01 00:00:00';
     Rows := Client.SearchRead('sale.order', Domain1('date_order', '>=',
       TJSONString.Create(Since)), ['name', 'partner_id', 'date_order',
-      'amount_total', 'state', 'client_order_ref'], 3000, 'date_order desc');
+      'amount_total', 'state', 'client_order_ref', 'invoice_ids'], 3000, 'date_order desc');
+    Levels := nil;
     try
+      Levels := InvoiceLevels(Rows);
       for I := 0 to Rows.Count - 1 do
       begin
         R := Rows.Objects[I];
@@ -2939,6 +3460,7 @@ begin
           'date', JStr(R, 'date_order'), 'amount', JNum(R, 'amount_total'),
           'state', JStr(R, 'state'), 'ref', JStr(R, 'client_order_ref'),
           'pending', False]);
+        KeepLevel(O, R, Levels);
         // Lo del punto de venta (pago, pasos, entrega, factura y líneas) solo
         // está aquí: se conserva.
         Keep := Store.Find('orders', JInt(R, 'id'), '');
@@ -2946,13 +3468,49 @@ begin
           for J := 0 to High(PosKeys) do
             if Keep.Find(PosKeys[J]) <> nil then
               O.Elements[PosKeys[J]] := Keep.Elements[PosKeys[J]].Clone;
+        KeepWant(O, Keep);
         Fresh.Add(O);
       end;
     finally
       Rows.Free;
+      Levels.Free;
     end;
   end;
   Store.Data.Arrays['orders'] := Fresh;
+
+  // Compras de los últimos doce meses (y las de aquí que aún no se enviaron).
+  Fresh := TJSONArray.Create;
+  Old := Store.List('purchases');
+  for I := 0 to Old.Count - 1 do
+    if JInt(Old.Objects[I], 'id') = 0 then Fresh.Add(Old.Objects[I].Clone);
+  Store.Data.Booleans['purchase'] := Client.Exists('purchase.order');
+  if JBool(Store.Data, 'purchase') then
+  begin
+    Since := FormatDateTime('yyyy-mm', IncMonth(Now, -11)) + '-01 00:00:00';
+    Rows := Client.SearchRead('purchase.order', Domain1('date_order', '>=',
+      TJSONString.Create(Since)), ['name', 'partner_id', 'date_order',
+      'amount_total', 'state', 'origin', 'invoice_ids'], 3000, 'date_order desc');
+    Levels := nil;
+    try
+      Levels := InvoiceLevels(Rows);
+      for I := 0 to Rows.Count - 1 do
+      begin
+        R := Rows.Objects[I];
+        O := TJSONObject.Create(['id', JInt(R, 'id'), 'name', JStr(R, 'name'),
+          'partner_id', M2OId(R, 'partner_id'), 'partner', M2OName(R, 'partner_id'),
+          'date', JStr(R, 'date_order'), 'amount', JNum(R, 'amount_total'),
+          'state', JStr(R, 'state'), 'ref', JStr(R, 'origin'), 'purchase', True,
+          'pending', False]);
+        KeepLevel(O, R, Levels);
+        KeepWant(O, Store.Find('purchases', JInt(R, 'id'), ''));
+        Fresh.Add(O);
+      end;
+    finally
+      Rows.Free;
+      Levels.Free;
+    end;
+  end;
+  Store.Data.Arrays['purchases'] := Fresh;
 
   // BIM 2.0, si está instalado: obras, presupuestos y unidades.
   BimReady := Client.Exists('bim.budget') and Client.Exists('bim.project') and
@@ -2969,6 +3527,102 @@ begin
     Store.List('products').Count, Store.List('orders').Count]));
 end;
 
+{ Las facturas de unos pedidos (los que trae search_read con invoice_ids),
+  leídas de una vez: {"id": {"state", "paid", "name"}}. Hasta la 12,
+  account.invoice (open / paid); desde la 13, account.move (posted y
+  payment_state paid o in_payment; invoice_payment_state en la 13). }
+function TOdooSync.InvoiceLevels(Rows: TJSONArray): TJSONObject;
+var
+  All, Inv: TJSONArray;
+  I, J: Integer;
+  D: TJSONData;
+  R: TJSONObject;
+  InvModel, St, Ps: string;
+begin
+  Result := TJSONObject.Create;
+  All := TJSONArray.Create;
+  for I := 0 to Rows.Count - 1 do
+  begin
+    D := Rows.Objects[I].Find('invoice_ids');
+    if D is TJSONArray then
+      for J := 0 to TJSONArray(D).Count - 1 do All.Add(TJSONArray(D).Items[J].AsInteger);
+  end;
+  if All.Count = 0 then
+  begin
+    All.Free;
+    Exit;
+  end;
+  if Client.Major >= 13 then InvModel := 'account.move' else InvModel := 'account.invoice';
+  Inv := Client.SearchRead(InvModel, Domain1('id', 'in', All), ['name', 'number',
+    'state', 'payment_state', 'invoice_payment_state'], 0, '');
+  try
+    for I := 0 to Inv.Count - 1 do
+    begin
+      R := Inv.Objects[I];
+      St := JStr(R, 'state');
+      Ps := JStr(R, 'payment_state');
+      if Ps = '' then Ps := JStr(R, 'invoice_payment_state');
+      if (St = 'open') or (St = 'paid') then St := 'posted';
+      Result.Add(IntToStr(JInt(R, 'id')), TJSONObject.Create(['state', St,
+        'paid', (JStr(R, 'state') = 'paid') or (Ps = 'paid') or (Ps = 'in_payment'),
+        'name', JStr(R, 'name') + JStr(R, 'number')]));
+    end;
+  finally
+    Inv.Free;
+  end;
+end;
+
+{ El paso al que llegó en Odoo un pedido recién leído (O, con su state) con
+  sus facturas (las de Levels): facturado si todas las vivas están
+  publicadas; pagado si además están pagadas. }
+procedure KeepLevel(O, R: TJSONObject; Levels: TJSONObject);
+var
+  Ids: TJSONData;
+  I, Live, Posted, Paid: Integer;
+  F: TJSONObject;
+  Names: string;
+begin
+  O.Integers['level'] := 0;
+  if Confirmed(O) then O.Integers['level'] := 1;
+  Ids := R.Find('invoice_ids');
+  Live := 0; Posted := 0; Paid := 0; Names := '';
+  if (Ids is TJSONArray) and (Levels <> nil) then
+    for I := 0 to TJSONArray(Ids).Count - 1 do
+      if Levels.Find(IntToStr(TJSONArray(Ids).Items[I].AsInteger)) is TJSONObject then
+      begin
+        F := Levels.Objects[IntToStr(TJSONArray(Ids).Items[I].AsInteger)];
+        if JStr(F, 'state') = 'cancel' then Continue;
+        Inc(Live);
+        if JStr(F, 'state') = 'posted' then
+        begin
+          Inc(Posted);
+          if Names <> '' then Names := Names + ', ';
+          Names := Names + JStr(F, 'name');
+        end;
+        if JBool(F, 'paid') then Inc(Paid);
+      end;
+  if (Live > 0) and (Posted = Live) and Confirmed(O) then
+  begin
+    O.Integers['level'] := 2;
+    if Paid = Live then O.Integers['level'] := 3;
+  end;
+  O.Strings['invoice'] := Names;
+end;
+
+{ Un paso pedido aquí que aún no llegó a Odoo se conserva al descargar. }
+procedure KeepWant(O, Keep: TJSONObject);
+begin
+  O.Integers['want'] := JInt(O, 'level');
+  if Keep = nil then Exit;
+  if JInt(Keep, 'want') > JInt(O, 'level') then
+  begin
+    O.Integers['want'] := JInt(Keep, 'want');
+    O.Strings['pay'] := JStr(Keep, 'pay');
+    O.Strings['error'] := JStr(Keep, 'error');
+    O.Booleans['pending'] := True;
+  end;
+end;
+
 function TOdooSync.PartnerVals(P: TJSONObject; Creating: Boolean): TJSONObject;
 const
   Fields: array[0..4] of string = ('email', 'phone', 'street', 'city', 'vat');
@@ -2982,8 +3636,23 @@ begin
   if Creating then
   begin
     Result.Add('ref', JStr(P, 'ref'));
-    if Client.Has('res.partner', 'customer_rank') then Result.Add('customer_rank', 1)
+    if JBool(P, 'supplier') then
+    begin
+      // Un proveedor: supplier_rank (13+) o supplier (hasta la 12).
+      if Client.Has('res.partner', 'supplier_rank') then Result.Add('supplier_rank', 1)
+      else if Client.Has('res.partner', 'supplier') then
+      begin
+        Result.Add('supplier', True);
+        if Client.Has('res.partner', 'customer') then Result.Add('customer', False);
+      end;
+    end
+    else if Client.Has('res.partner', 'customer_rank') then Result.Add('customer_rank', 1)
     else if Client.Has('res.partner', 'customer') then Result.Add('customer', True);
+  end
+  else if JBool(P, 'supplier') and not JBool(P, 'supplier_odoo') then
+  begin
+    if Client.Has('res.partner', 'supplier_rank') then Result.Add('supplier_rank', 1)
+    else if Client.Has('res.partner', 'supplier') then Result.Add('supplier', True);
   end;
 end;
 
@@ -3005,6 +3674,7 @@ begin
     Args.Add(PartnerVals(P, False));
     Client.Kw('res.partner', 'write', Args).Free;
     P.Booleans['pending'] := False;
+    P.Booleans['supplier_odoo'] := JBool(P, 'supplier');
     Log(Format(SSentEdit, [JStr(P, 'name')]));
     Exit;
   end;
@@ -3028,12 +3698,147 @@ begin
   end;
   P.Integers['id'] := Id;
   P.Booleans['pending'] := False;
-  // Los presupuestos que esperaban a este cliente ya tienen su id.
+  P.Booleans['supplier_odoo'] := JBool(P, 'supplier');
+  // Los presupuestos y compras que esperaban a este contacto ya tienen su id.
   for I := 0 to Store.List('orders').Count - 1 do
   begin
     O := Store.List('orders').Objects[I];
     if (JInt(O, 'partner_id') = 0) and (JStr(O, 'partner_ref') = Ref) then
       O.Integers['partner_id'] := Id;
+  end;
+  for I := 0 to Store.List('purchases').Count - 1 do
+  begin
+    O := Store.List('purchases').Objects[I];
+    if (JInt(O, 'partner_id') = 0) and (JStr(O, 'partner_ref') = Ref) then
+      O.Integers['partner_id'] := Id;
+  end;
+end;
+
+{ Un producto hecho aquí: antes de crearlo se busca su referencia interna
+  (si un envío anterior llegó, no se duplica). Consumible (en la 8–17
+  «consu»; en la 18+ también, sin control de stock), que se vende y se
+  compra, y se factura por lo pedido (invoice_policy y purchase_method):
+  así se puede facturar sin esperar a la entrega o la recepción. }
+procedure TOdooSync.PushProduct(Op: TJSONObject);
+var
+  P, Vals, O, L: TJSONObject;
+  Args, Rows: TJSONArray;
+  R: TJSONData;
+  Id, Uom, I, J, K: Integer;
+  Ref: string;
+const
+  Keys: array[0..1] of string = ('orders', 'purchases');
+begin
+  P := Store.Find('products', 0, JStr(Op, 'ref'));
+  if P = nil then Exit;
+  Ref := JStr(P, 'ref');
+  Id := Client.FindRef('product.product', 'default_code', JStr(P, 'code'));
+  if Id > 0 then Log(Format(SFoundProduct, [JStr(P, 'name'), Id]))
+  else
+  begin
+    Vals := TJSONObject.Create(['name', JStr(P, 'name'), 'default_code', JStr(P, 'code'),
+      'list_price', JNum(P, 'price'), 'standard_price', JNum(P, 'cost')]);
+    if Client.Has('product.product', 'sale_ok') then Vals.Add('sale_ok', True);
+    if Client.Has('product.product', 'purchase_ok') then Vals.Add('purchase_ok', True);
+    if Client.Selection('product.product', 'type', 'consu') then Vals.Add('type', 'consu');
+    if Client.Selection('product.product', 'invoice_policy', 'order') then
+      Vals.Add('invoice_policy', 'order');
+    if Client.Selection('product.product', 'purchase_method', 'purchase') then
+      Vals.Add('purchase_method', 'purchase');
+    Args := TJSONArray.Create;
+    Args.Add(Vals);
+    R := Client.Kw('product.product', 'create', Args);
+    try
+      if R is TJSONArray then Id := TJSONArray(R).Items[0].AsInteger
+      else Id := R.AsInteger;
+    finally
+      R.Free;
+    end;
+    Log(Format(SSentProduct, [JStr(P, 'name'), Id]));
+  end;
+  Uom := 0;
+  Rows := Client.SearchRead('product.product', Domain1('id', '=',
+    TJSONIntegerNumber.Create(Id)), ['uom_id'], 1, '');
+  try
+    if Rows.Count > 0 then Uom := M2OId(Rows.Objects[0], 'uom_id');
+  finally
+    Rows.Free;
+  end;
+  P.Integers['id'] := Id;
+  P.Integers['uom'] := Uom;
+  P.Booleans['pending'] := False;
+  // Las líneas que esperaban a este producto ya tienen su id.
+  for K := 0 to High(Keys) do
+    for I := 0 to Store.List(Keys[K]).Count - 1 do
+    begin
+      O := Store.List(Keys[K]).Objects[I];
+      if not (O.Find('lines') is TJSONArray) then Continue;
+      for J := 0 to O.Arrays['lines'].Count - 1 do
+      begin
+        L := O.Arrays['lines'].Objects[J];
+        if (JInt(L, 'product_id') = 0) and (JStr(L, 'product_ref') = Ref) then
+        begin
+          L.Integers['product_id'] := Id;
+          if JInt(L, 'uom') = 0 then L.Integers['uom'] := Uom;
+        end;
+      end;
+    end;
+end;
+
+{ El contacto del pedido: su id o, si se creó aquí, el que recibió al
+  enviarse (falla si aún no está en Odoo). }
+function TOdooSync.PartnerOf(O: TJSONObject): Integer;
+var
+  P: TJSONObject;
+begin
+  Result := JInt(O, 'partner_id');
+  if Result = 0 then
+  begin
+    P := Store.Find('partners', 0, JStr(O, 'partner_ref'));
+    if P <> nil then Result := JInt(P, 'id');
+  end;
+  if Result = 0 then raise EOdoo.Make(oeServer, SPartnerNotSent);
+end;
+
+{ Las líneas de un pedido para create: [(0, 0, {…})]. Los productos hechos
+  aquí deben estar ya en Odoo (van antes en la bandeja de salida). }
+function TOdooSync.LinesVals(O: TJSONObject; const Model, QtyField: string): TJSONArray;
+var
+  L, LV, P: TJSONObject;
+  Cmd: TJSONArray;
+  I, Pid: Integer;
+  UomField: string;
+begin
+  if Client.Has(Model, 'product_uom') then UomField := 'product_uom'
+  else if Client.Has(Model, 'product_uom_id') then UomField := 'product_uom_id'
+  else UomField := '';
+  Result := TJSONArray.Create;
+  try
+    for I := 0 to O.Arrays['lines'].Count - 1 do
+    begin
+      L := O.Arrays['lines'].Objects[I];
+      Pid := JInt(L, 'product_id');
+      if (Pid = 0) and (JStr(L, 'product_ref') <> '') then
+      begin
+        P := Store.Find('products', 0, JStr(L, 'product_ref'));
+        if P <> nil then Pid := JInt(P, 'id');
+        if (P <> nil) and (JInt(L, 'uom') = 0) then L.Integers['uom'] := JInt(P, 'uom');
+        if Pid = 0 then raise EOdoo.Make(oeServer, Format(SProductNotSent, [JStr(L, 'name')]));
+        L.Integers['product_id'] := Pid;
+      end;
+      LV := TJSONObject.Create(['product_id', Pid, 'name', JStr(L, 'name'),
+        QtyField, JNum(L, 'qty'), 'price_unit', JNum(L, 'price')]);
+      if JNum(L, 'discount') <> 0 then LV.Add('discount', JNum(L, 'discount'));
+      if (UomField <> '') and (JInt(L, 'uom') > 0) then LV.Add(UomField, JInt(L, 'uom'));
+      if (Model = 'purchase.order.line') and Client.Has(Model, 'date_planned') then
+        LV.Add('date_planned', NowStamp);
+      Cmd := TJSONArray.Create([0, 0]);
+      Cmd.Add(LV);
+      Result.Add(Cmd);
+    end;
+  except
+    Result.Free;
+    raise;
   end;
 end;
 
@@ -3041,71 +3846,54 @@ end;
   un envío anterior llegó) y pone en O su id, nombre, estado e importe. }
 function TOdooSync.EnsureOrder(O: TJSONObject): Integer;
 var
-  P, L, Vals, LV: TJSONObject;
-  Lines, Cmd, Args: TJSONArray;
+  Vals: TJSONObject;
+  Args: TJSONArray;
   R: TJSONData;
   PartnerId, Id, I: Integer;
-  Ref, UomField: string;
+  Ref: string;
 begin
   if not Client.Exists('sale.order') then raise EOdoo.Make(oeServer, SSaleMissing);
-  PartnerId := JInt(O, 'partner_id');
-  if PartnerId = 0 then
-  begin
-    P := Store.Find('partners', 0, JStr(O, 'partner_ref'));
-    if P <> nil then PartnerId := JInt(P, 'id');
-  end;
-  if PartnerId = 0 then raise EOdoo.Make(oeServer, SPartnerNotSent);
+  PartnerId := PartnerOf(O);
   Ref := JStr(O, 'ref');
   Id := Client.FindRef('sale.order', 'client_order_ref', Ref);
   if Id > 0 then Log(Format(SFoundOrder, [Ref]))
   else
   begin
     Vals := TJSONObject.Create(['partner_id', PartnerId, 'client_order_ref', Ref]);
-    if Client.Has('sale.order', 'origin') then
-      if JBool(O, 'pos') then
-      begin
-        // Con Format: un literal con «·» unido a otro iría a fpjson como
-        // UnicodeString y llegaría a Odoo mal codificado («TPV Â· …»).
-        if JStr(O, 'payment') = 'card' then Vals.Add('origin', Format('TPV · %s', [SCard]))
-        else Vals.Add('origin', Format('TPV · %s', [SCash]));
-      end
-      else Vals.Add('origin', 'DMarlon Studio');
-    // En la 8, create no rellena direcciones ni tarifa: lo hace el onchange.
-    if Client.Major <= 8 then
     try
-      Args := TJSONArray.Create;
-      Args.Add(TJSONArray.Create);
-      Args.Add(PartnerId);
-      R := Client.Kw('sale.order', 'onchange_partner_id', Args);
+      if Client.Has('sale.order', 'origin') then
+        if JBool(O, 'pos') then
+        begin
+          // Con Format: un literal con «·» unido a otro iría a fpjson como
+          // UnicodeString y llegaría a Odoo mal codificado («TPV Â· …»).
+          if JStr(O, 'payment') = 'card' then Vals.Add('origin', Format('TPV · %s', [SCard]))
+          else Vals.Add('origin', Format('TPV · %s', [SCash]));
+        end
+        else Vals.Add('origin', 'DMarlon Studio');
+      // En la 8, create no rellena direcciones ni tarifa: lo hace el onchange.
+      if Client.Major <= 8 then
       try
-        if (R is TJSONObject) and (TJSONObject(R).Find('value') is TJSONObject) then
-          with TJSONObject(R).Objects['value'] do
-            for I := 0 to Count - 1 do
-              if Vals.Find(Names[I]) = nil then Vals.Add(Names[I], Items[I].Clone);
-      finally
-        R.Free;
+        Args := TJSONArray.Create;
+        Args.Add(TJSONArray.Create);
+        Args.Add(PartnerId);
+        R := Client.Kw('sale.order', 'onchange_partner_id', Args);
+        try
+          if (R is TJSONObject) and (TJSONObject(R).Find('value') is TJSONObject) then
+            with TJSONObject(R).Objects['value'] do
+              for I := 0 to Count - 1 do
+                if Vals.Find(Names[I]) = nil then Vals.Add(Names[I], Items[I].Clone);
+        finally
+          R.Free;
+        end;
+      except
+        on E: EOdoo do
+          if E.Kind in [oeNetwork, oeSSL] then raise;
       end;
+      Vals.Add('order_line', LinesVals(O, 'sale.order.line', 'product_uom_qty'));
     except
-      on E: EOdoo do
-        if E.Kind in [oeNetwork, oeSSL] then raise;
+      Vals.Free;
+      raise;
     end;
-    if Client.Has('sale.order.line', 'product_uom') then UomField := 'product_uom'
-    else if Client.Has('sale.order.line', 'product_uom_id') then UomField := 'product_uom_id'
-    else UomField := '';
-    Lines := TJSONArray.Create;
-    for I := 0 to O.Arrays['lines'].Count - 1 do
-    begin
-      L := O.Arrays['lines'].Objects[I];
-      LV := TJSONObject.Create(['product_id', JInt(L, 'product_id'),
-        'name', JStr(L, 'name'), 'product_uom_qty', JNum(L, 'qty'),
-        'price_unit', JNum(L, 'price')]);
-      if JNum(L, 'discount') <> 0 then LV.Add('discount', JNum(L, 'discount'));
-      if (UomField <> '') and (JInt(L, 'uom') > 0) then LV.Add(UomField, JInt(L, 'uom'));
-      Cmd := TJSONArray.Create([0, 0]);
-      Cmd.Add(LV);
-      Lines.Add(Cmd);
-    end;
-    Vals.Add('order_line', Lines);
     Args := TJSONArray.Create;
     Args.Add(Vals);
     R := Client.Kw('sale.order', 'create', Args);
@@ -3118,7 +3906,7 @@ begin
   end;
   O.Integers['id'] := Id;
   O.Integers['partner_id'] := PartnerId;
-  O.Booleans['pending'] := False;
+  if JInt(O, 'want') = 0 then O.Booleans['pending'] := False;
   RefreshOrder(O, Id);
   Result := Id;
 end;
@@ -3146,14 +3934,442 @@ begin
   end;
 end;
 
+{ Un presupuesto hecho aquí (order_create) o un paso pedido aquí de un
+  pedido de Odoo (order_step): se crea si falta y se lleva hasta el paso
+  pedido. }
 procedure TOdooSync.PushOrder(Op: TJSONObject);
 var
   O: TJSONObject;
+  Id: Integer;
 begin
-  O := Store.Find('orders', 0, JStr(Op, 'ref'));
+  O := Store.Find('orders', JInt(Op, 'id'), JStr(Op, 'ref'));
   if O = nil then Exit;
-  EnsureOrder(O);
-  Log(Format(SSentOrder, [JStr(O, 'name'), JStr(O, 'partner')]));
+  try
+    Id := JInt(O, 'id');
+    if Id = 0 then
+    begin
+      Id := EnsureOrder(O);
+      Log(Format(SSentOrder, [JStr(O, 'name'), JStr(O, 'partner')]));
+      Store.Save;
+    end;
+    Advance(O, Id);
+  except
+    on E: EOdoo do
+    begin
+      if E.Kind = oeServer then O.Strings['error'] := E.Message;
+      raise;
+    end;
+  end;
+end;
+
+{ Lleva un pedido de venta o de compra en Odoo hasta el paso que se pidió
+  aquí (want): 1 confirmado, 2 facturado y 3 pagado. Cada paso mira antes
+  cómo está en Odoo: un envío cortado sigue donde se quedó, sin repetir. }
+procedure TOdooSync.Advance(O: TJSONObject; Id: Integer);
+var
+  Want: Integer;
+  Pur: Boolean;
+  Names, Model: string;
+begin
+  Want := JInt(O, 'want');
+  Pur := JBool(O, 'purchase');
+  if Pur then Model := 'purchase.order' else Model := 'sale.order';
+  if Want >= 1 then
+  begin
+    if Pur then
+    begin
+      ConfirmPurchase(Id);
+      RefreshPurchase(O, Id);
+      Log(Format(SPurConfirmed, [JStr(O, 'name')]));
+    end
+    else
+    begin
+      Confirm(Id);
+      RefreshOrder(O, Id);
+      Log(Format(SPosConfirmed, [JStr(O, 'name')]));
+    end;
+    O.Integers['level'] := Max(1, JInt(O, 'level'));
+    Store.Save;
+  end;
+  if Want >= 2 then
+  begin
+    if Pur then
+    begin
+      Names := Bill(Id);
+      Log(Format(SBilledLog, [Names]));
+    end
+    else
+    begin
+      Names := Invoice(Id);
+      Log(Format(SPosInvoicedLog, [Names]));
+    end;
+    O.Strings['invoice'] := Names;
+    O.Integers['level'] := Max(2, JInt(O, 'level'));
+    Store.Save;
+  end;
+  if Want >= 3 then
+  begin
+    Names := PayInvoices(Model, Id, JStr(O, 'pay'));
+    if JStr(O, 'pay') = 'cash' then Log(Format(SPaidLog, [Names, SCash]))
+    else Log(Format(SPaidLog, [Names, SBank]));
+    O.Integers['level'] := 3;
+  end;
+  O.Booleans['pending'] := False;
+  O.Strings['error'] := '';
+  if Pur then RefreshPurchase(O, Id) else RefreshOrder(O, Id);
+  Store.Save;
+end;
+
+{ Una compra hecha aquí: se busca por su referencia (en «origin») antes de
+  crearla. }
+function TOdooSync.EnsurePurchase(O: TJSONObject): Integer;
+var
+  Vals: TJSONObject;
+  Args: TJSONArray;
+  R: TJSONData;
+  PartnerId, Id: Integer;
+  Ref: string;
+begin
+  if not Client.Exists('purchase.order') then raise EOdoo.Make(oeServer, SPurchaseMissing);
+  PartnerId := PartnerOf(O);
+  Ref := JStr(O, 'ref');
+  Id := Client.FindRef('purchase.order', 'origin', Ref);
+  if Id > 0 then Log(Format(SFoundPurchase, [Ref]))
+  else
+  begin
+    Vals := TJSONObject.Create(['partner_id', PartnerId, 'origin', Ref]);
+    try
+      Vals.Add('order_line', LinesVals(O, 'purchase.order.line', 'product_qty'));
+    except
+      Vals.Free;
+      raise;
+    end;
+    Args := TJSONArray.Create;
+    Args.Add(Vals);
+    R := Client.Kw('purchase.order', 'create', Args);
+    try
+      if R is TJSONArray then Id := TJSONArray(R).Items[0].AsInteger
+      else Id := R.AsInteger;
+    finally
+      R.Free;
+    end;
+  end;
+  O.Integers['id'] := Id;
+  O.Integers['partner_id'] := PartnerId;
+  if JInt(O, 'want') = 0 then O.Booleans['pending'] := False;
+  RefreshPurchase(O, Id);
+  Result := Id;
+end;
+
+procedure TOdooSync.RefreshPurchase(O: TJSONObject; Id: Integer);
+var
+  Rows: TJSONArray;
+  Back: TJSONObject;
+begin
+  Rows := Client.SearchRead('purchase.order', Domain1('id', '=',
+    TJSONIntegerNumber.Create(Id)), ['name', 'state', 'amount_total',
+    'date_order'], 1, '');
+  try
+    if Rows.Count > 0 then
+    begin
+      Back := Rows.Objects[0];
+      O.Strings['name'] := JStr(Back, 'name');
+      O.Strings['state'] := JStr(Back, 'state');
+      O.Floats['amount'] := JNum(Back, 'amount_total');
+      O.Strings['date'] := JStr(Back, 'date_order');
+    end;
+  finally
+    Rows.Free;
+  end;
+end;
+
+procedure TOdooSync.PushPurchase(Op: TJSONObject);
+var
+  O: TJSONObject;
+  Id: Integer;
+begin
+  O := Store.Find('purchases', JInt(Op, 'id'), JStr(Op, 'ref'));
+  if O = nil then Exit;
+  try
+    Id := JInt(O, 'id');
+    if Id = 0 then
+    begin
+      Id := EnsurePurchase(O);
+      Log(Format(SSentPurchase, [JStr(O, 'name'), JStr(O, 'partner')]));
+      Store.Save;
+    end;
+    Advance(O, Id);
+  except
+    on E: EOdoo do
+    begin
+      if E.Kind = oeServer then O.Strings['error'] := E.Message;
+      raise;
+    end;
+  end;
+end;
+
+{ Confirmar la compra: button_confirm (9+; en la 8, la señal
+  purchase_confirm); si la compañía pide aprobación, button_approve. }
+procedure TOdooSync.ConfirmPurchase(Id: Integer);
+var
+  Rows, Args: TJSONArray;
+  St: string;
+
+  function State: string;
+  begin
+    Rows := Client.SearchRead('purchase.order', Domain1('id', '=',
+      TJSONIntegerNumber.Create(Id)), ['state'], 1, '');
+    try
+      Result := '';
+      if Rows.Count > 0 then Result := JStr(Rows.Objects[0], 'state');
+    finally
+      Rows.Free;
+    end;
+  end;
+
+begin
+  St := State;
+  if (St = 'draft') or (St = 'sent') then
+  begin
+    Args := TJSONArray.Create;
+    Args.Add(TJSONArray.Create([Id]));
+    if Client.Major <= 8 then
+    begin
+      Args.Add('purchase_confirm');
+      Client.Kw('purchase.order', 'signal_workflow', Args).Free;
+    end
+    else Client.Kw('purchase.order', 'button_confirm', Args).Free;
+    St := State;
+  end;
+  if St = 'to approve' then
+  begin
+    Args := TJSONArray.Create;
+    Args.Add(TJSONArray.Create([Id]));
+    Client.Kw('purchase.order', 'button_approve', Args).Free;
+  end;
+end;
+
+{ La factura de proveedor (14+): purchase.order.action_create_invoice. Si
+  no hay nada que facturar (productos que se facturan por lo recibido), se
+  valida antes la recepción. La fecha de factura es obligatoria para
+  publicarla: hoy, si no tiene. }
+function TOdooSync.Bill(Id: Integer): string;
+var
+  Invs, Lines, Args, Found: TJSONArray;
+  I, Live: Integer;
+  ToBill: Double;
+  Names: string;
+
+  function LoadBills: TJSONArray;
+  begin
+    Found := Ids('purchase.order', Id, 'invoice_ids');
+    Result := Client.SearchRead('account.move', Domain1('id', 'in', Found),
+      ['state', 'name', 'invoice_date'], 0, 'id');
+  end;
+
+begin
+  Result := '';
+  if Client.Major < 14 then raise EOdoo.Make(oeServer, SBillOld);
+  Invs := LoadBills;
+  try
+    Live := 0;
+    for I := 0 to Invs.Count - 1 do
+      if JStr(Invs.Objects[I], 'state') <> 'cancel' then Inc(Live);
+    if Live = 0 then
+    begin
+      ToBill := 0;
+      Lines := Client.SearchRead('purchase.order.line', Domain1('order_id', '=',
+        TJSONIntegerNumber.Create(Id)), ['qty_to_invoice'], 0, '');
+      try
+        for I := 0 to Lines.Count - 1 do
+          ToBill := ToBill + JNum(Lines.Objects[I], 'qty_to_invoice');
+      finally
+        Lines.Free;
+      end;
+      if (ToBill <= 0) and Client.Has('purchase.order', 'picking_ids') then
+      begin
+        Names := Deliver('purchase.order', Id);
+        if Names <> '' then Log(Format(SReceivedLog, [Names]));
+      end;
+      Args := TJSONArray.Create;
+      Args.Add(TJSONArray.Create([Id]));
+      Client.Kw('purchase.order', 'action_create_invoice', Args).Free;
+      Invs.Free;
+      Invs := LoadBills;
+      if Invs.Count = 0 then
+        raise EOdoo.Make(oeServer, Format(SNoBill, [IntToStr(Id)]));
+    end;
+    for I := 0 to Invs.Count - 1 do
+    begin
+      if JStr(Invs.Objects[I], 'state') <> 'draft' then Continue;
+      if JStr(Invs.Objects[I], 'invoice_date') = '' then
+      begin
+        Args := TJSONArray.Create;
+        Args.Add(TJSONArray.Create([JInt(Invs.Objects[I], 'id')]));
+        Args.Add(TJSONObject.Create(['invoice_date', FormatDateTime('yyyy-mm-dd', Now)]));
+        Client.Kw('account.move', 'write', Args).Free;
+      end;
+      Args := TJSONArray.Create;
+      Args.Add(TJSONArray.Create([JInt(Invs.Objects[I], 'id')]));
+      Client.Kw('account.move', 'action_post', Args).Free;
+    end;
+    Invs.Free;
+    Invs := LoadBills;
+    for I := 0 to Invs.Count - 1 do
+    begin
+      if JStr(Invs.Objects[I], 'state') = 'cancel' then Continue;
+      if JStr(Invs.Objects[I], 'state') <> 'posted' then
+        raise EOdoo.Make(oeServer, Format(SNoBill, [IntToStr(Id)]));
+      if Result <> '' then Result := Result + ', ';
+      Result := Result + JStr(Invs.Objects[I], 'name');
+    end;
+  finally
+    Invs.Free;
+  end;
+end;
+
+{ El primer diario de ese tipo (bank o cash); 0 si no hay. }
+function TOdooSync.JournalId(const Kind: string): Integer;
+var
+  Rows: TJSONArray;
+begin
+  Result := 0;
+  Rows := Client.SearchRead('account.journal', Domain1('type', '=',
+    TJSONString.Create(Kind)), ['name'], 1, 'sequence, id');
+  try
+    if Rows.Count > 0 then Result := JInt(Rows.Objects[0], 'id');
+  finally
+    Rows.Free;
+  end;
+end;
+
+{ Paga las facturas publicadas de un pedido que aún no lo estén, en el
+  diario de banco o de caja. Desde la 13, el asistente del botón «Registrar
+  pago» (account.payment.register: action_create_payments en la 14+,
+  create_payments en la 13); de la 9 a la 12, un account.payment con la
+  factura y post. Pagada es paid o in_payment (pendiente de conciliar con
+  el banco). }
+function TOdooSync.PayInvoices(const Model: string; Id: Integer;
+  const Kind: string): string;
+var
+  Invs, Args, Found, M: TJSONArray;
+  Inv, Ctx, Vals, K: TJSONObject;
+  R: TJSONData;
+  I, J, W, Method: Integer;
+  PayField, PType, Typ: string;
+
+  function Load: TJSONArray;
+  begin
+    Found := Ids(Model, Id, 'invoice_ids');
+    if Client.Major >= 13 then
+      Result := Client.SearchRead('account.move', Domain1('id', 'in', Found),
+        ['name', 'state', PayField, 'amount_residual'], 0, 'id')
+    else
+      Result := Client.SearchRead('account.invoice', Domain1('id', 'in', Found),
+        ['number', 'state', 'residual', 'partner_id', 'type'], 0, 'id');
+  end;
+
+  function Paid(O: TJSONObject): Boolean;
+  begin
+    if Client.Major >= 13 then
+      Result := (JStr(O, PayField) = 'paid') or (JStr(O, PayField) = 'in_payment') or
+        (JStr(O, PayField) = 'reversed')
+    else Result := JStr(O, 'state') = 'paid';
+  end;
+
+  function Live(O: TJSONObject): Boolean;
+  begin
+    Result := (JStr(O, 'state') = 'posted') or (JStr(O, 'state') = 'open') or
+      (JStr(O, 'state') = 'paid');
+  end;
+
+begin
+  Result := '';
+  if Client.Has('account.move', 'payment_state') then PayField := 'payment_state'
+  else PayField := 'invoice_payment_state';
+  if Kind = 'cash' then J := JournalId('cash') else J := JournalId('bank');
+  Invs := Load;
+  try
+    for I := 0 to Invs.Count - 1 do
+    begin
+      Inv := Invs.Objects[I];
+      if not Live(Inv) or Paid(Inv) then Continue;
+      if Client.Major >= 13 then
+      begin
+        Ctx := TJSONObject.Create(['active_model', 'account.move', 'active_id', JInt(Inv, 'id')]);
+        Ctx.Add('active_ids', TJSONArray.Create([JInt(Inv, 'id')]));
+        Vals := TJSONObject.Create;
+        if J > 0 then Vals.Add('journal_id', J);
+        Args := TJSONArray.Create;
+        Args.Add(Vals);
+        K := TJSONObject.Create;
+        K.Add('context', Ctx.Clone);
+        R := Client.Kw('account.payment.register', 'create', Args, K);
+        try
+          if R is TJSONArray then W := TJSONArray(R).Items[0].AsInteger
+          else W := R.AsInteger;
+        finally
+          R.Free;
+        end;
+        Args := TJSONArray.Create;
+        Args.Add(TJSONArray.Create([W]));
+        K := TJSONObject.Create;
+        K.Add('context', Ctx);
+        if Client.Major >= 14 then
+          Client.Kw('account.payment.register', 'action_create_payments', Args, K).Free
+        else
+          Client.Kw('account.payment.register', 'create_payments', Args, K).Free;
+      end
+      else
+      begin
+        if not Client.Exists('account.payment') then raise EOdoo.Make(oeServer, SPayOld);
+        Typ := JStr(Inv, 'type');
+        if (Typ = 'in_invoice') or (Typ = 'out_refund') then PType := 'outbound'
+        else PType := 'inbound';
+        Method := 0;
+        M := Client.SearchRead('account.payment.method', TJSONArray(GetJSON(
+          '[["code", "=", "manual"], ["payment_type", "=", "' + PType + '"]]')), ['name'], 1, '');
+        try
+          if M.Count > 0 then Method := JInt(M.Objects[0], 'id');
+        finally
+          M.Free;
+        end;
+        Vals := TJSONObject.Create(['payment_type', PType, 'partner_id',
+          M2OId(Inv, 'partner_id'), 'amount', JNum(Inv, 'residual'),
+          'journal_id', J, 'payment_method_id', Method]);
+        if (Typ = 'in_invoice') or (Typ = 'in_refund') then Vals.Add('partner_type', 'supplier')
+        else Vals.Add('partner_type', 'customer');
+        Vals.Add('invoice_ids', TJSONArray.Create([TJSONArray.Create([6, 0,
+          TJSONArray.Create([JInt(Inv, 'id')])])]));
+        Args := TJSONArray.Create;
+        Args.Add(Vals);
+        R := Client.Kw('account.payment', 'create', Args);
+        try
+          if R is TJSONArray then W := TJSONArray(R).Items[0].AsInteger
+          else W := R.AsInteger;
+        finally
+          R.Free;
+        end;
+        Args := TJSONArray.Create;
+        Args.Add(TJSONArray.Create([W]));
+        Client.Kw('account.payment', 'post', Args).Free;
+      end;
+    end;
+    // Cómo quedaron.
+    Invs.Free;
+    Invs := Load;
+    for I := 0 to Invs.Count - 1 do
+    begin
+      Inv := Invs.Objects[I];
+      if not Live(Inv) then Continue;
+      if not Paid(Inv) then
+        raise EOdoo.Make(oeServer, Format(SNotPaid, [JStr(Inv, 'name') + JStr(Inv, 'number')]));
+      if Result <> '' then Result := Result + ', ';
+      Result := Result + JStr(Inv, 'name') + JStr(Inv, 'number');
+    end;
+  finally
+    Invs.Free;
+  end;
 end;
 
 { Los ids de un campo x2many de un registro (vacío si no hay). }
@@ -3259,7 +4475,7 @@ end;
   quantity_done; hasta la 11 se fuerza la disponibilidad (force_assign); luego
   button_validate (do_new_transfer en la 9 y la 10; do_transfer en la 8) y sus
   asistentes. }
-function TOdooSync.Deliver(Id: Integer): string;
+function TOdooSync.Deliver(const Model: string; Id: Integer): string;
 var
   Picks, Moves, Rows, Args: TJSONArray;
   P, M, Vals, K: TJSONObject;
@@ -3268,7 +4484,7 @@ var
   R: TJSONData;
 begin
   Result := '';
-  Picks := Ids('sale.order', Id, 'picking_ids');
+  Picks := Ids(Model, Id, 'picking_ids');
   try
     if Picks.Count = 0 then Exit;
     if Client.Has('stock.picking', 'move_ids') then MoveField := 'move_ids'
@@ -3385,6 +4601,7 @@ var
   Ctx, Vals, K, L: TJSONObject;
   R: TJSONData;
   I, W, Live: Integer;
+  ToInvoice: Double;
 
   function LoadInvoices: TJSONArray;
   var
@@ -3412,6 +4629,26 @@ begin
       if JStr(Invs.Objects[I], 'state') <> 'cancel' then Inc(Live);
     if Live = 0 then
     begin
+      // Productos que se facturan por lo entregado y nada entregado aún:
+      // primero la entrega.
+      if Client.Has('sale.order', 'picking_ids') and
+        Client.Has('sale.order.line', 'qty_to_invoice') then
+      begin
+        ToInvoice := 0;
+        Lines := Client.SearchRead('sale.order.line', Domain1('order_id', '=',
+          TJSONIntegerNumber.Create(Id)), ['qty_to_invoice'], 0, '');
+        try
+          for I := 0 to Lines.Count - 1 do
+            ToInvoice := ToInvoice + JNum(Lines.Objects[I], 'qty_to_invoice');
+        finally
+          Lines.Free;
+        end;
+        if ToInvoice <= 0 then
+        begin
+          Method := Deliver('sale.order', Id);
+          if Method <> '' then Log(Format(SPosDeliveredLog, [Method]));
+        end;
+      end;
       // Sin Inventario no hay entregas: lo entregado se apunta a mano.
       if not Client.Has('sale.order', 'picking_ids') then
       begin
@@ -3518,7 +4755,7 @@ begin
     Store.Save;
     if Client.Has('sale.order', 'picking_ids') then
     begin
-      Names := Deliver(Id);
+      Names := Deliver('sale.order', Id);
       O.Strings['picking'] := Names;
       O.Strings['step'] := 'delivered';
       if Names <> '' then Log(Format(SPosDeliveredLog, [Names]));
@@ -3564,7 +4801,9 @@ begin
     try
       if K = 'partner_create' then PushPartner(Op, False)
       else if K = 'partner_write' then PushPartner(Op, True)
-      else if K = 'order_create' then PushOrder(Op)
+      else if K = 'product_create' then PushProduct(Op)
+      else if (K = 'order_create') or (K = 'order_step') then PushOrder(Op)
+      else if (K = 'purchase_create') or (K = 'purchase_step') then PushPurchase(Op)
       else if K = 'pos_sale' then PushPos(Op)
       else if K = 'bim_project' then PushBimProject(Op)
       else if K = 'bim_budget' then PushBimBudget(Op);
@@ -3664,6 +4903,7 @@ begin
   Store.Free;
   Draft.Free;
   Cart.Free;
+  PurDraft.Free;
   BimOpen.Free;
   inherited Destroy;
 end;
@@ -3688,10 +4928,12 @@ begin
   Sync.OnLog := @AddLog;
   Draft := TJSONArray.Create;
   Cart := TJSONArray.Create;
+  PurDraft := TJSONArray.Create;
   StyleUi;
   LoadSettings;
   ShowPage(0);
   CustNew_click;
+  ShowProduct(nil);
   RefreshAll;
   // Con los datos guardados, se prueba la conexión en segundo plano.
   if Configured and SyncAuto.Checked and not SyncOffline.Checked then StartPing;
@@ -3722,10 +4964,10 @@ end;
 
 procedure TForm1.StyleUi;
 const
-  Glyphs: array[0..7] of string = ('▦', '☺', '▣', '€', '▥', '↻', '⚙', '⌂');
+  Glyphs: array[0..8] of string = ('▦', '☺', '▣', '€', '▥', '↻', '⚙', '⌂', '▤');
 var
   I: Integer;
-  Navs: array[0..7] of TDmsButton;
+  Navs: array[0..8] of TDmsButton;
   Folder: string;
 begin
   for I := 0 to ComponentCount - 1 do
@@ -3734,8 +4976,8 @@ begin
   Pages.ShowTabs := False;
   Navs[0] := NavPanel; Navs[1] := NavCustomers; Navs[2] := NavProducts;
   Navs[3] := NavSales; Navs[4] := NavPos; Navs[5] := NavSync;
-  Navs[6] := NavSettings; Navs[7] := NavBim;
-  for I := 0 to 7 do
+  Navs[6] := NavSettings; Navs[7] := NavBim; Navs[8] := NavPurchases;
+  for I := 0 to 8 do
   begin
     Navs[I].Alignment := taLeftJustify;
     Navs[I].Caption := '   ' + Glyphs[I] + '   ' + Navs[I].Caption;
@@ -3746,6 +4988,7 @@ begin
   OwnerDraw(CustList, 46, @DrawCustomer);
   OwnerDraw(ProdList, 30, @DrawProduct);
   OwnerDraw(SaleList, 46, @DrawSale);
+  OwnerDraw(PurList, 46, @DrawPurchase);
   OwnerDraw(RecentList, 38, @DrawRecent);
   OwnerDraw(Outbox, 46, @DrawOutbox);
   OwnerDraw(PosLines, 40, @DrawPosLine);
@@ -3781,6 +5024,12 @@ begin
   ProdSearch.OnChange := @SearchChange;
   SaleSearch.OnChange := @SearchChange;
   SaleFilter.ItemIndex := 0;
+  PurSearch.TextHint := SSearchPur;
+  PurSearch.OnChange := @SearchChange;
+  PurFilter.ItemIndex := 0;
+  SalePayKind.ItemIndex := 0;
+  PurPayKind.ItemIndex := 0;
+  PurQty.Text := '1';
   SyncLog.ReadOnly := True;
   SyncLog.ScrollBars := ssAutoVertical;
   for I := 0 to ComponentCount - 1 do
@@ -3830,6 +5079,7 @@ begin
     4: RefreshPos;
     5: begin RefreshOutbox; RefreshSyncInfo; end;
     7: begin RefreshBim; BimPrepare(False); end;
+    8: begin RefreshPurchases; RefreshPurChoices; end;
   end;
   // Que ningún campo se quede con el foco (y todo el texto elegido): una
   // tecla pulsada sin querer lo cambiaría.
@@ -3843,9 +5093,10 @@ var
   I: Integer;
   B: TDmsButton;
 begin
-  for I := 0 to 7 do
+  for I := 0 to 8 do
   begin
     case I of
+      8: B := NavPurchases;
       7: B := NavBim;
       0: B := NavPanel;
       1: B := NavCustomers;
@@ -3923,6 +5174,8 @@ begin
   RefreshOutbox;
   RefreshSyncInfo;
   RefreshPos;
+  RefreshPurchases;
+  RefreshPurChoices;
   LayoutNav;
   RefreshBim;
 end;
@@ -4034,6 +5287,22 @@ begin
   TopBox.Invalidate;
 end;
 
+{ ¿Es esta línea de ese producto? Por su id o, si se hizo aquí y aún no
+  está en Odoo, por su referencia. }
+function SameProduct(L, P: TJSONObject): Boolean;
+begin
+  if JInt(P, 'id') > 0 then Result := JInt(L, 'product_id') = JInt(P, 'id')
+  else Result := (JInt(L, 'product_id') = 0) and (JStr(L, 'product_ref') = JStr(P, 'ref'));
+end;
+
+{ Lo que identifica un pedido aunque cambie de sitio en la lista (o reciba
+  su id al enviarse): la referencia DMS-… si se hizo aquí; si no, el id. }
+function OrderKey(O: TJSONObject): string;
+begin
+  if Copy(JStr(O, 'ref'), 1, 4) = 'DMS-' then Result := JStr(O, 'ref')
+  else Result := '#' + IntToStr(JInt(O, 'id'));
+end;
+
 function Matches(const Needle: string; const Values: array of string): Boolean;
 var
   N: string;
@@ -4105,9 +5374,14 @@ var
   A: TJSONArray;
   O: TJSONObject;
   I, K: Integer;
+  Keep: string;
   Total: Double;
 begin
   A := Store.List('orders');
+  Keep := '';
+  if (SaleList.ItemIndex >= 0) and (SaleList.ItemIndex <= High(SaleRows)) and
+    (SaleRows[SaleList.ItemIndex] < A.Count) then
+    Keep := OrderKey(A.Objects[SaleRows[SaleList.ItemIndex]]);
   SetLength(SaleRows, 0);
   Total := 0;
   SaleList.Items.BeginUpdate;
@@ -4129,6 +5403,7 @@ begin
       SetLength(SaleRows, Length(SaleRows) + 1);
       SaleRows[High(SaleRows)] := I;
       SaleList.Items.Add(OrderTitle(O));
+      if (Keep <> '') and (OrderKey(O) = Keep) then SaleList.ItemIndex := High(SaleRows);
       Total := Total + JNum(O, 'amount');
     end;
   finally
@@ -4444,6 +5719,7 @@ begin
     PosPageNo := 0;
     RefreshPos;
   end
+  else if Sender = PurSearch then RefreshPurchases
   else RefreshSales;
 end;
 
@@ -4455,6 +5731,7 @@ begin
     CustCardTitle.Caption := SNewCust;
     CustName.Text := ''; CustEmail.Text := ''; CustPhone.Text := '';
     CustStreet.Text := ''; CustCity.Text := ''; CustVat.Text := '';
+    CustSupplier.Checked := False;
     CustInfo.Caption := SCustNew;
     Exit;
   end;
@@ -4465,6 +5742,7 @@ begin
   CustStreet.Text := JStr(P, 'street');
   CustCity.Text := JStr(P, 'city');
   CustVat.Text := JStr(P, 'vat');
+  CustSupplier.Checked := JBool(P, 'supplier');
   if JInt(P, 'id') = 0 then CustInfo.Caption := Format(SCustLocal, [JStr(P, 'ref')])
   else if JBool(P, 'pending') then CustInfo.Caption := Format(SCustPending, [JInt(P, 'id')])
   else CustInfo.Caption := Format(SCustSynced, [JInt(P, 'id')]);
@@ -4508,10 +5786,11 @@ begin
   end;
   if Editing = nil then
     P := Store.AddPartner(CustName.Text, E, CustPhone.Text, CustStreet.Text,
-      CustCity.Text, CustVat.Text)
+      CustCity.Text, CustVat.Text, CustSupplier.Checked)
   else
   begin
     P := Editing;
+    P.Booleans['supplier'] := CustSupplier.Checked or JBool(P, 'supplier_odoo');
     Store.EditPartner(P, CustName.Text, E, CustPhone.Text, CustStreet.Text,
       CustCity.Text, CustVat.Text);
   end;
@@ -4538,20 +5817,36 @@ begin
   if QuoteCust.Items.Count = 0 then ShowMessage(SNoCustomers);
 end;
 
-procedure TForm1.ShowOrder(Index: Integer);
+procedure TForm1.ShowOrder(O: TJSONObject);
 var
-  O, L: TJSONObject;
-  S: string;
+  L: TJSONObject;
+  S, Pay, Inv: string;
   I: Integer;
 begin
-  O := Store.List('orders').Objects[Index];
+  if O = nil then Exit;
   if JBool(O, 'pos') then
   begin
     ShowMessage(Receipt(O));
     Exit;
   end;
-  S := Format(SOrderInfo, [OrderTitle(O), JStr(O, 'partner'),
-    ShortDate(JStr(O, 'date')), Money(JNum(O, 'amount')), StateLabel(O)]);
+  if JBool(O, 'purchase') then
+    S := Format(SPurInfo, [OrderTitle(O), JStr(O, 'partner'),
+      ShortDate(JStr(O, 'date')), Money(JNum(O, 'amount')), StateLabel(O)])
+  else
+    S := Format(SOrderInfo, [OrderTitle(O), JStr(O, 'partner'),
+      ShortDate(JStr(O, 'date')), Money(JNum(O, 'amount')), StateLabel(O)]);
+  if Max(JInt(O, 'want'), OrderLevel(O)) >= 2 then
+  begin
+    Pay := SNoStock;
+    if Max(JInt(O, 'want'), OrderLevel(O)) >= 3 then
+      if JStr(O, 'pay') = 'cash' then Pay := SCash
+      else if JStr(O, 'pay') = 'bank' then Pay := SBank
+      else Pay := SStPaid;
+    Inv := JStr(O, 'invoice');
+    if Inv = '' then Inv := SStPending;
+    S := S + LineEnding + Format(SOrderSteps, [Inv, Pay]);
+  end;
+  if JStr(O, 'error') <> '' then S := S + LineEnding + Format(SOpError, [JStr(O, 'error')]);
   if O.Find('lines') is TJSONArray then
     for I := 0 to O.Arrays['lines'].Count - 1 do
     begin
@@ -4565,13 +5860,13 @@ end;
 procedure TForm1.SaleList_double;
 begin
   if (SaleList.ItemIndex >= 0) and (SaleList.ItemIndex <= High(SaleRows)) then
-    ShowOrder(SaleRows[SaleList.ItemIndex]);
+    ShowOrder(Store.List('orders').Objects[SaleRows[SaleList.ItemIndex]]);
 end;
 
 procedure TForm1.RecentList_double;
 begin
   if (RecentList.ItemIndex >= 0) and (RecentList.ItemIndex <= High(RecentRows)) then
-    ShowOrder(RecentRows[RecentList.ItemIndex]);
+    ShowOrder(Store.List('orders').Objects[RecentRows[RecentList.ItemIndex]]);
 end;
 
 procedure TForm1.QuoteAdd_click;
@@ -4597,15 +5892,16 @@ begin
   end;
   P := Store.List('products').Objects[QuoteProd.ItemIndex];
   for I := 0 to Draft.Count - 1 do
-    if JInt(Draft.Objects[I], 'product_id') = JInt(P, 'id') then
+    if SameProduct(Draft.Objects[I], P) then
     begin
       L := Draft.Objects[I];
       L.Floats['qty'] := JNum(L, 'qty') + Q;
       RefreshDraft;
       Exit;
     end;
-  Draft.Add(TJSONObject.Create(['product_id', JInt(P, 'id'), 'name',
-    JStr(P, 'name'), 'qty', Q, 'price', JNum(P, 'price'), 'uom', JInt(P, 'uom')]));
+  Draft.Add(TJSONObject.Create(['product_id', JInt(P, 'id'), 'product_ref',
+    JStr(P, 'ref'), 'name', JStr(P, 'name'), 'qty', Q, 'price', JNum(P, 'price'),
+    'uom', JInt(P, 'uom')]));
   QuoteQty.Text := '1';
   RefreshDraft;
 end;
@@ -4636,9 +5932,409 @@ begin
   Draft := TJSONArray.Create;
   RefreshDraft;
   SaleFilter.ItemIndex := 0;
+  SaleList.ItemIndex := -1;
   RefreshAll;
+  SaleList.ItemIndex := 0;
   if Online and not SyncOffline.Checked then DoSync(True);
   ShowMessage(SQuoteSaved);
+end;
+
+// ---- productos
+
+procedure TForm1.ShowProduct(P: TJSONObject);
+var
+  F: TFormatSettings;
+begin
+  EditingProd := P;
+  F := DefaultFormatSettings;
+  F.DecimalSeparator := Decimals;
+  F.ThousandSeparator := Thousands;
+  if P = nil then
+  begin
+    ProdCardTitle.Caption := SNewProd;
+    ProdName.Text := ''; ProdCode.Text := ''; ProdPrice.Text := ''; ProdCost.Text := '';
+    ProdSave.Enabled := True;
+    ProdInfo.Caption := SProdHint;
+    Exit;
+  end;
+  ProdCardTitle.Caption := SShowProd;
+  ProdName.Text := JStr(P, 'name');
+  ProdCode.Text := JStr(P, 'code');
+  ProdPrice.Text := FormatFloat('0.##', JNum(P, 'price'), F);
+  ProdCost.Text := FormatFloat('0.##', JNum(P, 'cost'), F);
+  // Solo se cambia aquí lo que aún no está en Odoo.
+  ProdSave.Enabled := JInt(P, 'id') = 0;
+  if JInt(P, 'id') = 0 then ProdInfo.Caption := Format(SProdLocal, [JStr(P, 'ref')])
+  else ProdInfo.Caption := Format(SProdOdoo, [JInt(P, 'id')]);
+end;
+
+procedure TForm1.ProdList_select;
+begin
+  if (ProdList.ItemIndex >= 0) and (ProdList.ItemIndex <= High(ProdRows)) then
+    ShowProduct(Store.List('products').Objects[ProdRows[ProdList.ItemIndex]]);
+end;
+
+procedure TForm1.ProdNew_click;
+begin
+  ProdList.ItemIndex := -1;
+  ShowProduct(nil);
+  if PageNo = 2 then ProdName.SetFocus;
+end;
+
+{ Un número escrito con coma o punto decimal; -1 si no lo es. }
+function ReadNumber(const S: string): Double;
+var
+  F: TFormatSettings;
+  T: string;
+begin
+  F := DefaultFormatSettings;
+  F.DecimalSeparator := '.';
+  T := StringReplace(Trim(S), ' ', '', [rfReplaceAll]);
+  if T = '' then Exit(0);
+  // «1.234,5» → «1234.5»; «1234.5» se queda.
+  if (Pos(',', T) > 0) and (Pos('.', T) > 0) then T := StringReplace(T, '.', '', [rfReplaceAll]);
+  T := StringReplace(T, ',', '.', []);
+  Result := StrToFloatDef(T, -1, F);
+end;
+
+procedure TForm1.ProdSave_click;
+var
+  P: TJSONObject;
+  A: TJSONArray;
+  Price, Cost: Double;
+  I: Integer;
+  Code: string;
+begin
+  if Trim(ProdName.Text) = '' then
+  begin
+    ShowMessage(SProdNameReq);
+    ProdName.SetFocus;
+    Exit;
+  end;
+  Price := ReadNumber(ProdPrice.Text);
+  Cost := ReadNumber(ProdCost.Text);
+  if (Price < 0) or (Cost < 0) then
+  begin
+    ShowMessage(SBadPrice);
+    Exit;
+  end;
+  Code := Trim(ProdCode.Text);
+  A := Store.List('products');
+  if Code <> '' then
+    for I := 0 to A.Count - 1 do
+      if (A.Objects[I] <> EditingProd) and SameText(JStr(A.Objects[I], 'code'), Code) then
+      begin
+        ShowMessage(Format(SDupCode, [Code]));
+        ProdCode.SetFocus;
+        Exit;
+      end;
+  if EditingProd = nil then P := Store.AddProduct(ProdName.Text, Code, Price, Cost)
+  else
+  begin
+    // Uno de aquí que aún no se envió: su «crear» llevará estos datos.
+    P := EditingProd;
+    P.Strings['name'] := Trim(ProdName.Text);
+    if Code <> '' then P.Strings['code'] := Code else P.Strings['code'] := JStr(P, 'ref');
+    P.Floats['price'] := Price;
+    P.Floats['cost'] := Cost;
+    Store.Save;
+  end;
+  RefreshAll;
+  ShowProduct(P);
+  if Online and not SyncOffline.Checked then DoSync(True);
+end;
+
+// ---- pasos de un pedido: confirmar, facturar y registrar el pago
+
+procedure TForm1.StepSelected(L: TListBox; const Rows: array of Integer;
+  const Key: string; Step: Integer; PayKind: TComboBox);
+var
+  O: TJSONObject;
+  Msg, Pay: string;
+begin
+  O := nil;
+  if (L.ItemIndex >= 0) and (L.ItemIndex <= High(Rows)) then
+    O := Store.List(Key).Objects[Rows[L.ItemIndex]];
+  if PayKind.ItemIndex = 1 then Pay := 'cash' else Pay := 'bank';
+  Msg := Store.SetStep(O, Step, Pay);
+  if Msg <> '' then
+  begin
+    ShowMessage(Msg);
+    Exit;
+  end;
+  RefreshAll;
+  // Con conexión se envía ya; sin ella, espera en la bandeja de salida.
+  if Online and not SyncOffline.Checked then DoSync(True);
+end;
+
+procedure TForm1.SaleConfirm_click;
+begin
+  StepSelected(SaleList, SaleRows, 'orders', 1, SalePayKind);
+end;
+
+procedure TForm1.SaleInvoice_click;
+begin
+  StepSelected(SaleList, SaleRows, 'orders', 2, SalePayKind);
+end;
+
+procedure TForm1.SalePay_click;
+begin
+  StepSelected(SaleList, SaleRows, 'orders', 3, SalePayKind);
+end;
+
+// ---- compras
+
+procedure TForm1.NavPurchases_click;
+begin
+  ShowPage(8);
+end;
+
+procedure TForm1.RefreshPurchases;
+var
+  A: TJSONArray;
+  O: TJSONObject;
+  I, K: Integer;
+  Keep: string;
+  Total: Double;
+begin
+  A := Store.List('purchases');
+  Keep := '';
+  if (PurList.ItemIndex >= 0) and (PurList.ItemIndex <= High(PurRows)) and
+    (PurRows[PurList.ItemIndex] < A.Count) then
+    Keep := OrderKey(A.Objects[PurRows[PurList.ItemIndex]]);
+  SetLength(PurRows, 0);
+  Total := 0;
+  PurList.Items.BeginUpdate;
+  try
+    PurList.Items.Clear;
+    for I := 0 to A.Count - 1 do
+    begin
+      O := A.Objects[I];
+      K := StateKind(O);
+      case PurFilter.ItemIndex of
+        1: if K <> 0 then Continue;
+        2: if K <> 1 then Continue;
+        3: if K <> 3 then Continue;
+      end;
+      if not Matches(PurSearch.Text, [OrderTitle(O), JStr(O, 'partner'),
+        JStr(O, 'ref')]) then Continue;
+      SetLength(PurRows, Length(PurRows) + 1);
+      PurRows[High(PurRows)] := I;
+      PurList.Items.Add(OrderTitle(O));
+      if (Keep <> '') and (OrderKey(O) = Keep) then PurList.ItemIndex := High(PurRows);
+      Total := Total + JNum(O, 'amount');
+    end;
+  finally
+    PurList.Items.EndUpdate;
+  end;
+  PurCount.Caption := Format(SPurCount, [Length(PurRows), Money(Total)]);
+end;
+
+{ Los contactos (los proveedores primero) y los productos de la solicitud. }
+procedure TForm1.RefreshPurChoices;
+var
+  A: TJSONArray;
+  P: TJSONObject;
+  Sorted: TStringList;
+  I, Keep: Integer;
+  S: string;
+begin
+  Keep := -1;
+  if (PurSupp.ItemIndex >= 0) and (PurSupp.ItemIndex <= High(PurSuppChoice)) then
+    Keep := PurSuppChoice[PurSupp.ItemIndex];
+  A := Store.List('partners');
+  Sorted := TStringList.Create;
+  try
+    for I := 0 to A.Count - 1 do
+      if JBool(A.Objects[I], 'supplier') then
+        Sorted.AddObject('0' + JStr(A.Objects[I], 'name'), TObject(PtrInt(I)))
+      else
+        Sorted.AddObject('1' + JStr(A.Objects[I], 'name'), TObject(PtrInt(I)));
+    Sorted.CaseSensitive := False;
+    Sorted.Sort;
+    SetLength(PurSuppChoice, Sorted.Count);
+    PurSupp.Items.BeginUpdate;
+    try
+      PurSupp.Items.Clear;
+      for I := 0 to Sorted.Count - 1 do
+      begin
+        PurSuppChoice[I] := PtrInt(Sorted.Objects[I]);
+        S := Copy(Sorted[I], 2, MaxInt);
+        if Sorted[I][1] = '0' then S := S + '  (' + SSupplierTag + ')';
+        PurSupp.Items.Add(S);
+        if PurSuppChoice[I] = Keep then PurSupp.ItemIndex := I;
+      end;
+    finally
+      PurSupp.Items.EndUpdate;
+    end;
+  finally
+    Sorted.Free;
+  end;
+  Keep := PurProd.ItemIndex;
+  A := Store.List('products');
+  PurProd.Items.BeginUpdate;
+  try
+    PurProd.Items.Clear;
+    for I := 0 to A.Count - 1 do
+    begin
+      P := A.Objects[I];
+      S := JStr(P, 'name');
+      if JStr(P, 'code') <> '' then S := '[' + JStr(P, 'code') + '] ' + S;
+      PurProd.Items.Add(S + ' — ' + Money(JNum(P, 'cost')));
+    end;
+  finally
+    PurProd.Items.EndUpdate;
+  end;
+  if Keep < PurProd.Items.Count then PurProd.ItemIndex := Keep;
+end;
+
+procedure TForm1.RefreshPurDraft;
+var
+  I: Integer;
+  L: TJSONObject;
+  Total: Double;
+  F: TFormatSettings;
+begin
+  F := DefaultFormatSettings;
+  F.DecimalSeparator := Decimals;
+  Total := 0;
+  PurLines.Items.BeginUpdate;
+  try
+    PurLines.Items.Clear;
+    for I := 0 to PurDraft.Count - 1 do
+    begin
+      L := PurDraft.Objects[I];
+      PurLines.Items.Add(FormatFloat('0.##', JNum(L, 'qty'), F) + ' × ' +
+        JStr(L, 'name') + ' — ' + Money(JNum(L, 'qty') * JNum(L, 'price')));
+      Total := Total + JNum(L, 'qty') * JNum(L, 'price');
+    end;
+  finally
+    PurLines.Items.EndUpdate;
+  end;
+  PurTotal.Caption := Format(STotalNoTax, [Money(Total)]);
+end;
+
+procedure TForm1.PurFilter_select;
+begin
+  RefreshPurchases;
+end;
+
+procedure TForm1.PurNew_click;
+begin
+  PurDraft.Clear;
+  PurSupp.ItemIndex := -1;
+  PurQty.Text := '1';
+  PurPrice.Text := '';
+  RefreshPurChoices;
+  RefreshPurDraft;
+  if PurSupp.Items.Count = 0 then ShowMessage(SNoSuppliers);
+end;
+
+procedure TForm1.PurList_double;
+begin
+  if (PurList.ItemIndex >= 0) and (PurList.ItemIndex <= High(PurRows)) then
+    ShowOrder(Store.List('purchases').Objects[PurRows[PurList.ItemIndex]]);
+end;
+
+procedure TForm1.PurProd_select;
+var
+  F: TFormatSettings;
+begin
+  if PurProd.ItemIndex < 0 then Exit;
+  F := DefaultFormatSettings;
+  F.DecimalSeparator := Decimals;
+  PurPrice.Text := FormatFloat('0.##',
+    JNum(Store.List('products').Objects[PurProd.ItemIndex], 'cost'), F);
+end;
+
+procedure TForm1.PurAdd_click;
+var
+  P, L: TJSONObject;
+  Q, Pr: Double;
+  I: Integer;
+begin
+  if PurProd.ItemIndex < 0 then
+  begin
+    ShowMessage(SChooseProd);
+    Exit;
+  end;
+  Q := ReadNumber(PurQty.Text);
+  if Q <= 0 then
+  begin
+    ShowMessage(SBadQty);
+    PurQty.SetFocus;
+    Exit;
+  end;
+  P := Store.List('products').Objects[PurProd.ItemIndex];
+  if Trim(PurPrice.Text) = '' then Pr := JNum(P, 'cost')
+  else Pr := ReadNumber(PurPrice.Text);
+  if Pr < 0 then
+  begin
+    ShowMessage(SBadPrice);
+    PurPrice.SetFocus;
+    Exit;
+  end;
+  for I := 0 to PurDraft.Count - 1 do
+    if SameProduct(PurDraft.Objects[I], P) and (JNum(PurDraft.Objects[I], 'price') = Pr) then
+    begin
+      L := PurDraft.Objects[I];
+      L.Floats['qty'] := JNum(L, 'qty') + Q;
+      RefreshPurDraft;
+      Exit;
+    end;
+  PurDraft.Add(TJSONObject.Create(['product_id', JInt(P, 'id'), 'product_ref',
+    JStr(P, 'ref'), 'name', JStr(P, 'name'), 'qty', Q, 'price', Pr,
+    'uom', JInt(P, 'uom')]));
+  PurQty.Text := '1';
+  RefreshPurDraft;
+end;
+
+procedure TForm1.PurDel_click;
+begin
+  if PurLines.ItemIndex < 0 then Exit;
+  PurDraft.Delete(PurLines.ItemIndex);
+  RefreshPurDraft;
+end;
+
+procedure TForm1.PurSave_click;
+var
+  P: TJSONObject;
+begin
+  if (PurSupp.ItemIndex < 0) or (PurSupp.ItemIndex > High(PurSuppChoice)) then
+  begin
+    ShowMessage(SChooseSupp);
+    Exit;
+  end;
+  if PurDraft.Count = 0 then
+  begin
+    ShowMessage(SNoLines);
+    Exit;
+  end;
+  P := Store.List('partners').Objects[PurSuppChoice[PurSupp.ItemIndex]];
+  Store.AddPurchase(P, PurDraft); // la solicitud se queda con las líneas
+  PurDraft := TJSONArray.Create;
+  RefreshPurDraft;
+  PurFilter.ItemIndex := 0;
+  PurList.ItemIndex := -1;
+  RefreshAll;
+  PurList.ItemIndex := 0;
+  if Online and not SyncOffline.Checked then DoSync(True);
+  ShowMessage(SPurSaved);
+end;
+
+procedure TForm1.PurConfirm_click;
+begin
+  StepSelected(PurList, PurRows, 'purchases', 1, PurPayKind);
+end;
+
+procedure TForm1.PurBill_click;
+begin
+  StepSelected(PurList, PurRows, 'purchases', 2, PurPayKind);
+end;
+
+procedure TForm1.PurPay_click;
+begin
+  StepSelected(PurList, PurRows, 'purchases', 3, PurPayKind);
 end;
 
 // ---- página de sincronización
@@ -4720,7 +6416,49 @@ begin
     // Lo que ya está en Odoo se queda en la lista; lo que no, se borra.
     A := Store.List('orders');
     R := Store.Find('orders', 0, JStr(Op, 'ref'));
-    if (R <> nil) and (JInt(R, 'id') = 0) then A.Remove(R);
+    if (R <> nil) and (JInt(R, 'id') = 0) then A.Remove(R)
+    else if R <> nil then
+    begin
+      R.Integers['want'] := OrderLevel(R);
+      R.Booleans['pending'] := False;
+    end;
+    R := nil;
+  end
+  else if K = 'purchase_create' then
+  begin
+    A := Store.List('purchases');
+    R := Store.Find('purchases', 0, JStr(Op, 'ref'));
+    if (R <> nil) and (JInt(R, 'id') = 0) then A.Remove(R)
+    else if R <> nil then
+    begin
+      R.Integers['want'] := OrderLevel(R);
+      R.Booleans['pending'] := False;
+    end;
+    R := nil;
+  end
+  else if (K = 'order_step') or (K = 'purchase_step') then
+  begin
+    // El paso pedido se olvida: el pedido vuelve a como está en Odoo.
+    if K = 'order_step' then R := Store.Find('orders', JInt(Op, 'id'), '')
+    else R := Store.Find('purchases', JInt(Op, 'id'), '');
+    if R <> nil then
+    begin
+      R.Integers['want'] := OrderLevel(R);
+      R.Booleans['pending'] := False;
+      R.Strings['error'] := '';
+    end;
+    R := nil;
+  end
+  else if K = 'product_create' then
+  begin
+    A := Store.List('products');
+    R := Store.Find('products', 0, JStr(Op, 'ref'));
+    if (R <> nil) and (JInt(R, 'id') = 0) then
+    begin
+      if EditingProd = R then ShowProduct(nil);
+      A.Remove(R);
+    end;
+    R := nil;
   end
   else if K = 'partner_create' then
   begin
@@ -4895,6 +6633,12 @@ begin
     W := C.TextWidth(SPendingTag) + 24;
     Pill(C, ARect.Right - W, ARect.Top + 6, SPendingTag, COrange);
   end;
+  if JBool(P, 'supplier') then
+  begin
+    C.Font.Size := 8;
+    W := W + C.TextWidth(SSupplierTag) + 20;
+    Pill(C, ARect.Right - W, ARect.Top + 6, SSupplierTag, CPurple);
+  end;
   Say(C, ARect.Left + 14, ARect.Top + 5, JStr(P, 'name'), CInk, 10, True,
     ARect.Right - ARect.Left - 28 - W);
   Parts[0] := JStr(P, 'email');
@@ -4915,14 +6659,22 @@ var
   P: TJSONObject;
   Stock: string;
   F: TFormatSettings;
+  W: Integer;
 begin
   if (Index < 0) or (Index > High(ProdRows)) then Exit;
   C := TListBox(Control).Canvas;
   P := Store.List('products').Objects[ProdRows[Index]];
   Row(C, ARect, odSelected in State);
-  Say(C, ARect.Left + 12, ARect.Top + 6, JStr(P, 'code'), CMuted, 9, False, 116);
-  Say(C, ARect.Left + 140, ARect.Top + 6, JStr(P, 'name'), CInk, 10, False, 410);
-  TextRight(C, ARect.Left + 690, ARect.Top + 6, Money(JNum(P, 'price')), CInk, 10, True);
+  Say(C, ARect.Left + 12, ARect.Top + 6, JStr(P, 'code'), CMuted, 9, False, 86);
+  if JBool(P, 'pending') then
+  begin
+    C.Font.Size := 8;
+    W := C.TextWidth(SPendingTag) + 18;
+    Pill(C, ARect.Left + 296 - W, ARect.Top + 6, SPendingTag, COrange);
+  end
+  else W := 0;
+  Say(C, ARect.Left + 104, ARect.Top + 6, JStr(P, 'name'), CInk, 10, False, 186 - W);
+  TextRight(C, ARect.Left + 410, ARect.Top + 6, Money(JNum(P, 'price')), CInk, 10, True);
   if P.Find('qty') <> nil then
   begin
     F := DefaultFormatSettings;
@@ -4932,9 +6684,9 @@ begin
   end
   else Stock := SNoStock;
   if JNum(P, 'qty') < 0 then
-    TextRight(C, ARect.Left + 830, ARect.Top + 6, Stock, clRed, 10, False)
+    TextRight(C, ARect.Left + 498, ARect.Top + 6, Stock, clRed, 10, False)
   else
-    TextRight(C, ARect.Left + 830, ARect.Top + 6, Stock, CMuted, 10, False);
+    TextRight(C, ARect.Left + 498, ARect.Top + 6, Stock, CMuted, 10, False);
 end;
 
 procedure DrawOrderRow(C: TCanvas; O: TJSONObject; R: TRect; Selected: Boolean);
@@ -4962,6 +6714,14 @@ begin
   if (Index < 0) or (Index > High(SaleRows)) then Exit;
   DrawOrderRow(TListBox(Control).Canvas,
     Store.List('orders').Objects[SaleRows[Index]], ARect, odSelected in State);
+end;
+
+procedure TForm1.DrawPurchase(Control: TWinControl; Index: Integer;
+  ARect: TRect; State: TOwnerDrawState);
+begin
+  if (Index < 0) or (Index > High(PurRows)) then Exit;
+  DrawOrderRow(TListBox(Control).Canvas,
+    Store.List('purchases').Objects[PurRows[Index]], ARect, odSelected in State);
 end;
 
 procedure TForm1.DrawRecent(Control: TWinControl; Index: Integer;
@@ -5509,7 +7269,7 @@ begin
   for I := 0 to Cart.Count - 1 do
   begin
     L := Cart.Objects[I];
-    if (JInt(L, 'product_id') = JInt(P, 'id')) and (JNum(L, 'discount') = 0) then
+    if SameProduct(L, P) and (JNum(L, 'discount') = 0) then
     begin
       L.Floats['qty'] := JNum(L, 'qty') + 1;
       RefreshCart;
@@ -5518,8 +7278,9 @@ begin
       Exit;
     end;
   end;
-  Cart.Add(TJSONObject.Create(['product_id', JInt(P, 'id'), 'name', JStr(P, 'name'),
-    'qty', 1, 'price', JNum(P, 'price'), 'discount', 0, 'uom', JInt(P, 'uom')]));
+  Cart.Add(TJSONObject.Create(['product_id', JInt(P, 'id'), 'product_ref', JStr(P, 'ref'),
+    'name', JStr(P, 'name'), 'qty', 1, 'price', JNum(P, 'price'), 'discount', 0,
+    'uom', JInt(P, 'uom')]));
   RefreshCart;
   PosLines.ItemIndex := Cart.Count - 1;
   PosLines_select;
@@ -6243,7 +8004,7 @@ const
   CBimBrown = $0014698B;   // #8b6914
   CBimInk = $00292521;     // #212529
 
-{ Obras BIM, detrás del punto de venta; sin BIM en Odoo (y sin nada de BIM
+{ Obras BIM, detrás del punto de venta (que va detrás de Compras); sin BIM en Odoo (y sin nada de BIM
   aquí), el botón se oculta y los de abajo suben. }
 procedure TForm1.LayoutNav;
 var
@@ -6253,14 +8014,14 @@ begin
   NavBim.Visible := Vis;
   if Vis then
   begin
-    NavBim.Top := 84 + 5 * 44;
-    NavSync.Top := 84 + 6 * 44;
-    NavSettings.Top := 84 + 7 * 44;
+    NavBim.Top := 84 + 6 * 44;
+    NavSync.Top := 84 + 7 * 44;
+    NavSettings.Top := 84 + 8 * 44;
   end
   else
   begin
-    NavSync.Top := 84 + 5 * 44;
-    NavSettings.Top := 84 + 6 * 44;
+    NavSync.Top := 84 + 6 * 44;
+    NavSettings.Top := 84 + 7 * 44;
   end;
 end;
 

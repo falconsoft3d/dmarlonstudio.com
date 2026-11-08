@@ -126,7 +126,7 @@ export const manualEs: Manual = {
                 ["**Inversor de bolsa (demo)**", "Precios simulados en vivo, compra y venta con comisión, cartera guardada y gráfico"],
                 ["**Punto de venta**", "Un TPV al estilo del de Odoo con imágenes: teclado de cantidad, descuento y precio, cobro, ticket y ventas en SQLite. Se conecta a Odoo con URL, usuario y contraseña para bajar productos y precios y enviar los pedidos a Ventas"],
                 ["**Renombrar archivos**", "Reglas con expresiones regulares y numeración, vista previa con conflictos y deshacer"],
-                ["**Odoo sin conexión (Pascal)**", "Una app nativa de Lazarus para Odoo 8 a 20 por JSON-RPC: panel con gráficos, clientes, productos, presupuestos y un punto de venta que crea pedido, entrega y factura, con y sin conexión y sin duplicados. Con BIM 2.0 (base_bim_2) en Odoo, también obras y presupuestos por conceptos (capítulos, partidas y recursos de mano de obra, equipo, material y subcontrata) que se hacen sin conexión y se suben a Odoo"],
+                ["**Odoo sin conexión (Pascal)**", "Una app nativa de Lazarus para Odoo 8 a 20 por JSON-RPC: panel con gráficos, clientes, proveedores, productos, ventas y compras de principio a fin (presupuesto o solicitud, confirmación, factura y pago en banco o efectivo) y un punto de venta que crea pedido, entrega y factura, con y sin conexión y sin duplicados. Con BIM 2.0 (base_bim_2) en Odoo, también obras y presupuestos por conceptos (capítulos, partidas y recursos de mano de obra, equipo, material y subcontrata) que se hacen sin conexión y se suben a Odoo"],
                 ["**Seguimiento de trenes**", "Datos públicos en directo (GTFS-Realtime de Renfe) en segundo plano, alertas de proximidad, malla de circulación y mapa dibujados en lienzos, y una simulación sin conexión"],
                 ["**Reproductor MP3**", "Una interfaz propia dibujada en lienzos (reloj digital, espectro), etiquetas ID3, listas M3U y sonido con `pygame`"],
                 ["**Explorador de archivos (C++)**", "Una app nativa en C++ con FLTK: componentes propios dibujados en código (árbol que se carga al abrirlo, vistas de iconos, lista y detalles, pestañas, migas en la dirección), marcadores guardados, copiar y pegar con el portapapeles de archivos del sistema (entre ventanas y con el Finder o el Explorador), Papelera, propiedades calculadas en segundo plano y tema claro u oscuro"],
@@ -951,7 +951,7 @@ export const manualEs: Manual = {
           blocks: [
             {
               type: "p",
-              text: "El ejemplo **Odoo sin conexión (Pascal)** es una aplicación nativa que trabaja con Odoo 8 a 20 por JSON-RPC, con y sin conexión: panel, clientes, productos, ventas, punto de venta y, si la base de datos de Odoo tiene **BIM 2.0** (el módulo `base_bim_2`), la página **Obras BIM** para hacer obras y presupuestos por conceptos. Se descarga ya compilado en la página **Demos**.",
+              text: "El ejemplo **Odoo sin conexión (Pascal)** es una aplicación nativa que trabaja con Odoo 8 a 20 por JSON-RPC, con y sin conexión: panel, clientes y proveedores, productos (que se crean también sin conexión), ventas y compras con sus pasos (**Confirmar**, **Facturar** y **Registrar pago**, que Odoo repite al sincronizar), punto de venta y, si la base de datos de Odoo tiene **BIM 2.0** (el módulo `base_bim_2`), la página **Obras BIM** para hacer obras y presupuestos por conceptos. Se descarga ya compilado en la página **Demos**.",
             },
             {
               type: "img",

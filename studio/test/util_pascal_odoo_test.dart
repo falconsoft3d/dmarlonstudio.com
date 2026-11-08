@@ -30,6 +30,9 @@ var
   BErr, BRef, BPRef: string;
   Ref, ORef, Dir, Fails, Pass, Db, Sale1, Sale2, Before: string;
   I, J, Pid, Oid: Integer;
+  FP, FC, FS, FO, FO2, FQ: TJSONObject;
+  FPRef, FORef, FO2Ref, FQRef, FSRef, Stamp, Flow, Flow2: string;
+  FPid, FOid, FQid, FSid: Integer;
 
   procedure Check(Ok: Boolean; const What: string);
   begin
@@ -101,6 +104,54 @@ var
     end;
   end;
 
+  { Un pedido de venta o de compra en Odoo: exactamente uno, confirmado,
+    con una factura publicada y pagada (paid o in_payment). }
+  function FlowState(const Model, Field, ARef: string): string;
+  var
+    Rows, X: TJSONArray;
+    Id, J, Live: Integer;
+    S, Ps: string;
+  begin
+    Rows := C.SearchRead(Model, Domain1(Field, '=', TJSONString.Create(ARef)),
+      ['name', 'state'], 0, '');
+    try
+      if Rows.Count <> 1 then Exit('orders=' + IntToStr(Rows.Count));
+      Id := JInt(Rows.Objects[0], 'id');
+      S := JStr(Rows.Objects[0], 'state');
+      Result := JStr(Rows.Objects[0], 'name') + ' ' + S;
+      if (S <> 'sale') and (S <> 'purchase') and (S <> 'done') then
+        Result := 'NOT_CONFIRMED ' + Result;
+    finally
+      Rows.Free;
+    end;
+    X := Sy.Ids(Model, Id, 'invoice_ids');
+    Rows := C.SearchRead('account.move', Domain1('id', 'in', X), ['name', 'state',
+      'payment_state', 'amount_total'], 0, '');
+    try
+      Live := 0;
+      for J := 0 to Rows.Count - 1 do
+      begin
+        if JStr(Rows.Objects[J], 'state') = 'cancel' then Continue;
+        Inc(Live);
+        Ps := JStr(Rows.Objects[J], 'payment_state');
+        Result := Result + ' ' + JStr(Rows.Objects[J], 'name') + '=' +
+          JStr(Rows.Objects[J], 'state') + '/' + Ps + '/' +
+          FloatToStr(JNum(Rows.Objects[J], 'amount_total'));
+        if JStr(Rows.Objects[J], 'state') <> 'posted' then Result := 'NOT_POSTED ' + Result;
+        if (Ps <> 'paid') and (Ps <> 'in_payment') then Result := 'NOT_PAID ' + Result;
+      end;
+      if Live <> 1 then Result := 'INVOICES=' + IntToStr(Live) + ' ' + Result;
+    finally
+      Rows.Free;
+    end;
+  end;
+
+  function FlowOk(const S: string): Boolean;
+  begin
+    Result := (S <> '') and (Pos('NOT_', S) = 0) and (Pos('INVOICES=', S) = 0) and
+      (Pos('orders=', S) = 0);
+  end;
+
   function PosOk(const State: string): Boolean;
   begin
     Result := (State <> '') and (Pos('NOT_', State) = 0) and (Pos('=', Copy(State, 1, 9)) = 0) and
@@ -152,6 +203,129 @@ begin
     Sy.Connect;
     Check(C.Uid > 0, 'login Odoo ' + C.Version + ' major ' + IntToStr(C.Major));
     Sy.Download;
+    // Ventas y compras de principio a fin, sin conexión (Odoo 14+).
+    if C.Major >= 14 then
+    try
+      // Venta: producto, cliente, presupuesto, confirmar, facturar y pagar,
+      // todo en este equipo. Al sincronizar, Odoo hace lo mismo.
+      Stamp := FormatDateTime('hhnnss', Now);
+      FP := St.AddProduct('DMS Producto ' + Stamp, '', 25, 10);
+      FPRef := JStr(FP, 'ref');
+      FC := St.AddPartner('DMS Cliente ' + Stamp, 'cliente@example.com', '', '',
+        'Madrid', '');
+      L := TJSONArray.Create;
+      L.Add(TJSONObject.Create(['product_id', 0, 'product_ref', FPRef,
+        'name', JStr(FP, 'name'), 'qty', 3, 'price', 25, 'uom', 0]));
+      FO := St.AddOrder(FC, L);
+      FORef := JStr(FO, 'ref');
+      Check((St.SetStep(FO, 2, '') <> '') and (St.SetStep(FO, 3, 'bank') <> '') and
+        (St.SetStep(FO, 1, '') = '') and (St.SetStep(FO, 2, '') = '') and
+        (St.SetStep(FO, 3, 'bank') = '') and (St.SetStep(FO, 3, 'bank') <> ''),
+        'sale_steps_local ' + StateLabel(FO));
+      Check(St.Pending = 3, 'sale_flow_queued');
+      // Se cierra y se vuelve a abrir: todo sigue en la bandeja de salida.
+      Sy.Free;
+      St.Free;
+      St := TOdooStore.Create(Dir + 'data.json');
+      Sy := TOdooSync.Create(C, St);
+      Check(St.Pending = 3, 'sale_flow_saved');
+      Sy.Push;
+      FO := St.Find('orders', 0, FORef);
+      FP := St.Find('products', 0, FPRef);
+      FC := St.Find('partners', 0, JStr(FO, 'partner_ref'));
+      Flow := FlowState('sale.order', 'client_order_ref', FORef);
+      WriteLn('info sale flow ', Flow, ' level=', JInt(FO, 'level'), ' invoice=',
+        JStr(FO, 'invoice'), ' error=', JStr(FO, 'error'));
+      if St.Pending > 0 then WriteLn('info outbox ', St.List('outbox').AsJSON);
+      Check(FlowOk(Flow) and (JInt(FO, 'level') = 3) and (St.Pending = 0) and
+        (Refs('product.product', 'default_code', FPRef) = 1) and (JInt(FP, 'id') > 0),
+        'sale_flow_synced');
+      // Como si la respuesta se hubiera perdido: se reenvía todo.
+      FPid := JInt(FP, 'id');
+      FOid := JInt(FO, 'id');
+      FP.Integers['id'] := 0;
+      FP.Booleans['pending'] := True;
+      FO.Integers['id'] := 0;
+      FO.Integers['level'] := 0;
+      FO.Booleans['pending'] := True;
+      St.Queue('product_create', FPRef, 0);
+      St.Queue('order_create', FORef, 0);
+      Sy.Push;
+      Check((FlowState('sale.order', 'client_order_ref', FORef) = Flow) and
+        (JInt(FP, 'id') = FPid) and (JInt(FO, 'id') = FOid) and (St.Pending = 0) and
+        (Refs('product.product', 'default_code', FPRef) = 1) and
+        (C.Count('account.payment', Domain1('partner_id', '=',
+        TJSONIntegerNumber.Create(JInt(FC, 'id')))) = 1), 'sale_flow_no_duplicates');
+      // Un presupuesto que ya está en Odoo: sus pasos se piden sin conexión.
+      L := TJSONArray.Create;
+      L.Add(TJSONObject.Create(['product_id', FPid, 'product_ref', FPRef,
+        'name', JStr(FP, 'name'), 'qty', 1, 'price', 25, 'uom', JInt(FP, 'uom')]));
+      FO2 := St.AddOrder(FC, L);
+      FO2Ref := JStr(FO2, 'ref');
+      Sy.Push;
+      Check((JInt(FO2, 'id') > 0) and (JStr(FO2, 'state') = 'draft'), 'sale_quote_in_odoo');
+      St.SetStep(FO2, 1, '');
+      St.SetStep(FO2, 2, '');
+      St.SetStep(FO2, 3, 'cash');
+      Check((St.Pending = 1) and (JStr(St.List('outbox').Objects[0], 'op') = 'order_step'),
+        'sale_step_queued');
+      Sy.Push;
+      Flow2 := FlowState('sale.order', 'client_order_ref', FO2Ref);
+      WriteLn('info sale steps ', Flow2);
+      Check(FlowOk(Flow2) and (St.Pending = 0) and (JInt(FO2, 'level') = 3), 'sale_step_synced');
+      // Compra: proveedor, solicitud, confirmar, factura de proveedor y pago.
+      FS := St.AddPartner('DMS Proveedor ' + Stamp, 'proveedor@example.com', '', '',
+        'Bilbao', '', True);
+      FSRef := JStr(FS, 'ref');
+      L := TJSONArray.Create;
+      L.Add(TJSONObject.Create(['product_id', FPid, 'product_ref', FPRef,
+        'name', JStr(FP, 'name'), 'qty', 5, 'price', 10, 'uom', JInt(FP, 'uom')]));
+      FQ := St.AddPurchase(FS, L);
+      FQRef := JStr(FQ, 'ref');
+      Check((St.SetStep(FQ, 1, '') = '') and (St.SetStep(FQ, 2, '') = '') and
+        (St.SetStep(FQ, 3, 'cash') = ''), 'purchase_steps_local ' + StateLabel(FQ));
+      Check(St.Pending = 2, 'purchase_flow_queued');
+      Sy.Push;
+      FQ := St.Find('purchases', 0, FQRef);
+      FS := St.Find('partners', 0, FSRef);
+      Flow := FlowState('purchase.order', 'origin', FQRef);
+      WriteLn('info purchase flow ', Flow, ' level=', JInt(FQ, 'level'), ' bill=',
+        JStr(FQ, 'invoice'), ' error=', JStr(FQ, 'error'));
+      if St.Pending > 0 then WriteLn('info outbox ', St.List('outbox').AsJSON);
+      Check(FlowOk(Flow) and (JInt(FQ, 'level') = 3) and (St.Pending = 0), 'purchase_flow_synced');
+      Rows := C.SearchRead('res.partner', Domain1('id', '=',
+        TJSONIntegerNumber.Create(JInt(FS, 'id'))), ['supplier_rank'], 1, '');
+      Check((Rows.Count = 1) and (JInt(Rows.Objects[0], 'supplier_rank') > 0), 'supplier_created');
+      Rows.Free;
+      // Respuesta perdida: el proveedor y la compra se reenvían.
+      FSid := JInt(FS, 'id');
+      FQid := JInt(FQ, 'id');
+      FS.Integers['id'] := 0;
+      FS.Booleans['pending'] := True;
+      FQ.Integers['id'] := 0;
+      FQ.Integers['partner_id'] := 0;
+      FQ.Integers['level'] := 0;
+      FQ.Booleans['pending'] := True;
+      St.Queue('partner_create', FSRef, 0);
+      St.Queue('purchase_create', FQRef, 0);
+      Sy.Push;
+      Check((FlowState('purchase.order', 'origin', FQRef) = Flow) and (St.Pending = 0) and
+        (JInt(FS, 'id') = FSid) and (JInt(FQ, 'id') = FQid) and
+        (Refs('res.partner', 'ref', FSRef) = 1) and
+        (C.Count('account.payment', Domain1('partner_id', '=',
+        TJSONIntegerNumber.Create(FSid))) = 1), 'purchase_flow_no_duplicates');
+      // Al descargar, los pasos se leen de Odoo.
+      Sy.Download;
+      FO := St.Find('orders', 0, FORef);
+      FQ := St.Find('purchases', 0, FQRef);
+      Check((FO <> nil) and (FQ <> nil) and (JInt(FO, 'level') = 3) and
+        (JInt(FQ, 'level') = 3) and (JStr(FO, 'invoice') <> '') and
+        (St.Find('products', FPid, '') <> nil), 'flow_download_levels');
+      if FO <> nil then WriteLn('info download ', StateLabel(FO), ' / ', StateLabel(FQ));
+    except
+      on E: Exception do Check(False, 'flow exception ' + E.ClassName + ': ' + E.Message);
+    end
+    else WriteLn('info flows: Odoo ', C.Major, ' (las compras necesitan la 14+)');
     Check(St.List('partners').Count > 0, 'download partners=' +
       IntToStr(St.List('partners').Count));
     Check(St.List('products').Count > 0, 'download products=' +
@@ -496,6 +670,17 @@ void main() {
       'BimRows',
       'BimType',
       'BimSend',
+      'ProdNew',
+      'ProdSave',
+      'CustSupplier',
+      'SaleConfirm',
+      'SaleInvoice',
+      'SalePay',
+      'NavPurchases',
+      'PurList',
+      'PurSupp',
+      'PurSave',
+      'PurPay',
     ]) {
       expect(names, contains(n));
     }
@@ -563,6 +748,17 @@ void main() {
       'action_invoice_open',
       'signal_workflow',
       'DMS-POS',
+      // Productos, pasos de los pedidos y compras.
+      "'product_create'",
+      "'order_step'",
+      "'purchase_create'",
+      'account.payment.register',
+      'action_create_payments',
+      'action_create_invoice',
+      'button_confirm',
+      'supplier_rank',
+      'invoice_policy',
+      'purchase_method',
       // BIM 2.0: obra, presupuesto y conceptos, sin duplicados.
       'bim.project',
       'bim.budget',
@@ -605,7 +801,7 @@ void main() {
         environment: {'DMS_ODOO_SMOKE': '1'},
       ).timeout(const Duration(minutes: 1));
       expect(r.exitCode, 0, reason: '${r.stdout}${r.stderr}');
-      expect('${r.stdout}', contains('smoke pages=8 tabs=FALSE'));
+      expect('${r.stdout}', contains('smoke pages=9 tabs=FALSE'));
     },
     timeout: const Timeout(Duration(minutes: 6)),
   );

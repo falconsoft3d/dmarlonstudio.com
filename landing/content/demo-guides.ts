@@ -114,10 +114,10 @@ const es: Record<string, DemoGuide> = {
   },
   pascal_odoo: {
     intro:
-      "Una aplicación nativa en Object Pascal (Lazarus) para trabajar con Odoo 8 a 20 con y sin conexión: panel de indicadores, clientes, productos, presupuestos, un punto de venta que crea en Odoo el pedido, la entrega y la factura y, con BIM 2.0, obras y presupuestos por conceptos.",
+      "Una aplicación nativa en Object Pascal (Lazarus) para trabajar con Odoo 8 a 20 con y sin conexión: panel de indicadores, clientes, proveedores y productos, ventas y compras de principio a fin (presupuesto, confirmación, factura y pago), un punto de venta que crea en Odoo el pedido, la entrega y la factura y, con BIM 2.0, obras y presupuestos por conceptos.",
     steps: [
       { title: "El panel de ventas", text: "Indicadores del mes, ventas por mes, pedidos por estado y mejores clientes, dibujados a partir de los datos descargados de Odoo." },
-      { title: "Venda sin conexión", text: "Cree clientes, presupuestos o ventas en el punto de venta aunque no haya red: se guardan como pendientes y, al volver la conexión, llegan a Odoo con una referencia única, sin duplicados aunque se corte a medias." },
+      { title: "Venda y compre sin conexión", text: "Cree productos, clientes y proveedores; haga un presupuesto o una solicitud de compra, confírmelo, facturelo y registre el pago (banco o efectivo) aunque no haya red. Todo queda pendiente y, al volver la conexión, Odoo hace los mismos pasos con una referencia única, sin duplicados aunque se corte a medias (probado en Odoo 18, 19 y 20)." },
       { title: "Presupuestos de obra (BIM 2.0)", text: "Con el módulo BIM 2.0 en Odoo, la página Obras BIM es su árbol de conceptos: capítulos, partidas y recursos con cantidad y precio, los importes como en BIM y sus atajos (N, Mayús + N, Supr, U). Se hace sin conexión y UPD lo sube a Odoo." },
     ],
   },
@@ -279,10 +279,10 @@ const en: Record<string, DemoGuide> = {
     ],
   },
   pascal_odoo: {
-    intro: "A native Object Pascal (Lazarus) app to work with Odoo 8 to 20 online and offline: KPI dashboard, customers, products, quotations, a point of sale that creates the order, delivery and invoice in Odoo and, with BIM 2.0, projects and budgets by concepts.",
+    intro: "A native Object Pascal (Lazarus) app to work with Odoo 8 to 20 online and offline: KPI dashboard, customers, vendors and products, sales and purchases end to end (quotation, confirmation, invoice and payment), a point of sale that creates the order, delivery and invoice in Odoo and, with BIM 2.0, projects and budgets by concepts.",
     steps: [
       { title: "The sales dashboard", text: "Month KPIs, sales by month, orders by status and top customers, drawn from the data downloaded from Odoo." },
-      { title: "Sell offline", text: "Create customers, quotations or point-of-sale sales with no network: they are saved as pending and, when the connection is back, reach Odoo with a unique reference, without duplicates even if it stops halfway." },
+      { title: "Sell and buy offline", text: "Create products, customers and vendors; make a quotation or a purchase request, confirm it, invoice it and register the payment (bank or cash) with no network. Everything stays pending and, when the connection is back, Odoo does the same steps with a unique reference, without duplicates even if it stops halfway (tested on Odoo 18, 19 and 20)." },
       { title: "Construction budgets (BIM 2.0)", text: "With the BIM 2.0 module in Odoo, the BIM projects page is its concept tree: chapters, items and resources with quantity and price, amounts worked out as in BIM and its shortcuts (N, Shift + N, Del, U). It works offline and UPD uploads it to Odoo." },
     ],
   },

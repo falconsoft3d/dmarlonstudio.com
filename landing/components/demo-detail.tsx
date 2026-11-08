@@ -79,7 +79,7 @@ export function DemoDetail({ lang, seed }: { lang: Lang; seed: string }) {
                 ))}
               </ul>
               <div className="mt-6 max-w-md">
-                {kind === "desktop" && <DemoDownloads seed={seed} lang={lang} label={x.download} />}
+                {kind === "desktop" && <DemoDownloads seed={seed} label={x.download} />}
                 {kind !== "desktop" && (
                   <div className={`grid gap-2 ${phone ? "grid-cols-2" : ""}`}>
                     <LiveDemo

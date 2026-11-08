@@ -132,10 +132,12 @@ const TEXT: Record<Lang, DemosText> = {
       title: "Cómo abrir una demo",
       macos: [
         "Descomprima el zip y abra la aplicación.",
+        "Cada demo va en español y en inglés: el idioma se cambia en su menú Idioma (Language) y se recuerda para todas.",
         "Las demos aún no están firmadas: si macOS la bloquea, haga clic derecho → Abrir, o vaya a Ajustes del Sistema → Privacidad y seguridad → «Abrir igualmente».",
       ],
       windows: [
-        "Descomprima la carpeta completa y abra el .exe que hay dentro.",
+        "Descomprima la carpeta completa y abra el .exe con el nombre de la demo.",
+        "Cada demo va en español y en inglés: el idioma se cambia en su menú Idioma (Language) y se recuerda para todas.",
         "Si aparece «Windows protegió su PC», pulse «Más información» → «Ejecutar de todas formas».",
       ],
     },
@@ -295,10 +297,12 @@ const TEXT: Record<Lang, DemosText> = {
       title: "How to open a demo",
       macos: [
         "Unzip it and open the app.",
+        "Every demo comes in English and Spanish: change it in its Language (Idioma) menu and it is remembered for all of them.",
         "The demos are not signed yet: if macOS blocks it, right-click → Open, or go to System Settings → Privacy & Security → “Open Anyway”.",
       ],
       windows: [
-        "Unzip the whole folder and open the .exe inside.",
+        "Unzip the whole folder and open the .exe named after the demo.",
+        "Every demo comes in English and Spanish: change it in its Language (Idioma) menu and it is remembered for all of them.",
         "If “Windows protected your PC” appears, click “More info” → “Run anyway”.",
       ],
     },
@@ -569,7 +573,7 @@ export function Demos({ lang }: { lang: Lang }) {
               d={x.items[seed]}
               shows={x.shows}
             >
-              <DemoDownloads seed={seed} lang={lang} label={x.download} />
+              <DemoDownloads seed={seed} label={x.download} />
             </DemoCard>
           ))}
         </DemoSection>

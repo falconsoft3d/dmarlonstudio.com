@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.73 — 2026-11-09
+
+- **Cada demo de escritorio es una sola aplicación en español y en inglés**, con el menú **Idioma / Language** para cambiarlo: la app se cierra como siempre y se vuelve a abrir en el otro idioma, que queda guardado para todas las demos (la primera vez, el del sistema). En la web hay una sola descarga por sistema (`<demo>-macOS.zip`, `<demo>-Windows.zip`) y en macOS el nombre de la app sale en el idioma del sistema. Las de Python llevan los dos programas y un lanzador; las de Pascal y C++, los dos ejecutables juntos (`scripts/demo-lang`, `scripts/build_demos.py`). Probado en macOS con la calculadora (Python), Odoo sin conexión (Pascal) y el explorador de archivos (C++).
+
 ## 1.0.72 — 2026-11-08
 
 - **Odoo sin conexión (Pascal): ventas y compras de principio a fin, también sin conexión.** Productos nuevos (ficha con nombre, referencia interna, precio y coste; en Odoo, un consumible que se vende y se compra), clientes y **proveedores** (casilla «Proveedor» en la ficha), presupuestos y **solicitudes de compra** (nueva página **Compras**), y los pasos de cada pedido con **Confirmar**, **Facturar** y **Registrar pago** (banco o efectivo). Todo se apunta en el equipo y, al sincronizar, Odoo hace los mismos pasos en orden: crea el producto y el contacto, el pedido, lo confirma, crea y publica la factura (o la factura de proveedor, con su fecha) y registra el pago. Cada paso mira antes cómo está en Odoo, así que un envío cortado sigue donde se quedó y reenviarlo no duplica nada. Al descargar se lee de Odoo si cada pedido está facturado o pagado.

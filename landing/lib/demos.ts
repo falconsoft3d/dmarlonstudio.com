@@ -49,11 +49,12 @@ export const liveUrl = (seed: string, lang: Lang) => `/demos/live/${lang}/${seed
 export const apkUrl = (seed: string, lang: Lang) =>
   `${REPO_URL}/releases/download/${DEMOS_TAG}/${seed}-${lang}-Android.apk`;
 
-/** El zip de una demo, en el idioma de la página. */
-export const demoFile = (seed: string, lang: Lang, os: DemoOs) => `${seed}-${lang}-${os}.zip`;
+/** El zip de una demo: una sola app con los dos idiomas (menú Idioma /
+ * Language, scripts/demo-lang). */
+export const demoFile = (seed: string, os: DemoOs) => `${seed}-${os}.zip`;
 
-export const demoUrl = (seed: string, lang: Lang, os: DemoOs) =>
-  `${REPO_URL}/releases/download/${DEMOS_TAG}/${demoFile(seed, lang, os)}`;
+export const demoUrl = (seed: string, os: DemoOs) =>
+  `${REPO_URL}/releases/download/${DEMOS_TAG}/${demoFile(seed, os)}`;
 
 /** La captura de la demo abierta (la ventana de la aplicación). */
 export const demoImage = (seed: string, lang: Lang) => `/demos/${lang}/${seed}.jpg`;

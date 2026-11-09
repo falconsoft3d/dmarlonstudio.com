@@ -1,5 +1,6 @@
 import { Blocks, Code2, Package } from "lucide-react";
 import { DemoDownloads } from "@/components/demo-downloads";
+import { DemoFilter } from "@/components/demo-filter";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TechChip } from "@/components/tech-chip";
@@ -29,6 +30,8 @@ type Section = { title: string; intro: string };
 type DemosText = {
   sections: { desktop: Section; mobile: Section; web: Section };
   how2: string;
+  filter: string;
+  filterAll: string;
   tryPhone: string;
   tryWeb: string;
   close: string;
@@ -67,6 +70,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
     },
     how2: "Cómo funciona",
+    filter: "Lenguaje:",
+    filterAll: "Todos",
     tryPhone: "Probar aquí",
     tryWeb: "Abrir la web",
     close: "Cerrar",
@@ -247,6 +252,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
     },
     how2: "How it works",
+    filter: "Language:",
+    filterAll: "All",
     tryPhone: "Try it here",
     tryWeb: "Open the website",
     close: "Close",
@@ -449,6 +456,29 @@ export function demoInfo(lang: Lang, seed: string) {
 
 const POINT_ICONS = [Blocks, Package, Code2];
 
+/** Los lenguajes de las demos (para filtrar), con cuántas hay de cada uno. */
+const LANG_NAMES: Partial<Record<TargetIcon, string>> = {
+  python: "Python",
+  cpp: "C++",
+  lazarus: "Pascal",
+  flutter: "Flutter",
+  html: "HTML",
+  react: "React",
+  vue: "Vue",
+};
+
+function demoLangs() {
+  const icons: TargetIcon[] = [
+    ...DEMO_SEEDS.map((s) => DESKTOP_TECH[s]?.icon ?? ("python" as TargetIcon)),
+    ...MOBILE_SEEDS.map(() => "flutter" as TargetIcon),
+    ...WEB_SEEDS.map((s) => WEB_TECH[s].icon),
+  ];
+  const order = Object.keys(LANG_NAMES) as TargetIcon[];
+  return order
+    .map((id) => ({ id, label: LANG_NAMES[id]!, count: icons.filter((i) => i === id).length }))
+    .filter((l) => l.count > 0);
+}
+
 /** Las demos de escritorio que no son de Python. */
 const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>> = {
   pascal_odoo: { icon: "lazarus", label: "Pascal · Lazarus" },
@@ -478,7 +508,7 @@ function DemoSection({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className={`scroll-mt-28 border-b border-line ${alt ? "bg-surface" : ""}`}>
+    <section id={id} data-demo-section className={`scroll-mt-28 border-b border-line ${alt ? "bg-surface" : ""}`}>
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <h2 className="text-2xl font-semibold tracking-tight">{section.title}</h2>
         <p className="mt-2 max-w-3xl text-muted text-pretty">{section.intro}</p>
@@ -512,7 +542,7 @@ function DemoCard({
   children: React.ReactNode;
 }) {
   return (
-    <li id={id} className="flex scroll-mt-28 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm">
+    <li id={id} data-demo-lang={icon} className="flex scroll-mt-28 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm">
       <a href={href} className="group relative block aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -579,7 +609,7 @@ export function Demos({ lang }: { lang: Lang }) {
         </section>
 
         <nav aria-label={x.title} className="sticky top-14 z-30 border-y border-line bg-canvas/90 backdrop-blur">
-          <div className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2 sm:px-6">
+          <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-2 sm:px-6">
             {(["desktop", "mobile", "web"] as const).map((k) => (
               <a
                 key={k}
@@ -589,6 +619,9 @@ export function Demos({ lang }: { lang: Lang }) {
                 {x.sections[k].title}
               </a>
             ))}
+          </div>
+          <div className="mx-auto max-w-6xl overflow-x-auto border-t border-line px-4 py-2 sm:px-6">
+            <DemoFilter langs={demoLangs()} all={x.filterAll} label={x.filter} />
           </div>
         </nav>
 

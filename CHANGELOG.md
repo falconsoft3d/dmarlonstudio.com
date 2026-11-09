@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.78 — 2026-11-09
+
+- **Demos de la web: filtro por lenguaje.** En la barra de la página de demos, botones para ver solo las de Python, C++, Pascal, Flutter, HTML, React o Vue, con cuántas hay de cada uno; las secciones que se quedan vacías se ocultan y el filtro va en la dirección (`?tech=cpp`) para poder compartirlo.
+
 ## 1.0.77 — 2026-11-09
 
 - **Dominó doble 9: la ventana se agranda, se maximiza y pasa a pantalla completa** (menú Ver o F11; Esc para salir). La mesa se dibuja a escala, sin deformarse, al tamaño de la ventana, y el ratón sigue cayendo en su ficha; lo que sobra queda como borde de madera. La prueba de la ventana juega la mano con la mesa maximizada.

@@ -63,6 +63,7 @@ const liveDemos = <(String, String)>[
   ('html_domino', 'html'),
   ('next_world', 'next'),
   ('next_speed', 'next'),
+  ('next_flights', 'next'),
 ];
 
 /// Los archivos del proyecto de una demo en vivo. Las de Next.js (con

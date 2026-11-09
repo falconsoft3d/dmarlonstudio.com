@@ -3986,7 +3986,7 @@ msgstr ""
 msgid "Último acceso:"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "1 escala"
 msgstr ""
 
@@ -4034,11 +4034,11 @@ msgstr ""
 msgid "Añada una ruta para vigilarla"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Añadir y analizar"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Buscador de vuelos"
 msgstr ""
 
@@ -4077,7 +4077,7 @@ msgstr ""
 msgid "Conseguir un token gratis"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Cómo cambia el mejor precio"
 msgstr ""
 
@@ -4097,7 +4097,7 @@ msgstr ""
 msgid "Desde el análisis anterior"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgctxt "flight"
 msgid "Destino"
 msgstr ""
@@ -4126,7 +4126,7 @@ msgstr ""
 msgid "El precio de cada día"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "El precio para avisar debe ser un número"
 msgstr ""
 
@@ -4138,7 +4138,7 @@ msgstr ""
 msgid "Escalas"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Escriba el origen y el destino"
 msgstr ""
 
@@ -4146,7 +4146,7 @@ msgstr ""
 msgid "Escriba el origen, el destino y las fechas a la izquierda y pulse «Añadir y analizar»."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Ida"
 msgstr ""
 
@@ -4166,7 +4166,7 @@ msgstr ""
 msgid "La fecha de ida ya pasó"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "La ida debe ser un mes (2026-12) o un día (2026-12-20)"
 msgstr ""
 
@@ -4214,11 +4214,11 @@ msgstr ""
 msgid "No se encuentra el programa curl (viene con macOS y con Windows 10 o posterior)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "No se encuentra «{0}»: pruebe con el código IATA de la ciudad (por ejemplo, MAD)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Nueva ruta"
 msgstr ""
 
@@ -4226,7 +4226,7 @@ msgstr ""
 msgid "Objetivo: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgctxt "flight"
 msgid "Origen"
 msgstr ""
@@ -4255,7 +4255,7 @@ msgstr ""
 msgid "Quitar"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Quitar la ruta"
 msgstr ""
 
@@ -4295,7 +4295,7 @@ msgstr ""
 msgid "Una demo de DMarlon Studio: un buscador de vuelos hecho en C++17 con FLTK {0}. La ventana, la barra lateral y el menú se diseñaron en el Diseñador del estudio; el análisis, las gráficas y las consultas a Travelpayouts (con curl) están en el código de Form1.cpp."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "Vuelta"
 msgstr ""
 
@@ -4303,11 +4303,11 @@ msgstr ""
 msgid "Ya está por debajo"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "datos de ejemplo (sin token)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "directo"
 msgstr ""
 
@@ -4315,7 +4315,7 @@ msgstr ""
 msgid "en verde, el día más barato; haga clic en un día para comprar"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre"
 msgstr ""
 
@@ -4323,7 +4323,7 @@ msgstr ""
 msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_speed.dart lib/code/tk_showcase_next_world.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_flights.dart lib/code/tk_showcase_next_speed.dart lib/code/tk_showcase_next_world.dart
 msgid "es-ES"
 msgstr ""
 
@@ -4339,15 +4339,15 @@ msgstr ""
 msgid "lo más caro, {0} · {1} análisis"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "precios de Travelpayouts (Aviasales)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "solo directos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "solo ida"
 msgstr ""
 
@@ -4355,23 +4355,23 @@ msgstr ""
 msgid "un punto por análisis (cada 30 minutos mientras la app está abierta)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "vuelta: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_flights.dart
 msgid "{0} de {1}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "{0} escalas"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_flights.dart
 msgid "{0} h {1} min"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgid "{0} ofertas"
 msgstr ""
 
@@ -6857,6 +6857,151 @@ msgstr ""
 
 #: lib/code/tk_showcase_next.dart
 msgid "{0} pendientes de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "2026-12 o 2026-12-20"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Analizada a las {} · la siguiente, a las {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Analizando…"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Avisar si baja de"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Añada una ruta con el botón + para vigilar sus precios."
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Buscador de vuelos (Next.js)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Buscador de vuelos: vigila rutas cada 30 minutos con los precios de Travelpayouts. El servidor (después de // @server) guarda el token y hace las consultas."
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgctxt "flight"
+msgid "Cerrar"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Demasiadas consultas: se reintenta en el próximo análisis"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Desde {} con {} · {} · {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "El buscador de vuelos como web de Next.js con servidor: vigila rutas cada 30 minutos con los precios de todas las aerolíneas (Travelpayouts), lo más barato de cada una y de cada día, la evolución y avisos. El token se queda en el servidor; sin él, datos de ejemplo."
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "El precio de cada día (toque un día para comprarlo)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "El token de Travelpayouts del servidor no es válido"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "La Habana o HAV"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "La evolución sale a partir del segundo análisis"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "La vuelta debe ser un mes o un día, y no antes de la ida (o déjela vacía)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Las rutas se guardan en este navegador. El servidor consulta los precios de todas las aerolíneas y agencias de Aviasales con su token, que nunca llega aquí."
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Lo más barato de cada aerolínea"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Lo más barato visto: {} ({}, {})"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Madrid o MAD"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "No se pudo analizar: {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Opcional, en la moneda elegida"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Próximo análisis en {} min"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Se analizan al abrir y cada 30 minutos"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Sin precios para esas fechas"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Sin precios por día"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Solo directos"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "Vacía: solo ida"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "aviso por debajo de {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "igual que antes"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "precio medio {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "{}: ha bajado a {} ({} menos)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "{}: {}, por debajo de su precio"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "▲ {} más"
+msgstr ""
+
+#: lib/code/tk_showcase_next_flights.dart
+msgid "▼ {} menos"
 msgstr ""
 
 #: lib/code/tk_showcase_next_speed.dart

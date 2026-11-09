@@ -126,11 +126,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Mide su conexión con el servidor de esta web: el ping y el jitter, la bajada y la subida, con un indicador que se mueve mientras mide. Al acabar le dice para qué le alcanza (videollamadas, 4K, juegos…) y guarda cada medición en su historial.",
         shows: ["El servidor envía y recibe los datos de la prueba", "Un indicador dibujado en un Lienzo", "El historial, guardado en su navegador"],
       },
+      next_flights: {
+        name: "Buscador de vuelos (Next.js)",
+        text: "El buscador de vuelos de C++, ahora en el navegador: vigila sus rutas al abrirse y cada 30 minutos, con el mejor precio de cada aerolínea y dónde comprarlo, el precio de cada día del mes, cómo cambia y avisos cuando baja. El token de Travelpayouts se queda en el servidor; sin él, datos de ejemplo.",
+        shows: ["La clave de la API, solo en el servidor", "Las rutas, guardadas en su navegador", "Gráficas en dos Lienzos y enlaces para comprar"],
+      },
     },
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y seis webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -338,11 +343,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "It measures your connection to this website's server: the ping and jitter, the download and the upload, with a gauge that moves while it measures. When it ends it tells you what it is good enough for (video calls, 4K, games…) and saves each measurement in its history.",
         shows: ["The server sends and receives the test data", "A gauge drawn on a Canvas", "The history, saved in your browser"],
       },
+      next_flights: {
+        name: "Flight Finder (Next.js)",
+        text: "The C++ flight finder, now in the browser: it watches your routes when it opens and every 30 minutes, with each airline's best price and where to buy it, the price of each day of the month, how it changes and alerts when it drops. The Travelpayouts token stays on the server; without it, sample data.",
+        shows: ["The API key, only on the server", "Your routes, saved in your browser", "Charts on two Canvases and links to buy"],
+      },
     },
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and six websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -557,6 +567,7 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   html_domino: { icon: "html", label: "HTML · Canvas" },
   next_world: { icon: "next", label: "Next.js · API" },
   next_speed: { icon: "next", label: "Next.js · API" },
+  next_flights: { icon: "next", label: "Next.js · API" },
 };
 
 /** Una sección de demos (escritorio, móvil o web) con su rejilla de tarjetas. */

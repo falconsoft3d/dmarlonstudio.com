@@ -108,6 +108,7 @@ export const en: Content = {
       { seed: "html_store", name: "Web shop (HTML)", text: "The shop in HTML, CSS and JavaScript, with nothing to build or install." },
       { seed: "html_domino", name: "Double-Nine Dominoes (web)", text: "Dominoes in the browser: the table is drawn on a Canvas from the screen editor." },
       { seed: "next_world", name: "Live World Map (Next.js)", text: "Live planes, ships and trains on a map, with a Next.js server that reads the public APIs." },
+      { seed: "next_flights", name: "Flight Finder (Next.js)", text: "Watches routes every 30 minutes with every airline's prices; the API token, on the server." },
       { seed: "next_speed", name: "Internet Speed Test (Next.js)", text: "The ping, download and upload measured against the website's server, with a gauge and the history." },
       { seed: "vue_store", name: "Web shop (Vue)", text: "Each screen is a .vue component, with Vite." },
       { seed: "go_store", name: "Web shop (Go)", text: "A Go server with a REST API that saves the orders." },

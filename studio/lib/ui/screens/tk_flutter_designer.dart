@@ -102,6 +102,7 @@ const flIcons = <String, IconData>{
   'place': Icons.place,
   'qr_code': Icons.qr_code,
   'refresh': Icons.refresh,
+  'flight_takeoff': Icons.flight_takeoff,
   'cancel': Icons.cancel,
   'public': Icons.public,
   'flight': Icons.flight,

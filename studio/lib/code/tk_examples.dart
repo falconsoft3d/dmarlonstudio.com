@@ -57,6 +57,8 @@ part 'tk_showcase_next_world.dart';
 part 'tk_showcase_next_world_code.dart';
 part 'tk_showcase_next_speed.dart';
 part 'tk_showcase_next_speed_code.dart';
+part 'tk_showcase_next_flights.dart';
+part 'tk_showcase_next_flights_code.dart';
 part 'tk_showcase_util_pascal_odoo.dart';
 part 'tk_showcase_shop.dart';
 

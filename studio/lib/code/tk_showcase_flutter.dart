@@ -16,6 +16,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _goStore(t),
   _nextWorld(t),
   _nextSpeed(t),
+  _nextFlights(t),
   _flutterShipping(t),
   _flutterTodo(t),
   ...tkShopMobileExamples(t),

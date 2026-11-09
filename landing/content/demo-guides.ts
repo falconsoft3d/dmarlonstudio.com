@@ -256,6 +256,14 @@ const es: Record<string, DemoGuide> = {
       { title: "Para qué le alcanza", text: "Al acabar, la lista dice si su conexión da para videollamadas, vídeo en 4K, juegos en línea o una casa con varias personas, y la medición se guarda en el Historial de su navegador." },
     ],
   },
+  next_flights: {
+    intro: "El buscador de vuelos de C++ como web de Next.js con servidor, hecha con el editor de pantallas. Las rutas se guardan en el navegador; el servidor, después de // @server, consulta la Data API de Travelpayouts (la de Aviasales) con el token de TRAVELPAYOUTS_TOKEN, que nunca llega a la página, y sin token inventa precios creíbles por la distancia.",
+    steps: [
+      { title: "Sus rutas", text: "Al abrir, la web analiza cada ruta y vuelve a hacerlo cada 30 minutos mientras está abierta. Cada una dice su mejor precio y cuánto ha cambiado; si baja o pasa por debajo del suyo, avisa (también con una notificación del navegador)." },
+      { title: "Una ruta nueva", text: "Origen y destino (una ciudad o su código IATA), la ida (un mes o un día), la vuelta si la hay, la moneda, solo directos y, si quiere, un precio para avisar." },
+      { title: "El detalle", text: "El precio de cada día del mes (toque un día para comprarlo en Aviasales), lo más barato de cada aerolínea con la ida, la vuelta, las escalas y la duración, y cómo cambia el mejor precio en cada análisis." },
+    ],
+  },
 };
 
 const en: Record<string, DemoGuide> = {
@@ -497,6 +505,14 @@ const en: Record<string, DemoGuide> = {
       { title: "Press Start", text: "First the ping: twelve minimal requests, one after another; the ping is the median and the jitter, how much it changes from one to the next. Then four downloads at once for 10 seconds and three uploads for 8." },
       { title: "Watch the needle", text: "The gauge, drawn on a Canvas, shows what arrives each second: blue for the download and purple for the upload. The scale gives more room to low speeds, from 0 to 1000 Mbps." },
       { title: "What it is good enough for", text: "When it ends, the list tells you whether your connection is enough for video calls, 4K video, online games or a household with several people, and the measurement is saved in your browser's History." },
+    ],
+  },
+  next_flights: {
+    intro: "The C++ flight finder as a Next.js website with a server, made with the screen editor. Routes are saved in the browser; the server, after // @server, queries the Travelpayouts Data API (the Aviasales one) with the TRAVELPAYOUTS_TOKEN token, which never reaches the page, and without a token it makes up believable prices from the distance.",
+    steps: [
+      { title: "Your routes", text: "When it opens, the website analyzes each route and does it again every 30 minutes while it stays open. Each one shows its best price and how much it has changed; if it drops or goes below yours, it alerts you (also with a browser notification)." },
+      { title: "A new route", text: "Origin and destination (a city or its IATA code), the departure (a month or a day), the return if any, the currency, direct only and, if you like, a price to be alerted at." },
+      { title: "The details", text: "The price of each day of the month (tap a day to buy it on Aviasales), the cheapest from each airline with the departure, return, stops and duration, and how the best price changes with each analysis." },
     ],
   },
 };

@@ -43,7 +43,7 @@ export type DemoSeed = (typeof DEMO_SEEDS)[number];
 export const MOBILE_SEEDS = ["flutter_store", "flutter_shipping", "flutter_todo"] as const;
 
 /** Webs: la misma tienda en HTML, React y Vue, abiertas aquí mismo. */
-export const WEB_SEEDS = ["html_store", "react_store", "vue_store", "html_domino", "next_world", "next_speed"] as const;
+export const WEB_SEEDS = ["html_store", "react_store", "vue_store", "html_domino", "next_world", "next_speed", "next_flights"] as const;
 
 export type MobileSeed = (typeof MOBILE_SEEDS)[number];
 export type WebSeed = (typeof WEB_SEEDS)[number];

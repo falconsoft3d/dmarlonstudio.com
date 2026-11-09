@@ -292,8 +292,6 @@ TkExample tkCppWifi(String Function(String) t) {
         'Cada red es una montaña: su ancho es el de su canal y su altura, la señal que llega aquí. Las que se tocan se estorban. La suya va en azul y, si hay un canal mejor, sale en verde.',
       ),
     ),
-    'BAND_24': '2,4 GHz',
-    'BAND_5': '5 GHz',
     'BEST_HERE': t(markTr('mejor: {0}')),
     'NO_NETWORKS_BAND': t(markTr('Ninguna red en esta banda.')),
     // La contraseña.

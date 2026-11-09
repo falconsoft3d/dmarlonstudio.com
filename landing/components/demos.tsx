@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Veinte aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veintiuna aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -135,7 +135,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veintiuna aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -259,6 +259,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Analiza su ordenador: el sistema, el procesador (con cada núcleo), la memoria, el modelo y el firmware, los gráficos y las pantallas, los discos, la red, la batería, el audio y los periféricos, con el uso en directo cada segundo. Guarda un informe en PDF, lo imprime o lo copia. Nada sale del equipo. En macOS, para Apple Silicon.",
         shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Datos de sysctl y system_profiler (macOS) o Win32 y PowerShell (Windows)", "Un informe en PDF de varias páginas dibujado con FLTK, sin más bibliotecas"],
       },
+      cpp_wifi: {
+        name: "Wifi de casa (C++)",
+        text: "Analiza la wifi de su casa: su red, las de alrededor, los canales y el router, y le da una nota de 0 a 100 con lo grave, lo importante y lo que se puede mejorar (a qué canal cambiar, qué cifrado usar, qué cerrar en el router). Escriba su contraseña y le dice lo fuerte que es; no se guarda ni sale del equipo. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Datos de system_profiler (macOS) o netsh (Windows) y pruebas al router con sockets", "Un diagnóstico, un mapa de canales y un análisis de la contraseña, dibujados en código"],
+      },
       pascal_malecon: {
         name: "Bajo la Sombra del Malecón (Pascal)",
         text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
@@ -275,7 +280,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twenty apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty-one apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -352,7 +357,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty-one desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -476,6 +481,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "It analyzes your computer: the system, the processor (with each core), the memory, the model and firmware, the graphics and displays, the disks, the network, the battery, the audio and the peripherals, with live usage every second. It saves a PDF report, prints it or copies it. Nothing leaves the computer. On macOS, for Apple Silicon.",
         shows: ["A native C++ app with FLTK, designed in the studio", "Data from sysctl and system_profiler (macOS) or Win32 and PowerShell (Windows)", "A multi-page PDF report drawn with FLTK, no other libraries"],
       },
+      cpp_wifi: {
+        name: "Home Wi-Fi (C++)",
+        text: "It analyzes your home Wi-Fi: your network, the ones around, the channels and the router, and gives it a score from 0 to 100 with what is serious, what is important and what can be improved (which channel to switch to, which encryption to use, what to close on the router). Type your password and it tells you how strong it is; it is not saved and never leaves the computer. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK, designed in the studio", "Data from system_profiler (macOS) or netsh (Windows) and router checks with sockets", "A diagnosis, a channel map and a password analysis, drawn in code"],
+      },
       pascal_malecon: {
         name: "Under the Shadow of the Malecón (Pascal)",
         text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
@@ -557,6 +567,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_image_editor: { icon: "cpp", label: "C++ · FLTK" },
   cpp_flights: { icon: "cpp", label: "C++ · FLTK" },
   cpp_hardware: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_wifi: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 

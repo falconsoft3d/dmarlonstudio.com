@@ -33,6 +33,7 @@ export const DEMO_SEEDS = [
   "cpp_image_editor",
   "cpp_flights",
   "cpp_hardware",
+  "cpp_wifi",
   "pascal_malecon",
   "domino",
 ] as const;

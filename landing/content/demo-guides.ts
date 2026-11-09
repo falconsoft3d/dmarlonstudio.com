@@ -166,6 +166,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Guarde el informe en PDF", text: "«Guardar en PDF» crea un documento de varias páginas con todas las secciones y las lecturas del momento, listo para enviar o archivar; también se puede imprimir, guardar como texto o copiar. Los números de serie, el UUID, las direcciones MAC y el usuario van ocultos salvo que active Ver → Mostrar números de serie." },
     ],
   },
+  cpp_wifi: {
+    intro:
+      "Un escáner de la wifi de casa hecho en C++ con FLTK y diseñado en el estudio: la ventana, la lista de secciones, los botones y el reloj salen del Diseñador; el diagnóstico, el mapa de canales y el análisis de la contraseña se dibujan en el código. Lee la wifi con system_profiler en macOS y con netsh en Windows, y prueba el router de casa con sockets.",
+    steps: [
+      { title: "Mire los canales", text: "Cada red que se oye es una montaña del ancho de su canal y del alto de su señal. Si la suya comparte canal con vecinas fuertes, la app marca en verde el canal más libre para ponerlo en el router (en 2,4 GHz, el 1, el 6 o el 11)." },
+      { title: "Compruebe la contraseña", text: "Escriba la de su wifi: la app mira lo larga que es, si es de las más usadas, si lleva el nombre de la red, un año o una secuencia del teclado, y calcula cuánto tardarían en adivinarla con una tarjeta gráfica o con cien. Se olvida al comprobarla: no se guarda ni sale en el informe." },
+      { title: "Revise el router", text: "Prueba desde dentro de casa qué deja abierto el router: Telnet y FTP (graves), la página de configuración sin HTTPS y UPnP, además de cuánto tarda en responder y si se pierden paquetes. Todo entra en la nota y en el informe, que se copia o se guarda como texto." },
+    ],
+  },
   pascal_malecon: {
     intro:
       "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
@@ -415,6 +424,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Go through each part of the computer", text: "The overview shows the main facts at a glance: the model, the system, the processor, the memory, the graphics, the disk, the battery and the network, and each card takes you to its section. On the left are the processor (with its caches), the model and firmware, the graphics and displays, the disks, the network, the audio and the USB and Bluetooth peripherals. Click a value to copy it." },
       { title: "Measure usage live", text: "Every second it measures the usage of the processor and of each core (on Apple chips, efficiency and performance cores separately), the memory by parts (apps, wired, compressed and cache), the network traffic, the disk space and the battery, with a chart of the last minute. Pause it in View → Live Readings." },
       { title: "Save the report as PDF", text: "\"Save as PDF\" creates a multi-page document with every section and the current readings, ready to send or keep; you can also print it, save it as text or copy it. Serial numbers, the UUID, MAC addresses and the user name stay hidden unless you turn on View → Show Serial Numbers." },
+    ],
+  },
+  cpp_wifi: {
+    intro:
+      "A home Wi-Fi scanner made in C++ with FLTK and designed in the studio: the window, the section list, the buttons and the timer come from the Designer; the diagnosis, the channel map and the password analysis are drawn in code. It reads the Wi-Fi with system_profiler on macOS and netsh on Windows, and checks your home router with sockets.",
+    steps: [
+      { title: "Look at the channels", text: "Each network it hears is a hill as wide as its channel and as tall as its signal. If yours shares a channel with strong neighbors, the app marks in green the freest channel to set on the router (on 2.4 GHz, 1, 6 or 11)." },
+      { title: "Check the password", text: "Type your Wi-Fi's: the app looks at how long it is, whether it is one of the most used, whether it contains the network's name, a year or a keyboard sequence, and works out how long it would take to guess with one graphics card or a hundred. It is forgotten once checked: it is not saved or included in the report." },
+      { title: "Review the router", text: "From inside your home it tests what the router leaves open: Telnet and FTP (serious), the settings page without HTTPS and UPnP, plus how long it takes to answer and whether packets get lost. It all goes into the score and the report, which you can copy or save as text." },
     ],
   },
   pascal_malecon: {

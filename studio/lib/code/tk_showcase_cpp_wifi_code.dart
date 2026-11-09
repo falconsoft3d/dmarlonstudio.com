@@ -394,6 +394,11 @@ int sec_of(const std::string& raw) {
   return SEC_UNKNOWN;
 }
 
+// «2,4 GHz» (o «2.4 GHz»), «5 GHz».
+std::string band_text(int band, bool unit) {
+  return (band == 24 ? "2" + std::string(1, tx::DEC[0]) + "4" : std::to_string(band)) + (unit ? " GHz" : "");
+}
+
 int band_of_channel(int ch) { return ch >= 1 && ch <= 14 ? 24 : ch > 14 ? 5 : 0; }
 
 // «36 (5GHz, 80MHz)» → canal, banda y ancho.
@@ -1110,7 +1115,7 @@ std::string report_text(const Scan& s, const PassCheck& pw) {
     o += "\n" + std::string(tx::S_MINE) + "\n";
     o += "  " + std::string(tx::K_NAME) + ": " + net_name(c, -1) + "\n";
     o += "  " + std::string(tx::K_SECURITY) + ": " + sec_name(c.sec) + "\n";
-    o += "  " + std::string(tx::K_CHANNEL) + ": " + std::to_string(c.channel) + " (" + (c.band == 24 ? "2,4" : std::to_string(c.band)) +
+    o += "  " + std::string(tx::K_CHANNEL) + ": " + std::to_string(c.channel) + " (" + band_text(c.band, false) +
          " GHz, " + std::to_string(c.width) + " MHz)\n";
     if (c.rssi) o += "  " + std::string(tx::K_SIGNAL) + ": " + std::to_string(c.rssi) + " dBm\n";
     if (!c.phy.empty()) o += "  " + std::string(tx::K_STANDARD) + ": " + c.phy + "\n";
@@ -1519,7 +1524,7 @@ public:
     text(c.rssi >= -60 ? tx::SIG_GOOD : c.rssi >= -70 ? tx::SIG_FAIR : tx::SIG_WEAK, x + 18, y + 76, C_DIM, 12);
     y += 104;
     y = row(x, y, w, tx::K_SECURITY, sec_name(c.sec), sec_color(c.sec));
-    y = row(x, y, w, tx::K_BAND, c.band == 24 ? "2,4 GHz" : std::to_string(c.band) + " GHz");
+    y = row(x, y, w, tx::K_BAND, band_text(c.band, true));
     y = row(x, y, w, tx::K_CHANNEL, std::to_string(c.channel));
     y = row(x, y, w, tx::K_WIDTH, std::to_string(c.width) + " MHz");
     if (!c.phy.empty()) y = row(x, y, w, tx::K_STANDARD, c.phy + wifi_gen(c.phy));
@@ -1549,7 +1554,7 @@ public:
       if (n.current) rbox({x - 8, y, w + 16, 30}, 0xeaf1ff);
       text(fit(net_name(n, i) + (n.current ? std::string(" · ") + tx::YOURS : ""), cols[1] - 16, 13, n.current), x, y + 20, C_TEXT, 13, n.current);
       text(std::to_string(n.channel), x + cols[1], y + 20, C_TEXT, 13);
-      text(n.band == 24 ? "2,4 GHz" : std::to_string(n.band) + " GHz", x + cols[2], y + 20, C_TEXT, 13);
+      text(band_text(n.band, true), x + cols[2], y + 20, C_TEXT, 13);
       text(std::to_string(n.width) + " MHz", x + cols[3], y + 20, C_TEXT, 13);
       bars(x + cols[4], y + 21, n.rssi);
       text(std::to_string(n.rssi) + " dBm", x + cols[4] + 26, y + 20, signal_color(n.rssi), 13);
@@ -1574,7 +1579,7 @@ public:
   }
   int spectrum(int x, int y, int w, int band, int best) {
     const Scan& s = *scan;
-    text(band == 24 ? tx::BAND_24 : tx::BAND_5, x, y + 16, C_TEXT, 15, true);
+    text(band_text(band == 24 ? 24 : 5, true), x, y + 16, C_TEXT, 15, true);
     y += 26;
     Box b{x + 40, y, w - 50, 210};
     rbox({x, y - 4, w, b.h + 40}, C_CARD);
@@ -1812,7 +1817,7 @@ public:
       auto f = wf::diagnose(scan, pw);
       int sc = wf::score(f);
       LblNet->text(wf::net_name(c, -1));
-      LblInfo->text(wf::join({wf::fmt(tx::SIDE_INFO, {c.band == 24 ? "2,4" : std::to_string(c.band), std::to_string(c.channel),
+      LblInfo->text(wf::join({wf::fmt(tx::SIDE_INFO, {wf::band_text(c.band, false), std::to_string(c.channel),
                                                        std::to_string(c.rssi)}),
                               wf::fmt(tx::SIDE_SCORE, {std::to_string(sc), wf::verdict(sc)})},
                              "\n"));

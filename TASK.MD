@@ -59,6 +59,7 @@ Hechos
 64. Next.js con servidor (`// @server`) y «El mundo en directo»: mapa del mundo con aviones (OpenSky), barcos (AIS del Báltico) y trenes (Renfe y VR) en directo, corriendo en el servidor de la web | ✅ |
 65. Velocidad de internet (Next.js con servidor): ping y jitter, bajada y subida, para qué alcanza e historial, en la web de demos | ✅ |
 66. Buscador de vuelos en web (Next.js con servidor): el token de Travelpayouts en el servidor, rutas en el navegador, análisis cada 30 minutos y avisos, en la web de demos | ✅ |
+69. Wifi de casa en C++ (FLTK): su red, las de alrededor, los canales, el router y la contraseña, con un diagnóstico de 0 a 100; ejemplo del estudio y demo | ✅ |
 
 
 Trabajando
@@ -70,6 +71,7 @@ Trabajando
 Pendiente
 =========
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
-69. Escáner de la wifi de casa: redes cercanas, canales, señal y seguridad, con un diagnóstico de problemas y mejoras | ⏳ |
+70. Consola en C++ (FLTK) inspirada en iTerm: pestañas, cola de órdenes que esperan a la anterior y apariencias | ⏳ |
+71. Monitor de URLs en C++: revisa cada pocos minutos si los sitios están en línea, lo guarda en una base de datos y vive en la barra de menús de macOS | ⏳ |
 
 

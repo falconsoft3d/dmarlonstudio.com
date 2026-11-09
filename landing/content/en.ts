@@ -94,6 +94,7 @@ export const en: Content = {
       { seed: "cpp_explorer", name: "File Explorer (C++)", text: "Tree, icons, details, tabs, bookmarks and a light or dark theme, native with FLTK." },
       { seed: "cpp_flights", name: "Flight Finder (C++)", text: "Watches routes and checks every airline's prices every 30 minutes, with charts drawn in code with FLTK." },
       { seed: "cpp_hardware", name: "Hardware Inspector (C++)", text: "The computer's hardware and system, live usage and a PDF report, native with FLTK." },
+      { seed: "cpp_wifi", name: "Home Wi-Fi (C++)", text: "Your Wi-Fi, the networks around, the channels and the router, with a diagnosis and your password's strength, native with FLTK." },
       { seed: "cpp_image_editor", name: "Image Editor (C++)", text: "A layer-based editor with blend modes, crop, rotate, levels and filters, all drawn in code with FLTK." },
       { seed: "cpp_racing", name: "Motorbike Racing (C++)", text: "A pseudo-3D motorbike game with seven rivals, laps and standings, drawn in code with FLTK." },
       { seed: "pascal_malecon", name: "Under the Shadow of the Malecón (Pascal)", text: "An investigation adventure in Havana in 2026 with 256-colour VGA pixel art, drawn in code with Lazarus." },

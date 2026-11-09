@@ -65,6 +65,7 @@ const carousel = [
   'cpp_image_editor',
   'cpp_flights',
   'cpp_hardware',
+  'cpp_wifi',
   'pascal_malecon',
   'domino',
   'pascal_calculator',

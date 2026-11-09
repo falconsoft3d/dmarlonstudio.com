@@ -266,8 +266,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_console: {
         name: "Consola (C++)",
-        text: "Una consola al estilo de iTerm: pestañas con su propia shell, una cola de órdenes que se ejecutan de una en una cuando termina la anterior, órdenes guardadas con Ctrl+Espacio, atajos (un nombre como conectar-servidor que ejecuta su orden), history para elegir entre las últimas, ayuda y diez apariencias. En macOS, para Apple Silicon.",
-        shows: ["Una app nativa en C++ con FLTK y un pseudoterminal de verdad", "La shell avisa al volver al prompt: así sabe la cola cuándo seguir", "Atajos que son funciones de la shell: uno puede llamar a otro"],
+        text: "Una consola al estilo de iTerm: pestañas con su propia shell, la orden en verde mientras la escribe, una cola de órdenes que se ejecutan de una en una cuando termina la anterior, órdenes guardadas con Ctrl+Espacio, atajos (un nombre como conectar-servidor que ejecuta su orden), history para elegir entre las últimas, ayuda y diez apariencias. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK y un pseudoterminal de verdad", "La shell avisa al volver al prompt: así sabe la cola cuándo seguir", "Atajos con varias órdenes que son funciones de la shell: uno puede llamar a otro"],
       },
       pascal_malecon: {
         name: "Bajo la Sombra del Malecón (Pascal)",
@@ -493,8 +493,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_console: {
         name: "Console (C++)",
-        text: "An iTerm-style console: tabs with their own shell, a queue of commands that run one at a time when the previous one ends, saved commands with Ctrl+Space, shortcuts (a name like connect-server that runs its command), history to pick from the latest ones, help and ten looks. On macOS, for Apple Silicon.",
-        shows: ["A native C++ app with FLTK and a real pseudo-terminal", "The shell reports when it returns to the prompt: that's how the queue knows when to go on", "Shortcuts that are shell functions: one can call another"],
+        text: "An iTerm-style console: tabs with their own shell, the command in green as you type it, a queue of commands that run one at a time when the previous one ends, saved commands with Ctrl+Space, shortcuts (a name like connect-server that runs its command), history to pick from the latest ones, help and ten looks. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK and a real pseudo-terminal", "The shell reports when it returns to the prompt: that's how the queue knows when to go on", "Shortcuts with several commands that are shell functions: one can call another"],
       },
       pascal_malecon: {
         name: "Under the Shadow of the Malecón (Pascal)",

@@ -3350,10 +3350,6 @@ msgid ","
 msgstr "."
 
 #: lib/code/tk_showcase_cpp_console.dart
-msgid "A la derecha: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
-msgstr "On the right: type commands, press Add and then Run the queue. They go one at a time, each when the previous one ends."
-
-#: lib/code/tk_showcase_cpp_console.dart
 msgid "Acerca de Consola"
 msgstr "About Console"
 
@@ -3389,11 +3385,13 @@ msgstr "There are no commands in the history yet."
 msgid ""
 "Cada pestaña es su shell (zsh, bash o fish en macOS y Linux; PowerShell en Windows) en su propio pseudoterminal, con su configuración, sus alias y su prompt. Pestañas: ⌘T (Ctrl+Mayús+T) abre una, ⌘W la cierra y ⌘[ ⌘] pasan de una a otra; también con el ratón.\n"
 "\n"
-"La cola, a la derecha: escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n"
+"Mientras escribe, la orden sale en verde si existe y en rojo si no (en zsh; fish lo hace solo).\n"
+"\n"
+"La cola (Ver → Mostrar la cola, ⌘B): escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n"
 "\n"
 "Órdenes guardadas: pulse Ctrl+Espacio (o ⌘;) en la terminal y sale la lista, filtrada por lo que lleve escrito en la línea; Intro la escribe en la línea sin ejecutarla, Supr la quita y, si lo escrito no está guardado, la última fila lo guarda. También con Órdenes → Guardar una orden… (⌘S). Las que usa suben arriba.\n"
 "\n"
-"Atajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta su orden al escribirlo; uno puede llamar a otro y lo que escriba después llega como $1, $2… Salen también en la lista de Ctrl+Espacio.\n"
+"Atajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta sus órdenes al escribirlo (varias, una por línea); uno puede llamar a otro y lo que escriba después llega como $1, $2… Salen también en la lista de Ctrl+Espacio.\n"
 "\n"
 "Historial: escriba history y pulse Intro (o ⌘Y): salen las 10 últimas órdenes para elegir una.\n"
 "\n"
@@ -3403,11 +3401,13 @@ msgid ""
 msgstr ""
 "Each tab is your shell (zsh, bash or fish on macOS and Linux; PowerShell on Windows) in its own pseudo-terminal, with your settings, aliases and prompt. Tabs: ⌘T (Ctrl+Shift+T) opens one, ⌘W closes it and ⌘[ ⌘] move between them; also with the mouse.\n"
 "\n"
-"The queue, on the right: type commands and press Add; Run the queue sends them one at a time to the tab, each when the previous one has finished (the shell reports when it returns to the prompt), with its exit code and how long it took. With “Stop if one fails”, a failing one stops the rest; Stop the queue sends Ctrl+C to the one running.\n"
+"As you type, the command turns green if it exists and red if it doesn't (in zsh; fish does it on its own).\n"
+"\n"
+"The queue (View → Show the queue, ⌘B): type commands and press Add; Run the queue sends them one at a time to the tab, each when the previous one has finished (the shell reports when it returns to the prompt), with its exit code and how long it took. With “Stop if one fails”, a failing one stops the rest; Stop the queue sends Ctrl+C to the one running.\n"
 "\n"
 "Saved commands: press Ctrl+Space (or ⌘;) in the terminal and the list appears, filtered by what you have typed on the line; Enter types it on the line without running it, Delete removes it and, if what you typed isn't saved, the last row saves it. Also with Commands → Save a command… (⌘S). The ones you use move to the top.\n"
 "\n"
-"Shortcuts (Commands → Shortcuts…, ⌘J): a name, like conectar-servidor, that runs its command when you type it; one can call another and whatever you type after it arrives as $1, $2… They also appear in the Ctrl+Space list.\n"
+"Shortcuts (Commands → Shortcuts…, ⌘J): a name, like conectar-servidor, that runs its commands when you type it (several, one per line); one can call another and whatever you type after it arrives as $1, $2… They also appear in the Ctrl+Space list.\n"
 "\n"
 "History: type history and press Enter (or ⌘Y): the last 10 commands appear so you can pick one.\n"
 "\n"
@@ -3541,6 +3541,10 @@ msgid "Mayús"
 msgstr "Shift"
 
 #: lib/code/tk_showcase_cpp_console.dart
+msgid "Mostrar la cola"
+msgstr "Show the queue"
+
+#: lib/code/tk_showcase_cpp_console.dart
 msgid "Ninguna encaja: siga escribiendo o guárdela."
 msgstr "None matches: keep typing or save it."
 
@@ -3610,8 +3614,8 @@ msgid "Teclas"
 msgstr "Keys"
 
 #: lib/code/tk_showcase_cpp_console.dart
-msgid "Un atajo es un nombre que ejecuta una orden: escriba el nombre en la terminal y pulse Intro. Un atajo puede llamar a otro (publicar → actualizar && desplegar), y lo que escriba después del nombre llega como $1, $2…"
-msgstr "A shortcut is a name that runs a command: type the name in the terminal and press Enter. A shortcut can call another (publish → update && deploy), and whatever you type after the name arrives as $1, $2…"
+msgid "Un atajo es un nombre que ejecuta órdenes: escriba el nombre en la terminal y pulse Intro. Puede llevar varias, una por línea, que se ejecutan una detrás de otra; puede llamar a otro atajo (publicar → actualizar, npm test, desplegar), y lo que escriba después del nombre llega como $1, $2…"
+msgstr "A shortcut is a name that runs commands: type the name in the terminal and press Enter. It can have several, one per line, that run one after another; it can call another shortcut (publish → update, npm test, deploy), and whatever you type after the name arrives as $1, $2…"
 
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Una consola nativa en C++ con FLTK, inspirada en iTerm: pestañas con su propia shell, una cola de órdenes que se ejecutan de una en una cuando termina la anterior y diez apariencias."
@@ -3632,6 +3636,10 @@ msgstr "Clear the queue"
 #: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ver → Mostrar la cola: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
+msgstr "View → Show the queue: type commands, press Add and then Run the queue. They go one at a time, each when the previous one ends."
 
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "[La shell ha terminado: cierre la pestaña o abra otra]"

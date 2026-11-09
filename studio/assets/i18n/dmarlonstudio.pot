@@ -3316,10 +3316,6 @@ msgid ","
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart
-msgid "A la derecha: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_console.dart
 msgid "Acerca de Consola"
 msgstr ""
 
@@ -3355,11 +3351,13 @@ msgstr ""
 msgid ""
 "Cada pestaña es su shell (zsh, bash o fish en macOS y Linux; PowerShell en Windows) en su propio pseudoterminal, con su configuración, sus alias y su prompt. Pestañas: ⌘T (Ctrl+Mayús+T) abre una, ⌘W la cierra y ⌘[ ⌘] pasan de una a otra; también con el ratón.\n"
 "\n"
-"La cola, a la derecha: escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n"
+"Mientras escribe, la orden sale en verde si existe y en rojo si no (en zsh; fish lo hace solo).\n"
+"\n"
+"La cola (Ver → Mostrar la cola, ⌘B): escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n"
 "\n"
 "Órdenes guardadas: pulse Ctrl+Espacio (o ⌘;) en la terminal y sale la lista, filtrada por lo que lleve escrito en la línea; Intro la escribe en la línea sin ejecutarla, Supr la quita y, si lo escrito no está guardado, la última fila lo guarda. También con Órdenes → Guardar una orden… (⌘S). Las que usa suben arriba.\n"
 "\n"
-"Atajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta su orden al escribirlo; uno puede llamar a otro y lo que escriba después llega como $1, $2… Salen también en la lista de Ctrl+Espacio.\n"
+"Atajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta sus órdenes al escribirlo (varias, una por línea); uno puede llamar a otro y lo que escriba después llega como $1, $2… Salen también en la lista de Ctrl+Espacio.\n"
 "\n"
 "Historial: escriba history y pulse Intro (o ⌘Y): salen las 10 últimas órdenes para elegir una.\n"
 "\n"
@@ -3490,6 +3488,10 @@ msgid "Mayús"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart
+msgid "Mostrar la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
 msgid "Ninguna encaja: siga escribiendo o guárdela."
 msgstr ""
 
@@ -3559,7 +3561,7 @@ msgid "Teclas"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart
-msgid "Un atajo es un nombre que ejecuta una orden: escriba el nombre en la terminal y pulse Intro. Un atajo puede llamar a otro (publicar → actualizar && desplegar), y lo que escriba después del nombre llega como $1, $2…"
+msgid "Un atajo es un nombre que ejecuta órdenes: escriba el nombre en la terminal y pulse Intro. Puede llevar varias, una por línea, que se ejecutan una detrás de otra; puede llamar a otro atajo (publicar → actualizar, npm test, desplegar), y lo que escriba después del nombre llega como $1, $2…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart
@@ -3580,6 +3582,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ver → Mostrar la cola: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart

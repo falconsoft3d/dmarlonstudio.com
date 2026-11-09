@@ -368,14 +368,34 @@ bool valid_shortcut_name(const std::string& n) {
   return true;
 }
 
-// El archivo de funciones para cada shell («sh» vale para zsh y bash).
+// Las órdenes de un atajo: una por línea (sin las vacías).
+std::vector<std::string> shortcut_lines(const std::string& cmd) {
+  std::vector<std::string> out;
+  for (auto l : split(cmd, '\n')) {
+    l = trim(l);
+    if (!l.empty()) out.push_back(l);
+  }
+  return out;
+}
+// En una sola línea, para las listas: «a ; b».
+std::string shortcut_summary(const std::string& cmd) {
+  std::string o;
+  for (const auto& l : shortcut_lines(cmd)) o += (o.empty() ? "" : " ; ") + l;
+  return o;
+}
+
+// El archivo de funciones para cada shell («sh» vale para zsh y bash): cada
+// orden del atajo en su línea, una detrás de otra.
 std::string shortcuts_script(const std::string& kind, const std::vector<Shortcut>& list) {
-  std::string o = kind == "ps1" ? "# DMarlon Console: los atajos\n" : "# DMarlon Console: los atajos (no lo edite: se rehace)\n";
+  std::string o = "# DMarlon Console: los atajos (no lo edite: se rehace)\n";
   for (const auto& s : list) {
-    if (!valid_shortcut_name(s.name) || trim(s.cmd).empty()) continue;
-    if (kind == "fish") o += "function " + s.name + "\n  " + s.cmd + "\nend\n";
-    else if (kind == "ps1") o += "function global:" + s.name + " { " + s.cmd + " }\n";
-    else o += s.name + "() {\n  " + s.cmd + "\n}\n";
+    auto lines = shortcut_lines(s.cmd);
+    if (!valid_shortcut_name(s.name) || lines.empty()) continue;
+    std::string body;
+    for (const auto& l : lines) body += "  " + l + "\n";
+    if (kind == "fish") o += "function " + s.name + "\n" + body + "end\n";
+    else if (kind == "ps1") o += "function global:" + s.name + " {\n" + body + "}\n";
+    else o += s.name + "() {\n" + body + "}\n";
   }
   return o;
 }
@@ -425,6 +445,25 @@ const char* const ZSH_WRAP[][2] = {
      "precmd_functions=(_dms_precmd $precmd_functions)\n"
      "preexec_functions+=(_dms_preexec)\n"},
 };
+// Resaltar la orden mientras se escribe (como zsh-syntax-highlighting): la
+// primera palabra en verde si existe (orden, alias, función, atajo) y en rojo si
+// no. Si ya está zsh-syntax-highlighting, no se toca.
+const char* const ZSH_HL = R"ZSH(
+if [[ -z $ZSH_HIGHLIGHT_VERSION ]] && autoload -Uz add-zle-hook-widget 2>/dev/null; then
+  _dms_hl() {
+    # Las marcas de antes (zsh mueve sus posiciones al escribir): fuera por su forma.
+    region_highlight=("${(@)region_highlight:#<-> <-> fg=(red|green)}")
+    local -a words=(${(z)BUFFER})
+    local w=$words[1] s=${#${BUFFER%%[^[:space:]]*}}
+    [[ -z $w ]] && return
+    local c=red
+    if whence -- "$w" >/dev/null 2>&1 || [[ -x $w ]]; then c=green; fi
+    region_highlight+=("$s $((s + ${#w})) fg=$c")
+  }
+  add-zle-hook-widget line-pre-redraw _dms_hl
+fi
+)ZSH";
+
 const char* const BASH_RC =
     "[ -f /etc/profile ] && . /etc/profile\n"
     "for f in \"$HOME/.bash_profile\" \"$HOME/.bash_login\" \"$HOME/.profile\"; do [ -f \"$f\" ] && { . \"$f\"; break; }; done\n"
@@ -443,7 +482,8 @@ ShellCmd shell_command() {
   fl_make_path(dir.c_str());
   if (name == "zsh") {
     fl_make_path((dir + "/zsh").c_str());
-    for (const auto& f : ZSH_WRAP) write_file(dir + "/zsh/" + f[0], f[1]);
+    for (const auto& f : ZSH_WRAP)
+      write_file(dir + "/zsh/" + f[0], std::string(f[1]) + (std::string(f[0]) == ".zshrc" ? ZSH_HL : ""));
     c.argv = {sh, "-l"};
     c.env.push_back("ZDOTDIR=" + dir + "/zsh");
     c.marks = true;
@@ -1263,7 +1303,7 @@ public:
           int tw = (int)fl_width(t.c_str());
           fl_font(FL_COURIER, 12);
           col(ui_dim(s));
-          std::string n = cut("→ " + e.note, w() - 50 - tw);
+          std::string n = cut("→ " + shortcut_summary(e.note), w() - 50 - tw);
           fl_draw(n.c_str(), x() + 26 + tw, yy + 16);
         }
       }
@@ -1311,7 +1351,7 @@ public:
 // ------------------------------------------------------------ ejemplo
 // Lo que se ve en las capturas: una shell inventada (no la de este equipo).
 const char* const SAMPLE_MAIN =
-    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % git status\r\n"
+    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % \033[32mgit\033[0m status\r\n"
     "On branch \033[1;36mmain\033[0m\r\n"
     "Your branch is up to date with '\033[31morigin/main\033[0m'.\r\n\r\n"
     "Changes not staged for commit:\r\n"
@@ -1319,10 +1359,10 @@ const char* const SAMPLE_MAIN =
     "  \033[31mmodified:   src/pago.js\033[0m\r\n\r\n"
     "Untracked files:\r\n"
     "  \033[31mtests/envio.test.js\033[0m\r\n\r\n"
-    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % ls\r\n"
+    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % \033[32mls\033[0m\r\n"
     "\033[1;34mnode_modules\033[0m  \033[1;34mpublic\033[0m  \033[1;34msrc\033[0m  \033[1;34mtests\033[0m  "
     "package.json  README.md  \033[32mdeploy.sh\033[0m  vite.config.js\r\n"
-    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % npm test\r\n\r\n"
+    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % \033[32mnpm\033[0m test\r\n\r\n"
     "> tienda@1.4.0 test\r\n> vitest run\r\n\r\n"
     " \033[32m✓\033[0m tests/carrito.test.js \033[2m(12 tests)\033[0m \033[33m38ms\033[0m\r\n"
     " \033[32m✓\033[0m tests/pago.test.js \033[2m(8 tests)\033[0m \033[33m21ms\033[0m\r\n"
@@ -1333,7 +1373,7 @@ const char* const SAMPLE_MAIN =
     " \033[2m  Duration\033[0m  2.41s\r\n\r\n"
     "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % ";
 const char* const SAMPLE_DEV =
-    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % npm run dev\r\n\r\n"
+    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~/proyectos/tienda\033[0m % \033[32mnpm\033[0m run dev\r\n\r\n"
     "> tienda@1.4.0 dev\r\n> vite\r\n\r\n"
     "  \033[1;32mVITE v6.2.0\033[0m  ready in \033[1m312 ms\033[0m\r\n\r\n"
     "  \033[32m➜\033[0m  \033[1mLocal\033[0m:   \033[36mhttp://localhost:\033[1m5173\033[0;36m/\033[0m\r\n"
@@ -1341,7 +1381,7 @@ const char* const SAMPLE_DEV =
     "\033[2m17:04:12\033[0m \033[1;36m[vite]\033[0m \033[32mhmr update\033[0m \033[2m/src/carrito.js\033[0m\r\n"
     "\033[2m17:04:31\033[0m \033[1;36m[vite]\033[0m \033[32mhmr update\033[0m \033[2m/src/pago.js\033[0m\r\n";
 const char* const SAMPLE_HOME =
-    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~\033[0m % ping -c 3 dmarlonstudio.com\r\n"
+    "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~\033[0m % \033[32mping\033[0m -c 3 dmarlonstudio.com\r\n"
     "PING dmarlonstudio.com (76.76.21.21): 56 data bytes\r\n"
     "64 bytes from 76.76.21.21: icmp_seq=0 ttl=57 time=\033[1m14.2\033[0m ms\r\n"
     "64 bytes from 76.76.21.21: icmp_seq=1 ttl=57 time=\033[1m13.8\033[0m ms\r\n"
@@ -1439,8 +1479,12 @@ int selftest() {
   std::vector<Shortcut> sc = {{"conectar-servidor", "ssh ana@10.0.0.2"}, {"mal nombre", "x"}, {"vacio", " "}};
   std::string sh = shortcuts_script("sh", sc), fi = shortcuts_script("fish", sc), ps = shortcuts_script("ps1", sc);
   check(has(sh, "conectar-servidor() {\n  ssh ana@10.0.0.2\n}") && !has(sh, "mal nombre") && !has(sh, "vacio"), "shortcut sh");
-  check(has(fi, "function conectar-servidor\n  ssh ana@10.0.0.2\nend") && has(ps, "function global:conectar-servidor { ssh ana@10.0.0.2 }"),
+  check(has(fi, "function conectar-servidor\n  ssh ana@10.0.0.2\nend") && has(ps, "function global:conectar-servidor {\n  ssh ana@10.0.0.2\n}"),
         "shortcut fish and ps1");
+  std::vector<Shortcut> multi = {{"publicar", "git pull\n\n  npm test \nnpm run build"}};
+  check(shortcuts_script("sh", multi) == "# DMarlon Console: los atajos (no lo edite: se rehace)\npublicar() {\n  git pull\n  npm test\n  npm run build\n}\n",
+        "shortcut lines");
+  check(shortcut_summary(multi[0].cmd) == "git pull ; npm test ; npm run build", "shortcut summary");
   check(history_line(": 1700000000:0;git status") == "git status" && history_line("ls -la") == "ls -la" && history_line("#1700000") == "",
         "history lines");
   // Textos.
@@ -1458,7 +1502,7 @@ class Form1 : public FormDesign {
 public:
   std::vector<ct::Session*> tabs;
   int active = -1, skin = 0, font_size = 14, ids = 0;
-  bool sync = false, sample = false;
+  bool sync = false, sample = false, show_queue = false;   // el panel de la cola (Ver → Mostrar la cola)
   ct::TabBar* bar = nullptr;
   ct::QueueView* qview = nullptr;
   ct::Completer* comp = nullptr;
@@ -1550,6 +1594,7 @@ public:
     mark(tx::MP_COMPLETE, 0, false, K + ';');
     mark(tx::MP_SHORTCUTS, 0, false, K + 'j');
     mark(tx::MP_HISTORY, 0, false, K + 'y');
+    mark(tx::MP_QUEUE_PANEL, 0, false, K + 'b');
   }
 
   void form_create() override {
@@ -1557,6 +1602,7 @@ public:
     Fl::lock();
     setup();
     load();
+    layout_panels();
     new_tab();
     sync_menu();
     size_range(760, 420);
@@ -1694,6 +1740,28 @@ public:
       t->pty.resize(t->view->display_columns(), t->view->display_rows());
     }
     refresh();
+  }
+
+  // ---- el panel de la cola: oculto, la terminal ocupa todo el ancho
+  void layout_panels() {
+    int sw = show_queue ? Side->w() : 0, right = w() - sw;
+    Tabs->resize(0, Tabs->y(), right, Tabs->h());
+    Term->resize(0, Term->y(), right, Term->h());
+    if (show_queue) {
+      Side->resize(right, Side->y(), Side->w(), Side->h());
+      Side->show();
+    } else {
+      Side->hide();
+    }
+    init_sizes();
+    for (auto* t : tabs) t->pty.resize(t->view->display_columns(), t->view->display_rows());
+    sync_menu();
+    redraw();
+  }
+  void toggle_queue(bool on) {
+    show_queue = on;
+    layout_panels();
+    save();
   }
 
   // ---- la pantalla
@@ -1854,7 +1922,7 @@ public:
     o += "  " + std::string(tx::HELP_QUEUE) + "\r\n";
     o += head(tx::HELP_SHORTCUTS);
     if (shortcuts.empty()) o += "  \033[2m" + std::string(tx::HELP_NONE) + "\033[0m\r\n";
-    for (const auto& sc : shortcuts) o += row(sc.name, "\033[2m→ " + sc.cmd + "\033[0m");
+    for (const auto& sc : shortcuts) o += row(sc.name, "\033[2m→ " + ct::shortcut_summary(sc.cmd) + "\033[0m");
     return o;
   }
   void show_help(ct::Session* s) {
@@ -1924,7 +1992,11 @@ public:
     if (ct::read_file(shortcuts_file(), t))
       for (const auto& l : ct::split(t, '\n')) {
         size_t tab = l.find('\t');
-        if (tab != std::string::npos) shortcuts.push_back({l.substr(0, tab), l.substr(tab + 1)});
+        if (tab == std::string::npos) continue;
+        std::string c = l.substr(tab + 1);
+        for (auto& ch : c)
+          if (ch == '\x1f') ch = '\n';   // varias órdenes: una por línea
+        shortcuts.push_back({l.substr(0, tab), c});
       }
     write_shortcut_scripts();
   }
@@ -1941,16 +2013,23 @@ public:
     if (persist()) {
       fl_make_path(ct::config_dir().c_str());
       std::string t;
-      for (const auto& s : shortcuts) t += s.name + "\t" + s.cmd + "\n";
+      for (const auto& s : shortcuts) {
+        std::string c = s.cmd;
+        for (auto& ch : c)
+          if (ch == '\n') ch = '\x1f';
+        t += s.name + "\t" + c + "\n";
+      }
       ct::write_file(shortcuts_file(), t);
     }
     write_shortcut_scripts();
   }
   // Añade o cambia un atajo. Devuelve el error («» si va bien).
   std::string add_shortcut(const std::string& name, const std::string& cmd) {
-    std::string n = ct::trim(name), c = ct::trim(cmd);
+    std::string n = ct::trim(name), c;
+    // Varias órdenes: una por línea (sin las vacías).
+    for (const auto& l : ct::shortcut_lines(cmd)) c += (c.empty() ? "" : "\n") + l;
     for (auto& ch : c)
-      if (ch == '\n' || ch == '\r' || ch == '\t') ch = ' ';
+      if (ch == '\r' || ch == '\t' || ch == '\x1f') ch = ' ';
     if (!ct::valid_shortcut_name(n)) return tx::S_BAD_NAME;
     if (c.empty()) return tx::S_NO_CMD;
     bool found = false;
@@ -1970,7 +2049,7 @@ public:
   }
   // La ventana de los atajos: la lista, el nombre y la orden.
   void shortcuts_dialog() {
-    Fl_Double_Window dlg(600, 440, tx::S_TITLE);
+    Fl_Double_Window dlg(600, 520, tx::S_TITLE);
     dlg.set_modal();
     Fl_Box hint(16, 10, 568, 54, tx::S_HINT);
     hint.align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE | FL_ALIGN_WRAP);
@@ -1979,20 +2058,22 @@ public:
     list.textfont(FL_COURIER);
     list.textsize(13);
     Fl_Input name(120, 304, 464, 28, tx::S_NAME);
-    Fl_Input cmd(120, 340, 464, 28, tx::S_CMD);
-    Fl_Button save(120, 386, 160, 32, tx::S_SAVE), del(290, 386, 120, 32, tx::S_REMOVE), close(484, 386, 100, 32, tx::S_CLOSE);
+    Fl_Multiline_Input cmd(120, 340, 464, 110, tx::S_CMD);   // una orden por línea
+    cmd.textfont(FL_COURIER);
+    Fl_Button save(120, 466, 160, 32, tx::S_SAVE), del(290, 466, 120, 32, tx::S_REMOVE), close(484, 466, 100, 32, tx::S_CLOSE);
     save.color(ct::rgb(0x2f5fe0));
     save.labelcolor(FL_WHITE);
     dlg.end();
     struct Ctx {
       Form1* f;
       Fl_Hold_Browser* list;
-      Fl_Input *name, *cmd;
+      Fl_Input* name;
+      Fl_Multiline_Input* cmd;
       Fl_Window* dlg;
     } ctx{this, &list, &name, &cmd, &dlg};
     auto fill = [](Ctx* c) {
       c->list->clear();
-      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + s.cmd).c_str());
+      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + ct::shortcut_summary(s.cmd)).c_str());
       if (c->f->shortcuts.empty()) c->list->add(tx::S_LIST_EMPTY);
     };
     fill(&ctx);
@@ -2009,7 +2090,7 @@ public:
       std::string err = c->f->add_shortcut(c->name->value(), c->cmd->value());
       if (!err.empty()) { fl_message_title(tx::S_TITLE); fl_alert("%s", err.c_str()); return; }
       c->list->clear();
-      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + s.cmd).c_str());
+      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + ct::shortcut_summary(s.cmd)).c_str());
       c->name->value("");
       c->cmd->value("");
     }, &ctx);
@@ -2017,7 +2098,7 @@ public:
       auto* c = static_cast<Ctx*>(p);
       if (*c->name->value()) c->f->remove_shortcut(c->name->value());
       c->list->clear();
-      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + s.cmd).c_str());
+      for (const auto& s : c->f->shortcuts) c->list->add((s.name + "   → " + ct::shortcut_summary(s.cmd)).c_str());
       c->name->value("");
       c->cmd->value("");
     }, &ctx);
@@ -2038,6 +2119,7 @@ public:
     for (int k = 0; k < ct::SKIN_COUNT; k++)
       mark((std::string(tx::M_VIEW) + "/" + ct::SKINS[k].name).c_str(), FL_MENU_RADIO, k == skin);
     mark(tx::MP_STOP_FAIL, FL_MENU_TOGGLE, cur() ? cur()->queue.stop_on_fail : true);
+    mark(tx::MP_QUEUE_PANEL, FL_MENU_TOGGLE, show_queue);
     Menu1->redraw();
   }
   void Menu1_click(const std::string& item) override {
@@ -2056,7 +2138,11 @@ public:
     } else if (item == tx::MP_PASTE && s) Fl::paste(*s->view, 1);
     else if (item == tx::MP_BIGGER) set_font_size(font_size + 1);
     else if (item == tx::MP_SMALLER) set_font_size(font_size - 1);
-    else if (item == tx::MP_ADD) CmdEntry->take_focus();
+    else if (item == tx::MP_QUEUE_PANEL) toggle_queue(!show_queue);
+    else if (item == tx::MP_ADD) {
+      if (!show_queue) toggle_queue(true);
+      CmdEntry->take_focus();
+    }
     else if (item == tx::MP_SAVE) {
       std::string def = s && !s->view->line.empty() ? s->view->line : CmdEntry->text();
       fl_message_title(tx::APP);
@@ -2065,7 +2151,10 @@ public:
     else if (item == tx::MP_HISTORY && s) open_history(s->view);
     else if (item == tx::MP_SHORTCUTS) shortcuts_dialog();
     else if (item == tx::MP_HELPCMD && s) show_help(s);
-    else if (item == tx::MP_RUN) run_queue();
+    else if (item == tx::MP_RUN) {
+      if (!show_queue) toggle_queue(true);
+      run_queue();
+    }
     else if (item == tx::MP_STOP && s) s->stop_queue();
     else if (item == tx::MP_EMPTY && s) { s->queue.clear(); refresh(); }
     else if (item == tx::MP_STOP_FAIL && s) {
@@ -2103,6 +2192,7 @@ public:
       for (const auto& l : ct::split(t, '\n')) {
         if (ct::starts(l, "skin=")) skin = ct::clampi(std::atoi(l.c_str() + 5), 0, ct::SKIN_COUNT - 1);
         if (ct::starts(l, "size=")) font_size = ct::clampi(std::atoi(l.c_str() + 5), 9, 32);
+        if (l == "queue=1") show_queue = true;
       }
     load_saved();
     load_history();
@@ -2112,7 +2202,8 @@ public:
   void save() {
     if (sync) return;
     fl_make_path(ct::config_dir().c_str());
-    ct::write_file(settings_file(), "skin=" + std::to_string(skin) + "\nsize=" + std::to_string(font_size) + "\n");
+    ct::write_file(settings_file(), "skin=" + std::to_string(skin) + "\nsize=" + std::to_string(font_size) +
+                                        "\nqueue=" + (show_queue ? "1" : "0") + "\n");
   }
 
   // ---- sin ventana: la interfaz dibujada en una imagen
@@ -2135,6 +2226,7 @@ public:
     sync = sample = true;
     setup();
     size(W, H);
+    layout_panels();
     apply_skin();
     auto feed = [](ct::Session* s, const char* t) { s->output(t, std::strlen(t)); };
     ct::Session* a = new_tab(false);
@@ -2168,7 +2260,7 @@ public:
     shortcuts = {{"actualizar", "git pull --rebase && npm install"},
                  {"conectar-servidor", "ssh ana@192.168.1.20"},
                  {"desplegar", "npm run build && ./deploy.sh"},
-                 {"publicar", "actualizar && npm test && desplegar"}};
+                 {"publicar", "actualizar\nnpm test\ndesplegar"}};
     history = {"npm test", "ls", "git status", "npm run dev", "git checkout -b envio-gratis", "code src/envio.js",
                "npm install vitest --save-dev", "conectar-servidor", "git log --oneline -15", "docker ps", "ping -c 3 dmarlonstudio.com"};
     select(0);
@@ -2191,7 +2283,10 @@ public:
     apply_skin();
     select(0);
     std::string keep = tabs[0]->raw;
-    tabs[0]->output("git", 3);
+    {
+      const char* typed = "\033[32mgit\033[0m";
+      tabs[0]->output(typed, std::strlen(typed));
+    }
     tabs[0]->view->line = "git";
     open_completer(tabs[0]->view);
     comp->sel = 0;
@@ -2217,7 +2312,10 @@ public:
     skin = 5;
     apply_skin();
     select(2);
-    tabs[2]->output("ayuda", 5);
+    {
+      const char* typed = "\033[32mayuda\033[0m";
+      tabs[2]->output(typed, std::strlen(typed));
+    }
     show_help(tabs[2]);
     const char* prompt = "\033[1;32mana@MacBook-Pro\033[0m \033[1;34m~\033[0m % ";
     tabs[2]->output(prompt, std::strlen(prompt));
@@ -2267,6 +2365,10 @@ public:
     }
     Menu1_click(tx::MP_NEXT);
     chk(active == 0, "next tab wraps");
+    // El panel de la cola: oculto al empezar (la terminal, a todo el ancho) y con Ver → Mostrar la cola.
+    chk(!Side->visible() && Term->w() == w(), "queue panel hidden");
+    Menu1_click(tx::MP_QUEUE_PANEL);
+    chk(show_queue && Side->visible() && Term->w() == w() - Side->w() && Side->x() == Term->w(), "queue panel shown");
     // La cola desde el panel.
     CmdEntry->text("echo hola");
     CmdEntry_return();
@@ -2275,6 +2377,8 @@ public:
     chk(!qview->removes.empty(), "queue remove buttons");
     qview->on_remove(qview->removes.back().second);
     chk(tabs[0]->queue.jobs.size() == 4, "remove from panel");
+    Menu1_click(tx::MP_QUEUE_PANEL);
+    chk(!show_queue && !Side->visible() && Term->w() == w(), "queue panel hidden again");
     Menu1_click(tx::MP_BIGGER);
     chk(font_size == 15, "font bigger");
     Menu1_click(tx::MP_SMALLER);
@@ -2343,6 +2447,13 @@ public:
       wait_for([&] { return !s->queue.running && !s->queue.busy(); }, 20);
       chk(s->queue.jobs[0].state == ct::Job::FAILED && s->queue.jobs[1].state == ct::Job::WAITING, "real stop on failure");
       chk(!ct::has(screen_text(s), "nunca-4"), "not run after failure");
+      // La orden se resalta mientras se escribe (verde si existe, rojo si no).
+      s->raw.clear();
+      s->write("cd");
+      chk(wait_for([&] { return ct::has(s->raw, "\033[32m"); }, 10), "real highlight green");
+      s->write(" \025xq9zz");
+      chk(wait_for([&] { return ct::has(s->raw, "\033[31m"); }, 10), "real highlight red");
+      s->write("\025");
       // El tamaño llega a la shell.
       s->write("stty size\r");
       std::string want = std::to_string(s->view->display_rows()) + " " + std::to_string(s->view->display_columns());
@@ -2371,10 +2482,17 @@ public:
         return n;
       };
       chk(wait_for([&] { return count() >= 2; }, 10), "real shortcut calls another");
+      // Un atajo con varias órdenes, una por línea.
+      chk(add_shortcut("varias-dms", "echo uno-$((1+0))\n\necho dos-$((1+1))").empty(), "multi shortcut saved");
+      s->idle = false;
+      s->write("\r");
+      wait_for([&] { return s->idle; }, 10);
+      s->write("varias-dms\r");
+      chk(wait_for([&] { std::string t = screen_text(s); return ct::has(t, "uno-1") && ct::has(t, "dos-2"); }, 10), "real multi shortcut");
       // El historial de verdad: zsh avisa de cada orden.
-      chk(!history.empty() && history[0] == "doble-dms", "real history");
+      chk(!history.empty() && history[0] == "varias-dms", "real history");
       open_history(s->view);
-      chk(!comp->shown.empty() && comp->shown[0].text == "doble-dms", "real history list");
+      chk(!comp->shown.empty() && comp->shown[0].text == "varias-dms", "real history list");
       comp->close();
     } else {
       chk(false, "shell prompt mark");

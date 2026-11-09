@@ -63,6 +63,7 @@ TkExample tkCppConsole(String Function(String) t) {
   lines.add(mView);
   item('BIGGER', t(markTr('Letra más grande')), mView);
   item('SMALLER', t(markTr('Letra más pequeña')), mView);
+  item('QUEUE_PANEL', t(markTr('Mostrar la cola')), mView);
   sep();
   for (final s in skinMenu) {
     lines.add('  $s');
@@ -132,7 +133,7 @@ TkExample tkCppConsole(String Function(String) t) {
     'HELP_QUEUE_T': t(markTr('La cola')),
     'HELP_QUEUE': t(
       markTr(
-        'A la derecha: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior.',
+        'Ver → Mostrar la cola: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior.',
       ),
     ),
     'HELP_SHORTCUTS': t(markTr('Sus atajos')),
@@ -153,7 +154,7 @@ TkExample tkCppConsole(String Function(String) t) {
     'S_TITLE': t(markTr('Atajos')),
     'S_HINT': t(
       markTr(
-        'Un atajo es un nombre que ejecuta una orden: escriba el nombre en la terminal y pulse Intro. Un atajo puede llamar a otro (publicar → actualizar && desplegar), y lo que escriba después del nombre llega como \$1, \$2…',
+        'Un atajo es un nombre que ejecuta órdenes: escriba el nombre en la terminal y pulse Intro. Puede llevar varias, una por línea, que se ejecutan una detrás de otra; puede llamar a otro atajo (publicar → actualizar, npm test, desplegar), y lo que escriba después del nombre llega como \$1, \$2…',
       ),
     ),
     'S_NAME': t(markTr('Nombre')),
@@ -178,7 +179,7 @@ TkExample tkCppConsole(String Function(String) t) {
     'STATUS_QUEUE': t(markTr('cola: {0} en espera de {1}')),
     'HOW_TEXT': t(
       markTr(
-        'Cada pestaña es su shell (zsh, bash o fish en macOS y Linux; PowerShell en Windows) en su propio pseudoterminal, con su configuración, sus alias y su prompt. Pestañas: ⌘T (Ctrl+Mayús+T) abre una, ⌘W la cierra y ⌘[ ⌘] pasan de una a otra; también con el ratón.\n\nLa cola, a la derecha: escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n\nÓrdenes guardadas: pulse Ctrl+Espacio (o ⌘;) en la terminal y sale la lista, filtrada por lo que lleve escrito en la línea; Intro la escribe en la línea sin ejecutarla, Supr la quita y, si lo escrito no está guardado, la última fila lo guarda. También con Órdenes → Guardar una orden… (⌘S). Las que usa suben arriba.\n\nAtajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta su orden al escribirlo; uno puede llamar a otro y lo que escriba después llega como \$1, \$2… Salen también en la lista de Ctrl+Espacio.\n\nHistorial: escriba history y pulse Intro (o ⌘Y): salen las 10 últimas órdenes para elegir una.\n\nAyuda: escriba ayuda y pulse Intro: la consola escribe en la terminal sus órdenes, sus teclas y sus atajos.\n\nVer cambia la apariencia (diez, de Clásica a Papel) y el tamaño de la letra (⌘+ y ⌘−). Los programas a pantalla completa (vim, top) se ven de forma básica.',
+        'Cada pestaña es su shell (zsh, bash o fish en macOS y Linux; PowerShell en Windows) en su propio pseudoterminal, con su configuración, sus alias y su prompt. Pestañas: ⌘T (Ctrl+Mayús+T) abre una, ⌘W la cierra y ⌘[ ⌘] pasan de una a otra; también con el ratón.\n\nMientras escribe, la orden sale en verde si existe y en rojo si no (en zsh; fish lo hace solo).\n\nLa cola (Ver → Mostrar la cola, ⌘B): escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n\nÓrdenes guardadas: pulse Ctrl+Espacio (o ⌘;) en la terminal y sale la lista, filtrada por lo que lleve escrito en la línea; Intro la escribe en la línea sin ejecutarla, Supr la quita y, si lo escrito no está guardado, la última fila lo guarda. También con Órdenes → Guardar una orden… (⌘S). Las que usa suben arriba.\n\nAtajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta sus órdenes al escribirlo (varias, una por línea); uno puede llamar a otro y lo que escriba después llega como \$1, \$2… Salen también en la lista de Ctrl+Espacio.\n\nHistorial: escriba history y pulse Intro (o ⌘Y): salen las 10 últimas órdenes para elegir una.\n\nAyuda: escriba ayuda y pulse Intro: la consola escribe en la terminal sus órdenes, sus teclas y sus atajos.\n\nVer cambia la apariencia (diez, de Clásica a Papel) y el tamaño de la letra (⌘+ y ⌘−). Los programas a pantalla completa (vim, top) se ven de forma básica.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -373,6 +374,7 @@ const _consoleIncludes = r'''#include <algorithm>
 #include <FL/Fl_Hold_Browser.H>
 #include <FL/Fl_Image_Surface.H>
 #include <FL/Fl_Input.H>
+#include <FL/Fl_Multiline_Input.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_Terminal.H>
 #include <FL/filename.H>

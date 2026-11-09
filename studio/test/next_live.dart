@@ -165,23 +165,31 @@ class NextLive {
     int width = 1600,
     int height = 1000,
     double scale = 1,
+    Map<String, Object?>? throttle,
   }) async {
     final f = File(p.join(dir.path, '.prep.js'))
       ..writeAsStringSync(prepare.isEmpty ? '(async () => 1)()' : prepare);
-    final r = await Process.run(node, [
-      p.join(dir.path, '.cdp.mjs'),
-      '$cdp',
-      '$base$path',
-      'shot',
-      f.path,
-      '$width',
-      '$height',
-      png,
-      '$scale',
-    ]);
+    final r = await Process.run(
+      node,
+      [
+        p.join(dir.path, '.cdp.mjs'),
+        '$cdp',
+        '$base$path',
+        'shot',
+        f.path,
+        '$width',
+        '$height',
+        png,
+        '$scale',
+      ],
+      environment: {
+        if (throttle != null) 'DMS_CDP_THROTTLE': jsonEncode(throttle),
+      },
+    );
     _out.write('${r.stdout}${r.stderr}');
-    if (!File(png).existsSync())
+    if (!File(png).existsSync()) {
       throw StateError('Sin captura: ${r.stdout}${r.stderr}');
+    }
   }
 
   Future<void> stop() async {
@@ -217,6 +225,11 @@ ws.addEventListener("message", (m) => {
   if (d.id && pending.has(d.id)) { pending.get(d.id)(d); pending.delete(d.id); }
 });
 const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
+// DMS_CDP_THROTTLE: una conexión más lenta (Network.emulateNetworkConditions).
+if (process.env.DMS_CDP_THROTTLE) {
+  await send("Network.enable");
+  await send("Network.emulateNetworkConditions", { offline: false, ...JSON.parse(process.env.DMS_CDP_THROTTLE) });
+}
 await send("Emulation.setDeviceMetricsOverride", { width: +width, height: +height, deviceScaleFactor: +(scale || 1), mobile: +width < 600 });
 await send("Page.enable");
 await send("Page.navigate", { url });

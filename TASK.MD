@@ -57,6 +57,7 @@ Hechos
 63. Buscador de vuelos en C++ (FLTK): vigila rutas con Travelpayouts cada 30 minutos, mejor precio por aerolínea y dónde comprar, ejemplo del estudio y demo | ✅ |
 67. Inspector del equipo en C++ (FLTK): sistema, procesador, memoria, modelo y firmware, gráficos, discos, red, batería, audio y periféricos, uso en directo e informe en PDF para imprimir; ejemplo del estudio y demo | ✅ |
 64. Next.js con servidor (`// @server`) y «El mundo en directo»: mapa del mundo con aviones (OpenSky), barcos (AIS del Báltico) y trenes (Renfe y VR) en directo, corriendo en el servidor de la web | ✅ |
+65. Velocidad de internet (Next.js con servidor): ping y jitter, bajada y subida, para qué alcanza e historial, en la web de demos | ✅ |
 
 
 Trabajando
@@ -67,8 +68,8 @@ Trabajando
 
 Pendiente
 =========
-65. Demo para medir la velocidad de internet | ⏳ |
 66. Buscador de vuelos también en web (con servidor para el token de Travelpayouts) | ⏳ |
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
+69. Escáner de la wifi de casa: redes cercanas, canales, señal y seguridad, con un diagnóstico de problemas y mejoras | ⏳ |
 
 

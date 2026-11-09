@@ -1113,7 +1113,7 @@ msgstr ""
 msgid "Elementos"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_next_speed.dart
 msgid "Empezar"
 msgstr ""
 
@@ -4323,7 +4323,7 @@ msgstr ""
 msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_world.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_speed.dart lib/code/tk_showcase_next_world.dart
 msgid "es-ES"
 msgstr ""
 
@@ -4465,7 +4465,7 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_speed.dart
 msgid "Bajada"
 msgstr ""
 
@@ -5075,7 +5075,7 @@ msgstr ""
 msgid "Situación"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_speed.dart
 msgid "Subida"
 msgstr ""
 
@@ -5610,7 +5610,7 @@ msgid ""
 "En macOS, Ctrl es la tecla Comando. Arrastre una imagen a la ventana para abrirla."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_speed.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Historial"
 msgstr ""
 
@@ -6857,6 +6857,152 @@ msgstr ""
 
 #: lib/code/tk_showcase_next.dart
 msgid "{0} pendientes de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Aún no hay mediciones."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Borrar el historial"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Buscando el servidor…"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Juegos en línea (ping bajo)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "La medida es entre su navegador y el servidor de esta web: depende también de la wifi, del resto de la casa y de dónde esté el servidor."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Las mediciones se guardan en este navegador."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Listo. Se ha guardado en el historial."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Medir otra vez"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Midiendo el ping…"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Midiendo la bajada…"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Midiendo la subida…"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Música en streaming"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Navegar y correo"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Necesita ↓ {} y ↑ {} Mbps"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "No se pudo medir: {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Para qué le alcanza"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgctxt "speed"
+msgid "Parar"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Ping"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgctxt "speed"
+msgid "Prueba"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Pulse Empezar: mide el ping, la bajada y la subida en unos 20 segundos."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Servidor: {} ({})"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Subir vídeos y copias a la nube"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Una casa con varias personas a la vez"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Una web de Next.js con servidor que mide su conexión: el ping y el jitter, la bajada y la subida, con un indicador dibujado en un Lienzo, para qué le alcanza y el historial. El servidor envía y recibe los datos de la prueba."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Velocidad de internet"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Velocidad de internet (Next.js)"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Velocidad de internet: el ping, la bajada y la subida medidos con el servidor de la web (después de // @server)."
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Videollamadas en HD"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Vídeo en 4K"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "Vídeo en Full HD"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "jitter {} ms"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "jitter —"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "su IP: {}"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "{} mediciones · de media ↓ {} · ↑ {} Mbps · {} ms"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "{} ms"
+msgstr ""
+
+#: lib/code/tk_showcase_next_speed.dart
+msgid "↓ {} · ↑ {} Mbps"
 msgstr ""
 
 #: lib/code/tk_showcase_next_world.dart

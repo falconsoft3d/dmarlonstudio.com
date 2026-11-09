@@ -121,11 +121,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un mapa del mundo con los aviones, los barcos y los trenes que se mueven ahora mismo, con datos públicos de OpenSky, Fintraffic, Renfe y VR. Corre en su propio servidor de Next.js, que descarga y junta los datos; la web los dibuja y se actualiza sola.",
         shows: ["Next.js con servidor: el código después de // @server", "Miles de puntos en un Lienzo, cada 30 segundos", "Sin claves ni APIs de fuera en el navegador"],
       },
+      next_speed: {
+        name: "Velocidad de internet (Next.js)",
+        text: "Mide su conexión con el servidor de esta web: el ping y el jitter, la bajada y la subida, con un indicador que se mueve mientras mide. Al acabar le dice para qué le alcanza (videollamadas, 4K, juegos…) y guarda cada medición en su historial.",
+        shows: ["El servidor envía y recibe los datos de la prueba", "Un indicador dibujado en un Lienzo", "El historial, guardado en su navegador"],
+      },
     },
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y cinco webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y seis webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -328,11 +333,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A world map with the planes, ships and trains moving right now, with public data from OpenSky, Fintraffic, Renfe and VR. It runs on its own Next.js server, which downloads and merges the data; the website draws it and updates itself.",
         shows: ["Next.js with a server: the code after // @server", "Thousands of points on a Canvas, every 30 seconds", "No keys or third-party APIs in the browser"],
       },
+      next_speed: {
+        name: "Internet Speed Test (Next.js)",
+        text: "It measures your connection to this website's server: the ping and jitter, the download and the upload, with a gauge that moves while it measures. When it ends it tells you what it is good enough for (video calls, 4K, games…) and saves each measurement in its history.",
+        shows: ["The server sends and receives the test data", "A gauge drawn on a Canvas", "The history, saved in your browser"],
+      },
     },
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and five websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and six websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -546,6 +556,7 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   vue_store: { icon: "vue", label: "Vue · Vite" },
   html_domino: { icon: "html", label: "HTML · Canvas" },
   next_world: { icon: "next", label: "Next.js · API" },
+  next_speed: { icon: "next", label: "Next.js · API" },
 };
 
 /** Una sección de demos (escritorio, móvil o web) con su rejilla de tarjetas. */

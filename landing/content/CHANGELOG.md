@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.84 — 2026-11-09
+
+- **Velocidad de internet (Next.js)**: una web de Next.js con servidor que mide la conexión con su propio servidor. El ping y el jitter salen de doce peticiones mínimas (la mediana y cuánto cambia de una a otra); la bajada, de cuatro descargas a la vez durante 10 segundos, contando los bytes según llegan y sin el primer segundo; la subida, de tres envíos a la vez durante 8 segundos, de 1 a 4 MB cada uno (el límite de Vercel por petición). Como mucho gasta 100 MB de bajada y 25 MB de subida por medición. Un indicador dibujado en un Lienzo marca la velocidad de cada momento, al acabar dice para qué alcanza la conexión (videollamadas, 4K, juegos, una casa con varias personas, subir a la nube) y cada medición se guarda en el historial del navegador. El servidor responde al eco, envía bytes al azar con un `Response` que no se puede comprimir, cuenta los que recibe y dice la IP y, en Vercel, la ciudad del que pregunta. Se prueba en la página de demos. Probado: el servidor (los bytes de la descarga, la cuenta de la subida y la información), una medición entera en Chrome y, con la conexión frenada en Chrome, que mide lo que debe (312 Mbps con 310 y 59,5 con 60).
+- **Editor de pantallas**: una lista, un Expanded o un Spacer dentro de algo que se ajusta a lo que lleva (por ejemplo, una lista dentro de una tarjeta) ya no rompe la vista previa: ocupa lo suyo.
+
 ## 1.0.83 — 2026-11-09
 
 - **Next.js con servidor.** En una web de Next.js hecha con pantallas, lo que va después de una línea `// @server` en el código es el servidor (`lib/server.js`): claves, APIs de otros sitios y lo que no debe llegar al navegador. La app llama a cada función que exporta con `await server.nombre({ … })` (el estudio genera la ruta `app/api/[fn]/route.js`); si devuelve un `Response`, sale tal cual, y `serverUrl()` da su dirección. Las webs también se pueden generar dentro de una subcarpeta (las rutas y la API van debajo).

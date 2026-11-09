@@ -108,6 +108,7 @@ export const es: Content = {
       { seed: "html_store", name: "Tienda web (HTML)", text: "La tienda en HTML, CSS y JavaScript, sin compilar ni instalar nada." },
       { seed: "html_domino", name: "Dominó doble 9 (web)", text: "El dominó en el navegador: la mesa se dibuja en un Lienzo del editor de pantallas." },
       { seed: "next_world", name: "El mundo en directo (Next.js)", text: "Aviones, barcos y trenes en directo en un mapa, con un servidor de Next.js que lee las APIs públicas." },
+      { seed: "next_speed", name: "Velocidad de internet (Next.js)", text: "El ping, la bajada y la subida medidos con el servidor de la web, con un indicador y el historial." },
       { seed: "vue_store", name: "Tienda web (Vue)", text: "Cada pantalla, un componente .vue, con Vite." },
       { seed: "go_store", name: "Tienda web (Go)", text: "Un servidor en Go con API REST que guarda los pedidos." },
       { seed: "pos", name: "Punto de venta", text: "Un TPV al estilo del de Odoo: teclado, cobro, ticket y ventas en SQLite." },

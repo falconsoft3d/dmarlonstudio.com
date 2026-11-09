@@ -62,6 +62,7 @@ const liveDemos = <(String, String)>[
   ('vue_store', 'vue'),
   ('html_domino', 'html'),
   ('next_world', 'next'),
+  ('next_speed', 'next'),
 ];
 
 /// Los archivos del proyecto de una demo en vivo. Las de Next.js (con

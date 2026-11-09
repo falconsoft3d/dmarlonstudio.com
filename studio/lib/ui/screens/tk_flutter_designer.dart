@@ -102,6 +102,7 @@ const flIcons = <String, IconData>{
   'place': Icons.place,
   'qr_code': Icons.qr_code,
   'refresh': Icons.refresh,
+  'cancel': Icons.cancel,
   'public': Icons.public,
   'flight': Icons.flight,
   'train': Icons.train,
@@ -870,16 +871,20 @@ class _FlPhoneState extends State<FlPhone> {
           ),
         );
 
+  /// ¿La pantalla [n] necesita un alto fijo (una lista, Expanded o Spacer
+  /// en la columna de la pantalla)? Entonces no se desplaza; lo que crece
+  /// más adentro se ajusta solo (ver [_flex]).
+  static bool _fillsHeight(FlNode n) => n.children.any(
+    (c) => const {'Expanded', 'Spacer', 'ListView'}.contains(c.type),
+  );
+
   /// El cuerpo, con el botón flotante. Como en la web, la pantalla se
   /// desplaza si no cabe, salvo que algo ocupe el alto que sobra (Expanded,
   /// Spacer o una lista).
   Widget _body(FlScreen s) => Stack(
     children: [
       Positioned.fill(
-        child:
-            s.body.children.any(
-              (c) => const {'Expanded', 'Spacer', 'ListView'}.contains(c.type),
-            )
+        child: _fillsHeight(s.body)
             ? _preview(s.body, const [], flex: false)
             : SingleChildScrollView(
                 child: _preview(s.body, const [], flex: false),
@@ -1126,30 +1131,17 @@ class _FlPhoneState extends State<FlPhone> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [for (var i = 0; i < n.children.length; i++) child(i)],
         ),
-        'Column' || 'Row' => Flex(
-          direction: n.type == 'Column' ? Axis.vertical : Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.values.firstWhere(
-            (e) => e.name == n.text('main', 'start'),
-            orElse: () => MainAxisAlignment.start,
+        // Lo que crece (Expanded, Spacer, una lista) solo crece si la fila o
+        // la columna tiene un tamaño fijo; dentro de algo que se ajusta a lo
+        // que lleva (una tarjeta en una columna, la pantalla que se
+        // desplaza), ocupa lo suyo.
+        'Column' || 'Row' => LayoutBuilder(
+          builder: (context, c) => _flex(
+            n,
+            p,
+            child,
+            n.type == 'Column' ? c.maxHeight.isFinite : c.maxWidth.isFinite,
           ),
-          crossAxisAlignment: CrossAxisAlignment.values.firstWhere(
-            (e) =>
-                e.name ==
-                n.text('cross', n.type == 'Column' ? 'stretch' : 'center'),
-            orElse: () => CrossAxisAlignment.center,
-          ),
-          spacing: _num(p['gap']) ?? 0,
-          children: [
-            for (var i = 0; i < n.children.length; i++) child(i, inFlex: true),
-            if (n.children.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Text(
-                  tr('Añada widgets desde la paleta'),
-                  style: const TextStyle(fontSize: 11),
-                ),
-              ),
-          ],
         ),
         'ListView' => _listPreview(n, path),
         'Card' => Card(
@@ -1352,6 +1344,38 @@ class _FlPhoneState extends State<FlPhone> {
   }
 
   /// Una lista enlazada se ve con tres copias de su plantilla.
+  /// Una fila o una columna de la vista previa ([bounded]: tiene un tamaño
+  /// fijo en su dirección).
+  Widget _flex(
+    FlNode n,
+    Map<String, Object?> p,
+    Widget Function(int, {bool inFlex}) child,
+    bool bounded,
+  ) => Flex(
+    direction: n.type == 'Column' ? Axis.vertical : Axis.horizontal,
+    mainAxisAlignment: MainAxisAlignment.values.firstWhere(
+      (e) => e.name == n.text('main', 'start'),
+      orElse: () => MainAxisAlignment.start,
+    ),
+    crossAxisAlignment: CrossAxisAlignment.values.firstWhere(
+      (e) =>
+          e.name == n.text('cross', n.type == 'Column' ? 'stretch' : 'center'),
+      orElse: () => CrossAxisAlignment.center,
+    ),
+    spacing: _num(p['gap']) ?? 0,
+    children: [
+      for (var i = 0; i < n.children.length; i++) child(i, inFlex: bounded),
+      if (n.children.isEmpty)
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Text(
+            tr('Añada widgets desde la paleta'),
+            style: const TextStyle(fontSize: 11),
+          ),
+        ),
+    ],
+  );
+
   Widget _listPreview(FlNode n, List<int> path) {
     final bound = n.text('items').trim().isNotEmpty;
     final pad = _num(n.props['padding']) ?? 0;
@@ -1386,9 +1410,18 @@ class _FlPhoneState extends State<FlPhone> {
         items.add(_preview(n.children[i], [...path, i], flex: false));
       }
     }
+    return LayoutBuilder(
+      builder: (context, c) => _listView(c.maxHeight.isFinite, pad, items),
+    );
+  }
+
+  Widget _listView(bool bounded, double pad, List<Widget> items) {
     return ListView(
       padding: EdgeInsets.all(pad),
-      physics: const ClampingScrollPhysics(),
+      shrinkWrap: !bounded,
+      physics: bounded
+          ? const ClampingScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
       children: items.isEmpty
           ? [
               Padding(

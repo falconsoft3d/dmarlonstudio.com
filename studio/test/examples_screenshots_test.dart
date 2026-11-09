@@ -79,6 +79,7 @@ const carousel = [
   'html_store',
   'html_domino',
   'next_world',
+  'next_speed',
   'vue_store',
   'go_store',
   'pdf_editor',

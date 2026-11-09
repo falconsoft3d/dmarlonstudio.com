@@ -408,7 +408,7 @@ export const manualEn: Manual = {
             },
             {
               type: "p",
-              text: "Twenty of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and five websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
+              text: "Twenty of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and six websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
             },
           ],
         },
@@ -782,7 +782,7 @@ export const manualEn: Manual = {
                 "Keys go in `.env.local` (in `build/nextjs` when running from the studio) or in Vercel's environment variables, and are read with `process.env`.",
                 "`serverUrl(\"name\", { … })` gives the address of a function, for your own `fetch`, a link or a download.",
                 "Anything `lib/server.js` exports can be called from outside: check what arrives in the arguments.",
-                "Example: **Live World Map (Next.js)**, which merges on the server the planes, ships and trains from four public APIs and draws them on a Canvas.",
+                "Examples: **Live World Map (Next.js)**, which merges on the server the planes, ships and trains from four public APIs and draws them on a Canvas, and **Internet Speed Test (Next.js)**, whose server returns a `Response` with random bytes to measure the download and counts the ones it receives for the upload.",
               ],
             },
           ],

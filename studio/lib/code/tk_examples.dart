@@ -55,6 +55,8 @@ part 'tk_showcase_web_domino.dart';
 part 'tk_showcase_web_domino_code.dart';
 part 'tk_showcase_next_world.dart';
 part 'tk_showcase_next_world_code.dart';
+part 'tk_showcase_next_speed.dart';
+part 'tk_showcase_next_speed_code.dart';
 part 'tk_showcase_util_pascal_odoo.dart';
 part 'tk_showcase_shop.dart';
 

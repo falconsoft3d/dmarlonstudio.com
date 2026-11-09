@@ -248,6 +248,14 @@ const es: Record<string, DemoGuide> = {
       { title: "Busque por nombre", text: "La Lista enseña lo que se ve en el mapa o busca un vuelo, un barco o un tren por su nombre, su línea o su operador. Al tocarlo, vuelve al mapa centrado en él." },
     ],
   },
+  next_speed: {
+    intro: "Una web de Next.js con servidor, hecha con el editor de pantallas. Después de // @server, el servidor tiene cuatro funciones: eco (para el ping), descarga (devuelve un Response con bytes al azar, que no se pueden comprimir), subida (cuenta los bytes que llegan) e info (su IP y, en Vercel, su ciudad). La app las llama con fetch y serverUrl() y mide el tiempo.",
+    steps: [
+      { title: "Pulse Empezar", text: "Primero el ping: doce peticiones mínimas, una tras otra; el ping es la mediana y el jitter, cuánto cambia de una a otra. Después, cuatro descargas a la vez durante 10 segundos y tres envíos durante 8." },
+      { title: "Mire la aguja", text: "El indicador, dibujado en un Lienzo, marca lo que llega cada segundo: azul la bajada y morado la subida. La escala da más sitio a las velocidades bajas, de 0 a 1000 Mbps." },
+      { title: "Para qué le alcanza", text: "Al acabar, la lista dice si su conexión da para videollamadas, vídeo en 4K, juegos en línea o una casa con varias personas, y la medición se guarda en el Historial de su navegador." },
+    ],
+  },
 };
 
 const en: Record<string, DemoGuide> = {
@@ -481,6 +489,14 @@ const en: Record<string, DemoGuide> = {
       { title: "Tap a plane", text: "Tap any point to see its details: callsign, country, altitude, speed and heading. With the target button the map follows it; between readings, each plane moves along its heading at its speed." },
       { title: "Change the area", text: "World, Europe, the Baltic Sea or Spain, and the planes, ships and trains layers. When you zoom in, the server sends a more detailed map (Natural Earth 1:50 million)." },
       { title: "Search by name", text: "The List shows what is on the map or finds a flight, a ship or a train by its name, its line or its operator. Tap it to go back to the map centered on it." },
+    ],
+  },
+  next_speed: {
+    intro: "A Next.js website with a server, made with the screen editor. After // @server, the server has four functions: eco (for the ping), descarga (returns a Response with random bytes that can't be compressed), subida (counts the bytes that arrive) and info (your IP and, on Vercel, your city). The app calls them with fetch and serverUrl() and measures the time.",
+    steps: [
+      { title: "Press Start", text: "First the ping: twelve minimal requests, one after another; the ping is the median and the jitter, how much it changes from one to the next. Then four downloads at once for 10 seconds and three uploads for 8." },
+      { title: "Watch the needle", text: "The gauge, drawn on a Canvas, shows what arrives each second: blue for the download and purple for the upload. The scale gives more room to low speeds, from 0 to 1000 Mbps." },
+      { title: "What it is good enough for", text: "When it ends, the list tells you whether your connection is enough for video calls, 4K video, online games or a household with several people, and the measurement is saved in your browser's History." },
     ],
   },
 };

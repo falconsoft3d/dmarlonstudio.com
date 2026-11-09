@@ -140,7 +140,7 @@ export const manualEs: Manual = {
             },
             {
               type: "p",
-              text: "Veinte de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y cinco webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Veinte de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y seis webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },
@@ -782,7 +782,7 @@ export const manualEs: Manual = {
                 "Las claves van en `.env.local` (en `build/nextjs` al ejecutar desde el estudio) o en las variables de entorno de Vercel, y se leen con `process.env`.",
                 "`serverUrl(\"nombre\", { … })` da la dirección de una función, para un `fetch` propio, un enlace o una descarga.",
                 "Todo lo que exporta `lib/server.js` se puede llamar desde fuera: compruebe lo que llega en los argumentos.",
-                "Ejemplo: **El mundo en directo (Next.js)**, que junta en el servidor los aviones, los barcos y los trenes de cuatro APIs públicas y los dibuja en un Lienzo.",
+                "Ejemplos: **El mundo en directo (Next.js)**, que junta en el servidor los aviones, los barcos y los trenes de cuatro APIs públicas y los dibuja en un Lienzo, y **Velocidad de internet (Next.js)**, cuyo servidor devuelve un `Response` con bytes al azar para medir la bajada y cuenta los que recibe para la subida.",
               ],
             },
           ],

@@ -4121,7 +4121,7 @@ msgstr "New race"
 msgid "PAUSA"
 msgstr "PAUSED"
 
-#: lib/code/tk_showcase_cpp_racing.dart
+#: lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
 msgid "Pantalla completa"
 msgstr "Full screen"
 

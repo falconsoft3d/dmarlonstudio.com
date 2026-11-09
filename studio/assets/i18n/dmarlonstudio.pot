@@ -4087,7 +4087,7 @@ msgstr ""
 msgid "PAUSA"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_racing.dart
+#: lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
 msgid "Pantalla completa"
 msgstr ""
 

@@ -106,6 +106,12 @@ form._start()
 g = form.game
 items = len(form.Table.find_all())
 assert items > 100, items
+# Maximizada: la mesa se amplía y los clics siguen cayendo donde deben.
+form.table_resized(types.SimpleNamespace(width=2200, height=1300))
+assert abs(form.painter.s - 1300 / 700) < 1e-6, form.painter.s
+def at(x, y):
+    sx, sy = form.painter.to_screen(x, y)
+    return types.SimpleNamespace(x=sx, y=sy)
 moves_done = 0
 for step in range(4000):
     g = form.game
@@ -117,12 +123,12 @@ for step in range(4000):
         tile, side = g.moves(app.SOUTH)[0]
         i = g.hands[app.SOUTH].index(tile)
         r = app.hand_rects(len(g.hands[app.SOUTH]))[i]
-        ev = types.SimpleNamespace(x=(r[0] + r[2]) / 2, y=(r[1] + r[3]) / 2)
+        ev = at((r[0] + r[2]) / 2, (r[1] + r[3]) / 2)
         form.Table_motion(ev)
         form.Table_click(ev)
         if form.view.pending:
             x, y = app.arm_end(g, side)
-            form.Table_click(types.SimpleNamespace(x=x, y=y))
+            form.Table_click(at(x, y))
         moves_done += 1
     else:
         form.Tick_timer()

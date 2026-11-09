@@ -299,37 +299,60 @@ class Painter:
 
 
 class TkPainter(Painter):
+    """Pinta en el lienzo con la mesa a escala: la mesa se diseña en
+    1100×700 y se amplía (sin deformarse) al tamaño de la ventana; lo que
+    sobra queda como borde de madera."""
+
     def __init__(self, canvas):
         self.c = canvas
         self.fonts = {}
+        self.s, self.ox, self.oy = 1.0, 0.0, 0.0
+
+    def fit(self, width, height):
+        """El tamaño del lienzo: calcula la escala y el margen."""
+        self.s = max(0.3, min(width / W, height / H))
+        self.ox = (width - W * self.s) / 2
+        self.oy = (height - H * self.s) / 2
+
+    def to_table(self, x, y):
+        """De un punto del lienzo (el ratón) a la mesa."""
+        return (x - self.ox) / self.s, (y - self.oy) / self.s
+
+    def to_screen(self, x, y):
+        return x * self.s + self.ox, y * self.s + self.oy
+
+    def _p(self, *v):
+        return [v[k] * self.s + (self.ox if k % 2 == 0 else self.oy) for k in range(len(v))]
 
     def clear(self):
         self.c.delete("all")
 
     def font(self, size, bold):
-        key = (size, bold)
+        px = max(6, round(size * self.s))
+        key = (px, bold)
         if key not in self.fonts:
-            self.fonts[key] = tkfont.Font(family="Helvetica", size=-size, weight="bold" if bold else "normal")
+            self.fonts[key] = tkfont.Font(family="Helvetica", size=-px, weight="bold" if bold else "normal")
         return self.fonts[key]
 
     def rect(self, x0, y0, x1, y1, fill, outline=None, width=1):
-        self.c.create_rectangle(x0, y0, x1, y1, fill=fill, outline=outline or "", width=width)
+        self.c.create_rectangle(*self._p(x0, y0, x1, y1), fill=fill, outline=outline or "", width=width * self.s)
 
     def round_rect(self, x0, y0, x1, y1, r, fill, outline=None, width=1):
         p = [x0 + r, y0, x1 - r, y0, x1, y0, x1, y0 + r, x1, y1 - r, x1, y1,
              x1 - r, y1, x0 + r, y1, x0, y1, x0, y1 - r, x0, y0 + r, x0, y0]
-        self.c.create_polygon(p, smooth=True, fill=fill, outline=outline or "", width=width)
+        self.c.create_polygon(self._p(*p), smooth=True, fill=fill, outline=outline or "", width=width * self.s)
 
     def oval(self, x0, y0, x1, y1, fill, outline=None, width=1):
-        self.c.create_oval(x0, y0, x1, y1, fill=fill, outline=outline or "", width=width)
+        self.c.create_oval(*self._p(x0, y0, x1, y1), fill=fill, outline=outline or "", width=width * self.s)
 
     def line(self, pts, fill, width=1):
-        self.c.create_line(*pts, fill=fill, width=width, capstyle="round")
+        self.c.create_line(*self._p(*pts), fill=fill, width=max(1, width * self.s), capstyle="round")
 
     def poly(self, pts, fill):
-        self.c.create_polygon(*pts, fill=fill, outline="")
+        self.c.create_polygon(*self._p(*pts), fill=fill, outline="")
 
     def text(self, x, y, s, size, fill, bold=False, anchor="center"):
+        x, y = self._p(x, y)
         self.c.create_text(x, y, text=s, fill=fill, font=self.font(size, bold), anchor=anchor)
 
 
@@ -576,6 +599,15 @@ class Form1(FormDesign):
     def form_create(self):
         self.TableHint.destroy()   # el aviso del Diseñador
         self.painter = TkPainter(self.Table)
+        # La mesa ocupa toda la ventana, que se puede agrandar y maximizar.
+        self.Table.configure(bg="#3a2512")
+        self.Table.place_forget()
+        self.Table.place(x=0, y=0, relwidth=1, relheight=1)
+        self.root.resizable(True, True)
+        self.root.minsize(660, 420)
+        self.Table.bind("<Configure>", self.table_resized)
+        self.root.bind("<F11>", lambda e: self.toggle_fullscreen())
+        self.root.bind("<Escape>", lambda e: self.toggle_fullscreen(False))
         self.view = View()
         self.target = 100
         self.rng = random.Random()
@@ -628,6 +660,14 @@ class Form1(FormDesign):
         else:
             v.message = THINKING_FMT.format(PLAYER_NAMES[g.turn])
 
+    def table_resized(self, event):
+        self.painter.fit(event.width, event.height)
+        self.redraw()
+
+    def toggle_fullscreen(self, on=None):
+        now = bool(self.root.attributes("-fullscreen"))
+        self.root.attributes("-fullscreen", (not now) if on is None else on)
+
     def redraw(self):
         self.update_message()
         self.painter.clear()
@@ -670,6 +710,7 @@ class Form1(FormDesign):
         return None
 
     def Table_click(self, event):
+        ex, ey = self.painter.to_table(event.x, event.y)
         g, v = self.game, self.view
         if g.result:
             if v.overlay:
@@ -680,10 +721,10 @@ class Form1(FormDesign):
         if v.pending:
             for side in ("L", "R"):
                 x, y = arm_end(g, side)
-                if abs(event.x - x) <= 20 and abs(event.y - y) <= 20:
+                if abs(ex - x) <= 20 and abs(ey - y) <= 20:
                     self.play(v.pending, side)
                     return
-        i = self.tile_at(event.x, event.y)
+        i = self.tile_at(ex, ey)
         v.pending = None
         if i is not None:
             tile = g.hands[SOUTH][i]
@@ -701,7 +742,7 @@ class Form1(FormDesign):
         self.after_move()
 
     def Table_motion(self, event):
-        i = self.tile_at(event.x, event.y)
+        i = self.tile_at(*self.painter.to_table(event.x, event.y))
         if i != self.view.hover:
             self.view.hover = i
             self.redraw()
@@ -718,6 +759,8 @@ class Form1(FormDesign):
         elif item in (MP_TO100, MP_TO200):
             self.target = 100 if item == MP_TO100 else 200
             self.new_game()
+        elif item == MP_FULLSCREEN:
+            self.toggle_fullscreen()
         elif item == MP_SHOW_ALL:
             self.view.show_all = not self.view.show_all
             self.redraw()

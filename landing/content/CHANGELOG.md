@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.77 — 2026-11-09
+
+- **Dominó doble 9: la ventana se agranda, se maximiza y pasa a pantalla completa** (menú Ver o F11; Esc para salir). La mesa se dibuja a escala, sin deformarse, al tamaño de la ventana, y el ratón sigue cayendo en su ficha; lo que sobra queda como borde de madera. La prueba de la ventana juega la mano con la mesa maximizada.
+
 ## 1.0.76 — 2026-11-09
 
 - **Dominó doble 9 (Python): un juego de mesa, nuevo ejemplo del estudio y demo para macOS y Windows.** Dominó cubano en una mesa de cuatro: usted y su compañero (enfrente) contra dos rivales que juega la computadora, 10 fichas cada uno y 15 que no se juegan, sale el doble más alto, quien no lleva pasa, dominó (la pareja ganadora se anota todos los tantos que quedan) y tranque (gana quien tenga menos), y partida a 100 o a 200 tantos. La computadora suelta las fichas gordas, se queda con la mano de un número, no le cierra el juego al compañero y pone los números a los que pasaron los rivales. La mesa, las fichas de colores y la cadena, que gira como una serpiente al llegar al borde con los dobles atravesados, se dibujan en un lienzo de tkinter. Sus pruebas juegan cuarenta partidas enteras sin ventana, comprueban que ninguna ficha de la mesa pisa a otra y que la computadora gana a quien juega al azar, y juegan una mano con la ventana oculta (`domino_test.dart`). Las capturas de la web salen del mismo dibujo con Pillow, sin abrir la ventana (`DMS_DOMINO_SHOT`).

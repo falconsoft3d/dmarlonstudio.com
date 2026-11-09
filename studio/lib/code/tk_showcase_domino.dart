@@ -32,6 +32,7 @@ TkExample tkDomino(String Function(String) t) {
   lines.add('  -');
   item('QUIT', t(markTr('Salir')), mGame);
   lines.add(mView);
+  item('FULLSCREEN', t(markTr('Pantalla completa')), mView);
   item('SHOW_ALL', t(markTr('Ver las fichas de todos')), mView);
   lines.add(mHelp);
   item('RULES', t(markTr('Reglas del dominó')), mHelp);
@@ -87,7 +88,12 @@ TkExample tkDomino(String Function(String) t) {
       TkDesign(
           width: 1100,
           height: 700,
-          props: {'title': app, 'bg': '#1f6e3d', 'position': 'center'},
+          props: {
+            'title': app,
+            'bg': '#1f6e3d',
+            'position': 'center',
+            'resizable': true,
+          },
           events: {'create': 'form_create', 'close': 'form_close'},
         )
         ..widgets.addAll([

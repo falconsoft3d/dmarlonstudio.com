@@ -102,6 +102,16 @@ const flIcons = <String, IconData>{
   'place': Icons.place,
   'qr_code': Icons.qr_code,
   'refresh': Icons.refresh,
+  'public': Icons.public,
+  'flight': Icons.flight,
+  'train': Icons.train,
+  'directions_boat': Icons.directions_boat,
+  'zoom_in': Icons.zoom_in,
+  'zoom_out': Icons.zoom_out,
+  'speed': Icons.speed,
+  'download': Icons.download,
+  'upload': Icons.upload,
+  'travel_explore': Icons.travel_explore,
   'save': Icons.save,
   'search': Icons.search,
   'send': Icons.send,
@@ -860,10 +870,21 @@ class _FlPhoneState extends State<FlPhone> {
           ),
         );
 
-  /// El cuerpo, con el botón flotante.
+  /// El cuerpo, con el botón flotante. Como en la web, la pantalla se
+  /// desplaza si no cabe, salvo que algo ocupe el alto que sobra (Expanded,
+  /// Spacer o una lista).
   Widget _body(FlScreen s) => Stack(
     children: [
-      Positioned.fill(child: _preview(s.body, const [], flex: false)),
+      Positioned.fill(
+        child:
+            s.body.children.any(
+              (c) => const {'Expanded', 'Spacer', 'ListView'}.contains(c.type),
+            )
+            ? _preview(s.body, const [], flex: false)
+            : SingleChildScrollView(
+                child: _preview(s.body, const [], flex: false),
+              ),
+      ),
       if (s.fabIcon.isNotEmpty)
         Positioned(
           right: 16,

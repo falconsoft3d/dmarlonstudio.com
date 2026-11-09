@@ -408,7 +408,7 @@ export const manualEn: Manual = {
             },
             {
               type: "p",
-              text: "Twenty of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and four websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
+              text: "Twenty of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and five websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
             },
           ],
         },
@@ -759,6 +759,30 @@ export const manualEn: Manual = {
                 "**Run (F9)** starts `next dev` and opens the browser; saving reloads the page.",
                 "Example: **Web shop**, with login, catalog, product page, cart and checkout.",
                 "Earlier projects keep working as **Web (Next.js, form)**.",
+              ],
+            },
+          ],
+        },
+        {
+          id: "server",
+          title: "A website with a server",
+          blocks: [
+            {
+              type: "p",
+              text: "In **Web (Next.js)**, the code can have a part that runs on the server: everything after a `// @server` line is `lib/server.js`. Keys, calls to other sites' APIs and anything that must not reach the browser go there. The app calls each function it exports with `await server.name({ … })` (the studio generates the `app/api/[fn]/route.js` route) and gets back whatever it returns; if it returns a `Response`, it goes out as is (for downloads or data that isn't JSON).",
+            },
+            {
+              type: "code",
+              code: "import { DmsApp, server } from \"./dms\";\n\nexport class App extends DmsApp {\n  price = null;\n\n  async start() {\n    this.price = await server.price({ currency: \"EUR\" });\n    this.notify();\n  }\n}\n\n// @server: what follows runs on the server.\nexport async function price({ currency }) {\n  const r = await fetch(\"https://api.example.com/price?c=\" + currency, {\n    headers: { authorization: \"Bearer \" + process.env.API_KEY },\n  });\n  return r.json();\n}",
+            },
+            {
+              type: "ul",
+              items: [
+                "The server part is another module: it doesn't see the app's variables (and the app doesn't see its own). Whatever both need goes in the arguments or in what it returns.",
+                "Keys go in `.env.local` (in `build/nextjs` when running from the studio) or in Vercel's environment variables, and are read with `process.env`.",
+                "`serverUrl(\"name\", { … })` gives the address of a function, for your own `fetch`, a link or a download.",
+                "Anything `lib/server.js` exports can be called from outside: check what arrives in the arguments.",
+                "Example: **Live World Map (Next.js)**, which merges on the server the planes, ships and trains from four public APIs and draws them on a Canvas.",
               ],
             },
           ],

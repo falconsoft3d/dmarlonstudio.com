@@ -43,13 +43,16 @@ export type DemoSeed = (typeof DEMO_SEEDS)[number];
 export const MOBILE_SEEDS = ["flutter_store", "flutter_shipping", "flutter_todo"] as const;
 
 /** Webs: la misma tienda en HTML, React y Vue, abiertas aquí mismo. */
-export const WEB_SEEDS = ["html_store", "react_store", "vue_store", "html_domino"] as const;
+export const WEB_SEEDS = ["html_store", "react_store", "vue_store", "html_domino", "next_world"] as const;
 
 export type MobileSeed = (typeof MOBILE_SEEDS)[number];
 export type WebSeed = (typeof WEB_SEEDS)[number];
 
-/** La demo compilada para el navegador (scripts/build_live_demos.py), en public/demos/live. */
-export const liveUrl = (seed: string, lang: Lang) => `/demos/live/${lang}/${seed}/index.html`;
+/** La demo compilada para el navegador (scripts/build_live_demos.py), en
+ * public/demos/live; las de Next.js con servidor son rutas de la propia
+ * landing (app/(live)). */
+export const liveUrl = (seed: string, lang: Lang) =>
+  seed.startsWith("next_") ? `/demos/live/${lang}/${seed}` : `/demos/live/${lang}/${seed}/index.html`;
 
 /** El APK de Android de una demo móvil (lo compila GitHub Actions). */
 export const apkUrl = (seed: string, lang: Lang) =>

@@ -15,8 +15,28 @@ import 'tk_next.dart';
 /// Las propiedades se escriben igual que en Flutter: `${…}` en los textos,
 /// `=expresión` (de JavaScript) y las acciones `go:Pantalla(item)`,
 /// `home:Pantalla`, `back` o código, separadas por `;`.
+///
+/// El servidor: lo que va después de una línea `// @server` en la lógica es
+/// lib/server.js y se ejecuta en el servidor (claves, APIs de otros sitios,
+/// datos que no deben llegar al navegador). Cada función que exporta se
+/// llama desde la app como `await server.nombre({ … })` (una ruta de la API,
+/// app/api/[fn]/route.js); si devuelve un `Response`, sale tal cual.
 class TkWebNext {
   TkWebNext._();
+
+  /// La línea que separa la app (el navegador) del servidor.
+  static final serverMark = RegExp(
+    r'^[ \t]*//[ \t]*@server\b.*$',
+    multiLine: true,
+  );
+
+  /// La lógica partida en lo del navegador y lo del servidor (null: no hay).
+  static (String, String?) split(String code) {
+    final m = serverMark.firstMatch(code);
+    if (m == null) return (code, null);
+    final server = code.substring(m.end).replaceFirst(RegExp(r'^\r?\n'), '');
+    return ('${code.substring(0, m.start).trimRight()}\n', server);
+  }
 
   /// La ruta de una pantalla: la primera es «/».
   static String route(FlApp app, String screen) =>
@@ -410,21 +430,90 @@ ${s.fabIcon.isEmpty ? '' : '      fab={{ icon: ${s.fabIcon.startsWith('=') ? s.f
 ''';
   }
 
+  /// Una ruta dentro de [base] (la web publicada en una subcarpeta).
+  static String _at(String base, String r) =>
+      base.isEmpty ? r : (r == '/' ? base : '$base$r');
+
+  /// app/api/[fn]/route.js: las funciones de lib/server.js como API.
+  static const apiRoute =
+      '''// Generado por DMarlon Studio: las funciones que exporta lib/server.js, como
+// API (POST o GET /api/<función>). No lo edite.
+import * as server from "../../../lib/server";
+
+export const dynamic = "force-dynamic";
+
+async function call(request, params, args) {
+  const { fn } = await params;
+  const f = server[fn];
+  if (typeof f !== "function" || fn.startsWith("_")) {
+    return Response.json({ error: "No existe: " + fn }, { status: 404 });
+  }
+  try {
+    const out = await f(args, request);
+    return out instanceof Response ? out : Response.json(out === undefined ? null : out);
+  } catch (e) {
+    console.error(e);
+    return Response.json({ error: String((e && e.message) || e) }, { status: 500 });
+  }
+}
+
+const query = (request) => Object.fromEntries(new URL(request.url).searchParams);
+
+export function GET(request, { params }) {
+  return call(request, params, query(request));
+}
+
+export async function POST(request, { params }) {
+  const json = (request.headers.get("content-type") || "").includes("application/json");
+  const args = json ? await request.json().catch(() => ({})) : query(request);
+  return call(request, params, args ?? {});
+}
+''';
+
   static String _cls(String s) =>
       '${s[0].toUpperCase()}${s.substring(1).replaceAll(RegExp(r'\W'), '')}Page';
 
   /// lib/dms.js: la base de App, la pantalla y el menú.
-  static String dms(FlApp app) =>
+  static String dms(FlApp app, {String base = ''}) =>
       '''"use client";
 // DMarlon Studio: la base de la app web. Generado: no lo edite.
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef } from "react";
 
 /// Las rutas de las pantallas y el menú.
-export const ROUTES = ${jsonEncode({for (final s in app.screens) s.name: route(app, s.name)})};
+export const ROUTES = ${jsonEncode({for (final s in app.screens) s.name: _at(base, route(app, s.name))})};
 export const NAV = ${jsonEncode([
-        for (final (screen, icon, label) in app.navItems) {'screen': screen, 'icon': icon, 'label': label, 'path': route(app, screen)},
+        for (final (screen, icon, label) in app.navItems) {'screen': screen, 'icon': icon, 'label': label, 'path': _at(base, route(app, screen))},
       ])};
+
+/// El servidor: cada función que exporta lib/server.js (lo que va después
+/// de «// @server» en la lógica) se llama con await server.nombre({ … }) y
+/// devuelve lo que ella devuelva.
+export const API = ${jsonEncode('$base/api')};
+export const server = new Proxy(
+  {},
+  {
+    get: (_, fn) =>
+      typeof fn !== "string" || fn === "then"
+        ? undefined
+        : async (args = {}) => {
+            const r = await fetch(API + "/" + fn, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(args),
+            });
+            const data = await r.json().catch(() => null);
+            if (!r.ok) throw new Error((data && data.error) || r.status + " " + r.statusText);
+            return data;
+          },
+  },
+);
+
+/// La dirección de una función del servidor (para fetch, enlaces o descargas).
+export function serverUrl(fn, args) {
+  const q = args ? "?" + new URLSearchParams(args) : "";
+  return API + "/" + fn + q;
+}
 
 /// La base de App: notify() vuelve a dibujar las pantallas; go y home
 /// cambian de pantalla.
@@ -732,12 +821,18 @@ button { font: inherit; color: inherit; }
   }
 
   /// Todos los archivos del proyecto (ruta → contenido).
+  ///
+  /// [base]: la subcarpeta donde se publica (vacía: la raíz); [lang]: el
+  /// idioma de la página.
   static Map<String, String> files(
     TkDesign d,
     String code, {
     required String name,
+    String base = '',
+    String lang = 'es',
   }) {
     final app = FlApp.of(d);
+    final (client, serverCode) = split(code.replaceAll('\r\n', '\n'));
     if (app.screens.isEmpty) throw UserError(tr('La app no tiene pantallas.'));
     final seen = <String>{};
     for (final s in app.screens) {
@@ -773,7 +868,7 @@ button { font: inherit; color: inherit; }
           'export const viewport = { width: "device-width", initialScale: 1 };\n\n'
           'export default function RootLayout({ children }) {\n'
           '  return (\n'
-          '    <html lang="es">\n'
+          '    <html lang=${jsonEncode(lang)}>\n'
           '      <head>\n'
           '        <link\n'
           '          rel="stylesheet"\n'
@@ -791,13 +886,20 @@ button { font: inherit; color: inherit; }
           'app/page.js': page(app, s, depth: 1)
         else
           'app${route(app, s.name)}/page.js': page(app, s, depth: 2),
-      'lib/dms.js': dms(app),
+      'lib/dms.js': dms(app, base: base),
       'lib/state.js': state,
-      'lib/app.js': code.replaceAll('\r\n', '\n'),
+      'lib/app.js': client,
+      if (serverCode != null) ...{
+        'lib/server.js':
+            '// ${tr('El servidor: lo que va después de «// @server» en la lógica. Cada función que exporta la llama la app con server.nombre({ … }).')}\n'
+            '$serverCode',
+        'app/api/[fn]/route.js': apiRoute,
+      },
       'README.md':
           '# $title\n\n'
           '${tr('Aplicación web de Next.js creada con DMarlon Studio.')}\n\n'
-          '```\nnpm install\nnpm run dev\n```\n',
+          '```\nnpm install\nnpm run dev\n```\n'
+          '${serverCode == null ? '' : '\n${tr('El servidor está en lib/server.js. Las claves van en .env.local (o en las variables de entorno de Vercel).')}\n'}',
     };
   }
 

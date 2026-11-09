@@ -4122,7 +4122,7 @@ msgstr "Get a free token"
 msgid "Cómo cambia el mejor precio"
 msgstr "How the best price changes"
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -4364,7 +4364,7 @@ msgstr "January|February|March|April|May|June|July|August|September|October|Nove
 msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
 msgstr "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_world.dart
 msgid "es-ES"
 msgstr "en-US"
 
@@ -5307,7 +5307,7 @@ msgstr "Open image"
 msgid "Acerca de Editor de imágenes"
 msgstr "About Image Editor"
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart
 msgid "Acercar"
 msgstr "Zoom in"
 
@@ -5328,7 +5328,7 @@ msgstr "Now: {0} × {1} px"
 msgid "Ajuste el marco y pulse Intro (o doble clic) para recortar · Esc cancela · C"
 msgstr "Adjust the frame and press Enter (or double-click) to crop · Esc cancels · C"
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart
 msgid "Alejar"
 msgstr "Zoom out"
 
@@ -6928,6 +6928,257 @@ msgstr "A Next.js page with tasks saved in the browser: add, mark as done and re
 #: lib/code/tk_showcase_next.dart
 msgid "{0} pendientes de {1}"
 msgstr "{0} pending of {1}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Actualizado hace {} s"
+msgstr "Updated {} s ago"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Actualizando…"
+msgstr "Updating…"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Altitud: {} ({})"
+msgstr "Altitude: {} ({})"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Asia"
+msgstr "Asia"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Aviones"
+msgstr "Planes"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Aviones: OpenSky Network, el mundo entero (sin cuenta, cada 15 minutos; con OPENSKY_CLIENT_ID y OPENSKY_CLIENT_SECRET, cada 90 segundos) o adsb.lol. Entre una lectura y otra, cada avión avanza por su rumbo y su velocidad."
+msgstr "Planes: OpenSky Network, the whole world (without an account, every 15 minutes; with OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET, every 90 seconds) or adsb.lol. Between readings, each plane moves along its heading at its speed."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Avión"
+msgstr "Plane"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Barcos"
+msgstr "Ships"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Barcos: el AIS del mar Báltico de Fintraffic (Digitraffic). Trenes: Renfe Cercanías (España) y VR (Finlandia). El mapa: Natural Earth."
+msgstr "Ships: the Baltic Sea AIS from Fintraffic (Digitraffic). Trains: Renfe Cercanías (Spain) and VR (Finland). The map: Natural Earth."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Buscar un vuelo, un barco o un tren"
+msgstr "Search for a flight, a ship or a train"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Carga"
+msgstr "Cargo"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Cargando el mapa…"
+msgstr "Loading the map…"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Cargando los datos…"
+msgstr "Loading the data…"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Cercanías"
+msgstr "Commuter"
+
+#: lib/code/tk_showcase_next_world.dart
+msgctxt "world"
+msgid "Cerrar"
+msgstr "Close"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Datos de ejemplo"
+msgstr "Sample data"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "El mundo en directo"
+msgstr "Live World Map"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "El mundo en directo (Next.js)"
+msgstr "Live World Map (Next.js)"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "El mundo en directo: aviones, barcos y trenes de APIs públicas en un mapa. El servidor (después de // @server) descarga los datos; la app los dibuja."
+msgstr "Live world map: planes, ships and trains from public APIs on a map. The server (after // @server) downloads the data; the app draws it."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "En tierra"
+msgstr "On the ground"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "España"
+msgstr "Spain"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Europa"
+msgstr "Europe"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Fuentes"
+msgstr "Sources"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "La web pide los datos a su propio servidor de Next.js cada 30 segundos. El servidor los descarga de las APIs públicas, los junta y los guarda un rato en memoria: el navegador no habla con ellas y no hacen falta claves."
+msgstr "The website asks its own Next.js server for the data every 30 seconds. The server downloads it from the public APIs, merges it and keeps it in memory for a while: the browser never talks to them and no keys are needed."
+
+#: lib/code/tk_showcase_next_world.dart
+msgctxt "world"
+msgid "Lista"
+msgstr "List"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Los primeros {} de {} en la vista"
+msgstr "The first {} of {} in view"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Línea {}"
+msgstr "Line {}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Mapa"
+msgstr "Map"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Mar Báltico"
+msgstr "Baltic Sea"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Mundo"
+msgstr "World"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Nada en esta vista del mapa. Aléjese o busque por nombre."
+msgstr "Nothing in this view of the map. Zoom out or search by name."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "No hay nada con ese nombre en las capas que se ven."
+msgstr "Nothing with that name in the visible layers."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "No responde: {}"
+msgstr "Not responding: {}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "No se pudieron leer los datos: {}"
+msgstr "Could not read the data: {}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Norteamérica"
+msgstr "North America"
+
+#: lib/code/tk_showcase_next_world.dart
+msgctxt "world"
+msgid "Otro"
+msgstr "Other"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Pasaje"
+msgstr "Passenger"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Pesquero"
+msgstr "Fishing"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Petrolero o cisterna"
+msgstr "Tanker"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Recreo o vela"
+msgstr "Pleasure or sailing"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Remolcador"
+msgstr "Tug"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Renfe Cercanías · España"
+msgstr "Renfe Cercanías · Spain"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Rumbo a {}"
+msgstr "Bound for {}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Rumbo {}°"
+msgstr "Heading {}°"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Seguirlo en el mapa"
+msgstr "Follow it on the map"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Servicio del puerto"
+msgstr "Port service"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Sin dato de velocidad"
+msgstr "No speed data"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Sin destino declarado"
+msgstr "No declared destination"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Sudamérica"
+msgstr "South America"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Toque un avión, un barco o un tren para ver sus datos; toque el mar o la tierra para centrar el mapa ahí."
+msgstr "Tap a plane, a ship or a train to see its details; tap the sea or the land to center the map there."
+
+#: lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Tren"
+msgstr "Train"
+
+#: lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Trenes"
+msgstr "Trains"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "Una web de Next.js con servidor: un mapa del mundo con los aviones, los barcos y los trenes en directo de APIs públicas (OpenSky, Fintraffic, Renfe y VR). El servidor descarga y junta los datos; la web los dibuja en un Lienzo y se actualiza sola."
+msgstr "A Next.js website with a server: a world map with live planes, ships and trains from public APIs (OpenSky, Fintraffic, Renfe and VR). The server downloads and merges the data; the website draws it on a Canvas and updates itself."
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "VR · Finlandia"
+msgstr "VR · Finland"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "aviones de {}"
+msgstr "planes from {}"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "hace {} min"
+msgstr "{} min ago"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "hace {} s"
+msgstr "{} s ago"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "los últimos buenos ({})"
+msgstr "the last good ones ({})"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "nudos"
+msgstr "knots"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "{} en la vista"
+msgstr "{} in view"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "{} encontrados"
+msgstr "{} found"
+
+#: lib/code/tk_showcase_next_world.dart
+msgid "{} · {} · {}"
+msgstr "{} · {} · {}"
 
 #: lib/code/tk_showcase_pascal.dart
 msgid "Calculadora (Pascal)"
@@ -11522,16 +11773,8 @@ msgid "Sonido"
 msgstr "Sound"
 
 #: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Tren"
-msgstr "Train"
-
-#: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Tren {0}"
 msgstr "Train {0}"
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Trenes"
-msgstr "Trains"
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Trenes de Cercanías en directo con los datos abiertos de Renfe (o una simulación sin conexión): alertas de proximidad, gráfico de seguimiento y mapa de la línea. Demo educativa, no un sistema de seguridad."
@@ -12124,6 +12367,14 @@ msgstr "Website with a Go server made with DMarlon Studio: the website is in web
 #: lib/code/tk_web_html.dart
 msgid "Web en HTML, CSS y JavaScript creada con DMarlon Studio: abra index.html o súbala a cualquier hosting."
 msgstr "Website in HTML, CSS and JavaScript made with DMarlon Studio: open index.html or upload it to any hosting."
+
+#: lib/code/tk_web_next.dart
+msgid "El servidor está en lib/server.js. Las claves van en .env.local (o en las variables de entorno de Vercel)."
+msgstr "The server is in lib/server.js. Keys go in .env.local (or in Vercel's environment variables)."
+
+#: lib/code/tk_web_next.dart
+msgid "El servidor: lo que va después de «// @server» en la lógica. Cada función que exporta la llama la app con server.nombre({ … })."
+msgstr "The server: what comes after «// @server» in the logic. The app calls each function it exports with server.name({ … })."
 
 #: lib/code/tk_web_react.dart
 msgid "Web de React (Vite) creada con DMarlon Studio."

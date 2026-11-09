@@ -14,6 +14,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _vueStore(t),
   _htmlDomino(t),
   _goStore(t),
+  _nextWorld(t),
   _flutterShipping(t),
   _flutterTodo(t),
   ...tkShopMobileExamples(t),

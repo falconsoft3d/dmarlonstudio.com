@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Las demos compiladas (scripts/build_live_demos.py).
     "public/demos/live/**",
+    // Las demos de Next.js con servidor: código generado por el estudio.
+    "app/(live)/**",
     // Los ejemplos de los cursos: programas de cada lenguaje (Node con
     // require, a propósito), no código de la web.
     "content/courses/*/basic/**",

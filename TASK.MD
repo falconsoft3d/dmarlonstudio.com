@@ -56,6 +56,7 @@ Hechos
 62. Editor de imágenes en C++ inspirado en Photoshop: recortar, editar, capas, cambiar tamaño, rotar, convertir y más | ✅ |
 63. Buscador de vuelos en C++ (FLTK): vigila rutas con Travelpayouts cada 30 minutos, mejor precio por aerolínea y dónde comprar, ejemplo del estudio y demo | ✅ |
 67. Inspector del equipo en C++ (FLTK): sistema, procesador, memoria, modelo y firmware, gráficos, discos, red, batería, audio y periféricos, uso en directo e informe en PDF para imprimir; ejemplo del estudio y demo | ✅ |
+64. Next.js con servidor (`// @server`) y «El mundo en directo»: mapa del mundo con aviones (OpenSky), barcos (AIS del Báltico) y trenes (Renfe y VR) en directo, corriendo en el servidor de la web | ✅ |
 
 
 Trabajando
@@ -66,8 +67,8 @@ Trabajando
 
 Pendiente
 =========
-64. Demo web que se ejecuta en el servidor: mapa del mundo con vuelos, barcos y trenes en directo de APIs públicas | ⏳ |
 65. Demo para medir la velocidad de internet | ⏳ |
 66. Buscador de vuelos también en web (con servidor para el token de Travelpayouts) | ⏳ |
+68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 
 

@@ -8,6 +8,10 @@ test/demos_export_test.dart) en <entrada>/<idioma>/<ejemplo>/ con un demo.json.
       Cada demo, compilada para el navegador en <salida>/<idioma>/<ejemplo>/
       (se abre con su index.html): HTML tal cual, React y Vue con Vite, y
       Flutter con `flutter build web`. Se sube con la landing.
+      Las de Next.js (con servidor) no se compilan aparte: van dentro de la
+      propia landing, en landing/app/(live)/demos/live/<idioma>/<ejemplo>/
+      (sus páginas, su API y su lib/ en _lib), y Vercel las sirve con su
+      servidor.
 
   python3 scripts/build_live_demos.py android <entrada> <salida>
       Las de Flutter como APK de Android: <ejemplo>-<idioma>-Android.apk
@@ -51,6 +55,25 @@ def web_vite(d: Path, dest: Path):
     fresh(dest)
     run(["npx", "vite", "build", "--base", "./", "--outDir", dest, "--emptyOutDir"], d)
     shutil.rmtree(d / "node_modules", ignore_errors=True)
+
+
+def web_next(d: Path, dest: Path):
+    """El proyecto de Next.js dentro de la landing: app/ en dest y lib/ en
+    dest/_lib (una carpeta privada: no es una ruta), con los import de lib
+    corregidos."""
+    fresh(dest)
+    for f in sorted((d / "app").rglob("*")):
+        if f.is_dir():
+            continue
+        rel = f.relative_to(d / "app")
+        depth = len(rel.parts)            # app/page.js: 1; app/x/page.js: 2
+        text = f.read_text(encoding="utf-8")
+        up = "../" * (depth - 1) or "./"
+        text = text.replace("../" * depth + "lib/", up + "_lib/")
+        out = dest / rel
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(text, encoding="utf-8")
+    shutil.copytree(d / "lib", dest / "_lib")
 
 
 def flutter_create(d: Path, seed: str, platforms: str):
@@ -101,7 +124,12 @@ def main():
                 android(d, out, demo)
             continue
         dest = out / lang / seed
-        if kind == "html":
+        if kind == "next":
+            # out es landing/public/demos/live.
+            landing = out.parents[2]
+            dest = landing / "app" / "(live)" / "demos" / "live" / lang / seed
+            web_next(d, dest)
+        elif kind == "html":
             web_html(d, dest)
         elif kind in ("react", "vue"):
             web_vite(d, dest)

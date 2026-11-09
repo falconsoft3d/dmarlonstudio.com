@@ -240,6 +240,14 @@ const es: Record<string, DemoGuide> = {
       { title: "Dominó o tranque", text: "Al acabar la mano salen las fichas que quedaban y los tantos de cada pareja; la partida es a 100. Arriba, el botón de recargar empieza otra y el del ojo enseña las fichas de todos." },
     ],
   },
+  next_world: {
+    intro: "Una web de Next.js con servidor, hecha con el editor de pantallas: el código de la app termina en una línea // @server y lo que sigue se ejecuta en el servidor. Allí se descargan los aviones de OpenSky, los barcos del AIS del Báltico (Fintraffic) y los trenes de Renfe Cercanías y VR; la web solo llama a server.datos() cada 30 segundos y los dibuja en un Lienzo.",
+    steps: [
+      { title: "Toque un avión", text: "Toque cualquier punto y sale su ficha: indicativo, país, altitud, velocidad y rumbo. Con la diana, el mapa lo sigue; entre lectura y lectura, cada avión avanza por su rumbo y su velocidad." },
+      { title: "Cambie de zona", text: "Mundo, Europa, el mar Báltico o España, y las capas de aviones, barcos y trenes. Al acercarse, el servidor manda un mapa con más detalle (Natural Earth 1:50 millones)." },
+      { title: "Busque por nombre", text: "La Lista enseña lo que se ve en el mapa o busca un vuelo, un barco o un tren por su nombre, su línea o su operador. Al tocarlo, vuelve al mapa centrado en él." },
+    ],
+  },
 };
 
 const en: Record<string, DemoGuide> = {
@@ -465,6 +473,14 @@ const en: Record<string, DemoGuide> = {
       { title: "Tap a tile", text: "You play with Yuniel (opposite) against Mayelín and Osmany. On your turn, the tiles you can play light up: tap one. The rivals play by themselves and whoever can't play passes." },
       { title: "Pick the end", text: "If a tile fits both ends, two golden arrows appear: tap the one you want. The line turns at the edge and the table fits the size of the window." },
       { title: "Domino or blocked game", text: "When the hand ends you see the tiles that were left and each partnership's points; the game is to 100. At the top, the reload button starts another one and the eye shows everyone's tiles." },
+    ],
+  },
+  next_world: {
+    intro: "A Next.js website with a server, made with the screen editor: the app's code ends with a // @server line and what follows runs on the server. There it downloads the planes from OpenSky, the ships from the Baltic AIS (Fintraffic) and the trains from Renfe Cercanías and VR; the website just calls server.datos() every 30 seconds and draws them on a Canvas.",
+    steps: [
+      { title: "Tap a plane", text: "Tap any point to see its details: callsign, country, altitude, speed and heading. With the target button the map follows it; between readings, each plane moves along its heading at its speed." },
+      { title: "Change the area", text: "World, Europe, the Baltic Sea or Spain, and the planes, ships and trains layers. When you zoom in, the server sends a more detailed map (Natural Earth 1:50 million)." },
+      { title: "Search by name", text: "The List shows what is on the map or finds a flight, a ship or a train by its name, its line or its operator. Tap it to go back to the map centered on it." },
     ],
   },
 };

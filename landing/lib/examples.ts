@@ -41,6 +41,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   react_store: { icon: "react", label: "React · Vite" },
   html_store: { icon: "html", label: "HTML" },
   html_domino: { icon: "html", label: "HTML" },
+  next_world: { icon: "next", label: "Next.js" },
   vue_store: { icon: "vue", label: "Vue · Vite" },
   go_store: { icon: "go", label: "Go" },
   pdf_editor: { icon: "python", label: "Python · tkinter" },

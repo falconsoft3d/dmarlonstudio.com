@@ -16,6 +16,7 @@ import 'package:dmarlon_studio/code/tk_flutter.dart';
 import 'package:dmarlon_studio/code/tk_pascal.dart';
 import 'package:dmarlon_studio/code/tk_pascal_run.dart';
 import 'package:dmarlon_studio/code/tk_web_html.dart';
+import 'package:dmarlon_studio/code/tk_web_next.dart';
 import 'package:dmarlon_studio/code/tk_web_react.dart';
 import 'package:dmarlon_studio/code/tk_web_vue.dart';
 import 'package:dmarlon_studio/i18n/po.dart';
@@ -60,15 +61,25 @@ const liveDemos = <(String, String)>[
   ('react_store', 'react'),
   ('vue_store', 'vue'),
   ('html_domino', 'html'),
+  ('next_world', 'next'),
 ];
 
-/// Los archivos del proyecto de una demo en vivo.
-Map<String, String> liveFiles(TkExample e, String kind) => switch (kind) {
-  'flutter' => TkFlutter.files(e.design, e.code, name: 'dms_${e.seed}'),
-  'html' => TkWebHtml.files(e.design, e.code, name: e.name),
-  'react' => TkWebReact.files(e.design, e.code, name: e.name),
-  _ => TkWebVue.files(e.design, e.code, name: e.name),
-};
+/// Los archivos del proyecto de una demo en vivo. Las de Next.js (con
+/// servidor) van dentro de la landing, en `/demos/live/<idioma>/<ejemplo>`.
+Map<String, String> liveFiles(TkExample e, String kind, String lang) =>
+    switch (kind) {
+      'flutter' => TkFlutter.files(e.design, e.code, name: 'dms_${e.seed}'),
+      'next' => TkWebNext.files(
+        e.design,
+        e.code,
+        name: e.name,
+        base: '/demos/live/$lang/${e.seed}',
+        lang: lang,
+      ),
+      'html' => TkWebHtml.files(e.design, e.code, name: e.name),
+      'react' => TkWebReact.files(e.design, e.code, name: e.name),
+      _ => TkWebVue.files(e.design, e.code, name: e.name),
+    };
 
 void main() {
   final live = Platform.environment['DMS_LIVE_OUT'];
@@ -82,7 +93,7 @@ void main() {
       final all = tkFlutterExamples(tr);
       for (final (seed, kind) in liveDemos) {
         final e = all.firstWhere((x) => x.seed == seed);
-        final files = liveFiles(e, kind);
+        final files = liveFiles(e, kind, lang);
         expect(files, isNotEmpty, reason: seed);
         if (live == null) continue;
         final dir = Directory(p.join(live, lang, seed));
@@ -93,7 +104,12 @@ void main() {
           await file.writeAsString(f.value);
         }
         await File(p.join(dir.path, 'demo.json')).writeAsString(
-          jsonEncode({'seed': seed, 'kind': kind, 'lang': lang, 'name': e.name}),
+          jsonEncode({
+            'seed': seed,
+            'kind': kind,
+            'lang': lang,
+            'name': e.name,
+          }),
         );
       }
       setCatalog({});
@@ -107,14 +123,26 @@ void main() {
             ? {}
             : catalogOf(File('assets/i18n/$lang.po').readAsStringSync()),
       );
-      final all = [...tkExamples(tr), ...tkPascalExamples(tr), ...tkCppExamples(tr)];
+      final all = [
+        ...tkExamples(tr),
+        ...tkPascalExamples(tr),
+        ...tkCppExamples(tr),
+      ];
       for (final seed in demos) {
         final e = all.firstWhere((x) => x.seed == seed);
         // tkinter (PyInstaller), Pascal (lazbuild) o C++ (FLTK).
         final pascal = e.design.isPascal, cpp = e.design.isCpp;
-        expect(pascal || cpp || (e.design.isPython && !e.design.isWeb), isTrue, reason: seed);
+        expect(
+          pascal || cpp || (e.design.isPython && !e.design.isWeb),
+          isTrue,
+          reason: seed,
+        );
         final files = pascal
-            ? TkPascal.files(e.design, e.code, options: await TkPascalTools.options())
+            ? TkPascal.files(
+                e.design,
+                e.code,
+                options: await TkPascalTools.options(),
+              )
             : cpp
             ? TkCpp.files(e.design, e.code)
             : {'app.py': TkCodegen.generate(e.design, e.code)};
@@ -129,7 +157,11 @@ void main() {
         await File(p.join(dir.path, 'demo.json')).writeAsString(
           jsonEncode({
             'seed': seed,
-            'kind': pascal ? 'pascal' : cpp ? 'cpp' : 'python',
+            'kind': pascal
+                ? 'pascal'
+                : cpp
+                ? 'cpp'
+                : 'python',
             'lang': lang,
             'name': e.name,
           }),

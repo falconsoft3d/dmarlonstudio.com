@@ -107,6 +107,7 @@ export const en: Content = {
       { seed: "react_store", name: "Web shop (React)", text: "The same screens as a React website with Vite: static files for any hosting." },
       { seed: "html_store", name: "Web shop (HTML)", text: "The shop in HTML, CSS and JavaScript, with nothing to build or install." },
       { seed: "html_domino", name: "Double-Nine Dominoes (web)", text: "Dominoes in the browser: the table is drawn on a Canvas from the screen editor." },
+      { seed: "next_world", name: "Live World Map (Next.js)", text: "Live planes, ships and trains on a map, with a Next.js server that reads the public APIs." },
       { seed: "vue_store", name: "Web shop (Vue)", text: "Each screen is a .vue component, with Vite." },
       { seed: "go_store", name: "Web shop (Go)", text: "A Go server with a REST API that saves the orders." },
       { seed: "pos", name: "Point of sale", text: "A POS in the style of Odoo's: keypad, payment, receipt and sales in SQLite." },

@@ -20,6 +20,8 @@ part 'tk_showcase_next.dart';
 part 'tk_showcase_cpp.dart';
 part 'tk_showcase_cpp_explorer.dart';
 part 'tk_showcase_cpp_explorer_code.dart';
+part 'tk_showcase_cpp_racing.dart';
+part 'tk_showcase_cpp_racing_code.dart';
 part 'tk_showcase_pascal.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';

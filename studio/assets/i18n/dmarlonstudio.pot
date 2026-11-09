@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -2687,7 +2687,7 @@ msgstr ""
 msgid "Intro para jugar otra vez"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart
 msgid "Juego"
 msgstr ""
 
@@ -2723,7 +2723,7 @@ msgstr ""
 msgid "Nueva partida"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Pausa"
 msgstr ""
 
@@ -2999,7 +2999,7 @@ msgstr ""
 msgid "Traducir al inglés"
 msgstr ""
 
-#: lib/code/tk_showcase_ai.dart
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart
 msgid "Usted"
 msgstr ""
 
@@ -3901,7 +3901,7 @@ msgstr ""
 msgid "Varios tipos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr ""
 
@@ -3984,6 +3984,205 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Último acceso:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "1 vuelta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "3 vueltas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "5 vueltas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Acerca de Carrera de motos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Bandera a cuadros"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Carrera de motos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Carrera de motos (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Carrera de motos en C++ con FLTK: pista en pseudo-3D con curvas y cuestas, siete rivales, vueltas, clasificación, minimapa y cuadro de mandos."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Circuito de la Sierra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgctxt "racing"
+msgid "Clasificación"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Clasificación final"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Controles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "DEL."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "DIF."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Dificultad"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Difícil"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Fuera de pista"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Fácil"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "La pista y las motos las dibuja el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Mejor vuelta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Minimapa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Nombres de los pilotos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Normal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Nueva carrera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "PAUSA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Pantalla completa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Piloto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Pos."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Posición final: {0} de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Prepárese: acelere cuando se apaguen los semáforos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Pulse Intro para correr otra vez"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Pulse P o Esc para seguir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Récord"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "TRAS."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgctxt "racing"
+msgid "Tiempo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Un juego de carreras de motos nativo en C++ con FLTK: pista en pseudo-3D con curvas y cuestas, la moto que se inclina, siete rivales, semáforo de salida, vueltas, clasificación con diferencias, minimapa y cuadro de mandos."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Una demo de DMarlon Studio: un juego de carreras de motos hecho en C++17 con FLTK {0}. La ventana y el menú se diseñaron en el Diseñador del estudio; la pista, las motos y el resto se dibujan en el código de Form1.cpp, sin imágenes."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "VUELTA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Vueltas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "en carrera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "¡Caída!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "¡Ha ganado la carrera!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "¡Nuevo récord de vuelta!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "¡YA!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "ÚLTIMA VUELTA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid "Última vuelta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_racing.dart
+msgid ""
+"↑ o W: acelerar\n"
+"↓ o S: frenar\n"
+"← → o A D: girar\n"
+"P o Esc: pausa\n"
+"Intro: nueva carrera al terminar\n"
+"F2: nueva carrera\n"
+"F11: pantalla completa\n"
+"\n"
+"Frene antes de las curvas cerradas: si entra demasiado rápido, la moto se abre hacia la hierba. Fuera de la pista se pierde velocidad, y contra un árbol o una grada se cae."
 msgstr ""
 
 #: lib/code/tk_showcase_electron.dart
@@ -8444,10 +8643,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "No se pudo actualizar ({0}). Se reintenta en 20 s."
-msgstr ""
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Normal"
 msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart

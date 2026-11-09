@@ -398,11 +398,12 @@ export const manualEn: Manual = {
                 ["**Train tracking**", "Live public data (Renfe's GTFS-Realtime) in the background, proximity alerts, a train graph and a map drawn on canvases, and an offline simulation"],
                 ["**MP3 player**", "A custom interface drawn on canvases (digital clock, spectrum), ID3 tags, M3U lists and sound with `pygame`"],
                 ["**File Explorer (C++)**", "A native C++ app with FLTK: custom components drawn in code (a tree that loads as you open it, icon, list and details views, tabs, breadcrumbs in the address bar), saved bookmarks, copy and paste with the system file clipboard (between windows and with Finder or Explorer), Trash, properties worked out in the background and a light or dark theme"],
+                ["**Motorbike Racing (C++)**", "A native C++ game with FLTK: the design's Timer moves the race 60 times a second; the pseudo-3D track (projected segments with bends and hills), the leaning bikes, the scenery and the dashboard are drawn in code; seven rivals that brake, pick their line and overtake, timed laps, standings with gaps, a minimap and a saved lap record"],
               ],
             },
             {
               type: "p",
-              text: "Fourteen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
+              text: "Fifteen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
             },
           ],
         },

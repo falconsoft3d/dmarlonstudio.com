@@ -130,11 +130,12 @@ export const manualEs: Manual = {
                 ["**Seguimiento de trenes**", "Datos públicos en directo (GTFS-Realtime de Renfe) en segundo plano, alertas de proximidad, malla de circulación y mapa dibujados en lienzos, y una simulación sin conexión"],
                 ["**Reproductor MP3**", "Una interfaz propia dibujada en lienzos (reloj digital, espectro), etiquetas ID3, listas M3U y sonido con `pygame`"],
                 ["**Explorador de archivos (C++)**", "Una app nativa en C++ con FLTK: componentes propios dibujados en código (árbol que se carga al abrirlo, vistas de iconos, lista y detalles, pestañas, migas en la dirección), marcadores guardados, copiar y pegar con el portapapeles de archivos del sistema (entre ventanas y con el Finder o el Explorador), Papelera, propiedades calculadas en segundo plano y tema claro u oscuro"],
+                ["**Carrera de motos (C++)**", "Un juego nativo en C++ con FLTK: el Timer del diseño mueve la carrera 60 veces por segundo; la pista en pseudo-3D (segmentos proyectados con curvas y cuestas), las motos que se inclinan, el paisaje y el cuadro de mandos se dibujan en código; siete rivales que frenan, trazan y adelantan, vueltas cronometradas, clasificación con diferencias, minimapa y récord guardado"],
               ],
             },
             {
               type: "p",
-              text: "Catorce de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Quince de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },

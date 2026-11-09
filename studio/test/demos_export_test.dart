@@ -41,6 +41,7 @@ const demos = [
   'train_monitor',
   'pascal_odoo',
   'cpp_explorer',
+  'cpp_racing',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)

@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.74 — 2026-11-09
+
+- **Carrera de motos (C++): un juego nativo con FLTK, nuevo ejemplo del estudio y demo para macOS y Windows.** Pista en pseudo-3D como en los arcades (segmentos proyectados con curvas y cuestas, niebla a lo lejos, pianos, escapatorias, grava, gradas, olivos y carteles), la moto que se inclina en las curvas, siete rivales que frenan antes de cada curva, trazan por dentro y adelantan, semáforo de salida, 1, 3 o 5 vueltas, tres dificultades, caídas contra los árboles, clasificación con las diferencias en segundos, minimapa, cuadro de mandos (marcha, velocidad, revoluciones, neumáticos) y récord de vuelta guardado. Todo se dibuja en código, sin imágenes; el Timer del diseño mueve la carrera 60 veces por segundo (6 ms por imagen a 1280×720). Sus pruebas internas corren una carrera entera sin ventana y comprueban que con las teclas del jugador se termina sin caerse (`cpp_racing_test.dart`). Las capturas de la web salen del propio juego, sin abrir la ventana (`DMS_RACING_SHOT`).
+
 ## 1.0.73 — 2026-11-09
 
 - **Cada demo de escritorio es una sola aplicación en español y en inglés**, con el menú **Idioma / Language** para cambiarlo: la app se cierra como siempre y se vuelve a abrir en el otro idioma, que queda guardado para todas las demos (la primera vez, el del sistema). En la web hay una sola descarga por sistema (`<demo>-macOS.zip`, `<demo>-Windows.zip`) y en macOS el nombre de la app sale en el idioma del sistema. Las de Python llevan los dos programas y un lanzador; las de Pascal y C++, los dos ejecutables juntos (`scripts/demo-lang`, `scripts/build_demos.py`). Probado en macOS con la calculadora (Python), Odoo sin conexión (Pascal) y el explorador de archivos (C++).

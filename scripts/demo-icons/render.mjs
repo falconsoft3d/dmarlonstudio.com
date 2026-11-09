@@ -19,6 +19,7 @@ const demos = {
   agenda: ['calendar-days', '#ff7a59', '#e8433b'],
   calculator: ['calculator', '#7b8794', '#3e4c59'],
   cpp_explorer: ['folder-open', '#5aaef5', '#1c5fc6'],
+  cpp_racing: ['flag', '#ff5a4f', '#c3141c'],
   currency: ['coins', '#ffc53d', '#e08e0b'],
   disk_usage: ['hard-drive', '#5ac8fa', '#1f7fd6'],
   file_renamer: ['file-pen-line', '#a78bfa', '#6d3fd6'],

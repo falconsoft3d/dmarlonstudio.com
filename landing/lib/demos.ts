@@ -29,6 +29,7 @@ export const DEMO_SEEDS = [
   "train_monitor",
   "pascal_odoo",
   "cpp_explorer",
+  "cpp_racing",
 ] as const;
 
 export type DemoSeed = (typeof DEMO_SEEDS)[number];

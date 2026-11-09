@@ -130,6 +130,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Copie entre ventanas, en claro u oscuro", text: "Copiar, cortar y pegar usan el portapapeles de archivos del sistema: funcionan entre dos exploradores y con el Finder o el Explorador de Windows. Las copias grandes van en segundo plano, y eliminar siempre pregunta y manda a la Papelera. Ver → Tema elige claro, oscuro o el del sistema." },
     ],
   },
+  cpp_racing: {
+    intro:
+      "Un juego de carreras de motos hecho en C++ con FLTK y diseñado en el estudio: la ventana, el menú y el reloj del juego salen del Diseñador; la pista en pseudo-3D (como en los arcades), las motos, el paisaje y el cuadro de mandos se dibujan en el código, sin una sola imagen. Siete rivales, tres vueltas y su récord.",
+    steps: [
+      { title: "Salga cuando se apaguen las luces", text: "Sale sexto en la parrilla. Se encienden cinco luces rojas; cuando se apagan, ¡ya! Mantenga ↑ (o W) para acelerar y gire con ← → (o A D). La marcha, la velocidad, las revoluciones y el desgaste de los neumáticos se ven abajo a la derecha." },
+      { title: "Frene antes de las curvas", text: "En las curvas cerradas la moto se abre hacia fuera: frene con ↓ antes de entrar y trace por dentro. Fuera de la pista se pierde velocidad y contra un árbol se cae. Arriba a la izquierda, su posición y la diferencia en segundos con el de delante y el de detrás; abajo, el minimapa." },
+      { title: "Clasificación y récord", text: "Al cruzar la meta en la última vuelta sale la clasificación final con los tiempos y la mejor vuelta de cada uno. Su récord de vuelta se guarda. En el menú Juego elija 1, 3 o 5 vueltas y la dificultad; Intro empieza otra carrera." },
+    ],
+  },
   flutter_store: {
     intro: "Una tienda móvil hecha con el editor de pantallas de Flutter: login, catálogo, carrito y pago, con la lógica en Dart. La misma app funciona en Android, iPhone y la web.",
     steps: [
@@ -293,6 +302,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Browse your folders", text: "The tree on the left loads each branch when you open it; the address bar shows the path as breadcrumbs (each arrow opens its subfolders) and becomes editable with a click. Sort the details view by any column." },
       { title: "Bookmarks and tabs", text: "Ctrl+D (⌘D on a Mac) adds the folder to the bookmarks, with its name, folder, a description and whether it shows on the bar. Each tab remembers its folder and its Back and Forward history." },
       { title: "Copy between windows, light or dark", text: "Copy, cut and paste use the system file clipboard: they work between two explorers and with Finder or Windows Explorer. Big copies run in the background, and deleting always asks first and uses the Trash. View → Theme picks light, dark or the system one." },
+    ],
+  },
+  cpp_racing: {
+    intro:
+      "A motorbike racing game made in C++ with FLTK and designed in the studio: the window, the menu and the game clock come from the Designer; the pseudo-3D track (as in the arcades), the bikes, the scenery and the dashboard are drawn by the code, without a single image. Seven rivals, three laps and your lap record.",
+    steps: [
+      { title: "Go when the lights go out", text: "You start sixth on the grid. Five red lights come on; when they go out, go! Hold ↑ (or W) to accelerate and steer with ← → (or A D). The gear, the speed, the revs and the tyre wear are shown at the bottom right." },
+      { title: "Brake before the bends", text: "In tight bends the bike runs wide: brake with ↓ before turning in and take the inside line. Off the track you lose speed, and hitting a tree means a crash. At the top left, your position and the gap in seconds to the rider ahead and behind; at the bottom, the minimap." },
+      { title: "Standings and lap record", text: "When you cross the line on the last lap, the final classification shows everyone's time and best lap. Your lap record is saved. In the Game menu choose 1, 3 or 5 laps and the difficulty; Enter starts another race." },
     ],
   },
   flutter_store: {

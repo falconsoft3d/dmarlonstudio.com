@@ -409,7 +409,7 @@ msgstr ""
 "// Label1.Caption := 'Hello', Edit1.Text, CheckBox1.Checked.\n"
 "// Also ShowMessage(text), Ask(question), Close and NumToStr(number)."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr "Open"
 
@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -605,7 +605,7 @@ msgstr "Type the customer's name."
 msgid "Escriba un número"
 msgstr "Enter a number"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Fecha"
 msgstr "Date"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -785,7 +785,7 @@ msgstr "Weight"
 msgid "Pulse Cargar para leer los usuarios."
 msgstr "Press Load to read the users."
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "Página {0}"
 msgstr "Page {0}"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -837,7 +837,7 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr "Text"
 
@@ -845,7 +845,7 @@ msgstr "Text"
 msgid "Tipo"
 msgstr "Type"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr "User"
 
@@ -1425,7 +1425,7 @@ msgstr "All"
 msgid "Todo lo que necesita, en un solo lugar"
 msgstr "Everything you need, in one place"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Total"
 msgstr "Total"
 
@@ -1705,7 +1705,7 @@ msgstr "Columns (field|title|width)"
 msgid "Componente desconocido: {0}."
 msgstr "Unknown component: {0}."
 
-#: lib/code/tk_model.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_hardware.dart lib/ui/screens/dev_tools.dart
 msgid "Conexión"
 msgstr "Connection"
 
@@ -1917,7 +1917,7 @@ msgstr "Limit"
 msgid "Líneas"
 msgstr "Lines"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "Manual"
 msgstr "Manual"
 
@@ -2961,7 +2961,7 @@ msgstr "Solid"
 msgid "Toro"
 msgstr "Torus"
 
-#: lib/code/tk_showcase_3d.dart lib/code/tk_showcase_util_train_monitor.dart
+#: lib/code/tk_showcase_3d.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Velocidad"
 msgstr "Speed"
 
@@ -3349,7 +3349,7 @@ msgstr "The calculator as a native C++ app with FLTK: the same design, with the 
 msgid " - copia"
 msgstr " - copy"
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "%d/%m/%Y %H:%M"
 msgstr "%m/%d/%Y %H:%M"
 
@@ -3357,7 +3357,7 @@ msgstr "%m/%d/%Y %H:%M"
 msgid "(Sin marcadores)"
 msgstr "(No bookmarks)"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
 
@@ -3482,7 +3482,7 @@ msgstr "Home folder"
 msgid "Carpetas"
 msgstr "Folders"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Cerrar"
 msgstr "Close"
 
@@ -3546,11 +3546,11 @@ msgstr "Target:"
 msgid "Detalles"
 msgstr "Details"
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "Disco local"
 msgstr "Local Disk"
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "Documento PDF"
 msgstr "PDF document"
 
@@ -3727,7 +3727,7 @@ msgstr "Music"
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr "No items match your search."
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_windows.dart
 msgid "No"
 msgstr "No"
 
@@ -3875,7 +3875,7 @@ msgstr "Move up"
 msgid "Subir un nivel"
 msgstr "Up one level"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr "Yes"
 
@@ -3935,7 +3935,7 @@ msgstr "Removable drive"
 msgid "Varios tipos"
 msgstr "Multiple types"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -4122,7 +4122,7 @@ msgstr "Get a free token"
 msgid "Cómo cambia el mejor precio"
 msgstr "How the best price changes"
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -4364,7 +4364,7 @@ msgstr "January|February|March|April|May|June|July|August|September|October|Nove
 msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
 msgstr "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "es-ES"
 msgstr "en-US"
 
@@ -4400,7 +4400,7 @@ msgstr "one point per check (every 30 minutes while the app is open)"
 msgid "vuelta: {0}"
 msgstr "return: {0}"
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "{0} de {1}"
 msgstr "{0} of {1}"
 
@@ -4408,7 +4408,7 @@ msgstr "{0} of {1}"
 msgid "{0} escalas"
 msgstr "{0} stops"
 
-#: lib/code/tk_showcase_cpp_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart
 msgid "{0} h {1} min"
 msgstr "{0} h {1} min"
 
@@ -4443,6 +4443,853 @@ msgstr "\"Buy\" opens that flight in Aviasales, which compares the agencies and 
 #: lib/code/tk_showcase_cpp_flights.dart
 msgid "¿Quitar la ruta {0}?"
 msgstr "Remove the route {0}?"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "(y {0} más)"
+msgstr "(and {0} more)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Acerca de Inspector del equipo"
+msgstr "About Hardware Inspector"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Adaptador de corriente"
+msgstr "Power adapter"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid ""
+"Al abrirse, la app lee lo que el sistema sabe del equipo: en macOS con sysctl y system_profiler; en Windows con la API de Win32 y PowerShell (Get-CimInstance); en Linux, con /proc. Nada sale del equipo.\n"
+"\n"
+"A la izquierda elija una parte: el resumen, el sistema, el procesador, la memoria, el modelo y el firmware, los gráficos y las pantallas, el almacenamiento, la red, la batería, el audio o los periféricos. El uso del procesador (de cada núcleo), la memoria, la red, los discos y la batería se miden cada segundo (Ver → Lecturas en directo).\n"
+"\n"
+"Haga clic en un dato para copiarlo. «Guardar el informe en PDF» crea un documento con todo lo que ve, listo para imprimir o enviar; también puede imprimirlo o guardarlo como texto. Los números de serie, el UUID, las direcciones MAC y el usuario se ocultan en la pantalla y en el informe salvo que active Ver → Mostrar números de serie."
+msgstr ""
+"When it opens, the app reads what the system knows about the computer: on macOS with sysctl and system_profiler; on Windows with the Win32 API and PowerShell (Get-CimInstance); on Linux, with /proc. Nothing leaves the computer.\n"
+"\n"
+"On the left pick a part: the summary, the system, the processor, the memory, the model and firmware, the graphics and displays, the storage, the network, the battery, the audio or the peripherals. The processor usage (of each core), the memory, the network, the disks and the battery are measured every second (View → Live Readings).\n"
+"\n"
+"Click a value to copy it. \"Save the Report as PDF\" creates a document with everything you see, ready to print or send; you can also print it or save it as text. Serial numbers, the UUID, MAC addresses and the user name are hidden on screen and in the report unless you turn on View → Show Serial Numbers."
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Alimentación"
+msgstr "Power source"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Almacenamiento"
+msgstr "Storage"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Analizado a las {0} · {1}"
+msgstr "Analyzed at {0} · {1}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Analizando el equipo…"
+msgstr "Analyzing the computer…"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Analizar de nuevo"
+msgstr "Analyze again"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Apagar la pantalla tras"
+msgstr "Turn the display off after"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Apps"
+msgstr "Apps"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Archivos en caché"
+msgstr "Cached files"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Arquitectura"
+msgstr "Architecture"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
+msgid "Audio"
+msgstr "Audio"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Bajada"
+msgstr "Download"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Batería"
+msgstr "Battery"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Batería y energía"
+msgstr "Battery and Power"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Bloqueo de activación"
+msgstr "Activation Lock"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Bluetooth: conectados"
+msgstr "Bluetooth: connected"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Bluetooth: emparejados, sin conectar"
+msgstr "Bluetooth: paired, not connected"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Buena"
+msgstr "Good"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Bus"
+msgstr "Bus"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cachés"
+msgstr "Caches"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cada núcleo"
+msgstr "Each core"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Capacidad"
+msgstr "Capacity"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Capacidad máxima"
+msgstr "Maximum capacity"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Carga"
+msgstr "Charge"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Carga media (1, 5 y 15 min)"
+msgstr "Load average (1, 5 and 15 min)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cargada"
+msgstr "Charged"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cargador"
+msgstr "Charger"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cargador del sistema"
+msgstr "OS loader"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Cargando"
+msgstr "Charging"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Chip"
+msgstr "Chip"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Chipset"
+msgstr "Chipset"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Ciclos de carga"
+msgstr "Charge cycles"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Clic: copiar"
+msgstr "Click: copy"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Compilación"
+msgstr "Build"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Comprimida"
+msgstr "Compressed"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Con la batería"
+msgstr "On battery"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Conectado"
+msgstr "Connected"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Conexión del disco"
+msgstr "Disk connection"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Configuración"
+msgstr "Configuration"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Controlador"
+msgstr "Driver"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/ui/screens/code_git.dart
+msgid "Copiado: {0}"
+msgstr "Copied: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Copiar el informe"
+msgstr "Copy the Report"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Desconocido"
+msgstr "Unknown"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Dirección IPv4"
+msgstr "IPv4 address"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Dirección MAC"
+msgstr "MAC address"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Disco de arranque"
+msgstr "Startup disk"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Disco extraíble"
+msgstr "Removable disk"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Disco físico"
+msgstr "Physical drive"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Discos"
+msgstr "Drives"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Dispositivos de audio"
+msgstr "Audio devices"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Duplicada"
+msgstr "Mirrored"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "El equipo"
+msgstr "The computer"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "El informe está en el portapapeles"
+msgstr "The report is on the clipboard"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "El procesador en el último minuto"
+msgstr "The processor in the last minute"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "En este momento"
+msgstr "Right now"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Encendido"
+msgstr "On"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Encendido desde hace {0}"
+msgstr "Up for {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Encendido el"
+msgstr "Started on"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_investor.dart
+msgid "Energía"
+msgstr "Energy"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Entrada"
+msgstr "Input"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Entrada predeterminada"
+msgstr "Default input"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Espacio en los discos"
+msgstr "Disk space"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Estado"
+msgstr "Condition"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Este equipo no tiene batería"
+msgstr "This computer has no battery"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Fabricada"
+msgstr "Manufactured"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Fabricante"
+msgstr "Manufacturer"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Fija"
+msgstr "Wired"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Firmware (BIOS/UEFI)"
+msgstr "Firmware (BIOS/UEFI)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Frecuencia"
+msgstr "Frequency"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Frecuencia de muestreo"
+msgstr "Sample rate"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Frecuencia máxima"
+msgstr "Maximum frequency"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Generado el {0} con Inspector del equipo (DMarlon Studio)"
+msgstr "Generated on {0} with Hardware Inspector (DMarlon Studio)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Gráficos"
+msgstr "Graphics"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Gráficos y pantallas"
+msgstr "Graphics and Displays"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Guardar el informe como texto…"
+msgstr "Save the Report as Text…"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Guardar el informe en PDF…"
+msgstr "Save the Report as PDF…"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Guardar en PDF"
+msgstr "Save as PDF"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Haga clic en un dato para copiarlo. Los números de serie se ocultan en la pantalla y en el informe: Ver → Mostrar números de serie."
+msgstr "Click a value to copy it. Serial numbers are hidden on screen and in the report: View → Show Serial Numbers."
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_port_scanner.dart
+msgid "Hilos"
+msgstr "Threads"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Identificador del modelo"
+msgstr "Model identifier"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Imprimir"
+msgstr "Print"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Imprimir el informe…"
+msgstr "Print the Report…"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Informe del equipo"
+msgstr "Hardware Report"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Informe guardado: {0}"
+msgstr "Report saved: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Inspector del equipo"
+msgstr "Hardware Inspector"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Inspector del equipo (C++)"
+msgstr "Hardware Inspector (C++)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Inspector del equipo en C++ con FLTK: lee el hardware y el sistema, mide el uso en directo y guarda un informe en PDF."
+msgstr "A hardware inspector in C++ with FLTK: it reads the hardware and the system, measures live usage and saves a PDF report."
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Instalado el"
+msgstr "Installed on"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Intercambio: {0} de {1}"
+msgstr "Swap: {0} of {1}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Interfaz"
+msgstr "Interface"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Interno"
+msgstr "Internal"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "L1 (datos)"
+msgstr "L1 (data)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "L1 (instrucciones)"
+msgstr "L1 (instructions)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "L2 (núcleos de eficiencia)"
+msgstr "L2 (efficiency cores)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "L2 (núcleos de rendimiento)"
+msgstr "L2 (performance cores)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "La batería ahora"
+msgstr "The battery now"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "La memoria ahora"
+msgstr "Memory now"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Las secciones, las gráficas en directo y el informe los dibuja el código de Form1.cpp"
+msgstr "The sections, the live charts and the report are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Lecturas en directo"
+msgstr "Live Readings"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Libre"
+msgstr "Free"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Línea de caché"
+msgstr "Cache line"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Memoria"
+msgstr "Memory"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Memoria"
+msgstr "Memory"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Memoria de vídeo"
+msgstr "Video memory"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Memoria en uso"
+msgstr "Memory in use"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Memoria virtual segura"
+msgstr "Secure virtual memory"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Mi equipo"
+msgstr "My computer"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Midiendo…"
+msgstr "Measuring…"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Modelo"
+msgstr "Model"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Modelo de la batería"
+msgstr "Battery model"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Modelo y firmware"
+msgstr "Model and Firmware"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Modo de arranque"
+msgstr "Boot mode"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Modo de bajo consumo"
+msgstr "Low Power Mode"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Modo seguro"
+msgstr "Safe mode"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Mostrar números de serie"
+msgstr "Show Serial Numbers"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Máscara de subred"
+msgstr "Subnet mask"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Módulos de memoria"
+msgstr "Memory modules"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Nada conectado"
+msgstr "Nothing connected"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "No hay datos de esta parte en este equipo."
+msgstr "There is no data for this part on this computer."
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "No se pudo crear el PDF: {0}"
+msgstr "The PDF could not be created: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
+msgid "No se pudo guardar: {0}"
+msgstr "Could not save: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "No se pudo imprimir: {0}"
+msgstr "Could not print: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Nombre del equipo"
+msgstr "Computer name"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Nombre del modelo"
+msgstr "Model name"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Normal"
+msgstr "Normal"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Nunca"
+msgstr "Never"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Núcleo del sistema"
+msgstr "Kernel"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Núcleos"
+msgstr "Cores"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Núcleos de la GPU"
+msgstr "GPU cores"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Número de modelo"
+msgstr "Model number"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Número de pieza"
+msgstr "Part number"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Número de serie"
+msgstr "Serial number"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Oculto (Ver → Mostrar números de serie)"
+msgstr "Hidden (View → Show Serial Numbers)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Otras interfaces (sin conexión)"
+msgstr "Other interfaces (not connected)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Pantalla principal"
+msgstr "Main display"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Pantalla: {0}"
+msgstr "Display: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Pantallas"
+msgstr "Displays"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Periféricos"
+msgstr "Peripherals"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Placa base"
+msgstr "Motherboard"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Potencia"
+msgstr "Power"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Procesador"
+msgstr "Processor"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Procesador"
+msgstr "Processor"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+msgid "Producto"
+msgstr "Product"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Propietario registrado"
+msgstr "Registered owner"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Protección de la integridad del sistema"
+msgstr "System Integrity Protection"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Punto de montaje"
+msgstr "Mount point"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Red"
+msgstr "Network"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Reposo del equipo tras"
+msgstr "Computer sleep after"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Resolución"
+msgstr "Resolution"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
+msgid "Resumen"
+msgstr "Overview"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Revisión recomendada"
+msgstr "Service recommended"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Router"
+msgstr "Router"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/ui/screens/budget_screen.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Salida"
+msgstr "Output"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Salida predeterminada"
+msgstr "Default output"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Se puede escribir"
+msgstr "Writable"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Se puede girar"
+msgstr "Can rotate"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Se ve como"
+msgstr "Looks like"
+
+#: lib/code/tk_showcase_cpp_hardware.dart lib/ui/screens/settings_screen.dart
+msgid "Sistema"
+msgstr "System"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Sistema de archivos"
+msgstr "File system"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Sistema operativo"
+msgstr "Operating System"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Situación"
+msgstr "Status"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Subida"
+msgstr "Upload"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Teclados, ratones y otros"
+msgstr "Keyboards, mice and more"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Texto guardado: {0}"
+msgstr "Text saved: {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Tiempo encendido"
+msgstr "Uptime"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Tipo"
+msgstr "Type"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Tipo de disco"
+msgstr "Drive type"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Tipo de pantalla"
+msgstr "Display type"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Tipo de sistema"
+msgstr "System type"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgctxt "hardware"
+msgid "Transporte"
+msgstr "Transport"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Tráfico de red ahora"
+msgstr "Network traffic now"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "UUID del hardware"
+msgstr "Hardware UUID"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Un inspector del equipo nativo en C++ con FLTK: el sistema, el procesador, la memoria, los gráficos y las pantallas, los discos, la red, la batería, el audio y los periféricos, con el uso en directo y un informe para guardar en PDF o imprimir."
+msgstr "A native hardware inspector in C++ with FLTK: the system, the processor, the memory, the graphics and displays, the disks, the network, the battery, the audio and the peripherals, with live usage and a report to save as PDF or print."
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Una demo de DMarlon Studio: un inspector del equipo hecho en C++17 con FLTK {0}. La ventana, la barra lateral y el menú se diseñaron en el Diseñador del estudio; la lectura del equipo, las gráficas y el informe en PDF están en el código de Form1.cpp."
+msgstr "A DMarlon Studio demo: a hardware inspector made in C++17 with FLTK {0}. The window, the sidebar and the menu were designed in the studio's Designer; reading the computer, the charts and the PDF report are in the code of Form1.cpp."
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Uso del procesador"
+msgstr "Processor usage"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Uso del procesador ahora"
+msgstr "Processor usage now"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Velocidad del enlace"
+msgstr "Link speed"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Verificado"
+msgstr "Verified"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Versión"
+msgstr "Version"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Versión del firmware"
+msgstr "Firmware version"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Virtualización"
+msgstr "Virtualization"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Volumen de arranque"
+msgstr "Boot volume"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "Zócalo"
+msgstr "Socket"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "desde el {0}"
+msgstr "since {0}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "integrada"
+msgstr "built-in"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "lecturas en directo cada segundo"
+msgstr "live readings every second"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "lecturas en directo en pausa"
+msgstr "live readings paused"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "semana {0} de {1}"
+msgstr "week {0} of {1}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} %"
+msgstr "{0} %"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} canales"
+msgstr "{0} channels"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} ciclos"
+msgstr "{0} cycles"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} d {1} h"
+msgstr "{0} d {1} h"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} libres"
+msgstr "{0} free"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} min"
+msgstr "{0} min"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} núcleos"
+msgstr "{0} cores"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} núcleos ({1} de rendimiento y {2} de eficiencia)"
+msgstr "{0} cores ({1} performance and {2} efficiency)"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} núcleos de GPU"
+msgstr "{0} GPU cores"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} núcleos, {1} hilos"
+msgstr "{0} cores, {1} threads"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} por núcleo"
+msgstr "{0} per core"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} · analizado a las {1}"
+msgstr "{0} · analyzed at {1}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0} · {1} ciclos · capacidad máxima {2}"
+msgstr "{0} · {1} cycles · maximum capacity {2}"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "{0}: {1}, {2} libres"
+msgstr "{0}: {1}, {2} free"
+
+#: lib/code/tk_showcase_cpp_hardware.dart
+msgid "¿Abrir el informe?"
+msgstr "Open the report?"
 
 #: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Abrir como capa"
@@ -4848,10 +5695,6 @@ msgid "Las herramientas, el lienzo y los paneles los dibuja el código de Form1.
 msgstr "The tools, the canvas and the panels are drawn by the code in Form1.cpp"
 
 #: lib/code/tk_showcase_cpp_image_editor.dart
-msgid "Libre"
-msgstr "Free"
-
-#: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Lineal"
 msgstr "Linear"
 
@@ -4938,10 +5781,6 @@ msgstr "Could not open {0}: {1}"
 #: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "No se pudo guardar {0}: {1}"
 msgstr "Could not save {0}: {1}"
-
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
-msgid "Normal"
-msgstr "Normal"
 
 #: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Nueva capa"
@@ -6734,14 +7573,6 @@ msgstr "Reports"
 msgid "Por categoría"
 msgstr "By category"
 
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
-msgid "Producto"
-msgstr "Product"
-
-#: lib/code/tk_showcase_reports.dart lib/code/tk_showcase_sites.dart
-msgid "Resumen"
-msgstr "Overview"
-
 #: lib/code/tk_showcase_reports.dart
 msgid "Una tabla de ventas exportada a PDF (con totales, tabla por categoría y número de página) y a Excel (con varias hojas), sin instalar nada."
 msgstr "A sales table exported to PDF (with totals, a table by category and page numbers) and to Excel (with several sheets), with nothing to install."
@@ -6877,10 +7708,6 @@ msgstr "You save {0}"
 #: lib/code/tk_showcase_sites.dart
 msgid "Altavoz portátil resistente al agua con sonido de 360 grados."
 msgstr "Waterproof portable speaker with 360-degree sound."
-
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
-msgid "Audio"
-msgstr "Audio"
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Auriculares inalámbricos con cancelación de ruido y 40 horas de autonomía."
@@ -8077,10 +8904,6 @@ msgid "Efectivo insuficiente: necesita {0} y tiene {1}."
 msgstr "Not enough cash: you need {0} and have {1}."
 
 #: lib/code/tk_showcase_util_investor.dart
-msgid "Energía"
-msgstr "Energy"
-
-#: lib/code/tk_showcase_util_investor.dart
 msgid "Escriba una cantidad entera mayor que cero."
 msgstr "Enter a whole quantity greater than zero."
 
@@ -8355,10 +9178,6 @@ msgstr "Could not open the playlist: {0}"
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "No se pudo abrir la salida de sonido: {0}"
 msgstr "Could not open the sound output: {0}"
-
-#: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
-msgid "No se pudo guardar: {0}"
-msgstr "Could not save: {0}"
 
 #: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
 msgid "No se pudo reproducir {0}: {1}"
@@ -10011,10 +10830,6 @@ msgstr "Export CSV…"
 #: lib/code/tk_showcase_util_port_scanner.dart
 msgid "Exportar los resultados"
 msgstr "Export the results"
-
-#: lib/code/tk_showcase_util_port_scanner.dart
-msgid "Hilos"
-msgstr "Threads"
 
 #: lib/code/tk_showcase_util_port_scanner.dart
 msgid "La espera debe ser un número de segundos entre 0,05 y 10."
@@ -11698,10 +12513,6 @@ msgstr "Budget saved."
 msgid "Restante"
 msgstr "Remaining"
 
-#: lib/ui/screens/budget_screen.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Salida"
-msgstr "Output"
-
 #: lib/ui/screens/budget_screen.dart
 msgid "Sin datos todavía."
 msgstr "No data yet."
@@ -11889,10 +12700,6 @@ msgstr "Keep the changes staged"
 #: lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart
 msgid "Control de código"
 msgstr "Source control"
-
-#: lib/ui/screens/code_git.dart
-msgid "Copiado: {0}"
-msgstr "Copied: {0}"
 
 #: lib/ui/screens/code_git.dart
 msgid "Copiar el hash"
@@ -13111,10 +13918,6 @@ msgid "La IA diseña ventanas, escribe los manejadores de eventos, propone cambi
 msgstr "The AI designs windows, writes event handlers, proposes changes in the Editor and draws diagrams. The key is stored only on this computer."
 
 #: lib/ui/screens/settings_screen.dart
-msgid "Sistema"
-msgstr "System"
-
-#: lib/ui/screens/settings_screen.dart
 msgid "URL base de la API"
 msgstr "API base URL"
 
@@ -13265,10 +14068,6 @@ msgstr "Max ms"
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "No hay puntos de parada. Haga clic a la izquierda de un número de línea en la pestaña Código, o pulse F5 en la línea del cursor. Con clic derecho se le pone una condición."
 msgstr "There are no breakpoints. Click to the left of a line number in the Code tab, or press F5 on the cursor line. Right-click to give it a condition."
-
-#: lib/ui/screens/tk_debug_panel.dart
-msgid "Nunca"
-msgstr "Never"
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "Objetos"

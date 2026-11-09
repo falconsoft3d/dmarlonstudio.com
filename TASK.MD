@@ -55,6 +55,7 @@ Hechos
 61. Componente Lienzo en el editor de pantallas (HTML, React, Vue, Next.js y Flutter) y el dominó doble 9 jugable en la web de demos | ✅ |
 62. Editor de imágenes en C++ inspirado en Photoshop: recortar, editar, capas, cambiar tamaño, rotar, convertir y más | ✅ |
 63. Buscador de vuelos en C++ (FLTK): vigila rutas con Travelpayouts cada 30 minutos, mejor precio por aerolínea y dónde comprar, ejemplo del estudio y demo | ✅ |
+67. Inspector del equipo en C++ (FLTK): sistema, procesador, memoria, modelo y firmware, gráficos, discos, red, batería, audio y periféricos, uso en directo e informe en PDF para imprimir; ejemplo del estudio y demo | ✅ |
 
 
 Trabajando

@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Diecinueve aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veinte aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -120,7 +120,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: diecinueve aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veinte aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -239,6 +239,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Vigila sus rutas: al abrirse y cada 30 minutos analiza los precios de todas las aerolíneas (Travelpayouts, la API de Aviasales), dice el mejor precio de cada una y dónde comprarlo, el día más barato del mes y cómo cambia el precio, y avisa cuando baja. Sin token, con datos de ejemplo. En macOS, para Apple Silicon.",
         shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Consultas a una API REST con curl y JSON leído a mano", "Tablas y gráficas dibujadas en código, con avisos del sistema"],
       },
+      cpp_hardware: {
+        name: "Inspector del equipo (C++)",
+        text: "Analiza su ordenador: el sistema, el procesador (con cada núcleo), la memoria, el modelo y el firmware, los gráficos y las pantallas, los discos, la red, la batería, el audio y los periféricos, con el uso en directo cada segundo. Guarda un informe en PDF, lo imprime o lo copia. Nada sale del equipo. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Datos de sysctl y system_profiler (macOS) o Win32 y PowerShell (Windows)", "Un informe en PDF de varias páginas dibujado con FLTK, sin más bibliotecas"],
+      },
       pascal_malecon: {
         name: "Bajo la Sombra del Malecón (Pascal)",
         text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
@@ -255,7 +260,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Nineteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -317,7 +322,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: nineteen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -436,6 +441,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "It watches your routes: when it opens and every 30 minutes it checks the prices of every airline (Travelpayouts, the Aviasales API), shows each one's best price and where to buy it, the cheapest day of the month and how the price changes, and alerts you when it drops. Without a token, with sample data. On macOS, for Apple Silicon.",
         shows: ["A native C++ app with FLTK, designed in the studio", "REST API queries with curl and hand-parsed JSON", "Tables and charts drawn in code, with system alerts"],
       },
+      cpp_hardware: {
+        name: "Hardware Inspector (C++)",
+        text: "It analyzes your computer: the system, the processor (with each core), the memory, the model and firmware, the graphics and displays, the disks, the network, the battery, the audio and the peripherals, with live usage every second. It saves a PDF report, prints it or copies it. Nothing leaves the computer. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK, designed in the studio", "Data from sysctl and system_profiler (macOS) or Win32 and PowerShell (Windows)", "A multi-page PDF report drawn with FLTK, no other libraries"],
+      },
       pascal_malecon: {
         name: "Under the Shadow of the Malecón (Pascal)",
         text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
@@ -516,6 +526,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_racing: { icon: "cpp", label: "C++ · FLTK" },
   cpp_image_editor: { icon: "cpp", label: "C++ · FLTK" },
   cpp_flights: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_hardware: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 

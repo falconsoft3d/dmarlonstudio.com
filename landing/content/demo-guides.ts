@@ -157,6 +157,15 @@ const es: Record<string, DemoGuide> = {
       { title: "El día más barato y los avisos", text: "Las barras dan el precio de cada día del mes (en verde, el más barato; haga clic en un día para comprarlo) y la línea, cómo ha cambiado el mejor precio en cada análisis. Si baja, o pasa por debajo de su precio, la app le avisa. Para precios reales, ponga su token gratuito de Travelpayouts en Ajustes." },
     ],
   },
+  cpp_hardware: {
+    intro:
+      "Un inspector del equipo hecho en C++ con FLTK y diseñado en el estudio: la ventana, la lista de secciones, los botones y el reloj salen del Diseñador; las tarjetas, las gráficas en directo y el informe se dibujan en el código. Lee el equipo con sysctl y system_profiler en macOS y con la API de Win32 y PowerShell en Windows; nada sale del ordenador.",
+    steps: [
+      { title: "Recorra cada parte del equipo", text: "El resumen da lo principal de un vistazo: el modelo, el sistema, el procesador, la memoria, los gráficos, el disco, la batería y la red, y cada tarjeta lleva a su sección. A la izquierda están el procesador (con sus cachés), el modelo y el firmware, los gráficos y las pantallas, los discos, la red, el audio y los periféricos USB y Bluetooth. Un clic en un dato lo copia." },
+      { title: "Mida el uso en directo", text: "Cada segundo se mide el uso del procesador y de cada núcleo (en los chips de Apple, los de eficiencia y los de rendimiento por separado), la memoria por partes (apps, fija, comprimida y caché), el tráfico de red, el espacio de los discos y la batería, con la gráfica del último minuto. Se pausa en Ver → Lecturas en directo." },
+      { title: "Guarde el informe en PDF", text: "«Guardar en PDF» crea un documento de varias páginas con todas las secciones y las lecturas del momento, listo para enviar o archivar; también se puede imprimir, guardar como texto o copiar. Los números de serie, el UUID, las direcciones MAC y el usuario van ocultos salvo que active Ver → Mostrar números de serie." },
+    ],
+  },
   pascal_malecon: {
     intro:
       "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
@@ -373,6 +382,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Add a route", text: "On the left enter the origin and the destination (cities or IATA codes, like MAD or HAV), the departure (a month, 2026-12, or a day, 2026-12-20) and, if you like, the return, the currency and a price in \"Alert below\". Press \"Add and check\": the route is watched and checked when the app opens and every 30 minutes." },
       { title: "See where to buy", text: "At the top, the best price, the average price and what has changed since the previous check. Below, the cheapest fare of each airline with the departure, the return, the stops and the duration; \"Buy\" opens that flight in Aviasales, which compares the agencies and the airline's website." },
       { title: "The cheapest day and the alerts", text: "The bars give the price of each day of the month (in green, the cheapest; click a day to buy it) and the line shows how the best price has changed at each check. If it drops, or goes below your price, the app alerts you. For real prices, enter your free Travelpayouts token in Settings." },
+    ],
+  },
+  cpp_hardware: {
+    intro:
+      "A hardware inspector made in C++ with FLTK and designed in the studio: the window, the list of sections, the buttons and the clock come from the Designer; the cards, the live charts and the report are drawn by the code. It reads the computer with sysctl and system_profiler on macOS and with the Win32 API and PowerShell on Windows; nothing leaves the computer.",
+    steps: [
+      { title: "Go through each part of the computer", text: "The overview shows the main facts at a glance: the model, the system, the processor, the memory, the graphics, the disk, the battery and the network, and each card takes you to its section. On the left are the processor (with its caches), the model and firmware, the graphics and displays, the disks, the network, the audio and the USB and Bluetooth peripherals. Click a value to copy it." },
+      { title: "Measure usage live", text: "Every second it measures the usage of the processor and of each core (on Apple chips, efficiency and performance cores separately), the memory by parts (apps, wired, compressed and cache), the network traffic, the disk space and the battery, with a chart of the last minute. Pause it in View → Live Readings." },
+      { title: "Save the report as PDF", text: "\"Save as PDF\" creates a multi-page document with every section and the current readings, ready to send or keep; you can also print it, save it as text or copy it. Serial numbers, the UUID, MAC addresses and the user name stay hidden unless you turn on View → Show Serial Numbers." },
     ],
   },
   pascal_malecon: {

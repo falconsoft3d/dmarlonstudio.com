@@ -453,8 +453,8 @@ def cpp_binary(d: Path, name: str):
     env = {**os.environ, "MSYSTEM": "UCRT64", "CHERE_INVOKING": "1"}
     base = ("g++ -std=c++17 -O2 -s $(fltk-config --use-images --cxxflags) main.cpp -o app.exe "
             "-mwindows -static-libgcc -static-libstdc++ ")
-    static = base + "-static $(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32"
-    shared = base + "$(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32"
+    static = base + "-static $(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32 -lws2_32"
+    shared = base + "$(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32 -lws2_32"
 
     def sh_run(script):
         print("$", script, flush=True)

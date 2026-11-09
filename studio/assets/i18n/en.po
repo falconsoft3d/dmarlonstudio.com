@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -837,7 +837,7 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr "Text"
 
@@ -3349,7 +3349,7 @@ msgstr "The calculator as a native C++ app with FLTK: the same design, with the 
 msgid " - copia"
 msgstr " - copy"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "%d/%m/%Y %H:%M"
 msgstr "%m/%d/%Y %H:%M"
 
@@ -3357,7 +3357,7 @@ msgstr "%m/%d/%Y %H:%M"
 msgid "(Sin marcadores)"
 msgstr "(No bookmarks)"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
 
@@ -3935,7 +3935,7 @@ msgstr "Removable drive"
 msgid "Varios tipos"
 msgstr "Multiple types"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -4122,7 +4122,7 @@ msgstr "Get a free token"
 msgid "Cómo cambia el mejor precio"
 msgstr "How the best price changes"
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -4487,7 +4487,7 @@ msgstr "Analyzed at {0} · {1}"
 msgid "Analizando el equipo…"
 msgstr "Analyzing the computer…"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "Analizar de nuevo"
 msgstr "Analyze again"
 
@@ -4634,7 +4634,7 @@ msgstr "Driver"
 msgid "Copiado: {0}"
 msgstr "Copied: {0}"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "Copiar el informe"
 msgstr "Copy the Report"
 
@@ -4678,7 +4678,7 @@ msgstr "Mirrored"
 msgid "El equipo"
 msgstr "The computer"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "El informe está en el portapapeles"
 msgstr "The report is on the clipboard"
 
@@ -4769,7 +4769,7 @@ msgstr "Graphics"
 msgid "Gráficos y pantallas"
 msgstr "Graphics and Displays"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "Guardar el informe como texto…"
 msgstr "Save the Report as Text…"
 
@@ -4956,7 +4956,7 @@ msgstr "There is no data for this part on this computer."
 msgid "No se pudo crear el PDF: {0}"
 msgstr "The PDF could not be created: {0}"
 
-#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_port_scanner.dart
 msgid "No se pudo guardar: {0}"
 msgstr "Could not save: {0}"
 
@@ -5081,7 +5081,7 @@ msgstr "Overview"
 msgid "Revisión recomendada"
 msgstr "Service recommended"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "Router"
 msgstr "Router"
 
@@ -5129,7 +5129,7 @@ msgstr "Upload"
 msgid "Teclados, ratones y otros"
 msgstr "Keyboards, mice and more"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart
 msgid "Texto guardado: {0}"
 msgstr "Text saved: {0}"
 
@@ -5341,7 +5341,7 @@ msgctxt "image"
 msgid "Alto"
 msgstr "Height"
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Ancho"
 msgstr "Width"
 
@@ -6245,6 +6245,779 @@ msgstr ""
 "F11: full screen\n"
 "\n"
 "Brake before the tight bends: if you go in too fast, the bike runs wide onto the grass. Off the track you lose speed, and hitting a tree or a grandstand means a crash."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Abierta (sin contraseña)"
+msgstr "Open (no password)"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Abierto"
+msgstr "Open"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Acceso remoto cifrado"
+msgstr "Encrypted remote access"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Acceso remoto sin cifrar: ciérrelo"
+msgstr "Unencrypted remote access: close it"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Aceptable"
+msgstr "Acceptable"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Acerca de Wifi de casa"
+msgstr "About Home Wi-Fi"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Activado"
+msgstr "Enabled"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Adaptador"
+msgstr "Adapter"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid ""
+"Al abrirse, y cada minuto, la app lee la wifi de este equipo: en macOS con system_profiler e ipconfig, en Windows con netsh wlan y en Linux con nmcli. Ve la red a la que está conectado, las de alrededor (canal, banda, ancho, señal, seguridad y estándar) y prueba desde dentro de casa qué deja abierto el router (Telnet, FTP, la página de configuración, UPnP) y cuánto tarda en responder.\n"
+"\n"
+"Con todo eso hace un diagnóstico con una nota de 0 a 100: lo grave, lo importante y lo que se puede mejorar, con qué hacer en cada caso (por ejemplo, a qué canal cambiar). Haga clic en cada punto para ver el detalle.\n"
+"\n"
+"En Contraseña puede escribir la de su wifi: se comprueba en este equipo (lo larga que es, si es de las más usadas, si lleva el nombre de la red, años o secuencias del teclado) y se estima cuánto tardarían en adivinarla. No se guarda, no se envía y no sale en el informe."
+msgstr ""
+"When it opens, and every minute, the app reads this computer's Wi-Fi: on macOS with system_profiler and ipconfig, on Windows with netsh wlan and on Linux with nmcli. It sees the network you are connected to and the ones around (channel, band, width, signal, security and standard), and it checks from inside your home what the router leaves open (Telnet, FTP, the settings page, UPnP) and how long it takes to answer.\n"
+"\n"
+"With all that it makes a diagnosis with a score from 0 to 100: what is serious, what is important and what can be improved, with what to do in each case (for example, which channel to switch to). Click each point to see the details.\n"
+"\n"
+"In Password you can type your Wi-Fi's: it is checked on this computer (how long it is, whether it is one of the most used, whether it contains the network's name, years or keyboard sequences) and it estimates how long it would take to guess. It is not saved, not sent and not in the report."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Analiza la red a la que está conectado, las de alrededor y el router. La contraseña se comprueba en este equipo y no se guarda."
+msgstr "It analyzes the network you are connected to, the ones around and the router. The password is checked on this computer and is not saved."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Analizada a las {0} · {1}"
+msgstr "Analyzed at {0} · {1}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Analizando la wifi…"
+msgstr "Analyzing the Wi-Fi…"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Analizar cada minuto"
+msgstr "Analyze every minute"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Ancho de 20 MHz en 5 GHz"
+msgstr "20 MHz width on 5 GHz"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Ancho de 40 MHz en 2,4 GHz"
+msgstr "40 MHz width on 2.4 GHz"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Archivos sin cifrar"
+msgstr "Unencrypted file sharing"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Banda"
+msgstr "Band"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Bien"
+msgstr "Good"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Bien: larga y sin patrones. Guárdela en un gestor de contraseñas."
+msgstr "Good: long and without patterns. Keep it in a password manager."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Buena señal"
+msgstr "Good signal"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Buena: llega con fuerza"
+msgstr "Good: it arrives strong"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Cada persona entra con su propia cuenta: lo habitual en empresas."
+msgstr "Each person signs in with their own account: the usual in companies."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Cada red es una montaña: su ancho es el de su canal y su altura, la señal que llega aquí. Las que se tocan se estorban. La suya va en azul y, si hay un canal mejor, sale en verde."
+msgstr "Each network is a hill: its width is its channel's and its height, the signal that reaches here. The ones that touch get in each other's way. Yours is in blue and, if there is a better channel, it shows in green."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Canal"
+msgstr "Channel"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Canales"
+msgstr "Channels"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Caracteres"
+msgstr "Characters"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Cerrado"
+msgstr "Closed"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Comparte archivos sin cifrar. Si no lo usa, desactívelo."
+msgstr "It shares files without encryption. If you don't use it, turn it off."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Comprobar la contraseña…"
+msgstr "Check the password…"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Comprobar otra contraseña…"
+msgstr "Check another password…"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Compruebe la contraseña de la wifi"
+msgstr "Check the Wi-Fi password"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Con cien tarjetas gráficas"
+msgstr "With a hundred graphics cards"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Con la conexión capturada, cien tarjetas gráficas la adivinarían en {0}."
+msgstr "With the connection captured, a hundred graphics cards would guess it in {0}."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Con tantas redes alrededor, 40 MHz en 2,4 GHz pisa a los vecinos y empeora a todos. Ponga 20 MHz en el router."
+msgstr "With so many networks around, 40 MHz on 2.4 GHz overlaps the neighbors and makes everyone worse. Set 20 MHz on the router."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Con una tarjeta gráfica"
+msgstr "With one graphics card"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Conectado a {0} · {1}"
+msgstr "Connected to {0} · {1}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Contraseña"
+msgstr "Password"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Conéctese a la red de su casa y pulse Analizar de nuevo. Con cable, la app solo ve las redes de alrededor."
+msgstr "Connect to your home network and press Analyze again. With a cable, the app only sees the networks around."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Cualquiera cerca puede usar su conexión y ver lo que no vaya cifrado. Active WPA2 o WPA3 en el router con una contraseña larga."
+msgstr "Anyone nearby can use your connection and see whatever isn't encrypted. Turn on WPA2 or WPA3 on the router with a long password."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Deja que cualquier programa de la casa abra puertos hacia internet sin preguntar. Si no lo necesita (consolas, algunos juegos), desactívelo."
+msgstr "It lets any program in the house open ports to the internet without asking. If you don't need it (consoles, some games), turn it off."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Desconocida"
+msgstr "Unknown"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Diagnóstico"
+msgstr "Diagnostics"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Dirección IP"
+msgstr "IP address"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Débil"
+msgstr "Weak"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Débil: acérquese al router"
+msgstr "Weak: move closer to the router"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El canal {0} está bien"
+msgstr "Channel {0} is fine"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El canal {0} está lleno"
+msgstr "Channel {0} is crowded"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El diagnóstico, las redes, los canales y el router los dibuja el código de Form1.cpp"
+msgstr "The diagnosis, the networks, the channels and the router are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El router acepta también el cifrado antiguo (TKIP), más débil y más lento. Elija solo WPA2 con AES (CCMP), o WPA2/WPA3."
+msgstr "The router also accepts the old encryption (TKIP), weaker and slower. Choose WPA2 with AES (CCMP) only, or WPA2/WPA3."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El router no abre servicios peligrosos"
+msgstr "The router doesn't open dangerous services"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El router tarda en responder"
+msgstr "The router is slow to answer"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El router tiene FTP abierto"
+msgstr "The router has FTP open"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El router tiene Telnet abierto"
+msgstr "The router has Telnet open"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "El sistema no ha dicho qué seguridad tiene la red. Compruébelo en la página del router."
+msgstr "The system didn't say what security the network has. Check it on the router's page."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "En 5 GHz hay sitio: con 80 MHz la wifi puede ir hasta cuatro veces más rápida."
+msgstr "There is room on 5 GHz: with 80 MHz the Wi-Fi can be up to four times faster."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Es la misma mitad dos veces."
+msgstr "It is the same half twice."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Es peligrosa"
+msgstr "It is dangerous"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Es una de las contraseñas más usadas: es lo primero que se prueba."
+msgstr "It is one of the most used passwords: it is the first thing tried."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Es una palabra conocida con números: se adivina enseguida."
+msgstr "It is a known word with numbers: it is guessed right away."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Escriba la contraseña de su wifi y la app le dirá lo fuerte que es y cuánto tardaría alguien en adivinarla. Se comprueba aquí: no se guarda, no se envía y no sale en el informe."
+msgstr "Type your Wi-Fi password and the app will tell you how strong it is and how long it would take someone to guess it. It is checked here: it is not saved, not sent and not in the report."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Escríbala en la sección Contraseña: se comprueba en este equipo y no se guarda ni se envía."
+msgstr "Type it in the Password section: it is checked on this computer and is neither saved nor sent."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Este equipo no está conectado a una wifi"
+msgstr "This computer isn't connected to a Wi-Fi network"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Está en la banda de 2,4 GHz"
+msgstr "It is on the 2.4 GHz band"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Estándar"
+msgstr "Standard"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Fuerte"
+msgstr "Strong"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Fuerza estimada"
+msgstr "Estimated strength"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Grave"
+msgstr "Serious"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Hay mucho ruido"
+msgstr "There is a lot of noise"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Importante"
+msgstr "Important"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Informe de la wifi"
+msgstr "Wi-Fi report"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Justa: el vídeo puede cortarse"
+msgstr "Fair: video may cut out"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La banda de 2,4 GHz llega más lejos, pero es más lenta y está más llena. Si su router tiene 5 GHz, úsela cerca de él."
+msgstr "The 2.4 GHz band reaches farther, but it is slower and more crowded. If your router has 5 GHz, use it near the router."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La conexión con el router es lenta"
+msgstr "The link to the router is slow"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La conexión es {0}. Un router con Wi-Fi 5 (ac) o Wi-Fi 6 (ax) iría bastante más rápido."
+msgstr "The connection is {0}. A router with Wi-Fi 5 (ac) or Wi-Fi 6 (ax) would be much faster."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La configuración (http://{0}) no usa HTTPS: la contraseña de administrador viaja en claro por la wifi. Cámbiela por una propia y no la use desde redes de otros."
+msgstr "The settings (http://{0}) don't use HTTPS: the admin password travels in clear over the Wi-Fi. Change it to your own and don't use it from other people's networks."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña de la wifi (se comprueba en este equipo y no se guarda):"
+msgstr "The Wi-Fi password (it is checked on this computer and not saved):"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña es aceptable"
+msgstr "The password is acceptable"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña es débil"
+msgstr "The password is weak"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña es fuerte"
+msgstr "The password is strong"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña es muy débil"
+msgstr "The password is very weak"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La contraseña se olvida al comprobarla. El tiempo supone que alguien ha capturado la conexión de un equipo a su wifi (el saludo de WPA2) y prueba contraseñas: unos 2,5 millones por segundo con una tarjeta gráfica actual."
+msgstr "The password is forgotten once checked. The time assumes someone has captured a device connecting to your Wi-Fi (the WPA2 handshake) and tries passwords: about 2.5 million per second with a current graphics card."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La gestión remota del operador"
+msgstr "The provider's remote management"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La página de configuración, cifrada"
+msgstr "The settings page, encrypted"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La página de configuración, sin cifrar"
+msgstr "The settings page, unencrypted"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La página del router va sin cifrar"
+msgstr "The router's page is unencrypted"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "La señal está solo {0} dB por encima del ruido (lo bueno son más de 25). Aleje el router de microondas, teléfonos inalámbricos y otros aparatos."
+msgstr "The signal is only {0} dB above the noise (over 25 is good). Keep the router away from microwaves, cordless phones and other devices."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Las redes de alrededor apenas lo pisan."
+msgstr "The networks around barely overlap it."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Lleva el nombre de la red."
+msgstr "It contains the network's name."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Lleva un año: las fechas son de lo primero que se prueba."
+msgstr "It contains a year: dates are among the first things tried."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Lleva una secuencia del teclado o del abecedario ({0} seguidos)."
+msgstr "It contains a keyboard or alphabet sequence ({0} in a row)."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Lo comparten redes vecinas (ocupación {0}). En el router, cambie al canal {1}, el más libre ahora mismo."
+msgstr "Neighboring networks share it (load {0}). On the router, switch to channel {1}, the freest right now."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Lo que el router deja abierto en la red de casa"
+msgstr "What the router leaves open on your home network"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Los equipos que pueden usan WPA3, que protege aunque alguien capture la conexión; los demás, WPA2."
+msgstr "Devices that can use WPA3, which protects even if someone captures the connection; the rest, WPA2."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Mejora"
+msgstr "Tip"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Mi red"
+msgstr "My network"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Mi wifi"
+msgstr "My Wi-Fi"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Modo mixto WPA/WPA2 (con TKIP)"
+msgstr "Mixed WPA/WPA2 mode (with TKIP)"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgctxt "wifi"
+msgid "Muy débil"
+msgstr "Very weak"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Ni Telnet ni FTP, y no anuncia UPnP."
+msgstr "No Telnet or FTP, and it doesn't announce UPnP."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Ninguna red en esta banda."
+msgstr "No networks on this band."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "No responde"
+msgstr "Not responding"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "No se conecte a ellas sin una VPN: lo que no vaya cifrado se puede ver."
+msgstr "Don't connect to them without a VPN: whatever isn't encrypted can be seen."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "No se ha podido revisar el router (sin conexión o sin su dirección)."
+msgstr "The router could not be checked (no connection or no address)."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "No se pudo leer la wifi de este equipo."
+msgstr "Could not read this computer's Wi-Fi."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "No se sabe qué cifrado usa"
+msgstr "Its encryption is unknown"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Nota {0} · {1}"
+msgstr "Score {0} · {1}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Nota: {0} de 100 · {1}"
+msgstr "Score: {0} of 100 · {1}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Paquetes perdidos"
+msgstr "Lost packets"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "País de la wifi"
+msgstr "Wi-Fi country"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Pulse Analizar de nuevo."
+msgstr "Press Analyze again."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Red {0}"
+msgstr "Network {0}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Redes cercanas"
+msgstr "Nearby networks"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Redes cercanas: {0}"
+msgstr "Nearby networks: {0}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Repite caracteres seguidos."
+msgstr "It repeats characters in a row."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Ruido"
+msgstr "Noise"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Se oyen {0} redes más desde aquí, de la más fuerte a la más débil."
+msgstr "{0} more networks can be heard from here, from the strongest to the weakest."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Se pierden paquetes"
+msgstr "Packets are being lost"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Se puede mejorar"
+msgstr "It can be improved"
+
+#: lib/code/tk_showcase_cpp_wifi.dart lib/ui/screens/dev_tools.dart
+msgid "Seguridad"
+msgstr "Security"
+
+#: lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart
+msgid "Señal"
+msgstr "Signal"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Señal débil"
+msgstr "Weak signal"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Señal justa"
+msgstr "Fair signal"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Si su router lo permite, active WPA2/WPA3 (transición): los equipos nuevos usarán WPA3 y los viejos seguirán entrando."
+msgstr "If your router allows it, turn on WPA2/WPA3 (transition): new devices will use WPA3 and old ones will still connect."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Sin wifi"
+msgstr "No Wi-Fi"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Solo se prueba el router de esta red, desde dentro de casa. Para lo que se ve desde internet, revise en la página del router el acceso remoto y la redirección de puertos."
+msgstr "Only this network's router is tested, from inside your home. For what can be seen from the internet, check remote access and port forwarding on the router's page."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Solo tiene números."
+msgstr "It only has digits."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Solo usa un tipo de carácter."
+msgstr "It only uses one kind of character."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su equipo admite 5 GHz, más rápida y menos llena. Si el router la tiene, conéctese a ella (a veces es la red que acaba en «5G»)."
+msgstr "Your computer supports 5 GHz, faster and less crowded. If the router has it, connect to it (it is sometimes the network ending in “5G”)."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su red"
+msgstr "Your network"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su wifi está bien"
+msgstr "Your Wi-Fi is fine"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su wifi no tiene contraseña"
+msgstr "Your Wi-Fi has no password"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su wifi usa WEP, que se rompe en minutos"
+msgstr "Your Wi-Fi uses WEP, which breaks in minutes"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su wifi usa WPA, la primera versión"
+msgstr "Your Wi-Fi uses WPA, the first version"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Su wifi usa el cifrado más moderno."
+msgstr "Your Wi-Fi uses the most modern encryption."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Telnet deja entrar al router sin cifrar. Desactívelo en su configuración o pida al operador que lo cierre."
+msgstr "Telnet lets people into the router unencrypted. Turn it off in its settings or ask your provider to close it."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Tiempo hasta el router"
+msgstr "Time to the router"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Tiene menos de 12 caracteres: mejor 14 o más, o una frase."
+msgstr "It has fewer than 12 characters: 14 or more is better, or a phrase."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Tiene menos de 8 caracteres: WPA no la acepta."
+msgstr "It has fewer than 8 characters: WPA doesn't accept it."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Tiene problemas"
+msgstr "It has problems"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Tipos de caracteres"
+msgstr "Kinds of characters"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "UPnP está activado"
+msgstr "UPnP is on"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Un escáner de la wifi de casa nativo en C++ con FLTK: su red, las de alrededor, los canales, el router y la contraseña, con un diagnóstico de lo que falla y lo que se puede mejorar."
+msgstr "A native home Wi-Fi scanner in C++ with FLTK: your network, the ones around, the channels, the router and the password, with a diagnosis of what fails and what can be improved."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Un estándar antiguo"
+msgstr "An old standard"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Un {0} % de los paquetes al router no llega: hay interferencias o la señal es débil."
+msgstr "{0} % of the packets to the router don't arrive: there is interference or the signal is weak."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Una demo de DMarlon Studio: un escáner de la wifi de casa hecho en C++17 con FLTK {0}. La ventana, la barra lateral y el menú se diseñaron en el Diseñador del estudio; el análisis, el diagnóstico y los dibujos están en el código de Form1.cpp."
+msgstr "A DMarlon Studio demo: a home Wi-Fi scanner made in C++17 with FLTK {0}. The window, the sidebar and the menu were designed in the studio's Designer; the analysis, the diagnosis and the drawings are in the code of Form1.cpp."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Velocidad de la conexión"
+msgstr "Link speed"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WEP está roto desde hace años. Cambie en el router a WPA2 (AES) o, mejor, a WPA3."
+msgstr "WEP has been broken for years. Switch the router to WPA2 (AES) or, better, WPA3."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WPA con TKIP tiene fallos conocidos. Cambie en el router a WPA2 (AES) o a WPA3."
+msgstr "WPA with TKIP has known flaws. Switch the router to WPA2 (AES) or WPA3."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WPA/WPA2 (mixto)"
+msgstr "WPA/WPA2 (mixed)"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WPA2/WPA3: muy bien"
+msgstr "WPA2/WPA3: very good"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WPA2: segura con una buena contraseña"
+msgstr "WPA2: safe with a good password"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "WPA3: lo más seguro"
+msgstr "WPA3: the safest"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Wifi de casa"
+msgstr "Home Wi-Fi"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Wifi de casa (C++)"
+msgstr "Home Wi-Fi (C++)"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "Wifi de casa en C++ con FLTK: analiza la red, las de alrededor, los canales y el router, comprueba la contraseña y da un diagnóstico."
+msgstr "Home Wi-Fi in C++ with FLTK: it analyzes the network, the ones around, the channels and the router, checks the password and gives a diagnosis."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "análisis automático en pausa"
+msgstr "automatic analysis paused"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "la suya"
+msgstr "yours"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "macOS oculta los nombres de las redes a las apps sin permiso de ubicación."
+msgstr "macOS hides network names from apps without location permission."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "mejor: {0}"
+msgstr "best: {0}"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "menos de un segundo"
+msgstr "less than a second"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "más de cien mil años"
+msgstr "more than a hundred thousand years"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "más que la edad del universo"
+msgstr "longer than the age of the universe"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "se repite cada minuto"
+msgstr "repeated every minute"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "señal/ruido {0} dB"
+msgstr "signal/noise {0} dB"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} GHz · canal {1} · {2} dBm"
+msgstr "{0} GHz · channel {1} · {2} dBm"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} Mbps entre este equipo y el router: quizá menos de lo que da su internet. Acérquese o use 5 GHz."
+msgstr "{0} Mbps between this computer and the router: maybe less than your internet gives. Move closer or use 5 GHz."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} año"
+msgstr "{0} year"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} años"
+msgstr "{0} years"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} caracteres · {1} bits · {2} con una tarjeta gráfica · {3} con cien"
+msgstr "{0} characters · {1} bits · {2} with one graphics card · {3} with a hundred"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} de 4 (minúsculas, mayúsculas, números y símbolos)"
+msgstr "{0} of 4 (lowercase, uppercase, digits and symbols)"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} día"
+msgstr "{0} day"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} días"
+msgstr "{0} days"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} graves · {1} importantes · {2} mejoras"
+msgstr "{0} serious · {1} important · {2} tips"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} hora"
+msgstr "{0} hour"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} horas"
+msgstr "{0} hours"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} mes"
+msgstr "{0} month"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} meses"
+msgstr "{0} months"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} minuto"
+msgstr "{0} minute"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} minutos"
+msgstr "{0} minutes"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} ms hasta el router (lo normal son menos de 10): la wifi está saturada o la señal es débil."
+msgstr "{0} ms to the router (under 10 is normal): the Wi-Fi is congested or the signal is weak."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} redes abiertas o con WEP cerca"
+msgstr "{0} open or WEP networks nearby"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} segundo"
+msgstr "{0} second"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} segundos"
+msgstr "{0} seconds"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} siglo"
+msgstr "{0} century"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} siglos"
+msgstr "{0} centuries"
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0}: la wifi llega con fuerza hasta aquí."
+msgstr "{0}: the Wi-Fi reaches here strongly."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0}: la wifi llega con poca fuerza. Ponga el router en un sitio más central y sin obstáculos (paredes, muebles, el microondas) o añada un repetidor o una red mallada."
+msgstr "{0}: the Wi-Fi arrives weak. Put the router in a more central spot with no obstacles (walls, furniture, the microwave) or add a repeater or a mesh network."
+
+#: lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0}: va bien para navegar, pero el vídeo y las videollamadas pueden cortarse. Acérquese al router o súbalo a un sitio alto y despejado."
+msgstr "{0}: fine for browsing, but video and video calls may cut out. Move closer to the router or put it somewhere high and clear."
 
 #: lib/code/tk_showcase_domino.dart
 msgid "Acerca de Dominó doble 9"
@@ -7942,10 +8715,6 @@ msgstr "Server room"
 #: lib/code/tk_showcase_pascal_malecon.dart
 msgid "Se cayó el nodo de la red local. Hay que reiniciarlo desde la azotea."
 msgstr "The local network node is down. It has to be restarted from the rooftop."
-
-#: lib/code/tk_showcase_pascal_malecon.dart
-msgid "Señal"
-msgstr "Signal"
 
 #: lib/code/tk_showcase_pascal_malecon.dart
 msgid "Solenergía Caribe vendía dos veces los paneles «donados»: al Estado y al mercado negro."
@@ -13978,10 +14747,6 @@ msgstr "Testing…"
 #: lib/ui/screens/dev_tools.dart
 msgid "Pulse «Enviar» para ver la respuesta."
 msgstr "Press “Send” to see the response."
-
-#: lib/ui/screens/dev_tools.dart
-msgid "Seguridad"
-msgstr "Security"
 
 #: lib/ui/screens/dev_tools.dart
 msgid "Sin colección"

@@ -30,6 +30,8 @@ part 'tk_showcase_cpp_flights.dart';
 part 'tk_showcase_cpp_flights_code.dart';
 part 'tk_showcase_cpp_hardware.dart';
 part 'tk_showcase_cpp_hardware_code.dart';
+part 'tk_showcase_cpp_wifi.dart';
+part 'tk_showcase_cpp_wifi_code.dart';
 part 'tk_showcase_pascal.dart';
 part 'tk_showcase_pascal_malecon.dart';
 part 'tk_showcase_pascal_malecon_code.dart';

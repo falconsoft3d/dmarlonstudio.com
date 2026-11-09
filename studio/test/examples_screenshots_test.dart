@@ -74,6 +74,7 @@ const carousel = [
   'flutter_todo',
   'react_store',
   'html_store',
+  'html_domino',
   'vue_store',
   'go_store',
   'pdf_editor',

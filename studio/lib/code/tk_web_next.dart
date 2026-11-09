@@ -203,6 +203,11 @@ class TkWebNext {
         _num(p['value']) == null
             ? '<progress className="progress" />'
             : '<progress className="progress" max={1} value={${_num(p['value'])}} />',
+      'Canvas' =>
+        '<DmsCanvas aspect={${_num(p['aspect']) ?? '1.6'}}'
+            '${_num(p['height']) == null ? '' : ' height={${_num(p['height'])}}'}'
+            ' paint={(ctx, w, h) => { ${action(n.text('paint'))} }}'
+            '${n.text('onTap').trim().isEmpty ? '' : ' onTap={async (x, y) => { ${action(n.text('onTap'))} }}'} />',
       'Divider' => '<hr className="divider" />',
       'SizedBox' =>
         '<div${style({'height': _num(p['height']) ?? '16', 'width': _num(p['width'])})} />',
@@ -387,7 +392,7 @@ class TkWebNext {
 // Generado por DMarlon Studio a partir de la pantalla «${s.name}». No lo edite.
 import { useRouter } from "next/navigation";
 import { app, useApp } from "${up}lib/state";
-import { DmsScreen, DmsMissing } from "${up}lib/dms";
+import { DmsScreen, DmsMissing, DmsCanvas } from "${up}lib/dms";
 
 export default function ${_cls(s.name)}() {
   useApp();
@@ -413,6 +418,7 @@ ${s.fabIcon.isEmpty ? '' : '      fab={{ icon: ${s.fabIcon.startsWith('=') ? s.f
       '''"use client";
 // DMarlon Studio: la base de la app web. Generado: no lo edite.
 import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef } from "react";
 
 /// Las rutas de las pantallas y el menú.
 export const ROUTES = ${jsonEncode({for (final s in app.screens) s.name: route(app, s.name)})};
@@ -453,6 +459,51 @@ export class DmsApp {
   }
 
   async start() {}
+}
+
+/// Un lienzo: lo dibuja paint(ctx, w, h) (el contexto 2D y el tamaño en
+/// píxeles CSS) cada vez que la app avisa, y onTap(x, y) recibe los toques.
+export function DmsCanvas({ aspect = 1.6, height, paint, onTap }) {
+  const ref = useRef(null);
+  const draw = useRef(paint);
+  useEffect(() => {
+    draw.current = paint;
+  });
+  const redraw = useCallback(() => {
+    const c = ref.current;
+    if (!c) return;
+    const w = c.clientWidth;
+    const h = c.clientHeight;
+    const r = window.devicePixelRatio || 1;
+    if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) {
+      c.width = Math.round(w * r);
+      c.height = Math.round(h * r);
+    }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(r, 0, 0, r, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    draw.current(ctx, w, h);
+  }, []);
+  useEffect(() => {
+    redraw();
+  });
+  useEffect(() => {
+    const ro = new ResizeObserver(redraw);
+    ro.observe(ref.current);
+    return () => ro.disconnect();
+  }, [redraw]);
+  const tap = (e) => {
+    const b = e.currentTarget.getBoundingClientRect();
+    onTap(e.clientX - b.left, e.clientY - b.top);
+  };
+  return (
+    <canvas
+      ref={ref}
+      className="canvas"
+      style={height ? { height } : { aspectRatio: String(aspect), width: `min(100%, calc((100dvh - 96px) * \${aspect}))` }}
+      onClick={onTap ? tap : undefined}
+    />
+  );
 }
 
 export function DmsScreen({ title, back, actions = [], fab, children }) {
@@ -661,6 +712,7 @@ button { font: inherit; color: inherit; }
 .img-ph { display: flex; align-items: center; justify-content: center; background: var(--secondary-container); color: var(--muted); }
 .img-ph .ms { font-size: 44px; }
 .progress { width: 100%; accent-color: var(--primary); }
+.canvas { display: block; width: 100%; margin: 0 auto; border-radius: 12px; touch-action: manipulation; }
 .divider { border: 0; border-top: 1px solid var(--line); margin: 4px 0; }
 .fab { position: fixed; right: 24px; bottom: 24px; width: 56px; height: 56px; border-radius: 16px; border: 0; background: var(--primary-container); box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: pointer; z-index: 6; }
 .shell { display: flex; min-height: 100vh; }

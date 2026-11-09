@@ -66,7 +66,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       web: {
         title: "Web",
-        intro: "La misma tienda, diseñada una vez y generada en tres tecnologías. Ábrala en el navegador: entre con demo@tienda.com y 1234.",
+        intro: "La misma tienda, diseñada una vez y generada en tres tecnologías (entre con demo@tienda.com y 1234), y el dominó doble 9 dibujado en un Lienzo. Ábralas en el navegador.",
       },
     },
     how2: "Cómo funciona",
@@ -111,11 +111,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "La misma tienda con Vue: cada pantalla es un componente .vue.",
         shows: ["Componentes .vue con su plantilla", "Compilada con Vite", "Un diseño, tres tecnologías"],
       },
+      html_domino: {
+        name: "Dominó doble 9 (web)",
+        text: "El dominó de la mesa de cuatro, ahora en el navegador: una pantalla con un Lienzo que dibuja la mesa y recibe los toques. En el móvil, mejor en horizontal.",
+        shows: ["El componente Lienzo del editor de pantallas", "Toda la partida en un app.js normal y corriente", "Sin instalar nada: se juega aquí mismo"],
+      },
     },
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: diecisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: diecisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -248,7 +253,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       web: {
         title: "Web",
-        intro: "The same shop, designed once and generated in three technologies. Open it in the browser: sign in with demo@tienda.com and 1234.",
+        intro: "The same shop, designed once and generated in three technologies (sign in with demo@tienda.com and 1234), and double-nine dominoes drawn on a Canvas. Open them in the browser.",
       },
     },
     how2: "How it works",
@@ -293,11 +298,16 @@ const TEXT: Record<Lang, DemosText> = {
         text: "The same shop with Vue: each screen is a .vue component.",
         shows: [".vue components with their template", "Built with Vite", "One design, three technologies"],
       },
+      html_domino: {
+        name: "Double-Nine Dominoes (web)",
+        text: "The four-player dominoes, now in the browser: one screen with a Canvas that draws the table and receives the taps. On a phone, landscape works best.",
+        shows: ["The screen editor's Canvas component", "The whole game in a plain app.js", "Nothing to install: play it right here"],
+      },
     },
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: seventeen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: seventeen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -491,6 +501,7 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   html_store: { icon: "html", label: "HTML · CSS · JS" },
   react_store: { icon: "react", label: "React · Vite" },
   vue_store: { icon: "vue", label: "Vue · Vite" },
+  html_domino: { icon: "html", label: "HTML · Canvas" },
 };
 
 /** Una sección de demos (escritorio, móvil o web) con su rejilla de tarjetas. */

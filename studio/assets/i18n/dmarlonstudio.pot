@@ -921,6 +921,10 @@ msgstr ""
 msgid "La app no tiene pantallas."
 msgstr ""
 
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Lienzo"
+msgstr ""
+
 #: lib/code/tk_flutter.dart lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/project_browser.dart
 msgid "Lista"
 msgstr ""
@@ -1863,10 +1867,6 @@ msgstr ""
 
 #: lib/code/tk_model.dart
 msgid "Leyenda"
-msgstr ""
-
-#: lib/code/tk_model.dart
-msgid "Lienzo"
 msgstr ""
 
 #: lib/code/tk_model.dart
@@ -2999,7 +2999,7 @@ msgstr ""
 msgid "Traducir al inglés"
 msgstr ""
 
-#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Usted"
 msgstr ""
 
@@ -4214,35 +4214,35 @@ msgstr ""
 msgid "Dominó de doble 9 en Python con tkinter: cuatro jugadores en dos parejas, dominó, tranque y partida a 100 tantos."
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Dominó doble 9"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Ellos"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Ellos ganan la partida"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Empate en el tranque: nadie se anota."
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Esa ficha va por las dos puntas: elija una"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Gana {} con {} tantos."
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Juega {}…"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "La mesa está vacía"
 msgstr ""
 
@@ -4250,19 +4250,19 @@ msgstr ""
 msgid "La mesa, las fichas y los jugadores los dibuja el código en este lienzo"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Las fichas que quedaban"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Mano {}"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "No lleva: usted pasa"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Nosotros"
 msgstr ""
 
@@ -4274,7 +4274,7 @@ msgstr ""
 msgid "Partida a 200 tantos"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgctxt "domino"
 msgid "Paso"
 msgstr ""
@@ -4283,7 +4283,7 @@ msgstr ""
 msgid "Reglas del dominó"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "Sale"
 msgstr ""
 
@@ -4299,23 +4299,23 @@ msgstr ""
 msgid "Ver las fichas de todos"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "a {}"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "{} se anotan {} tantos"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "¡Dominó de {}!"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "¡Ganamos la partida!"
 msgstr ""
 
-#: lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
 msgid "¡Tranque!"
 msgstr ""
 
@@ -9813,6 +9813,30 @@ msgstr ""
 msgid "{0} marcada como pagada."
 msgstr ""
 
+#: lib/code/tk_showcase_web_domino.dart
+msgid "Dominó de doble 9 en la web: la mesa se dibuja en un Lienzo y se juega tocando las fichas."
+msgstr ""
+
+#: lib/code/tk_showcase_web_domino.dart
+msgid "Dominó doble 9 (web)"
+msgstr ""
+
+#: lib/code/tk_showcase_web_domino.dart
+msgid "El dominó cubano de doble 9 como web en HTML y JavaScript: una pantalla con un Lienzo que dibuja la mesa y recibe los toques. Se juega en el navegador, también en el móvil."
+msgstr ""
+
+#: lib/code/tk_showcase_web_domino.dart
+msgid "Su turno: toque una ficha"
+msgstr ""
+
+#: lib/code/tk_showcase_web_domino.dart
+msgid "Toque para la siguiente mano"
+msgstr ""
+
+#: lib/code/tk_showcase_web_domino.dart
+msgid "Toque para una partida nueva"
+msgstr ""
+
 #: lib/code/tk_showcase_web_next.dart
 msgid "Al abrir: la numeración sigue a los pedidos guardados en el servidor."
 msgstr ""
@@ -12717,8 +12741,16 @@ msgstr ""
 msgid "Al tocar"
 msgstr ""
 
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Al tocar (x, y: dónde)"
+msgstr ""
+
 #: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Alto"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Alto fijo (opcional)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
@@ -12771,6 +12803,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Conectar con"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Dibujar (ctx: el contexto, w y h: el tamaño)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
@@ -12875,6 +12911,10 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Paquetes de pub.dev (uno por línea)"
+msgstr ""
+
+#: lib/ui/screens/tk_flutter_designer.dart
+msgid "Proporción (ancho / alto)"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

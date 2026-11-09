@@ -142,6 +142,7 @@ IconData flTypeIcon(String type) => switch (type) {
   'Icon' => LucideIcons.star,
   'Image' => LucideIcons.image,
   'Progress' => LucideIcons.loader,
+  'Canvas' => LucideIcons.brush,
   'Divider' => LucideIcons.minus,
   'SizedBox' => LucideIcons.space,
   'Spacer' => LucideIcons.unfoldHorizontal,
@@ -1036,6 +1037,48 @@ class _FlPhoneState extends State<FlPhone> {
       ? double.tryParse(v)
       : null;
 
+  /// El lienzo en el diseño: un recuadro oscuro con su proporción y lo que
+  /// lo dibuja (el dibujo lo hace el código al ejecutar).
+  Widget _canvasPreview(BuildContext context, Map<String, Object?> p) {
+    final paint = '${p['paint'] ?? ''}'.trim();
+    final box = Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF1F2937),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(8),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(LucideIcons.brush, color: Color(0xFFCBD5E1), size: 28),
+            const SizedBox(height: 6),
+            Text(
+              paint.isEmpty ? tr('Lienzo') : '${tr('Lienzo')} · $paint',
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 12),
+            ),
+          ],
+        ),
+      ),
+    );
+    final h = _num(p['height']);
+    if (h != null) return SizedBox(height: h, child: box);
+    // Como en la web: el ancho que haya, sin pasar de un alto razonable.
+    final aspect = _num(p['aspect']) ?? 1.6;
+    return LayoutBuilder(
+      builder: (context, c) {
+        final w = c.maxWidth.isFinite ? c.maxWidth : 360.0;
+        final hh = (w / aspect).clamp(60.0, 360.0);
+        return Center(
+          child: SizedBox(width: hh * aspect, height: hh, child: box),
+        );
+      },
+    );
+  }
+
   /// La vista previa de [n]: el widget de verdad, que se elige al tocarlo.
   Widget _preview(FlNode n, List<int> path, {required bool flex}) {
     final sel = _sel != null && _sel!.join('.') == path.join('.');
@@ -1197,6 +1240,7 @@ class _FlPhoneState extends State<FlPhone> {
           ),
         ),
         'Progress' => LinearProgressIndicator(value: _num(p['value']) ?? .4),
+        'Canvas' => _canvasPreview(context, p),
         'Divider' => const Divider(),
         'SizedBox' => SizedBox(
           height: _num(p['height']) ?? 16,
@@ -1476,6 +1520,17 @@ List<FlProp> flProps(String type) => [
       ('onTap', markTr('Al tocar'), 'action', []),
     ],
     'Progress' => <FlProp>[('value', markTr('Valor de 0 a 1'), 'expr', [])],
+    'Canvas' => <FlProp>[
+      (
+        'paint',
+        markTr('Dibujar (ctx: el contexto, w y h: el tamaño)'),
+        'action',
+        [],
+      ),
+      ('aspect', markTr('Proporción (ancho / alto)'), 'num', []),
+      ('height', markTr('Alto fijo (opcional)'), 'num', []),
+      ('onTap', markTr('Al tocar (x, y: dónde)'), 'action', []),
+    ],
     'SizedBox' => <FlProp>[
       ('height', markTr('Alto'), 'num', []),
       ('width', markTr('Ancho'), 'num', []),

@@ -205,6 +205,14 @@ const es: Record<string, DemoGuide> = {
       { title: "El carrito", text: "Un diseño, tres tecnologías: compare esta web con la de HTML y la de React." },
     ],
   },
+  html_domino: {
+    intro: "El dominó doble 9 como web en HTML y JavaScript, hecho con el editor de pantallas: una sola pantalla con un Lienzo. El Lienzo llama a app.dibujar(ctx, w, h) cada vez que la app avisa y pasa los toques a app.tocar(x, y); la partida entera vive en app.js.",
+    steps: [
+      { title: "Toque una ficha", text: "Usted juega con Yuniel (enfrente) contra Mayelín y Osmany. Cuando le toca, sus fichas que se pueden jugar se iluminan: tóquela. Los rivales juegan solos y quien no lleva, pasa." },
+      { title: "Elija la punta", text: "Si una ficha cabe por las dos puntas, aparecen dos flechas doradas: toque la que quiera. La cadena gira al llegar al borde y la mesa se ajusta al tamaño de la ventana." },
+      { title: "Dominó o tranque", text: "Al acabar la mano salen las fichas que quedaban y los tantos de cada pareja; la partida es a 100. Arriba, el botón de recargar empieza otra y el del ojo enseña las fichas de todos." },
+    ],
+  },
 };
 
 const en: Record<string, DemoGuide> = {
@@ -395,6 +403,14 @@ const en: Record<string, DemoGuide> = {
       { title: "Sign in", text: "Log in with demo@tienda.com and 1234, with v-model on the fields." },
       { title: "The catalog", text: "v-for for the products and v-if for what shows only sometimes, generated from the design." },
       { title: "The cart", text: "One design, three technologies: compare this site with the HTML and React ones." },
+    ],
+  },
+  html_domino: {
+    intro: "Double-nine dominoes as a website in HTML and JavaScript, made with the screen editor: a single screen with a Canvas. The Canvas calls app.dibujar(ctx, w, h) whenever the app notifies and passes the taps to app.tocar(x, y); the whole game lives in app.js.",
+    steps: [
+      { title: "Tap a tile", text: "You play with Yuniel (opposite) against Mayelín and Osmany. On your turn, the tiles you can play light up: tap one. The rivals play by themselves and whoever can't play passes." },
+      { title: "Pick the end", text: "If a tile fits both ends, two golden arrows appear: tap the one you want. The line turns at the edge and the table fits the size of the window." },
+      { title: "Domino or blocked game", text: "When the hand ends you see the tiles that were left and each partnership's points; the game is to 100. At the top, the reload button starts another one and the eye shows everyone's tiles." },
     ],
   },
 };

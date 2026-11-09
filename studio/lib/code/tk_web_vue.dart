@@ -133,6 +133,11 @@ class TkWebVue {
         _num(p['value']) == null
             ? '<progress class="progress"></progress>'
             : '<progress class="progress" max="1" :value="${_a(_num(p['value'])!)}"></progress>',
+      'Canvas' =>
+        '<DmsCanvas :ver="ver" :aspect="${_a(_num(p['aspect']) ?? '1.6')}"'
+            '${_num(p['height']) == null ? '' : ' :height="${_a(_num(p['height'])!)}"'}'
+            ' :paint="${_a('(ctx, w, h) => { ${TkWebNext.action(n.text('paint'))} }')}"'
+            '${n.text('onTap').trim().isEmpty ? '' : ' :tap="${_a('async (x, y) => { ${TkWebNext.action(n.text('onTap'))} }')}"'} />',
       'Divider' => '<hr class="divider" />',
       'SizedBox' =>
         '<div${_style({'height': _num(p['height']) ?? '16', 'width': _num(p['width'])})}></div>',
@@ -287,6 +292,7 @@ class TkWebVue {
 import { app, ver } from "../lib/state";
 import { router, px } from "../lib/dms";
 import DmsScreen from "../lib/DmsScreen.vue";
+import DmsCanvas from "../lib/DmsCanvas.vue";
 ${missing ? '' : 'import DmsMissing from "../lib/DmsMissing.vue";\n\nconst arg = app.arg("${s.name}");\n'}</script>
 
 <template>
@@ -553,6 +559,7 @@ const page = computed(() => PAGES[path.value] || PAGES["/"]);
       for (final s in app.screens) 'src/screens/${s.name}.vue': page(app, s),
       'src/lib/dms.js': dms(app),
       'src/lib/DmsScreen.vue': _screenVue,
+      'src/lib/DmsCanvas.vue': _canvasVue,
       'src/lib/DmsMissing.vue': _missingVue,
       'src/lib/DmsShell.vue': _shellVue,
       'src/lib/state.js': _state,
@@ -573,3 +580,61 @@ const page = computed(() => PAGES[path.value] || PAGES["/"]);
     ].join('\n');
   }
 }
+
+/// src/lib/DmsCanvas.vue: un lienzo que dibuja paint(ctx, w, h) cada vez
+/// que la app avisa (ver) y pasa los toques a tap(x, y).
+const _canvasVue = '''<!-- DMarlon Studio: el lienzo. Generado: no lo edite. -->
+<script setup>
+import { onBeforeUnmount, onMounted, onUpdated, ref, watch } from "vue";
+
+const props = defineProps({
+  ver: { type: Number, default: 0 },
+  aspect: { type: Number, default: 1.6 },
+  height: { type: Number, default: null },
+  paint: { type: Function, required: true },
+  tap: { type: Function, default: null },
+});
+const el = ref(null);
+let ro = null;
+
+function redraw() {
+  const c = el.value;
+  if (!c) return;
+  const w = c.clientWidth;
+  const h = c.clientHeight;
+  const r = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) {
+    c.width = Math.round(w * r);
+    c.height = Math.round(h * r);
+  }
+  const ctx = c.getContext("2d");
+  ctx.setTransform(r, 0, 0, r, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  props.paint(ctx, w, h);
+}
+
+function click(e) {
+  if (!props.tap) return;
+  const b = e.currentTarget.getBoundingClientRect();
+  props.tap(e.clientX - b.left, e.clientY - b.top);
+}
+
+onMounted(() => {
+  redraw();
+  ro = new ResizeObserver(redraw);
+  ro.observe(el.value);
+});
+onUpdated(redraw);
+onBeforeUnmount(() => ro && ro.disconnect());
+watch(() => props.ver, redraw, { flush: "post" });
+</script>
+
+<template>
+  <canvas
+    ref="el"
+    class="canvas"
+    :style="height ? { height: height + 'px' } : { aspectRatio: String(aspect), width: `min(100%, calc((100dvh - 96px) * \${aspect}))` }"
+    @click="click"
+  ></canvas>
+</template>
+''';

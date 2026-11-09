@@ -208,6 +208,7 @@ final flWidgets = <String, (String, int)>{
   'Icon': (markTr('Icono'), 0),
   'Image': (markTr('Imagen'), 0),
   'Progress': (markTr('Progreso'), 0),
+  'Canvas': (markTr('Lienzo'), 0),
   'Divider': (markTr('Separador'), 0),
   'SizedBox': (markTr('Espacio'), 0),
   'Spacer': (markTr('Relleno'), 0),
@@ -420,6 +421,11 @@ class TkFlutter {
       'Image' => _image(n),
       'Progress' =>
         'LinearProgressIndicator(${_num(p['value']) == null ? '' : 'value: ${_num(p['value'])}'})',
+      'Canvas' =>
+        'DmsCanvas(aspect: ${_num(p['aspect']) ?? '1.6'}, '
+            '${_num(p['height']) == null ? '' : 'height: ${_num(p['height'])}, '}'
+            'paint: (ctx, w, h) { ${action(n.text('paint'))} }, '
+            'onTap: ${n.text('onTap').trim().isEmpty ? 'null' : '(x, y) async { ${action(n.text('onTap'))} }'})',
       'Divider' => 'const Divider()',
       'SizedBox' =>
         'SizedBox(height: ${_num(p['height']) ?? 16}, width: ${_num(p['width']) ?? 0})',
@@ -665,8 +671,59 @@ ${[for (final s in app.screens) "        '/${s.name}': (context) => const ${_cls
   );
 }
 
-${_navHelper(app)}$screens''';
+${_navHelper(app)}$_canvasHelper$screens''';
   }
+
+  /// DmsCanvas: un lienzo que dibuja el código de la app (ctx es el Canvas
+  /// de Flutter, w y h su tamaño) y avisa de los toques (x, y).
+  static const _canvasHelper = r'''/// Un lienzo: lo dibuja el código de la app y avisa de los toques.
+class DmsCanvas extends StatelessWidget {
+  const DmsCanvas({
+    super.key,
+    this.aspect = 1.6,
+    this.height,
+    required this.paint,
+    this.onTap,
+  });
+
+  final double aspect;
+  final double? height;
+  final void Function(Canvas ctx, double w, double h) paint;
+  final Future<void> Function(double x, double y)? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final box = CustomPaint(
+      painter: _DmsPainter(paint),
+      child: const SizedBox.expand(),
+    );
+    return GestureDetector(
+      onTapUp: onTap == null
+          ? null
+          : (d) => onTap!(d.localPosition.dx, d.localPosition.dy),
+      child: height != null
+          ? SizedBox(height: height, child: box)
+          : AspectRatio(aspectRatio: aspect, child: box),
+    );
+  }
+}
+
+class _DmsPainter extends CustomPainter {
+  _DmsPainter(this.draw);
+
+  final void Function(Canvas ctx, double w, double h) draw;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.clipRect(Offset.zero & size);
+    draw(canvas, size.width, size.height);
+  }
+
+  @override
+  bool shouldRepaint(_DmsPainter old) => true;
+}
+
+''';
 
   /// El menú (si la app tiene uno): NavigationRail en ventanas anchas y
   /// NavigationBar abajo en las estrechas.

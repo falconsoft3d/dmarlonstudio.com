@@ -137,7 +137,7 @@ export const manualEs: Manual = {
             },
             {
               type: "p",
-              text: "Diecisiete de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y tres webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
+              text: "Diecisiete de estos ejemplos se pueden descargar ya compilados para macOS y Windows en la página **Demos** de dmarlonstudio.com, y tres apps móviles y cuatro webs se prueban allí mismo en el navegador (las móviles, también como APK de Android). Cada demo de escritorio es una sola aplicación en español y en inglés: el idioma se cambia en su menú **Idioma** (Language). Cada demo tiene su página con cómo funciona en tres pasos: son la mejor forma de ver lo que se puede hacer con el estudio antes de instalarlo.",
             },
           ],
         },
@@ -786,6 +786,8 @@ export const manualEs: Manual = {
                 "**Ejecutar (F9)** sirve la carpeta con el servidor propio del estudio y abre el navegador; al guardar, la página se recarga.",
                 "**Exportar** deja la carpeta lista: abra `index.html` o súbala a cualquier hosting.",
                 "Ejemplo: **Tienda web (HTML)**, la misma tienda que en Next.js y React.",
+                "**Lienzo**: un componente del editor de pantallas para dibujar con código. **Dibujar** llama a un método de `App` con `ctx` (el contexto 2D del navegador; en Flutter, el `Canvas`), `w` y `h` cada vez que la app avisa con `notify()`; **Al tocar** recibe `x` e `y`. Se ajusta al ancho y al alto de la pantalla con su **Proporción**. Funciona en HTML, React, Vue, Next.js y Flutter; en React Native, de momento, enseña un aviso.",
+                "Ejemplo: **Dominó doble 9 (web)**, una pantalla con un Lienzo: toda la partida va en `app.js` y se juega en el navegador.",
               ],
             },
           ],

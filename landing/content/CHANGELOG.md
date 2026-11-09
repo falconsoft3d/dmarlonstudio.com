@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.79 — 2026-11-09
+
+- **Lienzo en el editor de pantallas.** Un componente nuevo para dibujar con código: **Dibujar** llama a un método de `App` con `ctx` (el contexto 2D; en Flutter, el `Canvas`), `w` y `h` cada vez que la app avisa, **Al tocar** recibe `x` e `y`, y se ajusta al ancho y al alto de la pantalla con su **Proporción**. Funciona en HTML, React, Vue, Next.js y Flutter (en React Native, de momento, enseña un aviso). Probado: compila con Vite en React y Vue y sin avisos en Flutter (`canvas_test.dart`).
+- **Dominó doble 9 (web)**: el dominó de la mesa de cuatro como web en HTML y JavaScript, con un Lienzo; se juega en la página de demos, también en el móvil. Sus pruebas juegan treinta partidas en node, comprueban que ninguna ficha de la mesa pisa a otra y que la computadora gana a quien juega al azar; además se jugó una mano entera con toques en Chrome, en escritorio y en móvil.
+
 ## 1.0.78 — 2026-11-09
 
 - **Demos de la web: filtro por lenguaje.** En la barra de la página de demos, botones para ver solo las de Python, C++, Pascal, Flutter, HTML, React o Vue, con cuántas hay de cada uno; las secciones que se quedan vacías se ocultan y el filtro va en la dirección (`?tech=cpp`) para poder compartirlo.

@@ -405,7 +405,7 @@ export const manualEn: Manual = {
             },
             {
               type: "p",
-              text: "Seventeen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and three websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
+              text: "Seventeen of these examples can be downloaded already built for macOS and Windows on the **Demos** page of dmarlonstudio.com, and three mobile apps and four websites can be tried right there in the browser (the mobile ones also as an Android APK). Each desktop demo is a single app in English and Spanish: change the language in its **Language** (Idioma) menu. Each demo has its page explaining how it works in three steps: the best way to see what the studio can do before installing it.",
             },
           ],
         },
@@ -786,6 +786,8 @@ export const manualEn: Manual = {
                 "**Run (F9)** serves the folder with the studio's own server and opens the browser; saving reloads the page.",
                 "**Export** leaves the folder ready: open `index.html` or upload it to any hosting.",
                 "Example: **Web shop (HTML)**, the same shop as in Next.js and React.",
+                "**Canvas**: a screen editor component for drawing with code. **Draw** calls an `App` method with `ctx` (the browser's 2D context; in Flutter, the `Canvas`), `w` and `h` whenever the app notifies with `notify()`; **On tap** receives `x` and `y`. It fits the width and height of the screen with its **Aspect ratio**. It works in HTML, React, Vue, Next.js and Flutter; in React Native it shows a notice for now.",
+                "Example: **Double-Nine Dominoes (web)**, a screen with a Canvas: the whole game goes in `app.js` and plays in the browser.",
               ],
             },
           ],

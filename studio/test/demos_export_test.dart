@@ -56,6 +56,7 @@ const liveDemos = <(String, String)>[
   ('html_store', 'html'),
   ('react_store', 'react'),
   ('vue_store', 'vue'),
+  ('html_domino', 'html'),
 ];
 
 /// Los archivos del proyecto de una demo en vivo.

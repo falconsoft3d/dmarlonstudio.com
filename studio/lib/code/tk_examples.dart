@@ -45,6 +45,8 @@ part 'tk_showcase_util_mp3_player.dart';
 part 'tk_showcase_util_train_monitor.dart';
 part 'tk_showcase_domino.dart';
 part 'tk_showcase_domino_code.dart';
+part 'tk_showcase_web_domino.dart';
+part 'tk_showcase_web_domino_code.dart';
 part 'tk_showcase_util_pascal_odoo.dart';
 part 'tk_showcase_shop.dart';
 

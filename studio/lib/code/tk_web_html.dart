@@ -125,6 +125,10 @@ class TkWebHtml {
         _num(p['value']) == null
             ? '<progress class="progress"></progress>'
             : '<progress class="progress" max="1" value="\${${_num(p['value'])}}"></progress>',
+      'Canvas' =>
+        '<canvas class="canvas" data-paint="\${ui.paint((ctx, w, h) => { ${TkWebNext.action(n.text('paint'))} })}"'
+            '${_on('tap', n.text('onTap'), args: 'x, y')}'
+            '${_style({if (_num(p['height']) != null) 'height': _num(p['height']) else ...{'aspect-ratio': '"${_num(p['aspect']) ?? '1.6'}"', 'width': '"min(100%, calc((100dvh - 96px) * ${_num(p['aspect']) ?? '1.6'}))"'}})}></canvas>',
       'Divider' => '<hr class="divider" />',
       'SizedBox' =>
         '<div${_style({'height': _num(p['height']) ?? '16', 'width': _num(p['width'])})}></div>',
@@ -344,14 +348,40 @@ const router = {
   },
 };
 
-/// Los manejadores de la pantalla dibujada (data-click="n"…).
+/// Los manejadores de la pantalla dibujada (data-click="n"…) y lo que
+/// dibuja cada lienzo (data-paint="n").
 const ui = {
   handlers: [],
+  paints: [],
   on(f) {
     this.handlers.push(f);
     return this.handlers.length - 1;
   },
+  paint(f) {
+    this.paints.push(f);
+    return this.paints.length - 1;
+  },
 };
+
+/// Dibuja los lienzos de la pantalla, a la resolución de la pantalla.
+function dmsPaint() {
+  if (!root) return;
+  root.querySelectorAll("canvas[data-paint]").forEach((c) => {
+    const f = ui.paints[+c.dataset.paint];
+    if (!f) return;
+    const w = c.clientWidth;
+    const h = c.clientHeight;
+    const r = window.devicePixelRatio || 1;
+    if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) {
+      c.width = Math.round(w * r);
+      c.height = Math.round(h * r);
+    }
+    const ctx = c.getContext("2d");
+    ctx.setTransform(r, 0, 0, r, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    f(ctx, w, h);
+  });
+}
 
 function dmsScreen(ui, router, { title, back, actions, fab, body }) {
   const path = router.path();
@@ -390,7 +420,9 @@ function dmsRender() {
   const path = router.path();
   const name = Object.keys(ROUTES).find((k) => ROUTES[k] === path) || Object.keys(ROUTES)[0];
   ui.handlers = [];
+  ui.paints = [];
   root.innerHTML = SCREENS[name](app, ui, router);
+  dmsPaint();
   if (key) {
     const el = root.querySelector(`[data-key="\${key}"]`);
     if (el) {
@@ -410,6 +442,13 @@ function dmsStart(App) {
     if (id !== null && ui.handlers[+id]) ui.handlers[+id](...args);
   };
   root.addEventListener("click", (e) => {
+    // Un toque en un lienzo: sus coordenadas en píxeles CSS.
+    const cv = e.target.closest("canvas[data-tap]");
+    if (cv) {
+      const b = cv.getBoundingClientRect();
+      call(cv, "data-tap", e.clientX - b.left, e.clientY - b.top);
+      return;
+    }
     const el = e.target.closest("[data-click]");
     if (!el || el.disabled) return;
     // Lo de dentro de una tarjeta no la toca a ella (como en Flutter).
@@ -427,6 +466,7 @@ function dmsStart(App) {
     if (e.key === "Enter" && e.target.matches("[data-enter]")) call(e.target, "data-enter");
   });
   window.addEventListener("hashchange", dmsRender);
+  window.addEventListener("resize", dmsPaint);
   dmsRender();
   Promise.resolve(app.start()).then(() => dmsRender());
 }

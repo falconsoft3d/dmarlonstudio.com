@@ -37,6 +37,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   rn_store: { icon: "react", label: "React Native" },
   react_store: { icon: "react", label: "React · Vite" },
   html_store: { icon: "html", label: "HTML" },
+  html_domino: { icon: "html", label: "HTML" },
   vue_store: { icon: "vue", label: "Vue · Vite" },
   go_store: { icon: "go", label: "Go" },
   pdf_editor: { icon: "python", label: "Python · tkinter" },

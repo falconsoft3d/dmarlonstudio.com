@@ -12,6 +12,7 @@ List<TkExample> tkFlutterExamples(String Function(String) t) => [
   _reactStore(t),
   _htmlStore(t),
   _vueStore(t),
+  _htmlDomino(t),
   _goStore(t),
   _flutterShipping(t),
   _flutterTodo(t),

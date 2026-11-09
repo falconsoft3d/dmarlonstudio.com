@@ -148,6 +148,9 @@ class TkReactNative {
       'Image' => press(_image(n)),
       'Progress' =>
         '<View style={S.track}><View style={[S.progress, { width: ((${_num(p['value']) ?? '0.4'}) * 100) + "%" }]} /></View>',
+      // El lienzo aún no se dibuja en el móvil de React Native: un aviso.
+      'Canvas' =>
+        '<View style={[S.canvas, { aspectRatio: ${_num(p['aspect']) ?? '1.6'} }]}><Text style={S.canvasText}>Lienzo: en la web y en Flutter</Text></View>',
       'Divider' => '<View style={S.divider} />',
       'SizedBox' =>
         '<View${_style({'height': _num(p['height']) ?? '16', 'width': _num(p['width'])})} />',
@@ -493,6 +496,8 @@ export const S = StyleSheet.create({
   track: { height: 6, borderRadius: 3, backgroundColor: T.line, overflow: "hidden" },
   progress: { height: 6, borderRadius: 3, backgroundColor: T.primary },
   divider: { height: 1, backgroundColor: T.line, marginVertical: 4 },
+  canvas: { width: "100%", borderRadius: 12, backgroundColor: "#1f2937", alignItems: "center", justifyContent: "center" },
+  canvasText: { color: "#cbd5e1" },
   fab: { position: "absolute", right: 20, bottom: 24, width: 56, height: 56, borderRadius: 16, backgroundColor: T.primaryContainer, alignItems: "center", justifyContent: "center", elevation: 4, shadowColor: "#000", shadowOpacity: 0.2, shadowRadius: 8, shadowOffset: { width: 0, height: 3 } },
   nav: { flexDirection: "row", justifyContent: "space-around", borderTopWidth: 1, borderTopColor: T.line, paddingVertical: 8, backgroundColor: T.surface },
   navItem: { alignItems: "center", gap: 4, minWidth: 72 },

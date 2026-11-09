@@ -32,7 +32,7 @@ class TkWebReact {
     ];
     return '''// Generado por DMarlon Studio a partir de la pantalla «${s.name}». No lo edite.
 import { app, useApp } from "../lib/state";
-import { DmsScreen, DmsMissing, useRouter } from "../lib/dms";
+import { DmsScreen, DmsMissing, DmsCanvas, useRouter } from "../lib/dms";
 
 export default function ${_cls(s.name)}() {
   useApp();

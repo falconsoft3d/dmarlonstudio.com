@@ -139,6 +139,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Clasificación y récord", text: "Al cruzar la meta en la última vuelta sale la clasificación final con los tiempos y la mejor vuelta de cada uno. Su récord de vuelta se guarda. En el menú Juego elija 1, 3 o 5 vueltas y la dificultad; Intro empieza otra carrera." },
     ],
   },
+  cpp_image_editor: {
+    intro:
+      "Un editor de imágenes por capas hecho en C++ con FLTK y diseñado en el estudio: la ventana, el menú y el reloj salen del Diseñador; la barra de herramientas, el lienzo con zoom, los paneles Color, Capas e Historial y los diálogos con vista previa se dibujan en el código. Abre con una imagen de ejemplo de tres capas para probarlo todo.",
+    steps: [
+      { title: "Pinte en capas", text: "Elija el pincel (B) y pinte con el color frontal; [ y ] cambian el tamaño. En el panel Capas cree una capa nueva, ocúltela con el ojo, cambie su opacidad o su modo de fusión (Multiplicar, Trama, Superponer…) y súbala o bájela. El bote (G), el degradado (R), las formas (U) y el texto (T) también pintan." },
+      { title: "Recorte, gire y cambie el tamaño", text: "La herramienta Recortar (C) muestra un marco libre o con proporción 1:1, 4:3, 3:2 o 16:9: ajústelo y pulse Intro. En el menú Imagen: Tamaño de imagen (vecino más próximo, bilineal o bicúbica), Tamaño de lienzo con ancla, girar 90°, 180° o un ángulo cualquiera, y voltear." },
+      { title: "Ajuste, filtre y guarde", text: "Niveles, Tono y saturación, Brillo y contraste… y los filtros (desenfoque gaussiano, máscara de enfoque, ruido, pixelar, bordes, relieve, viñeta) se ven en la imagen mientras mueve los controles, y solo en la selección si la hay. Cada paso queda en el Historial. Guarde como PNG, JPEG (con su calidad) o BMP para convertir, o en .dmi para conservar las capas." },
+    ],
+  },
   pascal_malecon: {
     intro:
       "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
@@ -337,6 +346,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Go when the lights go out", text: "You start sixth on the grid. Five red lights come on; when they go out, go! Hold ↑ (or W) to accelerate and steer with ← → (or A D). The gear, the speed, the revs and the tyre wear are shown at the bottom right." },
       { title: "Brake before the bends", text: "In tight bends the bike runs wide: brake with ↓ before turning in and take the inside line. Off the track you lose speed, and hitting a tree means a crash. At the top left, your position and the gap in seconds to the rider ahead and behind; at the bottom, the minimap." },
       { title: "Standings and lap record", text: "When you cross the line on the last lap, the final classification shows everyone's time and best lap. Your lap record is saved. In the Game menu choose 1, 3 or 5 laps and the difficulty; Enter starts another race." },
+    ],
+  },
+  cpp_image_editor: {
+    intro:
+      "A layer-based image editor made in C++ with FLTK and designed in the studio: the window, the menu and the clock come from the Designer; the toolbar, the zoomable canvas, the Color, Layers and History panels and the dialogs with live preview are drawn by the code. It opens with a three-layer sample image so you can try everything.",
+    steps: [
+      { title: "Paint on layers", text: "Pick the brush (B) and paint with the foreground color; [ and ] change the size. In the Layers panel create a new layer, hide it with the eye, change its opacity or its blend mode (Multiply, Screen, Overlay…) and move it up or down. The paint bucket (G), the gradient (R), the shapes (U) and the text (T) paint too." },
+      { title: "Crop, rotate and resize", text: "The Crop tool (C) shows a free frame or one with a 1:1, 4:3, 3:2 or 16:9 ratio: adjust it and press Enter. In the Image menu: Image Size (nearest neighbor, bilinear or bicubic), Canvas Size with an anchor, rotate 90°, 180° or any angle, and flip." },
+      { title: "Adjust, filter and save", text: "Levels, Hue and Saturation, Brightness and Contrast… and the filters (Gaussian blur, unsharp mask, noise, pixelate, edges, emboss, vignette) show on the image while you move the controls, and only inside the selection if there is one. Every step goes into the History. Save as PNG, JPEG (choosing the quality) or BMP to convert, or as .dmi to keep the layers." },
     ],
   },
   pascal_malecon: {

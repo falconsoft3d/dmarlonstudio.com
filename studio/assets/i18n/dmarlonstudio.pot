@@ -381,7 +381,7 @@ msgid ""
 "// También ShowMessage(texto), Ask(pregunta), Close y NumToStr(número)."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Calculadora web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Cantidad"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Decimales"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Edición"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Notas"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -809,7 +809,7 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr ""
 
@@ -909,7 +909,7 @@ msgstr ""
 msgid "Icono"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Imagen"
 msgstr ""
 
@@ -1661,7 +1661,7 @@ msgstr ""
 msgid "Clic derecho"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Color de fondo"
 msgstr ""
 
@@ -1801,7 +1801,7 @@ msgstr ""
 msgid "Flutter (móvil)"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Fuente"
 msgstr ""
 
@@ -1929,7 +1929,7 @@ msgstr ""
 msgid "Máximo"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Negrita"
 msgstr ""
 
@@ -2037,7 +2037,7 @@ msgstr ""
 msgid "Rejilla"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Relieve"
 msgstr ""
 
@@ -2511,7 +2511,7 @@ msgstr ""
 msgid "Abrir un archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Abrir…"
 msgstr ""
 
@@ -2591,11 +2591,11 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Cortar"
 msgstr ""
 
@@ -2611,7 +2611,7 @@ msgstr ""
 msgid "Datos simulados: no son cotizaciones reales."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Deshacer"
 msgstr ""
 
@@ -2671,7 +2671,7 @@ msgstr ""
 msgid "Gráfico de líneas"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardar como…"
 msgstr ""
 
@@ -2727,7 +2727,7 @@ msgstr ""
 msgid "Pausa"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Pegar"
 msgstr ""
 
@@ -2743,7 +2743,7 @@ msgstr ""
 msgid "Puntos: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Rehacer"
 msgstr ""
 
@@ -2759,7 +2759,7 @@ msgstr ""
 msgid "Récord: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Seleccionar todo"
 msgstr ""
 
@@ -3323,7 +3323,7 @@ msgstr ""
 msgid "(Sin marcadores)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr ""
 
@@ -3352,7 +3352,7 @@ msgctxt "explorer"
 msgid "Acciones"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
 msgstr ""
 
@@ -3384,7 +3384,7 @@ msgstr ""
 msgid "Archivos ocultos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Atajos de teclado"
 msgstr ""
 
@@ -3428,7 +3428,7 @@ msgstr ""
 msgid "Cambiar nombre"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr ""
 
@@ -3637,7 +3637,7 @@ msgstr ""
 msgid "Imagen {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Imágenes"
 msgstr ""
 
@@ -3845,7 +3845,7 @@ msgstr ""
 msgid "Sí"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Tamaño"
 msgstr ""
 
@@ -3901,7 +3901,7 @@ msgstr ""
 msgid "Varios tipos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr ""
 
@@ -3984,6 +3984,759 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Último acceso:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Abrir como capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Abrir como capa…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Abrir imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Acerca de Editor de imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Acercar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Aclarar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Acoplar imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Ahora: {0} × {1} px"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Ajuste el marco y pulse Intro (o doble clic) para recortar · Esc cancela · C"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Alejar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Alfa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Alto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Ancho"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Ancla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
+msgid "Aplicar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Arrastre del color frontal al de fondo (Mayús: cada 45°) · R"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Arrastre para dibujar la forma en una capa nueva (Mayús: proporcional) · U"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Arrastre para mover la capa activa · flechas: 1 px (Mayús: 10 px) · V"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Arrastre para mover la vista (o mantenga pulsada la barra espaciadora) · H"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Arrastre para seleccionar (Mayús: un cuadrado); dentro de la selección, para moverla · M"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Atardecer en el Malecón"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Añadir ruido…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Bajar capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Bicúbica (más suave)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Bilineal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Blanco"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Blanco de entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Blanco de salida"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Blanco y negro"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Borra a transparente en la capa activa · [ y ] cambian el tamaño · E"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Borrador"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Borrar la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Bote de pintura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Brillo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Brillo y contraste…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Calidad"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa "
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa 1"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa actual"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capa «{0}» en {1}, {2}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Capas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Clic: acercar · Alt+clic: alejar · Ctrl+rueda con cualquier herramienta · Z"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Clic: color frontal · Alt+clic: color de fondo · I"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Color"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Combinar hacia abajo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Con el color frontal, en una capa nueva"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Contiguo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Contraste"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Copiado (también en el portapapeles del sistema)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Cuadrícula de píxeles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Cuentagotas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Código (hex.)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Degradado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Del color frontal al de fondo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_designer.dart
+msgid "Descartar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Deseleccionar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Desenfoque gaussiano…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Diferencia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Duplicar capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Dureza"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Editor de imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Editor de imágenes (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Editor de imágenes en C++ con FLTK: capas con modos de fusión, pincel, recortar, cambiar el tamaño, girar, ajustes, filtros y PNG, JPEG y BMP."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Eliminar capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Elipse"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Encajar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Encajar en la ventana"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Escriba su texto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Estrellas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_file_renamer.dart
+msgid "Filtro"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Fondo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/diagrams.dart
+msgid "Forma"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Formas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Gamma"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Girar 180°"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Girar 90° a la derecha"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Girar 90° a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Girar un ángulo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Girar y voltear"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Guardado: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Guardar como"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Guardar como JPEG"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Haga clic donde empieza el texto · T"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Hallar bordes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Hay cambios sin guardar. ¿Descartarlos?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid ""
+"Herramientas: V mover, M marco, C recortar, B pincel, E borrador, G bote de pintura, R degradado, U formas, T texto, I cuentagotas, H mano, Z zoom.\n"
+"\n"
+"Colores: D pone el frontal negro y el fondo blanco; X los intercambia.\n"
+"Pincel y borrador: [ y ] cambian el tamaño; Mayús+clic traza una línea recta.\n"
+"Vista: Ctrl+rueda, Ctrl+= y Ctrl+- para el zoom; Ctrl+0 encaja la imagen; Ctrl+1, tamaño real; la barra espaciadora y arrastrar mueven la vista.\n"
+"Selección: Ctrl+A todo, Ctrl+D nada; Supr borra lo seleccionado.\n"
+"Recortar: Intro aplica y Esc cancela.\n"
+"Deshacer y rehacer: Ctrl+Z y Mayús+Ctrl+Z, o un clic en el panel Historial.\n"
+"\n"
+"En macOS, Ctrl es la tecla Comando. Arrastre una imagen a la ventana para abrirla."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Historial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Imagen de ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Invertir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "La Habana"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "La capa activa está oculta: muéstrela para pintar en ella"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "La imagen debe tener al menos una capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Las herramientas, el lienzo y los paneles los dibuja el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Libre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Lineal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Luminosidad"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Mano"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Mantener las proporciones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Marco rectangular"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Modo de fusión"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Monocromático"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Mostrar capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Mover"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Muestra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Multiplicar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Máscara de enfoque…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Negro de entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Negro de salida"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Niveles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Niveles…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "No hay nada que copiar en la capa activa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "No hay ninguna imagen que pegar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "No se pudo abrir {0}: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "No se pudo guardar {0}: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Normal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Nueva capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Nuevo documento"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Nuevo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Ocultar capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Opacidad"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Opacidad de capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Original"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Oscurecer"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Palmera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
+msgid "Pantalla completa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Pincel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Pinta con el color frontal · [ y ] cambian el tamaño · Mayús+clic: línea recta · B"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Pixelar…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Posterizar…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Primero seleccione un área con el marco rectangular (M)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Propiedades de capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Propiedades de capa…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Proporción"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Proyecto con capas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Radial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Radio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Recortar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Recortar a la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Rectángulo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Redondeado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Rellena con el color frontal el área de color parecido · G"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Rellenar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Rellenar con el color frontal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Remuestreo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Saturación"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Seis cifras hexadecimales, por ejemplo FF8800"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Selección: {0} × {1} px"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Sepia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Sin título-{0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Sobreexponer lineal (añadir)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Subir capa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Superponer"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tamaño aproximado: {0} KB"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tamaño de celda"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tamaño de imagen…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tamaño de lienzo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tamaño real (100 %)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Todas las capas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Todos los archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tolerancia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tono"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Tono y saturación…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgctxt "image"
+msgid "Trama"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Transparente"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Umbral"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Umbral…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Un editor de imágenes nativo en C++ con FLTK, al estilo de los programas de retoque: capas con opacidad y modos de fusión, pincel, borrador, bote, degradado, formas y texto, recortar, cambiar el tamaño, girar y voltear, niveles, tono y saturación, filtros, historial y PNG, JPEG y BMP."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Una demo de DMarlon Studio: un editor de imágenes por capas hecho en C++17 con FLTK {0}. La ventana y el menú se diseñaron en el Diseñador del estudio; las herramientas, los paneles, los filtros y los codificadores JPEG y BMP están en el código de Form1.cpp, sin más bibliotecas. Guarde en .dmi para conservar las capas."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Vecino más próximo (píxeles nítidos)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Viñeta…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Voltear en horizontal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Voltear en vertical"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Zoom"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "el formato no se reconoce o el archivo está dañado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "las capas van combinadas en el archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "no se puede escribir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "no se puede leer"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "{0} copia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "{0} · {1} × {2} px"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_image_editor.dart
+msgid "Ángulo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_racing.dart
@@ -4075,20 +4828,12 @@ msgstr ""
 msgid "Nombres de los pilotos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
-msgid "Normal"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "Nueva carrera"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "PAUSA"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
-msgid "Pantalla completa"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_racing.dart
@@ -6578,10 +7323,6 @@ msgstr ""
 msgid "Antes del nombre"
 msgstr ""
 
-#: lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/code_claude.dart lib/ui/screens/tk_designer.dart
-msgid "Aplicar"
-msgstr ""
-
 #: lib/code/tk_showcase_util_file_renamer.dart
 msgid "Cambiar a"
 msgstr ""
@@ -6624,10 +7365,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_file_renamer.dart
 msgid "Extensión"
-msgstr ""
-
-#: lib/code/tk_showcase_util_file_renamer.dart
-msgid "Filtro"
 msgstr ""
 
 #: lib/code/tk_showcase_util_file_renamer.dart
@@ -7908,10 +8645,6 @@ msgid "Nuevo presupuesto"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Nuevo…"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgctxt "bim"
 msgid "Obra"
 msgstr ""
@@ -8434,10 +9167,6 @@ msgstr ""
 msgid "Carta"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Color"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Contraseña para abrir el PDF (vacía = sin contraseña):"
 msgstr ""
@@ -8536,10 +9265,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardado con contraseña ({1}): {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Guardado: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -10241,7 +10966,7 @@ msgstr ""
 msgid "API"
 msgstr ""
 
-#: lib/main.dart lib/code/tk_flutter_templates.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/settings_screen.dart
 msgid "Ajustes"
 msgstr ""
 
@@ -10475,10 +11200,6 @@ msgstr ""
 
 #: lib/ui/screens/code_claude.dart
 msgid "Claude lee la carpeta abierta y propone cambios. Nada se escribe hasta que los aplique."
-msgstr ""
-
-#: lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_designer.dart
-msgid "Descartar"
 msgstr ""
 
 #: lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart
@@ -10747,10 +11468,6 @@ msgstr ""
 
 #: lib/ui/screens/code_git.dart
 msgid "Hecho."
-msgstr ""
-
-#: lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Historial"
 msgstr ""
 
 #: lib/ui/screens/code_git.dart
@@ -11521,10 +12238,6 @@ msgstr ""
 
 #: lib/ui/screens/diagrams.dart
 msgid "Flujo"
-msgstr ""
-
-#: lib/ui/screens/diagrams.dart
-msgid "Forma"
 msgstr ""
 
 #: lib/ui/screens/diagrams.dart
@@ -12751,10 +13464,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Alto fijo (opcional)"
-msgstr ""
-
-#: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Ancho"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

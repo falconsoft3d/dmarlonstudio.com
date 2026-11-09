@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Diecisiete aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Dieciocho aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -120,7 +120,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: diecisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: dieciocho aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -229,6 +229,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un juego de carreras de motos en pseudo-3D: curvas y cuestas, la moto que se inclina, siete rivales, semáforo de salida, vueltas, clasificación con diferencias, minimapa y cuadro de mandos. Teclado: flechas o WASD. En macOS, para Apple Silicon.",
         shows: ["Un juego nativo en C++ con FLTK, a 60 imágenes por segundo", "La pista, las motos y el paisaje se dibujan en código, sin imágenes", "Rivales que frenan, trazan y adelantan, y récord de vuelta guardado"],
       },
+      cpp_image_editor: {
+        name: "Editor de imágenes (C++)",
+        text: "Un editor de imágenes por capas al estilo de los programas de retoque: pincel, borrador, bote, degradado, formas y texto; recortar, cambiar el tamaño, girar y voltear; niveles, tono y saturación y filtros, con historial. Abre y guarda PNG, JPEG y BMP. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Capas con opacidad y ocho modos de fusión, e historial", "Codificadores JPEG y BMP propios, sin más bibliotecas"],
+      },
       pascal_malecon: {
         name: "Bajo la Sombra del Malecón (Pascal)",
         text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
@@ -245,7 +250,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Seventeen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Eighteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -307,7 +312,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: seventeen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: eighteen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -416,6 +421,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A pseudo-3D motorbike racing game: bends and hills, a bike that leans into the corners, seven rivals, start lights, laps, standings with gaps, a minimap and a dashboard. Keyboard: arrows or WASD. On macOS, for Apple Silicon.",
         shows: ["A native C++ game with FLTK, at 60 frames per second", "The track, the bikes and the scenery are drawn in code, no images", "Rivals that brake, pick their line and overtake, and a saved lap record"],
       },
+      cpp_image_editor: {
+        name: "Image Editor (C++)",
+        text: "A layer-based image editor in the style of photo retouching programs: brush, eraser, paint bucket, gradient, shapes and text; crop, resize, rotate and flip; levels, hue and saturation and filters, with history. Opens and saves PNG, JPEG and BMP. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK, designed in the studio", "Layers with opacity and eight blend modes, and history", "Its own JPEG and BMP encoders, no other libraries"],
+      },
       pascal_malecon: {
         name: "Under the Shadow of the Malecón (Pascal)",
         text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
@@ -494,6 +504,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_odoo: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_explorer: { icon: "cpp", label: "C++ · FLTK" },
   cpp_racing: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_image_editor: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 

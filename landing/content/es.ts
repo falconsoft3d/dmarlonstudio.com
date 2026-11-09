@@ -92,6 +92,7 @@ export const es: Content = {
       { seed: "next_tasks", name: "Lista de tareas (Next.js)", text: "Una página de Next.js con tareas guardadas en el navegador." },
       { seed: "cpp_calculator", name: "Calculadora (C++)", text: "La calculadora como aplicación nativa en C++ con FLTK." },
       { seed: "cpp_explorer", name: "Explorador de archivos (C++)", text: "Árbol, iconos, detalles, pestañas, marcadores y tema claro u oscuro, nativo con FLTK." },
+      { seed: "cpp_image_editor", name: "Editor de imágenes (C++)", text: "Un editor por capas con modos de fusión, recortar, girar, niveles y filtros, todo dibujado en código con FLTK." },
       { seed: "cpp_racing", name: "Carrera de motos (C++)", text: "Un juego de motos en pseudo-3D con siete rivales, vueltas y clasificación, dibujado en código con FLTK." },
       { seed: "pascal_malecon", name: "Bajo la Sombra del Malecón (Pascal)", text: "Una aventura de investigación en La Habana de 2026 con pixel art VGA de 256 colores, dibujada en código con Lazarus." },
       { seed: "domino", name: "Dominó doble 9", text: "Una mesa de cuatro en dos parejas contra la computadora, con dominó, tranque y partida a 100 tantos, en un lienzo de tkinter." },

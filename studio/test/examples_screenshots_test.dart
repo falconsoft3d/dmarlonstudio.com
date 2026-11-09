@@ -62,6 +62,7 @@ const carousel = [
   'cpp_calculator',
   'cpp_explorer',
   'cpp_racing',
+  'cpp_image_editor',
   'pascal_malecon',
   'domino',
   'pascal_calculator',

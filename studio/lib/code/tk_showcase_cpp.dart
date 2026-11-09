@@ -11,6 +11,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppFlights(t),
   tkCppHardware(t),
   tkCppWifi(t),
+  tkCppConsole(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

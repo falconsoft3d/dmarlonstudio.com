@@ -409,11 +409,11 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Decimales"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Edición"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "Gráfico de líneas web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_web.dart
 msgid "Guardada: {0}"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -1689,7 +1689,7 @@ msgstr ""
 msgid "Consola (C)"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_console.dart
 msgid "Consola (C++)"
 msgstr ""
 
@@ -2591,7 +2591,7 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
@@ -2615,7 +2615,7 @@ msgstr ""
 msgid "Deshacer"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_port_scanner.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Detener"
 msgstr ""
 
@@ -2727,7 +2727,7 @@ msgstr ""
 msgid "Pausa"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Pegar"
 msgstr ""
 
@@ -3311,6 +3311,398 @@ msgstr ""
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid ","
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "A la derecha: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Acerca de Consola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Atajo guardado: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Atajo quitado: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Atajos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Atajos…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Añadir una orden a la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Aún no hay atajos: escriba un nombre y su orden."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Aún no hay órdenes en el historial."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid ""
+"Cada pestaña es su shell (zsh, bash o fish en macOS y Linux; PowerShell en Windows) en su propio pseudoterminal, con su configuración, sus alias y su prompt. Pestañas: ⌘T (Ctrl+Mayús+T) abre una, ⌘W la cierra y ⌘[ ⌘] pasan de una a otra; también con el ratón.\n"
+"\n"
+"La cola, a la derecha: escriba órdenes y pulse Añadir; con Ejecutar la cola se mandan de una en una a la pestaña, cada una cuando la anterior ha terminado (la shell avisa al volver al prompt), con su código de salida y lo que ha tardado. Con «Parar si una falla», una que falle detiene las demás; Detener la cola manda Ctrl+C a la que está en marcha.\n"
+"\n"
+"Órdenes guardadas: pulse Ctrl+Espacio (o ⌘;) en la terminal y sale la lista, filtrada por lo que lleve escrito en la línea; Intro la escribe en la línea sin ejecutarla, Supr la quita y, si lo escrito no está guardado, la última fila lo guarda. También con Órdenes → Guardar una orden… (⌘S). Las que usa suben arriba.\n"
+"\n"
+"Atajos (Órdenes → Atajos…, ⌘J): un nombre, como conectar-servidor, que ejecuta su orden al escribirlo; uno puede llamar a otro y lo que escriba después llega como $1, $2… Salen también en la lista de Ctrl+Espacio.\n"
+"\n"
+"Historial: escriba history y pulse Intro (o ⌘Y): salen las 10 últimas órdenes para elegir una.\n"
+"\n"
+"Ayuda: escriba ayuda y pulse Intro: la consola escribe en la terminal sus órdenes, sus teclas y sus atajos.\n"
+"\n"
+"Ver cambia la apariencia (diez, de Clásica a Papel) y el tamaño de la letra (⌘+ y ⌘−). Los programas a pantalla completa (vim, top) se ven de forma básica."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+msgid "Cerrar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart
+msgid "Cerrar la pestaña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgctxt "console"
+msgid "Clásica"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Cola de órdenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/ui/screens/tk_designer.dart
+msgid "Consola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Consola en C++ con FLTK, inspirada en iTerm: pestañas con su shell, una cola de órdenes que esperan a la anterior y diez apariencias."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Consola · ayuda"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ctrl+Espacio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Detener la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ejecutar la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "El nombre solo puede llevar letras, números, guiones, puntos y guiones bajos, sin espacios (por ejemplo, conectar-servidor)."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Escriba la orden que ejecuta el atajo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Esta shell no avisa cuando termina cada orden: la cola funciona con zsh, bash, fish o PowerShell."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Fósforo verde"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Guardar el atajo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Guardar una orden…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Guardar «{0}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Historial (history)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "La cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid ""
+"La cola está vacía.\n"
+"Escriba una orden abajo y pulse Añadir:\n"
+"se ejecutarán de una en una, cada una\n"
+"cuando termine la anterior."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "La cola ha terminado."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "La cola se ha parado: «{0}» falló con el código {1}."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "La orden que quiere guardar:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Las pestañas y la terminal (Fl_Terminal con un pseudoterminal) las crea el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Letra más grande"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Letra más pequeña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Limpiar la pantalla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Mayús"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ninguna encaja: siga escribiendo o guárdela."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Ninguno todavía: Órdenes → Atajos…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "No hay órdenes en espera en la cola."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "No se pudo abrir la shell ({0})."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart
+msgid "Nueva pestaña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgctxt "console"
+msgid "Orden"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_sites.dart
+msgid "Papel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Parar si una falla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Pestaña anterior"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Pestaña siguiente"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Quitada de las guardadas: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Quitar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Se ejecutan de una en una en la pestaña elegida."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Solarized clara"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Solarized oscura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Sus atajos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Teclas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Un atajo es un nombre que ejecuta una orden: escriba el nombre en la terminal y pulse Intro. Un atajo puede llamar a otro (publicar → actualizar && desplegar), y lo que escriba después del nombre llega como $1, $2…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Una consola nativa en C++ con FLTK, inspirada en iTerm: pestañas con su propia shell, una cola de órdenes que se ejecutan de una en una cuando termina la anterior y diez apariencias."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Una demo de DMarlon Studio: una consola hecha en C++17 con FLTK {0} (Fl_Terminal) y un pseudoterminal. La ventana, el panel de la cola y el menú se diseñaron en el Diseñador del estudio; las pestañas, la cola y las apariencias están en el código de Form1.cpp."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Vaciar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Vaciar la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Ver"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "[La shell ha terminado: cierre la pestaña o abra otra]"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "abrir y cerrar pestañas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "cola: {0} en espera de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "con «{0}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "ejecutar la cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "el historial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "en espera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "en marcha · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "es_ES.UTF-8"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "esta ayuda"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "falló (código {0}) · {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "guardar una orden"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "help"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "las 10 últimas órdenes, para elegir una"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "letra más grande y más pequeña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "limpiar la pantalla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "los atajos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "pestaña anterior y siguiente"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "saltada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "terminó bien · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "{0} · {1} · {2}×{3}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart lib/ui/theme.dart
+msgid "Ámbar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgctxt "console"
+msgid "Órdenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Órdenes de la consola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Órdenes guardadas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Órdenes guardadas (Ctrl+Espacio)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Órdenes y teclas (ayuda)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "Últimas órdenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "órdenes guardadas y atajos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_console.dart
+msgid "↑ ↓ elegir · Intro escribirla · Supr quitarla · Esc cerrar"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid " - copia"
 msgstr ""
@@ -3321,10 +3713,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "(Sin marcadores)"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
-msgid ","
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
@@ -3446,14 +3834,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Carpetas"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
-msgid "Cerrar"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart
-msgid "Cerrar la pestaña"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
@@ -3758,10 +4138,6 @@ msgid "Nueva carpeta…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
-msgid "Nueva pestaña"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Oculto"
 msgstr ""
 
@@ -3899,10 +4275,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Varios tipos"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
-msgid "Ver"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
@@ -4081,10 +4453,6 @@ msgstr ""
 msgid "Cómo cambia el mejor precio"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cómo funciona"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_flights.dart
 msgid "Datos de ejemplo. Para ver precios reales, ponga su token gratuito de Travelpayouts en Ajustes → Token de Travelpayouts."
 msgstr ""
@@ -4249,10 +4617,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_flights.dart
 msgid "Próximo análisis en {0} · cada 30 minutos mientras la app está abierta"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Quitar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
@@ -9359,10 +9723,6 @@ msgid "Pantalla de 14 pulgadas, 18 horas de batería y menos de 1,3 kg."
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Papel"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Papel actualizado."
 msgstr ""
 
@@ -11558,10 +11918,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart
 msgid "Usuario o contraseña incorrectos."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
-msgid "Vaciar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -15420,10 +15776,6 @@ msgid "Chat con Claude Code"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Consola"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Continuar (F9)"
 msgstr ""
 
@@ -16277,10 +16629,6 @@ msgstr ""
 
 #: lib/ui/theme.dart
 msgid "Violeta"
-msgstr ""
-
-#: lib/ui/theme.dart
-msgid "Ámbar"
 msgstr ""
 
 #: lib/ui/tk_launch.dart

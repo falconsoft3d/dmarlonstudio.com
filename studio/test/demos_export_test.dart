@@ -47,6 +47,7 @@ const demos = [
   'cpp_flights',
   'cpp_hardware',
   'cpp_wifi',
+  'cpp_console',
   'pascal_malecon',
   'domino',
 ];

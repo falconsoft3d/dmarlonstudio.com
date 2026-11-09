@@ -94,6 +94,7 @@ export const es: Content = {
       { seed: "cpp_explorer", name: "Explorador de archivos (C++)", text: "Árbol, iconos, detalles, pestañas, marcadores y tema claro u oscuro, nativo con FLTK." },
       { seed: "cpp_flights", name: "Buscador de vuelos (C++)", text: "Vigila rutas y analiza los precios de todas las aerolíneas cada 30 minutos, con gráficas dibujadas en código con FLTK." },
       { seed: "cpp_hardware", name: "Inspector del equipo (C++)", text: "El hardware y el sistema del ordenador, el uso en directo y un informe en PDF, nativo con FLTK." },
+      { seed: "cpp_console", name: "Consola (C++)", text: "Pestañas con su shell, una cola de órdenes que esperan a la anterior, atajos, historial y diez apariencias, nativa con FLTK." },
       { seed: "cpp_wifi", name: "Wifi de casa (C++)", text: "Su wifi, las redes de alrededor, los canales y el router, con un diagnóstico y la fuerza de su contraseña, nativo con FLTK." },
       { seed: "cpp_image_editor", name: "Editor de imágenes (C++)", text: "Un editor por capas con modos de fusión, recortar, girar, niveles y filtros, todo dibujado en código con FLTK." },
       { seed: "cpp_racing", name: "Carrera de motos (C++)", text: "Un juego de motos en pseudo-3D con siete rivales, vueltas y clasificación, dibujado en código con FLTK." },

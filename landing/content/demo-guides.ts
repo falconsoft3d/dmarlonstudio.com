@@ -175,6 +175,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Revise el router", text: "Prueba desde dentro de casa qué deja abierto el router: Telnet y FTP (graves), la página de configuración sin HTTPS y UPnP, además de cuánto tarda en responder y si se pierden paquetes. Todo entra en la nota y en el informe, que se copia o se guarda como texto." },
     ],
   },
+  cpp_console: {
+    intro:
+      "Una consola hecha en C++ con FLTK y diseñada en el estudio: la ventana, el panel de la cola y el menú salen del Diseñador; las pestañas, la terminal (Fl_Terminal con un pseudoterminal de verdad), la cola y las apariencias, del código. Cada pestaña abre su shell con su configuración y le añade una marca: al volver al prompt avisa del código de salida y de la carpeta.",
+    steps: [
+      { title: "Órdenes guardadas y atajos", text: "Pulse Ctrl+Espacio y sale una lista junto al cursor, filtrada por lo que lleve escrito: sus atajos (un nombre, como conectar-servidor, que ejecuta su orden; uno puede llamar a otro) y sus órdenes guardadas. Intro la escribe en la línea para que la revise." },
+      { title: "El historial", text: "Escriba history y pulse Intro: salen las 10 últimas órdenes y elige una con las flechas. La consola las apunta según las avisa la shell, y la primera vez parte del historial de zsh o bash." },
+      { title: "La ayuda y las apariencias", text: "Escriba ayuda y la consola escribe en la terminal sus órdenes, sus teclas y sus atajos. Ver cambia entre diez apariencias (de Clásica a Fósforo verde o Papel), y lo ya escrito se repinta con los colores nuevos." },
+    ],
+  },
   pascal_malecon: {
     intro:
       "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
@@ -433,6 +442,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Look at the channels", text: "Each network it hears is a hill as wide as its channel and as tall as its signal. If yours shares a channel with strong neighbors, the app marks in green the freest channel to set on the router (on 2.4 GHz, 1, 6 or 11)." },
       { title: "Check the password", text: "Type your Wi-Fi's: the app looks at how long it is, whether it is one of the most used, whether it contains the network's name, a year or a keyboard sequence, and works out how long it would take to guess with one graphics card or a hundred. It is forgotten once checked: it is not saved or included in the report." },
       { title: "Review the router", text: "From inside your home it tests what the router leaves open: Telnet and FTP (serious), the settings page without HTTPS and UPnP, plus how long it takes to answer and whether packets get lost. It all goes into the score and the report, which you can copy or save as text." },
+    ],
+  },
+  cpp_console: {
+    intro:
+      "A console made in C++ with FLTK and designed in the studio: the window, the queue panel and the menu come from the Designer; the tabs, the terminal (Fl_Terminal with a real pseudo-terminal), the queue and the looks, from the code. Each tab opens your shell with your settings and adds a mark to it: when it returns to the prompt it reports the exit code and the folder.",
+    steps: [
+      { title: "Saved commands and shortcuts", text: "Press Ctrl+Space and a list appears next to the cursor, filtered by what you have typed: your shortcuts (a name, like connect-server, that runs its command; one can call another) and your saved commands. Enter types it on the line so you can check it." },
+      { title: "The history", text: "Type history and press Enter: the last 10 commands appear and you pick one with the arrows. The console records them as the shell reports them, and the first time it starts from the zsh or bash history." },
+      { title: "Help and looks", text: "Type help and the console writes its commands, keys and shortcuts in the terminal. View switches between ten looks (from Classic to Green Phosphor or Paper), and what is already written is repainted with the new colors." },
     ],
   },
   pascal_malecon: {

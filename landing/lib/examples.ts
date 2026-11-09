@@ -30,6 +30,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   cpp_flights: { icon: "cpp", label: "C++ · FLTK" },
   cpp_hardware: { icon: "cpp", label: "C++ · FLTK" },
   cpp_wifi: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_console: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
   domino: { icon: "python", label: "Python · tkinter" },
   pascal_calculator: { icon: "lazarus", label: "Pascal · Lazarus" },

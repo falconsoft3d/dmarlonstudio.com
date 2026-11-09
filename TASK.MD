@@ -60,6 +60,7 @@ Hechos
 65. Velocidad de internet (Next.js con servidor): ping y jitter, bajada y subida, para qué alcanza e historial, en la web de demos | ✅ |
 66. Buscador de vuelos en web (Next.js con servidor): el token de Travelpayouts en el servidor, rutas en el navegador, análisis cada 30 minutos y avisos, en la web de demos | ✅ |
 69. Wifi de casa en C++ (FLTK): su red, las de alrededor, los canales, el router y la contraseña, con un diagnóstico de 0 a 100; ejemplo del estudio y demo | ✅ |
+70. Consola en C++ (FLTK) inspirada en iTerm: pestañas, cola de órdenes que esperan a la anterior, órdenes guardadas con Ctrl+Espacio, atajos, history, ayuda y diez apariencias; ejemplo del estudio y demo | ✅ |
 
 
 Trabajando
@@ -71,7 +72,6 @@ Trabajando
 Pendiente
 =========
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
-70. Consola en C++ (FLTK) inspirada en iTerm: pestañas, cola de órdenes que esperan a la anterior y apariencias | ⏳ |
 71. Monitor de URLs en C++: revisa cada pocos minutos si los sitios están en línea, lo guarda en una base de datos y vive en la barra de menús de macOS | ⏳ |
 
 

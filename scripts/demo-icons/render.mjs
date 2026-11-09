@@ -24,6 +24,7 @@ const demos = {
   cpp_flights: ['plane', '#38bdf8', '#0369a1'],
   cpp_hardware: ['cpu', '#34d399', '#047857'],
   cpp_wifi: ['wifi', '#60a5fa', '#4338ca'],
+  cpp_console: ['square-terminal', '#4b5563', '#111827'],
   pascal_malecon: ['flashlight', '#f08a5a', '#5a2a7a'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],

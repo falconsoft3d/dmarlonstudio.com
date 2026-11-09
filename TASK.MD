@@ -52,16 +52,21 @@ Hechos
 58. Aventura de investigación «Bajo la Sombra del Malecón» (Cuba 2026) en Pascal (Lazarus), inspirada en las aventuras VGA de investigación: cuatro actos, pixel art de 256 colores dibujado en código y tres finales | ✅ |
 59. Dominó doble 9 en Python (tkinter): una mesa con cuatro jugadores en dos parejas, el usuario y tres jugadores de la computadora, con dominó, tranque y partida a 100 tantos | ✅ |
 60. Demos de la web: filtrar por lenguaje | ✅ |
+61. Componente Lienzo en el editor de pantallas (HTML, React, Vue, Next.js y Flutter) y el dominó doble 9 jugable en la web de demos | ✅ |
+62. Editor de imágenes en C++ inspirado en Photoshop: recortar, editar, capas, cambiar tamaño, rotar, convertir y más | ✅ |
+63. Buscador de vuelos en C++ (FLTK): vigila rutas con Travelpayouts cada 30 minutos, mejor precio por aerolínea y dónde comprar, ejemplo del estudio y demo | ✅ |
 
 
 Trabajando
 =========
-61. Componente Lienzo en el editor de pantallas web (HTML, React, Vue) y el dominó doble 9 jugable en la web de demos | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
 
 
 Pendiente
 =========
+64. Demo web que se ejecuta en el servidor: mapa del mundo con vuelos, barcos y trenes en directo de APIs públicas | ⏳ |
+65. Demo para medir la velocidad de internet | ⏳ |
+66. Buscador de vuelos también en web (con servidor para el token de Travelpayouts) | ⏳ |
 
 

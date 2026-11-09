@@ -148,6 +148,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Ajuste, filtre y guarde", text: "Niveles, Tono y saturación, Brillo y contraste… y los filtros (desenfoque gaussiano, máscara de enfoque, ruido, pixelar, bordes, relieve, viñeta) se ven en la imagen mientras mueve los controles, y solo en la selección si la hay. Cada paso queda en el Historial. Guarde como PNG, JPEG (con su calidad) o BMP para convertir, o en .dmi para conservar las capas." },
     ],
   },
+  cpp_flights: {
+    intro:
+      "Un buscador de vuelos hecho en C++ con FLTK y diseñado en el estudio: la ventana, la barra lateral, el menú y el reloj salen del Diseñador; el análisis, las tablas y las gráficas se dibujan en el código, y las consultas a Travelpayouts (la API de Aviasales) van con curl. Abre con tres rutas de ejemplo para probarlo sin token.",
+    steps: [
+      { title: "Añada una ruta", text: "A la izquierda escriba el origen y el destino (ciudades o códigos IATA, como MAD o HAV), la ida (un mes, 2026-12, o un día, 2026-12-20) y, si quiere, la vuelta, la moneda y un precio en «Avisar bajo». Pulse «Añadir y analizar»: la ruta queda vigilada y se analiza al abrir la app y cada 30 minutos." },
+      { title: "Vea dónde comprar", text: "Arriba, el mejor precio, el precio medio y lo que ha cambiado desde el análisis anterior. Debajo, lo más barato de cada aerolínea con la ida, la vuelta, las escalas y la duración; «Comprar» abre ese vuelo en Aviasales, que compara las agencias y la web de la aerolínea." },
+      { title: "El día más barato y los avisos", text: "Las barras dan el precio de cada día del mes (en verde, el más barato; haga clic en un día para comprarlo) y la línea, cómo ha cambiado el mejor precio en cada análisis. Si baja, o pasa por debajo de su precio, la app le avisa. Para precios reales, ponga su token gratuito de Travelpayouts en Ajustes." },
+    ],
+  },
   pascal_malecon: {
     intro:
       "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
@@ -355,6 +364,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Paint on layers", text: "Pick the brush (B) and paint with the foreground color; [ and ] change the size. In the Layers panel create a new layer, hide it with the eye, change its opacity or its blend mode (Multiply, Screen, Overlay…) and move it up or down. The paint bucket (G), the gradient (R), the shapes (U) and the text (T) paint too." },
       { title: "Crop, rotate and resize", text: "The Crop tool (C) shows a free frame or one with a 1:1, 4:3, 3:2 or 16:9 ratio: adjust it and press Enter. In the Image menu: Image Size (nearest neighbor, bilinear or bicubic), Canvas Size with an anchor, rotate 90°, 180° or any angle, and flip." },
       { title: "Adjust, filter and save", text: "Levels, Hue and Saturation, Brightness and Contrast… and the filters (Gaussian blur, unsharp mask, noise, pixelate, edges, emboss, vignette) show on the image while you move the controls, and only inside the selection if there is one. Every step goes into the History. Save as PNG, JPEG (choosing the quality) or BMP to convert, or as .dmi to keep the layers." },
+    ],
+  },
+  cpp_flights: {
+    intro:
+      "A flight finder made in C++ with FLTK and designed in the studio: the window, the sidebar, the menu and the clock come from the Designer; the analysis, the tables and the charts are drawn by the code, and the Travelpayouts queries (the Aviasales API) go through curl. It opens with three sample routes so you can try it without a token.",
+    steps: [
+      { title: "Add a route", text: "On the left enter the origin and the destination (cities or IATA codes, like MAD or HAV), the departure (a month, 2026-12, or a day, 2026-12-20) and, if you like, the return, the currency and a price in \"Alert below\". Press \"Add and check\": the route is watched and checked when the app opens and every 30 minutes." },
+      { title: "See where to buy", text: "At the top, the best price, the average price and what has changed since the previous check. Below, the cheapest fare of each airline with the departure, the return, the stops and the duration; \"Buy\" opens that flight in Aviasales, which compares the agencies and the airline's website." },
+      { title: "The cheapest day and the alerts", text: "The bars give the price of each day of the month (in green, the cheapest; click a day to buy it) and the line shows how the best price has changed at each check. If it drops, or goes below your price, the app alerts you. For real prices, enter your free Travelpayouts token in Settings." },
     ],
   },
   pascal_malecon: {

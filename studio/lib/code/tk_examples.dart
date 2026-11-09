@@ -26,6 +26,8 @@ part 'tk_showcase_cpp_racing.dart';
 part 'tk_showcase_cpp_racing_code.dart';
 part 'tk_showcase_cpp_image_editor.dart';
 part 'tk_showcase_cpp_image_editor_code.dart';
+part 'tk_showcase_cpp_flights.dart';
+part 'tk_showcase_cpp_flights_code.dart';
 part 'tk_showcase_pascal.dart';
 part 'tk_showcase_pascal_malecon.dart';
 part 'tk_showcase_pascal_malecon_code.dart';

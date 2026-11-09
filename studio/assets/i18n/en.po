@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -3357,7 +3357,7 @@ msgstr "%m/%d/%Y %H:%M"
 msgid "(Sin marcadores)"
 msgstr "(No bookmarks)"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
 
@@ -3462,7 +3462,7 @@ msgstr "Calculating…"
 msgid "Cambiar nombre"
 msgstr "Rename"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -4019,6 +4019,430 @@ msgstr "Are you sure you want to move “{0}” to the Trash?"
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Último acceso:"
 msgstr "Accessed:"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "1 escala"
+msgstr "1 stop"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Abrir en Aviasales: las agencias y la aerolínea, con sus precios"
+msgstr "Open in Aviasales: the agencies and the airline, with their prices"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Acerca de Buscador de vuelos"
+msgstr "About Flight Finder"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Aerolínea"
+msgstr "Airline"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Analizando los precios…"
+msgstr "Checking prices…"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Analizando {0}…"
+msgstr "Checking {0}…"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Analizar ahora"
+msgstr "Check now"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Analizar cada 30 minutos"
+msgstr "Check every 30 minutes"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Analizar todas las rutas"
+msgstr "Check all routes"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Avisar bajo"
+msgstr "Alert below"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Avisar cuando baje el precio"
+msgstr "Alert when the price drops"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Añada una ruta para vigilarla"
+msgstr "Add a route to watch it"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Añadir y analizar"
+msgstr "Add and check"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Buscador de vuelos"
+msgstr "Flight Finder"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Buscador de vuelos (C++)"
+msgstr "Flight Finder (C++)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Buscador de vuelos en C++ con FLTK: vigila rutas, analiza los precios de todas las aerolíneas cada 30 minutos y dice dónde comprar."
+msgstr "A flight finder in C++ with FLTK: it watches routes, checks the prices of every airline every 30 minutes and tells you where to buy."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid ""
+"Cada ruta vigilada se analiza al abrir la app y después cada 30 minutos mientras está abierta. Los precios vienen de Travelpayouts (la API de Aviasales): lo más barato que encontraron los buscadores, de todas las aerolíneas y agencias, en las últimas horas.\n"
+"\n"
+"De cada ruta verá el mejor precio, el precio medio, lo que ha cambiado desde el análisis anterior, lo más barato de cada aerolínea con su botón «Comprar» (abre el vuelo en Aviasales, que compara las agencias y la web de la aerolínea), el precio de cada día del mes y cómo ha ido cambiando.\n"
+"\n"
+"Si escribe un precio en «Avisar bajo», la app le avisa cuando el mejor precio baja de esa cantidad; también cuando baja respecto al análisis anterior.\n"
+"\n"
+"Para precios reales hace falta un token gratuito de Travelpayouts: regístrese en travelpayouts.com, únase al programa de Aviasales y copie su token (Perfil → API token) en Ajustes. Sin token, la app enseña datos de ejemplo."
+msgstr ""
+"Each watched route is checked when the app opens and then every 30 minutes while it is open. The prices come from Travelpayouts (the Aviasales API): the cheapest fares the search engines found, from every airline and agency, in the last few hours.\n"
+"\n"
+"For each route you will see the best price, the average price, what has changed since the previous check, the cheapest fare of each airline with its \"Buy\" button (it opens the flight in Aviasales, which compares the agencies and the airline's website), the price of each day of the month and how it has been changing.\n"
+"\n"
+"If you type a price in \"Alert below\", the app tells you when the best price drops below that amount; also when it drops compared with the previous check.\n"
+"\n"
+"Real prices need a free Travelpayouts token: sign up at travelpayouts.com, join the Aviasales program and copy your token (Profile → API token) into Settings. Without a token, the app shows sample data."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Cancún"
+msgstr "Cancun"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Clic: ver y comprar"
+msgstr "Click: view and buy"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_investor.dart
+msgid "Comprar"
+msgstr "Buy"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Conseguir un token gratis"
+msgstr "Get a free token"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Cómo cambia el mejor precio"
+msgstr "How the best price changes"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr "How it works"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Datos de ejemplo. Para ver precios reales, ponga su token gratuito de Travelpayouts en Ajustes → Token de Travelpayouts."
+msgstr "Sample data. To see real prices, enter your free Travelpayouts token in Settings → Travelpayouts Token."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Demasiadas consultas: se reintenta en 5 minutos"
+msgstr "Too many requests: retrying in 5 minutes"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Desde el análisis anterior"
+msgstr "Since the previous check"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgctxt "flight"
+msgid "Destino"
+msgstr "To"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid "Duración"
+msgstr "Duration"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El análisis cada 30 minutos está desactivado (menú Ajustes)"
+msgstr "Checking every 30 minutes is turned off (Settings menu)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El análisis, las tablas y las gráficas los dibuja el código de Form1.cpp"
+msgstr "The analysis, the tables and the charts are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El día más barato: {0}"
+msgstr "Cheapest day: {0}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El origen y el destino son el mismo"
+msgstr "The origin and the destination are the same"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El precio de cada día"
+msgstr "The price of each day"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El precio para avisar debe ser un número"
+msgstr "The alert price must be a number"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "El token de Travelpayouts no es válido: revíselo en Ajustes"
+msgstr "The Travelpayouts token is not valid: check it in Settings"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Escalas"
+msgstr "Scales"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Escriba el origen y el destino"
+msgstr "Enter the origin and the destination"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Escriba el origen, el destino y las fechas a la izquierda y pulse «Añadir y analizar»."
+msgstr "Enter the origin, the destination and the dates on the left and press \"Add and check\"."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Ida"
+msgstr "Depart"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Ida: un mes (2026-12) o un día (2026-12-20). Vuelta vacía: solo ida. Ciudades o códigos IATA (MAD, HAV)."
+msgstr "Depart: a month (2026-12) or a day (2026-12-20). Empty return: one way. Cities or IATA codes (MAD, HAV)."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Ida: {0}"
+msgstr "Depart: {0}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Igual"
+msgstr "Same"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "La fecha de ida ya pasó"
+msgstr "The departure date has already passed"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "La ida debe ser un mes (2026-12) o un día (2026-12-20)"
+msgstr "The departure must be a month (2026-12) or a day (2026-12-20)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "La respuesta de Travelpayouts no se entiende"
+msgstr "The Travelpayouts response cannot be understood"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "La vuelta debe ser un mes o un día (o quedar vacía)"
+msgstr "The return must be a month or a day (or left empty)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "La vuelta es antes que la ida"
+msgstr "The return is before the departure"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Lo más barato visto"
+msgstr "Cheapest seen"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Madrid"
+msgstr "Madrid"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Marcador de afiliado…"
+msgstr "Affiliate Marker…"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Mejor precio"
+msgstr "Best price"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Mejor precio por aerolínea"
+msgstr "Best price by airline"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Moneda"
+msgstr "Currency"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "No hay precios para estas fechas: pruebe con el mes entero o sin «solo directos»."
+msgstr "No prices for these dates: try the whole month or without \"direct only\"."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "No se encuentra el programa curl (viene con macOS y con Windows 10 o posterior)"
+msgstr "The curl program was not found (it comes with macOS and with Windows 10 or later)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "No se encuentra «{0}»: pruebe con el código IATA de la ciudad (por ejemplo, MAD)"
+msgstr "\"{0}\" was not found: try the city's IATA code (for example, MAD)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Nueva ruta"
+msgstr "New route"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Objetivo: {0}"
+msgstr "Target: {0}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgctxt "flight"
+msgid "Origen"
+msgstr "From"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+msgid "Precio"
+msgstr "Price"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_investor.dart
+msgid "Precio medio"
+msgstr "Average price"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Precios de Travelpayouts (Aviasales): lo más barato que encontraron los buscadores en las últimas horas, por adulto en turista. Al comprar, compruebe el precio final."
+msgstr "Prices from Travelpayouts (Aviasales): the cheapest fares the search engines found in the last few hours, per adult in economy. Check the final price when you buy."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Primer análisis"
+msgstr "First check"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Próximo análisis en {0} · cada 30 minutos mientras la app está abierta"
+msgstr "Next check in {0} · every 30 minutes while the app is open"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Quitar"
+msgstr "Remove"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Quitar la ruta"
+msgstr "Remove the route"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Rutas vigiladas"
+msgstr "Watched routes"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Sin conexión a internet: se reintenta en 5 minutos"
+msgstr "No internet connection: retrying in 5 minutes"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Solo vuelos directos"
+msgstr "Direct flights only"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Su marcador de afiliado de Travelpayouts (opcional, solo cifras): los enlaces para comprar lo llevarán."
+msgstr "Your Travelpayouts affiliate marker (optional, digits only): the buy links will carry it."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Su token de la API de Travelpayouts (gratis: travelpayouts.com → Perfil → API token). Se guarda solo en este ordenador."
+msgstr "Your Travelpayouts API token (free: travelpayouts.com → Profile → API token). It is only saved on this computer."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Token de Travelpayouts…"
+msgstr "Travelpayouts Token…"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Travelpayouts respondió con un error ({0})"
+msgstr "Travelpayouts answered with an error ({0})"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Un buscador de vuelos nativo en C++ con FLTK que vigila sus rutas: analiza los precios de todas las aerolíneas al abrirse y cada 30 minutos, dice el mejor precio de cada una y dónde comprarlo, el día más barato del mes y cómo cambia el precio, y avisa cuando baja."
+msgstr "A native flight finder in C++ with FLTK that watches your routes: it checks the prices of every airline when it opens and every 30 minutes, shows each one's best price and where to buy it, the cheapest day of the month and how the price changes, and alerts you when it drops."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Una demo de DMarlon Studio: un buscador de vuelos hecho en C++17 con FLTK {0}. La ventana, la barra lateral y el menú se diseñaron en el Diseñador del estudio; el análisis, las gráficas y las consultas a Travelpayouts (con curl) están en el código de Form1.cpp."
+msgstr "A DMarlon Studio demo: a flight finder made in C++17 with FLTK {0}. The window, the sidebar and the menu were designed in the studio's Designer; the analysis, the charts and the Travelpayouts queries (with curl) are in the code of Form1.cpp."
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Vuelta"
+msgstr "Return"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "Ya está por debajo"
+msgstr "Already below"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "datos de ejemplo (sin token)"
+msgstr "sample data (no token)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "directo"
+msgstr "direct"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "en verde, el día más barato; haga clic en un día para comprar"
+msgstr "in green, the cheapest day; click a day to buy"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre"
+msgstr "January|February|March|April|May|June|July|August|September|October|November|December"
+
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
+msgstr "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "es-ES"
+msgstr "en-US"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "faltan para el objetivo"
+msgstr "to go to the target"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "frente al de las {0}"
+msgstr "compared with {0}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "lo más caro, {0} · {1} análisis"
+msgstr "highest, {0} · {1} checks"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "precios de Travelpayouts (Aviasales)"
+msgstr "prices from Travelpayouts (Aviasales)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "solo directos"
+msgstr "direct only"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "solo ida"
+msgstr "one way"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "un punto por análisis (cada 30 minutos mientras la app está abierta)"
+msgstr "one point per check (every 30 minutes while the app is open)"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "vuelta: {0}"
+msgstr "return: {0}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} de {1}"
+msgstr "{0} of {1}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} escalas"
+msgstr "{0} stops"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} h {1} min"
+msgstr "{0} h {1} min"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} ofertas"
+msgstr "{0} fares"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} ofertas · {1} aerolíneas"
+msgstr "{0} fares · {1} airlines"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "{0} rutas vigiladas · {1}"
+msgstr "{0} watched routes · {1}"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "¡Conseguido!"
+msgstr "Target reached!"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "¡Ha bajado!"
+msgstr "It dropped!"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "¡Por debajo de {0}!"
+msgstr "Below {0}!"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "«Comprar» abre ese vuelo en Aviasales, que compara las agencias y la web de la aerolínea"
+msgstr "\"Buy\" opens that flight in Aviasales, which compares the agencies and the airline's website"
+
+#: lib/code/tk_showcase_cpp_flights.dart
+msgid "¿Quitar la ruta {0}?"
+msgstr "Remove the route {0}?"
 
 #: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Abrir como capa"
@@ -5361,10 +5785,6 @@ msgstr "White paint 5 L"
 #: lib/code/tk_showcase_flutter_desktop.dart
 msgid "Por debajo del mínimo ({0} uds.)"
 msgstr "Below the minimum ({0} units)"
-
-#: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
-msgid "Precio"
-msgstr "Price"
 
 #: lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Productos"
@@ -6972,10 +7392,6 @@ msgstr "Post comment"
 msgid "Pulsera de actividad con seguimiento del sueño y 14 días de batería."
 msgstr "Fitness band with sleep tracking and 14 days of battery."
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Quitar"
-msgstr "Remove"
-
 #: lib/code/tk_showcase_sites.dart
 msgid "Reloj inteligente con GPS, pulsómetro y pantalla siempre activa."
 msgstr "Smartwatch with GPS, heart-rate monitor and an always-on display."
@@ -7645,10 +8061,6 @@ msgid "Compra: {0} {1} a {2}, comisión {3}."
 msgstr "Buy: {0} {1} at {2}, commission {3}."
 
 #: lib/code/tk_showcase_util_investor.dart
-msgid "Comprar"
-msgstr "Buy"
-
-#: lib/code/tk_showcase_util_investor.dart
 msgid "Demo con datos simulados: empresas ficticias y precios aleatorios. No es una inversión real."
 msgstr "Demo with simulated data: fictional companies and random prices. Not a real investment."
 
@@ -7739,10 +8151,6 @@ msgstr "Pause"
 #: lib/code/tk_showcase_util_investor.dart
 msgid "Precio actual"
 msgstr "Current price"
-
-#: lib/code/tk_showcase_util_investor.dart
-msgid "Precio medio"
-msgstr "Average price"
 
 #: lib/code/tk_showcase_util_investor.dart
 msgid "Reanudar"
@@ -7843,10 +8251,6 @@ msgstr "Stopped"
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "Dos canales"
 msgstr "Dual channel"
-
-#: lib/code/tk_showcase_util_mp3_player.dart
-msgid "Duración"
-msgstr "Duration"
 
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "El comando se ha copiado al portapapeles."
@@ -8350,10 +8754,6 @@ msgstr "Created on this computer: it will be sent to Odoo when you sync (with re
 #: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_designer.dart
 msgid "Crear"
 msgstr "Create"
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cómo funciona"
-msgstr "How it works"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Datos de este equipo: %s"
@@ -9231,10 +9631,6 @@ msgstr "There is already a product with reference %s."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "dto. %s %%"
 msgstr "disc. %s %%"
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic"
-msgstr "Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "no encontrada"
@@ -11126,7 +11522,7 @@ msgstr "The AI did not return a valid design."
 msgid "API"
 msgstr "API"
 
-#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/settings_screen.dart
 msgid "Ajustes"
 msgstr "Settings"
 

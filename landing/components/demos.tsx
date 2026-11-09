@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Dieciocho aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Diecinueve aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -120,7 +120,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: dieciocho aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: diecinueve aplicaciones de escritorio para macOS y Windows, tres apps móviles y cuatro webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -234,6 +234,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un editor de imágenes por capas al estilo de los programas de retoque: pincel, borrador, bote, degradado, formas y texto; recortar, cambiar el tamaño, girar y voltear; niveles, tono y saturación y filtros, con historial. Abre y guarda PNG, JPEG y BMP. En macOS, para Apple Silicon.",
         shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Capas con opacidad y ocho modos de fusión, e historial", "Codificadores JPEG y BMP propios, sin más bibliotecas"],
       },
+      cpp_flights: {
+        name: "Buscador de vuelos (C++)",
+        text: "Vigila sus rutas: al abrirse y cada 30 minutos analiza los precios de todas las aerolíneas (Travelpayouts, la API de Aviasales), dice el mejor precio de cada una y dónde comprarlo, el día más barato del mes y cómo cambia el precio, y avisa cuando baja. Sin token, con datos de ejemplo. En macOS, para Apple Silicon.",
+        shows: ["Una app nativa en C++ con FLTK, diseñada en el estudio", "Consultas a una API REST con curl y JSON leído a mano", "Tablas y gráficas dibujadas en código, con avisos del sistema"],
+      },
       pascal_malecon: {
         name: "Bajo la Sombra del Malecón (Pascal)",
         text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
@@ -250,7 +255,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Eighteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Nineteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -312,7 +317,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: eighteen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: nineteen desktop apps for macOS and Windows, three mobile apps and four websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -426,6 +431,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A layer-based image editor in the style of photo retouching programs: brush, eraser, paint bucket, gradient, shapes and text; crop, resize, rotate and flip; levels, hue and saturation and filters, with history. Opens and saves PNG, JPEG and BMP. On macOS, for Apple Silicon.",
         shows: ["A native C++ app with FLTK, designed in the studio", "Layers with opacity and eight blend modes, and history", "Its own JPEG and BMP encoders, no other libraries"],
       },
+      cpp_flights: {
+        name: "Flight Finder (C++)",
+        text: "It watches your routes: when it opens and every 30 minutes it checks the prices of every airline (Travelpayouts, the Aviasales API), shows each one's best price and where to buy it, the cheapest day of the month and how the price changes, and alerts you when it drops. Without a token, with sample data. On macOS, for Apple Silicon.",
+        shows: ["A native C++ app with FLTK, designed in the studio", "REST API queries with curl and hand-parsed JSON", "Tables and charts drawn in code, with system alerts"],
+      },
       pascal_malecon: {
         name: "Under the Shadow of the Malecón (Pascal)",
         text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
@@ -505,6 +515,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_explorer: { icon: "cpp", label: "C++ · FLTK" },
   cpp_racing: { icon: "cpp", label: "C++ · FLTK" },
   cpp_image_editor: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_flights: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 

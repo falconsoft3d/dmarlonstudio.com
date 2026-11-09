@@ -8,6 +8,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppExplorer(t),
   tkCppRacing(t),
   tkCppImageEditor(t),
+  tkCppFlights(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

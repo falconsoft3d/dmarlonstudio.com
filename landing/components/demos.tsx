@@ -55,7 +55,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Quince aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Dieciséis aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -110,7 +110,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: quince aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: dieciséis aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -219,13 +219,18 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un juego de carreras de motos en pseudo-3D: curvas y cuestas, la moto que se inclina, siete rivales, semáforo de salida, vueltas, clasificación con diferencias, minimapa y cuadro de mandos. Teclado: flechas o WASD. En macOS, para Apple Silicon.",
         shows: ["Un juego nativo en C++ con FLTK, a 60 imágenes por segundo", "La pista, las motos y el paisaje se dibujan en código, sin imágenes", "Rivales que frenan, trazan y adelantan, y récord de vuelta guardado"],
       },
+      pascal_malecon: {
+        name: "Bajo la Sombra del Malecón (Pascal)",
+        text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
+        shows: ["Object Pascal con Lazarus, diseñada en el estudio", "Pixel art de 256 colores dibujado píxel a píxel en código", "Cuatro actos, pistas, objetos y tres finales"],
+      },
     },
   },
   en: {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Fifteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Sixteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -280,7 +285,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: fifteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: sixteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -389,6 +394,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A pseudo-3D motorbike racing game: bends and hills, a bike that leans into the corners, seven rivals, start lights, laps, standings with gaps, a minimap and a dashboard. Keyboard: arrows or WASD. On macOS, for Apple Silicon.",
         shows: ["A native C++ game with FLTK, at 60 frames per second", "The track, the bikes and the scenery are drawn in code, no images", "Rivals that brake, pick their line and overtake, and a saved lap record"],
       },
+      pascal_malecon: {
+        name: "Under the Shadow of the Malecón (Pascal)",
+        text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
+        shows: ["Object Pascal with Lazarus, designed in the studio", "256-colour pixel art drawn pixel by pixel in code", "Four acts, clues, items and three endings"],
+      },
     },
   },
 };
@@ -434,6 +444,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_odoo: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_explorer: { icon: "cpp", label: "C++ · FLTK" },
   cpp_racing: { icon: "cpp", label: "C++ · FLTK" },
+  pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

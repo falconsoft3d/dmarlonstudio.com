@@ -42,6 +42,7 @@ const demos = [
   'pascal_odoo',
   'cpp_explorer',
   'cpp_racing',
+  'pascal_malecon',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)

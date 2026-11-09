@@ -139,6 +139,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Clasificación y récord", text: "Al cruzar la meta en la última vuelta sale la clasificación final con los tiempos y la mejor vuelta de cada uno. Su récord de vuelta se guarda. En el menú Juego elija 1, 3 o 5 vueltas y la dificultad; Intro empieza otra carrera." },
     ],
   },
+  pascal_malecon: {
+    intro:
+      "Una aventura gráfica de investigación en La Habana de 2026, hecha en Object Pascal con Lazarus y diseñada en el estudio, con el aspecto de los juegos VGA de MS-DOS: una pantalla de 360×220 píxeles y 256 colores que se dibuja entera en código (escenas, retratos y letras). Usted es Mikel, ex-perito judicial, y busca a un mediador desaparecido.",
+    steps: [
+      { title: "Investigue en pleno apagón", text: "Hable con el pescador, la muchacha del móvil o el inspector Valdés, examine cada lugar y viaje por La Habana con la lista de la izquierda (o las teclas 1–6). Examinar a oscuras gasta la linterna: búsquese pilas. Para entrar al puerto, El Socio quiere dos baterías." },
+      { title: "Entre al puerto sin que le vean", text: "Cada búsqueda en la zona de carga y en el contenedor hace ruido: la barra de Alerta sube y, si llega al final, los guardias le llevan a la garita. «Esperar en la sombra» la baja. Busque la memoria USB entre los sacos de café y el listado en papel térmico." },
+      { title: "Descifre la clave y decida", text: "En el taller de Yari hay que adivinar el nombre en clave de quien recibe en la Habana Vieja: las coordenadas del listado y lo que le cuentan dan la respuesta. Cada fallo cuesta señal de la red. Al final, en Miramar, usted elige uno de los tres finales." },
+    ],
+  },
   flutter_store: {
     intro: "Una tienda móvil hecha con el editor de pantallas de Flutter: login, catálogo, carrito y pago, con la lógica en Dart. La misma app funciona en Android, iPhone y la web.",
     steps: [
@@ -311,6 +320,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Go when the lights go out", text: "You start sixth on the grid. Five red lights come on; when they go out, go! Hold ↑ (or W) to accelerate and steer with ← → (or A D). The gear, the speed, the revs and the tyre wear are shown at the bottom right." },
       { title: "Brake before the bends", text: "In tight bends the bike runs wide: brake with ↓ before turning in and take the inside line. Off the track you lose speed, and hitting a tree means a crash. At the top left, your position and the gap in seconds to the rider ahead and behind; at the bottom, the minimap." },
       { title: "Standings and lap record", text: "When you cross the line on the last lap, the final classification shows everyone's time and best lap. Your lap record is saved. In the Game menu choose 1, 3 or 5 laps and the difficulty; Enter starts another race." },
+    ],
+  },
+  pascal_malecon: {
+    intro:
+      "A graphic investigation adventure in Havana in 2026, made in Object Pascal with Lazarus and designed in the studio, with the look of the MS-DOS VGA games: a 360×220, 256-colour screen drawn entirely in code (scenes, portraits and letters). You are Mikel, a former court expert, looking for a missing fixer.",
+    steps: [
+      { title: "Investigate in the blackout", text: "Talk to the fisherman, the girl with the phone or Inspector Valdés, examine every place and travel around Havana with the list on the left (or keys 1–6). Examining in the dark uses up your torch: find batteries. To get into the port, El Socio wants two batteries." },
+      { title: "Get into the port unseen", text: "Every search in the cargo yard and the container makes noise: the Alert bar goes up and, if it fills, the guards take you to their hut. «Wait in the shadows» brings it down. Find the USB stick among the coffee sacks and the list on thermal paper." },
+      { title: "Crack the key and decide", text: "In Yari's workshop you must guess the code name of whoever receives in Old Havana: the coordinates on the list and what people tell you give the answer. Every miss costs network signal. In the end, in Miramar, you choose one of three endings." },
     ],
   },
   flutter_store: {

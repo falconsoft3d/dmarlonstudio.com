@@ -93,6 +93,7 @@ export const en: Content = {
       { seed: "cpp_calculator", name: "Calculator (C++)", text: "The calculator as a native C++ app with FLTK." },
       { seed: "cpp_explorer", name: "File Explorer (C++)", text: "Tree, icons, details, tabs, bookmarks and a light or dark theme, native with FLTK." },
       { seed: "cpp_racing", name: "Motorbike Racing (C++)", text: "A pseudo-3D motorbike game with seven rivals, laps and standings, drawn in code with FLTK." },
+      { seed: "pascal_malecon", name: "Under the Shadow of the Malecón (Pascal)", text: "An investigation adventure in Havana in 2026 with 256-colour VGA pixel art, drawn in code with Lazarus." },
       { seed: "flutter_store", name: "Shop with login (Flutter)", text: "Login, searchable catalog, cart and checkout in a mobile app." },
       { seed: "rn_store", name: "Shop (React Native)", text: "Login, catalog, cart and checkout in a React Native app." },
       { seed: "web_next_store", name: "Web shop (Next.js)", text: "A real website made with screens: responsive for desktop and mobile." },

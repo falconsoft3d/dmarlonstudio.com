@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:math' as math;
 
 import '../i18n/tr.dart';
 import 'tk_codegen.dart';
 import 'tk_flutter.dart';
 import 'tk_flutter_db.dart';
 import 'tk_model.dart';
+import 'tk_pascal.dart';
 import 'tk_unit.dart';
 
 part 'tk_showcase.dart';
@@ -23,6 +25,8 @@ part 'tk_showcase_cpp_explorer_code.dart';
 part 'tk_showcase_cpp_racing.dart';
 part 'tk_showcase_cpp_racing_code.dart';
 part 'tk_showcase_pascal.dart';
+part 'tk_showcase_pascal_malecon.dart';
+part 'tk_showcase_pascal_malecon_code.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
 part 'tk_showcase_flutter.dart';

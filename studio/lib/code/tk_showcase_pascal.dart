@@ -7,6 +7,7 @@ part of 'tk_examples.dart';
 List<TkExample> tkPascalExamples(String Function(String) t) => [
   _pascalCalculator(t),
   tkUtilPascalOdoo(t),
+  tkPascalMalecon(t),
 ];
 
 TkExample _pascalCalculator(String Function(String) t) {

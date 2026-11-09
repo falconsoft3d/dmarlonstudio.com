@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -2599,7 +2599,7 @@ msgstr ""
 msgid "Cortar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Cómo se juega"
 msgstr ""
 
@@ -2687,7 +2687,7 @@ msgstr ""
 msgid "Intro para jugar otra vez"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Juego"
 msgstr ""
 
@@ -2719,7 +2719,7 @@ msgstr ""
 msgid "Máx. {0}  ·  Mín. {1}  ·  Vol. {2}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Nueva partida"
 msgstr ""
 
@@ -3323,7 +3323,7 @@ msgstr ""
 msgid "(Sin marcadores)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr ""
 
@@ -4747,6 +4747,598 @@ msgstr ""
 
 #: lib/code/tk_showcase_pascal.dart
 msgid "La calculadora como aplicación nativa en Pascal con Lazarus: el mismo diseño, con el código en Object Pascal y los componentes de la LCL."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "(no hay nadie)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "ACTO I · La llamada en el Malecón"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "ACTO II · El registro del puerto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "ACTO III · Encriptación y conexiones"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "ACTO IV · La confrontación en Miramar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Acerca de Bajo la Sombra del Malecón"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Ahora no"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Al amanecer, los datos corren de azotea en azotea por las redes independientes. Nadie puede apagar lo que ya está en todos los teléfonos."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Alerta"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Antenas caseras, cables que cruzan la calle y un panel solar amarrado a un balcón. Aquí todo se inventa."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Aquí no pica ni el aire, asere. Pero anoche, con el apagón, vi una lancha sin luces salir del muelle del contenedor rumbo a Regla."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Aquí se cocina con carbón y con fe, mijo. El Gestor comía aquí los jueves. La última vez pagó con una batería de litio, ¿tú te crees eso?"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Azotea del nodo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Bajo la Sombra del Malecón"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Bajo la Sombra del Malecón (Pascal)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Bajo la Sombra del Malecón: aventura de investigación en Pascal con Lazarus, con escenas en pixel art de 256 colores dibujadas en código."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Batería de litio"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Callejón de San Lázaro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Cargar la linterna"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Cazando señal"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Clave incorrecta. La red se queja: perdemos señal."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Clic o Intro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Clic o Intro para jugar otra vez"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Con el pase en el bolsillo bajo hacia el puerto. Los guardias huelen el miedo, así que camino como si llevara diez años cargando sacos."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Contenedor diplomático"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Cuídate, que la noche está mala."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Dale, carga la linterna en mi panel. Esta va por la casa, pero no te acostumbres."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Dar las dos baterías por el pase"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Dejó una caja en la cocina. Sin corriente a mí no me sirve de nada; si la quieres, búscala."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Despedirse"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Doña Caridad"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "EXAMINAR"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El Gestor pagaba con baterías de litio: tenía acceso a un lote que no debía existir."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El Socio"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El Socio: los que reciben en la Habana Vieja firman con nombres de pájaros."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El guardia me corta el paso: «¿Y tú pa' dónde vas? Enséñame el pase primero.»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El mar golpea el muro y salpica la avenida. Nada más que la noche."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El mediador"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El nodo funciona. Desde aquí se ve la ciudad a oscuras y, al oeste, Miramar con todas las luces encendidas."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El pescador vio una lancha sin luces salir del muelle hacia Regla la noche del apagón."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "El terminal sigue encendido con una batería de camión. En la pantalla parpadea: «SINCRONIZACIÓN INTERRUMPIDA — NODO MIRAMAR»."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Elija:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "En Miramar hay luz toda la noche. Media Habana a oscuras y allí no se apaga nada."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "En el muro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "En el terminal del contenedor: «SINCRONIZACIÓN INTERRUMPIDA — NODO MIRAMAR»."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "En la cocina, la caja del Gestor: cables, un cargador roto y una batería de litio sin estrenar."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "En la libreta:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Entre las piedras del muro, envuelta en nailon: una pila recargable. Alguien la guardaba para venderla."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Entre los sacos de café hay uno cosido distinto. Dentro, enterrada en el grano: una memoria USB con candado."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Entregar las pruebas a Valdés"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Esperar en la sombra"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Esta memoria tiene cifrado del bueno, no de los que se rompen con un tutorial. La clave es un nombre en clave del listado: el de quien recibe en la Habana Vieja."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Estoy cazando señal pa' bajar el paquete, no me desconcentres. ¿La paladar? Dos cuadras pa' dentro, la del quinqué en la ventana. Pregunta por Yari."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "FIN"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Facturas de «Solenergía Caribe»: paneles solares y baterías donados para los apagones… y vendidos dos veces. Una al Estado, otra al mercado negro."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Filtrar los datos a las redes locales"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Final A · La verdad pública"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Final B · El pacto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Final C · Justicia policial"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Firmas de altos funcionarios. Y Ramiro lo descubrió todo: lo iba a soltar en la red. No lo secuestró ninguna banda, Mikel. Se escondió."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Grúas quietas por el apagón. Solo la garita tiene luz: una planta eléctrica que ronca como un camión."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Guardia"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "HABLAR"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Hablar con:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Hay justicia, o algo que se le parece. Yo me quedo sin casa y sin nombre: desde hoy vivo en la clandestinidad."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Inspector Valdés"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Investigador"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Ir a:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Jardín de la mansión"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "LIBRETA"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La Habana, 2026. Otro apagón se traga Centro Habana. En el puerto, un contenedor diplomático amaneció abierto: dentro no había mercancía, solo un terminal viejo encendido."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La Ingeniera"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La cocinera"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La linterna está muerta. A oscuras no se ve nada: hacen falta pilas o un panel."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La pantalla VGA del juego la dibuja el código de Form1.pas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "La última conexión de su terminal viene de un nodo en Miramar: una mansión abandonada de la Quinta Avenida convertida en centro de servidores."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Le entrego todo a Valdés. Me mira un rato largo: «Hiciste lo correcto. Ahora reza para que sirva de algo.»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Linterna"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Listado en papel térmico"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Llegaste tarde, como siempre. El Gestor me pidió hace una semana que le revisara un terminal viejo… y ahora el terminal está en un contenedor del puerto y él, desaparecido."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Los implicados pagan mi silencio en paneles y baterías. Esa noche, por primera vez en meses, el barrio entero tiene luz."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Malecón"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Me quedo quieto detrás de una grúa hasta que pasa la ronda."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Memoria USB cifrada"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Mercado negro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Mikel, mi hermano. Todo se resuelve, todo tiene su precio. ¿Un pase al puerto? Dos baterías: una pila recargable y una de litio."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Mikel. Esto es asunto de la policía. Vete a tu casa antes de que te pida el carné."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Mira las coordenadas: la Habana Vieja queda entre la bahía y el Prado, de -82,36 a -82,34 de longitud. Y apúrate, que el nodo se cae."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Mira quién vino. Yo no te vi. Pero si encuentras algo, me lo cuentas a mí primero."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Monitores de tubo, un router reprogramado y un banco de baterías que Yari cuida como a un hijo."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Muchacha del móvil"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Muévete, que me haces quedar mal."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Nada más que ver aquí."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Negociar con los implicados"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Oficina de Valdés"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Paladar El Quinqué"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Paneles solares nuevos, de los «donados», alimentan la casa entera. Media Habana a oscuras y aquí no se apaga ni un bombillo."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Papel térmico casi borrado. Nombres en clave y coordenadas:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Para entrar al puerto hace falta un pase. El Socio los vende, pero no acepta dinero: quiere baterías. Dos."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pase de estibador… pasa. Turno de noche: no te pierdas, que los perros no saben leer papeles."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pase del puerto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pegado bajo la mesa, un listado impreso en papel térmico: nombres en clave y coordenadas de la Habana."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pescador"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pila recargable"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Pistas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Policía"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Probar una clave"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Puerta del puerto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Racks llenos de luces. Por aquí pasan las cuentas de Solenergía Caribe y los correos de los que firman."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Ramiro desaparece del todo. Yo sigo resolviendo, como todos. Pero cada bombillo encendido me recuerda el precio."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Ramiro «el Gestor»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Reinicio el nodo: la antena parpadea y vuelve la señal. La linterna sale perdiendo."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Sala de servidores"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Se cayó el nodo de la red local. Hay que reiniciarlo desde la azotea."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Señal"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Solenergía Caribe vendía dos veces los paneles «donados»: al Estado y al mercado negro."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Taller de Yari"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Te regalo una: los que reciben en la Habana Vieja firman con nombres de pájaros. Lo demás tiene precio."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Te soltaron porque di la cara por ti. La próxima vez te dejo dentro."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Tengo la memoria y el listado. A Centro Habana, al taller de Yari, antes de que corten la señal de la red."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Terminó a las {0} con {1} de {2} pistas."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Todavía no tengo ninguna pista."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Trato hecho. Con esto entras por la puerta de carga como estibador. Y tú a mí no me conoces."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Tres semanas después, el caso pasa a «otras instancias». Valdés me invita a un café. No dice nada; no hace falta."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Turno de noche"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Un pase de estibador con un nombre que no es el mío. El Socio no hace preguntas."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una aventura gráfica de investigación en La Habana de 2026, en Object Pascal con Lazarus: pixel art de 256 colores dibujado en código, cuatro actos, pistas y objetos, una linterna que se gasta, el puerto vigilado, una clave que descifrar y tres finales."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una batería de litio de las buenas, de las que mueven una bicicleta eléctrica."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una demo de DMarlon Studio: una aventura de investigación hecha en Object Pascal con Lazarus. La ventana, el menú y el reloj se diseñaron en el Diseñador del estudio; las escenas, los retratos y las letras se dibujan píxel a píxel en el código de Form1.pas, con una paleta de 256 colores."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una linterna me da en la cara. «¡Alto ahí!» Los guardias me llevan a la garita."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una memoria USB con candado. Sin la clave es un llavero."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Una pila recargable envuelta en nailon. Aquí vale más que el dinero."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid ""
+"Usted es Mikel, ex-perito judicial, investigando por su cuenta en La Habana de 2026.\n"
+"\n"
+"HABLAR: con quien esté en el lugar.\n"
+"EXAMINAR: el lugar (a oscuras gasta la linterna).\n"
+"VIAJAR: a otro lugar del acto.\n"
+"LIBRETA: sus objetos y sus pistas.\n"
+"\n"
+"Haga clic en las opciones de la lista o pulse 1–6. Clic o Intro hace avanzar los diálogos. Las teclas de los botones son su primera letra."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "VIAJAR"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Vuelve cuando tengas las dos. Aquí no se fía."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Y falta Ramiro «el Gestor» Quintana, el que lo resolvía todo en el mercado informal. Me llamo Mikel. Fui perito judicial; ahora investigo por mi cuenta."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Yari me espera en una paladar clandestina. Pero la noche empieza en el Malecón, con la linterna a medio cargar."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Yari: la Habana Vieja queda entre -82,36 y -82,34 de longitud."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Yo ya no puedo más. Toma la memoria con las copias. La decisión es tuya."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "Zona de carga"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "aquí"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "¡Abierta! A ver qué escondía el Gestor…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "¿Mikel? Pensé que eras de ellos. Tengo todo: contratos, firmas, cuentas. Si sale a la luz, me buscan a mí. Si no sale, siguen robando la luz de todos."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "¿Pilas? Mira entre las piedras del muro. Los muchachos esconden ahí lo que resuelven."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "¿Probamos otra clave? Cada intento fallido hace ruido en la red."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_malecon.dart
+msgid "…Aunque, entre tú y yo, al puerto no entra nadie sin pase. Ni yo, sin tres papeles firmados."
 msgstr ""
 
 #: lib/code/tk_showcase_reports.dart
@@ -8534,10 +9126,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pos.dart
 msgid "← Volver"
-msgstr ""
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Alerta"
 msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart

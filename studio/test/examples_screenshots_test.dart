@@ -63,6 +63,7 @@ const carousel = [
   'cpp_explorer',
   'cpp_racing',
   'pascal_malecon',
+  'domino',
   'pascal_calculator',
   'console_animals',
   'flutter_store',

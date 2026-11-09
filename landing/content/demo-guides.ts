@@ -148,6 +148,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Descifre la clave y decida", text: "En el taller de Yari hay que adivinar el nombre en clave de quien recibe en la Habana Vieja: las coordenadas del listado y lo que le cuentan dan la respuesta. Cada fallo cuesta señal de la red. Al final, en Miramar, usted elige uno de los tres finales." },
     ],
   },
+  domino: {
+    intro:
+      "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
+    steps: [
+      { title: "Su mano y la salida", text: "Cada uno tiene 10 fichas; las 15 que sobran no se juegan. La primera mano la abre quien tenga el doble más alto. Cuando le toca, las fichas que puede jugar se iluminan: haga clic en una. Si no lleva, pasa solo." },
+      { title: "Elija la punta", text: "Si una ficha cabe por las dos puntas, aparecen dos flechas doradas: haga clic en la que quiera. La cadena gira como una serpiente al llegar al borde de la mesa, y los dobles van atravesados." },
+      { title: "Dominó o tranque", text: "Quien se queda sin fichas gana la mano para su pareja, que se anota los tantos de todas las fichas que quedan. Si nadie puede jugar, gana quien tenga menos tantos. La partida es a 100 (o a 200, en el menú Juego); en Ver puede mirar las fichas de todos." },
+    ],
+  },
   flutter_store: {
     intro: "Una tienda móvil hecha con el editor de pantallas de Flutter: login, catálogo, carrito y pago, con la lógica en Dart. La misma app funciona en Android, iPhone y la web.",
     steps: [
@@ -329,6 +338,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Investigate in the blackout", text: "Talk to the fisherman, the girl with the phone or Inspector Valdés, examine every place and travel around Havana with the list on the left (or keys 1–6). Examining in the dark uses up your torch: find batteries. To get into the port, El Socio wants two batteries." },
       { title: "Get into the port unseen", text: "Every search in the cargo yard and the container makes noise: the Alert bar goes up and, if it fills, the guards take you to their hut. «Wait in the shadows» brings it down. Find the USB stick among the coffee sacks and the list on thermal paper." },
       { title: "Crack the key and decide", text: "In Yari's workshop you must guess the code name of whoever receives in Old Havana: the coordinates on the list and what people tell you give the answer. Every miss costs network signal. In the end, in Miramar, you choose one of three endings." },
+    ],
+  },
+  domino: {
+    intro:
+      "Cuban double-nine dominoes made in Python with tkinter and designed in the studio: a table of four with you and your partner (Yuniel, opposite) against Mayelín and Osmany, played by the computer. The tiles, the table and the line of play are drawn on a canvas.",
+    steps: [
+      { title: "Your hand and the lead", text: "Everyone has 10 tiles; the 15 left over are not used. The first hand is opened by whoever has the highest double. On your turn, the tiles you can play light up: click one. If you can't play, you pass automatically." },
+      { title: "Pick the end", text: "If a tile fits both ends, two golden arrows appear: click the one you want. The line snakes round when it reaches the edge of the table, and doubles are placed crosswise." },
+      { title: "Domino or blocked game", text: "Whoever plays all their tiles wins the hand for their partnership, which scores the points of every tile left. If nobody can play, whoever has the fewest points wins. The game is to 100 (or 200, in the Game menu); in View you can see everyone's tiles." },
     ],
   },
   flutter_store: {

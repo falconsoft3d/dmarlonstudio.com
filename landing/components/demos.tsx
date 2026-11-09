@@ -55,7 +55,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Dieciséis aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Diecisiete aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -110,7 +110,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: dieciséis aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: diecisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y tres webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -224,13 +224,18 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Una aventura de investigación en La Habana de 2026, con el aspecto de los juegos VGA de MS-DOS: interrogue a los vecinos, gestione la linterna en pleno apagón, entre al puerto sin que le vean, descifre una memoria antes de que se caiga la red y elija uno de los tres finales. En macOS, para Apple Silicon.",
         shows: ["Object Pascal con Lazarus, diseñada en el estudio", "Pixel art de 256 colores dibujado píxel a píxel en código", "Cuatro actos, pistas, objetos y tres finales"],
       },
+      domino: {
+        name: "Dominó doble 9",
+        text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
+        shows: ["Python con tkinter: la mesa y las fichas en un lienzo", "Rivales que recuerdan a qué números pasó cada uno", "La cadena gira como una serpiente al llegar al borde"],
+      },
     },
   },
   en: {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Sixteen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Seventeen apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -285,7 +290,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: sixteen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: seventeen desktop apps for macOS and Windows, three mobile apps and three websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -398,6 +403,11 @@ const TEXT: Record<Lang, DemosText> = {
         name: "Under the Shadow of the Malecón (Pascal)",
         text: "An investigation adventure in Havana in 2026, with the look of the MS-DOS VGA games: question the locals, manage your torch during the blackout, get into the port unseen, crack a USB stick before the network goes down and choose one of three endings. On macOS, for Apple Silicon.",
         shows: ["Object Pascal with Lazarus, designed in the studio", "256-colour pixel art drawn pixel by pixel in code", "Four acts, clues, items and three endings"],
+      },
+      domino: {
+        name: "Double-Nine Dominoes",
+        text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
+        shows: ["Python with tkinter: the table and the tiles on a canvas", "Rivals that remember which numbers each player passed on", "The line of tiles snakes round when it reaches the edge"],
       },
     },
   },

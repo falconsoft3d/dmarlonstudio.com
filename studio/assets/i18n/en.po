@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -2721,7 +2721,7 @@ msgstr "Amount"
 msgid "Intro para jugar otra vez"
 msgstr "Enter to play again"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_pascal_malecon.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Juego"
 msgstr "Game"
 
@@ -2753,7 +2753,7 @@ msgstr "Average 20"
 msgid "Máx. {0}  ·  Mín. {1}  ·  Vol. {2}"
 msgstr "High {0}  ·  Low {1}  ·  Vol. {2}"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_pascal_malecon.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Nueva partida"
 msgstr "New game"
 
@@ -3033,7 +3033,7 @@ msgstr "Texts"
 msgid "Traducir al inglés"
 msgstr "Translate to English"
 
-#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
 msgid "Usted"
 msgstr "You"
 
@@ -3935,7 +3935,7 @@ msgstr "Removable drive"
 msgid "Varios tipos"
 msgstr "Multiple types"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -4227,6 +4227,145 @@ msgstr ""
 "F11: full screen\n"
 "\n"
 "Brake before the tight bends: if you go in too fast, the bike runs wide onto the grass. Off the track you lose speed, and hitting a tree or a grandstand means a crash."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Acerca de Dominó doble 9"
+msgstr "About Double-Nine Dominoes"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Clic o Intro para la siguiente mano"
+msgstr "Click or Enter for the next hand"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Clic o Intro para una partida nueva"
+msgstr "Click or Enter for a new game"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Dominó cubano de doble 9 en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, dominó, tranque y partida a 100 tantos, todo dibujado en un lienzo."
+msgstr "Cuban double-nine dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, domino, blocked games and a game to 100 points, all drawn on a canvas."
+
+#: lib/code/tk_showcase_domino.dart
+msgid ""
+"Dominó cubano de doble 9: 55 fichas, cuatro jugadores en dos parejas. Usted juega con Yuniel, que está enfrente, contra Mayelín y Osmany.\n"
+"\n"
+"Cada uno recibe 10 fichas; las 15 que sobran no se juegan. La primera mano la abre quien tenga el doble más alto; después sale el siguiente jugador. Se juega por turnos hacia la derecha poniendo una ficha que coincida con una de las dos puntas. Quien no lleva, pasa.\n"
+"\n"
+"Dominó: el que se queda sin fichas gana la mano para su pareja, que se anota los tantos de todas las fichas que quedan. Tranque: si nadie puede jugar, gana el jugador con menos tantos (si empatan las dos parejas, nadie se anota). La partida es a 100 tantos (o a 200, en el menú Juego)."
+msgstr ""
+"Cuban double-nine dominoes: 55 tiles, four players in two partnerships. You play with Yuniel, sitting opposite you, against Mayelín and Osmany.\n"
+"\n"
+"Each player gets 10 tiles; the 15 left over are not used. The first hand is opened by whoever has the highest double; after that, the next player leads. Turns go to the right, and you play a tile that matches one of the two ends. If you cannot play, you pass.\n"
+"\n"
+"Domino: whoever plays all their tiles wins the hand for their partnership, which scores the points of every tile still left. Blocked game: if nobody can play, the player with the fewest points wins (if both partnerships tie, nobody scores). The game is to 100 points (or 200, in the Game menu)."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Dominó de doble 9 en Python con tkinter: cuatro jugadores en dos parejas, dominó, tranque y partida a 100 tantos."
+msgstr "Double-nine dominoes in Python with tkinter: four players in two partnerships, domino, blocked games and a game to 100 points."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Dominó doble 9"
+msgstr "Double-Nine Dominoes"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Ellos"
+msgstr "Them"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Ellos ganan la partida"
+msgstr "They win the game"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Empate en el tranque: nadie se anota."
+msgstr "A tie in the blocked game: nobody scores."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Esa ficha va por las dos puntas: elija una"
+msgstr "That tile fits both ends: pick one"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Gana {} con {} tantos."
+msgstr "{} wins with {} points."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Juega {}…"
+msgstr "{} is playing…"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "La mesa está vacía"
+msgstr "The table is empty"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "La mesa, las fichas y los jugadores los dibuja el código en este lienzo"
+msgstr "The table, the tiles and the players are drawn by the code on this canvas"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Las fichas que quedaban"
+msgstr "The tiles that were left"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Mano {}"
+msgstr "Hand {}"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "No lleva: usted pasa"
+msgstr "You can't play: you pass"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Nosotros"
+msgstr "Us"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Partida a 100 tantos"
+msgstr "Game to 100 points"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Partida a 200 tantos"
+msgstr "Game to 200 points"
+
+#: lib/code/tk_showcase_domino.dart
+msgctxt "domino"
+msgid "Paso"
+msgstr "Pass"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Reglas del dominó"
+msgstr "Domino rules"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Sale"
+msgstr "Leads"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Su turno: haga clic en una ficha"
+msgstr "Your turn: click a tile"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Una demo de DMarlon Studio: dominó de doble 9 en Python con tkinter. La ventana, el menú y el reloj se diseñaron en el Diseñador del estudio; la mesa, las fichas y los jugadores de la computadora están en el código."
+msgstr "A DMarlon Studio demo: double-nine dominoes in Python with tkinter. The window, the menu and the clock were designed in the studio Designer; the table, the tiles and the computer players are in the code."
+
+#: lib/code/tk_showcase_domino.dart
+msgid "Ver las fichas de todos"
+msgstr "Show everyone's tiles"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "a {}"
+msgstr "to {}"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "{} se anotan {} tantos"
+msgstr "{} score {} points"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "¡Dominó de {}!"
+msgstr "Domino by {}!"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "¡Ganamos la partida!"
+msgstr "We win the game!"
+
+#: lib/code/tk_showcase_domino.dart
+msgid "¡Tranque!"
+msgstr "Blocked game!"
 
 #: lib/code/tk_showcase_electron.dart
 msgid "Bloc de notas (Electron)"

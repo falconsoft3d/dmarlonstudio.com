@@ -43,6 +43,7 @@ const demos = [
   'cpp_explorer',
   'cpp_racing',
   'pascal_malecon',
+  'domino',
 ];
 
 /// Las demos que se prueban en el navegador (scripts/build_live_demos.py)

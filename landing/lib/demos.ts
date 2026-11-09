@@ -31,6 +31,7 @@ export const DEMO_SEEDS = [
   "cpp_explorer",
   "cpp_racing",
   "pascal_malecon",
+  "domino",
 ] as const;
 
 export type DemoSeed = (typeof DEMO_SEEDS)[number];

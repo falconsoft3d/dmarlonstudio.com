@@ -43,6 +43,8 @@ part 'tk_showcase_util_pos.dart';
 part 'tk_showcase_util_file_renamer.dart';
 part 'tk_showcase_util_mp3_player.dart';
 part 'tk_showcase_util_train_monitor.dart';
+part 'tk_showcase_domino.dart';
+part 'tk_showcase_domino_code.dart';
 part 'tk_showcase_util_pascal_odoo.dart';
 part 'tk_showcase_shop.dart';
 
@@ -168,6 +170,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   tkUtilFileRenamer(t),
   tkUtilMp3Player(t),
   tkUtilTrainMonitor(t),
+  tkDomino(t),
   ...tkShopDesktopExamples(t),
 ];
 

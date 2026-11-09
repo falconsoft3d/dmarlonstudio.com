@@ -94,6 +94,7 @@ export const es: Content = {
       { seed: "cpp_explorer", name: "Explorador de archivos (C++)", text: "Árbol, iconos, detalles, pestañas, marcadores y tema claro u oscuro, nativo con FLTK." },
       { seed: "cpp_racing", name: "Carrera de motos (C++)", text: "Un juego de motos en pseudo-3D con siete rivales, vueltas y clasificación, dibujado en código con FLTK." },
       { seed: "pascal_malecon", name: "Bajo la Sombra del Malecón (Pascal)", text: "Una aventura de investigación en La Habana de 2026 con pixel art VGA de 256 colores, dibujada en código con Lazarus." },
+      { seed: "domino", name: "Dominó doble 9", text: "Una mesa de cuatro en dos parejas contra la computadora, con dominó, tranque y partida a 100 tantos, en un lienzo de tkinter." },
       { seed: "flutter_store", name: "Tienda con login (Flutter)", text: "Login, catálogo con búsqueda, carrito y pago en una app móvil." },
       { seed: "rn_store", name: "Tienda (React Native)", text: "Login, catálogo, carrito y pago en una app de React Native." },
       { seed: "web_next_store", name: "Tienda web (Next.js)", text: "Una web de verdad hecha con pantallas: adaptable a escritorio y móvil." },

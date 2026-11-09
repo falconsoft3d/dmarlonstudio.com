@@ -51,10 +51,12 @@ Hechos
 57. Juego de carreras de motos en C++ (FLTK): ejemplo del estudio y demo para macOS y Windows, en pseudo-3D con siete rivales, vueltas, clasificación, minimapa y cuadro de mandos | ✅ |
 58. Aventura de investigación «Bajo la Sombra del Malecón» (Cuba 2026) en Pascal (Lazarus), inspirada en las aventuras VGA de investigación: cuatro actos, pixel art de 256 colores dibujado en código y tres finales | ✅ |
 59. Dominó doble 9 en Python (tkinter): una mesa con cuatro jugadores en dos parejas, el usuario y tres jugadores de la computadora, con dominó, tranque y partida a 100 tantos | ✅ |
+60. Demos de la web: filtrar por lenguaje | ✅ |
 
 
 Trabajando
 =========
+61. Componente Lienzo en el editor de pantallas web (HTML, React, Vue) y el dominó doble 9 jugable en la web de demos | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
 

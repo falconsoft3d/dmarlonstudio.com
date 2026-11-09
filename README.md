@@ -77,5 +77,10 @@ npm run dev
 | Web con Next.js | ⏳ |
 | C++ (escritorio, FLTK) | ⏳ |
 | Pascal (escritorio, Lazarus/LCL) | ⏳ |
-| Flutter (escritorio y móvil) | ⏳ |
+| Flutter (escritorio ) | ⏳ |
+| Flutter (movil ) | ⏳ |
 | React Native (móvil) | ⏳ |
+| React (Web) | ⏳ |
+| HTML (Web) | ⏳ |
+
+poder pasar un proyecto de un destino a otro.

@@ -46,10 +46,14 @@ Hechos
 52. Curso de tkinter con todos los componentes (básico y avanzado, 40 lecciones) con la captura de la ventana de verdad de cada ejemplo | ✅ |
 53. Cursos de bases de datos (SQLite, PostgreSQL, MySQL, MongoDB, FalconDatabase y Firebase): básico y avanzado de 20 lecciones que se ejecutan en el módulo Bases de datos del estudio (que ahora ejecuta scripts) y, en cada curso, un proyecto hecho con el IDE (página «Proyecto», con descarga) | ✅ |
 54. Explorador de archivos en C++ (FLTK) al estilo de Windows 7: ejemplo del estudio y demo para macOS y Windows, con copiar y pegar entre exploradores (portapapeles del sistema), favoritos y modo claro y oscuro | ✅ |
+55. Odoo sin conexión (Pascal): ventas y compras de principio a fin sin conexión (producto, cliente/proveedor, presupuesto, confirmar, facturar y pagar), probado en Odoo 18, 19 y 20 | ✅ |
+56. Demos de escritorio: una sola app en español y en inglés con el menú Idioma / Language, y una sola carpeta demos-local | ✅ |
+57. Juego de carreras de motos en C++ (FLTK): ejemplo del estudio y demo para macOS y Windows, en pseudo-3D con siete rivales, vueltas, clasificación, minimapa y cuadro de mandos | ✅ |
 
 
 Trabajando
 =========
+58. Aventura de investigación «Bajo la Sombra del Malecón» (Cuba 2026), inspirada en las aventuras VGA de investigación: cuatro actos, tres finales | ⏳ |
 17b. Firebase: en el módulo; para la web falta probarlo con un proyecto real (sin Java) | ⏳ |
 50. Demos de macOS firmadas (Developer ID) y notarizadas en CI: listo, falta subir el certificado y la clave de App Store Connect (scripts/mac-signing-secrets.sh) | ⏳ |
 

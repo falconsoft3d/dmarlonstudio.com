@@ -14,6 +14,7 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <ctime>
 #include <functional>
 #include <map>
+#include <set>
 #include <memory>
 #include <string>
 #include <thread>
@@ -2400,6 +2401,123 @@ Fl_RGB_Image* status_preview(const StatusDesign& d, int W, int H) {
   return images()[key] = status_image(d, W, H);
 }
 
+// ---- las etiquetas: las suyas (en MyWhatsapp) y las de WhatsApp (de la base de
+// WhatsApp Desktop o del puente; esas se cambian en el teléfono).
+struct Label {
+  std::string id, name;
+  int color = 0;
+  bool wa = false;
+};
+unsigned label_rgb(int color) {
+  static const unsigned pal[] = {0x25d366, 0x34b7f1, 0xf59e0b, 0xe5484d, 0x8b5cf6, 0x14b8a6, 0xec4899, 0x64748b, 0xa16207, 0x0ea5e9};
+  return pal[((color % 10) + 10) % 10];
+}
+struct LabelSet {
+  std::vector<Label> list;
+  std::map<std::string, std::set<std::string>> mine, wa;   // jid → ids (las suyas / las de WhatsApp)
+  const Label* find(const std::string& id) const {
+    for (const auto& l : list)
+      if (l.id == id) return &l;
+    return nullptr;
+  }
+  std::vector<const Label*> of(const std::string& jid) const {
+    std::vector<const Label*> out;
+    for (const auto* m : {&mine, &wa}) {
+      auto it = m->find(jid);
+      if (it == m->end()) continue;
+      for (const auto& id : it->second)
+        if (const Label* l = find(id)) out.push_back(l);
+    }
+    return out;
+  }
+  bool has(const std::string& jid, const std::string& id) const {
+    for (const auto* m : {&mine, &wa}) {
+      auto it = m->find(jid);
+      if (it != m->end() && it->second.count(id)) return true;
+    }
+    return false;
+  }
+  int count(const std::string& id) const {
+    int n = 0;
+    for (const auto* m : {&mine, &wa})
+      for (const auto& kv : *m) n += kv.second.count(id) ? 1 : 0;
+    return n;
+  }
+  // Una línea: {"ev":"label",…} o {"ev":"label_chat",…}; [is_wa]: de WhatsApp.
+  void apply(const std::string& line, bool is_wa) {
+    bool ok = false;
+    Json j = parse_json(line, &ok);
+    if (!ok) return;
+    std::string ev = j["ev"].str();
+    if (ev == "label") {
+      std::string id = (is_wa ? "wa-" : "") + j["id"].str();
+      if (j["id"].str().empty()) return;
+      list.erase(std::remove_if(list.begin(), list.end(), [&](const Label& l) { return l.id == id; }), list.end());
+      if (j["deleted"].b) {
+        for (auto* m : {&mine, &wa})
+          for (auto& kv : *m) kv.second.erase(id);
+        return;
+      }
+      list.push_back({id, j["name"].str(), (int)j["color"].n, is_wa});
+    } else if (ev == "label_chat") {
+      std::string id = (is_wa ? "wa-" : "") + j["label"].str(), chat = j["chat"].str();
+      if (chat.empty() || j["label"].str().empty()) return;
+      auto& m = is_wa ? wa : mine;
+      if (j["on"].b) m[chat].insert(id);
+      else m[chat].erase(id);
+    }
+  }
+  // Las suyas, para guardarlas en etiquetas.jsonl.
+  std::string own_text() const {
+    std::string out;
+    for (const auto& l : list)
+      if (!l.wa)
+        out += "{\"ev\":\"label\",\"id\":" + jstr(l.id) + ",\"name\":" + jstr(l.name) + ",\"color\":" + std::to_string(l.color) + "}\n";
+    for (const auto& kv : mine)
+      for (const auto& id : kv.second)
+        out += "{\"ev\":\"label_chat\",\"label\":" + jstr(id) + ",\"chat\":" + jstr(kv.first) + ",\"on\":true}\n";
+    return out;
+  }
+};
+// Las etiquetas de WhatsApp Desktop (Labels.sqlite, solo lectura), si las hay.
+void load_desktop_labels(const std::string& path, LabelSet& ls) {
+#ifdef _WIN32
+  (void)path;
+  (void)ls;
+#else
+  if (!file_exists(path)) return;
+  Sqlite& q = sqlite();
+  if (!q.load()) return;
+  void* db = nullptr;
+  std::string uri = "file:" + path + "?mode=ro";
+  if (q.open_v2(uri.c_str(), &db, OPEN_READONLY | OPEN_URI, nullptr) != 0) {
+    if (db) q.close(db);
+    return;
+  }
+  void* st = nullptr;
+  if (q.prepare_v2(db, "SELECT ZLABELID, IFNULL(ZNAME, ''), IFNULL(ZCOLORID, 0) FROM ZWASMBLABEL WHERE IFNULL(ZISACTIVE, 1) = 1", -1, &st,
+                   nullptr) == 0) {
+    while (q.step(st) == SQLITE_ROW_) {
+      std::string id = "wa-" + std::to_string(q.column_int64(st, 0)), name = col(st, 1);
+      if (!name.empty() && !ls.find(id)) ls.list.push_back({id, name, (int)q.column_int64(st, 2), true});
+    }
+    q.finalize(st);
+  }
+  st = nullptr;
+  if (q.prepare_v2(db,
+                   "SELECT l.ZLABELID, IFNULL(p.ZCONTACTJID, '') FROM ZWASMBLABEL l JOIN Z_1PROXIES x ON x.Z_1LABELS = l.Z_PK "
+                   "JOIN ZWASMBLABELEDENTITYPROXY p ON p.Z_PK = x.Z_2PROXIES",
+                   -1, &st, nullptr) == 0) {
+    while (q.step(st) == SQLITE_ROW_) {
+      std::string jid = col(st, 1);
+      if (!jid.empty()) ls.wa[jid].insert("wa-" + std::to_string(q.column_int64(st, 0)));
+    }
+    q.finalize(st);
+  }
+  q.close(db);
+#endif
+}
+
 struct Hit {
   int x, y, w, h, act, idx;
 };
@@ -2422,8 +2540,10 @@ public:
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
   long long now = 0;                          // 0: la hora de verdad
   // Los filtros de arriba y los archivados (aparte, como en WhatsApp).
-  enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED };
+  enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED, F_LABEL };
   int mode = F_ALL;
+  const LabelSet* labels = nullptr;
+  std::string label_filter;   // con F_LABEL: el id de la etiqueta
   int chips_h = 40;
   std::function<void()> on_filter;   // el desplegable de los filtros
   bool compact = false;               // solo las fotos (la barra plegada)
@@ -2438,10 +2558,15 @@ public:
     if (m == F_TASKS) return tasks && oldest_task(*tasks, c.jid) != 0;
     if (m == F_TODO) return !c.last_mine && c.last_t >= t - 3 * 86400;   // me escribieron (3 días) y no contesté
     if (m == F_WAITING) return c.last_mine;                                // escribí yo y no contestaron
+    if (m == F_LABEL) return labels && labels->has(c.jid, label_filter);
     return true;
   }
   // «Por responder (3 días)  13»: el nombre del filtro y cuántos chats tiene.
   std::string filter_label(int m) const {
+    if (m == F_LABEL) {
+      const Label* lb = labels ? labels->find(label_filter) : nullptr;
+      return "🏷 " + (lb ? lb->name : std::string("?")) + "  " + std::to_string(count(m));
+    }
     const char* names[] = {tx::F_ALL, tx::F_TASKS, tx::F_TODO, tx::F_WAITING, tx::ARCHIVED};
     std::string l = names[m >= 0 && m <= F_ARCHIVED ? m : 0];
     if (m != F_ALL) l += "  " + std::to_string(count(m));
@@ -2663,6 +2788,15 @@ public:
             fl_pie(x() + w() - 12 - tw - 16, Y + 15, 10, 10, 0, 360);
             dot = 16;
           }
+        // Sus etiquetas: bolitas de color (hasta tres).
+        if (labels) {
+          auto ls = labels->of(c.jid);
+          for (size_t li = 0; li < ls.size() && li < 3; li++) {
+            fl_color(rgb(label_rgb(ls[li]->color)));
+            fl_rounded_rectf(x() + w() - 12 - tw - dot - 14 - (int)li * 12, Y + 15, 10, 10, 3);
+          }
+          if (!ls.empty()) dot += 4 + (int)std::min<size_t>(ls.size(), 3) * 12;
+        }
         fl_font(FL_HELVETICA_BOLD, 14);
         fl_color(rgb(T.text));
         fl_draw(fit(c.name, w() - 90 - tw - dot).c_str(), x() + 68, Y + 26);
@@ -2908,6 +3042,7 @@ public:
   std::vector<Lead>* leads = nullptr;
   bool crm_mode = false;
   std::string chat_stage;
+  std::vector<std::pair<std::string, int>> chat_labels;   // las etiquetas del chat abierto (nombre y color)
   // Acciones: 60 lead nuevo, 61 abrir su chat, 62 etapa anterior, 63 siguiente, 64 borrarlo, 65 la etapa (cabecera).
   void draw_crm() {
     const Theme& T = th();
@@ -3497,9 +3632,25 @@ public:
       // El campo va encima de la cabecera: que se dibuje después de ella, siempre.
       if (find_input && find_input->visible()) find_input->damage(FL_DAMAGE_ALL);
     }
+    // El nombre y, a su lado, sus etiquetas (en pastillas de color).
+    int lw = 0;
+    fl_font(FL_HELVETICA_BOLD, 11);
+    for (const auto& lb : chat_labels) lw += (int)fl_width(lb.first.c_str()) + 18;
     fl_font(FL_HELVETICA_BOLD, 15);
     fl_color(rgb(T.text));
-    fl_draw(fit(chat->name, rx - (x() + 68) - 12).c_str(), x() + 68, y() + 27);
+    std::string shown_name = fit(chat->name, std::max(60, rx - (x() + 68) - 12 - lw));
+    fl_draw(shown_name.c_str(), x() + 68, y() + 27);
+    int lx = x() + 68 + (int)fl_width(shown_name.c_str()) + 10;
+    fl_font(FL_HELVETICA_BOLD, 11);
+    for (const auto& lb : chat_labels) {
+      int pw = (int)fl_width(lb.first.c_str()) + 14;
+      if (lx + pw > rx - 6) break;
+      fl_color(rgb(label_rgb(lb.second)));
+      fl_rounded_rectf(lx, y() + 13, pw, 18, 9);
+      fl_color(FL_WHITE);
+      fl_draw(lb.first.c_str(), lx, y() + 13, pw, 18, FL_ALIGN_CENTER);
+      lx += pw + 4;
+    }
     fl_font(FL_HELVETICA, 12);
     fl_color(rgb(T.muted));
     std::string ph = phone_of(chat->jid);
@@ -4253,6 +4404,41 @@ int selftest() {
     merge_msgs(base, extra);
     chk(base.size() == 1 && base[0].status == 8, "juntar con Desktop: el estado más avanzado");
   }
+#ifndef _WIN32
+  // Las etiquetas de WhatsApp Desktop (una Labels.sqlite inventada) y las suyas.
+  {
+    std::string d = config_dir();
+    fl_make_path(d.c_str());
+    std::string lp = d + "/prueba-Labels.sqlite";
+    std::remove(lp.c_str());
+    Sqlite& q = sqlite();
+    void* db = nullptr;
+    char* err = nullptr;
+    q.open_v2(lp.c_str(), &db, OPEN_READWRITE | OPEN_CREATE, nullptr);
+    q.exec(db,
+           "CREATE TABLE ZWASMBLABEL (Z_PK INTEGER PRIMARY KEY, ZLABELID INTEGER, ZNAME VARCHAR, ZCOLORID INTEGER, ZISACTIVE INTEGER);"
+           "CREATE TABLE ZWASMBLABELEDENTITYPROXY (Z_PK INTEGER PRIMARY KEY, ZCONTACTJID VARCHAR);"
+           "CREATE TABLE Z_1PROXIES (Z_1LABELS INTEGER, Z_2PROXIES INTEGER);"
+           "INSERT INTO ZWASMBLABEL VALUES (1, 11, 'Cliente nuevo', 2, 1), (2, 12, 'Pendiente', 3, 0);"
+           "INSERT INTO ZWASMBLABELEDENTITYPROXY VALUES (1, '346@s.whatsapp.net');"
+           "INSERT INTO Z_1PROXIES VALUES (1, 1);",
+           nullptr, nullptr, &err);
+    q.close(db);
+    LabelSet ls;
+    load_desktop_labels(lp, ls);
+    chk(ls.list.size() == 1 && ls.list[0].name == "Cliente nuevo" && ls.list[0].wa && ls.has("346@s.whatsapp.net", "wa-11") &&
+            ls.count("wa-11") == 1,
+        "las etiquetas de WhatsApp Desktop (solo las activas)");
+    std::remove(lp.c_str());
+    LabelSet own;
+    own.apply("{\"ev\":\"label\",\"id\":\"my-1\",\"name\":\"Cliente\",\"color\":1}", false);
+    own.apply("{\"ev\":\"label_chat\",\"label\":\"my-1\",\"chat\":\"9@s.whatsapp.net\",\"on\":true}", false);
+    LabelSet again;
+    for (const auto& l : split(own.own_text(), '\n')) again.apply(l, false);
+    chk(again.list.size() == 1 && again.has("9@s.whatsapp.net", "my-1") && again.of("9@s.whatsapp.net")[0]->name == "Cliente",
+        "las suyas: guardar y leer");
+  }
+#endif
   // El CRM: guardar y leer los leads, y los importes.
   {
     Lead l;
@@ -4437,7 +4623,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.23";
+const char* const MYWA_VERSION = "1.0.24";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -4840,6 +5026,8 @@ public:
   bool compact = false;
   std::map<std::string, long long> cleared;
   std::vector<wa::BusyMode> templates;   // nombre y texto (como los modos)
+  // Las etiquetas: las suyas y las de WhatsApp.
+  wa::LabelSet labels;
   // El CRM: los leads.
   std::vector<wa::Lead> leads;
   // Los estados: los diseños guardados y las publicaciones en curso (por su id de envío).
@@ -4940,6 +5128,7 @@ public:
     list->on_busy = [] { if (self()) self()->busy_menu(); };
     list->on_status = [] { if (self()) self()->open_status(); };
     list->on_crm = [] { if (self()) self()->open_crm(); };
+    list->labels = &labels;
     view->leads = &leads;
     list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
     list->on_filter = [] { if (self()) self()->filter_menu(); };
@@ -5048,6 +5237,7 @@ public:
     load_extras();
     load_leads();
     load_sheets();
+    load_labels();
     reload();
     if (compact) set_compact(true);
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
@@ -5263,6 +5453,9 @@ public:
   }
   void refresh() {
     list->tasks_pending = wa::tasks_pending(tasks);
+    view->chat_labels.clear();
+    if (current >= 0)
+      for (const auto* l : labels.of(chats[(size_t)current].jid)) view->chat_labels.push_back({l->name, l->color});
     {
       const char* names[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
       int li = current >= 0 ? wa::lead_of(leads, chats[(size_t)current].jid) : -1;
@@ -5952,6 +6145,85 @@ public:
       save_settings();
     }
   }
+  // ---- las etiquetas: las suyas (etiquetas.jsonl) y las de WhatsApp (Desktop y el puente)
+  std::string labels_file() const { return wa::config_dir() + "/etiquetas.jsonl"; }
+  void load_labels() {
+    labels = wa::LabelSet();
+    if (demo) return;
+    std::string text;
+    if (wa::read_file(labels_file(), text))
+      for (const auto& l : wa::split(text, '\n')) labels.apply(l, false);
+    if (wa::db_exists()) wa::load_desktop_labels(wa::base_dir(wa::db_path()) + "/Labels.sqlite", labels);
+    // Las que pasó el puente (guardadas con los mensajes).
+    if (wa::read_file(store_file(), text))
+      for (const auto& l : wa::split(text, '\n'))
+        if (l.find("\"ev\":\"label") != std::string::npos) labels.apply(l, true);
+  }
+  void save_labels() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    wa::write_file(labels_file(), labels.own_text());
+  }
+  // «⋯ › 🏷 Etiquetas»: poner o quitar las suyas, crear una o borrarla.
+  void labels_menu() {
+    if (current < 0) return;
+    std::string jid = chats[(size_t)current].jid;
+    std::vector<std::string> items;
+    for (const auto& l : labels.list)
+      items.push_back((labels.has(jid, l.id) ? "✓ " : "    ") + l.name + (l.wa ? "  (WhatsApp)" : ""));
+    size_t n = labels.list.size();
+    items.push_back(tx::LABEL_NEW);
+    items.push_back(tx::LABEL_DELETE);
+    int r = choose(items);
+    if (r < 0) return;
+    if (r < (int)n) {
+      const wa::Label& l = labels.list[(size_t)r];
+      if (l.wa) {
+        say(tx::LABEL_IS_WA);
+        return;
+      }
+      if (labels.mine[jid].count(l.id)) labels.mine[jid].erase(l.id);
+      else labels.mine[jid].insert(l.id);
+    } else if (r == (int)n) {
+      std::vector<std::string> colors = {tx::COLOR_0, tx::COLOR_1, tx::COLOR_2, tx::COLOR_3, tx::COLOR_4,
+                                         tx::COLOR_5, tx::COLOR_6, tx::COLOR_7, tx::COLOR_8, tx::COLOR_9};
+      std::vector<wa::FormField> fs = {{"name", tx::F_NAME, "", 0, 0, {}},
+                                       {"color", tx::F_COLOR, colors[labels.list.size() % 10], 3, 1, colors}};
+      if (!form(tx::LABEL_NEW_TITLE, fs, tx::BTN_SAVE)) return;
+      std::string name = wa::trim(wa::form_value(fs, "name"));
+      if (name.empty()) {
+        say(tx::FORM_MISSING);
+        return;
+      }
+      int color = 0;
+      for (int k = 0; k < 10; k++)
+        if (wa::form_value(fs, "color") == colors[(size_t)k]) color = k;
+      int top = 0;
+      for (const auto& l : labels.list)
+        if (!l.wa && wa::starts(l.id, "my-")) top = std::max(top, std::atoi(l.id.c_str() + 3));
+      std::string id = "my-" + std::to_string(top + 1);
+      labels.list.push_back({id, name, color, false});
+      labels.mine[jid].insert(id);   // y se pone en este chat
+    } else {
+      std::vector<std::string> own;
+      std::vector<std::string> ids;
+      for (const auto& l : labels.list)
+        if (!l.wa) {
+          own.push_back(l.name);
+          ids.push_back(l.id);
+        }
+      if (own.empty()) return;
+      int k = choose(own);
+      if (k < 0 || k >= (int)ids.size()) return;
+      std::string id = ids[(size_t)k];
+      labels.list.erase(std::remove_if(labels.list.begin(), labels.list.end(), [&](const wa::Label& l) { return l.id == id; }),
+                        labels.list.end());
+      for (auto& kv : labels.mine) kv.second.erase(id);
+      if (list->mode == wa::ChatList::F_LABEL && list->label_filter == id) list->mode = wa::ChatList::F_ALL;
+    }
+    save_labels();
+    refresh();
+  }
   // ---- el CRM: el tablero, los leads y su etapa desde el chat
   std::string leads_file() const { return wa::config_dir() + "/crm.jsonl"; }
   void load_leads() {
@@ -6199,8 +6471,22 @@ public:
     const int modes[] = {wa::ChatList::F_ALL, wa::ChatList::F_TASKS, wa::ChatList::F_TODO, wa::ChatList::F_WAITING};
     std::vector<std::string> items;
     for (int m : modes) items.push_back((list->mode == m ? "✓ " : "    ") + list->filter_label(m));
+    // Y una por etiqueta: «🏷 Cliente  5».
+    std::string keep = list->label_filter;
+    for (const auto& l : labels.list) {
+      list->label_filter = l.id;
+      items.push_back((list->mode == wa::ChatList::F_LABEL && keep == l.id ? "✓ " : "    ") + list->filter_label(wa::ChatList::F_LABEL));
+    }
+    list->label_filter = keep;
     int r = choose(items);
-    if (r < 0 || r > 3) return;
+    if (r < 0 || r >= (int)items.size()) return;
+    if (r >= 4) {
+      list->mode = wa::ChatList::F_LABEL;
+      list->label_filter = labels.list[(size_t)(r - 4)].id;
+      list->scroll = 0;
+      refresh();
+      return;
+    }
     list->mode = modes[r];
     list->scroll = 0;
     refresh();
@@ -6250,23 +6536,27 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::LABELS_MENU, tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
     if (r == 0) {
-      crm_from_chat();
+      labels_menu();
       return;
     }
     if (r == 1) {
-      add_contact();
+      crm_from_chat();
       return;
     }
     if (r == 2) {
+      add_contact();
+      return;
+    }
+    if (r == 3) {
       evaluate_person();
       return;
     }
-    r -= 3;
+    r -= 4;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -7023,6 +7313,11 @@ public:
     wa::Json j = wa::parse_json(line, &ok);
     if (!ok) return;
     std::string ev = j["ev"].str();
+    if (ev == "label" || ev == "label_chat") {
+      labels.apply(line, true);
+      refresh();
+      return;
+    }
     if (ev == "msg" || ev == "chat" || ev == "receipt") {
       if (!store.add_line(line).empty() || ev == "chat") store_dirty = true;
     } else if (ev == "qr") {
@@ -7206,6 +7501,13 @@ public:
     Provider->index(0);
     load_busy();
     load_extras();
+    // Dos etiquetas de ejemplo.
+    labels = wa::LabelSet();
+    labels.list = {{"my-1", tx::DEMO_LABEL1, 1, false}, {"my-2", tx::DEMO_LABEL2, 6, false}};
+    labels.mine[chats[0].jid] = {"my-1"};
+    labels.mine[chats[2].jid] = {"my-1"};
+    labels.mine[chats[1].jid] = {"my-2"};
+    labels.mine[chats[3].jid] = {"my-2"};
     // Cuatro leads de ejemplo, en varias etapas.
     leads.clear();
     {
@@ -7405,7 +7707,7 @@ public:
           "abrir los archivados");
       chk(click_chip(4, -1) && list->mode == wa::ChatList::F_ALL, "volver de los archivados");
       auto pick_filter = [&](int idx) {
-        choose = [idx](const std::vector<std::string>& items) { return items.size() == 4 ? idx : -1; };
+        choose = [idx](const std::vector<std::string>& items) { return items.size() >= 4 ? idx : -1; };   // y luego las etiquetas
         bool ok = click_chip(9, -1);
         choose = [](const std::vector<std::string>&) { return -1; };
         return ok;
@@ -7717,13 +8019,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 3; };   // «Limpiar el chat»
+      choose = [](const std::vector<std::string>&) { return 4; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 4; };   // «Deshacer la limpieza»
+      choose = [](const std::vector<std::string>&) { return 5; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -7770,6 +8072,47 @@ public:
         return true;
       };
     }
+    // Las etiquetas: las de ejemplo, una nueva desde el chat, filtrar y las de WhatsApp.
+    {
+      pick(0);
+      refresh();
+      chk(view->chat_labels.size() == 1 && view->chat_labels[0].first == tx::DEMO_LABEL1, "la etiqueta en la cabecera del chat");
+      fill = {{"name", "VIP"}, {"color", tx::COLOR_3}};
+      int st = 0;
+      choose = [&st](const std::vector<std::string>& items) { return st++ == 0 ? 0 : (int)items.size() - 2; };   // «🏷 Etiquetas» → «+ Nueva…»
+      chat_menu();
+      chk(labels.list.size() == 3 && labels.has(chats[0].jid, labels.list.back().id) && labels.list.back().color == 3,
+          "crear una etiqueta (ficha) y ponerla en el chat");
+      // Quitarla: «🏷 Etiquetas» → la nueva.
+      st = 0;
+      choose = [&st](const std::vector<std::string>&) { return st++ == 0 ? 0 : 2; };
+      chat_menu();
+      chk(!labels.has(chats[0].jid, labels.list.back().id), "quitar una etiqueta del chat");
+      // Filtrar por «Cliente»: Laura y Carlos.
+      choose = [](const std::vector<std::string>& items) { return items.size() > 4 ? 4 : -1; };
+      filter_menu();
+      render_to("");
+      int shown = 0;
+      for (const auto& h : list->hits) shown += h.act == 0 ? 1 : 0;
+      chk(list->mode == wa::ChatList::F_LABEL && shown == 2, "filtrar por una etiqueta");
+      list->mode = wa::ChatList::F_ALL;
+      // Las de WhatsApp (por el puente): se ven, pero no se cambian aquí.
+      on_bridge("{\"ev\":\"label\",\"id\":\"7\",\"name\":\"Pagado\",\"color\":4}");
+      on_bridge("{\"ev\":\"label_chat\",\"label\":\"7\",\"chat\":\"" + chats[0].jid + "\",\"on\":true}");
+      chk(labels.has(chats[0].jid, "wa-7") && view->chat_labels.size() == 2, "una etiqueta de WhatsApp, en el chat");
+      st = 0;
+      choose = [&st](const std::vector<std::string>& items) {
+        if (st++ == 0) return 0;
+        for (size_t k = 0; k < items.size(); k++)
+          if (items[k].find("Pagado") != std::string::npos) return (int)k;
+        return -1;
+      };
+      chat_menu();
+      chk(message == tx::LABEL_IS_WA && labels.has(chats[0].jid, "wa-7"), "las de WhatsApp no se cambian aquí");
+      on_bridge("{\"ev\":\"label\",\"id\":\"7\",\"deleted\":true}");
+      chk(!labels.has(chats[0].jid, "wa-7") && !labels.find("wa-7"), "una etiqueta borrada en WhatsApp");
+      choose = [](const std::vector<std::string>&) { return -1; };
+    }
     // El CRM: el tablero, mover un lead, crear uno desde un chat y cambiar su etapa.
     {
       render_to("");
@@ -7798,7 +8141,7 @@ public:
       // Desde el chat de Mamá: un lead nuevo, enlazado.
       pick(3);
       fill = {{"value", "1.250,50 €"}};   // el nombre: el del chat, ya puesto
-      choose = [](const std::vector<std::string>&) { return 0; };   // «💼 CRM…»
+      choose = [](const std::vector<std::string>&) { return 1; };   // «💼 CRM…»
       chat_menu();
       chk(leads.size() == 5 && leads.back().jid == chats[3].jid && leads.back().name == chats[3].name &&
               std::fabs(leads.back().value - 1250.5) < 0.001 && leads.back().stage == 0,
@@ -7826,7 +8169,7 @@ public:
       // La ficha: una sola ventana con todo (como en Odoo); primero sin Contactos.
       fill = {{"name", "Laura Martín"}, {"company", "Muebles Sol"}, {"email", "laura@example.com"}, {"city", "Valencia"},
               {"vat", "B12345678"}, {"job", "Gerente"}, {"to_contacts", "0"}};
-      choose = [](const std::vector<std::string>&) { return 1; };   // «👤 Ficha del contacto…»
+      choose = [](const std::vector<std::string>&) { return 2; };   // «👤 Ficha del contacto…»
       chat_menu();
       chk(sheets.count(chats[0].jid) && sheets[chats[0].jid]["company"] == "Muebles Sol" && sheets[chats[0].jid]["mobile"] == "+34600111222" &&
               form_keys.size() >= 18 && message == tx::SHEET_SAVED,
@@ -7859,7 +8202,7 @@ public:
     // Valorar a una persona: la tarjeta de la IA, encima del chat.
     {
       pick(0);
-      choose = [](const std::vector<std::string>&) { return 2; };   // «✨ Valorar a esta persona»
+      choose = [](const std::vector<std::string>&) { return 3; };   // «✨ Valorar a esta persona»
       chat_menu();
       chk(view->insight == tx::PERSON_THINKING, "valorar: pensando");
       person_done(new PersonDone{chats[0].jid, "Cercana y práctica. Trátala con calma.", ""});

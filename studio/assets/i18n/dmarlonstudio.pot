@@ -6091,7 +6091,7 @@ msgstr ""
 msgid "Clic: color frontal · Alt+clic: color de fondo · I"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Color"
 msgstr ""
 
@@ -6654,6 +6654,10 @@ msgid "Ángulo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nueva etiqueta…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nueva plantilla…"
 msgstr ""
 
@@ -6683,6 +6687,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.24 — Etiquetas: las suyas y las de WhatsApp, en la lista, en el chat y como filtro.\n"
 "1.0.23 — CRM: los leads en un tablero por etapas, enlazados a sus chats. La ficha del contacto, como en Odoo. Los datos se editan en una sola ventana.\n"
 "1.0.22 — Añadir el contacto de un chat a sus Contactos (y al teléfono, por iCloud).\n"
 "1.0.21 — Los ✓ de sus mensajes: enviado, entregado y leído en azul.\n"
@@ -6783,6 +6788,10 @@ msgid ""
 "La sesión se guarda solo en este equipo. ¿Vincular de todos modos?"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Azul"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Añadido desde MyWhatsapp"
 msgstr ""
@@ -6813,6 +6822,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Borrar un modo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrar una etiqueta…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6856,6 +6869,10 @@ msgid "Carlos · cliente"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Celeste"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Chat limpiado (en WhatsApp sigue todo)"
 msgstr ""
 
@@ -6889,6 +6906,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Claves de la IA…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+msgid "Cliente"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7161,6 +7182,10 @@ msgid "Eres el traductor de MyWhatsapp. Traduce el mensaje que te dan al idioma 
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Esa etiqueta es de WhatsApp: póngala o quítela en el teléfono"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Esconder en la barra de menús"
 msgstr ""
 
@@ -7245,6 +7270,10 @@ msgid "Faltan datos: rellene el nombre y el texto"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Familia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Familia 🏡"
 msgstr ""
 
@@ -7274,6 +7303,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Gracias"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Gris"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7417,6 +7450,10 @@ msgid "Mandar a Carlos el presupuesto de la cocina"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Marrón"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Me apunto!"
 msgstr ""
 
@@ -7464,6 +7501,10 @@ msgid "Modo ocupado…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Morado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "MyWhatsapp"
 msgstr ""
 
@@ -7499,7 +7540,7 @@ msgid ""
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7514,6 +7555,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nada por responder 🎉"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/theme.dart
+msgid "Naranja"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7606,6 +7651,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nuestro horario es de lunes a viernes, de 9:00 a 18:00."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nueva etiqueta"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7776,6 +7825,14 @@ msgstr ""
 msgid "Repita el PIN:"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Rojo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Rosa"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Salir de MyWhatsapp"
 msgstr ""
@@ -7856,6 +7913,10 @@ msgstr ""
 msgid "Traduciendo…"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/theme.dart
+msgid "Turquesa"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Un emoji grande (vacío para quitarlo):"
 msgstr ""
@@ -7866,6 +7927,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Usar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+msgid "Verde"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8143,6 +8208,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🌐 Traducir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🏷 Etiquetas…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -9800,10 +9869,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_flutter.dart
 msgid "Borrar las hechas"
-msgstr ""
-
-#: lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
-msgid "Cliente"
 msgstr ""
 
 #: lib/code/tk_showcase_flutter.dart
@@ -14525,10 +14590,6 @@ msgstr ""
 msgid "Abrir un PDF"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
-msgid "Azul"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Añadir un sello de texto…"
 msgstr ""
@@ -14629,10 +14690,6 @@ msgstr ""
 msgid "Giro"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
-msgid "Gris"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardado con contraseña ({1}): {0}"
 msgstr ""
@@ -14697,10 +14754,6 @@ msgstr ""
 msgid "Repita la contraseña:"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
-msgid "Rojo"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Se guardará protegido con contraseña."
 msgstr ""
@@ -14735,10 +14788,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Un PDF necesita al menos una página: no se pueden eliminar todas."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
-msgid "Verde"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -19049,15 +19098,7 @@ msgid "Magenta"
 msgstr ""
 
 #: lib/ui/theme.dart
-msgid "Naranja"
-msgstr ""
-
-#: lib/ui/theme.dart
 msgid "Púrpura"
-msgstr ""
-
-#: lib/ui/theme.dart
-msgid "Turquesa"
 msgstr ""
 
 #: lib/ui/theme.dart

@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.121 — 2026-11-11
+
+- **MyWhatsapp 1.0.24: etiquetas.** En un chat, «⋯ › 🏷 Etiquetas…» pone o quita las suyas, crea una (con su nombre y su color, en una ficha) o la borra. Salen en la cabecera del chat (pastillas de color junto al nombre), como cuadritos de color en la lista y como filtros en el desplegable («🏷 Cliente  5»). Las de WhatsApp también se ven: las lee de WhatsApp Desktop (`Labels.sqlite`, solo lectura; en este equipo no hay ninguna) y las recibe el puente cuando cambian en el teléfono (también cuando se borran); esas se cambian en el teléfono. Las suyas se guardan en `etiquetas.jsonl`.
+- Probado: las pruebas internas (una `Labels.sqlite` inventada, solo las activas; guardar y leer las suyas) y la de la interfaz (la etiqueta en la cabecera, crear una y ponerla, quitarla, filtrar por ella, una de WhatsApp por el puente, que no se cambia aquí, y borrada en WhatsApp); el puente, compilado de nuevo con sus pruebas.
+
 ## 1.0.120 — 2026-11-11
 
 - **MyWhatsapp 1.0.23: CRM.** El botón «💼», en la fila de Tareas, abre un tablero con los leads por etapas (Nuevo, Contactado, Propuesta, Negociación, Ganado y Perdido): cada columna dice cuántos hay y su importe, y arriba, cuántos están abiertos, cuánto hay en juego y cuánto se ha ganado. Cada tarjeta lleva el lead, su chat, su importe y una bolita según los días sin moverse; ◀ ▶ la pasan de etapa, un clic abre su chat y ✕ la borra. Desde un chat, «⋯ › 💼 CRM…» lo añade (un lead enlazado al chat) o le cambia la etapa, y la etapa sale en la cabecera del chat (un clic la cambia o lo quita del CRM). Se guardan en `crm.jsonl`.

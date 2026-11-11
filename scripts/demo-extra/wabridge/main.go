@@ -92,7 +92,7 @@ func (b *bridge) emit(v any) {
 		case Msg:
 			b.store.Write(append(data, '\n'))
 		case map[string]any:
-			if m["ev"] == "chat" || m["ev"] == "receipt" {
+			if m["ev"] == "chat" || m["ev"] == "receipt" || m["ev"] == "label" || m["ev"] == "label_chat" {
 				b.store.Write(append(data, '\n'))
 			}
 		}
@@ -247,6 +247,23 @@ func (b *bridge) onEvent(evt any) {
 		if status > 0 {
 			b.emit(map[string]any{"ev": "receipt", "ids": e.MessageIDs, "status": status})
 		}
+	case *events.LabelEdit:
+		// Las etiquetas de WhatsApp (las de la cuenta): su nombre, su color o que se borró.
+		if e.Action == nil {
+			return
+		}
+		b.emit(map[string]any{"ev": "label", "id": e.LabelID, "name": e.Action.GetName(), "color": e.Action.GetColor(),
+			"deleted": e.Action.GetDeleted()})
+	case *events.LabelAssociationChat:
+		// Una etiqueta puesta o quitada en un chat.
+		if e.Action == nil {
+			return
+		}
+		chat := e.JID
+		if chat.Server != types.GroupServer {
+			chat = b.phoneJID(context.Background(), e.JID, types.EmptyJID)
+		}
+		b.emit(map[string]any{"ev": "label_chat", "label": e.LabelID, "chat": chat.String(), "on": e.Action.GetLabeled()})
 	case *events.Connected:
 		me := ""
 		if b.cli.Store.ID != nil {

@@ -641,6 +641,9 @@ public:
       const Site& s = (*sites)[i];
       int k = (int)i, rh = 66, cy = Y + rh / 2;
       round_box(X, Y, W, rh, 12, k == selected ? rgb(0xeef4ff) : FL_WHITE, k == selected ? rgb(0x93b4f5) : rgb(0xe3e7ee));
+      // La tarjeta va primero: los botones, encima, ganan el clic (hit_at
+      // busca de la última zona a la primera).
+      hits.push_back({X, Y, W, rh, 0, k});
       dot(X + 22, cy, 7, state_color(s.state()));
       if (s.checking) {
         fl_color(FL_WHITE);
@@ -694,7 +697,6 @@ public:
         fl_color(rgb(0x9ca3af));
         fl_draw(s.paused ? tx::PAUSED : tx::NOT_YET, cHist, Y + 37);
       }
-      hits.push_back({X, Y, W, rh, 0, k});
       Y += rh + 8;
     }
     content_h = Y + scroll - y() + 8;
@@ -1400,6 +1402,32 @@ public:
     chk(sites[0].paused, "pausar");
     render_to("");
     chk(view->content_h > 300 && view->hits.size() >= sites.size() * 4, "dibujado");
+    // Un clic en el centro de cada botón da su botón, no la tarjeta.
+    for (int act = 1; act <= 3; act++) {
+      bool ok = false;
+      for (const auto& h : view->hits)
+        if (h.act == act && h.site == 1) {
+          int i = view->hit_at(h.x + h.w / 2, h.y + h.h / 2);
+          ok = i >= 0 && view->hits[(size_t)i].act == act && view->hits[(size_t)i].site == 1;
+        }
+      chk(ok, act == 1 ? "clic en Abrir" : act == 2 ? "clic en Pausar" : "clic en Quitar");
+    }
+    // Y fuera de los botones, la tarjeta (seleccionar).
+    for (const auto& h : view->hits)
+      if (h.act == 0 && h.site == 1) {
+        int i = view->hit_at(h.x + 60, h.y + 10);
+        chk(i >= 0 && view->hits[(size_t)i].act == 0, "clic en la tarjeta");
+      }
+    // El clic en Pausar, de verdad (el evento FL_PUSH de la lista).
+    bool paused1 = sites[1].paused;
+    for (const auto& h : view->hits)
+      if (h.act == 2 && h.site == 1) {
+        Fl::e_x = h.x + h.w / 2;
+        Fl::e_y = h.y + h.h / 2;
+        view->handle(FL_PUSH);
+        break;
+      }
+    chk(sites[1].paused != paused1, "Pausar con el ratón");
     std::string text = um::serialize(sites, every);
     int ev = 0;
     chk(um::parse(text, ev).size() == sites.size() && ev == 10, "guardado");

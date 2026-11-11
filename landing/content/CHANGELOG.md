@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.109 — 2026-11-11
+
+- **MyWhatsapp en la barra de menús, con cuántos chats esperan respuesta.** Arriba, en la barra de menús de macOS, MyWhatsapp enseña su icono y el número de chats por responder (le escribieron en los últimos 3 días y el último mensaje no es suyo; sin los archivados). Su menú los lista, del más reciente al más antiguo, con el nombre, el último mensaje y la hora: uno abre MyWhatsapp en ese chat. Al cerrar la ventana (o con Archivo › Esconder en la barra de menús), la app no se cierra: sale del Dock y sigue en la barra, con el puente conectado y el modo ocupado contestando. «Abrir MyWhatsapp» la vuelve a enseñar y «Salir de MyWhatsapp» la cierra de verdad. Está hecho en C++ con el runtime de Objective-C (NSStatusItem, como el monitor de sitios web); el menú solo se rehace cuando cambia algo.
+- Probado: las pruebas internas (quiénes esperan respuesta: el orden, los que contesté, los archivados y los de hace más de 3 días) y la de la interfaz (el número y el menú con los chats de ejemplo, y abrir un chat desde el menú).
+
 ## 1.0.108 — 2026-11-11
 
 - **MyWhatsapp: modos ocupado, tantos como quiera.** En Archivo › Modo ocupado… se elige un modo («En una reunión», «Conduciendo», «De vacaciones» o los que cree con «+ Nuevo modo…», cada uno con su mensaje; también se editan y se borran). Mientras hay uno activo, a quien le escriba en privado después de activarlo se le contesta solo con el mensaje de ese modo, una vez por persona (no a los grupos ni a los archivados), por el puente o la API oficial; a quién se contestó se guarda, así que al volver a abrir la app no se repite. La barra de estado dice «🔕 Ocupado: …». Sin WhatsApp conectado para enviar, la app lo avisa al activarlo.

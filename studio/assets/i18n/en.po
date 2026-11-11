@@ -6754,6 +6754,10 @@ msgid "API oficial"
 msgstr "official API"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir MyWhatsapp"
+msgstr "Open MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir con su programa"
 msgstr "Open with its app"
 
@@ -6988,6 +6992,10 @@ msgid "Eres el traductor de MyWhatsapp. Traduce el mensaje que te dan al idioma 
 msgstr "You are the MyWhatsapp translator. Translate the message you are given into the target language, naturally, the way someone who speaks it would write it on WhatsApp, with the same tone and the same emojis. Reply only with the translation, without quotes or explanations. Target language: {0}."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Esconder en la barra de menús"
+msgstr "Hide in the menu bar"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Escriba el mensaje en el borrador"
 msgstr "Type the message in the draft"
 
@@ -7183,6 +7191,8 @@ msgid ""
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
 "\n"
+"Al cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n"
+"\n"
 "Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
@@ -7199,11 +7209,17 @@ msgstr ""
 "\n"
 "“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
 "\n"
+"When you close the window, MyWhatsapp stays in the menu bar, with how many chats are waiting for a reply (someone wrote in the last 3 days and you didn't answer) and a menu with them; also in File › Hide in the menu bar.\n"
+"\n"
 "Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once.\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
 "Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nada por responder 🎉"
+msgstr "Nothing to answer 🎉"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Natural"
@@ -7306,6 +7322,10 @@ msgid "Por responder (3 días)"
 msgstr "To answer (3 days)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Por responder ({0}):"
+msgstr "To answer ({0}):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Presupuesto cocina.pdf"
 msgstr "Kitchen quote.pdf"
 
@@ -7324,6 +7344,10 @@ msgstr "SUGGESTED REPLIES"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Recoger a la abuela el domingo a las 13"
 msgstr "Pick up grandma on Sunday at 1 pm"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Salir de MyWhatsapp"
+msgstr "Quit MyWhatsapp"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"

@@ -44,6 +44,8 @@ const _mywaIncludes = r'''#include <algorithm>
 #endif
 #ifdef __APPLE__
 #include <mach-o/dyld.h>
+#include <objc/message.h>
+#include <objc/runtime.h>
 #endif
 ''';
 
@@ -1476,6 +1478,23 @@ std::vector<int> busy_targets(const std::vector<Chat>& chats, long long since, c
   }
   return out;
 }
+
+// ---- la barra de menús: los chats por responder (me escribieron en los
+// últimos 3 días y no contesté; sin los archivados), del más reciente al más antiguo.
+std::vector<int> to_answer(const std::vector<Chat>& chats, long long now) {
+  std::vector<int> out;
+  for (int i = 0; i < (int)chats.size(); i++) {
+    const Chat& c = chats[(size_t)i];
+    if (!c.archived && !c.last_mine && c.last_t > 0 && c.last_t >= now - 3 * 86400) out.push_back(i);
+  }
+  std::stable_sort(out.begin(), out.end(), [&](int a, int b) { return chats[(size_t)a].last_t > chats[(size_t)b].last_t; });
+  return out;
+}
+struct BarEntry {
+  std::string title;
+  int tag = 0;   // 0: no se pulsa
+  bool sep = false;
+};
 
 // ---- el puente (wabridge): un proceso aparte que habla por stdin/stdout
 std::string exe_dir() {
@@ -3322,6 +3341,19 @@ int selftest() {
     auto ks = chat_countries(g);
     chk(ks.size() == 2 && std::string(ks[0]->iso) == "AR" && std::string(ks[1]->iso) == "ES", "los países de un grupo");
   }
+  // La barra: los chats por responder, del más reciente al más antiguo.
+  {
+    std::vector<Chat> cs(4);
+    cs[0].last_t = 900;                       // sí
+    cs[1].last_t = 950;                       // sí, y antes en la lista
+    cs[2].last_t = 950;
+    cs[2].last_mine = true;                   // contesté: no
+    cs[3].last_t = 990;
+    cs[3].archived = true;                    // archivado: no
+    auto ta = to_answer(cs, 1000);
+    chk(ta.size() == 2 && ta[0] == 1 && ta[1] == 0, "la barra: los chats por responder");
+    chk(to_answer(cs, 1000 + 4 * 86400).empty(), "la barra: solo los de los últimos 3 días");
+  }
   // Los modos ocupado: guardar y leer, y a quién contestar.
   {
     std::vector<BusyMode> ms = {{"Reunión", "Estoy en una \"reunión\""}, {"Coche", "Conduciendo"}};
@@ -3427,6 +3459,122 @@ int selftest() {
 
 }  // namespace wa
 
+// ============================================================ la barra de menús
+// En macOS, un NSStatusItem hecho desde C++ con el runtime de Objective-C
+// (objc_msgSend): el icono de los mensajes, cuántos chats esperan respuesta
+// y un menú con ellos. En Windows y Linux, la ventana se comporta como siempre.
+namespace bar {
+#ifdef __APPLE__
+template <class R = id, class... A>
+R msg(id o, const char* s, A... a) {
+  return ((R(*)(id, SEL, A...))objc_msgSend)(o, sel_registerName(s), a...);
+}
+inline id cls(const char* n) { return (id)objc_getClass(n); }
+inline id str(const std::string& s) { return msg(cls("NSString"), "stringWithUTF8String:", s.c_str()); }
+extern "C" void* objc_autoreleasePoolPush(void);
+extern "C" void objc_autoreleasePoolPop(void*);
+struct Pool {
+  void* p = objc_autoreleasePoolPush();
+  ~Pool() { objc_autoreleasePoolPop(p); }
+};
+inline std::function<void(int)>& handler() {
+  static std::function<void(int)> h;
+  return h;
+}
+void on_act(id, SEL, id sender) {
+  long t = msg<long>(sender, "tag");
+  if (handler()) handler()((int)t);
+}
+id target() {
+  static id t = nullptr;
+  if (!t) {
+    Class c = objc_allocateClassPair((Class)objc_getClass("NSObject"), "DmsMyWhatsappTarget", 0);
+    class_addMethod(c, sel_registerName("dmsAct:"), (IMP)on_act, "v@:@");
+    objc_registerClassPair(c);
+    t = msg(msg((id)c, "alloc"), "init");
+  }
+  return t;
+}
+id& item() {
+  static id i = nullptr;
+  return i;
+}
+bool available() { return item() != nullptr; }
+bool create() {
+  Pool pool;
+  id sb = msg(cls("NSStatusBar"), "systemStatusBar");
+  if (!sb) return false;
+  id it = msg<id, double>(sb, "statusItemWithLength:", -1.0);   // NSVariableStatusItemLength
+  if (!it) return false;
+  msg(it, "retain");
+  item() = it;
+  return true;
+}
+// El icono (un símbolo del sistema, del color de la barra) y el número.
+void set(const char* symbol, const std::string& title) {
+  if (!item()) return;
+  Pool pool;
+  id b = msg(item(), "button");
+  if (!b) return;
+  id img = nullptr;
+  if (class_getClassMethod((Class)objc_getClass("NSImage"), sel_registerName("imageWithSystemSymbolName:accessibilityDescription:")))
+    img = msg<id, id, id>(cls("NSImage"), "imageWithSystemSymbolName:accessibilityDescription:", str(symbol), str("MyWhatsapp"));
+  if (img) {
+    msg<void, BOOL>(img, "setTemplate:", YES);
+    msg<void, id>(b, "setImage:", img);
+    msg<void, long>(b, "setImagePosition:", 2);   // NSImageLeft
+  }
+  msg<void, id>(b, "setTitle:", str(title));
+}
+void menu(const std::vector<wa::BarEntry>& entries) {
+  if (!item()) return;
+  Pool pool;
+  id m = msg(msg(cls("NSMenu"), "alloc"), "init");
+  msg<void, BOOL>(m, "setAutoenablesItems:", NO);
+  for (const auto& e : entries) {
+    if (e.sep) {
+      msg<void, id>(m, "addItem:", msg(cls("NSMenuItem"), "separatorItem"));
+      continue;
+    }
+    SEL action = e.tag ? sel_registerName("dmsAct:") : (SEL) nullptr;
+    id it = msg<id, id, SEL, id>(msg(cls("NSMenuItem"), "alloc"), "initWithTitle:action:keyEquivalent:", str(e.title), action, str(""));
+    msg<void, id>(it, "setTarget:", target());
+    msg<void, long>(it, "setTag:", (long)e.tag);
+    msg<void, BOOL>(it, "setEnabled:", e.tag ? YES : NO);
+    msg<void, id>(m, "addItem:", it);
+    msg<void>(it, "release");
+  }
+  msg<void, id>(item(), "setMenu:", m);
+  msg<void>(m, "release");
+}
+// Con la ventana escondida, la app sale del Dock (solo queda en la barra).
+void dock(bool visible) {
+  Pool pool;
+  id app = msg(cls("NSApplication"), "sharedApplication");
+  msg<void, long>(app, "setActivationPolicy:", visible ? 0L : 1L);
+  if (visible) msg<void, BOOL>(app, "activateIgnoringOtherApps:", YES);
+}
+void remove() {
+  if (!item()) return;
+  Pool pool;
+  msg<void, id>(msg(cls("NSStatusBar"), "systemStatusBar"), "removeStatusItem:", item());
+  msg<void>(item(), "release");
+  item() = nullptr;
+}
+#else
+inline std::function<void(int)>& handler() {
+  static std::function<void(int)> h;
+  return h;
+}
+bool available() { return false; }
+bool create() { return false; }
+void set(const char*, const std::string&) {}
+void menu(const std::vector<wa::BarEntry>&) {}
+void dock(bool) {}
+void remove() {}
+#endif
+}  // namespace bar
+
 // ============================================================ la ventana
 struct AiDone {
   long long chat_id;
@@ -3481,6 +3629,10 @@ public:
   std::string busy;
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
+  // La barra de menús: si la ventana está escondida en ella, y lo último que se puso.
+  bool in_bar = false, quitting = false;
+  std::string bar_sig;
+  std::vector<std::string> bar_jids;   // los chats del menú (por su etiqueta)
   Fl_Input* find_input = nullptr;
   // El menú del clic derecho (las pruebas lo cambian): el índice elegido o -1.
   std::function<int(const std::vector<std::string>&)> choose = [](const std::vector<std::string>& items) {
@@ -3565,6 +3717,14 @@ public:
       }
     });
     Search->when(FL_WHEN_CHANGED);
+    // El botón de cerrar esconde la ventana en la barra de menús (si la hay);
+    // un cierre desde el código (el menú Idioma de las demos) cierra de verdad.
+    callback([](Fl_Widget*, void*) {
+      if (Fl::event() == FL_SHORTCUT && Fl::event_key() == FL_Escape) return;
+      if (!self()) return;
+      if (Fl::event() == FL_CLOSE) self()->close_clicked();
+      else self()->close_for_good();
+    });
     // Enter en el borrador envía; Mayúsculas+Enter, otra línea.
     Fl::event_dispatch(dispatch);
     bridge.on_line = [](const std::string& l) { if (self()) self()->on_bridge(l); };
@@ -3611,7 +3771,9 @@ public:
     reload();
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
+    if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
     refresh();
+    update_bar();
   }
 
   // ---- el tema: los colores de los dibujos y de los controles del diseño
@@ -3942,6 +4104,105 @@ public:
         if (!c.msgs[(size_t)i].mine) title = wa::task_title_of(c.msgs[(size_t)i]);
     add_task(title, current);
   }
+  // ---- la barra de menús: cuántos esperan respuesta y el menú con ellos
+  // Etiquetas: 1 abrir la ventana, 2 salir, 100 + n: el chat n del menú.
+  std::vector<wa::BarEntry> bar_entries(int& waiting) {
+    long long t = view->now ? view->now : (long long)wa::now_s();
+    std::vector<int> ids = wa::to_answer(chats, t);
+    waiting = (int)ids.size();
+    std::vector<wa::BarEntry> out;
+    out.push_back({tx::BAR_OPEN, 1, false});
+    out.push_back({"", 0, true});
+    out.push_back({waiting ? wa::fmt(tx::BAR_WAITING, {std::to_string(waiting)}) : std::string(tx::BAR_NONE), 0, false});
+    bar_jids.clear();
+    for (size_t k = 0; k < ids.size() && k < 15; k++) {
+      const wa::Chat& c = chats[(size_t)ids[k]];
+      std::string last = c.last;
+      for (auto& ch : last)
+        if (ch == '\n') ch = ' ';
+      if (last.size() > 60) {
+        size_t cut = 60;
+        while (cut > 0 && ((unsigned char)last[cut] & 0xC0) == 0x80) cut--;
+        last = last.substr(0, cut) + "…";
+      }
+      out.push_back({"   " + c.name + "  —  " + last + "  · " + wa::clock_time(c.last_t), 100 + (int)k, false});
+      bar_jids.push_back(c.jid);
+    }
+    out.push_back({"", 0, true});
+    out.push_back({tx::BAR_QUIT, 2, false});
+    return out;
+  }
+  void update_bar() {
+    if (!bar::available()) return;
+    int waiting = 0;
+    auto entries = bar_entries(waiting);
+    std::string sig = std::to_string(waiting);
+    for (const auto& e : entries) sig += "|" + e.title;
+    if (sig == bar_sig) return;   // nada nuevo: no se rehace el menú
+    bar_sig = sig;
+    bar::set(waiting ? "bubble.left.and.text.bubble.right.fill" : "bubble.left.and.bubble.right", waiting ? " " + std::to_string(waiting) : "");
+    bar::menu(entries);
+  }
+  void bar_act(int t) {
+    if (t == 2) {
+      quit();
+      return;
+    }
+    if (in_bar) from_bar();
+    else bar::dock(true);
+    if (t >= 100 && t - 100 < (int)bar_jids.size()) {
+      std::string jid = bar_jids[(size_t)(t - 100)];
+      list->mode = wa::ChatList::F_ALL;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (chats[(size_t)i].jid == jid) {
+          pick(i);
+          break;
+        }
+    }
+  }
+  void to_bar() {
+    if (!bar::available()) {
+      iconize();
+      return;
+    }
+    if (in_bar) return;
+    save_settings();
+    in_bar = true;
+    hide();
+    bar::dock(false);
+    // Sin ventanas, Fl::run terminaría: aquí sigue la app (y el puente, y el modo ocupado).
+    while (in_bar && !quitting) Fl::wait(1e20);
+    if (quitting) quit_now();
+  }
+  void from_bar() {
+    bar::dock(true);
+    in_bar = false;
+    show();
+    refresh();
+  }
+  void close_clicked() {
+    if (bar::available()) to_bar();
+    else quit();
+  }
+  void close_for_good() {
+    save_settings();
+    bridge.stop();
+    bar::remove();
+    in_bar = false;
+    hide();
+  }
+  void quit() {
+    quitting = true;
+    if (!in_bar) quit_now();
+  }
+  void quit_now() {
+    save_settings();
+    bridge.stop();
+    bar::remove();
+    hide();
+    std::exit(0);
+  }
+
   // ---- los modos ocupado
   std::string busy_file() const { return wa::config_dir() + "/modos.jsonl"; }
   void load_busy() {
@@ -4682,6 +4943,7 @@ public:
     }
     busy_reply();
     refresh();
+    update_bar();
   }
   void Menu1_click(const std::string& item) override {
     if (item == tx::MP_RELOAD) reload();
@@ -4694,10 +4956,9 @@ public:
     else if (item == tx::MP_LIGHT) set_theme("light");
     else if (item == tx::MP_DARK) set_theme("dark");
     else if (item == tx::MP_SYSTEM) set_theme("system");
+    else if (item == tx::MP_BAR) close_clicked();
     else if (item == tx::MP_QUIT) {
-      save_settings();
-      bridge.stop();
-      hide();
+      quit();
     } else if (item == tx::MP_HOW) fl_message("%s", tx::HOW_TEXT);
     else if (item == tx::MP_ABOUT) fl_message("%s", tx::ABOUT_TEXT);
   }
@@ -4989,6 +5250,17 @@ public:
     Draft->value("");
     BtnSend_click();
     chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+    // La barra de menús: el número y el menú con los chats por responder.
+    {
+      int waiting = 0;
+      auto entries = bar_entries(waiting);
+      chk(waiting == 4 && entries.size() == 4 + 5 && entries[3].tag == 100 && entries.back().tag == 2,
+          "la barra: cuántos y el menú");
+      std::string first = bar_jids[0];
+      bar_act(100);
+      chk(current >= 0 && chats[(size_t)current].jid == first, "la barra: abrir un chat");
+      pick(0);
+    }
     // Los modos ocupado: activar, crear uno, editarlo, borrarlo y desactivar.
     {
       size_t n = busy_modes.size();

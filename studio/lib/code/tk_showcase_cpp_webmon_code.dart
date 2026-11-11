@@ -24,8 +24,16 @@ const _webmonIncludes = r'''#include <algorithm>
 #include <FL/fl_draw.H>
 #include <FL/fl_utf8.h>
 #ifdef _WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <windows.h>
 #else
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/select.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -194,6 +202,181 @@ std::string host_of(const std::string& url) {
   return h;
 }
 
+// ------------------------------------------------------------ el escáner de puertos
+// Los puertos habituales de un servidor: se prueba a abrir una conexión TCP
+// a todos a la vez, con un tiempo máximo. Solo para servidores propios o con
+// permiso. [risky]: no conviene tenerlo abierto a internet.
+struct PortInfo {
+  int port;
+  const char* name;
+  bool risky;
+};
+const PortInfo PORTS[] = {
+    {21, "FTP", true},         {22, "SSH", false},           {23, "Telnet", true},
+    {25, "SMTP", false},       {53, "DNS", false},           {80, "HTTP", false},
+    {110, "POP3", false},      {143, "IMAP", false},         {443, "HTTPS", false},
+    {445, "SMB", true},        {465, "SMTPS", false},        {587, "Submission", false},
+    {993, "IMAPS", false},     {995, "POP3S", false},        {1433, "SQL Server", true},
+    {1521, "Oracle", true},    {2049, "NFS", true},          {2375, "Docker", true},
+    {3000, "HTTP 3000", false}, {3306, "MySQL", true},       {3389, "RDP", true},
+    {5432, "PostgreSQL", true}, {5672, "RabbitMQ", true},    {5900, "VNC", true},
+    {6379, "Redis", true},     {8000, "HTTP 8000", false},   {8069, "Odoo", false},
+    {8072, "Odoo longpolling", false}, {8080, "HTTP 8080", false}, {8443, "HTTPS 8443", false},
+    {9200, "Elasticsearch", true}, {11211, "Memcached", true}, {27017, "MongoDB", true},
+};
+const int PORT_N = (int)(sizeof PORTS / sizeof PORTS[0]);
+const PortInfo* port_info(int port) {
+  for (const auto& p : PORTS)
+    if (p.port == port) return &p;
+  return nullptr;
+}
+
+struct ScanResult {
+  std::string host, ip, error;
+  std::vector<int> open;   // los abiertos, en orden
+  long long t = 0;
+  int tried = 0;
+};
+
+// El servidor de una dirección: «https://www.x.com:8443/a» → «www.x.com».
+std::string server_of(const std::string& url) {
+  size_t p = url.find("://");
+  std::string h = p == std::string::npos ? url : url.substr(p + 3);
+  size_t e = h.find_first_of("/?#");
+  if (e != std::string::npos) h = h.substr(0, e);
+  size_t at = h.find('@');
+  if (at != std::string::npos) h = h.substr(at + 1);
+  if (!h.empty() && h[0] == '[') {
+    size_t b = h.find(']');
+    return b == std::string::npos ? h : h.substr(1, b - 1);
+  }
+  size_t c = h.rfind(':');
+  return c == std::string::npos ? h : h.substr(0, c);
+}
+
+#ifdef _WIN32
+typedef SOCKET sock_t;
+const sock_t BAD_SOCK = INVALID_SOCKET;
+void sock_close(sock_t s) { closesocket(s); }
+void net_init() {
+  static bool done = false;
+  if (!done) {
+    WSADATA w;
+    WSAStartup(MAKEWORD(2, 2), &w);
+    done = true;
+  }
+}
+void set_nonblock(sock_t s) {
+  u_long nb = 1;
+  ioctlsocket(s, FIONBIO, &nb);
+}
+#else
+typedef int sock_t;
+const sock_t BAD_SOCK = -1;
+void sock_close(sock_t s) { close(s); }
+void net_init() {}
+void set_nonblock(sock_t s) { fcntl(s, F_SETFL, fcntl(s, F_GETFL, 0) | O_NONBLOCK); }
+#endif
+
+// Prueba [ports] de [host] a la vez (en el hilo que la llama).
+ScanResult scan_ports(const std::string& host, const std::vector<int>& ports, int timeout_ms) {
+  ScanResult r;
+  r.host = host;
+  r.t = now_t();
+  net_init();
+  addrinfo hints{}, *res = nullptr;
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  if (getaddrinfo(host.c_str(), nullptr, &hints, &res) != 0 || !res) {
+    r.error = tx::ERR_NO_HOST;
+    return r;
+  }
+  // Mejor IPv4 si lo hay.
+  addrinfo* pick = res;
+  for (addrinfo* a = res; a; a = a->ai_next)
+    if (a->ai_family == AF_INET) { pick = a; break; }
+  sockaddr_storage base{};
+  std::memcpy(&base, pick->ai_addr, pick->ai_addrlen);
+  socklen_t len = (socklen_t)pick->ai_addrlen;
+  int family = pick->ai_family;
+  char ipbuf[INET6_ADDRSTRLEN] = "";
+  if (family == AF_INET) inet_ntop(AF_INET, &((sockaddr_in*)&base)->sin_addr, ipbuf, sizeof ipbuf);
+  else inet_ntop(AF_INET6, &((sockaddr_in6*)&base)->sin6_addr, ipbuf, sizeof ipbuf);
+  r.ip = ipbuf;
+  freeaddrinfo(res);
+  struct Try {
+    int port;
+    sock_t s;
+  };
+  std::vector<Try> pending;
+  for (int port : ports) {
+    sockaddr_storage a = base;
+    if (family == AF_INET) ((sockaddr_in*)&a)->sin_port = htons((unsigned short)port);
+    else ((sockaddr_in6*)&a)->sin6_port = htons((unsigned short)port);
+    sock_t s = socket(family, SOCK_STREAM, 0);
+    if (s == BAD_SOCK) continue;
+    set_nonblock(s);
+    r.tried++;
+    if (connect(s, (sockaddr*)&a, len) == 0) {
+      r.open.push_back(port);
+      sock_close(s);
+      continue;
+    }
+    pending.push_back({port, s});
+  }
+  double end = now_s() + timeout_ms / 1000.0;
+  while (!pending.empty() && now_s() < end) {
+    fd_set w, x;
+    FD_ZERO(&w);
+    FD_ZERO(&x);
+    sock_t top = 0;
+    for (const auto& p : pending) {
+      FD_SET(p.s, &w);
+      FD_SET(p.s, &x);
+      if (p.s > top) top = p.s;
+    }
+    double left = end - now_s();
+    timeval tv{(long)left, (int)((left - (long)left) * 1e6)};
+    if (select((int)top + 1, nullptr, &w, &x, &tv) <= 0) break;
+    std::vector<Try> still;
+    for (const auto& p : pending) {
+      if (FD_ISSET(p.s, &w) || FD_ISSET(p.s, &x)) {
+        int err = 0;
+        socklen_t el = sizeof err;
+        getsockopt(p.s, SOL_SOCKET, SO_ERROR, (char*)&err, &el);
+        if (err == 0 && FD_ISSET(p.s, &w)) r.open.push_back(p.port);
+        sock_close(p.s);
+      } else {
+        still.push_back(p);
+      }
+    }
+    pending.swap(still);
+  }
+  for (const auto& p : pending) sock_close(p.s);
+  std::sort(r.open.begin(), r.open.end());
+  return r;
+}
+std::vector<int> common_ports() {
+  std::vector<int> v;
+  for (const auto& p : PORTS) v.push_back(p.port);
+  return v;
+}
+// «22, 80, 443» (o «ninguno»).
+std::string open_list(const ScanResult& r) {
+  if (r.open.empty()) return tx::NO_OPEN_PORTS;
+  std::string o;
+  for (int p : r.open) o += (o.empty() ? "" : ", ") + std::to_string(p);
+  return o;
+}
+int risky_count(const ScanResult& r) {
+  int n = 0;
+  for (int p : r.open) {
+    const PortInfo* i = port_info(p);
+    if (i && i->risky) n++;
+  }
+  return n;
+}
+
 // ------------------------------------------------------------ los sitios
 struct Check {
   long long t = 0;
@@ -212,6 +395,8 @@ struct Site {
   bool paused = false, checking = false;
   long long added = 0, changed = 0;   // desde cuándo está como está
   std::vector<Check> history;
+  ScanResult scan;            // el último escaneo de puertos
+  bool scanning = false, show_ports = false;
 
   const Check* last() const { return history.empty() ? nullptr : &history.back(); }
   State state() const {
@@ -447,7 +632,7 @@ struct MenuEntry {
   int dot = -1;          // el estado (el punto de color)
   std::vector<MenuEntry> sub;
 };
-enum Act { A_OPEN = 1, A_CHECK = 2, A_PAUSE = 3, A_SHOW = 4, A_CHECK_ALL = 100, A_WINDOW = 101, A_TO_BAR = 102,
+enum Act { A_OPEN = 1, A_CHECK = 2, A_PAUSE = 3, A_SHOW = 4, A_SCAN = 5, A_CHECK_ALL = 100, A_WINDOW = 101, A_TO_BAR = 102,
            A_QUIT = 103, A_EVERY = 110 };
 inline int tag(int act, int site) { return act * 1000 + site; }
 
@@ -514,6 +699,9 @@ std::vector<MenuEntry> bar_menu(const std::vector<Site>& sites, int every, long 
       e.sub.push_back(text_entry(fmt(on ? tx::UP_SINCE : tx::DOWN_SINCE, {span(now_t() - s.changed)})));
       e.sub.push_back(text_entry(fmt(tx::LAST_CHECK, {clock_time(s.last()->t)})));
     }
+    e.sub.push_back(sep_entry());
+    e.sub.push_back(act_entry(s.scanning ? tx::SCANNING : tx::SCAN_PORTS, s.scanning ? 0 : tag(A_SCAN, k)));
+    if (s.scan.t) e.sub.push_back(text_entry(fmt(tx::OPEN_PORTS, {open_list(s.scan)})));
     e.sub.push_back(act_entry(tx::SHOW_IN_WINDOW, tag(A_SHOW, k)));
     m.push_back(e);
   }
@@ -639,11 +827,11 @@ public:
     long long now = now_t();
     for (size_t i = 0; i < sites->size(); i++) {
       const Site& s = (*sites)[i];
-      int k = (int)i, rh = 66, cy = Y + rh / 2;
-      round_box(X, Y, W, rh, 12, k == selected ? rgb(0xeef4ff) : FL_WHITE, k == selected ? rgb(0x93b4f5) : rgb(0xe3e7ee));
+      int k = (int)i, rh = 66, cy = Y + rh / 2, ph = s.show_ports ? 104 : 0;
+      round_box(X, Y, W, rh + ph, 12, k == selected ? rgb(0xeef4ff) : FL_WHITE, k == selected ? rgb(0x93b4f5) : rgb(0xe3e7ee));
       // La tarjeta va primero: los botones, encima, ganan el clic (hit_at
       // busca de la última zona a la primera).
-      hits.push_back({X, Y, W, rh, 0, k});
+      hits.push_back({X, Y, W, rh + ph, 0, k});
       dot(X + 22, cy, 7, state_color(s.state()));
       if (s.checking) {
         fl_color(FL_WHITE);
@@ -653,6 +841,7 @@ public:
       int right = X + W - 12;
       right = button(right, cy, tx::REMOVE, 3, k, rgb(0xdc2626)) - 6;
       right = button(right, cy, s.paused ? tx::RESUME : tx::PAUSE, 2, k, rgb(0x1f2937)) - 6;
+      right = button(right, cy, tx::PORTS, 4, k, s.show_ports ? rgb(0x7c3aed) : rgb(0x1f2937)) - 6;
       right = button(right, cy, tx::OPEN_SHORT, 1, k, rgb(0x1d4ed8)) - 12;
       fl_font(FL_HELVETICA_BOLD, 15);
       fl_color(rgb(0x1f2937));
@@ -697,10 +886,52 @@ public:
         fl_color(rgb(0x9ca3af));
         fl_draw(s.paused ? tx::PAUSED : tx::NOT_YET, cHist, Y + 37);
       }
-      Y += rh + 8;
+      if (s.show_ports) draw_ports(s, k, X + 16, Y + rh, W - 32);
+      Y += rh + ph + 8;
     }
     content_h = Y + scroll - y() + 8;
     fl_pop_clip();
+  }
+
+  // Los puertos de un sitio, bajo su fila: los abiertos en etiquetas (en
+  // ámbar los que no conviene abrir a internet) y volver a escanear.
+  void draw_ports(const Site& s, int k, int X, int Y, int W) {
+    fl_color(rgb(0xe3e7ee));
+    fl_line(X, Y, X + W, Y);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    fl_color(rgb(0x1f2937));
+    std::string head;
+    if (s.scanning) head = fmt(tx::SCANNING_HOST, {std::to_string(PORT_N), server_of(s.url)});
+    else if (!s.scan.error.empty()) head = s.scan.host + " · " + s.scan.error;
+    else if (s.scan.t)
+      head = fmt(tx::SCAN_HEAD, {s.scan.host, s.scan.ip, std::to_string(s.scan.open.size()), std::to_string(s.scan.tried),
+                                  clock_time(s.scan.t)});
+    fl_draw(fit(head, W - 160).c_str(), X, Y + 22);
+    if (!s.scanning) button(X + W, Y + 16, tx::RESCAN_PORTS, 5, k, rgb(0x1d4ed8));
+    int x = X, y = Y + 36;
+    if (!s.scanning && s.scan.t && s.scan.error.empty()) {
+      if (s.scan.open.empty()) {
+        fl_font(FL_HELVETICA, 12);
+        fl_color(rgb(0x6b7280));
+        fl_draw(tx::NO_OPEN_PORTS, x, y + 18);
+      }
+      for (int p : s.scan.open) {
+        const PortInfo* pi = port_info(p);
+        std::string t = std::to_string(p) + "  " + (pi ? pi->name : "");
+        fl_font(FL_HELVETICA_BOLD, 12);
+        int w = (int)fl_width(t.c_str()) + 20;
+        if (x + w > X + W) break;
+        bool risky = pi && pi->risky;
+        round_box(x, y, w, 26, 13, risky ? rgb(0xfff4e0) : rgb(0xe8f7ee), risky ? rgb(0xf5b84a) : rgb(0x8fd4a8));
+        fl_color(risky ? rgb(0x9a5b00) : rgb(0x166534));
+        fl_draw(t.c_str(), x, y, w, 26, FL_ALIGN_CENTER);
+        x += w + 8;
+      }
+    }
+    fl_font(FL_HELVETICA, 11);
+    fl_color(rgb(0x6b7280));
+    std::string note = risky_count(s.scan) ? fmt(tx::RISKY_NOTE, {std::to_string(risky_count(s.scan))}) : tx::SCAN_NOTE;
+    fl_draw(fit(note, W).c_str(), X, Y + 88);
   }
 
   int handle(int e) override {
@@ -831,6 +1062,44 @@ int selftest() {
   chk(found, "el sitio caído con su submenú");
   chk(every_ok, "el intervalo marcado");
   chk(bar_menu(v, 2, 0, false)[bar_menu(v, 2, 0, false).size() - 2].tag == tag(A_WINDOW, 0), "abrir la ventana");
+  // El escáner: un puerto que escucha en este equipo y otro que no.
+  chk(server_of("https://www.x.com:8443/a") == "www.x.com" && server_of("http://[::1]:80/") == "::1", "servidor");
+  chk(port_info(8069) && std::string(port_info(8069)->name) == "Odoo" && port_info(3306)->risky, "puertos conocidos");
+  {
+    net_init();
+    sock_t l = socket(AF_INET, SOCK_STREAM, 0);
+    sockaddr_in a{};
+    a.sin_family = AF_INET;
+    a.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    a.sin_port = 0;
+    bool ok = l != BAD_SOCK && bind(l, (sockaddr*)&a, sizeof a) == 0 && listen(l, 4) == 0;
+    socklen_t al = sizeof a;
+    getsockname(l, (sockaddr*)&a, &al);
+    int open_port = ntohs(a.sin_port);
+    // Uno cerrado: otro que se abre y se cierra en el momento.
+    sock_t c = socket(AF_INET, SOCK_STREAM, 0);
+    sockaddr_in b{};
+    b.sin_family = AF_INET;
+    b.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
+    bind(c, (sockaddr*)&b, sizeof b);
+    socklen_t bl = sizeof b;
+    getsockname(c, (sockaddr*)&b, &bl);
+    int closed_port = ntohs(b.sin_port);
+    sock_close(c);
+    ScanResult r = scan_ports("127.0.0.1", {open_port, closed_port}, 1500);
+    chk(ok && r.error.empty() && r.ip == "127.0.0.1" && r.tried == 2, "escaneo de este equipo");
+    chk(r.open.size() == 1 && r.open[0] == open_port, "el abierto sí y el cerrado no");
+    sock_close(l);
+    ScanResult bad = scan_ports("nada.invalid", {80}, 500);
+    chk(!bad.error.empty() && bad.open.empty(), "servidor que no existe");
+  }
+  // De verdad: DMS_WEBMON_SCAN=servidor (los puertos habituales).
+  if (const char* h = fl_getenv("DMS_WEBMON_SCAN")) {
+    double t0 = now_s();
+    ScanResult r = scan_ports(h, common_ports(), 2500);
+    std::printf("scan %s (%s): %s · %d probados en %.1f s %s\n", h, r.ip.c_str(), open_list(r).c_str(), r.tried,
+                now_s() - t0, r.error.c_str());
+  }
   // De verdad: DMS_WEBMON_LIVE=url (debe contestar) y DMS_WEBMON_DEAD=url (no).
   if (const char* u = fl_getenv("DMS_WEBMON_LIVE")) {
     Probe q = probe(u);
@@ -979,6 +1248,11 @@ void remove() {}
 }  // namespace bar
 
 // ============================================================ la ventana
+struct ScanDone {
+  std::string url;
+  um::ScanResult result;
+};
+
 struct ProbeDone {
   std::string url;
   um::Probe probe;
@@ -1077,6 +1351,32 @@ public:
       Fl::awake(done, d);
     }).detach();
   }
+  // Escanea los puertos del servidor de un sitio (en otro hilo).
+  void scan(int i, bool notify_when_done) {
+    if (i < 0 || i >= (int)sites.size() || sites[(size_t)i].scanning) return;
+    um::Site& s = sites[(size_t)i];
+    s.scanning = true;
+    s.show_ports = true;
+    refresh();
+    if (!live) return;
+    std::string url = s.url;
+    std::thread([url, notify_when_done] {
+      auto* d = new ScanDone{url, um::scan_ports(um::server_of(url), um::common_ports(), 2500)};
+      if (notify_when_done) um::notify(tx::SCAN_DONE, d->result.host + ": " + um::open_list(d->result));
+      Fl::awake(scanned, d);
+    }).detach();
+  }
+  static void scanned(void* p) {
+    std::unique_ptr<ScanDone> d(static_cast<ScanDone*>(p));
+    if (!self()) return;
+    for (auto& s : self()->sites)
+      if (s.url == d->url) {
+        s.scanning = false;
+        s.scan = d->result;
+      }
+    self()->refresh();
+  }
+
   void check_all() {
     for (int i = 0; i < (int)sites.size(); i++)
       if (!sites[(size_t)i].paused) check(i);
@@ -1174,6 +1474,7 @@ public:
       case um::A_OPEN: if (site < (int)sites.size()) fl_open_uri(sites[(size_t)site].url.c_str()); break;
       case um::A_CHECK: check(site); refresh(); break;
       case um::A_PAUSE: row_act(2, site); break;
+      case um::A_SCAN: scan(site, true); break;
       case um::A_SHOW:
         view->selected = site;
         from_bar();
@@ -1192,6 +1493,12 @@ public:
     else if (act == 2) {
       s.paused = !s.paused;
       if (!s.paused) check(site);
+    } else if (act == 4) {
+      if (s.show_ports && !s.scanning) s.show_ports = false;
+      else if (!s.scan.t || um::now_t() - s.scan.t > 600) scan(site, false);
+      else s.show_ports = true;
+    } else if (act == 5) {
+      scan(site, false);
     } else if (act == 3) {
       if (!fl_choice("%s", tx::BTN_NO, tx::BTN_YES, nullptr, um::fmt(tx::ASK_REMOVE, {s.name}).c_str())) return;
       sites.erase(sites.begin() + site);
@@ -1269,6 +1576,14 @@ public:
     size(W, H);
     long long now = um::now_t();
     sites = um::demo_sites(now);
+    um::ScanResult r;
+    r.host = "tienda.example.com";
+    r.ip = "203.0.113.24";
+    r.open = {22, 80, 443, 3306, 8069};
+    r.tried = um::PORT_N;
+    r.t = now - 40;
+    sites[0].scan = r;
+    sites[0].show_ports = true;
     every = 2;
     Every->index(1);
     next_round = now + 75;
@@ -1419,6 +1734,17 @@ public:
         int i = view->hit_at(h.x + 60, h.y + 10);
         chk(i >= 0 && view->hits[(size_t)i].act == 0, "clic en la tarjeta");
       }
+    // Puertos: el botón abre la zona (con el escaneo de ejemplo de la tienda).
+    chk(sites[0].show_ports && sites[0].scan.open.size() == 5, "puertos de ejemplo");
+    row_act(4, 0);
+    chk(!sites[0].show_ports, "ocultar los puertos");
+    row_act(4, 0);
+    chk(sites[0].show_ports && !sites[0].scanning, "volver a enseñarlos (escaneo reciente)");
+    render_to("");
+    bool rescan = false;
+    for (const auto& h : view->hits)
+      if (h.act == 5 && h.site == 0) rescan = true;
+    chk(rescan, "botón de volver a escanear");
     // El clic en Pausar, de verdad (el evento FL_PUSH de la lista).
     bool paused1 = sites[1].paused;
     for (const auto& h : view->hits)

@@ -31,7 +31,7 @@ TkExample tkCppWebmon(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'Escriba la dirección de un sitio (y, si quiere, un nombre) y pulse Añadir. El monitor lo comprueba enseguida y después cada pocos minutos (2 por defecto; cámbielo en «Comprobar cada»).\n\nEn línea: contesta con un código 2xx o 3xx. Lento: tarda más de 2 segundos. Caído: contesta con un error o no contesta. Cuando un sitio se cae o vuelve, macOS le avisa.\n\nCerrar la ventana o «Minimizar a la barra» la esconde: el monitor sigue en la barra de menús, con un menú para abrir cada sitio, comprobarlo, pausarlo o volver a la ventana.',
+        'Escriba la dirección de un sitio (y, si quiere, un nombre) y pulse Añadir. El monitor lo comprueba enseguida y después cada pocos minutos (2 por defecto; cámbielo en «Comprobar cada»).\n\nEn línea: contesta con un código 2xx o 3xx. Lento: tarda más de 2 segundos. Caído: contesta con un error o no contesta. Cuando un sitio se cae o vuelve, macOS le avisa.\n\n«Puertos» prueba los puertos habituales de su servidor y enseña los abiertos; en ámbar, los que no conviene abrir a internet. Escanee solo servidores suyos o con permiso.\n\nCerrar la ventana o «Minimizar a la barra» la esconde: el monitor sigue en la barra de menús, con un menú para abrir cada sitio, comprobarlo, pausarlo o volver a la ventana.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -93,6 +93,26 @@ TkExample tkCppWebmon(String Function(String) t) {
     'ALREADY': t(markTr('Ese sitio ya está en la lista')),
     'ADDED': t(markTr('Añadido: {0}')),
     'CHECKING_ALL': t(markTr('Comprobando todos los sitios…')),
+    'PORTS': t(markTr('Puertos')),
+    'SCAN_PORTS': t(markTr('Escanear puertos')),
+    'RESCAN_PORTS': t(markTr('Volver a escanear')),
+    'SCANNING': t(markTr('Escaneando puertos…')),
+    'SCANNING_HOST': t(markTr('Probando {0} puertos de {1}…')),
+    'SCAN_HEAD': t(markTr('{0} ({1}) · {2} abiertos de {3} · {4}')),
+    'OPEN_PORTS': t(markTr('Puertos abiertos: {0}')),
+    'NO_OPEN_PORTS': t(markTr('Ningún puerto abierto de los habituales')),
+    'ERR_NO_HOST': t(markTr('no se encuentra el servidor')),
+    'SCAN_DONE': t(markTr('Escaneo de puertos terminado')),
+    'SCAN_NOTE': t(
+      markTr(
+        'Se prueban los puertos habituales (SSH, web, correo, bases de datos, Odoo…). Escanee solo servidores suyos o con permiso.',
+      ),
+    ),
+    'RISKY_NOTE': t(
+      markTr(
+        'En ámbar, {0} que no conviene tener abiertos a internet: ciérrelos en el cortafuegos o limítelos a sus IP.',
+      ),
+    ),
     'DEMO_SHOP': t(markTr('Tienda online')),
     'DEMO_API': t(markTr('API de pedidos')),
     'DEMO_CLIENTS': t(markTr('Área de clientes')),

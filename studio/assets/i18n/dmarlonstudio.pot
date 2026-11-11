@@ -6913,7 +6913,23 @@ msgid "En pausa"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
+msgid "En ámbar, {0} que no conviene tener abiertos a internet: ciérrelos en el cortafuegos o limítelos a sus IP."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
 msgid "Esa dirección no vale: escriba algo como ejemplo.com"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Escaneando puertos…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Escanear puertos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Escaneo de puertos terminado"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
@@ -6925,6 +6941,8 @@ msgid ""
 "Escriba la dirección de un sitio (y, si quiere, un nombre) y pulse Añadir. El monitor lo comprueba enseguida y después cada pocos minutos (2 por defecto; cámbielo en «Comprobar cada»).\n"
 "\n"
 "En línea: contesta con un código 2xx o 3xx. Lento: tarda más de 2 segundos. Caído: contesta con un error o no contesta. Cuando un sitio se cae o vuelve, macOS le avisa.\n"
+"\n"
+"«Puertos» prueba los puertos habituales de su servidor y enseña los abiertos; en ámbar, los que no conviene abrir a internet. Escanee solo servidores suyos o con permiso.\n"
 "\n"
 "Cerrar la ventana o «Minimizar a la barra» la esconde: el monitor sigue en la barra de menús, con un menú para abrir cada sitio, comprobarlo, pausarlo o volver a la ventana."
 msgstr ""
@@ -6958,6 +6976,10 @@ msgid "Monitor de sitios web en C++ con FLTK: comprueba cada pocos minutos si lo
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Ningún puerto abierto de los habituales"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
 msgid "No contesta"
 msgstr ""
 
@@ -6970,7 +6992,19 @@ msgid "Pausar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Probando {0} puertos de {1}…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
 msgid "Próxima comprobación en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_port_scanner.dart
+msgid "Puertos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Puertos abiertos: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
@@ -6991,6 +7025,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "Se ha caído"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Se prueban los puertos habituales (SSH, web, correo, bases de datos, Odoo…). Escanee solo servidores suyos o con permiso."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
@@ -7022,6 +7060,10 @@ msgid "Ver en la ventana"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Volver a escanear"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
 msgid "Web de la empresa"
 msgstr ""
 
@@ -7031,6 +7073,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "en línea hace {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "no se encuentra el servidor"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} ({1}) · {2} abiertos de {3} · {4}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_webmon.dart
@@ -13104,10 +13154,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_port_scanner.dart lib/ui/screens/dev_tools.dart
 msgid "Puerto"
-msgstr ""
-
-#: lib/code/tk_showcase_util_port_scanner.dart
-msgid "Puertos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_port_scanner.dart

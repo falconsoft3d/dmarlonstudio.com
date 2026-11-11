@@ -215,7 +215,7 @@ const es: Record<string, DemoGuide> = {
     intro:
       "Un monitor de sitios web nativo en C++ con FLTK, diseñado en el estudio: comprueba cada pocos minutos si sus webs contestan y le enseña su estado, su tiempo de respuesta y su historial, desde la ventana o desde la barra de menús.",
     steps: [
-      { title: "Añada sus sitios", text: "Escriba una dirección (basta con ejemplo.com) y, si quiere, un nombre, y pulse Añadir o Intro. El monitor lo comprueba en el momento y después cada 2 minutos; cambie el intervalo en «Comprobar cada» (de 1 a 30 minutos)." },
+      { title: "Añada sus sitios y vea sus puertos", text: "Escriba una dirección (basta con ejemplo.com) y, si quiere, un nombre, y pulse Añadir o Intro. El monitor lo comprueba en el momento y después cada 2 minutos; cambie el intervalo en «Comprobar cada» (de 1 a 30 minutos). «Puertos» prueba los 33 puertos habituales de su servidor y enseña los abiertos; en ámbar, los que no conviene abrir a internet (bases de datos, escritorio remoto…). Escanee solo servidores suyos." },
       { title: "Síganlos desde la barra de menús", text: "Cierre la ventana o pulse «Minimizar a la barra de menús»: la app sale del Dock y queda un globo con cuántos sitios están en línea (un triángulo si alguno falla). Su menú enseña cada sitio con su estado y la próxima comprobación." },
       { title: "Cada sitio, su menú", text: "Desde el submenú de cada sitio lo abre en el navegador, lo comprueba ya, lo pausa o vuelve a la ventana; también ve su disponibilidad y desde cuándo está en línea o caído. Cuando un sitio se cae o vuelve, macOS le avisa." },
     ],
@@ -520,7 +520,7 @@ const en: Record<string, DemoGuide> = {
     intro:
       "A native website monitor in C++ with FLTK, designed in the studio: it checks every few minutes whether your websites answer and shows their status, response time and history, from the window or from the menu bar.",
     steps: [
-      { title: "Add your sites", text: "Type an address (example.com is enough) and, if you like, a name, and press Add or Enter. The monitor checks it right away and then every 2 minutes; change the interval in “Check every” (1 to 30 minutes)." },
+      { title: "Add your sites and see their ports", text: "Type an address (example.com is enough) and, if you like, a name, and press Add or Enter. The monitor checks it right away and then every 2 minutes; change the interval in “Check every” (1 to 30 minutes). “Ports” tries the 33 usual ports of its server and shows the open ones; in amber, those that should not be open to the internet (databases, remote desktop…). Only scan your own servers." },
       { title: "Follow them from the menu bar", text: "Close the window or press “Minimize to the menu bar”: the app leaves the Dock and a globe stays with how many sites are up (a triangle if one fails). Its menu shows each site with its status and the next check." },
       { title: "Each site, its menu", text: "From each site's submenu you open it in the browser, check it now, pause it or go back to the window; you also see its uptime and how long it has been up or down. When a site goes down or comes back, macOS lets you know." },
     ],

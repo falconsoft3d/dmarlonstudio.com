@@ -265,6 +265,19 @@ const clocksBar = `std::string bar_title(const Settings& s, long long t) {
   return o;   // «🇪🇸 17:02   🇨🇺 12:02»
 }`;
 
+const webmonScan = `// Todos los puertos a la vez: conexiones no bloqueantes y un select.
+for (int port : ports) {
+  sock_t s = socket(family, SOCK_STREAM, 0);
+  set_nonblock(s);
+  if (connect(s, (sockaddr*)&a, len) == 0) r.open.push_back(port);
+  else pending.push_back({port, s});
+}
+while (!pending.empty() && now_s() < end) {
+  // … FD_SET de cada uno y select(…, &w, &x, &tv)
+  getsockopt(p.s, SOL_SOCKET, SO_ERROR, (char*)&err, &el);
+  if (err == 0 && FD_ISSET(p.s, &w)) r.open.push_back(p.port);
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -389,7 +402,7 @@ const es: Record<string, DemoMade> = {
         { name: "BtnAdd", kind: "Button", text: "Añade el sitio y lo comprueba en el momento." },
         { name: "Every", kind: "Combobox", text: "Comprobar cada 1, 2, 5, 10, 15 o 30 min (Every_select)." },
         { name: "BtnCheck / BtnBar", kind: "Button", text: "Comprobar todos ahora y minimizar a la barra de menús." },
-        { name: "Board", kind: "Frame", text: "Donde el código dibuja la lista de sitios (un Fl_Widget propio)." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja la lista de sitios y sus puertos (un Fl_Widget propio)." },
         { name: "Status", kind: "StatusBar", text: "Cuántos sitios están en línea y la próxima comprobación." },
       ],
       apis: [
@@ -398,6 +411,7 @@ const es: Record<string, DemoMade> = {
         "Runtime de Objective-C (objc_msgSend, objc_allocateClassPair): NSStatusItem, NSMenu y el símbolo «globe» del sistema",
         "fl_draw y Fl_Image_Surface (FLTK): la lista, el historial y las capturas",
         "osascript: el aviso de macOS cuando un sitio se cae o vuelve",
+        "Sockets (getaddrinfo, connect no bloqueante y select): el escáner de los 33 puertos habituales",
       ],
     },
     steps: [
@@ -431,6 +445,11 @@ const es: Record<string, DemoMade> = {
         title: "6. Seguir viva sin ventana",
         text: "Fl::run termina cuando no queda ninguna ventana. Al minimizar a la barra, la app esconde la ventana, sale del Dock y espera eventos con Fl::wait, como hace un diálogo, hasta que vuelve a abrir la ventana o elige Salir. Sus pruebas (DMS_WEBMON_SELFTEST y DMS_WEBMON_UITEST) comprueban las direcciones, curl, los estados, el guardado, el menú y la interfaz sin abrir ventanas.",
         code: { file: "Form1.cpp", text: webmonLoop },
+      },
+      {
+        title: "7. El escáner de puertos",
+        text: "«Puertos» resuelve el servidor del sitio (getaddrinfo) y prueba sus 33 puertos habituales a la vez, con conexiones TCP no bloqueantes y un select con tiempo máximo, en otro hilo. Los abiertos salen bajo el sitio; los que no conviene abrir a internet (MySQL, Redis, RDP…), en ámbar. La prueba interna abre un puerto en este equipo y comprueba que sale abierto y uno cerrado no.",
+        code: { file: "Form1.cpp", text: webmonScan },
       },
     ],
   },
@@ -620,7 +639,7 @@ const en: Record<string, DemoMade> = {
         { name: "BtnAdd", kind: "Button", text: "Adds the site and checks it right away." },
         { name: "Every", kind: "Combobox", text: "Check every 1, 2, 5, 10, 15 or 30 min (Every_select)." },
         { name: "BtnCheck / BtnBar", kind: "Button", text: "Check all now and minimize to the menu bar." },
-        { name: "Board", kind: "Frame", text: "Where the code draws the list of sites (a custom Fl_Widget)." },
+        { name: "Board", kind: "Frame", text: "Where the code draws the list of sites and their ports (a custom Fl_Widget)." },
         { name: "Status", kind: "StatusBar", text: "How many sites are up and the next check." },
       ],
       apis: [
@@ -629,6 +648,7 @@ const en: Record<string, DemoMade> = {
         "Objective-C runtime (objc_msgSend, objc_allocateClassPair): NSStatusItem, NSMenu and the system “globe” symbol",
         "fl_draw and Fl_Image_Surface (FLTK): the list, the history and the screenshots",
         "osascript: the macOS notification when a site goes down or comes back",
+        "Sockets (getaddrinfo, non-blocking connect and select): the scanner of the 33 usual ports",
       ],
     },
     steps: [
@@ -662,6 +682,11 @@ const en: Record<string, DemoMade> = {
         title: "6. Staying alive without a window",
         text: "Fl::run ends when no window is left. When minimized to the bar, the app hides the window, leaves the Dock and waits for events with Fl::wait, like a dialog does, until you open the window again or choose Quit. Its tests (DMS_WEBMON_SELFTEST and DMS_WEBMON_UITEST) check addresses, curl, states, saving, the menu and the interface without opening windows.",
         code: { file: "Form1.cpp", text: webmonLoop },
+      },
+      {
+        title: "7. The port scanner",
+        text: "“Ports” resolves the site's server (getaddrinfo) and tries its 33 usual ports at once, with non-blocking TCP connections and a select with a time limit, on another thread. The open ones show under the site; those that should not be open to the internet (MySQL, Redis, RDP…), in amber. The internal test opens a port on this machine and checks it shows as open and a closed one does not.",
+        code: { file: "Form1.cpp", text: webmonScan },
       },
     ],
   },

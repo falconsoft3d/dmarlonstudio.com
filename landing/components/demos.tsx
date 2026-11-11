@@ -286,8 +286,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_webmon: {
         name: "Monitor de sitios web (C++)",
-        text: "Añada las direcciones de sus webs y el monitor comprueba cada 2 minutos (o el intervalo que elija) si contestan: el código, el tiempo de respuesta, la disponibilidad y un historial en barras. Cierre la ventana y sigue en la barra de menús, con un menú para abrir, comprobar o pausar cada sitio; si uno se cae, macOS le avisa. En macOS, para Apple Silicon.",
-        shows: ["C++17 con FLTK, diseñada en el estudio", "curl en otros hilos: la ventana nunca se congela", "El icono de la barra de menús hecho desde C++ con el runtime de Objective-C"],
+        text: "Añada las direcciones de sus webs y el monitor comprueba cada 2 minutos (o el intervalo que elija) si contestan: el código, el tiempo de respuesta, la disponibilidad y un historial en barras. Cierre la ventana y sigue en la barra de menús, con un menú para abrir, comprobar o pausar cada sitio; si uno se cae, macOS le avisa. Y un escáner de puertos de cada servidor, que marca los que no conviene abrir a internet. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "curl y sockets en otros hilos: la ventana nunca se congela", "El icono de la barra de menús hecho desde C++ con el runtime de Objective-C"],
       },
       cpp_clocks: {
         name: "Relojes del mundo (C++)",
@@ -533,8 +533,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_webmon: {
         name: "Website Monitor (C++)",
-        text: "Add your websites and the monitor checks every 2 minutes (or the interval you choose) whether they answer: the status code, response time, uptime and a bar history. Close the window and it stays in the menu bar, with a menu to open, check or pause each site; if one goes down, macOS lets you know. On macOS, for Apple Silicon.",
-        shows: ["C++17 with FLTK, designed in the studio", "curl on other threads: the window never freezes", "The menu bar icon made from C++ with the Objective-C runtime"],
+        text: "Add your websites and the monitor checks every 2 minutes (or the interval you choose) whether they answer: the status code, response time, uptime and a bar history. Close the window and it stays in the menu bar, with a menu to open, check or pause each site; if one goes down, macOS lets you know. Plus a port scanner for each server, which flags the ones that should not be open to the internet. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "curl and sockets on other threads: the window never freezes", "The menu bar icon made from C++ with the Objective-C runtime"],
       },
       cpp_clocks: {
         name: "World Clocks (C++)",

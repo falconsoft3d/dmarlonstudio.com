@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.118 — 2026-11-11
+
+- **MyWhatsapp 1.0.21: los ✓ de sus mensajes.** Junto a la hora de cada mensaje suyo salen los ✓ de WhatsApp: ✓ enviado, ✓✓ entregado y ✓✓ en azul, leído (o escuchado, en las notas de voz). Salen del estado que guarda WhatsApp Desktop (`ZMESSAGESTATUS`) y, en lo que va por el QR, de los acuses de recibo que pasa el puente (`wabridge`: entregado y leído), que suben el estado aunque lleguen antes que el propio mensaje; al juntar Desktop y el puente se queda el estado más avanzado. En este equipo, contando sin leer nada, en 40 chats: 772 leídos, 130 entregados y 48 enviados.
+- Probado: las pruebas internas (el estado leído de la base, los acuses, el orden en que lleguen y juntar con Desktop), la de la interfaz y la de la app empaquetada, y el puente compilado de nuevo con sus pruebas.
+
 ## 1.0.117 — 2026-11-11
 
 - **MyWhatsapp 1.0.20: el bloqueo con PIN ya no deja ver nada.** La pantalla del candado tapaba la ventana, pero la conversación se redibuja cada segundo y volvía a pintarse por encima, así que se veían los chats. Ahora, al bloquear, se esconde todo lo de la ventana (la lista, el chat, el panel de abajo y la barra de estado) y solo queda el candado con el campo del PIN; al poner el PIN bueno vuelve todo. La prueba de la interfaz comprueba que, bloqueada, no queda nada visible salvo el candado, y hay una captura del bloqueo.

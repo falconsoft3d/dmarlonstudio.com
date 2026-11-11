@@ -318,7 +318,16 @@ struct Msg {
   std::string id;   // el de WhatsApp (los que llegan por el puente)
   std::string trans;   // traducido (lo recibido) o el original que escribí (lo enviado)
   std::string phone;   // en los grupos, el teléfono de quien escribe (si se sabe)
+  int status = 0;      // los míos: 1 y 5 enviado, 6 entregado, 8 leído (los números de WhatsApp)
 };
+// Los ✓ de un mensaje mío: 0 nada, 2 ✓ (enviado), 3 ✓✓ (entregado) y 4 ✓✓ en azul
+// (leído o escuchado). El 1 de WhatsApp Desktop también cuenta como enviado.
+int tick_of(int status) {
+  if (status == 1 || status == 5) return 2;
+  if (status == 6) return 3;
+  if (status == 8 || status == 9 || status == 10) return 4;
+  return 0;
+}
 struct Chat {
   long long id = 0;
   std::string name, jid, last, pic;   // pic: la foto de perfil en este equipo
@@ -739,6 +748,12 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     members = members && q.prepare_v2(db, "SELECT ZJID, ZPUSHNAME FROM ZWAPROFILEPUSHNAME LIMIT 0", -1, &t2, nullptr) == 0;
     if (t2) q.finalize(t2);
   }
+  bool has_status = false;   // el estado de los míos (enviado, entregado, leído)
+  {
+    void* t = nullptr;
+    has_status = q.prepare_v2(db, "SELECT ZMESSAGESTATUS FROM ZWAMESSAGE LIMIT 0", -1, &t, nullptr) == 0;
+    if (t) q.finalize(t);
+  }
   std::string sql =
       "SELECT m.ZISFROMME, IFNULL(m.ZTEXT, ''), m.ZMESSAGEDATE, IFNULL(m.ZPUSHNAME, ''), IFNULL(m.ZMESSAGETYPE, 0), "
       "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0), IFNULL(m.ZSTANZAID, ''), ";
@@ -753,9 +768,12 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     sql += book ? "IFNULL((SELECT a.ZWHATSAPPID FROM ab.ZWAADDRESSBOOKCONTACT a WHERE a.ZWHATSAPPID = g.ZMEMBERJID "
                   "OR a.ZLID = g.ZMEMBERJID LIMIT 1), IFNULL(g.ZMEMBERJID, '')) "
                 : "IFNULL(g.ZMEMBERJID, '') ";
+    sql += has_status ? ", IFNULL(m.ZMESSAGESTATUS, 0) " : ", 0 ";
     sql += "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK LEFT JOIN ZWAGROUPMEMBER g ON g.Z_PK = m.ZGROUPMEMBER ";
   } else {
-    sql += "'', '', '', '', '' FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK ";
+    sql += "'', '', '', '', ''";
+    sql += has_status ? ", IFNULL(m.ZMESSAGESTATUS, 0) " : ", 0 ";
+    sql += "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK ";
   }
   sql += "WHERE m.ZCHATSESSION = ? AND ((m.ZTEXT IS NOT NULL AND m.ZTEXT != '') OR m.ZMESSAGETYPE IN (1, 2, 3, 8, 11, 15)) "
          "ORDER BY m.ZMESSAGEDATE DESC LIMIT ?";
@@ -778,6 +796,7 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     if (c.group && !m.mine) m.who = sender_name(col(st, 10), col(st, 11), col(st, 12), col(st, 9), col(st, 3));
     m.id = col(st, 8);   // el mismo id que trae el puente
     if (c.group && !m.mine) m.phone = phone_of(col(st, 13));
+    if (m.mine) m.status = (int)q.column_int64(st, 14);
     m.kind = (int)q.column_int64(st, 4);
     if (m.kind != K_IMAGE && m.kind != K_VIDEO && m.kind != K_AUDIO && m.kind != K_DOC && m.kind != K_GIF && m.kind != K_STICKER)
       m.kind = K_TEXT;
@@ -1296,6 +1315,7 @@ struct LiveChat {
 struct LiveStore {
   std::map<std::string, LiveChat> chats;
   std::map<std::string, bool> seen;   // los id ya guardados
+  std::map<std::string, int> receipts;   // los acuses (id → estado), aunque lleguen antes que el mensaje
   // Una línea del puente; devuelve el chat que cambió ("" si ninguno).
   std::string add_line(const std::string& line) {
     bool ok = false;
@@ -1306,6 +1326,22 @@ struct LiveStore {
       std::string jid = j["jid"].str(), name = j["name"].str();
       if (!jid.empty() && !name.empty()) chats[jid].name = name;
       return "";
+    }
+    if (ev == "receipt") {
+      // Entregado o leído: sube el estado de esos mensajes míos.
+      int st = (int)j["status"].n;
+      std::string changed;
+      for (const auto& v : j["ids"].a) {
+        std::string id = v.str();
+        receipts[id] = std::max(receipts[id], st);
+        for (auto& kv : chats)
+          for (auto& m : kv.second.msgs)
+            if (m.id == id && m.mine && m.status < st) {
+              m.status = st;
+              changed = kv.first;
+            }
+      }
+      return changed;
     }
     if (ev != "msg") return "";
     std::string jid = j["chat"].str(), id = j["id"].str();
@@ -1324,6 +1360,8 @@ struct LiveStore {
     m.media = j["media"].str();
     m.title = j["title"].str();
     m.size = (long long)j["size"].n;
+    m.status = (int)j["status"].n;
+    if (!id.empty() && receipts.count(id)) m.status = std::max(m.status, receipts[id]);
     LiveChat& c = chats[jid];
     c.group = c.group || j["group"].b || jid.find("@g.us") != std::string::npos;
     if (c.name.empty() && !m.mine && !c.group) c.name = j["name"].str();
@@ -1347,7 +1385,10 @@ void merge_msgs(std::vector<Msg>& base, const std::vector<Msg>& extra) {
     bool dup = false;
     for (size_t i = 0; i < n && !dup; i++) {
       const Msg& b = base[i];
-      if (!b.id.empty() && b.id == m.id) dup = true;   // el mismo mensaje (WhatsApp Desktop y el puente)
+      if (!b.id.empty() && b.id == m.id) {   // el mismo mensaje (WhatsApp Desktop y el puente)
+        dup = true;
+        if (m.status > b.status) base[i].status = m.status;
+      }
       else if (b.mine == m.mine && b.kind == m.kind && std::llabs(b.t - m.t) <= 5)
         dup = b.text == m.text || (m.kind != K_TEXT && m.size > 0 && b.size == m.size);
     }
@@ -2832,7 +2873,7 @@ public:
         L.trans = wrap(head + m.trans, maxw - 24);
         for (const auto& l : L.trans) bw = std::max(bw, (int)fl_width(l.c_str()));
       }
-      L.bw = std::max(bw + 24, 90);
+      L.bw = std::max(bw + 24, m.mine ? 108 : 90);   // los míos llevan además los ✓
       L.bh = (int)L.lines.size() * 19 + who_h + ah + 30 + (L.trans.empty() ? 0 : 9 + (int)L.trans.size() * 17);
     }
   }
@@ -3100,7 +3141,16 @@ public:
       fl_font(FL_HELVETICA, 10);
       fl_color(rgb(T.muted));
       std::string t = clock_time(m.t);
-      fl_draw(t.c_str(), bx + bw - 10 - (int)fl_width(t.c_str()), Y + bh - 8);
+      int tick = m.mine ? tick_of(m.status) : 0;
+      int tick_w = tick ? 18 : 0;
+      fl_draw(t.c_str(), bx + bw - 10 - tick_w - (int)fl_width(t.c_str()), Y + bh - 8);
+      // Los ✓: enviado, entregado y, en azul, leído.
+      if (tick) {
+        fl_font(FL_HELVETICA_BOLD, 11);
+        fl_color(tick == 4 ? rgb(0x53bdeb) : rgb(T.muted));
+        const char* mark = tick == 2 ? "✓" : "✓✓";
+        fl_draw(mark, bx + bw - 8 - tick_w, Y + bh - 8);
+      }
       // Clic derecho sobre el bocadillo: su menú.
       int top = std::max(Y, y() + head);
       if (Y + bh > top) hits.push_back({bx, top, bw, std::min(Y + bh, bottom + 8) - top, 6, i});
@@ -3416,6 +3466,9 @@ std::vector<Chat> demo_chats(long long now) {
     c.last_t = c.msgs.back().t;
     c.last_mine = c.msgs.back().mine;
     c.archived = std::string(d.name) == tx::DEMO_JAVI;   // uno archivado, para la demo
+    for (auto& m : c.msgs)
+      if (m.mine) m.status = 8;   // leídos (✓✓ en azul)
+    if (c.msgs.back().mine) c.msgs.back().status = 6;   // el último, solo entregado
     out.push_back(c);
   }
   // Retratos dibujados para tres contactos, una foto en el chat de Laura y
@@ -3469,8 +3522,10 @@ std::vector<Chat> demo_chats(long long now) {
 
 int selftest() {
   int f = 0;
+  static bool trace = fl_getenv("DMS_MYWA_TRACE") != nullptr;   // cada paso, para encontrar un fallo
   auto chk = [&](bool ok, const char* what) {
-    if (!ok) { std::printf("FAIL %s\n", what); f++; }
+    if (trace) std::fprintf(stderr, "ok? %d %s\n", ok ? 1 : 0, what);
+    if (!ok) { std::printf("FAIL %s\n", what); std::fflush(stdout); f++; }
   };
   // JSON.
   bool ok = false;
@@ -3555,7 +3610,9 @@ int selftest() {
            "INSERT INTO ZWAMESSAGE VALUES (8,2,0,'Uno',800000160,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,2,NULL);"
            "INSERT INTO ZWAMESSAGE VALUES (9,2,0,'Dos',800000170,'CIqYztcGIABIAJABAPABAtgCidDa3Kv+lwM=',0,3,NULL);"
            "INSERT INTO ZWAMESSAGE VALUES (10,2,0,'Tres',800000180,NULL,0,4,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (11,2,0,'Cuatro',800000190,'Ana',0,NULL,NULL);",
+           "INSERT INTO ZWAMESSAGE VALUES (11,2,0,'Cuatro',800000190,'Ana',0,NULL,NULL);"
+           "ALTER TABLE ZWAMESSAGE ADD COLUMN ZMESSAGESTATUS INTEGER;"
+           "UPDATE ZWAMESSAGE SET ZMESSAGESTATUS = 8 WHERE Z_PK = 2;",
            nullptr, nullptr, &err);
     q.close(db);
     // La foto de Laura (un .thumb) y un adjunto descargado.
@@ -3579,6 +3636,7 @@ int selftest() {
     chk(chats[1].last == std::string("📷 ") + tx::K_PHOTO && chats[0].last == "Cuatro", "resumen del último mensaje");
     chk(load_messages(path, l, 50, error) && l.msgs.size() == 5 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
     chk(l.msgs[2].id == "S3" && l.msgs[0].id.empty(), "el id de cada mensaje (ZSTANZAID)");
+    chk(l.msgs[1].mine && l.msgs[1].status == 8 && tick_of(l.msgs[1].status) == 4, "el estado de los míos: leído (✓✓ azul)");
     chk(l.msgs[3].kind == K_DOC && l.msgs[3].title == "factura.pdf" && l.msgs[3].size == 123456 &&
             l.msgs[3].media == dir + "/Message/Media/x/factura.pdf",
         "documento adjunto");
@@ -3776,6 +3834,16 @@ int selftest() {
       }
     std::printf("grupos: %d · con nombre: %d · sin nombre: %d · codificados: %d\n", groups, named, empty, coded);
     {
+      int ticks[5] = {0, 0, 0, 0, 0}, seen_chats = 0;
+      for (auto& c : all) {
+        if (seen_chats++ >= 40) break;
+        if (!load_messages(db_path(), c, 60, e)) continue;
+        for (const auto& m : c.msgs)
+          if (m.mine) ticks[tick_of(m.status)]++;
+      }
+      std::printf("✓ en mis mensajes (40 chats): sin marca %d · ✓ %d · ✓✓ %d · ✓✓ azul %d\n", ticks[0], ticks[2], ticks[3], ticks[4]);
+    }
+    {
       std::vector<Chat> fresh;
       load_chats(db_path(), fresh, e);
       ChatList l(0, 0, 10, 10);
@@ -3872,6 +3940,23 @@ int selftest() {
     l.now = 0;   // como en la app: la hora de verdad
     chk(l.count(ChatList::F_TODO) == 1, "el filtro «por responder» con la hora de verdad");
     chk(time_in("Europe/Madrid", wall_s()).size() == 5, "la hora local, de ahora");
+  }
+  // Los ✓: los estados de WhatsApp y los acuses del puente.
+  {
+    chk(tick_of(1) == 2 && tick_of(5) == 2 && tick_of(6) == 3 && tick_of(8) == 4 && tick_of(0) == 0, "los ✓ de cada estado");
+    LiveStore st;
+    st.add_line("{\"ev\":\"receipt\",\"ids\":[\"M2\"],\"status\":8}");   // el acuse antes que el mensaje
+    st.add_line("{\"ev\":\"msg\",\"id\":\"M1\",\"chat\":\"3@s.whatsapp.net\",\"mine\":true,\"text\":\"a\",\"t\":1,\"status\":5}");
+    st.add_line("{\"ev\":\"msg\",\"id\":\"M2\",\"chat\":\"3@s.whatsapp.net\",\"mine\":true,\"text\":\"b\",\"t\":2,\"status\":5}");
+    chk(st.add_line("{\"ev\":\"receipt\",\"ids\":[\"M1\"],\"status\":6}") == "3@s.whatsapp.net", "un acuse sube el estado");
+    const auto& ms = st.chats["3@s.whatsapp.net"].msgs;
+    chk(ms.size() == 2 && ms[0].status == 6 && ms[1].status == 8, "entregado y leído (aunque el acuse llegue antes)");
+    std::vector<Msg> base(1), extra(1);
+    base[0].id = extra[0].id = "Z";
+    base[0].status = 5;
+    extra[0].status = 8;
+    merge_msgs(base, extra);
+    chk(base.size() == 1 && base[0].status == 8, "juntar con Desktop: el estado más avanzado");
   }
   // Arrastrar archivos: rutas tal cual o como «file://» (con espacios codificados).
   {
@@ -4028,7 +4113,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.20";
+const char* const MYWA_VERSION = "1.0.21";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -6182,7 +6267,7 @@ public:
     wa::Json j = wa::parse_json(line, &ok);
     if (!ok) return;
     std::string ev = j["ev"].str();
-    if (ev == "msg" || ev == "chat") {
+    if (ev == "msg" || ev == "chat" || ev == "receipt") {
       if (!store.add_line(line).empty() || ev == "chat") store_dirty = true;
     } else if (ev == "qr") {
       show_qr(j["png"].str());

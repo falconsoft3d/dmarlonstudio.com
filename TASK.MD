@@ -97,6 +97,7 @@ Hechos
 99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ✅ |
 100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ✅ |
 95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ✅ |
+118. MyWhatsapp: los ✓ de mis mensajes (enviado, entregado y leído en azul) | ✅ |
 
 Trabajando
 =========
@@ -119,4 +120,3 @@ Pendiente
 104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
 114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |
-118. MyWhatsapp: los ✓ de mis mensajes (enviado, entregado y leído en azul) | ⏳ |

@@ -438,6 +438,23 @@ std::string task_line(const Task& t) {
          ",\\"chat\\":" + jstr(t.chat) + ",\\"t\\":" + std::to_string(t.created) + ",\\"done\\":" + (t.done ? "true" : "false") + "}";
 }`;
 
+const mywaSelect = `// La letra bajo el ratón: cada línea dibujada guarda dónde empieza cada letra.
+bool pos_at(int mx, int my, bool strict, Pos& out) const {
+  const LineBox* best = nullptr;
+  int dist = 1 << 30;
+  for (const auto& b : boxes) {
+    bool in_y = my >= b.y && my < b.y + 19;
+    if (strict && !(in_y && mx >= b.x - 4 && mx <= b.xs.back() + 6)) continue;
+    int d = in_y ? 0 : std::min(std::abs(my - b.y), std::abs(my - (b.y + 19)));
+    if (d < dist) { dist = d; best = &b; }
+  }
+  if (!best) return false;
+  out = {best->msg, best->line, best->at.back()};
+  for (size_t k = 0; k + 1 < best->xs.size(); k++)
+    if (mx < (best->xs[k] + best->xs[k + 1]) / 2) { out.ch = best->at[k]; break; }
+  return true;
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -817,6 +834,11 @@ const es: Record<string, DemoMade> = {
         title: "10. Tareas desde un chat",
         text: "La fila «Tareas» la dibuja la misma lista de chats, arriba, con las pendientes; al pulsarla, la zona del chat cambia a la vista de tareas (pendientes primero, la más nueva arriba, y las hechas tachadas). «+ Tarea» en la cabecera toma el último mensaje que le escribieron y el clic derecho sobre un bocadillo, ese mensaje; cada tarea guarda el chat del que salió para volver a él. Se guardan en tareas.jsonl; las pruebas de la interfaz hacen los clics, también el derecho.",
         code: { file: "Form1.cpp", text: mywaTasks },
+      },
+      {
+        title: "11. Seleccionar, buscar y subir",
+        text: "La conversación la dibuja el código, así que seleccionar texto también: al dibujar cada línea se guarda dónde empieza cada letra, y el ratón se convierte en (mensaje, línea, letra). Arrastrar selecciona, el doble clic toma el mensaje entero y Cmd+C lo copia con sus saltos de línea. La rueda sube por el historial (al llegar arriba se cargan 200 mensajes más) y «🔍 Buscar» busca en todo el chat, resalta cada acierto y salta de uno a otro. Las tareas pendientes llevan una bolita verde, naranja o roja según su edad, también en el chat de la lista.",
+        code: { file: "Form1.cpp", text: mywaSelect },
       },
     ],
   },
@@ -1201,6 +1223,11 @@ const en: Record<string, DemoMade> = {
         title: "10. Tasks from a chat",
         text: "The “Tasks” row is drawn by the chat list itself, at the top, with the pending count; clicking it switches the chat area to the tasks view (pending first, newest on top, and the done ones struck through). “+ Task” in the header takes the last message you received and a right-click on a bubble takes that message; each task keeps the chat it came from to go back to it. They are saved in tareas.jsonl; the interface tests make the clicks, the right one too.",
         code: { file: "Form1.cpp", text: mywaTasks },
+      },
+      {
+        title: "11. Selecting, searching and scrolling",
+        text: "The code draws the conversation, so it also handles text selection: drawing each line stores where each letter starts, and the mouse becomes (message, line, letter). Dragging selects, double-click takes the whole message and Cmd+C copies it with its line breaks. The wheel scrolls through the history (reaching the top loads 200 more messages) and “🔍 Search” searches the whole chat, highlights each hit and jumps between them. Pending tasks have a green, orange or red dot by age, also on the chat in the list.",
+        code: { file: "Form1.cpp", text: mywaSelect },
       },
     ],
   },

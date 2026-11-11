@@ -72,6 +72,9 @@ Hechos
 80. MyWhatsapp: enviar y recibir mensajes y adjuntos directamente, sin la app de WhatsApp (API oficial de WhatsApp Business o dispositivo vinculado por QR, con aviso de riesgo) | ✅ |
 81. MyWhatsapp: botón «Enviar» visible y Enter para enviar; en los grupos, el nombre de quien escribe | ✅ |
 82. MyWhatsapp: lista de tareas dentro de la app; crear una tarea desde un chat | ✅ |
+91. MyWhatsapp: seleccionar y copiar texto en el chat | ✅ |
+92. MyWhatsapp: buscar textos en el chat | ✅ |
+93. MyWhatsapp: en las tareas, una bolita según el tiempo desde que se creó (verde < 24 h, naranja > 24 h, roja > 72 h); el chat con tareas pendientes, con la misma bolita en la lista | ✅ |
 
 Trabajando
 =========
@@ -92,3 +95,11 @@ Pendiente
 88. MyWhatsapp: esconder la barra lateral dejando solo la foto de cada contacto | ⏳ |
 89. MyWhatsapp: reenviar mensajes a otro chat | ⏳ |
 90. MyWhatsapp: limpiar un chat | ⏳ |
+94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ⏳ |
+95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ⏳ |
+96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
+97. MyWhatsapp: plantillas de mensajes para enviar | ⏳ |
+98. MyWhatsapp: corrección ortográfica con IA | ⏳ |
+99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ⏳ |
+100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ⏳ |
+101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |

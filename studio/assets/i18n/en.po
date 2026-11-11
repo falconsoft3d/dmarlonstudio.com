@@ -5087,7 +5087,7 @@ msgstr "one point per check (every 30 minutes while the app is open)"
 msgid "vuelta: {0}"
 msgstr "return: {0}"
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_next_flights.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_next_flights.dart
 msgid "{0} de {1}"
 msgstr "{0} of {1}"
 
@@ -6854,8 +6854,20 @@ msgstr ""
 "{1}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Convertir en tarea"
+msgstr "Turn into a task"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Copiada"
 msgstr "Copied"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Copiar el mensaje"
+msgstr "Copy message"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Copiar la selección"
+msgstr "Copy selection"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/github_dialog.dart
 msgid "Desconectar"
@@ -7032,6 +7044,10 @@ msgid "Listo: se envía con la API oficial de WhatsApp Business"
 msgstr "Done: sending with the official WhatsApp Business API"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Llevar el balón al partido del viernes"
+msgstr "Bring the ball to Friday's match"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lo que el usuario quiere decir: {0}"
 msgstr "What the user wants to say: {0}"
 
@@ -7075,7 +7091,9 @@ msgid ""
 "\n"
 "Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n"
 "\n"
-"Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
+"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n"
+"\n"
+"Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7085,7 +7103,9 @@ msgstr ""
 "\n"
 "To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file.\n"
 "\n"
-"Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
+"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it or turns it into a task.\n"
+"\n"
+"Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
 "Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
 
@@ -7176,6 +7196,10 @@ msgstr "Pick up grandma on Sunday at 1 pm"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
 msgstr "The connection to WhatsApp was closed"
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+msgid "Sin resultados"
+msgstr "No results"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sobre el usuario: {0}"
@@ -7354,6 +7378,10 @@ msgstr "✨ {0} is writing three replies…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "📎 Adjuntar"
 msgstr "📎 Attach"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🔍 Buscar"
+msgstr "🔍 Search"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"
@@ -15708,10 +15736,6 @@ msgstr "Restore"
 #: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Reemplazar todo"
 msgstr "Replace all"
-
-#: lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
-msgid "Sin resultados"
-msgstr "No results"
 
 #: lib/ui/icon_ai.dart
 msgid "Aquí se verá el icono."

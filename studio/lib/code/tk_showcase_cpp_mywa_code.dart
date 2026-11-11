@@ -21,6 +21,8 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Image_Surface.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Menu_Item.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_Native_File_Chooser.H>
@@ -590,8 +592,9 @@ std::string sql_quote(const std::string& s) {
   for (char ch : s) o += ch == '\'' ? std::string("''") : std::string(1, ch);
   return o + "'";
 }
-bool load_messages(const std::string& path, Chat& c, int limit, std::string& error) {
+bool load_messages(const std::string& path, Chat& c, int limit, std::string& error, int* rows = nullptr) {
 #ifdef _WIN32
+  (void)rows;
   (void)path;
   (void)c;
   (void)limit;
@@ -626,7 +629,7 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
   }
   std::string sql =
       "SELECT m.ZISFROMME, IFNULL(m.ZTEXT, ''), m.ZMESSAGEDATE, IFNULL(m.ZPUSHNAME, ''), IFNULL(m.ZMESSAGETYPE, 0), "
-      "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0), ";
+      "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0), IFNULL(m.ZSTANZAID, ''), ";
   if (members) {
     sql += "IFNULL(g.ZMEMBERJID, ''), ";
     sql += book ? "IFNULL((SELECT a.ZFULLNAME FROM ab.ZWAADDRESSBOOKCONTACT a WHERE (a.ZWHATSAPPID = g.ZMEMBERJID OR a.ZLID = g.ZMEMBERJID) "
@@ -648,12 +651,16 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
   q.bind_int64(st, 1, c.id);
   q.bind_int64(st, 2, limit);
   std::vector<Msg> got;
+  std::map<std::string, size_t> seen;
+  int n_rows = 0;
   while (q.step(st) == SQLITE_ROW_) {
+    n_rows++;
     Msg m;
     m.mine = q.column_int64(st, 0) != 0;
     m.text = col(st, 1);
     m.t = apple_time(q.column_double(st, 2));
-    if (c.group && !m.mine) m.who = sender_name(col(st, 9), col(st, 10), col(st, 11), col(st, 8), col(st, 3));
+    if (c.group && !m.mine) m.who = sender_name(col(st, 10), col(st, 11), col(st, 12), col(st, 9), col(st, 3));
+    m.id = col(st, 8);   // el mismo id que trae el puente
     m.kind = (int)q.column_int64(st, 4);
     if (m.kind != K_IMAGE && m.kind != K_VIDEO && m.kind != K_AUDIO && m.kind != K_DOC && m.kind != K_GIF && m.kind != K_STICKER)
       m.kind = K_TEXT;
@@ -663,12 +670,26 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     m.title = col(st, 6);
     m.size = q.column_int64(st, 7);
     if (m.kind == K_TEXT && m.text.empty()) continue;
+    // WhatsApp Desktop a veces guarda el mismo mensaje dos veces (el mismo id):
+    // se queda uno, el que tiene el archivo descargado si lo hay.
+    if (!m.id.empty()) {
+      auto dup = seen.find(m.id);
+      if (dup != seen.end()) {
+        Msg& k = got[dup->second];
+        if (k.media.empty() && !m.media.empty()) k.media = m.media;
+        if (k.title.empty()) k.title = m.title;
+        if (k.text.empty()) k.text = m.text;
+        continue;
+      }
+      seen[m.id] = got.size();
+    }
     got.push_back(m);
   }
   q.finalize(st);
   q.close(db);
   std::reverse(got.begin(), got.end());
   c.msgs = got;
+  if (rows) *rows = n_rows;
   return true;
 #endif
 }
@@ -1139,7 +1160,9 @@ void merge_msgs(std::vector<Msg>& base, const std::vector<Msg>& extra) {
     bool dup = false;
     for (size_t i = 0; i < n && !dup; i++) {
       const Msg& b = base[i];
-      dup = b.mine == m.mine && b.kind == m.kind && b.text == m.text && std::llabs(b.t - m.t) <= 5;
+      if (!b.id.empty() && b.id == m.id) dup = true;   // el mismo mensaje (WhatsApp Desktop y el puente)
+      else if (b.mine == m.mine && b.kind == m.kind && std::llabs(b.t - m.t) <= 5)
+        dup = b.text == m.text || (m.kind != K_TEXT && m.size > 0 && b.size == m.size);
     }
     if (!dup) base.push_back(m);
   }
@@ -1201,6 +1224,22 @@ int tasks_pending(const std::vector<Task>& ts) {
   int n = 0;
   for (const auto& t : ts) n += t.done ? 0 : 1;
   return n;
+}
+// La bolita de una tarea pendiente según su edad: verde (menos de 24 h),
+// naranja (más de 24 h) o roja (más de 72 h).
+unsigned task_age_color(long long created, long long now) {
+  long long h = (now - created) / 3600;
+  if (h >= 72) return 0xe5484d;
+  if (h >= 24) return 0xf59e0b;
+  return 0x25d366;
+}
+// La tarea pendiente más antigua de un chat (su fecha), o 0 si no tiene.
+long long oldest_task(const std::vector<Task>& ts, const std::string& jid) {
+  long long o = 0;
+  if (jid.empty()) return 0;
+  for (const auto& t : ts)
+    if (!t.done && t.jid == jid && (o == 0 || t.created < o)) o = t.created;
+  return o;
 }
 // El orden en pantalla: primero las pendientes (la más nueva arriba), luego las hechas.
 std::vector<int> tasks_order(const std::vector<Task>& ts) {
@@ -1540,6 +1579,44 @@ std::vector<std::string> wrap(const std::string& text, int w) {
   }
   return lines;
 }
+// Como wrap, y además qué separa cada línea de la siguiente: 'n' un salto de
+// línea, 's' un espacio y 'c' nada (una palabra cortada). Para copiar el texto.
+std::vector<std::string> wrap_seps(const std::string& text, int w, std::string& seps) {
+  std::vector<std::string> lines;
+  seps.clear();
+  auto paras = split(text, '\n');
+  for (size_t p = 0; p < paras.size(); p++) {
+    std::string line;
+    for (const auto& word : split(paras[p], ' ')) {
+      std::string t = line.empty() ? word : line + " " + word;
+      if (!line.empty() && (int)fl_width(t.c_str()) > w) {
+        lines.push_back(line);
+        seps += 's';
+        line = word;
+      } else {
+        line = t;
+      }
+      while ((int)fl_width(line.c_str()) > w && line.size() > 1) {
+        size_t cut = line.size() / 2;
+        while (cut > 0 && ((unsigned char)line[cut] & 0xC0) == 0x80) cut--;
+        lines.push_back(line.substr(0, cut));
+        seps += 'c';
+        line = line.substr(cut);
+      }
+    }
+    lines.push_back(line);
+    seps += p + 1 < paras.size() ? 'n' : '.';
+  }
+  return lines;
+}
+// Dónde está [needle] en [hay] sin mirar mayúsculas (ASCII): las posiciones.
+std::vector<size_t> find_all(const std::string& hay, const std::string& needle) {
+  std::vector<size_t> out;
+  if (needle.empty()) return out;
+  std::string h = lower(hay), n = lower(needle);
+  for (size_t p = h.find(n); p != std::string::npos; p = h.find(n, p + n.size())) out.push_back(p);
+  return out;
+}
 Fl_Color avatar_color(const std::string& name) {
   static const unsigned colors[] = {0x25d366, 0x34b7f1, 0xf59e0b, 0xef4444, 0x8b5cf6, 0x14b8a6, 0xec4899};
   unsigned h = 0;
@@ -1624,6 +1701,8 @@ public:
   std::function<void()> on_tasks;
   int tasks_pending = 0;
   bool tasks_selected = false;
+  const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
+  long long now = 0;                          // 0: la hora de verdad
   ChatList(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
 
   bool visible_chat(const Chat& c) const {
@@ -1682,9 +1761,17 @@ public:
         int tw = (int)fl_width(t.c_str());
         fl_color(c.unread ? rgb(T.accent) : rgb(T.muted));
         fl_draw(t.c_str(), x() + w() - 12 - tw, Y + 24);
+        // Si tiene tareas pendientes, la bolita de la más antigua.
+        int dot = 0;
+        if (tasks)
+          if (long long since = oldest_task(*tasks, c.jid)) {
+            fl_color(rgb(task_age_color(since, now ? now : (long long)now_s())));
+            fl_pie(x() + w() - 12 - tw - 16, Y + 15, 10, 10, 0, 360);
+            dot = 16;
+          }
         fl_font(FL_HELVETICA_BOLD, 14);
         fl_color(rgb(T.text));
-        fl_draw(fit(c.name, w() - 90 - tw).c_str(), x() + 68, Y + 26);
+        fl_draw(fit(c.name, w() - 90 - tw - dot).c_str(), x() + 68, Y + 26);
         fl_font(FL_HELVETICA, 13);
         fl_color(rgb(T.muted));
         std::string last = c.last;
@@ -1752,7 +1839,133 @@ public:
   std::vector<Task>* tasks = nullptr;
   bool tasks_mode = false;
   int task_scroll = 0, task_content = 0;
+  long long now = 0;   // la hora para la edad de las tareas (0: la de verdad)
+  // Desplazarse por la conversación (desde abajo, en píxeles).
+  int msg_scroll = 0, max_scroll = 0, scroll_to = -1;
+  bool more = false, asked_more = false;   // hay mensajes más antiguos por cargar
+  // Cada mensaje, ya partido en líneas (se calcula solo si cambia algo).
+  struct Lay {
+    std::vector<std::string> lines;
+    std::string seps;
+    int bw = 0, bh = 0;
+  };
+  std::vector<Lay> lays;
+  long long lay_id = 0, lay_first = 0, lay_last = 0;
+  size_t lay_n = 0;
+  int lay_w = 0;
+  bool lay_dirty = true;
+  // Seleccionar texto: de [sel_a] a [sel_b] (mensaje, línea, byte).
+  struct Pos {
+    int msg = -1, line = 0, ch = 0;
+  };
+  Pos sel_a, sel_b;
+  bool selecting = false;
+  struct LineBox {
+    int msg, line, x, y;
+    std::vector<int> xs;   // dónde empieza cada letra (y el final)
+    std::vector<int> at;   // su byte en la línea
+  };
+  std::vector<LineBox> boxes;
+  // Buscar en el chat.
+  bool find_open = false;
+  std::string find;
+  std::vector<int> matches;   // los mensajes que lo tienen, del más antiguo al más nuevo
+  int match = -1;
+  Fl_Input* find_input = nullptr;
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
+
+  static bool before(const Pos& a, const Pos& b) {
+    if (a.msg != b.msg) return a.msg < b.msg;
+    if (a.line != b.line) return a.line < b.line;
+    return a.ch < b.ch;
+  }
+  bool has_selection() const {
+    return sel_a.msg >= 0 && (sel_a.msg != sel_b.msg || sel_a.line != sel_b.line || sel_a.ch != sel_b.ch);
+  }
+  void clear_selection() {
+    sel_a = sel_b = Pos();
+    selecting = false;
+  }
+  // El texto seleccionado, con sus saltos de línea.
+  std::string selected_text() const {
+    if (!has_selection() || !chat) return "";
+    Pos lo = before(sel_a, sel_b) ? sel_a : sel_b, hi = before(sel_a, sel_b) ? sel_b : sel_a;
+    std::string out;
+    for (int m = lo.msg; m <= hi.msg && m < (int)lays.size(); m++) {
+      const Lay& L = lays[(size_t)m];
+      if (m > lo.msg && !out.empty()) out += "\n";
+      for (int li = 0; li < (int)L.lines.size(); li++) {
+        if (m == lo.msg && li < lo.line) continue;
+        if (m == hi.msg && li > hi.line) break;
+        const std::string& l = L.lines[(size_t)li];
+        size_t a = (m == lo.msg && li == lo.line) ? (size_t)lo.ch : 0;
+        size_t b = (m == hi.msg && li == hi.line) ? (size_t)hi.ch : l.size();
+        if (a < b && b <= l.size()) out += l.substr(a, b - a);
+        bool last = (m == hi.msg && li == hi.line) || li + 1 == (int)L.lines.size();
+        if (!last) out += L.seps[(size_t)li] == 'n' ? "\n" : L.seps[(size_t)li] == 's' ? " " : "";
+      }
+    }
+    return out;
+  }
+  void select_message(int m) {
+    if (m < 0 || m >= (int)lays.size() || lays[(size_t)m].lines.empty()) return;
+    sel_a = {m, 0, 0};
+    sel_b = {m, (int)lays[(size_t)m].lines.size() - 1, (int)lays[(size_t)m].lines.back().size()};
+  }
+  // La letra bajo el ratón; [strict]: solo si está encima de una línea.
+  bool pos_at(int mx, int my, bool strict, Pos& out) const {
+    const LineBox* best = nullptr;
+    int dist = 1 << 30;
+    for (const auto& b : boxes) {
+      bool in_y = my >= b.y && my < b.y + 19;
+      if (strict && !(in_y && mx >= b.x - 4 && mx <= b.xs.back() + 6)) continue;
+      int d = in_y ? 0 : std::min(std::abs(my - b.y), std::abs(my - (b.y + 19)));
+      if (d < dist || (d == dist && best && std::abs(mx - b.x) < std::abs(mx - best->x))) {
+        dist = d;
+        best = &b;
+      }
+    }
+    if (!best) return false;
+    out.msg = best->msg;
+    out.line = best->line;
+    out.ch = best->at.back();
+    for (size_t k = 0; k + 1 < best->xs.size(); k++)
+      if (mx < (best->xs[k] + best->xs[k + 1]) / 2) {
+        out.ch = best->at[k];
+        break;
+      }
+    return true;
+  }
+  void ensure_layout(int maxw) {
+    long long first = chat->msgs.empty() ? 0 : chat->msgs.front().t, last = chat->msgs.empty() ? 0 : chat->msgs.back().t;
+    if (!lay_dirty && lay_id == chat->id && lay_n == chat->msgs.size() && lay_w == maxw && lay_first == first &&
+        lay_last == last)
+      return;
+    if (lay_id != chat->id || lay_n != chat->msgs.size()) clear_selection();
+    lay_dirty = false;
+    lay_id = chat->id;
+    lay_n = chat->msgs.size();
+    lay_w = maxw;
+    lay_first = first;
+    lay_last = last;
+    lays.assign(chat->msgs.size(), Lay());
+    for (size_t i = 0; i < chat->msgs.size(); i++) {
+      const Msg& m = chat->msgs[i];
+      Lay& L = lays[i];
+      fl_font(FL_HELVETICA, 14);
+      if (!m.text.empty()) L.lines = wrap_seps(m.text, maxw - 24, L.seps);
+      int who_h = m.who.empty() ? 0 : 18, ah = attach_h(m);
+      Fl_RGB_Image* img = attach_image(m);
+      int bw = 0;
+      for (const auto& l : L.lines) bw = std::max(bw, (int)fl_width(l.c_str()));
+      fl_font(FL_HELVETICA_BOLD, 12);
+      if (!m.who.empty()) bw = std::max(bw, (int)fl_width(m.who.c_str()));
+      if (img) bw = std::max(bw, img->w());
+      else if (ah) bw = std::max(bw, 260);
+      L.bw = std::max(bw + 24, 90);
+      L.bh = (int)L.lines.size() * 19 + who_h + ah + 30;
+    }
+  }
 
   int button(int x, int y, const char* text, int act, int idx, Fl_Color fg, Fl_Color fill) {
     fl_font(FL_HELVETICA_BOLD, 12);
@@ -1819,11 +2032,18 @@ public:
         std::string title = fit(t.title, text_w);
         fl_draw(title.c_str(), x() + 66, Y + 25);
         if (t.done) fl_line(x() + 66, Y + 20, x() + 66 + (int)fl_width(title.c_str()), Y + 20);
+        int sx = x() + 66;
+        if (!t.done) {
+          // La bolita: cuánto lleva esperando.
+          fl_color(rgb(task_age_color(t.created, now ? now : (long long)now_s())));
+          fl_pie(sx, Y + 35, 10, 10, 0, 360);
+          sx += 16;
+        }
         fl_font(FL_HELVETICA, 11);
         fl_color(rgb(T.muted));
         std::string when = day_text(t.created) + " " + clock_time(t.created);
         std::string sub = t.chat.empty() ? when : fmt(tx::TASK_FROM, {t.chat, when});
-        fl_draw(fit(sub, text_w).c_str(), x() + 66, Y + 44);
+        fl_draw(fit(sub, text_w - (sx - (x() + 66))).c_str(), sx, Y + 44);
       }
       Y += rh;
     }
@@ -1851,6 +2071,7 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
+    if ((tasks_mode || !chat) && find_input && find_input->visible()) find_input->hide();
     if (tasks_mode) {
       draw_tasks();
       fl_pop_clip();
@@ -1874,23 +2095,32 @@ public:
     else if (options && !options->empty()) sugg_h = 40 + (int)options->size() * 72;
     int bottom = y() + h() - sugg_h - 8;
     int maxw = std::min(560, (int)(w() * 0.68));
-    int Y = bottom;
-    fl_push_clip(x(), y() + head, w(), h() - head);
+    ensure_layout(maxw);
+    int total = 8;
+    for (const auto& L : lays) total += L.bh + 6;
+    int view_h = bottom - (y() + head);
+    max_scroll = std::max(0, total - view_h);
+    if (scroll_to >= 0 && scroll_to < (int)lays.size()) {
+      // Que ese mensaje quede en medio.
+      int off = 0;
+      for (int j = (int)lays.size() - 1; j > scroll_to; j--) off += lays[(size_t)j].bh + 6;
+      msg_scroll = off + lays[(size_t)scroll_to].bh / 2 - view_h / 2;
+      scroll_to = -1;
+    }
+    msg_scroll = std::max(0, std::min(msg_scroll, max_scroll));
+    boxes.clear();
+    Pos lo = before(sel_a, sel_b) ? sel_a : sel_b, hi = before(sel_a, sel_b) ? sel_b : sel_a;
+    bool sel = has_selection();
+    int current_match = match >= 0 && match < (int)matches.size() ? matches[(size_t)match] : -1;
+    int Y = bottom + msg_scroll;
+    fl_push_clip(x(), y() + head, w(), bottom - (y() + head) + 8);
     for (int i = (int)chat->msgs.size() - 1; i >= 0 && Y > y() + head; i--) {
       const Msg& m = chat->msgs[(size_t)i];
-      fl_font(FL_HELVETICA, 14);
-      auto lines = m.text.empty() ? std::vector<std::string>() : wrap(m.text, maxw - 24);
-      int lh = 19, who_h = m.who.empty() ? 0 : 18, ah = attach_h(m);
-      Fl_RGB_Image* img = attach_image(m);
-      int bw = 0;
-      for (const auto& l : lines) bw = std::max(bw, (int)fl_width(l.c_str()));
-      fl_font(FL_HELVETICA_BOLD, 12);
-      if (!m.who.empty()) bw = std::max(bw, (int)fl_width(m.who.c_str()));
-      if (img) bw = std::max(bw, img->w());
-      else if (ah) bw = std::max(bw, 260);
-      bw = std::max(bw + 24, 90);
-      int bh = (int)lines.size() * lh + who_h + ah + 30;
+      const Lay& L = lays[(size_t)i];
+      int bw = L.bw, bh = L.bh, who_h = m.who.empty() ? 0 : 18, ah = attach_h(m), lh = 19;
       Y -= bh + 6;
+      if (Y > bottom) continue;   // todavía por debajo de lo que se ve
+      Fl_RGB_Image* img = attach_image(m);
       int bx = m.mine ? x() + w() - 20 - bw : x() + 20;
       round_box(bx, Y, bw, bh, 9, rgb(m.mine ? T.out : T.in), rgb(m.mine ? T.out_line : T.in_line));
       int ty = Y + 22;
@@ -1924,18 +2154,66 @@ public:
         ty += ah;
       }
       fl_font(FL_HELVETICA, 14);
-      fl_color(rgb(T.text));
-      for (const auto& l : lines) {
-        fl_draw(l.c_str(), bx + 12, ty);
+      for (int li = 0; li < (int)L.lines.size(); li++) {
+        const std::string& l = L.lines[(size_t)li];
+        int lx = bx + 12;
+        LineBox box{i, li, lx, ty - 15, {}, {}};
+        for (size_t k = 0; k < l.size();) {
+          box.xs.push_back(lx + (int)fl_width(l.c_str(), (int)k));
+          box.at.push_back((int)k);
+          size_t j = k + 1;
+          while (j < l.size() && ((unsigned char)l[j] & 0xC0) == 0x80) j++;
+          k = j;
+        }
+        box.xs.push_back(lx + (int)fl_width(l.c_str()));
+        box.at.push_back((int)l.size());
+        // Lo seleccionado, de fondo.
+        if (sel && (i > lo.msg || (i == lo.msg && li >= lo.line)) && (i < hi.msg || (i == hi.msg && li <= hi.line))) {
+          int a = (i == lo.msg && li == lo.line) ? lo.ch : 0;
+          int b = (i == hi.msg && li == hi.line) ? hi.ch : (int)l.size();
+          if (b > a) {
+            int xa = lx + (int)fl_width(l.c_str(), a), xb = lx + (int)fl_width(l.c_str(), b);
+            fl_color(rgb(T.dark ? 0x2b5278 : 0xb3d7ff));
+            fl_rectf(xa, ty - 15, xb - xa, lh);
+          }
+        }
+        // Lo que se busca, resaltado (más fuerte en el mensaje actual).
+        std::vector<std::pair<int, int>> marks;
+        if (!find.empty())
+          for (size_t p : find_all(l, find)) {
+            int xa = lx + (int)fl_width(l.c_str(), (int)p), xb = lx + (int)fl_width(l.c_str(), (int)(p + find.size()));
+            fl_color(rgb(i == current_match ? 0xff9632 : 0xffe066));
+            fl_rectf(xa, ty - 15, xb - xa, lh);
+            marks.push_back({(int)p, (int)find.size()});
+          }
+        fl_color(rgb(T.text));
+        fl_draw(l.c_str(), lx, ty);
+        for (const auto& mk : marks) {
+          fl_color(rgb(0x111b21));
+          fl_draw(l.c_str() + mk.first, mk.second, lx + (int)fl_width(l.c_str(), mk.first), ty);
+        }
+        boxes.push_back(box);
         ty += lh;
       }
       fl_font(FL_HELVETICA, 10);
       fl_color(rgb(T.muted));
       std::string t = clock_time(m.t);
       fl_draw(t.c_str(), bx + bw - 10 - (int)fl_width(t.c_str()), Y + bh - 8);
-      // Clic derecho sobre el bocadillo: convertirlo en tarea.
+      // Clic derecho sobre el bocadillo: su menú.
       int top = std::max(Y, y() + head);
-      if (Y + bh > top) hits.push_back({bx, top, bw, Y + bh - top, 6, i});
+      if (Y + bh > top) hits.push_back({bx, top, bw, std::min(Y + bh, bottom + 8) - top, 6, i});
+    }
+    // Volver abajo, si se ha subido.
+    if (msg_scroll > 40) {
+      int cx = x() + w() - 62, cy = bottom - 46;
+      fl_color(rgb(T.card_line));
+      fl_pie(cx - 1, cy - 1, 42, 42, 0, 360);
+      fl_color(rgb(T.card));
+      fl_pie(cx, cy, 40, 40, 0, 360);
+      fl_color(rgb(T.text));
+      fl_font(FL_HELVETICA_BOLD, 18);
+      fl_draw("↓", cx, cy, 40, 40, FL_ALIGN_CENTER);
+      hits.insert(hits.begin(), {cx, cy, 40, 40, 21, -1});
     }
     fl_pop_clip();
     // La cabecera: la foto, el nombre y el teléfono (o «grupo»).
@@ -1944,15 +2222,39 @@ public:
     fl_color(rgb(T.card_line));
     fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
     avatar(x() + 16, y() + 10, 40, chat->name, chat->pic, rgb(T.panel));
+    // A la derecha: «+ Tarea» y buscar (el campo, cuántos hay, ▲ ▼ ✕).
+    fl_font(FL_HELVETICA_BOLD, 12);
+    int rx = x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20);
+    button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
+    rx -= 8;
+    if (!find_open) {
+      rx -= (int)fl_width(tx::FIND) + 20;
+      button(rx, y() + 17, tx::FIND, 22, -1, rgb(T.text), rgb(T.card));
+      if (find_input && find_input->visible()) find_input->hide();
+    } else {
+      const int fw = 220, cw = 78, sw = 34;
+      rx -= fw + 8 + cw + 3 * sw;
+      if (find_input) {
+        if (find_input->x() != rx || find_input->y() != y() + 16) find_input->resize(rx, y() + 16, fw, 28);
+        if (!find_input->visible()) find_input->show();
+      }
+      std::string count = find.empty() ? "" : matches.empty() ? std::string(tx::FIND_NONE)
+                                                               : fmt(tx::FIND_COUNT, {std::to_string(match + 1), std::to_string(matches.size())});
+      fl_font(FL_HELVETICA, 12);
+      fl_color(rgb(T.muted));
+      fl_draw(count.c_str(), rx + fw + 8, y() + 16, cw, 28, FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+      int bx2 = rx + fw + 8 + cw;
+      bx2 = button(bx2, y() + 17, "▲", 23, -1, rgb(T.text), rgb(T.card)) + 2;
+      bx2 = button(bx2, y() + 17, "▼", 24, -1, rgb(T.text), rgb(T.card)) + 2;
+      button(bx2, y() + 17, "✕", 25, -1, rgb(T.text), rgb(T.card));
+    }
     fl_font(FL_HELVETICA_BOLD, 15);
     fl_color(rgb(T.text));
-    fl_draw(fit(chat->name, w() - 200).c_str(), x() + 68, y() + 27);
+    fl_draw(fit(chat->name, rx - (x() + 68) - 12).c_str(), x() + 68, y() + 27);
     fl_font(FL_HELVETICA, 12);
     fl_color(rgb(T.muted));
     std::string ph = phone_of(chat->jid);
     fl_draw(chat->group ? tx::GROUP : (ph.empty() ? "" : ("+" + ph).c_str()), x() + 68, y() + 46);
-    fl_font(FL_HELVETICA_BOLD, 12);
-    button(x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20), y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     // Las sugerencias.
     int sy = y() + h() - sugg_h;
     if (sugg_h) {
@@ -2000,26 +2302,78 @@ public:
           if (Fl::event_inside(hits[(size_t)k].x, hits[(size_t)k].y, hits[(size_t)k].w, hits[(size_t)k].h)) i = k;
         if (i >= 0 && hits[(size_t)i].act == 6) i = -1;   // los bocadillos no son botones
         if (i != hover) { hover = i; redraw(); }
-        window()->cursor(i >= 0 ? FL_CURSOR_HAND : FL_CURSOR_DEFAULT);
+        Pos p;
+        Fl_Cursor cur = i >= 0 ? FL_CURSOR_HAND : pos_at(Fl::event_x(), Fl::event_y(), true, p) ? FL_CURSOR_INSERT : FL_CURSOR_DEFAULT;
+        if (window()) window()->cursor(cur);
         return 1;
       }
       case FL_LEAVE:
         hover = -1;
-        window()->cursor(FL_CURSOR_DEFAULT);
+        if (window()) window()->cursor(FL_CURSOR_DEFAULT);
         redraw();
+        return 1;
+      case FL_FOCUS:
+      case FL_UNFOCUS:
         return 1;
       case FL_PUSH: {
         bool right = Fl::event_button() == FL_RIGHT_MOUSE;
         for (const auto& h : hits)
           if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_act && (h.act == 6) == right) {
             on_act(h.act, h.idx);
-            break;
+            return 1;
           }
+        if (right || tasks_mode || !chat) return 1;
+        // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
+        Fl::focus(this);
+        Pos p;
+        if (pos_at(Fl::event_x(), Fl::event_y(), true, p)) {
+          if (Fl::event_clicks() > 0) {
+            select_message(p.msg);
+          } else {
+            sel_a = sel_b = p;
+            selecting = true;
+          }
+        } else {
+          clear_selection();
+        }
+        redraw();
         return 1;
       }
+      case FL_DRAG: {
+        if (!selecting) return 1;
+        Pos p;
+        if (pos_at(Fl::event_x(), Fl::event_y(), false, p)) {
+          sel_b = p;
+          redraw();
+        }
+        return 1;
+      }
+      case FL_RELEASE:
+        selecting = false;
+        return 1;
+      case FL_KEYBOARD:
+      case FL_SHORTCUT:
+        if ((Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'c' && has_selection()) {
+          std::string t = selected_text();
+          Fl::copy(t.c_str(), (int)t.size(), 1);
+          Fl::copy(t.c_str(), (int)t.size(), 0);
+          if (on_act) on_act(26, -1);
+          return 1;
+        }
+        return 0;
       case FL_MOUSEWHEEL:
-        if (!tasks_mode) break;
-        task_scroll = std::max(0, std::min(task_scroll + Fl::event_dy() * 30, std::max(0, task_content - (h() - 72))));
+        if (tasks_mode) {
+          task_scroll = std::max(0, std::min(task_scroll + Fl::event_dy() * 30, std::max(0, task_content - (h() - 72))));
+          redraw();
+          return 1;
+        }
+        if (!chat) break;
+        // La rueda hacia arriba sube a los mensajes antiguos; arriba del todo, se cargan más.
+        msg_scroll = std::max(0, std::min(msg_scroll - Fl::event_dy() * 40, max_scroll));
+        if (msg_scroll >= max_scroll && more && !asked_more && on_act) {
+          asked_more = true;
+          on_act(20, -1);
+        }
         redraw();
         return 1;
     }
@@ -2196,7 +2550,7 @@ int selftest() {
            "CREATE TABLE ZWACHATSESSION (Z_PK INTEGER PRIMARY KEY, ZPARTNERNAME VARCHAR, ZCONTACTJID VARCHAR, "
            "ZLASTMESSAGEDATE TIMESTAMP, ZLASTMESSAGETEXT VARCHAR, ZUNREADCOUNT INTEGER, ZREMOVED INTEGER, ZHIDDEN INTEGER);"
            "CREATE TABLE ZWAMESSAGE (Z_PK INTEGER PRIMARY KEY, ZCHATSESSION INTEGER, ZISFROMME INTEGER, ZTEXT VARCHAR, "
-           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER, ZGROUPMEMBER INTEGER);"
+           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER, ZGROUPMEMBER INTEGER, ZSTANZAID VARCHAR);"
            "CREATE TABLE ZWAGROUPMEMBER (Z_PK INTEGER PRIMARY KEY, ZMEMBERJID VARCHAR, ZFIRSTNAME VARCHAR);"
            "CREATE TABLE ZWAPROFILEPUSHNAME (Z_PK INTEGER PRIMARY KEY, ZJID VARCHAR, ZPUSHNAME VARCHAR);"
            "INSERT INTO ZWAGROUPMEMBER VALUES (1,'34611@s.whatsapp.net',NULL),(2,'99887@lid',NULL),(3,'34622@s.whatsapp.net',NULL),(4,'34633@s.whatsapp.net','Pepe');"
@@ -2204,21 +2558,22 @@ int selftest() {
            "CREATE TABLE ZWAMEDIAITEM (Z_PK INTEGER PRIMARY KEY, ZMESSAGE INTEGER, ZMEDIALOCALPATH VARCHAR, ZTITLE VARCHAR, ZFILESIZE INTEGER);"
            "CREATE TABLE ZWAPROFILEPICTUREITEM (Z_PK INTEGER PRIMARY KEY, ZJID VARCHAR, ZPATH VARCHAR);"
            "INSERT INTO ZWAPROFILEPICTUREITEM VALUES (1,'34600111222@s.whatsapp.net','Media/Profile/laura');"
-           "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8,NULL,NULL);"
            "INSERT INTO ZWAMEDIAITEM VALUES (1,6,'Media/x/factura.pdf','factura.pdf',123456);"
-           "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1,NULL,NULL);"
            "INSERT INTO ZWACHATSESSION VALUES (1,'Laura','34600111222@s.whatsapp.net',800000100,'Genial',2,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (2,'Familia','1203@g.us',800000200,'Hola',0,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (3,'','status@broadcast',800000300,'x',0,0,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL,0,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000150,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,1);"
-           "INSERT INTO ZWAMESSAGE VALUES (8,2,0,'Uno',800000160,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,2);"
-           "INSERT INTO ZWAMESSAGE VALUES (9,2,0,'Dos',800000170,'CIqYztcGIABIAJABAPABAtgCidDa3Kv+lwM=',0,3);"
-           "INSERT INTO ZWAMESSAGE VALUES (10,2,0,'Tres',800000180,NULL,0,4);"
-           "INSERT INTO ZWAMESSAGE VALUES (11,2,0,'Cuatro',800000190,'Ana',0,NULL);",
+           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0,NULL,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0,NULL,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0,NULL,'S3');"
+           "INSERT INTO ZWAMESSAGE VALUES (12,1,0,'Genial',800000100,NULL,0,NULL,'S3');"
+           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL,0,NULL,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000150,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,1,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (8,2,0,'Uno',800000160,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,2,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (9,2,0,'Dos',800000170,'CIqYztcGIABIAJABAPABAtgCidDa3Kv+lwM=',0,3,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (10,2,0,'Tres',800000180,NULL,0,4,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (11,2,0,'Cuatro',800000190,'Ana',0,NULL,NULL);",
            nullptr, nullptr, &err);
     q.close(db);
     // La foto de Laura (un .thumb) y un adjunto descargado.
@@ -2240,6 +2595,7 @@ int selftest() {
     chk(chats[1].pic == dir + "/Media/Profile/laura.thumb" && chats[0].pic.empty(), "foto de perfil");
     chk(chats[1].last == std::string("📷 ") + tx::K_PHOTO && chats[0].last == "Cuatro", "resumen del último mensaje");
     chk(load_messages(path, l, 50, error) && l.msgs.size() == 5 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
+    chk(l.msgs[2].id == "S3" && l.msgs[0].id.empty(), "el id de cada mensaje (ZSTANZAID)");
     chk(l.msgs[3].kind == K_DOC && l.msgs[3].title == "factura.pdf" && l.msgs[3].size == 123456 &&
             l.msgs[3].media == dir + "/Message/Media/x/factura.pdf",
         "documento adjunto");
@@ -2368,6 +2724,24 @@ int selftest() {
     base[0].t = 12;   // el mismo mensaje en WhatsApp Desktop, con otra hora
     merge_msgs(base, l.msgs);
     chk(base.size() == 2 && base[1].text == "Dos", "juntar con Desktop sin repetir");
+    // El mismo documento: en Desktop con su pie y en el puente con su nombre; el mismo id.
+    std::vector<Msg> d1(1), d2(1);
+    d1[0].kind = d2[0].kind = K_DOC;
+    d1[0].mine = d2[0].mine = true;
+    d1[0].text = "manual-crm";
+    d2[0].title = "manual-crm.pdf";
+    d1[0].t = 100;
+    d2[0].t = 101;
+    d1[0].size = d2[0].size = 15100000;
+    merge_msgs(d1, d2);
+    chk(d1.size() == 1, "un adjunto de Desktop y del puente es uno solo");
+    std::vector<Msg> e1(1), e2(1);
+    e1[0].id = e2[0].id = "3EB0X";
+    e1[0].text = "Hola";
+    e2[0].text = "Hola (editado)";
+    e2[0].t = 500;
+    merge_msgs(e1, e2);
+    chk(e1.size() == 1, "el mismo id es el mismo mensaje");
     std::string path = config_dir() + "/prueba-mensajes.jsonl";
     std::remove(path.c_str());
     Msg sent;
@@ -2402,6 +2776,35 @@ int selftest() {
         }
       }
     std::printf("grupos: %d · con nombre: %d · sin nombre: %d · codificados: %d\n", groups, named, empty, coded);
+    // Y lo que trajo el puente (DMS_MYWA_REALSTORE=mensajes.jsonl): cuántos se juntan sin repetirse.
+    if (const char* sp = fl_getenv("DMS_MYWA_REALSTORE")) {
+      LiveStore st;
+      st.load(sp);
+      int chats_both = 0, from_db = 0, from_bridge = 0, merged = 0, by_id = 0, suspicious = 0;
+      for (auto& c : all) {
+        auto it = st.chats.find(c.jid);
+        if (it == st.chats.end() || chats_both >= 80) continue;
+        chats_both++;
+        if (!load_messages(db_path(), c, 200, e)) continue;
+        from_db += (int)c.msgs.size();
+        from_bridge += (int)it->second.msgs.size();
+        for (const auto& m : it->second.msgs)
+          for (const auto& d : c.msgs)
+            if (!m.id.empty() && m.id == d.id) { by_id++; break; }
+        merge_msgs(c.msgs, it->second.msgs);
+        merged += (int)c.msgs.size();
+        // Parejas que aún parecen el mismo mensaje (mismo tipo y tamaño, o mismo texto, a menos de 5 s).
+        for (size_t i = 1; i < c.msgs.size(); i++) {
+          const Msg& a = c.msgs[i - 1];
+          const Msg& b = c.msgs[i];
+          if (a.mine == b.mine && a.kind == b.kind && std::llabs(a.t - b.t) <= 5 &&
+              ((a.kind != K_TEXT && a.size > 0 && a.size == b.size) || (a.kind == K_TEXT && a.text == b.text)))
+            suspicious++;
+        }
+      }
+      std::printf("chats en los dos: %d · Desktop: %d · puente: %d · juntos: %d · iguales por id: %d · posibles repetidos: %d\n",
+                  chats_both, from_db, from_bridge, merged, by_id, suspicious);
+    }
   }
 #endif
   // Las tareas: guardar y leer, el orden y el texto de un mensaje.
@@ -2422,6 +2825,11 @@ int selftest() {
             back[0].created == 100 && back[1].done && !back[0].done,
         "tareas: guardar y leer");
     chk(tasks_pending(back) == 2, "tareas pendientes");
+    chk(task_age_color(0, 23 * 3600) == 0x25d366 && task_age_color(0, 24 * 3600) == 0xf59e0b &&
+            task_age_color(0, 71 * 3600) == 0xf59e0b && task_age_color(0, 72 * 3600) == 0xe5484d,
+        "la bolita de las tareas: verde, naranja y roja");
+    chk(oldest_task(back, "346@s.whatsapp.net") == 100 && oldest_task(back, "otro") == 0 && oldest_task(back, "") == 0,
+        "la tarea más antigua de un chat");
     auto o = tasks_order(back);
     chk(o.size() == 3 && o[0] == 2 && o[1] == 0 && o[2] == 1, "tareas: pendientes primero, la más nueva arriba");
     Msg m;
@@ -2494,6 +2902,17 @@ public:
   Fl_Double_Window* qr_win = nullptr;
   Fl_Box* qr_box = nullptr;
   Fl_RGB_Image* qr_img = nullptr;
+  // Cuántos mensajes se cargan del chat abierto (crece al subir o al buscar).
+  int msg_limit = 60;
+  Fl_Input* find_input = nullptr;
+  // El menú del clic derecho (las pruebas lo cambian): el índice elegido o -1.
+  std::function<int(const std::vector<std::string>&)> choose = [](const std::vector<std::string>& items) {
+    std::vector<Fl_Menu_Item> menu(items.size() + 1);
+    for (auto& it : menu) std::memset((void*)&it, 0, sizeof it);
+    for (size_t k = 0; k < items.size(); k++) menu[k].text = items[k].c_str();
+    const Fl_Menu_Item* got = menu[0].popup(Fl::event_x(), Fl::event_y());
+    return got ? (int)(got - &menu[0]) : -1;
+  };
   // Las tareas, y cómo se pide un texto (las pruebas lo cambian).
   std::vector<wa::Task> tasks;
   std::function<bool(const char*, std::string&)> ask_text = [](const char* q, std::string& io) {
@@ -2542,7 +2961,16 @@ public:
     view->options = &options;
     view->on_act = [](int act, int k) { if (self()) self()->option_act(act, k); };
     view->tasks = &tasks;
+    list->tasks = &tasks;
     list->on_tasks = [] { if (self()) self()->open_tasks(); };
+    // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
+    find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
+    find_input->textsize(13);
+    find_input->when(FL_WHEN_CHANGED);
+    find_input->callback([](Fl_Widget*, void*) { if (self()) self()->find_changed(); });
+    find_input->hide();
+    ChatArea->add(find_input);
+    view->find_input = find_input;
     Provider->items({tx::P_CLAUDE, tx::P_OPENAI});
     Tone->items({tx::TONE_NATURAL, tx::TONE_FORMAL, tx::TONE_SHORT, tx::TONE_WARM, tx::TONE_BUSINESS});
     Tone->index(0);
@@ -2559,6 +2987,20 @@ public:
   }
   static int dispatch(int e, Fl_Window* w) {
     Form1* f = self();
+    if (f && e == FL_KEYBOARD && (Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'f') {
+      f->open_find();
+      return 1;
+    }
+    if (f && e == FL_KEYBOARD && Fl::focus() == f->find_input) {
+      if (Fl::event_key() == FL_Enter || Fl::event_key() == FL_KP_Enter) {
+        f->move_match(Fl::event_state() & FL_SHIFT ? 1 : -1);
+        return 1;
+      }
+      if (Fl::event_key() == FL_Escape) {
+        f->close_find();
+        return 1;
+      }
+    }
     if (f && e == FL_KEYBOARD && Fl::focus() == f->Draft &&
         (Fl::event_key() == FL_Enter || Fl::event_key() == FL_KP_Enter) &&
         !(Fl::event_state() & (FL_SHIFT | FL_CTRL | FL_ALT | FL_META))) {
@@ -2600,7 +3042,7 @@ public:
       w->color(panel);
       w->labelcolor(muted);
     }
-    for (Fl_Input_* in : {(Fl_Input_*)Search, (Fl_Input_*)Intent, (Fl_Input_*)Draft}) {
+    for (Fl_Input_* in : {(Fl_Input_*)Search, (Fl_Input_*)Intent, (Fl_Input_*)Draft, (Fl_Input_*)find_input}) {
       in->color(input);
       in->textcolor(text);
       in->cursor_color(text);
@@ -2720,9 +3162,12 @@ public:
   void open_messages(int i) {
     wa::Chat& c = chats[(size_t)i];
     // Las capturas y las pruebas nunca leen la base de datos de verdad.
+    view->more = false;
     if (c.id > 0 && from_db && !demo) {
       std::string error;
-      if (!wa::load_messages(wa::db_path(), c, 60, error)) say(error);
+      int rows = 0;
+      if (!wa::load_messages(wa::db_path(), c, msg_limit, error, &rows)) say(error);
+      view->more = rows >= msg_limit;
     }
     // Y lo que llegó (o se envió) por el puente.
     auto it = store.chats.find(c.jid);
@@ -2738,6 +3183,11 @@ public:
     list->selected = i;
     list->tasks_selected = false;
     view->tasks_mode = false;
+    view->msg_scroll = 0;
+    view->asked_more = false;
+    view->clear_selection();
+    msg_limit = 60;
+    close_find();
     options.clear();
     open_messages(i);
     Intent->value("");
@@ -2870,6 +3320,99 @@ public:
         if (!c.msgs[(size_t)i].mine) title = wa::task_title_of(c.msgs[(size_t)i]);
     add_task(title, current);
   }
+  // ---- la conversación: subir, volver abajo, buscar, copiar
+  void chat_act(int act) {
+    if (act == 20) load_more();
+    else if (act == 21) view->msg_scroll = 0;
+    else if (act == 22) open_find();
+    else if (act == 23) move_match(-1);
+    else if (act == 24) move_match(1);
+    else if (act == 25) close_find();
+    else if (act == 26) say(tx::COPIED);
+    refresh();
+  }
+  // Más mensajes antiguos: se mantiene lo que se estaba viendo (se cuenta desde abajo).
+  void load_more() {
+    if (current < 0 || !view->more) return;
+    msg_limit += 200;
+    open_messages(current);
+    view->asked_more = false;
+  }
+  void open_find() {
+    if (current < 0 || view->tasks_mode) return;
+    view->find_open = true;
+    find_input->show();
+    // Sin ventana (las pruebas), dar el foco de verdad falla en macOS.
+    if (shown()) {
+      find_input->take_focus();
+      find_input->insert_position(0, find_input->size());
+    } else {
+      Fl::focus(find_input);
+    }
+    refresh();
+  }
+  void close_find() {
+    view->find_open = false;
+    view->find.clear();
+    view->matches.clear();
+    view->match = -1;
+    if (find_input) {
+      find_input->value("");
+      find_input->hide();
+    }
+  }
+  // Busca en todo el chat (de WhatsApp Desktop se cargan hasta 5000 mensajes).
+  void find_changed() {
+    if (current < 0) return;
+    std::string q = find_input->value();
+    view->find = q;
+    view->matches.clear();
+    view->match = -1;
+    if (!q.empty()) {
+      if (view->more && msg_limit < 5000) {
+        msg_limit = 5000;
+        open_messages(current);
+      }
+      const wa::Chat& c = chats[(size_t)current];
+      for (int i = 0; i < (int)c.msgs.size(); i++)
+        if (!wa::find_all(c.msgs[(size_t)i].text, q).empty() || !wa::find_all(c.msgs[(size_t)i].title, q).empty())
+          view->matches.push_back(i);
+      if (!view->matches.empty()) {
+        view->match = (int)view->matches.size() - 1;   // el más reciente
+        view->scroll_to = view->matches.back();
+      }
+    }
+    refresh();
+  }
+  // -1: el anterior (más antiguo); 1: el siguiente.
+  void move_match(int d) {
+    if (view->matches.empty()) return;
+    int n = (int)view->matches.size();
+    view->match = ((view->match + d) % n + n) % n;
+    view->scroll_to = view->matches[(size_t)view->match];
+    refresh();
+  }
+  // El clic derecho sobre un mensaje.
+  void bubble_menu(int i) {
+    if (current < 0 || i < 0 || i >= (int)chats[(size_t)current].msgs.size()) return;
+    const wa::Msg& m = chats[(size_t)current].msgs[(size_t)i];
+    std::vector<std::string> items;
+    bool sel = view->has_selection();
+    if (sel) items.push_back(tx::COPY_SELECTION);
+    items.push_back(tx::COPY_MESSAGE);
+    items.push_back(tx::MAKE_TASK);
+    int r = choose(items);
+    if (r < 0) return;
+    if (!sel) r++;
+    if (r == 0 || r == 1) {
+      std::string t = r == 0 ? view->selected_text() : (m.text.empty() ? m.title : m.text);
+      Fl::copy(t.c_str(), (int)t.size(), 1);
+      Fl::copy(t.c_str(), (int)t.size(), 0);
+      say(tx::COPIED);
+    } else {
+      task_from_chat(i);
+    }
+  }
   void task_act(int act, int k) {
     if (act == 13) {
       add_task("", -1);
@@ -2898,8 +3441,16 @@ public:
       open_attachment(k);
       return;
     }
-    if (act == 5 || act == 6) {
-      task_from_chat(act == 6 ? k : -1);
+    if (act == 5) {
+      task_from_chat(-1);
+      return;
+    }
+    if (act == 6) {
+      bubble_menu(k);
+      return;
+    }
+    if (act >= 20 && act <= 26) {
+      chat_act(act);
       return;
     }
     if (act >= 10 && act <= 13) {
@@ -3237,15 +3788,19 @@ public:
     ai.provider = wa::P_CLAUDE;
     Provider->index(0);
     tasks.clear();
-    const char* titles[] = {tx::DEMO_T3, tx::DEMO_T2, tx::DEMO_T1};
-    const int from[] = {1, 2, 0};
-    for (int k = 0; k < 3; k++) {
+    view->now = now;
+    list->now = now;
+    // Una roja (80 h), una hecha, una naranja (30 h) y una verde (1 h).
+    const char* titles[] = {tx::DEMO_T3, tx::DEMO_T2, tx::DEMO_T1, tx::DEMO_T4};
+    const int from[] = {1, 2, 0, 4};
+    const int hours[] = {80, 50, 30, 1};
+    for (int k = 0; k < 4; k++) {
       wa::Task t;
       t.id = k + 1;
       t.title = titles[k];
       t.jid = chats[(size_t)from[k]].jid;
       t.chat = chats[(size_t)from[k]].name;
-      t.created = now - (3 - k) * 3600;
+      t.created = now - hours[k] * 3600LL;
       t.done = k == 1;
       tasks.push_back(t);
     }
@@ -3283,7 +3838,11 @@ public:
   int ui_test() {
     demo_state(1200, 760);
     int f = 0;
-    auto chk = [&](bool ok, const char* what) { if (!ok) { std::printf("FAIL %s\n", what); f++; } };
+    static bool trace = fl_getenv("DMS_MYWA_TRACE") != nullptr;   // cada paso, para encontrar un fallo
+    auto chk = [&](bool ok, const char* what) {
+      if (trace) std::fprintf(stderr, "ok? %d %s\n", ok ? 1 : 0, what);
+      if (!ok) { std::printf("FAIL %s\n", what); f++; }
+    };
     // La foto del chat de Laura y su foto adjunta, dibujadas.
     render_to("");
     bool photo = false;
@@ -3335,7 +3894,7 @@ public:
         return true;
       };
       render_to("");
-      chk(list->tasks_pending == 2, "tareas pendientes en la lista");
+      chk(list->tasks_pending == 3, "tareas pendientes en la lista");
       for (const auto& h : list->hits)
         if (h.act == 1) {
           Fl::e_x = h.x + 20;
@@ -3350,7 +3909,7 @@ public:
         if (h.act == 10) boxes++;
         if (h.act == 11) open++;
       }
-      chk(boxes == 3 && open == 3, "las tareas dibujadas");
+      chk(boxes == 4 && open == 4, "las tareas dibujadas");
       int first = wa::tasks_order(tasks)[0];
       for (const auto& h : view->hits)
         if (h.act == 10 && h.idx == first) {
@@ -3360,7 +3919,7 @@ public:
           view->handle(FL_PUSH);
           break;
         }
-      chk(tasks[(size_t)first].done && wa::tasks_pending(tasks) == 1, "marcar una tarea como hecha");
+      chk(tasks[(size_t)first].done && wa::tasks_pending(tasks) == 2, "marcar una tarea como hecha");
       render_to("");
       for (const auto& h : view->hits)
         if (h.act == 11 && h.idx == 2) {
@@ -3396,10 +3955,12 @@ public:
       Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
       view->handle(FL_PUSH);
       chk(tasks.size() == n + 1, "clic izquierdo en un mensaje no crea tareas");
+      choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Convertir en tarea»
       Fl::e_keysym = FL_Button + FL_RIGHT_MOUSE;
       view->handle(FL_PUSH);
       Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
-      chk(tasks.size() == n + 2 && tasks.back().title == wa::task_title_of(c.msgs[(size_t)bubble.idx]), "clic derecho: el mensaje es la tarea");
+      view->clear_selection();
+      chk(tasks.size() == n + 2 && tasks.back().title == wa::task_title_of(c.msgs[(size_t)bubble.idx]), "clic derecho › Convertir en tarea");
       // Borrar y «+ Nueva tarea».
       open_tasks();
       render_to("");
@@ -3439,6 +4000,101 @@ public:
     Draft->value("");
     BtnSend_click();
     chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+    // La conversación: seleccionar, copiar, el menú, buscar y subir.
+    {
+      pick(0);
+      render_to("");
+      const wa::ChatView::LineBox* lb = nullptr;
+      for (const auto& b : view->boxes)
+        if (b.xs.size() > 8) lb = &b;
+      chk(lb != nullptr, "las líneas del chat");
+      if (lb) {
+        wa::ChatView::LineBox box = *lb;
+        const std::string& line = view->lays[(size_t)box.msg].lines[(size_t)box.line];
+        Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+        Fl::e_clicks = 0;
+        Fl::e_x = box.xs[0] + 1;
+        Fl::e_y = box.y + 6;
+        view->handle(FL_PUSH);
+        Fl::e_x = box.xs[5];
+        view->handle(FL_DRAG);
+        view->handle(FL_RELEASE);
+        chk(view->selected_text() == line.substr(0, (size_t)box.at[5]), "seleccionar arrastrando");
+        Fl::e_state = FL_COMMAND;
+        Fl::e_keysym = 'c';
+        chk(view->handle(FL_KEYBOARD) == 1 && message == tx::COPIED, "Cmd+C copia la selección");
+        Fl::e_state = 0;
+        Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+        Fl::e_clicks = 1;
+        Fl::e_x = box.xs[2];
+        view->handle(FL_PUSH);
+        view->handle(FL_RELEASE);
+        Fl::e_clicks = 0;
+        chk(view->selected_text() == chats[(size_t)current].msgs[(size_t)box.msg].text, "doble clic: el mensaje entero");
+        // Clic derecho: con selección, «Copiar la selección» es el primero.
+        std::vector<std::string> seen;
+        choose = [&seen](const std::vector<std::string>& items) {
+          seen = items;
+          return 0;
+        };
+        message.clear();
+        bubble_menu(box.msg);
+        chk(seen.size() == 3 && seen[0] == tx::COPY_SELECTION && message == tx::COPIED, "menú del mensaje: copiar");
+        view->clear_selection();
+        size_t before_tasks = tasks.size();
+        choose = [&seen](const std::vector<std::string>& items) {
+          seen = items;
+          return (int)items.size() - 1;
+        };
+        bubble_menu(box.msg);
+        chk(seen.size() == 2 && tasks.size() == before_tasks + 1 &&
+                tasks.back().title == wa::task_title_of(chats[(size_t)current].msgs[(size_t)box.msg]),
+            "menú del mensaje: convertir en tarea");
+        choose = [](const std::vector<std::string>&) { return -1; };
+      }
+      // Buscar.
+      std::string q = std::string(tx::DEMO_L3).substr(0, 9);
+      open_find();
+      find_input->value(q.c_str());
+      find_changed();
+      render_to("");
+      chk(view->find_open && find_input->visible() && !view->matches.empty() &&
+              view->match == (int)view->matches.size() - 1,
+          "buscar en el chat");
+      Fl::focus(find_input);
+      Fl::e_keysym = FL_Escape;
+      dispatch(FL_KEYBOARD, this);
+      render_to("");
+      chk(!view->find_open && !find_input->visible() && view->find.empty(), "Esc cierra la búsqueda");
+      Fl::e_state = FL_COMMAND;
+      Fl::e_keysym = 'f';
+      dispatch(FL_KEYBOARD, this);
+      Fl::e_state = 0;
+      chk(view->find_open, "Cmd+F abre la búsqueda");
+      close_find();
+      // Subir con la rueda (con más mensajes de los que caben) y volver abajo.
+      wa::Chat& c = chats[(size_t)current];
+      for (int k = 0; k < 30; k++) {
+        wa::Msg m;
+        m.text = "Mensaje antiguo " + std::to_string(k);
+        m.t = c.msgs.front().t - 60;
+        c.msgs.insert(c.msgs.begin(), m);
+      }
+      render_to("");
+      chk(view->max_scroll > 0 && view->msg_scroll == 0, "la conversación no cabe");
+      Fl::e_dy = -10;
+      view->handle(FL_MOUSEWHEEL);
+      render_to("");
+      bool down = false;
+      for (const auto& h : view->hits)
+        if (h.act == 21) down = true;
+      chk(view->msg_scroll > 0 && down, "subir con la rueda");
+      option_act(21, -1);
+      chk(view->msg_scroll == 0, "volver abajo");
+      Fl::e_dy = 0;
+      c.msgs.erase(c.msgs.begin(), c.msgs.begin() + 30);
+      view->lay_dirty = true;
+    }
 #ifndef _WIN32
     // Enviar de verdad por un puente de prueba, con Enter en el borrador.
     {

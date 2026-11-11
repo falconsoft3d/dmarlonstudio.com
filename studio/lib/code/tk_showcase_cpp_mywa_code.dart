@@ -483,6 +483,9 @@ bool db_exists() {
   return !p.empty() && fl_access(p.c_str(), 0) == 0;
 }
 
+const char* kind_icon(int k);
+std::string kind_name(int k);
+
 // Los chats (sin los mensajes) y los mensajes de uno: solo lectura.
 bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& error) {
   out.clear();
@@ -502,8 +505,15 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
   }
   void* st = nullptr;
   const char* sql =
-      "SELECT s.Z_PK, s.ZPARTNERNAME, s.ZCONTACTJID, s.ZLASTMESSAGEDATE, s.ZLASTMESSAGETEXT, s.ZUNREADCOUNT, "
-      "IFNULL((SELECT p.ZPATH FROM ZWAPROFILEPICTUREITEM p WHERE p.ZJID = s.ZCONTACTJID AND p.ZPATH IS NOT NULL LIMIT 1), '') "
+      // El resumen sale del último mensaje (ZLASTMESSAGETEXT ya no es texto en
+      // las versiones nuevas de WhatsApp): su texto, su tipo y el adjunto.
+      "SELECT s.Z_PK, s.ZPARTNERNAME, s.ZCONTACTJID, s.ZLASTMESSAGEDATE, "
+      "IFNULL((SELECT m.ZTEXT FROM ZWAMESSAGE m WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), ''), "
+      "s.ZUNREADCOUNT, "
+      "IFNULL((SELECT p.ZPATH FROM ZWAPROFILEPICTUREITEM p WHERE p.ZJID = s.ZCONTACTJID AND p.ZPATH IS NOT NULL LIMIT 1), ''), "
+      "IFNULL((SELECT m.ZMESSAGETYPE FROM ZWAMESSAGE m WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), 0), "
+      "IFNULL((SELECT IFNULL(i.ZTITLE, '') FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK "
+      "WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), '') "
       "FROM ZWACHATSESSION s WHERE IFNULL(s.ZREMOVED,0)=0 AND IFNULL(s.ZHIDDEN,0)=0 "
       "AND s.ZCONTACTJID NOT LIKE '%status%' AND s.ZLASTMESSAGEDATE IS NOT NULL "
       "ORDER BY s.ZLASTMESSAGEDATE DESC";
@@ -521,6 +531,14 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
     c.last_t = apple_time(q.column_double(st, 3));
     c.last = col(st, 4);
     c.unread = (int)q.column_int64(st, 5);
+    int last_kind = (int)q.column_int64(st, 7);
+    std::string last_title = col(st, 8);
+    if (last_kind == K_IMAGE || last_kind == K_VIDEO || last_kind == K_AUDIO || last_kind == K_DOC || last_kind == K_GIF ||
+        last_kind == K_STICKER) {
+      // «📷 Foto», «📄 contrato.pdf» (y su texto, si lleva).
+      std::string label = std::string(kind_icon(last_kind)) + " " + (last_title.empty() ? kind_name(last_kind) : last_title);
+      c.last = c.last.empty() ? label : label + " · " + c.last;
+    }
     c.group = c.jid.find("@g.us") != std::string::npos;
     if (c.name.empty()) c.name = phone_of(c.jid).empty() ? c.jid : "+" + phone_of(c.jid);
     // La foto: «Media/Profile/…» + «.thumb» (96×96) o «.jpg».
@@ -1555,6 +1573,7 @@ int selftest() {
     Chat& l = chats[1];
     l.group = false;
     chk(chats[1].pic == dir + "/Media/Profile/laura.thumb" && chats[0].pic.empty(), "foto de perfil");
+    chk(chats[1].last == std::string("📷 ") + tx::K_PHOTO && chats[0].last == "Hola", "resumen del último mensaje");
     chk(load_messages(path, l, 50, error) && l.msgs.size() == 5 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
     chk(l.msgs[3].kind == K_DOC && l.msgs[3].title == "factura.pdf" && l.msgs[3].size == 123456 &&
             l.msgs[3].media == dir + "/Message/Media/x/factura.pdf",

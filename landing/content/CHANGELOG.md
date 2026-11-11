@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.100 — 2026-11-11
+
+- **MyWhatsapp: el resumen de cada chat ya se lee.** En las versiones nuevas de WhatsApp Desktop, la columna del último mensaje guarda datos codificados en vez de texto, y la lista los enseñaba tal cual. Ahora el resumen sale del último mensaje de verdad del chat; si es una foto o un documento, pone «📷 Foto» o «📄 contrato.pdf» (y su texto, si lleva).
+
 ## 1.0.99 — 2026-11-11
 
 - **MyWhatsapp ya abre con las fotos de perfil de verdad.** Se cerraba al dibujar la lista si algún contacto tenía la foto en `.jpg`: la copia a su tamaño de una imagen compartida de FLTK se borraba directamente y dejaba roto el registro de imágenes. Ahora cada imagen se carga según sus primeros bytes (JPEG, PNG o BMP), sin imágenes compartidas. Las pruebas cargan fotos de verdad desde el disco (también con la extensión cambiada) y se comprobó que las 614 fotos de perfil de este equipo se cargan, solo contándolas.

@@ -4,7 +4,7 @@ part of 'tk_examples.dart';
 /// Lee los chats de WhatsApp Desktop (su base de datos en el Mac, solo
 /// lectura) o un chat exportado, y propone tres respuestas con la IA de
 /// Claude (Anthropic) o de ChatGPT (OpenAI) según la conversación; la elegida
-/// se abre en WhatsApp ya escrita, para revisarla y enviarla.
+/// pasa al borrador.
 TkExample tkCppMywa(String Function(String) t) {
   final app = t(markTr('MyWhatsapp'));
   final mFile = t(markTr('Archivo')), mHelp = t(markTr('Ayuda'));
@@ -21,6 +21,11 @@ TkExample tkCppMywa(String Function(String) t) {
   item('AI', t(markTr('Claves de la IA…')), mFile);
   lines.add('  -');
   item('QUIT', t(markTr('Salir')), mFile);
+  final mView = t(markTr('Ver'));
+  lines.add(mView);
+  item('LIGHT', t(markTr('Tema claro')), mView);
+  item('DARK', t(markTr('Tema oscuro')), mView);
+  item('SYSTEM', t(markTr('Como el sistema')), mView);
   lines.add(mHelp);
   item('HOW', t(markTr('Cómo funciona')), mHelp);
   item('ABOUT', t(markTr('Acerca de MyWhatsapp')), mHelp);
@@ -29,7 +34,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador; «Abrir en WhatsApp» abre WhatsApp con el texto escrito: lo revisa y lo envía usted.\n\nLas claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nLas claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -80,17 +85,19 @@ TkExample tkCppMywa(String Function(String) t) {
     'ERR_AI_NO_KEY': t(markTr('Falta la clave de la IA (Archivo › Claves de la IA…)')),
     'ERR_AI_REFUSAL': t(markTr('La IA prefirió no proponer respuestas para esta conversación')),
     'SUGGESTIONS': t(markTr('RESPUESTAS PROPUESTAS')),
+    'K_PHOTO': t(markTr('Foto')),
+    'K_STICKER': t(markTr('Sticker')),
+    'K_VIDEO': t(markTr('Vídeo')),
+    'K_AUDIO': t(markTr('Nota de voz')),
+    'K_DOC': t(markTr('Documento')),
+    'NOT_DOWNLOADED': t(markTr('sin descargar en este equipo')),
+    'GROUP': t(markTr('Grupo')),
+    'DEMO_PHOTO_CAPTION': t(markTr('Así quedó, ¿te gusta?')),
+    'DEMO_DOC': t(markTr('Presupuesto cocina.pdf')),
     'USE': t(markTr('Usar')),
     'COPY': t(markTr('Copiar')),
-    'SEND_WA': t(markTr('Abrir en WhatsApp')),
     'THINKING': t(markTr('✨ {0} está escribiendo tres respuestas…')),
     'COPIED': t(markTr('Copiada')),
-    'GROUP_COPIED': t(
-      markTr(
-        'Es un grupo: la respuesta está copiada; péguela en WhatsApp',
-      ),
-    ),
-    'OPENED_WA': t(markTr('WhatsApp abierto con la respuesta: revísela y envíela')),
     'PRIVACY': t(
       markTr(
         'Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?',
@@ -254,23 +261,8 @@ TkExample tkCppMywa(String Function(String) t) {
             {'font_size': 13},
             {'enter_key': 'Intent_enter'},
           )..parent = 'AiBar',
-          _w('Text', 'Draft', 12, 90, 640, 76, {'font_size': 14})
+          _w('Text', 'Draft', 12, 90, 816, 76, {'font_size': 14})
             ..parent = 'AiBar',
-          _w(
-            'Button',
-            'BtnSend',
-            664,
-            90,
-            156,
-            34,
-            {
-              'text': t(markTr('Abrir en WhatsApp')),
-              'bg': '#ffffff',
-              'fg': '#0a7c45',
-              'font_bold': true,
-            },
-            {'command': 'BtnSend_click'},
-          )..parent = 'AiBar',
           _w('StatusBar', 'Status', 0, 736, 1200, 24, {'text': ''}),
         ]);
 
@@ -287,7 +279,7 @@ $_mywaCode''';
     t(markTr('MyWhatsapp (C++)')),
     t(
       markTr(
-        'Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el tono que elija; la elegida se abre en WhatsApp ya escrita, para revisarla y enviarla.',
+        'Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el estilo que elija.',
       ),
     ),
     design,

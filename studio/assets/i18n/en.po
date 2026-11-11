@@ -1413,7 +1413,7 @@ msgstr "Your order is on the way"
 msgid "Sí, durante 30 días desde la entrega."
 msgstr "Yes, within 30 days of delivery."
 
-#: lib/code/tk_flutter_templates.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Tema oscuro"
 msgstr "Dark theme"
 
@@ -1837,7 +1837,7 @@ msgstr "Font"
 msgid "Fuente de datos"
 msgstr "Data source"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Grupo"
 msgstr "Group"
 
@@ -3931,7 +3931,7 @@ msgstr "Clear"
 msgid "Vaciar la cola"
 msgstr "Clear the queue"
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -6738,10 +6738,6 @@ msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «
 msgstr "Your WhatsApp Desktop chats are on the left. Pick one and press “Suggest replies”."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Abrir en WhatsApp"
-msgstr "Open in WhatsApp"
-
-#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir un chat exportado de WhatsApp"
 msgstr "Open an exported WhatsApp chat"
 
@@ -6760,6 +6756,10 @@ msgstr "Anna"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Aquí no se puede leer WhatsApp Desktop"
 msgstr "WhatsApp Desktop cannot be read here"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Así quedó, ¿te gusta?"
+msgstr "Here it is, do you like it?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
@@ -6798,6 +6798,10 @@ msgid "Claves de la IA…"
 msgstr "AI keys…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Como el sistema"
+msgstr "Like the system"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Continuar"
 msgstr "Continue"
 
@@ -6814,6 +6818,10 @@ msgstr ""
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Copiada"
 msgstr "Copied"
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Documento"
+msgstr "Document"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El sábado me va perfecto. Os espero en calle Mayor 12, de 10 a 14."
@@ -6834,10 +6842,6 @@ msgstr ""
 "Write exactly three replies, different from each other, separated by a line containing only “---”. No numbering, no quotes and no explanations. In the language of the conversation and in the style of a WhatsApp message (short, natural, emojis only if they fit). Tone: {0}. Answer whatever was left pending and do not make up details (times, prices, addresses) that are not in the conversation or in what the user wants to say."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Es un grupo: la respuesta está copiada; péguela en WhatsApp"
-msgstr "It’s a group: the reply is copied; paste it in WhatsApp"
-
-#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese archivo no parece un chat exportado de WhatsApp"
 msgstr "That file does not look like an exported WhatsApp chat"
 
@@ -6856,6 +6860,10 @@ msgstr "Family 🏡"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Formal"
 msgstr "Formal"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Foto"
+msgstr "Photo"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Genial, ¿cuándo me la podéis llevar?"
@@ -6910,8 +6918,8 @@ msgid "Laura (Muebles Sol)"
 msgstr "Laura (Sun Furniture)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el tono que elija; la elegida se abre en WhatsApp ya escrita, para revisarla y enviarla."
-msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the tone you choose; the one you pick opens in WhatsApp already typed, for you to review and send."
+msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el estilo que elija."
+msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the style you choose."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lo que el usuario quiere decir: {0}"
@@ -6949,13 +6957,13 @@ msgstr "MyWhatsapp in C++ with FLTK: it reads your WhatsApp chats and suggests r
 msgid ""
 "MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n"
 "\n"
-"Elija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador; «Abrir en WhatsApp» abre WhatsApp con el texto escrito: lo revisa y lo envía usted.\n"
+"Elija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
 "\n"
 "Las claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
 "MyWhatsapp reads your WhatsApp Desktop chats (on the Mac, without changing anything; the first time, macOS will ask for permission) or a chat exported with “Export chat”, and suggests replies with AI.\n"
 "\n"
-"Pick a chat, optionally type what you want to say and the tone, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat’s latest messages and suggest three replies. “Use” puts it in the draft; “Open in WhatsApp” opens WhatsApp with the text typed: you review it and send it.\n"
+"Pick a chat, optionally type what you want to say and the tone, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat’s latest messages and suggest three replies. “Use” puts it in the draft to tweak it and “Copy” copies it.\n"
 "\n"
 "The AI keys are stored in the macOS Keychain. Only the open chat’s messages are sent to the AI, and only when you ask."
 
@@ -6988,6 +6996,10 @@ msgid "No se pudo leer la base de datos de WhatsApp"
 msgstr "Could not read the WhatsApp database"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nota de voz"
+msgstr "Voice note"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?"
 msgstr "To suggest replies, this chat’s latest messages are sent to {0}. This only happens when you press “Suggest replies” and only for the open chat. Continue?"
 
@@ -7002,6 +7014,10 @@ msgstr "Perfect, thanks. Does it include installation?"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
 msgstr "We can do Thursday morning or Saturday from 10 to 2"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Presupuesto cocina.pdf"
+msgstr "Kitchen quote.pdf"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Profesional (negocio)"
@@ -7024,12 +7040,20 @@ msgid "Sobre usted, para que las respuestas encajen (opcional; por ejemplo: «Te
 msgstr "About you, so the replies fit (optional; for example: “I run a furniture shop in Madrid”):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sticker"
+msgstr "Sticker"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sábado, por favor 🙌 Calle Mayor 12. Avisadme un poco antes de llegar."
 msgstr "Saturday, please 🙌 12 High Street. Give me a heads-up before you arrive."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sí! Ya en casa ❤️"
 msgstr "Yes! Home already ❤️"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Tema claro"
+msgstr "Light theme"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
@@ -7039,13 +7063,13 @@ msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the list, the A
 msgid "Usar"
 msgstr "Use"
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Vídeo"
+msgstr "Video"
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "WhatsApp Desktop"
 msgstr "WhatsApp Desktop"
-
-#: lib/code/tk_showcase_cpp_mywa.dart
-msgid "WhatsApp abierto con la respuesta: revísela y envíela"
-msgstr "WhatsApp opened with the reply: review it and send it"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Yo"
@@ -7066,6 +7090,10 @@ msgstr "Saturday, and the address is 12 High Street"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acceso en Ajustes del Sistema › Privacidad y seguridad. También puede importar un chat exportado."
 msgstr "macOS asks for permission to read WhatsApp’s data: accept it, or grant access in System Settings › Privacy & Security. You can also import an exported chat."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "sin descargar en este equipo"
+msgstr "not downloaded on this computer"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} chats de {1} · IA: {2}"
@@ -11708,10 +11736,6 @@ msgid "Solo este disco"
 msgstr "This disk only"
 
 #: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Vídeo"
-msgstr "Video"
-
-#: lib/code/tk_showcase_util_disk_usage.dart
 msgid "[{0} archivos en esta carpeta]"
 msgstr "[{0} files in this folder]"
 
@@ -13638,10 +13662,6 @@ msgstr "Split into one PDF per page…"
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Dividir por páginas…"
 msgstr "Split by page…"
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Documento"
-msgstr "Document"
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documentos PDF"

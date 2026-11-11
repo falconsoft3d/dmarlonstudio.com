@@ -244,7 +244,7 @@ const es: Record<string, DemoGuide> = {
     steps: [
       { title: "Sus chats, a la izquierda", text: "En el Mac lee los chats de WhatsApp Desktop sin cambiar nada (la primera vez, macOS pide permiso) y se pone al día solo cada pocos segundos. Sin WhatsApp Desktop, importe un chat con «Exportar chat» en el teléfono. Busque un chat y ábralo: la conversación sale como en WhatsApp." },
       { title: "Pida respuestas a la IA", text: "Elija Claude o ChatGPT y el estilo (natural, formal, breve, cariñoso o de negocio), y si quiere escriba qué quiere decir. «Sugerir respuestas» manda los últimos mensajes de ese chat a la IA, solo entonces y solo de ese chat, y en unos segundos tiene tres propuestas." },
-      { title: "Revise y envíe en WhatsApp", text: "«Usar» pasa la respuesta al borrador para retocarla, «Copiar» la copia y «Abrir en WhatsApp» abre el chat con el texto ya escrito: lo revisa y lo envía usted. Las claves de la IA se guardan en el Llavero de macOS." },
+      { title: "Fotos, adjuntos y tema", text: "«Usar» pasa la respuesta al borrador para retocarla y «Copiar» la copia. Cada chat lleva la foto de perfil del contacto; las fotos que recibe se ven dentro del bocadillo y los documentos se abren con un clic. En Ver, tema claro, oscuro o como el sistema. Las claves de la IA se guardan en el Llavero de macOS." },
     ],
   },
   domino: {
@@ -567,7 +567,7 @@ const en: Record<string, DemoGuide> = {
     steps: [
       { title: "Your chats, on the left", text: "On the Mac it reads WhatsApp Desktop's chats without changing anything (the first time, macOS asks for permission) and keeps up to date every few seconds. Without WhatsApp Desktop, import a chat with “Export chat” on the phone. Search for a chat and open it: the conversation looks like WhatsApp." },
       { title: "Ask the AI for replies", text: "Choose Claude or ChatGPT and the style (natural, formal, short, warm or business), and optionally type what you want to say. “Suggest replies” sends that chat's latest messages to the AI, only then and only that chat, and in a few seconds you have three suggestions." },
-      { title: "Review and send in WhatsApp", text: "“Use” puts the reply in the draft to tweak it, “Copy” copies it and “Open in WhatsApp” opens the chat with the text already typed: you review it and send it. The AI keys are stored in the macOS Keychain." },
+      { title: "Photos, attachments and theme", text: "“Use” puts the reply in the draft to tweak it and “Copy” copies it. Each chat shows the contact's profile picture; photos you receive appear inside the bubble and documents open with a click. In View, a light, dark or system theme. The AI keys are stored in the macOS Keychain." },
     ],
   },
   domino: {

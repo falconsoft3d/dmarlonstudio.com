@@ -362,11 +362,17 @@ const mywaParse = `AiReply parse_claude(int http, const std::string& body) {
   return r;
 }`;
 
-const mywaSend = `// WhatsApp se abre con el texto escrito: lo revisa y lo envía usted.
-std::string whatsapp_url(const std::string& phone, const std::string& text) {
-  if (phone.empty()) return "whatsapp://send?text=" + url_encode(text);
-  return "whatsapp://send?phone=" + phone + "&text=" + url_encode(text);
-}`;
+const mywaSend = `// La foto: «Media/Profile/…» + «.thumb» (96×96) o «.jpg».
+std::string pic = col(st, 6);
+if (!pic.empty()) {
+  std::string b = base_dir(path) + "/" + pic;
+  if (file_exists(b + ".thumb")) c.pic = b + ".thumb";
+  else if (file_exists(b + ".jpg")) c.pic = b + ".jpg";
+}
+
+// …
+// Los adjuntos descargados están en «Message/Media/…».
+if (!local.empty() && file_exists(base_dir(path) + "/Message/" + local)) m.media = base_dir(path) + "/Message/" + local;`;
 
 const es: Record<string, DemoMade> = {
   pascal_docker: {
@@ -679,7 +685,7 @@ const es: Record<string, DemoMade> = {
         { name: "Provider / Tone", kind: "Combobox", text: "Claude o ChatGPT, y el estilo de la respuesta." },
         { name: "Intent", kind: "Entry", text: "Lo que quiere decir (opcional); Intro pide las respuestas." },
         { name: "BtnSuggest", kind: "Button", text: "✨ Sugerir respuestas." },
-        { name: "Draft / BtnSend", kind: "Text / Button", text: "El borrador para retocar y Abrir en WhatsApp." },
+        { name: "Draft", kind: "Text", text: "El borrador para retocar la respuesta." },
         { name: "Status", kind: "StatusBar", text: "Cuántos chats, de dónde y qué IA." },
       ],
       apis: [
@@ -687,7 +693,7 @@ const es: Record<string, DemoMade> = {
         "ChatGPT por la API de OpenAI (HTTP con curl), con el modelo que elija",
         "SQLite del sistema con dlopen: la base de datos de WhatsApp Desktop, solo lectura",
         "security (Llavero de macOS): las claves de la IA",
-        "whatsapp://send: abrir WhatsApp con la respuesta escrita",
+        "Fl_JPEG_Image y Fl_Shared_Image (FLTK): las fotos de perfil y las fotos recibidas",
       ],
     },
     steps: [
@@ -718,8 +724,8 @@ const es: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: mywaParse },
       },
       {
-        title: "6. Enviar es cosa suya",
-        text: "La app no envía nada: abre WhatsApp con la respuesta escrita y usted la revisa y la envía. Sus pruebas (DMS_MYWA_SELFTEST) leen una base de datos inventada con la forma de la de WhatsApp, chats exportados de iPhone y Android y respuestas de Claude y de OpenAI; un servidor de prueba comprobó las cabeceras y el cuerpo de las dos API.",
+        title: "6. Fotos, adjuntos y tema",
+        text: "La foto de cada contacto sale de Media/Profile (la miniatura de 96×96) y se recorta en un círculo; las fotos recibidas se ven en el bocadillo y los documentos se abren con un clic. El tema claro u oscuro cambia los colores de los dibujos y de los controles del diseño. Sus pruebas (DMS_MYWA_SELFTEST) leen una base de datos inventada con la forma de la de WhatsApp, chats exportados de iPhone y Android y respuestas de Claude y de OpenAI; un servidor de prueba comprobó las cabeceras y el cuerpo de las dos API.",
         code: { file: "Form1.cpp", text: mywaSend },
       },
     ],
@@ -1037,7 +1043,7 @@ const en: Record<string, DemoMade> = {
         { name: "Provider / Tone", kind: "Combobox", text: "Claude or ChatGPT, and the style of the reply." },
         { name: "Intent", kind: "Entry", text: "What you want to say (optional); Enter asks for replies." },
         { name: "BtnSuggest", kind: "Button", text: "✨ Suggest replies." },
-        { name: "Draft / BtnSend", kind: "Text / Button", text: "The draft to tweak and Open in WhatsApp." },
+        { name: "Draft", kind: "Text", text: "The draft to tweak the reply." },
         { name: "Status", kind: "StatusBar", text: "How many chats, from where and which AI." },
       ],
       apis: [
@@ -1045,7 +1051,7 @@ const en: Record<string, DemoMade> = {
         "ChatGPT through the OpenAI API (HTTP with curl), with the model you choose",
         "The system's SQLite through dlopen: the WhatsApp Desktop database, read-only",
         "security (macOS Keychain): the AI keys",
-        "whatsapp://send: open WhatsApp with the reply typed",
+        "Fl_JPEG_Image and Fl_Shared_Image (FLTK): profile pictures and received photos",
       ],
     },
     steps: [
@@ -1076,8 +1082,8 @@ const en: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: mywaParse },
       },
       {
-        title: "6. Sending is up to you",
-        text: "The app sends nothing: it opens WhatsApp with the reply typed and you review and send it. Its tests (DMS_MYWA_SELFTEST) read a made-up database shaped like WhatsApp's, chats exported from iPhone and Android and answers from Claude and OpenAI; a test server checked the headers and body of both APIs.",
+        title: "6. Photos, attachments and theme",
+        text: "Each contact's picture comes from Media/Profile (the 96×96 thumbnail) and is cropped into a circle; received photos show in the bubble and documents open with a click. The light or dark theme changes the colours of the drawings and of the design's controls. Its tests (DMS_MYWA_SELFTEST) read a made-up database shaped like WhatsApp's, chats exported from iPhone and Android and answers from Claude and OpenAI; a test server checked the headers and body of both APIs.",
         code: { file: "Form1.cpp", text: mywaSend },
       },
     ],

@@ -301,7 +301,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_mywa: {
         name: "MyWhatsapp (C++)",
-        text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. La que prefiera se abre en WhatsApp ya escrita, para revisarla y enviarla usted. En macOS, para Apple Silicon.",
+        text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. Con las fotos de perfil, las fotos y documentos de cada chat, y tema claro u oscuro. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Claude (Opus 5.5) o ChatGPT por su API HTTP, con las claves en el Llavero", "La base de datos de WhatsApp Desktop, leída con el SQLite del sistema"],
       },
       domino: {
@@ -558,7 +558,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_mywa: {
         name: "MyWhatsapp (C++)",
-        text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. The one you prefer opens in WhatsApp already typed, for you to review and send. On macOS, for Apple Silicon.",
+        text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. With profile pictures, each chat's photos and documents, and a light or dark theme. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Claude (Opus 5.5) or ChatGPT through their HTTP API, with the keys in the Keychain", "The WhatsApp Desktop database, read with the system's SQLite"],
       },
       domino: {

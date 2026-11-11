@@ -56,7 +56,7 @@ void main() {
     final names = {for (final w in d.widgets) w.name};
     expect(
       names,
-      containsAll(['Menu1', 'Tick', 'Side', 'Search', 'ChatArea', 'AiBar', 'Provider', 'Tone', 'Intent', 'BtnSuggest', 'Draft', 'BtnSend', 'Status']),
+      containsAll(['Menu1', 'Tick', 'Side', 'Search', 'ChatArea', 'AiBar', 'Provider', 'Tone', 'Intent', 'BtnSuggest', 'Draft', 'Status']),
     );
     const unit = CppUnit();
     for (final m in TkCpp.handlers(d).keys) {
@@ -67,7 +67,7 @@ void main() {
     expect(unit.hasClass(e.code, 'Form1'), isTrue);
   });
 
-  test('código: WhatsApp Desktop, Claude, OpenAI y el enlace a WhatsApp', () {
+  test('código: WhatsApp Desktop, Claude y OpenAI', () {
     final code = TkCpp.files(e.design, e.code)['Form1.cpp']!;
     for (final s in [
       'ChatStorage.sqlite',
@@ -80,7 +80,6 @@ void main() {
       'server-side-fallback-2026-07-01',
       'stop_reason',
       'https://api.openai.com',
-      'whatsapp://send?phone=',
       'security add-generic-password',
       'DMS_MYWA_SELFTEST',
       'DMS_MYWA_UITEST',

@@ -18,6 +18,8 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <thread>
 #include <vector>
 #include <FL/Fl_Image_Surface.H>
+#include <FL/Fl_JPEG_Image.H>
+#include <FL/Fl_Shared_Image.H>
 #include <FL/Fl_Native_File_Chooser.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/filename.H>
@@ -287,14 +289,19 @@ std::string jstr(const std::string& s) {
 }
 
 // ------------------------------------------------------------ los chats
+// Los tipos de mensaje de WhatsApp que se enseñan (ZMESSAGETYPE).
+enum Kind { K_TEXT = 0, K_IMAGE = 1, K_VIDEO = 2, K_AUDIO = 3, K_DOC = 8, K_GIF = 11, K_STICKER = 15 };
 struct Msg {
   bool mine = false;
   std::string who, text;   // who: en los grupos, quién lo escribió
   long long t = 0;
+  int kind = K_TEXT;
+  std::string media, title;   // media: el archivo en este equipo ("" si no está)
+  long long size = 0;
 };
 struct Chat {
   long long id = 0;
-  std::string name, jid, last;
+  std::string name, jid, last, pic;   // pic: la foto de perfil en este equipo
   long long last_t = 0;
   int unread = 0;
   bool group = false;
@@ -322,11 +329,6 @@ std::string url_encode(const std::string& s) {
     }
   }
   return o;
-}
-// Abre WhatsApp con la respuesta escrita (el usuario la revisa y la envía).
-std::string whatsapp_url(const std::string& phone, const std::string& text) {
-  if (phone.empty()) return "whatsapp://send?text=" + url_encode(text);
-  return "whatsapp://send?phone=" + phone + "&text=" + url_encode(text);
 }
 
 // ---- un chat exportado («Exportar chat», sin archivos): iPhone o Android
@@ -470,6 +472,12 @@ std::string db_path() {
   return "";
 #endif
 }
+// La carpeta de WhatsApp (donde está la base de datos).
+std::string base_dir(const std::string& db) {
+  size_t p = db.find_last_of("/\\");
+  return p == std::string::npos ? "." : db.substr(0, p);
+}
+bool file_exists(const std::string& p) { return !p.empty() && fl_access(p.c_str(), 0) == 0; }
 bool db_exists() {
   std::string p = db_path();
   return !p.empty() && fl_access(p.c_str(), 0) == 0;
@@ -494,10 +502,11 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
   }
   void* st = nullptr;
   const char* sql =
-      "SELECT Z_PK, ZPARTNERNAME, ZCONTACTJID, ZLASTMESSAGEDATE, ZLASTMESSAGETEXT, ZUNREADCOUNT "
-      "FROM ZWACHATSESSION WHERE IFNULL(ZREMOVED,0)=0 AND IFNULL(ZHIDDEN,0)=0 "
-      "AND ZCONTACTJID NOT LIKE '%status%' AND ZLASTMESSAGEDATE IS NOT NULL "
-      "ORDER BY ZLASTMESSAGEDATE DESC LIMIT 300";
+      "SELECT s.Z_PK, s.ZPARTNERNAME, s.ZCONTACTJID, s.ZLASTMESSAGEDATE, s.ZLASTMESSAGETEXT, s.ZUNREADCOUNT, "
+      "IFNULL((SELECT p.ZPATH FROM ZWAPROFILEPICTUREITEM p WHERE p.ZJID = s.ZCONTACTJID AND p.ZPATH IS NOT NULL LIMIT 1), '') "
+      "FROM ZWACHATSESSION s WHERE IFNULL(s.ZREMOVED,0)=0 AND IFNULL(s.ZHIDDEN,0)=0 "
+      "AND s.ZCONTACTJID NOT LIKE '%status%' AND s.ZLASTMESSAGEDATE IS NOT NULL "
+      "ORDER BY s.ZLASTMESSAGEDATE DESC";
   if (q.prepare_v2(db, sql, -1, &st, nullptr) != 0) {
     // Sin permiso, macOS deja abrir el archivo pero no leerlo.
     error = tx::ERR_READ_DB;
@@ -514,6 +523,13 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
     c.unread = (int)q.column_int64(st, 5);
     c.group = c.jid.find("@g.us") != std::string::npos;
     if (c.name.empty()) c.name = phone_of(c.jid).empty() ? c.jid : "+" + phone_of(c.jid);
+    // La foto: «Media/Profile/…» + «.thumb» (96×96) o «.jpg».
+    std::string pic = col(st, 6);
+    if (!pic.empty()) {
+      std::string b = base_dir(path) + "/" + pic;
+      if (file_exists(b + ".thumb")) c.pic = b + ".thumb";
+      else if (file_exists(b + ".jpg")) c.pic = b + ".jpg";
+    }
     out.push_back(c);
   }
   q.finalize(st);
@@ -540,9 +556,11 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
   }
   void* st = nullptr;
   const char* sql =
-      "SELECT ZISFROMME, ZTEXT, ZMESSAGEDATE, IFNULL(ZPUSHNAME, '') FROM ZWAMESSAGE "
-      "WHERE ZCHATSESSION = ? AND ZTEXT IS NOT NULL AND ZTEXT != '' "
-      "ORDER BY ZMESSAGEDATE DESC LIMIT ?";
+      "SELECT m.ZISFROMME, IFNULL(m.ZTEXT, ''), m.ZMESSAGEDATE, IFNULL(m.ZPUSHNAME, ''), IFNULL(m.ZMESSAGETYPE, 0), "
+      "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0) "
+      "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK "
+      "WHERE m.ZCHATSESSION = ? AND ((m.ZTEXT IS NOT NULL AND m.ZTEXT != '') OR m.ZMESSAGETYPE IN (1, 2, 3, 8, 11, 15)) "
+      "ORDER BY m.ZMESSAGEDATE DESC LIMIT ?";
   if (q.prepare_v2(db, sql, -1, &st, nullptr) != 0) {
     error = tx::ERR_READ_DB;
     q.close(db);
@@ -557,6 +575,15 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     m.text = col(st, 1);
     m.t = apple_time(q.column_double(st, 2));
     if (c.group && !m.mine) m.who = col(st, 3);
+    m.kind = (int)q.column_int64(st, 4);
+    if (m.kind != K_IMAGE && m.kind != K_VIDEO && m.kind != K_AUDIO && m.kind != K_DOC && m.kind != K_GIF && m.kind != K_STICKER)
+      m.kind = K_TEXT;
+    std::string local = col(st, 5);
+    // Los adjuntos descargados están en «Message/Media/…».
+    if (!local.empty() && file_exists(base_dir(path) + "/Message/" + local)) m.media = base_dir(path) + "/Message/" + local;
+    m.title = col(st, 6);
+    m.size = q.column_int64(st, 7);
+    if (m.kind == K_TEXT && m.text.empty()) continue;
     got.push_back(m);
   }
   q.finalize(st);
@@ -841,6 +868,89 @@ void key_set(const std::string& name, const std::string& value) {
 
 // ------------------------------------------------------------ dibujo
 Fl_Color rgb(unsigned v) { return fl_rgb_color((uchar)(v >> 16), (uchar)(v >> 8), (uchar)v); }
+
+// Los colores de la app, en claro o en oscuro (los de WhatsApp).
+struct Theme {
+  bool dark = false;
+  unsigned list = 0xffffff, sel = 0xe9edef, hover = 0xf5f6f6, text = 0x111b21, muted = 0x667781, line = 0xe9edef,
+           chat = 0xefeae2, in = 0xffffff, in_line = 0xe2ddd5, out = 0xd9fdd3, out_line = 0xc5e8bd, panel = 0xf0f2f5,
+           card = 0xffffff, card_line = 0xd1d7db, input = 0xffffff, accent = 0x1fa855;
+};
+Theme& th() {
+  static Theme t;
+  return t;
+}
+void set_dark(bool dark) {
+  Theme t;
+  if (dark) {
+    t.dark = true;
+    t.list = 0x111b21; t.sel = 0x2a3942; t.hover = 0x202c33; t.text = 0xe9edef; t.muted = 0x8696a0; t.line = 0x222d34;
+    t.chat = 0x0b141a; t.in = 0x202c33; t.in_line = 0x202c33; t.out = 0x005c4b; t.out_line = 0x005c4b; t.panel = 0x202c33;
+    t.card = 0x111b21; t.card_line = 0x2a3942; t.input = 0x2a3942; t.accent = 0x00a884;
+  }
+  th() = t;
+}
+// ¿Está macOS en modo oscuro?
+bool system_dark() {
+#ifdef __APPLE__
+  FILE* p = popen("/usr/bin/defaults read -g AppleInterfaceStyle 2>/dev/null", "r");
+  if (!p) return false;
+  char buf[32] = "";
+  size_t n = std::fread(buf, 1, sizeof buf - 1, p);
+  buf[n] = 0;
+  pclose(p);
+  return std::strncmp(buf, "Dark", 4) == 0;
+#else
+  return false;
+#endif
+}
+
+// Las imágenes (fotos de perfil y adjuntos), cargadas una vez y a su tamaño.
+std::map<std::string, Fl_RGB_Image*>& images() {
+  static std::map<std::string, Fl_RGB_Image*> m;
+  return m;
+}
+bool is_picture(const std::string& path) {
+  std::string l = lower(path);
+  for (const char* e : {".jpg", ".jpeg", ".png", ".gif", ".thumb", ".bmp"})
+    if (l.size() > std::strlen(e) && l.compare(l.size() - std::strlen(e), std::string::npos, e) == 0) return true;
+  return false;
+}
+// La imagen de [path] que cabe en [w]×[h] (sin deformar); nullptr si no se puede.
+Fl_RGB_Image* image_fit(const std::string& path, int w, int h) {
+  std::string key = path + "@" + std::to_string(w) + "x" + std::to_string(h);
+  auto it = images().find(key);
+  if (it != images().end()) return it->second;
+  Fl_RGB_Image* out = nullptr;
+  auto src = images().find(path);   // las de la demo, ya hechas
+  Fl_Image* base = nullptr;
+  Fl_Shared_Image* shared = nullptr;
+  if (src != images().end()) base = src->second;
+  else if (is_picture(path)) {
+    std::string l = lower(path);
+    if (l.size() > 6 && l.compare(l.size() - 6, 6, ".thumb") == 0) {
+      auto* j = new Fl_JPEG_Image(path.c_str());   // las fotos de perfil: JPEG
+      if (j->w() > 0) base = j;
+      else delete j;
+    } else {
+      shared = Fl_Shared_Image::get(path.c_str());
+      if (shared && shared->w() > 0) base = shared;
+    }
+  }
+  if (base && base->w() > 0 && base->h() > 0) {
+    double k = std::min(w / (double)base->w(), h / (double)base->h());
+    int dw = std::max(1, (int)(base->w() * k)), dh = std::max(1, (int)(base->h() * k));
+    Fl_Image* c = base->copy(dw, dh);
+    out = dynamic_cast<Fl_RGB_Image*>(c);
+    if (!out) delete c;
+  }
+  if (shared) shared->release();
+  else if (base && src == images().end()) delete base;
+  images()[key] = out;
+  return out;
+}
+// La foto de un contacto en un círculo (o sus iniciales sobre un color).
+void avatar(int x, int y, int size, const std::string& name, const std::string& pic, Fl_Color bg);
 void round_box(int x, int y, int w, int h, int r, Fl_Color fill, Fl_Color line) {
   fl_color(fill);
   fl_rounded_rectf(x, y, w, h, r);
@@ -902,6 +1012,53 @@ std::string initials(const std::string& name) {
   return o.empty() ? "#" : o;
 }
 
+void avatar(int x, int y, int size, const std::string& name, const std::string& pic, Fl_Color bg) {
+  Fl_RGB_Image* img = pic.empty() ? nullptr : image_fit(pic, size * 2, size * 2);
+  if (img) {
+    // Rellena el cuadrado y recorta el círculo con un aro del color del fondo.
+    double k = std::max(size / (double)img->w(), size / (double)img->h());
+    int dw = (int)(img->w() * k + 0.5), dh = (int)(img->h() * k + 0.5);
+    img->scale(dw, dh, 0, 1);
+    fl_push_clip(x, y, size, size);
+    img->draw(x + (size - dw) / 2, y + (size - dh) / 2);
+    fl_pop_clip();
+    fl_color(bg);
+    fl_line_style(FL_SOLID, size / 3);
+    int r = size / 2 + size / 6;
+    fl_arc(x + size / 2 - r, y + size / 2 - r, 2 * r, 2 * r, 0, 360);
+    fl_line_style(0);
+    return;
+  }
+  fl_color(avatar_color(name));
+  fl_pie(x, y, size, size, 0, 360);
+  fl_font(FL_HELVETICA_BOLD, size / 3);
+  fl_color(FL_WHITE);
+  fl_draw(initials(name).c_str(), x, y, size, size, FL_ALIGN_CENTER);
+}
+std::string size_text(long long b) {
+  char t[32];
+  if (b >= 1000000) std::snprintf(t, sizeof t, "%.1f MB", b / 1e6);
+  else std::snprintf(t, sizeof t, "%lld KB", std::max(1LL, b / 1000));
+  return t;
+}
+const char* kind_icon(int k) {
+  switch (k) {
+    case K_IMAGE: case K_STICKER: return "📷";
+    case K_VIDEO: case K_GIF: return "🎬";
+    case K_AUDIO: return "🎤";
+    default: return "📄";
+  }
+}
+std::string kind_name(int k) {
+  switch (k) {
+    case K_IMAGE: return tx::K_PHOTO;
+    case K_STICKER: return tx::K_STICKER;
+    case K_VIDEO: case K_GIF: return tx::K_VIDEO;
+    case K_AUDIO: return tx::K_AUDIO;
+    default: return tx::K_DOC;
+  }
+}
+
 struct Hit {
   int x, y, w, h, act, idx;
 };
@@ -922,8 +1079,9 @@ public:
   }
   void draw() override {
     hits.clear();
+    const Theme& T = th();
     fl_push_clip(x(), y(), w(), h());
-    fl_color(FL_WHITE);
+    fl_color(rgb(T.list));
     fl_rectf(x(), y(), w(), h());
     int Y = y() - scroll;
     if (chats)
@@ -931,29 +1089,29 @@ public:
         const Chat& c = (*chats)[i];
         if (!visible_chat(c)) continue;
         int k = (int)i, rh = 68;
-        if (k == selected) {
-          fl_color(rgb(0xe9edef));
-          fl_rectf(x(), Y, w(), rh);
-        } else if ((int)hits.size() == hover) {
-          fl_color(rgb(0xf5f6f6));
-          fl_rectf(x(), Y, w(), rh);
+        // Solo se dibujan las que se ven (puede haber cientos).
+        if (Y + rh < y() || Y > y() + h()) {
+          hits.push_back({x(), Y, w(), rh, 0, k});
+          Y += rh;
+          continue;
         }
+        unsigned row = T.list;
+        if (k == selected) row = T.sel;
+        else if ((int)hits.size() == hover) row = T.hover;
+        fl_color(rgb(row));
+        fl_rectf(x(), Y, w(), rh);
         hits.push_back({x(), Y, w(), rh, 0, k});
-        fl_color(avatar_color(c.name));
-        fl_pie(x() + 12, Y + 12, 44, 44, 0, 360);
-        fl_font(FL_HELVETICA_BOLD, 15);
-        fl_color(FL_WHITE);
-        fl_draw(initials(c.name).c_str(), x() + 12, Y + 12, 44, 44, FL_ALIGN_CENTER);
+        avatar(x() + 12, Y + 12, 44, c.name, c.pic, rgb(row));
         fl_font(FL_HELVETICA, 11);
         std::string t = clock_time(c.last_t);
         int tw = (int)fl_width(t.c_str());
-        fl_color(c.unread ? rgb(0x1fa855) : rgb(0x667781));
+        fl_color(c.unread ? rgb(T.accent) : rgb(T.muted));
         fl_draw(t.c_str(), x() + w() - 12 - tw, Y + 24);
         fl_font(FL_HELVETICA_BOLD, 14);
-        fl_color(rgb(0x111b21));
+        fl_color(rgb(T.text));
         fl_draw(fit(c.name, w() - 90 - tw).c_str(), x() + 68, Y + 26);
         fl_font(FL_HELVETICA, 13);
-        fl_color(rgb(0x667781));
+        fl_color(rgb(T.muted));
         std::string last = c.last;
         for (auto& ch : last)
           if (ch == '\n') ch = ' ';
@@ -962,12 +1120,12 @@ public:
           std::string u = std::to_string(c.unread);
           fl_font(FL_HELVETICA_BOLD, 11);
           int uw = std::max(20, (int)fl_width(u.c_str()) + 10);
-          fl_color(rgb(0x25d366));
+          fl_color(rgb(T.accent));
           fl_rounded_rectf(x() + w() - 12 - uw, Y + 34, uw, 20, 10);
-          fl_color(FL_WHITE);
+          fl_color(T.dark ? rgb(0x111b21) : FL_WHITE);
           fl_draw(u.c_str(), x() + w() - 12 - uw, Y + 34, uw, 20, FL_ALIGN_CENTER);
         }
-        fl_color(rgb(0xe9edef));
+        fl_color(rgb(T.line));
         fl_line(x() + 68, Y + rh - 1, x() + w(), Y + rh - 1);
         Y += rh;
       }
@@ -1017,48 +1175,64 @@ public:
     int w = (int)fl_width(text) + 20, h = 26;
     bool hot = (int)hits.size() == hover;
     hits.push_back({x, y, w, h, act, idx});
-    round_box(x, y, w, h, 13, hot ? rgb(0xd9fdd3) : fill, rgb(0xd1d7db));
+    round_box(x, y, w, h, 13, hot ? rgb(th().dark ? 0x005c4b : 0xd9fdd3) : fill, rgb(th().card_line));
     fl_color(fg);
     fl_draw(text, x, y, w, h, FL_ALIGN_CENTER);
     return x + w;
   }
+  // El adjunto de un mensaje: su alto dentro del bocadillo y cómo se dibuja.
+  static Fl_RGB_Image* attach_image(const Msg& m) {
+    if ((m.kind != K_IMAGE && m.kind != K_STICKER) || m.media.empty()) return nullptr;
+    return image_fit(m.media, 260, 200);
+  }
+  static int attach_h(const Msg& m) {
+    if (m.kind == K_TEXT) return 0;
+    if (Fl_RGB_Image* img = attach_image(m)) return img->h() + 8;
+    return 46;
+  }
   void draw() override {
     hits.clear();
+    const Theme& T = th();
     fl_push_clip(x(), y(), w(), h());
-    fl_color(rgb(0xefeae2));
+    fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
     if (!chat) {
       fl_font(FL_HELVETICA_BOLD, 18);
-      fl_color(rgb(0x41525d));
+      fl_color(rgb(T.text));
       fl_draw(tx::PICK_CHAT, x(), y() + h() / 2 - 30, w(), 30, FL_ALIGN_CENTER);
       fl_font(FL_HELVETICA, 13);
-      fl_color(rgb(0x667781));
+      fl_color(rgb(T.muted));
       fl_draw(notice.empty() ? tx::PICK_CHAT_HELP : notice.c_str(), x() + 60, y() + h() / 2 + 4, w() - 120, 60,
               FL_ALIGN_CENTER | FL_ALIGN_WRAP | FL_ALIGN_TOP);
       fl_pop_clip();
       return;
     }
     // La zona de las sugerencias (abajo) y los mensajes encima, del final hacia arriba.
+    const int head = 60;
     int sugg_h = 0;
     if (!busy.empty()) sugg_h = 56;
     else if (options && !options->empty()) sugg_h = 40 + (int)options->size() * 72;
     int bottom = y() + h() - sugg_h - 8;
     int maxw = std::min(560, (int)(w() * 0.68));
     int Y = bottom;
-    for (int i = (int)chat->msgs.size() - 1; i >= 0 && Y > y(); i--) {
+    fl_push_clip(x(), y() + head, w(), h() - head);
+    for (int i = (int)chat->msgs.size() - 1; i >= 0 && Y > y() + head; i--) {
       const Msg& m = chat->msgs[(size_t)i];
       fl_font(FL_HELVETICA, 14);
-      auto lines = wrap(m.text, maxw - 24);
-      int lh = 19, who_h = m.who.empty() ? 0 : 18;
+      auto lines = m.text.empty() ? std::vector<std::string>() : wrap(m.text, maxw - 24);
+      int lh = 19, who_h = m.who.empty() ? 0 : 18, ah = attach_h(m);
+      Fl_RGB_Image* img = attach_image(m);
       int bw = 0;
       for (const auto& l : lines) bw = std::max(bw, (int)fl_width(l.c_str()));
       fl_font(FL_HELVETICA_BOLD, 12);
       if (!m.who.empty()) bw = std::max(bw, (int)fl_width(m.who.c_str()));
+      if (img) bw = std::max(bw, img->w());
+      else if (ah) bw = std::max(bw, 260);
       bw = std::max(bw + 24, 90);
-      int bh = (int)lines.size() * lh + who_h + 30;
+      int bh = (int)lines.size() * lh + who_h + ah + 30;
       Y -= bh + 6;
       int bx = m.mine ? x() + w() - 20 - bw : x() + 20;
-      round_box(bx, Y, bw, bh, 9, m.mine ? rgb(0xd9fdd3) : FL_WHITE, m.mine ? rgb(0xc5e8bd) : rgb(0xe2ddd5));
+      round_box(bx, Y, bw, bh, 9, rgb(m.mine ? T.out : T.in), rgb(m.mine ? T.out_line : T.in_line));
       int ty = Y + 22;
       if (!m.who.empty()) {
         fl_font(FL_HELVETICA_BOLD, 12);
@@ -1066,50 +1240,86 @@ public:
         fl_draw(m.who.c_str(), bx + 12, ty);
         ty += who_h;
       }
+      if (ah) {
+        int ay = ty - 14;
+        if (img) {
+          img->draw(bx + 12, ay);
+          hits.push_back({bx + 12, ay, img->w(), img->h(), 4, i});
+        } else {
+          // Un archivo: icono, nombre y tamaño (o «sin descargar»).
+          round_box(bx + 10, ay, bw - 20, 40, 7, rgb(T.dark ? 0x111b21 : 0xf5f6f6), rgb(T.card_line));
+          fl_font(FL_HELVETICA, 20);
+          fl_color(rgb(T.text));
+          fl_draw(kind_icon(m.kind), bx + 18, ay + 28);
+          std::string name = m.title.empty() ? kind_name(m.kind) : m.title;
+          fl_font(FL_HELVETICA_BOLD, 13);
+          fl_draw(fit(name, bw - 76).c_str(), bx + 50, ay + 17);
+          fl_font(FL_HELVETICA, 11);
+          fl_color(rgb(T.muted));
+          std::string sub = m.media.empty() ? std::string(tx::NOT_DOWNLOADED) : kind_name(m.kind);
+          if (m.size > 0) sub += " · " + size_text(m.size);
+          fl_draw(fit(sub, bw - 76).c_str(), bx + 50, ay + 33);
+          if (!m.media.empty()) hits.push_back({bx + 10, ay, bw - 20, 40, 4, i});
+        }
+        ty += ah;
+      }
       fl_font(FL_HELVETICA, 14);
-      fl_color(rgb(0x111b21));
+      fl_color(rgb(T.text));
       for (const auto& l : lines) {
         fl_draw(l.c_str(), bx + 12, ty);
         ty += lh;
       }
       fl_font(FL_HELVETICA, 10);
-      fl_color(rgb(0x667781));
+      fl_color(rgb(T.muted));
       std::string t = clock_time(m.t);
       fl_draw(t.c_str(), bx + bw - 10 - (int)fl_width(t.c_str()), Y + bh - 8);
     }
+    fl_pop_clip();
+    // La cabecera: la foto, el nombre y el teléfono (o «grupo»).
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    avatar(x() + 16, y() + 10, 40, chat->name, chat->pic, rgb(T.panel));
+    fl_font(FL_HELVETICA_BOLD, 15);
+    fl_color(rgb(T.text));
+    fl_draw(fit(chat->name, w() - 100).c_str(), x() + 68, y() + 27);
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    std::string ph = phone_of(chat->jid);
+    fl_draw(chat->group ? tx::GROUP : (ph.empty() ? "" : ("+" + ph).c_str()), x() + 68, y() + 46);
     // Las sugerencias.
     int sy = y() + h() - sugg_h;
     if (sugg_h) {
-      fl_color(rgb(0xf0f2f5));
+      fl_color(rgb(T.panel));
       fl_rectf(x(), sy, w(), sugg_h);
-      fl_color(rgb(0xd1d7db));
+      fl_color(rgb(T.card_line));
       fl_line(x(), sy, x() + w(), sy);
     }
     if (!busy.empty()) {
       fl_font(FL_HELVETICA_BOLD, 14);
-      fl_color(rgb(0x41525d));
+      fl_color(rgb(T.text));
       fl_draw(busy.c_str(), x(), sy, w(), sugg_h, FL_ALIGN_CENTER);
     } else if (options && !options->empty()) {
       fl_font(FL_HELVETICA_BOLD, 12);
-      fl_color(rgb(0x41525d));
+      fl_color(rgb(T.muted));
       fl_draw(tx::SUGGESTIONS, x() + 20, sy + 24);
       int cy = sy + 36;
       for (size_t k = 0; k < options->size(); k++) {
         const std::string& o = (*options)[k];
-        round_box(x() + 16, cy, w() - 32, 64, 10, FL_WHITE, rgb(0xd1d7db));
+        round_box(x() + 16, cy, w() - 32, 64, 10, rgb(T.card), rgb(T.card_line));
         fl_font(FL_HELVETICA, 13);
-        fl_color(rgb(0x111b21));
-        auto lines = wrap(o, w() - 32 - 300);
+        fl_color(rgb(T.text));
+        auto lines = wrap(o, w() - 32 - 180);
         int ly = cy + 22;
         for (size_t li = 0; li < lines.size() && li < 2; li++) {
-          std::string l = li == 1 && lines.size() > 2 ? fit(lines[li] + "…", w() - 340) : lines[li];
+          std::string l = li == 1 && lines.size() > 2 ? fit(lines[li] + "…", w() - 220) : lines[li];
           fl_draw(l.c_str(), x() + 30, ly);
           ly += 19;
         }
-        int bx = x() + w() - 32 - 270;
-        bx = button(bx, cy + 19, tx::USE, 1, (int)k, rgb(0x111b21), FL_WHITE) + 6;
-        bx = button(bx, cy + 19, tx::COPY, 2, (int)k, rgb(0x111b21), FL_WHITE) + 6;
-        button(bx, cy + 19, tx::SEND_WA, 3, (int)k, rgb(0x0a7c45), rgb(0xe7fce3));
+        int bx = x() + w() - 32 - 140;
+        bx = button(bx, cy + 19, tx::USE, 1, (int)k, rgb(T.text), rgb(T.card)) + 6;
+        button(bx, cy + 19, tx::COPY, 2, (int)k, rgb(T.text), rgb(T.card));
         cy += 72;
       }
     }
@@ -1141,6 +1351,35 @@ public:
 };
 
 // ------------------------------------------------------------ las pruebas
+// Una imagen dibujada en código (las capturas no usan nada de verdad).
+Fl_RGB_Image* demo_picture(int w, int h, unsigned top, unsigned bottom, int kind) {
+  Fl_Image_Surface surf(w, h, 0);
+  Fl_Surface_Device::push_current(&surf);
+  for (int yy = 0; yy < h; yy++) {
+    double t = yy / (double)h;
+    auto mix = [&](int sh) { return (uchar)(((top >> sh) & 255) * (1 - t) + ((bottom >> sh) & 255) * t); };
+    fl_color(fl_rgb_color(mix(16), mix(8), mix(0)));
+    fl_xyline(0, yy, w);
+  }
+  if (kind == 0) {
+    // Una silueta (retrato).
+    fl_color(fl_rgb_color(255, 255, 255));
+    fl_pie(w / 2 - w / 6, h / 4, w / 3, w / 3, 0, 360);
+    fl_pie(w / 2 - w / 3, h * 2 / 3, w * 2 / 3, h * 2 / 3, 0, 180);
+  } else {
+    // Una mesa de roble.
+    fl_color(fl_rgb_color(140, 90, 50));
+    fl_rectf(w / 6, h / 2, w * 2 / 3, h / 12);
+    fl_rectf(w / 6 + 10, h / 2, 12, h / 3);
+    fl_rectf(w * 5 / 6 - 22, h / 2, 12, h / 3);
+    fl_color(fl_rgb_color(100, 160, 90));
+    fl_pie(w / 2 - 20, h / 2 - 34, 40, 34, 0, 360);
+  }
+  Fl_RGB_Image* img = surf.image();
+  Fl_Surface_Device::pop_current();
+  return img;
+}
+
 std::vector<Chat> demo_chats(long long now) {
   struct M {
     int who;   // 0: yo; 1..: el otro (o miembros del grupo)
@@ -1187,6 +1426,31 @@ std::vector<Chat> demo_chats(long long now) {
     c.last_t = c.msgs.back().t;
     out.push_back(c);
   }
+  // Retratos dibujados para tres contactos, una foto en el chat de Laura y
+  // un documento en el de Carlos.
+  const unsigned tops[] = {0xf4a261, 0x2a9d8f, 0xe76f51};
+  const unsigned bottoms[] = {0xe76f51, 0x264653, 0xf4a261};
+  const int who[] = {0, 2, 3};
+  for (int k = 0; k < 3; k++) {
+    std::string key = "demo:avatar" + std::to_string(k);
+    if (!images().count(key)) images()[key] = demo_picture(96, 96, tops[k], bottoms[k], 0);
+    out[(size_t)who[k]].pic = key;
+  }
+  if (!images().count("demo:mesa")) images()["demo:mesa"] = demo_picture(520, 360, 0xe9e2d0, 0xc8b89a, 1);
+  Msg photo;
+  photo.kind = K_IMAGE;
+  photo.media = "demo:mesa";
+  photo.text = tx::DEMO_PHOTO_CAPTION;
+  photo.t = out[0].msgs[0].t + 30;
+  out[0].msgs.insert(out[0].msgs.begin() + 1, photo);
+  Msg doc;
+  doc.kind = K_DOC;
+  doc.mine = true;
+  doc.media = "demo:doc";
+  doc.title = tx::DEMO_DOC;
+  doc.size = 245000;
+  doc.t = out[2].msgs[1].t + 60;
+  out[2].msgs.insert(out[2].msgs.begin() + 2, doc);
   return out;
 }
 
@@ -1233,7 +1497,6 @@ int selftest() {
   chk(export_name("/x/Chat de WhatsApp con Laura.txt") == "Laura" && export_name("WhatsApp Chat with Bob.txt") == "Bob", "nombre del chat");
   // Enlaces.
   chk(phone_of("34600111222@s.whatsapp.net") == "34600111222" && phone_of("1203@g.us").empty(), "teléfono");
-  chk(whatsapp_url("34600111222", "Hola, ¿qué tal?") == "whatsapp://send?phone=34600111222&text=Hola%2C%20%C2%BFqu%C3%A9%20tal%3F", "enlace de WhatsApp");
   chk(apple_time(0) == 0 && apple_time(800000000) == 1778307200LL, "fecha de Apple");
   // El texto que se manda a la IA: los últimos mensajes, con quién habla.
   auto demo = demo_chats(1794365000);
@@ -1256,28 +1519,55 @@ int selftest() {
            "CREATE TABLE ZWACHATSESSION (Z_PK INTEGER PRIMARY KEY, ZPARTNERNAME VARCHAR, ZCONTACTJID VARCHAR, "
            "ZLASTMESSAGEDATE TIMESTAMP, ZLASTMESSAGETEXT VARCHAR, ZUNREADCOUNT INTEGER, ZREMOVED INTEGER, ZHIDDEN INTEGER);"
            "CREATE TABLE ZWAMESSAGE (Z_PK INTEGER PRIMARY KEY, ZCHATSESSION INTEGER, ZISFROMME INTEGER, ZTEXT VARCHAR, "
-           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR);"
+           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER);"
+           "CREATE TABLE ZWAMEDIAITEM (Z_PK INTEGER PRIMARY KEY, ZMESSAGE INTEGER, ZMEDIALOCALPATH VARCHAR, ZTITLE VARCHAR, ZFILESIZE INTEGER);"
+           "CREATE TABLE ZWAPROFILEPICTUREITEM (Z_PK INTEGER PRIMARY KEY, ZJID VARCHAR, ZPATH VARCHAR);"
+           "INSERT INTO ZWAPROFILEPICTUREITEM VALUES (1,'34600111222@s.whatsapp.net','Media/Profile/laura');"
+           "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8);"
+           "INSERT INTO ZWAMEDIAITEM VALUES (1,6,'Media/x/factura.pdf','factura.pdf',123456);"
+           "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1);"
            "INSERT INTO ZWACHATSESSION VALUES (1,'Laura','34600111222@s.whatsapp.net',800000100,'Genial',2,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (2,'Familia','1203@g.us',800000200,'Hola',0,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (3,'','status@broadcast',800000300,'x',0,0,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL);"
-           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000200,'Ana');",
+           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0);"
+           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0);"
+           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0);"
+           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL,0);"
+           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000200,'Ana',0);",
            nullptr, nullptr, &err);
     q.close(db);
+    // La foto de Laura (un .thumb) y un adjunto descargado.
+    fl_make_path((dir + "/Media/Profile").c_str());
+    fl_make_path((dir + "/Message/Media/x").c_str());
+    {
+      FILE* fp = fl_fopen((dir + "/Media/Profile/laura.thumb").c_str(), "wb");
+      if (fp) std::fclose(fp);
+      fp = fl_fopen((dir + "/Message/Media/x/factura.pdf").c_str(), "wb");
+      if (fp) std::fclose(fp);
+    }
     std::vector<Chat> chats;
     std::string error;
     chk(load_chats(path, chats, error) && chats.size() == 2 && chats[0].name == "Familia" && chats[0].group &&
             chats[1].unread == 2 && chats[1].last_t == 800000100 + 978307200LL,
         "chats de la base de datos");
     Chat& l = chats[1];
-    chk(load_messages(path, l, 50, error) && l.msgs.size() == 3 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
+    l.group = false;
+    chk(chats[1].pic == dir + "/Media/Profile/laura.thumb" && chats[0].pic.empty(), "foto de perfil");
+    chk(load_messages(path, l, 50, error) && l.msgs.size() == 5 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
+    chk(l.msgs[3].kind == K_DOC && l.msgs[3].title == "factura.pdf" && l.msgs[3].size == 123456 &&
+            l.msgs[3].media == dir + "/Message/Media/x/factura.pdf",
+        "documento adjunto");
+    chk(l.msgs[4].kind == K_IMAGE && l.msgs[4].media.empty(), "foto sin descargar");
+    std::remove((dir + "/Media/Profile/laura.thumb").c_str());
+    std::remove((dir + "/Message/Media/x/factura.pdf").c_str());
     chk(load_messages(path, chats[0], 50, error) && chats[0].msgs[0].who == "Ana", "quién escribe en el grupo");
     std::remove(path.c_str());
   }
 #endif
+  set_dark(true);
+  chk(th().dark && th().chat == 0x0b141a, "tema oscuro");
+  set_dark(false);
+  chk(!th().dark && th().chat == 0xefeae2, "tema claro");
   // De verdad con un servidor de prueba: DMS_MYWA_ANTHROPIC_URL (o _OPENAI_URL).
   if (fl_getenv("DMS_MYWA_ANTHROPIC_URL") || fl_getenv("DMS_MYWA_OPENAI_URL")) {
     AiSettings s;
@@ -1309,6 +1599,8 @@ public:
   wa::AiSettings ai;
   int current = -1;
   bool from_db = false, demo = false, warned = false, thinking = false;
+  std::string theme = "system";   // claro, oscuro o como el sistema
+  bool shown_dark = false;
   std::string message;
   double message_until = 0;
 
@@ -1367,7 +1659,50 @@ public:
     Fl::lock();   // la IA contesta desde otro hilo
     setup();
     load_settings();
+    apply_theme();
     reload();
+    refresh();
+  }
+
+  // ---- el tema: los colores de los dibujos y de los controles del diseño
+  void apply_theme() {
+    bool dark = theme == "dark" || (theme == "system" && wa::system_dark());
+    shown_dark = dark;
+    wa::set_dark(dark);
+    const wa::Theme& T = wa::th();
+    Fl_Color panel = wa::rgb(T.panel), text = wa::rgb(T.text), muted = wa::rgb(T.muted), input = wa::rgb(T.input);
+    Fl::background((uchar)(T.panel >> 16), (uchar)(T.panel >> 8), (uchar)T.panel);
+    Fl::background2((uchar)(T.input >> 16), (uchar)(T.input >> 8), (uchar)T.input);
+    Fl::foreground((uchar)(T.text >> 16), (uchar)(T.text >> 8), (uchar)T.text);
+    color(panel);
+    Side->color(wa::rgb(T.list));
+    ChatArea->color(wa::rgb(T.chat));
+    AiBar->color(panel);
+    for (Fl_Widget* w : {(Fl_Widget*)LblProvider, (Fl_Widget*)LblTone, (Fl_Widget*)LblIntent}) {
+      w->color(panel);
+      w->labelcolor(muted);
+    }
+    for (Fl_Input_* in : {(Fl_Input_*)Search, (Fl_Input_*)Intent, (Fl_Input_*)Draft}) {
+      in->color(input);
+      in->textcolor(text);
+      in->cursor_color(text);
+      in->selection_color(wa::rgb(dark ? 0x005c4b : 0xb3d7ff));
+    }
+    for (Fl_Choice* c : {(Fl_Choice*)Provider, (Fl_Choice*)Tone}) {
+      c->color(input);
+      c->textcolor(text);
+    }
+    Menu1->color(panel);
+    Menu1->textcolor(text);
+    BtnSuggest->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
+    Status->color(panel);
+    Status->labelcolor(muted);
+    redraw();
+  }
+  void set_theme(const std::string& t) {
+    theme = t;
+    save_settings();
+    apply_theme();
     refresh();
   }
   void form_close() override { save_settings(); }
@@ -1382,6 +1717,7 @@ public:
         else if (wa::starts(l, "model=")) ai.openai_model = l.substr(6);
         else if (wa::starts(l, "about=")) ai.about = l.substr(6);
         else if (l == "warned=1") warned = true;
+        else if (wa::starts(l, "theme=")) theme = l.substr(6);
       }
     if (ai.openai_model.empty()) ai.openai_model = "gpt-5";
     ai.claude_key = wa::key_get("anthropic");
@@ -1397,6 +1733,7 @@ public:
     for (auto& c : about)
       if (c == '\n') c = ' ';
     wa::write_file(settings_file(), "provider=" + std::to_string(ai.provider) + "\nmodel=" + ai.openai_model + "\nabout=" + about +
+                                        "\ntheme=" + theme +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -1503,29 +1840,28 @@ public:
     else f->options = d->reply.options;
     f->refresh();
   }
+  // Un adjunto descargado: se abre con su programa (Vista Previa, QuickTime…).
+  void open_attachment(int i) {
+    if (current < 0 || i < 0 || i >= (int)chats[(size_t)current].msgs.size()) return;
+    const std::string& path = chats[(size_t)current].msgs[(size_t)i].media;
+    if (path.empty() || wa::starts(path, "demo:")) return;
+    std::string url = "file://";
+    for (char c : path) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
+    fl_open_uri(url.c_str());
+  }
   void option_act(int act, int k) {
+    if (act == 4) {
+      open_attachment(k);
+      return;
+    }
     if (k < 0 || k >= (int)options.size()) return;
     const std::string& o = options[(size_t)k];
     if (act == 1) Draft->value(o.c_str());
     else if (act == 2) {
       Fl::copy(o.c_str(), (int)o.size(), 1);
       say(tx::COPIED);
-    } else if (act == 3) send(o);
-  }
-  // WhatsApp se abre con el texto escrito: lo revisa y lo envía usted.
-  void send(const std::string& text) {
-    if (current < 0 || wa::trim(text).empty()) return;
-    const wa::Chat& c = chats[(size_t)current];
-    std::string phone = wa::phone_of(c.jid);
-    if (phone.empty()) {
-      Fl::copy(text.c_str(), (int)text.size(), 1);
-      say(tx::GROUP_COPIED);
-    } else {
-      say(tx::OPENED_WA);
     }
-    if (!demo) fl_open_uri(wa::whatsapp_url(phone, text).c_str());
   }
-
   void settings_dialog() {
     const char* k = fl_password("%s", "", tx::ASK_CLAUDE_KEY);
     if (k && *k) {
@@ -1563,13 +1899,18 @@ public:
   // ---- eventos del diseño
   void BtnSuggest_click() override { ask_ai(); }
   void Intent_enter() override { ask_ai(); }
-  void BtnSend_click() override { send(Draft->value()); }
   void Provider_select() override {
     ai.provider = Provider->index() == 1 ? 1 : 0;
     save_settings();
     refresh();
   }
   void Tick_timer() override {
+    // «Como el sistema»: si macOS cambia de claro a oscuro, la app también.
+    static double last_theme = 0;
+    if (theme == "system" && !demo && wa::now_s() - last_theme > 5) {
+      last_theme = wa::now_s();
+      if (wa::system_dark() != shown_dark) apply_theme();
+    }
     // Cada pocos segundos, los mensajes nuevos de WhatsApp Desktop.
     static double last = 0;
     if (from_db && !demo && wa::now_s() - last > 5) {
@@ -1584,6 +1925,9 @@ public:
     if (item == tx::MP_RELOAD) reload();
     else if (item == tx::MP_IMPORT) import_export();
     else if (item == tx::MP_AI) settings_dialog();
+    else if (item == tx::MP_LIGHT) set_theme("light");
+    else if (item == tx::MP_DARK) set_theme("dark");
+    else if (item == tx::MP_SYSTEM) set_theme("system");
     else if (item == tx::MP_QUIT) {
       save_settings();
       hide();
@@ -1611,6 +1955,8 @@ public:
     demo = true;
     setup();
     size(W, H);
+    theme = "light";
+    apply_theme();
     long long now = 1794365000;   // una hora fija para las capturas
     chats = wa::demo_chats(now);
     from_db = true;
@@ -1629,6 +1975,13 @@ public:
     Draft->value(tx::DEMO_S1);
     view->hover = -1;
     render_to(dir + "/draft.png");
+    // En oscuro, con el documento del chat de Carlos.
+    theme = "dark";
+    apply_theme();
+    pick(2);
+    render_to(dir + "/dark.png");
+    theme = "light";
+    apply_theme();
     pick(1);
     options.clear();
     ask_ai();
@@ -1640,6 +1993,18 @@ public:
     demo_state(1200, 760);
     int f = 0;
     auto chk = [&](bool ok, const char* what) { if (!ok) { std::printf("FAIL %s\n", what); f++; } };
+    // La foto del chat de Laura y su foto adjunta, dibujadas.
+    render_to("");
+    bool photo = false;
+    for (const auto& h : view->hits)
+      if (h.act == 4) photo = true;
+    chk(photo && !chats[0].pic.empty(), "foto de perfil y foto adjunta");
+    // Los temas.
+    Menu1_click(tx::MP_DARK);
+    chk(wa::th().dark && theme == "dark", "tema oscuro");
+    render_to("");
+    Menu1_click(tx::MP_LIGHT);
+    chk(!wa::th().dark && theme == "light", "tema claro");
     chk(chats.size() == 5 && current == 0 && view->chat == &chats[0], "chats de ejemplo");
     render_to("");
     // Clic de verdad en el tercer chat.

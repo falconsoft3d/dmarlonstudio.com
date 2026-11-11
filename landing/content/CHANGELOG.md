@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.112 — 2026-11-11
+
+- **MyWhatsapp: el modo ocupado (las respuestas automáticas), siempre a mano.** En la barra de menús, el menú del icono trae los modos ocupado: un clic activa uno (otro clic en el mismo lo desactiva) sin abrir la ventana, y con un modo activo el icono pasa a ser una luna. En la ventana, arriba a la derecha de los filtros, el botón «🔕 Ocupado» abre el menú de los modos; con uno activo, sale en naranja con su nombre.
+- Probado: activar un modo y desactivarlo desde la barra de menús, y el botón de la lista con el modo activo.
+
 ## 1.0.111 — 2026-11-11
 
 - **MyWhatsapp: arreglado «por responder» (salía 742) y todo lo que compara con la fecha.** La función que daba «ahora» contaba los segundos desde que se encendió el equipo, no la fecha: servía para medir intervalos, pero se usaba también para comparar con la fecha de los mensajes. Por eso el filtro «Por responder (3 días)» y el número de la barra de menús contaban casi todos los chats (742 en este equipo; con la fecha de verdad son 13), la hora local junto a la bandera salía mal, las tareas se guardaban con una fecha equivocada (sus bolitas no cambiaban de color) y un modo ocupado habría contestado a todos los chats individuales cuyo último mensaje no era suyo, no solo a quien escribiera después de activarlo (en este equipo no había ningún modo activo: no se envió nada). Ahora todo eso usa la fecha de verdad; las tareas ya guardadas reciben la de ahora. Las pruebas usaban una fecha fija y no lo veían: ahora hay pruebas con la fecha de verdad (el filtro, la barra y la hora local), y se comprobó con los chats de este equipo, solo contando, que salen los 13 que dice la base de datos.

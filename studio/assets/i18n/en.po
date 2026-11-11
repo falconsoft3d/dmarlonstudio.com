@@ -7212,6 +7212,10 @@ msgid "Modo ocupado desactivado"
 msgstr "Busy mode off"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado:"
+msgstr "Busy mode:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Modo ocupado…"
 msgstr "Busy mode…"
 
@@ -7686,6 +7690,10 @@ msgstr "📎 Attach"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔍 Buscar"
 msgstr "🔍 Search"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🔕 Ocupado"
+msgstr "🔕 Busy"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"

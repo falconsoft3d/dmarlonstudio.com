@@ -1997,6 +1997,8 @@ public:
   int mode = F_ALL;
   static const int chips_h = 70;
   std::function<void()> on_mode;
+  std::function<void()> on_busy;   // el botón «🔕 Ocupado»
+  std::string busy;                // el modo activo ("" si ninguno)
   bool passes(const Chat& c, int m) const {
     if (m == F_ARCHIVED) return c.archived;
     if (c.archived) return false;
@@ -2051,6 +2053,19 @@ public:
           fl_draw(label.c_str(), cx, cy, cw, 26, FL_ALIGN_CENTER);
           hits.push_back({cx, cy, cw, 26, 2, ch.mode});
           cx += cw + 8;
+        }
+        // Arriba a la derecha: el modo ocupado, siempre a mano (naranja si está activo).
+        if (r == 0) {
+          std::string label = busy.empty() ? std::string(tx::BUSY_CHIP) : "🔕 " + busy;
+          fl_font(FL_HELVETICA_BOLD, 12);
+          int cw = std::min((int)fl_width(label.c_str()) + 24, x() + w() - 12 - cx);
+          int bx = x() + w() - 12 - cw;
+          bool hot = (int)hits.size() == hover;
+          fl_color(!busy.empty() ? rgb(0xf59e0b) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+          fl_rounded_rectf(bx, cy, cw, 26, 13);
+          fl_color(!busy.empty() ? rgb(0x111b21) : rgb(T.muted));
+          fl_draw(fit(label, cw - 16).c_str(), bx, cy, cw, 26, FL_ALIGN_CENTER);
+          hits.push_back({bx, cy, cw, 26, 5, -1});
         }
       }
       fl_color(rgb(T.line));
@@ -2191,6 +2206,8 @@ public:
           if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
             if (h.act == 1) {
               if (on_tasks) on_tasks();
+            } else if (h.act == 5) {
+              if (on_busy) on_busy();
             } else if (h.act == 2 || h.act == 3 || h.act == 4) {
               // Un filtro, los archivados o volver de ellos.
               mode = h.act == 2 ? h.idx : h.act == 3 ? F_ARCHIVED : F_ALL;
@@ -3739,6 +3756,7 @@ public:
     };
     list->on_tasks = [] { if (self()) self()->open_tasks(); };
     list->on_mode = [] { if (self()) self()->refresh(); };
+    list->on_busy = [] { if (self()) self()->busy_menu(); };
     // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
     find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
     find_input->textsize(13);
@@ -4015,6 +4033,7 @@ public:
   }
   void refresh() {
     list->tasks_pending = wa::tasks_pending(tasks);
+    list->busy = busy;
     std::string where = from_db ? tx::SOURCE_DESKTOP : !store.empty() ? tx::SOURCE_LINKED : tx::SOURCE_EXPORT;
     std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
                        : send_mode == wa::S_LINKED ? (linked ? tx::MODE_LINKED : tx::MODE_LINKING)
@@ -4187,6 +4206,13 @@ public:
       out.push_back({"   " + c.name + "  —  " + last + "  · " + wa::clock_time(c.last_t), 100 + (int)k, false});
       bar_jids.push_back(c.jid);
     }
+    // El modo ocupado, a mano desde la barra.
+    out.push_back({"", 0, true});
+    out.push_back({busy.empty() ? std::string(tx::BAR_BUSY) : wa::fmt(tx::BUSY_ON, {busy}), 0, false});
+    for (size_t k = 0; k < busy_modes.size(); k++)
+      out.push_back({(busy_modes[k].name == busy ? "   ✓ " : "      ") + busy_modes[k].name + (busy_modes[k].ai ? "  ✨" : ""),
+                     200 + (int)k, false});
+    if (!busy.empty()) out.push_back({std::string("      ") + tx::BUSY_OFF, 3, false});
     out.push_back({"", 0, true});
     out.push_back({tx::BAR_QUIT, 2, false});
     return out;
@@ -4195,16 +4221,25 @@ public:
     if (!bar::available()) return;
     int waiting = 0;
     auto entries = bar_entries(waiting);
-    std::string sig = std::to_string(waiting);
+    std::string sig = std::to_string(waiting) + "|" + busy;
     for (const auto& e : entries) sig += "|" + e.title;
     if (sig == bar_sig) return;   // nada nuevo: no se rehace el menú
     bar_sig = sig;
-    bar::set(waiting ? "bubble.left.and.text.bubble.right.fill" : "bubble.left.and.bubble.right", waiting ? " " + std::to_string(waiting) : "");
+    const char* icon = !busy.empty() ? "moon.fill" : waiting ? "bubble.left.and.text.bubble.right.fill" : "bubble.left.and.bubble.right";
+    bar::set(icon, waiting ? " " + std::to_string(waiting) : "");
     bar::menu(entries);
   }
   void bar_act(int t) {
     if (t == 2) {
       quit();
+      return;
+    }
+    // El modo ocupado desde la barra: sin abrir la ventana.
+    if (t == 3 || (t >= 200 && t - 200 < (int)busy_modes.size())) {
+      std::string name = t == 3 ? "" : busy_modes[(size_t)(t - 200)].name;
+      set_busy(name == busy ? "" : name);
+      refresh();
+      update_bar();
       return;
     }
     if (in_bar) from_bar();
@@ -5432,8 +5467,16 @@ public:
     {
       int waiting = 0;
       auto entries = bar_entries(waiting);
-      chk(waiting == 4 && entries.size() == 4 + 5 && entries[3].tag == 100 && entries.back().tag == 2,
-          "la barra: cuántos y el menú");
+      chk(waiting == 4 && entries[3].tag == 100 && entries.back().tag == 2, "la barra: cuántos y el menú");
+      chk(entries.size() > 9, "la barra: también los modos ocupado");
+      bar_act(200);   // el primer modo, desde la barra
+      chk(busy == busy_modes[0].name, "la barra: activar un modo ocupado");
+      render_to("");
+      bool chip = false;
+      for (const auto& h : list->hits) chip = chip || h.act == 5;
+      chk(chip && list->busy == busy, "el botón del modo ocupado, en la lista");
+      bar_act(3);
+      chk(busy.empty(), "la barra: desactivarlo");
       std::string first = bar_jids[0];
       bar_act(100);
       chk(current >= 0 && chats[(size_t)current].jid == first, "la barra: abrir un chat");

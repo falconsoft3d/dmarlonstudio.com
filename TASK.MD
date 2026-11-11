@@ -82,11 +82,11 @@ Hechos
 109. MyWhatsapp: los chats archivados, aparte, como en WhatsApp («📦 Archivados») | ✅ |
 110. MyWhatsapp: al tocar una imagen, verla en grande (vista previa) con un botón para descargarla | ✅ |
 112. MyWhatsapp: tocar la foto del contacto (en la cabecera) la abre en grande | ✅ |
-111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ✅ |
 115. MyWhatsapp: respuestas automáticas con IA: un modo ocupado que contesta con la IA según la conversación (no un texto fijo) | ✅ |
 116. MyWhatsapp: botón «✨ Mejorar» junto al borrador: la IA mejora y corrige lo que escribo | ✅ |
 98. MyWhatsapp: corrección ortográfica con IA | ✅ |
+111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 
 Trabajando
 =========

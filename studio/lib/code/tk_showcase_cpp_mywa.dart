@@ -216,6 +216,8 @@ TkExample tkCppMywa(String Function(String) t) {
     'BAR_QUIT': t(markTr('Salir de MyWhatsapp')),
     'BAR_WAITING': t(markTr('Por responder ({0}):')),
     'BAR_NONE': t(markTr('Nada por responder 🎉')),
+    'BAR_BUSY': t(markTr('Modo ocupado:')),
+    'BUSY_CHIP': t(markTr('🔕 Ocupado')),
     'BUSY_ON': t(markTr('Ocupado: {0}')),
     'BUSY_OFF_DONE': t(markTr('Modo ocupado desactivado')),
     'BUSY_NEEDS_SEND': t(markTr('Modo ocupado activo; para que conteste solo, conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…)')),

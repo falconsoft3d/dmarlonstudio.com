@@ -23,6 +23,10 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <FL/Fl_Image_Surface.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Secret_Input.H>
+#include <FL/Fl_Button.H>
+#include <FL/Fl_Check_Button.H>
+#include <FL/Fl_Choice.H>
+#include <FL/Fl_Multiline_Input.H>
 #include <FL/Fl_Menu_Item.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_JPEG_Image.H>
@@ -1462,17 +1466,51 @@ std::string vcard_escape(const std::string& v) {
 }
 struct NewContact {
   std::string first, last, company, phone, email, note;
+  // La ficha completa (como en Odoo): empresa o persona, dirección y más.
+  bool is_company = false;
+  std::string mobile, job, title, web, street, street2, city, state, zip, country, vat, tags;
 };
 std::string vcard(const NewContact& c) {
   std::string full = trim(c.first + " " + c.last);
   std::string v = "BEGIN:VCARD\r\nVERSION:3.0\r\n";
-  v += "N:" + vcard_escape(c.last) + ";" + vcard_escape(c.first) + ";;;\r\n";
-  v += "FN:" + vcard_escape(full.empty() ? c.phone : full) + "\r\n";
+  v += "N:" + vcard_escape(c.last) + ";" + vcard_escape(c.first) + ";;" + vcard_escape(c.title) + ";\r\n";
+  v += "FN:" + vcard_escape(full.empty() ? (c.company.empty() ? c.phone : c.company) : full) + "\r\n";
   if (!c.company.empty()) v += "ORG:" + vcard_escape(c.company) + "\r\n";
-  if (!c.phone.empty()) v += "TEL;type=CELL;type=VOICE;type=pref:" + c.phone + "\r\n";
+  if (c.is_company) v += "X-ABShowAs:COMPANY\r\n";
+  if (!c.job.empty()) v += "TITLE:" + vcard_escape(c.job) + "\r\n";
+  if (!c.mobile.empty()) v += "TEL;type=CELL;type=VOICE;type=pref:" + c.mobile + "\r\n";
+  if (!c.phone.empty()) v += std::string(c.mobile.empty() ? "TEL;type=CELL;type=VOICE;type=pref:" : "TEL;type=WORK;type=VOICE:") + c.phone + "\r\n";
   if (!c.email.empty()) v += "EMAIL;type=INTERNET;type=pref:" + vcard_escape(c.email) + "\r\n";
-  if (!c.note.empty()) v += "NOTE:" + vcard_escape(c.note) + "\r\n";
+  if (!c.web.empty()) v += "URL:" + vcard_escape(c.web) + "\r\n";
+  if (!(c.street + c.street2 + c.city + c.state + c.zip + c.country).empty())
+    v += "ADR;type=WORK;type=pref:;;" + vcard_escape(trim(c.street + (c.street2.empty() ? "" : "\n" + c.street2))) + ";" +
+         vcard_escape(c.city) + ";" + vcard_escape(c.state) + ";" + vcard_escape(c.zip) + ";" + vcard_escape(c.country) + "\r\n";
+  if (!c.tags.empty()) v += "CATEGORIES:" + vcard_escape(c.tags) + "\r\n";
+  std::string note = c.note;
+  if (!c.vat.empty()) note = trim(note + (note.empty() ? "" : "\n") + "NIF: " + c.vat);
+  if (!note.empty()) v += "NOTE:" + vcard_escape(note) + "\r\n";
   return v + "END:VCARD\r\n";
+}
+// Las fichas de los contactos (como en Odoo), guardadas en fichas.jsonl: jid → campo → valor.
+using Sheet = std::map<std::string, std::string>;
+std::string sheet_line(const std::string& jid, const Sheet& sh) {
+  std::string o = "{\"jid\":" + jstr(jid);
+  for (const auto& kv : sh) o += "," + jstr(kv.first) + ":" + jstr(kv.second);
+  return o + "}";
+}
+std::map<std::string, Sheet> sheets_parse(const std::string& text) {
+  std::map<std::string, Sheet> out;
+  for (const auto& l : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(l, &ok);
+    std::string jid = j["jid"].str();
+    if (!ok || jid.empty()) continue;
+    Sheet sh;
+    for (const auto& kv : j.o)
+      if (kv.first != "jid") sh[kv.first] = kv.second.str();
+    out[jid] = sh;
+  }
+  return out;
 }
 // ¿Ese número ya está en la agenda? (la que guarda WhatsApp Desktop): su nombre, o "".
 std::string book_name(const std::string& jid) {
@@ -1502,6 +1540,88 @@ std::string book_name(const std::string& jid) {
   q.close(db);
   return name;
 #endif
+}
+
+// ---- el CRM: cada lead tiene su etapa, su importe y, si lo hay, su chat;
+// se guardan en crm.jsonl, una línea JSON por lead.
+const int CRM_STAGES = 6;   // nuevo, contactado, propuesta, negociación, ganado, perdido
+struct Lead {
+  long long id = 0, created = 0, updated = 0;
+  std::string name, jid, chat;
+  int stage = 0;
+  double value = 0;
+};
+std::string lead_line(const Lead& l) {
+  char v[32];
+  std::snprintf(v, sizeof v, "%.2f", l.value);
+  return "{\"id\":" + std::to_string(l.id) + ",\"name\":" + jstr(l.name) + ",\"jid\":" + jstr(l.jid) + ",\"chat\":" + jstr(l.chat) +
+         ",\"stage\":" + std::to_string(l.stage) + ",\"value\":" + v + ",\"t\":" + std::to_string(l.created) +
+         ",\"u\":" + std::to_string(l.updated) + "}";
+}
+std::vector<Lead> leads_parse(const std::string& text) {
+  std::vector<Lead> out;
+  for (const auto& line : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(line, &ok);
+    if (!ok || j["name"].str().empty()) continue;
+    Lead l;
+    l.id = (long long)j["id"].n;
+    l.name = j["name"].str();
+    l.jid = j["jid"].str();
+    l.chat = j["chat"].str();
+    l.stage = std::max(0, std::min(CRM_STAGES - 1, (int)j["stage"].n));
+    l.value = j["value"].n;
+    l.created = (long long)j["t"].n;
+    l.updated = (long long)j["u"].n;
+    out.push_back(l);
+  }
+  return out;
+}
+// «1.200» / «1.200,50»: el importe con puntos de miles (sin decimales si no los tiene).
+std::string money(double v) {
+  long long whole = (long long)std::floor(std::fabs(v) + 1e-9);
+  int cents = (int)std::lround((std::fabs(v) - (double)whole) * 100);
+  if (cents == 100) {
+    whole++;
+    cents = 0;
+  }
+  std::string d = std::to_string(whole), o;
+  for (size_t i = 0; i < d.size(); i++) {
+    if (i && (d.size() - i) % 3 == 0) o += '.';
+    o += d[i];
+  }
+  if (cents) {
+    char c[8];
+    std::snprintf(c, sizeof c, ",%02d", cents);
+    o += c;
+  }
+  return (v < 0 ? "-" : "") + o;
+}
+// Lo que escribe el usuario: «1.200», «1200,50», «1,200.50 €» → 1200 / 1200.5.
+double parse_money(const std::string& s) {
+  std::string digits;
+  int last_sep = -1;
+  for (char ch : s) {
+    if (std::isdigit((unsigned char)ch)) digits += ch;
+    else if ((ch == ',' || ch == '.') && !digits.empty()) {
+      digits += '|';
+      last_sep = (int)digits.size() - 1;
+    }
+  }
+  if (digits.empty()) return 0;
+  // El último separador con 1 o 2 cifras detrás es el de los decimales; los demás, de miles.
+  std::string clean;
+  for (int i = 0; i < (int)digits.size(); i++) {
+    if (digits[(size_t)i] != '|') clean += digits[(size_t)i];
+    else if (i == last_sep && (int)digits.size() - 1 - i <= 2) clean += '.';
+  }
+  return std::atof(clean.c_str());
+}
+int lead_of(const std::vector<Lead>& ls, const std::string& jid) {
+  if (jid.empty()) return -1;
+  for (int i = 0; i < (int)ls.size(); i++)
+    if (ls[(size_t)i].jid == jid) return i;
+  return -1;
 }
 
 // ---- las tareas: cada una puede venir de un chat (y abrirlo luego);
@@ -2296,6 +2416,8 @@ public:
   int tasks_pending = 0;
   bool tasks_selected = false;
   bool status_selected = false;
+  bool crm_selected = false;
+  std::function<void()> on_crm;   // el botón «💼» (el CRM)
   std::function<void()> on_status;   // la fila «🎨 Estados»
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
   long long now = 0;                          // 0: la hora de verdad
@@ -2369,6 +2491,7 @@ public:
     if (mode != F_ARCHIVED) {
       icon_row("✅", 1, tasks_selected);
       icon_row("🎨", 7, status_selected);
+      icon_row("💼", 10, crm_selected);
     }
     if (chats)
       for (size_t i = 0; i < chats->size(); i++) {
@@ -2505,6 +2628,7 @@ public:
       int archived = count(F_ARCHIVED);
       if (archived > 0 && mode == F_ALL) pill("📦 " + std::to_string(archived), 3, false);
       pill("🎨", 7, status_selected);
+      pill("💼", 10, crm_selected);
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
@@ -2593,6 +2717,8 @@ public:
               if (on_busy) on_busy();
             } else if (h.act == 7) {
               if (on_status) on_status();
+            } else if (h.act == 10) {
+              if (on_crm) on_crm();
             } else if (h.act == 8) {
               if (on_compact) on_compact();
             } else if (h.act == 9) {
@@ -2776,6 +2902,92 @@ public:
       fl_color(rgb(T.muted));
       std::string pn = starts(d.photo, "demo:") ? std::string(tx::K_PHOTO) : file_base(d.photo);
       fl_draw(fit(pn, std::max(40, cx + cw - nb - 10)).c_str(), nb + 10, cy + 18);
+    }
+  }
+  // El CRM (el tablero, en vez del chat) y la etapa del chat abierto ("" si no está).
+  std::vector<Lead>* leads = nullptr;
+  bool crm_mode = false;
+  std::string chat_stage;
+  // Acciones: 60 lead nuevo, 61 abrir su chat, 62 etapa anterior, 63 siguiente, 64 borrarlo, 65 la etapa (cabecera).
+  void draw_crm() {
+    const Theme& T = th();
+    const int head = 60;
+    Fl_Color on_accent = T.dark ? rgb(0x111b21) : FL_WHITE;
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    fl_font(FL_HELVETICA_BOLD, 18);
+    fl_color(rgb(T.text));
+    fl_draw(tx::CRM_TITLE, x() + 20, y() + 28);
+    double open_v = 0, won_v = 0;
+    int open_n = 0;
+    if (leads)
+      for (const auto& l : *leads) {
+        if (l.stage < 4) {
+          open_n++;
+          open_v += l.value;
+        } else if (l.stage == 4) won_v += l.value;
+      }
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    fl_draw(fmt(tx::CRM_SUMMARY, {std::to_string(open_n), money(open_v), money(won_v)}).c_str(), x() + 20, y() + 48);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    button(x() + w() - 20 - ((int)fl_width(tx::CRM_NEW) + 20), y() + 17, tx::CRM_NEW, 60, -1, on_accent, rgb(T.accent));
+    // Las columnas, una por etapa.
+    const char* names[CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+    const unsigned colors[CRM_STAGES] = {0x8696a0, 0x34b7f1, 0x8b5cf6, 0xf59e0b, 0x25d366, 0xe5484d};
+    int gap = 8, cw = (w() - 24 - gap * (CRM_STAGES - 1)) / CRM_STAGES;
+    long long t_now = now ? now : wall_s();
+    for (int st = 0; st < CRM_STAGES; st++) {
+      int cx = x() + 12 + st * (cw + gap), cy = y() + head + 10;
+      int n = 0;
+      double sum = 0;
+      if (leads)
+        for (const auto& l : *leads)
+          if (l.stage == st) {
+            n++;
+            sum += l.value;
+          }
+      fl_color(rgb(T.dark ? 0x111b21 : 0xf7f8f9));
+      fl_rounded_rectf(cx, cy, cw, h() - head - 20, 10);
+      fl_color(rgb(colors[st]));
+      fl_rectf(cx + 10, cy + 12, 4, 30);
+      fl_font(FL_HELVETICA_BOLD, 13);
+      fl_color(rgb(T.text));
+      fl_draw(fit(std::string(names[st]) + "  " + std::to_string(n), cw - 26).c_str(), cx + 20, cy + 25);
+      fl_font(FL_HELVETICA, 11);
+      fl_color(rgb(T.muted));
+      fl_draw(money(sum).c_str(), cx + 20, cy + 40);
+      int ky = cy + 54;
+      if (leads)
+        for (int i = (int)leads->size() - 1; i >= 0; i--) {
+          const Lead& l = (*leads)[(size_t)i];
+          if (l.stage != st || ky + 84 > y() + h() - 12) continue;
+          round_box(cx + 6, ky, cw - 12, 80, 8, rgb(T.card), rgb(T.card_line));
+          hits.push_back({cx + 6, ky, cw - 12, 50, 61, i});
+          // La bolita: los días sin moverse (como las tareas).
+          if (st < 4) {
+            fl_color(rgb(task_age_color(l.updated ? l.updated : l.created, t_now)));
+            fl_pie(cx + 14, ky + 11, 9, 9, 0, 360);
+          }
+          fl_font(FL_HELVETICA_BOLD, 12);
+          fl_color(rgb(T.text));
+          fl_draw(fit(l.name, cw - 44).c_str(), cx + 28, ky + 19);
+          fl_font(FL_HELVETICA, 11);
+          fl_color(rgb(T.muted));
+          fl_draw(fit(l.chat.empty() ? "—" : l.chat, cw - 30).c_str(), cx + 14, ky + 36);
+          fl_font(FL_HELVETICA_BOLD, 11);
+          fl_color(rgb(T.text));
+          if (l.value != 0) fl_draw(money(l.value).c_str(), cx + 14, ky + 52);
+          // ◀ ▶ y ✕, abajo.
+          fl_font(FL_HELVETICA_BOLD, 11);
+          int bx = cx + 10;
+          if (st > 0) bx = button(bx, ky + 56, "◀", 62, i, rgb(T.text), rgb(T.card)) + 4;
+          if (st < CRM_STAGES - 1) bx = button(bx, ky + 56, "▶", 63, i, rgb(T.text), rgb(T.card)) + 4;
+          if (bx + 30 < cx + cw - 6) button(cx + cw - 12 - ((int)fl_width("✕") + 20), ky + 56, "✕", 64, i, rgb(T.muted), rgb(T.card));
+          ky += 88;
+        }
     }
   }
   // La valoración de una persona por la IA, en una tarjeta encima del chat.
@@ -3045,7 +3257,7 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || status_mode || !chat || !viewer.empty() || !insight.empty()) && find_input && find_input->visible())
+    if ((tasks_mode || status_mode || crm_mode || !chat || !viewer.empty() || !insight.empty()) && find_input && find_input->visible())
       find_input->hide();
     if (!viewer.empty()) {
       draw_viewer();
@@ -3054,6 +3266,11 @@ public:
     }
     if (status_mode) {
       draw_status_view();
+      fl_pop_clip();
+      return;
+    }
+    if (crm_mode) {
+      draw_crm();
       fl_pop_clip();
       return;
     }
@@ -3244,6 +3461,13 @@ public:
     rx -= 8 + (int)fl_width(tx::ADD_TASK) + 20;
     button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     rx -= 8;
+    // Si el chat está en el CRM: su etapa (un clic la cambia).
+    if (!chat_stage.empty()) {
+      std::string sl = "💼 " + chat_stage;
+      rx -= (int)fl_width(sl.c_str()) + 20;
+      button(rx, y() + 17, sl.c_str(), 65, -1, T.dark ? rgb(0x111b21) : FL_WHITE, rgb(0x8b5cf6));
+      rx -= 8;
+    }
     // Traducir: «🌐 Traducir» o el idioma elegido, en verde.
     std::string tl = translate_label.empty() ? std::string(tx::TRANSLATE) : "🌐 " + translate_label;
     rx -= (int)fl_width(tl.c_str()) + 20;
@@ -3386,7 +3610,7 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || status_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
+        if (right || tasks_mode || status_mode || crm_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -4029,6 +4253,23 @@ int selftest() {
     merge_msgs(base, extra);
     chk(base.size() == 1 && base[0].status == 8, "juntar con Desktop: el estado más avanzado");
   }
+  // El CRM: guardar y leer los leads, y los importes.
+  {
+    Lead l;
+    l.id = 3;
+    l.name = "Cocina \"Pérez\"";
+    l.jid = "346@s.whatsapp.net";
+    l.stage = 9;   // fuera de rango: se queda en la última
+    l.value = 1250.5;
+    auto back = leads_parse(lead_line(l) + "\nroto\n");
+    chk(back.size() == 1 && back[0].name == l.name && back[0].stage == CRM_STAGES - 1 && std::fabs(back[0].value - 1250.5) < 0.001 &&
+            lead_of(back, "346@s.whatsapp.net") == 0 && lead_of(back, "otro") == -1,
+        "CRM: guardar y leer");
+    chk(money(1200) == "1.200" && money(1250.5) == "1.250,50" && money(0) == "0" && money(1234567) == "1.234.567", "CRM: los importes");
+    chk(parse_money("1.200") == 1200 && std::fabs(parse_money("1.250,50 €") - 1250.5) < 0.001 &&
+            std::fabs(parse_money("1,200.75") - 1200.75) < 0.001 && parse_money("") == 0 && parse_money("abc") == 0,
+        "CRM: leer lo que se escribe como importe");
+  }
   // La vCard: los campos escapados (comas, punto y coma, saltos de línea).
   {
     NewContact n;
@@ -4196,7 +4437,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.22";
+const char* const MYWA_VERSION = "1.0.23";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -4251,6 +4492,154 @@ bool pin_ok(const std::string& pin) {
   if (pin.size() != 4) return false;
   for (char c : pin)
     if (c < '0' || c > '9') return false;
+  return true;
+}
+
+// ============================================================ las fichas
+// Todos los datos en una ventana, como un formulario de Odoo: cada etiqueta con
+// su campo, en dos columnas, y «Guardar» / «Cancelar» abajo.
+struct FormField {
+  std::string key, label, value;
+  int kind = 0;   // 0 texto, 1 varias líneas, 2 secreto, 3 opciones, 4 casilla
+  int col = 2;    // 0 izquierda, 1 derecha, 2 todo el ancho
+  std::vector<std::string> options;   // las de kind 3
+};
+std::string form_value(const std::vector<FormField>& fs, const std::string& key) {
+  for (const auto& f : fs)
+    if (f.key == key) return f.value;
+  return "";
+}
+// Para las capturas: si tiene una ruta, la ficha se dibuja ahí (sin enseñarse) y no se guarda.
+std::string& form_shot() {
+  static std::string p;
+  return p;
+}
+bool run_form(const std::string& title, std::vector<FormField>& fields, const char* ok_label) {
+  const Theme& T = th();
+  const int W = 780, pad = 24, lw = 130, gap = 24, colw = (W - 2 * pad - gap) / 2;
+  struct Pos {
+    int x, y, w, h;
+  };
+  std::vector<Pos> pos(fields.size());
+  int ly = 70, ry = 70;
+  for (size_t i = 0; i < fields.size(); i++) {
+    const FormField& f = fields[i];
+    int fh = f.kind == 1 ? 78 : 30;
+    if (f.col == 2) {
+      int yy = std::max(ly, ry);
+      pos[i] = {pad, yy, W - 2 * pad, fh};
+      ly = ry = yy + fh + 12;
+    } else if (f.col == 0) {
+      pos[i] = {pad, ly, colw, fh};
+      ly += fh + 12;
+    } else {
+      pos[i] = {pad + colw + gap, ry, colw, fh};
+      ry += fh + 12;
+    }
+  }
+  int H = std::max(ly, ry) + 64;
+  Fl_Group::current(nullptr);
+  Fl_Double_Window win(W, H);
+  win.copy_label(title.c_str());
+  win.set_modal();
+  win.color(rgb(T.panel));
+  Fl_Box head(pad, 18, W - 2 * pad, 34);
+  head.copy_label(title.c_str());
+  head.labelfont(FL_HELVETICA_BOLD);
+  head.labelsize(20);
+  head.labelcolor(rgb(T.text));
+  head.align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
+  std::vector<Fl_Widget*> ins(fields.size(), nullptr);
+  for (size_t i = 0; i < fields.size(); i++) {
+    const FormField& f = fields[i];
+    const Pos& p = pos[i];
+    if (f.kind == 4) {
+      auto* b = new Fl_Check_Button(p.x, p.y, p.w, p.h);
+      b->copy_label(f.label.c_str());
+      b->labelsize(13);
+      b->labelcolor(rgb(T.text));
+      b->value(f.value == "1");
+      ins[i] = b;
+      continue;
+    }
+    auto* lab = new Fl_Box(p.x, p.y, lw, std::min(p.h, 30));
+    lab->copy_label(f.label.c_str());
+    lab->labelfont(FL_HELVETICA_BOLD);
+    lab->labelsize(13);
+    lab->labelcolor(rgb(T.text));
+    lab->align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
+    int ix = p.x + lw, iw = p.w - lw;
+    if (f.kind == 3) {
+      auto* ch = new Fl_Choice(ix, p.y, iw, p.h);
+      int sel = 0;
+      for (size_t k = 0; k < f.options.size(); k++) {
+        std::string o;
+        for (char c : f.options[k]) o += c == '/' ? std::string("\\/") : c == '&' ? std::string("&&") : std::string(1, c);
+        ch->add(o.c_str());
+        if (f.options[k] == f.value) sel = (int)k;
+      }
+      ch->value(sel);
+      ch->color(rgb(T.input));
+      ch->textcolor(rgb(T.text));
+      ins[i] = ch;
+      continue;
+    }
+    Fl_Input* in = f.kind == 1 ? new Fl_Multiline_Input(ix, p.y, iw, p.h) : f.kind == 2 ? new Fl_Secret_Input(ix, p.y, iw, p.h)
+                                                                                         : new Fl_Input(ix, p.y, iw, p.h);
+    in->value(f.value.c_str());
+    in->textsize(14);
+    in->color(rgb(T.input));
+    in->textcolor(rgb(T.text));
+    in->cursor_color(rgb(T.text));
+    ins[i] = in;
+  }
+  int result = 0;
+  Fl_Button cancel(W - pad - 260, H - 48, 120, 34, tx::BTN_CANCEL);
+  Fl_Button ok(W - pad - 130, H - 48, 130, 34, ok_label);
+  ok.color(rgb(T.dark ? 0x00a884 : 0x25d366));
+  ok.labelcolor(T.dark ? rgb(0x111b21) : FL_WHITE);
+  ok.labelfont(FL_HELVETICA_BOLD);
+  struct Ctx {
+    int* result;
+    Fl_Window* win;
+  } ctx{&result, &win};
+  ok.callback([](Fl_Widget*, void* d) {
+    auto* c = static_cast<Ctx*>(d);
+    *c->result = 1;
+    c->win->hide();
+  }, &ctx);
+  cancel.callback([](Fl_Widget*, void* d) { static_cast<Ctx*>(d)->win->hide(); }, &ctx);
+  win.end();
+  if (!form_shot().empty()) {
+    Fl_Image_Surface surf(W, H, 0);
+    Fl_Surface_Device::push_current(&surf);
+    fl_color(win.color());
+    fl_rectf(0, 0, W, H);
+    for (int i = 0; i < win.children(); i++) surf.draw(win.child(i), win.child(i)->x(), win.child(i)->y());
+    Fl_RGB_Image* img = surf.image();
+    Fl_Surface_Device::pop_current();
+    fl_write_png(form_shot().c_str(), img);
+    delete img;
+    return false;
+  }
+  win.show();
+  for (Fl_Widget* w : ins)
+    if (w && dynamic_cast<Fl_Input*>(w)) {
+      w->take_focus();
+      break;
+    }
+  while (win.shown()) Fl::wait();
+  if (result != 1) return false;
+  for (size_t i = 0; i < fields.size(); i++) {
+    FormField& f = fields[i];
+    if (f.kind == 4) f.value = static_cast<Fl_Check_Button*>(ins[i])->value() ? "1" : "0";
+    else if (f.kind == 3) {
+      int v = static_cast<Fl_Choice*>(ins[i])->value();
+      f.value = v >= 0 && v < (int)f.options.size() ? f.options[(size_t)v] : "";
+    } else {
+      f.value = static_cast<Fl_Input*>(ins[i])->value();
+    }
+  }
   return true;
 }
 }  // namespace wa
@@ -4451,6 +4840,8 @@ public:
   bool compact = false;
   std::map<std::string, long long> cleared;
   std::vector<wa::BusyMode> templates;   // nombre y texto (como los modos)
+  // El CRM: los leads.
+  std::vector<wa::Lead> leads;
   // Los estados: los diseños guardados y las publicaciones en curso (por su id de envío).
   std::vector<wa::StatusDesign> designs;
   std::map<std::string, bool> status_rids;
@@ -4458,6 +4849,10 @@ public:
   std::function<bool(const std::string&)> confirm = [](const std::string& q) {
     return fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, q.c_str()) == 1;
   };
+  // Una ficha con varios campos (las pruebas la cambian): true si se guardó.
+  std::function<bool(const std::string&, std::vector<wa::FormField>&, const char*)> form = wa::run_form;
+  // Las fichas de los contactos: jid → campo → valor.
+  std::map<std::string, wa::Sheet> sheets;
   // Abrir un archivo con su programa (las pruebas lo cambian).
   std::function<void(const std::string&)> open_file = [](const std::string& path) {
     std::string url = "file://";
@@ -4544,6 +4939,8 @@ public:
     list->on_mode = [] { if (self()) self()->refresh(); };
     list->on_busy = [] { if (self()) self()->busy_menu(); };
     list->on_status = [] { if (self()) self()->open_status(); };
+    list->on_crm = [] { if (self()) self()->open_crm(); };
+    view->leads = &leads;
     list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
     list->on_filter = [] { if (self()) self()->filter_menu(); };
     copy_label((std::string(tx::APP) + " " + MYWA_VERSION).c_str());
@@ -4649,6 +5046,8 @@ public:
     load_busy();
     load_designs();
     load_extras();
+    load_leads();
+    load_sheets();
     reload();
     if (compact) set_compact(true);
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
@@ -4839,8 +5238,10 @@ public:
     list->selected = i;
     list->tasks_selected = false;
     list->status_selected = false;
+    list->crm_selected = false;
     view->tasks_mode = false;
     view->status_mode = false;
+    view->crm_mode = false;
     view->msg_scroll = 0;
     view->asked_more = false;
     view->clear_selection();
@@ -4862,6 +5263,11 @@ public:
   }
   void refresh() {
     list->tasks_pending = wa::tasks_pending(tasks);
+    {
+      const char* names[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+      int li = current >= 0 ? wa::lead_of(leads, chats[(size_t)current].jid) : -1;
+      view->chat_stage = li >= 0 ? names[leads[(size_t)li].stage] : "";
+    }
     list->busy = busy;
     std::string where = from_db ? tx::SOURCE_DESKTOP : !store.empty() ? tx::SOURCE_LINKED : tx::SOURCE_EXPORT;
     std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
@@ -4975,7 +5381,9 @@ public:
     list->selected = -1;
     list->tasks_selected = true;
     list->status_selected = false;
+    list->crm_selected = false;
     view->status_mode = false;
+    view->crm_mode = false;
     view->chat = nullptr;
     view->tasks_mode = true;
     view->task_scroll = 0;
@@ -5188,28 +5596,22 @@ public:
     if (r < 0) return;
     if (r < (int)n) {
       set_busy(busy_modes[(size_t)r].name);
-    } else if (r == (int)n) {   // nuevo
-      std::string name, text;
-      if (!ask_text(tx::BUSY_ASK_NAME, name) || wa::trim(name).empty()) return;
-      if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
-      int kind = choose({tx::BUSY_KIND_FIXED, tx::BUSY_KIND_AI});
-      if (kind < 0) return;
-      if (kind == 1 && !ai_allowed()) return;
-      busy_modes.push_back({wa::trim(name), wa::trim(text), kind == 1});
-      set_busy(wa::trim(name));
+    } else if (r == (int)n) {   // nuevo: nombre, mensaje y si contesta la IA, en una ficha
+      wa::BusyMode m;
+      if (!busy_form(m, true)) return;
+      busy_modes.push_back(m);
+      set_busy(m.name);
     } else if (r == (int)n + 1 || r == (int)n + 2) {   // editar o borrar: cuál
       std::vector<std::string> names;
       for (const auto& m : busy_modes) names.push_back(m.name);
       int k = choose(names);
       if (k < 0 || k >= (int)busy_modes.size()) return;
       if (r == (int)n + 1) {
-        std::string text = busy_modes[(size_t)k].text;
-        if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
-        int kind = choose({tx::BUSY_KIND_FIXED, tx::BUSY_KIND_AI});
-        if (kind < 0) return;
-        if (kind == 1 && !busy_modes[(size_t)k].ai && !ai_allowed()) return;
-        busy_modes[(size_t)k].text = wa::trim(text);
-        busy_modes[(size_t)k].ai = kind == 1;
+        wa::BusyMode m = busy_modes[(size_t)k];
+        std::string old = m.name;
+        if (!busy_form(m, false)) return;
+        busy_modes[(size_t)k] = m;
+        if (busy == old) busy = m.name;
         save_busy();
       } else {
         if (busy_modes[(size_t)k].name == busy) busy.clear();
@@ -5220,6 +5622,24 @@ public:
       set_busy("");
     }
     refresh();
+  }
+  // La ficha de un modo: nombre, mensaje y «✨ Que conteste la IA».
+  bool busy_form(wa::BusyMode& m, bool is_new) {
+    std::vector<wa::FormField> fs = {{"name", tx::F_NAME, m.name, 0, 2, {}},
+                                     {"text", tx::F_BUSY_TEXT, m.text, 1, 2, {}},
+                                     {"ai", tx::BUSY_KIND_AI, m.ai ? "1" : "0", 4, 2, {}}};
+    if (!form(is_new ? tx::BUSY_NEW_TITLE : tx::BUSY_EDIT_TITLE, fs, tx::BTN_SAVE)) return false;
+    std::string name = wa::trim(wa::form_value(fs, "name")), text = wa::trim(wa::form_value(fs, "text"));
+    bool want_ai = wa::form_value(fs, "ai") == "1";
+    if (name.empty() || text.empty()) {
+      say(tx::FORM_MISSING);
+      return false;
+    }
+    if (want_ai && !m.ai && !ai_allowed()) return false;
+    m.name = name;
+    m.text = text;
+    m.ai = want_ai;
+    return true;
   }
   // Con un modo activo: a quien escribió (en privado) desde entonces, su mensaje, una vez.
   void busy_reply() {
@@ -5475,14 +5895,14 @@ public:
   }
   // Pedir un PIN nuevo dos veces; "" si no se completa.
   std::string ask_new_pin() {
-    std::string a, b;
-    if (!ask_text(tx::PIN_ASK, a)) return "";
-    a = wa::trim(a);
+    std::vector<wa::FormField> fs = {{"pin", tx::F_PIN, "", 2, 2, {}}, {"pin2", tx::F_PIN_AGAIN, "", 2, 2, {}}};
+    if (!form(tx::PIN_TITLE, fs, tx::BTN_SAVE)) return "";
+    std::string a = wa::trim(wa::form_value(fs, "pin")), b = wa::trim(wa::form_value(fs, "pin2"));
     if (!wa::pin_ok(a)) {
       say(tx::PIN_BAD);
       return "";
     }
-    if (!ask_text(tx::PIN_ASK_AGAIN, b) || wa::trim(b) != a) {
+    if (b != a) {
       say(tx::PIN_MISMATCH);
       return "";
     }
@@ -5518,8 +5938,9 @@ public:
     } else if (a == 2) {
       lock_now();
     } else if (a == 3) {
-      std::string p;
-      if (!ask_text(tx::PIN_ASK_CURRENT, p) || wa::pin_hash(wa::trim(p)) != pin_saved) {
+      std::vector<wa::FormField> fs = {{"pin", tx::F_PIN_CURRENT, "", 2, 2, {}}};
+      if (!form(tx::PIN_REMOVE, fs, tx::BTN_OK)) return;
+      if (wa::pin_hash(wa::trim(wa::form_value(fs, "pin"))) != pin_saved) {
         say(tx::PIN_WRONG);
         return;
       }
@@ -5531,7 +5952,135 @@ public:
       save_settings();
     }
   }
+  // ---- el CRM: el tablero, los leads y su etapa desde el chat
+  std::string leads_file() const { return wa::config_dir() + "/crm.jsonl"; }
+  void load_leads() {
+    std::string text;
+    leads.clear();
+    if (!demo && wa::read_file(leads_file(), text)) leads = wa::leads_parse(text);
+  }
+  void save_leads() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string out;
+    for (const auto& l : leads) out += wa::lead_line(l) + "\n";
+    wa::write_file(leads_file(), out);
+  }
+  void open_crm() {
+    current = -1;
+    list->selected = -1;
+    list->tasks_selected = false;
+    list->status_selected = false;
+    list->crm_selected = true;
+    view->chat = nullptr;
+    view->tasks_mode = false;
+    view->status_mode = false;
+    view->crm_mode = true;
+    options.clear();
+    refresh();
+  }
+  long long now_t() const { return view->now ? view->now : wa::wall_s(); }
+  // Un lead nuevo (de un chat, si [from] >= 0): su nombre y, si se quiere, su importe.
+  bool new_lead(int from) {
+    const char* names[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+    std::vector<std::string> stages(names, names + wa::CRM_STAGES);
+    std::vector<wa::FormField> fs = {{"name", tx::F_LEAD, from >= 0 ? chats[(size_t)from].name : "", 0, 2, {}},
+                                     {"value", tx::F_VALUE, "", 0, 0, {}},
+                                     {"stage", tx::F_STAGE, names[0], 3, 1, stages}};
+    if (!form(tx::CRM_NEW_TITLE, fs, tx::BTN_SAVE)) return false;
+    std::string name = wa::trim(wa::form_value(fs, "name"));
+    if (name.empty()) {
+      say(tx::FORM_MISSING);
+      return false;
+    }
+    wa::Lead l;
+    long long top = 0;
+    for (const auto& x : leads) top = std::max(top, x.id);
+    l.id = top + 1;
+    l.name = name;
+    l.value = wa::parse_money(wa::form_value(fs, "value"));
+    for (int k = 0; k < wa::CRM_STAGES; k++)
+      if (wa::form_value(fs, "stage") == names[k]) l.stage = k;
+    l.created = l.updated = now_t();
+    if (from >= 0) {
+      l.jid = chats[(size_t)from].jid;
+      l.chat = chats[(size_t)from].name;
+    }
+    leads.push_back(l);
+    save_leads();
+    say(wa::fmt(tx::CRM_ADDED, {l.name}));
+    return true;
+  }
+  // La etapa de un lead (con un menú: las seis etapas y «Quitar del CRM»).
+  void stage_menu(int li) {
+    if (li < 0 || li >= (int)leads.size()) return;
+    const char* names[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+    std::vector<std::string> items;
+    for (int k = 0; k < wa::CRM_STAGES; k++) items.push_back((leads[(size_t)li].stage == k ? "✓ " : "    ") + std::string(names[k]));
+    items.push_back(tx::CRM_REMOVE);
+    int r = choose(items);
+    if (r < 0) return;
+    if (r == wa::CRM_STAGES) {
+      leads.erase(leads.begin() + li);
+    } else {
+      leads[(size_t)li].stage = r;
+      leads[(size_t)li].updated = now_t();
+    }
+    save_leads();
+    refresh();
+  }
+  // Desde el chat abierto: si ya es un lead, su etapa; si no, uno nuevo enlazado al chat.
+  void crm_from_chat() {
+    if (current < 0) return;
+    int li = wa::lead_of(leads, chats[(size_t)current].jid);
+    if (li >= 0) stage_menu(li);
+    else new_lead(current);
+    refresh();
+  }
+  void crm_act(int act, int k) {
+    if (act == 60) {
+      new_lead(-1);
+    } else if (act == 65) {
+      if (current >= 0) stage_menu(wa::lead_of(leads, chats[(size_t)current].jid));
+      return;
+    } else if (k >= 0 && k < (int)leads.size()) {
+      wa::Lead& l = leads[(size_t)k];
+      if (act == 61) {
+        for (int i = 0; i < (int)chats.size(); i++)
+          if (!l.jid.empty() && chats[(size_t)i].jid == l.jid) {
+            pick(i);
+            return;
+          }
+        stage_menu(k);   // sin chat: su menú
+        return;
+      }
+      if (act == 62 && l.stage > 0) l.stage--;
+      if (act == 63 && l.stage < wa::CRM_STAGES - 1) l.stage++;
+      if (act == 62 || act == 63) l.updated = now_t();
+      if (act == 64) {
+        if (!confirm(wa::fmt(tx::CRM_DELETE_ASK, {l.name}))) return;
+        leads.erase(leads.begin() + k);
+      }
+      save_leads();
+    }
+    refresh();
+  }
   // ---- añadir el contacto del chat a Contactos (y de ahí, por iCloud, al teléfono)
+  // La ficha del contacto (como en Odoo), guardada en fichas.jsonl; con la casilla,
+  // también en Contactos (una vCard que abre la app Contactos y llega al iPhone por iCloud).
+  std::string sheets_file() const { return wa::config_dir() + "/fichas.jsonl"; }
+  void load_sheets() {
+    std::string text;
+    sheets.clear();
+    if (!demo && wa::read_file(sheets_file(), text)) sheets = wa::sheets_parse(text);
+  }
+  void save_sheets() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string out;
+    for (const auto& kv : sheets) out += wa::sheet_line(kv.first, kv.second) + "\n";
+    wa::write_file(sheets_file(), out);
+  }
   void add_contact() {
     if (current < 0) return;
     const wa::Chat& c = chats[(size_t)current];
@@ -5540,29 +6089,72 @@ public:
       say(tx::CONTACT_ONLY_PEOPLE);
       return;
     }
+    wa::Sheet sh = sheets.count(c.jid) ? sheets[c.jid] : wa::Sheet();
+    if (sh.empty()) {   // de partida: el nombre del chat y su teléfono
+      std::string name = c.name;
+      if (!name.empty() && (name[0] == '+' || name[0] == '~')) name = name[0] == '~' ? wa::trim(name.substr(1)) : "";
+      sh["name"] = name;
+      sh["mobile"] = "+" + ph;
+      sh["kind"] = tx::SHEET_PERSON;
+    }
+    std::vector<std::string> kinds = {tx::SHEET_PERSON, tx::SHEET_COMPANY};
+    auto v = [&](const char* k) { return sh.count(k) ? sh[k] : std::string(); };
+    std::vector<wa::FormField> fs = {
+        {"kind", tx::SHEET_KIND, v("kind"), 3, 0, kinds},       {"title", tx::SHEET_TITLE, v("title"), 0, 1, {}},
+        {"name", tx::SHEET_NAME, v("name"), 0, 2, {}},
+        {"company", tx::SHEET_COMPANYF, v("company"), 0, 0, {}}, {"job", tx::SHEET_JOB, v("job"), 0, 1, {}},
+        {"street", tx::SHEET_STREET, v("street"), 0, 0, {}},     {"phone", tx::SHEET_PHONE, v("phone"), 0, 1, {}},
+        {"street2", tx::SHEET_STREET2, v("street2"), 0, 0, {}},  {"mobile", tx::SHEET_MOBILE, v("mobile"), 0, 1, {}},
+        {"city", tx::SHEET_CITY, v("city"), 0, 0, {}},           {"email", tx::SHEET_EMAIL, v("email"), 0, 1, {}},
+        {"state", tx::SHEET_STATE, v("state"), 0, 0, {}},        {"web", tx::SHEET_WEB, v("web"), 0, 1, {}},
+        {"zip", tx::SHEET_ZIP, v("zip"), 0, 0, {}},              {"tags", tx::SHEET_TAGS, v("tags"), 0, 1, {}},
+        {"country", tx::SHEET_COUNTRY, v("country"), 0, 0, {}},  {"vat", tx::SHEET_VAT, v("vat"), 0, 1, {}},
+        {"notes", tx::SHEET_NOTES, v("notes"), 1, 2, {}},
+        {"to_contacts", tx::SHEET_TO_CONTACTS, "0", 4, 2, {}}};
+    if (!form(wa::fmt(tx::SHEET_TITLE_OF, {c.name}), fs, tx::BTN_SAVE)) return;
+    for (const auto& f : fs)
+      if (f.key != "to_contacts") sh[f.key] = wa::trim(f.value);
+    sheets[c.jid] = sh;
+    save_sheets();
+    if (wa::form_value(fs, "to_contacts") != "1") {
+      say(tx::SHEET_SAVED);
+      return;
+    }
+    // También en Contactos: si el número ya está en la agenda, se avisa antes.
     std::string known = demo ? "" : wa::book_name(c.jid);
-    if (!known.empty() && !confirm(wa::fmt(tx::CONTACT_EXISTS, {known}))) return;
+    if (!known.empty() && !confirm(wa::fmt(tx::CONTACT_EXISTS, {known}))) {
+      say(tx::SHEET_SAVED);
+      return;
+    }
     wa::NewContact n;
-    n.phone = "+" + ph;
-    // De partida, el nombre del chat (si no es el propio número), partido en nombre y apellidos.
-    std::string name = c.name;
-    if (!name.empty() && (name[0] == '+' || name[0] == '~')) name = name[0] == '~' ? wa::trim(name.substr(1)) : "";
-    size_t sp = name.find(' ');
-    n.first = sp == std::string::npos ? name : name.substr(0, sp);
-    n.last = sp == std::string::npos ? "" : wa::trim(name.substr(sp + 1));
-    if (!ask_text(tx::CONTACT_FIRST, n.first) || wa::trim(n.first).empty()) return;
-    if (!ask_text(tx::CONTACT_LAST, n.last)) return;
-    if (!ask_text(tx::CONTACT_COMPANY, n.company)) return;
-    if (!ask_text(tx::CONTACT_EMAIL, n.email)) return;
-    n.first = wa::trim(n.first);
-    n.last = wa::trim(n.last);
-    n.company = wa::trim(n.company);
-    n.email = wa::trim(n.email);
-    n.note = tx::CONTACT_NOTE;
+    n.is_company = sh["kind"] == tx::SHEET_COMPANY;
+    std::string name = sh["name"];
+    if (n.is_company) n.company = name.empty() ? sh["company"] : name;
+    else {
+      size_t sp = name.find(' ');
+      n.first = sp == std::string::npos ? name : name.substr(0, sp);
+      n.last = sp == std::string::npos ? "" : wa::trim(name.substr(sp + 1));
+      n.company = sh["company"];
+    }
+    n.title = sh["title"];
+    n.job = sh["job"];
+    n.phone = sh["phone"];
+    n.mobile = sh["mobile"];
+    n.email = sh["email"];
+    n.web = sh["web"];
+    n.street = sh["street"];
+    n.street2 = sh["street2"];
+    n.city = sh["city"];
+    n.state = sh["state"];
+    n.zip = sh["zip"];
+    n.country = sh["country"];
+    n.vat = sh["vat"];
+    n.tags = sh["tags"];
+    n.note = sh["notes"].empty() ? std::string(tx::CONTACT_NOTE) : sh["notes"];
     std::string dir = wa::config_dir() + "/contactos";
     fl_make_path(dir.c_str());
     std::string base;
-    for (char ch : wa::trim(n.first + " " + n.last))
+    for (char ch : name)
       base += (std::isalnum((unsigned char)ch) || (unsigned char)ch >= 0x80) ? ch : '-';
     std::string path = dir + "/" + (base.empty() ? ph : base) + ".vcf";
     if (!wa::write_file(path, wa::vcard(n))) {
@@ -5658,19 +6250,23 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
     if (r == 0) {
-      add_contact();
+      crm_from_chat();
       return;
     }
     if (r == 1) {
+      add_contact();
+      return;
+    }
+    if (r == 2) {
       evaluate_person();
       return;
     }
-    r -= 2;
+    r -= 3;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -5724,6 +6320,19 @@ public:
     deliver(chats[(size_t)target].jid, m.text, file, "");
     say(wa::fmt(tx::FORWARDED, {chats[(size_t)target].name}));
   }
+  // La ficha de una plantilla: su nombre y su texto.
+  bool template_form(wa::BusyMode& t, bool is_new) {
+    std::vector<wa::FormField> fs = {{"name", tx::F_NAME, t.name, 0, 2, {}}, {"text", tx::TPL_ASK_TEXT, t.text, 1, 2, {}}};
+    if (!form(is_new ? tx::TPL_NEW_TITLE : tx::TPL_EDIT_TITLE, fs, tx::BTN_SAVE)) return false;
+    std::string name = wa::trim(wa::form_value(fs, "name")), text = wa::trim(wa::form_value(fs, "text"));
+    if (name.empty() || text.empty()) {
+      say(tx::FORM_MISSING);
+      return false;
+    }
+    t.name = name;
+    t.text = text;
+    return true;
+  }
   // ---- las plantillas: insertar una en el borrador, crearlas, editarlas o borrarlas
   void templates_menu() {
     std::vector<std::string> items;
@@ -5751,19 +6360,16 @@ public:
       return;
     }
     if (r == (int)n) {
-      std::string name, text;
-      if (!ask_text(tx::TPL_ASK_NAME, name) || wa::trim(name).empty()) return;
-      if (!ask_text(tx::TPL_ASK_TEXT, text) || wa::trim(text).empty()) return;
-      templates.push_back({wa::trim(name), wa::trim(text), false});
+      wa::BusyMode t;
+      if (!template_form(t, true)) return;
+      templates.push_back(t);
     } else {
       std::vector<std::string> names;
       for (const auto& t : templates) names.push_back(t.name);
       int k = choose(names);
       if (k < 0 || k >= (int)templates.size()) return;
       if (r == (int)n + 1) {
-        std::string text = templates[(size_t)k].text;
-        if (!ask_text(tx::TPL_ASK_TEXT, text) || wa::trim(text).empty()) return;
-        templates[(size_t)k].text = wa::trim(text);
+        if (!template_form(templates[(size_t)k], false)) return;
       } else {
         templates.erase(templates.begin() + k);
       }
@@ -5791,8 +6397,10 @@ public:
     list->selected = -1;
     list->tasks_selected = false;
     list->status_selected = true;
+    list->crm_selected = false;
     view->chat = nullptr;
     view->tasks_mode = false;
+    view->crm_mode = false;
     view->status_mode = true;
     options.clear();
     refresh();
@@ -5840,11 +6448,16 @@ public:
     } else if (act == 40) {
       d->tpl = k;
     } else if (act >= 41 && act <= 44) {
-      std::string* f = act == 41 ? &d->title : act == 42 ? &d->body : act == 43 ? &d->footer : &d->emoji;
-      const char* q = act == 41 ? tx::STATUS_ASK_TITLE : act == 42 ? tx::STATUS_ASK_BODY : act == 43 ? tx::STATUS_ASK_FOOTER : tx::STATUS_ASK_EMOJI;
-      std::string v = *f;
-      if (!ask_text(q, v)) return;
-      *f = wa::trim(v);
+      // Los cuatro textos del estado, en una ficha.
+      std::vector<wa::FormField> fs = {{"title", tx::STATUS_F_TITLE, d->title, 0, 2, {}},
+                                       {"body", tx::STATUS_F_BODY, d->body, 1, 2, {}},
+                                       {"footer", tx::STATUS_F_FOOTER, d->footer, 0, 0, {}},
+                                       {"emoji", tx::STATUS_F_EMOJI, d->emoji, 0, 1, {}}};
+      if (!form(tx::STATUS_EDIT_TITLE, fs, tx::BTN_SAVE)) return;
+      d->title = wa::trim(wa::form_value(fs, "title"));
+      d->body = wa::trim(wa::form_value(fs, "body"));
+      d->footer = wa::trim(wa::form_value(fs, "footer"));
+      d->emoji = wa::trim(wa::form_value(fs, "emoji"));
     } else if (act == 45) {
       std::string p = choose_photo();
       if (p.empty()) return;
@@ -6128,6 +6741,10 @@ public:
       status_act(act, k);
       return;
     }
+    if (act >= 60 && act <= 65) {
+      crm_act(act, k);
+      return;
+    }
     if (act >= 10 && act <= 13) {
       task_act(act, k);
       return;
@@ -6143,21 +6760,25 @@ public:
       say(tx::COPIED);
     }
   }
+  // Las claves de la IA, el modelo de OpenAI y unas líneas sobre usted: en una ficha.
   void settings_dialog() {
-    const char* k = fl_password("%s", "", tx::ASK_CLAUDE_KEY);
-    if (k && *k) {
-      ai.claude_key = wa::trim(k);
-      wa::key_set("anthropic", ai.claude_key);
+    std::vector<wa::FormField> fs = {{"claude", tx::F_CLAUDE_KEY, "", 2, 2, {}},
+                                     {"openai", tx::F_OPENAI_KEY, "", 2, 2, {}},
+                                     {"model", tx::F_OPENAI_MODEL, ai.openai_model, 0, 0, {}},
+                                     {"about", tx::F_ABOUT, ai.about, 1, 2, {}}};
+    if (!form(tx::AI_TITLE, fs, tx::BTN_SAVE)) return;
+    std::string k = wa::trim(wa::form_value(fs, "claude")), o = wa::trim(wa::form_value(fs, "openai"));
+    if (!k.empty()) {   // vacío: se queda la que había
+      ai.claude_key = k;
+      wa::key_set("anthropic", k);
     }
-    const char* o = fl_password("%s", "", tx::ASK_OPENAI_KEY);
-    if (o && *o) {
-      ai.openai_key = wa::trim(o);
-      wa::key_set("openai", ai.openai_key);
+    if (!o.empty()) {
+      ai.openai_key = o;
+      wa::key_set("openai", o);
     }
-    const char* m = fl_input("%s", ai.openai_model.c_str(), tx::ASK_OPENAI_MODEL);
-    if (m && *m) ai.openai_model = wa::trim(m);
-    const char* a = fl_input("%s", ai.about.c_str(), tx::ASK_ABOUT);
-    if (a) ai.about = a;
+    std::string m = wa::trim(wa::form_value(fs, "model"));
+    if (!m.empty()) ai.openai_model = m;
+    ai.about = wa::trim(wa::form_value(fs, "about"));
     save_settings();
     refresh();
   }
@@ -6324,12 +6945,13 @@ public:
   void connect_dialog() {
     int r = fl_choice("%s", tx::BTN_CANCEL, tx::CONNECT_CLOUD, tx::CONNECT_QR, tx::CONNECT_ASK);
     if (r == 1) {
-      const char* id = fl_input("%s", cloud.phone_id.c_str(), tx::ASK_CLOUD_PHONE);
-      if (!id) return;
-      cloud.phone_id = wa::trim(id);
-      const char* tk = fl_password("%s", "", tx::ASK_CLOUD_TOKEN);
-      if (tk && *tk) {
-        cloud.token = wa::trim(tk);
+      std::vector<wa::FormField> fs = {{"phone", tx::F_CLOUD_PHONE, cloud.phone_id, 0, 2, {}},
+                                       {"token", tx::F_CLOUD_TOKEN, "", 2, 2, {}}};
+      if (!form(tx::CONNECT_CLOUD, fs, tx::BTN_SAVE)) return;
+      cloud.phone_id = wa::trim(wa::form_value(fs, "phone"));
+      std::string tk = wa::trim(wa::form_value(fs, "token"));
+      if (!tk.empty()) {
+        cloud.token = tk;
         wa::key_set("whatsapp-cloud", cloud.token);
       }
       if (cloud.phone_id.empty() || cloud.token.empty()) {
@@ -6584,6 +7206,32 @@ public:
     Provider->index(0);
     load_busy();
     load_extras();
+    // Cuatro leads de ejemplo, en varias etapas.
+    leads.clear();
+    {
+      struct D {
+        const char* name;
+        int chat, stage;
+        double value;
+        int days;
+      };
+      const D ds[] = {{tx::DEMO_LEAD1, 0, 2, 1200, 1}, {tx::DEMO_LEAD2, 2, 3, 4500, 4},
+                      {tx::DEMO_LEAD3, 5, 0, 900, 0}, {tx::DEMO_LEAD4, -1, 4, 3200, 9}};
+      long long id = 1;
+      for (const auto& d : ds) {
+        wa::Lead l;
+        l.id = id++;
+        l.name = d.name;
+        l.stage = d.stage;
+        l.value = d.value;
+        l.created = l.updated = now - d.days * 86400LL;
+        if (d.chat >= 0) {
+          l.jid = chats[(size_t)d.chat].jid;
+          l.chat = chats[(size_t)d.chat].name;
+        }
+        leads.push_back(l);
+      }
+    }
     // Dos estados de ejemplo.
     designs.clear();
     {
@@ -6660,6 +7308,14 @@ public:
     render_to(dir + "/translate.png");
     open_status();
     render_to(dir + "/status.png");
+    open_crm();
+    render_to(dir + "/crm.png");
+    // La ficha del contacto (como en Odoo), dibujada sin enseñarse.
+    pick(0);
+    form = wa::run_form;
+    wa::form_shot() = dir + "/sheet.png";
+    add_contact();
+    wa::form_shot().clear();
     // El bloqueo con PIN: solo el candado.
     pin_saved = wa::pin_hash("0000");
     lock_now();
@@ -6677,6 +7333,17 @@ public:
   int ui_test() {
     demo_state(1200, 760);
     int f = 0;
+    // Lo que «escribe» la prueba en las fichas (por la clave de cada campo).
+    std::map<std::string, std::string> fill;
+    std::vector<std::string> form_keys;   // los campos de la última ficha
+    form = [&fill, &form_keys](const std::string&, std::vector<wa::FormField>& fs, const char*) {
+      form_keys.clear();
+      for (auto& x : fs) {
+        form_keys.push_back(x.key);
+        if (fill.count(x.key)) x.value = fill[x.key];
+      }
+      return true;
+    };
     static bool trace = fl_getenv("DMS_MYWA_TRACE") != nullptr;   // cada paso, para encontrar un fallo
     auto chk = [&](bool ok, const char* what) {
       if (trace) std::fprintf(stderr, "ok? %d %s\n", ok ? 1 : 0, what);
@@ -6906,24 +7573,16 @@ public:
       choose = [](const std::vector<std::string>&) { return 1; };   // «Conduciendo»
       busy_menu();
       chk(busy == tx::BUSY_DRIVING && busy_mode() != nullptr && busy_since > 0, "activar un modo");
-      std::vector<std::string> answers = {"Gimnasio", "Entrenando, luego te escribo 💪"};
-      size_t ai_n = 0;
-      ask_text = [&answers, &ai_n](const char*, std::string& io) {
-        io = answers[ai_n++ % answers.size()];
-        return true;
-      };
-      int pickn = 0;
-      choose = [&pickn, n](const std::vector<std::string>&) { return pickn++ == 0 ? (int)n : 0; };   // «+ Nuevo modo…» → texto fijo
+      // Un modo nuevo: nombre, mensaje y si contesta la IA, todo en una ficha.
+      fill = {{"name", "Gimnasio"}, {"text", "Entrenando, luego te escribo 💪"}, {"ai", "0"}};
+      choose = [n](const std::vector<std::string>&) { return (int)n; };   // «+ Nuevo modo…»
       busy_menu();
-      chk(busy_modes.size() == n + 1 && busy == "Gimnasio" && busy_modes.back().text == answers[1] && !busy_modes.back().ai,
-          "crear un modo y activarlo");
+      chk(busy_modes.size() == n + 1 && busy == "Gimnasio" && busy_modes.back().text == fill["text"] && !busy_modes.back().ai &&
+              form_keys.size() == 3,
+          "crear un modo y activarlo (una sola ficha)");
       int step = 0;
-      choose = [&step, n](const std::vector<std::string>&) {
-        int k = step++;
-        return k == 0 ? (int)n + 2 : k == 1 ? (int)n : 1;   // «Editar…» → el nuevo → «✨ Que conteste la IA»
-      };
-      answers = {"Entrenando ahora"};
-      ai_n = 0;
+      choose = [&step, n](const std::vector<std::string>&) { return step++ == 0 ? (int)n + 2 : (int)n; };   // «Editar…» → el nuevo
+      fill = {{"name", "Gimnasio"}, {"text", "Entrenando ahora"}, {"ai", "1"}};
       busy_menu();
       chk(busy_modes.back().text == "Entrenando ahora" && busy_modes.back().ai, "editar un modo (y que conteste la IA)");
       step = 0;
@@ -6994,12 +7653,10 @@ public:
           break;
         }
       chk(designs[1].tpl == 3, "elegir la plantilla «Noche»");
-      ask_text = [](const char*, std::string& io) {
-        io = "¡Nueva colección!";
-        return true;
-      };
+      fill = {{"title", "¡Nueva colección!"}, {"footer", "#Nuevo"}};
       option_act(41, -1);
-      chk(designs[1].title == "¡Nueva colección!", "cambiar el título");
+      chk(designs[1].title == "¡Nueva colección!" && designs[1].footer == "#Nuevo" && form_keys.size() == 4,
+          "cambiar los textos del estado (una sola ficha)");
       choose_photo = [] { return std::string(); };
       option_act(46, -1);
       chk(designs[1].photo.empty(), "quitar la foto");
@@ -7048,12 +7705,7 @@ public:
       std::string got = Draft->value();
       chk(got.find("Laura") != std::string::npos && got.find("{nombre}") == std::string::npos, "insertar una plantilla con el nombre");
       size_t nt = templates.size();
-      std::vector<std::string> ans = {"Cita", "Te espero el {nombre} a las 10"};
-      size_t ai2 = 0;
-      ask_text = [&ans, &ai2](const char*, std::string& io) {
-        io = ans[ai2++ % ans.size()];
-        return true;
-      };
+      fill = {{"name", "Cita"}, {"text", "Te espero el {nombre} a las 10"}};
       choose = [nt](const std::vector<std::string>&) { return (int)nt; };   // «+ Nueva plantilla…»
       templates_menu();
       chk(templates.size() == nt + 1 && templates.back().name == "Cita", "crear una plantilla");
@@ -7065,13 +7717,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 2; };   // «Limpiar el chat»
+      choose = [](const std::vector<std::string>&) { return 3; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 3; };   // «Deshacer la limpieza»
+      choose = [](const std::vector<std::string>&) { return 4; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -7085,13 +7737,11 @@ public:
     }
     // El PIN: ponerlo, bloquear, uno malo, el bueno y quitarlo.
     {
-      std::vector<std::string> ans = {"1234", "1234"};
-      size_t an = 0;
-      ask_text = [&ans, &an](const char*, std::string& io) {
-        io = ans[an++ % ans.size()];
-        return true;
-      };
+      fill = {{"pin", "1234"}, {"pin2", "1235"}};
       choose = [](const std::vector<std::string>&) { return 0; };   // «Poner un PIN…»
+      pin_menu();
+      chk(pin_saved.empty() && message == tx::PIN_MISMATCH, "dos PIN distintos: no se pone");
+      fill = {{"pin", "1234"}, {"pin2", "1234"}};
       pin_menu();
       chk(pin_saved == wa::pin_hash("1234") && pin_saved != "1234", "poner un PIN (guardado resumido)");
       lock_now();
@@ -7109,8 +7759,7 @@ public:
       chk(locked && lock_view->hint == tx::PIN_WRONG, "un PIN malo no abre");
       try_pin("1234");
       chk(!locked && !lock_view->visible() && Side->visible() && ChatArea->visible() && AiBar->visible(), "el PIN bueno abre (y vuelve todo)");
-      ans = {"1234"};
-      an = 0;
+      fill = {{"pin", "1234"}};
       choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Quitar el PIN»
       pin_menu();
       chk(pin_saved.empty(), "quitar el PIN");
@@ -7121,26 +7770,80 @@ public:
         return true;
       };
     }
+    // El CRM: el tablero, mover un lead, crear uno desde un chat y cambiar su etapa.
+    {
+      render_to("");
+      for (const auto& h : list->hits)
+        if (h.act == 10) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          list->handle(FL_PUSH);
+          break;
+        }
+      chk(view->crm_mode && list->crm_selected, "abrir el CRM");
+      render_to("");
+      int cards = 0;
+      for (const auto& h : view->hits) cards += h.act == 61 ? 1 : 0;
+      chk(cards == 4, "el tablero: los cuatro leads");
+      int carlos = 1;   // en «Negociación»
+      for (const auto& h : view->hits)
+        if (h.act == 63 && h.idx == carlos) {
+          Fl::e_x = h.x + 3;
+          Fl::e_y = h.y + 3;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(leads[(size_t)carlos].stage == 4, "mover un lead a «Ganado»");
+      // Desde el chat de Mamá: un lead nuevo, enlazado.
+      pick(3);
+      fill = {{"value", "1.250,50 €"}};   // el nombre: el del chat, ya puesto
+      choose = [](const std::vector<std::string>&) { return 0; };   // «💼 CRM…»
+      chat_menu();
+      chk(leads.size() == 5 && leads.back().jid == chats[3].jid && leads.back().name == chats[3].name &&
+              std::fabs(leads.back().value - 1250.5) < 0.001 && leads.back().stage == 0,
+          "un lead desde el chat, con su importe");
+      render_to("");
+      bool badge = false;
+      for (const auto& h : view->hits) badge = badge || h.act == 65;
+      chk(badge && view->chat_stage == tx::CRM_S0, "la etapa, en la cabecera del chat");
+      choose = [](const std::vector<std::string>&) { return 2; };   // «Propuesta»
+      option_act(65, -1);
+      chk(leads.back().stage == 2 && view->chat_stage == tx::CRM_S2, "cambiar la etapa desde el chat");
+      choose = [](const std::vector<std::string>&) { return wa::CRM_STAGES; };   // «Quitar del CRM»
+      option_act(65, -1);
+      chk(leads.size() == 4 && view->chat_stage.empty(), "quitar del CRM");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+      pick(0);
+    }
     // Añadir el contacto del chat a Contactos (un .vcf que abre la app Contactos).
     {
       pick(0);
-      std::vector<std::string> ans = {"", "Martín", "Muebles Sol", "laura@example.com"};
-      size_t an = 0;
-      ask_text = [&ans, &an](const char*, std::string& io) {
-        if (an < ans.size() && !ans[an].empty()) io = ans[an];
-        an++;
-        return true;
-      };
+      // La ficha: una sola ventana con todo (como en Odoo); primero sin Contactos.
+      fill = {{"name", "Laura Martín"}, {"company", "Muebles Sol"}, {"email", "laura@example.com"}, {"city", "Valencia"},
+              {"vat", "B12345678"}, {"job", "Gerente"}, {"to_contacts", "0"}};
+      choose = [](const std::vector<std::string>&) { return 1; };   // «👤 Ficha del contacto…»
+      chat_menu();
+      chk(sheets.count(chats[0].jid) && sheets[chats[0].jid]["company"] == "Muebles Sol" && sheets[chats[0].jid]["mobile"] == "+34600111222" &&
+              form_keys.size() >= 18 && message == tx::SHEET_SAVED,
+          "la ficha del contacto: todo en una ventana, guardada");
+      fill["to_contacts"] = "1";
       std::string opened;
       open_file = [&opened](const std::string& p) { opened = p; };
-      choose = [](const std::vector<std::string>&) { return 0; };   // «👤 Añadir a mis contactos…»
       chat_menu();
       std::string card;
       wa::read_file(opened, card);
       chk(!opened.empty() && card.find("BEGIN:VCARD") == 0 && card.find("TEL;type=CELL;type=VOICE;type=pref:+34600111222") != std::string::npos &&
               card.find("N:Martín;Laura;;;") != std::string::npos && card.find("ORG:Muebles Sol") != std::string::npos &&
               card.find("EMAIL;type=INTERNET;type=pref:laura@example.com") != std::string::npos && message == tx::CONTACT_OPENED,
-          "añadir a contactos: la ficha con el nombre del chat, el teléfono y lo que se escribe");
+          "la ficha, también en Contactos (vCard con el nombre, el teléfono y lo escrito)");
+      chk(card.find("ADR;type=WORK;type=pref:;;;Valencia;;;") != std::string::npos && card.find("TITLE:Gerente") != std::string::npos &&
+              card.find("NIF: B12345678") != std::string::npos,
+          "la vCard con la dirección, el puesto y el NIF");
       std::remove(opened.c_str());
       pick(1);   // un grupo: no
       chat_menu();
@@ -7156,7 +7859,7 @@ public:
     // Valorar a una persona: la tarjeta de la IA, encima del chat.
     {
       pick(0);
-      choose = [](const std::vector<std::string>&) { return 1; };   // «✨ Valorar a esta persona»
+      choose = [](const std::vector<std::string>&) { return 2; };   // «✨ Valorar a esta persona»
       chat_menu();
       chk(view->insight == tx::PERSON_THINKING, "valorar: pensando");
       person_done(new PersonDone{chats[0].jid, "Cercana y práctica. Trátala con calma.", ""});

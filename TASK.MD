@@ -99,6 +99,9 @@ Hechos
 95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ✅ |
 118. MyWhatsapp: los ✓ de mis mensajes (enviado, entregado y leído en azul) | ✅ |
 87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ✅ |
+104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ✅ |
+114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ✅ |
+119. MyWhatsapp: los datos se editan en una sola ficha (como en Odoo), no en ventanas una tras otra | ✅ |
 
 Trabajando
 =========
@@ -117,6 +120,4 @@ Pendiente
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
 102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ⏳ |
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
-104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
-114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |

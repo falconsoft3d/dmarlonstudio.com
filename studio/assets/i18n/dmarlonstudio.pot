@@ -461,7 +461,7 @@ msgstr ""
 msgid "Cargar"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Ciudad"
 msgstr ""
 
@@ -561,7 +561,7 @@ msgstr ""
 msgid "El editor de notas en Flask: guardar descarga el archivo en el navegador."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_util_investor.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_investor.dart
 msgid "Empresa"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Notas"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr ""
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Tareas web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Teléfono"
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -1233,7 +1233,7 @@ msgstr ""
 msgid "Mejor valorado"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mensaje"
 msgstr ""
 
@@ -2679,7 +2679,7 @@ msgstr ""
 msgid "Guardar el archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
 msgid "Importe"
 msgstr ""
 
@@ -3508,7 +3508,7 @@ msgstr ""
 msgid "Paraguay · Asunción"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "País"
 msgstr ""
 
@@ -6666,6 +6666,10 @@ msgid "+ Nuevo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nuevo lead"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nuevo modo…"
 msgstr ""
 
@@ -6679,6 +6683,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.23 — CRM: los leads en un tablero por etapas, enlazados a sus chats. La ficha del contacto, como en Odoo. Los datos se editan en una sola ventana.\n"
 "1.0.22 — Añadir el contacto de un chat a sus Contactos (y al teléfono, por iCloud).\n"
 "1.0.21 — Los ✓ de sus mensajes: enviado, entregado y leído en azul.\n"
 "1.0.20 — El bloqueo con PIN ya no deja ver nada de la app: solo el candado.\n"
@@ -6760,6 +6765,10 @@ msgid "Archivados"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Armario a medida · Pérez"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó la mesa de Laura. ¿Le hacemos la suya?"
 msgstr ""
 
@@ -6819,6 +6828,22 @@ msgid "Buenas, ¿tenéis el presupuesto de la cocina?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "C.P."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart
+msgid "CRM"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Calle"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Calle 2"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cambiar el PIN…"
 msgstr ""
 
@@ -6843,6 +6868,14 @@ msgid "Claude (Anthropic)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Clave de Claude (vacía: la de ahora)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Clave de OpenAI (vacía: la de ahora)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Clave de la API de Claude (Anthropic), de console.anthropic.com (déjela vacía para no cambiarla):"
 msgstr ""
 
@@ -6851,11 +6884,23 @@ msgid "Clave de la API de OpenAI (ChatGPT), de platform.openai.com (déjela vac�
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Claves de la IA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Claves de la IA…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cocina completa · Carlos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Como el sistema"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Compañía"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6880,6 +6925,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Confirmar a Laura la entrega del sábado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Contactado"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6919,6 +6968,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Correo (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Correo electrónico"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6962,7 +7015,19 @@ msgid "Editar el mensaje de un modo…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Editar el modo ocupado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Editar la plantilla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Editar una plantilla…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El PIN de ahora"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6975,6 +7040,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El PIN son 4 cifras"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El lead (por ejemplo: Cocina de Laura):"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7023,6 +7092,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Empresa (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En el CRM: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7147,6 +7220,14 @@ msgstr ""
 msgid "Estoy en una reunión; te contesto en cuanto salga 🙏"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart
+msgid "Etapa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Etiquetas"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Falta el número o el token de la API oficial (Archivo › Conectar WhatsApp para enviar…)"
 msgstr ""
@@ -7160,7 +7241,19 @@ msgid "Falta la clave de la IA (Archivo › Claves de la IA…)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Faltan datos: rellene el nombre y el texto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Familia 🏡"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ficha de {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ficha guardada"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7171,12 +7264,20 @@ msgstr ""
 msgid "Foto"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart
+msgid "Ganado"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Genial, ¿cuándo me la podéis llevar?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Gracias"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Guardar también en Contactos (y en el iPhone, por iCloud)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7220,6 +7321,14 @@ msgid "Importar un chat exportado…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Importe (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Individual"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Javi"
 msgstr ""
 
@@ -7260,6 +7369,10 @@ msgid "Laura (Muebles Sol)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Lead"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el estilo que elija."
 msgstr ""
 
@@ -7292,6 +7405,10 @@ msgid "Los dos PIN no son iguales"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Los textos del estado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mamá"
 msgstr ""
 
@@ -7304,6 +7421,14 @@ msgid "Me apunto!"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mesa de roble · Laura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mesa para Roma · Giulia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mesas de roble a medida"
 msgstr ""
 
@@ -7312,6 +7437,10 @@ msgid ""
 "Mi mensaje:\n"
 "\n"
 "{0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modelo de OpenAI"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7370,9 +7499,17 @@ msgid ""
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). En «⋯», «👤 Añadir a mis contactos…» guarda a esa persona en Contactos (y por iCloud, en el teléfono), y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Móvil"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "NIF"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7381,6 +7518,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Natural"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Negociación"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7460,7 +7601,23 @@ msgid "Nota de voz"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Notas internas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nuestro horario es de lunes a viernes, de 9:00 a 18:00."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nueva plantilla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nuevo lead"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nuevo modo ocupado"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7469,6 +7626,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Original:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PIN"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PIN de MyWhatsapp (4 cifras)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7503,12 +7668,20 @@ msgstr ""
 msgid "Pedro"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart
+msgid "Perdido"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Perfecto, gracias. ¿Incluye la instalación?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Perfecto. ¿Cuánto cuesta el envío? 🙂"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Phone number ID"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7543,8 +7716,28 @@ msgstr ""
 msgid "Profesional (negocio)"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart lib/ui/screens/tk_designer.dart
+msgid "Propuesta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Provincia"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Publicando el estado…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Puesto de trabajo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Página web"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Quitar del CRM"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7576,6 +7769,10 @@ msgid "Reenviar…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Repita el PIN"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Repita el PIN:"
 msgstr ""
 
@@ -7601,6 +7798,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sobre el usuario: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sobre usted (opcional)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7641,6 +7842,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Token (vacío: el de ahora)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7788,6 +7993,10 @@ msgid "{0} (detectado)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} abiertos · {1} en juego · {2} ganados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} chats de {1} · IA: {2} · Envío: {3}"
 msgstr ""
 
@@ -7821,6 +8030,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Sí, está disponible! Podemos enviarla a Roma en una semana."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Borrar «{0}» del CRM?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7933,7 +8146,11 @@ msgid "🌐 Traducir"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "👤 Añadir a mis contactos…"
+msgid "👤 Ficha del contacto…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "💼 CRM: añadir o cambiar la etapa…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -11735,10 +11952,6 @@ msgstr ""
 msgid "Contra reembolso"
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Correo electrónico"
-msgstr ""
-
 #: lib/code/tk_showcase_sites.dart
 msgid "Crea tu cuenta"
 msgstr ""
@@ -13769,10 +13982,6 @@ msgstr ""
 msgid "N: añadir hijo · Mayús + N: al mismo nivel · Supr: eliminar · Intro: abrir · U: enviar · E / Mayús + E: abrir o cerrar todo"
 msgstr ""
 
-#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
-msgid "NIF"
-msgstr ""
-
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "No hay clientes: sincronice o cree uno en Clientes."
 msgstr ""
@@ -15398,10 +15607,6 @@ msgid "Base imponible"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "CRM"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "CRM web"
 msgstr ""
 
@@ -15474,10 +15679,6 @@ msgid "Esta oportunidad ya está cerrada."
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Etapa"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Factura"
 msgstr ""
 
@@ -15513,10 +15714,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Ganada"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Ganado"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -15616,19 +15813,11 @@ msgid "Perdida"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Perdido"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "Preparar propuesta"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Producto añadido: {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart lib/ui/screens/tk_designer.dart
-msgid "Propuesta"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
@@ -18673,10 +18862,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Menú (Pantalla|icono|texto, una por línea)"
-msgstr ""
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Móvil"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

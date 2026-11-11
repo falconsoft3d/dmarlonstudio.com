@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.117 — 2026-11-11
+
+- **MyWhatsapp 1.0.20: el bloqueo con PIN ya no deja ver nada.** La pantalla del candado tapaba la ventana, pero la conversación se redibuja cada segundo y volvía a pintarse por encima, así que se veían los chats. Ahora, al bloquear, se esconde todo lo de la ventana (la lista, el chat, el panel de abajo y la barra de estado) y solo queda el candado con el campo del PIN; al poner el PIN bueno vuelve todo. La prueba de la interfaz comprueba que, bloqueada, no queda nada visible salvo el candado, y hay una captura del bloqueo.
+- El puente de WhatsApp (`wabridge`) ya pasa los acuses de recibo de sus mensajes (entregado y leído) y marca como enviado lo que envía: es la base de los ✓ de la próxima versión.
+
 ## 1.0.116 — 2026-11-11
 
 - **MyWhatsapp tiene su propia versión: la 1.0.19.** Va en el título de la ventana y en Acerca de, y Ayuda › Novedades enseña lo nuevo de cada versión, de la 1.0.1 (leer los chats y proponer respuestas) a esta. Sube con cada cambio de la app, aparte de la versión del estudio.

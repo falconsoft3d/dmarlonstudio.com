@@ -67,6 +67,8 @@ type Msg struct {
 	Title string `json:"title,omitempty"`
 	Size  int64  `json:"size,omitempty"`
 	Group bool   `json:"group,omitempty"`
+	// Los míos: 5 enviado, 6 entregado, 8 leído (los mismos números que WhatsApp Desktop).
+	Status int `json:"status,omitempty"`
 }
 
 type bridge struct {
@@ -90,7 +92,7 @@ func (b *bridge) emit(v any) {
 		case Msg:
 			b.store.Write(append(data, '\n'))
 		case map[string]any:
-			if m["ev"] == "chat" {
+			if m["ev"] == "chat" || m["ev"] == "receipt" {
 				b.store.Write(append(data, '\n'))
 			}
 		}
@@ -230,6 +232,21 @@ func (b *bridge) onEvent(evt any) {
 				}
 			}
 		}
+	case *events.Receipt:
+		// Los acuses de mis mensajes: entregado o leído (y escuchado, en las notas de voz).
+		if e.IsFromMe || len(e.MessageIDs) == 0 {
+			return
+		}
+		status := 0
+		switch e.Type {
+		case types.ReceiptTypeDelivered:
+			status = 6
+		case types.ReceiptTypeRead, types.ReceiptTypePlayed:
+			status = 8
+		}
+		if status > 0 {
+			b.emit(map[string]any{"ev": "receipt", "ids": e.MessageIDs, "status": status})
+		}
 	case *events.Connected:
 		me := ""
 		if b.cli.Store.ID != nil {
@@ -363,7 +380,7 @@ func (b *bridge) handle(c command) {
 		}
 		resp, err := b.cli.SendMessage(ctx, to, msg)
 		if err == nil {
-			out.ID, out.T = resp.ID, resp.Timestamp.Unix()
+			out.ID, out.T, out.Status = resp.ID, resp.Timestamp.Unix(), 5
 			b.emit(out)
 		}
 		sent(err)

@@ -6679,6 +6679,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.20 — El bloqueo con PIN ya no deja ver nada de la app: solo el candado.\n"
 "1.0.19 — Versión propia y novedades, bloqueo con PIN y «✨ Valorar a esta persona».\n"
 "1.0.18 — Arrastrar archivos al chat, lista más compacta, barra plegable, reenviar, limpiar un chat y plantillas.\n"
 "1.0.17 — Diseñar y publicar estados (con IA).\n"

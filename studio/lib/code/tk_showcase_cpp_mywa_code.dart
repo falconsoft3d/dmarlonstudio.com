@@ -4028,7 +4028,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.19";
+const char* const MYWA_VERSION = "1.0.20";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -4274,6 +4274,7 @@ public:
   // El bloqueo con PIN: el resumen guardado, si está bloqueada, tras cuántos minutos
   // sin tocarla se bloquea sola (0: nunca) y cuándo se tocó por última vez.
   wa::LockView* lock_view = nullptr;
+  std::vector<Fl_Widget*> hidden_by_lock;   // lo que se escondió al bloquear
   std::string pin_saved;
   bool locked = false;
   int lock_after = 5;
@@ -5261,6 +5262,16 @@ public:
   void lock_now() {
     if (pin_saved.empty()) return;
     locked = true;
+    // Se esconde todo lo de la ventana: bloqueada no se ve nada (ni al redibujarse el chat).
+    hidden_by_lock.clear();
+    for (int i = 0; i < children(); i++) {
+      Fl_Widget* c = child(i);
+      if (c != lock_view && c->visible()) {
+        c->hide();
+        hidden_by_lock.push_back(c);
+      }
+    }
+    if (find_input) find_input->hide();
     lock_view->hint.clear();
     lock_view->resize(0, 0, w(), h());
     lock_view->show();
@@ -5275,6 +5286,8 @@ public:
     if (wa::pin_hash(v) == pin_saved) {
       locked = false;
       lock_view->hide();
+      for (Fl_Widget* c : hidden_by_lock) c->show();
+      hidden_by_lock.clear();
       last_touch = wa::now_s();
       update_bar();
       redraw();
@@ -6428,6 +6441,12 @@ public:
     render_to(dir + "/translate.png");
     open_status();
     render_to(dir + "/status.png");
+    // El bloqueo con PIN: solo el candado.
+    pin_saved = wa::pin_hash("0000");
+    lock_now();
+    render_to(dir + "/lock.png");
+    try_pin("0000");
+    pin_saved.clear();
     pick(0);
     view->viewer = "demo:mesa";
     view->viewer_title = tx::DEMO_PHOTO_CAPTION;
@@ -6857,7 +6876,11 @@ public:
       pin_menu();
       chk(pin_saved == wa::pin_hash("1234") && pin_saved != "1234", "poner un PIN (guardado resumido)");
       lock_now();
-      chk(locked && lock_view->visible(), "bloquear");
+      int shown_children = 0;
+      for (int i = 0; i < children(); i++)
+        if (child(i) != lock_view && child(i)->visible()) shown_children++;
+      chk(locked && lock_view->visible() && shown_children == 0 && !Side->visible() && !ChatArea->visible() && !AiBar->visible(),
+          "bloquear: solo el candado, nada de la app");
       int bar_w = 0;
       auto be = bar_entries(bar_w);
       bool names = false;
@@ -6866,7 +6889,7 @@ public:
       try_pin("9999");
       chk(locked && lock_view->hint == tx::PIN_WRONG, "un PIN malo no abre");
       try_pin("1234");
-      chk(!locked && !lock_view->visible(), "el PIN bueno abre");
+      chk(!locked && !lock_view->visible() && Side->visible() && ChatArea->visible() && AiBar->visible(), "el PIN bueno abre (y vuelve todo)");
       ans = {"1234"};
       an = 0;
       choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Quitar el PIN»

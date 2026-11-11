@@ -2564,7 +2564,7 @@ public:
           fl_color(rgb(0x111b21));
           fl_draw(l.c_str() + mk.first, mk.second, lx + (int)fl_width(l.c_str(), mk.first), ty);
         }
-        boxes.push_back(box);
+        if (ty - 15 >= y() + head) boxes.push_back(box);   // las que tapa la cabecera no se seleccionan
         ty += lh;
       }
       // La traducción (o lo que escribí), debajo de una raya.
@@ -2606,6 +2606,7 @@ public:
     fl_color(rgb(T.card_line));
     fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
     avatar(x() + 16, y() + 10, 40, chat->name, chat->pic, rgb(T.panel));
+    if (!chat->pic.empty()) hits.push_back({x() + 16, y() + 10, 40, 40, 33, -1});   // la foto, en grande
     // A la derecha: «+ Tarea» y buscar (el campo, cuántos hay, ▲ ▼ ✕).
     fl_font(FL_HELVETICA_BOLD, 12);
     int rx = x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20);
@@ -4172,6 +4173,13 @@ public:
       viewer_act(act);
       return;
     }
+    if (act == 33 && current >= 0 && !chats[(size_t)current].pic.empty()) {
+      view->viewer = chats[(size_t)current].pic;
+      view->viewer_title = chats[(size_t)current].name;
+      Fl::focus(view);
+      refresh();
+      return;
+    }
     if (act == 5) {
       task_from_chat(-1);
       return;
@@ -4839,6 +4847,7 @@ public:
         close = close || h.act == 32;
       }
       chk(down && close && view->hits.size() == 2, "el visor: descargar y cerrar (y nada del chat debajo)");
+      fl_make_path(wa::config_dir().c_str());
       std::string dest = wa::config_dir() + "/prueba-descarga.png", asked;
       save_as = [&](const std::string& name) {
         asked = name;
@@ -4854,6 +4863,19 @@ public:
       Fl::e_keysym = FL_Escape;
       dispatch(FL_KEYBOARD, this);
       chk(view->viewer.empty(), "Esc cierra el visor");
+      // La foto del contacto, en la cabecera, también se abre en grande.
+      render_to("");
+      bool face = false;
+      for (const auto& h : view->hits)
+        if (h.act == 33) {
+          face = true;
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(face && view->viewer == chats[0].pic && view->viewer_title == chats[0].name, "la foto del contacto, en grande");
+      viewer_act(32);
     }
     // Traducir: el chat de Giulia, en italiano, con su traducción debajo.
     {
@@ -4892,7 +4914,7 @@ public:
       render_to("");
       const wa::ChatView::LineBox* lb = nullptr;
       for (const auto& b : view->boxes)
-        if (b.xs.size() > 8) lb = &b;
+        if (b.xs.size() > 8 && b.y > view->y() + 70) lb = &b;
       chk(lb != nullptr, "las líneas del chat");
       if (lb) {
         wa::ChatView::LineBox box = *lb;

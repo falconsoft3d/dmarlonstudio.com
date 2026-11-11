@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.107 — 2026-11-11
+
+- **MyWhatsapp: la foto del contacto, en grande.** Tocar la foto en la cabecera del chat la abre en el visor, con su nombre arriba y «⬇ Descargar».
+- **MyWhatsapp: el texto que tapa la cabecera ya no se selecciona.** Las líneas de un mensaje que quedan bajo la cabecera, al subir, no cuentan para seleccionar.
+- La prueba de «descargar la foto» de la 1.0.106 fallaba al correr con una carpeta de ajustes nueva (guardaba la copia en una carpeta que aún no existía): era la prueba, no la app; ahora crea la carpeta antes. Probado: la prueba de la interfaz completa, también con la carpeta de ajustes vacía, y la de la app empaquetada.
+
 ## 1.0.106 — 2026-11-11
 
 - **MyWhatsapp: las fotos, primero en grande.** Tocar una foto (o un sticker) ya no la abre fuera: se ve en grande sobre la conversación, lo más grande que quepa, con su pie de foto arriba y tres botones: «⬇ Descargar» (pregunta dónde guardar una copia, en Descargas por defecto; los stickers se guardan como PNG), «Abrir con su programa» y ✕. Esc o ✕ lo cierran. Los documentos, vídeos y notas de voz se siguen abriendo con su programa.

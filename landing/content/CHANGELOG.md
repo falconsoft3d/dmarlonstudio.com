@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.106 — 2026-11-11
+
+- **MyWhatsapp: las fotos, primero en grande.** Tocar una foto (o un sticker) ya no la abre fuera: se ve en grande sobre la conversación, lo más grande que quepa, con su pie de foto arriba y tres botones: «⬇ Descargar» (pregunta dónde guardar una copia, en Descargas por defecto; los stickers se guardan como PNG), «Abrir con su programa» y ✕. Esc o ✕ lo cierran. Los documentos, vídeos y notas de voz se siguen abriendo con su programa.
+- Probado: la prueba de la interfaz toca la foto del chat de ejemplo, comprueba que el visor solo tiene sus botones (nada del chat debajo), descarga la copia y la vuelve a leer como imagen de 520 píxeles de ancho, y la cierra con Esc.
+
 ## 1.0.105 — 2026-11-11
 
 - **MyWhatsapp: los chats archivados, aparte.** Los chats que archivó en WhatsApp (`ZARCHIVED`) ya no se mezclan con los demás: quedan detrás de una fila «📦 Archivados» con cuántos hay, como en WhatsApp, y «← Archivados» vuelve a la lista.

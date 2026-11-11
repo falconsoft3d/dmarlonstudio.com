@@ -2201,7 +2201,38 @@ public:
   int match = -1;
   Fl_Input* find_input = nullptr;
   std::string translate_label;   // el idioma del chat abierto si se traduce ("" si no)
+  // El visor: una foto en grande, encima de todo ("" si está cerrado).
+  std::string viewer, viewer_title;
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
+
+  // Acciones: 30 descargar, 31 abrir con su programa, 32 cerrar.
+  void draw_viewer() {
+    const Theme& T = th();
+    fl_color(rgb(0x0b141a));
+    fl_rectf(x(), y(), w(), h());
+    const int bar = 56;
+    fl_color(rgb(0x202c33));
+    fl_rectf(x(), y(), w(), bar);
+    // Los botones, de derecha a izquierda.
+    fl_font(FL_HELVETICA_BOLD, 12);
+    int bx = x() + w() - 16 - ((int)fl_width("✕") + 20);
+    button(bx, y() + 15, "✕", 32, -1, rgb(0xe9edef), rgb(0x2a3942));
+    bx -= 8 + (int)fl_width(tx::OPEN_EXTERNAL) + 20;
+    if (!starts(viewer, "demo:")) button(bx, y() + 15, tx::OPEN_EXTERNAL, 31, -1, rgb(0xe9edef), rgb(0x2a3942));
+    bx -= 8 + (int)fl_width(tx::DOWNLOAD) + 20;
+    button(bx, y() + 15, tx::DOWNLOAD, 30, -1, rgb(0x111b21), rgb(T.dark ? 0x00a884 : 0x25d366));
+    fl_font(FL_HELVETICA_BOLD, 14);
+    fl_color(rgb(0xe9edef));
+    fl_draw(fit(viewer_title, bx - x() - 40).c_str(), x() + 20, y() + 34);
+    // La foto, lo más grande que quepa.
+    Fl_RGB_Image* img = image_fit(viewer, w() - 60, h() - bar - 40);
+    if (img) img->draw(x() + (w() - img->w()) / 2, y() + bar + (h() - bar - img->h()) / 2);
+    else {
+      fl_font(FL_HELVETICA, 14);
+      fl_color(rgb(0x8696a0));
+      fl_draw(tx::NO_PREVIEW, x(), y() + bar, w(), h() - bar, FL_ALIGN_CENTER);
+    }
+  }
 
   static bool before(const Pos& a, const Pos& b) {
     if (a.msg != b.msg) return a.msg < b.msg;
@@ -2407,7 +2438,12 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || !chat) && find_input && find_input->visible()) find_input->hide();
+    if ((tasks_mode || !chat || !viewer.empty()) && find_input && find_input->visible()) find_input->hide();
+    if (!viewer.empty()) {
+      draw_viewer();
+      fl_pop_clip();
+      return;
+    }
     if (tasks_mode) {
       draw_tasks();
       fl_pop_clip();
@@ -2685,7 +2721,7 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || !chat) return 1;
+        if (right || tasks_mode || !chat || !viewer.empty()) return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -2716,6 +2752,10 @@ public:
         return 1;
       case FL_KEYBOARD:
       case FL_SHORTCUT:
+        if (!viewer.empty() && Fl::event_key() == FL_Escape) {
+          if (on_act) on_act(32, -1);
+          return 1;
+        }
         if ((Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'c' && has_selection()) {
           std::string t = selected_text();
           Fl::copy(t.c_str(), (int)t.size(), 1);
@@ -3475,6 +3515,10 @@ public:
       f->open_find();
       return 1;
     }
+    if (f && e == FL_KEYBOARD && Fl::event_key() == FL_Escape && !f->view->viewer.empty()) {
+      f->viewer_act(32);
+      return 1;
+    }
     if (f && e == FL_KEYBOARD && Fl::focus() == f->find_input) {
       if (Fl::event_key() == FL_Enter || Fl::event_key() == FL_KP_Enter) {
         f->move_match(Fl::event_state() & FL_SHIFT ? 1 : -1);
@@ -3674,6 +3718,7 @@ public:
     view->msg_scroll = 0;
     view->asked_more = false;
     view->clear_selection();
+    view->viewer.clear();
     msg_limit = 60;
     close_find();
     options.clear();
@@ -3747,9 +3792,29 @@ public:
     f->refresh();
   }
   // Un adjunto descargado: se abre con su programa (Vista Previa, QuickTime…).
+  // Dónde guardar una copia (las pruebas lo cambian): "" si se cancela.
+  std::function<std::string(const std::string&)> save_as = [](const std::string& name) {
+    Fl_Native_File_Chooser ch;
+    ch.title(tx::DOWNLOAD_TITLE);
+    ch.type(Fl_Native_File_Chooser::BROWSE_SAVE_FILE);
+    ch.options(Fl_Native_File_Chooser::SAVEAS_CONFIRM);
+    ch.preset_file(name.c_str());
+    if (const char* h = fl_getenv("HOME")) ch.directory((std::string(h) + "/Downloads").c_str());
+    if (ch.show() != 0 || !ch.filename()) return std::string();
+    return std::string(ch.filename());
+  };
   void open_attachment(int i) {
     if (current < 0 || i < 0 || i >= (int)chats[(size_t)current].msgs.size()) return;
-    const std::string& path = chats[(size_t)current].msgs[(size_t)i].media;
+    const wa::Msg& m = chats[(size_t)current].msgs[(size_t)i];
+    const std::string& path = m.media;
+    // Las fotos y los stickers: primero en grande, en el visor.
+    if ((m.kind == wa::K_IMAGE || m.kind == wa::K_STICKER) && !path.empty()) {
+      view->viewer = path;
+      view->viewer_title = m.title.empty() ? (m.text.empty() ? wa::kind_name(m.kind) : m.text) : m.title;
+      Fl::focus(view);
+      refresh();
+      return;
+    }
     if (path.empty() || wa::starts(path, "demo:")) return;
     std::string url = "file://";
     for (char c : path) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
@@ -4061,9 +4126,50 @@ public:
     }
     refresh();
   }
+  // El visor: descargar una copia, abrirla con su programa o cerrarlo.
+  void viewer_act(int act) {
+    std::string path = view->viewer;
+    if (act == 32) {
+      view->viewer.clear();
+    } else if (act == 31 && !wa::starts(path, "demo:")) {
+      std::string url = "file://";
+      for (char c : path) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
+      fl_open_uri(url.c_str());
+    } else if (act == 30) {
+      std::string base = wa::file_base(path);
+      if (wa::starts(path, "demo:")) base = path.substr(5) + ".png";
+      // Los stickers se guardan como PNG (el WebP casi nada lo abre).
+      if (wa::lower(base).size() > 5 && wa::lower(base).compare(base.size() - 5, 5, ".webp") == 0)
+        base = base.substr(0, base.size() - 5) + ".png";
+      if (base.find('.') == std::string::npos) base += ".jpg";
+      std::string dest = save_as(base);
+      if (dest.empty()) return;
+      bool ok = false;
+      if (wa::starts(path, "demo:")) {
+        auto it = wa::images().find(path);
+        ok = it != wa::images().end() && it->second && fl_write_png(dest.c_str(), it->second) == 0;
+      } else {
+        std::string src = path, data;
+        if (wa::file_exists(wa::webp_png(path)) && wa::lower(dest).find(".png") != std::string::npos) src = wa::webp_png(path);
+        if (wa::read_file(src, data)) {
+          FILE* f = fl_fopen(dest.c_str(), "wb");
+          if (f) {
+            ok = std::fwrite(data.data(), 1, data.size(), f) == data.size();
+            ok = std::fclose(f) == 0 && ok;
+          }
+        }
+      }
+      say(ok ? wa::fmt(tx::DOWNLOADED, {wa::file_base(dest)}) : std::string(tx::DOWNLOAD_FAILED));
+    }
+    refresh();
+  }
   void option_act(int act, int k) {
     if (act == 4) {
       open_attachment(k);
+      return;
+    }
+    if (act >= 30 && act <= 32) {
+      viewer_act(act);
       return;
     }
     if (act == 5) {
@@ -4508,6 +4614,11 @@ public:
     render_to(dir + "/tasks.png");
     pick(5);
     render_to(dir + "/translate.png");
+    pick(0);
+    view->viewer = "demo:mesa";
+    view->viewer_title = tx::DEMO_PHOTO_CAPTION;
+    render_to(dir + "/viewer.png");
+    view->viewer.clear();
     std::printf("shots ok %s\n", dir.c_str());
     return 0;
   }
@@ -4708,6 +4819,42 @@ public:
     Draft->value("");
     BtnSend_click();
     chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+    // El visor: la foto en grande, descargarla y cerrarlo.
+    {
+      pick(0);
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 4) {
+          Fl::e_x = h.x + 10;
+          Fl::e_y = h.y + 10;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(view->viewer == "demo:mesa", "tocar una foto la abre en el visor");
+      render_to("");
+      bool down = false, close = false;
+      for (const auto& h : view->hits) {
+        down = down || h.act == 30;
+        close = close || h.act == 32;
+      }
+      chk(down && close && view->hits.size() == 2, "el visor: descargar y cerrar (y nada del chat debajo)");
+      std::string dest = wa::config_dir() + "/prueba-descarga.png", asked;
+      save_as = [&](const std::string& name) {
+        asked = name;
+        return dest;
+      };
+      std::remove(dest.c_str());
+      viewer_act(30);
+      Fl_RGB_Image* got = wa::load_picture(dest);
+      chk(asked == "mesa.png" && got && got->w() == 520, "descargar la foto");
+      delete got;
+      std::remove(dest.c_str());
+      save_as = [](const std::string&) { return std::string(); };
+      Fl::e_keysym = FL_Escape;
+      dispatch(FL_KEYBOARD, this);
+      chk(view->viewer.empty(), "Esc cierra el visor");
+    }
     // Traducir: el chat de Giulia, en italiano, con su traducción debajo.
     {
       pick(5);

@@ -609,7 +609,7 @@ msgstr ""
 msgid "Gráfico de líneas web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_web.dart
 msgid "Guardada: {0}"
 msgstr ""
 
@@ -6670,6 +6670,10 @@ msgid "API oficial"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir con su programa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir el chat"
 msgstr ""
 
@@ -6911,6 +6915,10 @@ msgid "Genial, ¿cuándo me la podéis llevar?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Guardar una copia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Hecho, a las 8 en el polideportivo"
 msgstr ""
 
@@ -7076,7 +7084,15 @@ msgid "No se pudo enviar: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se pudo guardar la copia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No se pudo leer la base de datos de WhatsApp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se puede enseñar esta imagen"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7386,6 +7402,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ {0} está escribiendo tres respuestas…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "⬇ Descargar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

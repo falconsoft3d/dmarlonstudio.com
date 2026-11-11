@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -1141,7 +1141,7 @@ msgstr "Item"
 msgid "Elementos"
 msgstr "Items"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_next_speed.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_next_speed.dart
 msgid "Empezar"
 msgstr "Start"
 
@@ -3431,7 +3431,7 @@ msgstr "Costa Rica · San José"
 msgid "Cuba · La Habana"
 msgstr "Cuba · Havana"
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -3563,7 +3563,7 @@ msgstr "Portugal · Lisbon"
 msgid "Puerto Rico · San Juan"
 msgstr "Puerto Rico · San Juan"
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr "Remove"
 
@@ -3931,7 +3931,7 @@ msgstr "Clear"
 msgid "Vaciar la cola"
 msgstr "Clear the queue"
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -4430,7 +4430,7 @@ msgstr "Music"
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr "No items match your search."
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "No"
 msgstr "No"
 
@@ -4574,7 +4574,7 @@ msgstr "Move up"
 msgid "Subir un nivel"
 msgstr "Up one level"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr "Yes"
 
@@ -6733,6 +6733,532 @@ msgstr "{0} · {1} × {2} px"
 msgid "Ángulo"
 msgstr "Angle"
 
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Abrir MiniLang"
+msgstr "Open MiniLang"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Acerca de MiniLang"
+msgstr "About MiniLang"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Ahora estudias: {0}"
+msgstr "Now studying: {0}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Al día: repasa igual para reforzar"
+msgstr "All caught up: review anyway to reinforce"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Alemán"
+msgstr "German"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Aprender idiomas con juegos cortos, nativo en C++ con FLTK: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar, con vidas, meta diaria, racha y repaso. El curso de inglés va de A1 a C1 y los demás idiomas son paquetes que se instalan. Vive en la barra de menús."
+msgstr "Learn languages with short games, native in C++ with FLTK: choose the translation, put the words in order, match pairs, write and listen, with lives, a daily goal, a streak and reviews. The Spanish course goes from A1 to C1 and the other languages are packages you install. It lives in the menu bar."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Avanzado"
+msgstr "Advanced"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Cada idioma es un paquete: instálalo y elige cuál estudiar. Tu progreso se guarda aparte en cada uno."
+msgstr "Each language is a package: install it and choose which one to study. Your progress is kept separately for each."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Completada · {0} frases"
+msgstr "Completed · {0} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart lib/ui/screens/code_git.dart
+msgid "Comprobar"
+msgstr "Check"
+
+#: lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart
+msgid "Continuar"
+msgstr "Continue"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Curso completo, de A1 a C1: {0} unidades, {1} frases"
+msgstr "Full course, A1 to C1: {0} units, {1} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Curso terminado"
+msgstr "Course finished"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "D"
+msgstr "S"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Deja al menos un idioma instalado"
+msgstr "Keep at least one language installed"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Elemental"
+msgstr "Elementary"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Elige la traducción correcta"
+msgstr "Choose the correct translation"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Elige una respuesta"
+msgstr "Choose an answer"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Empiezas en la unidad {0}: {1} ({2})"
+msgstr "You start at unit {0}: {1} ({2})"
+
+#: lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart
+msgid "Esconder en la barra de menús"
+msgstr "Hide in the menu bar"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Escribe la respuesta en {0} y pulsa Enter"
+msgstr "Type the answer in {0} and press Enter"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Escribe la traducción"
+msgstr "Write the translation"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Escribe tu respuesta"
+msgstr "Type your answer"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Escucha y escribe lo que oyes"
+msgstr "Listen and type what you hear"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Español"
+msgstr "Spanish"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Este equipo no tiene voz del sistema: los juegos de escuchar pasan a escribir"
+msgstr "This computer has no system voice: listening games become writing ones"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Estudiar"
+msgstr "Study"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Francés"
+msgstr "French"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Has reforzado lo aprendido y recuperado una vida"
+msgstr "You reinforced what you learned and got a life back"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Haz tu primera lección y aquí tendrás tu repaso"
+msgstr "Do your first lesson and your review will be here"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Idioma quitado"
+msgstr "Language removed"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Idiomas"
+msgstr "Languages"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Idiomas…"
+msgstr "Languages…"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Importado: {0} unidades, {1} frases"
+msgstr "Imported: {0} units, {1} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Importar un paquete de MiniLang"
+msgstr "Import a MiniLang package"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Importar un paquete…"
+msgstr "Import a package…"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Inglés"
+msgstr "English"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Intermedio"
+msgstr "Intermediate"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Intermedio alto"
+msgstr "Upper intermediate"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Italiano"
+msgstr "Italian"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "J"
+msgstr "T"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "L"
+msgstr "M"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "La prueba de nivel te pregunta dos frases de cada unidad, de la más fácil a la más difícil, y se para en el primer fallo: las unidades que superes quedan hechas. ¿Empezar?"
+msgstr "The placement test asks you two sentences from each unit, from the easiest to the hardest, and stops at the first mistake: the units you pass are marked as done. Start?"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Las frases se leerán en voz alta"
+msgstr "Sentences will be read aloud"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Las unidades, los juegos y los resultados los dibuja el código de Form1.cpp"
+msgstr "The units, the games and the results are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Lección siguiente"
+msgstr "Next lesson"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Lección {0} de {1}"
+msgstr "Lesson {0} of {1}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Leer las frases en voz alta"
+msgstr "Read sentences aloud"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "M"
+msgstr "T"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria"
+msgstr "Daily goal"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria: 10 XP (tranquila)"
+msgstr "Daily goal: 10 XP (casual)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria: 20 XP (normal)"
+msgstr "Daily goal: 20 XP (regular)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria: 30 XP (seria)"
+msgstr "Daily goal: 30 XP (serious)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria: 50 XP (intensa)"
+msgstr "Daily goal: 50 XP (intense)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Meta diaria: {0} XP"
+msgstr "Daily goal: {0} XP"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "MiniLang"
+msgstr "MiniLang"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "MiniLang (C++)"
+msgstr "MiniLang (C++)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "MiniLang en C++ con FLTK: aprende idiomas con juegos cortos (elegir, ordenar, unir parejas, escribir y escuchar), con racha, meta diaria y paquetes de idiomas que se instalan."
+msgstr "MiniLang in C++ with FLTK: learn languages with short games (choose, order, match pairs, write and listen), with a streak, a daily goal and language packages you install."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid ""
+"MiniLang te enseña un idioma con juegos de unos minutos. Cada unidad tiene tres lecciones de diez juegos: elegir la traducción (también con las teclas 1 a 4), ordenar las palabras, unir parejas, escribir la frase y escuchar y escribir (con la voz del Mac). Enter comprueba y sigue.\n"
+"\n"
+"Si fallas, pierdes una vida y ese juego vuelve al final de la lección; las vidas vuelven solas (una cada media hora) y el repaso te devuelve una. Cada lección da 10 XP (15 sin fallos) y suma a tu meta del día y a tu racha de días seguidos. Lo que aprendes se repasa cuando toca: cuanto mejor te lo sabes, más tarda en volver.\n"
+"\n"
+"El curso de inglés va de A1 (principiante) a C1 (avanzado); la prueba de nivel te deja saltar las unidades que ya sabes. Los idiomas son paquetes: en Archivo › Idiomas… instala francés, italiano, alemán o portugués, o importa un paquete .json hecho por otros.\n"
+"\n"
+"Al cerrar la ventana, MiniLang se queda en la barra de menús con tu racha y lo que te falta para la meta; su menú abre la lección siguiente o un repaso rápido."
+msgstr ""
+"MiniLang teaches you a language with games that take a few minutes. Each unit has three lessons of ten games: choose the translation (also with keys 1 to 4), put the words in order, match pairs, write the sentence, and listen and write (with the Mac's voice). Enter checks and continues.\n"
+"\n"
+"If you make a mistake, you lose a life and that game comes back at the end of the lesson; lives come back on their own (one every half hour) and a review gives you one back. Each lesson gives 10 XP (15 with no mistakes) and adds to your daily goal and to your streak of days in a row. What you learn is reviewed when it is due: the better you know it, the longer it takes to come back.\n"
+"\n"
+"The Spanish course goes from A1 (beginner) to C1 (advanced); the placement test lets you skip the units you already know. Languages are packages: in File › Languages… install French, Italian, German or Portuguese, or import a .json package made by others.\n"
+"\n"
+"When you close the window, MiniLang stays in the menu bar with your streak and what you still need for the goal; its menu opens the next lesson or a quick review."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "No se pudo importar: {0}"
+msgstr "Could not import: {0}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Portugués"
+msgstr "Portuguese"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Practicar"
+msgstr "Practice"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Precisión"
+msgstr "Accuracy"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Primeros pasos: {0} unidades, {1} frases"
+msgstr "First steps: {0} units, {1} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Principiante"
+msgstr "Beginner"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Prueba de nivel"
+msgstr "Placement test"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Prueba de nivel terminada"
+msgstr "Placement test finished"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Prueba de nivel…"
+msgstr "Placement test…"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Racha: {0} días · hoy {1}/{2} XP"
+msgstr "Streak: {0} days · today {1}/{2} XP"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Repasar"
+msgstr "Review"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Repaso"
+msgstr "Review"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "S"
+msgstr "S"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Sin voz: los juegos de escuchar pasan a escribir"
+msgstr "No voice: listening games become writing ones"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Solución correcta:"
+msgstr "Correct solution:"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "También se dice: {0}"
+msgstr "Also: {0}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Te faltan {0} XP para la meta de hoy"
+msgstr "{0} XP left for today's goal"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Te has quedado sin vidas"
+msgstr "You are out of lives"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Te has quedado sin vidas: vuelve una en {0} min. Mientras, haz un repaso (no gasta vidas y te devuelve una)."
+msgstr "You are out of lives: one comes back in {0} min. Meanwhile, do a review (it uses no lives and gives you one back)."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Termina la unidad anterior para abrirla"
+msgstr "Finish the previous unit to unlock it"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Tiempo"
+msgstr "Weather"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Toca las palabras en orden"
+msgstr "Tap the words in order"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Traduce esta frase"
+msgstr "Translate this sentence"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Tu nivel"
+msgstr "Your level"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, el campo para escribir y el botón de comprobar se diseñaron en el Diseñador del estudio; los juegos, el progreso y los paquetes de idiomas están en el código de Form1.cpp. La voz es la del sistema (say, en macOS)."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the menu, the typing field and the check button were designed in the studio's Designer; the games, the progress and the language packages are in the code of Form1.cpp. The voice is the system's (say, on macOS)."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Une las parejas"
+msgstr "Match the pairs"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Unidad {0}"
+msgstr "Unit {0}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Unidad {0} de {1}: {2}"
+msgstr "Unit {0} of {1}: {2}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Unidades {0}–{1}"
+msgstr "Units {0}–{1}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "V"
+msgstr "F"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Vidas: {0} de 5"
+msgstr "Lives: {0} of 5"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Vuelve una en {0} min; un repaso te devuelve una ya"
+msgstr "One comes back in {0} min; a review gives you one now"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "X"
+msgstr "W"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "XP"
+msgstr "XP"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "XP total: {0} · {1} frases aprendidas"
+msgstr "Total XP: {0} · {1} sentences learned"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Ya tienes «{0}». ¿Cambiarlo por este paquete?"
+msgstr "You already have “{0}”. Replace it with this package?"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "el archivo no es un paquete de MiniLang"
+msgstr "the file is not a MiniLang package"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "el paquete no tiene unidades con al menos tres frases"
+msgstr "the package has no units with at least three sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "los idiomas del paquete no son válidos"
+msgstr "the package languages are not valid"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0} frases por repasar hoy"
+msgstr "{0} sentences to review today"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0} · lección {1} de {2}"
+msgstr "{0} · lesson {1} of {2}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0}. {1}"
+msgstr "{0}. {1}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0}: importado, con {1} frases"
+msgstr "{0}: imported, with {1} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0}: instalado"
+msgstr "{0}: installed"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Bien! Ojo con los acentos:"
+msgstr "Good! Watch the accents:"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Casi! Fíjate en cómo se escribe:"
+msgstr "Almost! Look at how it is spelled:"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Hecho! Con algún fallo, pero hecho"
+msgstr "Done! A slip or two, but done"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Lección completada!"
+msgstr "Lesson complete!"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Lo sabes todo! Has superado todas las unidades"
+msgstr "You know it all! You passed every unit"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Meta de hoy cumplida! Vuelve mañana para seguir la racha"
+msgstr "Today's goal reached! Come back tomorrow to keep the streak"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Muy bien!"
+msgstr "Well done!"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¡Repaso hecho!"
+msgstr "Review done!"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¿Quitar «{0}»? Tu progreso se guarda por si lo vuelves a instalar."
+msgstr "Remove “{0}”? Your progress is kept in case you install it again."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¿Qué significa esta frase?"
+msgstr "What does this sentence mean?"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "¿Salir de la lección? Perderás lo que llevas."
+msgstr "Leave the lesson? You will lose your progress in it."
+
+#: lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_util_pos.dart
+msgid "← Volver"
+msgstr "← Back"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "↻ Otra vez: lo fallaste antes"
+msgstr "↻ Again: you missed this one before"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "▶ Seguir: {0}"
+msgstr "▶ Continue: {0}"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "✓ Estudiando"
+msgstr "✓ Studying"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "⬇ Instalar"
+msgstr "⬇ Install"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "⭐ ¡Meta diaria cumplida!"
+msgstr "⭐ Daily goal reached!"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🎯 Prueba de nivel"
+msgstr "🎯 Placement test"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🐢 Más despacio"
+msgstr "🐢 Slower"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔁 Repaso"
+msgstr "🔁 Review"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔁 Repaso rápido"
+msgstr "🔁 Quick review"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔁 Repaso rápido ({0} por repasar)"
+msgstr "🔁 Quick review ({0} due)"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔊 Escuchar"
+msgstr "🔊 Listen"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔥 Racha: 1 día"
+msgstr "🔥 Streak: 1 day"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "🔥 Racha: {0} días"
+msgstr "🔥 Streak: {0} days"
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nueva etiqueta…"
 msgstr "+ New label…"
@@ -7184,10 +7710,6 @@ msgid "Contestar con este mensaje, tal cual"
 msgstr "Reply with this message, as is"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Continuar"
-msgstr "Continue"
-
-#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Conversación con {0} (los últimos mensajes):"
 msgstr "Conversation with {0} (the latest messages):"
 
@@ -7472,10 +7994,6 @@ msgstr "You are the MyWhatsapp translator. Translate the message you are given i
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Esa etiqueta es de WhatsApp: póngala o quítela en el teléfono"
 msgstr "That label is WhatsApp's: add or remove it on the phone"
-
-#: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Esconder en la barra de menús"
-msgstr "Hide in the menu bar"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Escriba aquí su mensaje"
@@ -16145,10 +16663,6 @@ msgstr "Clear the current order?"
 msgid "¿Volver al catálogo de ejemplo? Se quitan los productos descargados de Odoo."
 msgstr "Go back to the sample catalogue? The products downloaded from Odoo are removed."
 
-#: lib/code/tk_showcase_util_pos.dart
-msgid "← Volver"
-msgstr "← Back"
-
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Alertas de proximidad"
 msgstr "Proximity alerts"
@@ -17430,10 +17944,6 @@ msgstr "Clone and open"
 #: lib/ui/screens/code_git.dart
 msgid "Como el anterior, listos para un nuevo commit."
 msgstr "Like the previous one, ready for a new commit."
-
-#: lib/ui/screens/code_git.dart
-msgid "Comprobar"
-msgstr "Check"
 
 #: lib/ui/screens/code_git.dart
 msgid "Con un token personal, Código lista sus repositorios para clonarlos, publica repositorios nuevos y sube o trae cambios de github.com sin pedir la contraseña. Sin token, git usa las credenciales de este equipo."

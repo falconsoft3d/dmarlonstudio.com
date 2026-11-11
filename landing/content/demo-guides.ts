@@ -247,6 +247,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Envíe y apunte tareas", text: "«Usar» pasa una respuesta al borrador para retocarla y «Copiar» la copia. Escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «Enviar» en una respuesta propuesta la manda tal cual y «📎 Adjuntar» envía un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o vinculándolo con un código QR, como WhatsApp Web, para enviar y recibir en todos sus chats y grupos. El modo QR no es oficial y WhatsApp puede bloquear la cuenta: la app lo avisa antes. Lo que no puede contestar ya, conviértalo en tarea: «+ Tarea» en la cabecera del chat o clic derecho sobre un mensaje; la fila «Tareas», arriba de la lista, las reúne para marcarlas como hechas o volver a su chat. Y con «🌐 Traducir» chatee en otro idioma: ve cada mensaje con su traducción y lo que escribe se envía en el idioma del otro." },
     ],
   },
+  cpp_minilang: {
+    intro:
+      "Una app para aprender idiomas con juegos cortos, nativa en C++ con FLTK y diseñada en el estudio: una lección al día, desde la ventana o desde la barra de menús.",
+    steps: [
+      { title: "Juegue una lección", text: "Cada unidad tiene tres lecciones de diez juegos. Elija la traducción (también con las teclas 1 a 4), ordene las palabras tocando las fichas y pulse Comprobar (o Enter): en verde si está bien; en rojo, con la solución. Si falla, pierde una vida y ese juego vuelve al final; las erratas y los acentos se aceptan, avisando." },
+      { title: "Une, escribe y escucha", text: "Une las parejas de frases cortas, escriba la traducción o escuche la frase con la voz del Mac (🔊, o 🐢 más despacio) y escriba lo que oye. Cada lección da experiencia para su meta del día y su racha, y cada frase vuelve en el repaso cuando toca. ¿Ya sabe inglés? La prueba de nivel le deja saltar las unidades que domina, hasta C1." },
+      { title: "Sus idiomas y la barra de menús", text: "En Archivo › Idiomas… instale francés, italiano, alemán o portugués (cada idioma es un paquete, con su progreso aparte) o importe un paquete .json hecho por otros. Al cerrar la ventana, MiniLang se queda en la barra de menús con su racha y lo que le falta para la meta; su menú abre la lección siguiente o un repaso rápido." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -568,6 +577,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Your chats, on the left", text: "On the Mac it reads WhatsApp Desktop's chats without changing anything (the first time, macOS asks for permission) and keeps up to date every few seconds. Without WhatsApp Desktop, import a chat with “Export chat” on the phone. Search for a chat or use the filters at the top (with tasks, to answer in 3 days, no reply; archived ones, apart) and open it: the conversation looks like WhatsApp, with each contact's picture, the photos and documents you receive (a click opens the photo large, with “⬇ Download”) and, in groups, who wrote each message. In View, a light, dark or system theme." },
       { title: "Ask the AI for replies", text: "Choose Claude or ChatGPT and the style (natural, formal, short, warm or business), and optionally type what you want to say. “Suggest replies” sends that chat's latest messages to the AI, only then and only that chat, and in a few seconds you have three suggestions." },
       { title: "Send and jot down tasks", text: "“Use” puts a reply in the draft to tweak it and “Copy” copies it. Type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “Send” on a suggested reply sends it as is and “📎 Attach” sends a file. The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or by linking it with a QR code, like WhatsApp Web, to send and receive in all your chats and groups. QR mode is not official and WhatsApp may ban the account: the app warns you first. What you can't answer yet, turn into a task: “+ Task” in the chat header or right-click a message; the “Tasks” row, at the top of the list, gathers them to mark them done or go back to their chat. And with “🌐 Translate”, chat in another language: you see each message with its translation and what you write is sent in the other person's language." },
+    ],
+  },
+  cpp_minilang: {
+    intro:
+      "An app to learn languages with short games, native in C++ with FLTK and designed in the studio: a lesson a day, from the window or from the menu bar.",
+    steps: [
+      { title: "Play a lesson", text: "Each unit has three lessons of ten games. Choose the translation (also with keys 1 to 4), put the words in order by tapping the tiles and press Check (or Enter): green if right; red, with the solution. If you get it wrong, you lose a life and that game comes back at the end; typos and missing accents are accepted, with a note." },
+      { title: "Match, write and listen", text: "Match the pairs of short sentences, write the translation, or listen to the sentence with the Mac's voice (🔊, or 🐢 slower) and type what you hear. Each lesson gives XP for your daily goal and your streak, and each sentence comes back in the review when it is due. Already speak some Spanish? The placement test lets you skip the units you know, up to C1." },
+      { title: "Your languages and the menu bar", text: "In File › Languages… install French, Italian, German or Portuguese (each language is a package, with its own progress) or import a .json package made by others. When you close the window, MiniLang stays in the menu bar with your streak and what is left for your goal; its menu opens the next lesson or a quick review." },
     ],
   },
   domino: {

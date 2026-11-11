@@ -304,6 +304,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. Envía con «Enviar ➤» o Enter, también adjuntos, por la API oficial de WhatsApp Business o vinculando WhatsApp con un QR. Diseña y publica estados de WhatsApp (plantillas y textos con IA). Se queda en la barra de menús con cuántos chats esperan respuesta. Varios números en pestañas, todos conectados a la vez. Un asistente con IA responde sobre sus chats («¿qué hago con @juan?») e investiga el mensaje de un cliente para proponerle la respuesta. Con modos ocupado que contestan solos, filtros (por responder, sin respuesta, con tareas) y los archivados aparte, traducción para chatear en otro idioma, la bandera y la hora local de cada contacto, búsqueda y selección de texto en cada chat, tareas que se crean desde un chat (con bolitas según su edad), las fotos de perfil, quién escribe en cada grupo y tema claro u oscuro. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Claude (Opus 5.5) o ChatGPT por su API HTTP, con las claves en el Llavero", "La base de datos de WhatsApp Desktop, leída con el SQLite del sistema", "Envío por la API oficial de WhatsApp Business o por un puente en Go (QR)"],
       },
+      cpp_minilang: {
+        name: "MiniLang (C++)",
+        text: "Aprenda idiomas con juegos de unos minutos: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar (con la voz del Mac). Con vidas, experiencia, meta diaria, racha y un repaso que trae cada frase cuando toca. El curso de inglés va de A1 a C1, con prueba de nivel para saltar lo que ya sabe; francés, italiano, alemán y portugués son paquetes que se instalan, y se pueden importar otros. Al cerrarla sigue en la barra de menús con la racha y la lección siguiente. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "Los idiomas, paquetes .json que se instalan o se importan", "Repaso espaciado, erratas y acentos con la distancia de Levenshtein", "La voz del sistema (say) y la barra de menús de macOS"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -561,6 +566,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. Sends with “Send ➤” or Enter, attachments too, through the official WhatsApp Business API or by linking WhatsApp with a QR code. It designs and publishes WhatsApp statuses (templates and AI-written texts). It stays in the menu bar with how many chats are waiting for a reply. Several numbers in tabs, all connected at once. An AI assistant answers questions about your chats (“what do I do with @juan?”) and investigates a client's message to suggest the reply. With busy modes that reply automatically, filters (to answer, no reply, with tasks) and archived chats apart, translation to chat in another language, each contact's flag and local time, search and text selection in each chat, tasks created from a chat (with dots by age), profile pictures, who writes in each group and a light or dark theme. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Claude (Opus 5.5) or ChatGPT through their HTTP API, with the keys in the Keychain", "The WhatsApp Desktop database, read with the system's SQLite", "Sending through the official WhatsApp Business API or a Go bridge (QR)"],
       },
+      cpp_minilang: {
+        name: "MiniLang (C++)",
+        text: "Learn languages with games that take a few minutes: choose the translation, put the words in order, match pairs, write and listen (with the Mac's voice). With lives, XP, a daily goal, a streak and a review that brings each sentence back when it is due. The Spanish course goes from A1 to C1, with a placement test to skip what you already know; French, Italian, German and Portuguese are packages you install, and you can import others. When closed it stays in the menu bar with the streak and the next lesson. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "Languages as .json packages you install or import", "Spaced repetition, typos and accents with the Levenshtein distance", "The system voice (say) and the macOS menu bar"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -646,6 +656,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_clocks: { icon: "cpp", label: "C++ · FLTK" },
   cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },
   cpp_mywa: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_minilang: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

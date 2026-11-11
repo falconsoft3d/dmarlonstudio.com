@@ -32,6 +32,7 @@ const demos = {
   cpp_clocks: ['earth', '#38bdf8', '#0e5ba8'],
   cpp_recorder: ['video', '#fb7185', '#be123c'],
   cpp_mywa: ['message-circle-heart', '#4ade80', '#128c4a'],
+  cpp_minilang: ['languages', '#818cf8', '#3f3fd1'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],
   disk_usage: ['hard-drive', '#5ac8fa', '#1f7fd6'],

@@ -105,6 +105,7 @@ export const es: Content = {
       { seed: "cpp_clocks", name: "Relojes del mundo (C++)", text: "La hora de varios países en la barra de menús, con su esfera y el horario de verano de cada uno, con FLTK." },
       { seed: "cpp_recorder", name: "Grabador de pantalla (C++)", text: "Graba la pantalla o una zona de 16:9 para YouTube, con micrófono y clics, y guarda los vídeos con su miniatura." },
       { seed: "cpp_mywa", name: "MyWhatsapp (C++)", text: "Lee sus chats de WhatsApp y propone respuestas con Claude o ChatGPT según la conversación." },
+      { seed: "cpp_minilang", name: "MiniLang (C++)", text: "Aprende idiomas con juegos cortos desde la barra de menús: elegir, ordenar, unir parejas, escribir y escuchar, con racha y repaso; inglés de A1 a C1." },
       { seed: "domino", name: "Dominó doble 9", text: "Una mesa de cuatro en dos parejas contra la computadora, con dominó, tranque y partida a 100 tantos, en un lienzo de tkinter." },
       { seed: "flutter_store", name: "Tienda con login (Flutter)", text: "Login, catálogo con búsqueda, carrito y pago en una app móvil." },
       { seed: "rn_store", name: "Tienda (React Native)", text: "Login, catálogo, carrito y pago en una app de React Native." },

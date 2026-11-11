@@ -55,6 +55,7 @@ const demos = [
   'cpp_clocks',
   'cpp_recorder',
   'cpp_mywa',
+  'cpp_minilang',
   'domino',
 ];
 

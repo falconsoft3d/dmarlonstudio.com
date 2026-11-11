@@ -500,6 +500,128 @@ void on_bridge_from(const std::string& id, const std::string& line) {
   update_tabs();
 }`;
 
+const mlInstall = `// Instalar un idioma del catálogo: su paquete queda en la carpeta «paquetes».
+bool install(const std::string& target) {
+  std::string src = ml::ui_lang();
+  if (!ml::in_catalog(target, src)) return false;
+  ml::Pack p = ml::build_pack(target, src);
+  for (const auto& q : packs)
+    if (q.id == p.id) return true;
+  if (!demo) {
+    fl_make_path(ml::packs_dir().c_str());
+    if (!ml::write_file(ml::packs_dir() + "/" + p.id + ".json", ml::pack_json(p))) return false;
+  }
+  packs.push_back(p);
+  return true;
+}`;
+
+const mlLesson = `// Una lección: diez juegos con las frases nuevas de esa parte de la unidad y alguna de repaso.
+std::vector<Exercise> make_lesson(const Pack& p, int u, int k, bool tts, unsigned seed) {
+  std::mt19937 rng(seed);
+  int n = (int)p.units[(size_t)u].items.size();
+  int a = k * n / LESSONS, b = (k + 1) * n / LESSONS;
+  std::vector<std::pair<int, int>> focus;
+  for (int i = a; i < b; i++) focus.push_back({u, i});
+  std::vector<std::pair<int, int>> review;
+  for (int i = 0; i < a; i++) review.push_back({u, i});
+  if (review.empty() && u > 0)
+    for (int i = 0; i < (int)p.units[(size_t)u - 1].items.size(); i++) review.push_back({u - 1, i});
+  std::shuffle(review.begin(), review.end(), rng);
+  for (size_t i = 0; i < review.size() && i < 2; i++) focus.push_back(review[i]);
+  static const Kind pattern[LESSONS][10] = {
+      {K_CHOOSE, K_CHOOSE, K_BUILD, K_MATCH, K_CHOOSE_REV, K_BUILD, K_CHOOSE, K_BUILD, K_LISTEN, K_BUILD},
+      {K_BUILD, K_CHOOSE, K_MATCH, K_BUILD, K_CHOOSE_REV, K_LISTEN, K_TYPE, K_BUILD, K_TYPE, K_BUILD},
+      {K_BUILD, K_TYPE, K_MATCH, K_LISTEN, K_TYPE, K_BUILD, K_CHOOSE_REV, K_TYPE, K_LISTEN, K_TYPE}};
+  std::vector<Exercise> out;
+  size_t next = 0;
+  for (Kind kind : pattern[std::max(0, std::min(LESSONS - 1, k))]) {
+    auto f = focus[next++ % focus.size()];
+    if (kind == K_MATCH) f = {u, a};
+    out.push_back(make_exercise(kind, p, f.first, f.second, tts, rng));
+  }
+  return out;
+}`;
+
+const mlCheck = `Check check_text(const std::string& typed, const std::vector<std::string>& ok) {
+  Check r;
+  if (ok.empty()) return r;
+  r.best = ok[0];
+  std::string t = norm(typed, false), tf = norm(typed, true);
+  if (t.empty()) return r;
+  for (const auto& a : ok)
+    if (norm(a, false) == t) return {V_OK, a};
+  for (const auto& a : ok)
+    if (norm(a, true) == tf) return {V_ACCENT, a};
+  int best = 1 << 30;
+  std::vector<uint32_t> T = cps(tf);
+  for (const auto& a : ok) {
+    int d = levenshtein(cps(norm(a, true)), T);
+    if (d < best) {
+      best = d;
+      r.best = a;
+    }
+  }
+  size_t len = cps(norm(r.best, true)).size();
+  int allow = len >= 16 ? 2 : len >= 5 ? 1 : 0;
+  r.v = best <= allow ? V_TYPO : V_WRONG;
+  return r;
+}`;
+
+const mlRemember = `// Recordar una frase: bien, sube y se repasa más tarde; mal, baja y se repasa ya.
+void remember(Progress& p, int u, int i, bool ok, long long today) {
+  auto& m = p.mem[mem_key(u, i)];
+  int s = ok ? std::min(6, m.first + 1) : std::max(0, m.first - 2);
+  m = {s, today + (ok ? INTERVALS[s] : 0)};
+}
+void add_xp(Stats& s, int xp, long long today) {
+  if (s.xp_day != today) {
+    s.xp_today = 0;
+    s.xp_day = today;
+  }
+  s.xp_today += xp;
+  if (s.last_day == today - 1) s.streak++;
+  else if (s.last_day != today) s.streak = 1;
+  s.last_day = today;
+  if (std::find(s.days.begin(), s.days.end(), today) == s.days.end()) s.days.push_back(today);
+  while (s.days.size() > 60) s.days.erase(s.days.begin());
+}`;
+
+const mlSpeak = `void speak(const std::string& text, const std::string& lang, bool slow) {
+#ifdef __APPLE__
+  static std::atomic<int> last{0};
+  int prev = last.exchange(0);
+  if (prev > 0) kill((pid_t)prev, SIGTERM);   // la anterior se calla
+  std::vector<std::string> args = {"/usr/bin/say"};
+  std::string v = voice_for(lang);
+  if (!v.empty()) {
+    args.push_back("-v");
+    args.push_back(v);
+  }
+  if (slow) {
+    args.push_back("-r");
+    args.push_back("115");
+  }
+  args.push_back(text);
+  std::vector<char*> argv;
+  for (auto& a : args) argv.push_back(&a[0]);
+  argv.push_back(nullptr);
+  pid_t pid = 0;
+  if (posix_spawn(&pid, "/usr/bin/say", nullptr, nullptr, argv.data(), environ) == 0) {
+    last = (int)pid;
+    std::thread([pid] {
+      int st = 0;
+      waitpid(pid, &st, 0);
+      int expected = (int)pid;
+      last.compare_exchange_strong(expected, 0);   // ya terminó: no se le manda nada más
+    }).detach();
+  }
+#else
+  (void)text;
+  (void)lang;
+  (void)slow;
+#endif
+}`;
+
 const mywaTranslate = `// Lo recibido: una tanda de mensajes a la IA, que devuelve JSON con el idioma
 // y una traducción por mensaje; se guardan y no se vuelven a pedir.
 std::thread([s, jid, sys, usr, keys, n] {
@@ -922,6 +1044,68 @@ const es: Record<string, DemoMade> = {
       },
     ],
   },
+  cpp_minilang: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con su menú, el temporizador, el campo para escribir, el botón Comprobar y la barra de estado; el código de Form1.cpp dibuja las unidades, los juegos y los resultados, lleva el progreso y los paquetes de idiomas, y deja la app en la barra de menús.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "El inicio, las lecciones, los resultados y los idiomas; al cerrarla, la app sigue en la barra de menús." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (lección siguiente, repaso, prueba de nivel, idiomas, importar), Ver (la meta diaria y la voz) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: las vidas que vuelven y la barra de menús al día." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja todo: las unidades, los juegos y los resultados (un Fl_Widget propio)." },
+        { name: "Answer", kind: "Entry", text: "Para escribir la traducción o lo que se oye; Enter comprueba (Answer_enter)." },
+        { name: "BtnCheck", kind: "Button", text: "Comprobar y Continuar (BtnCheck_click): verde si está bien, rojo si no." },
+        { name: "Status", kind: "StatusBar", text: "El idioma, la unidad por la que va, la racha y la meta del día." },
+      ],
+      apis: [
+        "Los paquetes de idiomas: un .json por idioma en la carpeta «paquetes», leído con un lector de JSON propio",
+        "La distancia de Levenshtein: aceptar una errata o los acentos, avisando",
+        "Repaso espaciado: cada frase vuelve a los 1, 2, 4, 7, 15 o 30 días según lo bien que se sabe",
+        "say (macOS), lanzado con posix_spawn: la voz para escuchar y para oír lo que se acierta",
+        "Runtime de Objective-C: la racha y la meta en la barra de menús, con la lección siguiente y el repaso",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): un Frame que ocupa la ventana (Board), dentro un Entry para escribir (Answer) y el botón Comprobar (BtnCheck), el Menu, el Timer y una StatusBar. El resto (las unidades, los juegos y los resultados) lo dibuja el código.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnCheck_click, Answer_enter, Tick_timer y Menu1_click, que Form1 sobrescribe. El campo y el botón se ponen encima del dibujo y el código los coloca según el juego.",
+        shot: "generated",
+      },
+      {
+        title: "3. Los idiomas son paquetes",
+        text: "Cada idioma es un archivo .json con sus unidades (de A1 a C1) y sus frases, con las formas que valen separadas por «/» («I'm fine/I am fine»). Instalar uno escribe su archivo en la carpeta «paquetes»; al abrir, la app lee los que haya, y «Importar un paquete…» acepta los hechos por otros con el mismo formato. El curso de inglés trae 15 unidades y 180 frases; el de español, para quien habla inglés, las mismas al revés.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: mlInstall },
+      },
+      {
+        title: "4. Diez juegos por lección",
+        text: "Cada unidad tiene tres lecciones. Una lección toma las frases nuevas de su parte de la unidad y dos de repaso, y arma diez juegos con un orden que va de reconocer a escribir: elegir la traducción, ordenar las palabras (con alguna de más para despistar), unir parejas, entender la frase, escribirla y escucharla. Sin voz en el equipo, escuchar pasa a escribir.",
+        code: { file: "Form1.cpp", text: mlLesson },
+      },
+      {
+        title: "5. Corregir con calma",
+        text: "Las respuestas se comparan sin mayúsculas ni signos. Si solo faltan los acentos, vale avisando («Ojo con los acentos»); si hay una errata (una letra, o dos en frases largas), también vale y enseña cómo se escribe. Las palabras cortas no tienen margen: «no» y «na» no son lo mismo.",
+        code: { file: "Form1.cpp", text: mlCheck },
+      },
+      {
+        title: "6. Repaso, racha y vidas",
+        text: "Cada frase guarda lo bien que se sabe y cuándo repasarla: bien, sube y tarda más en volver; mal, baja y vuelve hoy. La experiencia suma a la meta del día y la racha cuenta días seguidos (sin practicar ayer ni hoy, se pierde). Un fallo cuesta una vida y el juego vuelve al final; las vidas vuelven solas cada media hora. Las pruebas internas (DMS_MINILANG_SELFTEST) comprueban todo esto con fechas fijas, y las de la interfaz (DMS_MINILANG_UITEST) juegan lecciones enteras con clics.",
+        code: { file: "Form1.cpp", text: mlRemember },
+      },
+      {
+        title: "7. La voz y la barra de menús",
+        text: "En macOS, say lee la frase con una voz del idioma (la busca entre las instaladas), más despacio con 🐢, y la anterior se calla al empezar otra. Al cerrar la ventana, MiniLang sigue en la barra de menús con la racha y lo que falta para la meta («🔥 6  15/20»); su menú abre la lección siguiente o un repaso rápido.",
+        code: { file: "Form1.cpp", text: mlSpeak },
+      },
+    ],
+  },
 };
 
 const en: Record<string, DemoMade> = {
@@ -1328,6 +1512,68 @@ const en: Record<string, DemoMade> = {
         title: "15. Several numbers in tabs",
         text: "Each number has its own folder (the main one, the usual one; the others, cuentas/<id>) with its WhatsApp session, messages, tasks, CRM, cards and labels. Each has its own bridge, all running at once: the Bridge class is no longer a single instance, each bridge keeps a distinct generation number and its lines reach the window tagged with the number they come from. Lines from the visible number take the usual path; those from another just add to its tab. Switching tabs loads that number's data; WhatsApp Desktop and the figures panel belong to the main number. A system lock prevents two bridges on the same account.",
         code: { file: "Form1.cpp", text: mywaAccounts },
+      },
+    ],
+  },
+  cpp_minilang: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its menu, the timer, the typing field, the Check button and the status bar; the code in Form1.cpp draws the units, the games and the results, keeps the progress and the language packages, and leaves the app in the menu bar.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "Home, lessons, results and languages; when closed, the app stays in the menu bar." },
+        { name: "Menu1", kind: "Menu", text: "File (next lesson, review, placement test, languages, import), View (daily goal and voice) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every second: lives coming back and the menu bar kept up to date." },
+        { name: "Board", kind: "Frame", text: "Where the code draws everything: units, games and results (a custom Fl_Widget)." },
+        { name: "Answer", kind: "Entry", text: "To type the translation or what you hear; Enter checks (Answer_enter)." },
+        { name: "BtnCheck", kind: "Button", text: "Check and Continue (BtnCheck_click): green if right, red if not." },
+        { name: "Status", kind: "StatusBar", text: "The language, the current unit, the streak and today's goal." },
+      ],
+      apis: [
+        "Language packages: one .json per language in the “paquetes” folder, read with a small JSON reader",
+        "Levenshtein distance: accepting a typo or missing accents, with a note",
+        "Spaced repetition: each sentence comes back after 1, 2, 4, 7, 15 or 30 days depending on how well you know it",
+        "say (macOS), launched with posix_spawn: the voice for listening and for hearing what you got right",
+        "Objective-C runtime: the streak and goal in the menu bar, with the next lesson and a review",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: a Frame filling the window (Board), inside it an Entry to type (Answer) and the Check button (BtnCheck), the Menu, the Timer and a StatusBar. Everything else (units, games and results) is drawn by the code.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnCheck_click, Answer_enter, Tick_timer and Menu1_click, which Form1 overrides. The field and the button sit on top of the drawing and the code places them for each game.",
+        shot: "generated",
+      },
+      {
+        title: "3. Languages are packages",
+        text: "Each language is a .json file with its units (A1 to C1) and its sentences, with the accepted forms separated by “/” (“I'm fine/I am fine”). Installing one writes its file to the “paquetes” folder; on start the app reads whatever is there, and “Import a package…” accepts packages made by others in the same format. The English course has 15 units and 180 sentences; the Spanish one, for English speakers, the same ones reversed.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: mlInstall },
+      },
+      {
+        title: "4. Ten games per lesson",
+        text: "Each unit has three lessons. A lesson takes the new sentences of its part of the unit plus two to review, and builds ten games in an order that goes from recognising to writing: choose the translation, put the words in order (with a few extra ones as decoys), match pairs, understand the sentence, write it and listen to it. Without a voice on the computer, listening becomes writing.",
+        code: { file: "Form1.cpp", text: mlLesson },
+      },
+      {
+        title: "5. Gentle checking",
+        text: "Answers are compared without capitals or punctuation. If only the accents are missing, it counts with a note (“Watch the accents”); a typo (one letter, or two in long sentences) also counts and shows how it is spelled. Short words get no leeway: “no” and “na” are not the same.",
+        code: { file: "Form1.cpp", text: mlCheck },
+      },
+      {
+        title: "6. Review, streak and lives",
+        text: "Each sentence keeps how well you know it and when to review it: right, it goes up and takes longer to come back; wrong, it goes down and comes back today. XP adds to the daily goal and the streak counts days in a row (skip yesterday and today and it is lost). A mistake costs a life and the game comes back at the end; lives return on their own every half hour. The internal tests (DMS_MINILANG_SELFTEST) check all of this with fixed dates, and the interface tests (DMS_MINILANG_UITEST) play whole lessons with clicks.",
+        code: { file: "Form1.cpp", text: mlRemember },
+      },
+      {
+        title: "7. The voice and the menu bar",
+        text: "On macOS, say reads the sentence with a voice for the language (it picks one among those installed), slower with 🐢, and the previous one stops when another starts. When you close the window, MiniLang stays in the menu bar with the streak and what is left for the goal (“🔥 6  15/20”); its menu opens the next lesson or a quick review.",
+        code: { file: "Form1.cpp", text: mlSpeak },
       },
     ],
   },

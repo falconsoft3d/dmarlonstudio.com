@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.130 — 2026-11-11
+
+- Nueva demo: **MiniLang (C++)**, para aprender idiomas con juegos cortos, nativa en C++ con FLTK. Cada unidad tiene tres lecciones de diez juegos: elegir la traducción (también con las teclas 1 a 4), ordenar las palabras, unir parejas, escribir la traducción y escuchar y escribir (con la voz del Mac). Con vidas (vuelven solas; el repaso devuelve una), experiencia, meta diaria, racha de días y repaso espaciado (cada frase vuelve a los 1, 2, 4, 7, 15 o 30 días). Las erratas y los acentos se aceptan, avisando.
+- MiniLang: el curso de inglés va de A1 a C1 (15 unidades, 180 frases, de los saludos a las expresiones y el inglés formal), con prueba de nivel para saltar lo que ya se sabe. En inglés, la misma app enseña español. Los idiomas son paquetes .json: francés, italiano, alemán y portugués (primeros pasos) se instalan desde «Idiomas…», y «Importar un paquete…» acepta los hechos por otros.
+- MiniLang vive en la barra de menús de macOS con la racha y lo que falta para la meta («🔥 6  15/20»); su menú abre la lección siguiente o un repaso rápido.
+- Web: la página de la demo con su guía, sus capturas y «Cómo se hizo» (7 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.129 — 2026-11-11
 
 - MyWhatsapp 1.0.32: **varios números en pestañas**. Arriba de la lista, una pestaña por número y «+» (o Archivo › Añadir otro número…) para vincular otro con su código QR. Cada número tiene sus chats, sus tareas, su CRM, sus fichas, sus etiquetas y sus mensajes diarios; los ajustes, las claves de la IA, las plantillas, los modos ocupado y los colores son comunes. Todos siguen conectados a la vez: la pestaña de otro número cuenta lo que le llega. Clic derecho en una pestaña: cambiarle el nombre o quitar el número (se desvincula; sus datos se quedan en el Mac). WhatsApp Desktop y el panel de cifras son del número principal.

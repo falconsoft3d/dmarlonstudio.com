@@ -16,6 +16,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppClocks(t),
   tkCppRecorder(t),
   tkCppMywa(t),
+  tkCppMiniLang(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

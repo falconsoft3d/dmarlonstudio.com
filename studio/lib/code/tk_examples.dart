@@ -47,6 +47,8 @@ part 'tk_showcase_cpp_clocks.dart';
 part 'tk_showcase_cpp_clocks_code.dart';
 part 'tk_showcase_cpp_recorder.dart';
 part 'tk_showcase_cpp_recorder_code.dart';
+part 'tk_showcase_cpp_minilang.dart';
+part 'tk_showcase_cpp_minilang_code.dart';
 part 'tk_showcase_cpp_mywa.dart';
 part 'tk_showcase_cpp_mywa_code.dart';
 part 'tk_showcase_console.dart';

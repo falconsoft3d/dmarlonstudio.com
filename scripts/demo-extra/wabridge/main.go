@@ -312,6 +312,8 @@ type command struct {
 	Text    string `json:"text"`
 	Path    string `json:"path"`
 	Caption string `json:"caption"`
+	// Para los estados de texto: el color de fondo (ARGB).
+	Background uint32 `json:"background"`
 }
 
 func (b *bridge) handle(c command) {
@@ -364,6 +366,37 @@ func (b *bridge) handle(c command) {
 			out.ID, out.T = resp.ID, resp.Timestamp.Unix()
 			b.emit(out)
 		}
+		sent(err)
+	case "status":
+		// Un estado: una imagen (con su pie) o un texto sobre un color.
+		if !b.cli.IsLoggedIn() {
+			sent(fmt.Errorf("not linked"))
+			return
+		}
+		var msg *waE2E.Message
+		if c.Path != "" {
+			data, err := os.ReadFile(c.Path)
+			if err != nil {
+				sent(err)
+				return
+			}
+			up, err := b.cli.Upload(ctx, data, whatsmeow.MediaImage)
+			if err != nil {
+				sent(err)
+				return
+			}
+			mime := http.DetectContentType(data)
+			msg = fileMessage(kImage, mime, filepath.Base(c.Path), c.Caption, up)
+		} else {
+			bg := uint32(0xFF25D366)
+			if c.Background != 0 {
+				bg = c.Background
+			}
+			msg = &waE2E.Message{ExtendedTextMessage: &waE2E.ExtendedTextMessage{
+				Text: proto.String(c.Text), BackgroundArgb: proto.Uint32(bg), TextArgb: proto.Uint32(0xFFFFFFFF),
+				Font: waE2E.ExtendedTextMessage_SYSTEM.Enum()}}
+		}
+		_, err := b.cli.SendMessage(ctx, types.StatusBroadcastJID, msg)
 		sent(err)
 	case "logout":
 		if err := b.cli.Logout(ctx); err != nil {

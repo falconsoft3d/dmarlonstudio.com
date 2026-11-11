@@ -1975,6 +1975,181 @@ std::string kind_name(int k) {
   }
 }
 
+// ---- los estados: un diseño (plantilla, textos, emoji y foto) que se dibuja
+// a cualquier tamaño (1080×1920 para publicarlo) y se guarda en estados.jsonl.
+struct StatusDesign {
+  long long id = 0;
+  int tpl = 0;
+  std::string title, body, footer, emoji, photo;
+};
+struct StatusTpl {
+  unsigned top, bottom, title, body, footer_bg, footer_fg, deco;
+  int style;   // los adornos: 0 ondas, 1 círculos, 2 puntos, 3 estrellas, 4 marco
+};
+const int STATUS_TPLS = 7;
+const StatusTpl& status_tpl(int i) {
+  static const StatusTpl t[STATUS_TPLS] = {
+      {0x6cc3f7, 0x3a9be8, 0x0b3d91, 0xffffff, 0x0b3d91, 0xffffff, 0x1f6fd1, 0},   // cielo
+      {0xffa36c, 0xff5e8a, 0xffffff, 0xfff3e0, 0xffffff, 0xd9465f, 0xffc4a3, 1},   // atardecer
+      {0xdff7ee, 0xa8e6cf, 0x0f5132, 0x1d6b4a, 0x0f5132, 0xffffff, 0x7dd3b0, 2},   // menta
+      {0x1a1a2e, 0x16213e, 0x00e5ff, 0xe0e0e0, 0x00e5ff, 0x1a1a2e, 0xffffff, 3},   // noche
+      {0xfaf6ee, 0xf1e9da, 0x222222, 0x444444, 0x222222, 0xffffff, 0xc9b99a, 4},   // papel
+      {0xffd60a, 0xffb703, 0xd00000, 0x1d1d1d, 0xd00000, 0xffffff, 0xfff3b0, 1},   // oferta
+      {0x25d366, 0x128c7e, 0xffffff, 0xffffff, 0xffffff, 0x128c7e, 0x5fe39a, 2}};  // whatsapp
+  return t[(i % STATUS_TPLS + STATUS_TPLS) % STATUS_TPLS];
+}
+std::string status_line(const StatusDesign& d) {
+  return "{\"id\":" + std::to_string(d.id) + ",\"tpl\":" + std::to_string(d.tpl) + ",\"title\":" + jstr(d.title) +
+         ",\"body\":" + jstr(d.body) + ",\"footer\":" + jstr(d.footer) + ",\"emoji\":" + jstr(d.emoji) +
+         ",\"photo\":" + jstr(d.photo) + "}";
+}
+std::vector<StatusDesign> status_parse(const std::string& text) {
+  std::vector<StatusDesign> out;
+  for (const auto& l : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(l, &ok);
+    if (!ok || j["id"].type != Json::NUM) continue;
+    StatusDesign d;
+    d.id = (long long)j["id"].n;
+    d.tpl = (int)j["tpl"].n;
+    d.title = j["title"].str();
+    d.body = j["body"].str();
+    d.footer = j["footer"].str();
+    d.emoji = j["emoji"].str();
+    d.photo = j["photo"].str();
+    out.push_back(d);
+  }
+  return out;
+}
+// Lo que propone la IA: {"title","body","footer","emoji","template"} (aunque venga entre ```).
+bool parse_status_ai(const std::string& text, StatusDesign& d) {
+  size_t a = text.find('{'), b = text.rfind('}');
+  if (a == std::string::npos || b == std::string::npos || b < a) return false;
+  bool ok = false;
+  Json j = parse_json(text.substr(a, b - a + 1), &ok);
+  if (!ok || trim(j["title"].str()).empty()) return false;
+  d.title = trim(j["title"].str());
+  d.body = trim(j["body"].str());
+  d.footer = trim(j["footer"].str());
+  d.emoji = trim(j["emoji"].str());
+  int t = (int)j["template"].n;
+  if (t >= 1 && t <= STATUS_TPLS) d.tpl = t - 1;
+  return true;
+}
+// Dibuja el estado en (X, Y, W, H): las medidas son las de 1080×1920, a escala.
+void draw_status(const StatusDesign& d, int X, int Y, int W, int H) {
+  const StatusTpl& t = status_tpl(d.tpl);
+  double k = W / 1080.0;
+  auto S = [k](double v) { return std::max(1, (int)std::lround(v * k)); };
+  fl_push_clip(X, Y, W, H);
+  for (int yy = 0; yy < H; yy++) {
+    double f = yy / (double)std::max(1, H - 1);
+    auto mix = [&](int sh) { return (uchar)(((t.top >> sh) & 255) * (1 - f) + ((t.bottom >> sh) & 255) * f); };
+    fl_color(fl_rgb_color(mix(16), mix(8), mix(0)));
+    fl_xyline(X, Y + yy, X + W - 1);
+  }
+  Fl_Color deco = fl_rgb_color((uchar)(t.deco >> 16), (uchar)(t.deco >> 8), (uchar)t.deco);
+  fl_color(deco);
+  if (t.style == 0) {   // ondas en dos esquinas
+    for (int r = 0; r < 3; r++) {
+      fl_color(r % 2 ? fl_rgb_color((uchar)(t.top >> 16), (uchar)(t.top >> 8), (uchar)t.top) : deco);
+      fl_pie(X - S(420 - r * 70), Y - S(420 - r * 70), S(840 - r * 140), S(840 - r * 140), 0, 360);
+      fl_pie(X + W - S(420 - r * 70), Y + H - S(420 - r * 70), S(840 - r * 140), S(840 - r * 140), 0, 360);
+    }
+  } else if (t.style == 1) {   // círculos grandes, suaves
+    fl_pie(X + W - S(330), Y - S(170), S(520), S(520), 0, 360);
+    fl_pie(X - S(200), Y + H - S(420), S(480), S(480), 0, 360);
+    fl_pie(X + S(80), Y + S(140), S(90), S(90), 0, 360);
+  } else if (t.style == 2) {   // puntos en dos esquinas
+    for (int r = 0; r < 4; r++)
+      for (int c = 0; c < 5; c++) {
+        fl_pie(X + W - S(330) + c * S(60), Y + S(90) + r * S(60), S(16), S(16), 0, 360);
+        fl_pie(X + S(90) + c * S(60), Y + H - S(330) + r * S(60), S(16), S(16), 0, 360);
+      }
+  } else if (t.style == 3) {   // estrellas (siempre las mismas)
+    unsigned s = 12345;
+    for (int i = 0; i < 70; i++) {
+      s = s * 1103515245u + 12345u;
+      int sx = (int)((s >> 8) % 1080);
+      s = s * 1103515245u + 12345u;
+      int sy = (int)((s >> 8) % 1920);
+      int r = 3 + (int)((s >> 4) % 6);
+      fl_pie(X + S(sx), Y + S(sy), S(r), S(r), 0, 360);
+    }
+  } else {   // un marco fino
+    fl_line_style(FL_SOLID, S(6));
+    fl_rect(X + S(60), Y + S(60), W - 2 * S(60), H - 2 * S(60));
+    fl_line_style(0);
+  }
+  // El bloque del centro: emoji, título, raya, texto y foto.
+  auto rgbc = [](unsigned v) { return fl_rgb_color((uchar)(v >> 16), (uchar)(v >> 8), (uchar)v); };
+  fl_font(FL_HELVETICA_BOLD, S(104));
+  std::vector<std::string> tl = d.title.empty() ? std::vector<std::string>() : wrap(d.title, S(900));
+  fl_font(FL_HELVETICA, S(58));
+  std::vector<std::string> bl = d.body.empty() ? std::vector<std::string>() : wrap(d.body, S(900));
+  Fl_RGB_Image* img = d.photo.empty() ? nullptr : image_fit(d.photo, S(760), S(620));
+  int eh = d.emoji.empty() ? 0 : S(260), th = (int)tl.size() * S(122), bh = (int)bl.size() * S(76);
+  int total = eh + th + (th && bh ? S(110) : 0) + bh + (img ? S(60) + img->h() : 0);
+  int y = Y + std::max(S(150), (H - S(260) - total) / 2);
+  if (eh) {
+    fl_font(FL_HELVETICA, S(200));
+    fl_color(rgbc(t.title));
+    fl_draw(d.emoji.c_str(), X, y, W, eh, FL_ALIGN_CENTER);
+    y += eh;
+  }
+  fl_font(FL_HELVETICA_BOLD, S(104));
+  fl_color(rgbc(t.title));
+  for (const auto& l : tl) {
+    fl_draw(l.c_str(), X + S(90), y, W - 2 * S(90), S(122), FL_ALIGN_CENTER);
+    y += S(122);
+  }
+  if (th && bh) {   // la raya de puntos
+    y += S(40);
+    for (int i = 0; i < 26; i++) fl_pie(X + W / 2 - S(26 * 18 / 2) + i * S(18), y, S(8), S(8), 0, 360);
+    y += S(70);
+  }
+  fl_font(FL_HELVETICA, S(58));
+  fl_color(rgbc(t.body));
+  for (const auto& l : bl) {
+    fl_draw(l.c_str(), X + S(90), y, W - 2 * S(90), S(76), FL_ALIGN_CENTER);
+    y += S(76);
+  }
+  if (img) {
+    y += S(60);
+    int ix = X + (W - img->w()) / 2;
+    fl_color(rgbc(t.footer_bg));
+    fl_rectf(ix - S(10), y - S(10), img->w() + 2 * S(10), img->h() + 2 * S(10));
+    img->draw(ix, y);
+  }
+  // Abajo, el pie en una franja.
+  if (!d.footer.empty()) {
+    fl_font(FL_HELVETICA_BOLD, S(46));
+    int fw = std::min(W - 2 * S(80), (int)fl_width(d.footer.c_str()) + S(120)), fh = S(96);
+    int fx = X + (W - fw) / 2, fy = Y + H - S(250);
+    fl_color(rgbc(t.footer_bg));
+    fl_rounded_rectf(fx, fy, fw, fh, S(16));
+    fl_color(rgbc(t.footer_fg));
+    fl_draw(d.footer.c_str(), fx, fy, fw, fh, FL_ALIGN_CENTER | FL_ALIGN_CLIP);
+  }
+  fl_pop_clip();
+}
+// El estado como imagen (nueva: la borra quien la pide).
+Fl_RGB_Image* status_image(const StatusDesign& d, int W, int H) {
+  Fl_Image_Surface surf(W, H, 0);
+  Fl_Surface_Device::push_current(&surf);
+  draw_status(d, 0, 0, W, H);
+  Fl_RGB_Image* img = surf.image();
+  Fl_Surface_Device::pop_current();
+  return img;
+}
+// La vista previa (en la caché: solo se rehace si cambia el diseño).
+Fl_RGB_Image* status_preview(const StatusDesign& d, int W, int H) {
+  std::string key = "status:" + fnv(status_line(d)) + "@" + std::to_string(W) + "x" + std::to_string(H);
+  auto it = images().find(key);
+  if (it != images().end()) return it->second;
+  return images()[key] = status_image(d, W, H);
+}
+
 struct Hit {
   int x, y, w, h, act, idx;
 };
@@ -1990,6 +2165,8 @@ public:
   std::function<void()> on_tasks;
   int tasks_pending = 0;
   bool tasks_selected = false;
+  bool status_selected = false;
+  std::function<void()> on_status;   // la fila «🎨 Estados»
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
   long long now = 0;                          // 0: la hora de verdad
   // Los filtros de arriba y los archivados (aparte, como en WhatsApp).
@@ -2108,6 +2285,23 @@ public:
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
+      // La de los estados (el diseñador).
+      {
+        const int sh = 46;
+        unsigned r3 = status_selected ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
+        fl_color(rgb(r3));
+        fl_rectf(x(), Y, w(), sh);
+        hits.push_back({x(), Y, w(), sh, 7, -1});
+        fl_font(FL_HELVETICA, 18);
+        fl_color(rgb(T.muted));
+        fl_draw("🎨", x() + 24, Y + 30);
+        fl_font(FL_HELVETICA_BOLD, 14);
+        fl_color(rgb(T.text));
+        fl_draw(tx::STATUS_TITLE, x() + 68, Y + 28);
+        fl_color(rgb(T.line));
+        fl_line(x(), Y + sh - 1, x() + w(), Y + sh - 1);
+        Y += sh;
+      }
       // Y la de los archivados, si hay.
       int archived = count(F_ARCHIVED);
       if (archived > 0 && mode == F_ALL) {
@@ -2208,6 +2402,8 @@ public:
               if (on_tasks) on_tasks();
             } else if (h.act == 5) {
               if (on_busy) on_busy();
+            } else if (h.act == 7) {
+              if (on_status) on_status();
             } else if (h.act == 2 || h.act == 3 || h.act == 4) {
               // Un filtro, los archivados o volver de ellos.
               mode = h.act == 2 ? h.idx : h.act == 3 ? F_ARCHIVED : F_ALL;
@@ -2274,6 +2470,117 @@ public:
   int match = -1;
   Fl_Input* find_input = nullptr;
   std::string translate_label;   // el idioma del chat abierto si se traduce ("" si no)
+  // El diseñador de estados (en vez del chat).
+  std::vector<StatusDesign>* designs = nullptr;
+  int design = -1;
+  bool status_mode = false;
+  // Acciones: 40 plantilla, 41 título, 42 texto, 43 pie, 44 emoji, 45 foto, 46 quitar
+  // la foto, 47 nuevo, 48 con IA, 49 guardar la imagen, 50 publicar, 51 abrir uno, 52 borrarlo.
+  void draw_status_view() {
+    const Theme& T = th();
+    const int head = 60;
+    Fl_Color on_accent = T.dark ? rgb(0x111b21) : FL_WHITE;
+    // La cabecera.
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    fl_font(FL_HELVETICA_BOLD, 18);
+    fl_color(rgb(T.text));
+    fl_draw(tx::STATUS_TITLE, x() + 20, y() + 28);
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    fl_draw(tx::STATUS_HELP, x() + 20, y() + 48);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    int bx = x() + w() - 16 - ((int)fl_width(tx::STATUS_PUBLISH) + 20);
+    bool has = designs && design >= 0 && design < (int)designs->size();
+    if (has) button(bx, y() + 17, tx::STATUS_PUBLISH, 50, -1, on_accent, rgb(T.accent));
+    bx -= 8 + (int)fl_width(tx::STATUS_SAVE_IMAGE) + 20;
+    if (has) button(bx, y() + 17, tx::STATUS_SAVE_IMAGE, 49, -1, rgb(T.text), rgb(T.card));
+    bx -= 8 + (int)fl_width(tx::STATUS_AI) + 20;
+    button(bx, y() + 17, tx::STATUS_AI, 48, -1, rgb(T.text), rgb(T.card));
+    bx -= 8 + (int)fl_width(tx::STATUS_NEW) + 20;
+    button(bx, y() + 17, tx::STATUS_NEW, 47, -1, rgb(T.text), rgb(T.card));
+    // A la izquierda, los guardados (en miniatura; el último arriba).
+    int ty = y() + head + 14;
+    if (designs)
+      for (int i = (int)designs->size() - 1; i >= 0 && ty + 160 < y() + h(); i--) {
+        int tx0 = x() + 16;
+        if (i == design) {
+          fl_color(rgb(T.accent));
+          fl_rectf(tx0 - 4, ty - 4, 98, 168);
+        }
+        if (Fl_RGB_Image* th_img = status_preview((*designs)[(size_t)i], 90, 160)) th_img->draw(tx0, ty);
+        hits.push_back({tx0, ty, 90, 160, 51, i});
+        fl_color(rgb(0x111b21));
+        fl_pie(tx0 + 68, ty + 4, 18, 18, 0, 360);
+        fl_color(FL_WHITE);
+        fl_font(FL_HELVETICA_BOLD, 10);
+        fl_draw("✕", tx0 + 68, ty + 4, 18, 18, FL_ALIGN_CENTER);
+        hits.insert(hits.end() - 1, {tx0 + 66, ty + 2, 22, 22, 52, i});   // antes que la miniatura
+        ty += 178;
+      }
+    if (!has) {
+      fl_font(FL_HELVETICA, 14);
+      fl_color(rgb(T.muted));
+      fl_draw(tx::STATUS_EMPTY, x() + 140, y() + head, w() - 180, h() - head, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+      return;
+    }
+    const StatusDesign& d = (*designs)[(size_t)design];
+    // En el centro, la vista previa (9:16).
+    int ph = h() - head - 32, pw = ph * 9 / 16;
+    int px = x() + 136, py = y() + head + 16;
+    if (Fl_RGB_Image* prev = status_preview(d, pw, ph)) prev->draw(px, py);
+    fl_color(rgb(T.card_line));
+    fl_rect(px - 1, py - 1, pw + 2, ph + 2);
+    // A la derecha, lo que se cambia.
+    int cx = px + pw + 28, cy = py + 4, cw = x() + w() - 20 - cx;
+    fl_font(FL_HELVETICA_BOLD, 12);
+    fl_color(rgb(T.muted));
+    fl_draw(tx::STATUS_TEMPLATE, cx, cy + 12);
+    cy += 22;
+    for (int k = 0; k < STATUS_TPLS; k++) {
+      const StatusTpl& t = status_tpl(k);
+      int sx = cx + k * 40;
+      if (k == d.tpl) {
+        fl_color(rgb(T.text));
+        fl_pie(sx - 3, cy - 3, 40, 40, 0, 360);
+        fl_color(rgb(T.chat));
+        fl_pie(sx - 1, cy - 1, 36, 36, 0, 360);
+      }
+      fl_color(rgb(t.top));
+      fl_pie(sx + 1, cy + 1, 32, 32, 0, 360);
+      fl_color(rgb(t.bottom));
+      fl_pie(sx + 9, cy + 9, 16, 16, 0, 360);
+      hits.push_back({sx, cy, 34, 34, 40, k});
+    }
+    cy += 52;
+    struct Field {
+      const char* label;
+      const std::string* value;
+      int act;
+    };
+    const Field fields[] = {{tx::STATUS_F_TITLE, &d.title, 41}, {tx::STATUS_F_BODY, &d.body, 42},
+                            {tx::STATUS_F_FOOTER, &d.footer, 43}, {tx::STATUS_F_EMOJI, &d.emoji, 44}};
+    for (const auto& f : fields) {
+      int nb = button(cx, cy, f.label, f.act, -1, rgb(T.text), rgb(T.card));
+      fl_font(FL_HELVETICA, 12);
+      fl_color(rgb(T.muted));
+      std::string v = f.value->empty() ? "—" : *f.value;
+      for (auto& ch : v)
+        if (ch == '\n') ch = ' ';
+      fl_draw(fit(v, std::max(40, cx + cw - nb - 10)).c_str(), nb + 10, cy + 18);
+      cy += 38;
+    }
+    int nb = button(cx, cy, tx::STATUS_F_PHOTO, 45, -1, rgb(T.text), rgb(T.card));
+    if (!d.photo.empty()) {
+      nb = button(nb + 6, cy, tx::STATUS_F_NO_PHOTO, 46, -1, rgb(T.text), rgb(T.card));
+      fl_font(FL_HELVETICA, 12);
+      fl_color(rgb(T.muted));
+      std::string pn = starts(d.photo, "demo:") ? std::string(tx::K_PHOTO) : file_base(d.photo);
+      fl_draw(fit(pn, std::max(40, cx + cw - nb - 10)).c_str(), nb + 10, cy + 18);
+    }
+  }
   // El visor: una foto en grande, encima de todo ("" si está cerrado).
   std::string viewer, viewer_title;
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
@@ -2511,9 +2818,14 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || !chat || !viewer.empty()) && find_input && find_input->visible()) find_input->hide();
+    if ((tasks_mode || status_mode || !chat || !viewer.empty()) && find_input && find_input->visible()) find_input->hide();
     if (!viewer.empty()) {
       draw_viewer();
+      fl_pop_clip();
+      return;
+    }
+    if (status_mode) {
+      draw_status_view();
       fl_pop_clip();
       return;
     }
@@ -2795,7 +3107,7 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || !chat || !viewer.empty()) return 1;
+        if (right || tasks_mode || status_mode || !chat || !viewer.empty()) return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -3191,6 +3503,11 @@ int selftest() {
     AiText auto_reply = ai_ask(s, fmt(tx::PROMPT_BUSY_AI, {"En una reunión"}), user_prompt(demo[0], ""));
     std::printf("respuesta automática: %d letras %s\n", (int)auto_reply.text.size(), auto_reply.error.c_str());
     chk(auto_reply.error.empty() && !auto_reply.text.empty(), "respuesta automática con IA (servidor de prueba)");
+    AiText st = ai_ask(s, fmt(tx::PROMPT_STATUS, {tx::MY_LANGUAGE, tx::STATUS_TPL_LIST}), "rebajas en mesas");
+    StatusDesign sd;
+    bool ok_st = st.error.empty() && parse_status_ai(st.text, sd);
+    std::printf("estado con IA: %s\n", ok_st ? sd.title.c_str() : st.error.c_str());
+    chk(ok_st, "estado con IA (servidor de prueba)");
   }
   // Enviar con la API oficial: los cuerpos y las respuestas.
   b = parse_json(cloud_text_body("34600111222", "Hola \"tú\""), &ok);
@@ -3388,6 +3705,27 @@ int selftest() {
     l.now = 0;   // como en la app: la hora de verdad
     chk(l.count(ChatList::F_TODO) == 1, "el filtro «por responder» con la hora de verdad");
     chk(time_in("Europe/Madrid", wall_s()).size() == 5, "la hora local, de ahora");
+  }
+  // Los estados: guardar y leer, lo que propone la IA y dibujarlo a 1080×1920.
+  {
+    StatusDesign d;
+    d.id = 7;
+    d.tpl = 2;
+    d.title = "Hola \"mundo\"";
+    d.body = "Línea\notra";
+    d.footer = "#Prueba";
+    d.emoji = "🎉";
+    auto back = status_parse(status_line(d) + "\nroto\n");
+    chk(back.size() == 1 && back[0].title == d.title && back[0].body == d.body && back[0].tpl == 2 && back[0].emoji == "🎉",
+        "estados: guardar y leer");
+    StatusDesign e;
+    chk(parse_status_ai("```json\n{\"title\":\"Oferta\",\"body\":\"2x1\",\"footer\":\"#Ya\",\"emoji\":\"🔥\",\"template\":6}\n```", e) &&
+            e.title == "Oferta" && e.tpl == 5 && e.emoji == "🔥",
+        "estados: lo que propone la IA");
+    chk(!parse_status_ai("nada", e) && !parse_status_ai("{\"body\":\"x\"}", e), "estados: una propuesta que no sirve");
+    Fl_RGB_Image* img = status_image(d, 1080, 1920);
+    chk(img && img->w() == 1080 && img->h() == 1920, "estados: la imagen de 1080×1920");
+    delete img;
   }
   // La barra: los chats por responder, del más reciente al más antiguo.
   {
@@ -3638,6 +3976,10 @@ struct TransDone {   // lo recibido, traducido
   std::string jid, language, error;
   std::vector<std::string> keys, items;
 };
+struct StatusAiDone {   // el estado que propone la IA
+  long long id;
+  std::string text, error;
+};
 struct DraftDone {   // lo que escribo, mejorado o corregido por la IA
   bool fix;
   std::string original, text, error;
@@ -3686,6 +4028,21 @@ public:
   std::string busy;
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
+  // Los estados: los diseños guardados y las publicaciones en curso (por su id de envío).
+  std::vector<wa::StatusDesign> designs;
+  std::map<std::string, bool> status_rids;
+  // Preguntar antes de algo que se ve fuera (las pruebas lo cambian).
+  std::function<bool(const std::string&)> confirm = [](const std::string& q) {
+    return fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, q.c_str()) == 1;
+  };
+  // Elegir una foto (las pruebas lo cambian): "" si se cancela.
+  std::function<std::string()> choose_photo = [] {
+    Fl_Native_File_Chooser ch;
+    ch.title(tx::STATUS_F_PHOTO);
+    ch.filter("Fotos\t*.{jpg,jpeg,png}");
+    if (ch.show() != 0 || !ch.filename()) return std::string();
+    return std::string(ch.filename());
+  };
   // La barra de menús: si la ventana está escondida en ella, y lo último que se puso.
   bool in_bar = false, quitting = false;
   std::string bar_sig;
@@ -3757,6 +4114,8 @@ public:
     list->on_tasks = [] { if (self()) self()->open_tasks(); };
     list->on_mode = [] { if (self()) self()->refresh(); };
     list->on_busy = [] { if (self()) self()->busy_menu(); };
+    list->on_status = [] { if (self()) self()->open_status(); };
+    view->designs = &designs;
     // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
     find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
     find_input->textsize(13);
@@ -3834,6 +4193,7 @@ public:
     load_tasks();
     load_translations();
     load_busy();
+    load_designs();
     reload();
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
@@ -4012,7 +4372,9 @@ public:
     current = i;
     list->selected = i;
     list->tasks_selected = false;
+    list->status_selected = false;
     view->tasks_mode = false;
+    view->status_mode = false;
     view->msg_scroll = 0;
     view->asked_more = false;
     view->clear_selection();
@@ -4145,6 +4507,8 @@ public:
     current = -1;
     list->selected = -1;
     list->tasks_selected = true;
+    list->status_selected = false;
+    view->status_mode = false;
     view->chat = nullptr;
     view->tasks_mode = true;
     view->task_scroll = 0;
@@ -4575,6 +4939,155 @@ public:
     refresh();
   }
 
+  // ---- los estados: diseñarlos, guardarlos y publicarlos
+  std::string designs_file() const { return wa::config_dir() + "/estados.jsonl"; }
+  void load_designs() {
+    std::string text;
+    designs.clear();
+    if (!demo && wa::read_file(designs_file(), text)) designs = wa::status_parse(text);
+    view->design = designs.empty() ? -1 : (int)designs.size() - 1;
+  }
+  void save_designs() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string out;
+    for (const auto& d : designs) out += wa::status_line(d) + "\n";
+    wa::write_file(designs_file(), out);
+  }
+  void open_status() {
+    current = -1;
+    list->selected = -1;
+    list->tasks_selected = false;
+    list->status_selected = true;
+    view->chat = nullptr;
+    view->tasks_mode = false;
+    view->status_mode = true;
+    options.clear();
+    refresh();
+  }
+  wa::StatusDesign* design() {
+    int i = view->design;
+    return i >= 0 && i < (int)designs.size() ? &designs[(size_t)i] : nullptr;
+  }
+  void new_design() {
+    wa::StatusDesign d;
+    long long top = 0;
+    for (const auto& x : designs) top = std::max(top, x.id);
+    d.id = top + 1;
+    d.title = tx::STATUS_NEW_TITLE;
+    d.body = tx::STATUS_NEW_BODY;
+    d.emoji = "✨";
+    designs.push_back(d);
+    view->design = (int)designs.size() - 1;
+  }
+  // El PNG de 1080×1920 del diseño abierto en [path].
+  bool render_design(const std::string& path) {
+    wa::StatusDesign* d = design();
+    if (!d) return false;
+    Fl_RGB_Image* img = wa::status_image(*d, 1080, 1920);
+    bool ok = img && fl_write_png(path.c_str(), img) == 0;
+    delete img;
+    return ok;
+  }
+  void status_act(int act, int k) {
+    wa::StatusDesign* d = design();
+    if (act == 47) {
+      new_design();
+    } else if (act == 48) {
+      status_ai();
+      return;
+    } else if (act == 51) {
+      if (k >= 0 && k < (int)designs.size()) view->design = k;
+    } else if (act == 52) {
+      if (k >= 0 && k < (int)designs.size()) {
+        designs.erase(designs.begin() + k);
+        if (view->design >= (int)designs.size()) view->design = (int)designs.size() - 1;
+      }
+    } else if (!d) {
+      return;
+    } else if (act == 40) {
+      d->tpl = k;
+    } else if (act >= 41 && act <= 44) {
+      std::string* f = act == 41 ? &d->title : act == 42 ? &d->body : act == 43 ? &d->footer : &d->emoji;
+      const char* q = act == 41 ? tx::STATUS_ASK_TITLE : act == 42 ? tx::STATUS_ASK_BODY : act == 43 ? tx::STATUS_ASK_FOOTER : tx::STATUS_ASK_EMOJI;
+      std::string v = *f;
+      if (!ask_text(q, v)) return;
+      *f = wa::trim(v);
+    } else if (act == 45) {
+      std::string p = choose_photo();
+      if (p.empty()) return;
+      d->photo = p;
+    } else if (act == 46) {
+      d->photo.clear();
+    } else if (act == 49) {
+      std::string dest = save_as(tx::STATUS_FILE);
+      if (dest.empty()) return;
+      say(render_design(dest) ? wa::fmt(tx::DOWNLOADED, {wa::file_base(dest)}) : std::string(tx::DOWNLOAD_FAILED));
+      return;
+    } else if (act == 50) {
+      publish_status();
+      return;
+    }
+    save_designs();
+    refresh();
+  }
+  // Con IA: de qué va el estado → título, texto, pie, emoji y plantilla.
+  void status_ai() {
+    std::string idea;
+    if (!ask_text(tx::STATUS_ASK_IDEA, idea) || wa::trim(idea).empty()) return;
+    if (!demo && !ai_ready()) return;
+    if (!design()) new_design();
+    wa::AiSettings s = ai;
+    long long id = design()->id;
+    std::string sys = wa::fmt(tx::PROMPT_STATUS, {tx::MY_LANGUAGE, tx::STATUS_TPL_LIST});
+    if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    say(tx::STATUS_AI_WORKING);
+    if (demo) return;
+    std::thread([s, sys, idea, id] {
+      wa::AiText r = wa::ai_ask(s, sys, idea);
+      Fl::awake(status_ai_done, new StatusAiDone{id, r.text, r.error});
+    }).detach();
+  }
+  static void status_ai_done(void* p) {
+    std::unique_ptr<StatusAiDone> d(static_cast<StatusAiDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    for (auto& x : f->designs)
+      if (x.id == d->id) {
+        if (!d->error.empty() || !wa::parse_status_ai(d->text, x)) {
+          f->say(d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+          return;
+        }
+        f->save_designs();
+        f->say(tx::STATUS_AI_DONE);
+        f->refresh();
+        return;
+      }
+  }
+  // Publicar: solo con WhatsApp vinculado por QR (la API oficial no publica estados).
+  void publish_status() {
+    if (!design()) return;
+    if (send_mode != wa::S_LINKED || !linked) {
+      say(tx::STATUS_NEEDS_QR);
+      return;
+    }
+    if (!confirm(tx::STATUS_CONFIRM)) return;
+    std::string dir = wa::config_dir() + "/estados";
+    fl_make_path(dir.c_str());
+    std::string png = dir + "/estado-" + std::to_string(design()->id) + "-" + std::to_string(wa::wall_s()) + ".png";
+    if (!render_design(png)) {
+      say(tx::DOWNLOAD_FAILED);
+      return;
+    }
+    std::string rid = "r" + std::to_string(++requests);
+    if (!bridge.send("{\"cmd\":\"status\",\"id\":" + wa::jstr(rid) + ",\"path\":" + wa::jstr(png) + "}")) {
+      say(tx::ERR_SEND);
+      return;
+    }
+    status_rids[rid] = true;
+    say(tx::STATUS_PUBLISHING);
+  }
+
   // ---- la conversación: subir, volver abajo, buscar, copiar
   void chat_act(int act) {
     if (act == 20) load_more();
@@ -4758,6 +5271,10 @@ public:
     }
     if (act == 27) {
       translate_menu();
+      return;
+    }
+    if (act >= 40 && act <= 52) {
+      status_act(act, k);
       return;
     }
     if (act >= 10 && act <= 13) {
@@ -5041,6 +5558,10 @@ public:
       linked = true;
       if (qr_win) qr_win->hide();
       say(tx::LINKED);
+    } else if (ev == "sent" && status_rids.count(j["id"].str())) {
+      status_rids.erase(j["id"].str());
+      std::string why = j["error"].str();
+      say(j["ok"].b ? std::string(tx::STATUS_PUBLISHED) : wa::fmt(tx::ERR_SEND_WHY, {why.empty() ? std::string(tx::ERR_SEND) : why}));
     } else if (ev == "sent") {
       std::string why = j["error"].str();
       send_result(j["id"].str(), j["ok"].b ? "" : why.empty() ? std::string(tx::ERR_SEND) : wa::fmt(tx::ERR_SEND_WHY, {why}));
@@ -5204,6 +5725,26 @@ public:
     ai.provider = wa::P_CLAUDE;
     Provider->index(0);
     load_busy();
+    // Dos estados de ejemplo.
+    designs.clear();
+    {
+      wa::StatusDesign a;
+      a.id = 1;
+      a.tpl = 0;
+      a.title = tx::DEMO_ST1_TITLE;
+      a.body = tx::DEMO_ST1_BODY;
+      a.footer = "#MueblesSol";
+      a.emoji = "🪑";
+      wa::StatusDesign b;
+      b.id = 2;
+      b.tpl = 1;
+      b.title = tx::DEMO_ST2_TITLE;
+      b.body = tx::DEMO_ST2_BODY;
+      b.footer = "mueblessol.example";
+      b.photo = "demo:mesa";
+      designs = {a, b};
+      view->design = 1;
+    }
     tasks.clear();
     view->now = now;
     list->now = now;
@@ -5258,6 +5799,8 @@ public:
     render_to(dir + "/tasks.png");
     pick(5);
     render_to(dir + "/translate.png");
+    open_status();
+    render_to(dir + "/status.png");
     pick(0);
     view->viewer = "demo:mesa";
     view->viewer_title = tx::DEMO_PHOTO_CAPTION;
@@ -5550,6 +6093,64 @@ public:
       chk(message == tx::FIX_SAME, "nada que corregir");
       Draft->value("");
     }
+    // Los estados: abrir el diseñador, cambiar la plantilla y el título, nuevo, guardar la imagen.
+    {
+      render_to("");
+      for (const auto& h : list->hits)
+        if (h.act == 7) {
+          Fl::e_x = h.x + 10;
+          Fl::e_y = h.y + 10;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          list->handle(FL_PUSH);
+          break;
+        }
+      chk(view->status_mode && list->status_selected && view->design == 1, "abrir los estados");
+      render_to("");
+      int swatches = 0, thumbs = 0;
+      for (const auto& h : view->hits) {
+        swatches += h.act == 40 ? 1 : 0;
+        thumbs += h.act == 51 ? 1 : 0;
+      }
+      chk(swatches == wa::STATUS_TPLS && thumbs == 2, "las plantillas y los guardados");
+      for (const auto& h : view->hits)
+        if (h.act == 40 && h.idx == 3) {
+          Fl::e_x = h.x + 10;
+          Fl::e_y = h.y + 10;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(designs[1].tpl == 3, "elegir la plantilla «Noche»");
+      ask_text = [](const char*, std::string& io) {
+        io = "¡Nueva colección!";
+        return true;
+      };
+      option_act(41, -1);
+      chk(designs[1].title == "¡Nueva colección!", "cambiar el título");
+      choose_photo = [] { return std::string(); };
+      option_act(46, -1);
+      chk(designs[1].photo.empty(), "quitar la foto");
+      option_act(47, -1);
+      chk(designs.size() == 3 && view->design == 2, "un estado nuevo");
+      option_act(52, 2);
+      chk(designs.size() == 2 && view->design == 1, "borrar un estado");
+      fl_make_path(wa::config_dir().c_str());
+      std::string dest = wa::config_dir() + "/prueba-estado.png";
+      save_as = [&](const std::string&) { return dest; };
+      option_act(49, -1);
+      Fl_RGB_Image* png = wa::load_picture(dest);
+      chk(png && png->w() == 1080 && png->h() == 1920, "guardar el estado como imagen de 1080×1920");
+      delete png;
+      std::remove(dest.c_str());
+      save_as = [](const std::string&) { return std::string(); };
+      message.clear();
+      option_act(50, -1);
+      chk(message == tx::STATUS_NEEDS_QR, "publicar sin WhatsApp vinculado avisa");
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+      pick(0);
+    }
     // El visor: la foto en grande, descargarla y cerrarlo.
     {
       pick(0);
@@ -5743,6 +6344,10 @@ public:
                      "      echo '{\"ev\":\"sent\",\"id\":\"r1\",\"ok\":true}'\n"
                      "      echo '{\"ev\":\"msg\",\"id\":\"B2\",\"chat\":\"34677000000@s.whatsapp.net\",\"name\":\"Nuevo\",\"text\":\"¿Qué tal?\",\"t\":1794365200}'\n"
                      "      ;;\n"
+                     "    *'\"cmd\":\"status\"'*)\n"
+                     "      id=$(printf '%s' \"$l\" | sed 's/.*\"id\":\"\\([^\"]*\\)\".*/\\1/')\n"
+                     "      echo \"{\\\"ev\\\":\\\"sent\\\",\\\"id\\\":\\\"$id\\\",\\\"ok\\\":true}\"\n"
+                     "      ;;\n"
                      "  esac\n"
                      "done\n");
       chmod(sh.c_str(), 0700);
@@ -5789,6 +6394,15 @@ public:
       busy_modes.pop_back();
       busy.clear();
       busy_since = 0;
+      // Publicar un estado por el puente (con la confirmación).
+      open_status();
+      confirm = [](const std::string&) { return true; };
+      message.clear();
+      publish_status();
+      chk(message == tx::STATUS_PUBLISHING && status_rids.size() == 1, "publicar un estado");
+      for (int i = 0; i < 100 && !status_rids.empty(); i++) Fl::wait(0.05);
+      chk(status_rids.empty() && message == tx::STATUS_PUBLISHED, "el estado, publicado por el puente");
+      pick(0);
       Fl::e_state = FL_SHIFT;
       Draft->value("otra");
       chk(dispatch(FL_KEYBOARD, this) == 0 || std::string(Draft->value()) != "", "Mayúsculas+Enter no envía");

@@ -837,7 +837,7 @@ msgstr "Phone"
 msgid "Temperatura"
 msgstr "Temperature"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr "Text"
 
@@ -2169,7 +2169,7 @@ msgstr "Token (Bearer)"
 msgid "Token o clave (mejor en una variable)"
 msgstr "Token or key (better in a variable)"
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Título"
 msgstr "Title"
 
@@ -6738,12 +6738,20 @@ msgid "+ Nueva tarea"
 msgstr "+ New task"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nuevo"
+msgstr "+ New"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nuevo modo…"
 msgstr "+ New mode…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Tarea"
 msgstr "+ Task"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "1 Cielo (azul claro), 2 Atardecer (naranja y rosa), 3 Menta (verde suave), 4 Noche (oscuro), 5 Papel (crema, sobrio), 6 Oferta (amarillo y rojo), 7 WhatsApp (verde)"
+msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 Night (dark), 5 Paper (cream, sober), 6 Offer (yellow and red), 7 WhatsApp (green)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «Sugerir respuestas»."
@@ -6794,6 +6802,10 @@ msgid "Archivados"
 msgstr "Archived"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Así quedó la mesa de Laura. ¿Le hacemos la suya?"
+msgstr "Here's how Laura's table turned out. Shall we make yours?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó, ¿te gusta?"
 msgstr "Here it is, do you like it?"
 
@@ -6810,6 +6822,10 @@ msgstr ""
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
 msgstr "I don't know their language yet: choose it in “🌐 Translate”"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aún no tiene estados. Pulse «+ Nuevo» o «✨ Con IA» para diseñar uno."
+msgstr "You don't have any statuses yet. Press “+ New” or “✨ With AI” to design one."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Borrar un modo…"
@@ -6941,6 +6957,10 @@ msgstr "Disconnect WhatsApp"
 msgid "Detectar el idioma"
 msgstr "Detect the language"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Diseñe un estado de WhatsApp y publíquelo"
+msgstr "Design a WhatsApp status and publish it"
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
 msgstr "Document"
@@ -6954,12 +6974,24 @@ msgid "El mensaje que se contesta solo a quien le escriba:"
 msgstr "The message automatically sent to whoever writes to you:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El pie (un hashtag, una web o una llamada a la acción; vacío para quitarlo):"
+msgstr "The footer (a hashtag, a website or a call to action; empty to remove it):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El sábado me va perfecto. Os espero en calle Mayor 12, de 10 a 14."
 msgstr "Saturday works great. I’ll be at 12 High Street, 10 to 2."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El texto (una o dos frases):"
+msgstr "The text (one or two sentences):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El token de la API de WhatsApp no es válido o caducó"
 msgstr "The WhatsApp API token is invalid or expired"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El título del estado:"
+msgstr "The status title:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Elegir el archivo para enviar"
@@ -6968,6 +7000,10 @@ msgstr "Choose the file to send"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Elija un chat"
 msgstr "Pick a chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Emoji"
+msgstr "Emoji"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
@@ -7022,6 +7058,10 @@ msgid "Eres el corrector de MyWhatsapp. Corrige solo la ortografía, los acentos
 msgstr "You are the MyWhatsapp proofreader. Fix only the spelling, accents, grammar and punctuation of the message, in its language, without changing the words, the style, the tone or the emojis. If there is nothing to fix, return it as is. Reply only with the corrected message, without quotes or explanations."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el diseñador de estados de MyWhatsapp. El usuario te dice de qué trata un estado de WhatsApp; escribe su contenido, en {0}. Responde solo con JSON, sin nada más: {\"title\": \"un título corto y llamativo (máx. 6 palabras)\", \"body\": \"una o dos frases\", \"footer\": \"un pie corto: un hashtag, una web o una llamada a la acción (puede ir vacío)\", \"emoji\": \"un emoji que encaje (o vacío)\", \"template\": el número de la plantilla que mejor encaje}. Plantillas: {1}. No inventes precios, fechas ni datos que no te haya dado."
+msgstr "You are the MyWhatsapp status designer. The user tells you what a WhatsApp status is about; write its content, in {0}. Reply only with JSON, nothing else: {\"title\": \"a short, catchy title (max. 6 words)\", \"body\": \"one or two sentences\", \"footer\": \"a short footer: a hashtag, a website or a call to action (may be empty)\", \"emoji\": \"a fitting emoji (or empty)\", \"template\": the number of the best-fitting template}. Templates: {1}. Don't make up prices, dates or facts they didn't give you."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el traductor de MyWhatsapp. Te dan una lista JSON de mensajes de WhatsApp: tradúcelos al idioma de destino, con naturalidad y el mismo tono (los emojis, igual). Responde solo con JSON, sin nada más: {\"language\": \"el nombre del idioma en que están escritos, dicho en el idioma de destino\", \"items\": [\"la traducción del primero\", \"…\"]}, una traducción por mensaje y en el mismo orden. Si un mensaje ya está en el idioma de destino, déjalo igual. Idioma de destino: {0}."
 msgstr "You are the MyWhatsapp translator. You get a JSON list of WhatsApp messages: translate them into the target language, naturally and with the same tone (keep the emojis). Reply only with JSON, nothing else: {\"language\": \"the name of the language they are written in, named in the target language\", \"items\": [\"the translation of the first one\", \"…\"]}, one translation per message and in the same order. If a message is already in the target language, leave it as is. Target language: {0}."
 
@@ -7034,6 +7074,10 @@ msgid "Esconder en la barra de menús"
 msgstr "Hide in the menu bar"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Escriba aquí su mensaje"
+msgstr "Write your message here"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Escriba el mensaje en el borrador"
 msgstr "Type the message in the draft"
 
@@ -7044,6 +7088,14 @@ msgstr "That file does not look like an exported WhatsApp chat"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese chat ya no está en la lista"
 msgstr "That chat is no longer in the list"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estado publicado ✓"
+msgstr "Status published ✓"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estados"
+msgstr "Statuses"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Este chat es importado: no tiene número al que enviar"
@@ -7096,6 +7148,10 @@ msgstr "Great, when can you deliver it?"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Guardar una copia"
 msgstr "Save a copy"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hechas a mano en nuestro taller. Pida la suya y se la llevamos a casa."
+msgstr "Handmade in our workshop. Order yours and we deliver it to your home."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Hecho, a las 8 en el polideportivo"
@@ -7162,6 +7218,10 @@ msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respue
 msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the style you choose."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Listo: retóquelo si quiere y publíquelo"
+msgstr "Done: tweak it if you like and publish it"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Listo: se envía con la API oficial de WhatsApp Business"
 msgstr "Done: sending with the official WhatsApp Business API"
 
@@ -7188,6 +7248,10 @@ msgstr "Send Carlos the kitchen quote"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Me apunto!"
 msgstr "Count me in!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mesas de roble a medida"
+msgstr "Custom oak tables"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
@@ -7247,6 +7311,8 @@ msgid ""
 "\n"
 "Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
 "\n"
+"Estados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n"
+"\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
@@ -7264,6 +7330,8 @@ msgstr ""
 "When you close the window, MyWhatsapp stays in the menu bar, with how many chats are waiting for a reply (someone wrote in the last 3 days and you didn't answer) and a menu with them; also in File › Hide in the menu bar.\n"
 "\n"
 "Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
+"\n"
+"Statuses: the “🎨 Statuses” row opens a Canva-style designer (templates, title, text, footer, emoji and photo; “✨ With AI” writes it for you). “⬇ Save image” saves it at 1080×1920 and “📤 Publish” posts it as a WhatsApp status (with WhatsApp linked by QR).\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
@@ -7350,8 +7418,16 @@ msgid "Original:"
 msgstr "Original:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PLANTILLA"
+msgstr "TEMPLATE"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?"
 msgstr "To suggest replies, this chat’s latest messages are sent to {0}. This only happens when you press “Suggest replies” and only for the open chat. Continue?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Para publicar estados, vincule WhatsApp con el código QR (la API oficial no publica estados)"
+msgstr "To publish statuses, link WhatsApp with the QR code (the official API does not publish statuses)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Para traducir, los mensajes de este chat y lo que escriba en él se envían a {0}. ¿Continuar?"
@@ -7368,6 +7444,10 @@ msgstr "Perfect, thanks. Does it include installation?"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Perfecto. ¿Cuánto cuesta el envío? 🙂"
 msgstr "Perfect. How much is shipping? 🙂"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Pie"
+msgstr "Footer"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
@@ -7388,6 +7468,14 @@ msgstr "Kitchen quote.pdf"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Profesional (negocio)"
 msgstr "Professional (business)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Publicando el estado…"
+msgstr "Publishing the status…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Quitar la foto"
+msgstr "Remove photo"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Qué quiere decir"
@@ -7434,6 +7522,10 @@ msgid "Su mensaje, mejorado: «Enviar» o «Usar»"
 msgstr "Your message, improved: “Send” or “Use”"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Su título aquí"
+msgstr "Your title here"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sábado, por favor 🙌 Calle Mayor 12. Avisadme un poco antes de llegar."
 msgstr "Saturday, please 🙌 12 High Street. Give me a heads-up before you arrive."
 
@@ -7460,6 +7552,10 @@ msgstr "WhatsApp API access token (leave it empty to keep it):"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Traduciendo…"
 msgstr "Translating…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Un emoji grande (vacío para quitarlo):"
+msgstr "A big emoji (empty to remove it):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
@@ -7546,6 +7642,10 @@ msgid "el sábado, y la dirección es calle Mayor 12"
 msgstr "Saturday, and the address is 12 High Street"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "estado.png"
+msgstr "status.png"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "francés"
 msgstr "French"
 
@@ -7610,6 +7710,10 @@ msgid "¡Qué bien! 😊 Mejor el sábado entre las 10 y las 14. La dirección e
 msgstr "Great news! 😊 Saturday between 10 and 2 is best. The address is 12 High Street. Thanks!"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Recién terminada!"
+msgstr "Just finished!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Sí, está disponible! Podemos enviarla a Roma en una semana."
 msgstr "Yes, it is available! We can ship it to Rome in a week."
 
@@ -7632,6 +7736,10 @@ msgstr ""
 "• Linked device (QR): your usual WhatsApp, like WhatsApp Web. Sends and receives in all chats and groups, but it is not official."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿De qué trata el estado? (por ejemplo: rebajas del 20 % en mesas este fin de semana)"
+msgstr "What is the status about? (for example: 20% off tables this weekend)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Desconectar WhatsApp de MyWhatsapp? Para volver a enviar tendrá que conectarlo otra vez."
 msgstr "Disconnect WhatsApp from MyWhatsapp? To send again you will have to connect it again."
 
@@ -7644,6 +7752,10 @@ msgid "¿Partido el viernes?"
 msgstr "Game on Friday?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Publicar este estado? Lo verán sus contactos durante 24 horas, según su privacidad de estados en WhatsApp."
+msgstr "Publish this status? Your contacts will see it for 24 hours, according to your WhatsApp status privacy."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Quién puede recoger a la abuela a las 13?"
 msgstr "Who can pick up Grandma at 1?"
 
@@ -7654,6 +7766,14 @@ msgstr "Which suits you better? And please confirm the address"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "árabe"
 msgstr "Arabic"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Con IA"
+msgstr "✨ With AI"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ La IA está diseñando su estado…"
+msgstr "✨ The AI is designing your status…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Mejorar"
@@ -7680,6 +7800,10 @@ msgid "⬇ Descargar"
 msgstr "⬇ Download"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "⬇ Guardar imagen"
+msgstr "⬇ Save image"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🌐 Traducir"
 msgstr "🌐 Translate"
 
@@ -7688,12 +7812,20 @@ msgid "📎 Adjuntar"
 msgstr "📎 Attach"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📤 Publicar"
+msgstr "📤 Publish"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔍 Buscar"
 msgstr "🔍 Search"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔕 Ocupado"
 msgstr "🔕 Busy"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🖼 Foto…"
+msgstr "🖼 Photo…"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"

@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.114 — 2026-11-11
+
+- **MyWhatsapp: diseñar, editar y publicar estados de WhatsApp.** La fila «🎨 Estados», en la lista, abre un diseñador al estilo Canva en la zona del chat: siete plantillas con degradados y adornos (Cielo, Atardecer, Menta, Noche, Papel, Oferta y WhatsApp), título, texto, pie (un hashtag, una web o una llamada a la acción), un emoji grande y una foto suya, con la vista previa vertical (9:16) al lado. «✨ Con IA» pregunta de qué trata el estado y la IA escribe el título, el texto, el pie y el emoji y elige la plantilla (sin inventar precios ni fechas). Los estados quedan guardados (`estados.jsonl`), en miniatura a la izquierda, para volver a editarlos o borrarlos. «⬇ Guardar imagen» lo guarda como PNG de 1080×1920 y «📤 Publicar», tras confirmar, lo publica como estado de WhatsApp: el puente (`wabridge`) tiene una orden nueva, `status`, que lo envía a `status@broadcast` con la privacidad de estados de su WhatsApp. Publicar necesita WhatsApp vinculado por QR (la API oficial de Business no publica estados). El diseño se dibuja con FLTK en una superficie fuera de pantalla, a cualquier tamaño, y las vistas previas quedan en caché.
+- Probado: las pruebas internas (guardar y leer los diseños, leer lo que propone la IA aunque venga entre ```, la imagen de 1080×1920), la de la interfaz (abrir el diseñador, elegir la plantilla, cambiar el título, quitar la foto, nuevo, borrar, guardar la imagen y volver a leerla, y el aviso sin WhatsApp vinculado), la publicación de verdad por un puente de prueba, un estado con IA contra un servidor de prueba de Claude, y el puente en Go compilado de nuevo con sus pruebas.
+
 ## 1.0.112 — 2026-11-11
 
 - **MyWhatsapp: el modo ocupado (las respuestas automáticas), siempre a mano.** En la barra de menús, el menú del icono trae los modos ocupado: un clic activa uno (otro clic en el mismo lo desactiva) sin abrir la ventana, y con un modo activo el icono pasa a ser una luna. En la ventana, arriba a la derecha de los filtros, el botón «🔕 Ocupado» abre el menú de los modos; con uno activo, sale en naranja con su nombre.

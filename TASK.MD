@@ -87,6 +87,8 @@ Hechos
 116. MyWhatsapp: botón «✨ Mejorar» junto al borrador: la IA mejora y corrige lo que escribo | ✅ |
 98. MyWhatsapp: corrección ortográfica con IA | ✅ |
 111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
+86. MyWhatsapp: publicar un estado de WhatsApp (texto o foto) desde la app | ✅ |
+105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ✅ |
 
 Trabajando
 =========
@@ -100,7 +102,6 @@ Pendiente
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
-86. MyWhatsapp: publicar un estado de WhatsApp (texto o foto) desde la app | ⏳ |
 87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ⏳ |
 88. MyWhatsapp: esconder la barra lateral dejando solo la foto de cada contacto | ⏳ |
 89. MyWhatsapp: reenviar mensajes a otro chat | ⏳ |
@@ -115,6 +116,5 @@ Pendiente
 102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ⏳ |
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
 104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
-105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
 114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |

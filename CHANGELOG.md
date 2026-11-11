@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.131 — 2026-11-11
+
+- MiniLang: el botón «Comprobar» / «Continuar» ya no desaparece. Al pasar el ratón por las respuestas, el dibujo se repintaba encima del botón y lo tapaba; ahora se repinta el tablero entero, con el campo y el botón encima. Una prueba de la interfaz lo comprueba.
+
 ## 1.0.130 — 2026-11-11
 
 - Nueva demo: **MiniLang (C++)**, para aprender idiomas con juegos cortos, nativa en C++ con FLTK. Cada unidad tiene tres lecciones de diez juegos: elegir la traducción (también con las teclas 1 a 4), ordenar las palabras, unir parejas, escribir la traducción y escuchar y escribir (con la voz del Mac). Con vidas (vuelven solas; el repaso devuelve una), experiencia, meta diaria, racha de días y repaso espaciado (cada frase vuelve a los 1, 2, 4, 7, 15 o 30 días). Las erratas y los acentos se aceptan, avisando.

@@ -1352,6 +1352,12 @@ public:
   // Dónde va el campo para escribir (lo coloca la ventana).
   int entry_x = 0, entry_y = 0, entry_w = 0;
   LessonView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
+  // El campo y el botón van encima del dibujo: si solo se repintara el dibujo, los taparía.
+  // Se repinta el tablero entero (el dibujo y, después, lo que tiene encima).
+  void repaint() {
+    if (parent()) parent()->redraw();
+    else redraw();
+  }
 
   // Un botón con canto (como una tecla) y su zona para el clic.
   void button(int bx, int by, int bw, int bh, const std::string& label, int act, int idx, unsigned fill, unsigned fg, unsigned edge,
@@ -1955,7 +1961,7 @@ public:
         int i = hit_at(Fl::event_x(), Fl::event_y());
         if (i != hover) {
           hover = i;
-          redraw();
+          repaint();
         }
         if (window()) window()->cursor(i >= 0 ? FL_CURSOR_HAND : FL_CURSOR_DEFAULT);
         return 1;
@@ -1963,7 +1969,7 @@ public:
       case FL_LEAVE:
         hover = -1;
         if (window()) window()->cursor(FL_CURSOR_DEFAULT);
-        redraw();
+        repaint();
         return 1;
       case FL_PUSH: {
         if (Fl::visible_focus()) Fl::focus(this);
@@ -1979,7 +1985,7 @@ public:
       case FL_MOUSEWHEEL:
         if (mode == M_HOME || mode == M_PACKS) {
           scroll = std::max(0, std::min(scroll + Fl::event_dy() * 40, std::max(0, content_h - (h() - 64))));
-          redraw();
+          repaint();
         }
         return 1;
     }
@@ -2450,7 +2456,7 @@ public:
       Status->text(" " + p->flag + " " + p->name + " · " + where + " · " + ml::bar_title(stats, today()));
     }
     layout();
-    view->redraw();
+    view->repaint();
     update_bar();
   }
   // El campo para escribir y el botón de comprobar, donde toca.
@@ -3220,6 +3226,17 @@ public:
       }
     BtnCheck_click();
     chk(ses.correct && ses.right == 1, "bien: con un clic");
+    // Al pasar el ratón se repinta el tablero entero: el botón no queda tapado por el dibujo.
+    Board->clear_damage();
+    view->hover = -1;
+    for (const auto& h : view->hits)
+      if (h.act == 11) {
+        Fl::e_x = h.x + 3;
+        Fl::e_y = h.y + 3;
+        view->handle(FL_MOVE);
+        break;
+      }
+    chk((Board->damage() & FL_DAMAGE_ALL) != 0 && BtnCheck->visible(), "pasar el ratón no tapa el botón");
     BtnCheck_click();
     // Ordenar: poner y quitar fichas con clics.
     chk(ses.cur().kind == ml::K_BUILD, "el tercero: ordenar");

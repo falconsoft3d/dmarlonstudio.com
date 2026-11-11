@@ -6734,6 +6734,10 @@ msgid "Ángulo"
 msgstr "Angle"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nueva plantilla…"
+msgstr "+ New template…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nueva tarea"
 msgstr "+ New task"
 
@@ -6828,8 +6832,16 @@ msgid "Aún no tiene estados. Pulse «+ Nuevo» o «✨ Con IA» para diseñar u
 msgstr "You don't have any statuses yet. Press “+ New” or “✨ With AI” to design one."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Barra lateral compacta (solo las fotos)"
+msgstr "Compact sidebar (photos only)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Borrar un modo…"
 msgstr "Delete a mode…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrar una plantilla…"
+msgstr "Delete a template…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
@@ -6846,6 +6858,10 @@ msgstr "Warm"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Carlos · cliente"
 msgstr "Carlos · client"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Chat limpiado (en WhatsApp sigue todo)"
+msgstr "Chat cleared (everything is still in WhatsApp)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "ChatGPT (OpenAI)"
@@ -6954,6 +6970,10 @@ msgid "Desconectar WhatsApp"
 msgstr "Disconnect WhatsApp"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Deshacer la limpieza"
+msgstr "Undo clearing"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Detectar el idioma"
 msgstr "Detect the language"
 
@@ -6970,8 +6990,16 @@ msgid "Editar el mensaje de un modo…"
 msgstr "Edit a mode's message…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Editar una plantilla…"
+msgstr "Edit a template…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El mensaje que se contesta solo a quien le escriba:"
 msgstr "The message automatically sent to whoever writes to you:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El nombre del chat al que reenviarlo:"
+msgstr "The name of the chat to forward it to:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El pie (un hashtag, una web o una llamada a la acción; vacío para quitarlo):"
@@ -6984,6 +7012,10 @@ msgstr "Saturday works great. I’ll be at 12 High Street, 10 to 2."
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El texto (una o dos frases):"
 msgstr "The text (one or two sentences):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El texto ({nombre} se cambia por el nombre del contacto):"
+msgstr "The text ({nombre} becomes the contact's name):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El token de la API de WhatsApp no es válido o caducó"
@@ -7082,6 +7114,10 @@ msgid "Escriba el mensaje en el borrador"
 msgstr "Type the message in the draft"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ese adjunto no está descargado en este equipo: no se puede reenviar"
+msgstr "That attachment isn't downloaded on this computer: it can't be forwarded"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese archivo no parece un chat exportado de WhatsApp"
 msgstr "That file does not look like an exported WhatsApp chat"
 
@@ -7146,6 +7182,10 @@ msgid "Genial, ¿cuándo me la podéis llevar?"
 msgstr "Great, when can you deliver it?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Gracias"
+msgstr "Thank you"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Guardar una copia"
 msgstr "Save a copy"
 
@@ -7158,8 +7198,16 @@ msgid "Hecho, a las 8 en el polideportivo"
 msgstr "Done, at 8 at the sports centre"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hola {nombre}, te acabo de enviar el presupuesto. Si tienes cualquier duda, dime."
+msgstr "Hi {nombre}, I just sent you the quote. Let me know if you have any questions."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Hola! Ya tenemos la mesa de roble que pediste 😊"
 msgstr "Hi! Your oak table has arrived 😊"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Horario de atención"
+msgstr "Opening hours"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "IA"
@@ -7216,6 +7264,10 @@ msgstr "Laura (Sun Furniture)"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el estilo que elija."
 msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the style you choose."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Limpiar el chat (solo en MyWhatsapp)"
+msgstr "Clear the chat (only in MyWhatsapp)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Listo: retóquelo si quiere y publíquelo"
@@ -7301,9 +7353,9 @@ msgid ""
 "\n"
 "Elija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
 "\n"
-"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n"
+"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo (o arrástrelo al chat). «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n"
 "\n"
-"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n"
+"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»).\n"
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
 "\n"
@@ -7321,9 +7373,9 @@ msgstr ""
 "\n"
 "Choose a chat, optionally type what you want to say and the style, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat's latest messages and suggest three replies. “Send” sends it, “Use” puts it in the draft to tweak it and “Copy” copies it.\n"
 "\n"
-"To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file. “✨ Improve” suggests your message improved by the AI and “Aa Fix” fixes its spelling (Cmd+Z undoes it).\n"
+"To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file (or drag it onto the chat). “✨ Improve” suggests your message improved by the AI and “Aa Fix” fixes its spelling (Cmd+Z undoes it).\n"
 "\n"
-"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it or turns it into a task.\n"
+"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it, forwards it to another chat or turns it into a task. “⋯”, in the header, clears the chat (only in MyWhatsapp; it can be undone). “📋 Templates” inserts a saved message ({nombre} becomes the contact's name). In View, the sidebar folds to just the photos (or with « / »).\n"
 "\n"
 "“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
 "\n"
@@ -7356,6 +7408,10 @@ msgstr "WhatsApp Desktop was not found on this computer. Connect WhatsApp (File 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "No encuentro curl"
 msgstr "curl not found"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No encuentro ese chat"
+msgstr "I can't find that chat"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No había nada que corregir"
@@ -7402,12 +7458,20 @@ msgid "No traducir"
 msgstr "Don't translate"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nombre de la plantilla:"
+msgstr "Template name:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nombre del modo (por ejemplo: En el médico):"
 msgstr "Mode name (for example: At the doctor):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nota de voz"
 msgstr "Voice note"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nuestro horario es de lunes a viernes, de 9:00 a 18:00."
+msgstr "We're open Monday to Friday, 9:00 to 18:00."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ocupado: {0}"
@@ -7465,6 +7529,10 @@ msgstr "To answer ({0}):"
 msgid "Presupuesto cocina.pdf"
 msgstr "Kitchen quote.pdf"
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Presupuesto enviado"
+msgstr "Quotation sent"
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Profesional (negocio)"
 msgstr "Professional (business)"
@@ -7490,8 +7558,20 @@ msgid "Recoger a la abuela el domingo a las 13"
 msgstr "Pick up grandma on Sunday at 1 pm"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Reenviado a {0}"
+msgstr "Forwarded to {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Reenviar…"
+msgstr "Forward…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Salir de MyWhatsapp"
 msgstr "Quit MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Saludo"
+msgstr "Greeting"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
@@ -7702,8 +7782,16 @@ msgid "{0} pendientes"
 msgstr "{0} pending"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Hola {nombre}! ¿Cómo estás?"
+msgstr "Hi {nombre}! How are you?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Hola! He visto vuestra mesa de roble en la web. ¿Sigue disponible?"
 msgstr "Hi! I saw your oak table on the website. Is it still available?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Muchas gracias, {nombre}! Cualquier cosa, aquí estoy."
+msgstr "Thanks a lot, {nombre}! I'm here for anything you need."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Qué bien! 😊 Mejor el sábado entre las 10 y las 14. La dirección es calle Mayor 12. ¡Gracias!"
@@ -7744,6 +7832,18 @@ msgid "¿Desconectar WhatsApp de MyWhatsapp? Para volver a enviar tendrá que co
 msgstr "Disconnect WhatsApp from MyWhatsapp? To send again you will have to connect it again."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Enviar este archivo a {0}?"
+msgstr "Send this file to {0}?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Enviar {0} archivos a {1}?"
+msgstr "Send {0} files to {1}?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Limpiar este chat? Se ocultan sus mensajes hasta ahora en MyWhatsapp; en WhatsApp no se borra nada y se puede deshacer."
+msgstr "Clear this chat? Its messages so far are hidden in MyWhatsapp; nothing is deleted in WhatsApp and it can be undone."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Llegaste bien?"
 msgstr "Did you get home OK?"
 
@@ -7766,6 +7866,10 @@ msgstr "Which suits you better? And please confirm the address"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "árabe"
 msgstr "Arabic"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✅ Tareas pendientes: {0}"
+msgstr "✅ Pending tasks: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Con IA"
@@ -7808,8 +7912,16 @@ msgid "🌐 Traducir"
 msgstr "🌐 Translate"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📋 Plantillas"
+msgstr "📋 Templates"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "📎 Adjuntar"
 msgstr "📎 Attach"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📎 Suelte para enviar a {0}"
+msgstr "📎 Drop to send to {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "📤 Publicar"
@@ -7818,6 +7930,10 @@ msgstr "📤 Publish"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔍 Buscar"
 msgstr "🔍 Search"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🔎 Buscar otro chat…"
+msgstr "🔎 Find another chat…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔕 Ocupado"
@@ -13939,10 +14055,6 @@ msgstr "Budget %s «%s» sent to Odoo: %d concepts, total %s."
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuesto BIM «%s» (%s)"
 msgstr "BIM budget «%s» (%s)"
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Presupuesto enviado"
-msgstr "Quotation sent"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuesto guardado: se enviará a Odoo al sincronizar."

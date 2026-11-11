@@ -89,6 +89,11 @@ Hechos
 111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 86. MyWhatsapp: publicar un estado de WhatsApp (texto o foto) desde la app | ✅ |
 105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ✅ |
+88. MyWhatsapp: esconder la barra lateral dejando solo la foto de cada contacto | ✅ |
+89. MyWhatsapp: reenviar mensajes a otro chat | ✅ |
+90. MyWhatsapp: limpiar un chat | ✅ |
+97. MyWhatsapp: plantillas de mensajes para enviar | ✅ |
+117. MyWhatsapp: arrastrar archivos al chat para enviarlos | ✅ |
 
 Trabajando
 =========
@@ -103,13 +108,9 @@ Pendiente
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
 87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ⏳ |
-88. MyWhatsapp: esconder la barra lateral dejando solo la foto de cada contacto | ⏳ |
-89. MyWhatsapp: reenviar mensajes a otro chat | ⏳ |
-90. MyWhatsapp: limpiar un chat | ⏳ |
 94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ⏳ |
 95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ⏳ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
-97. MyWhatsapp: plantillas de mensajes para enviar | ⏳ |
 99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ⏳ |
 100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |

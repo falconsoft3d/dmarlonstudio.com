@@ -1374,6 +1374,32 @@ Chat live_chat(const std::string& jid, const LiveChat& lc) {
   return c;
 }
 
+// ---- arrastrar archivos: lo que llega al soltar (una ruta por línea, a veces
+// como «file:///Users/…%20…») → las rutas de los archivos que existen.
+std::vector<std::string> dropped_files(const std::string& text) {
+  std::vector<std::string> out;
+  for (std::string l : split(text, '\n')) {
+    l = trim(l);
+    if (l.empty()) continue;
+    if (starts(l, "file://")) {
+      l = l.substr(7);
+      if (starts(l, "localhost/")) l = l.substr(9);
+      std::string dec;
+      for (size_t i = 0; i < l.size(); i++) {
+        if (l[i] == '%' && i + 2 < l.size() && std::isxdigit((unsigned char)l[i + 1]) && std::isxdigit((unsigned char)l[i + 2])) {
+          dec += (char)std::strtol(l.substr(i + 1, 2).c_str(), nullptr, 16);
+          i += 2;
+        } else {
+          dec += l[i];
+        }
+      }
+      l = dec;
+    }
+    if (fl_access(l.c_str(), 0) == 0 && !fl_filename_isdir(l.c_str())) out.push_back(l);
+  }
+  return out;
+}
+
 // ---- las tareas: cada una puede venir de un chat (y abrirlo luego);
 // se guardan en tareas.jsonl, una línea JSON por tarea.
 struct Task {
@@ -2172,7 +2198,10 @@ public:
   // Los filtros de arriba y los archivados (aparte, como en WhatsApp).
   enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED };
   int mode = F_ALL;
-  static const int chips_h = 70;
+  int chips_h = 40;
+  std::function<void()> on_filter;   // el desplegable de los filtros
+  bool compact = false;               // solo las fotos (la barra plegada)
+  std::function<void()> on_compact;   // «« / »»
   std::function<void()> on_mode;
   std::function<void()> on_busy;   // el botón «🔕 Ocupado»
   std::string busy;                // el modo activo ("" si ninguno)
@@ -2184,6 +2213,13 @@ public:
     if (m == F_TODO) return !c.last_mine && c.last_t >= t - 3 * 86400;   // me escribieron (3 días) y no contesté
     if (m == F_WAITING) return c.last_mine;                                // escribí yo y no contestaron
     return true;
+  }
+  // «Por responder (3 días)  13»: el nombre del filtro y cuántos chats tiene.
+  std::string filter_label(int m) const {
+    const char* names[] = {tx::F_ALL, tx::F_TASKS, tx::F_TODO, tx::F_WAITING, tx::ARCHIVED};
+    std::string l = names[m >= 0 && m <= F_ARCHIVED ? m : 0];
+    if (m != F_ALL) l += "  " + std::to_string(count(m));
+    return l;
   }
   int count(int m) const {
     int n = 0;
@@ -2198,53 +2234,119 @@ public:
     return filter.empty() || lower(c.name).find(lower(filter)) != std::string::npos ||
            lower(c.last).find(lower(filter)) != std::string::npos;
   }
+  // Plegada: arriba «»» para abrirla y, debajo, solo las fotos (con sus avisos).
+  void draw_compact() {
+    const Theme& T = th();
+    chips_h = 44;
+    fl_color(rgb(T.list));
+    fl_rectf(x(), y(), w(), h());
+    {
+      bool hot = (int)hits.size() == hover;
+      fl_color(hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+      fl_rounded_rectf(x() + (w() - 44) / 2, y() + 8, 44, 28, 14);
+      fl_font(FL_HELVETICA_BOLD, 14);
+      fl_color(rgb(T.muted));
+      fl_draw("»", x() + (w() - 44) / 2, y() + 8, 44, 28, FL_ALIGN_CENTER);
+      hits.push_back({x() + (w() - 44) / 2, y() + 8, 44, 28, 8, -1});
+    }
+    fl_push_clip(x(), y() + chips_h, w(), h() - chips_h);
+    int Y = y() + chips_h - scroll;
+    auto icon_row = [&](const char* icon, int act, bool sel) {
+      const int rh = 56;
+      unsigned row = sel ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
+      fl_color(rgb(row));
+      fl_rectf(x(), Y, w(), rh);
+      hits.push_back({x(), Y, w(), rh, act, -1});
+      fl_font(FL_HELVETICA, 22);
+      fl_color(rgb(T.muted));
+      fl_draw(icon, x(), Y, w(), rh, FL_ALIGN_CENTER);
+      Y += rh;
+    };
+    if (mode != F_ARCHIVED) {
+      icon_row("✅", 1, tasks_selected);
+      icon_row("🎨", 7, status_selected);
+    }
+    if (chats)
+      for (size_t i = 0; i < chats->size(); i++) {
+        const Chat& c = (*chats)[i];
+        if (!visible_chat(c)) continue;
+        const int rh = 64;
+        if (Y + rh < y() + chips_h || Y > y() + h()) {
+          Y += rh;
+          continue;
+        }
+        unsigned row = (int)i == selected ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
+        fl_color(rgb(row));
+        fl_rectf(x(), Y, w(), rh);
+        hits.push_back({x(), Y, w(), rh, 0, (int)i});
+        int ax = x() + (w() - 44) / 2;
+        avatar(ax, Y + 10, 44, c.name, c.pic, rgb(row));
+        if (tasks)
+          if (long long since = oldest_task(*tasks, c.jid)) {
+            fl_color(rgb(task_age_color(since, now ? now : wall_s())));
+            fl_pie(ax - 2, Y + 8, 12, 12, 0, 360);
+          }
+        if (c.unread > 0) {
+          std::string u = std::to_string(c.unread);
+          fl_font(FL_HELVETICA_BOLD, 10);
+          int uw = std::max(18, (int)fl_width(u.c_str()) + 8);
+          fl_color(rgb(T.accent));
+          fl_rounded_rectf(ax + 44 - uw + 6, Y + 6, uw, 18, 9);
+          fl_color(T.dark ? rgb(0x111b21) : FL_WHITE);
+          fl_draw(u.c_str(), ax + 44 - uw + 6, Y + 6, uw, 18, FL_ALIGN_CENTER);
+        }
+        Y += rh;
+      }
+    content_h = Y + scroll - (y() + chips_h);
+    fl_pop_clip();
+  }
   void draw() override {
     hits.clear();
     const Theme& T = th();
     fl_push_clip(x(), y(), w(), h());
+    if (compact) {
+      draw_compact();
+      fl_pop_clip();
+      return;
+    }
+    chips_h = 40;
     fl_color(rgb(T.list));
     fl_rectf(x(), y(), w(), h());
-    // Arriba, fijos: los filtros (dos filas), con cuántos chats hay en cada uno.
+    // Arriba, fija, una fila: el filtro (un desplegable, con cuántos chats tiene),
+    // «« para plegar la barra y el modo ocupado.
     {
       fl_color(rgb(T.list));
       fl_rectf(x(), y(), w(), chips_h);
-      struct Chip {
-        int mode;
-        const char* text;
-      };
-      const Chip rows[2][3] = {{{F_ALL, tx::F_ALL}, {F_TASKS, tx::F_TASKS}, {-1, nullptr}},
-                               {{F_TODO, tx::F_TODO}, {F_WAITING, tx::F_WAITING}, {-1, nullptr}}};
-      for (int r = 0; r < 2; r++) {
-        int cx = x() + 12, cy = y() + 4 + r * 32;
-        for (int k = 0; k < 3 && rows[r][k].text; k++) {
-          const Chip& ch = rows[r][k];
-          std::string label = ch.text;
-          if (ch.mode != F_ALL) label += "  " + std::to_string(count(ch.mode));
-          fl_font(FL_HELVETICA_BOLD, 12);
-          int cw = (int)fl_width(label.c_str()) + 24;
-          bool on = mode == ch.mode;
-          bool hot = (int)hits.size() == hover;
-          fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
-          fl_rounded_rectf(cx, cy, cw, 26, 13);
-          fl_color(on ? rgb(T.accent) : rgb(T.muted));
-          fl_draw(label.c_str(), cx, cy, cw, 26, FL_ALIGN_CENTER);
-          hits.push_back({cx, cy, cw, 26, 2, ch.mode});
-          cx += cw + 8;
-        }
-        // Arriba a la derecha: el modo ocupado, siempre a mano (naranja si está activo).
-        if (r == 0) {
-          std::string label = busy.empty() ? std::string(tx::BUSY_CHIP) : "🔕 " + busy;
-          fl_font(FL_HELVETICA_BOLD, 12);
-          int cw = std::min((int)fl_width(label.c_str()) + 24, x() + w() - 12 - cx);
-          int bx = x() + w() - 12 - cw;
-          bool hot = (int)hits.size() == hover;
-          fl_color(!busy.empty() ? rgb(0xf59e0b) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
-          fl_rounded_rectf(bx, cy, cw, 26, 13);
-          fl_color(!busy.empty() ? rgb(0x111b21) : rgb(T.muted));
-          fl_draw(fit(label, cw - 16).c_str(), bx, cy, cw, 26, FL_ALIGN_CENTER);
-          hits.push_back({bx, cy, cw, 26, 5, -1});
-        }
-      }
+      int cy = y() + 6;
+      std::string label = filter_label(mode) + "  ▾";
+      fl_font(FL_HELVETICA_BOLD, 12);
+      int cw = (int)fl_width(label.c_str()) + 26;
+      bool on = mode != F_ALL && mode != F_ARCHIVED;
+      bool hot = (int)hits.size() == hover;
+      fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+      fl_rounded_rectf(x() + 12, cy, cw, 28, 14);
+      fl_color(on ? rgb(T.accent) : rgb(T.text));
+      fl_draw(label.c_str(), x() + 12, cy, cw, 28, FL_ALIGN_CENTER);
+      hits.push_back({x() + 12, cy, cw, 28, 9, -1});
+      // A la derecha: el modo ocupado, siempre a mano (naranja si está activo).
+      std::string bl = busy.empty() ? std::string(tx::BUSY_CHIP) : "🔕 " + busy;
+      int bw = std::min((int)fl_width(bl.c_str()) + 24, x() + w() - 12 - (x() + 12 + cw + 8 + 34 + 8));
+      int bx = x() + w() - 12 - bw;
+      bool hot1 = (int)hits.size() == hover;
+      fl_color(!busy.empty() ? rgb(0xf59e0b) : hot1 ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+      fl_rounded_rectf(bx, cy, bw, 28, 14);
+      fl_color(!busy.empty() ? rgb(0x111b21) : rgb(T.muted));
+      fl_draw(fit(bl, bw - 16).c_str(), bx, cy, bw, 28, FL_ALIGN_CENTER);
+      hits.push_back({bx, cy, bw, 28, 5, -1});
+      // Y a su izquierda, «««»: plegar la barra (solo las fotos).
+      int fx = bx - 8 - 34;
+      bool hot2 = (int)hits.size() == hover;
+      fl_color(hot2 ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+      fl_rounded_rectf(fx, cy, 34, 28, 14);
+      fl_font(FL_HELVETICA_BOLD, 14);
+      fl_color(rgb(T.muted));
+      fl_draw("«", fx, cy, 34, 28, FL_ALIGN_CENTER);
+      hits.push_back({fx, cy, 34, 28, 8, -1});
       fl_color(rgb(T.line));
       fl_line(x(), y() + chips_h - 1, x() + w(), y() + chips_h - 1);
     }
@@ -2282,48 +2384,26 @@ public:
       fl_font(FL_HELVETICA, 12);
       fl_color(rgb(T.muted));
       fl_draw(fmt(tx::TASKS_PENDING, {std::to_string(tasks_pending)}).c_str(), x() + 68, Y + 43);
+      // A la derecha, en la misma fila: 🎨 los estados y 📦 los archivados.
+      int px = x() + w() - 12;
+      auto pill = [&](const std::string& label, int act, bool on) {
+        fl_font(FL_HELVETICA_BOLD, 13);
+        int pw = (int)fl_width(label.c_str()) + 22;
+        px -= pw;
+        bool hot = (int)hits.size() == hover;
+        fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+        fl_rounded_rectf(px, Y + 13, pw, 30, 15);
+        fl_color(on ? rgb(T.accent) : rgb(T.text));
+        fl_draw(label.c_str(), px, Y + 13, pw, 30, FL_ALIGN_CENTER);
+        hits.push_back({px, Y + 13, pw, 30, act, -1});
+        px -= 8;
+      };
+      int archived = count(F_ARCHIVED);
+      if (archived > 0 && mode == F_ALL) pill("📦 " + std::to_string(archived), 3, false);
+      pill("🎨", 7, status_selected);
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
-      // La de los estados (el diseñador).
-      {
-        const int sh = 46;
-        unsigned r3 = status_selected ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
-        fl_color(rgb(r3));
-        fl_rectf(x(), Y, w(), sh);
-        hits.push_back({x(), Y, w(), sh, 7, -1});
-        fl_font(FL_HELVETICA, 18);
-        fl_color(rgb(T.muted));
-        fl_draw("🎨", x() + 24, Y + 30);
-        fl_font(FL_HELVETICA_BOLD, 14);
-        fl_color(rgb(T.text));
-        fl_draw(tx::STATUS_TITLE, x() + 68, Y + 28);
-        fl_color(rgb(T.line));
-        fl_line(x(), Y + sh - 1, x() + w(), Y + sh - 1);
-        Y += sh;
-      }
-      // Y la de los archivados, si hay.
-      int archived = count(F_ARCHIVED);
-      if (archived > 0 && mode == F_ALL) {
-        const int ah = 46;
-        unsigned r2 = (int)hits.size() == hover ? T.hover : T.list;
-        fl_color(rgb(r2));
-        fl_rectf(x(), Y, w(), ah);
-        hits.push_back({x(), Y, w(), ah, 3, -1});
-        fl_font(FL_HELVETICA, 18);
-        fl_color(rgb(T.muted));
-        fl_draw("📦", x() + 24, Y + 30);
-        fl_font(FL_HELVETICA_BOLD, 14);
-        fl_color(rgb(T.text));
-        fl_draw(tx::ARCHIVED, x() + 68, Y + 28);
-        fl_font(FL_HELVETICA, 12);
-        fl_color(rgb(T.accent));
-        std::string n = std::to_string(archived);
-        fl_draw(n.c_str(), x() + w() - 14 - (int)fl_width(n.c_str()), Y + 28);
-        fl_color(rgb(T.line));
-        fl_line(x(), Y + ah - 1, x() + w(), Y + ah - 1);
-        Y += ah;
-      }
     }
     if (chats)
       for (size_t i = 0; i < chats->size(); i++) {
@@ -2395,15 +2475,24 @@ public:
         hover = -1;
         redraw();
         return 1;
-      case FL_PUSH:
+      case FL_PUSH: {
+        // La última que encaja (como al pasar el ratón): los botones de una fila ganan a la fila.
+        const Hit* got = nullptr;
         for (const auto& h : hits)
-          if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
+          if (Fl::event_inside(h.x, h.y, h.w, h.h)) got = &h;
+        if (got) {
+          const Hit& h = *got;
+          {
             if (h.act == 1) {
               if (on_tasks) on_tasks();
             } else if (h.act == 5) {
               if (on_busy) on_busy();
             } else if (h.act == 7) {
               if (on_status) on_status();
+            } else if (h.act == 8) {
+              if (on_compact) on_compact();
+            } else if (h.act == 9) {
+              if (on_filter) on_filter();
             } else if (h.act == 2 || h.act == 3 || h.act == 4) {
               // Un filtro, los archivados o volver de ellos.
               mode = h.act == 2 ? h.idx : h.act == 3 ? F_ARCHIVED : F_ALL;
@@ -2411,9 +2500,10 @@ public:
               if (on_mode) on_mode();
               redraw();
             } else if (on_pick) on_pick(h.idx);
-            break;
           }
+        }
         return 1;
+      }
       case FL_MOUSEWHEEL:
         scroll = std::max(0, std::min(scroll + Fl::event_dy() * 30, std::max(0, content_h - (h() - chips_h))));
         redraw();
@@ -2470,6 +2560,9 @@ public:
   int match = -1;
   Fl_Input* find_input = nullptr;
   std::string translate_label;   // el idioma del chat abierto si se traduce ("" si no)
+  long long hidden_before = 0;   // «Limpiar el chat»: lo de hasta entonces no se enseña
+  bool drop_hover = false;        // arrastrando archivos encima
+  std::function<void(const std::string&)> on_drop;
   // El diseñador de estados (en vez del chat).
   std::vector<StatusDesign>* designs = nullptr;
   int design = -1;
@@ -2854,13 +2947,15 @@ public:
     int maxw = std::min(560, (int)(w() * 0.68));
     ensure_layout(maxw);
     int total = 8;
-    for (const auto& L : lays) total += L.bh + 6;
+    for (size_t i = 0; i < lays.size(); i++)
+      if (chat->msgs[i].t > hidden_before) total += lays[i].bh + 6;
     int view_h = bottom - (y() + head);
     max_scroll = std::max(0, total - view_h);
     if (scroll_to >= 0 && scroll_to < (int)lays.size()) {
       // Que ese mensaje quede en medio.
       int off = 0;
-      for (int j = (int)lays.size() - 1; j > scroll_to; j--) off += lays[(size_t)j].bh + 6;
+      for (int j = (int)lays.size() - 1; j > scroll_to; j--)
+        if (chat->msgs[(size_t)j].t > hidden_before) off += lays[(size_t)j].bh + 6;
       msg_scroll = off + lays[(size_t)scroll_to].bh / 2 - view_h / 2;
       scroll_to = -1;
     }
@@ -2873,6 +2968,7 @@ public:
     fl_push_clip(x(), y() + head, w(), bottom - (y() + head) + 8);
     for (int i = (int)chat->msgs.size() - 1; i >= 0 && Y > y() + head; i--) {
       const Msg& m = chat->msgs[(size_t)i];
+      if (m.t <= hidden_before) break;   // limpiado: de aquí hacia atrás, nada
       const Lay& L = lays[(size_t)i];
       int bw = L.bw, bh = L.bh, who_h = m.who.empty() ? 0 : 18, ah = attach_h(m), lh = 19;
       Y -= bh + 6;
@@ -2994,7 +3090,9 @@ public:
     if (!chat->pic.empty()) hits.push_back({x() + 16, y() + 10, 40, 40, 33, -1});   // la foto, en grande
     // A la derecha: «+ Tarea» y buscar (el campo, cuántos hay, ▲ ▼ ✕).
     fl_font(FL_HELVETICA_BOLD, 12);
-    int rx = x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20);
+    int rx = x() + w() - 20 - ((int)fl_width("⋯") + 20);
+    button(rx, y() + 17, "⋯", 28, -1, rgb(T.text), rgb(T.card));
+    rx -= 8 + (int)fl_width(tx::ADD_TASK) + 20;
     button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     rx -= 8;
     // Traducir: «🌐 Traducir» o el idioma elegido, en verde.
@@ -3076,6 +3174,18 @@ public:
         cy += 72;
       }
     }
+    // Arrastrando archivos encima: dónde se sueltan.
+    if (drop_hover) {
+      fl_color(rgb(T.panel));
+      fl_rectf(x() + 30, y() + 80, w() - 60, h() - 110);
+      fl_color(rgb(T.accent));
+      fl_line_style(FL_DASH, 3);
+      fl_rect(x() + 30, y() + 80, w() - 60, h() - 110);
+      fl_line_style(0);
+      fl_font(FL_HELVETICA_BOLD, 18);
+      fl_color(rgb(T.text));
+      fl_draw(fmt(tx::DROP_HERE, {chat->name}).c_str(), x() + 30, y() + 80, w() - 60, h() - 110, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+    }
     fl_pop_clip();
   }
   int handle(int e) override {
@@ -3099,6 +3209,26 @@ public:
         return 1;
       case FL_FOCUS:
       case FL_UNFOCUS:
+        return 1;
+      // Arrastrar archivos desde el Finder: se aceptan sobre un chat abierto.
+      case FL_DND_ENTER:
+      case FL_DND_DRAG:
+        if (!chat || tasks_mode || status_mode || !viewer.empty()) return 0;
+        if (!drop_hover) {
+          drop_hover = true;
+          redraw();
+        }
+        return 1;
+      case FL_DND_LEAVE:
+        drop_hover = false;
+        redraw();
+        return 1;
+      case FL_DND_RELEASE:
+        drop_hover = false;
+        redraw();
+        return chat ? 1 : 0;
+      case FL_PASTE:
+        if (on_drop && Fl::event_text()) on_drop(std::string(Fl::event_text(), (size_t)Fl::event_length()));
         return 1;
       case FL_PUSH: {
         bool right = Fl::event_button() == FL_RIGHT_MOUSE;
@@ -3706,6 +3836,18 @@ int selftest() {
     chk(l.count(ChatList::F_TODO) == 1, "el filtro «por responder» con la hora de verdad");
     chk(time_in("Europe/Madrid", wall_s()).size() == 5, "la hora local, de ahora");
   }
+  // Arrastrar archivos: rutas tal cual o como «file://» (con espacios codificados).
+  {
+    std::string d = config_dir();
+    fl_make_path(d.c_str());
+    std::string a = d + "/prueba arrastrar.pdf";
+    write_file(a, "x");
+    std::string enc;
+    for (char ch : a) enc += ch == ' ' ? std::string("%20") : std::string(1, ch);
+    auto got = dropped_files(a + "\nfile://" + enc + "\r\n/no/existe.txt\n" + d + "\n");
+    chk(got.size() == 2 && got[0] == a && got[1] == a, "arrastrar: las rutas de los archivos (y no las carpetas)");
+    std::remove(a.c_str());
+  }
   // Los estados: guardar y leer, lo que propone la IA y dibujarlo a 1080×1920.
   {
     StatusDesign d;
@@ -4028,6 +4170,10 @@ public:
   std::string busy;
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
+  // La barra lateral plegada, los chats limpiados (hasta cuándo) y las plantillas.
+  bool compact = false;
+  std::map<std::string, long long> cleared;
+  std::vector<wa::BusyMode> templates;   // nombre y texto (como los modos)
   // Los estados: los diseños guardados y las publicaciones en curso (por su id de envío).
   std::vector<wa::StatusDesign> designs;
   std::map<std::string, bool> status_rids;
@@ -4115,6 +4261,11 @@ public:
     list->on_mode = [] { if (self()) self()->refresh(); };
     list->on_busy = [] { if (self()) self()->busy_menu(); };
     list->on_status = [] { if (self()) self()->open_status(); };
+    list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
+    list->on_filter = [] { if (self()) self()->filter_menu(); };
+    view->on_drop = [](const std::string& t) { if (self()) self()->drop_files(t); };
+    // Al ensanchar la ventana, en el panel de abajo crece el borrador.
+    AiBar->resizable(Draft);
     view->designs = &designs;
     // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
     find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
@@ -4148,6 +4299,12 @@ public:
   }
   static int dispatch(int e, Fl_Window* w) {
     Form1* f = self();
+    // Soltar archivos sobre el borrador: se envían (en vez de pegar sus rutas).
+    if (f && e == FL_PASTE && Fl::event_text() && Fl::belowmouse() == f->Draft &&
+        !wa::dropped_files(std::string(Fl::event_text(), (size_t)Fl::event_length())).empty()) {
+      f->drop_files(std::string(Fl::event_text(), (size_t)Fl::event_length()));
+      return 1;
+    }
     if (f && e == FL_KEYBOARD && (Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'f') {
       f->open_find();
       return 1;
@@ -4194,7 +4351,9 @@ public:
     load_translations();
     load_busy();
     load_designs();
+    load_extras();
     reload();
+    if (compact) set_compact(true);
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
     if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
@@ -4234,7 +4393,7 @@ public:
     Menu1->textcolor(text);
     BtnSuggest->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
     BtnSend->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
-    for (Fl_Widget* b : {(Fl_Widget*)BtnAttach, (Fl_Widget*)BtnImprove, (Fl_Widget*)BtnFix}) {
+    for (Fl_Widget* b : {(Fl_Widget*)BtnAttach, (Fl_Widget*)BtnImprove, (Fl_Widget*)BtnFix, (Fl_Widget*)BtnTemplates}) {
       b->color(input);
       b->labelcolor(text);
     }
@@ -4265,6 +4424,7 @@ public:
         else if (l == "warned=1") warned = true;
         else if (wa::starts(l, "theme=")) theme = l.substr(6);
         else if (wa::starts(l, "busy=")) busy = l.substr(5);
+        else if (l == "compact=1") compact = true;
         else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
         else if (wa::starts(l, "busy_done=")) {
           for (const auto& j : wa::split(l.substr(10), ','))
@@ -4292,6 +4452,7 @@ public:
                                         "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
+                                        (compact ? "\ncompact=1" : "") +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -4363,6 +4524,9 @@ public:
       if (c.live) c.msgs = it->second.msgs;
       else wa::merge_msgs(c.msgs, it->second.msgs);
     }
+    // Limpiado en MyWhatsapp: lo de antes no se enseña (en WhatsApp sigue, y se puede deshacer).
+    auto cl = cleared.find(c.jid);
+    view->hidden_before = cl == cleared.end() ? 0 : cl->second;
     view->chat = &c;
     apply_translations(c);
     request_translations();
@@ -4555,6 +4719,8 @@ public:
     std::vector<wa::BarEntry> out;
     out.push_back({tx::BAR_OPEN, 1, false});
     out.push_back({"", 0, true});
+    out.push_back({wa::fmt(tx::BAR_TASKS, {std::to_string(wa::tasks_pending(tasks))}), 4, false});
+    out.push_back({"", 0, true});
     out.push_back({waiting ? wa::fmt(tx::BAR_WAITING, {std::to_string(waiting)}) : std::string(tx::BAR_NONE), 0, false});
     bar_jids.clear();
     for (size_t k = 0; k < ids.size() && k < 15; k++) {
@@ -4585,12 +4751,14 @@ public:
     if (!bar::available()) return;
     int waiting = 0;
     auto entries = bar_entries(waiting);
-    std::string sig = std::to_string(waiting) + "|" + busy;
+    std::string sig = std::to_string(waiting) + "|" + std::to_string(wa::tasks_pending(tasks)) + "|" + busy;
     for (const auto& e : entries) sig += "|" + e.title;
     if (sig == bar_sig) return;   // nada nuevo: no se rehace el menú
     bar_sig = sig;
     const char* icon = !busy.empty() ? "moon.fill" : waiting ? "bubble.left.and.text.bubble.right.fill" : "bubble.left.and.bubble.right";
-    bar::set(icon, waiting ? " " + std::to_string(waiting) : "");
+    // «15 / 3»: los chats por responder / las tareas pendientes.
+    int pend = wa::tasks_pending(tasks);
+    bar::set(icon, waiting || pend ? " " + std::to_string(waiting) + " / " + std::to_string(pend) : "");
     bar::menu(entries);
   }
   void bar_act(int t) {
@@ -4608,6 +4776,10 @@ public:
     }
     if (in_bar) from_bar();
     else bar::dock(true);
+    if (t == 4) {
+      open_tasks();
+      return;
+    }
     if (t >= 100 && t - 100 < (int)bar_jids.size()) {
       std::string jid = bar_jids[(size_t)(t - 100)];
       list->mode = wa::ChatList::F_ALL;
@@ -4939,6 +5111,183 @@ public:
     refresh();
   }
 
+  // ---- soltar archivos sobre el chat (o el borrador): se envían, tras confirmar
+  bool drop_files(const std::string& text) {
+    std::vector<std::string> files = wa::dropped_files(text);
+    if (files.empty()) return false;
+    if (current < 0) {
+      say(tx::PICK_CHAT);
+      return true;
+    }
+    std::string names;
+    for (size_t k = 0; k < files.size() && k < 5; k++) names += "\n• " + wa::file_base(files[k]);
+    if (files.size() > 5) names += "\n…";
+    std::string q = files.size() == 1 ? wa::fmt(tx::DROP_CONFIRM_ONE, {chats[(size_t)current].name})
+                                      : wa::fmt(tx::DROP_CONFIRM, {std::to_string(files.size()), chats[(size_t)current].name});
+    if (!confirm(q + "\n" + names)) return true;
+    for (const auto& f : files) send_draft(f);   // el borrador va de pie con el primero
+    return true;
+  }
+  // ---- el desplegable de los filtros
+  void filter_menu() {
+    const int modes[] = {wa::ChatList::F_ALL, wa::ChatList::F_TASKS, wa::ChatList::F_TODO, wa::ChatList::F_WAITING};
+    std::vector<std::string> items;
+    for (int m : modes) items.push_back((list->mode == m ? "✓ " : "    ") + list->filter_label(m));
+    int r = choose(items);
+    if (r < 0 || r > 3) return;
+    list->mode = modes[r];
+    list->scroll = 0;
+    refresh();
+  }
+  // ---- plegar la barra lateral (solo las fotos)
+  void set_compact(bool c) {
+    compact = c;
+    list->compact = c;
+    int sw = c ? 76 : 360;
+    Side->resize(Side->x(), Side->y(), sw, Side->h());
+    list->resize(Side->x(), list->y(), sw, list->h());
+    Search->resize(Search->x(), Search->y(), sw - 24, Search->h());
+    if (c) Search->hide();
+    else Search->show();
+    int nx = Side->x() + sw;
+    ChatArea->resize(nx, ChatArea->y(), w() - nx, ChatArea->h());
+    AiBar->resize(nx, AiBar->y(), w() - nx, AiBar->h());
+    save_settings();
+    redraw();
+  }
+  // ---- más cosas guardadas: los chats limpiados y las plantillas
+  std::string extras_file() const { return wa::config_dir() + "/limpios.txt"; }
+  std::string templates_file() const { return wa::config_dir() + "/plantillas.jsonl"; }
+  void load_extras() {
+    std::string text;
+    cleared.clear();
+    if (!demo && wa::read_file(extras_file(), text))
+      for (const auto& l : wa::split(text, '\n')) {
+        auto f = wa::split(l, '\t');
+        if (f.size() == 2 && !f[0].empty()) cleared[f[0]] = std::atoll(f[1].c_str());
+      }
+    templates.clear();
+    if (!demo && wa::read_file(templates_file(), text)) templates = wa::busy_parse(text);
+    if (templates.empty())
+      templates = {{tx::TPL_HELLO, tx::TPL_HELLO_TEXT, false}, {tx::TPL_THANKS, tx::TPL_THANKS_TEXT, false},
+                   {tx::TPL_QUOTE, tx::TPL_QUOTE_TEXT, false}, {tx::TPL_HOURS, tx::TPL_HOURS_TEXT, false}};
+  }
+  void save_extras() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string out;
+    for (const auto& kv : cleared) out += kv.first + "\t" + std::to_string(kv.second) + "\n";
+    wa::write_file(extras_file(), out);
+    wa::write_file(templates_file(), wa::busy_text(templates));
+  }
+  // ---- el menú «⋯» del chat: limpiarlo (solo aquí) o deshacerlo
+  void chat_menu() {
+    if (current < 0) return;
+    std::string jid = chats[(size_t)current].jid;
+    std::vector<std::string> items = {tx::CLEAR_CHAT};
+    bool was = cleared.count(jid) > 0;
+    if (was) items.push_back(tx::UNCLEAR_CHAT);
+    int r = choose(items);
+    if (r == 0) {
+      if (!confirm(tx::CLEAR_CONFIRM)) return;
+      cleared[jid] = wa::wall_s();
+      save_extras();
+      open_messages(current);
+      say(tx::CLEARED);
+    } else if (r == 1) {
+      cleared.erase(jid);
+      save_extras();
+      open_messages(current);
+    }
+    refresh();
+  }
+  // ---- reenviar un mensaje a otro chat
+  void forward(int i) {
+    if (current < 0 || i < 0 || i >= (int)chats[(size_t)current].msgs.size()) return;
+    wa::Msg m = chats[(size_t)current].msgs[(size_t)i];
+    std::string file = (m.kind != wa::K_TEXT && !m.media.empty() && !wa::starts(m.media, "demo:")) ? m.media : "";
+    if (m.kind != wa::K_TEXT && file.empty() && m.text.empty()) {
+      say(tx::ERR_FORWARD_MEDIA);
+      return;
+    }
+    // A qué chat: los más recientes (o buscar uno por su nombre).
+    std::vector<int> order;
+    for (int k = 0; k < (int)chats.size(); k++)
+      if (k != current && !chats[(size_t)k].jid.empty() && !chats[(size_t)k].archived) order.push_back(k);
+    std::stable_sort(order.begin(), order.end(), [&](int a, int b) { return chats[(size_t)a].last_t > chats[(size_t)b].last_t; });
+    if (order.size() > 15) order.resize(15);
+    std::vector<std::string> items;
+    for (int k : order) items.push_back(chats[(size_t)k].name);
+    items.push_back(tx::FORWARD_SEARCH);
+    int r = choose(items);
+    if (r < 0) return;
+    int target = -1;
+    if (r < (int)order.size()) target = order[(size_t)r];
+    else {
+      std::string q;
+      if (!ask_text(tx::FORWARD_ASK, q) || wa::trim(q).empty()) return;
+      for (int k = 0; k < (int)chats.size() && target < 0; k++)
+        if (k != current && !chats[(size_t)k].jid.empty() && wa::lower(chats[(size_t)k].name).find(wa::lower(wa::trim(q))) != std::string::npos)
+          target = k;
+      if (target < 0) {
+        say(tx::FORWARD_NONE);
+        return;
+      }
+    }
+    if (send_mode == wa::S_NONE) {
+      connect_dialog();
+      if (send_mode == wa::S_NONE) return;
+    }
+    deliver(chats[(size_t)target].jid, m.text, file, "");
+    say(wa::fmt(tx::FORWARDED, {chats[(size_t)target].name}));
+  }
+  // ---- las plantillas: insertar una en el borrador, crearlas, editarlas o borrarlas
+  void templates_menu() {
+    std::vector<std::string> items;
+    for (const auto& t : templates) items.push_back(t.name);
+    size_t n = templates.size();
+    items.push_back(tx::TPL_NEW);
+    items.push_back(tx::TPL_EDIT);
+    items.push_back(tx::TPL_DELETE);
+    int r = choose(items);
+    if (r < 0) return;
+    if (r < (int)n) {
+      std::string text = templates[(size_t)r].text, first;
+      if (current >= 0) {
+        first = chats[(size_t)current].name;
+        size_t sp = first.find_first_of(" (·");
+        if (sp != std::string::npos) first = first.substr(0, sp);
+      }
+      for (size_t p = text.find("{nombre}"); p != std::string::npos; p = text.find("{nombre}", p + first.size()))
+        text.replace(p, 8, first);
+      for (size_t p = text.find("{name}"); p != std::string::npos; p = text.find("{name}", p + first.size()))
+        text.replace(p, 6, first);
+      std::string now = Draft->value();
+      Draft->value((now.empty() ? text : now + (now.back() == ' ' ? "" : " ") + text).c_str());
+      Draft->take_focus();
+      return;
+    }
+    if (r == (int)n) {
+      std::string name, text;
+      if (!ask_text(tx::TPL_ASK_NAME, name) || wa::trim(name).empty()) return;
+      if (!ask_text(tx::TPL_ASK_TEXT, text) || wa::trim(text).empty()) return;
+      templates.push_back({wa::trim(name), wa::trim(text), false});
+    } else {
+      std::vector<std::string> names;
+      for (const auto& t : templates) names.push_back(t.name);
+      int k = choose(names);
+      if (k < 0 || k >= (int)templates.size()) return;
+      if (r == (int)n + 1) {
+        std::string text = templates[(size_t)k].text;
+        if (!ask_text(tx::TPL_ASK_TEXT, text) || wa::trim(text).empty()) return;
+        templates[(size_t)k].text = wa::trim(text);
+      } else {
+        templates.erase(templates.begin() + k);
+      }
+    }
+    save_extras();
+  }
+
   // ---- los estados: diseñarlos, guardarlos y publicarlos
   std::string designs_file() const { return wa::config_dir() + "/estados.jsonl"; }
   void load_designs() {
@@ -5143,7 +5492,7 @@ public:
       }
       const wa::Chat& c = chats[(size_t)current];
       for (int i = 0; i < (int)c.msgs.size(); i++)
-        if (!wa::find_all(c.msgs[(size_t)i].text, q).empty() || !wa::find_all(c.msgs[(size_t)i].title, q).empty())
+        if (c.msgs[(size_t)i].t > view->hidden_before && (!wa::find_all(c.msgs[(size_t)i].text, q).empty() || !wa::find_all(c.msgs[(size_t)i].title, q).empty()))
           view->matches.push_back(i);
       if (!view->matches.empty()) {
         view->match = (int)view->matches.size() - 1;   // el más reciente
@@ -5168,10 +5517,15 @@ public:
     bool sel = view->has_selection();
     if (sel) items.push_back(tx::COPY_SELECTION);
     items.push_back(tx::COPY_MESSAGE);
+    items.push_back(tx::FORWARD);
     items.push_back(tx::MAKE_TASK);
     int r = choose(items);
     if (r < 0) return;
     if (!sel) r++;
+    if (r == 2) {
+      forward(i);
+      return;
+    }
     if (r == 0 || r == 1) {
       std::string t = r == 0 ? view->selected_text() : (m.text.empty() ? m.title : m.text);
       Fl::copy(t.c_str(), (int)t.size(), 1);
@@ -5271,6 +5625,10 @@ public:
     }
     if (act == 27) {
       translate_menu();
+      return;
+    }
+    if (act == 28) {
+      chat_menu();
       return;
     }
     if (act >= 40 && act <= 52) {
@@ -5645,6 +6003,7 @@ public:
 
   // ---- eventos del diseño
   void BtnImprove_click() override { draft_ai(false); }
+  void BtnTemplates_click() override { templates_menu(); }
   void BtnFix_click() override { draft_ai(true); }
   void BtnSend_click() override { send_draft(""); }
   void BtnAttach_click() override { attach_file(); }
@@ -5685,6 +6044,7 @@ public:
     else if (item == tx::MP_AI) settings_dialog();
     else if (item == tx::MP_CONNECT) connect_dialog();
     else if (item == tx::MP_TASKS) open_tasks();
+    else if (item == tx::MP_COMPACT) set_compact(!compact);
     else if (item == tx::MP_BUSY) busy_menu();
     else if (item == tx::MP_DISCONNECT) disconnect();
     else if (item == tx::MP_LIGHT) set_theme("light");
@@ -5725,6 +6085,7 @@ public:
     ai.provider = wa::P_CLAUDE;
     Provider->index(0);
     load_busy();
+    load_extras();
     // Dos estados de ejemplo.
     designs.clear();
     {
@@ -5872,10 +6233,16 @@ public:
       chk(click_chip(3, -1) && list->mode == wa::ChatList::F_ARCHIVED && shown().size() == 1 && shown()[0] == tx::DEMO_JAVI,
           "abrir los archivados");
       chk(click_chip(4, -1) && list->mode == wa::ChatList::F_ALL, "volver de los archivados");
-      chk(click_chip(2, wa::ChatList::F_TASKS) && shown().size() == 2, "filtro: con tareas");
-      chk(click_chip(2, wa::ChatList::F_TODO) && shown().size() == 4, "filtro: por responder (3 días)");
-      chk(click_chip(2, wa::ChatList::F_WAITING) && shown().size() == 1 && shown()[0] == tx::DEMO_MOM, "filtro: sin respuesta");
-      chk(click_chip(2, wa::ChatList::F_ALL) && shown().size() == 5, "filtro: todos");
+      auto pick_filter = [&](int idx) {
+        choose = [idx](const std::vector<std::string>& items) { return items.size() == 4 ? idx : -1; };
+        bool ok = click_chip(9, -1);
+        choose = [](const std::vector<std::string>&) { return -1; };
+        return ok;
+      };
+      chk(pick_filter(1) && list->mode == wa::ChatList::F_TASKS && shown().size() == 2, "filtro: con tareas (desplegable)");
+      chk(pick_filter(2) && shown().size() == 4, "filtro: por responder (3 días)");
+      chk(pick_filter(3) && shown().size() == 1 && shown()[0] == tx::DEMO_MOM, "filtro: sin respuesta");
+      chk(pick_filter(0) && shown().size() == 5, "filtro: todos");
     }
     // Las sugerencias: «Usar» las pasa al borrador.
     options = {"Uno", "Dos", "Tres"};
@@ -6010,7 +6377,10 @@ public:
     {
       int waiting = 0;
       auto entries = bar_entries(waiting);
-      chk(waiting == 4 && entries[3].tag == 100 && entries.back().tag == 2, "la barra: cuántos y el menú");
+      chk(waiting == 4 && entries[2].tag == 4 && entries[5].tag == 100 && entries.back().tag == 2, "la barra: cuántos, las tareas y el menú");
+      bar_act(4);
+      chk(view->tasks_mode, "la barra: abrir las tareas");
+      pick(0);
       chk(entries.size() > 9, "la barra: también los modos ocupado");
       bar_act(200);   // el primer modo, desde la barra
       chk(busy == busy_modes[0].name, "la barra: activar un modo ocupado");
@@ -6151,6 +6521,64 @@ public:
       };
       pick(0);
     }
+    // Plegar la barra, las plantillas y limpiar un chat.
+    {
+      pick(0);
+      int sw = Side->w();
+      set_compact(true);
+      render_to("");
+      int faces = 0;
+      bool expand = false;
+      for (const auto& h : list->hits) {
+        faces += h.act == 0 ? 1 : 0;
+        expand = expand || h.act == 8;
+      }
+      chk(Side->w() == 76 && ChatArea->x() == Side->x() + 76 && faces == 5 && expand && !Search->visible(),
+          "la barra plegada: solo las fotos");
+      set_compact(false);
+      chk(Side->w() == sw && ChatArea->x() == Side->x() + sw && Search->visible(), "volver a abrir la barra");
+      // Plantillas: la primera, con el nombre del contacto.
+      Draft->value("");
+      choose = [](const std::vector<std::string>&) { return 0; };
+      BtnTemplates_click();
+      std::string got = Draft->value();
+      chk(got.find("Laura") != std::string::npos && got.find("{nombre}") == std::string::npos, "insertar una plantilla con el nombre");
+      size_t nt = templates.size();
+      std::vector<std::string> ans = {"Cita", "Te espero el {nombre} a las 10"};
+      size_t ai2 = 0;
+      ask_text = [&ans, &ai2](const char*, std::string& io) {
+        io = ans[ai2++ % ans.size()];
+        return true;
+      };
+      choose = [nt](const std::vector<std::string>&) { return (int)nt; };   // «+ Nueva plantilla…»
+      templates_menu();
+      chk(templates.size() == nt + 1 && templates.back().name == "Cita", "crear una plantilla");
+      int st2 = 0;
+      choose = [&st2, nt](const std::vector<std::string>&) { return st2++ == 0 ? (int)nt + 3 : (int)nt; };   // «Borrar…» → la nueva
+      templates_menu();
+      chk(templates.size() == nt, "borrar una plantilla");
+      Draft->value("");
+      // Limpiar el chat (solo aquí) y deshacerlo.
+      size_t before = chats[0].msgs.size();
+      confirm = [](const std::string&) { return true; };
+      choose = [](const std::vector<std::string>&) { return 0; };
+      chat_menu();
+      render_to("");
+      int bubbles = 0;
+      for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
+      chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
+      choose = [](const std::vector<std::string>&) { return 1; };
+      chat_menu();
+      render_to("");
+      bubbles = 0;
+      for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
+      chk(view->hidden_before == 0 && bubbles > 0, "deshacer la limpieza");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+    }
     // El visor: la foto en grande, descargarla y cerrarlo.
     {
       pick(0);
@@ -6271,7 +6699,7 @@ public:
         };
         message.clear();
         bubble_menu(box.msg);
-        chk(seen.size() == 3 && seen[0] == tx::COPY_SELECTION && message == tx::COPIED, "menú del mensaje: copiar");
+        chk(seen.size() == 4 && seen[0] == tx::COPY_SELECTION && message == tx::COPIED, "menú del mensaje: copiar");
         view->clear_selection();
         size_t before_tasks = tasks.size();
         choose = [&seen](const std::vector<std::string>& items) {
@@ -6279,7 +6707,7 @@ public:
           return (int)items.size() - 1;
         };
         bubble_menu(box.msg);
-        chk(seen.size() == 2 && tasks.size() == before_tasks + 1 &&
+        chk(seen.size() == 3 && tasks.size() == before_tasks + 1 &&
                 tasks.back().title == wa::task_title_of(chats[(size_t)current].msgs[(size_t)box.msg]),
             "menú del mensaje: convertir en tarea");
         choose = [](const std::vector<std::string>&) { return -1; };
@@ -6403,6 +6831,33 @@ public:
       for (int i = 0; i < 100 && !status_rids.empty(); i++) Fl::wait(0.05);
       chk(status_rids.empty() && message == tx::STATUS_PUBLISHED, "el estado, publicado por el puente");
       pick(0);
+      // Reenviar un mensaje de texto a otro chat (el primero de los recientes).
+      size_t sent_f = pending.size();
+      int texts = -1;
+      for (int i = 0; i < (int)chats[0].msgs.size(); i++)
+        if (chats[0].msgs[(size_t)i].kind == wa::K_TEXT) texts = i;
+      choose = [](const std::vector<std::string>&) { return 0; };
+      forward(texts);
+      chk(pending.size() == sent_f + 1, "reenviar un mensaje");
+      // Arrastrar un archivo al chat: se resalta y, al soltarlo (y confirmar), se envía.
+      {
+        std::string dropf = dir + "/prueba-soltar.txt";
+        wa::write_file(dropf, "hola");
+        size_t sent_d = pending.size();
+        confirm = [](const std::string&) { return true; };
+        chk(view->handle(FL_DND_ENTER) == 1 && view->drop_hover, "arrastrar un archivo encima del chat");
+        render_to("");
+        view->handle(FL_DND_RELEASE);
+        Fl::e_text = (char*)dropf.c_str();
+        Fl::e_length = (int)dropf.size();
+        view->handle(FL_PASTE);
+        static char empty_text[1] = {0};
+        Fl::e_text = empty_text;   // vacío, no nulo: el siguiente evento de teclado lo lee
+        Fl::e_length = 0;
+        chk(!view->drop_hover && pending.size() == sent_d + 1, "soltar un archivo lo envía");
+        std::remove(dropf.c_str());
+      }
+      choose = [](const std::vector<std::string>&) { return -1; };
       Fl::e_state = FL_SHIFT;
       Draft->value("otra");
       chk(dispatch(FL_KEYBOARD, this) == 0 || std::string(Draft->value()) != "", "Mayúsculas+Enter no envía");

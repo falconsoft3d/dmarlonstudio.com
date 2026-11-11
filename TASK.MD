@@ -82,6 +82,7 @@ Hechos
 109. MyWhatsapp: los chats archivados, aparte, como en WhatsApp («📦 Archivados») | ✅ |
 110. MyWhatsapp: al tocar una imagen, verla en grande (vista previa) con un botón para descargarla | ✅ |
 112. MyWhatsapp: tocar la foto del contacto (en la cabecera) la abre en grande | ✅ |
+111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 
 Trabajando
 =========
@@ -113,5 +114,5 @@ Pendiente
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
 104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
 105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
-111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
+114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |

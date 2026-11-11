@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.108 — 2026-11-11
+
+- **MyWhatsapp: modos ocupado, tantos como quiera.** En Archivo › Modo ocupado… se elige un modo («En una reunión», «Conduciendo», «De vacaciones» o los que cree con «+ Nuevo modo…», cada uno con su mensaje; también se editan y se borran). Mientras hay uno activo, a quien le escriba en privado después de activarlo se le contesta solo con el mensaje de ese modo, una vez por persona (no a los grupos ni a los archivados), por el puente o la API oficial; a quién se contestó se guarda, así que al volver a abrir la app no se repite. La barra de estado dice «🔕 Ocupado: …». Sin WhatsApp conectado para enviar, la app lo avisa al activarlo.
+- Probado: las pruebas internas (guardar y leer los modos; a quién se contesta: solo a los chats individuales cuyo último mensaje es suyo, llegado después de activarlo y sin respuesta automática antes) y la de la interfaz: activar, crear, editar, borrar el activo y desactivar, y la respuesta automática de verdad por un puente de prueba, que sale una sola vez aunque se compruebe dos.
+
 ## 1.0.107 — 2026-11-11
 
 - **MyWhatsapp: la foto del contacto, en grande.** Tocar la foto en la cabecera del chat la abre en el visor, con su nombre arriba y «⬇ Descargar».

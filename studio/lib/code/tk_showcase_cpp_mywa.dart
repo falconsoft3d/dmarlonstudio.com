@@ -19,6 +19,7 @@ TkExample tkCppMywa(String Function(String) t) {
   item('RELOAD', t(markTr('Actualizar los chats')), mFile);
   item('IMPORT', t(markTr('Importar un chat exportado…')), mFile);
   item('AI', t(markTr('Claves de la IA…')), mFile);
+  item('BUSY', t(markTr('Modo ocupado…')), mFile);
   lines.add('  -');
   item('CONNECT', t(markTr('Conectar WhatsApp para enviar…')), mFile);
   item('DISCONNECT', t(markTr('Desconectar WhatsApp')), mFile);
@@ -39,7 +40,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nModo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -210,6 +211,21 @@ TkExample tkCppMywa(String Function(String) t) {
     'F_TODO': t(markTr('Por responder (3 días)')),
     'F_WAITING': t(markTr('Sin respuesta')),
     'ARCHIVED': t(markTr('Archivados')),
+    'BUSY_ON': t(markTr('Ocupado: {0}')),
+    'BUSY_OFF_DONE': t(markTr('Modo ocupado desactivado')),
+    'BUSY_NEEDS_SEND': t(markTr('Modo ocupado activo; para que conteste solo, conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…)')),
+    'BUSY_NEW': t(markTr('+ Nuevo modo…')),
+    'BUSY_EDIT': t(markTr('Editar el mensaje de un modo…')),
+    'BUSY_DELETE': t(markTr('Borrar un modo…')),
+    'BUSY_OFF': t(markTr('Desactivar el modo ocupado')),
+    'BUSY_ASK_NAME': t(markTr('Nombre del modo (por ejemplo: En el médico):')),
+    'BUSY_ASK_TEXT': t(markTr('El mensaje que se contesta solo a quien le escriba:')),
+    'BUSY_MEETING': t(markTr('En una reunión')),
+    'BUSY_MEETING_TEXT': t(markTr('Estoy en una reunión; te contesto en cuanto salga 🙏')),
+    'BUSY_DRIVING': t(markTr('Conduciendo')),
+    'BUSY_DRIVING_TEXT': t(markTr('Estoy conduciendo; te escribo cuando pare 🚗')),
+    'BUSY_HOLIDAY': t(markTr('De vacaciones')),
+    'BUSY_HOLIDAY_TEXT': t(markTr('Estoy de vacaciones; si es urgente, llámame 🌴')),
     'DOWNLOAD': t(markTr('⬇ Descargar')),
     'OPEN_EXTERNAL': t(markTr('Abrir con su programa')),
     'NO_PREVIEW': t(markTr('No se puede enseñar esta imagen')),

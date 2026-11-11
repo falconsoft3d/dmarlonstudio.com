@@ -6738,6 +6738,10 @@ msgid "+ Nueva tarea"
 msgstr "+ New task"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nuevo modo…"
+msgstr "+ New mode…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Tarea"
 msgstr "+ Task"
 
@@ -6800,6 +6804,10 @@ msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
 msgstr "I don't know their language yet: choose it in “🌐 Translate”"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrar un modo…"
+msgstr "Delete a mode…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
 msgstr "Short"
 
@@ -6844,6 +6852,10 @@ msgid "Con tareas"
 msgstr "With tasks"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Conduciendo"
+msgstr "Driving"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Conectando con WhatsApp…"
 msgstr "Connecting to WhatsApp…"
 
@@ -6885,6 +6897,14 @@ msgstr "Copy message"
 msgid "Copiar la selección"
 msgstr "Copy selection"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "De vacaciones"
+msgstr "On holiday"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Desactivar el modo ocupado"
+msgstr "Turn busy mode off"
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/github_dialog.dart
 msgid "Desconectar"
 msgstr "Disconnect"
@@ -6900,6 +6920,14 @@ msgstr "Detect the language"
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
 msgstr "Document"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Editar el mensaje de un modo…"
+msgstr "Edit a mode's message…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El mensaje que se contesta solo a quien le escriba:"
+msgstr "The message automatically sent to whoever writes to you:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El sábado me va perfecto. Os espero en calle Mayor 12, de 10 a 14."
@@ -6920,6 +6948,10 @@ msgstr "Pick a chat"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
 msgstr "On the phone: WhatsApp › Settings › Linked devices › Link a device, and point the camera at this code."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En una reunión"
+msgstr "In a meeting"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Entiendo el riesgo"
@@ -6974,6 +7006,18 @@ msgstr "This chat is imported: it has no number to send to"
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
 msgstr "Style"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy conduciendo; te escribo cuando pare 🚗"
+msgstr "I'm driving; I'll write when I stop 🚗"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy de vacaciones; si es urgente, llámame 🌴"
+msgstr "I'm on holiday; if it's urgent, call me 🌴"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy en una reunión; te contesto en cuanto salga 🙏"
+msgstr "I'm in a meeting; I'll reply as soon as I'm out 🙏"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Falta el número o el token de la API oficial (Archivo › Conectar WhatsApp para enviar…)"
@@ -7104,6 +7148,18 @@ msgid "Modelo de OpenAI:"
 msgstr "OpenAI model:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado activo; para que conteste solo, conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…)"
+msgstr "Busy mode on; to reply automatically, connect WhatsApp (File › Connect WhatsApp to send…)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado desactivado"
+msgstr "Busy mode off"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado…"
+msgstr "Busy mode…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "MyWhatsapp"
 msgstr "MyWhatsapp"
 
@@ -7127,6 +7183,8 @@ msgid ""
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
 "\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n"
+"\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
@@ -7140,6 +7198,8 @@ msgstr ""
 "In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it or turns it into a task.\n"
 "\n"
 "“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
+"\n"
+"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once.\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
@@ -7202,8 +7262,16 @@ msgid "No traducir"
 msgstr "Don't translate"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nombre del modo (por ejemplo: En el médico):"
+msgstr "Mode name (for example: At the doctor):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nota de voz"
 msgstr "Voice note"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ocupado: {0}"
+msgstr "Busy: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Original:"

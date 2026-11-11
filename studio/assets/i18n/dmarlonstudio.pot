@@ -6658,6 +6658,10 @@ msgid "+ Nueva tarea"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nuevo modo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Tarea"
 msgstr ""
 
@@ -6717,6 +6721,10 @@ msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrar un modo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
 msgstr ""
 
@@ -6761,6 +6769,10 @@ msgid "Con tareas"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Conduciendo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Conectando con WhatsApp…"
 msgstr ""
 
@@ -6799,6 +6811,14 @@ msgstr ""
 msgid "Copiar la selección"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "De vacaciones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Desactivar el modo ocupado"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/github_dialog.dart
 msgid "Desconectar"
 msgstr ""
@@ -6813,6 +6833,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Editar el mensaje de un modo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El mensaje que se contesta solo a quien le escriba:"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6833,6 +6861,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En una reunión"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6884,6 +6916,18 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy conduciendo; te escribo cuando pare 🚗"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy de vacaciones; si es urgente, llámame 🌴"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Estoy en una reunión; te contesto en cuanto salga 🙏"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7015,6 +7059,18 @@ msgid "Modelo de OpenAI:"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado activo; para que conteste solo, conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado desactivado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "MyWhatsapp"
 msgstr ""
 
@@ -7037,6 +7093,8 @@ msgid ""
 "En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n"
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
+"\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
@@ -7100,7 +7158,15 @@ msgid "No traducir"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nombre del modo (por ejemplo: En el médico):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nota de voz"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ocupado: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

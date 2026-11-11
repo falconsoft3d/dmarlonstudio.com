@@ -1445,6 +1445,38 @@ std::string task_title_of(const Msg& m) {
   return t;
 }
 
+// ---- los modos ocupado: un nombre y el mensaje que se contesta solo.
+struct BusyMode {
+  std::string name, text;
+};
+std::string busy_text(const std::vector<BusyMode>& ms) {
+  std::string out;
+  for (const auto& m : ms) out += "{\"name\":" + jstr(m.name) + ",\"text\":" + jstr(m.text) + "}\n";
+  return out;
+}
+std::vector<BusyMode> busy_parse(const std::string& text) {
+  std::vector<BusyMode> out;
+  for (const auto& l : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(l, &ok);
+    if (ok && !j["name"].str().empty()) out.push_back({j["name"].str(), j["text"].str()});
+  }
+  return out;
+}
+// A quién contestar: chats individuales (no grupos ni archivados) cuyo último
+// mensaje es suyo, llegó después de [since] y aún no tuvieron respuesta automática.
+std::vector<int> busy_targets(const std::vector<Chat>& chats, long long since, const std::map<std::string, bool>& done) {
+  std::vector<int> out;
+  for (int i = 0; i < (int)chats.size(); i++) {
+    const Chat& c = chats[(size_t)i];
+    if (c.group || c.archived || c.last_mine || c.jid.empty() || c.last_t <= since) continue;
+    if (c.jid.find("@s.whatsapp.net") == std::string::npos) continue;
+    if (done.count(c.jid)) continue;
+    out.push_back(i);
+  }
+  return out;
+}
+
 // ---- el puente (wabridge): un proceso aparte que habla por stdin/stdout
 std::string exe_dir() {
   std::string s;
@@ -3290,6 +3322,28 @@ int selftest() {
     auto ks = chat_countries(g);
     chk(ks.size() == 2 && std::string(ks[0]->iso) == "AR" && std::string(ks[1]->iso) == "ES", "los países de un grupo");
   }
+  // Los modos ocupado: guardar y leer, y a quién contestar.
+  {
+    std::vector<BusyMode> ms = {{"Reunión", "Estoy en una \"reunión\""}, {"Coche", "Conduciendo"}};
+    auto back = busy_parse(busy_text(ms) + "roto\n");
+    chk(back.size() == 2 && back[0].text == ms[0].text && back[1].name == "Coche", "modos ocupado: guardar y leer");
+    std::vector<Chat> cs(5);
+    cs[0].jid = "1@s.whatsapp.net";
+    cs[0].last_t = 200;   // me escribió después: sí
+    cs[1].jid = "2@s.whatsapp.net";
+    cs[1].last_t = 50;    // antes de activarlo: no
+    cs[2].jid = "3@g.us";
+    cs[2].group = true;
+    cs[2].last_t = 200;   // grupo: no
+    cs[3].jid = "4@s.whatsapp.net";
+    cs[3].last_t = 200;
+    cs[3].last_mine = true;   // lo último es mío: no
+    cs[4].jid = "5@s.whatsapp.net";
+    cs[4].last_t = 200;
+    std::map<std::string, bool> done = {{"5@s.whatsapp.net", true}};   // ya contestado: no
+    auto t = busy_targets(cs, 100, done);
+    chk(t.size() == 1 && t[0] == 0, "modo ocupado: a quién se contesta");
+  }
   // Traducir: las claves y la respuesta de la IA.
   {
     chk(fnv("hola") == fnv("hola") && fnv("hola") != fnv("Hola") && fnv("").size() == 16, "clave de un texto");
@@ -3422,6 +3476,11 @@ public:
   std::map<std::string, std::string> translations;
   std::map<std::string, bool> trans_asked;
   bool translating = false;
+  // Los modos ocupado: los que hay, el activo ("" si ninguno), desde cuándo y a quién se contestó ya.
+  std::vector<wa::BusyMode> busy_modes;
+  std::string busy;
+  long long busy_since = 0;
+  std::map<std::string, bool> busy_done;
   Fl_Input* find_input = nullptr;
   // El menú del clic derecho (las pruebas lo cambian): el índice elegido o -1.
   std::function<int(const std::vector<std::string>&)> choose = [](const std::vector<std::string>& items) {
@@ -3548,6 +3607,7 @@ public:
     store.load(store_file());
     load_tasks();
     load_translations();
+    load_busy();
     reload();
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
@@ -3614,6 +3674,12 @@ public:
         else if (wa::starts(l, "about=")) ai.about = l.substr(6);
         else if (l == "warned=1") warned = true;
         else if (wa::starts(l, "theme=")) theme = l.substr(6);
+        else if (wa::starts(l, "busy=")) busy = l.substr(5);
+        else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
+        else if (wa::starts(l, "busy_done=")) {
+          for (const auto& j : wa::split(l.substr(10), ','))
+            if (!j.empty()) busy_done[j] = true;
+        }
         else if (wa::starts(l, "send=")) send_mode = std::atoi(l.c_str() + 5);
         else if (wa::starts(l, "cloud_phone=")) cloud.phone_id = l.substr(12);
       }
@@ -3634,7 +3700,8 @@ public:
       if (c == '\n') c = ' ';
     wa::write_file(settings_file(), "provider=" + std::to_string(ai.provider) + "\nmodel=" + ai.openai_model + "\nabout=" + about +
                                         "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
-                                        "\ncloud_phone=" + cloud.phone_id +
+                                        "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
+                                        "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -3740,10 +3807,11 @@ public:
     std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
                        : send_mode == wa::S_LINKED ? (linked ? tx::MODE_LINKED : tx::MODE_LINKING)
                                                    : tx::MODE_NONE;
+    std::string busy_s = busy.empty() ? "" : "   ·   🔕 " + wa::fmt(tx::BUSY_ON, {busy});
     if (!message.empty() && wa::now_s() < message_until) Status->text(" " + message);
     else
       Status->text(" " + wa::fmt(tx::STATUS, {std::to_string(chats.size()), where,
-                                               ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE, mode}));
+                                               ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE, mode}) + busy_s);
     list->redraw();
     view->redraw();
   }
@@ -3874,6 +3942,96 @@ public:
         if (!c.msgs[(size_t)i].mine) title = wa::task_title_of(c.msgs[(size_t)i]);
     add_task(title, current);
   }
+  // ---- los modos ocupado
+  std::string busy_file() const { return wa::config_dir() + "/modos.jsonl"; }
+  void load_busy() {
+    std::string text;
+    busy_modes.clear();
+    if (!demo && wa::read_file(busy_file(), text)) busy_modes = wa::busy_parse(text);
+    if (busy_modes.empty())
+      busy_modes = {{tx::BUSY_MEETING, tx::BUSY_MEETING_TEXT}, {tx::BUSY_DRIVING, tx::BUSY_DRIVING_TEXT},
+                    {tx::BUSY_HOLIDAY, tx::BUSY_HOLIDAY_TEXT}};
+    bool found = false;
+    for (const auto& m : busy_modes) found = found || m.name == busy;
+    if (!found) busy.clear();
+  }
+  void save_busy() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    wa::write_file(busy_file(), wa::busy_text(busy_modes));
+    save_settings();
+  }
+  std::string busy_done_text() const {
+    std::string out;
+    for (const auto& kv : busy_done) out += (out.empty() ? "" : ",") + kv.first;
+    return out;
+  }
+  const wa::BusyMode* busy_mode() const {
+    for (const auto& m : busy_modes)
+      if (m.name == busy) return &m;
+    return nullptr;
+  }
+  void set_busy(const std::string& name) {
+    busy = name;
+    busy_since = name.empty() ? 0 : (long long)wa::now_s();
+    busy_done.clear();
+    save_busy();
+    if (!name.empty() && send_mode == wa::S_NONE && !demo) say(tx::BUSY_NEEDS_SEND);
+    else say(name.empty() ? std::string(tx::BUSY_OFF_DONE) : wa::fmt(tx::BUSY_ON, {name}));
+  }
+  // El menú: activar un modo, crear, editar o borrar uno, o desactivarlo.
+  void busy_menu() {
+    std::vector<std::string> items;
+    for (const auto& m : busy_modes) items.push_back((m.name == busy ? "✓ " : "    ") + m.name);
+    size_t n = busy_modes.size();
+    items.push_back(tx::BUSY_NEW);
+    items.push_back(tx::BUSY_EDIT);
+    items.push_back(tx::BUSY_DELETE);
+    items.push_back(tx::BUSY_OFF);
+    int r = choose(items);
+    if (r < 0) return;
+    if (r < (int)n) {
+      set_busy(busy_modes[(size_t)r].name);
+    } else if (r == (int)n) {   // nuevo
+      std::string name, text;
+      if (!ask_text(tx::BUSY_ASK_NAME, name) || wa::trim(name).empty()) return;
+      if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
+      busy_modes.push_back({wa::trim(name), wa::trim(text)});
+      set_busy(wa::trim(name));
+    } else if (r == (int)n + 1 || r == (int)n + 2) {   // editar o borrar: cuál
+      std::vector<std::string> names;
+      for (const auto& m : busy_modes) names.push_back(m.name);
+      int k = choose(names);
+      if (k < 0 || k >= (int)busy_modes.size()) return;
+      if (r == (int)n + 1) {
+        std::string text = busy_modes[(size_t)k].text;
+        if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
+        busy_modes[(size_t)k].text = wa::trim(text);
+        save_busy();
+      } else {
+        if (busy_modes[(size_t)k].name == busy) busy.clear();
+        busy_modes.erase(busy_modes.begin() + k);
+        save_busy();
+      }
+    } else {
+      set_busy("");
+    }
+    refresh();
+  }
+  // Con un modo activo: a quien escribió (en privado) desde entonces, su mensaje, una vez.
+  void busy_reply() {
+    const wa::BusyMode* m = busy_mode();
+    if (!m || send_mode == wa::S_NONE) return;
+    if (send_mode == wa::S_LINKED && !linked) return;
+    bool any = false;
+    for (int i : wa::busy_targets(chats, busy_since, busy_done)) {
+      busy_done[chats[(size_t)i].jid] = true;   // y se guarda: al volver a abrir la app no se repite
+      deliver(chats[(size_t)i].jid, m->text, "", "");
+      any = true;
+    }
+    if (any) save_settings();
+  }
+
   // ---- traducir
   std::string langs_file() const { return wa::config_dir() + "/idiomas.txt"; }
   std::string trans_file() const { return wa::config_dir() + "/traducciones.jsonl"; }
@@ -4341,6 +4499,7 @@ public:
       }).detach();
     }
     pending[rid] = restore;
+    if (restore.empty()) return;   // las respuestas automáticas no tocan el borrador
     Draft->value("");
     options.clear();
     say(tx::SENDING);
@@ -4521,6 +4680,7 @@ public:
       reload();
       if (current >= 0 && chats[(size_t)current].msgs.size() != before) options.clear();
     }
+    busy_reply();
     refresh();
   }
   void Menu1_click(const std::string& item) override {
@@ -4529,6 +4689,7 @@ public:
     else if (item == tx::MP_AI) settings_dialog();
     else if (item == tx::MP_CONNECT) connect_dialog();
     else if (item == tx::MP_TASKS) open_tasks();
+    else if (item == tx::MP_BUSY) busy_menu();
     else if (item == tx::MP_DISCONNECT) disconnect();
     else if (item == tx::MP_LIGHT) set_theme("light");
     else if (item == tx::MP_DARK) set_theme("dark");
@@ -4568,6 +4729,7 @@ public:
     from_db = true;
     ai.provider = wa::P_CLAUDE;
     Provider->index(0);
+    load_busy();
     tasks.clear();
     view->now = now;
     list->now = now;
@@ -4827,6 +4989,43 @@ public:
     Draft->value("");
     BtnSend_click();
     chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+    // Los modos ocupado: activar, crear uno, editarlo, borrarlo y desactivar.
+    {
+      size_t n = busy_modes.size();
+      chk(n == 3, "tres modos ocupado de partida");
+      choose = [](const std::vector<std::string>&) { return 1; };   // «Conduciendo»
+      busy_menu();
+      chk(busy == tx::BUSY_DRIVING && busy_mode() != nullptr && busy_since > 0, "activar un modo");
+      std::vector<std::string> answers = {"Gimnasio", "Entrenando, luego te escribo 💪"};
+      size_t ai_n = 0;
+      ask_text = [&answers, &ai_n](const char*, std::string& io) {
+        io = answers[ai_n++ % answers.size()];
+        return true;
+      };
+      choose = [n](const std::vector<std::string>&) { return (int)n; };   // «+ Nuevo modo…»
+      busy_menu();
+      chk(busy_modes.size() == n + 1 && busy == "Gimnasio" && busy_modes.back().text == answers[1], "crear un modo y activarlo");
+      int step = 0;
+      choose = [&step, n](const std::vector<std::string>&) { return step++ == 0 ? (int)n + 2 : (int)n; };   // «Editar…» → el nuevo
+      answers = {"Entrenando ahora"};
+      ai_n = 0;
+      busy_menu();
+      chk(busy_modes.back().text == "Entrenando ahora", "editar un modo");
+      step = 0;
+      choose = [&step, n](const std::vector<std::string>&) { return step++ == 0 ? (int)n + 3 : (int)n; };   // «Borrar…» → el nuevo
+      busy_menu();
+      chk(busy_modes.size() == n && busy.empty(), "borrar el modo activo lo desactiva");
+      choose = [](const std::vector<std::string>&) { return 0; };
+      busy_menu();
+      choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Desactivar»
+      busy_menu();
+      chk(busy.empty() && busy_since == 0, "desactivar");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+    }
     // El visor: la foto en grande, descargarla y cerrarlo.
     {
       pick(0);
@@ -5045,6 +5244,17 @@ public:
       for (const auto& x : chats)
         if (x.live && x.name == "Nuevo" && x.last == "¿Qué tal?") fresh = true;
       chk(fresh, "un chat nuevo que llega por el puente");
+      // Con «En una reunión» activo, a quien escribió después se le contesta solo (una vez).
+      busy = tx::BUSY_MEETING;
+      busy_since = 1794365150;
+      busy_done.clear();
+      size_t sent_before = pending.size();
+      busy_reply();
+      busy_reply();
+      chk(busy_done.count("34677000000@s.whatsapp.net") && pending.size() == sent_before + 1,
+          "modo ocupado: contesta solo, una vez, por el puente");
+      busy.clear();
+      busy_since = 0;
       Fl::e_state = FL_SHIFT;
       Draft->value("otra");
       chk(dispatch(FL_KEYBOARD, this) == 0 || std::string(Draft->value()) != "", "Mayúsculas+Enter no envía");

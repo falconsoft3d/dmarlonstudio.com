@@ -43,6 +43,7 @@ export const DEMO_SEEDS = [
   "cpp_recorder",
   "cpp_mywa",
   "cpp_minilang",
+  "cpp_pass",
   "domino",
 ] as const;
 

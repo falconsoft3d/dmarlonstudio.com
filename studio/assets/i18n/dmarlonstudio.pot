@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -601,7 +601,7 @@ msgstr ""
 msgid "Ficha nueva"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter_desktop.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart
 msgid "General"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr ""
 msgid "Lista de tareas que se guarda en un archivo de su carpeta."
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Longitud"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -2511,7 +2511,7 @@ msgstr ""
 msgid "Abrir un archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Abrir…"
 msgstr ""
 
@@ -2591,7 +2591,7 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
@@ -2671,7 +2671,7 @@ msgstr ""
 msgid "Gráfico de líneas"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardar como…"
 msgstr ""
 
@@ -3392,7 +3392,7 @@ msgstr ""
 msgid "Cuba · La Habana"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr ""
 
@@ -3524,7 +3524,7 @@ msgstr ""
 msgid "Puerto Rico · San Juan"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr ""
 
@@ -4039,7 +4039,7 @@ msgctxt "explorer"
 msgid "Acciones"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_windows.dart lib/ui/widgets.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Aceptar"
 msgstr ""
 
@@ -4115,7 +4115,7 @@ msgstr ""
 msgid "Cambiar nombre"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr ""
 
@@ -4296,7 +4296,7 @@ msgstr ""
 msgid "Hacer lo mismo con los demás conflictos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_flutter_desktop.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart
 msgid "Herramientas"
 msgstr ""
 
@@ -4372,7 +4372,7 @@ msgstr ""
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "No"
 msgstr ""
 
@@ -4464,7 +4464,7 @@ msgstr ""
 msgid "Panel de detalles"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Papelera"
 msgstr ""
 
@@ -4516,7 +4516,7 @@ msgstr ""
 msgid "Subir un nivel"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr ""
 
@@ -7419,7 +7419,7 @@ msgstr ""
 msgid "Barra lateral compacta (solo las fotos)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Bloquear"
 msgstr ""
 
@@ -7475,7 +7475,7 @@ msgstr ""
 msgid "Cambiar el PIN…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Cambiar el nombre…"
 msgstr ""
 
@@ -8478,7 +8478,7 @@ msgstr ""
 msgid "Ocupado: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Oficina"
 msgstr ""
 
@@ -8815,7 +8815,7 @@ msgstr ""
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Usar"
 msgstr ""
 
@@ -9250,6 +9250,595 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🤖 La IA está investigando…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "(sin título)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "+ Añadir una entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "+ Entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "1 entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "A la papelera"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "AES-KDF (KeePass antiguo)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abierta (KDBX 3.1): al guardar pasará a KDBX 4, que también abre KeePass 2.35 o posterior"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abriendo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abrir la URL"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abrir otra…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abrir una base de datos de KeePass"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Abrir una existente (.kdbx)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Aceptable"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Acerca de DMarlonPass"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Argon2d (como KeePassXC)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Argon2id"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Banco"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Bancos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Base de datos abierta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Base de datos creada y guardada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Base de datos nueva"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Bases de datos de KeePass (*.kdbx)|*.kdbx"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Bloqueada tras unos minutos sin uso"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Borrada para siempre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Borrar el grupo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Borrar la entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "CIFRADO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "CONTRASEÑA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "CONTRASEÑA MAESTRA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cambiar la clave maestra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cambiar la clave maestra…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cerrar la base de datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cifrado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cifrado no soportado (por ejemplo, Twofish)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Clave maestra cambiada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Compatible con KeePass y KeePassXC: KDBX 4, AES-256 o ChaCha20, Argon2."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Contraseña copiada: el portapapeles se vacía en {0} s"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Contraseña maestra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Contraseña o archivo de clave incorrectos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Contraseñas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Copiado: el portapapeles se vacía en {0} s"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Copiar el usuario"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Copiar la contraseña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Correo del trabajo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Correo personal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Creada. Guarde bien el archivo de clave: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Creada: {0} · Cambiada: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Crear también un archivo de clave (hará falta para abrirla)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Crear una base de datos nueva"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Crear una nueva…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Cree una base de datos o abra un archivo .kdbx"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "DMarlonPass"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "DMarlonPass (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "DMarlonPass en C++ con FLTK: un gestor de contraseñas compatible con KeePass (KDBX 4: AES-256 o ChaCha20, Argon2 y HMAC-SHA-256), sin bibliotecas."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid ""
+"DMarlonPass guarda sus contraseñas en un archivo .kdbx cifrado, el mismo formato de KeePass y KeePassXC: puede abrir con DMarlonPass la base de datos que ya tiene y seguir usándola con esos programas.\n"
+"\n"
+"Cree una base de datos con una contraseña maestra (y, si quiere, un archivo de clave) o abra una existente. A la izquierda están los grupos; en medio, las entradas del grupo; a la derecha, la elegida: copie el usuario o la contraseña con un clic (el portapapeles se vacía solo a los 20 segundos), vea la contraseña con 👁 o abra su web.\n"
+"\n"
+"«+ Entrada» propone una contraseña fuerte; el generador hace otras a su medida. La revisión de seguridad enseña las contraseñas vacías, débiles, repetidas o que llevan más de un año sin cambiar. Al editar, la versión anterior queda en el historial; lo que borra va a la papelera.\n"
+"\n"
+"Atajos: ⌘N nueva entrada, ⌘E editar, ⌘B copiar el usuario, ⌘C copiar la contraseña, ⌘F buscar, ⌘S guardar, ⌘L bloquear. Tras 5 minutos sin usarla, la base de datos se bloquea sola (guardando antes los cambios) y se borra de la memoria todo lo descifrado."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Derivación de la clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Dos segundos (más seguro)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Débil"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Editar la entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "El archivo está dañado o se ha modificado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Elegir el archivo de clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Elija una entrada para ver sus datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Entrada añadida (sin guardar)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Este grupo está vacío"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid ""
+"Firma electrónica: el código que llega por SMS.\n"
+"Oficina: calle Mayor 12."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Fuerte"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "GRUPO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "GRUPOS"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Generador de contraseñas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Generador de contraseñas…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Guardado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Guardar la base de datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Hay cambios sin guardar. ¿Guardarlos?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_web.dart
+msgid "Intranet"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Las dos contraseñas no coinciden"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Los grupos, las entradas y el bloqueo los dibuja el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Medio segundo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Mis contraseñas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Mover a…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Muy débil"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Muy fuerte"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Más de un año sin cambiar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "NOMBRE"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "NOTAS"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Ninguna contraseña débil, repetida ni vieja. ¡Bien hecho!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "No es una base de datos de KeePass (.kdbx)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart lib/ui/screens/code_studio.dart
+msgid "No guardar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "No hay entradas con ese texto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "No se pudo guardar el archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "No se pudo leer el archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "No se pudo leer el archivo de clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Nombre del grupo nuevo:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Nombre del grupo:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Nueva base de datos…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_sites.dart
+msgid "Nueva entrada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Nuevo grupo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Nuevo subgrupo…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Personal"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Ponga una contraseña maestra (o un archivo de clave)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Portapapeles vaciado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "REPITA LA CONTRASEÑA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Recuperación: el móvil acabado en 42"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Red social"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Red: Casa-5G"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Redes sociales"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Repetida en {0} entradas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Resultados de la búsqueda"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Revisión de seguridad"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Seguridad de la base de datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Seguridad de la base de datos…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Servidor: vpn.empresa.ejemplo, puerto 443"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Sin archivo de clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Sin caracteres que se confunden (l, 1, O, 0…)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Sin contraseña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Sus contraseñas, cifradas en un archivo que solo abre usted."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Tarjeta de crédito"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Tiempo para abrir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Todo en orden"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "TÍTULO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "URL"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "USUARIO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Un gestor de contraseñas compatible con KeePass, nativo en C++ con FLTK y sin bibliotecas: abre y guarda archivos .kdbx (KDBX 4) con AES-256 o ChaCha20 y Argon2, como KeePass y KeePassXC. Grupos, historial, papelera, generador, revisión de seguridad, archivo de clave y bloqueo automático."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Un segundo (recomendado)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, la barra de arriba, el campo de la contraseña maestra y los diálogos de abrir y guardar se diseñaron en el Diseñador del estudio. La criptografía (AES-256, ChaCha20, Salsa20, SHA-256, SHA-512, HMAC, BLAKE2b y Argon2) y el formato KDBX están escritos en el propio código, sin bibliotecas, y se comprueban con los vectores oficiales y con archivos de KeePassXC y pykeepass. Compatible con KeePass, no es KeePass."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Usar un archivo de clave…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "VPN de la empresa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "Versión de KDBX no soportada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_wifi.dart
+msgid "Wifi de casa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "{0} + {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "{0} entradas guardadas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "{0} por revisar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "{0} versiones en el historial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "{0} · {1} bits"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "¿Borrar el grupo «{0}» con todo lo que tiene? Irá a la papelera."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "¿Borrar «{0}» para siempre? No se puede deshacer."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "¿Llevar «{0}» a la papelera?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "✏️ Editar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🎲 Generador"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "💾 Guardar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "💾 Guardar *"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🔄 Otra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🔒 Bloquear"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🔓 Desbloquear"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🗑 Borrar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_pass.dart
+msgid "🛡 DMarlonPass"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_racing.dart
@@ -10549,10 +11138,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_wifi.dart
 msgid "WPA3: lo más seguro"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_wifi.dart
-msgid "Wifi de casa"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_wifi.dart
@@ -13295,10 +13880,6 @@ msgid "Novedad"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Nueva entrada"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Oferta"
 msgstr ""
 
@@ -14514,10 +15095,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "BIM 2.0: %d obras y %d presupuestos."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Banco"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -16776,10 +17353,6 @@ msgid "Importe (€)"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart
-msgid "Intranet"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
 msgid "La cantidad debe ser un número mayor que cero."
 msgstr ""
 
@@ -18173,10 +18746,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "No existe la carpeta: {0}"
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "No guardar"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart

@@ -500,6 +500,130 @@ void on_bridge_from(const std::string& id, const std::string& line) {
   update_tabs();
 }`;
 
+const psKey = `// La clave compuesta: SHA-256 de la contraseña y, si hay, de la clave del archivo de clave.
+Bytes composite_key(const std::string& password, const Bytes& keyfile_key) {
+  Bytes parts = sha256(bytes(password));
+  if (!keyfile_key.empty()) parts.insert(parts.end(), keyfile_key.begin(), keyfile_key.end());
+  Bytes k = sha256(parts);
+  wipe(parts);
+  return k;
+}
+Bytes transform_key(const Kdf& kdf, const Bytes& composite) {
+  if (kdf.type == K_AESKDF) {
+    Aes256 a(kdf.salt.data());
+    Bytes k = composite;
+    for (uint64_t r = 0; r < kdf.iterations; r++) {
+      a.encrypt(k.data(), k.data());
+      a.encrypt(k.data() + 16, k.data() + 16);
+    }
+    Bytes out = sha256(k);
+    wipe(k);
+    return out;
+  }
+  return argon2(kdf.type == K_ARGON2ID ? ARGON2_ID : ARGON2_D, composite, kdf.salt, (uint32_t)kdf.iterations,
+                (uint32_t)std::min<uint64_t>(kdf.memory / 1024, 0xffffffffu), kdf.parallelism, 32, Bytes(), Bytes(), kdf.version);
+}`;
+
+const psArgon = `// G(X, Y): out = P(X ^ Y) ^ X ^ Y (y, si «xor_out», también ^ out).
+void fill_block(const Block& x, const Block& y, Block& out, bool xor_out) {
+  Block r, tmp;
+  for (int i = 0; i < 128; i++) r.v[i] = x.v[i] ^ y.v[i];
+  tmp = r;
+  if (xor_out)
+    for (int i = 0; i < 128; i++) tmp.v[i] ^= out.v[i];
+  uint64_t* v = r.v;
+  for (int i = 0; i < 8; i++) {
+    int b = 16 * i;
+    perm(v, b, b + 1, b + 2, b + 3, b + 4, b + 5, b + 6, b + 7, b + 8, b + 9, b + 10, b + 11, b + 12, b + 13, b + 14, b + 15);
+  }
+  for (int i = 0; i < 8; i++) {
+    int b = 2 * i;
+    perm(v, b, b + 1, b + 16, b + 17, b + 32, b + 33, b + 48, b + 49, b + 64, b + 65, b + 80, b + 81, b + 96, b + 97, b + 112, b + 113);
+  }
+  for (int i = 0; i < 128; i++) out.v[i] = tmp.v[i] ^ r.v[i];
+}`;
+
+const psBlocks = `// Bloques de 1 MiB con su HMAC; al final, uno vacío.
+size_t p = 0;
+for (uint64_t index = 0;; index++) {
+  size_t sz = std::min<size_t>(1 << 20, enc.size() - p);
+  Bytes msg;
+  add64(msg, index);
+  add32(msg, (uint32_t)sz);
+  msg.insert(msg.end(), enc.begin() + (long)p, enc.begin() + (long)(p + sz));
+  Bytes mac = hmac_sha256(block_key(index), msg);
+  out.insert(out.end(), mac.begin(), mac.end());
+  add32(out, (uint32_t)sz);
+  out.insert(out.end(), enc.begin() + (long)p, enc.begin() + (long)(p + sz));
+  p += sz;
+  if (sz == 0) break;
+}`;
+
+const psProtect = `// Los valores protegidos (las contraseñas) van cifrados dentro del XML con un flujo aparte.
+struct InnerStream {
+  std::unique_ptr<ChaCha20> chacha;
+  std::unique_ptr<Salsa20> salsa;
+  InnerStream(uint32_t id, const Bytes& key) {
+    if (id == 3) {
+      Bytes h = sha512(key);
+      chacha.reset(new ChaCha20(h.data(), h.data() + 32));
+      wipe(h);
+    } else if (id == 2) {
+      Bytes h = sha256(key);
+      static const uint8_t nonce[8] = {0xE8, 0x30, 0x09, 0x4B, 0x97, 0x20, 0x5D, 0x2A};
+      salsa.reset(new Salsa20(h.data(), nonce));
+      wipe(h);
+    }
+  }
+  bool ok() const { return chacha || salsa; }
+  void apply(Bytes& b) {
+    if (chacha) chacha->apply(b.data(), b.size());
+    else if (salsa) salsa->apply(b.data(), b.size());
+  }
+};
+void unprotect(Node* n, InnerStream& st) {
+  if (n->attr("Protected") == "True") {
+    Bytes b = unb64(n->text);
+    st.apply(b);
+    n->text.assign(b.begin(), b.end());
+    wipe(b);
+  }
+  for (auto& k : n->kids) unprotect(k.get(), st);
+}`;
+
+const psTest = `// Las bases de datos de KeePassXC y de pykeepass.
+Database db;
+std::string err;
+bool ok3 = open_kdbx(unb64(FIXTURE_3), composite_key("prueba123", Bytes()), db, err);
+Node* root = ok3 ? root_group(db) : nullptr;
+Node* banco = root && !entries(root).empty() ? entries(root)[0] : nullptr;
+chk(ok3 && db.major == 3 && db.kdf.type == K_AESKDF && banco && field(banco, "Title") == "Banco" && field(banco, "Password") == "Clave-Del-Banco-99" &&
+        db.binaries.size() == 1 && db.binaries[0] == bytes("hola adjunto\\n") && field(entries(groups(root)[0])[0], "Password") == "ñandú€",
+    "abrir una base de datos de KeePassXC (KDBX 3.1, AES-KDF, Salsa20)");`;
+
+const psLock = `// Bloquear: se borra de la memoria todo lo descifrado y la clave.
+void lock_now(bool keep_file) {
+  if (unlocked && db.xml) db.xml->wipe_all();
+  db = kp::Database();
+  kp::wipe(master_key);
+  unlocked = false;
+  dirty = false;
+  cur_group = nullptr;
+  view->list.clear();
+  view->rows.clear();
+  view->selected = -1;
+  view->show_password = false;
+  view->auditing = false;
+  search.clear();
+  Search->value("");
+  if (clip_until > 0) {
+    copy("");
+    clip_until = 0;
+  }
+  view->mode = keep_file && !path.empty() ? kp::M_LOCKED : kp::M_WELCOME;
+  refresh();
+}`;
+
 const mlCourse = `# Cada frase, con su palabra más rara: se entiende al llegar a ella.
 by_rank = defaultdict(list)
 for t, ws in vocab.items():
@@ -1135,6 +1259,75 @@ const es: Record<string, DemoMade> = {
       },
     ],
   },
+  cpp_pass: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con su menú, la barra de arriba (búsqueda y botones), el campo de la contraseña maestra, los diálogos de abrir y guardar y la barra de estado; el código de Form1.cpp trae toda la criptografía de KeePass escrita a mano, lee y escribe el formato KDBX y dibuja los grupos, las entradas y el bloqueo.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La bienvenida, el bloqueo y la bóveda: grupos, entradas y la entrada elegida." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (nueva, abrir, guardar, bloquear), Contraseñas (entradas y grupos), Herramientas (generador, revisión, clave maestra, seguridad) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: vaciar el portapapeles a su hora y bloquear tras 5 minutos sin uso." },
+        { name: "DlgOpen / DlgSave / DlgKey", kind: "OpenDialog / SaveDialog", text: "Abrir y guardar archivos .kdbx y elegir el archivo de clave." },
+        { name: "Search", kind: "Entry", text: "Busca en títulos, usuarios, URL y notas mientras se escribe." },
+        { name: "BtnAdd / BtnGen / BtnLock / BtnSave", kind: "Button", text: "Nueva entrada, generador, bloquear y guardar." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja todo (un Fl_Widget propio)." },
+        { name: "Master / BtnUnlock", kind: "Password / Button", text: "La contraseña maestra y Desbloquear (Master_enter, BtnUnlock_click)." },
+        { name: "Status", kind: "StatusBar", text: "El archivo, cuántas entradas y el cifrado y la derivación que usa." },
+      ],
+      apis: [
+        "KDBX 4 (y lectura de KDBX 3.1): el formato de KeePass y KeePassXC",
+        "AES-256-CBC, ChaCha20 y Salsa20; SHA-256, SHA-512 y HMAC-SHA-256; BLAKE2b; Argon2d y Argon2id, todo escrito en el código",
+        "DEFLATE (gzip) para leer las bases de datos comprimidas",
+        "arc4random_buf (macOS): el azar del sistema para las claves y el generador",
+        "Probado con keepassxc-cli y pykeepass en los dos sentidos",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba, un Frame con la búsqueda y cuatro botones; debajo, otro Frame (Board) con el campo Password de la contraseña maestra y el botón Desbloquear; tres componentes de diálogo (OpenDialog y SaveDialog) para los archivos .kdbx y el de clave, el Menu, el Timer y la StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnUnlock_click, Master_enter, BtnAdd_click, BtnGen_click, BtnLock_click, BtnSave_click, Tick_timer y Menu1_click. Los diálogos ya traen su título y su filtro (*.kdbx): DlgOpen.execute() devuelve la ruta elegida.",
+        shot: "generated",
+      },
+      {
+        title: "3. La clave: contraseña, archivo de clave y Argon2",
+        text: "Como en KeePass, la clave compuesta es el SHA-256 de la contraseña y, si hay, el del archivo de clave (DMarlonPass lee y crea el XML 2.0 de KeePass). Después, la derivación la hace lenta a propósito: Argon2d o Argon2id con 64 MiB, o AES-KDF con millones de rondas. El tiempo de apertura se mide en el propio equipo al crear la base de datos.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: psKey },
+      },
+      {
+        title: "4. Argon2 sin bibliotecas",
+        text: "Argon2 llena memoria con bloques de 1 KiB mezclados con BLAKE2b; este es su corazón, la función G de la RFC 9106. Las pruebas internas lo comprueban con los vectores oficiales de Argon2d, Argon2i y Argon2id, y hace 64 MiB en unos 130 ms.",
+        code: { file: "Form1.cpp", text: psArgon },
+      },
+      {
+        title: "5. El archivo: HMAC por bloques y AES o ChaCha20",
+        text: "El encabezado va con su SHA-256 y su HMAC; el contenido, cifrado con AES-256-CBC o ChaCha20, se parte en bloques de 1 MiB y cada uno lleva su HMAC-SHA-256 con una clave propia. Si cambia un solo byte, no abre; si la contraseña no es la buena, falla el HMAC del encabezado. Cada vez que se guarda, la semilla, el vector inicial y la sal de Argon2 son nuevos.",
+        code: { file: "Form1.cpp", text: psBlocks },
+      },
+      {
+        title: "6. Las contraseñas, cifradas también dentro",
+        text: "Dentro del archivo, el XML guarda las contraseñas cifradas otra vez con un flujo aparte (ChaCha20 en KDBX 4, Salsa20 en KDBX 3), en el orden del documento. DMarlonPass trabaja sobre ese mismo XML: lo que no conoce (iconos, adjuntos, campos propios, datos de otros programas) se guarda tal cual, y al editar, la versión anterior pasa al historial como en KeePass.",
+        code: { file: "Form1.cpp", text: psProtect },
+      },
+      {
+        title: "7. Comprobado con KeePassXC y pykeepass",
+        text: "Las pruebas internas (DMS_PASS_SELFTEST) llevan dentro dos bases de datos de verdad: una creada con KeePassXC (KDBX 3.1, AES-KDF) y otra con pykeepass (KDBX 4, Argon2d, con un adjunto y un campo protegido). En el otro sentido, lo que guarda DMarlonPass (AES-256 y ChaCha20 con Argon2d, Argon2id o AES-KDF, con y sin archivo de clave) lo abren keepassxc-cli y pykeepass.",
+        code: { file: "Form1.cpp", text: psTest },
+      },
+      {
+        title: "8. Bloquear sin dejar rastro",
+        text: "Al bloquear (a mano, con ⌘L o tras 5 minutos sin uso) se borra con ceros todo lo descifrado y la clave, de forma que el compilador no se lo salte; el portapapeles se vacía a los 20 segundos. Los archivos se escriben aparte y luego se renombran, con permisos solo para usted.",
+        code: { file: "Form1.cpp", text: psLock },
+      },
+    ],
+  },
 };
 
 const en: Record<string, DemoMade> = {
@@ -1609,6 +1802,75 @@ const en: Record<string, DemoMade> = {
         title: "8. A 10,000-word course",
         text: "The big course comes from Tatoeba, a free collection of sentences translated by people (CC BY 2.0 FR). A Python script (scripts/demo-extra/minilang/build_course.py) counts how often each word is used across two million sentences, leaves out proper names (those that stay the same in the translation, like Tom) and walks the words from the most to the least used: for each one it takes one or two sentences that become understandable with it. So each sentence only uses words already seen plus the new one. Each unit gathers about 25 words and the level (A1 to C2) comes from how many you have learned; the result is a .json package shipped inside the app that installs itself.",
         code: { file: "build_course.py", text: mlCourse },
+      },
+    ],
+  },
+  cpp_pass: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its menu, the top bar (search and buttons), the master password field, the open and save dialogs and the status bar; the code in Form1.cpp has all of KeePass's cryptography written by hand, reads and writes the KDBX format and draws the groups, the entries and the lock screen.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The welcome screen, the lock screen and the vault: groups, entries and the selected entry." },
+        { name: "Menu1", kind: "Menu", text: "File (new, open, save, lock), Passwords (entries and groups), Tools (generator, review, master key, security) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every second: clear the clipboard on time and lock after 5 minutes without use." },
+        { name: "DlgOpen / DlgSave / DlgKey", kind: "OpenDialog / SaveDialog", text: "Open and save .kdbx files and choose the key file." },
+        { name: "Search", kind: "Entry", text: "Searches titles, usernames, URLs and notes as you type." },
+        { name: "BtnAdd / BtnGen / BtnLock / BtnSave", kind: "Button", text: "New entry, generator, lock and save." },
+        { name: "Board", kind: "Frame", text: "Where the code draws everything (a custom Fl_Widget)." },
+        { name: "Master / BtnUnlock", kind: "Password / Button", text: "The master password and Unlock (Master_enter, BtnUnlock_click)." },
+        { name: "Status", kind: "StatusBar", text: "The file, how many entries, and the cipher and derivation in use." },
+      ],
+      apis: [
+        "KDBX 4 (and reading KDBX 3.1): the KeePass and KeePassXC format",
+        "AES-256-CBC, ChaCha20 and Salsa20; SHA-256, SHA-512 and HMAC-SHA-256; BLAKE2b; Argon2d and Argon2id, all written in the code",
+        "DEFLATE (gzip) to read compressed databases",
+        "arc4random_buf (macOS): the system's randomness for keys and the generator",
+        "Tested with keepassxc-cli and pykeepass in both directions",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top, a Frame with the search box and four buttons; below, another Frame (Board) with the Password field for the master password and the Unlock button; three dialog components (OpenDialog and SaveDialog) for .kdbx files and the key file, the Menu, the Timer and the StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnUnlock_click, Master_enter, BtnAdd_click, BtnGen_click, BtnLock_click, BtnSave_click, Tick_timer and Menu1_click. The dialogs come with their title and filter (*.kdbx): DlgOpen.execute() returns the chosen path.",
+        shot: "generated",
+      },
+      {
+        title: "3. The key: password, key file and Argon2",
+        text: "As in KeePass, the composite key is the SHA-256 of the password and, if there is one, of the key file (DMarlonPass reads and creates KeePass's XML 2.0 key files). Then the derivation makes it slow on purpose: Argon2d or Argon2id with 64 MiB, or AES-KDF with millions of rounds. The opening time is measured on the computer itself when the database is created.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: psKey },
+      },
+      {
+        title: "4. Argon2 without libraries",
+        text: "Argon2 fills memory with 1 KiB blocks mixed with BLAKE2b; this is its heart, the G function from RFC 9106. The internal tests check it against the official Argon2d, Argon2i and Argon2id vectors, and it does 64 MiB in about 130 ms.",
+        code: { file: "Form1.cpp", text: psArgon },
+      },
+      {
+        title: "5. The file: per-block HMAC and AES or ChaCha20",
+        text: "The header comes with its SHA-256 and its HMAC; the content, encrypted with AES-256-CBC or ChaCha20, is split into 1 MiB blocks, each with its own HMAC-SHA-256 key. If a single byte changes, it will not open; if the password is wrong, the header HMAC fails. Every save uses a new seed, initial vector and Argon2 salt.",
+        code: { file: "Form1.cpp", text: psBlocks },
+      },
+      {
+        title: "6. Passwords, encrypted inside too",
+        text: "Inside the file, the XML keeps passwords encrypted again with a separate stream (ChaCha20 in KDBX 4, Salsa20 in KDBX 3), in document order. DMarlonPass works on that same XML: what it does not know (icons, attachments, custom fields, other programs' data) is saved as is, and when editing, the previous version goes to the history as in KeePass.",
+        code: { file: "Form1.cpp", text: psProtect },
+      },
+      {
+        title: "7. Checked with KeePassXC and pykeepass",
+        text: "The internal tests (DMS_PASS_SELFTEST) carry two real databases: one created with KeePassXC (KDBX 3.1, AES-KDF) and one with pykeepass (KDBX 4, Argon2d, with an attachment and a protected field). In the other direction, what DMarlonPass saves (AES-256 and ChaCha20 with Argon2d, Argon2id or AES-KDF, with and without a key file) opens in keepassxc-cli and pykeepass.",
+        code: { file: "Form1.cpp", text: psTest },
+      },
+      {
+        title: "8. Locking without a trace",
+        text: "On lock (by hand, with ⌘L or after 5 minutes without use) everything decrypted and the key are overwritten with zeros in a way the compiler cannot skip; the clipboard clears after 20 seconds. Files are written aside and then renamed, with permissions only for you.",
+        code: { file: "Form1.cpp", text: psLock },
       },
     ],
   },

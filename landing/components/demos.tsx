@@ -309,6 +309,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Aprenda idiomas con juegos de unos minutos: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar (con la voz del Mac). Con vidas, experiencia, meta diaria, racha y un repaso que trae cada frase cuando toca. El curso de inglés enseña 10.000 palabras, de A1 a C2, en unas 19.000 frases reales de Tatoeba que solo usan palabras ya vistas, con prueba de nivel para saltar lo que ya sabe; francés, italiano, alemán y portugués son paquetes que se instalan, y se pueden importar otros. Al cerrarla sigue en la barra de menús con la racha y la lección siguiente. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "10.000 palabras con frases de Tatoeba (CC BY 2.0 FR)", "Los idiomas, paquetes .json que se instalan o se importan", "Repaso espaciado, erratas y acentos con la distancia de Levenshtein", "La voz del sistema (say) y la barra de menús de macOS"],
       },
+      cpp_pass: {
+        name: "DMarlonPass (C++)",
+        text: "Un gestor de contraseñas compatible con KeePass y KeePassXC: abre su base de datos .kdbx de siempre y la guarda en el mismo formato (KDBX 4) con AES-256 o ChaCha20 y Argon2d, Argon2id o AES-KDF, contraseña maestra y, si quiere, archivo de clave. Grupos, entradas con historial, papelera, búsqueda, generador de contraseñas, revisión de seguridad (débiles, repetidas, viejas), copiar con el portapapeles que se vacía solo y bloqueo automático. Toda la criptografía está escrita en el código, sin bibliotecas, y probada con KeePassXC. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "KDBX 4 compatible con KeePass y KeePassXC", "AES-256, ChaCha20, Argon2 y HMAC-SHA-256 sin bibliotecas", "Probada con keepassxc-cli y pykeepass en los dos sentidos"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -571,6 +576,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Learn languages with games that take a few minutes: choose the translation, put the words in order, match pairs, write and listen (with the Mac's voice). With lives, XP, a daily goal, a streak and a review that brings each sentence back when it is due. The Spanish course teaches 10,000 words, from A1 to C2, in about 19,000 real sentences from Tatoeba that only use words you have already seen, with a placement test to skip what you already know; French, Italian, German and Portuguese are packages you install, and you can import others. When closed it stays in the menu bar with the streak and the next lesson. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "10,000 words with sentences from Tatoeba (CC BY 2.0 FR)", "Languages as .json packages you install or import", "Spaced repetition, typos and accents with the Levenshtein distance", "The system voice (say) and the macOS menu bar"],
       },
+      cpp_pass: {
+        name: "DMarlonPass (C++)",
+        text: "A password manager compatible with KeePass and KeePassXC: it opens your usual .kdbx database and saves it in the same format (KDBX 4) with AES-256 or ChaCha20 and Argon2d, Argon2id or AES-KDF, a master password and, if you like, a key file. Groups, entries with history, recycle bin, search, password generator, security review (weak, reused, old), copying with a self-clearing clipboard and automatic locking. All the cryptography is written in the code, without libraries, and tested with KeePassXC. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "KDBX 4 compatible with KeePass and KeePassXC", "AES-256, ChaCha20, Argon2 and HMAC-SHA-256 without libraries", "Tested with keepassxc-cli and pykeepass in both directions"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -657,6 +667,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },
   cpp_mywa: { icon: "cpp", label: "C++ · FLTK" },
   cpp_minilang: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_pass: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

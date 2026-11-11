@@ -256,6 +256,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Sus idiomas y la barra de menús", text: "En Archivo › Idiomas… instale francés, italiano, alemán o portugués (cada idioma es un paquete, con su progreso aparte) o importe un paquete .json hecho por otros. Al cerrar la ventana, MiniLang se queda en la barra de menús con su racha y lo que le falta para la meta; su menú abre la lección siguiente o un repaso rápido." },
     ],
   },
+  cpp_pass: {
+    intro:
+      "Un gestor de contraseñas compatible con KeePass, nativo en C++ con FLTK y diseñado en el estudio: sus contraseñas en un archivo cifrado que solo abre usted.",
+    steps: [
+      { title: "Cree o abra su base de datos", text: "Cree una base de datos nueva con una contraseña maestra (y, si quiere, un archivo de clave): elija el cifrado (AES-256 o ChaCha20) y cuánto tarda en abrirse, que es lo que la protege. O abra el archivo .kdbx que ya usa con KeePass o KeePassXC: DMarlonPass lo guarda en el mismo formato y lo puede seguir usando con ellos." },
+      { title: "Sus contraseñas, a mano", text: "A la izquierda, los grupos; en medio, las entradas; a la derecha, la elegida, con su usuario, contraseña, web y notas. Copie con un clic (el portapapeles se vacía a los 20 segundos), vea la contraseña con 👁 o abra la web. «+ Entrada» propone una contraseña fuerte, y al editar la versión anterior queda en el historial." },
+      { title: "Revisión y bloqueo", text: "La revisión de seguridad enseña las contraseñas débiles, repetidas, vacías o que llevan más de un año sin cambiar; el generador hace otras nuevas a su medida. Con ⌘L o tras 5 minutos sin usarla, la base de datos se bloquea y se borra de la memoria todo lo descifrado." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -586,6 +595,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Play a lesson", text: "Each unit has three lessons of ten games. Choose the translation (also with keys 1 to 4), put the words in order by tapping the tiles and press Check (or Enter): green if right; red, with the solution. If you get it wrong, you lose a life and that game comes back at the end; typos and missing accents are accepted, with a note." },
       { title: "Match, write and listen", text: "Match the pairs of short sentences, write the translation, or listen to the sentence with the Mac's voice (🔊, or 🐢 slower) and type what you hear. Each lesson gives XP for your daily goal and your streak, and each sentence comes back in the review when it is due. The Spanish course teaches 10,000 words, about 25 per unit, from A1 to C2; already know some? The placement test lets you skip what you know." },
       { title: "Your languages and the menu bar", text: "In File › Languages… install French, Italian, German or Portuguese (each language is a package, with its own progress) or import a .json package made by others. When you close the window, MiniLang stays in the menu bar with your streak and what is left for your goal; its menu opens the next lesson or a quick review." },
+    ],
+  },
+  cpp_pass: {
+    intro:
+      "A KeePass-compatible password manager, native in C++ with FLTK and designed in the studio: your passwords in an encrypted file only you can open.",
+    steps: [
+      { title: "Create or open your database", text: "Create a new database with a master password (and, if you like, a key file): choose the cipher (AES-256 or ChaCha20) and how long it takes to open, which is what protects it. Or open the .kdbx file you already use with KeePass or KeePassXC: DMarlonPass saves it in the same format and you can keep using it with them." },
+      { title: "Your passwords, at hand", text: "On the left, the groups; in the middle, the entries; on the right, the selected one, with its username, password, website and notes. Copy with one click (the clipboard clears after 20 seconds), show the password with 👁 or open the website. “+ Entry” suggests a strong password, and when you edit, the previous version stays in the history." },
+      { title: "Review and locking", text: "The security review shows passwords that are weak, reused, empty or unchanged for more than a year; the generator makes new ones to your liking. With ⌘L or after 5 minutes without use, the database locks and everything decrypted is wiped from memory." },
     ],
   },
   domino: {

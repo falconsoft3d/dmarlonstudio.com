@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.133 — 2026-11-11
+
+- Nueva demo: **DMarlonPass (C++)**, un gestor de contraseñas compatible con KeePass y KeePassXC, nativo en C++ con FLTK y sin bibliotecas. Abre y guarda archivos .kdbx (KDBX 4; también abre los KDBX 3.1 de KeePass 2 y los guarda como KDBX 4) con AES-256 o ChaCha20, Argon2d, Argon2id o AES-KDF, contraseña maestra y archivo de clave (lee y crea el XML 2.0 de KeePass).
+- DMarlonPass: toda la criptografía escrita en el código y comprobada con los vectores oficiales: SHA-256 y SHA-512 (FIPS 180-4), HMAC-SHA-256 (RFC 4231), AES-256 (FIPS 197), ChaCha20 (RFC 7539), Salsa20, BLAKE2b (RFC 7693) y Argon2 (RFC 9106). El formato, con HMAC por bloques, valores protegidos con ChaCha20 y gzip. Compatibilidad probada en los dos sentidos con keepassxc-cli y pykeepass; las pruebas internas llevan dentro una base de datos de cada uno.
+- DMarlonPass: grupos, entradas con historial (la versión anterior al editar), papelera, búsqueda, generador de contraseñas con medidor de fuerza, revisión de seguridad (vacías, débiles, repetidas y de más de un año), copiar con el portapapeles que se vacía a los 20 s, atajos como en KeePass y bloqueo a los 5 minutos que borra de la memoria lo descifrado. Lo que no conoce del archivo (iconos, adjuntos, campos propios) se guarda tal cual; los archivos se escriben aparte y se renombran, con permisos solo para la persona.
+- Web: la página de la demo con su guía, sus capturas y «Cómo se hizo» (8 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.132 — 2026-11-11
 
 - MiniLang: **curso de inglés de 10.000 palabras**, de A1 a C2: 400 unidades y unas 19.000 frases reales de Tatoeba (tatoeba.org, CC BY 2.0 FR). Cada unidad enseña unas 25 palabras nuevas, en frases que solo usan palabras ya vistas; el inicio dice cuántas palabras lleva («103 de 10.000 palabras») y baja solo hasta la unidad por la que va. En inglés, la misma app trae el curso de español de 10.000 palabras.

@@ -4107,7 +4107,7 @@ msgstr ""
 msgid "Buscar en {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Calculando…"
 msgstr ""
 
@@ -6687,6 +6687,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.25 — Panel con las cifras de sus mensajes (por día, por hora, quién más le escribe, lo que tarda en responder) y su análisis con IA.\n"
 "1.0.24 — Etiquetas: las suyas y las de WhatsApp, en la lista, en el chat y como filtro.\n"
 "1.0.23 — CRM: los leads en un tablero por etapas, enlazados a sus chats. La ficha del contacto, como en Odoo. Los datos se editan en una sola ventana.\n"
 "1.0.22 — Añadir el contacto de un chat a sus Contactos (y al teléfono, por iCloud).\n"
@@ -6714,7 +6715,19 @@ msgid ""
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "30 días"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "7 días"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «Sugerir respuestas»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "A qué hora le escriben"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6878,6 +6891,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "ChatGPT (OpenAI)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Chats activos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7076,6 +7093,10 @@ msgid "El nombre del chat al que reenviarlo:"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El panel necesita WhatsApp Desktop en este equipo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El pie (un hashtag, una web o una llamada a la acción; vacío para quitarlo):"
 msgstr ""
 
@@ -7141,6 +7162,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Enviar ➤"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el analista de MyWhatsapp. Te dan las cifras de los mensajes de WhatsApp del usuario (solo números y nombres de chats; ningún mensaje). Responde en {0}, breve y en viñetas: 3 conclusiones claras sobre cómo está gestionando sus mensajes, 3 recomendaciones concretas para responder mejor y organizarse, y una alerta si algo lo merece (muchos chats sin responder, respuestas lentas, tareas acumuladas). Máximo 150 palabras. No inventes cifras."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7374,6 +7399,10 @@ msgid "La IA está leyendo la conversación…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La IA está mirando sus cifras…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La IA no devolvió respuestas"
 msgstr ""
 
@@ -7390,6 +7419,10 @@ msgid "La conversación y las respuestas de la IA las dibuja el código de Form1
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La hora en que más mensajes recibe: las {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La lista de chats la dibuja el código"
 msgstr ""
 
@@ -7403,6 +7436,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lead"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Leads abiertos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7434,11 +7471,19 @@ msgid "Lo terminamos hoy y se lo envío"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Los chats que más le escriben (mensajes recibidos):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Los dos PIN no son iguales"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Los textos del estado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Los últimos {0} días · calculado con recuentos, sin leer ningún mensaje"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7455,6 +7500,18 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Me apunto!"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensajes enviados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensajes por día"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensajes recibidos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7540,7 +7597,7 @@ msgid ""
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Panel: el botón «📊» (en la fila de Tareas) enseña las cifras de los últimos 7 o 30 días (recibidos, enviados, chats activos, lo que tarda en responder, por responder, tareas y leads), los mensajes por día y por hora y quién más le escribe; se calcula con recuentos, sin leer ningún mensaje, y «✨ Análisis con IA» manda solo esas cifras. Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7730,6 +7787,15 @@ msgid "Perfecto. ¿Cuánto cuesta el envío? 🙂"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Periodo: los últimos {0} días.\n"
+"Mensajes recibidos: {1}. Enviados: {2}. Chats activos: {3}.\n"
+"Chats por responder ahora (le escribieron en 3 días y no contestó): {4}. Chats en los que escribió y no le contestan: {5}.\n"
+"Tiempo de respuesta en chats individuales: típico (mediana) {6}, media {7}, en {8} respuestas.\n"
+"Tareas pendientes: {9}. Leads abiertos en el CRM: {10}, por {11}."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Phone number ID"
 msgstr ""
 
@@ -7751,6 +7817,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Por responder ({0}):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Por responder ahora"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7798,6 +7868,10 @@ msgid "Quitar la foto"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Quién más le escribe"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Qué quiere decir"
 msgstr ""
 
@@ -7823,6 +7897,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Repita el PIN:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Responde en (típico; media {0})"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
@@ -7891,6 +7969,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tarea creada: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Tareas pendientes"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8010,6 +8092,10 @@ msgid "el sábado, y la dirección es calle Mayor 12"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "enviados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "estado.png"
 msgstr ""
 
@@ -8035,6 +8121,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "portugués"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "recibidos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8159,7 +8249,23 @@ msgid "árabe"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"• Responde rápido (14 min de típico), pero la media de 37 min dice que algunos chats esperan mucho.\n"
+"• Laura y Carlos concentran casi un tercio de lo que recibe: son sus clientes clave.\n"
+"• Recomendación: dedique un bloque a las 10 y otro a las 18, sus horas punta.\n"
+"• Alerta: 4 chats por responder y 3 tareas pendientes; cierre hoy la entrega de Laura."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✅ Tareas pendientes: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Análisis con IA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Análisis de la IA"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8220,6 +8326,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "💼 CRM: añadir o cambiar la etapa…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📊 Panel de sus mensajes"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

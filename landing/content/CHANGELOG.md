@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.122 — 2026-11-11
+
+- **MyWhatsapp 1.0.25: el panel de sus mensajes, con IA.** El botón «📊», en la fila de Tareas, abre un panel con las cifras de los últimos 7 o 30 días: mensajes recibidos y enviados, chats activos, lo que tarda en responder (el tiempo típico —la mediana— y la media, en chats individuales), los chats por responder ahora y sin respuesta, las tareas pendientes y los leads abiertos con su importe; debajo, los mensajes por día (recibidos y enviados), a qué hora le escriben y quién más le escribe. Se calcula en otro hilo con recuentos sobre la base de WhatsApp Desktop, sin leer ningún mensaje, y cada mensaje se cuenta una vez aunque WhatsApp Desktop lo guarde repetido. «✨ Análisis con IA» manda solo esas cifras y los nombres de los chats (nunca un mensaje) y devuelve tres conclusiones, tres recomendaciones y una alerta si hace falta.
+- Probado: las pruebas internas (el panel con una base inventada: el mensaje repetido cuenta una vez, por hora, quién más escribe, lo que tardo en contestar y un periodo sin mensajes; los tiempos para leerlos) y la de la interfaz (abrir el panel, 7 y 30 días, el análisis y cerrarlo, y que a la IA solo van cifras y nombres); con los chats de este equipo, solo con recuentos, salen 3.107 recibidos y 2.880 enviados en 30 días (con los repetidos habrían sido 4.185).
+
 ## 1.0.121 — 2026-11-11
 
 - **MyWhatsapp 1.0.24: etiquetas.** En un chat, «⋯ › 🏷 Etiquetas…» pone o quita las suyas, crea una (con su nombre y su color, en una ficha) o la borra. Salen en la cabecera del chat (pastillas de color junto al nombre), como cuadritos de color en la lista y como filtros en el desplegable («🏷 Cliente  5»). Las de WhatsApp también se ven: las lee de WhatsApp Desktop (`Labels.sqlite`, solo lectura; en este equipo no hay ninguna) y las recibe el puente cuando cambian en el teléfono (también cuando se borran); esas se cambian en el teléfono. Las suyas se guardan en `etiquetas.jsonl`.

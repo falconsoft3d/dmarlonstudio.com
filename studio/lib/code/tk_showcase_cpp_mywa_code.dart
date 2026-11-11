@@ -840,6 +840,126 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
 #endif
 }
 
+// ------------------------------------------------------------ el panel (KPI)
+// Todo con recuentos sobre la base de WhatsApp Desktop: no se lee ningún mensaje.
+struct Kpis {
+  bool ok = false;
+  std::string error;
+  int days = 7;
+  long long recv = 0, sent = 0;
+  int active = 0;                       // chats con mensajes en el periodo
+  int replies = 0;                      // respuestas mías (en chats individuales)
+  double resp_avg = 0, resp_median = 0;   // en minutos
+  std::vector<std::pair<std::string, std::pair<int, int>>> per_day;   // fecha → (recibidos, enviados)
+  int hour_recv[24] = {0}, hour_sent[24] = {0};
+  std::vector<std::pair<std::string, int>> top;   // los que más le escriben
+};
+// [since]: desde cuándo (fecha de WhatsApp, segundos desde 2001).
+Kpis compute_kpis(const std::string& path, double since, int days) {
+  Kpis k;
+  k.days = days;
+#ifdef _WIN32
+  (void)path;
+  (void)since;
+  k.error = tx::ERR_NO_DB;
+  return k;
+#else
+  Sqlite& q = sqlite();
+  if (!q.load()) { k.error = tx::ERR_NO_SQLITE; return k; }
+  void* db = nullptr;
+  std::string uri = "file:" + path + "?mode=ro";
+  if (q.open_v2(uri.c_str(), &db, OPEN_READONLY | OPEN_URI, nullptr) != 0) {
+    if (db) q.close(db);
+    k.error = tx::ERR_OPEN_DB;
+    return k;
+  }
+  const std::string types = " AND IFNULL(m.ZMESSAGETYPE, 0) IN (0, 1, 2, 3, 8, 11, 15) ";
+  // WhatsApp Desktop a veces guarda el mismo mensaje dos veces: se cuenta por su id.
+  const std::string one = "COUNT(DISTINCT IFNULL(m.ZSTANZAID, m.Z_PK))";
+  auto each = [&](const std::string& sql, const std::function<void(void*)>& row) {
+    void* st = nullptr;
+    if (q.prepare_v2(db, sql.c_str(), -1, &st, nullptr) != 0) return false;
+    q.bind_int64(st, 1, (long long)since);
+    while (q.step(st) == SQLITE_ROW_) row(st);
+    q.finalize(st);
+    return true;
+  };
+  bool ok = each("SELECT m.ZISFROMME, " + one + ", COUNT(DISTINCT m.ZCHATSESSION) FROM ZWAMESSAGE m WHERE m.ZMESSAGEDATE >= ?" + types +
+                     "GROUP BY m.ZISFROMME",
+                 [&](void* st) {
+                   if (q.column_int64(st, 0)) k.sent = q.column_int64(st, 1);
+                   else k.recv = q.column_int64(st, 1);
+                 });
+  each("SELECT COUNT(DISTINCT m.ZCHATSESSION) FROM ZWAMESSAGE m WHERE m.ZMESSAGEDATE >= ?" + types,
+       [&](void* st) { k.active = (int)q.column_int64(st, 0); });
+  each("SELECT strftime('%Y-%m-%d', m.ZMESSAGEDATE + 978307200, 'unixepoch', 'localtime') d, m.ZISFROMME, " + one + " "
+       "FROM ZWAMESSAGE m WHERE m.ZMESSAGEDATE >= ?" + types + "GROUP BY d, m.ZISFROMME ORDER BY d",
+       [&](void* st) {
+         std::string d = col(st, 0);
+         if (k.per_day.empty() || k.per_day.back().first != d) k.per_day.push_back({d, {0, 0}});
+         if (q.column_int64(st, 1)) k.per_day.back().second.second = (int)q.column_int64(st, 2);
+         else k.per_day.back().second.first = (int)q.column_int64(st, 2);
+       });
+  each("SELECT CAST(strftime('%H', m.ZMESSAGEDATE + 978307200, 'unixepoch', 'localtime') AS INTEGER) h, m.ZISFROMME, " + one + " "
+       "FROM ZWAMESSAGE m WHERE m.ZMESSAGEDATE >= ?" + types + "GROUP BY h, m.ZISFROMME",
+       [&](void* st) {
+         int h = (int)q.column_int64(st, 0);
+         if (h < 0 || h > 23) return;
+         (q.column_int64(st, 1) ? k.hour_sent : k.hour_recv)[h] = (int)q.column_int64(st, 2);
+       });
+  each("SELECT IFNULL(NULLIF(s.ZPARTNERNAME, ''), s.ZCONTACTJID), " + one + " FROM ZWAMESSAGE m JOIN ZWACHATSESSION s ON s.Z_PK = m.ZCHATSESSION "
+       "WHERE m.ZMESSAGEDATE >= ? AND m.ZISFROMME = 0" + types + "GROUP BY m.ZCHATSESSION ORDER BY 2 DESC LIMIT 5",
+       [&](void* st) { k.top.push_back({col(st, 0), (int)q.column_int64(st, 1)}); });
+  // Lo que tardo en contestar: mi mensaje justo después de uno suyo (en chats individuales, menos de un día).
+  std::vector<double> waits;
+  each("WITH x AS (SELECT m.ZISFROMME me, m.ZMESSAGEDATE d, "
+       "LAG(m.ZISFROMME) OVER (PARTITION BY m.ZCHATSESSION ORDER BY m.ZMESSAGEDATE) pme, "
+       "LAG(m.ZMESSAGEDATE) OVER (PARTITION BY m.ZCHATSESSION ORDER BY m.ZMESSAGEDATE) pd "
+       "FROM ZWAMESSAGE m JOIN ZWACHATSESSION s ON s.Z_PK = m.ZCHATSESSION "
+       "WHERE m.ZMESSAGEDATE >= ? AND s.ZCONTACTJID LIKE '%@s.whatsapp.net'" + types + "GROUP BY IFNULL(m.ZSTANZAID, m.Z_PK)) "
+       "SELECT d - pd FROM x WHERE me = 1 AND pme = 0 AND d - pd >= 0 AND d - pd < 86400",
+       [&](void* st) { waits.push_back(q.column_double(st, 0)); });
+  q.close(db);
+  if (!ok) {
+    k.error = tx::ERR_READ_DB;
+    return k;
+  }
+  k.replies = (int)waits.size();
+  if (!waits.empty()) {
+    double sum = 0;
+    for (double w : waits) sum += w;
+    k.resp_avg = sum / waits.size() / 60.0;
+    std::sort(waits.begin(), waits.end());
+    size_t n = waits.size();
+    k.resp_median = (n % 2 ? waits[n / 2] : (waits[n / 2 - 1] + waits[n / 2]) / 2) / 60.0;
+  }
+  k.ok = true;
+  return k;
+#endif
+}
+// «12 min», «2 h 5 min», «45 s»: un tiempo en minutos, para leerlo.
+std::string minutes_text(double m) {
+  if (m <= 0) return "—";
+  if (m < 1) return std::to_string((int)std::lround(m * 60)) + " s";
+  if (m < 60) return std::to_string((int)std::lround(m)) + " min";
+  int h = (int)(m / 60), mm = (int)std::lround(m - h * 60);
+  return std::to_string(h) + " h" + (mm ? " " + std::to_string(mm) + " min" : "");
+}
+// Las cifras, como texto para la IA (sin ningún mensaje).
+std::string kpis_text(const Kpis& k, int waiting_now, int no_reply, int tasks_open, int leads_open, double leads_value) {
+  std::string o = fmt(tx::DASH_AI_DATA, {std::to_string(k.days), std::to_string(k.recv), std::to_string(k.sent), std::to_string(k.active),
+                                         std::to_string(waiting_now), std::to_string(no_reply), minutes_text(k.resp_median),
+                                         minutes_text(k.resp_avg), std::to_string(k.replies), std::to_string(tasks_open),
+                                         std::to_string(leads_open), std::to_string((long long)leads_value)});
+  o += "\n" + std::string(tx::DASH_AI_TOP);
+  for (const auto& t : k.top) o += "\n- " + t.first + ": " + std::to_string(t.second);
+  int peak = 0;
+  for (int h = 0; h < 24; h++)
+    if (k.hour_recv[h] > k.hour_recv[peak]) peak = h;
+  o += "\n" + fmt(tx::DASH_AI_PEAK, {std::to_string(peak)});
+  return o;
+}
+
 // ------------------------------------------------------------ la IA
 // Claude (Anthropic) o ChatGPT (OpenAI), por su API HTTP con curl. La clave
 // va en un archivo temporal que solo puede leer el usuario, no en la orden.
@@ -2535,6 +2655,8 @@ public:
   bool tasks_selected = false;
   bool status_selected = false;
   bool crm_selected = false;
+  bool dash_selected = false;
+  std::function<void()> on_dash;   // el botón «📊» (el panel)
   std::function<void()> on_crm;   // el botón «💼» (el CRM)
   std::function<void()> on_status;   // la fila «🎨 Estados»
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
@@ -2617,6 +2739,7 @@ public:
       icon_row("✅", 1, tasks_selected);
       icon_row("🎨", 7, status_selected);
       icon_row("💼", 10, crm_selected);
+      icon_row("📊", 11, dash_selected);
     }
     if (chats)
       for (size_t i = 0; i < chats->size(); i++) {
@@ -2754,6 +2877,7 @@ public:
       if (archived > 0 && mode == F_ALL) pill("📦 " + std::to_string(archived), 3, false);
       pill("🎨", 7, status_selected);
       pill("💼", 10, crm_selected);
+      pill("📊", 11, dash_selected);
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
@@ -2853,6 +2977,8 @@ public:
               if (on_status) on_status();
             } else if (h.act == 10) {
               if (on_crm) on_crm();
+            } else if (h.act == 11) {
+              if (on_dash) on_dash();
             } else if (h.act == 8) {
               if (on_compact) on_compact();
             } else if (h.act == 9) {
@@ -3125,6 +3251,172 @@ public:
         }
     }
   }
+  // El panel (KPI) en vez del chat. Acciones: 70 siete días, 71 treinta, 72 el análisis con IA, 73 cerrarlo.
+  bool dash_mode = false, dash_busy = false;
+  Kpis dash;
+  int dash_waiting = 0, dash_noreply = 0, dash_tasks = 0, dash_leads = 0;
+  double dash_leads_value = 0;
+  std::string dash_ai;
+  void draw_dash() {
+    const Theme& T = th();
+    const int head = 60;
+    Fl_Color on_accent = T.dark ? rgb(0x111b21) : FL_WHITE;
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    fl_font(FL_HELVETICA_BOLD, 18);
+    fl_color(rgb(T.text));
+    fl_draw(tx::DASH_TITLE, x() + 20, y() + 28);
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    fl_draw(dash_busy ? tx::DASH_COMPUTING : fmt(tx::DASH_PERIOD, {std::to_string(dash.days)}).c_str(), x() + 20, y() + 48);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    int bx = x() + w() - 20 - ((int)fl_width(tx::DASH_AI) + 20);
+    button(bx, y() + 17, tx::DASH_AI, 72, -1, on_accent, rgb(T.accent));
+    bx -= 8 + (int)fl_width(tx::DASH_30) + 20;
+    button(bx, y() + 17, tx::DASH_30, 71, -1, dash.days == 30 ? on_accent : rgb(T.text), dash.days == 30 ? rgb(T.text) : rgb(T.card));
+    bx -= 6 + (int)fl_width(tx::DASH_7) + 20;
+    button(bx, y() + 17, tx::DASH_7, 70, -1, dash.days == 7 ? on_accent : rgb(T.text), dash.days == 7 ? rgb(T.text) : rgb(T.card));
+    if (!dash.ok && !dash_busy) {
+      fl_font(FL_HELVETICA, 14);
+      fl_color(rgb(T.muted));
+      fl_draw(dash.error.empty() ? tx::DASH_NO_DATA : dash.error.c_str(), x() + 40, y() + head, w() - 80, h() - head,
+              FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+      return;
+    }
+    // Las cifras, en tarjetas (cuatro por fila).
+    struct Card {
+      std::string label;
+      std::string value;
+      unsigned color;
+    };
+    std::vector<Card> cards = {
+        {tx::DASH_RECV, std::to_string(dash.recv), 0x34b7f1},       {tx::DASH_SENT, std::to_string(dash.sent), 0x25d366},
+        {tx::DASH_ACTIVE, std::to_string(dash.active), 0x8b5cf6},   {fmt(tx::DASH_RESP, {minutes_text(dash.resp_avg)}), minutes_text(dash.resp_median), 0xf59e0b},
+        {tx::DASH_WAITING, std::to_string(dash_waiting), 0xe5484d}, {tx::DASH_NOREPLY, std::to_string(dash_noreply), 0x64748b},
+        {tx::DASH_TASKS, std::to_string(dash_tasks), 0x14b8a6},
+        {tx::DASH_LEADS, std::to_string(dash_leads) + " · " + money(dash_leads_value), 0xec4899}};
+    int gap = 10, cw = (w() - 24 - gap * 3) / 4, ch = 74, cy = y() + head + 12;
+    for (size_t i = 0; i < cards.size(); i++) {
+      int cx = x() + 12 + (int)(i % 4) * (cw + gap), yy = cy + (int)(i / 4) * (ch + gap);
+      round_box(cx, yy, cw, ch, 10, rgb(T.card), rgb(T.card_line));
+      fl_color(rgb(cards[i].color));
+      fl_rectf(cx + 10, yy + 12, 4, ch - 24);
+      fl_font(FL_HELVETICA, 12);
+      fl_color(rgb(T.muted));
+      fl_draw(fit(cards[i].label, cw - 30).c_str(), cx + 22, yy + 26);
+      fl_font(FL_HELVETICA_BOLD, 24);
+      fl_color(rgb(T.text));
+      fl_draw(fit(cards[i].value, cw - 30).c_str(), cx + 22, yy + 58);
+    }
+    int top = cy + 2 * (ch + gap) + 4, bottom = y() + h() - 12;
+    // Abajo a la izquierda: mensajes por día (recibidos y enviados); a la derecha, por hora y los que más escriben.
+    int lw = (w() - 24 - gap) * 3 / 5, rw = w() - 24 - gap - lw;
+    int lx = x() + 12, rx2 = lx + lw + gap;
+    int ph = bottom - top;
+    if (!dash_ai.empty()) ph = std::max(120, (bottom - top) / 2 - 6);
+    round_box(lx, top, lw, ph, 10, rgb(T.card), rgb(T.card_line));
+    fl_font(FL_HELVETICA_BOLD, 13);
+    fl_color(rgb(T.text));
+    fl_draw(tx::DASH_PER_DAY, lx + 14, top + 22);
+    fl_font(FL_HELVETICA, 11);
+    fl_color(rgb(0x34b7f1));
+    fl_rectf(lx + lw - 170, top + 13, 10, 10);
+    fl_color(rgb(T.muted));
+    fl_draw(tx::DASH_RECV_SHORT, lx + lw - 156, top + 22);
+    fl_color(rgb(0x25d366));
+    fl_rectf(lx + lw - 90, top + 13, 10, 10);
+    fl_color(rgb(T.muted));
+    fl_draw(tx::DASH_SENT_SHORT, lx + lw - 76, top + 22);
+    {
+      int n = (int)dash.per_day.size(), gx = lx + 14, gw = lw - 28, gy = top + 36, gh = ph - 62;
+      int mx = 1;
+      for (const auto& d : dash.per_day) mx = std::max(mx, std::max(d.second.first, d.second.second));
+      fl_color(rgb(T.card_line));
+      fl_line(gx, gy + gh, gx + gw, gy + gh);
+      for (int i = 0; i < n && gh > 10; i++) {
+        double slot = gw / (double)n;
+        int bw = std::max(2, (int)(slot * 0.38));
+        int x0 = gx + (int)(i * slot + slot * 0.1);
+        int h1 = (int)(gh * dash.per_day[(size_t)i].second.first / (double)mx);
+        int h2 = (int)(gh * dash.per_day[(size_t)i].second.second / (double)mx);
+        fl_color(rgb(0x34b7f1));
+        fl_rectf(x0, gy + gh - h1, bw, h1);
+        fl_color(rgb(0x25d366));
+        fl_rectf(x0 + bw + 1, gy + gh - h2, bw, h2);
+        if (n <= 7 || i % 5 == 0 || i == n - 1) {
+          fl_font(FL_HELVETICA, 10);
+          fl_color(rgb(T.muted));
+          std::string dd = dash.per_day[(size_t)i].first.size() >= 10 ? dash.per_day[(size_t)i].first.substr(8, 2) + "/" +
+                                                                             dash.per_day[(size_t)i].first.substr(5, 2)
+                                                                       : "";
+          fl_draw(dd.c_str(), x0 - 4, gy + gh + 14);
+        }
+      }
+    }
+    // Por hora (lo que recibe), en una tira.
+    int hh = (ph - 10) / 2;
+    round_box(rx2, top, rw, hh, 10, rgb(T.card), rgb(T.card_line));
+    fl_font(FL_HELVETICA_BOLD, 13);
+    fl_color(rgb(T.text));
+    fl_draw(tx::DASH_PER_HOUR, rx2 + 14, top + 22);
+    {
+      int mx = 1;
+      for (int i = 0; i < 24; i++) mx = std::max(mx, dash.hour_recv[i]);
+      int gx = rx2 + 14, gw = rw - 28, gy = top + 32, gh = hh - 52;
+      for (int i = 0; i < 24 && gh > 6; i++) {
+        int bh = (int)(gh * dash.hour_recv[i] / (double)mx);
+        int x0 = gx + i * gw / 24;
+        fl_color(rgb(0x34b7f1));
+        fl_rectf(x0, gy + gh - bh, std::max(2, gw / 24 - 2), bh);
+      }
+      fl_font(FL_HELVETICA, 10);
+      fl_color(rgb(T.muted));
+      for (int i : {0, 6, 12, 18}) fl_draw((std::to_string(i) + "h").c_str(), gx + i * gw / 24, gy + gh + 13);
+    }
+    // Los que más le escriben.
+    int ty = top + hh + 10;
+    round_box(rx2, ty, rw, ph - hh - 10, 10, rgb(T.card), rgb(T.card_line));
+    fl_font(FL_HELVETICA_BOLD, 13);
+    fl_color(rgb(T.text));
+    fl_draw(tx::DASH_TOP, rx2 + 14, ty + 22);
+    {
+      int mx = dash.top.empty() ? 1 : std::max(1, dash.top[0].second);
+      int yy = ty + 34;
+      for (const auto& t : dash.top) {
+        if (yy + 18 > ty + ph - hh - 10) break;
+        int bw = (int)((rw - 28) * t.second / (double)mx);
+        fl_color(rgb(T.dark ? 0x0a332c : 0xd9fdd3));
+        fl_rectf(rx2 + 14, yy, bw, 18);
+        fl_font(FL_HELVETICA, 11);
+        fl_color(rgb(T.text));
+        fl_draw(fit(t.first, rw - 80).c_str(), rx2 + 18, yy + 13);
+        std::string n = std::to_string(t.second);
+        fl_draw(n.c_str(), rx2 + rw - 14 - (int)fl_width(n.c_str()), yy + 13);
+        yy += 22;
+      }
+    }
+    // El análisis de la IA, debajo.
+    if (!dash_ai.empty()) {
+      int ay = top + ph + 12, ah = bottom - ay;
+      round_box(lx, ay, w() - 24, ah, 10, rgb(T.card), rgb(T.card_line));
+      fl_font(FL_HELVETICA_BOLD, 13);
+      fl_color(rgb(T.text));
+      fl_draw(tx::DASH_AI_TITLE, lx + 14, ay + 22);
+      fl_font(FL_HELVETICA_BOLD, 12);
+      button(lx + w() - 24 - 14 - ((int)fl_width("✕") + 20), ay + 8, "✕", 73, -1, rgb(T.text), rgb(T.card));
+      fl_push_clip(lx, ay + 30, w() - 24, ah - 34);
+      fl_font(FL_HELVETICA, 13);
+      fl_color(rgb(T.text));
+      int yy = ay + 48;
+      for (const auto& l : wrap(dash_ai, w() - 24 - 28)) {
+        fl_draw(l.c_str(), lx + 14, yy);
+        yy += 19;
+      }
+      fl_pop_clip();
+    }
+  }
   // La valoración de una persona por la IA, en una tarjeta encima del chat.
   std::string insight, insight_title;
   // Acciones: 34 cerrarla, 35 copiarla.
@@ -3392,7 +3684,8 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || status_mode || crm_mode || !chat || !viewer.empty() || !insight.empty()) && find_input && find_input->visible())
+    if ((tasks_mode || status_mode || crm_mode || dash_mode || !chat || !viewer.empty() || !insight.empty()) && find_input &&
+        find_input->visible())
       find_input->hide();
     if (!viewer.empty()) {
       draw_viewer();
@@ -3406,6 +3699,11 @@ public:
     }
     if (crm_mode) {
       draw_crm();
+      fl_pop_clip();
+      return;
+    }
+    if (dash_mode) {
+      draw_dash();
       fl_pop_clip();
       return;
     }
@@ -3761,7 +4059,7 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || status_mode || crm_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
+        if (right || tasks_mode || status_mode || crm_mode || dash_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -4102,6 +4400,21 @@ int selftest() {
       chk(looks_encoded("COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=") && !looks_encoded("Ana María") && !looks_encoded("Ana"),
           "nombres codificados");
     }
+    // El panel con la base inventada: desde el principio (todo cuenta).
+    {
+      Kpis k = compute_kpis(path, 0, 7);
+      if (trace)
+        std::fprintf(stderr, "kpis ok=%d recv=%lld sent=%lld active=%d days=%d top=%s/%d replies=%d med=%.3f\n", k.ok, k.recv, k.sent,
+                     k.active, (int)k.per_day.size(), k.top.empty() ? "" : k.top[0].first.c_str(), k.top.empty() ? 0 : k.top[0].second,
+                     k.replies, k.resp_median);
+      int hours = 0;
+      for (int h2 = 0; h2 < 24; h2++) hours += k.hour_recv[h2] + k.hour_sent[h2];
+      chk(k.ok && k.sent == 1 && k.recv == 10 && k.active == 2 && hours == (int)(k.recv + k.sent) && !k.per_day.empty() &&
+              !k.top.empty() && k.top[0].second == 5 && k.replies == 1 && std::fabs(k.resp_median - 50 / 60.0) < 0.01,
+          "el panel: recibidos, enviados, por hora, los que más escriben y lo que tardo en contestar");
+      Kpis none = compute_kpis(path, 900000000, 7);
+      chk(none.ok && none.recv == 0 && none.sent == 0 && none.replies == 0, "el panel: un periodo sin mensajes");
+    }
     std::remove(path.c_str());
   }
 #endif
@@ -4290,6 +4603,11 @@ int selftest() {
       std::printf("en la agenda: %d de %d chats individuales\n", in_book, std::min(people, 40));
     }
     {
+      Kpis k = compute_kpis(db_path(), (double)(wall_s() - 30 * 86400LL - 978307200LL), 30);
+      std::printf("panel 30 días: recibidos %lld · enviados %lld · chats %d · respuestas %d · mediana %s · media %s · días %d\n", k.recv,
+                  k.sent, k.active, k.replies, minutes_text(k.resp_median).c_str(), minutes_text(k.resp_avg).c_str(), (int)k.per_day.size());
+    }
+    {
       std::vector<Chat> fresh;
       load_chats(db_path(), fresh, e);
       ChatList l(0, 0, 10, 10);
@@ -4439,6 +4757,8 @@ int selftest() {
         "las suyas: guardar y leer");
   }
 #endif
+  chk(minutes_text(0) == "—" && minutes_text(0.5) == "30 s" && minutes_text(14.2) == "14 min" && minutes_text(125) == "2 h 5 min",
+      "el panel: los tiempos, para leerlos");
   // El CRM: guardar y leer los leads, y los importes.
   {
     Lead l;
@@ -4623,7 +4943,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.24";
+const char* const MYWA_VERSION = "1.0.25";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -4963,6 +5283,12 @@ struct StatusAiDone {   // el estado que propone la IA
   long long id;
   std::string text, error;
 };
+struct DashDone {   // las cifras del panel (calculadas en otro hilo)
+  wa::Kpis k;
+};
+struct DashAiDone {   // el análisis de la IA
+  std::string text, error;
+};
 struct PersonDone {   // la valoración de una persona por la IA
   std::string jid, text, error;
 };
@@ -5128,6 +5454,7 @@ public:
     list->on_busy = [] { if (self()) self()->busy_menu(); };
     list->on_status = [] { if (self()) self()->open_status(); };
     list->on_crm = [] { if (self()) self()->open_crm(); };
+    list->on_dash = [] { if (self()) self()->open_dash(7); };
     list->labels = &labels;
     view->leads = &leads;
     list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
@@ -5429,9 +5756,11 @@ public:
     list->tasks_selected = false;
     list->status_selected = false;
     list->crm_selected = false;
+    list->dash_selected = false;
     view->tasks_mode = false;
     view->status_mode = false;
     view->crm_mode = false;
+    view->dash_mode = false;
     view->msg_scroll = 0;
     view->asked_more = false;
     view->clear_selection();
@@ -5575,8 +5904,10 @@ public:
     list->tasks_selected = true;
     list->status_selected = false;
     list->crm_selected = false;
+    list->dash_selected = false;
     view->status_mode = false;
     view->crm_mode = false;
+    view->dash_mode = false;
     view->chat = nullptr;
     view->tasks_mode = true;
     view->task_scroll = 0;
@@ -6224,6 +6555,76 @@ public:
     save_labels();
     refresh();
   }
+  // ---- el panel: las cifras de los mensajes (en otro hilo) y el análisis con IA
+  void open_dash(int days) {
+    current = -1;
+    list->selected = -1;
+    list->tasks_selected = false;
+    list->status_selected = false;
+    list->crm_selected = false;
+    list->dash_selected = true;
+    view->chat = nullptr;
+    view->tasks_mode = false;
+    view->status_mode = false;
+    view->crm_mode = false;
+    view->dash_mode = true;
+    if (view->dash.days != days) view->dash_ai.clear();
+    // Lo de la app: por responder, sin respuesta, tareas y leads abiertos.
+    long long t = now_t();
+    view->dash_waiting = (int)wa::to_answer(chats, t).size();
+    view->dash_noreply = list->count(wa::ChatList::F_WAITING);
+    view->dash_tasks = wa::tasks_pending(tasks);
+    view->dash_leads = 0;
+    view->dash_leads_value = 0;
+    for (const auto& l : leads)
+      if (l.stage < 4) {
+        view->dash_leads++;
+        view->dash_leads_value += l.value;
+      }
+    options.clear();
+    if (demo || !wa::db_exists()) {
+      view->dash.days = days;
+      refresh();
+      return;
+    }
+    view->dash_busy = true;
+    view->dash.days = days;
+    refresh();
+    double since = (double)(t - days * 86400LL - 978307200LL);
+    std::string path = wa::db_path();
+    std::thread([path, since, days] { Fl::awake(dash_done, new DashDone{wa::compute_kpis(path, since, days)}); }).detach();
+  }
+  static void dash_done(void* p) {
+    std::unique_ptr<DashDone> d(static_cast<DashDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    f->view->dash_busy = false;
+    f->view->dash = d->k;
+    f->refresh();
+  }
+  void dash_analyze() {
+    if (!view->dash.ok || view->dash_busy) return;
+    if (!demo && !ai_ready()) return;
+    std::string data = wa::kpis_text(view->dash, view->dash_waiting, view->dash_noreply, view->dash_tasks, view->dash_leads,
+                                     view->dash_leads_value);
+    std::string sys = wa::fmt(tx::PROMPT_DASH, {tx::MY_LANGUAGE});
+    if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    view->dash_ai = tx::DASH_AI_THINKING;
+    refresh();
+    if (demo) return;
+    wa::AiSettings s = ai;
+    std::thread([s, sys, data] {
+      wa::AiText r = wa::ai_ask(s, sys, data);
+      Fl::awake(dash_ai_done, new DashAiDone{wa::trim(r.text), r.error});
+    }).detach();
+  }
+  static void dash_ai_done(void* p) {
+    std::unique_ptr<DashAiDone> d(static_cast<DashAiDone*>(p));
+    Form1* f = self();
+    if (!f || f->view->dash_ai.empty()) return;
+    f->view->dash_ai = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->refresh();
+  }
   // ---- el CRM: el tablero, los leads y su etapa desde el chat
   std::string leads_file() const { return wa::config_dir() + "/crm.jsonl"; }
   void load_leads() {
@@ -6244,9 +6645,11 @@ public:
     list->tasks_selected = false;
     list->status_selected = false;
     list->crm_selected = true;
+    list->dash_selected = false;
     view->chat = nullptr;
     view->tasks_mode = false;
     view->status_mode = false;
+    view->dash_mode = false;
     view->crm_mode = true;
     options.clear();
     refresh();
@@ -6688,9 +7091,11 @@ public:
     list->tasks_selected = false;
     list->status_selected = true;
     list->crm_selected = false;
+    list->dash_selected = false;
     view->chat = nullptr;
     view->tasks_mode = false;
     view->crm_mode = false;
+    view->dash_mode = false;
     view->status_mode = true;
     options.clear();
     refresh();
@@ -7033,6 +7438,16 @@ public:
     }
     if (act >= 60 && act <= 65) {
       crm_act(act, k);
+      return;
+    }
+    if (act >= 70 && act <= 73) {
+      if (act == 70) open_dash(7);
+      if (act == 71) open_dash(30);
+      if (act == 72) dash_analyze();
+      if (act == 73) {
+        view->dash_ai.clear();
+        refresh();
+      }
       return;
     }
     if (act >= 10 && act <= 13) {
@@ -7501,6 +7916,28 @@ public:
     Provider->index(0);
     load_busy();
     load_extras();
+    // Las cifras del panel, inventadas (30 días).
+    {
+      wa::Kpis& k = view->dash;
+      k = wa::Kpis();
+      k.ok = true;
+      k.days = 7;
+      k.recv = 412;
+      k.sent = 268;
+      k.active = 23;
+      k.replies = 96;
+      k.resp_median = 14;
+      k.resp_avg = 37;
+      const int rr[] = {48, 62, 55, 71, 66, 39, 71}, ss[] = {30, 44, 35, 49, 41, 22, 47};
+      const char* dd[] = {"2026-11-05", "2026-11-06", "2026-11-07", "2026-11-08", "2026-11-09", "2026-11-10", "2026-11-11"};
+      for (int i = 0; i < 7; i++) k.per_day.push_back({dd[i], {rr[i], ss[i]}});
+      const int hr[24] = {1, 0, 0, 0, 0, 1, 3, 9, 22, 31, 35, 33, 28, 30, 26, 24, 27, 29, 33, 30, 22, 14, 8, 3};
+      for (int i = 0; i < 24; i++) {
+        k.hour_recv[i] = hr[i];
+        k.hour_sent[i] = hr[i] * 2 / 3;
+      }
+      k.top = {{tx::DEMO_LAURA, 64}, {tx::DEMO_GROUP, 51}, {tx::DEMO_CLIENT, 38}, {"Giulia (Roma)", 22}, {tx::DEMO_MOM, 17}};
+    }
     // Dos etiquetas de ejemplo.
     labels = wa::LabelSet();
     labels.list = {{"my-1", tx::DEMO_LABEL1, 1, false}, {"my-2", tx::DEMO_LABEL2, 6, false}};
@@ -7612,6 +8049,10 @@ public:
     render_to(dir + "/status.png");
     open_crm();
     render_to(dir + "/crm.png");
+    open_dash(7);
+    view->dash_ai = tx::DEMO_DASH_AI;
+    render_to(dir + "/dash.png");
+    view->dash_ai.clear();
     // La ficha del contacto (como en Odoo), dibujada sin enseñarse.
     pick(0);
     form = wa::run_form;
@@ -8071,6 +8512,41 @@ public:
         io = io.empty() ? "Tarea nueva" : io;
         return true;
       };
+    }
+    // El panel: abrirlo, las cifras de la app, 30 días y el análisis con IA.
+    {
+      render_to("");
+      for (const auto& h : list->hits)
+        if (h.act == 11) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          list->handle(FL_PUSH);
+          break;
+        }
+      chk(view->dash_mode && list->dash_selected && view->dash.ok && view->dash_tasks == wa::tasks_pending(tasks) &&
+              view->dash_waiting == (int)wa::to_answer(chats, now_t()).size(),
+          "abrir el panel (con las tareas y los por responder)");
+      render_to("");
+      bool b7 = false, b30 = false, bai = false;
+      for (const auto& h : view->hits) {
+        b7 = b7 || h.act == 70;
+        b30 = b30 || h.act == 71;
+        bai = bai || h.act == 72;
+      }
+      chk(b7 && b30 && bai, "el panel: 7 días, 30 días y el análisis");
+      option_act(72, -1);
+      chk(view->dash_ai == tx::DASH_AI_THINKING, "el análisis: pensando");
+      dash_ai_done(new DashAiDone{"• Contesta rápido a Laura.", ""});
+      render_to("");
+      bool closeb = false;
+      for (const auto& h : view->hits) closeb = closeb || h.act == 73;
+      chk(view->dash_ai.find("Laura") != std::string::npos && closeb, "el análisis de la IA, en el panel");
+      option_act(73, -1);
+      chk(view->dash_ai.empty(), "cerrar el análisis");
+      std::string data = wa::kpis_text(view->dash, 3, 1, 2, 4, 6600);
+      chk(data.find("412") != std::string::npos && data.find(tx::DEMO_LAURA) != std::string::npos, "lo que se manda a la IA: solo cifras y nombres");
+      pick(0);
     }
     // Las etiquetas: las de ejemplo, una nueva desde el chat, filtrar y las de WhatsApp.
     {

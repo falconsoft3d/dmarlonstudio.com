@@ -103,6 +103,7 @@ Hechos
 114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ✅ |
 119. MyWhatsapp: los datos se editan en una sola ficha (como en Odoo), no en ventanas una tras otra | ✅ |
 102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ✅ |
+94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ✅ |
 
 Trabajando
 =========
@@ -116,7 +117,6 @@ Pendiente
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
-94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ⏳ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |

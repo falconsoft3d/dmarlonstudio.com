@@ -455,6 +455,21 @@ bool pos_at(int mx, int my, bool strict, Pos& out) const {
   return true;
 }`;
 
+const mywaTranslate = `// Lo recibido: una tanda de mensajes a la IA, que devuelve JSON con el idioma
+// y una traducción por mensaje; se guardan y no se vuelven a pedir.
+std::thread([s, jid, sys, usr, keys, n] {
+  wa::AiText r = wa::ai_ask(s, sys, usr);
+  auto* d = new TransDone{jid, "", r.error, keys, {}};
+  if (d->error.empty() && !wa::parse_translation(r.text, n, d->language, d->items)) d->error = tx::ERR_AI_ANSWER;
+  Fl::awake(trans_done, d);
+}).detach();
+
+// La bandera y la hora del país, por el prefijo del teléfono.
+for (const Country* k : chat_countries(*chat)) {
+  std::string tm = time_in(k->tz, t_now);
+  sub += "   ·   " + flag_of(k->iso) + (tm.empty() ? "" : " " + fmt(tx::LOCAL_TIME, {tm}));
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -839,6 +854,11 @@ const es: Record<string, DemoMade> = {
         title: "11. Seleccionar, buscar y subir",
         text: "La conversación la dibuja el código, así que seleccionar texto también: al dibujar cada línea se guarda dónde empieza cada letra, y el ratón se convierte en (mensaje, línea, letra). Arrastrar selecciona, el doble clic toma el mensaje entero y Cmd+C lo copia con sus saltos de línea. La rueda sube por el historial (al llegar arriba se cargan 200 mensajes más) y «🔍 Buscar» busca en todo el chat, resalta cada acierto y salta de uno a otro. Las tareas pendientes llevan una bolita verde, naranja o roja según su edad, también en el chat de la lista.",
         code: { file: "Form1.cpp", text: mywaSelect },
+      },
+      {
+        title: "12. Otro idioma, banderas y stickers",
+        text: "«🌐 Traducir» guarda, por contacto, el idioma (detectado o elegido). Lo recibido se traduce por tandas: la IA (con la misma función ai_ask que las sugerencias) devuelve un JSON con el idioma y una traducción por mensaje, que se guarda en traducciones.jsonl. Lo que escribe se traduce antes de enviarlo y su original queda debajo, en su bocadillo. La cabecera enseña la bandera y la hora local del país (por el prefijo del teléfono y la base de zonas horarias del sistema; en los grupos, la de quienes escriben). Los stickers son WebP: sips de macOS los pasa a PNG en otro hilo.",
+        code: { file: "Form1.cpp", text: mywaTranslate },
       },
     ],
   },
@@ -1228,6 +1248,11 @@ const en: Record<string, DemoMade> = {
         title: "11. Selecting, searching and scrolling",
         text: "The code draws the conversation, so it also handles text selection: drawing each line stores where each letter starts, and the mouse becomes (message, line, letter). Dragging selects, double-click takes the whole message and Cmd+C copies it with its line breaks. The wheel scrolls through the history (reaching the top loads 200 more messages) and “🔍 Search” searches the whole chat, highlights each hit and jumps between them. Pending tasks have a green, orange or red dot by age, also on the chat in the list.",
         code: { file: "Form1.cpp", text: mywaSelect },
+      },
+      {
+        title: "12. Another language, flags and stickers",
+        text: "“🌐 Translate” stores the language (detected or chosen) per contact. What you receive is translated in batches: the AI (through the same ai_ask function as the suggestions) returns JSON with the language and one translation per message, saved in traducciones.jsonl. What you write is translated before sending and your original stays below it, in your bubble. The header shows the country's flag and local time (from the phone prefix and the system's time zone database; in groups, those of who writes). Stickers are WebP: macOS's sips turns them into PNG on another thread.",
+        code: { file: "Form1.cpp", text: mywaTranslate },
       },
     ],
   },

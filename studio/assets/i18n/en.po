@@ -6788,6 +6788,10 @@ msgstr ""
 "The session is stored only on this computer. Link anyway?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
+msgstr "I don't know their language yet: choose it in “🌐 Translate”"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
 msgstr "Short"
 
@@ -6877,6 +6881,10 @@ msgstr "Disconnect"
 msgid "Desconectar WhatsApp"
 msgstr "Disconnect WhatsApp"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Detectar el idioma"
+msgstr "Detect the language"
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
 msgstr "Document"
@@ -6926,6 +6934,14 @@ msgstr ""
 "You are MyWhatsapp’s reply assistant. You read a WhatsApp conversation and suggest replies for the user (“Me”) to send as they are, in their name.\n"
 "\n"
 "Write exactly three replies, different from each other, separated by a line containing only “---”. No numbering, no quotes and no explanations. In the language of the conversation and in the style of a WhatsApp message (short, natural, emojis only if they fit). Tone: {0}. Answer whatever was left pending and do not make up details (times, prices, addresses) that are not in the conversation or in what the user wants to say."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el traductor de MyWhatsapp. Te dan una lista JSON de mensajes de WhatsApp: tradúcelos al idioma de destino, con naturalidad y el mismo tono (los emojis, igual). Responde solo con JSON, sin nada más: {\"language\": \"el nombre del idioma en que están escritos, dicho en el idioma de destino\", \"items\": [\"la traducción del primero\", \"…\"]}, una traducción por mensaje y en el mismo orden. Si un mensaje ya está en el idioma de destino, déjalo igual. Idioma de destino: {0}."
+msgstr "You are the MyWhatsapp translator. You get a JSON list of WhatsApp messages: translate them into the target language, naturally and with the same tone (keep the emojis). Reply only with JSON, nothing else: {\"language\": \"the name of the language they are written in, named in the target language\", \"items\": [\"the translation of the first one\", \"…\"]}, one translation per message and in the same order. If a message is already in the target language, leave it as is. Target language: {0}."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el traductor de MyWhatsapp. Traduce el mensaje que te dan al idioma de destino, con naturalidad, como lo escribiría en WhatsApp alguien que lo habla, con el mismo tono y los mismos emojis. Responde solo con la traducción, sin comillas ni explicaciones. Idioma de destino: {0}."
+msgstr "You are the MyWhatsapp translator. Translate the message you are given into the target language, naturally, the way someone who speaks it would write it on WhatsApp, with the same tone and the same emojis. Reply only with the translation, without quotes or explanations. Target language: {0}."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Escriba el mensaje en el borrador"
@@ -7093,6 +7109,8 @@ msgid ""
 "\n"
 "En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n"
 "\n"
+"«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
+"\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
@@ -7104,6 +7122,8 @@ msgstr ""
 "To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file.\n"
 "\n"
 "In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it or turns it into a task.\n"
+"\n"
+"“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
@@ -7154,12 +7174,24 @@ msgid "No se pudo leer la base de datos de WhatsApp"
 msgstr "Could not read the WhatsApp database"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No traducir"
+msgstr "Don't translate"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nota de voz"
 msgstr "Voice note"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Original:"
+msgstr "Original:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?"
 msgstr "To suggest replies, this chat’s latest messages are sent to {0}. This only happens when you press “Suggest replies” and only for the open chat. Continue?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Para traducir, los mensajes de este chat y lo que escriba en él se envían a {0}. ¿Continuar?"
+msgstr "To translate, this chat's messages and what you write in it are sent to {0}. Continue?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Pedro"
@@ -7168,6 +7200,10 @@ msgstr "Peter"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Perfecto, gracias. ¿Incluye la instalación?"
 msgstr "Perfect, thanks. Does it include installation?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Perfecto. ¿Cuánto cuesta el envío? 🙂"
+msgstr "Perfect. How much is shipping? 🙂"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
@@ -7234,6 +7270,10 @@ msgid "Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):
 msgstr "WhatsApp API access token (leave it empty to keep it):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Traduciendo…"
+msgstr "Translating…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
 msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the list, the AI panel and its fields were designed in the studio’s Designer; the WhatsApp Desktop database is read with the system’s SQLite and the AI is called through its HTTP API with curl."
 
@@ -7282,8 +7322,20 @@ msgid "Yo llevo el postre 🍰"
 msgstr "I’ll bring dessert 🍰"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "alemán"
+msgstr "German"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "castellano"
+msgstr "Spanish"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "chats importados"
 msgstr "imported chats"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "chino"
+msgstr "Chinese"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "conectando…"
@@ -7294,16 +7346,44 @@ msgid "de {0} · {1}"
 msgstr "from {0} · {1}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "detectando…"
+msgstr "detecting…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "el español"
+msgstr "English"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "el sábado, y la dirección es calle Mayor 12"
 msgstr "Saturday, and the address is 12 High Street"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "francés"
+msgstr "French"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "hechas: {0}"
 msgstr "done: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "inglés"
+msgstr "English"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "italiano"
+msgstr "Italian"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acceso en Ajustes del Sistema › Privacidad y seguridad. También puede importar un chat exportado."
 msgstr "macOS asks for permission to read WhatsApp’s data: accept it, or grant access in System Settings › Privacy & Security. You can also import an exported chat."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "portugués"
+msgstr "Portuguese"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "ruso"
+msgstr "Russian"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "sin conectar"
@@ -7318,16 +7398,32 @@ msgid "vinculado (QR)"
 msgstr "linked (QR)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} (detectado)"
+msgstr "{0} (detected)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} chats de {1} · IA: {2} · Envío: {3}"
 msgstr "{0} chats from {1} · AI: {2} · Sending: {3}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} hora local"
+msgstr "{0} local time"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} pendientes"
 msgstr "{0} pending"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Hola! He visto vuestra mesa de roble en la web. ¿Sigue disponible?"
+msgstr "Hi! I saw your oak table on the website. Is it still available?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Qué bien! 😊 Mejor el sábado entre las 10 y las 14. La dirección es calle Mayor 12. ¡Gracias!"
 msgstr "Great news! 😊 Saturday between 10 and 2 is best. The address is 12 High Street. Thanks!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Sí, está disponible! Podemos enviarla a Roma en una semana."
+msgstr "Yes, it is available! We can ship it to Rome in a week."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Comemos el domingo en casa de los abuelos?"
@@ -7368,12 +7464,20 @@ msgid "¿Qué te viene mejor? Y confírmame la dirección, porfa"
 msgstr "Which suits you better? And please confirm the address"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "árabe"
+msgstr "Arabic"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Sugerir respuestas"
 msgstr "✨ Suggest replies"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ {0} está escribiendo tres respuestas…"
 msgstr "✨ {0} is writing three replies…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🌐 Traducir"
+msgstr "🌐 Translate"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "📎 Adjuntar"

@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.104 — 2026-11-11
+
+- **MyWhatsapp: chatear en otro idioma con IA.** «🌐 Traducir», en la cabecera de cada chat, elige el idioma del contacto: «Detectar el idioma» o uno concreto (inglés, castellano, portugués, francés, italiano, alemán, chino, árabe o ruso), y queda guardado para ese contacto. Debajo de cada mensaje recibido sale su traducción a su idioma; al enviar, lo que escribe se traduce al idioma del otro y se envía traducido, y en su bocadillo ve lo enviado con su original debajo. Las traducciones las hace la IA elegida (Claude o ChatGPT) por tandas, con un JSON con el idioma detectado y una traducción por mensaje, y se guardan en `traducciones.jsonl` para no pedirlas otra vez. La primera vez avisa de que esos mensajes se envían a la IA.
+- **MyWhatsapp: la bandera y la hora local del contacto.** Bajo el nombre del chat sale la bandera de su país (por el prefijo del teléfono) y su hora local, con la base de zonas horarias del sistema; en los grupos, las de los países de quienes escriben (hasta tres), con sus teléfonos de la agenda.
+- **MyWhatsapp: los stickers se ven.** Los stickers son WebP, que FLTK no lee: en macOS, `sips` los convierte a PNG en otro hilo (una vez) y se dibujan en el bocadillo, más pequeños, como en WhatsApp.
+- **MyWhatsapp: se ve lo que se busca.** El campo de «🔍 Buscar» quedaba tapado cada vez que la conversación se redibujaba; ahora se dibuja siempre encima.
+- Probado: las pruebas internas (las claves de las traducciones, leer la respuesta de la IA aunque venga entre ```, una que no cuadra, el país de un teléfono con los prefijos de República Dominicana y Estados Unidos, la bandera, la hora de Madrid, Buenos Aires y La Habana contra la base de zonas, los países de un grupo, y un sticker WebP de verdad convertido con sips), la de la interfaz (el chat de ejemplo en italiano con su traducción, dejar de traducir, elegir el idioma, la bandera de Italia y los dos países del grupo) y una traducción contra un servidor de prueba de Claude que comprobó la clave, la versión y el modelo.
+
 ## 1.0.103 — 2026-11-11
 
 - **MyWhatsapp: seleccionar y copiar texto en el chat.** Arrastre sobre el texto de los mensajes para seleccionarlo (también de varios mensajes) y Cmd+C lo copia con sus saltos de línea; el doble clic toma el mensaje entero. El clic derecho sobre un mensaje abre un menú: Copiar la selección, Copiar el mensaje o Convertir en tarea. Como la conversación la dibuja el código, al dibujar cada línea se guarda dónde empieza cada letra para saber cuál hay bajo el ratón.

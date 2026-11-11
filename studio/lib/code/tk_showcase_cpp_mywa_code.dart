@@ -310,6 +310,8 @@ struct Msg {
   std::string media, title;   // media: el archivo en este equipo ("" si no está)
   long long size = 0;
   std::string id;   // el de WhatsApp (los que llegan por el puente)
+  std::string trans;   // traducido (lo recibido) o el original que escribí (lo enviado)
+  std::string phone;   // en los grupos, el teléfono de quien escribe (si se sabe)
 };
 struct Chat {
   long long id = 0;
@@ -330,6 +332,104 @@ std::string phone_of(const std::string& jid) {
   for (char c : p)
     if (!std::isdigit((unsigned char)c)) return "";
   return p;
+}
+// El país de un teléfono por su prefijo (el más largo que encaje): su código
+// ISO (para la bandera) y su zona horaria.
+struct Country {
+  const char* prefix;
+  const char* iso;
+  const char* tz;
+};
+const Country* country_of(const std::string& phone) {
+  static const Country list[] = {
+      {"1809", "DO", "America/Santo_Domingo"}, {"1829", "DO", "America/Santo_Domingo"}, {"1849", "DO", "America/Santo_Domingo"},
+      {"1787", "PR", "America/Puerto_Rico"}, {"1939", "PR", "America/Puerto_Rico"}, {"1", "US", "America/New_York"},
+      {"7", "RU", "Europe/Moscow"}, {"20", "EG", "Africa/Cairo"}, {"27", "ZA", "Africa/Johannesburg"},
+      {"30", "GR", "Europe/Athens"}, {"31", "NL", "Europe/Amsterdam"}, {"32", "BE", "Europe/Brussels"},
+      {"33", "FR", "Europe/Paris"}, {"34", "ES", "Europe/Madrid"}, {"351", "PT", "Europe/Lisbon"},
+      {"353", "IE", "Europe/Dublin"}, {"358", "FI", "Europe/Helsinki"}, {"380", "UA", "Europe/Kyiv"},
+      {"39", "IT", "Europe/Rome"}, {"41", "CH", "Europe/Zurich"}, {"43", "AT", "Europe/Vienna"},
+      {"44", "GB", "Europe/London"}, {"45", "DK", "Europe/Copenhagen"}, {"46", "SE", "Europe/Stockholm"},
+      {"47", "NO", "Europe/Oslo"}, {"48", "PL", "Europe/Warsaw"}, {"49", "DE", "Europe/Berlin"},
+      {"502", "GT", "America/Guatemala"}, {"503", "SV", "America/El_Salvador"}, {"504", "HN", "America/Tegucigalpa"},
+      {"505", "NI", "America/Managua"}, {"506", "CR", "America/Costa_Rica"}, {"507", "PA", "America/Panama"},
+      {"509", "HT", "America/Port-au-Prince"}, {"51", "PE", "America/Lima"}, {"52", "MX", "America/Mexico_City"},
+      {"53", "CU", "America/Havana"}, {"54", "AR", "America/Argentina/Buenos_Aires"}, {"55", "BR", "America/Sao_Paulo"},
+      {"56", "CL", "America/Santiago"}, {"57", "CO", "America/Bogota"}, {"58", "VE", "America/Caracas"},
+      {"591", "BO", "America/La_Paz"}, {"593", "EC", "America/Guayaquil"}, {"595", "PY", "America/Asuncion"},
+      {"598", "UY", "America/Montevideo"}, {"60", "MY", "Asia/Kuala_Lumpur"}, {"61", "AU", "Australia/Sydney"},
+      {"62", "ID", "Asia/Jakarta"}, {"63", "PH", "Asia/Manila"}, {"64", "NZ", "Pacific/Auckland"},
+      {"65", "SG", "Asia/Singapore"}, {"66", "TH", "Asia/Bangkok"}, {"81", "JP", "Asia/Tokyo"},
+      {"82", "KR", "Asia/Seoul"}, {"84", "VN", "Asia/Ho_Chi_Minh"}, {"86", "CN", "Asia/Shanghai"},
+      {"90", "TR", "Europe/Istanbul"}, {"91", "IN", "Asia/Kolkata"}, {"92", "PK", "Asia/Karachi"},
+      {"212", "MA", "Africa/Casablanca"}, {"234", "NG", "Africa/Lagos"}, {"254", "KE", "Africa/Nairobi"},
+      {"880", "BD", "Asia/Dhaka"}, {"966", "SA", "Asia/Riyadh"}, {"971", "AE", "Asia/Dubai"},
+      {"972", "IL", "Asia/Jerusalem"}};
+  const Country* best = nullptr;
+  size_t len = 0;
+  for (const auto& c : list) {
+    size_t l = std::strlen(c.prefix);
+    if (phone.size() > l + 4 && phone.compare(0, l, c.prefix) == 0 && l > len) {
+      best = &c;
+      len = l;
+    }
+  }
+  return best;
+}
+// «AR» → 🇦🇷 (dos letras «indicador regional» en UTF-8).
+std::string flag_of(const char* iso) {
+  std::string out;
+  for (int i = 0; i < 2 && iso[i]; i++) {
+    unsigned cp = 0x1F1E6 + (unsigned)(iso[i] - 'A');
+    out += (char)(0xF0 | (cp >> 18));
+    out += (char)(0x80 | ((cp >> 12) & 0x3F));
+    out += (char)(0x80 | ((cp >> 6) & 0x3F));
+    out += (char)(0x80 | (cp & 0x3F));
+  }
+  return out;
+}
+// La hora (HH:MM) en una zona, con la base de zonas del sistema ("" si no la hay).
+std::string time_in(const char* tz, long long t) {
+#ifdef _WIN32
+  (void)tz;
+  (void)t;
+  return "";
+#else
+  if (fl_access((std::string("/usr/share/zoneinfo/") + tz).c_str(), 0) != 0) return "";
+  const char* old = getenv("TZ");
+  std::string keep = old ? old : "";
+  setenv("TZ", tz, 1);
+  tzset();
+  time_t tt = (time_t)t;
+  struct tm v;
+  localtime_r(&tt, &v);
+  if (old) setenv("TZ", keep.c_str(), 1);
+  else unsetenv("TZ");
+  tzset();
+  char b[8];
+  std::strftime(b, sizeof b, "%H:%M", &v);
+  return b;
+#endif
+}
+// Los países de un chat: el del teléfono o, en un grupo, los de quienes escriben
+// (hasta tres, de más a menos mensajes).
+std::vector<const Country*> chat_countries(const Chat& c) {
+  std::vector<const Country*> out;
+  if (!c.group) {
+    if (const Country* k = country_of(phone_of(c.jid))) out.push_back(k);
+    return out;
+  }
+  std::map<const Country*, int> n;
+  for (const auto& m : c.msgs)
+    if (!m.mine && !m.phone.empty())
+      if (const Country* k = country_of(m.phone)) n[k]++;
+  std::vector<std::pair<int, const Country*>> v;
+  for (const auto& kv : n) v.push_back({kv.second, kv.first});
+  std::sort(v.begin(), v.end(), [](const std::pair<int, const Country*>& a, const std::pair<int, const Country*>& b) {
+    return a.first != b.first ? a.first > b.first : std::strcmp(a.second->iso, b.second->iso) < 0;
+  });
+  for (size_t i = 0; i < v.size() && i < 3; i++) out.push_back(v[i].second);
+  return out;
 }
 std::string url_encode(const std::string& s) {
   std::string o;
@@ -636,10 +736,14 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
                   "AND IFNULL(a.ZFULLNAME, '') != '' LIMIT 1), ''), "
                 : "'', ";
     sql += "IFNULL(g.ZFIRSTNAME, ''), "
-           "IFNULL((SELECT p.ZPUSHNAME FROM ZWAPROFILEPUSHNAME p WHERE p.ZJID = g.ZMEMBERJID LIMIT 1), '') "
-           "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK LEFT JOIN ZWAGROUPMEMBER g ON g.Z_PK = m.ZGROUPMEMBER ";
+           "IFNULL((SELECT p.ZPUSHNAME FROM ZWAPROFILEPUSHNAME p WHERE p.ZJID = g.ZMEMBERJID LIMIT 1), ''), ";
+    // Su teléfono: el del miembro o, si es un «@lid», el de la agenda.
+    sql += book ? "IFNULL((SELECT a.ZWHATSAPPID FROM ab.ZWAADDRESSBOOKCONTACT a WHERE a.ZWHATSAPPID = g.ZMEMBERJID "
+                  "OR a.ZLID = g.ZMEMBERJID LIMIT 1), IFNULL(g.ZMEMBERJID, '')) "
+                : "IFNULL(g.ZMEMBERJID, '') ";
+    sql += "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK LEFT JOIN ZWAGROUPMEMBER g ON g.Z_PK = m.ZGROUPMEMBER ";
   } else {
-    sql += "'', '', '', '' FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK ";
+    sql += "'', '', '', '', '' FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK ";
   }
   sql += "WHERE m.ZCHATSESSION = ? AND ((m.ZTEXT IS NOT NULL AND m.ZTEXT != '') OR m.ZMESSAGETYPE IN (1, 2, 3, 8, 11, 15)) "
          "ORDER BY m.ZMESSAGEDATE DESC LIMIT ?";
@@ -661,6 +765,7 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     m.t = apple_time(q.column_double(st, 2));
     if (c.group && !m.mine) m.who = sender_name(col(st, 10), col(st, 11), col(st, 12), col(st, 9), col(st, 3));
     m.id = col(st, 8);   // el mismo id que trae el puente
+    if (c.group && !m.mine) m.phone = phone_of(col(st, 13));
     m.kind = (int)q.column_int64(st, 4);
     if (m.kind != K_IMAGE && m.kind != K_VIDEO && m.kind != K_AUDIO && m.kind != K_DOC && m.kind != K_GIF && m.kind != K_STICKER)
       m.kind = K_TEXT;
@@ -777,8 +882,12 @@ std::vector<std::string> split_options(const std::string& text) {
 }
 // La respuesta de Claude: los bloques de texto (los demás, como «fallback»,
 // no cuentan); si declinó, «refusal».
-AiReply parse_claude(int http, const std::string& body) {
-  AiReply r;
+// El texto que contesta la IA (o el error).
+struct AiText {
+  std::string text, error;
+};
+AiText claude_text(int http, const std::string& body) {
+  AiText r;
   bool ok = false;
   Json j = parse_json(body, &ok);
   if (!ok) { r.error = tx::ERR_AI_ANSWER; return r; }
@@ -791,15 +900,13 @@ AiReply parse_claude(int http, const std::string& body) {
     r.error = tx::ERR_AI_REFUSAL;
     return r;
   }
-  std::string text;
   for (const auto& b : j["content"].a)
-    if (b["type"].str() == "text") text += b["text"].str();
-  r.options = split_options(text);
-  if (r.options.empty()) r.error = tx::ERR_AI_ANSWER;
+    if (b["type"].str() == "text") r.text += b["text"].str();
+  if (trim(r.text).empty()) r.error = tx::ERR_AI_ANSWER;
   return r;
 }
-AiReply parse_openai(int http, const std::string& body) {
-  AiReply r;
+AiText openai_text(int http, const std::string& body) {
+  AiText r;
   bool ok = false;
   Json j = parse_json(body, &ok);
   if (!ok) { r.error = tx::ERR_AI_ANSWER; return r; }
@@ -808,7 +915,25 @@ AiReply parse_openai(int http, const std::string& body) {
     r.error = http == 401 ? tx::ERR_AI_KEY : (m.empty() ? tx::ERR_AI_ANSWER : m);
     return r;
   }
-  r.options = split_options(j["choices"][0]["message"]["content"].str());
+  r.text = j["choices"][0]["message"]["content"].str();
+  if (trim(r.text).empty()) r.error = tx::ERR_AI_ANSWER;
+  return r;
+}
+AiReply parse_claude(int http, const std::string& body) {
+  AiText t = claude_text(http, body);
+  AiReply r;
+  r.error = t.error;
+  if (!t.error.empty()) return r;
+  r.options = split_options(t.text);
+  if (r.options.empty()) r.error = tx::ERR_AI_ANSWER;
+  return r;
+}
+AiReply parse_openai(int http, const std::string& body) {
+  AiText t = openai_text(http, body);
+  AiReply r;
+  r.error = t.error;
+  if (!t.error.empty()) return r;
+  r.options = split_options(t.text);
   if (r.options.empty()) r.error = tx::ERR_AI_ANSWER;
   return r;
 }
@@ -921,6 +1046,56 @@ AiReply suggest(const AiSettings& s, const Chat& c, int tone, const std::string&
                      claude_body(sys, usr));
   if (r.first == 0) return AiReply{{}, r.second};
   return parse_claude(r.first, r.second);
+}
+
+// Una pregunta cualquiera a la IA elegida (en el hilo que la llama).
+AiText ai_ask(const AiSettings& s, const std::string& sys, const std::string& usr) {
+  if (s.provider == P_OPENAI) {
+    if (s.openai_key.empty()) return AiText{"", tx::ERR_AI_NO_KEY};
+    auto r = post_json(openai_url(), {"Content-Type: application/json", "Authorization: Bearer " + s.openai_key},
+                       openai_body(s.openai_model, sys, usr));
+    if (r.first == 0) return AiText{"", r.second};
+    return openai_text(r.first, r.second);
+  }
+  if (s.claude_key.empty()) return AiText{"", tx::ERR_AI_NO_KEY};
+  auto r = post_json(anthropic_url(),
+                     {"Content-Type: application/json", "x-api-key: " + s.claude_key, "anthropic-version: 2026-10-21",
+                      "anthropic-beta: server-side-fallback-2026-07-01"},
+                     claude_body(sys, usr));
+  if (r.first == 0) return AiText{"", r.second};
+  return claude_text(r.first, r.second);
+}
+
+// ---- traducir: lo recibido, a mi idioma; lo que escribo, al del otro.
+// FNV-1a: la misma clave para el mismo texto en cada arranque.
+std::string fnv(const std::string& s) {
+  unsigned long long h = 1469598103934665603ULL;
+  for (unsigned char c : s) h = (h ^ c) * 1099511628211ULL;
+  char b[24];
+  std::snprintf(b, sizeof b, "%016llx", h);
+  return b;
+}
+// La clave de la traducción de un mensaje recibido, o del original de uno enviado.
+std::string trans_key(const Msg& m) {
+  if (m.mine) return "o:" + fnv(m.text);
+  return m.id.empty() ? "t:" + fnv(m.text) : "i:" + m.id;
+}
+std::string translate_in_user(const std::vector<std::string>& texts) {
+  std::string u = "[";
+  for (size_t i = 0; i < texts.size(); i++) u += (i ? "," : "") + jstr(texts[i]);
+  return u + "]";
+}
+// La respuesta: {"language": "...", "items": [...]} (aunque venga entre ```).
+bool parse_translation(const std::string& text, size_t n, std::string& language, std::vector<std::string>& items) {
+  size_t a = text.find('{'), b = text.rfind('}');
+  if (a == std::string::npos || b == std::string::npos || b < a) return false;
+  bool ok = false;
+  Json j = parse_json(text.substr(a, b - a + 1), &ok);
+  if (!ok || j["items"].a.size() != n) return false;
+  language = trim(j["language"].str());
+  items.clear();
+  for (const auto& it : j["items"].a) items.push_back(it.str());
+  return true;
 }
 
 // ---- las claves: en el Llavero de macOS (en Windows y Linux, en un
@@ -1499,18 +1674,69 @@ std::map<std::string, Fl_RGB_Image*>& images() {
 }
 bool is_picture(const std::string& path) {
   std::string l = lower(path);
-  for (const char* e : {".jpg", ".jpeg", ".png", ".gif", ".thumb", ".bmp"})
+  for (const char* e : {".jpg", ".jpeg", ".png", ".gif", ".thumb", ".bmp", ".webp"})
     if (l.size() > std::strlen(e) && l.compare(l.size() - std::strlen(e), std::string::npos, e) == 0) return true;
   return false;
 }
-// Una imagen de disco según sus primeros bytes (JPEG, PNG o BMP), sea cual
-// sea la extensión (las fotos de perfil de WhatsApp acaban en «.thumb»).
+// Los stickers son WebP, que FLTK no lee: en macOS, sips los pasa a PNG en
+// otro hilo (una vez; quedan en la carpeta «stickers») y luego se dibujan.
+std::string webp_png(const std::string& path) { return config_dir() + "/stickers/" + fnv(path) + ".png"; }
+std::map<std::string, bool>& webp_busy() {
+  static std::map<std::string, bool> m;
+  return m;
+}
+std::function<void()>& on_picture_ready() {   // la ventana se vuelve a dibujar
+  static std::function<void()> f;
+  return f;
+}
+// Convierte en el hilo que lo llama; true si quedó el PNG.
+bool webp_convert(const std::string& path, const std::string& png) {
+#ifdef __APPLE__
+  fl_make_path((config_dir() + "/stickers").c_str());
+  std::string tmp = png + ".tmp.png";
+  std::string cmd = "/usr/bin/sips -s format png " + sh_quote(path) + " --out " + sh_quote(tmp) + " >/dev/null 2>&1";
+  if (std::system(cmd.c_str()) != 0 || !file_exists(tmp)) {
+    std::remove(tmp.c_str());
+    return false;
+  }
+  return std::rename(tmp.c_str(), png.c_str()) == 0;
+#else
+  (void)path;
+  (void)png;
+  return false;
+#endif
+}
+struct WebpDone {
+  std::string path;
+};
+void webp_ready(void* p) {
+  std::unique_ptr<WebpDone> d(static_cast<WebpDone*>(p));
+  // Fuera de la caché lo que se guardó vacío: la próxima vez se carga el PNG.
+  std::string pre = d->path + "@";
+  for (auto it = images().begin(); it != images().end();)
+    if (it->first.compare(0, pre.size(), pre) == 0 && !it->second) it = images().erase(it);
+    else ++it;
+  if (on_picture_ready()) on_picture_ready()();
+}
+// Una imagen de disco según sus primeros bytes (JPEG, PNG, BMP o WebP), sea
+// cual sea la extensión (las fotos de perfil de WhatsApp acaban en «.thumb»).
 Fl_RGB_Image* load_picture(const std::string& path) {
   FILE* f = fl_fopen(path.c_str(), "rb");
   if (!f) return nullptr;
-  unsigned char m[8] = {0};
+  unsigned char m[12] = {0};
   size_t n = std::fread(m, 1, sizeof m, f);
   std::fclose(f);
+  if (n >= 12 && std::memcmp(m, "RIFF", 4) == 0 && std::memcmp(m + 8, "WEBP", 4) == 0) {
+    std::string png = webp_png(path);
+    if (file_exists(png)) return load_picture(png);
+    if (!webp_busy().count(path)) {
+      webp_busy()[path] = true;
+      std::thread([path, png] {
+        if (webp_convert(path, png)) Fl::awake(webp_ready, new WebpDone{path});
+      }).detach();
+    }
+    return nullptr;
+  }
   Fl_RGB_Image* img = nullptr;
   if (n >= 3 && m[0] == 0xFF && m[1] == 0xD8 && m[2] == 0xFF) img = new Fl_JPEG_Image(path.c_str());
   else if (n >= 8 && m[0] == 0x89 && m[1] == 'P' && m[2] == 'N' && m[3] == 'G') img = new Fl_PNG_Image(path.c_str());
@@ -1845,7 +2071,7 @@ public:
   bool more = false, asked_more = false;   // hay mensajes más antiguos por cargar
   // Cada mensaje, ya partido en líneas (se calcula solo si cambia algo).
   struct Lay {
-    std::vector<std::string> lines;
+    std::vector<std::string> lines, trans;   // trans: la traducción (o el original), debajo
     std::string seps;
     int bw = 0, bh = 0;
   };
@@ -1872,6 +2098,7 @@ public:
   std::vector<int> matches;   // los mensajes que lo tienen, del más antiguo al más nuevo
   int match = -1;
   Fl_Input* find_input = nullptr;
+  std::string translate_label;   // el idioma del chat abierto si se traduce ("" si no)
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
 
   static bool before(const Pos& a, const Pos& b) {
@@ -1962,8 +2189,14 @@ public:
       if (!m.who.empty()) bw = std::max(bw, (int)fl_width(m.who.c_str()));
       if (img) bw = std::max(bw, img->w());
       else if (ah) bw = std::max(bw, 260);
+      if (!m.trans.empty()) {
+        fl_font(FL_HELVETICA_ITALIC, 13);
+        std::string head = m.mine ? std::string(tx::TRANS_ORIGINAL) + " " : "🌐 ";
+        L.trans = wrap(head + m.trans, maxw - 24);
+        for (const auto& l : L.trans) bw = std::max(bw, (int)fl_width(l.c_str()));
+      }
       L.bw = std::max(bw + 24, 90);
-      L.bh = (int)L.lines.size() * 19 + who_h + ah + 30;
+      L.bh = (int)L.lines.size() * 19 + who_h + ah + 30 + (L.trans.empty() ? 0 : 9 + (int)L.trans.size() * 17);
     }
   }
 
@@ -1980,6 +2213,7 @@ public:
   // El adjunto de un mensaje: su alto dentro del bocadillo y cómo se dibuja.
   static Fl_RGB_Image* attach_image(const Msg& m) {
     if ((m.kind != K_IMAGE && m.kind != K_STICKER) || m.media.empty()) return nullptr;
+    if (m.kind == K_STICKER) return image_fit(m.media, 160, 160);   // como en WhatsApp, más pequeños
     return image_fit(m.media, 260, 200);
   }
   static int attach_h(const Msg& m) {
@@ -2195,6 +2429,18 @@ public:
         boxes.push_back(box);
         ty += lh;
       }
+      // La traducción (o lo que escribí), debajo de una raya.
+      if (!L.trans.empty()) {
+        fl_color(rgb(m.mine ? T.out_line : T.in_line));
+        fl_line(bx + 12, ty - 10, bx + bw - 12, ty - 10);
+        fl_font(FL_HELVETICA_ITALIC, 13);
+        fl_color(rgb(T.muted));
+        ty += 4;
+        for (const auto& l : L.trans) {
+          fl_draw(l.c_str(), bx + 12, ty);
+          ty += 17;
+        }
+      }
       fl_font(FL_HELVETICA, 10);
       fl_color(rgb(T.muted));
       std::string t = clock_time(m.t);
@@ -2227,6 +2473,12 @@ public:
     int rx = x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20);
     button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     rx -= 8;
+    // Traducir: «🌐 Traducir» o el idioma elegido, en verde.
+    std::string tl = translate_label.empty() ? std::string(tx::TRANSLATE) : "🌐 " + translate_label;
+    rx -= (int)fl_width(tl.c_str()) + 20;
+    if (translate_label.empty()) button(rx, y() + 17, tl.c_str(), 27, -1, rgb(T.text), rgb(T.card));
+    else button(rx, y() + 17, tl.c_str(), 27, -1, T.dark ? rgb(0x111b21) : FL_WHITE, rgb(T.accent));
+    rx -= 8;
     if (!find_open) {
       rx -= (int)fl_width(tx::FIND) + 20;
       button(rx, y() + 17, tx::FIND, 22, -1, rgb(T.text), rgb(T.card));
@@ -2247,6 +2499,8 @@ public:
       bx2 = button(bx2, y() + 17, "▲", 23, -1, rgb(T.text), rgb(T.card)) + 2;
       bx2 = button(bx2, y() + 17, "▼", 24, -1, rgb(T.text), rgb(T.card)) + 2;
       button(bx2, y() + 17, "✕", 25, -1, rgb(T.text), rgb(T.card));
+      // El campo va encima de la cabecera: que se dibuje después de ella, siempre.
+      if (find_input && find_input->visible()) find_input->damage(FL_DAMAGE_ALL);
     }
     fl_font(FL_HELVETICA_BOLD, 15);
     fl_color(rgb(T.text));
@@ -2254,7 +2508,14 @@ public:
     fl_font(FL_HELVETICA, 12);
     fl_color(rgb(T.muted));
     std::string ph = phone_of(chat->jid);
-    fl_draw(chat->group ? tx::GROUP : (ph.empty() ? "" : ("+" + ph).c_str()), x() + 68, y() + 46);
+    // Debajo: el teléfono (o «Grupo») y la bandera y la hora de cada país.
+    std::string sub = chat->group ? std::string(tx::GROUP) : (ph.empty() ? "" : "+" + ph);
+    long long t_now = now ? now : (long long)now_s();
+    for (const Country* k : chat_countries(*chat)) {
+      std::string tm = time_in(k->tz, t_now);
+      sub += (sub.empty() ? "" : "   ·   ") + flag_of(k->iso) + (tm.empty() ? "" : " " + fmt(tx::LOCAL_TIME, {tm}));
+    }
+    fl_draw(fit(sub, rx - (x() + 68) - 12).c_str(), x() + 68, y() + 46);
     // Las sugerencias.
     int sy = y() + h() - sugg_h;
     if (sugg_h) {
@@ -2450,7 +2711,10 @@ std::vector<Chat> demo_chats(long long now) {
       x.mine = m.who == 0;
       x.text = m.text;
       x.t = now - m.ago * 60LL;
-      if (c.group && !x.mine) x.who = d.members[(size_t)(m.who - 1)];
+      if (c.group && !x.mine) {
+        x.who = d.members[(size_t)(m.who - 1)];
+        x.phone = m.who == 1 ? "34611222000" : "5491155550000";   // Ana en España, Pedro en Argentina
+      }
       c.msgs.push_back(x);
     }
     c.last = c.msgs.back().text;
@@ -2482,6 +2746,27 @@ std::vector<Chat> demo_chats(long long now) {
   doc.size = 245000;
   doc.t = out[2].msgs[1].t + 60;
   out[2].msgs.insert(out[2].msgs.begin() + 2, doc);
+  // Una clienta que escribe en italiano (para «🌐 Traducir»): sus mensajes no
+  // se traducen con la interfaz; las traducciones las pone demo_state.
+  Chat g;
+  g.id = id++;
+  g.name = "Giulia (Roma)";
+  g.jid = "393401234567@s.whatsapp.net";
+  const char* it[] = {"Ciao! Ho visto il vostro tavolo di rovere sul sito. È ancora disponibile?",
+                      "Sì, è disponibile! Possiamo spedirlo a Roma in una settimana.",
+                      "Perfetto. Quanto costa la spedizione? 🙂"};
+  for (int k = 0; k < 3; k++) {
+    Msg m;
+    m.mine = k == 1;
+    m.text = it[k];
+    m.id = "DEMO-IT-" + std::to_string(k);
+    m.t = now - (40 - k * 15) * 60LL;
+    g.msgs.push_back(m);
+  }
+  g.last = g.msgs.back().text;
+  g.last_t = g.msgs.back().t;
+  g.unread = 1;
+  out.push_back(g);
   return out;
 }
 
@@ -2618,6 +2903,7 @@ int selftest() {
       if (gm.size() == 5)
         chk(gm[0].who == "Ana García" && gm[1].who == "~ Lola" && gm[2].who == "+34622" && gm[3].who == "Pepe" && gm[4].who == "Ana",
             "quién escribe en el grupo (agenda, perfil, teléfono, nombre)");
+      if (gm.size() == 5) chk(gm[0].phone == "34611" && gm[2].phone == "34622" && gm[1].phone.empty(), "el teléfono de quien escribe");
       std::remove(cpath.c_str());
       chk(load_messages(path, chats[0], 50, error) && chats[0].msgs[0].who == "+34611", "sin agenda: el teléfono");
       chk(looks_encoded("COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=") && !looks_encoded("Ana María") && !looks_encoded("Ana"),
@@ -2676,6 +2962,13 @@ int selftest() {
     AiReply live = suggest(s, demo[0], 0, "");
     std::printf("live: %d respuestas %s\n", (int)live.options.size(), live.error.c_str());
     chk(live.error.empty() && live.options.size() == 3, "petición de verdad (servidor de prueba)");
+    // Y una traducción de verdad, con el mismo servidor.
+    AiText tr = ai_ask(s, fmt(tx::PROMPT_TRANSLATE, {tx::MY_LANGUAGE}), translate_in_user({"Ciao", "Grazie mille"}));
+    std::string lang;
+    std::vector<std::string> items;
+    bool ok_tr = tr.error.empty() && parse_translation(tr.text, 2, lang, items);
+    std::printf("traducción: %s %s\n", ok_tr ? lang.c_str() : "", tr.error.c_str());
+    chk(ok_tr && items.size() == 2, "traducción de verdad (servidor de prueba)");
   }
   // Enviar con la API oficial: los cuerpos y las respuestas.
   b = parse_json(cloud_text_body("34600111222", "Hola \"tú\""), &ok);
@@ -2807,6 +3100,72 @@ int selftest() {
     }
   }
 #endif
+#ifdef __APPLE__
+  // Un sticker WebP: se convierte a PNG con sips y luego se ve.
+  {
+    std::string d = config_dir();
+    fl_make_path(d.c_str());
+    std::string w = d + "/prueba-sticker.webp";
+    const unsigned char webp[] = {0x52,0x49,0x46,0x46,0x1c,0x00,0x00,0x00,0x57,0x45,0x42,0x50,0x56,0x50,0x38,0x4c,0x0f,0x00,
+                                  0x00,0x00,0x2f,0x07,0xc0,0x01,0x00,0x07,0x10,0xfd,0x8f,0xfe,0x07,0x22,0xa2,0xff,0x01,0x00};
+    write_file(w, std::string((const char*)webp, sizeof webp));
+    std::remove(webp_png(w).c_str());
+    chk(!load_picture(w), "un WebP la primera vez: se convierte aparte");
+    chk(webp_convert(w, webp_png(w)), "sips pasa el WebP a PNG");
+    Fl_RGB_Image* img = load_picture(w);
+    chk(img && img->w() == 8 && img->h() == 8, "el sticker, ya como imagen");
+    delete img;
+    std::remove(webp_png(w).c_str());
+    std::remove(w.c_str());
+  }
+#endif
+  // El país y la hora de un teléfono.
+  {
+    const Country* ar = country_of("5491125454205");
+    const Country* dom = country_of("18095551234");
+    const Country* us = country_of("12125551234");
+    chk(ar && std::string(ar->iso) == "AR" && dom && std::string(dom->iso) == "DO" && us && std::string(us->iso) == "US" &&
+            country_of("34600111222") && std::string(country_of("34600111222")->iso) == "ES" && !country_of("") &&
+            !country_of("999"),
+        "el país de un teléfono");
+    chk(flag_of("AR") == "\xF0\x9F\x87\xA6\xF0\x9F\x87\xB7", "la bandera");
+#ifndef _WIN32
+    chk(time_in("Europe/Madrid", 1794365000) == "03:43" && time_in("America/Argentina/Buenos_Aires", 1794365000) == "23:43" &&
+            time_in("America/Havana", 1794365000) == "22:43" && time_in("No/Existe", 1794365000).empty(),
+        "la hora local de cada país");
+#endif
+    Chat g;
+    g.group = true;
+    for (const char* ph : {"5491100000000", "5491100000001", "34600000000", ""}) {
+      Msg m;
+      m.phone = ph;
+      g.msgs.push_back(m);
+    }
+    auto ks = chat_countries(g);
+    chk(ks.size() == 2 && std::string(ks[0]->iso) == "AR" && std::string(ks[1]->iso) == "ES", "los países de un grupo");
+  }
+  // Traducir: las claves y la respuesta de la IA.
+  {
+    chk(fnv("hola") == fnv("hola") && fnv("hola") != fnv("Hola") && fnv("").size() == 16, "clave de un texto");
+    Msg a;
+    a.text = "Ciao";
+    a.id = "X1";
+    Msg b = a;
+    b.mine = true;
+    chk(trans_key(a) == "i:X1" && trans_key(b) == "o:" + fnv("Ciao"), "claves de las traducciones");
+    std::string lang;
+    std::vector<std::string> items;
+    chk(parse_translation("```json\n{\"language\": \"italiano\", \"items\": [\"Hola\", \"¿Qué tal?\"]}\n```", 2, lang, items) &&
+            lang == "italiano" && items.size() == 2 && items[1] == "¿Qué tal?",
+        "leer la traducción");
+    chk(!parse_translation("{\"language\":\"x\",\"items\":[\"uno\"]}", 2, lang, items) && !parse_translation("nada", 1, lang, items),
+        "una traducción que no cuadra");
+    chk(translate_in_user({"a\"b", "c"}) == "[\"a\\\"b\",\"c\"]", "los mensajes para traducir");
+    AiText t = claude_text(200, "{\"content\":[{\"type\":\"text\",\"text\":\"Ciao!\"}],\"stop_reason\":\"end_turn\"}");
+    chk(t.error.empty() && t.text == "Ciao!", "texto de Claude");
+    t = openai_text(401, "{\"error\":{\"message\":\"x\"}}");
+    chk(t.error == tx::ERR_AI_KEY, "clave mala (texto)");
+  }
   // Las tareas: guardar y leer, el orden y el texto de un mensaje.
   {
     std::vector<Task> ts(3);
@@ -2877,6 +3236,13 @@ struct AiDone {
 struct SendDone {
   std::string rid, error, id, jid, text, file;
 };
+struct TransDone {   // lo recibido, traducido
+  std::string jid, language, error;
+  std::vector<std::string> keys, items;
+};
+struct OutDone {   // lo que escribí, traducido para enviarlo
+  std::string jid, original, translated, file, error;
+};
 
 class Form1 : public FormDesign {
 public:
@@ -2904,6 +3270,12 @@ public:
   Fl_RGB_Image* qr_img = nullptr;
   // Cuántos mensajes se cargan del chat abierto (crece al subir o al buscar).
   int msg_limit = 60;
+  // Traducir: por chat, el modo ("" no, "auto" o un idioma) y el idioma detectado;
+  // las traducciones hechas (clave → texto) y las ya pedidas (no se repiten).
+  std::map<std::string, std::pair<std::string, std::string>> langs;
+  std::map<std::string, std::string> translations;
+  std::map<std::string, bool> trans_asked;
+  bool translating = false;
   Fl_Input* find_input = nullptr;
   // El menú del clic derecho (las pruebas lo cambian): el índice elegido o -1.
   std::function<int(const std::vector<std::string>&)> choose = [](const std::vector<std::string>& items) {
@@ -2962,6 +3334,12 @@ public:
     view->on_act = [](int act, int k) { if (self()) self()->option_act(act, k); };
     view->tasks = &tasks;
     list->tasks = &tasks;
+    wa::on_picture_ready() = [] {
+      if (self()) {
+        self()->view->lay_dirty = true;   // el bocadillo del sticker cambia de tamaño
+        self()->view->redraw();
+      }
+    };
     list->on_tasks = [] { if (self()) self()->open_tasks(); };
     // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
     find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
@@ -3018,6 +3396,7 @@ public:
     apply_theme();
     store.load(store_file());
     load_tasks();
+    load_translations();
     reload();
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
@@ -3176,6 +3555,8 @@ public:
       else wa::merge_msgs(c.msgs, it->second.msgs);
     }
     view->chat = &c;
+    apply_translations(c);
+    request_translations();
   }
   void pick(int i) {
     if (i < 0 || i >= (int)chats.size()) return;
@@ -3320,6 +3701,143 @@ public:
         if (!c.msgs[(size_t)i].mine) title = wa::task_title_of(c.msgs[(size_t)i]);
     add_task(title, current);
   }
+  // ---- traducir
+  std::string langs_file() const { return wa::config_dir() + "/idiomas.txt"; }
+  std::string trans_file() const { return wa::config_dir() + "/traducciones.jsonl"; }
+  void load_translations() {
+    std::string text;
+    if (wa::read_file(langs_file(), text))
+      for (const auto& l : wa::split(text, '\n')) {
+        auto f = wa::split(l, '\t');
+        if (f.size() >= 2 && !f[0].empty()) langs[f[0]] = {f[1], f.size() > 2 ? f[2] : ""};
+      }
+    if (wa::read_file(trans_file(), text))
+      for (const auto& l : wa::split(text, '\n')) {
+        bool ok = false;
+        wa::Json j = wa::parse_json(l, &ok);
+        if (ok && !j["k"].str().empty()) translations[j["k"].str()] = j["v"].str();
+      }
+  }
+  void save_langs() {
+    if (demo) return;
+    std::string out;
+    for (const auto& kv : langs)
+      if (!kv.second.first.empty() || !kv.second.second.empty())
+        out += kv.first + "\t" + kv.second.first + "\t" + kv.second.second + "\n";
+    fl_make_path(wa::config_dir().c_str());
+    wa::write_file(langs_file(), out);
+  }
+  void remember_translation(const std::string& key, const std::string& text) {
+    translations[key] = text;
+    if (!demo) wa::append_line(trans_file(), "{\"k\":" + wa::jstr(key) + ",\"v\":" + wa::jstr(text) + "}");
+  }
+  std::string lang_mode(const std::string& jid) const {
+    auto it = langs.find(jid);
+    return it == langs.end() ? "" : it->second.first;
+  }
+  // El idioma al que se traduce lo que escribo: el elegido o el detectado.
+  std::string target_lang(const std::string& jid) const {
+    auto it = langs.find(jid);
+    if (it == langs.end() || it->second.first.empty()) return "";
+    return it->second.first == "auto" ? it->second.second : it->second.first;
+  }
+  void apply_translations(wa::Chat& c) {
+    std::string mode = lang_mode(c.jid);
+    for (auto& m : c.msgs) {
+      m.trans.clear();
+      if (mode.empty() || m.text.empty()) continue;
+      auto it = translations.find(wa::trans_key(m));
+      if (it != translations.end() && it->second != m.text) m.trans = it->second;
+    }
+    std::string label;
+    if (mode == "auto") {
+      std::string det = langs[c.jid].second;
+      label = det.empty() ? std::string(tx::LANG_DETECTING) : wa::fmt(tx::LANG_DETECTED, {det});
+    } else {
+      label = mode;
+    }
+    view->translate_label = label;
+    view->lay_dirty = true;
+  }
+  // Pide a la IA lo recibido que falta por traducir (de los últimos 40).
+  void request_translations() {
+    if (current < 0 || demo || translating) return;
+    const wa::Chat& c = chats[(size_t)current];
+    if (lang_mode(c.jid).empty()) return;
+    std::vector<std::string> keys, texts;
+    int from = std::max(0, (int)c.msgs.size() - 40);
+    for (int i = from; i < (int)c.msgs.size(); i++) {
+      const wa::Msg& m = c.msgs[(size_t)i];
+      if (m.mine || m.text.empty() || !m.trans.empty()) continue;
+      std::string k = wa::trans_key(m);
+      if (translations.count(k) || trans_asked.count(k)) continue;
+      keys.push_back(k);
+      texts.push_back(m.text);
+    }
+    if (keys.empty()) return;
+    for (const auto& k : keys) trans_asked[k] = true;
+    translating = true;
+    wa::AiSettings s = ai;
+    std::string jid = c.jid, sys = wa::fmt(tx::PROMPT_TRANSLATE, {tx::MY_LANGUAGE}), usr = wa::translate_in_user(texts);
+    size_t n = texts.size();
+    std::thread([s, jid, sys, usr, keys, n] {
+      wa::AiText r = wa::ai_ask(s, sys, usr);
+      auto* d = new TransDone{jid, "", r.error, keys, {}};
+      if (d->error.empty() && !wa::parse_translation(r.text, n, d->language, d->items)) d->error = tx::ERR_AI_ANSWER;
+      Fl::awake(trans_done, d);
+    }).detach();
+    say(tx::TRANSLATING);
+  }
+  static void trans_done(void* p) {
+    std::unique_ptr<TransDone> d(static_cast<TransDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    f->translating = false;
+    if (!d->error.empty()) {
+      f->say(d->error);
+      return;
+    }
+    for (size_t k = 0; k < d->keys.size(); k++) f->remember_translation(d->keys[k], d->items[k]);
+    auto& lang = f->langs[d->jid];
+    if (lang.first == "auto" && !d->language.empty() && lang.second != d->language) {
+      lang.second = d->language;
+      f->save_langs();
+    }
+    f->message.clear();
+    if (f->current >= 0) f->open_messages(f->current);
+    f->refresh();
+  }
+  // El menú de «🌐 Traducir»: no traducir, detectar o un idioma.
+  void translate_menu() {
+    if (current < 0) return;
+    std::string jid = chats[(size_t)current].jid, mode = lang_mode(jid);
+    std::vector<std::string> names = {tx::TRANS_OFF, tx::TRANS_AUTO, tx::LANG_EN, tx::LANG_ES, tx::LANG_PT, tx::LANG_FR,
+                                      tx::LANG_IT, tx::LANG_DE, tx::LANG_ZH, tx::LANG_AR, tx::LANG_RU};
+    std::vector<std::string> items;
+    for (size_t k = 0; k < names.size(); k++) {
+      bool on = (k == 0 && mode.empty()) || (k == 1 && mode == "auto") || (k > 1 && mode == names[k]);
+      items.push_back((on ? "✓ " : "    ") + names[k]);
+    }
+    int r = choose(items);
+    if (r < 0) return;
+    std::string now = r == 0 ? "" : r == 1 ? "auto" : names[(size_t)r];
+    if (!now.empty() && !demo) {
+      std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
+      if (key.empty()) {
+        settings_dialog();
+        if (key.empty()) return;
+      }
+      if (mode.empty()) {
+        std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
+        if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY_TRANSLATE, {who}).c_str())) return;
+      }
+    }
+    langs[jid].first = now;
+    save_langs();
+    open_messages(current);
+    refresh();
+  }
+
   // ---- la conversación: subir, volver abajo, buscar, copiar
   void chat_act(int act) {
     if (act == 20) load_more();
@@ -3453,6 +3971,10 @@ public:
       chat_act(act);
       return;
     }
+    if (act == 27) {
+      translate_menu();
+      return;
+    }
     if (act >= 10 && act <= 13) {
       task_act(act, k);
       return;
@@ -3536,6 +4058,45 @@ public:
       connect_dialog();
       if (send_mode == wa::S_NONE) return;
     }
+    // Con «🌐 Traducir»: primero se traduce y se envía lo traducido.
+    if (!lang_mode(c.jid).empty() && !text.empty()) {
+      std::string target = target_lang(c.jid);
+      if (target.empty()) {
+        say(tx::ERR_NO_LANG);
+        return;
+      }
+      wa::AiSettings s = ai;
+      std::string jid = c.jid;
+      std::string sys = wa::fmt(tx::PROMPT_TRANSLATE_OUT, {target});
+      std::thread([s, jid, sys, text, file] {
+        wa::AiText r = wa::ai_ask(s, sys, text);
+        Fl::awake(out_done, new OutDone{jid, text, wa::trim(r.text), file, r.error});
+      }).detach();
+      Draft->value("");
+      options.clear();
+      say(tx::TRANSLATING);
+      return;
+    }
+    deliver(c.jid, text, file, text);
+  }
+  static void out_done(void* p) {
+    std::unique_ptr<OutDone> d(static_cast<OutDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    if (!d->error.empty() || d->translated.empty()) {
+      if (!*f->Draft->value()) f->Draft->value(d->original.c_str());
+      f->say(d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+      return;
+    }
+    // Lo que escribí queda guardado junto a lo enviado.
+    wa::Msg sent;
+    sent.mine = true;
+    sent.text = d->translated;
+    f->remember_translation(wa::trans_key(sent), d->original);
+    f->deliver(d->jid, d->translated, d->file, d->original);
+  }
+  // Envía de verdad por el puente o la API oficial; [restore] vuelve al borrador si falla.
+  void deliver(const std::string& jid, const std::string& text, const std::string& file, const std::string& restore) {
     std::string rid = "r" + std::to_string(++requests);
     if (send_mode == wa::S_LINKED) {
       if (!bridge.running()) start_bridge();
@@ -3544,8 +4105,8 @@ public:
         return;
       }
       std::string cmd = file.empty()
-                            ? "{\"cmd\":\"send\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(c.jid) + ",\"text\":" + wa::jstr(text) + "}"
-                            : "{\"cmd\":\"send_file\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(c.jid) + ",\"path\":" +
+                            ? "{\"cmd\":\"send\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(jid) + ",\"text\":" + wa::jstr(text) + "}"
+                            : "{\"cmd\":\"send_file\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(jid) + ",\"path\":" +
                                   wa::jstr(file) + ",\"caption\":" + wa::jstr(text) + "}";
       if (!bridge.send(cmd)) {
         say(tx::ERR_SEND);
@@ -3553,13 +4114,12 @@ public:
       }
     } else {
       wa::CloudSettings s = cloud;
-      std::string jid = c.jid;
       std::thread([s, jid, text, file, rid] {
         std::string id, err = wa::cloud_send(s, jid, text, file, &id);
         Fl::awake(cloud_done, new SendDone{rid, err, id, jid, text, file});
       }).detach();
     }
-    pending[rid] = text;
+    pending[rid] = restore;
     Draft->value("");
     options.clear();
     say(tx::SENDING);
@@ -3790,6 +4350,13 @@ public:
     tasks.clear();
     view->now = now;
     list->now = now;
+    // Giulia escribe en italiano: «🌐 Traducir» detectó el idioma.
+    {
+      const wa::Chat& g = chats.back();
+      langs[g.jid] = {"auto", tx::LANG_IT};
+      const char* tr[] = {tx::DEMO_I1, tx::DEMO_I2, tx::DEMO_I3};
+      for (int k = 0; k < 3; k++) translations[wa::trans_key(g.msgs[(size_t)k])] = tr[k];
+    }
     // Una roja (80 h), una hecha, una naranja (30 h) y una verde (1 h).
     const char* titles[] = {tx::DEMO_T3, tx::DEMO_T2, tx::DEMO_T1, tx::DEMO_T4};
     const int from[] = {1, 2, 0, 4};
@@ -3832,6 +4399,8 @@ public:
     view->busy.clear();
     open_tasks();
     render_to(dir + "/tasks.png");
+    pick(5);
+    render_to(dir + "/translate.png");
     std::printf("shots ok %s\n", dir.c_str());
     return 0;
   }
@@ -3855,7 +4424,7 @@ public:
     render_to("");
     Menu1_click(tx::MP_LIGHT);
     chk(!wa::th().dark && theme == "light", "tema claro");
-    chk(chats.size() == 5 && current == 0 && view->chat == &chats[0], "chats de ejemplo");
+    chk(chats.size() == 6 && current == 0 && view->chat == &chats[0], "chats de ejemplo");
     render_to("");
     // Clic de verdad en el tercer chat.
     for (const auto& h : list->hits)
@@ -4000,6 +4569,37 @@ public:
     Draft->value("");
     BtnSend_click();
     chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+    // Traducir: el chat de Giulia, en italiano, con su traducción debajo.
+    {
+      pick(5);
+      render_to("");
+      const wa::Chat& g = chats[5];
+      chk(view->translate_label == wa::fmt(tx::LANG_DETECTED, {tx::LANG_IT}), "el idioma detectado, en la cabecera");
+      chk(g.msgs[0].trans == tx::DEMO_I1 && g.msgs[1].trans == tx::DEMO_I2 && view->lays[0].trans.size() > 0,
+          "lo recibido traducido y lo enviado con su original");
+      chk(target_lang(g.jid) == tx::LANG_IT, "se envía en italiano");
+      auto ks = wa::chat_countries(g);
+      chk(ks.size() == 1 && std::string(ks[0]->iso) == "IT", "Giulia, en Italia");
+      auto gs = wa::chat_countries(chats[1]);
+      chk(gs.size() == 2, "el grupo de ejemplo, en dos países");
+      int with = view->lays[0].bh;
+      choose = [](const std::vector<std::string>&) { return 0; };   // «No traducir»
+      translate_menu();
+      render_to("");
+      chk(lang_mode(g.jid).empty() && g.msgs[0].trans.empty() && view->lays[0].bh < with && view->translate_label.empty(),
+          "dejar de traducir");
+      choose = [](const std::vector<std::string>& items) {
+        for (size_t k = 0; k < items.size(); k++)
+          if (items[k].find(tx::LANG_FR) != std::string::npos) return (int)k;
+        return -1;
+      };
+      translate_menu();
+      chk(lang_mode(g.jid) == tx::LANG_FR && target_lang(g.jid) == tx::LANG_FR, "elegir el idioma");
+      langs[g.jid] = {"auto", tx::LANG_IT};
+      open_messages(current);
+      choose = [](const std::vector<std::string>&) { return -1; };
+      pick(0);
+    }
     // La conversación: seleccionar, copiar, el menú, buscar y subir.
     {
       pick(0);

@@ -75,6 +75,9 @@ Hechos
 91. MyWhatsapp: seleccionar y copiar texto en el chat | ✅ |
 92. MyWhatsapp: buscar textos en el chat | ✅ |
 93. MyWhatsapp: en las tareas, una bolita según el tiempo desde que se creó (verde < 24 h, naranja > 24 h, roja > 72 h); el chat con tareas pendientes, con la misma bolita en la lista | ✅ |
+83. MyWhatsapp: chatear en otro idioma con IA (original y traducido de lo que recibo y de lo que envío; idioma detectado o elegido) | ✅ |
+107. MyWhatsapp: la bandera del país y la hora local del contacto en la cabecera del chat | ✅ |
+108. MyWhatsapp: ver los stickers (WebP) como imagen | ✅ |
 
 Trabajando
 =========
@@ -87,7 +90,6 @@ Pendiente
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
-83. MyWhatsapp: chatear en otro idioma con IA (original y traducido de lo que recibo y de lo que envío; idioma detectado o elegido) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
 85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ⏳ |
 86. MyWhatsapp: publicar un estado de WhatsApp (texto o foto) desde la app | ⏳ |
@@ -103,3 +105,9 @@ Pendiente
 99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ⏳ |
 100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
+102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ⏳ |
+103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
+104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
+105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
+106. MyWhatsapp: filtros predefinidos junto a la búsqueda (todos, con tareas, sin responder en 3 días, los que no me respondieron) | ⏳ |
+109. MyWhatsapp: los chats archivados, aparte, como en WhatsApp («📦 Archivados») | ⏳ |

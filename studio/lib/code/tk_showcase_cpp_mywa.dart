@@ -39,7 +39,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -204,6 +204,44 @@ TkExample tkCppMywa(String Function(String) t) {
     'DEMO_T3': t(markTr('Recoger a la abuela el domingo a las 13')),
     'DEMO_T4': t(markTr('Llevar el balón al partido del viernes')),
     'FIND': t(markTr('🔍 Buscar')),
+    'LOCAL_TIME': t(markTr('{0} hora local')),
+    'TRANSLATE': t(markTr('🌐 Traducir')),
+    'TRANS_OFF': t(markTr('No traducir')),
+    'TRANS_AUTO': t(markTr('Detectar el idioma')),
+    'TRANS_ORIGINAL': t(markTr('Original:')),
+    'TRANSLATING': t(markTr('Traduciendo…')),
+    'LANG_DETECTING': t(markTr('detectando…')),
+    'LANG_DETECTED': t(markTr('{0} (detectado)')),
+    'ERR_NO_LANG': t(markTr('Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»')),
+    'PRIVACY_TRANSLATE': t(
+      markTr(
+        'Para traducir, los mensajes de este chat y lo que escriba en él se envían a {0}. ¿Continuar?',
+      ),
+    ),
+    // El idioma de la app, para la IA (en inglés: «English»).
+    'MY_LANGUAGE': t(markTr('el español')),
+    'LANG_EN': t(markTr('inglés')),
+    'LANG_ES': t(markTr('castellano')),
+    'LANG_PT': t(markTr('portugués')),
+    'LANG_FR': t(markTr('francés')),
+    'LANG_IT': t(markTr('italiano')),
+    'LANG_DE': t(markTr('alemán')),
+    'LANG_ZH': t(markTr('chino')),
+    'LANG_AR': t(markTr('árabe')),
+    'LANG_RU': t(markTr('ruso')),
+    'PROMPT_TRANSLATE': t(
+      markTr(
+        'Eres el traductor de MyWhatsapp. Te dan una lista JSON de mensajes de WhatsApp: tradúcelos al idioma de destino, con naturalidad y el mismo tono (los emojis, igual). Responde solo con JSON, sin nada más: {"language": "el nombre del idioma en que están escritos, dicho en el idioma de destino", "items": ["la traducción del primero", "…"]}, una traducción por mensaje y en el mismo orden. Si un mensaje ya está en el idioma de destino, déjalo igual. Idioma de destino: {0}.',
+      ),
+    ),
+    'PROMPT_TRANSLATE_OUT': t(
+      markTr(
+        'Eres el traductor de MyWhatsapp. Traduce el mensaje que te dan al idioma de destino, con naturalidad, como lo escribiría en WhatsApp alguien que lo habla, con el mismo tono y los mismos emojis. Responde solo con la traducción, sin comillas ni explicaciones. Idioma de destino: {0}.',
+      ),
+    ),
+    'DEMO_I1': t(markTr('¡Hola! He visto vuestra mesa de roble en la web. ¿Sigue disponible?')),
+    'DEMO_I2': t(markTr('¡Sí, está disponible! Podemos enviarla a Roma en una semana.')),
+    'DEMO_I3': t(markTr('Perfecto. ¿Cuánto cuesta el envío? 🙂')),
     'FIND_NONE': t(markTr('Sin resultados')),
     'FIND_COUNT': t(markTr('{0} de {1}')),
     'COPY_SELECTION': t(markTr('Copiar la selección')),

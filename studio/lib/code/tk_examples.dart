@@ -39,6 +39,8 @@ part 'tk_showcase_pascal_malecon.dart';
 part 'tk_showcase_pascal_malecon_code.dart';
 part 'tk_showcase_pascal_docker.dart';
 part 'tk_showcase_pascal_docker_code.dart';
+part 'tk_showcase_pascal_launcher.dart';
+part 'tk_showcase_pascal_launcher_code.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
 part 'tk_showcase_flutter.dart';

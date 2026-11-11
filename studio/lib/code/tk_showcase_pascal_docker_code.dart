@@ -12,7 +12,7 @@ unit Form1;
 interface
 
 uses
-  {$IFDEF DARWIN}CocoaAll, CocoaGDIObjects,{$ENDIF}
+  {$IFDEF DARWIN}CocoaAll, CocoaGDIObjects, cocoa_extra,{$ENDIF}
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, ComCtrls, Menus, dms, design, Math, Process, LCLIntf, LCLType,
   Clipbrd, IntfGraphics, GraphType, FPImage, LazUTF8;
@@ -608,6 +608,53 @@ begin
   Result.DataDescription := d;
 end;
 
+{$IFDEF DARWIN}
+{ El icono de la barra como plantilla de verdad: macOS solo mira su canal
+  alfa y lo pinta del color de la barra. (Al pasar por TIcon se pierde la
+  transparencia y se vería un cuadrado lleno.) [Dim]: más tenue. }
+procedure TemplateImage(Img: NSImage; Size: Integer; Dim: Boolean);
+var
+  Rep: NSBitmapImageRep;
+  Reps: NSArray;
+  P: PByte;
+  x, y, Row, i: Integer;
+  a: Double;
+begin
+  Rep := NSBitmapImageRep(NSBitmapImageRep.alloc.initWithBitmapDataPlanes_pixelsWide_pixelsHigh__colorSpaceName_bitmapFormat_bytesPerRow_bitsPerPixel(
+    nil, Size, Size, 8, 4, True, False, NSDeviceRGBColorSpace, 0, Size * 4, 32));
+  P := PByte(Rep.bitmapData);
+  Row := Rep.bytesPerRow;
+  for y := 0 to Size - 1 do
+    for x := 0 to Size - 1 do
+    begin
+      a := GlyphCover(x, y, Size);
+      if Dim then a := a * 0.4;
+      P[y * Row + x * 4] := 0;
+      P[y * Row + x * 4 + 1] := 0;
+      P[y * Row + x * 4 + 2] := 0;
+      P[y * Row + x * 4 + 3] := Round(a * 255);
+    end;
+  Reps := NSArray.arrayWithArray(Img.representations);
+  for i := 0 to Integer(Reps.count) - 1 do
+    Img.removeRepresentation(NSImageRep(Reps.objectAtIndex(i)));
+  Img.addRepresentation(Rep);
+  Rep.release;
+  Img.setSize(NSMakeSize(18, 18));
+  Img.setTemplate(True);
+end;
+
+{ El alfa (0..255) del píxel (X, Y) de la imagen (las pruebas). }
+function AlphaAt(Img: NSImage; X, Y: Integer): Integer;
+var
+  Rep: NSBitmapImageRep;
+begin
+  Result := -1;
+  if Img.representations.count = 0 then Exit;
+  Rep := NSBitmapImageRep(Img.representations.objectAtIndex(0));
+  Result := PByte(Rep.bitmapData)[Y * Rep.bytesPerRow + X * 4 + 3];
+end;
+{$ENDIF}
+
 { El icono de la barra: en macOS, negro con transparencia (una «plantilla»
   que el sistema pinta del color de la barra); en Windows, azul. [Dim]:
   Docker no responde. }
@@ -1152,6 +1199,7 @@ var
   Hits: THits;
   Exe, Out_, Live, Id: string;
   Found: Boolean;
+  Ico: TIcon;
 
   procedure Check(Ok: Boolean; const What: string);
   begin
@@ -1294,6 +1342,21 @@ begin
     Check(State_(Live) = 'running', 'live: otra vez en marcha');
     if fails = 0 then WriteLn('live ok');
   end;
+  {$IFDEF DARWIN}
+  // El icono de la barra: transparente fuera del dibujo (no un cuadrado).
+  Ico := TIcon.Create;
+  try
+    Bmp := Glyph(44, False);
+    Ico.Assign(Bmp);
+    Bmp.Free;
+    TemplateImage(TCocoaBitmap(Ico.Handle).Image, 44, False);
+    Check(AlphaAt(TCocoaBitmap(Ico.Handle).Image, 0, 0) = 0, 'icono: esquina transparente');
+    Check(AlphaAt(TCocoaBitmap(Ico.Handle).Image, 20, 34) > 200, 'icono: el dibujo opaco');
+    Check(TCocoaBitmap(Ico.Handle).Image.isTemplate, 'icono: plantilla');
+  finally
+    Ico.Free;
+  end;
+  {$ENDIF}
   if fails = 0 then WriteLn('selftest ok');
   if fails = 0 then Result := 0 else Result := 1;
 end;
@@ -1364,7 +1427,7 @@ begin
   {$IFDEF DARWIN}
   // Una plantilla: macOS la pinta blanca o negra según la barra.
   if Tray.Icon.Handle <> 0 then
-    TCocoaBitmap(Tray.Icon.Handle).Image.setTemplate(True);
+    TemplateImage(TCocoaBitmap(Tray.Icon.Handle).Image, 44, DockState <> dsOk);
   Tray.InternalUpdate;
   {$ENDIF}
 end;

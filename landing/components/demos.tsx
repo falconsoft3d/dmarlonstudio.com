@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Veintitrés aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veinticuatro aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -135,7 +135,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veintitrés aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veinticuatro aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -279,6 +279,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un icono en la barra de menús de macOS (en Windows, junto al reloj) con sus contenedores de Docker: los que están en marcha, agrupados por proyecto de Compose, con sus direcciones para abrirlas en el navegador y las opciones de parar, reiniciar o iniciar los parados. Encuentra Docker Desktop, Colima, OrbStack o Rancher Desktop. En macOS, para Apple Silicon.",
         shows: ["Object Pascal con Lazarus: TTrayIcon y su menú, sin ventana en el Dock", "«docker ps» cada tres segundos en un hilo, sin bloquear el menú", "Las direcciones salen de los puertos publicados (http o https)"],
       },
+      pascal_launcher: {
+        name: "Lanzador de apps (Pascal)",
+        text: "Un icono en la barra de menús con las aplicaciones de la carpeta donde lo deja (por ejemplo, junto a estas demos), cada una con su icono: las favoritas y las recientes arriba, y un panel con buscador para abrirlas con el teclado. En macOS, para Apple Silicon.",
+        shows: ["Object Pascal con Lazarus: TTrayIcon y un menú con el icono de cada app", "Los iconos y los nombres los da el sistema (NSWorkspace), como en el Finder", "Búsqueda sin acentos, favoritas con estrella y recientes guardadas"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -290,7 +295,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twenty-three apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty-four apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -367,7 +372,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty-three desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty-four desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -511,6 +516,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "An icon in the macOS menu bar (on Windows, next to the clock) with your Docker containers: the running ones, grouped by Compose project, with their addresses to open in the browser and options to stop, restart or start the stopped ones. It finds Docker Desktop, Colima, OrbStack or Rancher Desktop. On macOS, for Apple Silicon.",
         shows: ["Object Pascal with Lazarus: TTrayIcon and its menu, with no window in the Dock", "“docker ps” every three seconds on a thread, without blocking the menu", "The addresses come from the published ports (http or https)"],
       },
+      pascal_launcher: {
+        name: "App Launcher (Pascal)",
+        text: "A menu bar icon with the apps in the folder where you put it (for example, next to these demos), each with its icon: favorites and recent ones at the top, and a panel with a search box to open them from the keyboard. On macOS, for Apple Silicon.",
+        shows: ["Object Pascal with Lazarus: TTrayIcon and a menu with each app's icon", "The icons and names come from the system (NSWorkspace), as in the Finder", "Accent-insensitive search, starred favorites and saved recent apps"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -591,6 +601,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_console: { icon: "cpp", label: "C++ · FLTK" },
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
   pascal_docker: { icon: "lazarus", label: "Pascal · Lazarus" },
+  pascal_launcher: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

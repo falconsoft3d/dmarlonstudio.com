@@ -64,7 +64,7 @@ void main() {
     for (final s in [
       'TTrayIcon',
       'NSApplicationActivationPolicyAccessory',
-      'setTemplate(True)',
+      'TemplateImage(',
       "'ps', '-a', '--no-trunc', '--format'",
       "Run(['stop', V]",
       'OpenURL(V)',

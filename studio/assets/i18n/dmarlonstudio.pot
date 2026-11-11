@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -3399,7 +3399,7 @@ msgstr ""
 msgid "Ctrl+Espacio"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr ""
 
@@ -8575,7 +8575,7 @@ msgstr ""
 msgid "Acerca de Docker en la barra de menús"
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_docker.dart
+#: lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart
 msgid "Acerca de…"
 msgstr ""
 
@@ -8583,7 +8583,7 @@ msgstr ""
 msgid "Buscando Docker…"
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_docker.dart
+#: lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart
 msgid "Cerrar la ventana"
 msgstr ""
 
@@ -8710,6 +8710,87 @@ msgstr ""
 
 #: lib/code/tk_showcase_pascal_docker.dart
 msgid "¿Parar los {0} contenedores en marcha?"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Acerca del Lanzador de apps"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Actualizar la lista"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Buscar una aplicación"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_sites.dart
+msgid "Buscar…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid ""
+"El icono de la barra de menús abre las aplicaciones que están en la misma carpeta que el lanzador (y en sus subcarpetas), con sus iconos. Arriba van las favoritas y las que abrió hace poco.\n"
+"\n"
+"«Buscar…» abre el panel: escriba parte del nombre (sin preocuparse de los acentos), elija con las flechas y pulse Intro. La estrella de cada app la marca como favorita.\n"
+"\n"
+"Si copia o borra una app de esa carpeta, la lista se pone al día sola en medio minuto. Cerrar la ventana no cierra la app: sigue en la barra de menús hasta que elija Salir."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "El icono de la barra de menús y las teselas de las apps los hace el código de Form1.pas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "FAVORITAS · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Favoritas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Lanzador de apps"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Lanzador de apps (Pascal)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Lanzador de apps: las aplicaciones de su carpeta en un icono de la barra de menús, con favoritas, recientes y un buscador, en Pascal con Lazarus."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Ninguna aplicación se llama así."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "No encuentro aplicaciones"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart lib/ui/screens/code_studio.dart
+msgid "Recientes"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "TODAS · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Una app de la barra de menús en Object Pascal con Lazarus: su icono abre las aplicaciones de la carpeta donde está el lanzador, con sus iconos, las favoritas y las recientes arriba, y un panel con buscador para abrirlas con el teclado."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Una demo de DMarlon Studio hecha en Object Pascal con Lazarus: lanza las aplicaciones de su propia carpeta. La ventana, su menú, el buscador y el reloj se diseñaron en el Diseñador del estudio; el icono de la barra (TTrayIcon), su menú con los iconos de cada app y las teselas del panel se hacen en el código de Form1.pas."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "{0} PARA «{1}»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "{0} aplicaciones"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_malecon.dart
@@ -9494,10 +9575,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Buscar productos…"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Buscar…"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -14852,10 +14929,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "Proyecto abierto en el Diseñador de interfaz"
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "Recientes"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart

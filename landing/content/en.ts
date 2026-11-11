@@ -100,6 +100,7 @@ export const en: Content = {
       { seed: "cpp_racing", name: "Motorbike Racing (C++)", text: "A pseudo-3D motorbike game with seven rivals, laps and standings, drawn in code with FLTK." },
       { seed: "pascal_malecon", name: "Under the Shadow of the Malecón (Pascal)", text: "An investigation adventure in Havana in 2026 with 256-colour VGA pixel art, drawn in code with Lazarus." },
       { seed: "pascal_docker", name: "Docker in the Menu Bar (Pascal)", text: "Your Docker containers in a menu bar icon: open their addresses, stop or restart them, with Lazarus." },
+      { seed: "pascal_launcher", name: "App Launcher (Pascal)", text: "The apps in its folder in a menu bar icon, with their icons, favorites and search, with Lazarus." },
       { seed: "domino", name: "Double-Nine Dominoes", text: "A table of four in two partnerships against the computer, with domino, blocked games and a game to 100 points, on a tkinter canvas." },
       { seed: "flutter_store", name: "Shop with login (Flutter)", text: "Login, searchable catalog, cart and checkout in a mobile app." },
       { seed: "rn_store", name: "Shop (React Native)", text: "Login, catalog, cart and checkout in a React Native app." },

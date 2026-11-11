@@ -202,6 +202,15 @@ const es: Record<string, DemoGuide> = {
       { title: "El panel", text: "«Abrir el panel…» muestra la misma lista en una ventana, con los puertos como enlaces y los botones de cada contenedor. Cerrar la ventana no cierra la app: sigue en la barra hasta que elija Salir. Si Docker no está en marcha, se lo dice y le deja abrir Docker Desktop." },
     ],
   },
+  pascal_launcher: {
+    intro:
+      "Una app de la barra de menús hecha en Object Pascal con Lazarus y diseñada en el estudio: déjela en una carpeta con aplicaciones (por ejemplo, junto a estas demos) y su icono le enseña todas, con sus iconos, para abrirlas con un clic.",
+    steps: [
+      { title: "Las apps de su carpeta, en la barra", text: "Al abrirla aparece un icono en la barra de menús (no en el Dock). Su menú lista las aplicaciones de la carpeta donde está el lanzador y de sus subcarpetas, cada una con su icono y el nombre que enseña el Finder; un clic la abre." },
+      { title: "Busque con el teclado", text: "«Buscar…» abre el panel: escriba parte del nombre, sin preocuparse de acentos ni mayúsculas. Primero salen las apps con una palabra que empieza así; las flechas eligen e Intro abre." },
+      { title: "Favoritas y recientes", text: "La estrella de cada app en el panel la pone entre las favoritas, que van arriba del menú junto a las seis últimas que abrió. Si copia o borra una app de la carpeta, la lista se pone al día sola." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -478,6 +487,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Your containers, always at hand", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu tells you how many containers are running and groups them by Compose project, with the ports each one publishes; the stopped ones go in their own submenu. It refreshes every three seconds." },
       { title: "Open their addresses or stop them", text: "Each container has its submenu: “Open http://localhost:8080” opens the site in the browser (https for 443 or 8443), and Stop, Restart or Start do it without blocking the menu. It also copies the ID or the command to get into it." },
       { title: "The panel", text: "“Open the panel…” shows the same list in a window, with the ports as links and each container's buttons. Closing the window doesn't close the app: it stays in the bar until you choose Quit. If Docker isn't running, it tells you and lets you open Docker Desktop." },
+    ],
+  },
+  pascal_launcher: {
+    intro:
+      "A menu bar app made in Object Pascal with Lazarus and designed in the studio: leave it in a folder with apps (for example, next to these demos) and its icon shows them all, with their icons, to open with one click.",
+    steps: [
+      { title: "The apps in its folder, in the bar", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu lists the apps in the launcher's folder and its subfolders, each with its icon and the name the Finder shows; one click opens it." },
+      { title: "Search from the keyboard", text: "“Search…” opens the panel: type part of the name, accents and case don't matter. Apps with a word starting that way come first; the arrow keys choose and Enter opens." },
+      { title: "Favorites and recent", text: "The star on each app in the panel makes it a favorite; favorites go at the top of the menu with the last six you opened. If you copy or delete an app in the folder, the list updates itself." },
     ],
   },
   domino: {

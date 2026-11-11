@@ -50,6 +50,7 @@ const demos = [
   'cpp_console',
   'pascal_malecon',
   'pascal_docker',
+  'pascal_launcher',
   'domino',
 ];
 

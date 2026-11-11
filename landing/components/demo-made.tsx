@@ -4,8 +4,30 @@ import { ideImage, MADE, type MadeStep } from "@/content/demo-made";
 import type { Lang } from "@/lib/i18n";
 
 const TEXT = {
-  es: { title: "Cómo se hizo", shot: "Captura de DMarlon Studio" },
-  en: { title: "How it was made", shot: "DMarlon Studio screenshot" },
+  es: {
+    title: "Cómo se hizo",
+    shot: "Captura de DMarlon Studio",
+    sheet: "Ficha técnica",
+    language: "Lenguaje",
+    target: "Tecnología",
+    components: "Componentes del Diseñador",
+    name: "Nombre",
+    kind: "Componente",
+    use: "Para qué",
+    apis: "Bibliotecas y APIs",
+  },
+  en: {
+    title: "How it was made",
+    shot: "DMarlon Studio screenshot",
+    sheet: "Technical sheet",
+    language: "Language",
+    target: "Technology",
+    components: "Designer components",
+    name: "Name",
+    kind: "Component",
+    use: "What for",
+    apis: "Libraries and APIs",
+  },
 } satisfies Record<Lang, unknown>;
 
 /** El lenguaje del resaltado según el archivo del fragmento. */
@@ -44,6 +66,47 @@ export async function DemoMade({ lang, seed, name }: { lang: Lang; seed: string;
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <h2 className="text-2xl font-semibold tracking-tight">{y.title}</h2>
         <p className="mt-3 max-w-3xl leading-relaxed text-muted text-pretty">{made.intro}</p>
+        <div className="mt-8 rounded-xl border border-line bg-surface p-5 sm:p-6">
+          <h3 className="text-lg font-semibold">{y.sheet}</h3>
+          <dl className="mt-4 grid gap-x-6 gap-y-3 text-sm sm:grid-cols-[10rem_minmax(0,1fr)]">
+            <dt className="font-medium text-muted">{y.language}</dt>
+            <dd>{made.tech.language}</dd>
+            <dt className="font-medium text-muted">{y.target}</dt>
+            <dd>{made.tech.target}</dd>
+            <dt className="font-medium text-muted">{y.apis}</dt>
+            <dd>
+              <ul className="space-y-1">
+                {made.tech.apis.map((a) => (
+                  <li key={a} className="flex gap-2">
+                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </dl>
+          <h4 className="mt-6 text-sm font-medium text-muted">{y.components}</h4>
+          <div className="mt-2 overflow-x-auto">
+            <table className="w-full min-w-[32rem] text-left text-sm">
+              <thead className="border-b border-line text-xs tracking-wide text-muted uppercase">
+                <tr>
+                  <th className="py-2 pr-4 font-medium">{y.name}</th>
+                  <th className="py-2 pr-4 font-medium">{y.kind}</th>
+                  <th className="py-2 font-medium">{y.use}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {made.tech.components.map((c) => (
+                  <tr key={c.name} className="border-b border-line last:border-0 align-top">
+                    <td className="py-2 pr-4 font-mono text-[13px]">{c.name}</td>
+                    <td className="py-2 pr-4">{c.kind}</td>
+                    <td className="py-2 text-muted">{c.text}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <ol className="mt-10 space-y-14">
           {made.steps.map((s) => (
             <li key={s.title} className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)]">

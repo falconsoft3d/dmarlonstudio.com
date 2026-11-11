@@ -7205,6 +7205,26 @@ msgid "🔥 Racha: {0} días"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "(no se ve al escribir)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "(s/n)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "(varias líneas: termine con una línea con solo un punto)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "(«enviar» lo envía)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "(«mas» carga los mensajes de antes)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "+ Nueva etiqueta…"
 msgstr ""
 
@@ -7238,6 +7258,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.33 — Modo consola: Archivo › Abrir el modo consola (o MyWhatsapp --console) hace todo desde la terminal: chats, enviar, IA, asistente, tareas, CRM, panel, estados, cuentas y el QR para vincular.\n"
 "1.0.32 — Varios números en pestañas: cada uno con su QR, sus chats, sus tareas y su CRM, todos conectados a la vez.\n"
 "1.0.31 — Colores de la app (Ver › Colores… o ⚙️ Ajustes): el color, el fondo del chat y sus mensajes, en claro y en oscuro.\n"
 "1.0.30 — El asistente, con barra de desplazamiento y en texto plano (sin Markdown); la conexión con WhatsApp se cierra siempre con la app.\n"
@@ -7313,7 +7334,15 @@ msgid "Abrir el chat"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir el modo consola (Terminal)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir un chat exportado de WhatsApp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrirlo con su programa"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7408,7 +7437,15 @@ msgid "Añadir y vincular"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aún no hay leads en el CRM"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aún no tiene estados"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7432,7 +7469,19 @@ msgid "Bloquear sola tras {0} min sin usarla"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Bloqueo con PIN"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Bloqueo con PIN…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrador: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Borrar este estado"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7480,6 +7529,14 @@ msgid "Cambiar el nombre…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cambiar la plantilla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cambiar los textos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cariñoso"
 msgstr ""
 
@@ -7511,6 +7568,48 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Chats"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Chats\n"
+"  chats [nombre|todos]      la lista, con el número de cada chat\n"
+"  pendientes                los chats por responder\n"
+"  abrir <n|nombre>          abre un chat y enseña sus últimos mensajes\n"
+"  leer [n]                  los últimos n mensajes del chat abierto\n"
+"  mas                       los mensajes de antes\n"
+"  buscar <texto>            en el chat abierto (sin chat: en los nombres y las tareas)\n"
+"  cerrar | actualizar       cierra el chat | vuelve a leer los chats\n"
+"Escribir y enviar\n"
+"  escribir [texto]          lo deja en el borrador (sin texto: lo enseña)\n"
+"  enviar [texto]            envía el texto o el borrador\n"
+"  adjuntar <ruta> [texto]   envía un archivo (puede arrastrarlo a la terminal)\n"
+"  plantillas                inserta, crea o edita plantillas\n"
+"  mensaje <n>               copiar, reenviar, investigar o crear una tarea con el mensaje n\n"
+"  reenviar <n>              reenvía el mensaje n a otro chat\n"
+"  archivo <n>               abre o guarda el archivo del mensaje n\n"
+"IA\n"
+"  sugerir [qué decir]       tres respuestas propuestas; usar <n> pasa una al borrador\n"
+"  tono                      el estilo de las respuestas\n"
+"  mejorar | corregir        mejora o corrige el borrador\n"
+"  traducir                  chatear en otro idioma\n"
+"  asistente <pregunta>      pregunte a la IA por sus chats (@nombre incluye un chat)\n"
+"  investigar [n]            el asistente investiga el mensaje n; respuesta <n> la deja en el borrador\n"
+"  valorar                   la IA valora a la persona del chat abierto\n"
+"  proveedor | claves        Claude u OpenAI | las claves de la IA\n"
+"Organizar\n"
+"  menu                      el «⋯» del chat: etiquetas, CRM, ficha, ocupado con él, mensaje diario, limpiar\n"
+"  tareas [n] | tarea [texto] | hecha <n> | borrartarea <n>\n"
+"  crm [n|nuevo]             los leads por etapas\n"
+"  panel [7|30] | analizar   las cifras de sus mensajes y su análisis con IA\n"
+"  etiquetas | ficha | diario   del chat abierto\n"
+"  ocupado | estados         el modo ocupado | diseñar y publicar estados\n"
+"WhatsApp\n"
+"  conectar | desconectar    API oficial o vincular con QR (el código sale aquí)\n"
+"  cuentas | cuenta <n|nueva>   varios números\n"
+"  importar <ruta>           un chat exportado (.txt)\n"
+"  info | pin | bloquear     cómo está todo | el bloqueo con PIN\n"
+"  novedades | acerca | como | limpiar | salir"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7737,7 +7836,15 @@ msgid "El PIN son 4 cifras"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El asistente aún no ha propuesto respuestas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El asistente envía a {0} un resumen de sus chats (nombres, fechas y el principio del último mensaje) y, si nombra a alguien con @ o investiga un mensaje, esa conversación. ¿Continuar?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El borrador está vacío"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7746,6 +7853,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El mensaje que se contesta solo a quien le escriba:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El modo consola, abierto en la Terminal"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7789,6 +7900,10 @@ msgid "Elija un chat"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Elija un número (Enter cancela):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Emoji"
 msgstr ""
 
@@ -7821,6 +7936,14 @@ msgid "En una reunión"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En {0}:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Enter deja cada campo como está, «-» lo vacía y «!» cancela."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Entiendo el riesgo"
 msgstr ""
 
@@ -7834,6 +7957,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Enviar ➤"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Envío de mensajes"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7903,6 +8030,10 @@ msgid "Escriba su PIN de 4 cifras"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Escriba «ayuda» para ver las órdenes, «chats» para ver sus chats y «salir» para terminar."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese adjunto no está descargado en este equipo: no se puede reenviar"
 msgstr ""
 
@@ -7912,6 +8043,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese chat ya no está en la lista"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ese mensaje no tiene un archivo en este equipo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7959,6 +8094,18 @@ msgid "Etiquetas"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta el chat: «abrir <número o nombre>»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta el número de la tarea: «tareas» las enseña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta el número del mensaje (el de los corchetes): por ejemplo «mensaje 12»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Falta el número o el token de la API oficial (Archivo › Conectar WhatsApp para enviar…)"
 msgstr ""
 
@@ -7968,6 +8115,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Falta la clave de la IA (Archivo › Claves de la IA…)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta la ruta del archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta qué buscar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8027,11 +8182,23 @@ msgid "Gris claro"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Guardar en"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Guardar también en Contactos (y en el iPhone, por iCloud)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Guardar una copia"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Guardar una copia…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hasta luego 👋"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8060,6 +8227,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "IA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "IA: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8128,6 +8299,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La respuesta, en el borrador: revísela y pulse Enviar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La ruta de la foto"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8266,6 +8441,10 @@ msgid "Modelo de OpenAI:"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modo ocupado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Modo ocupado activo; para que conteste solo, conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…)"
 msgstr ""
 
@@ -8298,6 +8477,10 @@ msgid "MyWhatsapp en C++ con FLTK: lee sus chats de WhatsApp y propone respuesta
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp está bloqueada. PIN"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "MyWhatsapp está bloqueado"
 msgstr ""
 
@@ -8326,12 +8509,20 @@ msgid ""
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp {0} · modo consola"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Móvil"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "NIF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nada con «{0}»"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8367,11 +8558,27 @@ msgid "No encuentro curl"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No encuentro el archivo {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No encuentro el chat «{0}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No encuentro ese chat"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No había nada que corregir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay PIN: «pin» lo pone"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay chats"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8383,7 +8590,19 @@ msgid "No hay conexión con la IA"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay ningún chat abierto: «abrir <número o nombre>»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay respuestas propuestas: «sugerir»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No hay tareas. Cree una desde un chat con «+ Tarea» o con clic derecho sobre un mensaje."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay tareas: «tarea <texto>» crea una"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8460,6 +8679,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nuevo modo ocupado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_web.dart
+msgid "Número"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8588,6 +8811,10 @@ msgid "Pregunte sobre sus chats; con @nombre incluye esa conversación"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Pregúntele a la IA por sus chats con «asistente <pregunta>» (con @nombre incluye esa conversación). Por ejemplo:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Pregúntele lo que quiera sobre sus chats: qué tiene pendiente, qué hacer con alguien o cómo responder. Escriba abajo y pulse Enter."
 msgstr ""
 
@@ -8597,6 +8824,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Presupuesto enviado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Primero, «panel»"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8684,6 +8915,14 @@ msgid "Responde en (típico; media {0})"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Respuestas listas («respuesta <n>» la deja en el borrador de su chat):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Respuestas propuestas («usar <n>» la pasa al borrador):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Resúmeme lo más importante de hoy"
 msgstr ""
 
@@ -8717,6 +8956,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sin mensajes"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8797,6 +9040,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Tono de las respuestas: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8896,6 +9143,10 @@ msgid "chino"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "con clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "conectando…"
 msgstr ""
 
@@ -8948,6 +9199,10 @@ msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acce
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "no"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "portugués"
 msgstr ""
 
@@ -8960,11 +9215,23 @@ msgid "ruso"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "sin clave («claves»)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "sin conectar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "sin descargar en este equipo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "sí"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "sí (tras {0} min sin usarla)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8980,11 +9247,23 @@ msgid "{0} abiertos · {1} en juego · {2} ganados"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} chats"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} chats de {1} · IA: {2} · Envío: {3}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} chats por responder: «pendientes»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} hora local"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} mensajes nuevos («cuenta {1}» para verlos)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -9028,7 +9307,35 @@ msgid "¡Sí, está disponible! Podemos enviarla a Roma en una semana."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«crm <n>» cambia la etapa de un lead y «crm nuevo» crea uno (desde el chat abierto, enlazado a él)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«cuenta <n>» lo abre, «cuenta nueva» vincula otro número y «cuenta <n> menu» lo renombra o lo quita"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«hecha <n>» la marca, «tareas <n>» abre su chat y «borrartarea <n>» la borra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«panel 30»: los últimos 30 días · «analizar»: el análisis con IA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«{0}» no es una orden. Escriba «ayuda»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "«{0}» solo para {1}: si le escribe, se le contesta solo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Borrar el estado «{0}»?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Borrar la tarea «{0}»?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -9110,6 +9417,10 @@ msgid ""
 "• Laura y Carlos concentran casi un tercio de lo que recibe: son sus clientes clave.\n"
 "• Recomendación: dedique un bloque a las 10 y otro a las 18, sus horas punta.\n"
 "• Alerta: 4 chats por responder y 3 tareas pendientes; cierre hoy la entrega de Laura."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "… y {0} más: «chats todos» o «chats <nombre>»"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -17394,10 +17705,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_web.dart
 msgid "Nueva oportunidad"
-msgstr ""
-
-#: lib/code/tk_showcase_web.dart
-msgid "Número"
 msgstr ""
 
 #: lib/code/tk_showcase_web.dart

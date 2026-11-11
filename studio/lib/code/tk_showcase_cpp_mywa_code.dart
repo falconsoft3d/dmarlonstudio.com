@@ -12,10 +12,13 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <deque>
 #include <functional>
+#include <iostream>
 #include <map>
 #include <set>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
@@ -37,10 +40,13 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <FL/fl_ask.H>
 #include <FL/fl_draw.H>
 #include <FL/fl_utf8.h>
+#include <FL/platform.H>
 #ifdef _WIN32
 #include <windows.h>
+#include <shellapi.h>
 #else
 #include <dlfcn.h>
+#include <termios.h>
 #include <cerrno>
 #include <csignal>
 #include <fcntl.h>
@@ -49,6 +55,7 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <unistd.h>
 #endif
 #ifdef __APPLE__
+#include <crt_externs.h>
 #include <mach-o/dyld.h>
 #include <objc/message.h>
 #include <objc/runtime.h>
@@ -5764,7 +5771,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.32";
+const char* const MYWA_VERSION = "1.0.33";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -6087,6 +6094,272 @@ void remove() {}
 #endif
 }  // namespace bar
 
+// ============================================================ el modo consola (lo de la terminal)
+// MyWhatsapp --console: la misma app, en la terminal. Aquí, lo que no es de la app:
+// los argumentos, leer líneas en otro hilo, los colores y el código QR con caracteres.
+namespace con {
+std::vector<std::string> args() {
+  std::vector<std::string> out;
+#ifdef __APPLE__
+  int n = *_NSGetArgc();
+  char** v = *_NSGetArgv();
+  for (int i = 1; i < n; i++) out.push_back(v[i]);
+#elif defined(_WIN32)
+  for (int i = 1; i < __argc; i++)
+    if (__argv && __argv[i]) out.push_back(__argv[i]);
+#else
+  std::string data;
+  if (wa::read_file("/proc/self/cmdline", data)) {
+    auto parts = wa::split(data, '\0');
+    for (size_t i = 1; i < parts.size(); i++)
+      if (!parts[i].empty()) out.push_back(parts[i]);
+  }
+#endif
+  return out;
+}
+bool wanted() {
+  if (fl_getenv("DMS_MYWA_CONSOLE")) return true;
+  for (const auto& a : args())
+    if (a == "--console" || a == "--consola" || a == "-c") return true;
+  return false;
+}
+// Colores solo en una terminal de verdad (no al redirigir la salida a un archivo).
+bool& color() {
+  static bool c = false;
+  return c;
+}
+bool& echo_input() {   // la entrada viene de un archivo: se repite, para que se lea lo que pasó
+  static bool e = false;
+  return e;
+}
+std::string paint(const std::string& s, const char* code) { return color() ? std::string("\033[") + code + "m" + s + "\033[0m" : s; }
+void print(const std::string& s) {
+  std::fputs(s.c_str(), stdout);
+  std::fflush(stdout);
+}
+void setup() {
+#ifdef _WIN32
+  // La app es de ventanas: se le da su propia consola, en UTF-8.
+  if (!GetConsoleWindow()) AllocConsole();
+  std::freopen("CONOUT$", "w", stdout);
+  std::freopen("CONOUT$", "w", stderr);
+  std::freopen("CONIN$", "r", stdin);
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+  HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+  DWORD mode = 0;
+  if (GetConsoleMode(h, &mode) && SetConsoleMode(h, mode | 0x0004)) color() = true;   // ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#else
+  color() = isatty(1) && !fl_getenv("NO_COLOR");
+  echo_input() = !isatty(0);
+#endif
+}
+// Lo que se escribe no se ve (el PIN, las claves).
+void echo(bool on) {
+#ifdef _WIN32
+  HANDLE h = GetStdHandle(STD_INPUT_HANDLE);
+  DWORD mode = 0;
+  if (GetConsoleMode(h, &mode)) SetConsoleMode(h, on ? (mode | ENABLE_ECHO_INPUT) : (mode & ~(DWORD)ENABLE_ECHO_INPUT));
+#else
+  if (!isatty(0)) return;
+  struct termios t;
+  if (tcgetattr(0, &t) != 0) return;
+  if (on) t.c_lflag |= ECHO;
+  else t.c_lflag &= ~(tcflag_t)ECHO;
+  tcsetattr(0, TCSANOW, &t);
+#endif
+}
+// Un hilo lee las líneas; la app las recoge entre un evento y otro (el puente, la IA…).
+struct In {
+  std::mutex m;
+  std::deque<std::string> q;
+  bool eof = false;
+};
+In& in() {
+  static In i;
+  return i;
+}
+void start_reader() {
+  std::thread([] {
+    std::string l;
+    while (std::getline(std::cin, l)) {
+      if (!l.empty() && l.back() == '\r') l.pop_back();
+      {
+        std::lock_guard<std::mutex> g(in().m);
+        in().q.push_back(l);
+      }
+      Fl::awake();
+    }
+    {
+      std::lock_guard<std::mutex> g(in().m);
+      in().eof = true;
+    }
+    Fl::awake();
+  }).detach();
+}
+bool pop(std::string& out, bool& eof) {
+  std::lock_guard<std::mutex> g(in().m);
+  eof = in().eof && in().q.empty();
+  if (in().q.empty()) return false;
+  out = in().q.front();
+  in().q.pop_front();
+  return true;
+}
+// Sin la app en el Dock (la consola no tiene ventanas), y la terminal sigue delante.
+#ifdef __APPLE__
+id front_app() {
+  bar::Pool pool;
+  id ws = bar::msg(bar::cls("NSWorkspace"), "sharedWorkspace");
+  id a = ws ? bar::msg(ws, "frontmostApplication") : nullptr;
+  if (a) bar::msg(a, "retain");
+  return a;
+}
+#endif
+void open_display_hidden() {
+#ifdef __APPLE__
+  id front = front_app();
+  fl_open_display();
+  {
+    bar::Pool pool;
+    id app = bar::msg(bar::cls("NSApplication"), "sharedApplication");
+    bar::msg<void, long>(app, "setActivationPolicy:", 2L);   // NSApplicationActivationPolicyProhibited
+    if (front) {
+      bar::msg<BOOL, unsigned long>(front, "activateWithOptions:", 2UL);   // NSApplicationActivateIgnoringOtherApps
+      bar::msg<void>(front, "release");
+    }
+  }
+#else
+  fl_open_display();
+#endif
+}
+// Cuántos caracteres (no bytes) tiene un texto en UTF-8.
+size_t chars(const std::string& s) {
+  size_t n = 0;
+  for (unsigned char c : s)
+    if ((c & 0xC0) != 0x80) n++;
+  return n;
+}
+// En una línea y como mucho [n] caracteres (con … si se corta).
+std::string cut(const std::string& s0, size_t n) {
+  std::string s;
+  for (char c : s0) s += (c == '\n' || c == '\r' || c == '\t') ? ' ' : c;
+  if (chars(s) <= n) return s;
+  size_t k = 0, i = 0;
+  for (; i < s.size(); i++) {
+    if (((unsigned char)s[i] & 0xC0) != 0x80) {
+      if (k == n - 1) break;
+      k++;
+    }
+  }
+  return s.substr(0, i) + "…";
+}
+// Rellena con espacios hasta [n] caracteres.
+std::string pad(const std::string& s, size_t n) {
+  size_t k = chars(s);
+  return k >= n ? s : s + std::string(n - k, ' ');
+}
+// Un texto de varias líneas, sangrado.
+std::string indent(const std::string& s, const std::string& pre) {
+  std::string out;
+  for (const auto& l : wa::split(s, '\n')) out += pre + l + "\n";
+  if (!out.empty()) out.pop_back();
+  return out;
+}
+std::string lower(const std::string& s) { return wa::lower(s); }
+// «57», «#57» → 57; si no es un número, -1.
+int number(const std::string& s0) {
+  std::string s = wa::trim(s0);
+  if (!s.empty() && s[0] == '#') s = s.substr(1);
+  if (s.empty() || s.size() > 9) return -1;
+  for (char c : s)
+    if (!std::isdigit((unsigned char)c)) return -1;
+  return std::atoi(s.c_str());
+}
+// Una ruta escrita o arrastrada a la terminal: entre comillas, con «\ » o, si no, la más
+// larga que exista; [rest] es lo que queda detrás.
+std::string path_arg(const std::string& a0, std::string& rest) {
+  std::string a = wa::trim(a0);
+  rest.clear();
+  if (a.empty()) return "";
+  if (a[0] == '"' || a[0] == '\'') {
+    size_t e = a.find(a[0], 1);
+    if (e == std::string::npos) return a.substr(1);
+    rest = wa::trim(a.substr(e + 1));
+    return a.substr(1, e - 1);
+  }
+  std::string un;   // sin las barras de «Mi\ archivo.pdf»
+  std::vector<size_t> ends;   // dónde acaba cada palabra (en [un])
+  for (size_t i = 0; i < a.size(); i++) {
+    if (a[i] == '\\' && i + 1 < a.size()) {
+      un += a[++i];
+      continue;
+    }
+    if (a[i] == ' ') ends.push_back(un.size());
+    un += a[i];
+  }
+  ends.push_back(un.size());
+  for (size_t k = ends.size(); k-- > 0;) {
+    std::string p = un.substr(0, ends[k]);
+    if (wa::file_exists(p)) {
+      rest = wa::trim(un.substr(ends[k]));
+      return p;
+    }
+  }
+  size_t sp = un.find(' ');
+  if (sp == std::string::npos) return un;
+  rest = wa::trim(un.substr(sp + 1));
+  return un.substr(0, sp);
+}
+// El código QR del puente (un PNG), con medios bloques: dos filas de módulos por línea,
+// negro sobre blanco aunque la terminal sea oscura (si no, el teléfono no lo lee).
+std::string qr_text(const std::string& path) {
+  Fl_PNG_Image img(path.c_str());
+  if (img.w() <= 0 || img.h() <= 0 || img.count() < 1 || !img.data()[0]) return "";
+  int W = img.w(), H = img.h(), D = img.d(), LD = img.ld() ? img.ld() : W * D;
+  const unsigned char* px = (const unsigned char*)img.data()[0];
+  auto dark = [&](int x, int y) {
+    if (x < 0 || y < 0 || x >= W || y >= H) return false;
+    const unsigned char* q = px + (size_t)y * (size_t)LD + (size_t)x * (size_t)D;
+    if ((D == 2 || D == 4) && q[D - 1] < 128) return false;
+    int g = D >= 3 ? (q[0] + q[1] + q[2]) / 3 : q[0];
+    return g < 128;
+  };
+  int x0 = W, y0 = H, x1 = -1, y1 = -1;
+  for (int y = 0; y < H; y++)
+    for (int x = 0; x < W; x++)
+      if (dark(x, y)) {
+        x0 = std::min(x0, x);
+        y0 = std::min(y0, y);
+        x1 = std::max(x1, x);
+        y1 = std::max(y1, y);
+      }
+  if (x1 < 0) return "";
+  int run = 0;   // la esquina de arriba a la izquierda: 7 módulos negros seguidos
+  while (x0 + run <= x1 && dark(x0 + run, y0)) run++;
+  double m = run / 7.0;
+  if (m < 1) return "";
+  int n = (int)std::lround((x1 - x0 + 1) / m);
+  if (n < 21 || n > 177) return "";
+  const int q = 2, N = n + 2 * q;
+  auto at = [&](int r, int c) {
+    r -= q;
+    c -= q;
+    if (r < 0 || c < 0 || r >= n || c >= n) return false;
+    return dark(x0 + (int)((c + 0.5) * m), y0 + (int)((r + 0.5) * m));
+  };
+  std::string out;
+  for (int r = 0; r < N; r += 2) {
+    out += "  \033[30;47m";
+    for (int c = 0; c < N; c++) {
+      bool t = at(r, c), b = r + 1 < N && at(r + 1, c);
+      out += t && b ? "█" : t ? "▀" : b ? "▄" : " ";
+    }
+    out += "\033[0m\n";
+  }
+  return out;
+}
+}  // namespace con
+
 // ============================================================ la ventana
 struct AiDone {
   long long chat_id;
@@ -6270,6 +6543,7 @@ public:
     if (fl_getenv("DMS_MYWA_SELFTEST")) std::exit(wa::selftest());
     if (fl_getenv("DMS_MYWA_UITEST")) { set_fonts(); std::exit(ui_test()); }
     if (const char* d = fl_getenv("DMS_MYWA_SHOT")) { set_fonts(); std::exit(shots(d)); }
+    if (con::wanted()) { set_fonts(); std::exit(console_main()); }
   }
   static void set_fonts() {
 #ifdef _WIN32
@@ -6455,7 +6729,7 @@ public:
     if (!demo)
       for (int k = 1; k < (int)accounts.size(); k++)
         if (wa::file_exists(wa::account_dir(accounts[(size_t)k].id) + "/wabridge.db")) start_bridge_for(k);
-    if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
+    if (!console_mode && bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
     // Con PIN, la app se abre bloqueada.
     pin_saved = wa::key_get("pin");
     if (!pin_saved.empty()) lock_now();
@@ -6690,6 +6964,7 @@ public:
   }
 
   void say(const std::string& m) {
+    if (console_mode && !m.empty() && m != tx::ASSIST_HINT) con_print(con::paint("› " + m, "33"));
     message = m;
     message_until = wa::now_s() + 6;
     refresh();
@@ -6743,7 +7018,7 @@ public:
     // La primera vez: qué se manda y a quién.
     if (!warned && !demo) {
       std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
-      if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY, {who}).c_str())) return;
+      if (!ask_ok(wa::fmt(tx::PRIVACY, {who}))) return;
       warned = true;
       save_settings();
     }
@@ -7338,7 +7613,7 @@ public:
       if (key.empty()) return false;
     }
     std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
-    return fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY_BUSY_AI, {who}).c_str()) == 1;
+    return ask_ok(wa::fmt(tx::PRIVACY_BUSY_AI, {who}));
   }
 
   // ---- traducir
@@ -7469,7 +7744,7 @@ public:
       }
       if (mode.empty()) {
         std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
-        if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY_TRANSLATE, {who}).c_str())) return;
+        if (!ask_ok(wa::fmt(tx::PRIVACY_TRANSLATE, {who}))) return;
       }
     }
     langs[jid].first = now;
@@ -9082,7 +9357,8 @@ public:
     send_draft(ch.filename());
   }
   void connect_dialog() {
-    int r = fl_choice("%s", tx::BTN_CANCEL, tx::CONNECT_CLOUD, tx::CONNECT_QR, tx::CONNECT_ASK);
+    int r = console_mode ? (con_print(tx::CONNECT_ASK), con_choose({tx::CONNECT_CLOUD, tx::CONNECT_QR}) + 1)
+                         : fl_choice("%s", tx::BTN_CANCEL, tx::CONNECT_CLOUD, tx::CONNECT_QR, tx::CONNECT_ASK);
     if (r == 1) {
       std::vector<wa::FormField> fs = {{"phone", tx::F_CLOUD_PHONE, cloud.phone_id, 0, 2, {}},
                                        {"token", tx::F_CLOUD_TOKEN, "", 2, 2, {}}};
@@ -9103,7 +9379,7 @@ public:
       save_settings();
       say(tx::CLOUD_READY);
     } else if (r == 2) {
-      if (!fl_choice("%s", tx::BTN_CANCEL, tx::QR_ACCEPT, nullptr, tx::QR_RISK)) return;
+      if (!ask_ok(tx::QR_RISK, tx::QR_ACCEPT)) return;
       send_mode = wa::S_LINKED;
       save_settings();
       start_bridge();
@@ -9111,7 +9387,7 @@ public:
   }
   void disconnect() {
     if (send_mode == wa::S_NONE) return;
-    if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_DISCONNECT, nullptr, tx::DISCONNECT_ASK)) return;
+    if (!ask_ok(tx::DISCONNECT_ASK, tx::BTN_DISCONNECT)) return;
     if (send_mode == wa::S_LINKED && bridge->running()) bridge->send("{\"cmd\":\"logout\"}");
     if (send_mode == wa::S_CLOUD) {
       cloud.token.clear();
@@ -9141,6 +9417,13 @@ public:
   }
   // El código QR para vincular, en una ventanita aparte.
   void show_qr(const std::string& png) {
+    // En la consola, el código sale en la terminal (se renueva cada poco: el nuevo, arriba).
+    if (console_mode) {
+      std::string t = con::qr_text(png);
+      if (con::color()) con::print("\033[2J\033[H");
+      con_print(con::paint(tx::QR_TITLE, "1") + "\n" + tx::QR_HELP + "\n\n" + (t.empty() ? png : t));
+      return;
+    }
     if (!qr_win) {
       Fl_Group::current(nullptr);
       qr_win = new Fl_Double_Window(400, 500, tx::QR_TITLE);
@@ -9452,7 +9735,7 @@ public:
     }
     if (!warned) {
       std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
-      if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY, {who}).c_str())) return false;
+      if (!ask_ok(wa::fmt(tx::PRIVACY, {who}))) return false;
       warned = true;
       save_settings();
     }
@@ -9516,11 +9799,1083 @@ public:
     else if (item == tx::MP_SYSTEM) set_theme("system");
     else if (item == tx::MP_COLORS) colors_form();
     else if (item == tx::MP_ACCOUNT_ADD) add_account();
+    else if (item == tx::MP_CONSOLE) open_console();
     else if (item == tx::MP_BAR) close_clicked();
     else if (item == tx::MP_QUIT) {
       quit();
     } else if (item == tx::MP_HOW) fl_message("%s", tx::HOW_TEXT);
     else if (item == tx::MP_ABOUT) fl_message("%s", (std::string(tx::APP) + " " + MYWA_VERSION + "\n\n" + tx::ABOUT_TEXT).c_str());
+  }
+
+
+  // ============================================================ el modo consola
+  // MyWhatsapp --console: todo lo de la ventana, desde la terminal. La ventana no se abre:
+  // los chats, el puente, la IA, las tareas, el CRM… son los mismos, y lo que en la ventana
+  // es un diálogo (preguntar, una ficha, un menú) aquí se pregunta en la terminal.
+  bool console_mode = false;
+  bool con_quit = false;
+  bool con_accept = false;     // ask_text acepta lo que ya trae (la orden ya lo dijo)
+  bool con_prompt_on = false;  // la línea de la orden está a la vista (lo que llega va encima)
+  bool con_dash_wait = false, con_assist_busy = false;
+  std::string con_prompt_text;
+  std::vector<std::string> con_opts;   // lo último enseñado de cada cosa: solo se avisa de lo nuevo
+  size_t con_turns = 0;
+  std::string con_draft, con_busy, con_insight, con_dash_ai;
+  std::map<std::string, long long> con_seen;
+  std::vector<int> con_unread;
+  std::vector<std::string> con_replies;   // las respuestas listas del asistente
+
+  // ---- escribir y leer
+  void con_print(const std::string& s) {
+    if (con_prompt_on) con::print((con::color() ? "\r\033[K" : "\n") + s + "\n" + con_prompt_text);
+    else con::print(s + "\n");
+  }
+  bool con_read(const std::string& prompt, std::string& out) {
+    con_prompt_text = prompt;
+    con::print(prompt);
+    con_prompt_on = true;
+    bool eof = false;
+    while (!con::pop(out, eof)) {
+      if (eof) {
+        con_prompt_on = false;
+        con::print("\n");
+        return false;
+      }
+      Fl::wait(0.25);
+      con_watch();
+    }
+    con_prompt_on = false;
+    if (con::echo_input()) con::print(out + "\n");
+    last_touch = wa::now_s();
+    return true;
+  }
+  bool con_yes(const std::string& q) {
+    std::string a;
+    if (!con_read(q + " " + tx::CON_YES_NO + " ", a)) return false;
+    a = con::lower(wa::trim(a));
+    return !a.empty() && (a[0] == 's' || a[0] == 'y' || a == "sí" || a == "ok");
+  }
+  // Un texto: Enter deja el que había; «-» lo vacía; «!» cancela.
+  bool con_ask(const std::string& q, std::string& io) {
+    if (con_accept && !wa::trim(io).empty()) return true;
+    std::string label = wa::trim(q);
+    if (!label.empty() && label.back() == ':') label.pop_back();
+    std::string line;
+    std::string hint = io.empty() ? "" : " " + con::paint("[" + con::cut(io, 60) + "]", "2");
+    if (!con_read(con::paint("? ", "36") + label + hint + ": ", line)) return false;
+    std::string t = wa::trim(line);
+    if (t == "!") return false;
+    if (t == "-") io.clear();
+    else if (!t.empty()) io = line;
+    return true;
+  }
+  int con_choose(const std::vector<std::string>& items) {
+    if (items.empty()) return -1;
+    for (size_t k = 0; k < items.size(); k++) {
+      std::string it = items[k];
+      while (wa::starts(it, " ")) it = it.substr(1);
+      con_print("  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + it);
+    }
+    std::string a;
+    if (!con_read(std::string(tx::CON_CHOOSE) + " ", a)) return -1;
+    a = wa::trim(a);
+    int n = con::number(a);
+    if (n >= 1 && n <= (int)items.size()) return n - 1;
+    if (!a.empty() && n < 0)
+      for (size_t k = 0; k < items.size(); k++)
+        if (con::lower(items[k]).find(con::lower(a)) != std::string::npos) return (int)k;
+    return -1;
+  }
+  // Una ficha, campo a campo.
+  bool con_form(const std::string& title, std::vector<wa::FormField>& fs, const char*) {
+    con_print(con::paint("── " + title + " ──", "1"));
+    con_print(con::paint(tx::CON_FORM_HINT, "2"));
+    for (auto& f : fs) {
+      std::string label = f.label;
+      if (f.kind == 0) {
+        if (!con_ask(label, f.value)) return false;
+      } else if (f.kind == 1) {
+        con_print(con::paint("? ", "36") + label + " " + con::paint(tx::CON_MULTI, "2"));
+        if (!f.value.empty()) con_print(con::paint(con::indent(f.value, "  │ "), "2"));
+        std::string text, line;
+        bool first = true;
+        while (true) {
+          if (!con_read("  ", line)) return false;
+          std::string t = wa::trim(line);
+          if (first && t.empty()) break;   // se queda como estaba
+          if (first && t == "!") return false;
+          if (first && t == "-") {
+            text.clear();
+            f.value.clear();
+            break;
+          }
+          if (t == ".") {
+            f.value = text;
+            break;
+          }
+          text += (first ? "" : "\n") + line;
+          first = false;
+        }
+      } else if (f.kind == 2) {
+        std::string v;
+        con::echo(false);
+        bool ok = con_read(con::paint("? ", "36") + label + " " + con::paint(tx::CON_SECRET, "2") + ": ", v);
+        con::echo(true);
+        if (!con::echo_input()) con::print("\n");
+        if (!ok || wa::trim(v) == "!") return false;
+        if (!wa::trim(v).empty()) f.value = wa::trim(v);
+      } else if (f.kind == 3) {
+        con_print(con::paint("? ", "36") + label + (f.value.empty() ? "" : " " + con::paint("[" + f.value + "]", "2")));
+        int k = con_choose(f.options);
+        if (k >= 0) f.value = f.options[(size_t)k];
+      } else if (f.kind == 4) {
+        std::string a;
+        std::string now = f.value == "1" ? tx::CON_YES : tx::CON_NO;
+        if (!con_read(con::paint("? ", "36") + label + " " + tx::CON_YES_NO + " " + con::paint("[" + now + "]", "2") + ": ", a)) return false;
+        a = con::lower(wa::trim(a));
+        if (a == "!") return false;
+        if (!a.empty()) f.value = (a[0] == 's' || a[0] == 'y') ? "1" : "0";
+      }
+    }
+    return true;
+  }
+  bool ask_ok(const std::string& q, const char* ok = nullptr) {
+    if (console_mode) return con_yes(q);
+    return fl_choice("%s", tx::BTN_CANCEL, ok ? ok : tx::BTN_OK, nullptr, q.c_str()) == 1;
+  }
+
+  // ---- lo que llega mientras tanto: respuestas de la IA, mensajes nuevos, el borrador…
+  void con_sync() {
+    con_opts = options;
+    con_turns = view->assist.size();
+    con_assist_busy = view->assist_busy;
+    con_draft = Draft->value();
+    con_busy = view->busy;
+    con_insight = view->insight;
+    con_dash_ai = view->dash_ai;
+    con_seen.clear();
+    for (const auto& c : chats) con_seen[c.jid] = c.last_t;
+    con_unread.clear();
+    for (const auto& a : accounts) con_unread.push_back(a.unread);
+  }
+  void con_watch() {
+    if (view->busy != con_busy) {
+      con_busy = view->busy;
+      if (!con_busy.empty()) con_print(con::paint("⏳ " + con_busy, "33"));
+    }
+    if (options != con_opts) {
+      con_opts = options;
+      if (!options.empty()) con_show_options();
+    }
+    if (view->assist.size() != con_turns) {
+      for (size_t k = con_turns; k < view->assist.size(); k++)
+        if (!view->assist[k].user) con_show_answer(view->assist[k].text);
+      con_turns = view->assist.size();
+    }
+    if (view->assist_busy != con_assist_busy) {
+      con_assist_busy = view->assist_busy;
+      if (con_assist_busy) con_print(con::paint(tx::ASSIST_THINKING, "33"));
+    }
+    std::string d = Draft->value();
+    if (d != con_draft) {
+      con_draft = d;
+      if (!d.empty()) con_print(wa::fmt(tx::CON_DRAFT, {con::paint(d, "1")}) + "  " + con::paint(tx::CON_DRAFT_HINT, "2"));
+    }
+    if (view->insight != con_insight) {
+      con_insight = view->insight;
+      if (!con_insight.empty()) con_print(con::paint(view->insight_title, "1") + "\n" + con::indent(con_insight, "  "));
+    }
+    if (view->dash_ai != con_dash_ai) {
+      con_dash_ai = view->dash_ai;
+      if (!con_dash_ai.empty()) con_print(con::paint(tx::DASH_AI_TITLE, "1") + "\n" + con::indent(con_dash_ai, "  "));
+    }
+    if (con_dash_wait && !view->dash_busy) {
+      con_dash_wait = false;
+      con_show_dash();
+    }
+    // Los mensajes nuevos: de los chats de este número…
+    for (const auto& c : chats) {
+      auto it = con_seen.find(c.jid);
+      long long was = it == con_seen.end() ? 0 : it->second;
+      if (c.last_t > was) {
+        if (it != con_seen.end() && !c.last_mine)
+          con_print(con::paint("📩 " + c.name, "1;32") + ": " + con::cut(c.last, 100));
+        con_seen[c.jid] = c.last_t;
+      }
+    }
+    // …y de los otros números.
+    if (con_unread.size() != accounts.size()) con_unread.resize(accounts.size(), 0);
+    for (size_t k = 0; k < accounts.size(); k++) {
+      if (accounts[k].unread > con_unread[k])
+        con_print(con::paint("📩 " + accounts[k].name, "1;32") + ": " +
+                  wa::fmt(tx::CON_NEW_OTHER, {std::to_string(accounts[k].unread), std::to_string(k + 1)}));
+      con_unread[k] = accounts[k].unread;
+    }
+  }
+
+  // ---- enseñar
+  std::string con_prompt() {
+    std::string where = current >= 0 && current < (int)chats.size() ? chats[(size_t)current].name : std::string(tx::APP);
+    if (accounts.size() > 1) where = accounts[(size_t)account].name + " · " + where;
+    return con::paint(con::cut(where, 40) + " ›", "1;32") + " ";
+  }
+  std::string con_msg_line(const wa::Chat& c, size_t i) {
+    const wa::Msg& m = c.msgs[i];
+    std::string who = m.mine ? std::string(tx::ME) : (c.group && !m.who.empty() ? m.who : c.name);
+    std::string text = m.text.empty() || m.kind != wa::K_TEXT ? wa::preview_of(m) : m.text;
+    static const char* ticks[] = {"", "", " ✓", " ✓✓", " ✓✓"};
+    int tk = m.mine ? wa::tick_of(m.status) : 0;
+    std::string tick = tk == 4 ? con::paint(ticks[tk], "34") : ticks[tk];
+    std::string head = con::paint(con::pad("[" + std::to_string(i + 1) + "]", 6) + wa::clock_time(m.t), "2") + "  " +
+                       con::paint(who, m.mine ? "32" : "1;36") + ": ";
+    // Las líneas siguientes, sangradas debajo del texto.
+    std::string body;
+    auto lines = wa::split(text, '\n');
+    for (size_t k = 0; k < lines.size(); k++) body += (k ? "\n              " : "") + lines[k];
+    std::string out = head + body + tick;
+    if (!m.media.empty() && m.kind != wa::K_TEXT) out += con::paint("  📎", "2");
+    if (!m.trans.empty()) out += "\n              " + con::paint("🌐 " + m.trans, "2");
+    return out;
+  }
+  void con_show_messages(int n) {
+    if (current < 0) {
+      con_print(tx::CON_NO_CHAT);
+      return;
+    }
+    const wa::Chat& c = chats[(size_t)current];
+    size_t from = c.msgs.size() > (size_t)n ? c.msgs.size() - (size_t)n : 0;
+    if (from == 0 && view->more) from = 0;
+    if (from > 0 || view->more) con_print(con::paint(tx::CON_OLDER, "2"));
+    std::string day;
+    for (size_t i = from; i < c.msgs.size(); i++) {
+      const wa::Msg& m = c.msgs[i];
+      if (view->hidden_before && m.t && m.t < view->hidden_before) continue;
+      std::string d = wa::day_text(m.t);
+      if (d != day) {
+        day = d;
+        con_print(con::paint("──── " + d + " ────", "2"));
+      }
+      con_print(con_msg_line(c, i));
+    }
+    if (c.msgs.empty()) con_print(con::paint(tx::CON_NO_MESSAGES, "2"));
+  }
+  void con_show_header() {
+    if (current < 0) return;
+    const wa::Chat& c = chats[(size_t)current];
+    std::string h = con::paint(c.name, "1");
+    std::string phone = wa::phone_of(c.jid);
+    if (!phone.empty()) h += con::paint("  +" + phone, "2");
+    std::vector<std::string> chips;
+    for (const auto& l : view->chat_labels) chips.push_back("🏷 " + l.first);
+    if (!view->chat_stage.empty()) chips.push_back("💼 " + view->chat_stage);
+    if (!view->chat_busy.empty()) chips.push_back("🔕 " + view->chat_busy);
+    if (!view->chat_daily.empty()) chips.push_back("📅 " + view->chat_daily);
+    if (!lang_mode(c.jid).empty()) chips.push_back("🌐 " + (target_lang(c.jid).empty() ? std::string(tx::TRANS_AUTO) : target_lang(c.jid)));
+    for (const auto& s : chips) h += "  " + con::paint(s, "33");
+    con_print(h);
+  }
+  void con_show_options() {
+    con_print(con::paint(tx::CON_SUGGESTIONS, "1"));
+    for (size_t k = 0; k < options.size(); k++)
+      con_print("  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + con::indent(options[k], "     ").substr(5));
+  }
+  void con_show_answer(const std::string& text) {
+    auto sp = wa::split_replies(text);
+    con_print(con::paint("🤖", "1") + " " + con::indent(wa::trim(sp.first), "   ").substr(3));
+    for (const auto& r : sp.second) con_replies.push_back(r);
+    if (!sp.second.empty()) {
+      con_print(con::paint(tx::CON_REPLIES, "1"));
+      size_t base = con_replies.size() - sp.second.size();
+      for (size_t k = 0; k < sp.second.size(); k++)
+        con_print("  " + con::paint(std::to_string(base + k + 1) + ".", "36") + " " + sp.second[k]);
+    }
+  }
+  void con_list_chats(const std::vector<int>& rows, size_t limit) {
+    if (rows.empty()) {
+      con_print(tx::CON_NO_CHATS);
+      if (chats.empty() && !view->notice.empty()) con_print(con::paint(view->notice, "33"));
+      return;
+    }
+    size_t shown = 0;
+    for (int i : rows) {
+      if (shown++ >= limit) break;
+      const wa::Chat& c = chats[(size_t)i];
+      std::string num = con::paint(con::pad(std::to_string(i + 1) + ".", 5), "36");
+      std::string unread = c.unread ? con::paint(" (" + std::to_string(c.unread) + ")", "1;32") : "";
+      std::string when = wa::day_text(c.last_t) == wa::day_text(now_t()) ? wa::clock_time(c.last_t) : wa::day_text(c.last_t);
+      std::string last = (c.last_mine ? std::string(tx::ME) + ": " : "") + c.last;
+      con_print(num + con::paint(con::pad(con::cut(c.name, 24), 24), c.unread ? "1" : "0") + unread + "  " + con::paint(con::pad(when, 8), "2") +
+                " " + con::cut(last, 60));
+    }
+    if (rows.size() > limit) con_print(con::paint(wa::fmt(tx::CON_MORE_CHATS, {std::to_string(rows.size() - limit)}), "2"));
+  }
+  void con_show_tasks() {
+    if (tasks.empty()) {
+      con_print(tx::CON_NO_TASKS);
+      return;
+    }
+    long long t = wa::wall_s();
+    for (size_t k = 0; k < tasks.size(); k++) {
+      const wa::Task& x = tasks[k];
+      long long age = t - x.created;
+      std::string dot = x.done ? "✓" : age > 72 * 3600 ? con::paint("●", "31") : age > 24 * 3600 ? con::paint("●", "33") : con::paint("●", "32");
+      std::string line = "  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + dot + " " + (x.done ? con::paint(x.title, "2;9") : x.title);
+      if (!x.chat.empty()) line += con::paint("  · " + x.chat, "2");
+      con_print(line);
+    }
+    con_print(con::paint(tx::CON_TASKS_HINT, "2"));
+  }
+  void con_show_crm() {
+    if (leads.empty()) {
+      con_print(tx::CON_NO_LEADS);
+      con_print(con::paint(tx::CON_CRM_HINT, "2"));
+      return;
+    }
+    const char* names[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+    for (int s = 0; s < wa::CRM_STAGES; s++) {
+      bool any = false;
+      for (size_t k = 0; k < leads.size(); k++) {
+        if (leads[k].stage != s) continue;
+        if (!any) con_print(con::paint(names[s], "1"));
+        any = true;
+        const wa::Lead& l = leads[k];
+        con_print("  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + l.name + "  " + con::paint(wa::money(l.value), "32") +
+                  (l.chat.empty() ? "" : con::paint("  · " + l.chat, "2")));
+      }
+    }
+    con_print(con::paint(tx::CON_CRM_HINT, "2"));
+  }
+  void con_show_dash() {
+    const wa::Kpis& k = view->dash;
+    con_print(con::paint(tx::DASH_TITLE, "1") + "  " + con::paint(wa::fmt(tx::DASH_PERIOD, {std::to_string(k.days)}), "2"));
+    auto row = [&](const char* label, const std::string& v) { con_print("  " + con::pad(label, 40) + con::paint(v, "1")); };
+    if (k.ok) {
+      row(tx::DASH_RECV, std::to_string(k.recv));
+      row(tx::DASH_SENT, std::to_string(k.sent));
+      row(tx::DASH_ACTIVE, std::to_string(k.active));
+      char resp[64];
+      std::snprintf(resp, sizeof resp, "%.0f min", k.resp_median);
+      char avg[64];
+      std::snprintf(avg, sizeof avg, "%.0f min", k.resp_avg);
+      row(wa::fmt(tx::DASH_RESP, {avg}).c_str(), resp);
+    } else if (!k.error.empty()) {
+      con_print("  " + k.error);
+    } else {
+      con_print(con::paint(std::string("  ") + tx::DASH_NO_DATA, "2"));
+    }
+    row(tx::DASH_WAITING, std::to_string(view->dash_waiting));
+    row(tx::DASH_NOREPLY, std::to_string(view->dash_noreply));
+    row(tx::DASH_TASKS, std::to_string(view->dash_tasks));
+    row(tx::DASH_LEADS, std::to_string(view->dash_leads) + " · " + wa::money(view->dash_leads_value));
+    if (k.ok && !k.per_day.empty()) {
+      int top = 1;
+      for (const auto& d : k.per_day) top = std::max(top, std::max(d.second.first, d.second.second));
+      con_print(con::paint(tx::DASH_PER_DAY, "1") + con::paint(std::string("  ▇ ") + tx::DASH_RECV_SHORT, "36") +
+                con::paint(std::string("  ▇ ") + tx::DASH_SENT_SHORT, "32"));
+      for (const auto& d : k.per_day) {
+        int a = d.second.first * 30 / top, b = d.second.second * 30 / top;
+        std::string bar_a, bar_b;
+        for (int i = 0; i < a; i++) bar_a += "▇";
+        for (int i = 0; i < b; i++) bar_b += "▇";
+        std::string day = d.first.size() >= 10 ? d.first.substr(8, 2) + "/" + d.first.substr(5, 2) : d.first;
+        con_print("  " + con::paint(day, "2") + "  " + con::paint(bar_a, "36") + " " + std::to_string(d.second.first));
+        con_print("         " + con::paint(bar_b, "32") + " " + std::to_string(d.second.second));
+      }
+    }
+    if (k.ok && !k.top.empty()) {
+      con_print(con::paint(tx::DASH_TOP, "1"));
+      for (size_t i = 0; i < k.top.size() && i < 5; i++)
+        con_print("  " + con::pad(con::cut(k.top[i].first, 30), 32) + std::to_string(k.top[i].second));
+    }
+    con_print(con::paint(tx::CON_DASH_HINT, "2"));
+  }
+  void con_show_info() {
+    std::string where = from_db ? tx::SOURCE_DESKTOP : !store.empty() ? tx::SOURCE_LINKED : tx::SOURCE_EXPORT;
+    std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
+                       : send_mode == wa::S_LINKED ? (linked ? tx::MODE_LINKED : tx::MODE_LINKING)
+                                                   : tx::MODE_NONE;
+    bool key = !(ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key).empty();
+    auto row = [&](const char* label, const std::string& v) { con_print("  " + con::pad(label, 20) + v); };
+    con_print(con::paint(std::string(tx::APP) + " " + MYWA_VERSION, "1"));
+    row(tx::CON_I_ACCOUNT, accounts[(size_t)account].name + (accounts.size() > 1 ? " (" + std::to_string(account + 1) + "/" + std::to_string(accounts.size()) + ")" : ""));
+    row(tx::CON_I_CHATS, std::to_string(chats.size()) + " · " + where);
+    row(tx::CON_I_SEND, mode);
+    row(tx::CON_I_AI, std::string(ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE) + " · " + (key ? tx::CON_KEY_OK : tx::CON_KEY_NO));
+    row(tx::CON_I_BUSY, busy.empty() ? std::string(tx::CON_NO) : busy);
+    row(tx::CON_I_TASKS, std::to_string(wa::tasks_pending(tasks)));
+    row(tx::CON_I_LOCK, pin_saved.empty() ? std::string(tx::CON_NO) : wa::fmt(tx::CON_LOCK_AFTER, {std::to_string(lock_after)}));
+  }
+  void con_show_accounts() {
+    for (size_t k = 0; k < accounts.size(); k++) {
+      const Account& a = accounts[k];
+      std::string state = k == 0 ? (send_mode == wa::S_NONE && (int)k == account ? tx::MODE_NONE : "") : a.linked ? tx::MODE_LINKED : "";
+      con_print("  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + ((int)k == account ? con::paint(a.name, "1") + " ◀" : a.name) +
+                (a.unread ? con::paint(" (" + std::to_string(a.unread) + ")", "1;32") : "") + (state.empty() ? "" : con::paint("  · " + state, "2")));
+    }
+    con_print(con::paint(tx::CON_ACCOUNTS_HINT, "2"));
+  }
+
+  // ---- buscar
+  int con_find_chat(const std::string& a) {
+    int n = con::number(a);
+    if (n >= 1 && n <= (int)chats.size()) return n - 1;
+    std::string q = con::lower(wa::trim(a));
+    if (q.empty()) return -1;
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (con::lower(chats[(size_t)i].name) == q) return i;
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (con::lower(chats[(size_t)i].name).find(q) != std::string::npos) return i;
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (!wa::phone_of(chats[(size_t)i].jid).empty() && wa::phone_of(chats[(size_t)i].jid).find(q) != std::string::npos) return i;
+    return -1;
+  }
+  int con_msg_index(const std::string& a) {
+    if (current < 0) {
+      con_print(tx::CON_NO_CHAT);
+      return -1;
+    }
+    int n = con::number(a);
+    const wa::Chat& c = chats[(size_t)current];
+    if (wa::trim(a).empty()) {   // sin número: el último que le escribieron
+      for (int i = (int)c.msgs.size() - 1; i >= 0; i--)
+        if (!c.msgs[(size_t)i].mine) return i;
+    }
+    if (n < 1 || n > (int)c.msgs.size()) {
+      con_print(tx::CON_NEED_MSG);
+      return -1;
+    }
+    return n - 1;
+  }
+  void con_search(const std::string& q0) {
+    std::string q = con::lower(wa::trim(q0));
+    if (q.empty()) {
+      con_print(tx::CON_NEED_TEXT);
+      return;
+    }
+    if (current >= 0) {
+      // En todo el chat: se cargan los mensajes de antes.
+      msg_limit = std::max(msg_limit, 5000);
+      open_messages(current);
+      const wa::Chat& c = chats[(size_t)current];
+      int found = 0;
+      for (size_t i = 0; i < c.msgs.size(); i++) {
+        const wa::Msg& m = c.msgs[i];
+        if (con::lower(m.text + " " + m.title + " " + m.trans).find(q) == std::string::npos) continue;
+        if (!found) con_print(con::paint(wa::fmt(tx::CON_FOUND_IN, {c.name}), "1"));
+        found++;
+        con_print(con::paint(wa::day_text(m.t), "2") + " " + con_msg_line(c, i));
+      }
+      if (!found) con_print(wa::fmt(tx::CON_NOTHING, {q0}));
+      return;
+    }
+    // Sin chat abierto: en los nombres, en lo último de cada chat y en las tareas.
+    std::vector<int> rows;
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (con::lower(chats[(size_t)i].name + " " + chats[(size_t)i].last).find(q) != std::string::npos) rows.push_back(i);
+    if (!rows.empty()) con_list_chats(rows, 30);
+    int nt = 0;
+    for (size_t k = 0; k < tasks.size(); k++)
+      if (con::lower(tasks[k].title).find(q) != std::string::npos) {
+        if (!nt++) con_print(con::paint(tx::TASKS_TITLE, "1"));
+        con_print("  " + con::paint(std::to_string(k + 1) + ".", "36") + " " + tasks[k].title);
+      }
+    if (rows.empty() && !nt) con_print(wa::fmt(tx::CON_NOTHING, {q0}));
+  }
+
+  // ---- las órdenes
+  enum {
+    C_HELP = 1, C_CHATS, C_TODO, C_OPEN, C_READ, C_MORE, C_FIND, C_RELOAD, C_CLOSE,
+    C_WRITE, C_SEND, C_ATTACH, C_TEMPLATES, C_MSG, C_FORWARD, C_MEDIA,
+    C_SUGGEST, C_USE, C_TONE, C_IMPROVE, C_FIX, C_TRANSLATE, C_ASSIST, C_INVEST, C_REPLY, C_EVAL, C_PROVIDER, C_KEYS,
+    C_MENU, C_TASKS, C_TASK, C_DONE, C_DELTASK, C_CRM, C_DASH, C_ANALYZE, C_LABELS, C_BUSY, C_STATUS, C_CONTACT, C_DAILY,
+    C_CONNECT, C_DISCONNECT, C_ACCOUNTS, C_ACCOUNT, C_IMPORT, C_INFO, C_PIN, C_LOCK, C_NEWS, C_ABOUT, C_HOW, C_CLEAR, C_QUIT
+  };
+  static int con_command(const std::string& w) {
+    static const std::map<std::string, int> names = {
+        {"ayuda", C_HELP}, {"help", C_HELP}, {"?", C_HELP}, {"h", C_HELP},
+        {"chats", C_CHATS}, {"lista", C_CHATS}, {"list", C_CHATS}, {"ls", C_CHATS},
+        {"pendientes", C_TODO}, {"todo", C_TODO},
+        {"abrir", C_OPEN}, {"open", C_OPEN}, {"o", C_OPEN},
+        {"leer", C_READ}, {"read", C_READ}, {"r", C_READ},
+        {"mas", C_MORE}, {"más", C_MORE}, {"more", C_MORE},
+        {"buscar", C_FIND}, {"search", C_FIND}, {"find", C_FIND},
+        {"actualizar", C_RELOAD}, {"reload", C_RELOAD},
+        {"cerrar", C_CLOSE}, {"close", C_CLOSE},
+        {"escribir", C_WRITE}, {"write", C_WRITE}, {"borrador", C_WRITE}, {"draft", C_WRITE},
+        {"enviar", C_SEND}, {"send", C_SEND}, {"s", C_SEND},
+        {"adjuntar", C_ATTACH}, {"attach", C_ATTACH},
+        {"plantillas", C_TEMPLATES}, {"templates", C_TEMPLATES},
+        {"mensaje", C_MSG}, {"message", C_MSG}, {"msg", C_MSG},
+        {"reenviar", C_FORWARD}, {"forward", C_FORWARD},
+        {"archivo", C_MEDIA}, {"media", C_MEDIA}, {"file", C_MEDIA},
+        {"sugerir", C_SUGGEST}, {"suggest", C_SUGGEST}, {"ia", C_SUGGEST}, {"ai", C_SUGGEST},
+        {"usar", C_USE}, {"use", C_USE},
+        {"tono", C_TONE}, {"tone", C_TONE},
+        {"mejorar", C_IMPROVE}, {"improve", C_IMPROVE},
+        {"corregir", C_FIX}, {"fix", C_FIX},
+        {"traducir", C_TRANSLATE}, {"translate", C_TRANSLATE},
+        {"asistente", C_ASSIST}, {"assistant", C_ASSIST}, {"a", C_ASSIST},
+        {"investigar", C_INVEST}, {"investigate", C_INVEST},
+        {"respuesta", C_REPLY}, {"reply", C_REPLY},
+        {"valorar", C_EVAL}, {"evaluate", C_EVAL},
+        {"proveedor", C_PROVIDER}, {"provider", C_PROVIDER},
+        {"claves", C_KEYS}, {"keys", C_KEYS},
+        {"menu", C_MENU}, {"menú", C_MENU},
+        {"tareas", C_TASKS}, {"tasks", C_TASKS},
+        {"tarea", C_TASK}, {"task", C_TASK},
+        {"hecha", C_DONE}, {"done", C_DONE},
+        {"borrartarea", C_DELTASK}, {"deltask", C_DELTASK},
+        {"crm", C_CRM},
+        {"panel", C_DASH}, {"dash", C_DASH}, {"kpi", C_DASH},
+        {"analizar", C_ANALYZE}, {"analyze", C_ANALYZE},
+        {"etiquetas", C_LABELS}, {"labels", C_LABELS},
+        {"ocupado", C_BUSY}, {"busy", C_BUSY},
+        {"estados", C_STATUS}, {"status", C_STATUS},
+        {"ficha", C_CONTACT}, {"contact", C_CONTACT},
+        {"diario", C_DAILY}, {"daily", C_DAILY},
+        {"conectar", C_CONNECT}, {"connect", C_CONNECT},
+        {"desconectar", C_DISCONNECT}, {"disconnect", C_DISCONNECT},
+        {"cuentas", C_ACCOUNTS}, {"accounts", C_ACCOUNTS},
+        {"cuenta", C_ACCOUNT}, {"account", C_ACCOUNT},
+        {"importar", C_IMPORT}, {"import", C_IMPORT},
+        {"info", C_INFO},
+        {"pin", C_PIN},
+        {"bloquear", C_LOCK}, {"lock", C_LOCK},
+        {"novedades", C_NEWS}, {"news", C_NEWS},
+        {"acerca", C_ABOUT}, {"about", C_ABOUT},
+        {"como", C_HOW}, {"cómo", C_HOW}, {"how", C_HOW},
+        {"limpiar", C_CLEAR}, {"clear", C_CLEAR}, {"cls", C_CLEAR},
+        {"salir", C_QUIT}, {"quit", C_QUIT}, {"exit", C_QUIT}, {"q", C_QUIT},
+    };
+    auto it = names.find(wa::lower(w));
+    return it == names.end() ? 0 : it->second;
+  }
+  static bool con_is(const std::string& a, std::initializer_list<const char*> words) {
+    std::string l = wa::lower(wa::trim(a));
+    for (const char* w : words)
+      if (l == w) return true;
+    return false;
+  }
+  bool con_need_chat() {
+    if (current >= 0) return true;
+    con_print(tx::CON_NO_CHAT);
+    return false;
+  }
+  void con_exec(const std::string& line) {
+    std::string l = wa::trim(line);
+    if (l.empty()) return;
+    size_t sp = l.find(' ');
+    std::string w = sp == std::string::npos ? l : l.substr(0, sp);
+    std::string a = sp == std::string::npos ? "" : wa::trim(l.substr(sp + 1));
+    int cmd = con_command(w);
+    if (!cmd) {
+      con_print(wa::fmt(tx::CON_UNKNOWN, {w}));
+      return;
+    }
+    switch (cmd) {
+      case C_HELP:
+        con_print(tx::CON_HELP);
+        break;
+      case C_CHATS: {
+        std::vector<int> rows;
+        bool all = con_is(a, {"todos", "all", "archivados", "archived"});
+        for (int i = 0; i < (int)chats.size(); i++) {
+          const wa::Chat& c = chats[(size_t)i];
+          if (!a.empty() && !all && con::lower(c.name).find(con::lower(a)) == std::string::npos) continue;
+          if (a.empty() && c.archived) continue;
+          rows.push_back(i);
+        }
+        con_list_chats(rows, all || !a.empty() ? 1000 : 25);
+        break;
+      }
+      case C_TODO: {
+        auto rows = wa::to_answer(chats, now_t());
+        if (rows.empty()) con_print(tx::CON_NOTHING_TODO);
+        else con_list_chats(rows, 100);
+        break;
+      }
+      case C_OPEN: {
+        int i = con_find_chat(a);
+        if (i < 0) {
+          con_print(a.empty() ? std::string(tx::CON_NEED_CHAT) : wa::fmt(tx::CON_NOT_FOUND, {a}));
+          break;
+        }
+        pick(i);
+        con_sync();
+        con_show_header();
+        con_show_messages(15);
+        break;
+      }
+      case C_READ: {
+        int n = con::number(a);
+        con_show_messages(n > 0 ? n : 20);
+        break;
+      }
+      case C_MORE:
+        if (!con_need_chat()) break;
+        msg_limit += 60;
+        open_messages(current);
+        con_show_messages(msg_limit);
+        break;
+      case C_FIND:
+        con_search(a);
+        break;
+      case C_RELOAD:
+        reload();
+        con_print(wa::fmt(tx::CON_RELOADED, {std::to_string(chats.size())}));
+        break;
+      case C_CLOSE:
+        current = -1;
+        view->chat = nullptr;
+        list->selected = -1;
+        break;
+      case C_WRITE:
+        if (a.empty()) {
+          con_print(*Draft->value() ? wa::fmt(tx::CON_DRAFT, {Draft->value()}) : std::string(tx::CON_DRAFT_EMPTY));
+          break;
+        }
+        Draft->value(con_is(a, {"-"}) ? "" : a.c_str());
+        con_draft = Draft->value();
+        break;
+      case C_SEND:
+        if (!con_need_chat()) break;
+        if (!a.empty()) Draft->value(a.c_str());
+        con_draft = Draft->value();
+        send_draft("");
+        con_draft = Draft->value();
+        break;
+      case C_ATTACH: {
+        if (!con_need_chat()) break;
+        std::string rest, p = con::path_arg(a, rest);
+        if (p.empty() || !wa::file_exists(p)) {
+          con_print(p.empty() ? std::string(tx::CON_NEED_PATH) : wa::fmt(tx::CON_NO_FILE, {p}));
+          break;
+        }
+        if (!rest.empty()) Draft->value(rest.c_str());
+        con_draft = Draft->value();
+        send_draft(p);
+        con_draft = Draft->value();
+        break;
+      }
+      case C_TEMPLATES:
+        templates_menu();
+        break;
+      case C_MSG: {
+        int i = con_msg_index(a);
+        if (i >= 0) bubble_menu(i);
+        break;
+      }
+      case C_FORWARD: {
+        int i = con_msg_index(a);
+        if (i >= 0) forward(i);
+        break;
+      }
+      case C_MEDIA: {
+        int i = con_msg_index(a);
+        if (i < 0) break;
+        const wa::Msg& m = chats[(size_t)current].msgs[(size_t)i];
+        if (m.media.empty() || wa::starts(m.media, "demo:")) {
+          con_print(tx::CON_NO_MEDIA);
+          break;
+        }
+        con_print(m.media + con::paint("  " + wa::size_text(m.size), "2"));
+        int r = con_choose({tx::CON_MEDIA_OPEN, tx::CON_MEDIA_SAVE});
+        if (r == 0) open_file(m.media);
+        else if (r == 1) {
+          view->viewer = m.media;
+          viewer_act(30);
+          view->viewer.clear();
+        }
+        break;
+      }
+      case C_SUGGEST:
+        if (!con_need_chat()) break;
+        Intent->value(a.c_str());
+        ask_ai();
+        break;
+      case C_USE: {
+        int n = con::number(a);
+        if (options.empty()) {
+          con_print(tx::CON_NO_OPTIONS);
+          break;
+        }
+        if (n < 1 || n > (int)options.size()) n = 1;
+        Draft->value(options[(size_t)n - 1].c_str());
+        break;
+      }
+      case C_TONE: {
+        const char* tones[] = {tx::TONE_NATURAL, tx::TONE_FORMAL, tx::TONE_SHORT, tx::TONE_WARM, tx::TONE_BUSINESS};
+        std::vector<std::string> items;
+        for (int k = 0; k < 5; k++) items.push_back((Tone->index() == k ? "✓ " : "    ") + std::string(tones[k]));
+        int n = con::number(a);
+        int r = n >= 1 && n <= (int)items.size() ? n - 1 : con_choose(items);
+        if (r >= 0) {
+          Tone->index(r);
+          con_print(wa::fmt(tx::CON_TONE_NOW, {tones[r]}));
+        }
+        break;
+      }
+      case C_IMPROVE:
+        if (!a.empty()) Draft->value(a.c_str());
+        con_draft = Draft->value();
+        draft_ai(false);
+        break;
+      case C_FIX:
+        if (!a.empty()) Draft->value(a.c_str());
+        con_draft = Draft->value();
+        draft_ai(true);
+        break;
+      case C_TRANSLATE:
+        if (con_need_chat()) translate_menu();
+        break;
+      case C_ASSIST:
+        if (con_is(a, {"nuevo", "nueva", "new", "-"})) {
+          assist_act(82, 0);
+          con_replies.clear();
+          con_turns = 0;
+          con_print(tx::ASSIST_NEW);
+        } else if (a.empty()) {
+          if (view->assist.empty()) {
+            con_print(tx::CON_ASSIST_EMPTY);
+            for (const char* ex : {tx::ASSIST_EX1, tx::ASSIST_EX2, tx::ASSIST_EX3}) con_print("  " + con::paint(std::string("asistente ") + ex, "2"));
+          }
+          for (const auto& t : view->assist)
+            con_print(t.user ? con::paint("› " + t.text, "1") : con::indent(wa::split_replies(t.text).first, "  "));
+        } else {
+          assistant_ask(a);
+        }
+        break;
+      case C_INVEST: {
+        int i = con_msg_index(a);
+        if (i < 0) break;
+        int keep = current;
+        con_replies.clear();
+        assist_from_message(i);
+        pick(keep);
+        con_sync();
+        con_turns = 0;   // la respuesta, cuando llegue, se enseña
+        break;
+      }
+      case C_REPLY: {
+        int n = con::number(a);
+        if (con_replies.empty()) {
+          con_print(tx::CON_NO_REPLIES);
+          break;
+        }
+        if (n < 1 || n > (int)con_replies.size()) n = (int)con_replies.size();
+        view->assist_replies = con_replies;
+        assist_act(81, n - 1);
+        con_show_header();
+        break;
+      }
+      case C_EVAL:
+        if (con_need_chat()) evaluate_person();
+        break;
+      case C_PROVIDER: {
+        int r = con_choose({(ai.provider == 0 ? "✓ " : "    ") + std::string(tx::P_CLAUDE), (ai.provider == 1 ? "✓ " : "    ") + std::string(tx::P_OPENAI)});
+        if (r >= 0) {
+          Provider->index(r);
+          ai.provider = r;
+          save_settings();
+          con_print(wa::fmt(tx::CON_AI_NOW, {r ? tx::P_OPENAI : tx::P_CLAUDE}));
+        }
+        break;
+      }
+      case C_KEYS:
+        settings_dialog();
+        break;
+      case C_MENU:
+        if (con_need_chat()) chat_menu();
+        break;
+      case C_TASKS: {
+        int n = con::number(a);
+        if (n >= 1 && n <= (int)tasks.size()) {
+          task_act(11, n - 1);
+          if (current >= 0) {
+            con_sync();
+            con_show_header();
+            con_show_messages(15);
+          }
+        } else con_show_tasks();
+        break;
+      }
+      case C_TASK:
+        if (a.empty() && current >= 0) task_from_chat(-1);
+        else {
+          con_accept = true;
+          add_task(a, current);
+          con_accept = false;
+        }
+        break;
+      case C_DONE: {
+        int n = con::number(a);
+        if (n < 1 || n > (int)tasks.size()) {
+          con_print(tx::CON_NEED_TASK);
+          break;
+        }
+        task_act(10, n - 1);
+        con_print((tasks[(size_t)n - 1].done ? "✓ " : "○ ") + tasks[(size_t)n - 1].title);
+        break;
+      }
+      case C_DELTASK: {
+        int n = con::number(a);
+        if (n < 1 || n > (int)tasks.size()) {
+          con_print(tx::CON_NEED_TASK);
+          break;
+        }
+        if (con_yes(wa::fmt(tx::CON_DELETE_TASK, {tasks[(size_t)n - 1].title}))) task_act(12, n - 1);
+        break;
+      }
+      case C_CRM: {
+        int n = con::number(a);
+        if (con_is(a, {"nuevo", "new", "+"})) new_lead(current);
+        else if (n >= 1 && n <= (int)leads.size()) stage_menu(n - 1);
+        else con_show_crm();
+        break;
+      }
+      case C_DASH: {
+        int keep = current;
+        open_dash(con::number(a) == 30 ? 30 : 7);
+        if (keep >= 0) {
+          pick(keep);
+          con_sync();
+        }
+        if (view->dash_busy) {
+          con_dash_wait = true;
+          con_print(con::paint(std::string("⏳ ") + tx::DASH_COMPUTING, "33"));
+        } else con_show_dash();
+        break;
+      }
+      case C_ANALYZE:
+        if (!view->dash.ok) con_print(tx::CON_DASH_FIRST);
+        else dash_analyze();
+        break;
+      case C_LABELS:
+        if (con_need_chat()) labels_menu();
+        break;
+      case C_BUSY:
+        busy_menu();
+        break;
+      case C_STATUS:
+        con_status();
+        break;
+      case C_CONTACT:
+        if (con_need_chat()) add_contact();
+        break;
+      case C_DAILY:
+        if (con_need_chat()) daily_form();
+        break;
+      case C_CONNECT:
+        connect_dialog();
+        break;
+      case C_DISCONNECT:
+        disconnect();
+        break;
+      case C_ACCOUNTS:
+        con_show_accounts();
+        break;
+      case C_ACCOUNT: {
+        std::string rest;
+        size_t s2 = a.find(' ');
+        std::string first = s2 == std::string::npos ? a : a.substr(0, s2);
+        rest = s2 == std::string::npos ? "" : wa::trim(a.substr(s2 + 1));
+        int n = con::number(first);
+        if (con_is(first, {"nueva", "nuevo", "new", "+"})) add_account();
+        else if (n >= 1 && n <= (int)accounts.size() && !rest.empty()) account_menu(n - 1);
+        else if (n >= 1 && n <= (int)accounts.size()) {
+          switch_account(n - 1);
+          con_sync();
+        } else con_show_accounts();
+        break;
+      }
+      case C_IMPORT: {
+        std::string rest, p = con::path_arg(a, rest), data;
+        if (p.empty() || !wa::read_file(p, data)) {
+          con_print(p.empty() ? std::string(tx::CON_NEED_PATH) : wa::fmt(tx::CON_NO_FILE, {p}));
+          break;
+        }
+        std::string name = wa::export_name(p);
+        wa::Chat c = wa::parse_export(data, name, "");
+        if (c.msgs.empty()) {
+          say(tx::IMPORT_EMPTY);
+          break;
+        }
+        c.id = -(long long)(chats.size() + 1);
+        chats.insert(chats.begin(), c);
+        pick(0);
+        con_sync();
+        say(wa::fmt(tx::IMPORTED, {name, std::to_string(c.msgs.size())}));
+        break;
+      }
+      case C_INFO:
+        con_show_info();
+        break;
+      case C_PIN:
+        pin_menu();
+        break;
+      case C_LOCK:
+        if (pin_saved.empty()) con_print(tx::CON_NO_PIN);
+        else lock_now();
+        break;
+      case C_NEWS:
+        con_print(con::paint(std::string(tx::APP) + " " + MYWA_VERSION, "1") + "\n" + tx::WHATS_NEW);
+        break;
+      case C_ABOUT:
+        con_print(con::paint(std::string(tx::APP) + " " + MYWA_VERSION, "1") + "\n" + tx::ABOUT_TEXT);
+        break;
+      case C_HOW:
+        con_print(tx::HOW_TEXT);
+        break;
+      case C_CLEAR:
+        if (con::color()) con::print("\033[2J\033[H");
+        break;
+      case C_QUIT:
+        con_quit = true;
+        break;
+    }
+  }
+  // Los estados: elegir uno (o crearlo) y qué hacer con él.
+  void con_status() {
+    std::vector<std::string> items;
+    for (const auto& d : designs) items.push_back((d.emoji.empty() ? "" : d.emoji + " ") + d.title + con::paint("  · " + con::cut(d.body, 40), "2"));
+    size_t n = designs.size();
+    items.push_back(tx::STATUS_NEW);
+    items.push_back(tx::STATUS_AI);
+    if (designs.empty()) con_print(tx::CON_NO_STATUS);
+    int r = con_choose(items);
+    if (r < 0) return;
+    if (r == (int)n) {
+      new_design();
+      save_designs();
+    } else if (r == (int)n + 1) {
+      status_act(48, 0);
+      return;
+    } else {
+      view->design = r;
+    }
+    wa::StatusDesign* d = design();
+    if (!d) return;
+    con_print(con::paint((d->emoji.empty() ? "" : d->emoji + " ") + d->title, "1") + "\n" + con::indent(d->body, "  ") +
+              (d->footer.empty() ? "" : "\n  " + con::paint(d->footer, "2")));
+    std::vector<std::string> acts = {tx::CON_ST_TEXTS, tx::CON_ST_TEMPLATE, tx::STATUS_F_PHOTO, tx::STATUS_F_NO_PHOTO,
+                                     tx::STATUS_SAVE_IMAGE, tx::STATUS_PUBLISH, tx::CON_ST_DELETE};
+    int k = con_choose(acts);
+    if (k == 0) status_act(41, 0);
+    else if (k == 1) {
+      std::vector<std::string> tpls = wa::split(tx::STATUS_TPL_LIST, ',');
+      int t = con_choose(tpls);
+      if (t >= 0) status_act(40, t);
+    } else if (k == 2) status_act(45, 0);
+    else if (k == 3) status_act(46, 0);
+    else if (k == 4) status_act(49, 0);
+    else if (k == 5) status_act(50, 0);
+    else if (k == 6 && con_yes(wa::fmt(tx::CON_ST_DELETE_Q, {d->title}))) status_act(52, view->design);
+  }
+
+  int console_main() {
+    console_mode = true;
+    con::setup();
+    // Lo que en la ventana son diálogos, aquí se pregunta en la terminal.
+    confirm = [this](const std::string& q) { return con_yes(q); };
+    ask_text = [this](const char* q, std::string& io) { return con_ask(q, io); };
+    choose = [this](const std::vector<std::string>& items) { return con_choose(items); };
+    form = [this](const std::string& t, std::vector<wa::FormField>& fs, const char* ok) { return con_form(t, fs, ok); };
+    choose_photo = [this] {
+      std::string p;
+      if (!con_ask(tx::CON_PHOTO_PATH, p)) return std::string();
+      std::string rest;
+      p = con::path_arg(p, rest);
+      if (!wa::file_exists(p)) {
+        con_print(wa::fmt(tx::CON_NO_FILE, {p}));
+        return std::string();
+      }
+      return p;
+    };
+    save_as = [this](const std::string& name) {
+      const char* h = fl_getenv("HOME");
+      std::string p = std::string(h ? h : ".") + "/Downloads/" + name;
+      if (!con_ask(tx::CON_SAVE_TO, p)) return std::string();
+      std::string rest;
+      return con::path_arg(p, rest);
+    };
+    // Las pruebas: los chats de ejemplo (nunca los de verdad) y sin red.
+    bool demo_run = fl_getenv("DMS_MYWA_CONSOLE_DEMO") != nullptr;
+    con::open_display_hidden();
+    if (demo_run) {
+      Fl::lock();
+      demo_state(1200, 760);
+      current = -1;
+      view->chat = nullptr;
+    } else {
+      created();   // como al abrir la ventana: los ajustes, los chats, el puente…
+    }
+    con::start_reader();
+    con_sync();
+    con_print(con::paint(wa::fmt(tx::CON_WELCOME, {MYWA_VERSION}), "1"));
+    con_print(con::paint(tx::CON_WELCOME_HINT, "2"));
+    if (!view->notice.empty()) con_print(con::paint(view->notice, "33"));
+    {
+      auto todo = wa::to_answer(chats, now_t());
+      if (!todo.empty()) con_print(wa::fmt(tx::CON_TODO_N, {std::to_string(todo.size())}));
+    }
+    while (!con_quit) {
+      while (locked && !con_quit) {
+        std::string v;
+        con::echo(false);
+        bool ok = con_read("🔒 " + std::string(tx::CON_PIN) + ": ", v);
+        con::echo(true);
+        if (!con::echo_input()) con::print("\n");
+        if (!ok) con_quit = true;
+        else {
+          try_pin(wa::trim(v));
+          if (locked) con_print(tx::PIN_WRONG);
+        }
+      }
+      if (con_quit) break;
+      std::string l;
+      if (!con_read(con_prompt(), l)) break;
+      con_exec(l);
+      con_watch();
+    }
+    con_print(tx::CON_BYE);
+    save_settings();
+    for (auto& kv : bridges) kv.second->stop();
+    return 0;
+  }
+  // Archivo › Abrir el modo consola: una terminal con MyWhatsapp --console.
+  void open_console() {
+    std::string exe = wa::exe_dir();
+#ifdef _WIN32
+    char self_path[MAX_PATH];
+    DWORD n = GetModuleFileNameA(nullptr, self_path, MAX_PATH);
+    std::string self(self_path, n);
+    ShellExecuteA(nullptr, "open", self.c_str(), "--console", nullptr, SW_SHOWNORMAL);
+#else
+    char buf[4096];
+    std::string self;
+#ifdef __APPLE__
+    uint32_t size = sizeof buf;
+    if (_NSGetExecutablePath(buf, &size) == 0) self = buf;
+    fl_make_path(wa::config_dir().c_str());
+    std::string cmd = wa::config_dir() + "/MyWhatsapp-consola.command";
+    std::string q = self;
+    for (size_t p = q.find('\''); p != std::string::npos; p = q.find('\'', p + 4)) q.replace(p, 1, "'\\''");
+    wa::write_file(cmd, "#!/bin/sh\nclear\nexec '" + q + "' --console\n");
+    chmod(cmd.c_str(), 0700);
+    std::string url = "file://";
+    for (char c : cmd) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
+    fl_open_uri(url.c_str());
+#else
+    ssize_t n = readlink("/proc/self/exe", buf, sizeof buf - 1);
+    if (n > 0) self.assign(buf, (size_t)n);
+    if (fork() == 0) {
+      execlp("x-terminal-emulator", "x-terminal-emulator", "-e", self.c_str(), "--console", (char*)nullptr);
+      _exit(127);
+    }
+#endif
+#endif
+    (void)exe;
+    say(tx::CON_OPENED);
   }
 
   // ---- capturas y pruebas sin ventana

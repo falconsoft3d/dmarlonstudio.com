@@ -480,6 +480,22 @@ void apply_colors(const std::string& accent, const std::string& chat, const std:
   t.chat = t.dark ? c.dark : c.light;
 }`;
 
+const mywaConsole = `// MyWhatsapp --console: la misma app, sin abrir la ventana. Los diálogos se cambian por preguntas en la terminal…
+confirm = [this](const std::string& q) { return con_yes(q); };
+ask_text = [this](const char* q, std::string& io) { return con_ask(q, io); };
+choose = [this](const std::vector<std::string>& items) { return con_choose(items); };
+form = [this](const std::string& t, std::vector<wa::FormField>& fs, const char* ok) { return con_form(t, fs, ok); };
+created();   // como al abrir la ventana: los ajustes, los chats, el puente…
+con::start_reader();   // un hilo lee las líneas; la app sigue atendiendo al puente y a la IA
+while (!con_quit) {
+  std::string l;
+  if (!con_read(con_prompt(), l)) break;   // mientras espera: Fl::wait(0.25) y con_watch()
+  con_exec(l);
+}
+
+// El código QR del puente, con medios bloques: dos filas de módulos por línea.
+out += t && b ? "█" : t ? "▀" : b ? "▄" : " ";`;
+
 const mywaAccounts = `// Lo que llega de un puente: el del número que se ve, como siempre; el de otro, se cuenta en su pestaña.
 void on_bridge_from(const std::string& id, const std::string& line) {
   int k = account_index(id);
@@ -1189,6 +1205,11 @@ const es: Record<string, DemoMade> = {
         text: "Cada número tiene su carpeta (la principal, la de siempre; los demás, cuentas/<id>) con su sesión de WhatsApp, sus mensajes, sus tareas, su CRM, sus fichas y sus etiquetas. Cada uno lleva su propio puente, todos a la vez: la clase Bridge ya no es única, cada puente guarda un número de generación distinto y sus líneas llegan a la ventana con el número del que vienen. Las del número que se ve siguen el camino de siempre; las de otro solo suman en su pestaña. Al cambiar de pestaña se cargan los datos de ese número; WhatsApp Desktop y el panel de cifras son del principal. Un candado del sistema impide dos puentes con la misma cuenta.",
         code: { file: "Form1.cpp", text: mywaAccounts },
       },
+      {
+        title: "16. El modo consola",
+        text: "Archivo › Abrir el modo consola abre la Terminal con MyWhatsapp --console: la misma app, con todo, pero sin ventana. Se arranca igual que la ventana (los ajustes, los chats, los puentes de cada número) y lo que en la ventana es un diálogo se cambia por una pregunta en la terminal: confirmar, una ficha campo a campo, un menú numerado. Un hilo lee las órdenes (abrir, leer, enviar, sugerir, asistente, tareas, crm, panel, estados, cuentas…, en español o en inglés) y, mientras espera, la app sigue atendiendo al puente y a la IA: lo que llega (un mensaje nuevo, las respuestas propuestas, la del asistente) sale encima de la línea de la orden. El código QR para vincular se dibuja en la terminal con medios bloques, en negro sobre blanco. La prueba le pasa una lista de órdenes con los chats de ejemplo.",
+        code: { file: "Form1.cpp", text: mywaConsole },
+      },
     ],
   },
   cpp_minilang: {
@@ -1734,6 +1755,11 @@ const en: Record<string, DemoMade> = {
         title: "15. Several numbers in tabs",
         text: "Each number has its own folder (the main one, the usual one; the others, cuentas/<id>) with its WhatsApp session, messages, tasks, CRM, cards and labels. Each has its own bridge, all running at once: the Bridge class is no longer a single instance, each bridge keeps a distinct generation number and its lines reach the window tagged with the number they come from. Lines from the visible number take the usual path; those from another just add to its tab. Switching tabs loads that number's data; WhatsApp Desktop and the figures panel belong to the main number. A system lock prevents two bridges on the same account.",
         code: { file: "Form1.cpp", text: mywaAccounts },
+      },
+      {
+        title: "16. Console mode",
+        text: "File › Open console mode opens Terminal with MyWhatsapp --console: the same app, with everything, but no window. It starts just like the window (settings, chats, each number's bridge) and whatever is a dialog in the window becomes a question in the terminal: a confirmation, a form field by field, a numbered menu. A thread reads the commands (open, read, send, suggest, assistant, tasks, crm, dash, status, accounts…, in English or Spanish) and, while it waits, the app keeps serving the bridge and the AI: whatever arrives (a new message, the suggested replies, the assistant's answer) is printed above the command line. The QR code for linking is drawn in the terminal with half blocks, black on white. The test feeds it a list of commands with the sample chats.",
+        code: { file: "Form1.cpp", text: mywaConsole },
       },
     ],
   },

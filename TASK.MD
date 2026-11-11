@@ -115,6 +115,7 @@ Hechos
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ✅ |
 124. MiniLang: que el curso de inglés enseñe como mínimo 10.000 palabras | ✅ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ✅ |
+125. MyWhatsapp: modo consola (`--console`) para hacerlo todo desde la terminal | ✅ |
 
 Trabajando
 =========
@@ -124,5 +125,16 @@ Trabajando
 
 Pendiente
 =========
+126. MyWhatsapp IA: auto-contexto (la IA resume qué pide el cliente y rellena «Qué quiere decir») | ⏳ |
+127. MyWhatsapp IA: base de conocimiento local (precios, stock, FAQ, PDF) que la IA consulta antes de responder | ⏳ |
+128. MyWhatsapp IA: las tres respuestas con estilos distintos (directa, comercial, técnica) y traducción de lo que propone la IA al idioma del cliente | ⏳ |
+129. MyWhatsapp tareas: ir al mensaje exacto que originó la tarea; fecha límite (hoy, vencida, próxima) y prioridad por colores | ⏳ |
+130. MyWhatsapp CRM: datos de Odoo en la ficha (saldo, facturas pendientes, tickets) | ⏳ |
+131. MyWhatsapp: buscador global (contactos, texto de los chats y tareas) | ⏳ |
+132. MyWhatsapp: abrir un chat en su propia ventana (dos chats a la vez) | ⏳ |
+133. MyWhatsapp: semáforo en la lista (verde, amarillo, rojo) de cuánto lleva un mensaje sin responder | ⏳ |
+134. MyWhatsapp: atajos (Ctrl+Enter enviar, Ctrl+Mayús+S sugerir, Ctrl+T tarea) | ⏳ |
+135. MyWhatsapp: historial de la IA (qué propuso, con qué modelo, cuáles se usaron o se editaron) | ⏳ |
+136. MyWhatsapp: estado de las conexiones (WhatsApp y la IA) en la barra de abajo | ⏳ |
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |

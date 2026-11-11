@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.134 — 2026-11-11
+
+- MyWhatsapp 1.0.33: **modo consola**. Archivo › Abrir el modo consola abre la Terminal con `MyWhatsapp --console` (también se puede escribir a mano): la misma app, sin ventana, con todo. Ve los chats y los que esperan respuesta, abre uno y lee sus mensajes (numerados), busca, escribe y envía (también archivos, arrastrándolos a la terminal), reenvía, pide respuestas a la IA, las mejora o corrige, traduce, pregunta al asistente e investiga un mensaje, y lleva tareas, CRM, panel de cifras, etiquetas, ficha, mensajes diarios, modo ocupado, plantillas, estados, varios números, el PIN y las claves. Las órdenes valen en español y en inglés («ayuda» / «help»).
+- MyWhatsapp: en la consola, lo que en la ventana es un diálogo es una pregunta (sí/no, una ficha campo a campo, un menú numerado) y lo que llega mientras tanto (un mensaje nuevo, las respuestas de la IA, la del asistente) sale encima de la línea de la orden. El código QR para vincular WhatsApp se dibuja en la terminal. El PIN se pide sin que se vea y la consola no sale en el Dock.
+- Demos bilingües: al abrirse en el otro idioma, la demo conserva los argumentos (por ejemplo `--console`).
+- Web: el paso 16 de «Cómo se hizo» de MyWhatsapp (el modo consola), la tarjeta, la guía y el manual.
+
 ## 1.0.133 — 2026-11-11
 
 - Nueva demo: **DMarlonPass (C++)**, un gestor de contraseñas compatible con KeePass y KeePassXC, nativo en C++ con FLTK y sin bibliotecas. Abre y guarda archivos .kdbx (KDBX 4; también abre los KDBX 3.1 de KeePass 2 y los guarda como KDBX 4) con AES-256 o ChaCha20, Argon2d, Argon2id o AES-KDF, contraseña maestra y archivo de clave (lee y crea el XML 2.0 de KeePass).

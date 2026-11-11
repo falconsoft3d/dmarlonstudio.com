@@ -131,6 +131,49 @@ void main() {
         ).timeout(const Duration(minutes: 2));
         expect(u.exitCode, 0, reason: '${u.stdout}${u.stderr}');
         expect('${u.stdout}', contains('uitest ok'));
+        // El modo consola, con los chats de ejemplo (nunca los de verdad) y sin red.
+        final c = await Process.start(exe, const [
+          '--console',
+        ], environment: {'DMS_MYWA_CONSOLE_DEMO': '1', 'DMS_MYWA_CONFIG': config});
+        c.stdin.write(
+          [
+            'ayuda',
+            'chats',
+            'pendientes',
+            'abrir 1',
+            'leer 3',
+            'escribir Hola, prueba desde la consola',
+            'enviar',
+            'leer 1',
+            'tareas',
+            'hecha 1',
+            'crm',
+            'panel',
+            'info',
+            'cuentas',
+            'buscar zzzz',
+            'sugerir',
+            'usar 1',
+            'xyz',
+            'salir',
+          ].join('\n'),
+        );
+        await c.stdin.close();
+        final out = await c.stdout.transform(const SystemEncoding().decoder).join();
+        final code = await c.exitCode.timeout(const Duration(minutes: 1));
+        expect(code, 0, reason: out);
+        for (final s in [
+          'modo consola',
+          'abrir <n|nombre>',
+          '1.',
+          'Hola, prueba desde la consola',
+          '«xyz» no es una orden',
+          '412',
+          'Nada con «zzzz»',
+          'Hasta luego',
+        ]) {
+          expect(out, contains(s), reason: '$s\n$out');
+        }
       }
     },
     timeout: const Timeout(Duration(minutes: 4)),

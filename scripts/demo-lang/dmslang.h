@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -28,6 +29,7 @@
 #endif
 #ifdef __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
+#include <crt_externs.h>
 #include <mach-o/dyld.h>
 #endif
 
@@ -120,10 +122,33 @@ static bool dms_lang_exists(const std::string& p) {
 }
 
 // En macOS y Linux, el otro ejecutable ocupa este proceso; en Windows, se
-// abre y este termina.
+// abre y este termina. Los argumentos (p. ej. --console) pasan tal cual.
 static void dms_lang_launch(const std::string& exe) {
 #ifdef _WIN32
-  ShellExecuteA(nullptr, "open", exe.c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+  // Lo que va detrás del nombre del programa en la línea de órdenes.
+  std::string args;
+  const char* cl = GetCommandLineA();
+  if (cl) {
+    const char* p = cl;
+    if (*p == '"') {
+      p++;
+      while (*p && *p != '"') p++;
+      if (*p) p++;
+    } else {
+      while (*p && *p != ' ' && *p != '\t') p++;
+    }
+    while (*p == ' ' || *p == '\t') p++;
+    args = p;
+  }
+  ShellExecuteA(nullptr, "open", exe.c_str(), args.empty() ? nullptr : args.c_str(), nullptr, SW_SHOWNORMAL);
+#elif defined(__APPLE__)
+  char** argv = *_NSGetArgv();
+  int argc = *_NSGetArgc();
+  std::vector<char*> v;
+  v.push_back(const_cast<char*>(exe.c_str()));
+  for (int i = 1; i < argc; i++) v.push_back(argv[i]);
+  v.push_back(nullptr);
+  execv(exe.c_str(), v.data());
 #else
   execl(exe.c_str(), exe.c_str(), (char*)nullptr);
 #endif

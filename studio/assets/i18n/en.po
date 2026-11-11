@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.32 — Varios números en pestañas: cada uno con su QR, sus chats, sus tareas y su CRM, todos conectados a la vez.\n"
 "1.0.31 — Colores de la app (Ver › Colores… o ⚙️ Ajustes): el color, el fondo del chat y sus mensajes, en claro y en oscuro.\n"
 "1.0.30 — El asistente, con barra de desplazamiento y en texto plano (sin Markdown); la conexión con WhatsApp se cierra siempre con la app.\n"
 "1.0.29 — 🤖 Asistente: un chat con la IA sobre sus chats; «Investigar con la IA» desde un mensaje; la barra de la lista de chats.\n"
@@ -6799,6 +6800,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.32 — Several numbers in tabs: each with its QR, its chats, its tasks and its CRM, all connected at once.\n"
 "1.0.31 — App colours (View › Colours… or ⚙️ Settings): the colour, the chat background and your messages, in light and dark.\n"
 "1.0.30 — The assistant, with a scrollbar and in plain text (no Markdown); the WhatsApp connection always closes with the app.\n"
 "1.0.29 — 🤖 Assistant: a chat with AI about your chats; “Investigate with AI” from a message; a scrollbar on the chat list.\n"
@@ -6892,6 +6894,10 @@ msgid "Ahora es {0}."
 msgstr "It is now {0}."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ahora ve: {0}"
+msgstr "Now showing: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ana"
 msgstr "Anna"
 
@@ -6952,6 +6958,18 @@ msgstr "Soft blue"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Añadido desde MyWhatsapp"
 msgstr "Added from MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Añadir otro número"
+msgstr "Add another number"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Añadir otro número…"
+msgstr "Add another number…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Añadir y vincular"
+msgstr "Add and link"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Aún no sé en qué idioma escribe: elija el idioma en «🌐 Traducir»"
@@ -7020,6 +7038,10 @@ msgstr "Street 2"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cambiar el PIN…"
 msgstr "Change the PIN…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cambiar el nombre…"
+msgstr "Rename…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cariñoso"
@@ -7495,6 +7517,10 @@ msgstr "Statuses"
 msgid "Este chat es importado: no tiene número al que enviar"
 msgstr "This chat is imported: it has no number to send to"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Este número aún no tiene mensajes. Si no se ha vinculado, escanee el código QR con su teléfono (WhatsApp › Dispositivos vinculados); los mensajes nuevos irán llegando aquí."
+msgstr "This number has no messages yet. If it isn't linked, scan the QR code with its phone (WhatsApp › Linked devices); new messages will arrive here."
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
 msgstr "Style"
@@ -7873,7 +7899,7 @@ msgid ""
 "\n"
 "Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo (o arrástrelo al chat). Sus mensajes llevan los ✓ de WhatsApp: ✓ enviado, ✓✓ entregado y ✓✓ en azul, leído. «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n"
 "\n"
-"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»). Ver › Colores… (o ⚙️ Ajustes) elige el tema, el color de la app, el fondo del chat y el de sus mensajes, en una sola ficha.\n"
+"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»). Ver › Colores… (o ⚙️ Ajustes) elige el tema, el color de la app, el fondo del chat y el de sus mensajes, en una sola ficha. Varios números: las pestañas de arriba de la lista cambian de número y «+» (o Archivo › Añadir otro número…) vincula otro con su código QR; cada número tiene sus chats, sus tareas, su CRM, sus fichas y sus etiquetas, y todos siguen conectados: la pestaña de otro número cuenta lo que le llega. El clic derecho sobre una pestaña le cambia el nombre o quita el número.\n"
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
 "\n"
@@ -7895,7 +7921,7 @@ msgstr ""
 "\n"
 "To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file (or drag it onto the chat). Your messages carry WhatsApp's ticks: ✓ sent, ✓✓ delivered and blue ✓✓, read. “✨ Improve” suggests your message improved by the AI and “Aa Fix” fixes its spelling (Cmd+Z undoes it).\n"
 "\n"
-"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it, forwards it to another chat or turns it into a task. “⋯”, in the header, clears the chat (only in MyWhatsapp; it can be undone). “📋 Templates” inserts a saved message ({nombre} becomes the contact's name). In View, the sidebar folds to just the photos (or with « / »). View › Colours… (or ⚙️ Settings) chooses the theme, the app colour, the chat background and that of your messages, in one sheet.\n"
+"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it, forwards it to another chat or turns it into a task. “⋯”, in the header, clears the chat (only in MyWhatsapp; it can be undone). “📋 Templates” inserts a saved message ({nombre} becomes the contact's name). In View, the sidebar folds to just the photos (or with « / »). View › Colours… (or ⚙️ Settings) chooses the theme, the app colour, the chat background and that of your messages, in one sheet. Several numbers: the tabs above the list switch numbers and “+” (or File › Add another number…) links another one with its QR code; each number has its own chats, tasks, CRM, cards and labels, and they all stay connected: another number's tab counts what arrives. Right-clicking a tab renames it or removes the number.\n"
 "\n"
 "“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
 "\n"
@@ -8000,12 +8026,20 @@ msgid "No traducir"
 msgstr "Don't translate"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nombre de la pestaña"
+msgstr "Tab name"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nombre de la plantilla:"
 msgstr "Template name:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nombre del modo (por ejemplo: En el médico):"
 msgstr "Mode name (for example: At the doctor):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Nombre del número"
+msgstr "Number name"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nota de voz"
@@ -8040,12 +8074,24 @@ msgid "Nuevo modo ocupado"
 msgstr "New busy mode"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Número quitado"
+msgstr "Number removed"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Número {0}"
+msgstr "Number {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ocupado"
 msgstr "Busy"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ocupado: {0}"
 msgstr "Busy: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Oficina"
+msgstr "Office"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Original:"
@@ -8170,6 +8216,10 @@ msgid "Presupuesto enviado"
 msgstr "Quotation sent"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Principal"
+msgstr "Main"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Profesional (negocio)"
 msgstr "Professional (business)"
 
@@ -8200,6 +8250,10 @@ msgstr "Remove from the CRM"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Quitar el PIN…"
 msgstr "Remove the PIN…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Quitar este número…"
+msgstr "Remove this number…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Quitar la foto"
@@ -8562,6 +8616,10 @@ msgid "{0} tareas"
 msgstr "{0} tasks"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0}: escanee el código QR con el teléfono de ese número (WhatsApp › Dispositivos vinculados)"
+msgstr "{0}: scan the QR code with that number's phone (WhatsApp › Linked devices)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Hola {nombre}! ¿Cómo estás?"
 msgstr "Hi {nombre}! How are you?"
 
@@ -8642,6 +8700,10 @@ msgstr "Game on Friday?"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Publicar este estado? Lo verán sus contactos durante 24 horas, según su privacidad de estados en WhatsApp."
 msgstr "Publish this status? Your contacts will see it for 24 hours, according to your WhatsApp status privacy."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Quitar «{0}»? Se desvincula de su teléfono; sus tareas y su CRM se quedan guardados en el Mac."
+msgstr "Remove “{0}”? It is unlinked from its phone; its tasks and CRM stay saved on the Mac."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Quién puede recoger a la abuela a las 13?"

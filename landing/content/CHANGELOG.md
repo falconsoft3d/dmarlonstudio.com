@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.129 — 2026-11-11
+
+- MyWhatsapp 1.0.32: **varios números en pestañas**. Arriba de la lista, una pestaña por número y «+» (o Archivo › Añadir otro número…) para vincular otro con su código QR. Cada número tiene sus chats, sus tareas, su CRM, sus fichas, sus etiquetas y sus mensajes diarios; los ajustes, las claves de la IA, las plantillas, los modos ocupado y los colores son comunes. Todos siguen conectados a la vez: la pestaña de otro número cuenta lo que le llega. Clic derecho en una pestaña: cambiarle el nombre o quitar el número (se desvincula; sus datos se quedan en el Mac). WhatsApp Desktop y el panel de cifras son del número principal.
+- Web: el paso 15 de «Cómo se hizo» de MyWhatsapp (los números en pestañas) y la tarjeta de la demo.
+
 ## 1.0.128 — 2026-11-11
 
 - MyWhatsapp 1.0.31: **colores de la app** (Ver › Colores… o ⚙️ Ajustes): una sola ficha con el tema (claro, oscuro o como el sistema), el color de la app (verde, azul, morado, naranja, rosa o gris), el fondo del chat (clásico, blanco, gris, azul, verde o rosa suave) y el color de sus mensajes. Cada color tiene su versión clara y oscura; «Volver a los colores de siempre» lo deja como estaba. Los colores con significado (la edad de las tareas, las etapas del CRM, las etiquetas) no cambian.

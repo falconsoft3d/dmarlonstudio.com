@@ -480,6 +480,26 @@ void apply_colors(const std::string& accent, const std::string& chat, const std:
   t.chat = t.dark ? c.dark : c.light;
 }`;
 
+const mywaAccounts = `// Lo que llega de un puente: el del número que se ve, como siempre; el de otro, se cuenta en su pestaña.
+void on_bridge_from(const std::string& id, const std::string& line) {
+  int k = account_index(id);
+  if (k < 0) return;   // un número quitado (su puente se está cerrando)
+  if (k == account) {
+    on_bridge(line);
+    update_tabs();
+    return;
+  }
+  bool ok = false;
+  wa::Json j = wa::parse_json(line, &ok);
+  if (!ok) return;
+  std::string ev = j["ev"].str();
+  Account& a = accounts[(size_t)k];
+  if (ev == "msg" && !j["mine"].b && j["chat"].str() != "status@broadcast") a.unread++;
+  else if (ev == "ready") a.linked = true;
+  else if (ev == "logged_out" || ev == "exit") a.linked = false;
+  update_tabs();
+}`;
+
 const mywaTranslate = `// Lo recibido: una tanda de mensajes a la IA, que devuelve JSON con el idioma
 // y una traducción por mensaje; se guardan y no se vuelven a pedir.
 std::thread([s, jid, sys, usr, keys, n] {
@@ -895,6 +915,11 @@ const es: Record<string, DemoMade> = {
         text: "Ver › Colores… (o ⚙️ Ajustes) abre una sola ficha con el tema, el color de la app, el fondo del chat y el de sus mensajes. Cada color es una paleta con su versión clara y oscura: el tema pone la base y apply_colors cambia encima el acento, los botones, lo resaltado, los bocadillos y el fondo. Los colores con significado (la edad de las tareas, las etapas del CRM, las etiquetas) no cambian. La prueba de la interfaz rellena la ficha, comprueba los colores en oscuro, que se guardan y que «Volver a los colores de siempre» los deja como estaban.",
         code: { file: "Form1.cpp", text: mywaColors },
       },
+      {
+        title: "15. Varios números en pestañas",
+        text: "Cada número tiene su carpeta (la principal, la de siempre; los demás, cuentas/<id>) con su sesión de WhatsApp, sus mensajes, sus tareas, su CRM, sus fichas y sus etiquetas. Cada uno lleva su propio puente, todos a la vez: la clase Bridge ya no es única, cada puente guarda un número de generación distinto y sus líneas llegan a la ventana con el número del que vienen. Las del número que se ve siguen el camino de siempre; las de otro solo suman en su pestaña. Al cambiar de pestaña se cargan los datos de ese número; WhatsApp Desktop y el panel de cifras son del principal. Un candado del sistema impide dos puentes con la misma cuenta.",
+        code: { file: "Form1.cpp", text: mywaAccounts },
+      },
     ],
   },
 };
@@ -1298,6 +1323,11 @@ const en: Record<string, DemoMade> = {
         title: "14. The app colours",
         text: "View › Colours… (or ⚙️ Settings) opens a single sheet with the theme, the app colour, the chat background and that of your messages. Each colour is a palette with a light and a dark version: the theme sets the base and apply_colors changes the accent, buttons, highlights, bubbles and background on top. Colours with a meaning (task age, CRM stages, labels) don't change. The interface test fills in the sheet, checks the colours in dark mode, that they are saved and that “Back to the usual colours” restores them.",
         code: { file: "Form1.cpp", text: mywaColors },
+      },
+      {
+        title: "15. Several numbers in tabs",
+        text: "Each number has its own folder (the main one, the usual one; the others, cuentas/<id>) with its WhatsApp session, messages, tasks, CRM, cards and labels. Each has its own bridge, all running at once: the Bridge class is no longer a single instance, each bridge keeps a distinct generation number and its lines reach the window tagged with the number they come from. Lines from the visible number take the usual path; those from another just add to its tab. Switching tabs loads that number's data; WhatsApp Desktop and the figures panel belong to the main number. A system lock prevents two bridges on the same account.",
+        code: { file: "Form1.cpp", text: mywaAccounts },
       },
     ],
   },

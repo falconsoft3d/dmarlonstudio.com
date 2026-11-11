@@ -111,6 +111,7 @@ Hechos
 122. MyWhatsapp: barra de desplazamiento en el chat con la IA y respuestas sin Markdown (texto plano) | ✅ |
 123. MyWhatsapp: la conexión con WhatsApp (el puente) se cierra siempre con la app y nunca hay dos a la vez | ✅ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app (tema, color, fondo del chat y mis mensajes) | ✅ |
+101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ✅ |
 
 Trabajando
 =========
@@ -124,4 +125,3 @@ Pendiente
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
-101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |

@@ -135,6 +135,14 @@ std::string config_dir() {
   return std::string(h ? h : ".") + "/.config/DMarlon Studio Demos/mywhatsapp";
 #endif
 }
+// Varios números: la principal usa la carpeta de siempre; cada número más, la suya (cuentas/<id>),
+// con su sesión de WhatsApp, sus mensajes, sus tareas, su CRM, sus fichas y sus etiquetas.
+std::string& account_id() {
+  static std::string a;
+  return a;
+}
+std::string account_dir(const std::string& id) { return id.empty() ? config_dir() : config_dir() + "/cuentas/" + id; }
+std::string data_dir() { return account_dir(account_id()); }
 bool read_file(const std::string& path, std::string& out) {
   FILE* f = fl_fopen(path.c_str(), "rb");
   if (!f) return false;
@@ -2140,10 +2148,17 @@ class Bridge {
 public:
   std::function<void(const std::string&)> on_line;   // en el hilo de la ventana
   bool running() const { return alive; }
+  Bridge() { all().push_back(this); }
+  ~Bridge() {
+    stop();
+    auto& v = all();
+    v.erase(std::remove(v.begin(), v.end(), this), v.end());
+  }
+  Bridge(const Bridge&) = delete;
+  Bridge& operator=(const Bridge&) = delete;
   bool start(const std::string& exe, const std::string& dir) {
     stop();
-    current() = this;
-    int g = ++gen;
+    int g = gen = ++counter();   // único entre todos los puentes (uno por número)
 #ifdef _WIN32
     SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, TRUE};
     HANDLE out_r = nullptr, out_w = nullptr, in_r = nullptr, in_w2 = nullptr;
@@ -2277,9 +2292,13 @@ private:
 #else
   int in_w = -1;
 #endif
-  static Bridge*& current() {
-    static Bridge* b = nullptr;
-    return b;
+  static std::vector<Bridge*>& all() {
+    static std::vector<Bridge*> v;
+    return v;
+  }
+  static int& counter() {
+    static int n = 0;
+    return n;
   }
   static void lines(std::string& buf, const char* data, size_t n, int g) {
     buf.append(data, n);
@@ -2293,8 +2312,10 @@ private:
   }
   static void deliver(void* p) {
     std::unique_ptr<Line> l(static_cast<Line*>(p));
-    Bridge* b = current();
-    if (!b || l->gen != b->gen) return;   // de un puente anterior
+    Bridge* b = nullptr;
+    for (Bridge* x : all())
+      if (x->gen == l->gen) b = x;
+    if (!b) return;   // de un puente anterior (o ya cerrado)
     if (l->text == "{\"ev\":\"exit\"}") b->alive = false;
     if (b->on_line) b->on_line(l->text);
   }
@@ -3355,6 +3376,111 @@ public:
 };
 
 // La conversación (bocadillos) y, debajo, las respuestas que propone la IA.
+// Las pestañas de los números (arriba de la lista): una por cuenta, con lo nuevo que llegó y «+».
+class AccountTabs : public Fl_Widget {
+public:
+  struct Tab {
+    std::string name;
+    int unread = 0;
+    int state = 0;   // 0 la principal (sin bolita), 1 vinculado, 2 sin vincular
+  };
+  std::vector<Tab> tabs;
+  int active = 0, hover = -1;
+  bool compact = false;
+  std::vector<Hit> hits;   // act 1 una pestaña, 2 añadir
+  std::function<void(int)> on_pick, on_menu;
+  std::function<void()> on_add;
+  AccountTabs(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
+  void draw() override {
+    const Theme& T = th();
+    hits.clear();
+    fl_push_clip(x(), y(), w(), h());
+    fl_color(rgb(T.list));
+    fl_rectf(x(), y(), w(), h());
+    fl_color(rgb(T.line));
+    fl_line(x(), y() + h() - 1, x() + w(), y() + h() - 1);
+    int X = x() + 8, cy = y() + 5, ch = h() - 10;
+    for (int i = 0; i < (int)tabs.size(); i++) {
+      const Tab& t = tabs[(size_t)i];
+      bool on = i == active, hot = (int)hits.size() == hover;
+      std::string label = t.name;
+      if (compact) {   // plegada: la inicial
+        size_t n = 1;
+        while (n < label.size() && ((unsigned char)label[n] & 0xC0) == 0x80) n++;
+        label = label.substr(0, n);
+      }
+      fl_font(on ? FL_HELVETICA_BOLD : FL_HELVETICA, 12);
+      label = fit(label, compact ? 30 : 120);
+      std::string badge = t.unread > 99 ? "99+" : t.unread > 0 ? std::to_string(t.unread) : "";
+      int tw = (int)fl_width(label.c_str()) + 20 + (t.state ? 10 : 0);
+      fl_font(FL_HELVETICA_BOLD, 10);
+      int bw = badge.empty() ? 0 : std::max(16, (int)fl_width(badge.c_str()) + 8) + 4;
+      tw += bw;
+      fl_color(on ? rgb(T.soft) : hot ? rgb(T.hover) : rgb(T.list));
+      fl_rounded_rectf(X, cy, tw, ch, ch / 2);
+      int tx0 = X + 10;
+      if (t.state) {   // vinculado (verde) o por vincular (gris)
+        fl_color(rgb(t.state == 1 ? 0x25d366 : 0xaab4ba));
+        fl_pie(tx0, cy + ch / 2 - 3, 7, 7, 0, 360);
+        tx0 += 11;
+      }
+      fl_font(on ? FL_HELVETICA_BOLD : FL_HELVETICA, 12);
+      fl_color(on ? rgb(T.accent) : rgb(T.text));
+      fl_draw(label.c_str(), tx0, cy, tw, ch, FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+      if (bw) {
+        int bx = X + tw - bw - 6;
+        fl_color(rgb(T.button));
+        fl_rounded_rectf(bx, cy + (ch - 16) / 2, bw - 4, 16, 8);
+        fl_font(FL_HELVETICA_BOLD, 10);
+        fl_color(T.dark ? rgb(0x111b21) : FL_WHITE);
+        fl_draw(badge.c_str(), bx, cy + (ch - 16) / 2, bw - 4, 16, FL_ALIGN_CENTER);
+      }
+      hits.push_back({X, cy, tw, ch, 1, i});
+      X += tw + 4;
+    }
+    // «+»: otro número.
+    bool hot = (int)hits.size() == hover;
+    fl_color(hot ? rgb(T.hover) : rgb(T.list));
+    fl_rounded_rectf(X, cy, ch, ch, ch / 2);
+    fl_font(FL_HELVETICA_BOLD, 16);
+    fl_color(rgb(T.muted));
+    fl_draw("+", X, cy, ch, ch, FL_ALIGN_CENTER);
+    hits.push_back({X, cy, ch, ch, 2, -1});
+    fl_pop_clip();
+  }
+  int handle(int e) override {
+    switch (e) {
+      case FL_ENTER: return 1;
+      case FL_MOVE: {
+        int i = -1;
+        for (int k = 0; k < (int)hits.size(); k++)
+          if (Fl::event_inside(hits[(size_t)k].x, hits[(size_t)k].y, hits[(size_t)k].w, hits[(size_t)k].h)) i = k;
+        if (i != hover) {
+          hover = i;
+          redraw();
+        }
+        return 1;
+      }
+      case FL_LEAVE:
+        hover = -1;
+        redraw();
+        return 1;
+      case FL_PUSH:
+        for (const auto& h : hits)
+          if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
+            if (h.act == 2) {
+              if (on_add) on_add();
+            } else if (Fl::event_button() == FL_RIGHT_MOUSE) {
+              if (on_menu) on_menu(h.idx);
+            } else if (on_pick) on_pick(h.idx);
+            return 1;
+          }
+        return 1;
+    }
+    return Fl_Widget::handle(e);
+  }
+};
+
 // La barra de apps (a la derecha): las partes de MyWhatsapp, una debajo de otra.
 class AppRail : public Fl_Widget {
 public:
@@ -5638,7 +5764,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.31";
+const char* const MYWA_VERSION = "1.0.32";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -6021,7 +6147,30 @@ public:
   // Enviar: el modo, la API oficial, el puente y lo que llega por él.
   int send_mode = wa::S_NONE;
   wa::CloudSettings cloud;
-  wa::Bridge bridge;
+  // Un puente por número; «bridge» es el del número que se ve.
+  std::map<std::string, std::unique_ptr<wa::Bridge>> bridges;
+  wa::Bridge* bridge = nullptr;
+  struct Account {
+    std::string id, name;   // id "" = la principal
+    int unread = 0;         // lo que llegó mientras se veía otro número
+    bool linked = false;
+  };
+  std::vector<Account> accounts;
+  int account = 0;
+  int main_send_mode = 0;              // el modo de la principal mientras se ve otro número
+  std::string main_name;               // el nombre de la pestaña de la principal
+  // En la demo (capturas y pruebas) nada se guarda en archivos: lo de la principal se aparta en memoria.
+  struct DemoMain {
+    std::vector<wa::Chat> chats;
+    wa::LiveStore store;
+    std::vector<wa::Task> tasks;
+    std::vector<wa::Lead> leads;
+    std::map<std::string, wa::Sheet> sheets;
+    wa::LabelSet labels;
+    std::vector<wa::Daily> dailies;
+    std::map<std::string, long long> cleared;
+  } demo_main;
+  wa::AccountTabs* tabs = nullptr;
   bool linked = false, store_dirty = false;
   wa::LiveStore store;
   std::map<std::string, std::string> pending;   // id del envío → texto (por si falla)
@@ -6140,8 +6289,16 @@ public:
     ChatArea->box(FL_FLAT_BOX);
     Side->resizable(nullptr);
     resizable(ChatArea);
-    list = new wa::ChatList(Side->x(), Side->y() + 52, Side->w(), Side->h() - 52);
+    // Las pestañas de los números, arriba de todo; la búsqueda y la lista, debajo.
+    const int tabs_h = 34;
+    Search->resize(Search->x(), Search->y() + tabs_h, Search->w(), Search->h());
+    list = new wa::ChatList(Side->x(), Side->y() + 52 + tabs_h, Side->w(), Side->h() - 52 - tabs_h);
     Side->add(list);
+    tabs = new wa::AccountTabs(Side->x(), Side->y(), Side->w(), tabs_h);
+    Side->add(tabs);
+    tabs->on_pick = [](int i) { if (self()) self()->switch_account(i); };
+    tabs->on_add = [] { if (self()) self()->add_account(); };
+    tabs->on_menu = [](int i) { if (self()) self()->account_menu(i); };
     Side->resizable(list);
     list->chats = &chats;
     list->on_pick = [](int i) { if (self()) self()->pick(i); };
@@ -6221,7 +6378,7 @@ public:
     });
     // Enter en el borrador envía; Mayúsculas+Enter, otra línea.
     Fl::event_dispatch(dispatch);
-    bridge.on_line = [](const std::string& l) { if (self()) self()->on_bridge(l); };
+    bridge = bridge_for("");
   }
   static int dispatch(int e, Fl_Window* w) {
     Form1* f = self();
@@ -6278,6 +6435,7 @@ public:
     Fl::lock();   // la IA contesta desde otro hilo
     setup();
     load_settings();
+    load_accounts();
     apply_theme();
     store.load(store_file());
     load_tasks();
@@ -6293,6 +6451,10 @@ public:
     if (compact) set_compact(true);
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
+    // Los otros números ya vinculados: conectados también, en segundo plano.
+    if (!demo)
+      for (int k = 1; k < (int)accounts.size(); k++)
+        if (wa::file_exists(wa::account_dir(accounts[(size_t)k].id) + "/wabridge.db")) start_bridge_for(k);
     if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
     // Con PIN, la app se abre bloqueada.
     pin_saved = wa::key_get("pin");
@@ -6351,7 +6513,7 @@ public:
   }
   void form_close() override {
     save_settings();
-    bridge.stop();
+    bridge->stop();
   }
 
   // ---- ajustes (las claves van en el Llavero)
@@ -6368,6 +6530,7 @@ public:
         else if (wa::starts(l, "busy=")) busy = l.substr(5);
         else if (l == "compact=1") compact = true;
         else if (l == "warned_assist=1") warned_assist = true;
+        else if (wa::starts(l, "main_name=")) main_name = l.substr(10);
         else if (wa::starts(l, "colors=")) {
           // colors=acento,fondo,bocadillos
           std::string v = l.substr(7);
@@ -6402,7 +6565,8 @@ public:
     for (auto& c : about)
       if (c == '\n') c = ' ';
     wa::write_file(settings_file(), "provider=" + std::to_string(ai.provider) + "\nmodel=" + ai.openai_model + "\nabout=" + about +
-                                        "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
+                                        "\ntheme=" + theme + "\nsend=" + std::to_string(account == 0 ? send_mode : main_send_mode) +
+                                        "\nmain_name=" + main_name +
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
                                         "\nbusy_for=" + wa::busy_for_text(busy_for) +
@@ -6412,14 +6576,18 @@ public:
   }
 
   // ---- los chats
-  std::string store_file() const { return wa::config_dir() + "/mensajes.jsonl"; }
+  std::string store_file() const { return wa::data_dir() + "/mensajes.jsonl"; }
   void reload() {
     bool had = current >= 0 && current < (int)chats.size();
     long long keep = had ? chats[(size_t)current].id : 0;
     std::string keep_jid = had ? chats[(size_t)current].jid : "";
     std::string error;
     std::vector<wa::Chat> fresh;
-    if (demo) {
+    if (account > 0) {
+      // Otro número: solo lo que llega por su puente (WhatsApp Desktop es el del principal).
+      from_db = false;
+      view->notice = store.empty() ? std::string(tx::ACCOUNT_LINK_HELP) : "";
+    } else if (demo) {
       // Las capturas y las pruebas: los chats de ejemplo, nunca los de verdad.
       for (const auto& c : chats)
         if (!c.live) fresh.push_back(c);
@@ -6634,7 +6802,7 @@ public:
     fl_open_uri(url.c_str());
   }
   // ---- las tareas
-  std::string tasks_file() const { return wa::config_dir() + "/tareas.jsonl"; }
+  std::string tasks_file() const { return wa::data_dir() + "/tareas.jsonl"; }
   void load_tasks() {
     std::string text;
     if (wa::read_file(tasks_file(), text)) tasks = wa::tasks_parse(text);
@@ -6832,7 +7000,7 @@ public:
   }
   void close_for_good() {
     save_settings();
-    bridge.stop();
+    bridge->stop();
     bar::remove();
     in_bar = false;
     hide();
@@ -6843,7 +7011,7 @@ public:
   }
   void quit_now() {
     save_settings();
-    bridge.stop();
+    bridge->stop();
     bar::remove();
     hide();
     std::exit(0);
@@ -6946,7 +7114,7 @@ public:
     return true;
   }
   // ---- los mensajes automáticos diarios
-  std::string dailies_file() const { return wa::config_dir() + "/programados.jsonl"; }
+  std::string dailies_file() const { return wa::data_dir() + "/programados.jsonl"; }
   void load_dailies() {
     std::string text;
     dailies.clear();
@@ -7428,14 +7596,15 @@ public:
     }
   }
   // ---- las etiquetas: las suyas (etiquetas.jsonl) y las de WhatsApp (Desktop y el puente)
-  std::string labels_file() const { return wa::config_dir() + "/etiquetas.jsonl"; }
+  std::string labels_file() const { return wa::data_dir() + "/etiquetas.jsonl"; }
   void load_labels() {
     labels = wa::LabelSet();
     if (demo) return;
     std::string text;
     if (wa::read_file(labels_file(), text))
       for (const auto& l : wa::split(text, '\n')) labels.apply(l, false);
-    if (wa::db_exists()) wa::load_desktop_labels(wa::base_dir(wa::db_path()) + "/Labels.sqlite", labels);
+    // Las de WhatsApp Desktop son del número principal.
+    if (account == 0 && wa::db_exists()) wa::load_desktop_labels(wa::base_dir(wa::db_path()) + "/Labels.sqlite", labels);
     // Las que pasó el puente (guardadas con los mensajes).
     if (wa::read_file(store_file(), text))
       for (const auto& l : wa::split(text, '\n'))
@@ -7768,7 +7937,9 @@ public:
         view->dash_leads_value += l.value;
       }
     options.clear();
-    if (demo || !wa::db_exists()) {
+    // Las cifras salen de WhatsApp Desktop: solo las del número principal.
+    if (account > 0 && !demo) view->dash = decltype(view->dash)();
+    if (demo || account > 0 || !wa::db_exists()) {
       view->dash.days = days;
       refresh();
       return;
@@ -7847,7 +8018,7 @@ public:
     f->refresh();
   }
   // ---- el CRM: el tablero, los leads y su etapa desde el chat
-  std::string leads_file() const { return wa::config_dir() + "/crm.jsonl"; }
+  std::string leads_file() const { return wa::data_dir() + "/crm.jsonl"; }
   void load_leads() {
     std::string text;
     leads.clear();
@@ -7965,7 +8136,7 @@ public:
   // ---- añadir el contacto del chat a Contactos (y de ahí, por iCloud, al teléfono)
   // La ficha del contacto (como en Odoo), guardada en fichas.jsonl; con la casilla,
   // también en Contactos (una vCard que abre la app Contactos y llega al iPhone por iCloud).
-  std::string sheets_file() const { return wa::config_dir() + "/fichas.jsonl"; }
+  std::string sheets_file() const { return wa::data_dir() + "/fichas.jsonl"; }
   void load_sheets() {
     std::string text;
     sheets.clear();
@@ -8124,6 +8295,8 @@ public:
     int sw = c ? 76 : 360;
     Side->resize(Side->x(), Side->y(), sw, Side->h());
     list->resize(Side->x(), list->y(), sw, list->h());
+    tabs->resize(Side->x(), tabs->y(), sw, tabs->h());
+    tabs->compact = c;
     Search->resize(Search->x(), Search->y(), sw - 24, Search->h());
     if (c) Search->hide();
     else Search->show();
@@ -8134,7 +8307,7 @@ public:
     redraw();
   }
   // ---- más cosas guardadas: los chats limpiados y las plantillas
-  std::string extras_file() const { return wa::config_dir() + "/limpios.txt"; }
+  std::string extras_file() const { return wa::data_dir() + "/limpios.txt"; }
   std::string templates_file() const { return wa::config_dir() + "/plantillas.jsonl"; }
   void load_extras() {
     std::string text;
@@ -8452,7 +8625,7 @@ public:
       return;
     }
     std::string rid = "r" + std::to_string(++requests);
-    if (!bridge.send("{\"cmd\":\"status\",\"id\":" + wa::jstr(rid) + ",\"path\":" + wa::jstr(png) + "}")) {
+    if (!bridge->send("{\"cmd\":\"status\",\"id\":" + wa::jstr(rid) + ",\"path\":" + wa::jstr(png) + "}")) {
       say(tx::ERR_SEND);
       return;
     }
@@ -8839,7 +9012,7 @@ public:
   void deliver(const std::string& jid, const std::string& text, const std::string& file, const std::string& restore) {
     std::string rid = "r" + std::to_string(++requests);
     if (send_mode == wa::S_LINKED) {
-      if (!bridge.running()) start_bridge();
+      if (!bridge->running()) start_bridge();
       if (!linked) {
         say(tx::NOT_LINKED);
         return;
@@ -8848,7 +9021,7 @@ public:
                             ? "{\"cmd\":\"send\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(jid) + ",\"text\":" + wa::jstr(text) + "}"
                             : "{\"cmd\":\"send_file\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(jid) + ",\"path\":" +
                                   wa::jstr(file) + ",\"caption\":" + wa::jstr(text) + "}";
-      if (!bridge.send(cmd)) {
+      if (!bridge->send(cmd)) {
         say(tx::ERR_SEND);
         return;
       }
@@ -8924,7 +9097,7 @@ public:
         say(tx::ERR_CLOUD_SETUP);
         return;
       }
-      bridge.stop();
+      bridge->stop();
       linked = false;
       send_mode = wa::S_CLOUD;
       save_settings();
@@ -8939,7 +9112,7 @@ public:
   void disconnect() {
     if (send_mode == wa::S_NONE) return;
     if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_DISCONNECT, nullptr, tx::DISCONNECT_ASK)) return;
-    if (send_mode == wa::S_LINKED && bridge.running()) bridge.send("{\"cmd\":\"logout\"}");
+    if (send_mode == wa::S_LINKED && bridge->running()) bridge->send("{\"cmd\":\"logout\"}");
     if (send_mode == wa::S_CLOUD) {
       cloud.token.clear();
       wa::key_set("whatsapp-cloud", "");
@@ -8950,18 +9123,21 @@ public:
     say(tx::LOGGED_OUT);
   }
   void start_bridge() {
-    if (bridge.running()) return;
-    std::string exe = wa::bridge_path();
-    if (!wa::file_exists(exe)) {
-      say(tx::ERR_NO_BRIDGE);
-      return;
-    }
-    fl_make_path(wa::config_dir().c_str());
-    if (!bridge.start(exe, wa::config_dir())) {
+    if (bridge->running()) return;
+    if (!start_bridge_for(account)) {
       say(tx::ERR_NO_BRIDGE);
       return;
     }
     say(tx::CONNECTING);
+  }
+  bool start_bridge_for(int k) {
+    wa::Bridge* b = bridge_for(accounts[(size_t)k].id);
+    if (b->running()) return true;
+    std::string exe = wa::bridge_path();
+    if (!wa::file_exists(exe)) return false;
+    std::string dir = wa::account_dir(accounts[(size_t)k].id);
+    fl_make_path(dir.c_str());
+    return b->start(exe, dir);
   }
   // El código QR para vincular, en una ventanita aparte.
   void show_qr(const std::string& png) {
@@ -8982,6 +9158,198 @@ public:
     qr_img = fit;
     qr_win->show();
     qr_box->redraw();
+  }
+  // ---- varios números, en pestañas
+  wa::Bridge* bridge_for(const std::string& id) {
+    auto& b = bridges[id];
+    if (!b) {
+      b.reset(new wa::Bridge());
+      b->on_line = [id](const std::string& l) { if (self()) self()->on_bridge_from(id, l); };
+    }
+    return b.get();
+  }
+  int account_index(const std::string& id) const {
+    for (int k = 0; k < (int)accounts.size(); k++)
+      if (accounts[(size_t)k].id == id) return k;
+    return -1;
+  }
+  std::string accounts_file() const { return wa::config_dir() + "/cuentas.jsonl"; }
+  void load_accounts() {
+    accounts.clear();
+    accounts.push_back({"", main_name.empty() ? std::string(tx::ACCOUNT_MAIN) : main_name});
+    std::string text;
+    if (wa::read_file(accounts_file(), text))
+      for (const auto& l : wa::split(text, '\n')) {
+        bool ok = false;
+        wa::Json j = wa::parse_json(l, &ok);
+        std::string id = j["id"].str();
+        // Solo letras y cifras: es el nombre de una carpeta.
+        bool safe = !id.empty() && id.size() < 40;
+        for (char c : id) safe = safe && std::isalnum((unsigned char)c);
+        if (ok && safe && account_index(id) < 0) accounts.push_back({id, j["name"].str()});
+      }
+    update_tabs();
+  }
+  void save_accounts() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string o;
+    for (size_t k = 1; k < accounts.size(); k++)
+      o += "{\"id\":" + wa::jstr(accounts[k].id) + ",\"name\":" + wa::jstr(accounts[k].name) + "}\n";
+    wa::write_file(accounts_file(), o);
+  }
+  void update_tabs() {
+    if (!tabs) return;
+    tabs->tabs.clear();
+    for (int k = 0; k < (int)accounts.size(); k++) {
+      const Account& a = accounts[(size_t)k];
+      bool on = k == account ? linked : a.linked;
+      tabs->tabs.push_back({a.name, a.unread, k == 0 ? 0 : on ? 1 : 2});
+    }
+    tabs->active = account;
+    tabs->redraw();
+  }
+  // Lo que llega de un puente: el del número que se ve, como siempre; el de otro, se cuenta en su pestaña.
+  void on_bridge_from(const std::string& id, const std::string& line) {
+    int k = account_index(id);
+    if (k < 0) return;   // un número quitado (su puente se está cerrando)
+    if (k == account) {
+      on_bridge(line);
+      update_tabs();
+      return;
+    }
+    bool ok = false;
+    wa::Json j = wa::parse_json(line, &ok);
+    if (!ok) return;
+    std::string ev = j["ev"].str();
+    Account& a = accounts[(size_t)k];
+    if (ev == "msg" && !j["mine"].b && j["chat"].str() != "status@broadcast") a.unread++;
+    else if (ev == "ready") a.linked = true;
+    else if (ev == "logged_out" || ev == "exit") a.linked = false;
+    update_tabs();
+  }
+  void switch_account(int k) {
+    if (k < 0 || k >= (int)accounts.size() || k == account) return;
+    if (account == 0) {
+      main_send_mode = send_mode;
+      if (demo) {
+        demo_main.chats.clear();
+        for (const auto& c : chats)
+          if (!c.live) demo_main.chats.push_back(c);
+        demo_main.store = store;
+        demo_main.tasks = tasks;
+        demo_main.leads = leads;
+        demo_main.sheets = sheets;
+        demo_main.labels = labels;
+        demo_main.dailies = dailies;
+        demo_main.cleared = cleared;
+      }
+    }
+    accounts[(size_t)account].linked = linked;
+    account = k;
+    wa::account_id() = accounts[(size_t)k].id;
+    bridge = bridge_for(accounts[(size_t)k].id);
+    // La principal: como estaba (Desktop, la API oficial o el QR); las demás, siempre por QR.
+    send_mode = k == 0 ? main_send_mode : wa::S_LINKED;
+    linked = bridge->running() && accounts[(size_t)k].linked;
+    accounts[(size_t)k].unread = 0;
+    if (!demo) fl_make_path(wa::data_dir().c_str());
+    // Los datos de este número.
+    chats.clear();
+    if (demo && k == 0) {
+      chats = demo_main.chats;
+      store = demo_main.store;
+      tasks = demo_main.tasks;
+      leads = demo_main.leads;
+      sheets = demo_main.sheets;
+      labels = demo_main.labels;
+      dailies = demo_main.dailies;
+      cleared = demo_main.cleared;
+      list->tasks_pending = wa::tasks_pending(tasks);
+    } else {
+      store = wa::LiveStore();
+      store.load(store_file());
+      tasks.clear();
+      leads.clear();
+      sheets.clear();
+      dailies.clear();
+      cleared.clear();
+      load_tasks();
+      load_extras();
+      load_leads();
+      load_sheets();
+      load_labels();
+      load_dailies();
+    }
+    current = -1;
+    view->chat = nullptr;
+    list->selected = -1;
+    list->tasks_selected = list->status_selected = list->crm_selected = list->dash_selected = false;
+    view->tasks_mode = view->status_mode = view->crm_mode = view->dash_mode = false;
+    view->assist_mode = false;
+    view->assist.clear();
+    view->insight.clear();
+    view->viewer.clear();
+    assist_jid.clear();
+    list->mode = wa::ChatList::F_ALL;
+    list->scroll = 0;
+    options.clear();
+    Draft->value("");
+    if (qr_win) qr_win->hide();
+    reload();
+    if (k > 0 && !demo && !bridge->running()) start_bridge();
+    say(wa::fmt(tx::ACCOUNT_NOW, {accounts[(size_t)k].name}));
+    update_tabs();
+    refresh();
+    update_bar();
+  }
+  void add_account() {
+    std::vector<wa::FormField> fs = {{"name", tx::ACCOUNT_NAME, "", 0, 2, {}}};
+    if (!form(tx::ACCOUNT_ADD_TITLE, fs, tx::ACCOUNT_ADD_OK)) return;
+    // Se vincula como WhatsApp Web (no es oficial): el aviso, como al conectar el principal.
+    if (!demo && !confirm(tx::QR_RISK)) return;
+    std::string name = wa::trim(wa::form_value(fs, "name"));
+    if (name.empty()) name = wa::fmt(tx::ACCOUNT_DEFAULT, {std::to_string(accounts.size() + 1)});
+    std::string id = "n" + std::to_string(wa::wall_s());
+    while (account_index(id) >= 0) id += "x";
+    accounts.push_back({id, name});
+    save_accounts();
+    switch_account((int)accounts.size() - 1);
+    say(wa::fmt(tx::ACCOUNT_SCAN, {name}));
+  }
+  void account_menu(int k) {
+    if (k < 0 || k >= (int)accounts.size()) return;
+    std::vector<std::string> items = {tx::ACCOUNT_RENAME};
+    if (k > 0) items.push_back(tx::ACCOUNT_REMOVE);
+    int r = choose(items);
+    if (r == 0) {
+      std::vector<wa::FormField> fs = {{"name", tx::ACCOUNT_NAME, accounts[(size_t)k].name, 0, 2, {}}};
+      if (!form(tx::ACCOUNT_RENAME_TITLE, fs, tx::BTN_SAVE)) return;
+      std::string name = wa::trim(wa::form_value(fs, "name"));
+      if (name.empty()) return;
+      accounts[(size_t)k].name = name;
+      if (k == 0) {
+        main_name = name;
+        save_settings();
+      } else save_accounts();
+      update_tabs();
+    } else if (r == 1) {
+      remove_account(k);
+    }
+  }
+  // Quitar un número: se desvincula del teléfono; sus tareas y su CRM se quedan en su carpeta.
+  void remove_account(int k) {
+    if (k <= 0 || k >= (int)accounts.size()) return;
+    if (!confirm(wa::fmt(tx::ACCOUNT_REMOVE_Q, {accounts[(size_t)k].name}))) return;
+    std::string id = accounts[(size_t)k].id;
+    if (account == k) switch_account(0);
+    wa::Bridge* b = bridge_for(id);
+    if (b->running()) b->send("{\"cmd\":\"logout\"}");
+    accounts.erase(accounts.begin() + k);
+    if (account > k) account--;
+    save_accounts();
+    update_tabs();
+    say(tx::ACCOUNT_REMOVED);
   }
   // Una línea del puente.
   void on_bridge(const std::string& line) {
@@ -9147,6 +9515,7 @@ public:
     else if (item == tx::MP_DARK) set_theme("dark");
     else if (item == tx::MP_SYSTEM) set_theme("system");
     else if (item == tx::MP_COLORS) colors_form();
+    else if (item == tx::MP_ACCOUNT_ADD) add_account();
     else if (item == tx::MP_BAR) close_clicked();
     else if (item == tx::MP_QUIT) {
       quit();
@@ -9173,6 +9542,7 @@ public:
     Fl::screen_count();
     demo = true;
     setup();
+    load_accounts();
     size(W, H);
     theme = "light";
     apply_theme();
@@ -9287,6 +9657,9 @@ public:
   int shots(const std::string& dir) {
     fl_make_path(dir.c_str());
     demo_state(1600, 1000);
+    // Las capturas: un segundo número, vinculado y con mensajes nuevos (solo en memoria).
+    accounts.push_back({"demo2", tx::DEMO_ACCOUNT2, 3, true});
+    update_tabs();
     render_to(dir + "/chat.png");
     Intent->value(tx::DEMO_INTENT);
     Tone->index(0);
@@ -10446,7 +10819,7 @@ public:
       on_bridge("{\"ev\":\"locked\"}");
       on_bridge("{\"ev\":\"exit\"}");
       chk(message == tx::BRIDGE_LOCKED && !bridge_locked, "otro puente ya usa la cuenta: el aviso");
-      chk(bridge.start(sh, dir), "arrancar el puente");
+      chk(bridge->start(sh, dir), "arrancar el puente");
       for (int i = 0; i < 100 && !linked; i++) Fl::wait(0.05);
       chk(linked, "puente vinculado");
       Draft->value("Hola desde la prueba");
@@ -10563,29 +10936,93 @@ public:
       Fl::e_state = FL_SHIFT;
       Draft->value("otra");
       chk(dispatch(FL_KEYBOARD, this) == 0 || std::string(Draft->value()) != "", "Mayúsculas+Enter no envía");
-      bridge.stop();
-      for (int i = 0; i < 40 && bridge.running(); i++) Fl::wait(0.05);
+      bridge->stop();
+      for (int i = 0; i < 40 && bridge->running(); i++) Fl::wait(0.05);
       send_mode = wa::S_NONE;
       std::remove(sh.c_str());
     }
     // DMS_MYWA_REALBRIDGE=1: el puente de verdad (junto a la app) da un QR.
     if (fl_getenv("DMS_MYWA_REALBRIDGE")) {
       static std::string got;
-      auto keep = bridge.on_line;
-      bridge.on_line = [](const std::string& l) {
+      auto keep = bridge->on_line;
+      bridge->on_line = [](const std::string& l) {
         if (got.empty() && l.find("\"ev\":\"qr\"") != std::string::npos) got = l;
       };
       std::string dir = wa::config_dir() + "/puente-real";
       fl_make_path(dir.c_str());
-      chk(bridge.start(wa::bridge_path(), dir), "arrancar el puente de verdad");
+      chk(bridge->start(wa::bridge_path(), dir), "arrancar el puente de verdad");
       for (int i = 0; i < 300 && got.empty(); i++) Fl::wait(0.1);
       std::printf("puente: %s\n", got.empty() ? "sin QR" : "QR recibido");
       chk(!got.empty(), "el puente de verdad da un código QR");
-      bridge.stop();
-      for (int i = 0; i < 40 && bridge.running(); i++) Fl::wait(0.05);
-      bridge.on_line = keep;
+      bridge->stop();
+      for (int i = 0; i < 40 && bridge->running(); i++) Fl::wait(0.05);
+      bridge->on_line = keep;
     }
 #endif
+    // Varios números: añadir uno (su pestaña, sus datos aparte), lo que llega al otro y quitarlo.
+    {
+      auto old_form = form;
+      auto old_confirm = confirm;
+      size_t main_chats = chats.size();
+      int main_tasks = wa::tasks_pending(tasks);
+      render_to("");
+      int plus = 0;
+      for (const auto& h : tabs->hits) plus += h.act == 2 ? 1 : 0;
+      bool one_tab = accounts.size() == 1 && tabs->tabs.size() == 1 && plus == 1 && tabs->y() < list->y() && Search->y() > tabs->y();
+      form = [](const std::string&, std::vector<wa::FormField>& fs, const char*) {
+        for (auto& f : fs)
+          if (f.key == "name") f.value = "Trabajo";
+        return true;
+      };
+      for (const auto& h : tabs->hits)
+        if (h.act == 2) {
+          Fl::e_x = h.x + 3;
+          Fl::e_y = h.y + 3;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          tabs->handle(FL_PUSH);
+        }
+      std::string dir2 = wa::data_dir();
+      chk(one_tab && accounts.size() == 2 && account == 1 && accounts[1].name == "Trabajo" && tabs->active == 1 &&
+              dir2 == wa::config_dir() + "/cuentas/" + accounts[1].id && chats.empty() && wa::tasks_pending(tasks) == 0 &&
+              send_mode == wa::S_LINKED && !view->notice.empty(),
+          "otro número: su pestaña, sus datos aparte y vacío hasta vincularlo");
+      // Mientras se ve «Trabajo», a la principal le llega un mensaje: se cuenta en su pestaña.
+      on_bridge_from("", "{\"ev\":\"msg\",\"id\":\"M9\",\"chat\":\"34600111222@s.whatsapp.net\",\"name\":\"Laura\",\"text\":\"¿Sigues?\",\"t\":1794365300}");
+      on_bridge_from("", "{\"ev\":\"msg\",\"id\":\"M10\",\"chat\":\"34600111222@s.whatsapp.net\",\"text\":\"Mío\",\"mine\":true,\"t\":1794365301}");
+      on_bridge_from(accounts[1].id, "{\"ev\":\"msg\",\"id\":\"W1\",\"chat\":\"34699000000@s.whatsapp.net\",\"name\":\"Cliente\",\"text\":\"Hola\",\"t\":1794365302}");
+      render_to("");
+      bool badge = tabs->tabs[0].unread == 1 && accounts[0].unread == 1;
+      bool own = store.chats.count("34699000000@s.whatsapp.net") == 1;
+      reload();
+      chk(badge && own && chats.size() == 1 && chats[0].name == "Cliente", "lo que llega a la principal, contado en su pestaña; lo de «Trabajo», en su lista");
+      // Volver a la principal: sus chats y sus tareas, y su cuenta a cero.
+      for (const auto& h : tabs->hits)
+        if (h.act == 1 && h.idx == 0) {
+          Fl::e_x = h.x + 3;
+          Fl::e_y = h.y + 3;
+          tabs->handle(FL_PUSH);
+        }
+      chk(account == 0 && wa::data_dir() == wa::config_dir() && chats.size() >= main_chats && wa::tasks_pending(tasks) == main_tasks &&
+              accounts[0].unread == 0 && send_mode == main_send_mode,
+          "volver a la principal: sus chats y sus tareas");
+      // Cambiar el nombre y quitar el número (clic derecho en su pestaña).
+      int pick_n = 0;
+      choose = [&pick_n](const std::vector<std::string>& items) { return pick_n < (int)items.size() ? pick_n : -1; };
+      form = [](const std::string&, std::vector<wa::FormField>& fs, const char*) {
+        for (auto& f : fs)
+          if (f.key == "name") f.value = "Oficina";
+        return true;
+      };
+      account_menu(1);
+      bool renamed = accounts[1].name == "Oficina" && tabs->tabs[1].name == "Oficina";
+      confirm = [](const std::string&) { return true; };
+      pick_n = 1;
+      account_menu(1);
+      chk(renamed && accounts.size() == 1 && tabs->tabs.size() == 1 && account == 0, "cambiar el nombre y quitar el número");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      form = old_form;
+      confirm = old_confirm;
+    }
     if (!f) std::printf("uitest ok\n");
     return f ? 1 : 0;
   }

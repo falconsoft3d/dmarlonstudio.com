@@ -240,11 +240,11 @@ const es: Record<string, DemoGuide> = {
   },
   cpp_mywa: {
     intro:
-      "Un asistente para contestar WhatsApp con IA, nativo en C++ con FLTK y diseñado en el estudio: lee sus chats y le propone respuestas, pero quien envía es usted.",
+      "Un asistente para contestar WhatsApp con IA, nativo en C++ con FLTK y diseñado en el estudio: lee sus chats, le propone respuestas y las envía cuando usted lo dice.",
     steps: [
-      { title: "Sus chats, a la izquierda", text: "En el Mac lee los chats de WhatsApp Desktop sin cambiar nada (la primera vez, macOS pide permiso) y se pone al día solo cada pocos segundos. Sin WhatsApp Desktop, importe un chat con «Exportar chat» en el teléfono. Busque un chat y ábralo: la conversación sale como en WhatsApp." },
+      { title: "Sus chats, a la izquierda", text: "En el Mac lee los chats de WhatsApp Desktop sin cambiar nada (la primera vez, macOS pide permiso) y se pone al día solo cada pocos segundos. Sin WhatsApp Desktop, importe un chat con «Exportar chat» en el teléfono. Busque un chat y ábralo: la conversación sale como en WhatsApp, con la foto de cada contacto, las fotos y documentos que recibe (un clic los abre) y, en los grupos, quién escribió cada mensaje. En Ver, tema claro, oscuro o como el sistema." },
       { title: "Pida respuestas a la IA", text: "Elija Claude o ChatGPT y el estilo (natural, formal, breve, cariñoso o de negocio), y si quiere escriba qué quiere decir. «Sugerir respuestas» manda los últimos mensajes de ese chat a la IA, solo entonces y solo de ese chat, y en unos segundos tiene tres propuestas." },
-      { title: "Fotos, adjuntos y tema", text: "«Usar» pasa la respuesta al borrador para retocarla y «Copiar» la copia. Cada chat lleva la foto de perfil del contacto; las fotos que recibe se ven dentro del bocadillo y los documentos se abren con un clic. En Ver, tema claro, oscuro o como el sistema. Las claves de la IA se guardan en el Llavero de macOS." },
+      { title: "Envíe sin salir de la app", text: "«Usar» pasa una respuesta al borrador para retocarla y «Copiar» la copia. Escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «Enviar» en una respuesta propuesta la manda tal cual y «📎 Adjuntar» envía un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o vinculándolo con un código QR, como WhatsApp Web, para enviar y recibir en todos sus chats y grupos. El modo QR no es oficial y WhatsApp puede bloquear la cuenta: la app lo avisa antes." },
     ],
   },
   domino: {
@@ -563,11 +563,11 @@ const en: Record<string, DemoGuide> = {
   },
   cpp_mywa: {
     intro:
-      "An assistant for answering WhatsApp with AI, native in C++ with FLTK and designed in the studio: it reads your chats and suggests replies, but you are the one who sends them.",
+      "An assistant for answering WhatsApp with AI, native in C++ with FLTK and designed in the studio: it reads your chats, suggests replies and sends them when you say so.",
     steps: [
-      { title: "Your chats, on the left", text: "On the Mac it reads WhatsApp Desktop's chats without changing anything (the first time, macOS asks for permission) and keeps up to date every few seconds. Without WhatsApp Desktop, import a chat with “Export chat” on the phone. Search for a chat and open it: the conversation looks like WhatsApp." },
+      { title: "Your chats, on the left", text: "On the Mac it reads WhatsApp Desktop's chats without changing anything (the first time, macOS asks for permission) and keeps up to date every few seconds. Without WhatsApp Desktop, import a chat with “Export chat” on the phone. Search for a chat and open it: the conversation looks like WhatsApp, with each contact's picture, the photos and documents you receive (a click opens them) and, in groups, who wrote each message. In View, a light, dark or system theme." },
       { title: "Ask the AI for replies", text: "Choose Claude or ChatGPT and the style (natural, formal, short, warm or business), and optionally type what you want to say. “Suggest replies” sends that chat's latest messages to the AI, only then and only that chat, and in a few seconds you have three suggestions." },
-      { title: "Photos, attachments and theme", text: "“Use” puts the reply in the draft to tweak it and “Copy” copies it. Each chat shows the contact's profile picture; photos you receive appear inside the bubble and documents open with a click. In View, a light, dark or system theme. The AI keys are stored in the macOS Keychain." },
+      { title: "Send without leaving the app", text: "“Use” puts a reply in the draft to tweak it and “Copy” copies it. Type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “Send” on a suggested reply sends it as is and “📎 Attach” sends a file. The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or by linking it with a QR code, like WhatsApp Web, to send and receive in all your chats and groups. QR mode is not official and WhatsApp may ban the account: the app warns you first." },
     ],
   },
   domino: {

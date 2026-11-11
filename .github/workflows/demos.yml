@@ -78,6 +78,13 @@ jobs:
           install: >-
             mingw-w64-ucrt-x86_64-gcc
             mingw-w64-ucrt-x86_64-fltk
+      # Go para el puente de MyWhatsapp con WhatsApp (scripts/demo-extra/wabridge).
+      - name: Go
+        continue-on-error: true
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: scripts/demo-extra/wabridge/go.mod
+          cache-dependency-path: scripts/demo-extra/wabridge/go.sum
       - name: Dónde está MSYS2
         if: runner.os == 'Windows' && steps.msys2.outcome == 'success'
         shell: pwsh

@@ -349,6 +349,7 @@ def pascal_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
         (app / "Contents" / "Resources").mkdir()
         for lang in LANGS:
             sh.copy(bins[lang], app / "Contents" / "MacOS" / files[lang])
+        go_extra(seed, app / "Contents" / "MacOS", archs)
         mac_openssl(app / "Contents" / "Frameworks", archs)
         if ico:
             sh.copy(ico, app / "Contents" / "Resources" / "app.icns")
@@ -475,6 +476,43 @@ def cpp_binary(d: Path, name: str):
 
 # Las demos que graban sonido con el micrófono.
 MIC_DEMOS = {"cpp_recorder"}
+# Las demos que llevan al lado un programa en Go (scripts/demo-extra/<nombre>):
+# MyWhatsapp y su puente con WhatsApp (dispositivo vinculado por QR).
+GO_EXTRAS = {"cpp_mywa": "wabridge"}
+
+
+def go_extra(seed: str, dest: Path, archs: list) -> bool:
+    """Compila el programa en Go de la demo junto a sus ejecutables. Go sale
+    de DMS_GO o del PATH; sin Go la demo funciona igual, salvo esa parte."""
+    import shutil as sh
+    if seed not in GO_EXTRAS:
+        return False
+    name = GO_EXTRAS[seed]
+    src = Path(__file__).resolve().parent / "demo-extra" / name
+    go = os.environ.get("DMS_GO") or sh.which("go")
+    if not go:
+        print(f"aviso: sin Go; {seed} va sin {name}", flush=True)
+        return False
+    env = {**os.environ, "CGO_ENABLED": "0"}
+    try:
+        if MAC:
+            parts = []
+            for arch in archs or ["arm64"]:
+                out = dest / f"{name}-{arch}"
+                goarch = {"x86_64": "amd64"}.get(arch, arch)
+                subprocess.run([go, "build", "-trimpath", "-ldflags", "-s -w", "-o", str(out), "."], cwd=src,
+                               env={**env, "GOOS": "darwin", "GOARCH": goarch}, check=True)
+                parts.append(out)
+            run(["lipo", "-create", *parts, "-output", dest / name], dest)
+            for f in parts:
+                f.unlink()
+        else:
+            subprocess.run([go, "build", "-trimpath", "-ldflags", "-s -w", "-o", str(dest / f"{name}.exe"), "."],
+                           cwd=src, env={**env, "GOOS": "windows", "GOARCH": "amd64"}, check=True)
+    except subprocess.CalledProcessError:
+        print(f"aviso: no compila {name}; {seed} va sin él", flush=True)
+        return False
+    return True
 
 
 def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
@@ -497,6 +535,7 @@ def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
         (app / "Contents" / "Resources").mkdir()
         for lang in LANGS:
             sh.copy(bins[lang], app / "Contents" / "MacOS" / files[lang])
+        go_extra(seed, app / "Contents" / "MacOS", archs)
         if ico:
             sh.copy(ico, app / "Contents" / "Resources" / "app.icns")
         with open(app / "Contents" / "Info.plist", "wb") as f:
@@ -527,6 +566,7 @@ def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
             rcedit_icon(folder / files[lang], ico)
     for dll in set(dlls):
         sh.copy(dll, folder)
+    go_extra(seed, folder, [])
     return folder
 
 

@@ -5,6 +5,7 @@ part of 'tk_examples.dart';
 const _mywaIncludes = r'''#include <algorithm>
 #include <atomic>
 #include <chrono>
+#include <cctype>
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
@@ -17,6 +18,8 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <string>
 #include <thread>
 #include <vector>
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Image_Surface.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_JPEG_Image.H>
@@ -30,9 +33,15 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <windows.h>
 #else
 #include <dlfcn.h>
+#include <cerrno>
+#include <csignal>
+#include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#endif
+#ifdef __APPLE__
+#include <mach-o/dyld.h>
 #endif
 ''';
 
@@ -298,6 +307,7 @@ struct Msg {
   int kind = K_TEXT;
   std::string media, title;   // media: el archivo en este equipo ("" si no está)
   long long size = 0;
+  std::string id;   // el de WhatsApp (los que llegan por el puente)
 };
 struct Chat {
   long long id = 0;
@@ -305,6 +315,7 @@ struct Chat {
   long long last_t = 0;
   int unread = 0;
   bool group = false;
+  bool live = false;   // llegó por el puente (no está en WhatsApp Desktop)
   std::vector<Msg> msgs;   // los últimos, del más antiguo al más nuevo
 };
 // La fecha de WhatsApp (segundos desde el 1 de enero de 2001) → Unix.
@@ -555,6 +566,30 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
   return true;
 #endif
 }
+// ¿Un texto codificado (lo que guarda ahora WhatsApp en ZPUSHNAME)?
+bool looks_encoded(const std::string& s) {
+  if (s.size() < 24 || s.find(' ') != std::string::npos) return false;
+  for (unsigned char ch : s)
+    if (!(std::isalnum(ch) || ch == '+' || ch == '/' || ch == '=')) return false;
+  return true;
+}
+// Quién escribe en un grupo: el nombre de la agenda, el del grupo, el de su
+// perfil («~ Ana», como WhatsApp) o su teléfono.
+std::string sender_name(const std::string& book, const std::string& first, const std::string& push,
+                        const std::string& member_jid, const std::string& raw_push) {
+  if (!trim(book).empty()) return trim(book);
+  if (!trim(first).empty()) return trim(first);
+  if (!trim(push).empty()) return "~ " + trim(push);
+  std::string ph = phone_of(member_jid);
+  if (!ph.empty()) return "+" + ph;
+  if (!raw_push.empty() && !looks_encoded(raw_push)) return raw_push;
+  return "";
+}
+std::string sql_quote(const std::string& s) {
+  std::string o = "'";
+  for (char ch : s) o += ch == '\'' ? std::string("''") : std::string(1, ch);
+  return o + "'";
+}
 bool load_messages(const std::string& path, Chat& c, int limit, std::string& error) {
 #ifdef _WIN32
   (void)path;
@@ -573,13 +608,39 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     return false;
   }
   void* st = nullptr;
-  const char* sql =
+  // La agenda (ContactsV2.sqlite, al lado) da los nombres de los miembros.
+  bool book = false;
+  std::string contacts = base_dir(path) + "/ContactsV2.sqlite";
+  if (c.group && file_exists(contacts)) {
+    std::string att = "ATTACH DATABASE " + sql_quote("file:" + contacts + "?mode=ro") + " AS ab";
+    book = q.exec(db, att.c_str(), nullptr, nullptr, nullptr) == 0;
+  }
+  bool members = false;
+  {
+    void* t = nullptr;
+    members = q.prepare_v2(db, "SELECT ZMEMBERJID, ZFIRSTNAME FROM ZWAGROUPMEMBER LIMIT 0", -1, &t, nullptr) == 0;
+    if (t) q.finalize(t);
+    void* t2 = nullptr;
+    members = members && q.prepare_v2(db, "SELECT ZJID, ZPUSHNAME FROM ZWAPROFILEPUSHNAME LIMIT 0", -1, &t2, nullptr) == 0;
+    if (t2) q.finalize(t2);
+  }
+  std::string sql =
       "SELECT m.ZISFROMME, IFNULL(m.ZTEXT, ''), m.ZMESSAGEDATE, IFNULL(m.ZPUSHNAME, ''), IFNULL(m.ZMESSAGETYPE, 0), "
-      "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0) "
-      "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK "
-      "WHERE m.ZCHATSESSION = ? AND ((m.ZTEXT IS NOT NULL AND m.ZTEXT != '') OR m.ZMESSAGETYPE IN (1, 2, 3, 8, 11, 15)) "
-      "ORDER BY m.ZMESSAGEDATE DESC LIMIT ?";
-  if (q.prepare_v2(db, sql, -1, &st, nullptr) != 0) {
+      "IFNULL(i.ZMEDIALOCALPATH, ''), IFNULL(i.ZTITLE, ''), IFNULL(i.ZFILESIZE, 0), ";
+  if (members) {
+    sql += "IFNULL(g.ZMEMBERJID, ''), ";
+    sql += book ? "IFNULL((SELECT a.ZFULLNAME FROM ab.ZWAADDRESSBOOKCONTACT a WHERE (a.ZWHATSAPPID = g.ZMEMBERJID OR a.ZLID = g.ZMEMBERJID) "
+                  "AND IFNULL(a.ZFULLNAME, '') != '' LIMIT 1), ''), "
+                : "'', ";
+    sql += "IFNULL(g.ZFIRSTNAME, ''), "
+           "IFNULL((SELECT p.ZPUSHNAME FROM ZWAPROFILEPUSHNAME p WHERE p.ZJID = g.ZMEMBERJID LIMIT 1), '') "
+           "FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK LEFT JOIN ZWAGROUPMEMBER g ON g.Z_PK = m.ZGROUPMEMBER ";
+  } else {
+    sql += "'', '', '', '' FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK ";
+  }
+  sql += "WHERE m.ZCHATSESSION = ? AND ((m.ZTEXT IS NOT NULL AND m.ZTEXT != '') OR m.ZMESSAGETYPE IN (1, 2, 3, 8, 11, 15)) "
+         "ORDER BY m.ZMESSAGEDATE DESC LIMIT ?";
+  if (q.prepare_v2(db, sql.c_str(), -1, &st, nullptr) != 0) {
     error = tx::ERR_READ_DB;
     q.close(db);
     return false;
@@ -592,7 +653,7 @@ bool load_messages(const std::string& path, Chat& c, int limit, std::string& err
     m.mine = q.column_int64(st, 0) != 0;
     m.text = col(st, 1);
     m.t = apple_time(q.column_double(st, 2));
-    if (c.group && !m.mine) m.who = col(st, 3);
+    if (c.group && !m.mine) m.who = sender_name(col(st, 9), col(st, 10), col(st, 11), col(st, 8), col(st, 3));
     m.kind = (int)q.column_int64(st, 4);
     if (m.kind != K_IMAGE && m.kind != K_VIDEO && m.kind != K_AUDIO && m.kind != K_DOC && m.kind != K_GIF && m.kind != K_STICKER)
       m.kind = K_TEXT;
@@ -792,7 +853,9 @@ int run_capture(const std::string& cfg_path, std::string& out) {
 #endif
 }
 // Una petición POST con su cuerpo JSON: (código HTTP, respuesta).
-std::pair<int, std::string> post_json(const std::string& url, const std::vector<std::string>& headers, const std::string& body) {
+std::pair<int, std::string> post_json(const std::string& url, const std::vector<std::string>& headers, const std::string& body,
+                                      const char* net_error = nullptr) {
+  if (!net_error) net_error = tx::ERR_AI_NETWORK;
   static std::atomic<int> counter{0};
   std::string dir = config_dir();
   fl_make_path(dir.c_str());
@@ -803,13 +866,13 @@ std::pair<int, std::string> post_json(const std::string& url, const std::vector<
   c += "silent\nshow-error\nmax-time = 120\nconnect-timeout = 15\nrequest = \"POST\"\n";
   c += "data-binary = " + curl_quote("@" + data) + "\n";
   c += "write-out = \"\\n%{http_code}\"\n";
-  if (!write_file(data, body) || !write_file(cfg, c)) return {0, tx::ERR_AI_NETWORK};
+  if (!write_file(data, body) || !write_file(cfg, c)) return {0, net_error};
   std::string out;
   int code = run_capture(cfg, out);
   std::remove(cfg.c_str());
   std::remove(data.c_str());
   size_t nl = out.find_last_of('\n');
-  if (code != 0 || nl == std::string::npos) return {0, code < 0 ? tx::ERR_NO_CURL : tx::ERR_AI_NETWORK};
+  if (code != 0 || nl == std::string::npos) return {0, code < 0 ? tx::ERR_NO_CURL : net_error};
   return {std::atoi(out.c_str() + nl + 1), out.substr(0, nl)};
 }
 std::string anthropic_url() {
@@ -883,6 +946,413 @@ void key_set(const std::string& name, const std::string& value) {
   write_file(config_dir() + "/" + name + ".key", value);
 #endif
 }
+
+// ------------------------------------------------------------ enviar
+// Dos maneras: la API oficial de WhatsApp Business (Cloud API, de Meta) o el
+// puente «dispositivo vinculado» (wabridge: como WhatsApp Web, con un QR).
+enum SendMode { S_NONE = 0, S_CLOUD = 1, S_LINKED = 2 };
+struct CloudSettings {
+  std::string phone_id, token;
+};
+std::string graph_url() {
+  const char* o = fl_getenv("DMS_MYWA_GRAPH_URL");
+  return std::string(o ? o : "https://graph.facebook.com") + "/v23.0/";
+}
+std::string file_base(const std::string& path) {
+  size_t p = path.find_last_of("/\\");
+  return p == std::string::npos ? path : path.substr(p + 1);
+}
+// El tipo de un archivo para WhatsApp: foto, vídeo, audio o documento.
+int file_kind(const std::string& path) {
+  std::string e = lower(path.substr(path.find_last_of('.') == std::string::npos ? path.size() : path.find_last_of('.')));
+  if (e == ".jpg" || e == ".jpeg" || e == ".png") return K_IMAGE;
+  if (e == ".mp4" || e == ".3gp") return K_VIDEO;
+  if (e == ".mp3" || e == ".ogg" || e == ".opus" || e == ".m4a" || e == ".aac" || e == ".amr") return K_AUDIO;
+  return K_DOC;
+}
+std::string mime_of(const std::string& path) {
+  std::string e = lower(path.substr(path.find_last_of('.') == std::string::npos ? path.size() : path.find_last_of('.')));
+  static const std::map<std::string, std::string> m = {
+      {".jpg", "image/jpeg"}, {".jpeg", "image/jpeg"}, {".png", "image/png"}, {".mp4", "video/mp4"},
+      {".3gp", "video/3gpp"}, {".mp3", "audio/mpeg"}, {".ogg", "audio/ogg"}, {".opus", "audio/ogg"},
+      {".m4a", "audio/mp4"}, {".aac", "audio/aac"}, {".amr", "audio/amr"}, {".pdf", "application/pdf"},
+      {".txt", "text/plain"}, {".doc", "application/msword"}, {".xls", "application/vnd.ms-excel"},
+      {".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+      {".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"},
+      {".pptx", "application/vnd.openxmlformats-officedocument.presentationml.presentation"}};
+  auto it = m.find(e);
+  return it == m.end() ? "application/octet-stream" : it->second;
+}
+std::string cloud_text_body(const std::string& to, const std::string& text) {
+  return "{\"messaging_product\":\"whatsapp\",\"recipient_type\":\"individual\",\"to\":" + jstr(to) +
+         ",\"type\":\"text\",\"text\":{\"preview_url\":true,\"body\":" + jstr(text) + "}}";
+}
+std::string cloud_media_body(const std::string& to, int kind, const std::string& media_id, const std::string& caption,
+                             const std::string& filename) {
+  std::string t = kind == K_IMAGE ? "image" : kind == K_VIDEO ? "video" : kind == K_AUDIO ? "audio" : "document";
+  std::string inner = "{\"id\":" + jstr(media_id);
+  if (kind != K_AUDIO && !caption.empty()) inner += ",\"caption\":" + jstr(caption);
+  if (kind == K_DOC) inner += ",\"filename\":" + jstr(filename);
+  return "{\"messaging_product\":\"whatsapp\",\"recipient_type\":\"individual\",\"to\":" + jstr(to) + ",\"type\":\"" + t +
+         "\",\"" + t + "\":" + inner + "}}";
+}
+// La respuesta de la Graph API: "" si fue bien (y su id), o el error.
+std::string parse_cloud(int http, const std::string& body, std::string* id = nullptr) {
+  bool ok = false;
+  Json j = parse_json(body, &ok);
+  if (http >= 200 && http < 300 && ok) {
+    std::string v = j["messages"][0]["id"].str();
+    if (v.empty()) v = j["id"].str();
+    if (id) *id = v;
+    if (!v.empty()) return "";
+  }
+  if (http == 401 || j["error"]["code"].n == 190) return tx::ERR_CLOUD_TOKEN;
+  std::string m = j["error"]["message"].str();
+  return m.empty() ? std::string(tx::ERR_SEND) : fmt(tx::ERR_SEND_WHY, {m});
+}
+// Un formulario multipart (para subir el adjunto): (código HTTP, respuesta).
+std::pair<int, std::string> post_form(const std::string& url, const std::vector<std::string>& headers,
+                                      const std::vector<std::string>& fields) {
+  static std::atomic<int> counter{0};
+  std::string dir = config_dir();
+  fl_make_path(dir.c_str());
+  std::string cfg = dir + "/form-" + std::to_string((long long)(now_s() * 1000)) + "-" + std::to_string(counter++) + ".cfg";
+  std::string c = "url = " + curl_quote(url) + "\n";
+  for (const auto& h : headers) c += "header = " + curl_quote(h) + "\n";
+  for (const auto& f : fields) c += "form = " + curl_quote(f) + "\n";
+  c += "silent\nshow-error\nmax-time = 300\nconnect-timeout = 15\nwrite-out = \"\\n%{http_code}\"\n";
+  if (!write_file(cfg, c)) return {0, tx::ERR_SEND_NETWORK};
+  std::string out;
+  int code = run_capture(cfg, out);
+  std::remove(cfg.c_str());
+  size_t nl = out.find_last_of('\n');
+  if (code != 0 || nl == std::string::npos) return {0, code < 0 ? tx::ERR_NO_CURL : tx::ERR_SEND_NETWORK};
+  return {std::atoi(out.c_str() + nl + 1), out.substr(0, nl)};
+}
+// Envía un texto (o un archivo con [text] de pie) con la API oficial.
+std::string cloud_send(const CloudSettings& s, const std::string& jid, const std::string& text, const std::string& file,
+                       std::string* id) {
+  std::string to = phone_of(jid);
+  if (to.empty()) return tx::ERR_CLOUD_GROUP;
+  if (s.phone_id.empty() || s.token.empty()) return tx::ERR_CLOUD_SETUP;
+  std::vector<std::string> auth = {"Authorization: Bearer " + s.token};
+  std::string body;
+  if (file.empty()) body = cloud_text_body(to, text);
+  else {
+    std::string mime = mime_of(file), path;
+    for (char ch : file)
+      if (ch != '"') path += ch;
+    auto up = post_form(graph_url() + s.phone_id + "/media", auth,
+                        {"messaging_product=whatsapp", "type=" + mime, "file=@\"" + path + "\";type=" + mime});
+    if (up.first == 0) return up.second;
+    std::string media_id, e = parse_cloud(up.first, up.second, &media_id);
+    if (!e.empty()) return e;
+    body = cloud_media_body(to, file_kind(file), media_id, text, file_base(file));
+  }
+  auto h = auth;
+  h.push_back("Content-Type: application/json");
+  auto r = post_json(graph_url() + s.phone_id + "/messages", h, body, tx::ERR_SEND_NETWORK);
+  if (r.first == 0) return r.second;
+  return parse_cloud(r.first, r.second, id);
+}
+
+// ---- los mensajes que llegan por el puente (o que se envían): se guardan en
+// mensajes.jsonl, una línea JSON por mensaje, y se juntan con los de Desktop.
+std::string preview_of(const Msg& m) {
+  if (m.kind == K_TEXT) return m.text;
+  std::string s = std::string(kind_icon(m.kind)) + " " + (m.title.empty() ? kind_name(m.kind) : m.title);
+  return m.text.empty() ? s : s + " · " + m.text;
+}
+std::string msg_line(const Msg& m, const std::string& jid) {
+  return "{\"ev\":\"msg\",\"id\":" + jstr(m.id) + ",\"chat\":" + jstr(jid) + ",\"mine\":" + (m.mine ? "true" : "false") +
+         ",\"text\":" + jstr(m.text) + ",\"t\":" + std::to_string(m.t) + ",\"kind\":" + std::to_string(m.kind) +
+         ",\"media\":" + jstr(m.media) + ",\"title\":" + jstr(m.title) + ",\"size\":" + std::to_string(m.size) + "}";
+}
+bool append_line(const std::string& path, const std::string& line) {
+#ifndef _WIN32
+  mode_t old = umask(077);
+#endif
+  FILE* f = fl_fopen(path.c_str(), "ab");
+#ifndef _WIN32
+  umask(old);
+#endif
+  if (!f) return false;
+  std::fputs((line + "\n").c_str(), f);
+  return std::fclose(f) == 0;
+}
+struct LiveChat {
+  std::string name;
+  bool group = false;
+  std::vector<Msg> msgs;   // del más antiguo al más nuevo
+};
+struct LiveStore {
+  std::map<std::string, LiveChat> chats;
+  std::map<std::string, bool> seen;   // los id ya guardados
+  // Una línea del puente; devuelve el chat que cambió ("" si ninguno).
+  std::string add_line(const std::string& line) {
+    bool ok = false;
+    Json j = parse_json(line, &ok);
+    if (!ok) return "";
+    std::string ev = j["ev"].str();
+    if (ev == "chat") {
+      std::string jid = j["jid"].str(), name = j["name"].str();
+      if (!jid.empty() && !name.empty()) chats[jid].name = name;
+      return "";
+    }
+    if (ev != "msg") return "";
+    std::string jid = j["chat"].str(), id = j["id"].str();
+    if (jid.empty()) return "";
+    if (!id.empty()) {
+      if (seen.count(id)) return "";
+      seen[id] = true;
+    }
+    Msg m;
+    m.id = id;
+    m.mine = j["mine"].b;
+    m.who = j["who"].str();
+    m.text = j["text"].str();
+    m.t = (long long)j["t"].n;
+    m.kind = (int)j["kind"].n;
+    m.media = j["media"].str();
+    m.title = j["title"].str();
+    m.size = (long long)j["size"].n;
+    LiveChat& c = chats[jid];
+    c.group = c.group || j["group"].b || jid.find("@g.us") != std::string::npos;
+    if (c.name.empty() && !m.mine && !c.group) c.name = j["name"].str();
+    auto at = std::upper_bound(c.msgs.begin(), c.msgs.end(), m.t, [](long long t, const Msg& x) { return t < x.t; });
+    c.msgs.insert(at, m);
+    if (c.msgs.size() > 400) c.msgs.erase(c.msgs.begin());
+    return jid;
+  }
+  void load(const std::string& path) {
+    std::string text;
+    if (!read_file(path, text)) return;
+    for (const auto& l : split(text, '\n'))
+      if (!l.empty()) add_line(l);
+  }
+  bool empty() const { return chats.empty(); }
+};
+// Junta los mensajes del puente con los de WhatsApp Desktop, sin repetirlos.
+void merge_msgs(std::vector<Msg>& base, const std::vector<Msg>& extra) {
+  size_t n = base.size();
+  for (const auto& m : extra) {
+    bool dup = false;
+    for (size_t i = 0; i < n && !dup; i++) {
+      const Msg& b = base[i];
+      dup = b.mine == m.mine && b.kind == m.kind && b.text == m.text && std::llabs(b.t - m.t) <= 5;
+    }
+    if (!dup) base.push_back(m);
+  }
+  std::stable_sort(base.begin(), base.end(), [](const Msg& a, const Msg& b) { return a.t < b.t; });
+}
+long long live_id(const std::string& jid) {
+  return -1000000 - (long long)(std::hash<std::string>{}(jid) % 1000000000ULL);
+}
+Chat live_chat(const std::string& jid, const LiveChat& lc) {
+  Chat c;
+  c.id = live_id(jid);
+  c.live = true;
+  c.jid = jid;
+  c.group = lc.group;
+  std::string ph = phone_of(jid);
+  c.name = !lc.name.empty() ? lc.name : ph.empty() ? jid : "+" + ph;
+  c.msgs = lc.msgs;
+  if (!c.msgs.empty()) {
+    c.last = preview_of(c.msgs.back());
+    c.last_t = c.msgs.back().t;
+  }
+  return c;
+}
+
+// ---- el puente (wabridge): un proceso aparte que habla por stdin/stdout
+std::string exe_dir() {
+  std::string s;
+#ifdef _WIN32
+  wchar_t w[MAX_PATH];
+  DWORD n = GetModuleFileNameW(nullptr, w, MAX_PATH);
+  char u[MAX_PATH * 4];
+  fl_utf8fromwc(u, sizeof u, w, n);
+  s = u;
+#elif defined(__APPLE__)
+  char buf[4096];
+  uint32_t size = sizeof buf;
+  if (_NSGetExecutablePath(buf, &size) == 0) s = buf;
+#else
+  char buf[4096];
+  ssize_t n = readlink("/proc/self/exe", buf, sizeof buf - 1);
+  if (n > 0) s.assign(buf, (size_t)n);
+#endif
+  size_t p = s.find_last_of("/\\");
+  return p == std::string::npos ? "." : s.substr(0, p);
+}
+std::string bridge_path() {
+  if (const char* o = fl_getenv("DMS_MYWA_BRIDGE")) return o;
+#ifdef _WIN32
+  return exe_dir() + "\\wabridge.exe";
+#else
+  return exe_dir() + "/wabridge";
+#endif
+}
+class Bridge {
+public:
+  std::function<void(const std::string&)> on_line;   // en el hilo de la ventana
+  bool running() const { return alive; }
+  bool start(const std::string& exe, const std::string& dir) {
+    stop();
+    current() = this;
+    int g = ++gen;
+#ifdef _WIN32
+    SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, TRUE};
+    HANDLE out_r = nullptr, out_w = nullptr, in_r = nullptr, in_w2 = nullptr;
+    if (!CreatePipe(&out_r, &out_w, &sa, 0)) return false;
+    if (!CreatePipe(&in_r, &in_w2, &sa, 0)) {
+      CloseHandle(out_r);
+      CloseHandle(out_w);
+      return false;
+    }
+    SetHandleInformation(out_r, HANDLE_FLAG_INHERIT, 0);
+    SetHandleInformation(in_w2, HANDLE_FLAG_INHERIT, 0);
+    STARTUPINFOW si{};
+    si.cb = sizeof(si);
+    si.dwFlags = STARTF_USESTDHANDLES;
+    si.hStdInput = in_r;
+    si.hStdOutput = out_w;
+    si.hStdError = out_w;
+    PROCESS_INFORMATION pi{};
+    std::wstring cmd = L"\"" + wide(exe) + L"\" -dir \"" + wide(dir) + L"\"";
+    BOOL ok = CreateProcessW(nullptr, &cmd[0], nullptr, nullptr, TRUE, CREATE_NO_WINDOW, nullptr, nullptr, &si, &pi);
+    CloseHandle(out_w);
+    CloseHandle(in_r);
+    if (!ok) {
+      CloseHandle(out_r);
+      CloseHandle(in_w2);
+      return false;
+    }
+    CloseHandle(pi.hThread);
+    in_w = in_w2;
+    alive = true;
+    HANDLE proc = pi.hProcess;
+    std::thread([out_r, proc, g] {
+      std::string buf;
+      char tmp[65536];
+      DWORD n = 0;
+      while (ReadFile(out_r, tmp, sizeof tmp, &n, nullptr) && n > 0) lines(buf, tmp, n, g);
+      CloseHandle(out_r);
+      WaitForSingleObject(proc, INFINITE);
+      CloseHandle(proc);
+      Fl::awake(deliver, new Line{g, "{\"ev\":\"exit\"}"});
+    }).detach();
+#else
+    int in[2], out[2];
+    if (pipe(in) != 0) return false;
+    if (pipe(out) != 0) {
+      close(in[0]);
+      close(in[1]);
+      return false;
+    }
+    pid_t pid = fork();
+    if (pid < 0) {
+      for (int fd : {in[0], in[1], out[0], out[1]}) close(fd);
+      return false;
+    }
+    if (pid == 0) {
+      dup2(in[0], 0);
+      dup2(out[1], 1);
+      int nul = open("/dev/null", O_WRONLY);
+      if (nul >= 0) dup2(nul, 2);
+      for (int fd = 3; fd < 1024; fd++) close(fd);
+      execl(exe.c_str(), exe.c_str(), "-dir", dir.c_str(), (char*)nullptr);
+      _exit(127);
+    }
+    close(in[0]);
+    close(out[1]);
+    fcntl(in[1], F_SETFD, FD_CLOEXEC);
+    fcntl(out[0], F_SETFD, FD_CLOEXEC);
+    signal(SIGPIPE, SIG_IGN);
+    in_w = in[1];
+    alive = true;
+    int rd = out[0];
+    std::thread([rd, pid, g] {
+      std::string buf;
+      char tmp[65536];
+      while (true) {
+        ssize_t n = read(rd, tmp, sizeof tmp);
+        if (n < 0 && errno == EINTR) continue;
+        if (n <= 0) break;
+        lines(buf, tmp, (size_t)n, g);
+      }
+      close(rd);
+      int st = 0;
+      waitpid(pid, &st, 0);
+      Fl::awake(deliver, new Line{g, "{\"ev\":\"exit\"}"});
+    }).detach();
+#endif
+    return true;
+  }
+  bool send(const std::string& json) {
+    if (!alive) return false;
+    std::string l = json + "\n";
+#ifdef _WIN32
+    DWORD n = 0;
+    return WriteFile(in_w, l.data(), (DWORD)l.size(), &n, nullptr) && n == l.size();
+#else
+    size_t done = 0;
+    while (done < l.size()) {
+      ssize_t n = write(in_w, l.data() + done, l.size() - done);
+      if (n < 0 && errno == EINTR) continue;
+      if (n <= 0) return false;
+      done += (size_t)n;
+    }
+    return true;
+#endif
+  }
+  // Al cerrar su entrada, el puente se desconecta y termina.
+  void stop() {
+    if (!alive) return;
+    alive = false;
+#ifdef _WIN32
+    CloseHandle(in_w);
+    in_w = nullptr;
+#else
+    close(in_w);
+    in_w = -1;
+#endif
+  }
+
+private:
+  struct Line {
+    int gen;
+    std::string text;
+  };
+  bool alive = false;
+  int gen = 0;
+#ifdef _WIN32
+  HANDLE in_w = nullptr;
+#else
+  int in_w = -1;
+#endif
+  static Bridge*& current() {
+    static Bridge* b = nullptr;
+    return b;
+  }
+  static void lines(std::string& buf, const char* data, size_t n, int g) {
+    buf.append(data, n);
+    size_t nl;
+    while ((nl = buf.find('\n')) != std::string::npos) {
+      std::string l = buf.substr(0, nl);
+      buf.erase(0, nl + 1);
+      if (!l.empty() && l.back() == '\r') l.pop_back();
+      if (!l.empty()) Fl::awake(deliver, new Line{g, l});
+    }
+  }
+  static void deliver(void* p) {
+    std::unique_ptr<Line> l(static_cast<Line*>(p));
+    Bridge* b = current();
+    if (!b || l->gen != b->gen) return;   // de un puente anterior
+    if (l->text == "{\"ev\":\"exit\"}") b->alive = false;
+    if (b->on_line) b->on_line(l->text);
+  }
+};
 
 // ------------------------------------------------------------ dibujo
 Fl_Color rgb(unsigned v) { return fl_rgb_color((uchar)(v >> 16), (uchar)(v >> 8), (uchar)v); }
@@ -1330,14 +1800,15 @@ public:
         round_box(x() + 16, cy, w() - 32, 64, 10, rgb(T.card), rgb(T.card_line));
         fl_font(FL_HELVETICA, 13);
         fl_color(rgb(T.text));
-        auto lines = wrap(o, w() - 32 - 180);
+        auto lines = wrap(o, w() - 32 - 260);
         int ly = cy + 22;
         for (size_t li = 0; li < lines.size() && li < 2; li++) {
-          std::string l = li == 1 && lines.size() > 2 ? fit(lines[li] + "…", w() - 220) : lines[li];
+          std::string l = li == 1 && lines.size() > 2 ? fit(lines[li] + "…", w() - 300) : lines[li];
           fl_draw(l.c_str(), x() + 30, ly);
           ly += 19;
         }
-        int bx = x() + w() - 32 - 140;
+        int bx = x() + w() - 32 - 220;
+        bx = button(bx, cy + 19, tx::SEND, 3, (int)k, T.dark ? rgb(0x111b21) : FL_WHITE, rgb(T.accent)) + 6;
         bx = button(bx, cy + 19, tx::USE, 1, (int)k, rgb(T.text), rgb(T.card)) + 6;
         button(bx, cy + 19, tx::COPY, 2, (int)k, rgb(T.text), rgb(T.card));
         cy += 72;
@@ -1539,21 +2010,29 @@ int selftest() {
            "CREATE TABLE ZWACHATSESSION (Z_PK INTEGER PRIMARY KEY, ZPARTNERNAME VARCHAR, ZCONTACTJID VARCHAR, "
            "ZLASTMESSAGEDATE TIMESTAMP, ZLASTMESSAGETEXT VARCHAR, ZUNREADCOUNT INTEGER, ZREMOVED INTEGER, ZHIDDEN INTEGER);"
            "CREATE TABLE ZWAMESSAGE (Z_PK INTEGER PRIMARY KEY, ZCHATSESSION INTEGER, ZISFROMME INTEGER, ZTEXT VARCHAR, "
-           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER);"
+           "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER, ZGROUPMEMBER INTEGER);"
+           "CREATE TABLE ZWAGROUPMEMBER (Z_PK INTEGER PRIMARY KEY, ZMEMBERJID VARCHAR, ZFIRSTNAME VARCHAR);"
+           "CREATE TABLE ZWAPROFILEPUSHNAME (Z_PK INTEGER PRIMARY KEY, ZJID VARCHAR, ZPUSHNAME VARCHAR);"
+           "INSERT INTO ZWAGROUPMEMBER VALUES (1,'34611@s.whatsapp.net',NULL),(2,'99887@lid',NULL),(3,'34622@s.whatsapp.net',NULL),(4,'34633@s.whatsapp.net','Pepe');"
+           "INSERT INTO ZWAPROFILEPUSHNAME VALUES (1,'99887@lid','Lola');"
            "CREATE TABLE ZWAMEDIAITEM (Z_PK INTEGER PRIMARY KEY, ZMESSAGE INTEGER, ZMEDIALOCALPATH VARCHAR, ZTITLE VARCHAR, ZFILESIZE INTEGER);"
            "CREATE TABLE ZWAPROFILEPICTUREITEM (Z_PK INTEGER PRIMARY KEY, ZJID VARCHAR, ZPATH VARCHAR);"
            "INSERT INTO ZWAPROFILEPICTUREITEM VALUES (1,'34600111222@s.whatsapp.net','Media/Profile/laura');"
-           "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8);"
+           "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8,NULL);"
            "INSERT INTO ZWAMEDIAITEM VALUES (1,6,'Media/x/factura.pdf','factura.pdf',123456);"
-           "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1);"
+           "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1,NULL);"
            "INSERT INTO ZWACHATSESSION VALUES (1,'Laura','34600111222@s.whatsapp.net',800000100,'Genial',2,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (2,'Familia','1203@g.us',800000200,'Hola',0,0,0);"
            "INSERT INTO ZWACHATSESSION VALUES (3,'','status@broadcast',800000300,'x',0,0,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL,0);"
-           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000200,'Ana',0);",
+           "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (4,1,0,NULL,800000110,NULL,0,NULL);"
+           "INSERT INTO ZWAMESSAGE VALUES (5,2,0,'Hola',800000150,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,1);"
+           "INSERT INTO ZWAMESSAGE VALUES (8,2,0,'Uno',800000160,'COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=',0,2);"
+           "INSERT INTO ZWAMESSAGE VALUES (9,2,0,'Dos',800000170,'CIqYztcGIABIAJABAPABAtgCidDa3Kv+lwM=',0,3);"
+           "INSERT INTO ZWAMESSAGE VALUES (10,2,0,'Tres',800000180,NULL,0,4);"
+           "INSERT INTO ZWAMESSAGE VALUES (11,2,0,'Cuatro',800000190,'Ana',0,NULL);",
            nullptr, nullptr, &err);
     q.close(db);
     // La foto de Laura (un .thumb) y un adjunto descargado.
@@ -1573,7 +2052,7 @@ int selftest() {
     Chat& l = chats[1];
     l.group = false;
     chk(chats[1].pic == dir + "/Media/Profile/laura.thumb" && chats[0].pic.empty(), "foto de perfil");
-    chk(chats[1].last == std::string("📷 ") + tx::K_PHOTO && chats[0].last == "Hola", "resumen del último mensaje");
+    chk(chats[1].last == std::string("📷 ") + tx::K_PHOTO && chats[0].last == "Cuatro", "resumen del último mensaje");
     chk(load_messages(path, l, 50, error) && l.msgs.size() == 5 && l.msgs[0].text == "¿Mañana?" && l.msgs[1].mine, "mensajes de la base de datos");
     chk(l.msgs[3].kind == K_DOC && l.msgs[3].title == "factura.pdf" && l.msgs[3].size == 123456 &&
             l.msgs[3].media == dir + "/Message/Media/x/factura.pdf",
@@ -1581,7 +2060,27 @@ int selftest() {
     chk(l.msgs[4].kind == K_IMAGE && l.msgs[4].media.empty(), "foto sin descargar");
     std::remove((dir + "/Media/Profile/laura.thumb").c_str());
     std::remove((dir + "/Message/Media/x/factura.pdf").c_str());
-    chk(load_messages(path, chats[0], 50, error) && chats[0].msgs[0].who == "Ana", "quién escribe en el grupo");
+    // La agenda (ContactsV2.sqlite) al lado: el miembro 1 está en ella.
+    {
+      std::string cpath = dir + "/ContactsV2.sqlite";
+      std::remove(cpath.c_str());
+      void* cdb = nullptr;
+      q.open_v2(cpath.c_str(), &cdb, OPEN_READWRITE | OPEN_CREATE, nullptr);
+      q.exec(cdb,
+             "CREATE TABLE ZWAADDRESSBOOKCONTACT (Z_PK INTEGER PRIMARY KEY, ZFULLNAME VARCHAR, ZWHATSAPPID VARCHAR, ZLID VARCHAR);"
+             "INSERT INTO ZWAADDRESSBOOKCONTACT VALUES (1,'Ana García','34611@s.whatsapp.net','11111@lid');",
+             nullptr, nullptr, &err);
+      q.close(cdb);
+      chk(load_messages(path, chats[0], 50, error) && chats[0].msgs.size() == 5, "mensajes del grupo");
+      const auto& gm = chats[0].msgs;
+      if (gm.size() == 5)
+        chk(gm[0].who == "Ana García" && gm[1].who == "~ Lola" && gm[2].who == "+34622" && gm[3].who == "Pepe" && gm[4].who == "Ana",
+            "quién escribe en el grupo (agenda, perfil, teléfono, nombre)");
+      std::remove(cpath.c_str());
+      chk(load_messages(path, chats[0], 50, error) && chats[0].msgs[0].who == "+34611", "sin agenda: el teléfono");
+      chk(looks_encoded("COuXztcGIABIAJABAPABAtgC2tjzzav+lwM=") && !looks_encoded("Ana María") && !looks_encoded("Ana"),
+          "nombres codificados");
+    }
     std::remove(path.c_str());
   }
 #endif
@@ -1636,6 +2135,108 @@ int selftest() {
     std::printf("live: %d respuestas %s\n", (int)live.options.size(), live.error.c_str());
     chk(live.error.empty() && live.options.size() == 3, "petición de verdad (servidor de prueba)");
   }
+  // Enviar con la API oficial: los cuerpos y las respuestas.
+  b = parse_json(cloud_text_body("34600111222", "Hola \"tú\""), &ok);
+  chk(ok && b["messaging_product"].str() == "whatsapp" && b["to"].str() == "34600111222" && b["type"].str() == "text" &&
+          b["text"]["body"].str() == "Hola \"tú\"",
+      "cuerpo de un texto (API oficial)");
+  b = parse_json(cloud_media_body("346", K_DOC, "M1", "Aquí va", "factura.pdf"), &ok);
+  chk(ok && b["type"].str() == "document" && b["document"]["id"].str() == "M1" && b["document"]["filename"].str() == "factura.pdf" &&
+          b["document"]["caption"].str() == "Aquí va",
+      "cuerpo de un documento (API oficial)");
+  b = parse_json(cloud_media_body("346", K_AUDIO, "M2", "x", "a.ogg"), &ok);
+  chk(ok && b["audio"]["id"].str() == "M2" && b["audio"]["caption"].str().empty(), "cuerpo de un audio (sin pie)");
+  std::string sid;
+  chk(parse_cloud(200, "{\"messaging_product\":\"whatsapp\",\"messages\":[{\"id\":\"wamid.X\"}]}", &sid).empty() && sid == "wamid.X",
+      "API oficial: enviado");
+  chk(parse_cloud(401, "{\"error\":{\"message\":\"bad\",\"code\":190}}") == tx::ERR_CLOUD_TOKEN, "API oficial: token malo");
+  chk(parse_cloud(400, "{\"error\":{\"message\":\"Recipient not in allowed list\",\"code\":131030}}").find("allowed list") !=
+          std::string::npos,
+      "API oficial: el error de Meta");
+  chk(cloud_send(CloudSettings{"1", "t"}, "1203@g.us", "x", "", nullptr) == tx::ERR_CLOUD_GROUP, "API oficial: grupos no");
+  chk(cloud_send(CloudSettings{"", ""}, "346@s.whatsapp.net", "x", "", nullptr) == tx::ERR_CLOUD_SETUP, "API oficial: sin configurar");
+  chk(file_kind("/a/Foto.JPG") == K_IMAGE && file_kind("v.mp4") == K_VIDEO && file_kind("n.opus") == K_AUDIO &&
+          file_kind("x.pdf") == K_DOC && file_kind("sin-extension") == K_DOC && mime_of("x.pdf") == "application/pdf",
+      "tipo de archivo");
+  // Lo que llega por el puente: sin repetir, en orden, con el nombre del chat.
+  {
+    LiveStore st;
+    chk(st.add_line("{\"ev\":\"msg\",\"id\":\"A2\",\"chat\":\"346@s.whatsapp.net\",\"name\":\"Laura\",\"text\":\"Dos\",\"t\":20}") ==
+            "346@s.whatsapp.net",
+        "puente: un mensaje");
+    st.add_line("{\"ev\":\"msg\",\"id\":\"A1\",\"chat\":\"346@s.whatsapp.net\",\"mine\":true,\"text\":\"Uno\",\"t\":10}");
+    chk(st.add_line("{\"ev\":\"msg\",\"id\":\"A1\",\"chat\":\"346@s.whatsapp.net\",\"text\":\"Uno\",\"t\":10}").empty(),
+        "puente: sin repetir");
+    st.add_line("{\"ev\":\"msg\",\"id\":\"G1\",\"chat\":\"1203@g.us\",\"who\":\"Ana\",\"kind\":8,\"title\":\"a.pdf\",\"t\":30}");
+    st.add_line("{\"ev\":\"chat\",\"jid\":\"1203@g.us\",\"name\":\"Familia\"}");
+    st.add_line("roto {");
+    const LiveChat& l = st.chats["346@s.whatsapp.net"];
+    chk(l.msgs.size() == 2 && l.msgs[0].text == "Uno" && l.msgs[0].mine && l.name == "Laura", "puente: en orden y con nombre");
+    Chat g = live_chat("1203@g.us", st.chats["1203@g.us"]);
+    chk(g.live && g.group && g.name == "Familia" && g.msgs[0].who == "Ana" && g.last == std::string("📄 a.pdf") && g.last_t == 30 &&
+            g.id < -1000000 && g.id == live_id("1203@g.us"),
+        "puente: un grupo");
+    Chat n = live_chat("34999@s.whatsapp.net", LiveChat{});
+    chk(n.name == "+34999", "puente: sin nombre, el teléfono");
+    std::vector<Msg> base = {l.msgs[0]};
+    base[0].t = 12;   // el mismo mensaje en WhatsApp Desktop, con otra hora
+    merge_msgs(base, l.msgs);
+    chk(base.size() == 2 && base[1].text == "Dos", "juntar con Desktop sin repetir");
+    std::string path = config_dir() + "/prueba-mensajes.jsonl";
+    std::remove(path.c_str());
+    Msg sent;
+    sent.id = "S1";
+    sent.mine = true;
+    sent.text = "Línea \"1\"\nLínea 2";
+    sent.t = 40;
+    append_line(path, msg_line(sent, "346@s.whatsapp.net"));
+    LiveStore again;
+    again.load(path);
+    chk(again.chats["346@s.whatsapp.net"].msgs.size() == 1 && again.chats["346@s.whatsapp.net"].msgs[0].text == sent.text,
+        "guardar y leer mensajes.jsonl");
+    std::remove(path.c_str());
+  }
+#ifndef _WIN32
+  // DMS_MYWA_REALDB=1: en los grupos de WhatsApp Desktop, cuántos remitentes
+  // tienen nombre (solo cuenta; no enseña nada de los mensajes).
+  if (fl_getenv("DMS_MYWA_REALDB") && db_exists()) {
+    std::vector<Chat> all;
+    std::string e;
+    int groups = 0, named = 0, empty = 0, coded = 0;
+    if (load_chats(db_path(), all, e))
+      for (auto& c : all) {
+        if (!c.group || groups >= 60) continue;
+        groups++;
+        if (!load_messages(db_path(), c, 60, e)) continue;
+        for (const auto& m : c.msgs) {
+          if (m.mine) continue;
+          if (m.who.empty()) empty++;
+          else if (looks_encoded(m.who)) coded++;
+          else named++;
+        }
+      }
+    std::printf("grupos: %d · con nombre: %d · sin nombre: %d · codificados: %d\n", groups, named, empty, coded);
+  }
+#endif
+  // DMS_MYWA_QR=archivo: el código QR que escribe el puente se puede leer.
+  if (const char* q = fl_getenv("DMS_MYWA_QR")) {
+    Fl_PNG_Image img(q);
+    Fl_Image* big = img.w() > 0 ? img.copy(360, 360) : nullptr;
+    chk(big && big->w() == 360 && big->d() > 0, "el código QR del puente");
+    delete big;
+  }
+  // De verdad con un servidor de prueba: DMS_MYWA_GRAPH_URL.
+  if (fl_getenv("DMS_MYWA_GRAPH_URL")) {
+    std::string id, e = cloud_send(CloudSettings{"123", "tok"}, "34600111222@s.whatsapp.net", "Hola", "", &id);
+    std::printf("graph texto: %s %s\n", id.c_str(), e.c_str());
+    chk(e.empty() && !id.empty(), "API oficial de verdad: texto (servidor de prueba)");
+    std::string file = config_dir() + "/prueba-adjunto.pdf";
+    write_file(file, "%PDF-1.4 prueba");
+    e = cloud_send(CloudSettings{"123", "tok"}, "34600111222@s.whatsapp.net", "La factura", file, &id);
+    std::printf("graph archivo: %s %s\n", id.c_str(), e.c_str());
+    chk(e.empty() && !id.empty(), "API oficial de verdad: adjunto (servidor de prueba)");
+    std::remove(file.c_str());
+  }
   if (!f) std::printf("selftest ok\n");
   return f ? 1 : 0;
 }
@@ -1646,6 +2247,10 @@ int selftest() {
 struct AiDone {
   long long chat_id;
   wa::AiReply reply;
+};
+
+struct SendDone {
+  std::string rid, error, id, jid, text, file;
 };
 
 class Form1 : public FormDesign {
@@ -1661,6 +2266,17 @@ public:
   bool shown_dark = false;
   std::string message;
   double message_until = 0;
+  // Enviar: el modo, la API oficial, el puente y lo que llega por él.
+  int send_mode = wa::S_NONE;
+  wa::CloudSettings cloud;
+  wa::Bridge bridge;
+  bool linked = false, store_dirty = false;
+  wa::LiveStore store;
+  std::map<std::string, std::string> pending;   // id del envío → texto (por si falla)
+  int requests = 0;
+  Fl_Double_Window* qr_win = nullptr;
+  Fl_Box* qr_box = nullptr;
+  Fl_RGB_Image* qr_img = nullptr;
 
   static Form1*& self() {
     static Form1* f = nullptr;
@@ -1710,6 +2326,19 @@ public:
       }
     });
     Search->when(FL_WHEN_CHANGED);
+    // Enter en el borrador envía; Mayúsculas+Enter, otra línea.
+    Fl::event_dispatch(dispatch);
+    bridge.on_line = [](const std::string& l) { if (self()) self()->on_bridge(l); };
+  }
+  static int dispatch(int e, Fl_Window* w) {
+    Form1* f = self();
+    if (f && e == FL_KEYBOARD && Fl::focus() == f->Draft &&
+        (Fl::event_key() == FL_Enter || Fl::event_key() == FL_KP_Enter) &&
+        !(Fl::event_state() & (FL_SHIFT | FL_CTRL | FL_ALT | FL_META))) {
+      f->send_draft("");
+      return 1;
+    }
+    return Fl::handle_(e, w);
   }
 
   void form_create() override {
@@ -1718,7 +2347,10 @@ public:
     setup();
     load_settings();
     apply_theme();
+    store.load(store_file());
     reload();
+    // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
+    if (send_mode == wa::S_LINKED) start_bridge();
     refresh();
   }
 
@@ -1753,6 +2385,9 @@ public:
     Menu1->color(panel);
     Menu1->textcolor(text);
     BtnSuggest->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
+    BtnSend->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
+    BtnAttach->color(input);
+    BtnAttach->labelcolor(text);
     Status->color(panel);
     Status->labelcolor(muted);
     redraw();
@@ -1763,7 +2398,10 @@ public:
     apply_theme();
     refresh();
   }
-  void form_close() override { save_settings(); }
+  void form_close() override {
+    save_settings();
+    bridge.stop();
+  }
 
   // ---- ajustes (las claves van en el Llavero)
   std::string settings_file() const { return wa::config_dir() + "/ajustes.txt"; }
@@ -1776,7 +2414,11 @@ public:
         else if (wa::starts(l, "about=")) ai.about = l.substr(6);
         else if (l == "warned=1") warned = true;
         else if (wa::starts(l, "theme=")) theme = l.substr(6);
+        else if (wa::starts(l, "send=")) send_mode = std::atoi(l.c_str() + 5);
+        else if (wa::starts(l, "cloud_phone=")) cloud.phone_id = l.substr(12);
       }
+    if (send_mode < wa::S_NONE || send_mode > wa::S_LINKED) send_mode = wa::S_NONE;
+    cloud.token = wa::key_get("whatsapp-cloud");
     if (ai.openai_model.empty()) ai.openai_model = "gpt-5";
     ai.claude_key = wa::key_get("anthropic");
     ai.openai_key = wa::key_get("openai");
@@ -1791,29 +2433,57 @@ public:
     for (auto& c : about)
       if (c == '\n') c = ' ';
     wa::write_file(settings_file(), "provider=" + std::to_string(ai.provider) + "\nmodel=" + ai.openai_model + "\nabout=" + about +
-                                        "\ntheme=" + theme +
+                                        "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
+                                        "\ncloud_phone=" + cloud.phone_id +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
   // ---- los chats
+  std::string store_file() const { return wa::config_dir() + "/mensajes.jsonl"; }
   void reload() {
-    long long keep = current >= 0 && current < (int)chats.size() ? chats[(size_t)current].id : 0;
+    bool had = current >= 0 && current < (int)chats.size();
+    long long keep = had ? chats[(size_t)current].id : 0;
+    std::string keep_jid = had ? chats[(size_t)current].jid : "";
     std::string error;
     std::vector<wa::Chat> fresh;
-    if (wa::db_exists() && wa::load_chats(wa::db_path(), fresh, error)) {
-      from_db = true;
-      // Los exportados que ya estaban siguen en la lista.
+    if (demo) {
+      // Las capturas y las pruebas: los chats de ejemplo, nunca los de verdad.
       for (const auto& c : chats)
-        if (c.id < 0) fresh.push_back(c);
-      chats = fresh;
+        if (!c.live) fresh.push_back(c);
+    } else if (wa::db_exists() && wa::load_chats(wa::db_path(), fresh, error)) {
+      from_db = true;
       view->notice.clear();
     } else {
       from_db = false;
       view->notice = wa::db_exists() ? std::string(error) + "\n\n" + tx::PERMISSION_HELP : tx::NO_DESKTOP_HELP;
     }
+    // Los exportados que ya estaban siguen en la lista.
+    if (!demo)
+      for (const auto& c : chats)
+        if (c.id < 0 && !c.live) fresh.push_back(c);
+    // Los del puente: si el chat ya está, solo su último mensaje; si no, el chat entero.
+    for (const auto& kv : store.chats) {
+      if (kv.second.msgs.empty()) continue;
+      const wa::Msg& last = kv.second.msgs.back();
+      bool found = false;
+      for (auto& c : fresh)
+        if (c.jid == kv.first) {
+          found = true;
+          if (last.t > c.last_t) {
+            c.last = wa::preview_of(last);
+            c.last_t = last.t;
+          }
+        }
+      if (!found) fresh.push_back(wa::live_chat(kv.first, kv.second));
+    }
+    std::stable_sort(fresh.begin(), fresh.end(), [](const wa::Chat& a, const wa::Chat& b) { return a.last_t > b.last_t; });
+    chats = fresh;
     current = -1;
-    for (int i = 0; i < (int)chats.size(); i++)
+    view->chat = nullptr;
+    for (int i = 0; i < (int)chats.size() && current < 0; i++)
       if (keep && chats[(size_t)i].id == keep) current = i;
+    for (int i = 0; i < (int)chats.size() && current < 0; i++)
+      if (!keep_jid.empty() && chats[(size_t)i].jid == keep_jid) current = i;
     if (current >= 0) open_messages(current);
     list->selected = current;
     list->redraw();
@@ -1825,6 +2495,12 @@ public:
     if (c.id > 0 && from_db && !demo) {
       std::string error;
       if (!wa::load_messages(wa::db_path(), c, 60, error)) say(error);
+    }
+    // Y lo que llegó (o se envió) por el puente.
+    auto it = store.chats.find(c.jid);
+    if (it != store.chats.end()) {
+      if (c.live) c.msgs = it->second.msgs;
+      else wa::merge_msgs(c.msgs, it->second.msgs);
     }
     view->chat = &c;
   }
@@ -1845,11 +2521,14 @@ public:
     refresh();
   }
   void refresh() {
-    std::string where = from_db ? tx::SOURCE_DESKTOP : tx::SOURCE_EXPORT;
+    std::string where = from_db ? tx::SOURCE_DESKTOP : !store.empty() ? tx::SOURCE_LINKED : tx::SOURCE_EXPORT;
+    std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
+                       : send_mode == wa::S_LINKED ? (linked ? tx::MODE_LINKED : tx::MODE_LINKING)
+                                                   : tx::MODE_NONE;
     if (!message.empty() && wa::now_s() < message_until) Status->text(" " + message);
     else
       Status->text(" " + wa::fmt(tx::STATUS, {std::to_string(chats.size()), where,
-                                               ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE}));
+                                               ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE, mode}));
     list->redraw();
     view->redraw();
   }
@@ -1913,8 +2592,11 @@ public:
       return;
     }
     if (k < 0 || k >= (int)options.size()) return;
-    const std::string& o = options[(size_t)k];
-    if (act == 1) Draft->value(o.c_str());
+    const std::string o = options[(size_t)k];
+    if (act == 3) {
+      Draft->value(o.c_str());
+      send_draft("");
+    } else if (act == 1) Draft->value(o.c_str());
     else if (act == 2) {
       Fl::copy(o.c_str(), (int)o.size(), 1);
       say(tx::COPIED);
@@ -1954,7 +2636,217 @@ public:
     say(wa::fmt(tx::IMPORTED, {name, std::to_string(c.msgs.size())}));
   }
 
+  // ---- enviar
+  void send_draft(const std::string& file) {
+    if (current < 0) {
+      say(tx::PICK_CHAT);
+      return;
+    }
+    std::string text = wa::trim(Draft->value());
+    if (text.empty() && file.empty()) {
+      say(tx::EMPTY_DRAFT);
+      Draft->take_focus();
+      return;
+    }
+    wa::Chat& c = chats[(size_t)current];
+    if (c.jid.empty()) {
+      say(tx::ERR_NO_JID);
+      return;
+    }
+    if (demo && send_mode == wa::S_NONE) {
+      // Las capturas: se ve enviado, sin red.
+      wa::Msg m;
+      m.mine = true;
+      m.text = text;
+      m.t = c.msgs.empty() ? 0 : c.msgs.back().t + 60;
+      c.msgs.push_back(m);
+      c.last = text;
+      Draft->value("");
+      options.clear();
+      say(tx::SENT);
+      return;
+    }
+    if (send_mode == wa::S_NONE) {
+      connect_dialog();
+      if (send_mode == wa::S_NONE) return;
+    }
+    std::string rid = "r" + std::to_string(++requests);
+    if (send_mode == wa::S_LINKED) {
+      if (!bridge.running()) start_bridge();
+      if (!linked) {
+        say(tx::NOT_LINKED);
+        return;
+      }
+      std::string cmd = file.empty()
+                            ? "{\"cmd\":\"send\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(c.jid) + ",\"text\":" + wa::jstr(text) + "}"
+                            : "{\"cmd\":\"send_file\",\"id\":" + wa::jstr(rid) + ",\"to\":" + wa::jstr(c.jid) + ",\"path\":" +
+                                  wa::jstr(file) + ",\"caption\":" + wa::jstr(text) + "}";
+      if (!bridge.send(cmd)) {
+        say(tx::ERR_SEND);
+        return;
+      }
+    } else {
+      wa::CloudSettings s = cloud;
+      std::string jid = c.jid;
+      std::thread([s, jid, text, file, rid] {
+        std::string id, err = wa::cloud_send(s, jid, text, file, &id);
+        Fl::awake(cloud_done, new SendDone{rid, err, id, jid, text, file});
+      }).detach();
+    }
+    pending[rid] = text;
+    Draft->value("");
+    options.clear();
+    say(tx::SENDING);
+  }
+  // Si no se pudo enviar, el texto vuelve al borrador.
+  void send_result(const std::string& rid, const std::string& error) {
+    std::string text = pending.count(rid) ? pending[rid] : "";
+    pending.erase(rid);
+    if (error.empty()) {
+      say(tx::SENT);
+      return;
+    }
+    if (!text.empty() && !*Draft->value()) Draft->value(text.c_str());
+    say(error);
+  }
+  static void cloud_done(void* p) {
+    std::unique_ptr<SendDone> d(static_cast<SendDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    if (d->error.empty()) {
+      wa::Msg m;
+      m.id = d->id;
+      m.mine = true;
+      m.text = d->text;
+      m.t = (long long)wa::now_s();
+      if (!d->file.empty()) {
+        m.kind = wa::file_kind(d->file);
+        m.media = d->file;
+        m.title = wa::file_base(d->file);
+      }
+      std::string line = wa::msg_line(m, d->jid);
+      f->store.add_line(line);
+      if (!f->demo) wa::append_line(f->store_file(), line);
+      f->reload();
+    }
+    f->send_result(d->rid, d->error);
+  }
+  void attach_file() {
+    if (current < 0) {
+      say(tx::PICK_CHAT);
+      return;
+    }
+    Fl_Native_File_Chooser ch;
+    ch.title(tx::ATTACH_TITLE);
+    if (ch.show() != 0 || !ch.filename()) return;
+    send_draft(ch.filename());
+  }
+  void connect_dialog() {
+    int r = fl_choice("%s", tx::BTN_CANCEL, tx::CONNECT_CLOUD, tx::CONNECT_QR, tx::CONNECT_ASK);
+    if (r == 1) {
+      const char* id = fl_input("%s", cloud.phone_id.c_str(), tx::ASK_CLOUD_PHONE);
+      if (!id) return;
+      cloud.phone_id = wa::trim(id);
+      const char* tk = fl_password("%s", "", tx::ASK_CLOUD_TOKEN);
+      if (tk && *tk) {
+        cloud.token = wa::trim(tk);
+        wa::key_set("whatsapp-cloud", cloud.token);
+      }
+      if (cloud.phone_id.empty() || cloud.token.empty()) {
+        say(tx::ERR_CLOUD_SETUP);
+        return;
+      }
+      bridge.stop();
+      linked = false;
+      send_mode = wa::S_CLOUD;
+      save_settings();
+      say(tx::CLOUD_READY);
+    } else if (r == 2) {
+      if (!fl_choice("%s", tx::BTN_CANCEL, tx::QR_ACCEPT, nullptr, tx::QR_RISK)) return;
+      send_mode = wa::S_LINKED;
+      save_settings();
+      start_bridge();
+    }
+  }
+  void disconnect() {
+    if (send_mode == wa::S_NONE) return;
+    if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_DISCONNECT, nullptr, tx::DISCONNECT_ASK)) return;
+    if (send_mode == wa::S_LINKED && bridge.running()) bridge.send("{\"cmd\":\"logout\"}");
+    if (send_mode == wa::S_CLOUD) {
+      cloud.token.clear();
+      wa::key_set("whatsapp-cloud", "");
+    }
+    send_mode = wa::S_NONE;
+    linked = false;
+    save_settings();
+    say(tx::LOGGED_OUT);
+  }
+  void start_bridge() {
+    if (bridge.running()) return;
+    std::string exe = wa::bridge_path();
+    if (!wa::file_exists(exe)) {
+      say(tx::ERR_NO_BRIDGE);
+      return;
+    }
+    fl_make_path(wa::config_dir().c_str());
+    if (!bridge.start(exe, wa::config_dir())) {
+      say(tx::ERR_NO_BRIDGE);
+      return;
+    }
+    say(tx::CONNECTING);
+  }
+  // El código QR para vincular, en una ventanita aparte.
+  void show_qr(const std::string& png) {
+    if (!qr_win) {
+      Fl_Group::current(nullptr);
+      qr_win = new Fl_Double_Window(400, 500, tx::QR_TITLE);
+      qr_box = new Fl_Box(20, 20, 360, 360);
+      Fl_Box* help = new Fl_Box(20, 390, 360, 96, tx::QR_HELP);
+      help->align(FL_ALIGN_INSIDE | FL_ALIGN_WRAP | FL_ALIGN_TOP);
+      help->labelsize(14);
+      qr_win->end();
+    }
+    Fl_PNG_Image img(png.c_str());
+    if (img.w() <= 0) return;
+    Fl_RGB_Image* fit = static_cast<Fl_RGB_Image*>(img.copy(360, 360));
+    qr_box->image(fit);
+    delete qr_img;
+    qr_img = fit;
+    qr_win->show();
+    qr_box->redraw();
+  }
+  // Una línea del puente.
+  void on_bridge(const std::string& line) {
+    bool ok = false;
+    wa::Json j = wa::parse_json(line, &ok);
+    if (!ok) return;
+    std::string ev = j["ev"].str();
+    if (ev == "msg" || ev == "chat") {
+      if (!store.add_line(line).empty() || ev == "chat") store_dirty = true;
+    } else if (ev == "qr") {
+      show_qr(j["png"].str());
+    } else if (ev == "ready") {
+      linked = true;
+      if (qr_win) qr_win->hide();
+      say(tx::LINKED);
+    } else if (ev == "sent") {
+      std::string why = j["error"].str();
+      send_result(j["id"].str(), j["ok"].b ? "" : why.empty() ? std::string(tx::ERR_SEND) : wa::fmt(tx::ERR_SEND_WHY, {why}));
+    } else if (ev == "logged_out") {
+      linked = false;
+      say(tx::LOGGED_OUT);
+    } else if (ev == "error") {
+      say(wa::fmt(tx::ERR_SEND_WHY, {j["text"].str()}));
+    } else if (ev == "exit") {
+      linked = false;
+      if (send_mode == wa::S_LINKED) say(tx::BRIDGE_STOPPED);
+    }
+    refresh();
+  }
+
   // ---- eventos del diseño
+  void BtnSend_click() override { send_draft(""); }
+  void BtnAttach_click() override { attach_file(); }
   void BtnSuggest_click() override { ask_ai(); }
   void Intent_enter() override { ask_ai(); }
   void Provider_select() override {
@@ -1968,6 +2860,11 @@ public:
     if (theme == "system" && !demo && wa::now_s() - last_theme > 5) {
       last_theme = wa::now_s();
       if (wa::system_dark() != shown_dark) apply_theme();
+    }
+    // Lo que llegó por el puente.
+    if (store_dirty) {
+      store_dirty = false;
+      reload();
     }
     // Cada pocos segundos, los mensajes nuevos de WhatsApp Desktop.
     static double last = 0;
@@ -1983,11 +2880,14 @@ public:
     if (item == tx::MP_RELOAD) reload();
     else if (item == tx::MP_IMPORT) import_export();
     else if (item == tx::MP_AI) settings_dialog();
+    else if (item == tx::MP_CONNECT) connect_dialog();
+    else if (item == tx::MP_DISCONNECT) disconnect();
     else if (item == tx::MP_LIGHT) set_theme("light");
     else if (item == tx::MP_DARK) set_theme("dark");
     else if (item == tx::MP_SYSTEM) set_theme("system");
     else if (item == tx::MP_QUIT) {
       save_settings();
+      bridge.stop();
       hide();
     } else if (item == tx::MP_HOW) fl_message("%s", tx::HOW_TEXT);
     else if (item == tx::MP_ABOUT) fl_message("%s", tx::ABOUT_TEXT);
@@ -2095,6 +2995,90 @@ public:
     AiDone* d = new AiDone{chats[(size_t)current].id, wa::AiReply{{"A", "B", "C"}, ""}};
     answered(d);
     chk(!thinking && options.size() == 3 && options[0] == "A", "respuesta de la IA");
+    // Sin conectar (capturas): «Enviar» en una sugerencia la deja en el chat.
+    render_to("");
+    size_t before = chats[(size_t)current].msgs.size();
+    for (const auto& h : view->hits)
+      if (h.act == 3 && h.idx == 1) {
+        Fl::e_x = h.x + h.w / 2;
+        Fl::e_y = h.y + h.h / 2;
+        view->handle(FL_PUSH);
+        break;
+      }
+    chk(chats[(size_t)current].msgs.size() == before + 1 && chats[(size_t)current].msgs.back().text == "B" &&
+            chats[(size_t)current].msgs.back().mine && !*Draft->value(),
+        "enviar una sugerencia");
+    Draft->value("");
+    BtnSend_click();
+    chk(message == tx::EMPTY_DRAFT, "enviar sin texto avisa");
+#ifndef _WIN32
+    // Enviar de verdad por un puente de prueba, con Enter en el borrador.
+    {
+      Fl::lock();
+      std::string dir = wa::config_dir();
+      fl_make_path(dir.c_str());
+      std::string sh = dir + "/puente-prueba.sh";
+      wa::write_file(sh,
+                     "#!/bin/sh\n"
+                     "echo '{\"ev\":\"ready\",\"me\":\"34999@s.whatsapp.net\"}'\n"
+                     "while IFS= read -r l; do\n"
+                     "  case \"$l\" in\n"
+                     "    *'\"cmd\":\"send\"'*)\n"
+                     "      echo '{\"ev\":\"msg\",\"id\":\"B1\",\"chat\":\"34600111222@s.whatsapp.net\",\"mine\":true,\"text\":\"Hola desde la prueba\",\"t\":1794365100}'\n"
+                     "      echo '{\"ev\":\"sent\",\"id\":\"r1\",\"ok\":true}'\n"
+                     "      echo '{\"ev\":\"msg\",\"id\":\"B2\",\"chat\":\"34677000000@s.whatsapp.net\",\"name\":\"Nuevo\",\"text\":\"¿Qué tal?\",\"t\":1794365200}'\n"
+                     "      ;;\n"
+                     "  esac\n"
+                     "done\n");
+      chmod(sh.c_str(), 0700);
+      pick(0);
+      send_mode = wa::S_LINKED;
+      chk(bridge.start(sh, dir), "arrancar el puente");
+      for (int i = 0; i < 100 && !linked; i++) Fl::wait(0.05);
+      chk(linked, "puente vinculado");
+      Draft->value("Hola desde la prueba");
+      Fl::focus(Draft);
+      Fl::e_keysym = FL_Enter;
+      Fl::e_state = 0;
+      dispatch(FL_KEYBOARD, this);
+      chk(!*Draft->value() && pending.size() == 1, "Enter envía el borrador");
+      for (int i = 0; i < 100 && !pending.empty(); i++) Fl::wait(0.05);
+      for (int i = 0; i < 10; i++) Fl::wait(0.02);
+      Tick_timer();
+      chk(pending.empty(), "enviado por el puente");
+      const wa::Chat& c = chats[(size_t)current];
+      chk(c.jid == "34600111222@s.whatsapp.net" && c.msgs.back().mine && c.msgs.back().text == "Hola desde la prueba",
+          "el mensaje enviado, en su chat");
+      bool fresh = false;
+      for (const auto& x : chats)
+        if (x.live && x.name == "Nuevo" && x.last == "¿Qué tal?") fresh = true;
+      chk(fresh, "un chat nuevo que llega por el puente");
+      Fl::e_state = FL_SHIFT;
+      Draft->value("otra");
+      chk(dispatch(FL_KEYBOARD, this) == 0 || std::string(Draft->value()) != "", "Mayúsculas+Enter no envía");
+      bridge.stop();
+      for (int i = 0; i < 40 && bridge.running(); i++) Fl::wait(0.05);
+      send_mode = wa::S_NONE;
+      std::remove(sh.c_str());
+    }
+    // DMS_MYWA_REALBRIDGE=1: el puente de verdad (junto a la app) da un QR.
+    if (fl_getenv("DMS_MYWA_REALBRIDGE")) {
+      static std::string got;
+      auto keep = bridge.on_line;
+      bridge.on_line = [](const std::string& l) {
+        if (got.empty() && l.find("\"ev\":\"qr\"") != std::string::npos) got = l;
+      };
+      std::string dir = wa::config_dir() + "/puente-real";
+      fl_make_path(dir.c_str());
+      chk(bridge.start(wa::bridge_path(), dir), "arrancar el puente de verdad");
+      for (int i = 0; i < 300 && got.empty(); i++) Fl::wait(0.1);
+      std::printf("puente: %s\n", got.empty() ? "sin QR" : "QR recibido");
+      chk(!got.empty(), "el puente de verdad da un código QR");
+      bridge.stop();
+      for (int i = 0; i < 40 && bridge.running(); i++) Fl::wait(0.05);
+      bridge.on_line = keep;
+    }
+#endif
     if (!f) std::printf("uitest ok\n");
     return f ? 1 : 0;
   }

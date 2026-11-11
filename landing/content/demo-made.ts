@@ -374,6 +374,53 @@ if (!pic.empty()) {
 // Los adjuntos descargados están en «Message/Media/…».
 if (!local.empty() && file_exists(base_dir(path) + "/Message/" + local)) m.media = base_dir(path) + "/Message/" + local;`;
 
+const mywaEnter = `// Enter en el borrador envía; Mayúsculas+Enter, otra línea.
+static int dispatch(int e, Fl_Window* w) {
+  Form1* f = self();
+  if (f && e == FL_KEYBOARD && Fl::focus() == f->Draft &&
+      (Fl::event_key() == FL_Enter || Fl::event_key() == FL_KP_Enter) &&
+      !(Fl::event_state() & (FL_SHIFT | FL_CTRL | FL_ALT | FL_META))) {
+    f->send_draft("");
+    return 1;
+  }
+  return Fl::handle_(e, w);
+}
+
+// API oficial de WhatsApp Business (Cloud API de Meta)
+std::string cloud_text_body(const std::string& to, const std::string& text) {
+  return "{\\"messaging_product\\":\\"whatsapp\\",\\"recipient_type\\":\\"individual\\",\\"to\\":" + jstr(to) +
+         ",\\"type\\":\\"text\\",\\"text\\":{\\"preview_url\\":true,\\"body\\":" + jstr(text) + "}}";
+}`;
+
+const mywaBridge = `// wabridge (Go + whatsmeow): habla con la app por stdin/stdout,
+// una línea JSON por mensaje.
+case "send", "send_file":
+  to, err := types.ParseJID(c.To)
+  // …
+  if c.Cmd == "send" {
+    msg = &waE2E.Message{Conversation: proto.String(c.Text)}
+  } else {
+    data, _ := os.ReadFile(c.Path)
+    kind, mime := mediaKind(c.Path, data[:min(512, len(data))])
+    up, err := b.cli.Upload(ctx, data, uploadType[kind])
+    // …
+    msg = fileMessage(kind, mime, filepath.Base(c.Path), c.Caption, up)
+  }
+  resp, err := b.cli.SendMessage(ctx, to, msg)`;
+
+const mywaWho = `// Quién escribe en un grupo: el nombre de la agenda, el del grupo, el de su
+// perfil («~ Ana», como WhatsApp) o su teléfono.
+std::string sender_name(const std::string& book, const std::string& first, const std::string& push,
+                        const std::string& member_jid, const std::string& raw_push) {
+  if (!trim(book).empty()) return trim(book);
+  if (!trim(first).empty()) return trim(first);
+  if (!trim(push).empty()) return "~ " + trim(push);
+  std::string ph = phone_of(member_jid);
+  if (!ph.empty()) return "+" + ph;
+  if (!raw_push.empty() && !looks_encoded(raw_push)) return raw_push;
+  return "";
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -677,34 +724,39 @@ const es: Record<string, DemoMade> = {
       target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
       components: [
         { name: "Form1", kind: "Ventana", text: "La lista a la izquierda, la conversación a la derecha y el panel de la IA debajo." },
-        { name: "Menu1", kind: "Menu", text: "Archivo (Actualizar los chats, Importar un chat exportado, Claves de la IA, Salir) y Ayuda." },
-        { name: "Tick", kind: "Timer", text: "Cada segundo; cada pocos, los mensajes nuevos de WhatsApp Desktop." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (Actualizar los chats, Importar un chat exportado, Claves de la IA, Conectar y Desconectar WhatsApp, Salir), Ver (tema) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: lo que llegó por el puente y, cada pocos, los mensajes nuevos de WhatsApp Desktop." },
         { name: "Side / Search", kind: "Frame / Entry", text: "La columna de los chats y su buscador." },
         { name: "ChatArea", kind: "Frame", text: "Donde el código dibuja los bocadillos y las tres respuestas propuestas." },
         { name: "AiBar", kind: "Frame", text: "El panel de la IA." },
         { name: "Provider / Tone", kind: "Combobox", text: "Claude o ChatGPT, y el estilo de la respuesta." },
         { name: "Intent", kind: "Entry", text: "Lo que quiere decir (opcional); Intro pide las respuestas." },
         { name: "BtnSuggest", kind: "Button", text: "✨ Sugerir respuestas." },
-        { name: "Draft", kind: "Text", text: "El borrador para retocar la respuesta." },
-        { name: "Status", kind: "StatusBar", text: "Cuántos chats, de dónde y qué IA." },
+        { name: "Draft", kind: "Text", text: "El borrador; Enter lo envía (Mayúsculas+Enter, otra línea)." },
+        { name: "BtnSend", kind: "Button", text: "Enviar ➤: manda el borrador al chat abierto." },
+        { name: "BtnAttach", kind: "Button", text: "📎 Adjuntar: manda un archivo, con el borrador de pie." },
+        { name: "Status", kind: "StatusBar", text: "Cuántos chats, de dónde, qué IA y cómo se envía." },
       ],
       apis: [
         "Claude por la API de Mensajes (HTTP con curl): claude-opus-5-5, esfuerzo bajo para respuestas rápidas y fallbacks del servidor si el modelo declina",
         "ChatGPT por la API de OpenAI (HTTP con curl), con el modelo que elija",
         "SQLite del sistema con dlopen: la base de datos de WhatsApp Desktop, solo lectura",
         "security (Llavero de macOS): las claves de la IA",
-        "Fl_JPEG_Image y Fl_Shared_Image (FLTK): las fotos de perfil y las fotos recibidas",
+        "Fl_JPEG_Image y Fl_PNG_Image (FLTK): las fotos de perfil, las recibidas y el código QR",
+        "API oficial de WhatsApp Business (Cloud API de Meta, Graph API con curl): enviar textos y adjuntos",
+        "wabridge, un programa en Go con whatsmeow (el protocolo de WhatsApp Web): vincular con QR, enviar y recibir; la app lo arranca y le habla por stdin/stdout",
+        "ContactsV2.sqlite de WhatsApp Desktop (solo lectura): los nombres de quien escribe en los grupos",
       ],
     },
     steps: [
       {
         title: "1. La ventana en el Diseñador",
-        text: "Un proyecto con destino C++ (FLTK): a la izquierda un Frame con un Entry para buscar, a la derecha un Frame para la conversación y, debajo, otro con dos Combobox (IA y estilo), un Entry, el botón verde de sugerir, un Text para el borrador y el botón de WhatsApp.",
+        text: "Un proyecto con destino C++ (FLTK): a la izquierda un Frame con un Entry para buscar, a la derecha un Frame para la conversación y, debajo, otro con dos Combobox (IA y estilo), un Entry, el botón verde de sugerir, un Text para el borrador y los botones «Enviar ➤» y «📎 Adjuntar».",
         shot: "design",
       },
       {
         title: "2. El código que genera el estudio",
-        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnSuggest_click, Intent_enter, BtnSend_click, Provider_select, Tick_timer y Menu1_click, que Form1 sobrescribe.",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnSuggest_click, Intent_enter, BtnSend_click, BtnAttach_click, Provider_select, Tick_timer y Menu1_click, que Form1 sobrescribe.",
         shot: "generated",
       },
       {
@@ -727,6 +779,21 @@ const es: Record<string, DemoMade> = {
         title: "6. Fotos, adjuntos y tema",
         text: "La foto de cada contacto sale de Media/Profile (la miniatura de 96×96) y se recorta en un círculo; las fotos recibidas se ven en el bocadillo y los documentos se abren con un clic. El tema claro u oscuro cambia los colores de los dibujos y de los controles del diseño. Sus pruebas (DMS_MYWA_SELFTEST) leen una base de datos inventada con la forma de la de WhatsApp, chats exportados de iPhone y Android y respuestas de Claude y de OpenAI; un servidor de prueba comprobó las cabeceras y el cuerpo de las dos API.",
         code: { file: "Form1.cpp", text: mywaSend },
+      },
+      {
+        title: "7. Quién escribe en los grupos",
+        text: "WhatsApp Desktop ya no guarda el nombre de quien escribe en claro (sale un código). La app lo busca en este orden: la agenda (ContactsV2.sqlite, adjuntada a la consulta en solo lectura), el nombre del miembro del grupo, el de su perfil («~ Ana») y, si no hay ninguno, su teléfono. Su prueba arma una agenda inventada y comprueba cada caso.",
+        code: { file: "Form1.cpp", text: mywaWho },
+      },
+      {
+        title: "8. Enviar: botón, Enter y la API oficial",
+        text: "«Enviar ➤», Enter en el borrador o «Enviar» en una respuesta propuesta mandan el mensaje. Enter se atrapa con Fl::event_dispatch antes de que llegue al campo, y Mayúsculas+Enter sigue haciendo otra línea. Con la API oficial de WhatsApp Business se manda un JSON a la Graph API de Meta; los adjuntos se suben antes como formulario. Un servidor de prueba comprobó el token, el JSON y la subida del archivo.",
+        code: { file: "Form1.cpp", text: mywaEnter },
+      },
+      {
+        title: "9. El puente con WhatsApp (QR)",
+        text: "Para usar su WhatsApp de siempre sin otra app, la demo lleva al lado wabridge, un programa en Go con la biblioteca whatsmeow (el protocolo de WhatsApp Web). La app lo arranca, le habla por stdin/stdout con una línea JSON por orden y enseña el código QR para vincularlo. Por él llegan los mensajes y los adjuntos, que se guardan en mensajes.jsonl y se juntan con los de WhatsApp Desktop sin repetirse. No es oficial, así que la app avisa del riesgo de bloqueo antes de activarlo.",
+        code: { file: "main.go", text: mywaBridge },
       },
     ],
   },
@@ -1035,34 +1102,39 @@ const en: Record<string, DemoMade> = {
       target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
       components: [
         { name: "Form1", kind: "Window", text: "The list on the left, the conversation on the right and the AI panel below." },
-        { name: "Menu1", kind: "Menu", text: "File (Refresh chats, Import an exported chat, AI keys, Quit) and Help." },
-        { name: "Tick", kind: "Timer", text: "Every second; every few, new messages from WhatsApp Desktop." },
+        { name: "Menu1", kind: "Menu", text: "File (Refresh chats, Import an exported chat, AI keys, Connect and Disconnect WhatsApp, Quit), View (theme) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every second: what arrived through the bridge and, every few, new messages from WhatsApp Desktop." },
         { name: "Side / Search", kind: "Frame / Entry", text: "The chat column and its search box." },
         { name: "ChatArea", kind: "Frame", text: "Where the code draws the bubbles and the three suggested replies." },
         { name: "AiBar", kind: "Frame", text: "The AI panel." },
         { name: "Provider / Tone", kind: "Combobox", text: "Claude or ChatGPT, and the style of the reply." },
         { name: "Intent", kind: "Entry", text: "What you want to say (optional); Enter asks for replies." },
         { name: "BtnSuggest", kind: "Button", text: "✨ Suggest replies." },
-        { name: "Draft", kind: "Text", text: "The draft to tweak the reply." },
-        { name: "Status", kind: "StatusBar", text: "How many chats, from where and which AI." },
+        { name: "Draft", kind: "Text", text: "The draft; Enter sends it (Shift+Enter, a new line)." },
+        { name: "BtnSend", kind: "Button", text: "Send ➤: sends the draft to the open chat." },
+        { name: "BtnAttach", kind: "Button", text: "📎 Attach: sends a file, with the draft as caption." },
+        { name: "Status", kind: "StatusBar", text: "How many chats, from where, which AI and how it sends." },
       ],
       apis: [
         "Claude through the Messages API (HTTP with curl): claude-opus-5-5, low effort for quick replies and server-side fallbacks if the model declines",
         "ChatGPT through the OpenAI API (HTTP with curl), with the model you choose",
         "The system's SQLite through dlopen: the WhatsApp Desktop database, read-only",
         "security (macOS Keychain): the AI keys",
-        "Fl_JPEG_Image and Fl_Shared_Image (FLTK): profile pictures and received photos",
+        "Fl_JPEG_Image and Fl_PNG_Image (FLTK): profile pictures, received photos and the QR code",
+        "Official WhatsApp Business API (Meta's Cloud API, Graph API with curl): sending texts and attachments",
+        "wabridge, a Go program with whatsmeow (the WhatsApp Web protocol): link with a QR code, send and receive; the app starts it and talks to it over stdin/stdout",
+        "WhatsApp Desktop's ContactsV2.sqlite (read-only): the names of who writes in groups",
       ],
     },
     steps: [
       {
         title: "1. The window in the Designer",
-        text: "A project with the C++ (FLTK) target: on the left a Frame with an Entry to search, on the right a Frame for the conversation and, below, another with two Comboboxes (AI and style), an Entry, the green suggest button, a Text for the draft and the WhatsApp button.",
+        text: "A project with the C++ (FLTK) target: on the left a Frame with an Entry to search, on the right a Frame for the conversation and, below, another with two Comboboxes (AI and style), an Entry, the green suggest button, a Text for the draft and the “Send ➤” and “📎 Attach” buttons.",
         shot: "design",
       },
       {
         title: "2. The code the studio generates",
-        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnSuggest_click, Intent_enter, BtnSend_click, Provider_select, Tick_timer and Menu1_click, which Form1 overrides.",
+        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnSuggest_click, Intent_enter, BtnSend_click, BtnAttach_click, Provider_select, Tick_timer and Menu1_click, which Form1 overrides.",
         shot: "generated",
       },
       {
@@ -1085,6 +1157,21 @@ const en: Record<string, DemoMade> = {
         title: "6. Photos, attachments and theme",
         text: "Each contact's picture comes from Media/Profile (the 96×96 thumbnail) and is cropped into a circle; received photos show in the bubble and documents open with a click. The light or dark theme changes the colours of the drawings and of the design's controls. Its tests (DMS_MYWA_SELFTEST) read a made-up database shaped like WhatsApp's, chats exported from iPhone and Android and answers from Claude and OpenAI; a test server checked the headers and body of both APIs.",
         code: { file: "Form1.cpp", text: mywaSend },
+      },
+      {
+        title: "7. Who writes in groups",
+        text: "WhatsApp Desktop no longer stores the sender's name in clear text (it shows a code). The app looks it up in this order: the address book (ContactsV2.sqlite, attached read-only to the query), the group member's name, their profile name (“~ Ana”) and, if there is none, their phone number. Its test builds a made-up address book and checks each case.",
+        code: { file: "Form1.cpp", text: mywaWho },
+      },
+      {
+        title: "8. Sending: button, Enter and the official API",
+        text: "“Send ➤”, Enter in the draft or “Send” on a suggested reply sends the message. Enter is caught with Fl::event_dispatch before it reaches the field, and Shift+Enter still makes a new line. With the official WhatsApp Business API, a JSON goes to Meta's Graph API; attachments are uploaded first as a form. A test server checked the token, the JSON and the file upload.",
+        code: { file: "Form1.cpp", text: mywaEnter },
+      },
+      {
+        title: "9. The bridge with WhatsApp (QR)",
+        text: "To use your usual WhatsApp without another app, the demo ships wabridge next to it, a Go program with the whatsmeow library (the WhatsApp Web protocol). The app starts it, talks to it over stdin/stdout with one JSON line per command and shows the QR code to link it. Messages and attachments arrive through it, are saved to mensajes.jsonl and merged with WhatsApp Desktop's without duplicates. It is not official, so the app warns about the ban risk before enabling it.",
+        code: { file: "main.go", text: mywaBridge },
       },
     ],
   },

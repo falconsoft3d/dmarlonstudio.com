@@ -1161,7 +1161,7 @@ msgstr "Between 24 and 72 working hours."
 msgid "Entre con su cuenta"
 msgstr "Sign in with your account"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_mail.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Enviar"
 msgstr "Send"
 
@@ -6738,6 +6738,10 @@ msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «
 msgstr "Your WhatsApp Desktop chats are on the left. Pick one and press “Suggest replies”."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "API oficial"
+msgstr "official API"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir un chat exportado de WhatsApp"
 msgstr "Open an exported WhatsApp chat"
 
@@ -6760,6 +6764,16 @@ msgstr "WhatsApp Desktop cannot be read here"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó, ¿te gusta?"
 msgstr "Here it is, do you like it?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Atención: el modo vinculado usa el protocolo de WhatsApp Web sin ser una app oficial. Va contra las condiciones de WhatsApp y la cuenta puede quedar bloqueada (temporal o definitivamente). Úselo bajo su responsabilidad y, si puede, con un número que no sea el principal.\n"
+"\n"
+"La sesión se guarda solo en este equipo. ¿Vincular de todos modos?"
+msgstr ""
+"Warning: linked mode uses the WhatsApp Web protocol without being an official app. It goes against WhatsApp's terms and the account may be banned (temporarily or permanently). Use it at your own risk and, if you can, with a number that is not your main one.\n"
+"\n"
+"The session is stored only on this computer. Link anyway?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Breve"
@@ -6802,6 +6816,14 @@ msgid "Como el sistema"
 msgstr "Like the system"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Conectando con WhatsApp…"
+msgstr "Connecting to WhatsApp…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Conectar WhatsApp para enviar…"
+msgstr "Connect WhatsApp to send…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Continuar"
 msgstr "Continue"
 
@@ -6819,6 +6841,14 @@ msgstr ""
 msgid "Copiada"
 msgstr "Copied"
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/github_dialog.dart
+msgid "Desconectar"
+msgstr "Disconnect"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Desconectar WhatsApp"
+msgstr "Disconnect WhatsApp"
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
 msgstr "Document"
@@ -6828,8 +6858,36 @@ msgid "El sábado me va perfecto. Os espero en calle Mayor 12, de 10 a 14."
 msgstr "Saturday works great. I’ll be at 12 High Street, 10 to 2."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El token de la API de WhatsApp no es válido o caducó"
+msgstr "The WhatsApp API token is invalid or expired"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Elegir el archivo para enviar"
+msgstr "Choose the file to send"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Elija un chat"
 msgstr "Pick a chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
+msgstr "On the phone: WhatsApp › Settings › Linked devices › Link a device, and point the camera at this code."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Entiendo el riesgo"
+msgstr "I understand the risk"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Enviado ✓"
+msgstr "Sent ✓"
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_mail.dart
+msgid "Enviando…"
+msgstr "Sending…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Enviar ➤"
+msgstr "Send ➤"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
@@ -6842,12 +6900,28 @@ msgstr ""
 "Write exactly three replies, different from each other, separated by a line containing only “---”. No numbering, no quotes and no explanations. In the language of the conversation and in the style of a WhatsApp message (short, natural, emojis only if they fit). Tone: {0}. Answer whatever was left pending and do not make up details (times, prices, addresses) that are not in the conversation or in what the user wants to say."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Escriba el mensaje en el borrador"
+msgstr "Type the message in the draft"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese archivo no parece un chat exportado de WhatsApp"
 msgstr "That file does not look like an exported WhatsApp chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Este chat es importado: no tiene número al que enviar"
+msgstr "This chat is imported: it has no number to send to"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Estilo"
 msgstr "Style"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta el número o el token de la API oficial (Archivo › Conectar WhatsApp para enviar…)"
+msgstr "The official API number or token is missing (File › Connect WhatsApp to send…)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta el puente de WhatsApp (wabridge) junto a la app"
+msgstr "The WhatsApp bridge (wabridge) is missing next to the app"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Falta la clave de la IA (Archivo › Claves de la IA…)"
@@ -6882,6 +6956,10 @@ msgid "IA"
 msgstr "AI"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Identificador del número de teléfono (Phone number ID) de la API de WhatsApp Business, en developers.facebook.com › su app › WhatsApp › Configuración de la API:"
+msgstr "Phone number ID of the WhatsApp Business API, at developers.facebook.com › your app › WhatsApp › API Setup:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Importado: {0} ({1} mensajes)"
 msgstr "Imported: {0} ({1} messages)"
 
@@ -6892,6 +6970,10 @@ msgstr "Import an exported chat…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Javi"
 msgstr "Jamie"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La API oficial no envía a grupos; use el modo vinculado (QR)"
+msgstr "The official API does not send to groups; use linked mode (QR)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La IA no devolvió respuestas"
@@ -6920,6 +7002,10 @@ msgstr "Laura (Sun Furniture)"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el estilo que elija."
 msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the style you choose."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Listo: se envía con la API oficial de WhatsApp Business"
+msgstr "Done: sending with the official WhatsApp Business API"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lo que el usuario quiere decir: {0}"
@@ -6957,15 +7043,19 @@ msgstr "MyWhatsapp in C++ with FLTK: it reads your WhatsApp chats and suggests r
 msgid ""
 "MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n"
 "\n"
-"Elija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
+"Elija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
 "\n"
-"Las claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
+"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
+"\n"
+"Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
 "MyWhatsapp reads your WhatsApp Desktop chats (on the Mac, without changing anything; the first time, macOS will ask for permission) or a chat exported with “Export chat”, and suggests replies with AI.\n"
 "\n"
-"Pick a chat, optionally type what you want to say and the tone, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat’s latest messages and suggest three replies. “Use” puts it in the draft to tweak it and “Copy” copies it.\n"
+"Choose a chat, optionally type what you want to say and the style, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat's latest messages and suggest three replies. “Send” sends it, “Use” puts it in the draft to tweak it and “Copy” copies it.\n"
 "\n"
-"The AI keys are stored in the macOS Keychain. Only the open chat’s messages are sent to the AI, and only when you ask."
+"To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file. The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
+"\n"
+"Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Natural"
@@ -6976,12 +7066,16 @@ msgid "No encuentro SQLite en el sistema"
 msgstr "SQLite not found on the system"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "No encuentro WhatsApp Desktop en este equipo. Abra un chat exportado (Archivo › Importar un chat exportado…): en el teléfono, en el chat, «Exportar chat» sin archivos."
-msgstr "WhatsApp Desktop is not on this computer. Open an exported chat (File › Import an exported chat…): on the phone, in the chat, “Export chat” without media."
+msgid "No encuentro WhatsApp Desktop en este equipo. Conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…) para ver y enviar mensajes, o abra un chat exportado (Archivo › Importar un chat exportado…)."
+msgstr "WhatsApp Desktop was not found on this computer. Connect WhatsApp (File › Connect WhatsApp to send…) to see and send messages, or open an exported chat (File › Import an exported chat…)."
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "No encuentro curl"
 msgstr "curl not found"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay conexión con WhatsApp"
+msgstr "No connection to WhatsApp"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No hay conexión con la IA"
@@ -6990,6 +7084,14 @@ msgstr "No connection to the AI"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No se pudo abrir la base de datos de WhatsApp"
 msgstr "Could not open the WhatsApp database"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se pudo enviar el mensaje"
+msgstr "The message could not be sent"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se pudo enviar: {0}"
+msgstr "Could not send: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No se pudo leer la base de datos de WhatsApp"
@@ -7032,6 +7134,10 @@ msgid "RESPUESTAS PROPUESTAS"
 msgstr "SUGGESTED REPLIES"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Se cerró la conexión con WhatsApp"
+msgstr "The connection to WhatsApp was closed"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sobre el usuario: {0}"
 msgstr "About the user: {0}"
 
@@ -7056,12 +7162,24 @@ msgid "Tema claro"
 msgstr "Light theme"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):"
+msgstr "WhatsApp API access token (leave it empty to keep it):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
 msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the list, the AI panel and its fields were designed in the studio’s Designer; the WhatsApp Desktop database is read with the system’s SQLite and the AI is called through its HTTP API with curl."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Usar"
 msgstr "Use"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Vincular WhatsApp"
+msgstr "Link WhatsApp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Vincular con QR"
+msgstr "Link with QR"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Vídeo"
@@ -7070,6 +7188,22 @@ msgstr "Video"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "WhatsApp Desktop"
 msgstr "WhatsApp Desktop"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp aún no está vinculado: lea el código QR con el teléfono"
+msgstr "WhatsApp is not linked yet: scan the QR code with your phone"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp desvinculado"
+msgstr "WhatsApp unlinked"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp vinculado"
+msgstr "linked WhatsApp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp vinculado: ya puede enviar y recibir"
+msgstr "WhatsApp linked: you can now send and receive"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Yo"
@@ -7084,6 +7218,10 @@ msgid "chats importados"
 msgstr "imported chats"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "conectando…"
+msgstr "connecting…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "el sábado, y la dirección es calle Mayor 12"
 msgstr "Saturday, and the address is 12 High Street"
 
@@ -7092,12 +7230,20 @@ msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acce
 msgstr "macOS asks for permission to read WhatsApp’s data: accept it, or grant access in System Settings › Privacy & Security. You can also import an exported chat."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "sin conectar"
+msgstr "not connected"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "sin descargar en este equipo"
 msgstr "not downloaded on this computer"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "{0} chats de {1} · IA: {2}"
-msgstr "{0} chats from {1} · AI: {2}"
+msgid "vinculado (QR)"
+msgstr "linked (QR)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} chats de {1} · IA: {2} · Envío: {3}"
+msgstr "{0} chats from {1} · AI: {2} · Sending: {3}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Qué bien! 😊 Mejor el sábado entre las 10 y las 14. La dirección es calle Mayor 12. ¡Gracias!"
@@ -7106,6 +7252,24 @@ msgstr "Great news! 😊 Saturday between 10 and 2 is best. The address is 12 Hi
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Comemos el domingo en casa de los abuelos?"
 msgstr "Lunch on Sunday at Grandma and Grandpa’s?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"¿Cómo quiere conectar WhatsApp para enviar?\n"
+"\n"
+"• API oficial de WhatsApp Business: la de Meta, con un número de empresa (developers.facebook.com). Segura y permitida, pero solo para chats individuales y con las reglas de Meta.\n"
+"\n"
+"• Dispositivo vinculado (QR): su WhatsApp de siempre, como WhatsApp Web. Envía y recibe en todos los chats y grupos, pero no es oficial."
+msgstr ""
+"How do you want to connect WhatsApp to send?\n"
+"\n"
+"• Official WhatsApp Business API: Meta's, with a business number (developers.facebook.com). Safe and allowed, but only for one-to-one chats and under Meta's rules.\n"
+"\n"
+"• Linked device (QR): your usual WhatsApp, like WhatsApp Web. Sends and receives in all chats and groups, but it is not official."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Desconectar WhatsApp de MyWhatsapp? Para volver a enviar tendrá que conectarlo otra vez."
+msgstr "Disconnect WhatsApp from MyWhatsapp? To send again you will have to connect it again."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Llegaste bien?"
@@ -7130,6 +7294,10 @@ msgstr "✨ Suggest replies"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ {0} está escribiendo tres respuestas…"
 msgstr "✨ {0} is writing three replies…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📎 Adjuntar"
+msgstr "📎 Attach"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"
@@ -9166,10 +9334,6 @@ msgstr "Account saved."
 #: lib/code/tk_showcase_mail.dart
 msgid "El {0}, {1} escribió:"
 msgstr "On {0}, {1} wrote:"
-
-#: lib/code/tk_showcase_mail.dart
-msgid "Enviando…"
-msgstr "Sending…"
 
 #: lib/code/tk_showcase_mail.dart
 msgid "Error: {0}"
@@ -16808,10 +16972,6 @@ msgstr "Connect your account with a GitHub token (“repo” scope) to create re
 #: lib/ui/screens/github_dialog.dart
 msgid "Crear un token en GitHub"
 msgstr "Create a token on GitHub"
-
-#: lib/ui/screens/github_dialog.dart
-msgid "Desconectar"
-msgstr "Disconnect"
 
 #: lib/ui/screens/github_dialog.dart
 msgid "El proyecto aún no está en GitHub."

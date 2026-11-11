@@ -20,6 +20,9 @@ TkExample tkCppMywa(String Function(String) t) {
   item('IMPORT', t(markTr('Importar un chat exportado…')), mFile);
   item('AI', t(markTr('Claves de la IA…')), mFile);
   lines.add('  -');
+  item('CONNECT', t(markTr('Conectar WhatsApp para enviar…')), mFile);
+  item('DISCONNECT', t(markTr('Desconectar WhatsApp')), mFile);
+  lines.add('  -');
   item('QUIT', t(markTr('Salir')), mFile);
   final mView = t(markTr('Ver'));
   lines.add(mView);
@@ -34,7 +37,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nLas claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -66,7 +69,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ),
     'NO_DESKTOP_HELP': t(
       markTr(
-        'No encuentro WhatsApp Desktop en este equipo. Abra un chat exportado (Archivo › Importar un chat exportado…): en el teléfono, en el chat, «Exportar chat» sin archivos.',
+        'No encuentro WhatsApp Desktop en este equipo. Conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…) para ver y enviar mensajes, o abra un chat exportado (Archivo › Importar un chat exportado…).',
       ),
     ),
     'PERMISSION_HELP': t(
@@ -126,7 +129,58 @@ TkExample tkCppMywa(String Function(String) t) {
     'IMPORTED': t(markTr('Importado: {0} ({1} mensajes)')),
     'SOURCE_DESKTOP': t(markTr('WhatsApp Desktop')),
     'SOURCE_EXPORT': t(markTr('chats importados')),
-    'STATUS': t(markTr('{0} chats de {1} · IA: {2}')),
+    'STATUS': t(markTr('{0} chats de {1} · IA: {2} · Envío: {3}')),
+    'SOURCE_LINKED': t(markTr('WhatsApp vinculado')),
+    'MODE_NONE': t(markTr('sin conectar')),
+    'MODE_CLOUD': t(markTr('API oficial')),
+    'MODE_LINKED': t(markTr('vinculado (QR)')),
+    'MODE_LINKING': t(markTr('conectando…')),
+    'SEND': t(markTr('Enviar')),
+    'SENDING': t(markTr('Enviando…')),
+    'SENT': t(markTr('Enviado ✓')),
+    'EMPTY_DRAFT': t(markTr('Escriba el mensaje en el borrador')),
+    'ATTACH_TITLE': t(markTr('Elegir el archivo para enviar')),
+    'ERR_SEND': t(markTr('No se pudo enviar el mensaje')),
+    'ERR_SEND_WHY': t(markTr('No se pudo enviar: {0}')),
+    'ERR_NO_JID': t(markTr('Este chat es importado: no tiene número al que enviar')),
+    'ERR_CLOUD_GROUP': t(markTr('La API oficial no envía a grupos; use el modo vinculado (QR)')),
+    'ERR_CLOUD_SETUP': t(markTr('Falta el número o el token de la API oficial (Archivo › Conectar WhatsApp para enviar…)')),
+    'ERR_CLOUD_TOKEN': t(markTr('El token de la API de WhatsApp no es válido o caducó')),
+    'ERR_SEND_NETWORK': t(markTr('No hay conexión con WhatsApp')),
+    'ERR_NO_BRIDGE': t(markTr('Falta el puente de WhatsApp (wabridge) junto a la app')),
+    'NOT_LINKED': t(markTr('WhatsApp aún no está vinculado: lea el código QR con el teléfono')),
+    'CONNECTING': t(markTr('Conectando con WhatsApp…')),
+    'LINKED': t(markTr('WhatsApp vinculado: ya puede enviar y recibir')),
+    'LOGGED_OUT': t(markTr('WhatsApp desvinculado')),
+    'BRIDGE_STOPPED': t(markTr('Se cerró la conexión con WhatsApp')),
+    'CLOUD_READY': t(markTr('Listo: se envía con la API oficial de WhatsApp Business')),
+    'CONNECT_ASK': t(
+      markTr(
+        '¿Cómo quiere conectar WhatsApp para enviar?\n\n• API oficial de WhatsApp Business: la de Meta, con un número de empresa (developers.facebook.com). Segura y permitida, pero solo para chats individuales y con las reglas de Meta.\n\n• Dispositivo vinculado (QR): su WhatsApp de siempre, como WhatsApp Web. Envía y recibe en todos los chats y grupos, pero no es oficial.',
+      ),
+    ),
+    'CONNECT_CLOUD': t(markTr('API oficial')),
+    'CONNECT_QR': t(markTr('Vincular con QR')),
+    'QR_RISK': t(
+      markTr(
+        'Atención: el modo vinculado usa el protocolo de WhatsApp Web sin ser una app oficial. Va contra las condiciones de WhatsApp y la cuenta puede quedar bloqueada (temporal o definitivamente). Úselo bajo su responsabilidad y, si puede, con un número que no sea el principal.\n\nLa sesión se guarda solo en este equipo. ¿Vincular de todos modos?',
+      ),
+    ),
+    'QR_ACCEPT': t(markTr('Entiendo el riesgo')),
+    'QR_TITLE': t(markTr('Vincular WhatsApp')),
+    'QR_HELP': t(
+      markTr(
+        'En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código.',
+      ),
+    ),
+    'ASK_CLOUD_PHONE': t(
+      markTr(
+        'Identificador del número de teléfono (Phone number ID) de la API de WhatsApp Business, en developers.facebook.com › su app › WhatsApp › Configuración de la API:',
+      ),
+    ),
+    'ASK_CLOUD_TOKEN': t(markTr('Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):')),
+    'DISCONNECT_ASK': t(markTr('¿Desconectar WhatsApp de MyWhatsapp? Para volver a enviar tendrá que conectarlo otra vez.')),
+    'BTN_DISCONNECT': t(markTr('Desconectar')),
     'DEMO_LAURA': t(markTr('Laura (Muebles Sol)')),
     'DEMO_L1': t(markTr('Hola! Ya tenemos la mesa de roble que pediste 😊')),
     'DEMO_L2': t(markTr('Genial, ¿cuándo me la podéis llevar?')),
@@ -261,8 +315,35 @@ TkExample tkCppMywa(String Function(String) t) {
             {'font_size': 13},
             {'enter_key': 'Intent_enter'},
           )..parent = 'AiBar',
-          _w('Text', 'Draft', 12, 90, 816, 76, {'font_size': 14})
+          _w('Text', 'Draft', 12, 90, 686, 76, {'font_size': 14})
             ..parent = 'AiBar',
+          // Enter en el borrador también envía (Mayúsculas+Enter: otra línea).
+          _w(
+            'Button',
+            'BtnSend',
+            708,
+            90,
+            120,
+            40,
+            {
+              'text': t(markTr('Enviar ➤')),
+              'bg': '#25d366',
+              'fg': '#ffffff',
+              'font_bold': true,
+              'font_size': 15,
+            },
+            {'command': 'BtnSend_click'},
+          )..parent = 'AiBar',
+          _w(
+            'Button',
+            'BtnAttach',
+            708,
+            136,
+            120,
+            30,
+            {'text': t(markTr('📎 Adjuntar')), 'font_size': 13},
+            {'command': 'BtnAttach_click'},
+          )..parent = 'AiBar',
           _w('StatusBar', 'Status', 0, 736, 1200, 24, {'text': ''}),
         ]);
 

@@ -69,6 +69,8 @@ Hechos
 79. Monitor de sitios: escáner de puertos de cada sitio desde el propio monitor | ✅ |
 76. Grabador de pantalla para hacer vídeos de YouTube | ✅ |
 78. MyWhatsapp: lee los mensajes de WhatsApp y, con la IA de Claude o ChatGPT, propone respuestas según el contexto de la conversación | ✅ |
+80. MyWhatsapp: enviar y recibir mensajes y adjuntos directamente, sin la app de WhatsApp (API oficial de WhatsApp Business o dispositivo vinculado por QR, con aviso de riesgo) | ✅ |
+81. MyWhatsapp: botón «Enviar» visible y Enter para enviar; en los grupos, el nombre de quien escribe | ✅ |
 
 Trabajando
 =========
@@ -81,4 +83,12 @@ Pendiente
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
-80. MyWhatsapp: enviar y recibir mensajes y adjuntos directamente, sin la app de WhatsApp (API oficial de WhatsApp Business por defecto; dispositivo vinculado por QR opcional, con aviso de riesgo) | ⏳ |
+82. MyWhatsapp: lista de tareas dentro de la app; crear una tarea desde un chat | ⏳ |
+83. MyWhatsapp: chatear en otro idioma con IA (original y traducido de lo que recibo y de lo que envío; idioma detectado o elegido) | ⏳ |
+84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
+85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ⏳ |
+86. MyWhatsapp: publicar un estado de WhatsApp (texto o foto) desde la app | ⏳ |
+87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ⏳ |
+88. MyWhatsapp: esconder la barra lateral dejando solo la foto de cada contacto | ⏳ |
+89. MyWhatsapp: reenviar mensajes a otro chat | ⏳ |
+90. MyWhatsapp: limpiar un chat | ⏳ |

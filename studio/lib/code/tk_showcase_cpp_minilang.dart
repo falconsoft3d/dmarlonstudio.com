@@ -44,12 +44,12 @@ TkExample tkCppMiniLang(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MiniLang te enseña un idioma con juegos de unos minutos. Cada unidad tiene tres lecciones de diez juegos: elegir la traducción (también con las teclas 1 a 4), ordenar las palabras, unir parejas, escribir la frase y escuchar y escribir (con la voz del Mac). Enter comprueba y sigue.\n\nSi fallas, pierdes una vida y ese juego vuelve al final de la lección; las vidas vuelven solas (una cada media hora) y el repaso te devuelve una. Cada lección da 10 XP (15 sin fallos) y suma a tu meta del día y a tu racha de días seguidos. Lo que aprendes se repasa cuando toca: cuanto mejor te lo sabes, más tarda en volver.\n\nEl curso de inglés va de A1 (principiante) a C1 (avanzado); la prueba de nivel te deja saltar las unidades que ya sabes. Los idiomas son paquetes: en Archivo › Idiomas… instala francés, italiano, alemán o portugués, o importa un paquete .json hecho por otros.\n\nAl cerrar la ventana, MiniLang se queda en la barra de menús con tu racha y lo que te falta para la meta; su menú abre la lección siguiente o un repaso rápido.',
+        'MiniLang te enseña un idioma con juegos de unos minutos. Cada unidad tiene tres lecciones de diez juegos: elegir la traducción (también con las teclas 1 a 4), ordenar las palabras, unir parejas, escribir la frase y escuchar y escribir (con la voz del Mac). Enter comprueba y sigue.\n\nSi fallas, pierdes una vida y ese juego vuelve al final de la lección; las vidas vuelven solas (una cada media hora) y el repaso te devuelve una. Cada lección da 10 XP (15 sin fallos) y suma a tu meta del día y a tu racha de días seguidos. Lo que aprendes se repasa cuando toca: cuanto mejor te lo sabes, más tarda en volver.\n\nEl curso de inglés de 10.000 palabras va de A1 (principiante) a C2 (maestría): cada unidad enseña unas 25 palabras nuevas en frases reales, que solo usan palabras ya vistas, y la prueba de nivel te deja saltar las unidades que ya sabes. También está el curso corto, de 180 frases por temas. Los idiomas son paquetes: en Archivo › Idiomas… instala francés, italiano, alemán o portugués, o importa un paquete .json hecho por otros.\n\nAl cerrar la ventana, MiniLang se queda en la barra de menús con tu racha y lo que te falta para la meta; su menú abre la lección siguiente o un repaso rápido.',
       ),
     ),
     'ABOUT_TEXT': t(
       markTr(
-        'Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, el campo para escribir y el botón de comprobar se diseñaron en el Diseñador del estudio; los juegos, el progreso y los paquetes de idiomas están en el código de Form1.cpp. La voz es la del sistema (say, en macOS).',
+        'Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, el campo para escribir y el botón de comprobar se diseñaron en el Diseñador del estudio; los juegos, el progreso y los paquetes de idiomas están en el código de Form1.cpp. La voz es la del sistema (say, en macOS). Las frases del curso de 10.000 palabras son de Tatoeba (tatoeba.org), con licencia CC BY 2.0 FR.',
       ),
     ),
     'L_EN': t(markTr('Inglés')),
@@ -63,6 +63,14 @@ TkExample tkCppMiniLang(String Function(String) t) {
     'SEC_B1': t(markTr('Intermedio')),
     'SEC_B2': t(markTr('Intermedio alto')),
     'SEC_C1': t(markTr('Avanzado')),
+    'SEC_C2': t(markTr('Maestría')),
+    'THOUSANDS': t(markTr('.')),
+    'UNIT_WORDS': t(markTr('{0} palabras nuevas')),
+    'TOTALS_WORDS': t(markTr('XP total: {0} · {1} de {2} palabras')),
+    'STATUS_WORDS': t(markTr('{0} de {1} palabras')),
+    'PACK_WORDS': t(markTr('Curso de {0} palabras, de A1 a {1}: {2} unidades, {3} frases.')),
+    'PACK_CREDIT': t(markTr('Frases: {0}.')),
+    'BIG_INSTALLED': t(markTr('Instalado «{0}»: {1} palabras, de A1 a C2. Tu progreso del otro curso sigue guardado.')),
     'UNIT_N': t(markTr('Unidad {0}')),
     'UNIT_TITLE': t(markTr('{0}. {1}')),
     'UNITS_RANGE': t(markTr('Unidades {0}–{1}')),
@@ -95,7 +103,7 @@ TkExample tkCppMiniLang(String Function(String) t) {
     'TEST_BTN': t(markTr('Prueba de nivel')),
     'TEST_Q': t(
       markTr(
-        'La prueba de nivel te pregunta dos frases de cada unidad, de la más fácil a la más difícil, y se para en el primer fallo: las unidades que superes quedan hechas. ¿Empezar?',
+        'La prueba de nivel te pregunta dos frases de cada tramo del curso, de lo más fácil a lo más difícil, y se para en el primer fallo: lo que superes queda hecho. ¿Empezar?',
       ),
     ),
     'TOTALS': t(markTr('XP total: {0} · {1} frases aprendidas')),
@@ -275,7 +283,7 @@ $_miniLangCode''';
     t(markTr('MiniLang (C++)')),
     t(
       markTr(
-        'Aprender idiomas con juegos cortos, nativo en C++ con FLTK: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar, con vidas, meta diaria, racha y repaso. El curso de inglés va de A1 a C1 y los demás idiomas son paquetes que se instalan. Vive en la barra de menús.',
+        'Aprender idiomas con juegos cortos, nativo en C++ con FLTK: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar, con vidas, meta diaria, racha y repaso. El curso de inglés enseña 10.000 palabras, de A1 a C2, y los demás idiomas son paquetes que se instalan. Vive en la barra de menús.',
       ),
     ),
     design,

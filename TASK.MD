@@ -113,6 +113,7 @@ Hechos
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app (tema, color, fondo del chat y mis mensajes) | ✅ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ✅ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ✅ |
+124. MiniLang: que el curso de inglés enseñe como mínimo 10.000 palabras | ✅ |
 
 Trabajando
 =========

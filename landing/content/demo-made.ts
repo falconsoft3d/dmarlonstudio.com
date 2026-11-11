@@ -500,6 +500,29 @@ void on_bridge_from(const std::string& id, const std::string& line) {
   update_tabs();
 }`;
 
+const mlCourse = `# Cada frase, con su palabra más rara: se entiende al llegar a ella.
+by_rank = defaultdict(list)
+for t, ws in vocab.items():
+    by_rank[max(rank[w] for w in ws)].append(t)
+
+def score(t):
+    n = len(t.split())
+    return (0 if 3 <= n <= 9 else 1, abs(n - 6), len(tr[t]) * -1, t)
+
+known, order, items = set(), [], []
+for r in range(len(rank)):
+    cands = sorted(by_rank.get(r, []), key=score)
+    if not cands:
+        continue
+    for t in cands[:2]:
+        new = sorted(vocab[t] - known, key=lambda w: rank[w])
+        for w in new:
+            known.add(w)
+            order.append(w)
+        items.append((t, tr[t], new))
+    if len(known) >= TARGET_WORDS:
+        break`;
+
 const mlInstall = `// Instalar un idioma del catálogo: su paquete queda en la carpeta «paquetes».
 bool install(const std::string& target) {
   std::string src = ml::ui_lang();
@@ -1065,6 +1088,7 @@ const es: Record<string, DemoMade> = {
         "Repaso espaciado: cada frase vuelve a los 1, 2, 4, 7, 15 o 30 días según lo bien que se sabe",
         "say (macOS), lanzado con posix_spawn: la voz para escuchar y para oír lo que se acierta",
         "Runtime de Objective-C: la racha y la meta en la barra de menús, con la lección siguiente y el repaso",
+        "Tatoeba (tatoeba.org, CC BY 2.0 FR): las frases del curso de 10.000 palabras, ordenadas por un script de Python",
       ],
     },
     steps: [
@@ -1103,6 +1127,11 @@ const es: Record<string, DemoMade> = {
         title: "7. La voz y la barra de menús",
         text: "En macOS, say lee la frase con una voz del idioma (la busca entre las instaladas), más despacio con 🐢, y la anterior se calla al empezar otra. Al cerrar la ventana, MiniLang sigue en la barra de menús con la racha y lo que falta para la meta («🔥 6  15/20»); su menú abre la lección siguiente o un repaso rápido.",
         code: { file: "Form1.cpp", text: mlSpeak },
+      },
+      {
+        title: "8. Un curso de 10.000 palabras",
+        text: "El curso grande sale de Tatoeba, una colección libre de frases traducidas por personas (CC BY 2.0 FR). Un script de Python (scripts/demo-extra/minilang/build_course.py) cuenta lo que se usa cada palabra en dos millones de frases en inglés, deja fuera los nombres propios (los que quedan igual en la traducción, como Tom) y recorre las palabras de la más usada a la menos: para cada una toma una o dos frases que ya se entienden con ella. Así cada frase solo usa palabras vistas más la nueva. Cada unidad junta unas 25 palabras y el nivel (A1 a C2) sale de cuántas se llevan; el resultado es un paquete .json que va dentro de la app y se instala solo.",
+        code: { file: "build_course.py", text: mlCourse },
       },
     ],
   },
@@ -1536,6 +1565,7 @@ const en: Record<string, DemoMade> = {
         "Spaced repetition: each sentence comes back after 1, 2, 4, 7, 15 or 30 days depending on how well you know it",
         "say (macOS), launched with posix_spawn: the voice for listening and for hearing what you got right",
         "Objective-C runtime: the streak and goal in the menu bar, with the next lesson and a review",
+        "Tatoeba (tatoeba.org, CC BY 2.0 FR): the sentences of the 10,000-word course, ordered by a Python script",
       ],
     },
     steps: [
@@ -1574,6 +1604,11 @@ const en: Record<string, DemoMade> = {
         title: "7. The voice and the menu bar",
         text: "On macOS, say reads the sentence with a voice for the language (it picks one among those installed), slower with 🐢, and the previous one stops when another starts. When you close the window, MiniLang stays in the menu bar with the streak and what is left for the goal (“🔥 6  15/20”); its menu opens the next lesson or a quick review.",
         code: { file: "Form1.cpp", text: mlSpeak },
+      },
+      {
+        title: "8. A 10,000-word course",
+        text: "The big course comes from Tatoeba, a free collection of sentences translated by people (CC BY 2.0 FR). A Python script (scripts/demo-extra/minilang/build_course.py) counts how often each word is used across two million sentences, leaves out proper names (those that stay the same in the translation, like Tom) and walks the words from the most to the least used: for each one it takes one or two sentences that become understandable with it. So each sentence only uses words already seen plus the new one. Each unit gathers about 25 words and the level (A1 to C2) comes from how many you have learned; the result is a .json package shipped inside the app that installs itself.",
+        code: { file: "build_course.py", text: mlCourse },
       },
     ],
   },

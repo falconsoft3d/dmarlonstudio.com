@@ -26,6 +26,9 @@ const _miniLangIncludes = r'''#include <algorithm>
 #include <FL/fl_ask.H>
 #include <FL/fl_draw.H>
 #include <FL/fl_utf8.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 #ifndef _WIN32
 #include <csignal>
 #include <spawn.h>
@@ -34,6 +37,7 @@ const _miniLangIncludes = r'''#include <algorithm>
 extern char** environ;
 #endif
 #ifdef __APPLE__
+#include <mach-o/dyld.h>
 #include <objc/message.h>
 #include <objc/runtime.h>
 #endif
@@ -107,6 +111,33 @@ std::string config_dir() {
 #endif
 }
 std::string packs_dir() { return config_dir() + "/paquetes"; }
+// La carpeta de la app: ahí van los cursos grandes (en macOS, Contents/Resources/paquetes).
+std::string exe_dir() {
+  std::string p;
+#ifdef __APPLE__
+  char buf[4096];
+  uint32_t n = sizeof buf;
+  if (_NSGetExecutablePath(buf, &n) == 0) p = buf;
+#elif defined(_WIN32)
+  char buf[4096];
+  DWORD n = GetModuleFileNameA(nullptr, buf, sizeof buf);
+  p.assign(buf, n);
+#else
+  char buf[4096];
+  ssize_t n = readlink("/proc/self/exe", buf, sizeof buf - 1);
+  if (n > 0) p.assign(buf, (size_t)n);
+#endif
+  size_t k = p.find_last_of("/\\");
+  return k == std::string::npos ? "." : p.substr(0, k);
+}
+std::string bundled_dir() {
+  if (const char* o = fl_getenv("DMS_MINILANG_PACKS")) return o;
+#ifdef __APPLE__
+  return exe_dir() + "/../Resources/paquetes";
+#else
+  return exe_dir() + "/paquetes";
+#endif
+}
 bool read_file(const std::string& path, std::string& out) {
   FILE* f = fl_fopen(path.c_str(), "rb");
   if (!f) return false;
@@ -679,13 +710,17 @@ struct Item {
   std::vector<std::string> src, tgt;   // [0] es la forma que se enseña; las demás también valen
 };
 struct Unit {
-  int section = 0;
+  int section = 0;               // 0 A1 … 5 C2
+  int lessons = 3;               // las lecciones de la unidad
   std::string title, icon;
+  std::vector<std::string> words;   // las palabras nuevas que enseña (en los cursos grandes)
   std::vector<Item> items;
 };
 struct Pack {
   std::string id, target, source, name, flag;   // id: «en-es» (inglés para quien habla español)
   bool full = false;                            // el curso completo (A1–C1) o unos primeros pasos
+  int words = 0;                                // las palabras que enseña (los cursos grandes)
+  std::string credit;                           // de dónde salen las frases
   std::vector<Unit> units;
   int item_count() const {
     int n = 0;
@@ -757,11 +792,14 @@ std::string join_alts(const std::vector<std::string>& v) {
 // El paquete en su archivo: lo que se instala (y lo que otros pueden escribir e importar).
 std::string pack_json(const Pack& p) {
   std::string o = "{\"minilang\":1,\"id\":" + jstr(p.id) + ",\"target\":" + jstr(p.target) + ",\"source\":" + jstr(p.source) +
-                  ",\"name\":" + jstr(p.name) + ",\"flag\":" + jstr(p.flag) + ",\"full\":" + (p.full ? "true" : "false") + ",\"units\":[\n";
+                  ",\"name\":" + jstr(p.name) + ",\"flag\":" + jstr(p.flag) + ",\"full\":" + (p.full ? "true" : "false") +
+                  ",\"words\":" + std::to_string(p.words) + ",\"credit\":" + jstr(p.credit) + ",\"units\":[\n";
   for (size_t k = 0; k < p.units.size(); k++) {
     const Unit& u = p.units[k];
-    o += std::string(k ? ",\n" : "") + " {\"section\":" + std::to_string(u.section) + ",\"title\":" + jstr(u.title) + ",\"icon\":" + jstr(u.icon) +
-         ",\"items\":[";
+    std::string ws;
+    for (size_t i = 0; i < u.words.size(); i++) ws += (i ? "," : "") + jstr(u.words[i]);
+    o += std::string(k ? ",\n" : "") + " {\"section\":" + std::to_string(u.section) + ",\"lessons\":" + std::to_string(u.lessons) +
+         ",\"title\":" + jstr(u.title) + ",\"icon\":" + jstr(u.icon) + ",\"words\":[" + ws + "],\"items\":[";
     for (size_t i = 0; i < u.items.size(); i++)
       o += std::string(i ? "," : "") + "[" + jstr(join_alts(u.items[i].src)) + "," + jstr(join_alts(u.items[i].tgt)) + "]";
     o += "]}";
@@ -790,13 +828,23 @@ bool parse_pack(const std::string& text, Pack& p, std::string& error) {
     return false;
   }
   p.id = p.target + "-" + p.source;
+  // Otro curso de los mismos idiomas lleva su propio id («en-es-10k»): su progreso va aparte.
+  std::string jid = j["id"].s;
+  bool id_ok = !jid.empty() && jid.size() <= 40 && jid.rfind(p.id, 0) == 0;
+  for (char ch : jid) id_ok = id_ok && (std::islower((unsigned char)ch) || std::isdigit((unsigned char)ch) || ch == '-');
+  if (id_ok) p.id = jid;
+  p.words = std::max(0, (int)j["words"].n);
+  p.credit = j["credit"].s;
   p.name = j["name"].s.empty() ? std::string(lang_name(p.target)) : j["name"].s;
   if (p.name.empty()) p.name = p.target;
   p.flag = j["flag"].s.empty() ? std::string(lang_flag(p.target)) : j["flag"].s;
   p.full = j["full"].b;
   for (const auto& ju : j["units"].a) {
     Unit u;
-    u.section = std::max(0, std::min(4, (int)ju["section"].n));
+    u.section = std::max(0, std::min(5, (int)ju["section"].n));
+    u.lessons = ju["lessons"].t == Json::NUM ? std::max(1, std::min(30, (int)ju["lessons"].n)) : 3;
+    for (const auto& w : ju["words"].a)
+      if (w.t == Json::STR && !w.s.empty()) u.words.push_back(w.s);
     u.title = ju["title"].s;
     u.icon = ju["icon"].s.empty() ? "📘" : ju["icon"].s;
     for (const auto& ji : ju["items"].a) {
@@ -817,7 +865,8 @@ bool parse_pack(const std::string& text, Pack& p, std::string& error) {
 }
 
 // ============================================================ el progreso
-const int LESSONS = 3;                     // lecciones por unidad
+const int LESSONS = 3;                     // lecciones por unidad (los cursos grandes dicen las suyas)
+const int MAX_LESSONS = 30;
 const int HEARTS = 5;                      // vidas
 const long long HEART_S = 30 * 60;         // una vida vuelve cada media hora
 const int INTERVALS[] = {0, 1, 2, 4, 7, 15, 30};   // días hasta el próximo repaso, según lo bien que se sabe
@@ -845,7 +894,7 @@ Progress progress_parse(const std::string& text, size_t units) {
     if (l.rfind("xp=", 0) == 0) p.xp = std::atoll(l.c_str() + 3);
     else if (l.rfind("lessons=", 0) == 0) {
       auto v = split(l.substr(8), ',');
-      for (size_t i = 0; i < v.size() && i < units; i++) p.lessons[i] = std::max(0, std::min(LESSONS, std::atoi(v[i].c_str())));
+      for (size_t i = 0; i < v.size() && i < units; i++) p.lessons[i] = std::max(0, std::min(MAX_LESSONS, std::atoi(v[i].c_str())));
     } else if (l.rfind("mem=", 0) == 0) {
       auto v = split(l.substr(4), ',');
       if (v.size() == 3) p.mem[v[0]] = {std::max(0, std::min(6, std::atoi(v[1].c_str()))), std::atoll(v[2].c_str())};
@@ -869,13 +918,29 @@ int due_count(const Progress& p, long long today) {
   for (const auto& kv : p.mem) n += kv.second.second <= today ? 1 : 0;
   return n;
 }
+int lessons_of(const Pack& pk, int u) { return u >= 0 && u < (int)pk.units.size() ? pk.units[(size_t)u].lessons : LESSONS; }
+bool complete(const Pack& pk, const Progress& p, int u) { return p.done(u) >= lessons_of(pk, u); }
 // La unidad por la que va: la primera sin terminar (las anteriores, hechas).
 int current_unit(const Pack& pk, const Progress& p) {
   for (int u = 0; u < (int)pk.units.size(); u++)
-    if (p.done(u) < LESSONS) return u;
+    if (!complete(pk, p, u)) return u;
   return (int)pk.units.size();
 }
-bool unlocked(const Progress& p, int u) { return u == 0 || p.done(u - 1) >= LESSONS; }
+bool unlocked(const Pack& pk, const Progress& p, int u) { return u == 0 || complete(pk, p, u - 1); }
+// Las palabras que ya sabe: las de las unidades terminadas y, de la que lleva a medias, su parte.
+int words_known(const Pack& pk, const Progress& p) {
+  int n = 0;
+  for (int u = 0; u < (int)pk.units.size(); u++) {
+    int w = (int)pk.units[(size_t)u].words.size();
+    n += complete(pk, p, u) ? w : w * p.done(u) / std::max(1, lessons_of(pk, u));
+  }
+  return n;
+}
+int words_total(const Pack& pk) {
+  int n = 0;
+  for (const auto& u : pk.units) n += (int)u.words.size();
+  return n;
+}
 
 // Lo de la persona (en todos los idiomas): la racha, la meta del día y las vidas.
 struct Stats {
@@ -889,13 +954,15 @@ struct Stats {
   std::vector<long long> days;   // los días con práctica (los últimos 60)
   std::string pack;              // el que se estudia
   bool voice = true;
+  std::string offered;           // los cursos grandes que ya se instalaron solos (para no volver a hacerlo)
 };
 std::string stats_text(const Stats& s) {
   std::string days;
   for (size_t i = 0; i < s.days.size(); i++) days += (i ? "," : "") + std::to_string(s.days[i]);
   return "streak=" + std::to_string(s.streak) + "\nlast_day=" + std::to_string(s.last_day) + "\nxp_today=" + std::to_string(s.xp_today) +
          "\nxp_day=" + std::to_string(s.xp_day) + "\ngoal=" + std::to_string(s.goal) + "\nhearts=" + std::to_string(s.hearts) +
-         "\nhearts_t=" + std::to_string(s.hearts_t) + "\ndays=" + days + "\npack=" + s.pack + "\nvoice=" + (s.voice ? "1" : "0") + "\n";
+         "\nhearts_t=" + std::to_string(s.hearts_t) + "\ndays=" + days + "\npack=" + s.pack + "\nvoice=" + (s.voice ? "1" : "0") +
+         "\noffered=" + s.offered + "\n";
 }
 Stats stats_parse(const std::string& text) {
   Stats s;
@@ -913,6 +980,7 @@ Stats stats_parse(const std::string& text) {
     else if (k == "hearts_t") s.hearts_t = n;
     else if (k == "pack") s.pack = v;
     else if (k == "voice") s.voice = v != "0";
+    else if (k == "offered") s.offered = v;
     else if (k == "days")
       for (const auto& d : split(v, ','))
         if (!d.empty()) s.days.push_back(std::atoll(d.c_str()));
@@ -1057,8 +1125,9 @@ Exercise make_exercise(Kind k, const Pack& p, int u, int i, bool tts, std::mt199
 // Una lección: diez juegos con las frases nuevas de esa parte de la unidad y alguna de repaso.
 std::vector<Exercise> make_lesson(const Pack& p, int u, int k, bool tts, unsigned seed) {
   std::mt19937 rng(seed);
-  int n = (int)p.units[(size_t)u].items.size();
-  int a = k * n / LESSONS, b = (k + 1) * n / LESSONS;
+  int n = (int)p.units[(size_t)u].items.size(), L = std::max(1, p.units[(size_t)u].lessons);
+  k = std::max(0, std::min(L - 1, k));
+  int a = k * n / L, b = std::max(a + 1, (k + 1) * n / L);
   std::vector<std::pair<int, int>> focus;
   for (int i = a; i < b; i++) focus.push_back({u, i});
   std::vector<std::pair<int, int>> review;
@@ -1073,7 +1142,8 @@ std::vector<Exercise> make_lesson(const Pack& p, int u, int k, bool tts, unsigne
       {K_BUILD, K_TYPE, K_MATCH, K_LISTEN, K_TYPE, K_BUILD, K_CHOOSE_REV, K_TYPE, K_LISTEN, K_TYPE}};
   std::vector<Exercise> out;
   size_t next = 0;
-  for (Kind kind : pattern[std::max(0, std::min(LESSONS - 1, k))]) {
+  // De reconocer a escribir: las primeras lecciones de la unidad, más fáciles.
+  for (Kind kind : pattern[std::min(LESSONS - 1, k * LESSONS / L)]) {
     auto f = focus[next++ % focus.size()];
     if (kind == K_MATCH) f = {u, a};
     out.push_back(make_exercise(kind, p, f.first, f.second, tts, rng));
@@ -1106,11 +1176,13 @@ std::vector<Exercise> make_review(const Pack& p, const Progress& pr, long long t
   for (size_t k = 0; k < 8 && k < c.size(); k++) out.push_back(make_exercise(pattern[k], p, c[k].u, c[k].i, tts, rng));
   return out;
 }
-// La prueba de nivel: dos frases de cada unidad, de la más fácil a la más difícil.
+// La prueba de nivel: dos frases de cada unidad (en los cursos grandes, de una de
+// cada tramo), de la más fácil a la más difícil.
 std::vector<Exercise> make_test(const Pack& p, unsigned seed) {
   std::mt19937 rng(seed);
   std::vector<Exercise> out;
-  for (int u = 0; u < (int)p.units.size(); u++) {
+  int step = std::max(1, (int)p.units.size() / 30);
+  for (int u = 0; u < (int)p.units.size(); u += step) {
     int n = (int)p.units[(size_t)u].items.size();
     int a = (int)(rng() % (unsigned)n), b = (a + 1 + (int)(rng() % (unsigned)std::max(1, n - 1))) % n;
     out.push_back(make_exercise(K_BUILD, p, u, a, false, rng));
@@ -1118,16 +1190,11 @@ std::vector<Exercise> make_test(const Pack& p, unsigned seed) {
   }
   return out;
 }
-// Hasta dónde llega: las unidades seguidas con las dos bien.
-int test_result(const std::vector<std::pair<int, bool>>& answers) {
-  std::map<int, int> wrong, seen;
-  for (const auto& a : answers) {
-    seen[a.first]++;
-    if (!a.second) wrong[a.first]++;
-  }
-  int u = 0;
-  while (seen.count(u) && seen[u] >= 2 && !wrong[u]) u++;
-  return u;
+// Hasta dónde llega: hasta la primera unidad con un fallo (sin fallos, todo).
+int test_result(const std::vector<std::pair<int, bool>>& answers, int units) {
+  for (const auto& a : answers)
+    if (!a.second) return a.first;
+  return units;
 }
 
 // ============================================================ la voz
@@ -1214,14 +1281,23 @@ Fl_Color rgb(unsigned v) { return fl_rgb_color((uchar)(v >> 16), (uchar)(v >> 8)
 const unsigned C_BG = 0xf6f7fb, C_CARD = 0xffffff, C_LINE = 0xe3e6ee, C_TEXT = 0x1f2433, C_MUTED = 0x6b7285, C_ACCENT = 0x4f6bff,
                C_ACCENT_D = 0x3549c9, C_SOFT = 0xe8ecff, C_GOOD = 0x1e9e5a, C_GOOD_D = 0x157a44, C_GOOD_SOFT = 0xdcf5e7, C_BAD = 0xe5484d,
                C_BAD_SOFT = 0xfde4e5, C_GOLD = 0xf5a623, C_FIRE = 0xff7a1a, C_HEART = 0xef4466, C_LOCK = 0xe6e9f0;
-const unsigned SECTION_COLORS[] = {0x22b07d, 0x2f9fe0, 0x7a5cff, 0xf08c2e, 0xe0457b};
+const unsigned SECTION_COLORS[] = {0x22b07d, 0x2f9fe0, 0x7a5cff, 0xf08c2e, 0xe0457b, 0x9b2c8c};
 const char* section_name(int s) {
-  static const char* n[] = {tx::SEC_A1, tx::SEC_A2, tx::SEC_B1, tx::SEC_B2, tx::SEC_C1};
-  return n[std::max(0, std::min(4, s))];
+  static const char* n[] = {tx::SEC_A1, tx::SEC_A2, tx::SEC_B1, tx::SEC_B2, tx::SEC_C1, tx::SEC_C2};
+  return n[std::max(0, std::min(5, s))];
 }
 const char* section_code(int s) {
-  static const char* n[] = {"A1", "A2", "B1", "B2", "C1"};
-  return n[std::max(0, std::min(4, s))];
+  static const char* n[] = {"A1", "A2", "B1", "B2", "C1", "C2"};
+  return n[std::max(0, std::min(5, s))];
+}
+// 10000 → «10.000» (o «10,000» en inglés).
+std::string thousands(int n) {
+  std::string d = std::to_string(n), o;
+  for (size_t i = 0; i < d.size(); i++) {
+    if (i && (d.size() - i) % 3 == 0) o += tx::THOUSANDS;
+    o += d[i];
+  }
+  return o;
 }
 struct Hit {
   int x, y, w, h, act, idx;
@@ -1346,6 +1422,7 @@ public:
   long long today = 0, now = 0;
   bool tts = false;
   int scroll = 0, content_h = 0, hover = -1;
+  bool jump = true;   // al volver al inicio: bajar hasta la unidad por la que va
   std::vector<Hit> hits;
   std::function<void(int, int)> on_act;
   std::function<bool(int)> on_key;
@@ -1414,6 +1491,12 @@ public:
     chip(cx, y() + 15, "🔥 " + std::to_string(streak_now(*stats, today)), C_FIRE);
   }
 
+  void draw_home_again() {
+    hits.clear();
+    fl_color(rgb(C_BG));
+    fl_rectf(x(), y(), w(), h());
+    draw_home();
+  }
   // ---- el inicio: las unidades por nivel y, a la derecha, la meta, la racha y el repaso
   void draw_home() {
     header(false);
@@ -1425,8 +1508,20 @@ public:
     int Y = y() + 64 + 12 - scroll;
     int cur = current_unit(*pack, *prog);
     int last_section = -1;
+    int view_top = y() + 64, view_bottom = y() + h();
     for (int u = 0; u < (int)pack->units.size(); u++) {
       const Unit& un = pack->units[(size_t)u];
+      if (jump && u == cur) {
+        // Una vez: la unidad por la que va, a la vista.
+        jump = false;
+        int want = std::max(0, Y + scroll - (y() + 64) - 160);
+        if (want != scroll) {
+          scroll = want;
+          fl_pop_clip();
+          draw_home_again();
+          return;
+        }
+      }
       if (un.section != last_section) {
         last_section = un.section;
         int first = u, last = u;
@@ -1446,8 +1541,13 @@ public:
         fl_draw(range.c_str(), lx + lw - (int)fl_width(range.c_str()), Y + 30);
         Y += 48;
       }
-      int done = prog->done(u);
-      bool open = unlocked(*prog, u), complete = done >= LESSONS, now_u = u == cur;
+      // Solo se dibuja lo que se ve (los cursos grandes tienen cientos de unidades).
+      if (Y + 104 < view_top || Y > view_bottom) {
+        Y += 104;
+        continue;
+      }
+      int done = prog->done(u), L = lessons_of(*pack, u);
+      bool open = unlocked(*pack, *prog, u), complete = done >= L, now_u = u == cur;
       round_box(lx, Y, lw, 92, 16, rgb(now_u ? 0xfbfcff : C_CARD), rgb(now_u ? C_ACCENT : C_LINE));
       unsigned circle = complete ? SECTION_COLORS[un.section] : now_u ? C_ACCENT : C_LOCK;
       fl_color(rgb(complete || now_u ? circle : 0xd5dae4));
@@ -1469,12 +1569,24 @@ public:
       fl_font(FL_HELVETICA, 13);
       fl_color(rgb(C_MUTED));
       std::string sub = complete ? fmt(tx::UNIT_DONE, {std::to_string(un.items.size())})
-                        : open   ? fmt(tx::UNIT_LESSON, {std::to_string(done + 1), std::to_string(LESSONS)})
+                        : open   ? fmt(tx::UNIT_LESSON, {std::to_string(done + 1), std::to_string(L)})
                                  : std::string(tx::UNIT_LOCKED);
-      fl_draw(sub.c_str(), lx + 96, Y + 58);
-      for (int k = 0; k < LESSONS; k++) {
-        fl_color(rgb(k < done ? SECTION_COLORS[un.section] : C_LOCK));
-        fl_rounded_rectf(lx + 96 + k * 34, Y + 68, 28, 8, 4);
+      if (!un.words.empty()) sub += "  ·  " + fmt(tx::UNIT_WORDS, {std::to_string(un.words.size())});
+      fl_draw(fit(sub, lw - 290).c_str(), lx + 96, Y + 58);
+      if (L <= 6) {
+        for (int k = 0; k < L; k++) {
+          fl_color(rgb(k < done ? SECTION_COLORS[un.section] : C_LOCK));
+          fl_rounded_rectf(lx + 96 + k * 34, Y + 68, 28, 8, 4);
+        }
+      } else {
+        // Muchas lecciones: una barra.
+        int bw = 6 * 34 - 6;
+        fl_color(rgb(C_LOCK));
+        fl_rounded_rectf(lx + 96, Y + 68, bw, 8, 4);
+        if (done > 0) {
+          fl_color(rgb(SECTION_COLORS[un.section]));
+          fl_rounded_rectf(lx + 96, Y + 68, std::max(8, bw * std::min(done, L) / L), 8, 4);
+        }
       }
       int bx = lx + lw - 168;
       if (now_u && open) button(bx, Y + 24, 150, 42, done ? tx::CONTINUE_UNIT : tx::START, 1, u, C_ACCENT, 0xffffff, C_ACCENT_D);
@@ -1482,6 +1594,7 @@ public:
       Y += 104;
     }
     content_h = Y + scroll - (y() + 64);
+    scroll = std::max(0, std::min(scroll, std::max(0, content_h - (h() - 64))));
     fl_pop_clip();
     // La barra de desplazamiento.
     int view_h = h() - 64;
@@ -1569,7 +1682,9 @@ public:
     fl_font(FL_HELVETICA_BOLD, 14);
     fl_color(rgb(C_TEXT));
     fl_draw(fit(section_name(lv), sw - 100).c_str(), sx + 74, Y + 61);
-    int segs = full ? 5 : 1;
+    int top_section = 0;
+    for (const auto& un : pack->units) top_section = std::max(top_section, un.section);
+    int segs = full ? top_section + 1 : 1;
     int sgw = (sw - 36 - (segs - 1) * 4) / segs;
     for (int k = 0; k < segs; k++) {
       fl_color(rgb(k <= lv ? SECTION_COLORS[k] : C_LOCK));
@@ -1579,7 +1694,10 @@ public:
     Y += 140;
     fl_font(FL_HELVETICA, 13);
     fl_color(rgb(C_MUTED));
-    fl_draw(fit(fmt(tx::TOTALS, {std::to_string(prog->xp), std::to_string(learned(*prog))}), sw).c_str(), sx + 4, Y + 10);
+    int wt = words_total(*pack);
+    std::string totals = wt ? fmt(tx::TOTALS_WORDS, {std::to_string(prog->xp), thousands(words_known(*pack, *prog)), thousands(wt)})
+                            : fmt(tx::TOTALS, {std::to_string(prog->xp), std::to_string(learned(*prog))});
+    fl_draw(fit(totals, sw).c_str(), sx + 4, Y + 10);
   }
 
   // ---- una lección
@@ -1865,7 +1983,7 @@ public:
       sub = tx::R_REVIEW_SUB;
     } else {
       title = tx::R_LESSON;
-      sub = fmt(tx::R_LESSON_SUB, {pack->units[(size_t)ses->unit].title, std::to_string(ses->lesson + 1), std::to_string(LESSONS)});
+      sub = fmt(tx::R_LESSON_SUB, {pack->units[(size_t)ses->unit].title, std::to_string(ses->lesson + 1), std::to_string(lessons_of(*pack, ses->unit))});
     }
     fl_font(FL_HELVETICA_BOLD, 30);
     fl_color(rgb(C_TEXT));
@@ -1915,7 +2033,7 @@ public:
       fl_font(FL_HELVETICA, 13);
       fl_color(rgb(C_MUTED));
       auto lines = wrap(c.info, cw - 106);
-      for (size_t k = 0; k < lines.size() && k < 2; k++) fl_draw(lines[k].c_str(), cx + 88, cy + 64 + (int)k * 18);
+      for (size_t k = 0; k < lines.size() && k < 3; k++) fl_draw(lines[k].c_str(), cx + 88, cy + 64 + (int)k * 18);
       int by = cy + ch - 58;
       if (c.state == 2) {
         fl_color(rgb(C_SOFT));
@@ -2119,13 +2237,49 @@ int selftest() {
   pr.xp = 75;
   Progress pr2 = progress_parse(progress_text(pr), en.units.size());
   chk(pr2.xp == 75 && pr2.lessons[0] == 3 && pr2.lessons[1] == 1 && pr2.mem.size() == 2 && pr2.mem[mem_key(1, 2)].first == 1, "el progreso: guardar y leer");
-  chk(current_unit(en, pr2) == 1 && unlocked(pr2, 1) && !unlocked(pr2, 2) && level_of(en, pr2) == 0, "la unidad por la que va (y las cerradas)");
+  chk(current_unit(en, pr2) == 1 && unlocked(en, pr2, 1) && !unlocked(en, pr2, 2) && level_of(en, pr2) == 0, "la unidad por la que va (y las cerradas)");
   chk(due_count(pr2, today) == 1 && due_count(pr2, today + 1) == 2, "lo que toca repasar");
   auto rv = make_review(en, pr2, today, false, 5);
   chk(rv.size() == 2 && rv[0].unit == 0 && rv[0].item == 1, "el repaso: primero lo que toca");
   auto test = make_test(en, 9);
   chk(test.size() == 30 && test[0].unit == 0 && test[29].unit == 14, "la prueba de nivel: dos por unidad");
-  chk(test_result({{0, true}, {0, true}, {1, true}, {1, true}, {2, true}, {2, false}}) == 2 && test_result({{0, false}}) == 0, "la prueba: hasta el primer fallo");
+  chk(test_result({{0, true}, {0, true}, {1, true}, {1, true}, {2, true}, {2, false}}, 15) == 2 && test_result({{0, false}}, 15) == 0 &&
+          test_result({{0, true}, {14, true}}, 15) == 15,
+      "la prueba: hasta el primer fallo");
+  // Un curso grande: lecciones por unidad, las palabras de cada una y la prueba por tramos.
+  {
+    Pack big = en;
+    big.id = "en-es-10k";
+    big.words = 0;
+    for (size_t k = 0; k < big.units.size(); k++) {
+      big.units[k].lessons = k == 0 ? 7 : 2;
+      big.units[k].section = std::min(5, (int)k / 3);
+      big.units[k].words = {"w" + std::to_string(k) + "a", "w" + std::to_string(k) + "b", "w" + std::to_string(k) + "c", "w" + std::to_string(k) + "d"};
+      big.words += 4;
+    }
+    big.credit = "Tatoeba (tatoeba.org), CC BY 2.0 FR";
+    Pack again;
+    chk(parse_pack(pack_json(big), again, error) && again.id == "en-es-10k" && again.units[0].lessons == 7 && again.units[1].lessons == 2 &&
+            again.units[14].section == 4 && again.units[3].words.size() == 4 && again.words == 60 && again.credit == big.credit,
+        "un curso grande: su id, sus lecciones, sus palabras y de dónde salen las frases");
+    std::string other = pack_json(big);
+    other.replace(other.find("en-es-10k"), 9, "xx-yy-zz9");
+    chk(parse_pack(other, again, error) && again.id == "en-es", "un id que no es de esos idiomas: el de siempre");
+    bool all10 = true;
+    for (int k = 0; k < 7; k++) all10 = all10 && make_lesson(big, 0, k, true, (unsigned)k).size() == 10;
+    chk(all10, "siete lecciones en una unidad: diez juegos cada una");
+    Progress bp;
+    bp.lessons.assign(big.units.size(), 0);
+    bp.lessons[0] = 7;
+    bp.lessons[1] = 1;
+    chk(complete(big, bp, 0) && !complete(big, bp, 1) && current_unit(big, bp) == 1 && words_known(big, bp) == 4 + 2 && words_total(big) == 60,
+        "las palabras que ya sabe");
+    Pack many = big;
+    while (many.units.size() < 400) many.units.push_back(big.units[many.units.size() % big.units.size()]);
+    auto t = make_test(many, 3);
+    chk(t.size() == 62 && t[2].unit == 13 && t.back().unit == 390, "la prueba de un curso grande: dos frases por tramo");
+    chk(thousands(10000) == std::string("10") + tx::THOUSANDS + "000" && thousands(999) == "999", "los miles");
+  }
   // La racha, la meta y las vidas.
   Stats s;
   add_xp(s, 10, today);
@@ -2280,6 +2434,7 @@ public:
   ml::LessonView* view = nullptr;
   ml::Stats stats;
   std::vector<ml::Pack> packs;                     // los instalados
+  std::vector<ml::Pack> bundled;                   // los cursos grandes que trae la app (para instalar)
   std::map<std::string, ml::Progress> progs;       // el progreso de cada uno
   int active = -1;
   ml::Session ses;
@@ -2382,8 +2537,19 @@ public:
     std::string text;
     if (!demo && ml::read_file(settings_file(), text)) stats = ml::stats_parse(text);
     load_packs();
+    load_bundled();
     // La primera vez: el idioma del curso completo (inglés, o español si la app está en inglés).
     if (packs.empty()) install(ml::ui_lang() == "es" ? "en" : "es");
+    // Un curso grande (10.000 palabras) que aún no se ofreció: se instala y se estudia ese.
+    for (const auto& b : bundled) {
+      std::string mark = "," + b.id + ",";
+      if (pack_index(b.id) >= 0 || ("," + stats.offered + ",").find(mark) != std::string::npos) continue;
+      if (!install_pack(b)) continue;
+      stats.offered += (stats.offered.empty() ? "" : ",") + b.id;
+      stats.pack = b.id;
+      message = ml::fmt(tx::BIG_INSTALLED, {b.name, ml::thousands(b.words)});
+      message_until = ml::now_s() + 8;
+    }
     int pick = 0;
     for (int i = 0; i < (int)packs.size(); i++)
       if (packs[(size_t)i].id == stats.pack) pick = i;
@@ -2402,6 +2568,30 @@ public:
       if (ml::read_file(ml::packs_dir() + "/" + name, text) && ml::parse_pack(text, p, error)) packs.push_back(p);
     }
     if (list) fl_filename_free_list(&list, n);
+  }
+  // Los cursos grandes que trae la app (para quien habla el idioma de la interfaz).
+  void load_bundled() {
+    bundled.clear();
+    std::string dir = ml::bundled_dir();
+    dirent** list = nullptr;
+    int n = fl_filename_list(dir.c_str(), &list);
+    for (int i = 0; i < n; i++) {
+      std::string name = list[i]->d_name;
+      if (name.size() < 6 || name.compare(name.size() - 5, 5, ".json") != 0) continue;
+      std::string text, error;
+      ml::Pack p;
+      if (ml::read_file(dir + "/" + name, text) && ml::parse_pack(text, p, error) && p.source == ml::ui_lang()) bundled.push_back(p);
+    }
+    if (list) fl_filename_free_list(&list, n);
+  }
+  bool install_pack(const ml::Pack& p) {
+    if (pack_index(p.id) >= 0) return true;
+    if (!demo) {
+      fl_make_path(ml::packs_dir().c_str());
+      if (!ml::write_file(ml::packs_dir() + "/" + p.id + ".json", ml::pack_json(p))) return false;
+    }
+    packs.push_back(p);
+    return true;
   }
   void save() {
     if (demo) return;
@@ -2430,6 +2620,7 @@ public:
     stats.pack = packs[(size_t)i].id;
     prog();
     view->scroll = 0;
+    view->jump = true;
     save();
   }
 
@@ -2453,6 +2644,7 @@ public:
       int u = ml::current_unit(*p, prog());
       std::string where = u < (int)p->units.size() ? ml::fmt(tx::STATUS_UNIT, {std::to_string(u + 1), std::to_string(p->units.size()), p->units[(size_t)u].title})
                                                     : std::string(tx::STATUS_DONE);
+      if (int wt = ml::words_total(*p)) where += " · " + ml::fmt(tx::STATUS_WORDS, {ml::thousands(ml::words_known(*p, prog())), ml::thousands(wt)});
       Status->text(" " + p->flag + " " + p->name + " · " + where + " · " + ml::bar_title(stats, today()));
     }
     layout();
@@ -2487,14 +2679,14 @@ public:
   // ---- empezar
   void start_lesson(int u) {
     ml::Pack* p = pack();
-    if (!p || u < 0 || u >= (int)p->units.size() || !ml::unlocked(prog(), u)) return;
+    if (!p || u < 0 || u >= (int)p->units.size() || !ml::unlocked(*p, prog(), u)) return;
     ml::refill(stats, now());
     if (stats.hearts <= 0) {
       say(ml::fmt(tx::NO_HEARTS, {std::to_string((ml::next_heart_in(stats, now()) + 59) / 60)}));
       return;
     }
-    int done = prog().done(u);
-    int k = done >= ml::LESSONS ? (int)(seed() % ml::LESSONS) : done;   // una unidad hecha: practicar una cualquiera
+    int done = prog().done(u), L = ml::lessons_of(*p, u);
+    int k = done >= L ? (int)(seed() % (unsigned)L) : done;   // una unidad hecha: practicar una cualquiera
     begin(ml::S_LESSON, u, k, ml::make_lesson(*p, u, k, voice_on(), seed()));
   }
   void start_review() {
@@ -2578,6 +2770,7 @@ public:
       case 34:
         view->mode = ml::M_HOME;
         view->scroll = 0;
+        view->jump = true;
         refresh();
         break;
     }
@@ -2734,8 +2927,8 @@ public:
       xp = 5 + (ses.mistakes == 0 ? 3 : 0);
       stats.hearts = std::min(ml::HEARTS, stats.hearts + 1);   // repasar devuelve una vida
     } else {
-      int passed = std::min((int)p->units.size(), ml::test_result(ses.test_answers));
-      for (int u = 0; u < passed; u++) prog().lessons[(size_t)u] = ml::LESSONS;
+      int passed = std::min((int)p->units.size(), ml::test_result(ses.test_answers, (int)p->units.size()));
+      for (int u = 0; u < passed; u++) prog().lessons[(size_t)u] = std::max(prog().done(u), ml::lessons_of(*p, u));
       ses.passed_units = passed;
       xp = 5;
     }
@@ -2753,6 +2946,7 @@ public:
     if (view->mode != ml::M_LESSON) return;
     if (ses.answered > 0 && !confirm(tx::QUIT_Q)) return;
     view->mode = ml::M_HOME;
+    view->jump = true;
     save();
     refresh();
   }
@@ -2770,7 +2964,13 @@ public:
     return -1;
   }
   std::string pack_info(const ml::Pack& p, bool catalog) const {
-    std::string n = std::to_string(p.units.size()), f = std::to_string(p.item_count());
+    std::string n = std::to_string(p.units.size()), f = ml::thousands(p.item_count());
+    if (p.words > 0) {
+      std::string top = ml::section_code(p.units.empty() ? 0 : p.units.back().section);
+      std::string o = ml::fmt(tx::PACK_WORDS, {ml::thousands(p.words), top, n, f});
+      if (!p.credit.empty()) o += " " + ml::fmt(tx::PACK_CREDIT, {p.credit});
+      return o;
+    }
     if (!catalog) return ml::fmt(tx::PACK_IMPORTED, {n, f});
     return ml::fmt(p.full ? tx::PACK_FULL : tx::PACK_STARTER, {n, f});
   }
@@ -2778,6 +2978,12 @@ public:
     view->cards.clear();
     card_ids.clear();
     std::string src = ml::ui_lang();
+    // Primero los cursos grandes; luego el catálogo y los importados.
+    for (const auto& b : bundled) {
+      int i = pack_index(b.id);
+      view->cards.push_back({b.id, b.flag, b.name, pack_info(b, true), i < 0 ? 0 : i == active ? 2 : 1});
+      card_ids.push_back("bundled:" + b.id);
+    }
     for (const char* code : ml::LANG_ORDER) {
       if (!ml::in_catalog(code, src)) continue;
       ml::Pack p = ml::build_pack(code, src);
@@ -2787,7 +2993,9 @@ public:
     }
     for (int i = 0; i < (int)packs.size(); i++) {
       const ml::Pack& p = packs[(size_t)i];
-      if (ml::in_catalog(p.target, p.source) && p.source == src) continue;
+      bool is_bundled = false;
+      for (const auto& b : bundled) is_bundled = is_bundled || b.id == p.id;
+      if (is_bundled || (ml::in_catalog(p.target, p.source) && p.source == src && p.id == p.target + "-" + p.source)) continue;
       view->cards.push_back({p.id, p.flag, p.name, pack_info(p, false), i == active ? 2 : 1});
       card_ids.push_back(p.id);
     }
@@ -2798,7 +3006,13 @@ public:
   }
   void card_install(int i) {
     if (i < 0 || i >= (int)card_ids.size()) return;
-    if (install(card_ids[(size_t)i])) {
+    const std::string& id = card_ids[(size_t)i];
+    bool ok = false;
+    if (id.rfind("bundled:", 0) == 0) {
+      for (const auto& b : bundled)
+        if ("bundled:" + b.id == id) ok = install_pack(b);
+    } else ok = install(id);
+    if (ok) {
       save();
       say(ml::fmt(tx::INSTALLED, {view->cards[(size_t)i].name}));
     }
@@ -2936,6 +3150,7 @@ public:
   void BtnCheck_click() override {
     if (view->mode == ml::M_RESULT) {
       view->mode = ml::M_HOME;
+      view->jump = true;
       refresh();
       return;
     }
@@ -3003,7 +3218,7 @@ public:
     if (progress) {
       // Ya va por la unidad 5 (A2), con racha de seis días y algo de repaso.
       ml::Progress& p = prog();
-      for (int u = 0; u < 4; u++) p.lessons[(size_t)u] = ml::LESSONS;
+      for (int u = 0; u < 4; u++) p.lessons[(size_t)u] = ml::lessons_of(*pack(), u);
       p.lessons[4] = 1;
       p.xp = 420;
       for (int u = 0; u < 4; u++)
@@ -3180,6 +3395,12 @@ public:
     check();
   }
   int ui_test() {
+#ifndef _WIN32
+    // Primero sin cursos grandes (aunque la app los traiga): luego se prueban aparte.
+    std::string none = ml::config_dir() + "/sin-paquetes";
+    fl_make_path(none.c_str());
+    setenv("DMS_MINILANG_PACKS", none.c_str(), 1);
+#endif
     demo_state(1100, 720, false);
     int f = 0;
     auto chk = [&](bool ok, const char* what) {
@@ -3330,7 +3551,7 @@ public:
       n++;
       BtnCheck_click();
     }
-    chk(asked && view->mode == ml::M_RESULT && ses.passed_units == 3 && prog().done(2) == ml::LESSONS && ml::current_unit(*pack(), prog()) == 3,
+    chk(asked && view->mode == ml::M_RESULT && ses.passed_units == 3 && prog().done(2) == ml::lessons_of(*pack(), 2) && ml::current_unit(*pack(), prog()) == 3,
         "la prueba de nivel: salta a la unidad 4");
     render_to("");
     BtnCheck_click();
@@ -3375,6 +3596,64 @@ public:
     pick_file = [good] { return good; };
     import_pack();
     chk(rejected && packs.size() == 2 && packs[1].id == "ja-" + src && view->cards.back().name == "Japonés", "importar un paquete (y uno roto no)");
+#ifndef _WIN32
+    // Un curso grande que trae la app: se instala solo una vez y se estudia ese.
+    {
+      ml::Pack big = ml::build_pack(main_target, src);
+      big.id = big.id + "-10k";
+      big.name = "Big";
+      big.credit = "Tatoeba";
+      for (auto& un : big.units) {
+        un.lessons = 4;
+        for (const auto& it : un.items)
+          for (const auto& w : ml::words_of(it.tgt[0])) un.words.push_back(w);
+        big.words += (int)un.words.size();
+      }
+      std::string dir = ml::config_dir() + "/con-paquetes";
+      fl_make_path(dir.c_str());
+      ml::write_file(dir + "/big.json", ml::pack_json(big));
+      setenv("DMS_MINILANG_PACKS", dir.c_str(), 1);
+      packs.clear();
+      progs.clear();
+      stats.offered.clear();
+      load();
+      bool auto_on = pack() && pack()->id == big.id && pack()->units[0].lessons == 4 && ml::words_total(*pack()) == big.words &&
+                     message.find("Big") != std::string::npos && stats.offered == big.id;
+      open_packs();
+      int bc = -1;
+      for (int i = 0; i < (int)view->cards.size(); i++)
+        if (view->cards[(size_t)i].id == big.id) bc = i;
+      chk(auto_on && bc >= 0 && view->cards[(size_t)bc].state == 2 && view->cards[(size_t)bc].info.find("Tatoeba") != std::string::npos,
+          "un curso grande: se instala solo y se estudia ese");
+      // Cuatro lecciones por unidad y las palabras que se van sabiendo.
+      start_lesson(0);
+      while (ses.active() && view->mode == ml::M_LESSON) {
+        answer_now(true);
+        BtnCheck_click();
+      }
+      BtnCheck_click();
+      chk(prog().done(0) == 1 && !ml::complete(*pack(), prog(), 0) && ml::words_known(*pack(), prog()) == (int)pack()->units[0].words.size() / 4,
+          "una lección de cuatro: la cuarta parte de sus palabras");
+      // Quitarlo: no vuelve a instalarse solo.
+      for (int i = 0; i < (int)view->cards.size(); i++)
+        if (view->cards[(size_t)i].id == big.id) act(32, i);
+      packs.clear();
+      progs.clear();
+      load();
+      chk(pack_index(big.id) < 0, "quitado: no se vuelve a instalar solo");
+      // Con muchas unidades, el inicio baja hasta la que toca.
+      install_pack(bundled[0]);
+      use_pack(pack_index(big.id));
+      for (int u = 0; u < 12; u++) prog().lessons[(size_t)u] = 4;
+      view->mode = ml::M_HOME;
+      view->jump = true;
+      refresh();
+      render_to("");
+      bool seen12 = false;
+      for (const auto& h : view->hits) seen12 = seen12 || (h.act == 1 && h.idx == 12);
+      chk(view->scroll > 0 && seen12, "el inicio baja hasta la unidad por la que va");
+    }
+#endif
     // La meta del día y la barra de menús.
     Menu1_click(tx::MP_GOAL_30);
     auto m = bar_menu();

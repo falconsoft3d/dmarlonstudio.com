@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.132 — 2026-11-11
+
+- MiniLang: **curso de inglés de 10.000 palabras**, de A1 a C2: 400 unidades y unas 19.000 frases reales de Tatoeba (tatoeba.org, CC BY 2.0 FR). Cada unidad enseña unas 25 palabras nuevas, en frases que solo usan palabras ya vistas; el inicio dice cuántas palabras lleva («103 de 10.000 palabras») y baja solo hasta la unidad por la que va. En inglés, la misma app trae el curso de español de 10.000 palabras.
+- MiniLang: el curso grande va dentro de la app (Contents/Resources/paquetes) y se instala solo la primera vez; el curso corto de 180 frases sigue en «Idiomas…», con su progreso aparte. Unidades con sus propias lecciones (hasta 8), nivel C2 y prueba de nivel por tramos en los cursos grandes.
+- El script que arma el curso (scripts/demo-extra/minilang/build_course.py): ordena las palabras por lo que se usan en dos millones de frases, deja fuera los nombres propios y elige para cada palabra las frases que se entienden con ella.
+- Web: «Cómo se hizo» de MiniLang con el paso 8 (el curso de 10.000 palabras) y la tarjeta, la guía y el manual al día.
+
 ## 1.0.131 — 2026-11-11
 
 - MiniLang: el botón «Comprobar» / «Continuar» ya no desaparece. Al pasar el ratón por las respuestas, el dibujo se repintaba encima del botón y lo tapaba; ahora se repinta el tablero entero, con el campo y el botón encima. Una prueba de la interfaz lo comprueba.

@@ -6734,6 +6734,10 @@ msgid "Ángulo"
 msgstr "Angle"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "."
+msgstr ","
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Abrir MiniLang"
 msgstr "Open MiniLang"
 
@@ -6754,8 +6758,8 @@ msgid "Alemán"
 msgstr "German"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
-msgid "Aprender idiomas con juegos cortos, nativo en C++ con FLTK: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar, con vidas, meta diaria, racha y repaso. El curso de inglés va de A1 a C1 y los demás idiomas son paquetes que se instalan. Vive en la barra de menús."
-msgstr "Learn languages with short games, native in C++ with FLTK: choose the translation, put the words in order, match pairs, write and listen, with lives, a daily goal, a streak and reviews. The Spanish course goes from A1 to C1 and the other languages are packages you install. It lives in the menu bar."
+msgid "Aprender idiomas con juegos cortos, nativo en C++ con FLTK: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar, con vidas, meta diaria, racha y repaso. El curso de inglés enseña 10.000 palabras, de A1 a C2, y los demás idiomas son paquetes que se instalan. Vive en la barra de menús."
+msgstr "Learn languages with short games, native in C++ with FLTK: choose the translation, put the words in order, match pairs, write and listen, with lives, a daily goal, a streak and reviews. The Spanish course teaches 10,000 words, from A1 to C2, and the other languages are packages you install. It lives in the menu bar."
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Avanzado"
@@ -6780,6 +6784,10 @@ msgstr "Continue"
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Curso completo, de A1 a C1: {0} unidades, {1} frases"
 msgstr "Full course, A1 to C1: {0} units, {1} sentences"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Curso de {0} palabras, de A1 a {1}: {2} unidades, {3} frases."
+msgstr "{0}-word course, A1 to {1}: {2} units, {3} sentences."
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Curso terminado"
@@ -6846,6 +6854,10 @@ msgid "Francés"
 msgstr "French"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Frases: {0}."
+msgstr "Sentences: {0}."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Has reforzado lo aprendido y recuperado una vida"
 msgstr "You reinforced what you learned and got a life back"
 
@@ -6882,6 +6894,10 @@ msgid "Inglés"
 msgstr "English"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Instalado «{0}»: {1} palabras, de A1 a C2. Tu progreso del otro curso sigue guardado."
+msgstr "Installed “{0}”: {1} words, A1 to C2. Your progress in the other course is still saved."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Intermedio"
 msgstr "Intermediate"
 
@@ -6902,8 +6918,8 @@ msgid "L"
 msgstr "M"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
-msgid "La prueba de nivel te pregunta dos frases de cada unidad, de la más fácil a la más difícil, y se para en el primer fallo: las unidades que superes quedan hechas. ¿Empezar?"
-msgstr "The placement test asks you two sentences from each unit, from the easiest to the hardest, and stops at the first mistake: the units you pass are marked as done. Start?"
+msgid "La prueba de nivel te pregunta dos frases de cada tramo del curso, de lo más fácil a lo más difícil, y se para en el primer fallo: lo que superes queda hecho. ¿Empezar?"
+msgstr "The placement test asks you two sentences from each stretch of the course, from the easiest to the hardest, and stops at the first mistake: whatever you pass is marked as done. Start?"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Las frases se leerán en voz alta"
@@ -6928,6 +6944,10 @@ msgstr "Read sentences aloud"
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "M"
 msgstr "T"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "Maestría"
+msgstr "Mastery"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Meta diaria"
@@ -6971,7 +6991,7 @@ msgid ""
 "\n"
 "Si fallas, pierdes una vida y ese juego vuelve al final de la lección; las vidas vuelven solas (una cada media hora) y el repaso te devuelve una. Cada lección da 10 XP (15 sin fallos) y suma a tu meta del día y a tu racha de días seguidos. Lo que aprendes se repasa cuando toca: cuanto mejor te lo sabes, más tarda en volver.\n"
 "\n"
-"El curso de inglés va de A1 (principiante) a C1 (avanzado); la prueba de nivel te deja saltar las unidades que ya sabes. Los idiomas son paquetes: en Archivo › Idiomas… instala francés, italiano, alemán o portugués, o importa un paquete .json hecho por otros.\n"
+"El curso de inglés de 10.000 palabras va de A1 (principiante) a C2 (maestría): cada unidad enseña unas 25 palabras nuevas en frases reales, que solo usan palabras ya vistas, y la prueba de nivel te deja saltar las unidades que ya sabes. También está el curso corto, de 180 frases por temas. Los idiomas son paquetes: en Archivo › Idiomas… instala francés, italiano, alemán o portugués, o importa un paquete .json hecho por otros.\n"
 "\n"
 "Al cerrar la ventana, MiniLang se queda en la barra de menús con tu racha y lo que te falta para la meta; su menú abre la lección siguiente o un repaso rápido."
 msgstr ""
@@ -6979,7 +6999,7 @@ msgstr ""
 "\n"
 "If you make a mistake, you lose a life and that game comes back at the end of the lesson; lives come back on their own (one every half hour) and a review gives you one back. Each lesson gives 10 XP (15 with no mistakes) and adds to your daily goal and to your streak of days in a row. What you learn is reviewed when it is due: the better you know it, the longer it takes to come back.\n"
 "\n"
-"The Spanish course goes from A1 (beginner) to C1 (advanced); the placement test lets you skip the units you already know. Languages are packages: in File › Languages… install French, Italian, German or Portuguese, or import a .json package made by others.\n"
+"The 10,000-word Spanish course goes from A1 (beginner) to C2 (mastery): each unit teaches about 25 new words in real sentences that only use words you have already seen, and the placement test lets you skip the units you already know. There is also the short course, with 180 sentences by topic. Languages are packages: in File › Languages… install French, Italian, German or Portuguese, or import a .json package made by others.\n"
 "\n"
 "When you close the window, MiniLang stays in the menu bar with your streak and what you still need for the goal; its menu opens the next lesson or a quick review."
 
@@ -7080,8 +7100,8 @@ msgid "Tu nivel"
 msgstr "Your level"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
-msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, el campo para escribir y el botón de comprobar se diseñaron en el Diseñador del estudio; los juegos, el progreso y los paquetes de idiomas están en el código de Form1.cpp. La voz es la del sistema (say, en macOS)."
-msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the menu, the typing field and the check button were designed in the studio's Designer; the games, the progress and the language packages are in the code of Form1.cpp. The voice is the system's (say, on macOS)."
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, el menú, el campo para escribir y el botón de comprobar se diseñaron en el Diseñador del estudio; los juegos, el progreso y los paquetes de idiomas están en el código de Form1.cpp. La voz es la del sistema (say, en macOS). Las frases del curso de 10.000 palabras son de Tatoeba (tatoeba.org), con licencia CC BY 2.0 FR."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the menu, the typing field and the check button were designed in the studio's Designer; the games, the progress and the language packages are in the code of Form1.cpp. The voice is the system's (say, on macOS). The sentences of the 10,000-word course come from Tatoeba (tatoeba.org), licensed CC BY 2.0 FR."
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "Une las parejas"
@@ -7120,6 +7140,10 @@ msgid "XP"
 msgstr "XP"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "XP total: {0} · {1} de {2} palabras"
+msgstr "Total XP: {0} · {1} of {2} words"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "XP total: {0} · {1} frases aprendidas"
 msgstr "Total XP: {0} · {1} sentences learned"
 
@@ -7140,8 +7164,16 @@ msgid "los idiomas del paquete no son válidos"
 msgstr "the package languages are not valid"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0} de {1} palabras"
+msgstr "{0} of {1} words"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "{0} frases por repasar hoy"
 msgstr "{0} sentences to review today"
+
+#: lib/code/tk_showcase_cpp_minilang.dart
+msgid "{0} palabras nuevas"
+msgstr "{0} new words"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
 msgid "{0} · lección {1} de {2}"

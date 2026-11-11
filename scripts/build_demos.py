@@ -479,6 +479,23 @@ MIC_DEMOS = {"cpp_recorder"}
 # Las demos que llevan al lado un programa en Go (scripts/demo-extra/<nombre>):
 # MyWhatsapp y su puente con WhatsApp (dispositivo vinculado por QR).
 GO_EXTRAS = {"cpp_mywa": "wabridge"}
+# Las demos que llevan datos al lado (scripts/demo-extra/<carpeta>/*.json, en la
+# carpeta «paquetes»): MiniLang y sus cursos grandes (los paquetes de idiomas).
+DATA_EXTRAS = {"cpp_minilang": "minilang"}
+
+
+def data_extra(seed: str, dest: Path) -> int:
+    """Copia los datos de la demo a «dest/paquetes»; devuelve cuántos archivos."""
+    import shutil as sh
+    if seed not in DATA_EXTRAS:
+        return 0
+    src = Path(__file__).resolve().parent / "demo-extra" / DATA_EXTRAS[seed]
+    files = sorted(src.glob("*.json"))
+    if files:
+        (dest / "paquetes").mkdir(parents=True, exist_ok=True)
+        for f in files:
+            sh.copy(f, dest / "paquetes" / f.name)
+    return len(files)
 
 
 def go_extra(seed: str, dest: Path, archs: list) -> bool:
@@ -536,6 +553,7 @@ def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
         for lang in LANGS:
             sh.copy(bins[lang], app / "Contents" / "MacOS" / files[lang])
         go_extra(seed, app / "Contents" / "MacOS", archs)
+        data_extra(seed, app / "Contents" / "Resources")
         if ico:
             sh.copy(ico, app / "Contents" / "Resources" / "app.icns")
         with open(app / "Contents" / "Info.plist", "wb") as f:
@@ -567,6 +585,7 @@ def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
     for dll in set(dlls):
         sh.copy(dll, folder)
     go_extra(seed, folder, [])
+    data_extra(seed, folder)
     return folder
 
 

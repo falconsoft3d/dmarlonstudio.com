@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.29 — 🤖 Asistente: un chat con la IA sobre sus chats; «Investigar con la IA» desde un mensaje; la barra de la lista de chats.\n"
 "1.0.28 — La barra de apps, a la derecha: Chats, Tareas, CRM, Panel, Estados, Plantillas, Etiquetas, Ocupado, Bloquear y Ajustes.\n"
 "1.0.27 — Mensajes automáticos diarios para un contacto (con IA y para revisar).\n"
 "1.0.26 — Las cifras del panel llevan a sus chats; el análisis se desplaza; el modo ocupado, también solo para un contacto.\n"
@@ -6796,6 +6797,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.29 — 🤖 Assistant: a chat with AI about your chats; “Investigate with AI” from a message; a scrollbar on the chat list.\n"
 "1.0.28 — The app bar, on the right: Chats, Tasks, CRM, Dashboard, Statuses, Templates, Labels, Busy, Lock and Settings.\n"
 "1.0.27 — Daily automatic messages for a contact (with AI and for review).\n"
 "1.0.26 — The dashboard's figures take you to their chats; the analysis scrolls; busy mode, also just for one contact.\n"
@@ -6882,6 +6884,10 @@ msgid "Actualizar los chats"
 msgstr "Refresh chats"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ahora es {0}."
+msgstr "It is now {0}."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ana"
 msgstr "Anna"
 
@@ -6902,6 +6908,10 @@ msgid "Armario a medida · Pérez"
 msgstr "Custom wardrobe · Pérez"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Asistente"
+msgstr "Assistant"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó la mesa de Laura. ¿Le hacemos la suya?"
 msgstr "Here's how Laura's table turned out. Shall we make yours?"
 
@@ -6918,6 +6928,14 @@ msgstr ""
 "Warning: linked mode uses the WhatsApp Web protocol without being an official app. It goes against WhatsApp's terms and the account may be banned (temporarily or permanently). Use it at your own risk and, if you can, with a number that is not your main one.\n"
 "\n"
 "The session is stored only on this computer. Link anyway?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ayudando con {0}"
+msgstr "Helping with {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ayúdame a responder este mensaje de {0}: «{1}». Investiga lo que haga falta (la conversación, su ficha, su lead, sus tareas y, si hace falta, la web), dime qué pide y qué le respondo."
+msgstr "Help me reply to this message from {0}: “{1}”. Look into whatever is needed (the conversation, their card, their lead, their tasks and, if needed, the web), tell me what they are asking for and what I should reply."
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Azul"
@@ -6998,6 +7016,22 @@ msgstr "Change the PIN…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cariñoso"
 msgstr "Warm"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Carlos pregunta si el presupuesto de la cocina incluye la instalación. Le dijiste que lo terminabas hoy y aún no se lo has enviado: tiene una tarea pendiente y su lead está en «Propuesta».\n"
+"• Contéstale ya, aunque el presupuesto llegue después.\n"
+"• Si la instalación va aparte, dale una cifra orientativa.\n"
+"<<<RESPUESTA\n"
+"Hola Carlos, sí: el presupuesto incluye la instalación y la retirada de los muebles viejos. Te lo envío esta tarde.\n"
+">>>"
+msgstr ""
+"Carlos is asking whether the kitchen quote includes installation. You told him you would finish it today and you haven’t sent it yet: there is a pending task and his lead is at “Proposal”.\n"
+"• Reply now, even if the quote comes later.\n"
+"• If installation is extra, give him a rough figure.\n"
+"<<<RESPUESTA\n"
+"Hi Carlos, yes: the quote includes installation and removing the old units. I’ll send it to you this afternoon.\n"
+">>>"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Carlos · cliente"
@@ -7102,6 +7136,10 @@ msgstr "Reply with this message, as is"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Continuar"
 msgstr "Continue"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Conversación con {0} (los últimos mensajes):"
+msgstr "Conversation with {0} (the latest messages):"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
@@ -7222,6 +7260,10 @@ msgid "El PIN son 4 cifras"
 msgstr "The PIN is 4 digits"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El asistente envía a {0} un resumen de sus chats (nombres, fechas y el principio del último mensaje) y, si nombra a alguien con @ o investiga un mensaje, esa conversación. ¿Continuar?"
+msgstr "The assistant sends {0} a summary of your chats (names, dates and the start of the last message) and, if you mention someone with @ or investigate a message, that conversation. Continue?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El lead (por ejemplo: Cocina de Laura):"
 msgstr "The lead (for example: Laura's kitchen):"
 
@@ -7282,6 +7324,14 @@ msgid "En el CRM: {0}"
 msgstr "In the CRM: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En el CRM: «{0}», etapa {1}, importe {2}."
+msgstr "In the CRM: “{0}”, stage {1}, amount {2}."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En el asistente, Enter pregunta a la IA: no se envía nada por WhatsApp"
+msgstr "In the assistant, Enter asks the AI: nothing is sent over WhatsApp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
 msgstr "On the phone: WhatsApp › Settings › Linked devices › Link a device, and point the camera at this code."
 
@@ -7326,6 +7376,10 @@ msgstr ""
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el asistente de MyWhatsapp y escribes el mensaje del día que el usuario («Yo») envía a {0}. Lo que quiere decirle: {1}. Hoy es {2}. Escribe un único mensaje de WhatsApp, breve, natural y cálido, distinto de los de otros días, en el idioma de la conversación y teniendo en cuenta lo último que hablaron si viene al caso. No inventes planes, datos ni promesas. Solo el mensaje, sin comillas."
 msgstr "You are the MyWhatsapp assistant and you write today's message that the user (“Me”) sends to {0}. What they want to say: {1}. Today is {2}. Write a single WhatsApp message, short, natural and warm, different from other days', in the language of the conversation and taking into account what they last talked about if it fits. Don't make up plans, facts or promises. Only the message, without quotes."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el asistente de MyWhatsapp. Ayudas al usuario («Yo») con sus chats de WhatsApp: respondes a sus preguntas con los datos que te dan (el resumen de los chats, sus tareas, el CRM, las etiquetas y las conversaciones adjuntas), le dices qué hacer y le redactas respuestas. Cuando escribas un mensaje para que lo envíe, ponlo entre una línea «<<<RESPUESTA» y otra «>>>», tal cual se enviaría y en el idioma de esa conversación. Si hace falta información de fuera (precios públicos, horarios, normas), búscala en la web y di de dónde sale. No inventes nada de los chats que no esté en los datos. Responde en {0}, breve y concreto, con viñetas si ayudan."
+msgstr "You are the MyWhatsapp assistant. You help the user (“Me”) with their WhatsApp chats: you answer their questions with the data you are given (the chat summary, their tasks, the CRM, the labels and the attached conversations), tell them what to do and draft replies. When you write a message for them to send, put it between a line “<<<RESPUESTA” and a line “>>>”, exactly as it would be sent and in the language of that conversation. If outside information is needed (public prices, opening hours, rules), search the web and say where it comes from. Do not invent anything about the chats that is not in the data. Answer in {0}, brief and concrete, with bullet points if they help."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el asistente de MyWhatsapp. Lees una conversación de WhatsApp entre el usuario («Yo») y {0} y le ayudas a entender a esa persona para tratarla mejor. Con honestidad y respeto, sin diagnosticar, sin etiquetas ni juicios sobre su forma de ser. Responde en {1}, con estas secciones breves: «Cómo es» (tono y forma de comunicarse), «Qué le importa», «Cómo tratarle» (consejos concretos), «Qué evitar» y «Siguiente paso» (uno, sugerido). Máximo 180 palabras. Básate solo en lo que se ve en la conversación; si hay poca información, dilo."
@@ -7594,6 +7648,10 @@ msgid "La lista de chats la dibuja el código"
 msgstr "The chat list is drawn by the code"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La respuesta, en el borrador: revísela y pulse Enviar"
+msgstr "The reply is in the draft: check it and press Send"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La tarea:"
 msgstr "The task:"
 
@@ -7636,6 +7694,10 @@ msgstr "What the user wants to say: {0}"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lo terminamos hoy y se lo envío"
 msgstr "We’ll finish it today and send it to you"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Los chats (del más reciente al más antiguo): nombre | último mensaje | quién lo escribió | sin leer | por responder | etiquetas | tareas | etapa en el CRM"
+msgstr "The chats (newest first): name | last message | who wrote it | unread | to answer | labels | tasks | CRM stage"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Los chats que más le escriben (mensajes recibidos):"
@@ -7779,7 +7841,7 @@ msgid ""
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Panel: el botón «📊» (en la fila de Tareas) enseña las cifras de los últimos 7 o 30 días (recibidos, enviados, chats activos, lo que tarda en responder, por responder, tareas y leads), los mensajes por día y por hora y quién más le escribe; se calcula con recuentos, sin leer ningún mensaje, y «✨ Análisis con IA» manda solo esas cifras. Un clic en una cifra lleva a sus chats (la lista se filtra) o abre las tareas, el CRM o el chat de quien más le escribe. Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Asistente: «🤖 Asistente», en la barra de apps, es un chat con la IA sobre sus chats (qué tiene pendiente, qué hacer con alguien —con @nombre incluye su conversación—, cómo responder); allí, Enter pregunta a la IA y no envía nada por WhatsApp. El clic derecho sobre un mensaje, «🤖 Investigar con la IA», lo lleva al asistente para analizarlo (con su ficha, su lead, sus tareas y, con Claude, la web); las respuestas listas salen con «Usar como respuesta», que las deja en el borrador de ese chat. Panel: el botón «📊» (en la fila de Tareas) enseña las cifras de los últimos 7 o 30 días (recibidos, enviados, chats activos, lo que tarda en responder, por responder, tareas y leads), los mensajes por día y por hora y quién más le escribe; se calcula con recuentos, sin leer ningún mensaje, y «✨ Análisis con IA» manda solo esas cifras. Un clic en una cifra lleva a sus chats (la lista se filtra) o abre las tareas, el CRM o el chat de quien más le escribe. Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7801,7 +7863,7 @@ msgstr ""
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
-"File › PIN lock… sets a 4-digit PIN: the app opens locked, Cmd+L locks it and it locks itself after a few minutes without use (a screen lock: it doesn't encrypt anything). Dashboard: the “📊” button (in the Tasks row) shows the figures for the last 7 or 30 days (received, sent, active chats, how long you take to reply, to answer, tasks and leads), messages per day and per hour and who writes to you most; it's computed with counts, without reading any message, and “✨ AI analysis” sends only those figures. Clicking a figure takes you to its chats (the list is filtered) or opens the tasks, the CRM or the chat of whoever writes to you most. Labels: “⋯ › 🏷 Labels…” adds or removes yours (or creates one, with its colour); WhatsApp's own also show (the phone changes them). They appear in the chat header, as dots in the list and as a filter in the dropdown. CRM: the “💼” button (in the Tasks row) opens a board with the leads by stage (new, contacted, proposal, negotiation, won and lost), with their amount; ◀ ▶ move them and a click opens their chat. From a chat, “⋯ › 💼 CRM…” adds it or changes its stage, which shows in the header. In “⋯”, “👤 Contact card…” opens their card, like in Odoo (person or company, company, job, address, tax ID, phones, email, website, title, tags and notes), in a single window; with its checkbox it is also saved in Contacts (and, through iCloud, on the phone). And “✨ Assess this person”: the AI reads the conversation and suggests how to treat them. Help › What's new: what's new in each version.\n"
+"File › PIN lock… sets a 4-digit PIN: the app opens locked, Cmd+L locks it and it locks itself after a few minutes without use (a screen lock: it doesn't encrypt anything). Assistant: “🤖 Assistant”, in the app bar, is a chat with AI about your chats (what is pending, what to do with someone — @name includes their conversation —, how to reply); there, Enter asks the AI and sends nothing over WhatsApp. Right-clicking a message, “🤖 Investigate with AI”, takes it to the assistant to analyse it (with their card, their lead, their tasks and, with Claude, the web); ready replies come with “Use as reply”, which puts them in that chat’s draft. Dashboard: the “📊” button (in the Tasks row) shows the figures for the last 7 or 30 days (received, sent, active chats, how long you take to reply, to answer, tasks and leads), messages per day and per hour and who writes to you most; it's computed with counts, without reading any message, and “✨ AI analysis” sends only those figures. Clicking a figure takes you to its chats (the list is filtered) or opens the tasks, the CRM or the chat of whoever writes to you most. Labels: “⋯ › 🏷 Labels…” adds or removes yours (or creates one, with its colour); WhatsApp's own also show (the phone changes them). They appear in the chat header, as dots in the list and as a filter in the dropdown. CRM: the “💼” button (in the Tasks row) opens a board with the leads by stage (new, contacted, proposal, negotiation, won and lost), with their amount; ◀ ▶ move them and a click opens their chat. From a chat, “⋯ › 💼 CRM…” adds it or changes its stage, which shows in the header. In “⋯”, “👤 Contact card…” opens their card, like in Odoo (person or company, company, job, address, tax ID, phones, email, website, title, tags and notes), in a single window; with its checkbox it is also saved in Contacts (and, through iCloud, on the phone). And “✨ Assess this person”: the AI reads the conversation and suggests how to treat them. Help › What's new: what's new in each version.\n"
 "\n"
 "Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
 
@@ -7913,6 +7975,10 @@ msgstr "Internal notes"
 msgid "Nuestro horario es de lunes a viernes, de 9:00 a 18:00."
 msgstr "We're open Monday to Friday, 9:00 to 18:00."
 
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
+msgid "Nueva conversación"
+msgstr "New conversation"
+
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nueva etiqueta"
 msgstr "New label"
@@ -7964,6 +8030,10 @@ msgstr "PIN removed"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "PLANTILLA"
 msgstr "TEMPLATE"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "POR RESPONDER"
+msgstr "TO ANSWER"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?"
@@ -8038,6 +8108,14 @@ msgstr "To answer ({0}):"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Por responder ahora"
 msgstr "To answer now"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Pregunte sobre sus chats; con @nombre incluye esa conversación"
+msgstr "Ask about your chats; @name includes that conversation"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Pregúntele lo que quiera sobre sus chats: qué tiene pendiente, qué hacer con alguien o cómo responder. Escriba abajo y pulse Enter."
+msgstr "Ask anything about your chats: what is pending, what to do with someone or how to reply. Type below and press Enter."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Presupuesto cocina.pdf"
@@ -8124,6 +8202,10 @@ msgid "Responde en (típico; media {0})"
 msgstr "You reply in (typical; average {0})"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Resúmeme lo más importante de hoy"
+msgstr "Sum up what matters most today"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Revisar antes de enviar (lo deja como propuesta en el chat)"
 msgstr "Review before sending (leaves it as a suggestion in the chat)"
 
@@ -8180,6 +8262,10 @@ msgid "Sticker"
 msgstr "Sticker"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Su ficha: {0}"
+msgstr "Their card: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Su mensaje, mejorado: «Enviar» o «Usar»"
 msgstr "Your message, improved: “Send” or “Use”"
 
@@ -8198,6 +8284,10 @@ msgstr "Yes! Home already ❤️"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tarea creada: {0}"
 msgstr "Task created: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Tarea pendiente: {0}"
+msgstr "Pending task: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tareas pendientes"
@@ -8242,6 +8332,10 @@ msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the list, the A
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Usar"
 msgstr "Use"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Usar como respuesta"
+msgstr "Use as reply"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Verde"
@@ -8320,6 +8414,10 @@ msgid "el español"
 msgstr "English"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "el otro"
+msgstr "them"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "el sábado, y la dirección es calle Mayor 12"
 msgstr "Saturday, and the address is 12 High Street"
 
@@ -8394,6 +8492,14 @@ msgstr "{0} local time"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} pendientes"
 msgstr "{0} pending"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} sin leer"
+msgstr "{0} unread"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} tareas"
+msgstr "{0} tasks"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¡Hola {nombre}! ¿Cómo estás?"
@@ -8480,6 +8586,14 @@ msgstr "Publish this status? Your contacts will see it for 24 hours, according t
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Quién puede recoger a la abuela a las 13?"
 msgstr "Who can pick up Grandma at 1?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Qué chats tengo sin responder desde hace 3 días?"
+msgstr "Which chats have I left unanswered for 3 days?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Qué debería hacer hoy con mis tareas y mis leads?"
+msgstr "What should I do today with my tasks and leads?"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Qué te viene mejor? Y confírmame la dirección, porfa"
@@ -8628,6 +8742,18 @@ msgstr "🔕 Busy with this contact…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🖼 Foto…"
 msgstr "🖼 Photo…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🤖 Asistente"
+msgstr "🤖 Assistant"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🤖 Investigar con la IA"
+msgstr "🤖 Investigate with AI"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🤖 La IA está investigando…"
+msgstr "🤖 The AI is investigating…"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"
@@ -17106,10 +17232,6 @@ msgstr "First save or discard the unsaved changes in: {0}"
 #: lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
 msgid "Mira los archivos adjuntos."
 msgstr "Look at the attached files."
-
-#: lib/ui/screens/code_claude.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_claude_panel.dart
-msgid "Nueva conversación"
-msgstr "New conversation"
 
 #: lib/ui/screens/code_claude.dart
 msgid "Nuevo: {0}"

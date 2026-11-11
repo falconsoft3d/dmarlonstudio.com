@@ -1012,6 +1012,66 @@ std::string claude_body(const std::string& system, const std::string& user) {
          ",\"max_tokens\":4000,\"output_config\":{\"effort\":\"low\"},\"fallbacks\":\"default\",\"system\":" + jstr(system) +
          ",\"messages\":[{\"role\":\"user\",\"content\":" + jstr(user) + "}]}";
 }
+// Una conversación (varios turnos) y, con [web], la búsqueda en la web de Claude.
+struct Turn {
+  bool user;
+  std::string text;
+};
+std::string claude_turns_body(const std::string& system, const std::vector<Turn>& turns, bool web) {
+  std::string m;
+  for (const auto& t : turns) m += (m.empty() ? "" : ",") + std::string("{\"role\":") + (t.user ? "\"user\"" : "\"assistant\"") + ",\"content\":" + jstr(t.text) + "}";
+  return "{\"model\":" + jstr(CLAUDE_MODEL) + ",\"max_tokens\":4000,\"output_config\":{\"effort\":\"medium\"},\"fallbacks\":\"default\",\"system\":" +
+         jstr(system) + ",\"messages\":[" + m + "]" +
+         (web ? ",\"tools\":[{\"type\":\"web_search_20260209\",\"name\":\"web_search\",\"max_uses\":3}]" : "") + "}";
+}
+std::string openai_turns_body(const std::string& model, const std::string& system, const std::vector<Turn>& turns) {
+  std::string m = "{\"role\":\"system\",\"content\":" + jstr(system) + "}";
+  for (const auto& t : turns) m += std::string(",{\"role\":") + (t.user ? "\"user\"" : "\"assistant\"") + ",\"content\":" + jstr(t.text) + "}";
+  return "{\"model\":" + jstr(model) + ",\"messages\":[" + m + "]}";
+}
+// Las respuestas listas que la IA marca entre <<<RESPUESTA y >>>: (el texto sin ellas, las respuestas).
+std::pair<std::string, std::vector<std::string>> split_replies(const std::string& text) {
+  std::vector<std::string> replies;
+  std::string rest;
+  size_t pos = 0;
+  while (true) {
+    size_t a = text.find("<<<RESPUESTA", pos);
+    if (a == std::string::npos) {
+      rest += text.substr(pos);
+      break;
+    }
+    rest += text.substr(pos, a - pos);
+    size_t b = text.find(">>>", a);
+    if (b == std::string::npos) {
+      rest += text.substr(a);
+      break;
+    }
+    std::string r = trim(text.substr(a + 12, b - a - 12));
+    if (!r.empty() && (r[0] == ':' || r[0] == '\n')) r = trim(r.substr(1));
+    if (!r.empty()) replies.push_back(r);
+    pos = b + 3;
+  }
+  return {trim(rest), replies};
+}
+// Los chats que se nombran con @: «qué hago con @juan» → los que encajan (hasta tres).
+std::vector<int> mentioned_chats(const std::string& q, const std::vector<Chat>& chats) {
+  std::vector<int> out;
+  std::string lq = lower(q);
+  for (size_t at = lq.find('@'); at != std::string::npos && out.size() < 3; at = lq.find('@', at + 1)) {
+    size_t e = at + 1;
+    while (e < lq.size() && lq[e] != ' ' && lq[e] != ',' && lq[e] != '?' && lq[e] != '.' && lq[e] != '!') e++;
+    std::string word = lq.substr(at + 1, e - at - 1);
+    if (word.size() < 2) continue;
+    for (int i = 0; i < (int)chats.size(); i++) {
+      std::string ln = lower(chats[(size_t)i].name);
+      if (ln.find(word) != std::string::npos && std::find(out.begin(), out.end(), i) == out.end()) {
+        out.push_back(i);
+        break;
+      }
+    }
+  }
+  return out;
+}
 std::string openai_body(const std::string& model, const std::string& system, const std::string& user) {
   return "{\"model\":" + jstr(model) + ",\"messages\":[{\"role\":\"system\",\"content\":" + jstr(system) +
          "},{\"role\":\"user\",\"content\":" + jstr(user) + "}]}";
@@ -1223,6 +1283,24 @@ AiText ai_ask(const AiSettings& s, const std::string& sys, const std::string& us
                      {"Content-Type: application/json", "x-api-key: " + s.claude_key, "anthropic-version: 2026-10-21",
                       "anthropic-beta: server-side-fallback-2026-07-01"},
                      claude_body(sys, usr));
+  if (r.first == 0) return AiText{"", r.second};
+  return claude_text(r.first, r.second);
+}
+
+// Una conversación con la IA (con la web, en Claude, si [web]).
+AiText ai_ask_turns(const AiSettings& s, const std::string& sys, const std::vector<Turn>& turns, bool web) {
+  if (s.provider == P_OPENAI) {
+    if (s.openai_key.empty()) return AiText{"", tx::ERR_AI_NO_KEY};
+    auto r = post_json(openai_url(), {"Content-Type: application/json", "Authorization: Bearer " + s.openai_key},
+                       openai_turns_body(s.openai_model, sys, turns));
+    if (r.first == 0) return AiText{"", r.second};
+    return openai_text(r.first, r.second);
+  }
+  if (s.claude_key.empty()) return AiText{"", tx::ERR_AI_NO_KEY};
+  auto r = post_json(anthropic_url(),
+                     {"Content-Type: application/json", "x-api-key: " + s.claude_key, "anthropic-version: 2026-10-21",
+                      "anthropic-beta: server-side-fallback-2026-07-01"},
+                     claude_turns_body(sys, turns, web));
   if (r.first == 0) return AiText{"", r.second};
   return claude_text(r.first, r.second);
 }
@@ -2750,6 +2828,45 @@ public:
   const LabelSet* labels = nullptr;
   std::string label_filter;   // con F_LABEL: el id de la etiqueta
   int chips_h = 40;
+  // La barra de desplazamiento (a la derecha, encima de las filas): se ve si la lista no cabe y se arrastra.
+  int bar_grab = -1;   // al arrastrar: dónde se cogió el pulgar (-1: no se arrastra)
+  struct Bar {
+    int x, y, w, h, thumb_y, thumb_h, max;
+  };
+  bool bar(Bar& b) const {
+    int view = h() - chips_h;
+    if (content_h <= view || view <= 40) return false;
+    b.w = 10;
+    b.x = x() + w() - b.w;
+    b.y = y() + chips_h + 2;
+    b.h = view - 4;
+    b.thumb_h = std::max(30, (int)((long long)b.h * view / content_h));
+    b.max = content_h - view;
+    b.thumb_y = b.y + (int)((long long)(b.h - b.thumb_h) * std::min(scroll, b.max) / b.max);
+    return true;
+  }
+  void draw_bar() {
+    const Theme& T = th();
+    // Si la lista se ha acortado (un filtro, una búsqueda): no quedarse más abajo del final.
+    int max = std::max(0, content_h - (h() - chips_h));
+    if (scroll > max) {
+      scroll = max;
+      redraw();
+    }
+    Bar b;
+    if (!bar(b)) return;
+    fl_color(rgb(T.dark ? 0x202c33 : 0xeef0f1));
+    fl_rounded_rectf(b.x + 2, b.y, b.w - 4, b.h, 3);
+    fl_color(rgb(bar_grab >= 0 ? T.text : T.muted));
+    fl_rounded_rectf(b.x + 2, b.thumb_y, b.w - 4, b.thumb_h, 3);
+  }
+  void bar_to(int ey) {
+    Bar b;
+    if (!bar(b)) return;
+    int ty = std::max(0, std::min(ey - bar_grab - b.y, b.h - b.thumb_h));
+    scroll = b.h > b.thumb_h ? (int)((long long)ty * b.max / (b.h - b.thumb_h)) : 0;
+    redraw();
+  }
   std::function<void()> on_filter;   // el desplegable de los filtros
   bool compact = false;               // solo las fotos (la barra plegada)
   std::function<void()> on_compact;   // «« / »»
@@ -2858,6 +2975,7 @@ public:
         Y += rh;
       }
     content_h = Y + scroll - (y() + chips_h);
+    draw_bar();
     fl_pop_clip();
   }
   void draw() override {
@@ -3026,6 +3144,7 @@ public:
         Y += rh;
       }
     content_h = Y + scroll - (y() + chips_h);
+    draw_bar();
     fl_pop_clip();
     fl_pop_clip();
   }
@@ -3044,6 +3163,15 @@ public:
         redraw();
         return 1;
       case FL_PUSH: {
+        // La barra de desplazamiento: coger el pulgar, o saltar adonde se pulsa.
+        Bar b;
+        if (bar(b) && Fl::event_x() >= b.x - 2 && Fl::event_y() >= b.y && Fl::event_y() < b.y + b.h) {
+          bool on_thumb = Fl::event_y() >= b.thumb_y && Fl::event_y() < b.thumb_y + b.thumb_h;
+          bar_grab = on_thumb ? Fl::event_y() - b.thumb_y : b.thumb_h / 2;
+          if (!on_thumb) bar_to(Fl::event_y());
+          redraw();
+          return 1;
+        }
         // La última que encaja (como al pasar el ratón): los botones de una fila ganan a la fila.
         const Hit* got = nullptr;
         for (const auto& h : hits)
@@ -3076,6 +3204,15 @@ public:
         }
         return 1;
       }
+      case FL_DRAG:
+        if (bar_grab >= 0) bar_to(Fl::event_y());
+        return 1;
+      case FL_RELEASE:
+        if (bar_grab >= 0) {
+          bar_grab = -1;
+          redraw();
+        }
+        return 1;
       case FL_MOUSEWHEEL:
         scroll = std::max(0, std::min(scroll + Fl::event_dy() * 30, std::max(0, content_h - (h() - chips_h))));
         redraw();
@@ -3605,6 +3742,114 @@ public:
       scroll_text(dash_ai, lx + 14, ay + 34, w() - 24 - 22, ah - 42, 19);
     }
   }
+  // El asistente (un chat con la IA sobre sus chats). Acciones: 81 usar una respuesta, 82 conversación
+  // nueva, 83 una pregunta de ejemplo.
+  bool assist_mode = false, assist_busy = false;
+  std::vector<Turn> assist;
+  std::string assist_target;   // con quién ayuda ("" si en general)
+  int assist_scroll = 1 << 30, assist_content = 0;
+  std::vector<std::string> assist_replies;
+  void draw_assist() {
+    const Theme& T = th();
+    const int head = 60;
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    fl_font(FL_HELVETICA_BOLD, 18);
+    fl_color(rgb(T.text));
+    fl_draw(tx::ASSIST_TITLE, x() + 20, y() + 28);
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    std::string sub = assist_target.empty() ? std::string(tx::ASSIST_HELP) : fmt(tx::ASSIST_WITH, {assist_target});
+    fl_draw(fit(sub, w() - 240).c_str(), x() + 20, y() + 48);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    button(x() + w() - 20 - ((int)fl_width(tx::ASSIST_NEW) + 20), y() + 17, tx::ASSIST_NEW, 82, -1, rgb(T.text), rgb(T.card));
+    assist_replies.clear();
+    if (assist.empty() && !assist_busy) {
+      // Vacío: unas preguntas de ejemplo.
+      fl_font(FL_HELVETICA, 14);
+      fl_color(rgb(T.muted));
+      fl_draw(tx::ASSIST_EMPTY, x() + 40, y() + head + 40, w() - 80, 50, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+      const char* ex[] = {tx::ASSIST_EX1, tx::ASSIST_EX2, tx::ASSIST_EX3};
+      int yy = y() + head + 110;
+      fl_font(FL_HELVETICA_BOLD, 12);
+      for (int k = 0; k < 3; k++) {
+        int bw = (int)fl_width(ex[k]) + 20;
+        button(x() + (w() - bw) / 2, yy, ex[k], 83, k, rgb(T.text), rgb(T.card));
+        yy += 36;
+      }
+      return;
+    }
+    // Los turnos, de arriba abajo (con la rueda se sube y se baja).
+    int bw_max = std::min(640, (int)(w() * 0.78));
+    struct Block {
+      bool user;
+      std::vector<std::string> lines;
+      std::vector<std::vector<std::string>> replies;
+      std::vector<int> reply_idx;
+      int h;
+    };
+    std::vector<Block> blocks;
+    for (const auto& t : assist) {
+      Block b;
+      b.user = t.user;
+      fl_font(FL_HELVETICA, 14);
+      if (t.user) b.lines = wrap(t.text, bw_max - 28);
+      else {
+        auto sp = split_replies(t.text);
+        b.lines = wrap(sp.first, bw_max - 28);
+        for (const auto& r : sp.second) {
+          b.replies.push_back(wrap(r, bw_max - 52));
+          b.reply_idx.push_back((int)assist_replies.size());
+          assist_replies.push_back(r);
+        }
+      }
+      b.h = 24 + (int)b.lines.size() * 20;
+      for (const auto& r : b.replies) b.h += 50 + (int)r.size() * 19;
+      blocks.push_back(b);
+    }
+    if (assist_busy) blocks.push_back({false, {tx::ASSIST_THINKING}, {}, {}, 44});
+    int total = 16;
+    for (const auto& b : blocks) total += b.h + 12;
+    int view_h = h() - head;
+    assist_content = total;
+    assist_scroll = std::max(0, std::min(assist_scroll, std::max(0, total - view_h)));
+    fl_push_clip(x(), y() + head, w(), h() - head);
+    int Y = y() + head + 12 - assist_scroll;
+    for (const auto& b : blocks) {
+      fl_font(FL_HELVETICA, 14);
+      int tw = 0;
+      for (const auto& l : b.lines) tw = std::max(tw, (int)fl_width(l.c_str()));
+      int bw = b.replies.empty() ? std::max(120, tw + 28) : bw_max;
+      int bx = b.user ? x() + w() - 20 - bw : x() + 20;
+      round_box(bx, Y, bw, b.h, 10, b.user ? rgb(T.out) : rgb(T.card), b.user ? rgb(T.out_line) : rgb(T.card_line));
+      fl_color(rgb(T.text));
+      int ty = Y + 22;
+      for (const auto& l : b.lines) {
+        fl_draw(l.c_str(), bx + 14, ty);
+        ty += 20;
+      }
+      // Las respuestas listas: en su tarjeta, con «Usar como respuesta».
+      for (size_t r = 0; r < b.replies.size(); r++) {
+        int rh = 40 + (int)b.replies[r].size() * 19;
+        round_box(bx + 12, ty - 8, bw - 24, rh, 8, rgb(T.dark ? 0x0a332c : 0xeefcf0), rgb(T.accent));
+        fl_font(FL_HELVETICA, 14);
+        fl_color(rgb(T.text));
+        int ry = ty + 12;
+        for (const auto& l : b.replies[r]) {
+          fl_draw(l.c_str(), bx + 24, ry);
+          ry += 19;
+        }
+        fl_font(FL_HELVETICA_BOLD, 12);
+        button(bx + bw - 24 - ((int)fl_width(tx::ASSIST_USE) + 20) - 6, ry - 8, tx::ASSIST_USE, 81, b.reply_idx[r],
+               T.dark ? rgb(0x111b21) : FL_WHITE, rgb(T.accent));
+        ty += rh + 10;
+      }
+      Y += b.h + 12;
+    }
+    fl_pop_clip();
+  }
   // La valoración de una persona por la IA, en una tarjeta encima del chat.
   std::string insight, insight_title;
   // Acciones: 34 cerrarla, 35 copiarla.
@@ -3865,7 +4110,7 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || status_mode || crm_mode || dash_mode || !chat || !viewer.empty() || !insight.empty()) && find_input &&
+    if ((tasks_mode || status_mode || crm_mode || dash_mode || assist_mode || !chat || !viewer.empty() || !insight.empty()) && find_input &&
         find_input->visible())
       find_input->hide();
     if (!viewer.empty()) {
@@ -3885,6 +4130,11 @@ public:
     }
     if (dash_mode) {
       draw_dash();
+      fl_pop_clip();
+      return;
+    }
+    if (assist_mode) {
+      draw_assist();
       fl_pop_clip();
       return;
     }
@@ -4254,7 +4504,8 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || status_mode || crm_mode || dash_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
+        if (right || tasks_mode || status_mode || crm_mode || dash_mode || assist_mode || !chat || !viewer.empty() || !insight.empty())
+          return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -4300,6 +4551,11 @@ public:
       case FL_MOUSEWHEEL:
         if ((dash_mode || !insight.empty()) && text_box.w > 0 && Fl::event_inside(text_box.x, text_box.y, text_box.w, text_box.h)) {
           text_scroll = std::max(0, std::min(text_scroll + Fl::event_dy() * 30, text_box.idx));
+          redraw();
+          return 1;
+        }
+        if (assist_mode) {
+          assist_scroll = std::max(0, std::min(assist_scroll + Fl::event_dy() * 40, std::max(0, assist_content - (h() - 60))));
           redraw();
           return 1;
         }
@@ -4991,6 +5247,22 @@ int selftest() {
     chk(!daily_due(d, t), "ya salió hoy: no se repite");
     chk(daily_minutes("8:05") == 485 && daily_minutes("24:00") == -1 && daily_minutes("hola") == -1, "las horas");
   }
+  // El asistente: las respuestas marcadas, los @ y la conversación con la búsqueda en la web.
+  {
+    auto sp = split_replies("Mira:\n<<<RESPUESTA\nHola, sí.\n>>>\nY otra: <<<RESPUESTA: Vale >>> fin");
+    chk(sp.second.size() == 2 && sp.second[0] == "Hola, sí." && sp.second[1] == "Vale" && sp.first.find("<<<") == std::string::npos,
+        "asistente: las respuestas listas");
+    std::vector<Chat> cs(2);
+    cs[0].name = "Juan Pérez";
+    cs[1].name = "Ana";
+    auto mc = mentioned_chats("¿Qué hago con @juan que no me responde? y @ana", cs);
+    chk(mc.size() == 2 && mc[0] == 0 && mc[1] == 1 && mentioned_chats("sin arrobas", cs).empty(), "asistente: los chats con @");
+    bool ok2 = false;
+    Json b2 = parse_json(claude_turns_body("S", {{true, "Hola"}, {false, "¿Sí?"}, {true, "Busca"}}, true), &ok2);
+    chk(ok2 && b2["messages"].a.size() == 3 && b2["messages"][1]["role"].str() == "assistant" &&
+            b2["tools"][0]["type"].str() == "web_search_20260209" && b2["model"].str() == "claude-opus-5-5",
+        "asistente: la conversación, con la búsqueda en la web");
+  }
   // El CRM: guardar y leer los leads, y los importes.
   {
     Lead l;
@@ -5182,7 +5454,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.28";
+const char* const MYWA_VERSION = "1.0.29";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -5532,6 +5804,9 @@ struct DailyDone {   // el mensaje del día que escribió la IA
   std::string jid, text, fallback, error;
   bool review;
 };
+struct AssistDone {   // la respuesta del asistente
+  std::string text, error;
+};
 struct PersonDone {   // la valoración de una persona por la IA
   std::string jid, text, error;
 };
@@ -5718,7 +5993,8 @@ public:
       Fl_Group::current(nullptr);
       rail = new wa::AppRail(w() - rail_w, ry, rail_w, rh);
       rail->items = {{"💬", tx::APP_CHATS},  {"✅", tx::TASKS_TITLE}, {"💼", tx::CRM_TITLE},   {"📊", tx::APP_DASH},
-                     {"🎨", tx::STATUS_TITLE}, {"📋", tx::APP_TEMPLATES}, {"🏷", tx::APP_LABELS}, {"🔕", tx::APP_BUSY}};
+                     {"🎨", tx::STATUS_TITLE}, {"📋", tx::APP_TEMPLATES}, {"🏷", tx::APP_LABELS}, {"🔕", tx::APP_BUSY},
+                     {"🤖", tx::APP_ASSIST}};
       rail->bottom = {{"🔒", tx::APP_LOCK}, {"⚙️", tx::APP_SETTINGS}};
       rail->on_pick = [](int i) { if (self()) self()->rail_pick(i); };
       add(rail);
@@ -5906,6 +6182,7 @@ public:
         else if (wa::starts(l, "theme=")) theme = l.substr(6);
         else if (wa::starts(l, "busy=")) busy = l.substr(5);
         else if (l == "compact=1") compact = true;
+        else if (l == "warned_assist=1") warned_assist = true;
         else if (wa::starts(l, "lock_after=")) lock_after = std::atoi(l.c_str() + 11);
         else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
         else if (wa::starts(l, "busy_for=")) busy_for = wa::busy_for_parse(l.substr(9));
@@ -5936,7 +6213,7 @@ public:
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
                                         "\nbusy_for=" + wa::busy_for_text(busy_for) +
-                                        (compact ? "\ncompact=1" : "") + "\nlock_after=" + std::to_string(lock_after) +
+                                        (compact ? "\ncompact=1" : "") + (warned_assist ? "\nwarned_assist=1" : "") + "\nlock_after=" + std::to_string(lock_after) +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -6029,6 +6306,7 @@ public:
     view->status_mode = false;
     view->crm_mode = false;
     view->dash_mode = false;
+    view->assist_mode = false;
     view->msg_scroll = 0;
     view->asked_more = false;
     view->clear_selection();
@@ -6056,7 +6334,7 @@ public:
   }
   void refresh() {
     if (rail) {
-      rail->active = view->tasks_mode ? 1 : view->crm_mode ? 2 : view->dash_mode ? 3 : view->status_mode ? 4 : 0;
+      rail->active = view->tasks_mode ? 1 : view->crm_mode ? 2 : view->dash_mode ? 3 : view->status_mode ? 4 : view->assist_mode ? 8 : 0;
       rail->busy_on = !busy.empty();
       rail->redraw();
     }
@@ -6192,6 +6470,7 @@ public:
     view->status_mode = false;
     view->crm_mode = false;
     view->dash_mode = false;
+    view->assist_mode = false;
     view->chat = nullptr;
     view->tasks_mode = true;
     view->task_scroll = 0;
@@ -7033,6 +7312,164 @@ public:
     save_labels();
     refresh();
   }
+  // ---- el asistente: un chat con la IA sobre sus chats (y para investigar un mensaje)
+  std::string assist_jid;   // el chat con el que ayuda
+  bool warned_assist = false;
+  void open_assist() {
+    current = -1;
+    list->selected = -1;
+    list->tasks_selected = list->status_selected = list->crm_selected = list->dash_selected = false;
+    view->chat = nullptr;
+    view->tasks_mode = view->status_mode = view->crm_mode = view->dash_mode = false;
+    view->assist_mode = true;
+    options.clear();
+    say(tx::ASSIST_HINT);
+    refresh();
+  }
+  // Lo que se le cuenta a la IA: la fecha, el resumen de los chats y, si los hay, los chats adjuntos.
+  std::string assist_context(const std::string& q) {
+    long long t = now_t();
+    std::string o = wa::fmt(tx::ASSIST_CTX_NOW, {wa::day_text(t) + " " + wa::clock_time(t)}) + "\n\n" + tx::ASSIST_CTX_CHATS + "\n";
+    const char* stages[wa::CRM_STAGES] = {tx::CRM_S0, tx::CRM_S1, tx::CRM_S2, tx::CRM_S3, tx::CRM_S4, tx::CRM_S5};
+    std::vector<int> order;
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (!chats[(size_t)i].archived) order.push_back(i);
+    std::stable_sort(order.begin(), order.end(), [&](int a, int b) { return chats[(size_t)a].last_t > chats[(size_t)b].last_t; });
+    if (order.size() > 60) order.resize(60);
+    auto todo = wa::to_answer(chats, t);
+    for (int i : order) {
+      const wa::Chat& c = chats[(size_t)i];
+      std::string last = c.last;
+      for (auto& ch : last)
+        if (ch == '\n') ch = ' ';
+      if (last.size() > 70) {
+        size_t cut = 70;
+        while (cut > 0 && ((unsigned char)last[cut] & 0xC0) == 0x80) cut--;
+        last = last.substr(0, cut) + "…";
+      }
+      o += "- " + c.name + (c.group ? " (" + std::string(tx::GROUP) + ")" : "") + " | " + wa::day_text(c.last_t) + " " +
+           wa::clock_time(c.last_t) + " | " + (c.last_mine ? tx::ME : tx::ASSIST_CTX_THEM) + ": «" + last + "»";
+      if (c.unread) o += " | " + wa::fmt(tx::ASSIST_CTX_UNREAD, {std::to_string(c.unread)});
+      if (std::find(todo.begin(), todo.end(), i) != todo.end()) o += " | " + std::string(tx::ASSIST_CTX_TODO);
+      auto ls = labels.of(c.jid);
+      if (!ls.empty()) {
+        o += " | 🏷";
+        for (const auto* l : ls) o += " " + l->name;
+      }
+      int nt = 0;
+      for (const auto& tk : tasks)
+        if (!tk.done && tk.jid == c.jid) nt++;
+      if (nt) o += " | " + wa::fmt(tx::ASSIST_CTX_TASKS, {std::to_string(nt)});
+      int li = wa::lead_of(leads, c.jid);
+      if (li >= 0) o += " | CRM: " + std::string(stages[leads[(size_t)li].stage]);
+      o += "\n";
+    }
+    // Las conversaciones adjuntas: el chat con el que ayuda y los que se nombran con @.
+    std::vector<int> att = wa::mentioned_chats(q, chats);
+    for (int i = 0; i < (int)chats.size(); i++)
+      if (!assist_jid.empty() && chats[(size_t)i].jid == assist_jid && std::find(att.begin(), att.end(), i) == att.end()) att.insert(att.begin(), i);
+    for (int i : att) {
+      wa::Chat c = chats[(size_t)i];
+      if (c.id > 0 && from_db && !demo) {
+        std::string error;
+        wa::load_messages(wa::db_path(), c, 40, error);
+      }
+      auto st = store.chats.find(c.jid);
+      if (st != store.chats.end()) wa::merge_msgs(c.msgs, st->second.msgs);
+      o += "\n" + wa::fmt(tx::ASSIST_CTX_CONV, {c.name}) + "\n" + wa::transcript(c, 40);
+      if (sheets.count(c.jid)) {
+        std::string card;
+        for (const auto& kv : sheets[c.jid])
+          if (!kv.second.empty() && kv.first != "to_contacts") card += kv.first + ": " + kv.second + "; ";
+        if (!card.empty()) o += wa::fmt(tx::ASSIST_CTX_CARD, {card}) + "\n";
+      }
+      int li = wa::lead_of(leads, c.jid);
+      if (li >= 0)
+        o += wa::fmt(tx::ASSIST_CTX_LEAD, {leads[(size_t)li].name, stages[leads[(size_t)li].stage], wa::money(leads[(size_t)li].value)}) + "\n";
+      for (const auto& tk : tasks)
+        if (!tk.done && tk.jid == c.jid) o += wa::fmt(tx::ASSIST_CTX_TASK, {tk.title}) + "\n";
+    }
+    return o;
+  }
+  void assistant_ask(const std::string& q0) {
+    std::string q = wa::trim(q0);
+    if (q.empty() || view->assist_busy) return;
+    if (!demo) {
+      if (!ai_ready()) return;
+      if (!warned_assist) {
+        std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
+        if (!confirm(wa::fmt(tx::PRIVACY_ASSIST, {who}))) return;
+        warned_assist = true;
+        save_settings();
+      }
+    }
+    view->assist.push_back({true, q});
+    view->assist_busy = true;
+    view->assist_scroll = 1 << 30;
+    refresh();
+    if (demo) return;
+    std::string sys = wa::fmt(tx::PROMPT_ASSIST, {tx::MY_LANGUAGE}) + "\n\n" + assist_context(q);
+    if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    wa::AiSettings s = ai;
+    std::vector<wa::Turn> turns = view->assist;
+    std::thread([s, sys, turns] {
+      wa::AiText r = wa::ai_ask_turns(s, sys, turns, true);
+      Fl::awake(assist_done, new AssistDone{wa::trim(r.text), r.error});
+    }).detach();
+  }
+  static void assist_done(void* p) {
+    std::unique_ptr<AssistDone> d(static_cast<AssistDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    f->view->assist_busy = false;
+    std::string t = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->view->assist.push_back({false, t});
+    f->view->assist_scroll = 1 << 30;
+    f->refresh();
+  }
+  // Desde un mensaje de un cliente: al asistente, para investigarlo y responderle.
+  void assist_from_message(int i) {
+    if (current < 0 || i < 0 || i >= (int)chats[(size_t)current].msgs.size()) return;
+    const wa::Chat& c = chats[(size_t)current];
+    const wa::Msg& m = c.msgs[(size_t)i];
+    std::string text = m.text.empty() ? wa::preview_of(m) : m.text;
+    assist_jid = c.jid;
+    view->assist_target = c.name;
+    view->assist.clear();
+    std::string q = wa::fmt(tx::ASSIST_FROM_MSG, {m.mine ? std::string(tx::ME) : (m.who.empty() ? c.name : m.who), text});
+    open_assist();
+    assistant_ask(q);
+  }
+  void assist_act(int act, int k) {
+    if (act == 82) {
+      view->assist.clear();
+      view->assist_target.clear();
+      assist_jid.clear();
+      view->assist_busy = false;
+    } else if (act == 83) {
+      const char* ex[] = {tx::ASSIST_EX1, tx::ASSIST_EX2, tx::ASSIST_EX3};
+      if (k >= 0 && k < 3) assistant_ask(ex[k]);
+      return;
+    } else if (act == 81) {
+      if (k < 0 || k >= (int)view->assist_replies.size()) return;
+      std::string reply = view->assist_replies[(size_t)k];
+      // Al chat con el que ayuda (o al último abierto), con el borrador escrito: lo envía usted.
+      int target = -1;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (!assist_jid.empty() && chats[(size_t)i].jid == assist_jid) target = i;
+      if (target < 0) target = last_chat;
+      if (target < 0 || target >= (int)chats.size()) {
+        Fl::copy(reply.c_str(), (int)reply.size(), 1);
+        say(tx::COPIED);
+        return;
+      }
+      pick(target);
+      Draft->value(reply.c_str());
+      say(tx::ASSIST_REPLY_READY);
+      return;
+    }
+    refresh();
+  }
   // ---- la barra de apps
   void rail_pick(int i) {
     if (locked) return;
@@ -7050,6 +7487,7 @@ public:
       case 5: templates_menu(); return;
       case 6: filter_menu(); return;
       case 7: busy_menu(); return;
+      case 8: open_assist(); return;
       case 100:   // bloquear (o poner un PIN)
         if (pin_saved.empty()) pin_menu();
         else lock_now();
@@ -7077,6 +7515,7 @@ public:
     view->status_mode = false;
     view->crm_mode = false;
     view->dash_mode = true;
+    view->assist_mode = false;
     if (view->dash.days != days) view->dash_ai.clear();
     // Lo de la app: por responder, sin respuesta, tareas y leads abiertos.
     long long t = now_t();
@@ -7194,6 +7633,7 @@ public:
     view->tasks_mode = false;
     view->status_mode = false;
     view->dash_mode = false;
+    view->assist_mode = false;
     view->crm_mode = true;
     options.clear();
     refresh();
@@ -7649,6 +8089,7 @@ public:
     view->tasks_mode = false;
     view->crm_mode = false;
     view->dash_mode = false;
+    view->assist_mode = false;
     view->status_mode = true;
     options.clear();
     refresh();
@@ -7862,12 +8303,17 @@ public:
     if (sel) items.push_back(tx::COPY_SELECTION);
     items.push_back(tx::COPY_MESSAGE);
     items.push_back(tx::FORWARD);
+    items.push_back(tx::ASSIST_INVESTIGATE);
     items.push_back(tx::MAKE_TASK);
     int r = choose(items);
     if (r < 0) return;
     if (!sel) r++;
     if (r == 2) {
       forward(i);
+      return;
+    }
+    if (r == 3) {
+      assist_from_message(i);
       return;
     }
     if (r == 0 || r == 1) {
@@ -8001,6 +8447,10 @@ public:
       crm_act(act, k);
       return;
     }
+    if (act >= 81 && act <= 83) {
+      assist_act(act, k);
+      return;
+    }
     if (act == 74 || act == 75) {
       dash_click(act, k);
       return;
@@ -8070,6 +8520,14 @@ public:
 
   // ---- enviar
   void send_draft(const std::string& file) {
+    // En el asistente, «Enviar» y Enter le preguntan a la IA (nunca se envía nada por WhatsApp).
+    if (view->assist_mode) {
+      if (!file.empty()) return;
+      std::string q = Draft->value();
+      Draft->value("");
+      assistant_ask(q);
+      return;
+    }
     if (current < 0) {
       say(tx::PICK_CHAT);
       return;
@@ -8619,6 +9077,19 @@ public:
     view->dash_ai = tx::DEMO_DASH_AI;
     render_to(dir + "/dash.png");
     view->dash_ai.clear();
+    // El asistente: investigar el último mensaje de Carlos, con su respuesta lista.
+    for (int c = 0; c < (int)chats.size(); c++)
+      if (chats[(size_t)c].name == tx::DEMO_CLIENT) {
+        pick(c);
+        int last_in = -1;
+        for (int i = 0; i < (int)chats[(size_t)c].msgs.size(); i++)
+          if (!chats[(size_t)c].msgs[(size_t)i].mine) last_in = i;
+        assist_from_message(last_in);
+        assist_done(new AssistDone{tx::DEMO_ASSIST_AI, ""});
+        render_to(dir + "/assist.png");
+        option_act(82, -1);
+        break;
+      }
     // La ficha del contacto (como en Odoo), dibujada sin enseñarse.
     pick(0);
     form = wa::run_form;
@@ -8681,6 +9152,30 @@ public:
         break;
       }
     chk(current == 2 && view->chat == &chats[2], "elegir un chat");
+    // La barra de desplazamiento de la lista: con la lista baja no cabe; arrastrar el pulgar la baja.
+    {
+      int lh = list->h();
+      list->size(list->w(), 260);
+      list->scroll = 0;
+      render_to("");
+      wa::ChatList::Bar b;
+      bool shown_bar = list->bar(b);
+      Fl::e_x = b.x + 4;
+      Fl::e_y = b.thumb_y + 4;
+      list->handle(FL_PUSH);
+      Fl::e_y = b.y + b.h;
+      list->handle(FL_DRAG);
+      list->handle(FL_RELEASE);
+      chk(shown_bar && list->scroll == b.max && list->bar_grab < 0 && current == 2, "la lista: se ve la barra y se arrastra hasta el final");
+      Fl::e_y = b.y + 2;
+      list->handle(FL_PUSH);
+      list->handle(FL_RELEASE);
+      chk(list->scroll == 0, "la lista: pulsar arriba en la barra vuelve al principio");
+      list->size(list->w(), lh);
+      render_to("");
+      wa::ChatList::Bar b2;
+      chk(!list->bar(b2) && list->scroll == 0, "la lista entera: sin barra");
+    }
     // Buscar.
     list->filter = "fam";
     render_to("");
@@ -9136,7 +9631,7 @@ public:
               AiBar->x() + AiBar->w() == rail->x(),
           "la barra de apps, a la derecha (el chat y el panel de abajo, a su izquierda)");
       int cells = (int)rail->hits.size();
-      chk(cells == 10, "la barra de apps: ocho apps y dos abajo");
+      chk(cells == 11, "la barra de apps: nueve apps y dos abajo");
       for (const auto& h : rail->hits)
         if (h.act == 2) {
           Fl::e_x = h.x + 5;
@@ -9156,6 +9651,61 @@ public:
       rail_pick(101);
       chk(ss == 7, "⚙️ Ajustes: sus siete opciones");
       choose = [](const std::vector<std::string>&) { return -1; };
+    }
+    // El asistente: preguntar, la respuesta con una respuesta lista, usarla; y desde un mensaje de un cliente.
+    {
+      rail_pick(8);
+      chk(view->assist_mode && rail->active == 8, "abrir el asistente (desde la barra de apps)");
+      render_to("");
+      int ex = 0;
+      for (const auto& h : view->hits) ex += h.act == 83 ? 1 : 0;
+      chk(ex == 3, "el asistente vacío: tres preguntas de ejemplo");
+      size_t sent_before = pending.size();
+      Draft->value("¿Qué hago con @carlos?");
+      Fl::focus(Draft);
+      Fl::e_keysym = FL_Enter;
+      Fl::e_state = 0;
+      dispatch(FL_KEYBOARD, this);
+      chk(view->assist.size() == 1 && view->assist[0].user && view->assist_busy && pending.size() == sent_before && !*Draft->value(),
+          "Enter en el asistente pregunta a la IA (y no envía nada por WhatsApp)");
+      std::string ctx = assist_context("¿Qué hago con @carlos?");
+      chk(ctx.find(tx::DEMO_CLIENT) != std::string::npos && ctx.find(wa::fmt(tx::ASSIST_CTX_CONV, {tx::DEMO_CLIENT})) != std::string::npos &&
+              ctx.find(tx::DEMO_C3) != std::string::npos,
+          "el contexto: el resumen de los chats y la conversación de @carlos");
+      assist_done(new AssistDone{"Está esperando el presupuesto.\n<<<RESPUESTA\nHola Carlos, te lo envío hoy.\n>>>\nY crea una tarea.", ""});
+      render_to("");
+      bool use = false;
+      for (const auto& h : view->hits) use = use || h.act == 81;
+      chk(!view->assist_busy && view->assist.size() == 2 && view->assist_replies.size() == 1 && use, "la respuesta, con una respuesta lista");
+      // Desde un mensaje de un cliente (clic derecho › Investigar con la IA).
+      pick(2);
+      int last_in = -1;
+      for (int i = 0; i < (int)chats[2].msgs.size(); i++)
+        if (!chats[2].msgs[(size_t)i].mine && chats[2].msgs[(size_t)i].kind == wa::K_TEXT) last_in = i;
+      choose = [](const std::vector<std::string>& items) {
+        for (size_t k = 0; k < items.size(); k++)
+          if (items[k] == tx::ASSIST_INVESTIGATE) return (int)k;
+        return -1;
+      };
+      bubble_menu(last_in);
+      chk(view->assist_mode && view->assist_target == chats[2].name && view->assist.size() == 1 &&
+              view->assist[0].text.find(chats[2].msgs[(size_t)last_in].text) != std::string::npos,
+          "investigar un mensaje con la IA: el asistente, con ese chat y ese mensaje");
+      assist_done(new AssistDone{"<<<RESPUESTA Sí, incluye la instalación. >>>", ""});
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 81) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(!view->assist_mode && current == 2 && std::string(Draft->value()) == "Sí, incluye la instalación.",
+          "usar la respuesta: al chat del cliente, con el borrador escrito");
+      Draft->value("");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      option_act(82, -1);
     }
     // El panel: abrirlo, las cifras de la app, 30 días y el análisis con IA.
     {
@@ -9477,7 +10027,7 @@ public:
         };
         message.clear();
         bubble_menu(box.msg);
-        chk(seen.size() == 4 && seen[0] == tx::COPY_SELECTION && message == tx::COPIED, "menú del mensaje: copiar");
+        chk(seen.size() == 5 && seen[0] == tx::COPY_SELECTION && message == tx::COPIED, "menú del mensaje: copiar");
         view->clear_selection();
         size_t before_tasks = tasks.size();
         choose = [&seen](const std::vector<std::string>& items) {
@@ -9485,7 +10035,7 @@ public:
           return (int)items.size() - 1;
         };
         bubble_menu(box.msg);
-        chk(seen.size() == 3 && tasks.size() == before_tasks + 1 &&
+        chk(seen.size() == 4 && tasks.size() == before_tasks + 1 &&
                 tasks.back().title == wa::task_title_of(chats[(size_t)current].msgs[(size_t)box.msg]),
             "menú del mensaje: convertir en tarea");
         choose = [](const std::vector<std::string>&) { return -1; };

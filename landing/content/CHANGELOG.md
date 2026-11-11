@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.126 — 2026-11-11
+
+- MyWhatsapp 1.0.29: **🤖 Asistente**, en la barra de apps: un chat con la IA sobre sus chats («¿qué chats tengo sin responder desde hace 3 días?», «¿qué hago con @juan?»). Cada pregunta lleva un resumen de los chats recientes (por responder, etiquetas, tareas, etapa del CRM) y, con @nombre, esa conversación con su ficha, su lead y sus tareas; con Claude puede buscar en la web.
+- MyWhatsapp: clic derecho sobre un mensaje › **🤖 Investigar con la IA**: lo lleva al asistente para analizarlo; las respuestas listas salen con «Usar como respuesta», que las deja en el borrador del chat del cliente. En el asistente, Enter nunca envía nada por WhatsApp.
+- MyWhatsapp: la lista de chats de la izquierda tiene barra de desplazamiento (se arrastra o se pulsa para saltar).
+- Web: el paso 13 de «Cómo se hizo» de MyWhatsapp (el asistente) y la captura del asistente.
+
 ## 1.0.125 — 2026-11-11
 
 - **MyWhatsapp 1.0.28: la barra de apps, a la derecha.** Una columna con cada parte de MyWhatsapp, con su icono y su nombre: 💬 Chats (vuelve al último chat), ✅ Tareas, 💼 CRM, 📊 Panel, 🎨 Estados, 📋 Plantillas, 🏷 Etiquetas (el filtro) y 🔕 Ocupado (en naranja si hay un modo activo); abajo, 🔒 Bloquear (o poner el PIN) y ⚙️ Ajustes (las claves de la IA, conectar WhatsApp, el PIN, el tema y la barra lateral compacta). La abierta sale resaltada. El chat y el panel de abajo se estrechan para dejarle sitio, y la barra se queda a la derecha al ensanchar la ventana. Los botones 📊 💼 🎨 de la fila de Tareas pasan a la barra (📦 Archivados se queda).

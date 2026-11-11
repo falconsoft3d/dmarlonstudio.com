@@ -455,6 +455,17 @@ bool pos_at(int mx, int my, bool strict, Pos& out) const {
   return true;
 }`;
 
+const mywaAssist = `// El asistente: la conversación entera y, con Claude, la búsqueda en la web.
+std::string claude_turns_body(const std::string& system, const std::vector<Turn>& turns, bool web) {
+  std::string m;
+  for (const auto& t : turns) m += (m.empty() ? "" : ",") + std::string("{\\"role\\":") + (t.user ? "\\"user\\"" : "\\"assistant\\"") + ",\\"content\\":" + jstr(t.text) + "}";
+  return "{\\"model\\":" + jstr(CLAUDE_MODEL) + ",\\"max_tokens\\":4000,\\"output_config\\":{\\"effort\\":\\"medium\\"},\\"fallbacks\\":\\"default\\",\\"system\\":" +
+         jstr(system) + ",\\"messages\\":[" + m + "]" +
+         (web ? ",\\"tools\\":[{\\"type\\":\\"web_search_20260209\\",\\"name\\":\\"web_search\\",\\"max_uses\\":3}]" : "") + "}";
+}
+// Las respuestas listas van entre «<<<RESPUESTA» y «>>>»: cada una, una tarjeta con
+// «Usar como respuesta», que la deja en el borrador del chat del cliente.
+auto sp = split_replies(text);   // {el texto, las respuestas}`;
 const mywaTranslate = `// Lo recibido: una tanda de mensajes a la IA, que devuelve JSON con el idioma
 // y una traducción por mensaje; se guardan y no se vuelven a pedir.
 std::thread([s, jid, sys, usr, keys, n] {
@@ -860,6 +871,11 @@ const es: Record<string, DemoMade> = {
         text: "«🌐 Traducir» guarda, por contacto, el idioma (detectado o elegido). Lo recibido se traduce por tandas: la IA (con la misma función ai_ask que las sugerencias) devuelve un JSON con el idioma y una traducción por mensaje, que se guarda en traducciones.jsonl. Lo que escribe se traduce antes de enviarlo y su original queda debajo, en su bocadillo. La cabecera enseña la bandera y la hora local del país (por el prefijo del teléfono y la base de zonas horarias del sistema; en los grupos, la de quienes escriben). Los stickers son WebP: sips de macOS los pasa a PNG en otro hilo.",
         code: { file: "Form1.cpp", text: mywaTranslate },
       },
+      {
+        title: "13. El asistente: investigar un mensaje",
+        text: "«🤖 Asistente», en la barra de apps, es un chat con la IA sobre sus chats. Cada pregunta lleva un resumen de los 60 chats más recientes (nombre, fecha, el principio del último mensaje, si espera respuesta, etiquetas, tareas y etapa del CRM) y, si nombra a alguien con @, su conversación, su ficha, su lead y sus tareas. El clic derecho sobre un mensaje de un cliente, «🤖 Investigar con la IA», abre el asistente con ese chat y ese mensaje. Con Claude, la petición lleva la herramienta de búsqueda en la web, por si hace falta algo de fuera; las respuestas listas se marcan entre «<<<RESPUESTA» y «>>>». Allí, Enter nunca envía nada por WhatsApp; las pruebas lo comprueban.",
+        code: { file: "Form1.cpp", text: mywaAssist },
+      },
     ],
   },
 };
@@ -1253,6 +1269,11 @@ const en: Record<string, DemoMade> = {
         title: "12. Another language, flags and stickers",
         text: "“🌐 Translate” stores the language (detected or chosen) per contact. What you receive is translated in batches: the AI (through the same ai_ask function as the suggestions) returns JSON with the language and one translation per message, saved in traducciones.jsonl. What you write is translated before sending and your original stays below it, in your bubble. The header shows the country's flag and local time (from the phone prefix and the system's time zone database; in groups, those of who writes). Stickers are WebP: macOS's sips turns them into PNG on another thread.",
         code: { file: "Form1.cpp", text: mywaTranslate },
+      },
+      {
+        title: "13. The assistant: investigating a message",
+        text: "“🤖 Assistant”, in the app bar, is a chat with AI about your chats. Each question carries a summary of the 60 most recent chats (name, date, the start of the last message, whether it awaits a reply, labels, tasks and CRM stage) and, if you mention someone with @, their conversation, card, lead and tasks. Right-clicking a client's message, “🤖 Investigate with AI”, opens the assistant with that chat and that message. With Claude, the request carries the web search tool in case outside information is needed; ready replies are marked between “<<<RESPUESTA” and “>>>”. There, Enter never sends anything over WhatsApp; the tests check it.",
+        code: { file: "Form1.cpp", text: mywaAssist },
       },
     ],
   },

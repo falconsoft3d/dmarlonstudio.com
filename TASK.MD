@@ -106,6 +106,8 @@ Hechos
 94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ✅ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ✅ |
 120. MyWhatsapp: barra de apps a la derecha (CRM, panel, etc.) | ✅ |
+103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas; desde un mensaje de un cliente, investigarlo con la IA para responderle | ✅ |
+121. MyWhatsapp: barra de desplazamiento en la lista de contactos de la izquierda | ✅ |
 
 Trabajando
 =========
@@ -120,5 +122,4 @@ Pendiente
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
-103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |

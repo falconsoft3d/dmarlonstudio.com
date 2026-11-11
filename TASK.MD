@@ -71,6 +71,7 @@ Hechos
 78. MyWhatsapp: lee los mensajes de WhatsApp y, con la IA de Claude o ChatGPT, propone respuestas según el contexto de la conversación | ✅ |
 80. MyWhatsapp: enviar y recibir mensajes y adjuntos directamente, sin la app de WhatsApp (API oficial de WhatsApp Business o dispositivo vinculado por QR, con aviso de riesgo) | ✅ |
 81. MyWhatsapp: botón «Enviar» visible y Enter para enviar; en los grupos, el nombre de quien escribe | ✅ |
+82. MyWhatsapp: lista de tareas dentro de la app; crear una tarea desde un chat | ✅ |
 
 Trabajando
 =========
@@ -83,7 +84,6 @@ Pendiente
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
-82. MyWhatsapp: lista de tareas dentro de la app; crear una tarea desde un chat | ⏳ |
 83. MyWhatsapp: chatear en otro idioma con IA (original y traducido de lo que recibo y de lo que envío; idioma detectado o elegido) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
 85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ⏳ |

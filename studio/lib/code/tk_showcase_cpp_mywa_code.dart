@@ -1164,6 +1164,66 @@ Chat live_chat(const std::string& jid, const LiveChat& lc) {
   return c;
 }
 
+// ---- las tareas: cada una puede venir de un chat (y abrirlo luego);
+// se guardan en tareas.jsonl, una línea JSON por tarea.
+struct Task {
+  long long id = 0, created = 0;
+  std::string title, jid, chat;   // jid y chat: de dónde salió ("" si de ninguno)
+  bool done = false;
+};
+std::string task_line(const Task& t) {
+  return "{\"id\":" + std::to_string(t.id) + ",\"title\":" + jstr(t.title) + ",\"jid\":" + jstr(t.jid) +
+         ",\"chat\":" + jstr(t.chat) + ",\"t\":" + std::to_string(t.created) + ",\"done\":" + (t.done ? "true" : "false") + "}";
+}
+std::vector<Task> tasks_parse(const std::string& text) {
+  std::vector<Task> out;
+  for (const auto& l : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(l, &ok);
+    if (!ok || j["title"].str().empty()) continue;
+    Task t;
+    t.id = (long long)j["id"].n;
+    t.title = j["title"].str();
+    t.jid = j["jid"].str();
+    t.chat = j["chat"].str();
+    t.created = (long long)j["t"].n;
+    t.done = j["done"].b;
+    out.push_back(t);
+  }
+  return out;
+}
+std::string tasks_text(const std::vector<Task>& ts) {
+  std::string out;
+  for (const auto& t : ts) out += task_line(t) + "\n";
+  return out;
+}
+int tasks_pending(const std::vector<Task>& ts) {
+  int n = 0;
+  for (const auto& t : ts) n += t.done ? 0 : 1;
+  return n;
+}
+// El orden en pantalla: primero las pendientes (la más nueva arriba), luego las hechas.
+std::vector<int> tasks_order(const std::vector<Task>& ts) {
+  std::vector<int> o;
+  for (int pass = 0; pass < 2; pass++)
+    for (int i = (int)ts.size() - 1; i >= 0; i--)
+      if (ts[(size_t)i].done == (pass == 1)) o.push_back(i);
+  return o;
+}
+// El texto de partida de una tarea hecha con un mensaje.
+std::string task_title_of(const Msg& m) {
+  std::string t = m.kind == K_TEXT ? m.text : preview_of(m);
+  for (auto& ch : t)
+    if (ch == '\n' || ch == '\t') ch = ' ';
+  t = trim(t);
+  if (t.size() > 200) {
+    size_t cut = 200;
+    while (cut > 0 && ((unsigned char)t[cut] & 0xC0) == 0x80) cut--;
+    t = t.substr(0, cut) + "…";
+  }
+  return t;
+}
+
 // ---- el puente (wabridge): un proceso aparte que habla por stdin/stdout
 std::string exe_dir() {
   std::string s;
@@ -1561,6 +1621,9 @@ public:
   int selected = -1, scroll = 0, content_h = 0, hover = -1;
   std::vector<Hit> hits;
   std::function<void(int)> on_pick;
+  std::function<void()> on_tasks;
+  int tasks_pending = 0;
+  bool tasks_selected = false;
   ChatList(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
 
   bool visible_chat(const Chat& c) const {
@@ -1574,6 +1637,28 @@ public:
     fl_color(rgb(T.list));
     fl_rectf(x(), y(), w(), h());
     int Y = y() - scroll;
+    // Arriba, la fila de las tareas (no sale al buscar).
+    if (filter.empty()) {
+      const int rh = 56;
+      unsigned row = tasks_selected ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
+      fl_color(rgb(row));
+      fl_rectf(x(), Y, w(), rh);
+      hits.push_back({x(), Y, w(), rh, 1, -1});
+      fl_color(rgb(T.accent));
+      fl_pie(x() + 18, Y + 12, 32, 32, 0, 360);
+      fl_color(T.dark ? rgb(0x111b21) : FL_WHITE);
+      fl_font(FL_HELVETICA_BOLD, 17);
+      fl_draw("✓", x() + 18, Y + 12, 32, 32, FL_ALIGN_CENTER);
+      fl_font(FL_HELVETICA_BOLD, 14);
+      fl_color(rgb(T.text));
+      fl_draw(tx::TASKS_TITLE, x() + 68, Y + 24);
+      fl_font(FL_HELVETICA, 12);
+      fl_color(rgb(T.muted));
+      fl_draw(fmt(tx::TASKS_PENDING, {std::to_string(tasks_pending)}).c_str(), x() + 68, Y + 43);
+      fl_color(rgb(T.line));
+      fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
+      Y += rh;
+    }
     if (chats)
       for (size_t i = 0; i < chats->size(); i++) {
         const Chat& c = (*chats)[i];
@@ -1638,7 +1723,12 @@ public:
         return 1;
       case FL_PUSH:
         for (const auto& h : hits)
-          if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_pick) { on_pick(h.idx); break; }
+          if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
+            if (h.act == 1) {
+              if (on_tasks) on_tasks();
+            } else if (on_pick) on_pick(h.idx);
+            break;
+          }
         return 1;
       case FL_MOUSEWHEEL:
         scroll = std::max(0, std::min(scroll + Fl::event_dy() * 30, std::max(0, content_h - h())));
@@ -1658,6 +1748,10 @@ public:
   int hover = -1;
   std::vector<Hit> hits;
   std::function<void(int, int)> on_act;
+  // La vista de las tareas (en vez del chat).
+  std::vector<Task>* tasks = nullptr;
+  bool tasks_mode = false;
+  int task_scroll = 0, task_content = 0;
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
 
   int button(int x, int y, const char* text, int act, int idx, Fl_Color fg, Fl_Color fill) {
@@ -1680,12 +1774,88 @@ public:
     if (Fl_RGB_Image* img = attach_image(m)) return img->h() + 8;
     return 46;
   }
+  // Acciones: 10 hecha/pendiente, 11 abrir su chat, 12 borrar, 13 nueva.
+  void draw_tasks() {
+    const Theme& T = th();
+    const int head = 60;
+    Fl_Color on_accent = T.dark ? rgb(0x111b21) : FL_WHITE;
+    std::vector<int> order = tasks ? tasks_order(*tasks) : std::vector<int>();
+    int Y = y() + head + 12 - task_scroll;
+    fl_push_clip(x(), y() + head, w(), h() - head);
+    if (order.empty()) {
+      fl_font(FL_HELVETICA, 14);
+      fl_color(rgb(T.muted));
+      fl_draw(tx::TASKS_EMPTY, x() + 80, y() + h() / 2 - 40, w() - 160, 80, FL_ALIGN_CENTER | FL_ALIGN_WRAP);
+    }
+    for (int k : order) {
+      const Task& t = (*tasks)[(size_t)k];
+      const int rh = 66;
+      if (Y + rh > y() + head - 80 && Y < y() + h()) {
+        round_box(x() + 16, Y, w() - 32, rh - 8, 10, rgb(T.card), rgb(T.card_line));
+        int cx = x() + 30, cy = Y + (rh - 8) / 2 - 11;
+        hits.push_back({cx - 4, cy - 4, 30, 30, 10, k});
+        if (t.done) {
+          fl_color(rgb(T.accent));
+          fl_pie(cx, cy, 22, 22, 0, 360);
+          fl_color(on_accent);
+          fl_font(FL_HELVETICA_BOLD, 14);
+          fl_draw("✓", cx, cy, 22, 22, FL_ALIGN_CENTER);
+        } else {
+          fl_color(rgb(T.muted));
+          fl_line_style(FL_SOLID, 2);
+          fl_arc(cx, cy, 22, 22, 0, 360);
+          fl_line_style(0);
+        }
+        // Los botones, de derecha a izquierda.
+        fl_font(FL_HELVETICA_BOLD, 12);
+        int bx = x() + w() - 32 - ((int)fl_width(tx::DELETE) + 20);
+        if (!t.jid.empty()) bx -= (int)fl_width(tx::OPEN_CHAT) + 20 + 6;
+        int text_w = bx - (x() + 66) - 12;
+        int b2 = bx;
+        if (!t.jid.empty()) b2 = button(b2, Y + 16, tx::OPEN_CHAT, 11, k, rgb(T.text), rgb(T.card)) + 6;
+        button(b2, Y + 16, tx::DELETE, 12, k, rgb(T.text), rgb(T.card));
+        fl_font(FL_HELVETICA, 14);
+        fl_color(t.done ? rgb(T.muted) : rgb(T.text));
+        std::string title = fit(t.title, text_w);
+        fl_draw(title.c_str(), x() + 66, Y + 25);
+        if (t.done) fl_line(x() + 66, Y + 20, x() + 66 + (int)fl_width(title.c_str()), Y + 20);
+        fl_font(FL_HELVETICA, 11);
+        fl_color(rgb(T.muted));
+        std::string when = day_text(t.created) + " " + clock_time(t.created);
+        std::string sub = t.chat.empty() ? when : fmt(tx::TASK_FROM, {t.chat, when});
+        fl_draw(fit(sub, text_w).c_str(), x() + 66, Y + 44);
+      }
+      Y += rh;
+    }
+    task_content = Y + task_scroll - (y() + head);
+    fl_pop_clip();
+    // La cabecera.
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), head);
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y() + head - 1, x() + w(), y() + head - 1);
+    fl_font(FL_HELVETICA_BOLD, 18);
+    fl_color(rgb(T.text));
+    fl_draw(tx::TASKS_TITLE, x() + 20, y() + 28);
+    int pend = tasks ? tasks_pending(*tasks) : 0, total = tasks ? (int)tasks->size() : 0;
+    fl_font(FL_HELVETICA, 12);
+    fl_color(rgb(T.muted));
+    fl_draw((fmt(tx::TASKS_PENDING, {std::to_string(pend)}) + " · " + fmt(tx::TASKS_DONE_N, {std::to_string(total - pend)})).c_str(),
+            x() + 20, y() + 48);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    button(x() + w() - 20 - ((int)fl_width(tx::NEW_TASK) + 20), y() + 17, tx::NEW_TASK, 13, -1, on_accent, rgb(T.accent));
+  }
   void draw() override {
     hits.clear();
     const Theme& T = th();
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
+    if (tasks_mode) {
+      draw_tasks();
+      fl_pop_clip();
+      return;
+    }
     if (!chat) {
       fl_font(FL_HELVETICA_BOLD, 18);
       fl_color(rgb(T.text));
@@ -1763,6 +1933,9 @@ public:
       fl_color(rgb(T.muted));
       std::string t = clock_time(m.t);
       fl_draw(t.c_str(), bx + bw - 10 - (int)fl_width(t.c_str()), Y + bh - 8);
+      // Clic derecho sobre el bocadillo: convertirlo en tarea.
+      int top = std::max(Y, y() + head);
+      if (Y + bh > top) hits.push_back({bx, top, bw, Y + bh - top, 6, i});
     }
     fl_pop_clip();
     // La cabecera: la foto, el nombre y el teléfono (o «grupo»).
@@ -1773,11 +1946,13 @@ public:
     avatar(x() + 16, y() + 10, 40, chat->name, chat->pic, rgb(T.panel));
     fl_font(FL_HELVETICA_BOLD, 15);
     fl_color(rgb(T.text));
-    fl_draw(fit(chat->name, w() - 100).c_str(), x() + 68, y() + 27);
+    fl_draw(fit(chat->name, w() - 200).c_str(), x() + 68, y() + 27);
     fl_font(FL_HELVETICA, 12);
     fl_color(rgb(T.muted));
     std::string ph = phone_of(chat->jid);
     fl_draw(chat->group ? tx::GROUP : (ph.empty() ? "" : ("+" + ph).c_str()), x() + 68, y() + 46);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    button(x() + w() - 20 - ((int)fl_width(tx::ADD_TASK) + 20), y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     // Las sugerencias.
     int sy = y() + h() - sugg_h;
     if (sugg_h) {
@@ -1823,6 +1998,7 @@ public:
         int i = -1;
         for (int k = 0; k < (int)hits.size(); k++)
           if (Fl::event_inside(hits[(size_t)k].x, hits[(size_t)k].y, hits[(size_t)k].w, hits[(size_t)k].h)) i = k;
+        if (i >= 0 && hits[(size_t)i].act == 6) i = -1;   // los bocadillos no son botones
         if (i != hover) { hover = i; redraw(); }
         window()->cursor(i >= 0 ? FL_CURSOR_HAND : FL_CURSOR_DEFAULT);
         return 1;
@@ -1832,9 +2008,19 @@ public:
         window()->cursor(FL_CURSOR_DEFAULT);
         redraw();
         return 1;
-      case FL_PUSH:
+      case FL_PUSH: {
+        bool right = Fl::event_button() == FL_RIGHT_MOUSE;
         for (const auto& h : hits)
-          if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_act) { on_act(h.act, h.idx); break; }
+          if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_act && (h.act == 6) == right) {
+            on_act(h.act, h.idx);
+            break;
+          }
+        return 1;
+      }
+      case FL_MOUSEWHEEL:
+        if (!tasks_mode) break;
+        task_scroll = std::max(0, std::min(task_scroll + Fl::event_dy() * 30, std::max(0, task_content - (h() - 72))));
+        redraw();
         return 1;
     }
     return Fl_Widget::handle(e);
@@ -2218,6 +2404,37 @@ int selftest() {
     std::printf("grupos: %d · con nombre: %d · sin nombre: %d · codificados: %d\n", groups, named, empty, coded);
   }
 #endif
+  // Las tareas: guardar y leer, el orden y el texto de un mensaje.
+  {
+    std::vector<Task> ts(3);
+    ts[0].id = 1;
+    ts[0].title = "Llamar a \"Laura\"\tya";
+    ts[0].jid = "346@s.whatsapp.net";
+    ts[0].chat = "Laura";
+    ts[0].created = 100;
+    ts[1].id = 2;
+    ts[1].title = "Hecha";
+    ts[1].done = true;
+    ts[2].id = 3;
+    ts[2].title = "Otra";
+    auto back = tasks_parse(tasks_text(ts) + "roto\n{\"title\":\"\"}\n");
+    chk(back.size() == 3 && back[0].title == ts[0].title && back[0].jid == ts[0].jid && back[0].chat == "Laura" &&
+            back[0].created == 100 && back[1].done && !back[0].done,
+        "tareas: guardar y leer");
+    chk(tasks_pending(back) == 2, "tareas pendientes");
+    auto o = tasks_order(back);
+    chk(o.size() == 3 && o[0] == 2 && o[1] == 0 && o[2] == 1, "tareas: pendientes primero, la más nueva arriba");
+    Msg m;
+    m.text = "  Línea uno\nlínea dos ";
+    chk(task_title_of(m) == "Línea uno línea dos", "tarea de un mensaje");
+    m.kind = K_DOC;
+    m.title = "factura.pdf";
+    m.text = "";
+    chk(task_title_of(m) == "📄 factura.pdf", "tarea de un documento");
+    m.kind = K_TEXT;
+    m.text = std::string(150, 'a') + std::string(100, 'b');
+    chk(task_title_of(m).size() < 210, "tarea de un mensaje largo");
+  }
   // DMS_MYWA_QR=archivo: el código QR que escribe el puente se puede leer.
   if (const char* q = fl_getenv("DMS_MYWA_QR")) {
     Fl_PNG_Image img(q);
@@ -2277,6 +2494,14 @@ public:
   Fl_Double_Window* qr_win = nullptr;
   Fl_Box* qr_box = nullptr;
   Fl_RGB_Image* qr_img = nullptr;
+  // Las tareas, y cómo se pide un texto (las pruebas lo cambian).
+  std::vector<wa::Task> tasks;
+  std::function<bool(const char*, std::string&)> ask_text = [](const char* q, std::string& io) {
+    const char* r = fl_input("%s", io.c_str(), q);
+    if (!r) return false;
+    io = r;
+    return true;
+  };
 
   static Form1*& self() {
     static Form1* f = nullptr;
@@ -2316,6 +2541,8 @@ public:
     ChatArea->resizable(view);
     view->options = &options;
     view->on_act = [](int act, int k) { if (self()) self()->option_act(act, k); };
+    view->tasks = &tasks;
+    list->on_tasks = [] { if (self()) self()->open_tasks(); };
     Provider->items({tx::P_CLAUDE, tx::P_OPENAI});
     Tone->items({tx::TONE_NATURAL, tx::TONE_FORMAL, tx::TONE_SHORT, tx::TONE_WARM, tx::TONE_BUSINESS});
     Tone->index(0);
@@ -2348,6 +2575,7 @@ public:
     load_settings();
     apply_theme();
     store.load(store_file());
+    load_tasks();
     reload();
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
@@ -2508,6 +2736,8 @@ public:
     if (i < 0 || i >= (int)chats.size()) return;
     current = i;
     list->selected = i;
+    list->tasks_selected = false;
+    view->tasks_mode = false;
     options.clear();
     open_messages(i);
     Intent->value("");
@@ -2521,6 +2751,7 @@ public:
     refresh();
   }
   void refresh() {
+    list->tasks_pending = wa::tasks_pending(tasks);
     std::string where = from_db ? tx::SOURCE_DESKTOP : !store.empty() ? tx::SOURCE_LINKED : tx::SOURCE_EXPORT;
     std::string mode = send_mode == wa::S_CLOUD ? tx::MODE_CLOUD
                        : send_mode == wa::S_LINKED ? (linked ? tx::MODE_LINKED : tx::MODE_LINKING)
@@ -2586,9 +2817,93 @@ public:
     for (char c : path) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
     fl_open_uri(url.c_str());
   }
+  // ---- las tareas
+  std::string tasks_file() const { return wa::config_dir() + "/tareas.jsonl"; }
+  void load_tasks() {
+    std::string text;
+    if (wa::read_file(tasks_file(), text)) tasks = wa::tasks_parse(text);
+  }
+  void save_tasks() {
+    list->tasks_pending = wa::tasks_pending(tasks);
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    wa::write_file(tasks_file(), wa::tasks_text(tasks));
+  }
+  void open_tasks() {
+    current = -1;
+    list->selected = -1;
+    list->tasks_selected = true;
+    view->chat = nullptr;
+    view->tasks_mode = true;
+    view->task_scroll = 0;
+    options.clear();
+    refresh();
+  }
+  // Una tarea nueva; [from] es el chat de donde sale (o -1).
+  bool add_task(std::string title, int from) {
+    if (!ask_text(tx::ASK_TASK, title)) return false;
+    title = wa::trim(title);
+    if (title.empty()) return false;
+    wa::Task t;
+    long long top = 0;
+    for (const auto& x : tasks) top = std::max(top, x.id);
+    t.id = top + 1;
+    t.title = title;
+    t.created = (long long)wa::now_s();
+    if (from >= 0 && from < (int)chats.size()) {
+      t.jid = chats[(size_t)from].jid;
+      t.chat = chats[(size_t)from].name;
+    }
+    tasks.push_back(t);
+    save_tasks();
+    say(wa::fmt(tx::TASK_ADDED, {wa::fit(title, 400)}));
+    return true;
+  }
+  // Desde el chat: el último mensaje que le escribieron, o el que eligió.
+  void task_from_chat(int msg) {
+    if (current < 0) return;
+    const wa::Chat& c = chats[(size_t)current];
+    std::string title;
+    if (msg >= 0 && msg < (int)c.msgs.size()) title = wa::task_title_of(c.msgs[(size_t)msg]);
+    else
+      for (int i = (int)c.msgs.size() - 1; i >= 0 && title.empty(); i--)
+        if (!c.msgs[(size_t)i].mine) title = wa::task_title_of(c.msgs[(size_t)i]);
+    add_task(title, current);
+  }
+  void task_act(int act, int k) {
+    if (act == 13) {
+      add_task("", -1);
+      return;
+    }
+    if (k < 0 || k >= (int)tasks.size()) return;
+    if (act == 10) {
+      tasks[(size_t)k].done = !tasks[(size_t)k].done;
+      save_tasks();
+    } else if (act == 11) {
+      std::string jid = tasks[(size_t)k].jid;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (chats[(size_t)i].jid == jid) {
+          pick(i);
+          return;
+        }
+      say(tx::TASK_NO_CHAT);
+    } else if (act == 12) {
+      tasks.erase(tasks.begin() + k);
+      save_tasks();
+    }
+    refresh();
+  }
   void option_act(int act, int k) {
     if (act == 4) {
       open_attachment(k);
+      return;
+    }
+    if (act == 5 || act == 6) {
+      task_from_chat(act == 6 ? k : -1);
+      return;
+    }
+    if (act >= 10 && act <= 13) {
+      task_act(act, k);
       return;
     }
     if (k < 0 || k >= (int)options.size()) return;
@@ -2881,6 +3196,7 @@ public:
     else if (item == tx::MP_IMPORT) import_export();
     else if (item == tx::MP_AI) settings_dialog();
     else if (item == tx::MP_CONNECT) connect_dialog();
+    else if (item == tx::MP_TASKS) open_tasks();
     else if (item == tx::MP_DISCONNECT) disconnect();
     else if (item == tx::MP_LIGHT) set_theme("light");
     else if (item == tx::MP_DARK) set_theme("dark");
@@ -2920,6 +3236,19 @@ public:
     from_db = true;
     ai.provider = wa::P_CLAUDE;
     Provider->index(0);
+    tasks.clear();
+    const char* titles[] = {tx::DEMO_T3, tx::DEMO_T2, tx::DEMO_T1};
+    const int from[] = {1, 2, 0};
+    for (int k = 0; k < 3; k++) {
+      wa::Task t;
+      t.id = k + 1;
+      t.title = titles[k];
+      t.jid = chats[(size_t)from[k]].jid;
+      t.chat = chats[(size_t)from[k]].name;
+      t.created = now - (3 - k) * 3600;
+      t.done = k == 1;
+      tasks.push_back(t);
+    }
     pick(0);
   }
   int shots(const std::string& dir) {
@@ -2944,6 +3273,10 @@ public:
     options.clear();
     ask_ai();
     render_to(dir + "/thinking.png");
+    thinking = false;
+    view->busy.clear();
+    open_tasks();
+    render_to(dir + "/tasks.png");
     std::printf("shots ok %s\n", dir.c_str());
     return 0;
   }
@@ -2995,6 +3328,101 @@ public:
     AiDone* d = new AiDone{chats[(size_t)current].id, wa::AiReply{{"A", "B", "C"}, ""}};
     answered(d);
     chk(!thinking && options.size() == 3 && options[0] == "A", "respuesta de la IA");
+    // Las tareas: la fila de la lista, la vista y crearlas desde un chat.
+    {
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+      render_to("");
+      chk(list->tasks_pending == 2, "tareas pendientes en la lista");
+      for (const auto& h : list->hits)
+        if (h.act == 1) {
+          Fl::e_x = h.x + 20;
+          Fl::e_y = h.y + 10;
+          list->handle(FL_PUSH);
+          break;
+        }
+      chk(view->tasks_mode && list->tasks_selected && current < 0, "abrir las tareas");
+      render_to("");
+      int boxes = 0, open = 0;
+      for (const auto& h : view->hits) {
+        if (h.act == 10) boxes++;
+        if (h.act == 11) open++;
+      }
+      chk(boxes == 3 && open == 3, "las tareas dibujadas");
+      int first = wa::tasks_order(tasks)[0];
+      for (const auto& h : view->hits)
+        if (h.act == 10 && h.idx == first) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(tasks[(size_t)first].done && wa::tasks_pending(tasks) == 1, "marcar una tarea como hecha");
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 11 && h.idx == 2) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(!view->tasks_mode && current >= 0 && chats[(size_t)current].jid == tasks[2].jid, "abrir el chat de una tarea");
+      // «+ Tarea» en la cabecera: el último mensaje que le escribieron.
+      size_t n = tasks.size();
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 5) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          view->handle(FL_PUSH);
+          break;
+        }
+      const wa::Chat& c = chats[(size_t)current];
+      std::string last_in;
+      for (const auto& m : c.msgs)
+        if (!m.mine) last_in = wa::task_title_of(m);
+      chk(tasks.size() == n + 1 && tasks.back().title == last_in && tasks.back().jid == c.jid, "«+ Tarea» desde el chat");
+      // Clic derecho sobre un mensaje: esa es la tarea; el izquierdo no hace nada.
+      render_to("");
+      wa::Hit bubble{0, 0, 0, 0, 0, -1};
+      for (const auto& h : view->hits)
+        if (h.act == 6) bubble = h;
+      chk(bubble.idx >= 0, "los mensajes se pueden señalar");
+      Fl::e_x = bubble.x + 4;
+      Fl::e_y = bubble.y + 4;
+      Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+      view->handle(FL_PUSH);
+      chk(tasks.size() == n + 1, "clic izquierdo en un mensaje no crea tareas");
+      Fl::e_keysym = FL_Button + FL_RIGHT_MOUSE;
+      view->handle(FL_PUSH);
+      Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+      chk(tasks.size() == n + 2 && tasks.back().title == wa::task_title_of(c.msgs[(size_t)bubble.idx]), "clic derecho: el mensaje es la tarea");
+      // Borrar y «+ Nueva tarea».
+      open_tasks();
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 12 && h.idx == (int)tasks.size() - 1) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(tasks.size() == n + 1, "borrar una tarea");
+      render_to("");
+      for (const auto& h : view->hits)
+        if (h.act == 13) {
+          Fl::e_x = h.x + 5;
+          Fl::e_y = h.y + 5;
+          view->handle(FL_PUSH);
+          break;
+        }
+      chk(tasks.size() == n + 2 && tasks.back().title == "Tarea nueva" && tasks.back().jid.empty(), "una tarea sin chat");
+      pick(0);
+      options = {"A", "B", "C"};
+    }
     // Sin conectar (capturas): «Enviar» en una sugerencia la deja en el chat.
     render_to("");
     size_t before = chats[(size_t)current].msgs.size();

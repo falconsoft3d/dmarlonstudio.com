@@ -29,6 +29,8 @@ TkExample tkCppMywa(String Function(String) t) {
   item('LIGHT', t(markTr('Tema claro')), mView);
   item('DARK', t(markTr('Tema oscuro')), mView);
   item('SYSTEM', t(markTr('Como el sistema')), mView);
+  lines.add('  -');
+  item('TASKS', t(markTr('Tareas')), mView);
   lines.add(mHelp);
   item('HOW', t(markTr('Cómo funciona')), mHelp);
   item('ABOUT', t(markTr('Acerca de MyWhatsapp')), mHelp);
@@ -37,7 +39,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -181,6 +183,25 @@ TkExample tkCppMywa(String Function(String) t) {
     'ASK_CLOUD_TOKEN': t(markTr('Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):')),
     'DISCONNECT_ASK': t(markTr('¿Desconectar WhatsApp de MyWhatsapp? Para volver a enviar tendrá que conectarlo otra vez.')),
     'BTN_DISCONNECT': t(markTr('Desconectar')),
+    'TASKS_TITLE': t(markTr('Tareas')),
+    'TASKS_PENDING': t(markTr('{0} pendientes')),
+    'TASKS_DONE_N': t(markTr('hechas: {0}')),
+    'TASKS_EMPTY': t(
+      markTr(
+        'No hay tareas. Cree una desde un chat con «+ Tarea» o con clic derecho sobre un mensaje.',
+      ),
+    ),
+    'ADD_TASK': t(markTr('+ Tarea')),
+    'NEW_TASK': t(markTr('+ Nueva tarea')),
+    'ASK_TASK': t(markTr('La tarea:')),
+    'TASK_ADDED': t(markTr('Tarea creada: {0}')),
+    'TASK_FROM': t(markTr('de {0} · {1}')),
+    'TASK_NO_CHAT': t(markTr('Ese chat ya no está en la lista')),
+    'OPEN_CHAT': t(markTr('Abrir el chat')),
+    'DELETE': t(markTr('Borrar')),
+    'DEMO_T1': t(markTr('Confirmar a Laura la entrega del sábado')),
+    'DEMO_T2': t(markTr('Mandar a Carlos el presupuesto de la cocina')),
+    'DEMO_T3': t(markTr('Recoger a la abuela el domingo a las 13')),
     'DEMO_LAURA': t(markTr('Laura (Muebles Sol)')),
     'DEMO_L1': t(markTr('Hola! Ya tenemos la mesa de roble que pediste 😊')),
     'DEMO_L2': t(markTr('Genial, ¿cuándo me la podéis llevar?')),

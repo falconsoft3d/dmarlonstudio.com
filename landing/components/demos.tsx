@@ -301,7 +301,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_mywa: {
         name: "MyWhatsapp (C++)",
-        text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. Envía con «Enviar ➤» o Enter, también adjuntos, por la API oficial de WhatsApp Business o vinculando WhatsApp con un QR. Con las fotos de perfil, quién escribe en cada grupo y tema claro u oscuro. En macOS, para Apple Silicon.",
+        text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. Envía con «Enviar ➤» o Enter, también adjuntos, por la API oficial de WhatsApp Business o vinculando WhatsApp con un QR. Con tareas que se crean desde un chat, las fotos de perfil, quién escribe en cada grupo y tema claro u oscuro. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Claude (Opus 5.5) o ChatGPT por su API HTTP, con las claves en el Llavero", "La base de datos de WhatsApp Desktop, leída con el SQLite del sistema", "Envío por la API oficial de WhatsApp Business o por un puente en Go (QR)"],
       },
       domino: {
@@ -558,7 +558,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_mywa: {
         name: "MyWhatsapp (C++)",
-        text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. Sends with “Send ➤” or Enter, attachments too, through the official WhatsApp Business API or by linking WhatsApp with a QR code. With profile pictures, who writes in each group and a light or dark theme. On macOS, for Apple Silicon.",
+        text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. Sends with “Send ➤” or Enter, attachments too, through the official WhatsApp Business API or by linking WhatsApp with a QR code. With tasks created from a chat, profile pictures, who writes in each group and a light or dark theme. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Claude (Opus 5.5) or ChatGPT through their HTTP API, with the keys in the Keychain", "The WhatsApp Desktop database, read with the system's SQLite", "Sending through the official WhatsApp Business API or a Go bridge (QR)"],
       },
       domino: {

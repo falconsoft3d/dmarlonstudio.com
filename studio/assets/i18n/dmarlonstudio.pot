@@ -425,7 +425,7 @@ msgstr ""
 msgid "Bolsa de valores web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart
 msgid "Borrar"
 msgstr ""
 
@@ -793,7 +793,7 @@ msgstr ""
 msgid "Superficie"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_flutter.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter.dart
 msgid "Tareas"
 msgstr ""
 
@@ -6654,11 +6654,23 @@ msgid "Ángulo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Nueva tarea"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "+ Tarea"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «Sugerir respuestas»."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "API oficial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir el chat"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6741,6 +6753,10 @@ msgid "Conectar WhatsApp para enviar…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Confirmar a Laura la entrega del sábado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Continuar"
 msgstr ""
 
@@ -6816,6 +6832,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese archivo no parece un chat exportado de WhatsApp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ese chat ya no está en la lista"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6907,6 +6927,10 @@ msgid "La lista de chats la dibuja el código"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La tarea:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Laura (Muebles Sol)"
 msgstr ""
 
@@ -6928,6 +6952,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mamá"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mandar a Carlos el presupuesto de la cocina"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6956,7 +6984,9 @@ msgid ""
 "\n"
 "Elija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
 "\n"
-"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
+"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n"
+"\n"
+"Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -6983,6 +7013,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No hay conexión con la IA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay tareas. Cree una desde un chat con «+ Tarea» o con clic derecho sobre un mensaje."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7038,6 +7072,10 @@ msgid "RESPUESTAS PROPUESTAS"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Recoger a la abuela el domingo a las 13"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
 msgstr ""
 
@@ -7059,6 +7097,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sí! Ya en casa ❤️"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Tarea creada: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7126,7 +7168,15 @@ msgid "conectando…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "de {0} · {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "el sábado, y la dirección es calle Mayor 12"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "hechas: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7147,6 +7197,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "{0} chats de {1} · IA: {2} · Envío: {3}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} pendientes"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

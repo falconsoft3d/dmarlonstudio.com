@@ -421,6 +421,23 @@ std::string sender_name(const std::string& book, const std::string& first, const
   return "";
 }`;
 
+const mywaTasks = `// Clic derecho sobre un bocadillo: ese mensaje es la tarea.
+case FL_PUSH: {
+  bool right = Fl::event_button() == FL_RIGHT_MOUSE;
+  for (const auto& h : hits)
+    if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_act && (h.act == 6) == right) {
+      on_act(h.act, h.idx);
+      break;
+    }
+  return 1;
+}
+
+// Cada tarea, una línea JSON en tareas.jsonl, con el chat del que salió.
+std::string task_line(const Task& t) {
+  return "{\\"id\\":" + std::to_string(t.id) + ",\\"title\\":" + jstr(t.title) + ",\\"jid\\":" + jstr(t.jid) +
+         ",\\"chat\\":" + jstr(t.chat) + ",\\"t\\":" + std::to_string(t.created) + ",\\"done\\":" + (t.done ? "true" : "false") + "}";
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -735,6 +752,7 @@ const es: Record<string, DemoMade> = {
         { name: "Draft", kind: "Text", text: "El borrador; Enter lo envía (Mayúsculas+Enter, otra línea)." },
         { name: "BtnSend", kind: "Button", text: "Enviar ➤: manda el borrador al chat abierto." },
         { name: "BtnAttach", kind: "Button", text: "📎 Adjuntar: manda un archivo, con el borrador de pie." },
+        { name: "Tareas", kind: "Código", text: "La fila de la lista y la vista de tareas las dibuja el código, en Side y en ChatArea." },
         { name: "Status", kind: "StatusBar", text: "Cuántos chats, de dónde, qué IA y cómo se envía." },
       ],
       apis: [
@@ -794,6 +812,11 @@ const es: Record<string, DemoMade> = {
         title: "9. El puente con WhatsApp (QR)",
         text: "Para usar su WhatsApp de siempre sin otra app, la demo lleva al lado wabridge, un programa en Go con la biblioteca whatsmeow (el protocolo de WhatsApp Web). La app lo arranca, le habla por stdin/stdout con una línea JSON por orden y enseña el código QR para vincularlo. Por él llegan los mensajes y los adjuntos, que se guardan en mensajes.jsonl y se juntan con los de WhatsApp Desktop sin repetirse. No es oficial, así que la app avisa del riesgo de bloqueo antes de activarlo.",
         code: { file: "main.go", text: mywaBridge },
+      },
+      {
+        title: "10. Tareas desde un chat",
+        text: "La fila «Tareas» la dibuja la misma lista de chats, arriba, con las pendientes; al pulsarla, la zona del chat cambia a la vista de tareas (pendientes primero, la más nueva arriba, y las hechas tachadas). «+ Tarea» en la cabecera toma el último mensaje que le escribieron y el clic derecho sobre un bocadillo, ese mensaje; cada tarea guarda el chat del que salió para volver a él. Se guardan en tareas.jsonl; las pruebas de la interfaz hacen los clics, también el derecho.",
+        code: { file: "Form1.cpp", text: mywaTasks },
       },
     ],
   },
@@ -1113,6 +1136,7 @@ const en: Record<string, DemoMade> = {
         { name: "Draft", kind: "Text", text: "The draft; Enter sends it (Shift+Enter, a new line)." },
         { name: "BtnSend", kind: "Button", text: "Send ➤: sends the draft to the open chat." },
         { name: "BtnAttach", kind: "Button", text: "📎 Attach: sends a file, with the draft as caption." },
+        { name: "Tasks", kind: "Code", text: "The list row and the tasks view are drawn by the code, in Side and ChatArea." },
         { name: "Status", kind: "StatusBar", text: "How many chats, from where, which AI and how it sends." },
       ],
       apis: [
@@ -1172,6 +1196,11 @@ const en: Record<string, DemoMade> = {
         title: "9. The bridge with WhatsApp (QR)",
         text: "To use your usual WhatsApp without another app, the demo ships wabridge next to it, a Go program with the whatsmeow library (the WhatsApp Web protocol). The app starts it, talks to it over stdin/stdout with one JSON line per command and shows the QR code to link it. Messages and attachments arrive through it, are saved to mensajes.jsonl and merged with WhatsApp Desktop's without duplicates. It is not official, so the app warns about the ban risk before enabling it.",
         code: { file: "main.go", text: mywaBridge },
+      },
+      {
+        title: "10. Tasks from a chat",
+        text: "The “Tasks” row is drawn by the chat list itself, at the top, with the pending count; clicking it switches the chat area to the tasks view (pending first, newest on top, and the done ones struck through). “+ Task” in the header takes the last message you received and a right-click on a bubble takes that message; each task keeps the chat it came from to go back to it. They are saved in tareas.jsonl; the interface tests make the clicks, the right one too.",
+        code: { file: "Form1.cpp", text: mywaTasks },
       },
     ],
   },

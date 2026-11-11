@@ -54,6 +54,7 @@ const demos = [
   'cpp_webmon',
   'cpp_clocks',
   'cpp_recorder',
+  'cpp_mywa',
   'domino',
 ];
 

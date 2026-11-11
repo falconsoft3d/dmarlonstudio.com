@@ -41,6 +41,7 @@ export const DEMO_SEEDS = [
   "cpp_webmon",
   "cpp_clocks",
   "cpp_recorder",
+  "cpp_mywa",
   "domino",
 ] as const;
 

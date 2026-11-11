@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Veintisiete aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veintiocho aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -135,7 +135,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veintisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veintiocho aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -299,6 +299,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Para hacer vídeos de YouTube: grabe la pantalla entera o una zona de 16:9 (1080p o 720p) o vertical para Shorts, con el sonido del micrófono, los clics y el cursor, cuenta atrás y límite de tiempo. Mientras graba, la ventana se esconde y el tiempo va en la barra de menús; después, cada vídeo con su miniatura, listo para subir. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Graba con screencapture (macOS) o ffmpeg (Windows y Linux)", "La duración y el tamaño se leen del propio vídeo (átomos mvhd y tkhd)"],
       },
+      cpp_mywa: {
+        name: "MyWhatsapp (C++)",
+        text: "Lee sus chats de WhatsApp Desktop (en el Mac, solo lectura) o un chat exportado, y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación, lo que quiere decir y el estilo que elija. La que prefiera se abre en WhatsApp ya escrita, para revisarla y enviarla usted. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "Claude (Opus 5.5) o ChatGPT por su API HTTP, con las claves en el Llavero", "La base de datos de WhatsApp Desktop, leída con el SQLite del sistema"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -310,7 +315,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twenty-seven apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty-eight apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -387,7 +392,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty-seven desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty-eight desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -551,6 +556,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "For making YouTube videos: record the whole screen or a 16:9 area (1080p or 720p) or a vertical one for Shorts, with microphone sound, clicks and cursor, a countdown and a time limit. While recording, the window hides and the time goes in the menu bar; afterwards, each video with its thumbnail, ready to upload. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Records with screencapture (macOS) or ffmpeg (Windows and Linux)", "Duration and size are read from the video itself (mvhd and tkhd atoms)"],
       },
+      cpp_mywa: {
+        name: "MyWhatsapp (C++)",
+        text: "Reads your WhatsApp Desktop chats (on the Mac, read-only) or an exported chat, and suggests three replies with Claude or ChatGPT based on the conversation, what you want to say and the style you choose. The one you prefer opens in WhatsApp already typed, for you to review and send. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "Claude (Opus 5.5) or ChatGPT through their HTTP API, with the keys in the Keychain", "The WhatsApp Desktop database, read with the system's SQLite"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -635,6 +645,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_webmon: { icon: "cpp", label: "C++ · FLTK" },
   cpp_clocks: { icon: "cpp", label: "C++ · FLTK" },
   cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_mywa: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

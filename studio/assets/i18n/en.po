@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -2625,7 +2625,7 @@ msgstr "Currency converter"
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr "Converts currencies with ECB rates read from an API in the background, with an offline fallback table."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr "Copy"
 
@@ -3431,7 +3431,7 @@ msgstr "Costa Rica · San José"
 msgid "Cuba · La Habana"
 msgstr "Cuba · Havana"
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -4173,7 +4173,7 @@ msgstr "Calculating…"
 msgid "Cambiar nombre"
 msgstr "Rename"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Cancelar"
 msgstr "Cancel"
 
@@ -6733,6 +6733,376 @@ msgstr "{0} · {1} × {2} px"
 msgid "Ángulo"
 msgstr "Angle"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «Sugerir respuestas»."
+msgstr "Your WhatsApp Desktop chats are on the left. Pick one and press “Suggest replies”."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir en WhatsApp"
+msgstr "Open in WhatsApp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abrir un chat exportado de WhatsApp"
+msgstr "Open an exported WhatsApp chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Acerca de MyWhatsapp"
+msgstr "About MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Actualizar los chats"
+msgstr "Refresh chats"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ana"
+msgstr "Anna"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aquí no se puede leer WhatsApp Desktop"
+msgstr "WhatsApp Desktop cannot be read here"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Breve"
+msgstr "Short"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Buenas, ¿tenéis el presupuesto de la cocina?"
+msgstr "Hi, do you have the quote for the kitchen?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cariñoso"
+msgstr "Warm"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Carlos · cliente"
+msgstr "Carlos · client"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "ChatGPT (OpenAI)"
+msgstr "ChatGPT (OpenAI)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Claude (Anthropic)"
+msgstr "Claude (Anthropic)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Clave de la API de Claude (Anthropic), de console.anthropic.com (déjela vacía para no cambiarla):"
+msgstr "Claude (Anthropic) API key, from console.anthropic.com (leave it empty to keep it):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Clave de la API de OpenAI (ChatGPT), de platform.openai.com (déjela vacía para no cambiarla):"
+msgstr "OpenAI (ChatGPT) API key, from platform.openai.com (leave it empty to keep it):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Claves de la IA…"
+msgstr "AI keys…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Continuar"
+msgstr "Continue"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Conversación con {0}:\n"
+"\n"
+"{1}"
+msgstr ""
+"Conversation with {0}:\n"
+"\n"
+"{1}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Copiada"
+msgstr "Copied"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El sábado me va perfecto. Os espero en calle Mayor 12, de 10 a 14."
+msgstr "Saturday works great. I’ll be at 12 High Street, 10 to 2."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Elija un chat"
+msgstr "Pick a chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Eres el asistente de respuestas de MyWhatsapp. Lees una conversación de WhatsApp y propones respuestas para que el usuario («Yo») las envíe tal cual, en su nombre.\n"
+"\n"
+"Escribe exactamente tres respuestas distintas entre sí, separadas por una línea que solo tenga «---». Sin numerarlas, sin comillas y sin explicar nada. En el idioma de la conversación y con el estilo de un mensaje de WhatsApp (corto, natural, emojis solo si encajan). Tono: {0}. Responde a lo último que quedó pendiente y no inventes datos (horas, precios, direcciones) que no estén en la conversación o en lo que el usuario quiere decir."
+msgstr ""
+"You are MyWhatsapp’s reply assistant. You read a WhatsApp conversation and suggest replies for the user (“Me”) to send as they are, in their name.\n"
+"\n"
+"Write exactly three replies, different from each other, separated by a line containing only “---”. No numbering, no quotes and no explanations. In the language of the conversation and in the style of a WhatsApp message (short, natural, emojis only if they fit). Tone: {0}. Answer whatever was left pending and do not make up details (times, prices, addresses) that are not in the conversation or in what the user wants to say."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Es un grupo: la respuesta está copiada; péguela en WhatsApp"
+msgstr "It’s a group: the reply is copied; paste it in WhatsApp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ese archivo no parece un chat exportado de WhatsApp"
+msgstr "That file does not look like an exported WhatsApp chat"
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Estilo"
+msgstr "Style"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Falta la clave de la IA (Archivo › Claves de la IA…)"
+msgstr "The AI key is missing (File › AI keys…)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Familia 🏡"
+msgstr "Family 🏡"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Formal"
+msgstr "Formal"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Genial, ¿cuándo me la podéis llevar?"
+msgstr "Great, when can you deliver it?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hecho, a las 8 en el polideportivo"
+msgstr "Done, at 8 at the sports centre"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hola! Ya tenemos la mesa de roble que pediste 😊"
+msgstr "Hi! Your oak table has arrived 😊"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "IA"
+msgstr "AI"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Importado: {0} ({1} mensajes)"
+msgstr "Imported: {0} ({1} messages)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Importar un chat exportado…"
+msgstr "Import an exported chat…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Javi"
+msgstr "Jamie"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La IA no devolvió respuestas"
+msgstr "The AI returned no replies"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La IA prefirió no proponer respuestas para esta conversación"
+msgstr "The AI chose not to suggest replies for this conversation"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La clave de la IA no es válida (Archivo › Claves de la IA…)"
+msgstr "The AI key is not valid (File › AI keys…)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La conversación y las respuestas de la IA las dibuja el código de Form1.cpp"
+msgstr "The conversation and the AI replies are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La lista de chats la dibuja el código"
+msgstr "The chat list is drawn by the code"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Laura (Muebles Sol)"
+msgstr "Laura (Sun Furniture)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Lee sus chats de WhatsApp Desktop (o uno exportado) y propone tres respuestas con la IA de Claude o de ChatGPT según la conversación y el tono que elija; la elegida se abre en WhatsApp ya escrita, para revisarla y enviarla."
+msgstr "Reads your WhatsApp Desktop chats (or an exported one) and suggests three replies with Claude or ChatGPT based on the conversation and the tone you choose; the one you pick opens in WhatsApp already typed, for you to review and send."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Lo que el usuario quiere decir: {0}"
+msgstr "What the user wants to say: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Lo terminamos hoy y se lo envío"
+msgstr "We’ll finish it today and send it to you"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mamá"
+msgstr "Mum"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Me apunto!"
+msgstr "Count me in!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Modelo de OpenAI:"
+msgstr "OpenAI model:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp"
+msgstr "MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp (C++)"
+msgstr "MyWhatsapp (C++)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp en C++ con FLTK: lee sus chats de WhatsApp y propone respuestas con la IA de Claude o de ChatGPT según la conversación."
+msgstr "MyWhatsapp in C++ with FLTK: it reads your WhatsApp chats and suggests replies with Claude or ChatGPT based on the conversation."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n"
+"\n"
+"Elija un chat, si quiere escriba qué quiere decir y el tono, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Usar» la pasa al borrador; «Abrir en WhatsApp» abre WhatsApp con el texto escrito: lo revisa y lo envía usted.\n"
+"\n"
+"Las claves de la IA se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
+msgstr ""
+"MyWhatsapp reads your WhatsApp Desktop chats (on the Mac, without changing anything; the first time, macOS will ask for permission) or a chat exported with “Export chat”, and suggests replies with AI.\n"
+"\n"
+"Pick a chat, optionally type what you want to say and the tone, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat’s latest messages and suggest three replies. “Use” puts it in the draft; “Open in WhatsApp” opens WhatsApp with the text typed: you review it and send it.\n"
+"\n"
+"The AI keys are stored in the macOS Keychain. Only the open chat’s messages are sent to the AI, and only when you ask."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Natural"
+msgstr "Natural"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No encuentro SQLite en el sistema"
+msgstr "SQLite not found on the system"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No encuentro WhatsApp Desktop en este equipo. Abra un chat exportado (Archivo › Importar un chat exportado…): en el teléfono, en el chat, «Exportar chat» sin archivos."
+msgstr "WhatsApp Desktop is not on this computer. Open an exported chat (File › Import an exported chat…): on the phone, in the chat, “Export chat” without media."
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "No encuentro curl"
+msgstr "curl not found"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No hay conexión con la IA"
+msgstr "No connection to the AI"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se pudo abrir la base de datos de WhatsApp"
+msgstr "Could not open the WhatsApp database"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No se pudo leer la base de datos de WhatsApp"
+msgstr "Could not read the WhatsApp database"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Para proponer respuestas, los últimos mensajes de este chat se envían a {0}. Solo se hace al pulsar «Sugerir respuestas» y solo con el chat abierto. ¿Continuar?"
+msgstr "To suggest replies, this chat’s latest messages are sent to {0}. This only happens when you press “Suggest replies” and only for the open chat. Continue?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Pedro"
+msgstr "Peter"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Perfecto, gracias. ¿Incluye la instalación?"
+msgstr "Perfect, thanks. Does it include installation?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
+msgstr "We can do Thursday morning or Saturday from 10 to 2"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Profesional (negocio)"
+msgstr "Professional (business)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Qué quiere decir"
+msgstr "What you want to say"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "RESPUESTAS PROPUESTAS"
+msgstr "SUGGESTED REPLIES"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sobre el usuario: {0}"
+msgstr "About the user: {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sobre usted, para que las respuestas encajen (opcional; por ejemplo: «Tengo una tienda de muebles en Madrid»):"
+msgstr "About you, so the replies fit (optional; for example: “I run a furniture shop in Madrid”):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sábado, por favor 🙌 Calle Mayor 12. Avisadme un poco antes de llegar."
+msgstr "Saturday, please 🙌 12 High Street. Give me a heads-up before you arrive."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sí! Ya en casa ❤️"
+msgstr "Yes! Home already ❤️"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, la lista, el panel de la IA y sus campos se diseñaron en el Diseñador del estudio; la base de datos de WhatsApp Desktop se lee con el SQLite del sistema y la IA se llama por su API HTTP con curl."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, the list, the AI panel and its fields were designed in the studio’s Designer; the WhatsApp Desktop database is read with the system’s SQLite and the AI is called through its HTTP API with curl."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Usar"
+msgstr "Use"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp Desktop"
+msgstr "WhatsApp Desktop"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp abierto con la respuesta: revísela y envíela"
+msgstr "WhatsApp opened with the reply: review it and send it"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Yo"
+msgstr "Me"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Yo llevo el postre 🍰"
+msgstr "I’ll bring dessert 🍰"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "chats importados"
+msgstr "imported chats"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "el sábado, y la dirección es calle Mayor 12"
+msgstr "Saturday, and the address is 12 High Street"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acceso en Ajustes del Sistema › Privacidad y seguridad. También puede importar un chat exportado."
+msgstr "macOS asks for permission to read WhatsApp’s data: accept it, or grant access in System Settings › Privacy & Security. You can also import an exported chat."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "{0} chats de {1} · IA: {2}"
+msgstr "{0} chats from {1} · AI: {2}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¡Qué bien! 😊 Mejor el sábado entre las 10 y las 14. La dirección es calle Mayor 12. ¡Gracias!"
+msgstr "Great news! 😊 Saturday between 10 and 2 is best. The address is 12 High Street. Thanks!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Comemos el domingo en casa de los abuelos?"
+msgstr "Lunch on Sunday at Grandma and Grandpa’s?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Llegaste bien?"
+msgstr "Did you get home OK?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Partido el viernes?"
+msgstr "Game on Friday?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Quién puede recoger a la abuela a las 13?"
+msgstr "Who can pick up Grandma at 1?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "¿Qué te viene mejor? Y confírmame la dirección, porfa"
+msgstr "Which suits you better? And please confirm the address"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Sugerir respuestas"
+msgstr "✨ Suggest replies"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ {0} está escribiendo tres respuestas…"
+msgstr "✨ {0} is writing three replies…"
+
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "1 vuelta"
 msgstr "1 lap"
@@ -7296,10 +7666,6 @@ msgstr "None of the usual ports is open"
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "No contesta"
 msgstr "No answer"
-
-#: lib/code/tk_showcase_cpp_webmon.dart
-msgid "No encuentro curl"
-msgstr "curl not found"
 
 #: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_designer.dart
 msgid "Pausar"
@@ -9674,6 +10040,10 @@ msgstr "Recent"
 #: lib/code/tk_showcase_pascal_launcher.dart
 msgid "TODAS · {0}"
 msgstr "ALL · {0}"
+
+#: lib/code/tk_showcase_pascal_launcher.dart
+msgid "Todas las aplicaciones ({0})"
+msgstr "All apps ({0})"
 
 #: lib/code/tk_showcase_pascal_launcher.dart
 msgid "Una app de la barra de menús en Object Pascal con Lazarus: su icono abre las aplicaciones de la carpeta donde está el lanzador, con sus iconos, las favoritas y las recientes arriba, y un panel con buscador para abrirlas con el teclado."
@@ -17582,10 +17952,6 @@ msgstr "Firestore emulator (empty: the cloud)"
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "En blanco"
 msgstr "Blank"
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Estilo"
-msgstr "Style"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Guarda en (campo de App)"

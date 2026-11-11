@@ -47,6 +47,7 @@ TkExample tkPascalLauncher(String Function(String) t) {
     'SEARCH_HINT': t(markTr('Buscar una aplicación')),
     'FAVORITES': t(markTr('Favoritas')),
     'RECENT': t(markTr('Recientes')),
+    'ALL_APPS': t(markTr('Todas las aplicaciones ({0})')),
     'NO_APPS': t(markTr('No encuentro aplicaciones')),
     'RESCAN': t(markTr('Actualizar la lista')),
     'ABOUT': t(markTr('Acerca de…')),

@@ -642,7 +642,7 @@ procedure BuildTray(Root: TMenuItem; H: TNotifyEvent; Lang: TMenuItem;
   LangH: TNotifyEvent);
 var
   i, j: Integer;
-  Sub, It: TMenuItem;
+  Sub, It, All: TMenuItem;
   L, Last: string;
 begin
   Root.Clear;
@@ -661,26 +661,32 @@ begin
     AddApps(Root, Recent, H);
   end;
   AddSep(Root);
-  if Length(Apps) <= 40 then
-    for i := 0 to High(Apps) do
-      AddItem(Root, Apps[i].Name, 'open'#9 + Apps[i].Path, H, AppIcon(Apps[i].Path, MenuIcon))
-  else
+  // Todas, en un submenú: el menú se queda corto y la lista larga se
+  // desplaza sola (los menús de macOS lo hacen cuando no caben).
+  if Length(Apps) > 0 then
   begin
-    // Una opción por letra, con sus apps dentro.
-    Last := '';
-    Sub := nil;
-    for i := 0 to High(Apps) do
+    All := AddItem(Root, Fmt(tx_ALL_APPS, [IntToStr(Length(Apps))]), 'sub', nil);
+    if Length(Apps) <= 40 then
+      for i := 0 to High(Apps) do
+        AddItem(All, Apps[i].Name, 'open'#9 + Apps[i].Path, H, AppIcon(Apps[i].Path, MenuIcon))
+    else
     begin
-      L := Letter(Apps[i].Name);
-      if (Sub = nil) or (L <> Last) then
+      // Muchas: una opción por letra, con sus apps dentro.
+      Last := '';
+      Sub := nil;
+      for i := 0 to High(Apps) do
       begin
-        Sub := nil;
-        for j := 0 to Root.Count - 1 do
-          if (Root[j].Hint = 'sub') and (Root[j].Caption = L) then Sub := Root[j];
-        if Sub = nil then Sub := AddItem(Root, L, 'sub', nil);
-        Last := L;
+        L := Letter(Apps[i].Name);
+        if (Sub = nil) or (L <> Last) then
+        begin
+          Sub := nil;
+          for j := 0 to All.Count - 1 do
+            if (All[j].Hint = 'sub') and (All[j].Caption = L) then Sub := All[j];
+          if Sub = nil then Sub := AddItem(All, L, 'sub', nil);
+          Last := L;
+        end;
+        AddItem(Sub, Apps[i].Name, 'open'#9 + Apps[i].Path, H, AppIcon(Apps[i].Path, MenuIcon));
       end;
-      AddItem(Sub, Apps[i].Name, 'open'#9 + Apps[i].Path, H, AppIcon(Apps[i].Path, MenuIcon));
     end;
   end;
   if Length(Apps) = 0 then AddItem(Root, tx_NO_APPS, '', nil);
@@ -1109,8 +1115,8 @@ begin
   try
     BuildTray(M.Items, nil, nil, nil);
     Desk(Dir + '/menu.png', M.Items, -1, -1);
-    k := ItemIndex(M.Items, Apps[FindApp(Favs[0])].Name);
-    Desk(Dir + '/menu-hi.png', M.Items, k, -1);
+    k := ItemIndex(M.Items, Fmt(tx_ALL_APPS, [IntToStr(Length(Apps))]));
+    Desk(Dir + '/menu-hi.png', M.Items, k, 3);
   finally
     M.Free;
   end;
@@ -1226,6 +1232,8 @@ begin
   try
     BuildTray(M.Items, nil, nil, nil);
     Check(Has(M.Items, 'Zebra', 'open'#9 + Apps[4].Path), 'la app en el menú');
+    Check(Has(M.Items, Fmt(tx_ALL_APPS, ['5']), 'sub'), 'todas, en su submenú');
+    Check(M.Items.Count <= 16, 'un menú corto (' + IntToStr(M.Items.Count) + ' opciones)');
     Check(Has(M.Items, tx_FAVORITES, ''), 'favoritas en el menú');
     Check(Has(M.Items, tx_RECENT, ''), 'recientes en el menú');
     Check(Has(M.Items, Fmt(tx_HEAD, ['5']), ''), 'cuántas');

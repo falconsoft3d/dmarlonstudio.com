@@ -325,6 +325,49 @@ for (size_t k = d.find("tkhd"); k != std::string::npos; k = d.find("tkhd", k + 4
   // … el ancho y el alto, en 16.16, al final del átomo
 }`;
 
+// ---- MyWhatsapp (C++): fragmentos de Form1.cpp
+const mywaDb = `const char* sql =
+    "SELECT Z_PK, ZPARTNERNAME, ZCONTACTJID, ZLASTMESSAGEDATE, ZLASTMESSAGETEXT, ZUNREADCOUNT "
+    "FROM ZWACHATSESSION WHERE IFNULL(ZREMOVED,0)=0 AND IFNULL(ZHIDDEN,0)=0 "
+    "AND ZCONTACTJID NOT LIKE '%status%' AND ZLASTMESSAGEDATE IS NOT NULL "
+    "ORDER BY ZLASTMESSAGEDATE DESC LIMIT 300";
+
+// Solo lectura: «?mode=ro», con el SQLite del sistema (dlopen).
+std::string uri = "file:" + path + "?mode=ro";
+q.open_v2(uri.c_str(), &db, OPEN_READONLY | OPEN_URI, nullptr);`;
+
+const mywaClaude = `std::string claude_body(const std::string& system, const std::string& user) {
+  return "{\\"model\\":" + jstr(CLAUDE_MODEL) +
+         ",\\"max_tokens\\":4000,\\"output_config\\":{\\"effort\\":\\"low\\"},\\"fallbacks\\":\\"default\\",\\"system\\":" + jstr(system) +
+         ",\\"messages\\":[{\\"role\\":\\"user\\",\\"content\\":" + jstr(user) + "}]}";
+}
+
+auto r = post_json(anthropic_url(),
+                   {"Content-Type: application/json", "x-api-key: " + s.claude_key, "anthropic-version: 2026-10-21",
+                    "anthropic-beta: server-side-fallback-2026-07-01"},
+                   claude_body(sys, usr));`;
+
+const mywaParse = `AiReply parse_claude(int http, const std::string& body) {
+  AiReply r;
+  Json j = parse_json(body, &ok);
+  // …
+  if (j["stop_reason"].str() == "refusal") {
+    r.error = tx::ERR_AI_REFUSAL;
+    return r;
+  }
+  std::string text;
+  for (const auto& b : j["content"].a)
+    if (b["type"].str() == "text") text += b["text"].str();
+  r.options = split_options(text);   // tres respuestas separadas por «---»
+  return r;
+}`;
+
+const mywaSend = `// WhatsApp se abre con el texto escrito: lo revisa y lo envía usted.
+std::string whatsapp_url(const std::string& phone, const std::string& text) {
+  if (phone.empty()) return "whatsapp://send?text=" + url_encode(text);
+  return "whatsapp://send?phone=" + phone + "&text=" + url_encode(text);
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -424,7 +467,7 @@ const es: Record<string, DemoMade> = {
       },
       {
         title: "5. El menú: favoritas, recientes y por letras",
-        text: "Arriba van las favoritas (la estrella del panel) y las seis últimas que abrió; debajo, una opción por letra con sus apps. Las favoritas y las recientes se guardan en un archivo de texto.",
+        text: "Arriba van las favoritas (la estrella del panel) y las seis últimas que abrió; todas las demás, en el submenú «Todas las aplicaciones», que macOS desplaza solo cuando la lista es larga (con más de 40, una opción por letra). Las favoritas y las recientes se guardan en un archivo de texto.",
         code: { file: "Form1.pas", text: launcherMenu },
       },
       {
@@ -620,6 +663,67 @@ const es: Record<string, DemoMade> = {
       },
     ],
   },
+  cpp_mywa: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con la lista de chats, la zona de la conversación y el panel de la IA (proveedor, estilo, lo que quiere decir, el borrador y los botones); el código de Form1.cpp lee WhatsApp, llama a la IA y dibuja los chats y las respuestas.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La lista a la izquierda, la conversación a la derecha y el panel de la IA debajo." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (Actualizar los chats, Importar un chat exportado, Claves de la IA, Salir) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo; cada pocos, los mensajes nuevos de WhatsApp Desktop." },
+        { name: "Side / Search", kind: "Frame / Entry", text: "La columna de los chats y su buscador." },
+        { name: "ChatArea", kind: "Frame", text: "Donde el código dibuja los bocadillos y las tres respuestas propuestas." },
+        { name: "AiBar", kind: "Frame", text: "El panel de la IA." },
+        { name: "Provider / Tone", kind: "Combobox", text: "Claude o ChatGPT, y el estilo de la respuesta." },
+        { name: "Intent", kind: "Entry", text: "Lo que quiere decir (opcional); Intro pide las respuestas." },
+        { name: "BtnSuggest", kind: "Button", text: "✨ Sugerir respuestas." },
+        { name: "Draft / BtnSend", kind: "Text / Button", text: "El borrador para retocar y Abrir en WhatsApp." },
+        { name: "Status", kind: "StatusBar", text: "Cuántos chats, de dónde y qué IA." },
+      ],
+      apis: [
+        "Claude por la API de Mensajes (HTTP con curl): claude-opus-5-5, esfuerzo bajo para respuestas rápidas y fallbacks del servidor si el modelo declina",
+        "ChatGPT por la API de OpenAI (HTTP con curl), con el modelo que elija",
+        "SQLite del sistema con dlopen: la base de datos de WhatsApp Desktop, solo lectura",
+        "security (Llavero de macOS): las claves de la IA",
+        "whatsapp://send: abrir WhatsApp con la respuesta escrita",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): a la izquierda un Frame con un Entry para buscar, a la derecha un Frame para la conversación y, debajo, otro con dos Combobox (IA y estilo), un Entry, el botón verde de sugerir, un Text para el borrador y el botón de WhatsApp.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnSuggest_click, Intent_enter, BtnSend_click, Provider_select, Tick_timer y Menu1_click, que Form1 sobrescribe.",
+        shot: "generated",
+      },
+      {
+        title: "3. Leer WhatsApp sin tocarlo",
+        text: "WhatsApp Desktop guarda los chats en una base de datos SQLite. La app la abre en solo lectura con el SQLite que trae macOS (cargado con dlopen, sin bibliotecas nuevas) y lee los chats y los últimos mensajes. Sin WhatsApp Desktop, lee un chat exportado del iPhone o de Android.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: mywaDb },
+      },
+      {
+        title: "4. Pedir respuestas a Claude",
+        text: "C++ no tiene SDK oficial de Claude, así que la app llama a la API de Mensajes por HTTP con curl: Claude Opus 5.5 con esfuerzo bajo (son respuestas de chat cortas) y las respuestas de respaldo del servidor si el modelo declina. La clave va en un archivo temporal que solo puede leer el usuario, no en la línea de órdenes. ChatGPT va igual, con su API.",
+        code: { file: "Form1.cpp", text: mywaClaude },
+      },
+      {
+        title: "5. Leer la respuesta",
+        text: "La respuesta se lee con un lector de JSON propio: solo los bloques de texto, y si el modelo declinó («refusal») se dice así. Las instrucciones piden tres respuestas separadas por «---», en el idioma del chat y sin inventar datos.",
+        code: { file: "Form1.cpp", text: mywaParse },
+      },
+      {
+        title: "6. Enviar es cosa suya",
+        text: "La app no envía nada: abre WhatsApp con la respuesta escrita y usted la revisa y la envía. Sus pruebas (DMS_MYWA_SELFTEST) leen una base de datos inventada con la forma de la de WhatsApp, chats exportados de iPhone y Android y respuestas de Claude y de OpenAI; un servidor de prueba comprobó las cabeceras y el cuerpo de las dos API.",
+        code: { file: "Form1.cpp", text: mywaSend },
+      },
+    ],
+  },
 };
 
 const en: Record<string, DemoMade> = {
@@ -721,7 +825,7 @@ const en: Record<string, DemoMade> = {
       },
       {
         title: "5. The menu: favorites, recent and by letter",
-        text: "At the top go your favorites (the star in the panel) and the last six you opened; below, one item per letter with its apps. Favorites and recent apps are saved in a text file.",
+        text: "At the top go your favorites (the star in the panel) and the last six you opened; all the rest go in the “All apps” submenu, which macOS scrolls when the list is long (over 40, one item per letter). Favorites and recent apps are saved in a text file.",
         code: { file: "Form1.pas", text: launcherMenu },
       },
       {
@@ -914,6 +1018,67 @@ const en: Record<string, DemoMade> = {
         title: "6. Duration and resolution, from the video itself",
         text: "Spotlight takes a while to know a new video's duration, so the app reads the .mov's atoms: mvhd gives the duration and the video track's tkhd, the width and height. QuickLook makes the thumbnails on another thread. The internal test (DMS_RECORDER_SELFTEST) builds a minimal .mov and checks reading, areas and commands.",
         code: { file: "Form1.cpp", text: recMovie },
+      },
+    ],
+  },
+  cpp_mywa: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with the chat list, the conversation area and the AI panel (provider, style, what you want to say, the draft and the buttons); the code in Form1.cpp reads WhatsApp, calls the AI and draws the chats and the replies.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The list on the left, the conversation on the right and the AI panel below." },
+        { name: "Menu1", kind: "Menu", text: "File (Refresh chats, Import an exported chat, AI keys, Quit) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every second; every few, new messages from WhatsApp Desktop." },
+        { name: "Side / Search", kind: "Frame / Entry", text: "The chat column and its search box." },
+        { name: "ChatArea", kind: "Frame", text: "Where the code draws the bubbles and the three suggested replies." },
+        { name: "AiBar", kind: "Frame", text: "The AI panel." },
+        { name: "Provider / Tone", kind: "Combobox", text: "Claude or ChatGPT, and the style of the reply." },
+        { name: "Intent", kind: "Entry", text: "What you want to say (optional); Enter asks for replies." },
+        { name: "BtnSuggest", kind: "Button", text: "✨ Suggest replies." },
+        { name: "Draft / BtnSend", kind: "Text / Button", text: "The draft to tweak and Open in WhatsApp." },
+        { name: "Status", kind: "StatusBar", text: "How many chats, from where and which AI." },
+      ],
+      apis: [
+        "Claude through the Messages API (HTTP with curl): claude-opus-5-5, low effort for quick replies and server-side fallbacks if the model declines",
+        "ChatGPT through the OpenAI API (HTTP with curl), with the model you choose",
+        "The system's SQLite through dlopen: the WhatsApp Desktop database, read-only",
+        "security (macOS Keychain): the AI keys",
+        "whatsapp://send: open WhatsApp with the reply typed",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: on the left a Frame with an Entry to search, on the right a Frame for the conversation and, below, another with two Comboboxes (AI and style), an Entry, the green suggest button, a Text for the draft and the WhatsApp button.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnSuggest_click, Intent_enter, BtnSend_click, Provider_select, Tick_timer and Menu1_click, which Form1 overrides.",
+        shot: "generated",
+      },
+      {
+        title: "3. Reading WhatsApp without touching it",
+        text: "WhatsApp Desktop keeps the chats in an SQLite database. The app opens it read-only with the SQLite that comes with macOS (loaded through dlopen, no new libraries) and reads the chats and the latest messages. Without WhatsApp Desktop, it reads a chat exported from an iPhone or Android.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: mywaDb },
+      },
+      {
+        title: "4. Asking Claude for replies",
+        text: "C++ has no official Claude SDK, so the app calls the Messages API over HTTP with curl: Claude Opus 5.5 at low effort (they are short chat replies) and server-side fallbacks if the model declines. The key goes in a temporary file only the user can read, not on the command line. ChatGPT works the same, with its API.",
+        code: { file: "Form1.cpp", text: mywaClaude },
+      },
+      {
+        title: "5. Reading the answer",
+        text: "The answer is read with a small JSON reader: only the text blocks, and if the model declined (“refusal”) the app says so. The instructions ask for three replies separated by “---”, in the chat's language and without making up details.",
+        code: { file: "Form1.cpp", text: mywaParse },
+      },
+      {
+        title: "6. Sending is up to you",
+        text: "The app sends nothing: it opens WhatsApp with the reply typed and you review and send it. Its tests (DMS_MYWA_SELFTEST) read a made-up database shaped like WhatsApp's, chats exported from iPhone and Android and answers from Claude and OpenAI; a test server checked the headers and body of both APIs.",
+        code: { file: "Form1.cpp", text: mywaSend },
       },
     ],
   },

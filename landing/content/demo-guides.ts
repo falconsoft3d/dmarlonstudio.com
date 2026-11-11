@@ -206,7 +206,7 @@ const es: Record<string, DemoGuide> = {
     intro:
       "Una app de la barra de menús hecha en Object Pascal con Lazarus y diseñada en el estudio: déjela en una carpeta con aplicaciones (por ejemplo, junto a estas demos) y su icono le enseña todas, con sus iconos, para abrirlas con un clic.",
     steps: [
-      { title: "Las apps de su carpeta, en la barra", text: "Al abrirla aparece un icono en la barra de menús (no en el Dock). Su menú lista las aplicaciones de la carpeta donde está el lanzador y de sus subcarpetas, cada una con su icono y el nombre que enseña el Finder; un clic la abre." },
+      { title: "Las apps de su carpeta, en la barra", text: "Al abrirla aparece un icono en la barra de menús (no en el Dock). Su menú es corto: arriba las favoritas y las recientes, y todas las aplicaciones de su carpeta en el submenú «Todas las aplicaciones», cada una con su icono y el nombre que enseña el Finder; un clic la abre." },
       { title: "Busque con el teclado", text: "«Buscar…» abre el panel: escriba parte del nombre, sin preocuparse de acentos ni mayúsculas. Primero salen las apps con una palabra que empieza así; las flechas eligen e Intro abre." },
       { title: "Favoritas y recientes", text: "La estrella de cada app en el panel la pone entre las favoritas, que van arriba del menú junto a las seis últimas que abrió. Si copia o borra una app de la carpeta, la lista se pone al día sola." },
     ],
@@ -236,6 +236,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Elija qué grabar", text: "La pantalla entera, una zona de 16:9 de 1920×1080 o 1280×720 centrada en la pantalla, o una vertical de 1080×1920 para Shorts. Marque si quiere el sonido del micrófono, los clics y el cursor, y elija la cuenta atrás y el límite (1 minuto para un Short)." },
       { title: "Grabe sin salir en el vídeo", text: "Al pulsar Grabar, la ventana se esconde y la barra de menús cuenta «Grabando en 3…» y luego el tiempo, «🔴 4:12». Su menú tiene «Detener y guardar» y «Cancelar sin guardar». La primera vez, macOS pide permiso para grabar la pantalla y el micrófono." },
       { title: "Sus vídeos, listos para YouTube", text: "Cada grabación queda en Películas › DMarlon Studio con su miniatura, su duración, su tamaño y su resolución. Ábrala con un clic, muéstrela en el Finder, «Subir a YouTube» abre la página de subida para arrastrarla, y «A la Papelera» la quita." },
+    ],
+  },
+  cpp_mywa: {
+    intro:
+      "Un asistente para contestar WhatsApp con IA, nativo en C++ con FLTK y diseñado en el estudio: lee sus chats y le propone respuestas, pero quien envía es usted.",
+    steps: [
+      { title: "Sus chats, a la izquierda", text: "En el Mac lee los chats de WhatsApp Desktop sin cambiar nada (la primera vez, macOS pide permiso) y se pone al día solo cada pocos segundos. Sin WhatsApp Desktop, importe un chat con «Exportar chat» en el teléfono. Busque un chat y ábralo: la conversación sale como en WhatsApp." },
+      { title: "Pida respuestas a la IA", text: "Elija Claude o ChatGPT y el estilo (natural, formal, breve, cariñoso o de negocio), y si quiere escriba qué quiere decir. «Sugerir respuestas» manda los últimos mensajes de ese chat a la IA, solo entonces y solo de ese chat, y en unos segundos tiene tres propuestas." },
+      { title: "Revise y envíe en WhatsApp", text: "«Usar» pasa la respuesta al borrador para retocarla, «Copiar» la copia y «Abrir en WhatsApp» abre el chat con el texto ya escrito: lo revisa y lo envía usted. Las claves de la IA se guardan en el Llavero de macOS." },
     ],
   },
   domino: {
@@ -520,7 +529,7 @@ const en: Record<string, DemoGuide> = {
     intro:
       "A menu bar app made in Object Pascal with Lazarus and designed in the studio: leave it in a folder with apps (for example, next to these demos) and its icon shows them all, with their icons, to open with one click.",
     steps: [
-      { title: "The apps in its folder, in the bar", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu lists the apps in the launcher's folder and its subfolders, each with its icon and the name the Finder shows; one click opens it." },
+      { title: "The apps in its folder, in the bar", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu is short: favorites and recent apps at the top, and every app in its folder in the “All apps” submenu, each with its icon and the name the Finder shows; one click opens it." },
       { title: "Search from the keyboard", text: "“Search…” opens the panel: type part of the name, accents and case don't matter. Apps with a word starting that way come first; the arrow keys choose and Enter opens." },
       { title: "Favorites and recent", text: "The star on each app in the panel makes it a favorite; favorites go at the top of the menu with the last six you opened. If you copy or delete an app in the folder, the list updates itself." },
     ],
@@ -550,6 +559,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Choose what to record", text: "The whole screen, a centered 16:9 area of 1920×1080 or 1280×720, or a vertical 1080×1920 one for Shorts. Tick whether you want microphone sound, clicks and cursor, and choose the countdown and the limit (1 minute for a Short)." },
       { title: "Record without appearing in the video", text: "When you press Record, the window hides and the menu bar counts “Recording in 3…” and then the time, “🔴 4:12”. Its menu has “Stop and save” and “Cancel without saving”. The first time, macOS asks for permission to record the screen and the microphone." },
       { title: "Your videos, ready for YouTube", text: "Each recording stays in Movies › DMarlon Studio with its thumbnail, duration, size and resolution. Open it with a click, show it in the Finder, “Upload to YouTube” opens the upload page to drag it in, and “Move to Trash” removes it." },
+    ],
+  },
+  cpp_mywa: {
+    intro:
+      "An assistant for answering WhatsApp with AI, native in C++ with FLTK and designed in the studio: it reads your chats and suggests replies, but you are the one who sends them.",
+    steps: [
+      { title: "Your chats, on the left", text: "On the Mac it reads WhatsApp Desktop's chats without changing anything (the first time, macOS asks for permission) and keeps up to date every few seconds. Without WhatsApp Desktop, import a chat with “Export chat” on the phone. Search for a chat and open it: the conversation looks like WhatsApp." },
+      { title: "Ask the AI for replies", text: "Choose Claude or ChatGPT and the style (natural, formal, short, warm or business), and optionally type what you want to say. “Suggest replies” sends that chat's latest messages to the AI, only then and only that chat, and in a few seconds you have three suggestions." },
+      { title: "Review and send in WhatsApp", text: "“Use” puts the reply in the draft to tweak it, “Copy” copies it and “Open in WhatsApp” opens the chat with the text already typed: you review it and send it. The AI keys are stored in the macOS Keychain." },
     ],
   },
   domino: {

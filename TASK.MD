@@ -68,6 +68,7 @@ Hechos
 77. Relojes del mundo en la barra de estado: la hora de varios países, configurable (por defecto España, Argentina, Venezuela, República Dominicana y Cuba) | ✅ |
 79. Monitor de sitios: escáner de puertos de cada sitio desde el propio monitor | ✅ |
 76. Grabador de pantalla para hacer vídeos de YouTube | ✅ |
+78. MyWhatsapp: lee los mensajes de WhatsApp y, con la IA de Claude o ChatGPT, propone respuestas según el contexto de la conversación | ✅ |
 
 Trabajando
 =========
@@ -80,4 +81,3 @@ Pendiente
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
-78. MyWhatsapp: lee los mensajes de WhatsApp y, con la IA de Claude o ChatGPT, propone respuestas según el contexto de la conversación | ⏳ |

@@ -28,6 +28,7 @@ const demos = {
   pascal_malecon: ['flashlight', '#f08a5a', '#5a2a7a'],
   pascal_docker: ['container', '#3b9cff', '#1849b8'],
   pascal_launcher: ['layout-grid', '#a78bfa', '#4c2fc4'],
+  cpp_webmon: ['activity', '#34d399', '#047857'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],
   disk_usage: ['hard-drive', '#5ac8fa', '#1f7fd6'],

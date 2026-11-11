@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Veinticuatro aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veinticinco aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -135,7 +135,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veinticuatro aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veinticinco aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -284,6 +284,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un icono en la barra de menús con las aplicaciones de la carpeta donde lo deja (por ejemplo, junto a estas demos), cada una con su icono: las favoritas y las recientes arriba, y un panel con buscador para abrirlas con el teclado. En macOS, para Apple Silicon.",
         shows: ["Object Pascal con Lazarus: TTrayIcon y un menú con el icono de cada app", "Los iconos y los nombres los da el sistema (NSWorkspace), como en el Finder", "Búsqueda sin acentos, favoritas con estrella y recientes guardadas"],
       },
+      cpp_webmon: {
+        name: "Monitor de sitios web (C++)",
+        text: "Añada las direcciones de sus webs y el monitor comprueba cada 2 minutos (o el intervalo que elija) si contestan: el código, el tiempo de respuesta, la disponibilidad y un historial en barras. Cierre la ventana y sigue en la barra de menús, con un menú para abrir, comprobar o pausar cada sitio; si uno se cae, macOS le avisa. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "curl en otros hilos: la ventana nunca se congela", "El icono de la barra de menús hecho desde C++ con el runtime de Objective-C"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -295,7 +300,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twenty-four apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty-five apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -372,7 +377,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty-four desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty-five desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -521,6 +526,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A menu bar icon with the apps in the folder where you put it (for example, next to these demos), each with its icon: favorites and recent ones at the top, and a panel with a search box to open them from the keyboard. On macOS, for Apple Silicon.",
         shows: ["Object Pascal with Lazarus: TTrayIcon and a menu with each app's icon", "The icons and names come from the system (NSWorkspace), as in the Finder", "Accent-insensitive search, starred favorites and saved recent apps"],
       },
+      cpp_webmon: {
+        name: "Website Monitor (C++)",
+        text: "Add your websites and the monitor checks every 2 minutes (or the interval you choose) whether they answer: the status code, response time, uptime and a bar history. Close the window and it stays in the menu bar, with a menu to open, check or pause each site; if one goes down, macOS lets you know. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "curl on other threads: the window never freezes", "The menu bar icon made from C++ with the Objective-C runtime"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -602,6 +612,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
   pascal_docker: { icon: "lazarus", label: "Pascal · Lazarus" },
   pascal_launcher: { icon: "lazarus", label: "Pascal · Lazarus" },
+  cpp_webmon: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

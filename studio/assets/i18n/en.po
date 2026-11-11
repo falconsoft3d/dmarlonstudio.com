@@ -409,7 +409,7 @@ msgstr ""
 "// Label1.Caption := 'Hello', Edit1.Text, CheckBox1.Checked.\n"
 "// Also ShowMessage(text), Ask(question), Close and NumToStr(number)."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr "Open"
 
@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,11 +437,11 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -749,7 +749,7 @@ msgstr "My tasks"
 msgid "No se pudo consultar: {0}"
 msgstr "Could not query: {0}"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr "Name"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -1121,7 +1121,7 @@ msgstr "Detail"
 msgid "Direcciones"
 msgstr "Addresses"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/mcp_settings.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/mcp_settings.dart
 msgid "Dirección"
 msgstr "Address"
 
@@ -3345,7 +3345,7 @@ msgstr "Calculator in C++ with FLTK: every button calls its method."
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr "The calculator as a native C++ app with FLTK: the same design, with the code in C++."
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
 
@@ -3448,7 +3448,7 @@ msgstr "Console · help"
 msgid "Ctrl+Espacio"
 msgstr "Ctrl+Space"
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -3589,7 +3589,7 @@ msgstr "Next tab"
 msgid "Quitada de las guardadas: {0}"
 msgstr "Removed from saved: {0}"
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr "Remove"
 
@@ -4132,7 +4132,7 @@ msgstr "Music"
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr "No items match your search."
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "No"
 msgstr "No"
 
@@ -4276,7 +4276,7 @@ msgstr "Move up"
 msgid "Subir un nivel"
 msgstr "Up one level"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr "Yes"
 
@@ -5640,7 +5640,7 @@ msgstr "{0} d {1} h"
 msgid "{0} libres"
 msgstr "{0} free"
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "{0} min"
 msgstr "{0} min"
 
@@ -6634,6 +6634,248 @@ msgstr ""
 "F11: full screen\n"
 "\n"
 "Brake before the tight bends: if you go in too fast, the bike runs wide onto the grass. Off the track you lose speed, and hitting a tree or a grandstand means a crash."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "API de pedidos"
+msgstr "Orders API"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Abrir el monitor…"
+msgstr "Open the monitor…"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_pascal_docker.dart lib/ui/screens/code_studio.dart
+msgid "Abrir {0}"
+msgstr "Open {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Acerca del Monitor de sitios web"
+msgstr "About Website Monitor"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Añadido: {0}"
+msgstr "Added: {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Añadir un sitio"
+msgstr "Add a site"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Blog"
+msgstr "Blog"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Caído desde hace {0}"
+msgstr "Down for {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Comprobando todos los sitios…"
+msgstr "Checking all sites…"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Comprobando…"
+msgstr "Checking…"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Comprobar ahora"
+msgstr "Check now"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Comprobar cada"
+msgstr "Check every"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Comprobar todos ahora"
+msgstr "Check all now"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "DISPONIBILIDAD"
+msgstr "UPTIME"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Disponibilidad: {0} %"
+msgstr "Uptime: {0} %"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Documentación"
+msgstr "Documentation"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "En línea desde hace {0}"
+msgstr "Up for {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/ui/screens/tk_debug_panel.dart
+msgid "En pausa"
+msgstr "Paused"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Esa dirección no vale: escriba algo como ejemplo.com"
+msgstr "That address is not valid: type something like example.com"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Escriba arriba la dirección de un sitio (por ejemplo, ejemplo.com) y pulse Añadir."
+msgstr "Type a site address above (for example, example.com) and press Add."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid ""
+"Escriba la dirección de un sitio (y, si quiere, un nombre) y pulse Añadir. El monitor lo comprueba enseguida y después cada pocos minutos (2 por defecto; cámbielo en «Comprobar cada»).\n"
+"\n"
+"En línea: contesta con un código 2xx o 3xx. Lento: tarda más de 2 segundos. Caído: contesta con un error o no contesta. Cuando un sitio se cae o vuelve, macOS le avisa.\n"
+"\n"
+"Cerrar la ventana o «Minimizar a la barra» la esconde: el monitor sigue en la barra de menús, con un menú para abrir cada sitio, comprobarlo, pausarlo o volver a la ventana."
+msgstr ""
+"Type a site address (and, if you like, a name) and press Add. The monitor checks it right away and then every few minutes (2 by default; change it in “Check every”).\n"
+"\n"
+"Up: it answers with a 2xx or 3xx code. Slow: it takes more than 2 seconds. Down: it answers with an error or does not answer. When a site goes down or comes back, macOS lets you know.\n"
+"\n"
+"Closing the window or “Minimize to the menu bar” hides it: the monitor stays in the menu bar, with a menu to open each site, check it, pause it or go back to the window."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Ese sitio ya está en la lista"
+msgstr "That site is already in the list"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "HISTORIAL"
+msgstr "HISTORY"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Ha vuelto"
+msgstr "It is back"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "La lista de sitios con su historial la dibuja el código de Form1.cpp"
+msgstr "The list of sites with their history is drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/ui/bottom_panel.dart
+msgid "Minimizar"
+msgstr "Minimize"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Minimizar a la barra de menús"
+msgstr "Minimize to the menu bar"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Monitor de sitios web"
+msgstr "Website Monitor"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Monitor de sitios web (C++)"
+msgstr "Website Monitor (C++)"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Monitor de sitios web en C++ con FLTK: comprueba cada pocos minutos si los sitios contestan, guarda su historial y vive en la barra de menús."
+msgstr "Website Monitor in C++ with FLTK: it checks every few minutes whether the sites answer, keeps their history and lives in the menu bar."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "No contesta"
+msgstr "No answer"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "No encuentro curl"
+msgstr "curl not found"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_designer.dart
+msgid "Pausar"
+msgstr "Pause"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Próxima comprobación en {0}"
+msgstr "Next check in {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "RESPUESTA"
+msgstr "RESPONSE"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_investor.dart
+msgid "Reanudar"
+msgstr "Resume"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "SITIO"
+msgstr "SITE"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Se comprobarán cada {0} min"
+msgstr "They will be checked every {0} min"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Se ha caído"
+msgstr "It went down"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Sin comprobar"
+msgstr "Not verified"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Sin sitios: añada uno en la ventana"
+msgstr "No sites: add one in the window"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_web.dart
+msgid "Tienda online"
+msgstr "Online shop"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Todavía no vigila ningún sitio"
+msgstr "You are not watching any site yet"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Un monitor de sitios web nativo en C++ con FLTK: añada direcciones y compruebe cada pocos minutos si contestan, con su tiempo de respuesta, la disponibilidad y el historial, y sígalos desde la barra de menús."
+msgstr "A native website monitor in C++ with FLTK: add addresses and check every few minutes whether they answer, with their response time, uptime and history, and follow them from the menu bar."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, los campos y el reloj se diseñaron en el Diseñador del estudio; la lista de sitios se dibuja en código, las comprobaciones las hace curl en otros hilos y el icono de la barra de menús se hace desde C++ con el runtime de Objective-C."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, its menu, the fields and the timer were designed in the studio’s Designer; the list of sites is drawn in code, curl does the checks on other threads and the menu bar icon is made from C++ with the Objective-C runtime."
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Ver en la ventana"
+msgstr "Show in the window"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Web de la empresa"
+msgstr "Company website"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "caído hace {0}"
+msgstr "down for {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "en línea hace {0}"
+msgstr "up for {0}"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} d"
+msgstr "{0} d"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} h"
+msgstr "{0} h"
+
+#: lib/code/tk_showcase_cpp_webmon.dart lib/ui/screens/tk_debug_panel.dart
+msgid "{0} ms"
+msgstr "{0} ms"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} s"
+msgstr "{0} s"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} sitios · {1} en línea"
+msgstr "{0} sites · {1} up"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} sitios · {1} en línea · {2} con problemas"
+msgstr "{0} sites · {1} up · {2} with problems"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "¿Dejar de vigilar «{0}»?"
+msgstr "Stop watching “{0}”?"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Área de clientes"
+msgstr "Customer area"
+
+#: lib/code/tk_showcase_cpp_webmon.dart
+msgid "Última comprobación: {0}"
+msgstr "Last check: {0}"
 
 #: lib/code/tk_showcase_cpp_wifi.dart
 msgid "Abierta (sin contraseña)"
@@ -8660,10 +8902,6 @@ msgstr "Open Docker Desktop"
 #: lib/code/tk_showcase_pascal_docker.dart
 msgid "Abrir el panel…"
 msgstr "Open the panel…"
-
-#: lib/code/tk_showcase_pascal_docker.dart lib/ui/screens/code_studio.dart
-msgid "Abrir {0}"
-msgstr "Open {0}"
 
 #: lib/code/tk_showcase_pascal_docker.dart
 msgid "Acerca de Docker en la barra de menús"
@@ -10907,17 +11145,9 @@ msgstr "Operation"
 msgid "Patrimonio total"
 msgstr "Total net worth"
 
-#: lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_designer.dart
-msgid "Pausar"
-msgstr "Pause"
-
 #: lib/code/tk_showcase_util_investor.dart
 msgid "Precio actual"
 msgstr "Current price"
-
-#: lib/code/tk_showcase_util_investor.dart
-msgid "Reanudar"
-msgstr "Resume"
 
 #: lib/code/tk_showcase_util_investor.dart
 msgid "Solo tiene {0} acciones de {1}."
@@ -13818,10 +14048,6 @@ msgid "Sin pygame: pausa, volumen y posición limitados. Instálelo con: {0}"
 msgstr "Without pygame: limited pause, volume and position. Install it with: {0}"
 
 #: lib/code/tk_showcase_web.dart
-msgid "Tienda online"
-msgstr "Online shop"
-
-#: lib/code/tk_showcase_web.dart
 msgid "Todas las etapas"
 msgstr "All stages"
 
@@ -14324,10 +14550,6 @@ msgstr "The icon could not be drawn."
 #: lib/ui/app_icons.dart lib/ui/icon_ai.dart
 msgid "Usar este icono"
 msgstr "Use this icon"
-
-#: lib/ui/bottom_panel.dart
-msgid "Minimizar"
-msgstr "Minimize"
 
 #: lib/ui/bottom_panel.dart
 msgid "Restaurar"
@@ -15914,10 +16136,6 @@ msgid "En marcha…"
 msgstr "Running…"
 
 #: lib/ui/screens/tk_debug_panel.dart
-msgid "En pausa"
-msgstr "Paused"
-
-#: lib/ui/screens/tk_debug_panel.dart
 msgid "Error en la condición: {0}"
 msgstr "Error in the condition: {0}"
 
@@ -16068,10 +16286,6 @@ msgstr "line {0}: {1}"
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "si {0}"
 msgstr "if {0}"
-
-#: lib/ui/screens/tk_debug_panel.dart
-msgid "{0} ms"
-msgstr "{0} ms"
 
 #: lib/ui/screens/tk_debug_panel.dart
 msgid "{0} pruebas · {1} fallos · {2} errores · {3} omitidas"

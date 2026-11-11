@@ -70,6 +70,7 @@ const carousel = [
   'pascal_malecon',
   'pascal_docker',
   'pascal_launcher',
+  'cpp_webmon',
   'domino',
   'pascal_calculator',
   'console_animals',
@@ -99,7 +100,7 @@ const carousel = [
 
 /// Los ejemplos con «Cómo se hizo» en su página de demo: también la pestaña
 /// Código (<ejemplo>-code.png) y la del código generado (<ejemplo>-generated.png).
-const made = {'pascal_docker', 'pascal_launcher'};
+const made = {'pascal_docker', 'pascal_launcher', 'cpp_webmon'};
 
 /// DMS_SEEDS=a,b: solo esas capturas.
 final _only = (Platform.environment['DMS_SEEDS'] ?? '')

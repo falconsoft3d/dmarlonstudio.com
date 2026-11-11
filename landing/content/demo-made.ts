@@ -155,6 +155,63 @@ begin
     Act('open'#9 + L[0].Path);
 end;`;
 
+// ---- Monitor de sitios web (C++): fragmentos de Form1.cpp
+const webmonCurl = `std::string curl_config(const std::string& url) {
+  std::string c = "url = " + curl_quote(url) + "\\n";
+  c += "silent\\nshow-error\\nlocation\\nmax-time = 20\\nconnect-timeout = 10\\n";
+  c += "output = \\"/dev/null\\"\\n";
+  c += "write-out = \\"\\\\n%{http_code} %{time_total}\\"\\n";
+  return c;
+}
+
+void check(int i) {
+  sites[i].checking = true;
+  std::string url = sites[i].url;
+  std::thread([url] {
+    auto* d = new ProbeDone{url, um::probe(url), um::now_t()};
+    Fl::awake(done, d);   // el resultado vuelve al hilo de la ventana
+  }).detach();
+}`;
+
+const webmonBar = `template <class R = id, class... A>
+R msg(id o, const char* s, A... a) {
+  return ((R(*)(id, SEL, A...))objc_msgSend)(o, sel_registerName(s), a...);
+}
+
+bool create() {
+  id sb = msg(cls("NSStatusBar"), "systemStatusBar");
+  id it = msg<id, double>(sb, "statusItemWithLength:", -1.0);
+  msg(it, "retain");
+  item() = it;
+  return true;
+}
+
+// Las opciones del menú llaman a una clase hecha en tiempo de ejecución.
+Class c = objc_allocateClassPair((Class)objc_getClass("NSObject"), "DmsWebMonitorTarget", 0);
+class_addMethod(c, sel_registerName("dmsAct:"), (IMP)on_act, "v@:@");
+objc_registerClassPair(c);`;
+
+const webmonLoop = `void to_bar() {
+  save();
+  in_bar = true;
+  hide();
+  bar::dock(false);   // fuera del Dock: setActivationPolicy:1
+  refresh();
+  // Sin ventanas, Fl::run terminaría: aquí sigue la app (como un diálogo).
+  while (in_bar && !quitting) Fl::wait(1e20);
+  if (quitting) quit_now();
+}`;
+
+const webmonState = `bool add(const Check& c) {
+  bool first = history.empty();
+  bool was = !first && is_up(history.back().code);
+  bool now = is_up(c.code);
+  if (first || was != now) changed = c.t;
+  history.push_back(c);
+  if (history.size() > KEEP) history.erase(history.begin(), history.begin() + (history.size() - KEEP));
+  return !first && was != now;   // → aviso de macOS
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -261,6 +318,66 @@ const es: Record<string, DemoMade> = {
         title: "6. El buscador y el teclado",
         text: "Al escribir, primero salen las apps con una palabra que empieza así («co» → Consola, Conversor de moneda) y después las que solo lo contienen. Las flechas eligen e Intro abre. Sus pruebas internas (DMS_LAUNCHER_SELFTEST=1) crean apps de mentira y comprueban la búsqueda, las favoritas, el menú con iconos de 16 puntos y el panel.",
         code: { file: "Form1.pas", text: launcherSearch },
+      },
+    ],
+  },
+  cpp_webmon: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con sus campos, el intervalo, los botones, la barra de estado y el reloj; el código de Form1.cpp comprueba los sitios con curl, dibuja la lista con su historial y pone el icono en la barra de menús de macOS.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La ventana del monitor; su botón de cerrar la esconde en la barra de menús." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (Añadir un sitio, Comprobar todos ahora, Minimizar a la barra de menús, Salir) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada 1000 ms: la cuenta atrás y, cuando toca, otra ronda de comprobaciones." },
+        { name: "Top", kind: "Frame", text: "La franja de arriba con los campos y los botones." },
+        { name: "Url / SiteName", kind: "Entry", text: "La dirección y el nombre del sitio; Intro (Url_enter) lo añade." },
+        { name: "BtnAdd", kind: "Button", text: "Añade el sitio y lo comprueba en el momento." },
+        { name: "Every", kind: "Combobox", text: "Comprobar cada 1, 2, 5, 10, 15 o 30 min (Every_select)." },
+        { name: "BtnCheck / BtnBar", kind: "Button", text: "Comprobar todos ahora y minimizar a la barra de menús." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja la lista de sitios (un Fl_Widget propio)." },
+        { name: "Status", kind: "StatusBar", text: "Cuántos sitios están en línea y la próxima comprobación." },
+      ],
+      apis: [
+        "curl (lo traen macOS y Windows 10+): la petición GET, el código HTTP y el tiempo, con las opciones en un archivo temporal",
+        "std::thread y Fl::awake: cada comprobación en su hilo, el resultado vuelve a la ventana",
+        "Runtime de Objective-C (objc_msgSend, objc_allocateClassPair): NSStatusItem, NSMenu y el símbolo «globe» del sistema",
+        "fl_draw y Fl_Image_Surface (FLTK): la lista, el historial y las capturas",
+        "osascript: el aviso de macOS cuando un sitio se cae o vuelve",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba, un Frame con dos Entry (dirección y nombre), el botón Añadir, un Combobox con el intervalo y dos botones; debajo, un Frame grande para la lista y una StatusBar; además, un Menu y un Timer de un segundo.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "De ese diseño sale la clase FormDesign (pestaña «C++ generado») con cada componente y los métodos virtuales BtnAdd_click, Url_enter, Every_select, Tick_timer y Menu1_click; Form1 la hereda en Form1.cpp y los sobrescribe.",
+        shot: "generated",
+      },
+      {
+        title: "3. Comprobar con curl, sin congelar la ventana",
+        text: "Cada sitio se comprueba en su propio hilo con curl: una petición GET que sigue las redirecciones, con un tiempo máximo, y que escribe al final el código HTTP y lo que tardó. El resultado vuelve al hilo de la ventana con Fl::awake.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: webmonCurl },
+      },
+      {
+        title: "4. En línea, lento o caído, y el historial",
+        text: "Un 2xx o 3xx es «en línea» (lento si pasa de 2 segundos); un error o ninguna respuesta, «caído». Cada sitio guarda sus últimas 500 comprobaciones; con ellas salen la disponibilidad, el «desde hace…» y las barras del historial, y el cambio de estado lanza el aviso.",
+        code: { file: "Form1.cpp", text: webmonState },
+      },
+      {
+        title: "5. La barra de menús desde C++",
+        text: "FLTK no tiene icono de barra de menús, así que se hace con el runtime de Objective-C, que ya está en la app por FLTK: objc_msgSend crea el NSStatusItem y el NSMenu, y una clase creada en tiempo de ejecución recibe los clics del menú.",
+        code: { file: "Form1.cpp", text: webmonBar },
+      },
+      {
+        title: "6. Seguir viva sin ventana",
+        text: "Fl::run termina cuando no queda ninguna ventana. Al minimizar a la barra, la app esconde la ventana, sale del Dock y espera eventos con Fl::wait, como hace un diálogo, hasta que vuelve a abrir la ventana o elige Salir. Sus pruebas (DMS_WEBMON_SELFTEST y DMS_WEBMON_UITEST) comprueban las direcciones, curl, los estados, el guardado, el menú y la interfaz sin abrir ventanas.",
+        code: { file: "Form1.cpp", text: webmonLoop },
       },
     ],
   },
@@ -372,6 +489,66 @@ const en: Record<string, DemoMade> = {
         title: "6. Search and keyboard",
         text: "As you type, apps with a word starting that way come first (“co” → Console, Currency converter) and then those that only contain it. The arrow keys choose and Enter opens. Its own tests (DMS_LAUNCHER_SELFTEST=1) create fake apps and check search, favorites, the menu with 16-point icons and the panel.",
         code: { file: "Form1.pas", text: launcherSearch },
+      },
+    ],
+  },
+  cpp_webmon: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its fields, the interval, the buttons, the status bar and the timer; the code in Form1.cpp checks the sites with curl, draws the list with its history and puts the icon in the macOS menu bar.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The monitor window; its close button hides it in the menu bar." },
+        { name: "Menu1", kind: "Menu", text: "File (Add a site, Check all now, Minimize to the menu bar, Quit) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every 1000 ms: the countdown and, when due, another round of checks." },
+        { name: "Top", kind: "Frame", text: "The top strip with the fields and buttons." },
+        { name: "Url / SiteName", kind: "Entry", text: "The site's address and name; Enter (Url_enter) adds it." },
+        { name: "BtnAdd", kind: "Button", text: "Adds the site and checks it right away." },
+        { name: "Every", kind: "Combobox", text: "Check every 1, 2, 5, 10, 15 or 30 min (Every_select)." },
+        { name: "BtnCheck / BtnBar", kind: "Button", text: "Check all now and minimize to the menu bar." },
+        { name: "Board", kind: "Frame", text: "Where the code draws the list of sites (a custom Fl_Widget)." },
+        { name: "Status", kind: "StatusBar", text: "How many sites are up and the next check." },
+      ],
+      apis: [
+        "curl (shipped with macOS and Windows 10+): the GET request, HTTP code and time, with the options in a temporary file",
+        "std::thread and Fl::awake: each check on its own thread, the result goes back to the window",
+        "Objective-C runtime (objc_msgSend, objc_allocateClassPair): NSStatusItem, NSMenu and the system “globe” symbol",
+        "fl_draw and Fl_Image_Surface (FLTK): the list, the history and the screenshots",
+        "osascript: the macOS notification when a site goes down or comes back",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top, a Frame with two Entry fields (address and name), the Add button, a Combobox with the interval and two buttons; below, a large Frame for the list and a StatusBar; plus a Menu and a one-second Timer.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "That design becomes the FormDesign class (the “Generated C++” tab) with each component and the virtual methods BtnAdd_click, Url_enter, Every_select, Tick_timer and Menu1_click; Form1 inherits it in Form1.cpp and overrides them.",
+        shot: "generated",
+      },
+      {
+        title: "3. Checking with curl, without freezing the window",
+        text: "Each site is checked on its own thread with curl: a GET request that follows redirects, with a time limit, and writes the HTTP code and how long it took at the end. The result goes back to the window's thread with Fl::awake.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: webmonCurl },
+      },
+      {
+        title: "4. Up, slow or down, and the history",
+        text: "A 2xx or 3xx is “up” (slow over 2 seconds); an error or no answer, “down”. Each site keeps its last 500 checks; from them come the uptime, the “for…” and the history bars, and a change of state triggers the notification.",
+        code: { file: "Form1.cpp", text: webmonState },
+      },
+      {
+        title: "5. The menu bar from C++",
+        text: "FLTK has no menu bar icon, so it is made with the Objective-C runtime, already in the app through FLTK: objc_msgSend creates the NSStatusItem and the NSMenu, and a class created at run time receives the menu clicks.",
+        code: { file: "Form1.cpp", text: webmonBar },
+      },
+      {
+        title: "6. Staying alive without a window",
+        text: "Fl::run ends when no window is left. When minimized to the bar, the app hides the window, leaves the Dock and waits for events with Fl::wait, like a dialog does, until you open the window again or choose Quit. Its tests (DMS_WEBMON_SELFTEST and DMS_WEBMON_UITEST) check addresses, curl, states, saving, the menu and the interface without opening windows.",
+        code: { file: "Form1.cpp", text: webmonLoop },
       },
     ],
   },

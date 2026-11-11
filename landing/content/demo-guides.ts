@@ -211,6 +211,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Favoritas y recientes", text: "La estrella de cada app en el panel la pone entre las favoritas, que van arriba del menú junto a las seis últimas que abrió. Si copia o borra una app de la carpeta, la lista se pone al día sola." },
     ],
   },
+  cpp_webmon: {
+    intro:
+      "Un monitor de sitios web nativo en C++ con FLTK, diseñado en el estudio: comprueba cada pocos minutos si sus webs contestan y le enseña su estado, su tiempo de respuesta y su historial, desde la ventana o desde la barra de menús.",
+    steps: [
+      { title: "Añada sus sitios", text: "Escriba una dirección (basta con ejemplo.com) y, si quiere, un nombre, y pulse Añadir o Intro. El monitor lo comprueba en el momento y después cada 2 minutos; cambie el intervalo en «Comprobar cada» (de 1 a 30 minutos)." },
+      { title: "Síganlos desde la barra de menús", text: "Cierre la ventana o pulse «Minimizar a la barra de menús»: la app sale del Dock y queda un globo con cuántos sitios están en línea (un triángulo si alguno falla). Su menú enseña cada sitio con su estado y la próxima comprobación." },
+      { title: "Cada sitio, su menú", text: "Desde el submenú de cada sitio lo abre en el navegador, lo comprueba ya, lo pausa o vuelve a la ventana; también ve su disponibilidad y desde cuándo está en línea o caído. Cuando un sitio se cae o vuelve, macOS le avisa." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -496,6 +505,15 @@ const en: Record<string, DemoGuide> = {
       { title: "The apps in its folder, in the bar", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu lists the apps in the launcher's folder and its subfolders, each with its icon and the name the Finder shows; one click opens it." },
       { title: "Search from the keyboard", text: "“Search…” opens the panel: type part of the name, accents and case don't matter. Apps with a word starting that way come first; the arrow keys choose and Enter opens." },
       { title: "Favorites and recent", text: "The star on each app in the panel makes it a favorite; favorites go at the top of the menu with the last six you opened. If you copy or delete an app in the folder, the list updates itself." },
+    ],
+  },
+  cpp_webmon: {
+    intro:
+      "A native website monitor in C++ with FLTK, designed in the studio: it checks every few minutes whether your websites answer and shows their status, response time and history, from the window or from the menu bar.",
+    steps: [
+      { title: "Add your sites", text: "Type an address (example.com is enough) and, if you like, a name, and press Add or Enter. The monitor checks it right away and then every 2 minutes; change the interval in “Check every” (1 to 30 minutes)." },
+      { title: "Follow them from the menu bar", text: "Close the window or press “Minimize to the menu bar”: the app leaves the Dock and a globe stays with how many sites are up (a triangle if one fails). Its menu shows each site with its status and the next check." },
+      { title: "Each site, its menu", text: "From each site's submenu you open it in the browser, check it now, pause it or go back to the window; you also see its uptime and how long it has been up or down. When a site goes down or comes back, macOS lets you know." },
     ],
   },
   domino: {

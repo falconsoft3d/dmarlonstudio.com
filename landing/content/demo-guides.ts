@@ -229,6 +229,15 @@ const es: Record<string, DemoGuide> = {
       { title: "El horario de verano, solo", text: "La app sabe cuándo cambia la hora en cada país (Europa, Estados Unidos, Cuba, Chile, Australia, Nueva Zelanda) y lo calcula sin depender del sistema. Cierre la ventana y los relojes siguen en la barra hasta que elija Salir." },
     ],
   },
+  cpp_recorder: {
+    intro:
+      "Un grabador de pantalla para hacer vídeos de YouTube, nativo en C++ con FLTK y diseñado en el estudio: elija qué grabar, pulse Grabar y pare desde la barra de menús.",
+    steps: [
+      { title: "Elija qué grabar", text: "La pantalla entera, una zona de 16:9 de 1920×1080 o 1280×720 centrada en la pantalla, o una vertical de 1080×1920 para Shorts. Marque si quiere el sonido del micrófono, los clics y el cursor, y elija la cuenta atrás y el límite (1 minuto para un Short)." },
+      { title: "Grabe sin salir en el vídeo", text: "Al pulsar Grabar, la ventana se esconde y la barra de menús cuenta «Grabando en 3…» y luego el tiempo, «🔴 4:12». Su menú tiene «Detener y guardar» y «Cancelar sin guardar». La primera vez, macOS pide permiso para grabar la pantalla y el micrófono." },
+      { title: "Sus vídeos, listos para YouTube", text: "Cada grabación queda en Películas › DMarlon Studio con su miniatura, su duración, su tamaño y su resolución. Ábrala con un clic, muéstrela en el Finder, «Subir a YouTube» abre la página de subida para arrastrarla, y «A la Papelera» la quita." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -532,6 +541,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Your time and, next to it, another country's", text: "The menu bar shows your time (📍) and, next to it, the time in the country you mark, with its flag: “📍 17:02   🇨🇺 12:02”. The icon's menu shows every clock with its time, whether it is tomorrow or yesterday there, and the difference with yours; click a country to put it in the bar or take it out." },
       { title: "Choose the countries", text: "In the window, each country is a card with its dial, which goes dark at night, the date and the time difference. Add others with the list above (there are 39), order them with the arrows and remove the ones you don't need; choose 24- or 12-hour format." },
       { title: "Daylight saving, automatically", text: "The app knows when the clocks change in each country (Europe, United States, Cuba, Chile, Australia, New Zealand) and works it out without relying on the system. Close the window and the clocks stay in the bar until you choose Quit." },
+    ],
+  },
+  cpp_recorder: {
+    intro:
+      "A screen recorder for making YouTube videos, native in C++ with FLTK and designed in the studio: choose what to record, press Record and stop from the menu bar.",
+    steps: [
+      { title: "Choose what to record", text: "The whole screen, a centered 16:9 area of 1920×1080 or 1280×720, or a vertical 1080×1920 one for Shorts. Tick whether you want microphone sound, clicks and cursor, and choose the countdown and the limit (1 minute for a Short)." },
+      { title: "Record without appearing in the video", text: "When you press Record, the window hides and the menu bar counts “Recording in 3…” and then the time, “🔴 4:12”. Its menu has “Stop and save” and “Cancel without saving”. The first time, macOS asks for permission to record the screen and the microphone." },
+      { title: "Your videos, ready for YouTube", text: "Each recording stays in Movies › DMarlon Studio with its thumbnail, duration, size and resolution. Open it with a click, show it in the Finder, “Upload to YouTube” opens the upload page to drag it in, and “Move to Trash” removes it." },
     ],
   },
   domino: {

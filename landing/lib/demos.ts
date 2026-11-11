@@ -40,6 +40,7 @@ export const DEMO_SEEDS = [
   "pascal_launcher",
   "cpp_webmon",
   "cpp_clocks",
+  "cpp_recorder",
   "domino",
 ] as const;
 

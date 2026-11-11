@@ -53,6 +53,7 @@ const demos = [
   'pascal_launcher',
   'cpp_webmon',
   'cpp_clocks',
+  'cpp_recorder',
   'domino',
 ];
 

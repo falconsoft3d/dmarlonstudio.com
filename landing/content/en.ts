@@ -103,6 +103,7 @@ export const en: Content = {
       { seed: "pascal_launcher", name: "App Launcher (Pascal)", text: "The apps in its folder in a menu bar icon, with their icons, favorites and search, with Lazarus." },
       { seed: "cpp_webmon", name: "Website Monitor (C++)", text: "Checks every few minutes whether your websites answer, with history, and lives in the menu bar, with FLTK." },
       { seed: "cpp_clocks", name: "World Clocks (C++)", text: "The time in several countries in the menu bar, with their dial and each one's daylight saving time, with FLTK." },
+      { seed: "cpp_recorder", name: "Screen Recorder (C++)", text: "Records the screen or a 16:9 area for YouTube, with microphone and clicks, and keeps the videos with their thumbnail." },
       { seed: "domino", name: "Double-Nine Dominoes", text: "A table of four in two partnerships against the computer, with domino, blocked games and a game to 100 points, on a tkinter canvas." },
       { seed: "flutter_store", name: "Shop with login (Flutter)", text: "Login, searchable catalog, cart and checkout in a mobile app." },
       { seed: "rn_store", name: "Shop (React Native)", text: "Login, catalog, cart and checkout in a React Native app." },

@@ -473,6 +473,10 @@ def cpp_binary(d: Path, name: str):
     return d / "app.exe", dlls
 
 
+# Las demos que graban sonido con el micrófono.
+MIC_DEMOS = {"cpp_recorder"}
+
+
 def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
     """C++ con FLTK: un ejecutable por idioma; en macOS, una .app hecha a mano
     con los dos (app y app-en); en Windows, los dos .exe en una carpeta."""
@@ -506,6 +510,10 @@ def cpp_demo(src: dict, name: str, titles: dict, seed: str) -> Path:
                 "CFBundleShortVersionString": "1.0",
                 "LSMinimumSystemVersion": os.environ.get("MACOSX_DEPLOYMENT_TARGET", "11.0"),
                 "NSHighResolutionCapable": True,
+                # Las que graban con el micrófono (macOS lo pide al usarlo).
+                **({"NSMicrophoneUsageDescription":
+                    "Para grabar el sonido del micrófono con el vídeo. / To record microphone sound with the video."}
+                   if seed in MIC_DEMOS else {}),
             }, f)
         print(f"{name}: {' + '.join(archs)}", flush=True)
         # Tiene tema oscuro propio: se deja que siga al del sistema.

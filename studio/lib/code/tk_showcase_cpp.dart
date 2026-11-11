@@ -14,6 +14,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppConsole(t),
   tkCppWebmon(t),
   tkCppClocks(t),
+  tkCppRecorder(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

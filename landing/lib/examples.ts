@@ -36,6 +36,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   pascal_launcher: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_webmon: { icon: "cpp", label: "C++ · FLTK" },
   cpp_clocks: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },
   domino: { icon: "python", label: "Python · tkinter" },
   pascal_calculator: { icon: "lazarus", label: "Pascal · Lazarus" },
   console_animals: { icon: "console", label: "Python" },

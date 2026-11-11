@@ -281,6 +281,50 @@ while (!pending.empty() && now_s() < end) {
   if (err == 0 && FD_ISSET(p.s, &w)) r.open.push_back(p.port);
 }`;
 
+// ---- Grabador de pantalla (C++): fragmentos de Form1.cpp
+const recArgs = `std::vector<std::string> screencapture_args(const Options& o, const Area& a, const std::string& file) {
+  std::vector<std::string> v = {"/usr/sbin/screencapture", "-x", "-v"};
+  if (o.cursor) v.push_back("-C");
+  if (o.clicks) v.push_back("-k");
+  if (o.mic) v.push_back("-g");
+  if (a.w > 0) v.push_back("-R" + std::to_string(a.x) + "," + std::to_string(a.y) + "," + std::to_string(a.w) + "," + std::to_string(a.h));
+  if (o.limit_s > 0) v.push_back("-V" + std::to_string(o.limit_s));
+  v.push_back(file);
+  return v;
+}`;
+
+const recStartStop = `posix_spawn(&pid_, argv[0], nullptr, nullptr, argv.data(), environ);
+
+// …
+void stop() {
+  kill(pid_, SIGINT);   // como Ctrl+C: screencapture cierra el vídeo
+  int st = 0;
+  waitpid(pid_, &st, 0);
+}`;
+
+const recArea = `// Una zona de [aw]×[ah] centrada en la pantalla; si no cabe, la más
+// grande con la misma forma (los vídeos de YouTube son 16:9).
+Area centered(int sw, int sh, int aw, int ah) {
+  Area a;
+  double k = std::min(1.0, std::min(sw / (double)aw, sh / (double)ah));
+  a.w = (int)(aw * k) / 2 * 2;
+  a.h = (int)(ah * k) / 2 * 2;
+  a.x = (sw - a.w) / 2;
+  a.y = (sh - a.h) / 2;
+  return a;
+}`;
+
+const recMovie = `// La duración (átomo mvhd) y el tamaño (tkhd de la pista de vídeo).
+size_t i = d.find("mvhd");
+const unsigned char* p = b + i + 4;
+if (p[0] == 0) {
+  uint32_t scale = be32(p + 12), dur = be32(p + 16);
+  if (scale) v.seconds = dur / (double)scale;
+}
+for (size_t k = d.find("tkhd"); k != std::string::npos; k = d.find("tkhd", k + 4)) {
+  // … el ancho y el alto, en 16.16, al final del átomo
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -513,6 +557,66 @@ const es: Record<string, DemoMade> = {
         title: "6. Las horas en la barra de menús",
         text: "El título del icono es su hora (📍) y, al lado, la de los países marcados, con su bandera (dos letras regionales en Unicode); los que tienen su misma hora no se repiten; se rehace cada segundo y el menú solo cuando cambia. Como en el monitor de sitios, el icono se hace desde C++ con el runtime de Objective-C y la app sigue viva en la barra con Fl::wait.",
         code: { file: "Form1.cpp", text: clocksBar },
+      },
+    ],
+  },
+  cpp_recorder: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con las opciones (qué grabar, micrófono, clics, cursor, cuenta atrás y límite), el botón Grabar y la barra de estado; el código de Form1.cpp lanza el grabador del sistema, lleva el tiempo en la barra de menús y dibuja las grabaciones.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "Las opciones arriba y las grabaciones debajo; se esconde mientras graba." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (Grabar, Abrir la carpeta de grabaciones, Salir) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: la barra de estado y, si cambia la carpeta, la lista." },
+        { name: "AreaKind", kind: "Combobox", text: "Pantalla completa, 1920×1080, 1280×720 o vertical para Shorts." },
+        { name: "Mic / Clicks / Cursor", kind: "Checkbutton", text: "El sonido del micrófono, los clics y el cursor en el vídeo." },
+        { name: "Countdown / Limit", kind: "Combobox", text: "La cuenta atrás (0 a 10 s) y el límite (hasta 15 min)." },
+        { name: "BtnRecord", kind: "Button", text: "● Grabar (BtnRecord_click)." },
+        { name: "BtnFolder", kind: "Button", text: "Abre la carpeta de grabaciones." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja las grabaciones (un Fl_Widget propio)." },
+        { name: "Status", kind: "StatusBar", text: "Cuántas grabaciones hay y dónde, o lo último que pasó." },
+      ],
+      apis: [
+        "screencapture (macOS): graba la pantalla o una zona, con el cursor, los clics y el micrófono; ffmpeg (gdigrab o x11grab) en Windows y Linux",
+        "posix_spawn y kill(SIGINT): lanzar la grabación y pararla dejando el vídeo cerrado",
+        "Los átomos mvhd y tkhd del .mov: la duración y la resolución, leídas del archivo",
+        "qlmanage (QuickLook): las miniaturas",
+        "Runtime de Objective-C: el tiempo en la barra de menús con «Detener y guardar»",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba, un Combobox con qué grabar, tres Checkbutton (micrófono, clics y cursor), dos Combobox (cuenta atrás y límite), el botón rojo Grabar y Abrir la carpeta; debajo, un Frame para las grabaciones y una StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente con su tipo de FLTK (DmsCombo, DmsCheck…) y los métodos virtuales BtnRecord_click, BtnFolder_click, Tick_timer y Menu1_click, que Form1 sobrescribe.",
+        shot: "generated",
+      },
+      {
+        title: "3. La orden de grabar",
+        text: "Las opciones de la ventana se convierten en los argumentos de screencapture: -v para vídeo, -C el cursor, -k los clics, -g el micrófono, -R la zona y -V el límite. En Windows y Linux se arma la orden de ffmpeg con lo mismo.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: recArgs },
+      },
+      {
+        title: "4. La zona de 16:9",
+        text: "Las zonas de 1080p, 720p y vertical se centran en la pantalla; si la pantalla es más pequeña, se usa la más grande con la misma forma, para que YouTube no ponga bandas negras.",
+        code: { file: "Form1.cpp", text: recArea },
+      },
+      {
+        title: "5. Grabar y parar sin perder el vídeo",
+        text: "La grabación es un proceso aparte: se lanza con posix_spawn y se para con SIGINT, como un Ctrl+C, para que screencapture cierre bien el archivo. Mientras tanto, la ventana se esconde y la app espera en la barra de menús con el tiempo. La prueba de humo (DMS_RECORDER_SMOKE) graba 2 segundos y comprueba que la ventana vuelve con el vídeo en la lista.",
+        code: { file: "Form1.cpp", text: recStartStop },
+      },
+      {
+        title: "6. Duración y resolución, del propio vídeo",
+        text: "Spotlight tarda en saber la duración de un vídeo nuevo, así que la app lee los átomos del .mov: mvhd da la duración y el tkhd de la pista de vídeo, el ancho y el alto. Las miniaturas las hace QuickLook en otro hilo. La prueba interna (DMS_RECORDER_SELFTEST) arma un .mov mínimo y comprueba la lectura, las zonas y las órdenes.",
+        code: { file: "Form1.cpp", text: recMovie },
       },
     ],
   },
@@ -750,6 +854,66 @@ const en: Record<string, DemoMade> = {
         title: "6. The times in the menu bar",
         text: "The icon's title is your time (📍) and, next to it, the marked countries' times with their flag (two Unicode regional letters); those with your same time are not repeated; it is rebuilt every second and the menu only when it changes. As in the website monitor, the icon is made from C++ with the Objective-C runtime and the app stays alive in the bar with Fl::wait.",
         code: { file: "Form1.cpp", text: clocksBar },
+      },
+    ],
+  },
+  cpp_recorder: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with the options (what to record, microphone, clicks, cursor, countdown and limit), the Record button and the status bar; the code in Form1.cpp launches the system recorder, keeps the time in the menu bar and draws the recordings.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The options at the top and the recordings below; it hides while recording." },
+        { name: "Menu1", kind: "Menu", text: "File (Record, Open the recordings folder, Quit) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every second: the status bar and, if the folder changes, the list." },
+        { name: "AreaKind", kind: "Combobox", text: "Full screen, 1920×1080, 1280×720 or vertical for Shorts." },
+        { name: "Mic / Clicks / Cursor", kind: "Checkbutton", text: "Microphone sound, clicks and cursor in the video." },
+        { name: "Countdown / Limit", kind: "Combobox", text: "The countdown (0 to 10 s) and the limit (up to 15 min)." },
+        { name: "BtnRecord", kind: "Button", text: "● Record (BtnRecord_click)." },
+        { name: "BtnFolder", kind: "Button", text: "Opens the recordings folder." },
+        { name: "Board", kind: "Frame", text: "Where the code draws the recordings (a custom Fl_Widget)." },
+        { name: "Status", kind: "StatusBar", text: "How many recordings there are and where, or the last thing that happened." },
+      ],
+      apis: [
+        "screencapture (macOS): records the screen or an area, with cursor, clicks and microphone; ffmpeg (gdigrab or x11grab) on Windows and Linux",
+        "posix_spawn and kill(SIGINT): start the recording and stop it leaving the video closed",
+        "The .mov's mvhd and tkhd atoms: duration and resolution, read from the file",
+        "qlmanage (QuickLook): the thumbnails",
+        "Objective-C runtime: the time in the menu bar with “Stop and save”",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top, a Combobox with what to record, three Checkbuttons (microphone, clicks and cursor), two Comboboxes (countdown and limit), the red Record button and Open the folder; below, a Frame for the recordings and a StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) has each component with its FLTK type (DmsCombo, DmsCheck…) and the virtual methods BtnRecord_click, BtnFolder_click, Tick_timer and Menu1_click, which Form1 overrides.",
+        shot: "generated",
+      },
+      {
+        title: "3. The record command",
+        text: "The window's options become screencapture's arguments: -v for video, -C the cursor, -k clicks, -g the microphone, -R the area and -V the limit. On Windows and Linux the same goes into an ffmpeg command.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: recArgs },
+      },
+      {
+        title: "4. The 16:9 area",
+        text: "The 1080p, 720p and vertical areas are centered on the screen; if the screen is smaller, the largest one with the same shape is used, so YouTube adds no black bars.",
+        code: { file: "Form1.cpp", text: recArea },
+      },
+      {
+        title: "5. Recording and stopping without losing the video",
+        text: "Recording is a separate process: it starts with posix_spawn and stops with SIGINT, like Ctrl+C, so screencapture closes the file properly. Meanwhile, the window hides and the app waits in the menu bar with the time. The smoke test (DMS_RECORDER_SMOKE) records 2 seconds and checks the window comes back with the video in the list.",
+        code: { file: "Form1.cpp", text: recStartStop },
+      },
+      {
+        title: "6. Duration and resolution, from the video itself",
+        text: "Spotlight takes a while to know a new video's duration, so the app reads the .mov's atoms: mvhd gives the duration and the video track's tkhd, the width and height. QuickLook makes the thumbnails on another thread. The internal test (DMS_RECORDER_SELFTEST) builds a minimal .mov and checks reading, areas and commands.",
+        code: { file: "Form1.cpp", text: recMovie },
       },
     ],
   },

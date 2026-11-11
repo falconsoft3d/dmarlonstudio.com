@@ -58,7 +58,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Escritorio",
-        intro: "Veintiséis aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
+        intro: "Veintisiete aplicaciones para macOS y Windows. Descárguelas, ábralas y úselas: no necesitan instalar nada más.",
       },
       mobile: {
         title: "Móvil",
@@ -135,7 +135,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Hecho con DMarlon Studio",
     intro:
-      "Aplicaciones de verdad hechas con DMarlon Studio: veintiséis aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
+      "Aplicaciones de verdad hechas con DMarlon Studio: veintisiete aplicaciones de escritorio para macOS y Windows, tres apps móviles y siete webs que puede probar aquí mismo. Todas se diseñaron arrastrando componentes y vienen como ejemplo en el estudio: ábralas allí y cámbielas.",
     points: [
       {
         title: "Del diseño a una aplicación",
@@ -294,6 +294,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "La hora de varios países en la barra de menús, con su bandera: por defecto España, Argentina, Venezuela, República Dominicana y Cuba, y otros 34 para elegir. Cada reloj tiene su esfera (oscura de noche), la fecha y la diferencia con su hora, y el horario de verano de cada país se calcula solo. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Las reglas del horario de verano en el código, comprobadas contra la base de zonas del sistema", "La barra de menús desde C++ con el runtime de Objective-C"],
       },
+      cpp_recorder: {
+        name: "Grabador de pantalla (C++)",
+        text: "Para hacer vídeos de YouTube: grabe la pantalla entera o una zona de 16:9 (1080p o 720p) o vertical para Shorts, con el sonido del micrófono, los clics y el cursor, cuenta atrás y límite de tiempo. Mientras graba, la ventana se esconde y el tiempo va en la barra de menús; después, cada vídeo con su miniatura, listo para subir. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "Graba con screencapture (macOS) o ffmpeg (Windows y Linux)", "La duración y el tamaño se leen del propio vídeo (átomos mvhd y tkhd)"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -305,7 +310,7 @@ const TEXT: Record<Lang, DemosText> = {
     sections: {
       desktop: {
         title: "Desktop",
-        intro: "Twenty-six apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
+        intro: "Twenty-seven apps for macOS and Windows. Download them, open them and use them: nothing else to install.",
       },
       mobile: {
         title: "Mobile",
@@ -382,7 +387,7 @@ const TEXT: Record<Lang, DemosText> = {
     title: "Demos",
     eyebrow: "Made with DMarlon Studio",
     intro:
-      "Real apps made with DMarlon Studio: twenty-six desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
+      "Real apps made with DMarlon Studio: twenty-seven desktop apps for macOS and Windows, three mobile apps and seven websites you can try right here. They were all designed by dragging components and come as examples in the studio: open them there and change them.",
     points: [
       {
         title: "From design to an app",
@@ -541,6 +546,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "The time in several countries in the menu bar, with their flag: Spain, Argentina, Venezuela, the Dominican Republic and Cuba by default, and 34 more to choose from. Each clock has its dial (dark at night), the date and the difference with your time, and each country's daylight saving time is worked out automatically. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Daylight saving rules in the code, checked against the system's time zone database", "The menu bar from C++ with the Objective-C runtime"],
       },
+      cpp_recorder: {
+        name: "Screen Recorder (C++)",
+        text: "For making YouTube videos: record the whole screen or a 16:9 area (1080p or 720p) or a vertical one for Shorts, with microphone sound, clicks and cursor, a countdown and a time limit. While recording, the window hides and the time goes in the menu bar; afterwards, each video with its thumbnail, ready to upload. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "Records with screencapture (macOS) or ffmpeg (Windows and Linux)", "Duration and size are read from the video itself (mvhd and tkhd atoms)"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -624,6 +634,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_launcher: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_webmon: { icon: "cpp", label: "C++ · FLTK" },
   cpp_clocks: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

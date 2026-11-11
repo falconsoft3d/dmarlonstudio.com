@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -637,7 +637,7 @@ msgstr "General"
 msgid "Gráfico de líneas web"
 msgstr "Line chart (web)"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_web.dart
 msgid "Guardada: {0}"
 msgstr "Saved: {0}"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -1909,7 +1909,7 @@ msgstr "Maximum length (0 = no limit)"
 msgid "Longitud máxima de la respuesta (tokens)"
 msgstr "Maximum answer length (tokens)"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_recorder.dart
 msgid "Límite"
 msgstr "Limit"
 
@@ -3431,7 +3431,7 @@ msgstr "Costa Rica · San José"
 msgid "Cuba · La Habana"
 msgstr "Cuba · Havana"
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -3651,7 +3651,7 @@ msgstr "☾ Night"
 msgid "✓ En la barra"
 msgstr "✓ In the bar"
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
 
@@ -4430,7 +4430,7 @@ msgstr "Music"
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr "No items match your search."
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "No"
 msgstr "No"
 
@@ -4574,7 +4574,7 @@ msgstr "Move up"
 msgid "Subir un nivel"
 msgstr "Up one level"
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
 msgid "Sí"
 msgstr "Yes"
 
@@ -6506,7 +6506,7 @@ msgstr "Darken"
 msgid "Palmera"
 msgstr "Palm tree"
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_domino.dart
 msgid "Pantalla completa"
 msgstr "Full screen"
 
@@ -6932,6 +6932,220 @@ msgstr ""
 "F11: full screen\n"
 "\n"
 "Brake before the tight bends: if you go in too fast, the bike runs wide onto the grass. Off the track you lose speed, and hitting a tree or a grandstand means a crash."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "1 minuto (Shorts)"
+msgstr "1 minute (Shorts)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "10 minutos"
+msgstr "10 minutes"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "10 segundos"
+msgstr "10 seconds"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "15 minutos"
+msgstr "15 minutes"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "3 segundos"
+msgstr "3 seconds"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "5 minutos"
+msgstr "5 minutes"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "5 segundos"
+msgstr "5 seconds"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "A la Papelera"
+msgstr "Move to Trash"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Abrir la carpeta"
+msgstr "Open the folder"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Abrir la carpeta de grabaciones"
+msgstr "Open the recordings folder"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Acerca del Grabador de pantalla"
+msgstr "About Screen Recorder"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Cancelar sin guardar"
+msgstr "Cancel without saving"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Cuenta atrás"
+msgstr "Countdown"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Curso de Python · lección 1.mov"
+msgstr "Python course · lesson 1.mov"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Cómo instalar DMarlon Studio.mov"
+msgstr "How to install DMarlon Studio.mov"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Detener y guardar"
+msgstr "Stop and save"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Directo de los viernes.mov"
+msgstr "Friday live stream.mov"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid ""
+"Elija qué grabar (la pantalla entera, una zona de 16:9 para YouTube o una vertical para Shorts), si quiere el sonido del micrófono, los clics y el cursor, la cuenta atrás y el límite de tiempo, y pulse Grabar.\n"
+"\n"
+"Mientras graba, esta ventana se esconde para no salir en el vídeo: el tiempo va en la barra de menús, con «Detener y guardar». La primera vez, macOS le pedirá permiso para grabar la pantalla (y el micrófono).\n"
+"\n"
+"Las grabaciones quedan en la carpeta Películas › DMarlon Studio, listas para subir a YouTube."
+msgstr ""
+"Choose what to record (the whole screen, a 16:9 area for YouTube or a vertical one for Shorts), whether you want microphone sound, clicks and cursor, the countdown and the time limit, and press Record.\n"
+"\n"
+"While recording, this window hides so it does not appear in the video: the time goes in the menu bar, with “Stop and save”. The first time, macOS will ask for permission to record the screen (and the microphone).\n"
+"\n"
+"Recordings are saved in Movies › DMarlon Studio, ready to upload to YouTube."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Elija qué grabar arriba y pulse Grabar. Mientras graba, esta ventana se esconde y el tiempo va en la barra de menús."
+msgstr "Choose what to record above and press Record. While recording, this window hides and the time goes in the menu bar."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabación cancelada"
+msgstr "Recording cancelled"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabación {0} a las {1}"
+msgstr "Recording {0} at {1}"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabador de pantalla"
+msgstr "Screen Recorder"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabador de pantalla (C++)"
+msgstr "Screen Recorder (C++)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabador de pantalla en C++ con FLTK: graba la pantalla o una zona para YouTube, con el micrófono y los clics, y guarda los vídeos con su miniatura."
+msgstr "Screen Recorder in C++ with FLTK: it records the screen or an area for YouTube, with microphone and clicks, and keeps the videos with their thumbnail."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Grabar"
+msgstr "Record"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "La zona que se graba (1920×1080)"
+msgstr "The recorded area (1920×1080)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Las grabaciones con su miniatura las dibuja el código de Form1.cpp"
+msgstr "The recordings with their thumbnail are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
+msgid "Mostrar"
+msgstr "Show"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Mostrar el cursor"
+msgstr "Show the cursor"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Mostrar los clics"
+msgstr "Show clicks"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Movida a la Papelera"
+msgstr "Moved to the Trash"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "No se pudo empezar a grabar"
+msgstr "Could not start recording"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Para grabar en Windows y Linux hace falta ffmpeg: instálelo y vuelva a probar."
+msgstr "Recording on Windows and Linux needs ffmpeg: install it and try again."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Presentación del proyecto.mov"
+msgstr "Project presentation.mov"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Qué grabar"
+msgstr "What to record"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Sin cuenta atrás"
+msgstr "No countdown"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Sin límite"
+msgstr "No limit"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Sonido del micrófono"
+msgstr "Microphone sound"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Subir a YouTube"
+msgstr "Upload to YouTube"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Todavía no hay grabaciones"
+msgstr "No recordings yet"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Truco del día (Short).mov"
+msgstr "Tip of the day (Short).mov"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Un grabador de pantalla para vídeos de YouTube, nativo en C++ con FLTK: la pantalla entera o una zona de 16:9 o vertical, con el micrófono, los clics y el cursor, cuenta atrás, límite de tiempo y la lista de grabaciones con su miniatura."
+msgstr "A screen recorder for YouTube videos, native in C++ with FLTK: the whole screen or a 16:9 or vertical area, with microphone, clicks and cursor, countdown, time limit and the list of recordings with their thumbnail."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, sus opciones y botones se diseñaron en el Diseñador del estudio; la grabación la hace screencapture (macOS) o ffmpeg (Windows y Linux), las miniaturas QuickLook y la barra de menús se hace desde C++ con el runtime de Objective-C."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, its options and buttons were designed in the studio’s Designer; recording is done by screencapture (macOS) or ffmpeg (Windows and Linux), thumbnails by QuickLook, and the menu bar is made from C++ with the Objective-C runtime."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "YouTube está abierto en el navegador: arrastre el vídeo desde el Finder a la página de subida."
+msgstr "YouTube is open in the browser: drag the video from the Finder onto the upload page."
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Zona 1280×720 (16:9)"
+msgstr "1280×720 area (16:9)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Zona 1920×1080 (16:9, YouTube)"
+msgstr "1920×1080 area (16:9, YouTube)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "Zona vertical 1080×1920 (Shorts)"
+msgstr "Vertical 1080×1920 area (Shorts)"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "{0} grabaciones en {1}"
+msgstr "{0} recordings in {1}"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "¿Mover «{0}» a la Papelera?"
+msgstr "Move “{0}” to the Trash?"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "● Grabar"
+msgstr "● Record"
+
+#: lib/code/tk_showcase_cpp_recorder.dart
+msgid "🔴 Grabando en {0}…"
+msgstr "🔴 Recording in {0}…"
 
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "API de pedidos"
@@ -13650,10 +13864,6 @@ msgstr "The address does not look like an Odoo server ({0})."
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Magdalena"
 msgstr "Muffin"
-
-#: lib/code/tk_showcase_util_pos.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart
-msgid "Mostrar"
-msgstr "Show"
 
 #: lib/code/tk_showcase_util_pos.dart
 msgid "Más…"

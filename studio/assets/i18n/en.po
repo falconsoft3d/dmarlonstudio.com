@@ -6754,6 +6754,10 @@ msgid "API oficial"
 msgstr "official API"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Aa Corregir"
+msgstr "Aa Fix"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir MyWhatsapp"
 msgstr "Open MyWhatsapp"
 
@@ -6910,6 +6914,14 @@ msgid "Copiar la selección"
 msgstr "Copy selection"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Corregido (Cmd+Z lo deshace)"
+msgstr "Fixed (Cmd+Z undoes it)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Corrigiendo la ortografía…"
+msgstr "Fixing the spelling…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "De vacaciones"
 msgstr "On holiday"
 
@@ -6992,6 +7004,10 @@ msgstr ""
 "Write a single short, natural WhatsApp reply to the last message, in the language of the conversation: say they can't answer right now (with what the user said) and, if it fits, that they'll reply later. Don't make up facts, don't promise anything and don't answer specific questions on their behalf. Only the message, without quotes."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el asistente de MyWhatsapp. Mejora el mensaje de WhatsApp que el usuario («Yo») quiere enviar: más claro, natural y bien escrito, en el mismo idioma, con el mismo tono y la misma intención, sin añadir datos ni alargarlo de más. Ten en cuenta la conversación. Responde solo con el mensaje mejorado, sin comillas ni explicaciones."
+msgstr "You are the MyWhatsapp assistant. Improve the WhatsApp message the user (“Me”) wants to send: clearer, natural and well written, in the same language, with the same tone and the same intent, without adding facts or making it much longer. Take the conversation into account. Reply only with the improved message, without quotes or explanations."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
 "Eres el asistente de respuestas de MyWhatsapp. Lees una conversación de WhatsApp y propones respuestas para que el usuario («Yo») las envíe tal cual, en su nombre.\n"
 "\n"
@@ -7000,6 +7016,10 @@ msgstr ""
 "You are MyWhatsapp’s reply assistant. You read a WhatsApp conversation and suggest replies for the user (“Me”) to send as they are, in their name.\n"
 "\n"
 "Write exactly three replies, different from each other, separated by a line containing only “---”. No numbering, no quotes and no explanations. In the language of the conversation and in the style of a WhatsApp message (short, natural, emojis only if they fit). Tone: {0}. Answer whatever was left pending and do not make up details (times, prices, addresses) that are not in the conversation or in what the user wants to say."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el corrector de MyWhatsapp. Corrige solo la ortografía, los acentos, la gramática y la puntuación del mensaje, en su idioma, sin cambiar las palabras, el estilo, el tono ni los emojis. Si no hay nada que corregir, devuélvelo igual. Responde solo con el mensaje corregido, sin comillas ni explicaciones."
+msgstr "You are the MyWhatsapp proofreader. Fix only the spelling, accents, grammar and punctuation of the message, in its language, without changing the words, the style, the tone or the emojis. If there is nothing to fix, return it as is. Reply only with the corrected message, without quotes or explanations."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el traductor de MyWhatsapp. Te dan una lista JSON de mensajes de WhatsApp: tradúcelos al idioma de destino, con naturalidad y el mismo tono (los emojis, igual). Responde solo con JSON, sin nada más: {\"language\": \"el nombre del idioma en que están escritos, dicho en el idioma de destino\", \"items\": [\"la traducción del primero\", \"…\"]}, una traducción por mensaje y en el mismo orden. Si un mensaje ya está en el idioma de destino, déjalo igual. Idioma de destino: {0}."
@@ -7170,6 +7190,16 @@ msgid "Me apunto!"
 msgstr "Count me in!"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Mi mensaje:\n"
+"\n"
+"{0}"
+msgstr ""
+"My message:\n"
+"\n"
+"{0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Modelo de OpenAI:"
 msgstr "OpenAI model:"
 
@@ -7203,7 +7233,7 @@ msgid ""
 "\n"
 "Elija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n"
 "\n"
-"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n"
+"Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n"
 "\n"
 "En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n"
 "\n"
@@ -7221,7 +7251,7 @@ msgstr ""
 "\n"
 "Choose a chat, optionally type what you want to say and the style, and press “Suggest replies”. Claude (Anthropic) or ChatGPT (OpenAI) read that chat's latest messages and suggest three replies. “Send” sends it, “Use” puts it in the draft to tweak it and “Copy” copies it.\n"
 "\n"
-"To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file.\n"
+"To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file. “✨ Improve” suggests your message improved by the AI and “Aa Fix” fixes its spelling (Cmd+Z undoes it).\n"
 "\n"
 "In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it or turns it into a task.\n"
 "\n"
@@ -7254,6 +7284,10 @@ msgstr "WhatsApp Desktop was not found on this computer. Connect WhatsApp (File 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "No encuentro curl"
 msgstr "curl not found"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No había nada que corregir"
+msgstr "There was nothing to fix"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No hay conexión con WhatsApp"
@@ -7390,6 +7424,10 @@ msgstr "About you, so the replies fit (optional; for example: “I run a furnitu
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sticker"
 msgstr "Sticker"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Su mensaje, mejorado: «Enviar» o «Usar»"
+msgstr "Your message, improved: “Send” or “Use”"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sábado, por favor 🙌 Calle Mayor 12. Avisadme un poco antes de llegar."
@@ -7614,6 +7652,10 @@ msgid "árabe"
 msgstr "Arabic"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Mejorar"
+msgstr "✨ Improve"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Que conteste la IA (este texto es su instrucción)"
 msgstr "✨ Let the AI reply (this text is its instruction)"
 
@@ -7624,6 +7666,10 @@ msgstr "✨ Suggest replies"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ {0} está escribiendo tres respuestas…"
 msgstr "✨ {0} is writing three replies…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ {0} está mejorando su mensaje…"
+msgstr "✨ {0} is improving your message…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "⬇ Descargar"

@@ -81,10 +81,13 @@ std::string lower(std::string s) {
   for (auto& c : s) c = (char)std::tolower((unsigned char)c);
   return s;
 }
+// Para medir intervalos (avisos, cada cuántos segundos): no es la fecha.
 double now_s() {
   using namespace std::chrono;
   return duration<double>(steady_clock::now().time_since_epoch()).count();
 }
+// La fecha y hora de verdad (segundos Unix): para comparar con los mensajes.
+long long wall_s() { return (long long)std::time(nullptr); }
 std::string clock_time(long long t) {
   if (t <= 0) return "";
   time_t tt = (time_t)t;
@@ -1997,7 +2000,7 @@ public:
   bool passes(const Chat& c, int m) const {
     if (m == F_ARCHIVED) return c.archived;
     if (c.archived) return false;
-    long long t = now ? now : (long long)now_s();
+    long long t = now ? now : wall_s();
     if (m == F_TASKS) return tasks && oldest_task(*tasks, c.jid) != 0;
     if (m == F_TODO) return !c.last_mine && c.last_t >= t - 3 * 86400;   // me escribieron (3 días) y no contesté
     if (m == F_WAITING) return c.last_mine;                                // escribí yo y no contestaron
@@ -2139,7 +2142,7 @@ public:
         int dot = 0;
         if (tasks)
           if (long long since = oldest_task(*tasks, c.jid)) {
-            fl_color(rgb(task_age_color(since, now ? now : (long long)now_s())));
+            fl_color(rgb(task_age_color(since, now ? now : wall_s())));
             fl_pie(x() + w() - 12 - tw - 16, Y + 15, 10, 10, 0, 360);
             dot = 16;
           }
@@ -2455,7 +2458,7 @@ public:
         int sx = x() + 66;
         if (!t.done) {
           // La bolita: cuánto lleva esperando.
-          fl_color(rgb(task_age_color(t.created, now ? now : (long long)now_s())));
+          fl_color(rgb(task_age_color(t.created, now ? now : wall_s())));
           fl_pie(sx, Y + 35, 10, 10, 0, 360);
           sx += 16;
         }
@@ -2702,7 +2705,7 @@ public:
     std::string ph = phone_of(chat->jid);
     // Debajo: el teléfono (o «Grupo») y la bandera y la hora de cada país.
     std::string sub = chat->group ? std::string(tx::GROUP) : (ph.empty() ? "" : "+" + ph);
-    long long t_now = now ? now : (long long)now_s();
+    long long t_now = now ? now : wall_s();
     for (const Country* k : chat_countries(*chat)) {
       std::string tm = time_in(k->tz, t_now);
       sub += (sub.empty() ? "" : "   ·   ") + flag_of(k->iso) + (tm.empty() ? "" : " " + fmt(tx::LOCAL_TIME, {tm}));
@@ -3271,6 +3274,15 @@ int selftest() {
         }
       }
     std::printf("grupos: %d · con nombre: %d · sin nombre: %d · codificados: %d\n", groups, named, empty, coded);
+    {
+      std::vector<Chat> fresh;
+      load_chats(db_path(), fresh, e);
+      ChatList l(0, 0, 10, 10);
+      l.chats = &fresh;
+      std::printf("por responder (icono): %d · filtro: %d · sin respuesta: %d · archivados: %d\n",
+                  (int)to_answer(fresh, wall_s()).size(), l.count(ChatList::F_TODO), l.count(ChatList::F_WAITING),
+                  l.count(ChatList::F_ARCHIVED));
+    }
     // Y lo que trajo el puente (DMS_MYWA_REALSTORE=mensajes.jsonl): cuántos se juntan sin repetirse.
     if (const char* sp = fl_getenv("DMS_MYWA_REALSTORE")) {
       LiveStore st;
@@ -3345,6 +3357,20 @@ int selftest() {
     }
     auto ks = chat_countries(g);
     chk(ks.size() == 2 && std::string(ks[0]->iso) == "AR" && std::string(ks[1]->iso) == "ES", "los países de un grupo");
+  }
+  // La fecha de verdad (no la hora desde el arranque): lo que compara con los mensajes.
+  chk(wall_s() > 1700000000LL, "la fecha de verdad");
+  {
+    std::vector<Chat> cs(2);
+    cs[0].last_t = wall_s() - 10 * 86400;   // hace 10 días: no está por responder
+    cs[1].last_t = wall_s() - 3600;         // hace una hora: sí
+    auto ta = to_answer(cs, wall_s());
+    chk(ta.size() == 1 && ta[0] == 1, "por responder: con la fecha de verdad");
+    ChatList l(0, 0, 10, 10);
+    l.chats = &cs;
+    l.now = 0;   // como en la app: la hora de verdad
+    chk(l.count(ChatList::F_TODO) == 1, "el filtro «por responder» con la hora de verdad");
+    chk(time_in("Europe/Madrid", wall_s()).size() == 5, "la hora local, de ahora");
   }
   // La barra: los chats por responder, del más reciente al más antiguo.
   {
@@ -3595,6 +3621,10 @@ struct TransDone {   // lo recibido, traducido
   std::string jid, language, error;
   std::vector<std::string> keys, items;
 };
+struct DraftDone {   // lo que escribo, mejorado o corregido por la IA
+  bool fix;
+  std::string original, text, error;
+};
 struct BusyDone {   // la respuesta automática que escribió la IA
   std::string jid, text, fallback, error;
 };
@@ -3745,6 +3775,14 @@ public:
       f->open_find();
       return 1;
     }
+    // Cmd+Z justo después de «Corregir»: vuelve lo que había escrito.
+    if (f && e == FL_KEYBOARD && (Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'z' && Fl::focus() == f->Draft &&
+        !f->undo_draft.empty() && f->fixed_draft == f->Draft->value()) {
+      f->Draft->value(f->undo_draft.c_str());
+      f->undo_draft.clear();
+      f->fixed_draft.clear();
+      return 1;
+    }
     if (f && e == FL_KEYBOARD && Fl::event_key() == FL_Escape && !f->view->viewer.empty()) {
       f->viewer_act(32);
       return 1;
@@ -3818,8 +3856,10 @@ public:
     Menu1->textcolor(text);
     BtnSuggest->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
     BtnSend->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
-    BtnAttach->color(input);
-    BtnAttach->labelcolor(text);
+    for (Fl_Widget* b : {(Fl_Widget*)BtnAttach, (Fl_Widget*)BtnImprove, (Fl_Widget*)BtnFix}) {
+      b->color(input);
+      b->labelcolor(text);
+    }
     Status->color(panel);
     Status->labelcolor(muted);
     redraw();
@@ -4066,6 +4106,15 @@ public:
   void load_tasks() {
     std::string text;
     if (wa::read_file(tasks_file(), text)) tasks = wa::tasks_parse(text);
+    // Las de la 1.0.102 a la 1.0.110 se guardaron con la hora desde el arranque del
+    // equipo (no la fecha): se les pone la de ahora.
+    bool fixed = false;
+    for (auto& t : tasks)
+      if (t.created > 0 && t.created < 1000000000LL) {
+        t.created = wa::wall_s();
+        fixed = true;
+      }
+    if (fixed) save_tasks();
   }
   void save_tasks() {
     list->tasks_pending = wa::tasks_pending(tasks);
@@ -4093,7 +4142,7 @@ public:
     for (const auto& x : tasks) top = std::max(top, x.id);
     t.id = top + 1;
     t.title = title;
-    t.created = (long long)wa::now_s();
+    t.created = wa::wall_s();
     if (from >= 0 && from < (int)chats.size()) {
       t.jid = chats[(size_t)from].jid;
       t.chat = chats[(size_t)from].name;
@@ -4117,7 +4166,7 @@ public:
   // ---- la barra de menús: cuántos esperan respuesta y el menú con ellos
   // Etiquetas: 1 abrir la ventana, 2 salir, 100 + n: el chat n del menú.
   std::vector<wa::BarEntry> bar_entries(int& waiting) {
-    long long t = view->now ? view->now : (long long)wa::now_s();
+    long long t = view->now ? view->now : wa::wall_s();
     std::vector<int> ids = wa::to_answer(chats, t);
     waiting = (int)ids.size();
     std::vector<wa::BarEntry> out;
@@ -4225,6 +4274,7 @@ public:
     bool found = false;
     for (const auto& m : busy_modes) found = found || m.name == busy;
     if (!found) busy.clear();
+    if (busy_since > 0 && busy_since < 1000000000LL) busy_since = wa::wall_s();   // la misma hora mal guardada
   }
   void save_busy() {
     if (demo) return;
@@ -4244,7 +4294,7 @@ public:
   }
   void set_busy(const std::string& name) {
     busy = name;
-    busy_since = name.empty() ? 0 : (long long)wa::now_s();
+    busy_since = name.empty() ? 0 : wa::wall_s();
     busy_done.clear();
     save_busy();
     if (!name.empty() && send_mode == wa::S_NONE && !demo) say(tx::BUSY_NEEDS_SEND);
@@ -4845,7 +4895,7 @@ public:
       m.id = d->id;
       m.mine = true;
       m.text = d->text;
-      m.t = (long long)wa::now_s();
+      m.t = wa::wall_s();
       if (!d->file.empty()) {
         m.kind = wa::file_kind(d->file);
         m.media = d->file;
@@ -4971,7 +5021,75 @@ public:
     refresh();
   }
 
+  // ---- la IA con lo que escribo: mejorarlo (una propuesta) o corregirlo (en el borrador)
+  std::string undo_draft, fixed_draft;   // para Cmd+Z tras corregir
+  void draft_ai(bool fix) {
+    std::string text = wa::trim(Draft->value());
+    if (text.empty()) {
+      say(tx::EMPTY_DRAFT);
+      return;
+    }
+    if (thinking) return;
+    if (!demo && !ai_ready()) return;
+    std::string sys = fix ? tx::PROMPT_FIX : tx::PROMPT_IMPROVE;
+    std::string usr = wa::fmt(tx::PROMPT_MY_DRAFT, {text});
+    if (!fix && current >= 0) usr = wa::user_prompt(chats[(size_t)current], "") + "\n\n" + usr;
+    if (!fix && !wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    thinking = true;
+    options.clear();
+    view->busy = fix ? std::string(tx::FIXING)
+                     : wa::fmt(tx::IMPROVING, {ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE});
+    refresh();
+    if (demo) return;
+    wa::AiSettings s = ai;
+    std::thread([s, sys, usr, text, fix] {
+      wa::AiText r = wa::ai_ask(s, sys, usr);
+      Fl::awake(draft_done, new DraftDone{fix, text, wa::trim(r.text), r.error});
+    }).detach();
+  }
+  static void draft_done(void* p) {
+    std::unique_ptr<DraftDone> d(static_cast<DraftDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    f->thinking = false;
+    f->view->busy.clear();
+    std::string t = d->text;
+    if (t.size() >= 2 && t.front() == '"' && t.back() == '"') t = t.substr(1, t.size() - 2);
+    if (!d->error.empty() || t.empty()) {
+      f->say(d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    } else if (d->fix) {
+      if (t == d->original) f->say(tx::FIX_SAME);
+      else {
+        f->undo_draft = d->original;
+        f->fixed_draft = t;
+        f->Draft->value(t.c_str());
+        f->say(tx::FIXED);
+      }
+    } else {
+      f->options = {t};   // como una respuesta propuesta: «Enviar», «Usar» o «Copiar»
+      f->say(tx::IMPROVED);
+    }
+    f->refresh();
+  }
+  // La clave y, la primera vez, el aviso de qué se manda a la IA.
+  bool ai_ready() {
+    std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
+    if (key.empty()) {
+      settings_dialog();
+      if (key.empty()) return false;
+    }
+    if (!warned) {
+      std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
+      if (!fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY, {who}).c_str())) return false;
+      warned = true;
+      save_settings();
+    }
+    return true;
+  }
+
   // ---- eventos del diseño
+  void BtnImprove_click() override { draft_ai(false); }
+  void BtnFix_click() override { draft_ai(true); }
   void BtnSend_click() override { send_draft(""); }
   void BtnAttach_click() override { attach_file(); }
   void BtnSuggest_click() override { ask_ai(); }
@@ -5362,6 +5480,32 @@ public:
         io = io.empty() ? "Tarea nueva" : io;
         return true;
       };
+    }
+    // La IA con lo que escribo: mejorar (una propuesta) y corregir (con Cmd+Z).
+    {
+      pick(0);
+      Draft->value("");
+      BtnImprove_click();
+      chk(message == tx::EMPTY_DRAFT && !thinking, "mejorar sin texto avisa");
+      Draft->value("ola, mañana bamos");
+      BtnImprove_click();
+      chk(thinking && view->busy.find("✨") != std::string::npos, "mejorando");
+      draft_done(new DraftDone{false, "ola, mañana bamos", "¡Hola! Mañana vamos.", ""});
+      chk(!thinking && options.size() == 1 && options[0] == "¡Hola! Mañana vamos." && std::string(Draft->value()) == "ola, mañana bamos",
+          "mejorar: una propuesta, sin tocar el borrador");
+      options.clear();
+      BtnFix_click();
+      draft_done(new DraftDone{true, "ola, mañana bamos", "Hola, mañana vamos", ""});
+      chk(std::string(Draft->value()) == "Hola, mañana vamos" && message == tx::FIXED, "corregir en el borrador");
+      Fl::focus(Draft);
+      Fl::e_state = FL_COMMAND;
+      Fl::e_keysym = 'z';
+      dispatch(FL_KEYBOARD, this);
+      Fl::e_state = 0;
+      chk(std::string(Draft->value()) == "ola, mañana bamos", "Cmd+Z deshace la corrección");
+      draft_done(new DraftDone{true, "x", "x", ""});
+      chk(message == tx::FIX_SAME, "nada que corregir");
+      Draft->value("");
     }
     // El visor: la foto en grande, descargarla y cerrarlo.
     {

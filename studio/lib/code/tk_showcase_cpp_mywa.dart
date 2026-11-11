@@ -41,7 +41,7 @@ TkExample tkCppMywa(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo.\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nAl cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n\nModo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo. «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia o lo convierte en tarea.\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nAl cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n\nModo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -232,6 +232,22 @@ TkExample tkCppMywa(String Function(String) t) {
     'BUSY_HOLIDAY': t(markTr('De vacaciones')),
     'BUSY_HOLIDAY_TEXT': t(markTr('Estoy de vacaciones; si es urgente, llámame 🌴')),
     'BUSY_KIND_FIXED': t(markTr('Contestar con este mensaje, tal cual')),
+    'IMPROVING': t(markTr('✨ {0} está mejorando su mensaje…')),
+    'FIXING': t(markTr('Corrigiendo la ortografía…')),
+    'IMPROVED': t(markTr('Su mensaje, mejorado: «Enviar» o «Usar»')),
+    'FIXED': t(markTr('Corregido (Cmd+Z lo deshace)')),
+    'FIX_SAME': t(markTr('No había nada que corregir')),
+    'PROMPT_IMPROVE': t(
+      markTr(
+        'Eres el asistente de MyWhatsapp. Mejora el mensaje de WhatsApp que el usuario («Yo») quiere enviar: más claro, natural y bien escrito, en el mismo idioma, con el mismo tono y la misma intención, sin añadir datos ni alargarlo de más. Ten en cuenta la conversación. Responde solo con el mensaje mejorado, sin comillas ni explicaciones.',
+      ),
+    ),
+    'PROMPT_FIX': t(
+      markTr(
+        'Eres el corrector de MyWhatsapp. Corrige solo la ortografía, los acentos, la gramática y la puntuación del mensaje, en su idioma, sin cambiar las palabras, el estilo, el tono ni los emojis. Si no hay nada que corregir, devuélvelo igual. Responde solo con el mensaje corregido, sin comillas ni explicaciones.',
+      ),
+    ),
+    'PROMPT_MY_DRAFT': t(markTr('Mi mensaje:\n\n{0}')),
     'BUSY_KIND_AI': t(markTr('✨ Que conteste la IA (este texto es su instrucción)')),
     'PRIVACY_BUSY_AI': t(
       markTr(
@@ -425,8 +441,29 @@ TkExample tkCppMywa(String Function(String) t) {
             {'font_size': 13},
             {'enter_key': 'Intent_enter'},
           )..parent = 'AiBar',
-          _w('Text', 'Draft', 12, 90, 686, 76, {'font_size': 14})
+          _w('Text', 'Draft', 12, 90, 586, 76, {'font_size': 14})
             ..parent = 'AiBar',
+          // La IA con lo que escribo: mejorarlo o corregir la ortografía.
+          _w(
+            'Button',
+            'BtnImprove',
+            606,
+            90,
+            94,
+            36,
+            {'text': t(markTr('✨ Mejorar')), 'font_size': 13},
+            {'command': 'BtnImprove_click'},
+          )..parent = 'AiBar',
+          _w(
+            'Button',
+            'BtnFix',
+            606,
+            130,
+            94,
+            36,
+            {'text': t(markTr('Aa Corregir')), 'font_size': 13},
+            {'command': 'BtnFix_click'},
+          )..parent = 'AiBar',
           // Enter en el borrador también envía (Mayúsculas+Enter: otra línea).
           _w(
             'Button',

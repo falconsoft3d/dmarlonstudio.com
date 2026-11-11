@@ -85,6 +85,8 @@ Hechos
 111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ✅ |
 115. MyWhatsapp: respuestas automáticas con IA: un modo ocupado que contesta con la IA según la conversación (no un texto fijo) | ✅ |
+116. MyWhatsapp: botón «✨ Mejorar» junto al borrador: la IA mejora y corrige lo que escribo | ✅ |
+98. MyWhatsapp: corrección ortográfica con IA | ✅ |
 
 Trabajando
 =========
@@ -107,7 +109,6 @@ Pendiente
 95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ⏳ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
 97. MyWhatsapp: plantillas de mensajes para enviar | ⏳ |
-98. MyWhatsapp: corrección ortográfica con IA | ⏳ |
 99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ⏳ |
 100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
@@ -117,4 +118,3 @@ Pendiente
 105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
 114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |
-116. MyWhatsapp: botón «✨ Mejorar» junto al borrador: la IA mejora y corrige lo que escribo | ⏳ |

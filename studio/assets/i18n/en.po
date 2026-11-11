@@ -6852,6 +6852,10 @@ msgid "Como el sistema"
 msgstr "Like the system"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Con este modo, cuando le escriban, los últimos mensajes de ese chat se envían a {0} para escribir la respuesta. ¿Continuar?"
+msgstr "With this mode, when someone writes to you, that chat's latest messages are sent to {0} to write the reply. Continue?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Con tareas"
 msgstr "With tasks"
 
@@ -6870,6 +6874,10 @@ msgstr "Connect WhatsApp to send…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Confirmar a Laura la entrega del sábado"
 msgstr "Confirm Saturday's delivery with Laura"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Contestar con este mensaje, tal cual"
+msgstr "Reply with this message, as is"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Continuar"
@@ -6972,6 +6980,16 @@ msgstr "Sending…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Enviar ➤"
 msgstr "Send ➤"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Eres el asistente de MyWhatsapp y contestas solo, en nombre del usuario («Yo»), porque ahora no puede atender. Lo que el usuario quiere que sepan: {0}\n"
+"\n"
+"Escribe una sola respuesta breve y natural de WhatsApp al último mensaje, en el idioma de la conversación: di que ahora no puede contestar (con lo que indicó el usuario) y, si viene al caso, que responderá luego. No inventes datos, no prometas nada ni contestes preguntas concretas en su nombre. Solo el mensaje, sin comillas."
+msgstr ""
+"You are the MyWhatsapp assistant and you reply automatically, on behalf of the user (“Me”), because they can't answer right now. What the user wants people to know: {0}\n"
+"\n"
+"Write a single short, natural WhatsApp reply to the last message, in the language of the conversation: say they can't answer right now (with what the user said) and, if it fits, that they'll reply later. Don't make up facts, don't promise anything and don't answer specific questions on their behalf. Only the message, without quotes."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
@@ -7193,7 +7211,7 @@ msgid ""
 "\n"
 "Al cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n"
 "\n"
-"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
@@ -7211,7 +7229,7 @@ msgstr ""
 "\n"
 "When you close the window, MyWhatsapp stays in the menu bar, with how many chats are waiting for a reply (someone wrote in the last 3 days and you didn't answer) and a menu with them; also in File › Hide in the menu bar.\n"
 "\n"
-"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once.\n"
+"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
@@ -7594,6 +7612,10 @@ msgstr "Which suits you better? And please confirm the address"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "árabe"
 msgstr "Arabic"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Que conteste la IA (este texto es su instrucción)"
+msgstr "✨ Let the AI reply (this text is its instruction)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Sugerir respuestas"

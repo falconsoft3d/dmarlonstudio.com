@@ -1450,10 +1450,12 @@ std::string task_title_of(const Msg& m) {
 // ---- los modos ocupado: un nombre y el mensaje que se contesta solo.
 struct BusyMode {
   std::string name, text;
+  bool ai = false;   // true: contesta la IA según la conversación y [text] es su instrucción
 };
 std::string busy_text(const std::vector<BusyMode>& ms) {
   std::string out;
-  for (const auto& m : ms) out += "{\"name\":" + jstr(m.name) + ",\"text\":" + jstr(m.text) + "}\n";
+  for (const auto& m : ms)
+    out += "{\"name\":" + jstr(m.name) + ",\"text\":" + jstr(m.text) + ",\"ai\":" + (m.ai ? "true" : "false") + "}\n";
   return out;
 }
 std::vector<BusyMode> busy_parse(const std::string& text) {
@@ -1461,7 +1463,7 @@ std::vector<BusyMode> busy_parse(const std::string& text) {
   for (const auto& l : split(text, '\n')) {
     bool ok = false;
     Json j = parse_json(l, &ok);
-    if (ok && !j["name"].str().empty()) out.push_back({j["name"].str(), j["text"].str()});
+    if (ok && !j["name"].str().empty()) out.push_back({j["name"].str(), j["text"].str(), j["ai"].b});
   }
   return out;
 }
@@ -3166,6 +3168,9 @@ int selftest() {
     bool ok_tr = tr.error.empty() && parse_translation(tr.text, 2, lang, items);
     std::printf("traducción: %s %s\n", ok_tr ? lang.c_str() : "", tr.error.c_str());
     chk(ok_tr && items.size() == 2, "traducción de verdad (servidor de prueba)");
+    AiText auto_reply = ai_ask(s, fmt(tx::PROMPT_BUSY_AI, {"En una reunión"}), user_prompt(demo[0], ""));
+    std::printf("respuesta automática: %d letras %s\n", (int)auto_reply.text.size(), auto_reply.error.c_str());
+    chk(auto_reply.error.empty() && !auto_reply.text.empty(), "respuesta automática con IA (servidor de prueba)");
   }
   // Enviar con la API oficial: los cuerpos y las respuestas.
   b = parse_json(cloud_text_body("34600111222", "Hola \"tú\""), &ok);
@@ -3356,9 +3361,11 @@ int selftest() {
   }
   // Los modos ocupado: guardar y leer, y a quién contestar.
   {
-    std::vector<BusyMode> ms = {{"Reunión", "Estoy en una \"reunión\""}, {"Coche", "Conduciendo"}};
+    std::vector<BusyMode> ms = {{"Reunión", "Estoy en una \"reunión\"", false}, {"Coche", "Conduciendo", true}};
     auto back = busy_parse(busy_text(ms) + "roto\n");
-    chk(back.size() == 2 && back[0].text == ms[0].text && back[1].name == "Coche", "modos ocupado: guardar y leer");
+    chk(back.size() == 2 && back[0].text == ms[0].text && back[1].name == "Coche" && !back[0].ai && back[1].ai,
+        "modos ocupado: guardar y leer (también si contesta la IA)");
+    chk(fmt(tx::PROMPT_BUSY_AI, {"Hasta las 18:00"}).find("Hasta las 18:00") != std::string::npos, "la instrucción del modo, en el mensaje a la IA");
     std::vector<Chat> cs(5);
     cs[0].jid = "1@s.whatsapp.net";
     cs[0].last_t = 200;   // me escribió después: sí
@@ -3587,6 +3594,9 @@ struct SendDone {
 struct TransDone {   // lo recibido, traducido
   std::string jid, language, error;
   std::vector<std::string> keys, items;
+};
+struct BusyDone {   // la respuesta automática que escribió la IA
+  std::string jid, text, fallback, error;
 };
 struct OutDone {   // lo que escribí, traducido para enviarlo
   std::string jid, original, translated, file, error;
@@ -4243,7 +4253,7 @@ public:
   // El menú: activar un modo, crear, editar o borrar uno, o desactivarlo.
   void busy_menu() {
     std::vector<std::string> items;
-    for (const auto& m : busy_modes) items.push_back((m.name == busy ? "✓ " : "    ") + m.name);
+    for (const auto& m : busy_modes) items.push_back((m.name == busy ? "✓ " : "    ") + m.name + (m.ai ? "  ✨" : ""));
     size_t n = busy_modes.size();
     items.push_back(tx::BUSY_NEW);
     items.push_back(tx::BUSY_EDIT);
@@ -4257,7 +4267,10 @@ public:
       std::string name, text;
       if (!ask_text(tx::BUSY_ASK_NAME, name) || wa::trim(name).empty()) return;
       if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
-      busy_modes.push_back({wa::trim(name), wa::trim(text)});
+      int kind = choose({tx::BUSY_KIND_FIXED, tx::BUSY_KIND_AI});
+      if (kind < 0) return;
+      if (kind == 1 && !ai_allowed()) return;
+      busy_modes.push_back({wa::trim(name), wa::trim(text), kind == 1});
       set_busy(wa::trim(name));
     } else if (r == (int)n + 1 || r == (int)n + 2) {   // editar o borrar: cuál
       std::vector<std::string> names;
@@ -4267,7 +4280,11 @@ public:
       if (r == (int)n + 1) {
         std::string text = busy_modes[(size_t)k].text;
         if (!ask_text(tx::BUSY_ASK_TEXT, text) || wa::trim(text).empty()) return;
+        int kind = choose({tx::BUSY_KIND_FIXED, tx::BUSY_KIND_AI});
+        if (kind < 0) return;
+        if (kind == 1 && !busy_modes[(size_t)k].ai && !ai_allowed()) return;
         busy_modes[(size_t)k].text = wa::trim(text);
+        busy_modes[(size_t)k].ai = kind == 1;
         save_busy();
       } else {
         if (busy_modes[(size_t)k].name == busy) busy.clear();
@@ -4286,11 +4303,54 @@ public:
     if (send_mode == wa::S_LINKED && !linked) return;
     bool any = false;
     for (int i : wa::busy_targets(chats, busy_since, busy_done)) {
-      busy_done[chats[(size_t)i].jid] = true;   // y se guarda: al volver a abrir la app no se repite
-      deliver(chats[(size_t)i].jid, m->text, "", "");
+      wa::Chat c = chats[(size_t)i];
+      busy_done[c.jid] = true;   // y se guarda: al volver a abrir la app no se repite
       any = true;
+      std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
+      if (!m->ai || key.empty()) {
+        deliver(c.jid, m->text, "", "");
+        continue;
+      }
+      // Con IA: lee los últimos mensajes de ese chat y escribe la respuesta en otro hilo.
+      if (c.id > 0 && from_db && !demo) {
+        std::string error;
+        wa::load_messages(wa::db_path(), c, 30, error);
+      }
+      auto it = store.chats.find(c.jid);
+      if (it != store.chats.end()) wa::merge_msgs(c.msgs, it->second.msgs);
+      wa::AiSettings s = ai;
+      std::string sys = busy_ai_system(m->text), usr = wa::user_prompt(c, ""), fallback = m->text, jid = c.jid;
+      std::thread([s, sys, usr, fallback, jid] {
+        wa::AiText r = wa::ai_ask(s, sys, usr);
+        Fl::awake(busy_ai_done, new BusyDone{jid, wa::trim(r.text), fallback, r.error});
+      }).detach();
     }
     if (any) save_settings();
+  }
+  std::string busy_ai_system(const std::string& instruction) const {
+    std::string sys = wa::fmt(tx::PROMPT_BUSY_AI, {instruction});
+    if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    return sys;
+  }
+  // Si la IA falla, se envía el texto del modo tal cual (que nadie se quede sin respuesta).
+  static void busy_ai_done(void* p) {
+    std::unique_ptr<BusyDone> d(static_cast<BusyDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    std::string text = d->error.empty() && !d->text.empty() ? d->text : d->fallback;
+    if (text.size() >= 2 && text.front() == '"' && text.back() == '"') text = text.substr(1, text.size() - 2);
+    f->deliver(d->jid, text, "", "");
+  }
+  // La primera vez que se manda algo a la IA: la clave y el aviso.
+  bool ai_allowed() {
+    if (demo) return true;
+    std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
+    if (key.empty()) {
+      settings_dialog();
+      if (key.empty()) return false;
+    }
+    std::string who = ai.provider == wa::P_OPENAI ? tx::P_OPENAI : tx::P_CLAUDE;
+    return fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, wa::fmt(tx::PRIVACY_BUSY_AI, {who}).c_str()) == 1;
   }
 
   // ---- traducir
@@ -5274,15 +5334,20 @@ public:
         io = answers[ai_n++ % answers.size()];
         return true;
       };
-      choose = [n](const std::vector<std::string>&) { return (int)n; };   // «+ Nuevo modo…»
+      int pickn = 0;
+      choose = [&pickn, n](const std::vector<std::string>&) { return pickn++ == 0 ? (int)n : 0; };   // «+ Nuevo modo…» → texto fijo
       busy_menu();
-      chk(busy_modes.size() == n + 1 && busy == "Gimnasio" && busy_modes.back().text == answers[1], "crear un modo y activarlo");
+      chk(busy_modes.size() == n + 1 && busy == "Gimnasio" && busy_modes.back().text == answers[1] && !busy_modes.back().ai,
+          "crear un modo y activarlo");
       int step = 0;
-      choose = [&step, n](const std::vector<std::string>&) { return step++ == 0 ? (int)n + 2 : (int)n; };   // «Editar…» → el nuevo
+      choose = [&step, n](const std::vector<std::string>&) {
+        int k = step++;
+        return k == 0 ? (int)n + 2 : k == 1 ? (int)n : 1;   // «Editar…» → el nuevo → «✨ Que conteste la IA»
+      };
       answers = {"Entrenando ahora"};
       ai_n = 0;
       busy_menu();
-      chk(busy_modes.back().text == "Entrenando ahora", "editar un modo");
+      chk(busy_modes.back().text == "Entrenando ahora" && busy_modes.back().ai, "editar un modo (y que conteste la IA)");
       step = 0;
       choose = [&step, n](const std::vector<std::string>&) { return step++ == 0 ? (int)n + 3 : (int)n; };   // «Borrar…» → el nuevo
       busy_menu();
@@ -5525,6 +5590,16 @@ public:
       busy_reply();
       chk(busy_done.count("34677000000@s.whatsapp.net") && pending.size() == sent_before + 1,
           "modo ocupado: contesta solo, una vez, por el puente");
+      // Un modo con IA, sin clave: se envía su texto tal cual.
+      busy_modes.push_back({"IA", "En una reunión hasta las 18:00", true});
+      busy = "IA";
+      busy_done.clear();
+      std::string keep_key = ai.claude_key;
+      ai.claude_key.clear();
+      busy_reply();
+      chk(pending.size() == sent_before + 2, "modo con IA sin clave: el texto del modo");
+      ai.claude_key = keep_key;
+      busy_modes.pop_back();
       busy.clear();
       busy_since = 0;
       Fl::e_state = FL_SHIFT;

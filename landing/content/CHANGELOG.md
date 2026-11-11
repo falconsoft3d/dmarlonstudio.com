@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.110 — 2026-11-11
+
+- **MyWhatsapp: respuestas automáticas con IA.** Al crear o editar un modo ocupado se elige cómo contesta: «Contestar con este mensaje, tal cual» o «✨ Que conteste la IA». Con IA, el texto del modo es su instrucción (por ejemplo «En una reunión hasta las 18:00»): cuando alguien le escribe en privado, la IA elegida (Claude o ChatGPT) lee los últimos mensajes de ese chat y escribe una respuesta breve y natural, en el idioma de la conversación, sin inventar datos ni prometer nada en su nombre; se envía una vez por persona, como los demás. Si la IA falla o no hay clave, se envía el texto del modo tal cual, para que nadie se quede sin respuesta. Al elegirlo, avisa de que esos mensajes se envían a la IA. En el menú, los modos con IA llevan ✨.
+- Probado: guardar y leer los modos con IA, crear uno y pasarlo a IA desde el menú, la respuesta sin clave (sale el texto del modo por el puente de prueba) y una respuesta automática de verdad contra un servidor de prueba de Claude.
+
 ## 1.0.109 — 2026-11-11
 
 - **MyWhatsapp en la barra de menús, con cuántos chats esperan respuesta.** Arriba, en la barra de menús de macOS, MyWhatsapp enseña su icono y el número de chats por responder (le escribieron en los últimos 3 días y el último mensaje no es suyo; sin los archivados). Su menú los lista, del más reciente al más antiguo, con el nombre, el último mensaje y la hora: uno abre MyWhatsapp en ese chat. Al cerrar la ventana (o con Archivo › Esconder en la barra de menús), la app no se cierra: sale del Dock y sigue en la barra, con el puente conectado y el modo ocupado contestando. «Abrir MyWhatsapp» la vuelve a enseñar y «Salir de MyWhatsapp» la cierra de verdad. Está hecho en C++ con el runtime de Objective-C (NSStatusItem, como el monitor de sitios web); el menú solo se rehace cuando cambia algo.

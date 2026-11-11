@@ -6769,6 +6769,10 @@ msgid "Como el sistema"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Con este modo, cuando le escriban, los últimos mensajes de ese chat se envían a {0} para escribir la respuesta. ¿Continuar?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Con tareas"
 msgstr ""
 
@@ -6786,6 +6790,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Confirmar a Laura la entrega del sábado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Contestar con este mensaje, tal cual"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6885,6 +6893,13 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Enviar ➤"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"Eres el asistente de MyWhatsapp y contestas solo, en nombre del usuario («Yo»), porque ahora no puede atender. Lo que el usuario quiere que sepan: {0}\n"
+"\n"
+"Escribe una sola respuesta breve y natural de WhatsApp al último mensaje, en el idioma de la conversación: di que ahora no puede contestar (con lo que indicó el usuario) y, si viene al caso, que responderá luego. No inventes datos, no prometas nada ni contestes preguntas concretas en su nombre. Solo el mensaje, sin comillas."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7104,7 +7119,7 @@ msgid ""
 "\n"
 "Al cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n"
 "\n"
-"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez.\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
@@ -7482,6 +7497,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "árabe"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Que conteste la IA (este texto es su instrucción)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

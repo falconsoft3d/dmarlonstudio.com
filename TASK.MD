@@ -84,6 +84,7 @@ Hechos
 112. MyWhatsapp: tocar la foto del contacto (en la cabecera) la abre en grande | ✅ |
 111. MyWhatsapp: modos ocupado (tantos como quiera, cada uno con su mensaje): si uno está activo, a quien me escribe se le contesta solo con ese mensaje | ✅ |
 85. MyWhatsapp: minimizar en la barra de estado con un contador de mensajes sin responder | ✅ |
+115. MyWhatsapp: respuestas automáticas con IA: un modo ocupado que contesta con la IA según la conversación (no un texto fijo) | ✅ |
 
 Trabajando
 =========
@@ -116,5 +117,4 @@ Pendiente
 105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
 113. MyWhatsapp: menú de ajustes generales para elegir los colores de la app | ⏳ |
 114. MyWhatsapp: ficha del contacto como la de Odoo (persona o empresa, dirección, NIF, puesto, teléfonos, correo, web, título, etiquetas, notas) al entrar en el contacto | ⏳ |
-115. MyWhatsapp: respuestas automáticas con IA: un modo ocupado que contesta con la IA según la conversación (no un texto fijo) | ⏳ |
 116. MyWhatsapp: botón «✨ Mejorar» junto al borrador: la IA mejora y corrige lo que escribo | ⏳ |

@@ -1509,7 +1509,7 @@ msgstr "What are you looking for?"
 msgid "Últimos 30 días"
 msgstr "Previous 30 days"
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Activo"
 msgstr "Active"
 
@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.27 — Mensajes automáticos diarios para un contacto (con IA y para revisar).\n"
 "1.0.26 — Las cifras del panel llevan a sus chats; el análisis se desplaza; el modo ocupado, también solo para un contacto.\n"
 "1.0.25 — Panel con las cifras de sus mensajes (por día, por hora, quién más le escribe, lo que tarda en responder) y su análisis con IA.\n"
 "1.0.24 — Etiquetas: las suyas y las de WhatsApp, en la lista, en el chat y como filtro.\n"
@@ -6794,6 +6795,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.27 — Daily automatic messages for a contact (with AI and for review).\n"
 "1.0.26 — The dashboard's figures take you to their chats; the analysis scrolls; busy mode, also just for one contact.\n"
 "1.0.25 — A dashboard with your messages' figures (per day, per hour, who writes most, how long you take to reply) and its AI analysis.\n"
 "1.0.24 — Labels: yours and WhatsApp's, in the list, in the chat and as a filter.\n"
@@ -7134,6 +7136,10 @@ msgid "Corrigiendo la ortografía…"
 msgstr "Fixing the spelling…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "De lunes a viernes"
+msgstr "Monday to Friday"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "De vacaciones"
 msgstr "On holiday"
 
@@ -7168,6 +7174,10 @@ msgstr "Design a WhatsApp status and publish it"
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documento"
 msgstr "Document"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Días"
+msgstr "Days"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Editar el mensaje de un modo…"
@@ -7302,6 +7312,10 @@ msgstr ""
 "You are the MyWhatsapp assistant and you reply automatically, on behalf of the user (“Me”), because they can't answer right now. What the user wants people to know: {0}\n"
 "\n"
 "Write a single short, natural WhatsApp reply to the last message, in the language of the conversation: say they can't answer right now (with what the user said) and, if it fits, that they'll reply later. Don't make up facts, don't promise anything and don't answer specific questions on their behalf. Only the message, without quotes."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el asistente de MyWhatsapp y escribes el mensaje del día que el usuario («Yo») envía a {0}. Lo que quiere decirle: {1}. Hoy es {2}. Escribe un único mensaje de WhatsApp, breve, natural y cálido, distinto de los de otros días, en el idioma de la conversación y teniendo en cuenta lo último que hablaron si viene al caso. No inventes planes, datos ni promesas. Solo el mensaje, sin comillas."
+msgstr "You are the MyWhatsapp assistant and you write today's message that the user (“Me”) sends to {0}. What they want to say: {1}. Today is {2}. Write a single WhatsApp message, short, natural and warm, different from other days', in the language of the conversation and taking into account what they last talked about if it fits. Don't make up plans, facts or promises. Only the message, without quotes."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el asistente de MyWhatsapp. Lees una conversación de WhatsApp entre el usuario («Yo») y {0} y le ayudas a entender a esa persona para tratarla mejor. Con honestidad y respeto, sin diagnosticar, sin etiquetas ni juicios sobre su forma de ser. Responde en {1}, con estas secciones breves: «Cómo es» (tono y forma de comunicarse), «Qué le importa», «Cómo tratarle» (consejos concretos), «Qué evitar» y «Siguiente paso» (uno, sugerido). Máximo 180 palabras. Básate solo en lo que se ve en la conversación; si hay poca información, dilo."
@@ -7442,6 +7456,10 @@ msgid "Ficha guardada"
 msgstr "Card saved"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Fines de semana"
+msgstr "Weekends"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Formal"
 msgstr "Formal"
 
@@ -7488,6 +7506,10 @@ msgstr "Hi {nombre}, I just sent you the quote. Let me know if you have any ques
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Hola! Ya tenemos la mesa de roble que pediste 😊"
 msgstr "Hi! Your oak table has arrived 😊"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Hora (HH:MM)"
+msgstr "Time (HH:MM)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Horario de atención"
@@ -7552,6 +7574,10 @@ msgstr "The conversation and the AI replies are drawn by the code in Form1.cpp"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La hora en que más mensajes recibe: las {0}."
 msgstr "The hour you receive the most messages: {0}:00."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La hora no es válida: escríbala como 08:30"
+msgstr "The time is not valid: write it like 08:30"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La lista de chats la dibuja el código"
@@ -7632,6 +7658,18 @@ msgstr "Brown"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Me apunto!"
 msgstr "Count me in!"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensaje automático desactivado"
+msgstr "Automatic message turned off"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensaje automático para {0}"
+msgstr "Automatic message for {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mensaje automático: cada día a las {0} para {1}"
+msgstr "Automatic message: every day at {0} for {1}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mensajes enviados"
@@ -7725,7 +7763,7 @@ msgid ""
 "\n"
 "Al cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n"
 "\n"
-"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Desde un chat, «⋯ › 🔕 Ocupado con este contacto…» lo activa solo para esa persona. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Desde un chat, «⋯ › 🔕 Ocupado con este contacto…» lo activa solo para esa persona. Y «⋯ › 📅 Mensaje automático…» programa un mensaje diario a esa persona (la hora, los días y qué decirle; la IA puede escribirlo distinto cada día y puede quedarse para revisar antes de enviarse). Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
 "\n"
 "Estados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n"
 "\n"
@@ -7747,7 +7785,7 @@ msgstr ""
 "\n"
 "When you close the window, MyWhatsapp stays in the menu bar, with how many chats are waiting for a reply (someone wrote in the last 3 days and you didn't answer) and a menu with them; also in File › Hide in the menu bar.\n"
 "\n"
-"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. From a chat, “⋯ › 🔕 Busy with this contact…” turns it on just for that person. If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
+"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. From a chat, “⋯ › 🔕 Busy with this contact…” turns it on just for that person. And “⋯ › 📅 Automatic message…” schedules a daily message to that person (the time, the days and what to say; the AI can write it differently each day and it can wait for your review before sending). If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
 "\n"
 "Statuses: the “🎨 Statuses” row opens a Canva-style designer (templates, title, text, footer, emoji and photo; “✨ With AI” writes it for you). “⬇ Save image” saves it at 1080×1920 and “📤 Publish” posts it as a WhatsApp status (with WhatsApp linked by QR).\n"
 "\n"
@@ -8032,6 +8070,10 @@ msgid "Quién más le escribe"
 msgstr "Who writes to you most"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Qué decirle"
+msgstr "What to say"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Qué quiere decir"
 msgstr "What you want to say"
 
@@ -8062,6 +8104,14 @@ msgstr "Repeat the PIN:"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Responde en (típico; media {0})"
 msgstr "You reply in (typical; average {0})"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Revisar antes de enviar (lo deja como propuesta en el chat)"
+msgstr "Review before sending (leaves it as a suggestion in the chat)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Revisar el mensaje para {0}"
+msgstr "Review the message for {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Rojo"
@@ -8142,6 +8192,10 @@ msgstr "Light theme"
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todos"
 msgstr "All"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Todos los días"
+msgstr "Every day"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Token (vacío: el de ahora)"
@@ -8462,6 +8516,10 @@ msgid "✨ Que conteste la IA (este texto es su instrucción)"
 msgstr "✨ Let the AI reply (this text is its instruction)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Que lo escriba la IA (distinto cada día, según lo que hablamos)"
+msgstr "✨ Let the AI write it (different each day, based on what we talked about)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Sugerir respuestas"
 msgstr "✨ Suggest replies"
 
@@ -8500,6 +8558,18 @@ msgstr "👤 Contact card…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "💼 CRM: añadir o cambiar la etapa…"
 msgstr "💼 CRM: add or change the stage…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📅 El mensaje del día para {0}, listo para revisar"
+msgstr "📅 Today's message for {0}, ready to review"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📅 Enviado el mensaje del día a {0}"
+msgstr "📅 Today's message sent to {0}"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "📅 Mensaje automático…"
+msgstr "📅 Automatic message…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "📊 Panel de sus mensajes"

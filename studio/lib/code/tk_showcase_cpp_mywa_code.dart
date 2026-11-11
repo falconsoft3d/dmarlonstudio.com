@@ -1541,6 +1541,61 @@ BusyFor busy_for_parse(const std::string& s) {
   }
   return bf;
 }
+// Los mensajes automáticos diarios: a quién, a qué hora, qué días y qué decirle.
+struct Daily {
+  std::string jid, time = "09:00", text, last;   // last: el día que se envió (AAAA-MM-DD)
+  int days = 0;                                  // 0 todos, 1 de lunes a viernes, 2 fines de semana
+  bool on = true, ai = true, review = false;
+};
+std::string daily_line(const Daily& d) {
+  return "{\"jid\":" + jstr(d.jid) + ",\"time\":" + jstr(d.time) + ",\"text\":" + jstr(d.text) + ",\"last\":" + jstr(d.last) +
+         ",\"days\":" + std::to_string(d.days) + ",\"on\":" + (d.on ? "true" : "false") + ",\"ai\":" + (d.ai ? "true" : "false") +
+         ",\"review\":" + (d.review ? "true" : "false") + "}";
+}
+std::vector<Daily> dailies_parse(const std::string& text) {
+  std::vector<Daily> out;
+  for (const auto& l : split(text, '\n')) {
+    bool ok = false;
+    Json j = parse_json(l, &ok);
+    if (!ok || j["jid"].str().empty()) continue;
+    Daily d;
+    d.jid = j["jid"].str();
+    d.time = j["time"].str();
+    d.text = j["text"].str();
+    d.last = j["last"].str();
+    d.days = (int)j["days"].n;
+    d.on = j["on"].b;
+    d.ai = j["ai"].b;
+    d.review = j["review"].b;
+    out.push_back(d);
+  }
+  return out;
+}
+// «8:30» → 510 minutos; -1 si no es una hora.
+int daily_minutes(const std::string& t) {
+  int h = -1, m = -1;
+  if (std::sscanf(t.c_str(), "%d:%d", &h, &m) != 2 || h < 0 || h > 23 || m < 0 || m > 59) return -1;
+  return h * 60 + m;
+}
+// ¿Toca enviarlo ahora? [now]: la hora de aquí. Solo en las dos horas siguientes a su hora,
+// un día que toque y si hoy aún no salió (con la app cerrada a su hora, ese día se salta).
+bool daily_due(const Daily& d, const struct tm& now) {
+  int at = daily_minutes(d.time);
+  if (!d.on || at < 0) return false;
+  int wd = now.tm_wday;   // 0 domingo
+  if (d.days == 1 && (wd == 0 || wd == 6)) return false;
+  if (d.days == 2 && wd != 0 && wd != 6) return false;
+  char today[16];
+  std::strftime(today, sizeof today, "%Y-%m-%d", &now);
+  if (d.last == today) return false;
+  int nowm = now.tm_hour * 60 + now.tm_min;
+  return nowm >= at && nowm < at + 120;
+}
+std::string today_of(const struct tm& now) {
+  char b[16];
+  std::strftime(b, sizeof b, "%Y-%m-%d", &now);
+  return b;
+}
 long long live_id(const std::string& jid) {
   return -1000000 - (long long)(std::hash<std::string>{}(jid) % 1000000000ULL);
 }
@@ -3199,6 +3254,7 @@ public:
   bool crm_mode = false;
   std::string chat_stage;
   std::string chat_busy;   // el modo ocupado solo para este contacto ("" si no)
+  std::string chat_daily;  // la hora del mensaje automático diario ("" si no hay)
   std::vector<std::pair<std::string, int>> chat_labels;   // las etiquetas del chat abierto (nombre y color)
   // Acciones: 60 lead nuevo, 61 abrir su chat, 62 etapa anterior, 63 siguiente, 64 borrarlo, 65 la etapa (cabecera).
   void draw_crm() {
@@ -3942,6 +3998,13 @@ public:
     rx -= 8 + (int)fl_width(tx::ADD_TASK) + 20;
     button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     rx -= 8;
+    // El mensaje automático diario (un clic lo cambia).
+    if (!chat_daily.empty()) {
+      std::string dl = "📅 " + chat_daily;
+      rx -= (int)fl_width(dl.c_str()) + 20;
+      button(rx, y() + 17, dl.c_str(), 67, -1, T.dark ? rgb(0x111b21) : FL_WHITE, rgb(0x34b7f1));
+      rx -= 8;
+    }
     // El modo ocupado solo para este contacto (un clic lo cambia o lo quita).
     if (!chat_busy.empty()) {
       std::string bl = "🔕 " + chat_busy;
@@ -4819,6 +4882,38 @@ int selftest() {
 #endif
   chk(minutes_text(0) == "—" && minutes_text(0.5) == "30 s" && minutes_text(14.2) == "14 min" && minutes_text(125) == "2 h 5 min",
       "el panel: los tiempos, para leerlos");
+  // Los mensajes automáticos diarios: guardar y leer, y cuándo tocan.
+  {
+    Daily d;
+    d.jid = "1@s.whatsapp.net";
+    d.time = "08:30";
+    d.text = "Buenos días \"guapa\"";
+    d.days = 1;
+    auto back = dailies_parse(daily_line(d) + "\nroto\n");
+    chk(back.size() == 1 && back[0].text == d.text && back[0].time == "08:30" && back[0].days == 1 && back[0].on && back[0].ai,
+        "mensajes diarios: guardar y leer");
+    struct tm t{};
+    t.tm_year = 126;   // 2026
+    t.tm_mon = 10;
+    t.tm_mday = 11;    // miércoles
+    t.tm_wday = 3;
+    t.tm_hour = 8;
+    t.tm_min = 45;
+    chk(daily_due(d, t), "a las 8:45 de un miércoles: toca");
+    t.tm_hour = 8;
+    t.tm_min = 10;
+    chk(!daily_due(d, t), "antes de su hora: no");
+    t.tm_hour = 11;
+    t.tm_min = 0;
+    chk(!daily_due(d, t), "más de dos horas tarde: ese día se salta");
+    t.tm_hour = 9;
+    t.tm_wday = 6;
+    chk(!daily_due(d, t), "de lunes a viernes: el sábado no");
+    t.tm_wday = 3;
+    d.last = "2026-11-11";
+    chk(!daily_due(d, t), "ya salió hoy: no se repite");
+    chk(daily_minutes("8:05") == 485 && daily_minutes("24:00") == -1 && daily_minutes("hola") == -1, "las horas");
+  }
   // El CRM: guardar y leer los leads, y los importes.
   {
     Lead l;
@@ -5010,7 +5105,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.26";
+const char* const MYWA_VERSION = "1.0.27";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -5356,6 +5451,10 @@ struct DashDone {   // las cifras del panel (calculadas en otro hilo)
 struct DashAiDone {   // el análisis de la IA
   std::string text, error;
 };
+struct DailyDone {   // el mensaje del día que escribió la IA
+  std::string jid, text, fallback, error;
+  bool review;
+};
 struct PersonDone {   // la valoración de una persona por la IA
   std::string jid, text, error;
 };
@@ -5408,6 +5507,9 @@ public:
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
   wa::BusyFor busy_for;   // el modo ocupado solo para algunos contactos
+  // Los mensajes automáticos diarios y los que esperan revisión (jid → texto).
+  std::vector<wa::Daily> dailies;
+  std::map<std::string, std::string> daily_review;
   // El bloqueo con PIN: el resumen guardado, si está bloqueada, tras cuántos minutos
   // sin tocarla se bloquea sola (0: nunca) y cuándo se tocó por última vez.
   wa::LockView* lock_view = nullptr;
@@ -5453,6 +5555,7 @@ public:
   bool in_bar = false, quitting = false;
   std::string bar_sig;
   std::vector<std::string> bar_jids;   // los chats del menú (por su etiqueta)
+  std::vector<std::string> review_jids;   // los mensajes del día para revisar (etiqueta 300 + n)
   Fl_Input* find_input = nullptr;
   // El menú del clic derecho (las pruebas lo cambian): el índice elegido o -1.
   std::function<int(const std::vector<std::string>&)> choose = [](const std::vector<std::string>& items) {
@@ -5633,6 +5736,7 @@ public:
     load_leads();
     load_sheets();
     load_labels();
+    load_dailies();
     reload();
     if (compact) set_compact(true);
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
@@ -5839,6 +5943,12 @@ public:
     msg_limit = 60;
     close_find();
     options.clear();
+    // El mensaje del día para revisar: como una respuesta propuesta.
+    if (daily_review.count(chats[(size_t)i].jid)) {
+      options = {daily_review[chats[(size_t)i].jid]};
+      daily_review.erase(chats[(size_t)i].jid);
+      update_bar();
+    }
     open_messages(i);
     Intent->value("");
     Draft->value("");
@@ -5854,6 +5964,10 @@ public:
     list->tasks_pending = wa::tasks_pending(tasks);
     view->chat_labels.clear();
     view->chat_busy = current >= 0 && busy_for.count(chats[(size_t)current].jid) ? busy_for[chats[(size_t)current].jid].first : "";
+    view->chat_daily.clear();
+    if (current >= 0)
+      for (const auto& d : dailies)
+        if (d.jid == chats[(size_t)current].jid && d.on) view->chat_daily = d.time;
     if (current >= 0)
       for (const auto* l : labels.of(chats[(size_t)current].jid)) view->chat_labels.push_back({l->name, l->color});
     {
@@ -6042,6 +6156,18 @@ public:
       out.push_back({"   " + c.name + "  —  " + last + "  · " + wa::clock_time(c.last_t), 100 + (int)k, false});
       bar_jids.push_back(c.jid);
     }
+    // Los mensajes del día para revisar.
+    review_jids.clear();
+    if (!locked && !daily_review.empty()) {
+      out.push_back({"", 0, true});
+      for (const auto& kv : daily_review) {
+        std::string name = kv.first;
+        for (const auto& c : chats)
+          if (c.jid == kv.first) name = c.name;
+        out.push_back({"📅 " + wa::fmt(tx::DAILY_BAR, {name}), 300 + (int)review_jids.size(), false});
+        review_jids.push_back(kv.first);
+      }
+    }
     // El modo ocupado, a mano desde la barra.
     out.push_back({"", 0, true});
     out.push_back({busy.empty() ? std::string(tx::BAR_BUSY) : wa::fmt(tx::BUSY_ON, {busy}), 0, false});
@@ -6057,7 +6183,8 @@ public:
     if (!bar::available()) return;
     int waiting = 0;
     auto entries = bar_entries(waiting);
-    std::string sig = std::to_string(waiting) + "|" + std::to_string(wa::tasks_pending(tasks)) + "|" + busy + (locked ? "|L" : "");
+    std::string sig = std::to_string(waiting) + "|" + std::to_string(wa::tasks_pending(tasks)) + "|" + busy + (locked ? "|L" : "") + "|" +
+                      std::to_string(daily_review.size());
     for (const auto& e : entries) sig += "|" + e.title;
     if (sig == bar_sig) return;   // nada nuevo: no se rehace el menú
     bar_sig = sig;
@@ -6085,6 +6212,16 @@ public:
     if (locked) return;   // bloqueada: solo se enseña la ventana (con el candado)
     if (t == 4) {
       open_tasks();
+      return;
+    }
+    if (t >= 300 && t - 300 < (int)review_jids.size()) {
+      std::string jid = review_jids[(size_t)(t - 300)];
+      list->mode = wa::ChatList::F_ALL;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (chats[(size_t)i].jid == jid) {
+          pick(i);
+          break;
+        }
       return;
     }
     if (t >= 100 && t - 100 < (int)bar_jids.size()) {
@@ -6235,6 +6372,135 @@ public:
     m.text = text;
     m.ai = want_ai;
     return true;
+  }
+  // ---- los mensajes automáticos diarios
+  std::string dailies_file() const { return wa::config_dir() + "/programados.jsonl"; }
+  void load_dailies() {
+    std::string text;
+    dailies.clear();
+    if (!demo && wa::read_file(dailies_file(), text)) dailies = wa::dailies_parse(text);
+  }
+  void save_dailies() {
+    if (demo) return;
+    fl_make_path(wa::config_dir().c_str());
+    std::string out;
+    for (const auto& d : dailies) out += wa::daily_line(d) + "\n";
+    wa::write_file(dailies_file(), out);
+  }
+  // La ficha del mensaje diario de este contacto (todo en una ventana).
+  void daily_form() {
+    if (current < 0) return;
+    const wa::Chat& c = chats[(size_t)current];
+    if (c.jid.empty()) return;
+    int k = -1;
+    for (int i = 0; i < (int)dailies.size(); i++)
+      if (dailies[(size_t)i].jid == c.jid) k = i;
+    wa::Daily d = k >= 0 ? dailies[(size_t)k] : wa::Daily();
+    d.jid = c.jid;
+    std::vector<std::string> days = {tx::DAILY_ALL, tx::DAILY_WORK, tx::DAILY_WEEKEND};
+    std::vector<wa::FormField> fs = {{"on", tx::DAILY_ON, d.on ? "1" : "0", 4, 2, {}},
+                                     {"time", tx::DAILY_TIME, d.time, 0, 0, {}},
+                                     {"days", tx::DAILY_DAYS, days[(size_t)std::max(0, std::min(2, d.days))], 3, 1, days},
+                                     {"text", tx::DAILY_TEXT, d.text, 1, 2, {}},
+                                     {"ai", tx::DAILY_AI, d.ai ? "1" : "0", 4, 2, {}},
+                                     {"review", tx::DAILY_REVIEW, d.review ? "1" : "0", 4, 2, {}}};
+    if (!form(wa::fmt(tx::DAILY_TITLE, {c.name}), fs, tx::BTN_SAVE)) return;
+    std::string t = wa::trim(wa::form_value(fs, "time")), text = wa::trim(wa::form_value(fs, "text"));
+    if (wa::daily_minutes(t) < 0) {
+      say(tx::DAILY_BAD_TIME);
+      return;
+    }
+    if (text.empty()) {
+      say(tx::FORM_MISSING);
+      return;
+    }
+    bool want_ai = wa::form_value(fs, "ai") == "1";
+    if (want_ai && !d.ai && !ai_allowed()) return;
+    char hhmm[8];
+    std::snprintf(hhmm, sizeof hhmm, "%02d:%02d", wa::daily_minutes(t) / 60, wa::daily_minutes(t) % 60);
+    d.time = hhmm;
+    d.text = text;
+    d.on = wa::form_value(fs, "on") == "1";
+    d.ai = want_ai;
+    d.review = wa::form_value(fs, "review") == "1";
+    for (int i = 0; i < 3; i++)
+      if (wa::form_value(fs, "days") == days[(size_t)i]) d.days = i;
+    if (k >= 0) dailies[(size_t)k] = d;
+    else dailies.push_back(d);
+    save_dailies();
+    say(d.on ? wa::fmt(tx::DAILY_SET, {d.time, c.name}) : std::string(tx::DAILY_OFF));
+    refresh();
+  }
+  // Cada segundo: ¿toca algún mensaje del día? (una vez al día, en su ventana de dos horas)
+  void daily_check(long long now) {
+    if (dailies.empty()) return;
+    time_t tt = (time_t)now;
+    struct tm lt;
+#ifdef _WIN32
+    localtime_s(&lt, &tt);
+#else
+    localtime_r(&tt, &lt);
+#endif
+    std::string today = wa::today_of(lt);
+    bool changed = false;
+    for (auto& d : dailies) {
+      if (!wa::daily_due(d, lt)) continue;
+      d.last = today;   // ya, para que no se repita aunque tarde la IA
+      changed = true;
+      int ci = -1;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (chats[(size_t)i].jid == d.jid) ci = i;
+      bool review = d.review || send_mode == wa::S_NONE || (send_mode == wa::S_LINKED && !linked);
+      std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
+      if (!d.ai || key.empty() || ci < 0) {
+        daily_ready(d.jid, d.text, review);
+        continue;
+      }
+      wa::Chat c = chats[(size_t)ci];
+      if (c.id > 0 && from_db && !demo) {
+        std::string error;
+        wa::load_messages(wa::db_path(), c, 30, error);
+      }
+      char day[64];
+      std::strftime(day, sizeof day, "%A %d/%m", &lt);
+      wa::AiSettings s = ai;
+      std::string sys = wa::fmt(tx::PROMPT_DAILY, {c.name, d.text, day});
+      if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+      std::string usr = wa::user_prompt(c, ""), jid = d.jid, fallback = d.text;
+      std::thread([s, sys, usr, jid, fallback, review] {
+        wa::AiText r = wa::ai_ask(s, sys, usr);
+        Fl::awake(daily_done, new DailyDone{jid, wa::trim(r.text), fallback, r.error, review});
+      }).detach();
+    }
+    if (changed) save_dailies();
+  }
+  static void daily_done(void* p) {
+    std::unique_ptr<DailyDone> d(static_cast<DailyDone*>(p));
+    Form1* f = self();
+    if (!f) return;
+    std::string t = d->error.empty() && !d->text.empty() ? d->text : d->fallback;
+    if (t.size() >= 2 && t.front() == '"' && t.back() == '"') t = t.substr(1, t.size() - 2);
+    f->daily_ready(d->jid, t, d->review);
+  }
+  // El mensaje del día, listo: se envía o se deja para revisar (como una respuesta propuesta).
+  void daily_ready(const std::string& jid, const std::string& text, bool review) {
+    std::string name = jid;
+    for (const auto& c : chats)
+      if (c.jid == jid) name = c.name;
+    if (review) {
+      daily_review[jid] = text;
+      if (current >= 0 && chats[(size_t)current].jid == jid) {
+        options = {text};
+        daily_review.erase(jid);
+      }
+      say(wa::fmt(tx::DAILY_READY, {name}));
+      bar_sig.clear();
+      update_bar();
+      refresh();
+      return;
+    }
+    deliver(jid, text, "", "");
+    say(wa::fmt(tx::DAILY_SENT, {name}));
   }
   // El modo ocupado solo para este contacto: elegir el modo o quitarlo.
   void busy_for_menu() {
@@ -7088,7 +7354,7 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::LABELS_MENU, tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::BUSY_FOR_MENU, tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::LABELS_MENU, tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::BUSY_FOR_MENU, tx::DAILY_MENU, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
@@ -7112,7 +7378,11 @@ public:
       busy_for_menu();
       return;
     }
-    r -= 5;
+    if (r == 5) {
+      daily_form();
+      return;
+    }
+    r -= 6;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -7593,6 +7863,10 @@ public:
       busy_for_menu();
       return;
     }
+    if (act == 67) {
+      daily_form();
+      return;
+    }
     if (act >= 60 && act <= 65) {
       crm_act(act, k);
       return;
@@ -8021,6 +8295,7 @@ public:
       if (current >= 0 && chats[(size_t)current].msgs.size() != before) options.clear();
     }
     busy_reply();
+    daily_check(wa::wall_s());
     // Sin tocarla unos minutos: se bloquea sola.
     if (!locked && !pin_saved.empty() && lock_after > 0 && wa::now_s() - last_touch > lock_after * 60.0) lock_now();
     refresh();
@@ -8621,13 +8896,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 5; };   // «Limpiar el chat»
+      choose = [](const std::vector<std::string>&) { return 6; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 6; };   // «Deshacer la limpieza»
+      choose = [](const std::vector<std::string>&) { return 7; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -8673,6 +8948,46 @@ public:
         io = io.empty() ? "Tarea nueva" : io;
         return true;
       };
+    }
+    // El mensaje automático diario: la ficha, la hora en la cabecera y que toca (para revisar, sin conexión).
+    {
+      pick(0);
+      fill = {{"on", "1"}, {"time", "7:30"}, {"text", "Desearle buen día"}, {"ai", "0"}, {"review", "0"}};
+      choose = [](const std::vector<std::string>&) { return 5; };   // «📅 Mensaje automático…»
+      chat_menu();
+      refresh();
+      render_to("");
+      bool chipd = false;
+      for (const auto& h : view->hits) chipd = chipd || h.act == 67;
+      chk(dailies.size() == 1 && dailies[0].time == "07:30" && dailies[0].jid == chats[0].jid && view->chat_daily == "07:30" && chipd,
+          "el mensaje diario: la ficha y la hora en la cabecera");
+      // A las 7:40 de hoy (aquí), sin WhatsApp conectado: queda para revisar.
+      time_t tt = (time_t)wa::wall_s();
+      struct tm lt;
+#ifdef _WIN32
+      localtime_s(&lt, &tt);
+#else
+      localtime_r(&tt, &lt);
+#endif
+      lt.tm_hour = 7;
+      lt.tm_min = 40;
+      lt.tm_sec = 0;
+      long long at = (long long)mktime(&lt);
+      dailies[0].days = 0;
+      pick(1);
+      daily_check(at);
+      chk(daily_review.count(chats[0].jid) && !dailies[0].last.empty(), "toca: queda para revisar");
+      daily_check(at + 60);
+      chk(daily_review.size() == 1, "no se repite el mismo día");
+      int bw2 = 0;
+      bool in_bar = false;
+      for (const auto& e : bar_entries(bw2)) in_bar = in_bar || e.tag == 300;
+      chk(in_bar, "para revisar, también en la barra de menús");
+      pick(0);
+      chk(options.size() == 1 && options[0] == "Desearle buen día" && daily_review.empty(), "al abrir el chat: la propuesta");
+      options.clear();
+      dailies.clear();
+      choose = [](const std::vector<std::string>&) { return -1; };
     }
     // «⋯ › 🔕 Ocupado con este contacto»: elegirlo, verlo en la cabecera y quitarlo.
     {
@@ -9166,6 +9481,24 @@ public:
         }
         busy_for.clear();
         busy_done.clear();
+      }
+      // El mensaje diario por el puente: sin revisar y sin IA, se envía tal cual.
+      {
+        wa::Daily d;
+        d.jid = "34600111222@s.whatsapp.net";
+        d.time = "07:30";
+        d.text = "¡Buenos días!";
+        d.ai = false;
+        dailies = {d};
+        time_t tt = (time_t)wa::wall_s();
+        struct tm lt;
+        localtime_r(&tt, &lt);
+        lt.tm_hour = 7;
+        lt.tm_min = 31;
+        size_t before_d = pending.size();
+        daily_check((long long)mktime(&lt));
+        chk(pending.size() == before_d + 1 && daily_review.empty(), "el mensaje diario sale por el puente");
+        dailies.clear();
       }
       // Publicar un estado por el puente (con la confirmación).
       open_status();

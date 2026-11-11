@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.124 — 2026-11-11
+
+- **MyWhatsapp 1.0.27: mensajes automáticos diarios.** En un chat, «⋯ › 📅 Mensaje automático…» abre una ficha: activo, la hora (08:30), los días (todos, de lunes a viernes o fines de semana), qué decirle («Desearle buen día con cariño»), «✨ Que lo escriba la IA» (un mensaje distinto cada día, según lo último que hablaron; si no, se envía el texto tal cual) y «Revisar antes de enviar». A su hora, se envía (por el puente o la API oficial) o, para revisar (o sin WhatsApp conectado), se deja como respuesta propuesta en el chat («Enviar» / «Usar») y se avisa en la barra de menús («📅 Revisar el mensaje para Laura»). Sale una vez al día, y solo en las dos horas siguientes a su hora: si la app estaba cerrada, ese día se salta (nada de «buenos días» por la tarde). El chat lleva «📅 08:30» en la cabecera. Se guardan en `programados.jsonl`.
+- Probado: las pruebas internas (guardar y leer; cuándo toca: a su hora, antes no, más de dos horas tarde no, el sábado con «de lunes a viernes» no, y no se repite el mismo día) y la de la interfaz (la ficha y la hora en la cabecera, que toca y queda para revisar, en la barra de menús, la propuesta al abrir el chat, y por el puente de prueba, que sale tal cual).
+
 ## 1.0.123 — 2026-11-11
 
 - **MyWhatsapp 1.0.26: las cifras del panel llevan a sus chats.** Un clic en «Mensajes recibidos», «Enviados» o «Chats activos» filtra la lista con los chats activos en ese periodo; en «Responde en» o «Por responder ahora», con los que esperan su respuesta; en «Sin respuesta», con los que no le contestan (el panel sigue a la vista); «Tareas pendientes» abre las tareas, «Leads abiertos» el CRM, y un nombre de «Quién más le escribe» abre su chat.

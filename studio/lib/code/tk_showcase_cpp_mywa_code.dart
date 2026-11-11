@@ -18,8 +18,8 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <thread>
 #include <vector>
 #include <FL/Fl_Image_Surface.H>
+#include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_JPEG_Image.H>
-#include <FL/Fl_Shared_Image.H>
 #include <FL/Fl_Native_File_Chooser.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/filename.H>
@@ -916,6 +916,24 @@ bool is_picture(const std::string& path) {
     if (l.size() > std::strlen(e) && l.compare(l.size() - std::strlen(e), std::string::npos, e) == 0) return true;
   return false;
 }
+// Una imagen de disco según sus primeros bytes (JPEG, PNG o BMP), sea cual
+// sea la extensión (las fotos de perfil de WhatsApp acaban en «.thumb»).
+Fl_RGB_Image* load_picture(const std::string& path) {
+  FILE* f = fl_fopen(path.c_str(), "rb");
+  if (!f) return nullptr;
+  unsigned char m[8] = {0};
+  size_t n = std::fread(m, 1, sizeof m, f);
+  std::fclose(f);
+  Fl_RGB_Image* img = nullptr;
+  if (n >= 3 && m[0] == 0xFF && m[1] == 0xD8 && m[2] == 0xFF) img = new Fl_JPEG_Image(path.c_str());
+  else if (n >= 8 && m[0] == 0x89 && m[1] == 'P' && m[2] == 'N' && m[3] == 'G') img = new Fl_PNG_Image(path.c_str());
+  else if (n >= 2 && m[0] == 'B' && m[1] == 'M') img = new Fl_BMP_Image(path.c_str());
+  if (img && (img->w() <= 0 || img->h() <= 0 || img->fail())) {
+    delete img;
+    img = nullptr;
+  }
+  return img;
+}
 // La imagen de [path] que cabe en [w]×[h] (sin deformar); nullptr si no se puede.
 Fl_RGB_Image* image_fit(const std::string& path, int w, int h) {
   std::string key = path + "@" + std::to_string(w) + "x" + std::to_string(h);
@@ -923,29 +941,13 @@ Fl_RGB_Image* image_fit(const std::string& path, int w, int h) {
   if (it != images().end()) return it->second;
   Fl_RGB_Image* out = nullptr;
   auto src = images().find(path);   // las de la demo, ya hechas
-  Fl_Image* base = nullptr;
-  Fl_Shared_Image* shared = nullptr;
-  if (src != images().end()) base = src->second;
-  else if (is_picture(path)) {
-    std::string l = lower(path);
-    if (l.size() > 6 && l.compare(l.size() - 6, 6, ".thumb") == 0) {
-      auto* j = new Fl_JPEG_Image(path.c_str());   // las fotos de perfil: JPEG
-      if (j->w() > 0) base = j;
-      else delete j;
-    } else {
-      shared = Fl_Shared_Image::get(path.c_str());
-      if (shared && shared->w() > 0) base = shared;
-    }
-  }
+  Fl_RGB_Image* base = src != images().end() ? src->second : (is_picture(path) ? load_picture(path) : nullptr);
   if (base && base->w() > 0 && base->h() > 0) {
     double k = std::min(w / (double)base->w(), h / (double)base->h());
     int dw = std::max(1, (int)(base->w() * k)), dh = std::max(1, (int)(base->h() * k));
-    Fl_Image* c = base->copy(dw, dh);
-    out = dynamic_cast<Fl_RGB_Image*>(c);
-    if (!out) delete c;
+    out = static_cast<Fl_RGB_Image*>(base->copy(dw, dh));   // la copia de una Fl_RGB_Image es otra
   }
-  if (shared) shared->release();
-  else if (base && src == images().end()) delete base;
+  if (base && src == images().end()) delete base;
   images()[key] = out;
   return out;
 }
@@ -1564,6 +1566,43 @@ int selftest() {
     std::remove(path.c_str());
   }
 #endif
+  {
+    // Fotos de verdad en disco (PNG, también con la extensión de otra cosa).
+    std::string d = config_dir();
+    fl_make_path(d.c_str());
+    unsigned char px[16 * 16 * 3];
+    for (int i = 0; i < 16 * 16 * 3; i++) px[i] = (unsigned char)(i * 7);
+    Fl_RGB_Image src(px, 16, 16, 3);
+    std::string a = d + "/prueba-foto.png", b = d + "/prueba-foto.jpg", c = d + "/prueba-foto.thumb";
+    fl_write_png(a.c_str(), &src);
+    fl_write_png(b.c_str(), &src);
+    fl_write_png(c.c_str(), &src);
+    bool ok_img = true;
+    for (int round = 0; round < 3; round++)
+      for (const auto& p : {a, b, c}) {
+        Fl_RGB_Image* i1 = image_fit(p, 88 + round, 88);
+        Fl_RGB_Image* i2 = image_fit(p, 260, 200);
+        ok_img = ok_img && i1 && i2 && i1->w() > 0 && i2->w() > 0;
+      }
+    chk(ok_img, "fotos de disco (png, jpg y thumb)");
+    chk(!image_fit(d + "/no-existe.jpg", 40, 40), "foto que no existe");
+    std::remove(a.c_str());
+    std::remove(b.c_str());
+    std::remove(c.c_str());
+  }
+  // DMS_MYWA_PICS=carpeta: carga cada foto de esa carpeta (solo cuenta).
+  if (const char* pics = fl_getenv("DMS_MYWA_PICS")) {
+    dirent** names = nullptr;
+    int n = fl_filename_list(pics, &names, fl_casenumericsort), ok_n = 0, tried = 0;
+    for (int i = 0; i < n; i++) {
+      std::string nm = names[i]->d_name;
+      if (nm.empty() || nm[0] == '.' || nm.back() == '/') continue;
+      tried++;
+      if (image_fit(std::string(pics) + "/" + nm, 88, 88)) ok_n++;
+    }
+    fl_filename_free_list(&names, n);
+    std::printf("fotos: %d de %d se cargan\n", ok_n, tried);
+  }
   set_dark(true);
   chk(th().dark && th().chat == 0x0b141a, "tema oscuro");
   set_dark(false);

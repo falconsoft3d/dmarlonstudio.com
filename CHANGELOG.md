@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.99 — 2026-11-11
+
+- **MyWhatsapp ya abre con las fotos de perfil de verdad.** Se cerraba al dibujar la lista si algún contacto tenía la foto en `.jpg`: la copia a su tamaño de una imagen compartida de FLTK se borraba directamente y dejaba roto el registro de imágenes. Ahora cada imagen se carga según sus primeros bytes (JPEG, PNG o BMP), sin imágenes compartidas. Las pruebas cargan fotos de verdad desde el disco (también con la extensión cambiada) y se comprobó que las 614 fotos de perfil de este equipo se cargan, solo contándolas.
+
 ## 1.0.98 — 2026-11-11
 
 - **MyWhatsapp: todos los chats, fotos de perfil, adjuntos y tema claro u oscuro.** La lista ya no se queda en 300: carga todos los chats de WhatsApp Desktop (y solo dibuja los que se ven). Cada chat lleva la foto de perfil del contacto, la que WhatsApp guarda en `Media/Profile` (la miniatura de 96×96), recortada en un círculo, en la lista y en la nueva cabecera del chat, con su nombre y su teléfono (o «Grupo»). Los mensajes con adjuntos se ven en la conversación: las fotos descargadas, dentro del bocadillo (un clic las abre); los documentos, vídeos y notas de voz, con su icono, su nombre y su tamaño, y los que WhatsApp no tiene descargados en el equipo lo dicen. En Ver: tema claro, tema oscuro o como el sistema (cambia solo cuando cambia macOS), con los colores de WhatsApp en los dibujos y en los controles del diseño. Se ha quitado «Abrir en WhatsApp»: la app no depende de la de WhatsApp; enviar directamente llegará con la conexión propia. El modo de demostración y las pruebas ya no leen nunca la base de datos de verdad.

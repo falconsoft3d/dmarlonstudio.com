@@ -558,6 +558,7 @@ struct Sqlite {
   long long (*column_int64)(void*, int) = nullptr;
   double (*column_double)(void*, int) = nullptr;
   int (*bind_int64)(void*, int, long long) = nullptr;
+  int (*bind_text_)(void*, int, const char*, int, void (*)(void*)) = nullptr;
   int (*finalize)(void*) = nullptr;
   int (*close)(void*) = nullptr;
   int (*exec)(void*, const char*, void*, void*, char**) = nullptr;
@@ -575,11 +576,15 @@ struct Sqlite {
     column_int64 = (decltype(column_int64))dlsym(lib, "sqlite3_column_int64");
     column_double = (decltype(column_double))dlsym(lib, "sqlite3_column_double");
     bind_int64 = (decltype(bind_int64))dlsym(lib, "sqlite3_bind_int64");
+    bind_text_ = (decltype(bind_text_))dlsym(lib, "sqlite3_bind_text");
     finalize = (decltype(finalize))dlsym(lib, "sqlite3_finalize");
     close = (decltype(close))dlsym(lib, "sqlite3_close");
     exec = (decltype(exec))dlsym(lib, "sqlite3_exec");
-    return open_v2 && prepare_v2 && step && column_text && column_int64 && column_double && bind_int64 && finalize && close && exec;
+    return open_v2 && prepare_v2 && step && column_text && column_int64 && column_double && bind_int64 && bind_text_ && finalize &&
+           close && exec;
   }
+  // Un texto en la consulta (SQLite se hace su copia: SQLITE_TRANSIENT).
+  int bind_text(void* st, int i, const char* v, int n, void*) { return bind_text_(st, i, v, n, (void (*)(void*))(intptr_t)-1); }
 };
 Sqlite& sqlite() {
   static Sqlite s;
@@ -1440,6 +1445,63 @@ std::vector<std::string> dropped_files(const std::string& text) {
     if (fl_access(l.c_str(), 0) == 0 && !fl_filename_isdir(l.c_str())) out.push_back(l);
   }
   return out;
+}
+
+// ---- un contacto nuevo como vCard (para la app Contactos, que lo lleva al iPhone por iCloud)
+std::string vcard_escape(const std::string& v) {
+  std::string o;
+  for (char ch : v) {
+    if (ch == '\\' || ch == ',' || ch == ';') o += '\\';
+    if (ch == '\n') {
+      o += "\\n";
+      continue;
+    }
+    if (ch != '\r') o += ch;
+  }
+  return o;
+}
+struct NewContact {
+  std::string first, last, company, phone, email, note;
+};
+std::string vcard(const NewContact& c) {
+  std::string full = trim(c.first + " " + c.last);
+  std::string v = "BEGIN:VCARD\r\nVERSION:3.0\r\n";
+  v += "N:" + vcard_escape(c.last) + ";" + vcard_escape(c.first) + ";;;\r\n";
+  v += "FN:" + vcard_escape(full.empty() ? c.phone : full) + "\r\n";
+  if (!c.company.empty()) v += "ORG:" + vcard_escape(c.company) + "\r\n";
+  if (!c.phone.empty()) v += "TEL;type=CELL;type=VOICE;type=pref:" + c.phone + "\r\n";
+  if (!c.email.empty()) v += "EMAIL;type=INTERNET;type=pref:" + vcard_escape(c.email) + "\r\n";
+  if (!c.note.empty()) v += "NOTE:" + vcard_escape(c.note) + "\r\n";
+  return v + "END:VCARD\r\n";
+}
+// ¿Ese número ya está en la agenda? (la que guarda WhatsApp Desktop): su nombre, o "".
+std::string book_name(const std::string& jid) {
+#ifdef _WIN32
+  (void)jid;
+  return "";
+#else
+  if (!db_exists() || jid.empty()) return "";
+  std::string path = base_dir(db_path()) + "/ContactsV2.sqlite";
+  if (!file_exists(path)) return "";
+  Sqlite& q = sqlite();
+  if (!q.load()) return "";
+  void* db = nullptr;
+  std::string uri = "file:" + path + "?mode=ro";
+  if (q.open_v2(uri.c_str(), &db, OPEN_READONLY | OPEN_URI, nullptr) != 0) {
+    if (db) q.close(db);
+    return "";
+  }
+  std::string name;
+  void* st = nullptr;
+  if (q.prepare_v2(db, "SELECT IFNULL(ZFULLNAME, '') FROM ZWAADDRESSBOOKCONTACT WHERE ZWHATSAPPID = ? AND IFNULL(ZFULLNAME, '') != '' LIMIT 1",
+                   -1, &st, nullptr) == 0) {
+    q.bind_text(st, 1, jid.c_str(), -1, nullptr);
+    if (q.step(st) == SQLITE_ROW_) name = col(st, 0);
+    q.finalize(st);
+  }
+  q.close(db);
+  return name;
+#endif
 }
 
 // ---- las tareas: cada una puede venir de un chat (y abrirlo luego);
@@ -3844,6 +3906,15 @@ int selftest() {
       std::printf("✓ en mis mensajes (40 chats): sin marca %d · ✓ %d · ✓✓ %d · ✓✓ azul %d\n", ticks[0], ticks[2], ticks[3], ticks[4]);
     }
     {
+      int people = 0, in_book = 0;
+      for (const auto& c : all) {
+        if (c.group || phone_of(c.jid).empty()) continue;
+        if (++people > 40) break;
+        if (!book_name(c.jid).empty()) in_book++;
+      }
+      std::printf("en la agenda: %d de %d chats individuales\n", in_book, std::min(people, 40));
+    }
+    {
       std::vector<Chat> fresh;
       load_chats(db_path(), fresh, e);
       ChatList l(0, 0, 10, 10);
@@ -3957,6 +4028,18 @@ int selftest() {
     extra[0].status = 8;
     merge_msgs(base, extra);
     chk(base.size() == 1 && base[0].status == 8, "juntar con Desktop: el estado más avanzado");
+  }
+  // La vCard: los campos escapados (comas, punto y coma, saltos de línea).
+  {
+    NewContact n;
+    n.first = "Ana";
+    n.last = "Pérez, López";
+    n.phone = "+34600";
+    n.note = "uno;dos\ntres";
+    std::string v = vcard(n);
+    chk(v.find("N:Pérez\\, López;Ana;;;\r\n") != std::string::npos && v.find("FN:Ana Pérez\\, López") != std::string::npos &&
+            v.find("NOTE:uno\\;dos\\ntres") != std::string::npos && v.find("ORG:") == std::string::npos && v.find("END:VCARD") != std::string::npos,
+        "la vCard de un contacto");
   }
   // Arrastrar archivos: rutas tal cual o como «file://» (con espacios codificados).
   {
@@ -4113,7 +4196,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.21";
+const char* const MYWA_VERSION = "1.0.22";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -4374,6 +4457,12 @@ public:
   // Preguntar antes de algo que se ve fuera (las pruebas lo cambian).
   std::function<bool(const std::string&)> confirm = [](const std::string& q) {
     return fl_choice("%s", tx::BTN_CANCEL, tx::BTN_OK, nullptr, q.c_str()) == 1;
+  };
+  // Abrir un archivo con su programa (las pruebas lo cambian).
+  std::function<void(const std::string&)> open_file = [](const std::string& path) {
+    std::string url = "file://";
+    for (char c : path) url += c == '/' ? std::string("/") : wa::url_encode(std::string(1, c));
+    fl_open_uri(url.c_str());
   };
   // Elegir una foto (las pruebas lo cambian): "" si se cancela.
   std::function<std::string()> choose_photo = [] {
@@ -5442,6 +5531,47 @@ public:
       save_settings();
     }
   }
+  // ---- añadir el contacto del chat a Contactos (y de ahí, por iCloud, al teléfono)
+  void add_contact() {
+    if (current < 0) return;
+    const wa::Chat& c = chats[(size_t)current];
+    std::string ph = wa::phone_of(c.jid);
+    if (c.group || ph.empty()) {
+      say(tx::CONTACT_ONLY_PEOPLE);
+      return;
+    }
+    std::string known = demo ? "" : wa::book_name(c.jid);
+    if (!known.empty() && !confirm(wa::fmt(tx::CONTACT_EXISTS, {known}))) return;
+    wa::NewContact n;
+    n.phone = "+" + ph;
+    // De partida, el nombre del chat (si no es el propio número), partido en nombre y apellidos.
+    std::string name = c.name;
+    if (!name.empty() && (name[0] == '+' || name[0] == '~')) name = name[0] == '~' ? wa::trim(name.substr(1)) : "";
+    size_t sp = name.find(' ');
+    n.first = sp == std::string::npos ? name : name.substr(0, sp);
+    n.last = sp == std::string::npos ? "" : wa::trim(name.substr(sp + 1));
+    if (!ask_text(tx::CONTACT_FIRST, n.first) || wa::trim(n.first).empty()) return;
+    if (!ask_text(tx::CONTACT_LAST, n.last)) return;
+    if (!ask_text(tx::CONTACT_COMPANY, n.company)) return;
+    if (!ask_text(tx::CONTACT_EMAIL, n.email)) return;
+    n.first = wa::trim(n.first);
+    n.last = wa::trim(n.last);
+    n.company = wa::trim(n.company);
+    n.email = wa::trim(n.email);
+    n.note = tx::CONTACT_NOTE;
+    std::string dir = wa::config_dir() + "/contactos";
+    fl_make_path(dir.c_str());
+    std::string base;
+    for (char ch : wa::trim(n.first + " " + n.last))
+      base += (std::isalnum((unsigned char)ch) || (unsigned char)ch >= 0x80) ? ch : '-';
+    std::string path = dir + "/" + (base.empty() ? ph : base) + ".vcf";
+    if (!wa::write_file(path, wa::vcard(n))) {
+      say(tx::DOWNLOAD_FAILED);
+      return;
+    }
+    open_file(path);   // Contactos lo enseña y pregunta si añadirlo
+    say(tx::CONTACT_OPENED);
+  }
   // ---- valorar a una persona: la IA lee la conversación y propone cómo tratarla
   void evaluate_person() {
     if (current < 0) return;
@@ -5528,15 +5658,19 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::PERSON_EVAL, tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
     if (r == 0) {
+      add_contact();
+      return;
+    }
+    if (r == 1) {
       evaluate_person();
       return;
     }
-    r--;
+    r -= 2;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -6931,13 +7065,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 1; };   // «Limpiar el chat»
+      choose = [](const std::vector<std::string>&) { return 2; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 2; };   // «Deshacer la limpieza»
+      choose = [](const std::vector<std::string>&) { return 3; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -6987,10 +7121,42 @@ public:
         return true;
       };
     }
+    // Añadir el contacto del chat a Contactos (un .vcf que abre la app Contactos).
+    {
+      pick(0);
+      std::vector<std::string> ans = {"", "Martín", "Muebles Sol", "laura@example.com"};
+      size_t an = 0;
+      ask_text = [&ans, &an](const char*, std::string& io) {
+        if (an < ans.size() && !ans[an].empty()) io = ans[an];
+        an++;
+        return true;
+      };
+      std::string opened;
+      open_file = [&opened](const std::string& p) { opened = p; };
+      choose = [](const std::vector<std::string>&) { return 0; };   // «👤 Añadir a mis contactos…»
+      chat_menu();
+      std::string card;
+      wa::read_file(opened, card);
+      chk(!opened.empty() && card.find("BEGIN:VCARD") == 0 && card.find("TEL;type=CELL;type=VOICE;type=pref:+34600111222") != std::string::npos &&
+              card.find("N:Martín;Laura;;;") != std::string::npos && card.find("ORG:Muebles Sol") != std::string::npos &&
+              card.find("EMAIL;type=INTERNET;type=pref:laura@example.com") != std::string::npos && message == tx::CONTACT_OPENED,
+          "añadir a contactos: la ficha con el nombre del chat, el teléfono y lo que se escribe");
+      std::remove(opened.c_str());
+      pick(1);   // un grupo: no
+      chat_menu();
+      chk(message == tx::CONTACT_ONLY_PEOPLE, "añadir a contactos: solo personas");
+      open_file = [](const std::string&) {};
+      choose = [](const std::vector<std::string>&) { return -1; };
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+      pick(0);
+    }
     // Valorar a una persona: la tarjeta de la IA, encima del chat.
     {
       pick(0);
-      choose = [](const std::vector<std::string>&) { return 0; };   // «✨ Valorar a esta persona»
+      choose = [](const std::vector<std::string>&) { return 1; };   // «✨ Valorar a esta persona»
       chat_menu();
       chk(view->insight == tx::PERSON_THINKING, "valorar: pensando");
       person_done(new PersonDone{chats[0].jid, "Cercana y práctica. Trátala con calma.", ""});

@@ -4424,7 +4424,7 @@ msgstr ""
 msgid "Nombre de la carpeta nueva de marcadores:"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Nombre:"
 msgstr ""
 
@@ -6679,6 +6679,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.22 — Añadir el contacto de un chat a sus Contactos (y al teléfono, por iCloud).\n"
 "1.0.21 — Los ✓ de sus mensajes: enviado, entregado y leído en azul.\n"
 "1.0.20 — El bloqueo con PIN ya no deja ver nada de la app: solo el candado.\n"
 "1.0.19 — Versión propia y novedades, bloqueo con PIN y «✨ Valorar a esta persona».\n"
@@ -6715,6 +6716,10 @@ msgid "Aa Corregir"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Abierto en Contactos: pulse «Añadir» y llegará al teléfono por iCloud"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Abrir MyWhatsapp"
 msgstr ""
 
@@ -6743,6 +6748,10 @@ msgid "Ana"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Apellidos (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Aquí no se puede leer WhatsApp Desktop"
 msgstr ""
 
@@ -6763,6 +6772,10 @@ msgid ""
 "Atención: el modo vinculado usa el protocolo de WhatsApp Web sin ser una app oficial. Va contra las condiciones de WhatsApp y la cuenta puede quedar bloqueada (temporal o definitivamente). Úselo bajo su responsabilidad y, si puede, con un número que no sea el principal.\n"
 "\n"
 "La sesión se guarda solo en este equipo. ¿Vincular de todos modos?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Añadido desde MyWhatsapp"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -6905,6 +6918,10 @@ msgid "Corregido (Cmd+Z lo deshace)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Correo (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Corrigiendo la ortografía…"
 msgstr ""
 
@@ -7005,6 +7022,10 @@ msgid "Emoji"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Empresa (opcional):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
 msgstr ""
 
@@ -7092,6 +7113,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese chat ya no está en la lista"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ese número ya está en su agenda como «{0}». ¿Crear otro contacto?"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7345,7 +7370,7 @@ msgid ""
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). En «⋯», «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). En «⋯», «👤 Añadir a mis contactos…» guarda a esa persona en Contactos (y por iCloud, en el teléfono), y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7580,6 +7605,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Sobre usted, para que las respuestas encajen (opcional; por ejemplo: «Tengo una tienda de muebles en Madrid»):"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Solo se añaden personas (no grupos)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7901,6 +7930,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🌐 Traducir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "👤 Añadir a mis contactos…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

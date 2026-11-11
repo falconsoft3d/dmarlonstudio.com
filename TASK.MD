@@ -98,6 +98,7 @@ Hechos
 100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ✅ |
 95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ✅ |
 118. MyWhatsapp: los ✓ de mis mensajes (enviado, entregado y leído en azul) | ✅ |
+87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ✅ |
 
 Trabajando
 =========
@@ -111,7 +112,6 @@ Pendiente
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
-87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ⏳ |
 94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ⏳ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |

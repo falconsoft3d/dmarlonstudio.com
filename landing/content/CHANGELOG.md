@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.119 — 2026-11-11
+
+- **MyWhatsapp 1.0.22: añadir el contacto de un chat a sus Contactos (y al teléfono).** En el botón «⋯» de un chat individual, «👤 Añadir a mis contactos…» pregunta el nombre y los apellidos (ya rellenos con el nombre del chat), la empresa y el correo, hace una ficha vCard con el teléfono del chat y la abre con la app Contactos de macOS, que pregunta si añadirla; desde ahí, iCloud la lleva al iPhone. Así MyWhatsapp no necesita permiso sobre sus contactos y es usted quien confirma. Si el número ya está en su agenda (la que guarda WhatsApp Desktop, consultada solo para ese número), avisa con el nombre que tiene antes de crear otro. En los grupos no se ofrece.
+- Probado: las pruebas internas (la vCard con comas, punto y coma y saltos de línea escapados) y la de la interfaz (la ficha con el nombre del chat, el teléfono y lo escrito, y que en un grupo no se puede); con la agenda de este equipo, solo contando, la consulta encuentra los contactos guardados.
+
 ## 1.0.118 — 2026-11-11
 
 - **MyWhatsapp 1.0.21: los ✓ de sus mensajes.** Junto a la hora de cada mensaje suyo salen los ✓ de WhatsApp: ✓ enviado, ✓✓ entregado y ✓✓ en azul, leído (o escuchado, en las notas de voz). Salen del estado que guarda WhatsApp Desktop (`ZMESSAGESTATUS`) y, en lo que va por el QR, de los acuses de recibo que pasa el puente (`wabridge`: entregado y leído), que suben el estado aunque lleguen antes que el propio mensaje; al juntar Desktop y el puente se queda el estado más avanzado. En este equipo, contando sin leer nada, en 40 chats: 772 leídos, 130 entregados y 48 enviados.

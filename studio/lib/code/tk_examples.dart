@@ -37,6 +37,8 @@ part 'tk_showcase_cpp_console_code.dart';
 part 'tk_showcase_pascal.dart';
 part 'tk_showcase_pascal_malecon.dart';
 part 'tk_showcase_pascal_malecon_code.dart';
+part 'tk_showcase_pascal_docker.dart';
+part 'tk_showcase_pascal_docker_code.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
 part 'tk_showcase_flutter.dart';

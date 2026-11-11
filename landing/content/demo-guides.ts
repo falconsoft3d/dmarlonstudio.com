@@ -193,6 +193,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Descifre la clave y decida", text: "En el taller de Yari hay que adivinar el nombre en clave de quien recibe en la Habana Vieja: las coordenadas del listado y lo que le cuentan dan la respuesta. Cada fallo cuesta señal de la red. Al final, en Miramar, usted elige uno de los tres finales." },
     ],
   },
+  pascal_docker: {
+    intro:
+      "Una app de la barra de menús hecha en Object Pascal con Lazarus y diseñada en el estudio: su icono le enseña los contenedores de Docker que tiene en marcha y desde ahí abre sus direcciones o los para, sin abrir Docker Desktop ni la terminal.",
+    steps: [
+      { title: "Sus contenedores, siempre a mano", text: "Al abrirla aparece un icono en la barra de menús (no en el Dock). Su menú dice cuántos contenedores hay en marcha y los agrupa por proyecto de Compose, con los puertos que publica cada uno; los parados van en su submenú. Se actualiza cada tres segundos." },
+      { title: "Abra sus direcciones o párelos", text: "Cada contenedor tiene su submenú: «Abrir http://localhost:8080» abre la web en el navegador (https si es el 443 o el 8443), y Parar, Reiniciar o Iniciar lo hacen sin bloquear el menú. También copia su ID o la orden para entrar en él." },
+      { title: "El panel", text: "«Abrir el panel…» muestra la misma lista en una ventana, con los puertos como enlaces y los botones de cada contenedor. Cerrar la ventana no cierra la app: sigue en la barra hasta que elija Salir. Si Docker no está en marcha, se lo dice y le deja abrir Docker Desktop." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -460,6 +469,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Investigate in the blackout", text: "Talk to the fisherman, the girl with the phone or Inspector Valdés, examine every place and travel around Havana with the list on the left (or keys 1–6). Examining in the dark uses up your torch: find batteries. To get into the port, El Socio wants two batteries." },
       { title: "Get into the port unseen", text: "Every search in the cargo yard and the container makes noise: the Alert bar goes up and, if it fills, the guards take you to their hut. «Wait in the shadows» brings it down. Find the USB stick among the coffee sacks and the list on thermal paper." },
       { title: "Crack the key and decide", text: "In Yari's workshop you must guess the code name of whoever receives in Old Havana: the coordinates on the list and what people tell you give the answer. Every miss costs network signal. In the end, in Miramar, you choose one of three endings." },
+    ],
+  },
+  pascal_docker: {
+    intro:
+      "A menu bar app made in Object Pascal with Lazarus and designed in the studio: its icon shows the Docker containers you have running, and from there it opens their addresses or stops them, without opening Docker Desktop or the terminal.",
+    steps: [
+      { title: "Your containers, always at hand", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu tells you how many containers are running and groups them by Compose project, with the ports each one publishes; the stopped ones go in their own submenu. It refreshes every three seconds." },
+      { title: "Open their addresses or stop them", text: "Each container has its submenu: “Open http://localhost:8080” opens the site in the browser (https for 443 or 8443), and Stop, Restart or Start do it without blocking the menu. It also copies the ID or the command to get into it." },
+      { title: "The panel", text: "“Open the panel…” shows the same list in a window, with the ports as links and each container's buttons. Closing the window doesn't close the app: it stays in the bar until you choose Quit. If Docker isn't running, it tells you and lets you open Docker Desktop." },
     ],
   },
   domino: {

@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "Informes web"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_pascal_docker.dart
 msgid "Iniciar"
 msgstr ""
 
@@ -741,7 +741,7 @@ msgstr ""
 msgid "Parado"
 msgstr ""
 
-#: lib/code/tk_examples.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_pascal_docker.dart
 msgid "Parar"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgstr ""
 msgid "Reiniciado"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Reiniciar"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -3399,7 +3399,7 @@ msgstr ""
 msgid "Ctrl+Espacio"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr ""
 
@@ -3754,7 +3754,7 @@ msgstr ""
 msgid "Acerca del Explorador de archivos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Actualizar"
 msgstr ""
 
@@ -8553,6 +8553,163 @@ msgstr ""
 
 #: lib/code/tk_showcase_pascal.dart
 msgid "La calculadora como aplicación nativa en Pascal con Lazarus: el mismo diseño, con el código en Object Pascal y los componentes de la LCL."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Abra Docker Desktop: en cuanto arranque el motor, sus contenedores aparecerán aquí."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Abrir Docker Desktop"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Abrir el panel…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart lib/ui/screens/code_studio.dart
+msgid "Abrir {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Acerca de Docker en la barra de menús"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Acerca de…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Buscando Docker…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Cerrar la ventana"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Contenedores"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Copiar el ID"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Copiar la orden para entrar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Cree uno con «docker run» o «docker compose up» y aparecerá aquí."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Descargar Docker Desktop…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker en la barra de menús"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker en la barra de menús (Pascal)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker en la barra de menús: los contenedores en marcha en un icono de la barra, con sus direcciones y el botón de parar, en Pascal con Lazarus."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker no está en marcha"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker no pudo hacerlo:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Docker · {0} en marcha"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "EN MARCHA · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid ""
+"El icono de la barra de menús muestra sus contenedores de Docker: los que están en marcha, agrupados por proyecto de Compose, y los parados.\n"
+"\n"
+"En cada contenedor: abrir sus direcciones (los puertos publicados), pararlo, reiniciarlo o copiar la orden para entrar en él. «Abrir el panel…» muestra la misma lista en una ventana.\n"
+"\n"
+"La lista se actualiza cada tres segundos con «docker ps». Cerrar la ventana no cierra la app: sigue en la barra de menús hasta que elija Salir."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "El icono de la barra de menús y la lista de contenedores los hace el código de Form1.pas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Instale Docker Desktop (o Colima, OrbStack o Rancher Desktop) y la app lo encontrará sola."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "No encuentro Docker"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "No hay contenedores en marcha"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "PARADOS · {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Parados ({0})"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Parar todos…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Sin puertos publicados"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Una app de la barra de menús en Object Pascal con Lazarus: su icono muestra los contenedores de Docker en marcha, agrupados por proyecto de Compose, y desde ahí se abren sus direcciones, se paran, se reinician o se inician los parados."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "Una demo de DMarlon Studio hecha en Object Pascal con Lazarus. La ventana, su menú y el reloj se diseñaron en el Diseñador del estudio; el icono de la barra (TTrayIcon), su menú y el panel se hacen en el código de Form1.pas, que habla con Docker a través de su orden «docker»."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "actualizado a las {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "iniciando…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "parando…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "reiniciando…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "{0} en marcha · {1} parados"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_docker.dart
+msgid "¿Parar los {0} contenedores en marcha?"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_malecon.dart
@@ -14603,10 +14760,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "Abrir en la terminal"
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "Abrir {0}"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart

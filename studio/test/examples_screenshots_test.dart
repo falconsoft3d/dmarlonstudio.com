@@ -68,6 +68,7 @@ const carousel = [
   'cpp_wifi',
   'cpp_console',
   'pascal_malecon',
+  'pascal_docker',
   'domino',
   'pascal_calculator',
   'console_animals',
@@ -94,6 +95,10 @@ const carousel = [
   'mp3_player',
   'train_monitor',
 ];
+
+/// Los ejemplos con «Cómo se hizo» en su página de demo: también la pestaña
+/// Código (<ejemplo>-code.png) y la del código generado (<ejemplo>-generated.png).
+const made = {'pascal_docker'};
 
 /// DMS_SEEDS=a,b: solo esas capturas.
 final _only = (Platform.environment['DMS_SEEDS'] ?? '')
@@ -211,16 +216,27 @@ void main() {
           await tester.tap(find.byKey(const ValueKey('tk-tab-1')));
           await settle(10);
         }
-        await tester.runAsync(() async {
+        Future<void> shot(String name) => tester.runAsync(() async {
           final ro =
               boundary.currentContext!.findRenderObject()!
                   as RenderRepaintBoundary;
           final image = await ro.toImage(pixelRatio: 1);
           final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-          final f = File(p.join(_out, lang, '$seed.png'));
+          final f = File(p.join(_out, lang, '$name.png'));
           await f.parent.create(recursive: true);
           await f.writeAsBytes(bytes!.buffer.asUint8List());
         });
+        await shot(seed);
+        if (made.contains(seed)) {
+          await tester.tap(find.byKey(const ValueKey('tk-tab-1')));
+          await settle(10);
+          await shot('$seed-code');
+          await tester.tap(find.byKey(const ValueKey('tk-tab-2')));
+          await settle(10);
+          await shot('$seed-generated');
+          await tester.tap(find.byKey(const ValueKey('tk-tab-0')));
+          await settle(5);
+        }
       }
     }
 

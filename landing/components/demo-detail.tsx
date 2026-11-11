@@ -1,5 +1,6 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { DemoDownloads } from "@/components/demo-downloads";
+import { DemoMade } from "@/components/demo-made";
 import { ALL_DEMOS, demoInfo } from "@/components/demos";
 import { LiveDemo } from "@/components/live-demo";
 import { PlatformIcon } from "@/components/platform-icon";
@@ -138,6 +139,8 @@ export function DemoDetail({ lang, seed }: { lang: Lang; seed: string }) {
             <p className="mt-16 max-w-3xl rounded-xl border border-line bg-canvas p-5 text-sm leading-relaxed">{y.studio}</p>
           </div>
         </section>
+
+        <DemoMade lang={lang} seed={seed} name={d.name} />
 
         <nav className="mx-auto flex max-w-6xl justify-between gap-4 px-4 py-10 sm:px-6" aria-label={y.back}>
           <a href={demoPath(lang, prev.seed)} className="group flex flex-col text-sm">

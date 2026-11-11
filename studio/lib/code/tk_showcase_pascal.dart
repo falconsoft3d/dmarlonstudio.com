@@ -8,6 +8,7 @@ List<TkExample> tkPascalExamples(String Function(String) t) => [
   _pascalCalculator(t),
   tkUtilPascalOdoo(t),
   tkPascalMalecon(t),
+  tkPascalDocker(t),
 ];
 
 TkExample _pascalCalculator(String Function(String) t) {

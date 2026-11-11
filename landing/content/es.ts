@@ -99,6 +99,7 @@ export const es: Content = {
       { seed: "cpp_image_editor", name: "Editor de imágenes (C++)", text: "Un editor por capas con modos de fusión, recortar, girar, niveles y filtros, todo dibujado en código con FLTK." },
       { seed: "cpp_racing", name: "Carrera de motos (C++)", text: "Un juego de motos en pseudo-3D con siete rivales, vueltas y clasificación, dibujado en código con FLTK." },
       { seed: "pascal_malecon", name: "Bajo la Sombra del Malecón (Pascal)", text: "Una aventura de investigación en La Habana de 2026 con pixel art VGA de 256 colores, dibujada en código con Lazarus." },
+      { seed: "pascal_docker", name: "Docker en la barra de menús (Pascal)", text: "Sus contenedores de Docker en un icono de la barra de menús: abrir sus direcciones, pararlos o reiniciarlos, con Lazarus." },
       { seed: "domino", name: "Dominó doble 9", text: "Una mesa de cuatro en dos parejas contra la computadora, con dominó, tranque y partida a 100 tantos, en un lienzo de tkinter." },
       { seed: "flutter_store", name: "Tienda con login (Flutter)", text: "Login, catálogo con búsqueda, carrito y pago en una app móvil." },
       { seed: "rn_store", name: "Tienda (React Native)", text: "Login, catálogo, carrito y pago en una app de React Native." },

@@ -62,6 +62,7 @@ Hechos
 69. Wifi de casa en C++ (FLTK): su red, las de alrededor, los canales, el router y la contraseña, con un diagnóstico de 0 a 100; ejemplo del estudio y demo | ✅ |
 70. Consola en C++ (FLTK) inspirada en iTerm: pestañas, cola de órdenes que esperan a la anterior, órdenes guardadas con Ctrl+Espacio, atajos, history, ayuda y diez apariencias; ejemplo del estudio y demo | ✅ |
 
+72. Docker en la barra de menús (Pascal): un icono en la barra de estado de la Mac con los contenedores en marcha, desde donde se abren sus URL o se paran; ejemplo del estudio y demo, con «Cómo se hizo» (código y capturas del IDE) en su página | ✅ |
 
 Trabajando
 =========
@@ -73,5 +74,6 @@ Pendiente
 =========
 68. Web del cielo: las estrellas conocidas en su posición y las constelaciones (Osa Mayor, Osa Menor…) | ⏳ |
 71. Monitor de URLs en C++: revisa cada pocos minutos si los sitios están en línea, lo guarda en una base de datos y vive en la barra de menús de macOS | ⏳ |
-
-
+73. Lanzador de apps en la barra de menús: un icono en la barra de estado con todas las apps de la carpeta Aplicaciones para abrirlas rápido | ⏳ |
+74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
+75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |

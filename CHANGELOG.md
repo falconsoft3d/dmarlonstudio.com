@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.93 — 2026-11-11
+
+- **Relojes del mundo (C++): la hora de varios países en la barra de menús, nuevo ejemplo del estudio y demo para macOS y Windows.** Por defecto España, Argentina, Venezuela, República Dominicana y Cuba, y otros 34 países para elegir con la lista del diseño; se ordenan con flechas, se quitan, y cada uno se pone o se quita de la barra con un clic (en la tarjeta o en el menú del icono). La barra enseña las horas elegidas con su bandera («🇪🇸 17:02   🇨🇺 12:02») y el menú, todas, con «mañana» o «ayer» y la diferencia con la hora local; formato de 24 o de 12 horas. En la ventana, cada país es una tarjeta con su esfera (oscura de noche), la fecha, la diferencia y su UTC. El horario de verano va en el código (reglas de la Unión Europea, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda, con un calendario propio), así que funciona igual en Windows. Probado: las pruebas internas comparan, para los 39 países y cada 3 horas de 2025 a 2027, la hora de la app con la base de zonas del sistema (341 640 horas, todas iguales); así apareció que Cuba se quedó en el horario de verano en noviembre de 2026 (tzdata 2026f), que ya está en la regla. La prueba de la interfaz añade países, cambia el formato y hace clic en «En la barra», en las flechas y en «Quitar».
+- **Las capturas en inglés de las demos de C++ ya salen en inglés**: el ejecutable inglés de la demo se relanzaba en español según la preferencia de idioma guardada. Las del monitor de sitios se han rehecho. Las capturas y las pruebas de los relojes y del monitor ya no guardan sus datos de ejemplo en la carpeta de ajustes.
+
 ## 1.0.92 — 2026-11-11
 
 - **Monitor de sitios web: los botones Abrir, Pausar y Quitar de cada sitio ya funcionan.** El clic caía en la tarjeta del sitio (que también se puede pulsar para elegirla) porque se apuntaba después de los botones; ahora va antes y los botones, encima, ganan el clic. La prueba de la interfaz hace clic en el centro de cada botón y pulsa Pausar con un evento de ratón de verdad.

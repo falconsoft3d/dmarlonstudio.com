@@ -1061,6 +1061,7 @@ public:
       if (um::EVERY[k] == every) Every->index(k);
   }
   void save() {
+    if (!live) return;   // las capturas y las pruebas no guardan nada
     fl_make_path(um::config_dir().c_str());
     um::write_file(data_file(), um::serialize(sites, every));
   }

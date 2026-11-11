@@ -212,6 +212,59 @@ const webmonState = `bool add(const Check& c) {
   return !first && was != now;   // → aviso de macOS
 }`;
 
+// ---- Relojes del mundo (C++): fragmentos de Form1.cpp
+const clocksRules = `bool is_dst(long long t, Rule r, int std_min) {
+  // …
+  case R_EU:   // último domingo de marzo y de octubre, a la 1:00 UTC
+    start = at(nth_sunday(y, 3, -1), 60);
+    end = at(nth_sunday(y, 10, -1), 60);
+    return t >= start && t < end;
+  case R_CUBA:
+    // Salvo de marzo de 2026 a noviembre de 2027: Cuba se quedó en el
+    // horario de verano (tzdata 2026f).
+    if (t >= at(days_from_civil(2026, 3, 8), 300) && t < at(days_from_civil(2027, 11, 7), 300)) return true;
+    start = at(nth_sunday(y, 3, 2), 0 - std_min);
+    end = at(nth_sunday(y, 11, 1), 60 - (std_min + 60));
+    return t >= start && t < end;
+  case R_CHILE:   // en el hemisferio sur, al revés
+    start = at(nth_sunday(y, 9, 1), 240);
+    end = at(nth_sunday(y, 4, 1), 180);
+    return t >= start || t < end;
+  // …
+}`;
+
+const clocksZones = `const Zone ZONES[] = {
+    {"ES", "ES", "Europe/Madrid", 60, R_EU},
+    {"AR", "AR", "America/Argentina/Buenos_Aires", -180, R_NONE},
+    {"VE", "VE", "America/Caracas", -240, R_NONE},
+    {"DO", "DO", "America/Santo_Domingo", -240, R_NONE},
+    {"CU", "CU", "America/Havana", -300, R_CUBA},
+    // … 34 más
+};
+const char* const DEFAULTS[] = {"ES", "AR", "VE", "DO", "CU"};`;
+
+const clocksTest = `// Compara las reglas con la base de zonas del sistema (en macOS y Linux):
+// cada 3 horas de 2025 a 2027, para cada país.
+for (int i = 0; i < ZONE_N; i++) {
+  setenv("TZ", ZONES[i].iana, 1);
+  tzset();
+  for (long long t = from; t < to; t += 3 * 3600) {
+    int sys = local_offset_min(t), ours = offset_min(i, t);
+    if (sys != ours) bad++;
+  }
+}`;
+
+const clocksBar = `std::string bar_title(const Settings& s, long long t) {
+  std::string o;
+  for (const auto& k : s.clocks) {
+    if (!contains(s.in_bar, k)) continue;
+    int i = zone_index(k);
+    if (!o.empty()) o += "   ";
+    o += flag(i) + " " + time_text(clock_at(t, offset_min(i, t)), s.h24);
+  }
+  return o;   // «🇪🇸 17:02   🇨🇺 12:02»
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -378,6 +431,66 @@ const es: Record<string, DemoMade> = {
         title: "6. Seguir viva sin ventana",
         text: "Fl::run termina cuando no queda ninguna ventana. Al minimizar a la barra, la app esconde la ventana, sale del Dock y espera eventos con Fl::wait, como hace un diálogo, hasta que vuelve a abrir la ventana o elige Salir. Sus pruebas (DMS_WEBMON_SELFTEST y DMS_WEBMON_UITEST) comprueban las direcciones, curl, los estados, el guardado, el menú y la interfaz sin abrir ventanas.",
         code: { file: "Form1.cpp", text: webmonLoop },
+      },
+    ],
+  },
+  cpp_clocks: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana, la lista de países, el formato, los botones, la barra de estado y el reloj de un segundo; el código de Form1.cpp calcula la hora de cada país, dibuja las esferas y pone las horas en la barra de menús de macOS.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "Las tarjetas de los relojes; su botón de cerrar la esconde en la barra de menús." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (Minimizar a la barra, Volver a los relojes de siempre, Salir) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Cada 1000 ms: las agujas, la hora de la barra y el menú." },
+        { name: "Top", kind: "Frame", text: "La franja de arriba." },
+        { name: "Zone", kind: "Combobox", text: "Los 39 países para añadir (España, Argentina, Venezuela, República Dominicana, Cuba…)." },
+        { name: "BtnAdd", kind: "Button", text: "Añade el país elegido." },
+        { name: "Format", kind: "Combobox", text: "24 o 12 horas (Format_select)." },
+        { name: "BtnBar", kind: "Button", text: "Minimizar a la barra de menús." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja las tarjetas con las esferas (un Fl_Widget propio)." },
+        { name: "Status", kind: "StatusBar", text: "La hora de aquí, con segundos, y cuántos relojes hay." },
+      ],
+      apis: [
+        "El calendario en el código (los algoritmos de días de Howard Hinnant): la hora de cada país sin depender de las zonas del sistema",
+        "Las reglas del horario de verano: Unión Europea, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda",
+        "setenv(\"TZ\") y tzset (solo en las pruebas): la base de zonas del sistema, para comprobar las reglas",
+        "Runtime de Objective-C (objc_msgSend): NSStatusItem con las banderas y las horas, y su NSMenu",
+        "fl_draw, fl_pie y fl_line (FLTK): las esferas y las agujas",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba, un Combobox con los países, el botón Añadir, otro Combobox con el formato y el botón de la barra; debajo, un Frame para las tarjetas y una StatusBar; además, un Menu y un Timer de un segundo.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales BtnAdd_click, BtnBar_click, Format_select, Tick_timer y Menu1_click, que Form1 sobrescribe en Form1.cpp.",
+        shot: "generated",
+      },
+      {
+        title: "3. Los países y sus reglas",
+        text: "Cada país lleva su diferencia normal con UTC y, si la cambia en verano, su regla. Por defecto salen España, Argentina, Venezuela, República Dominicana y Cuba; la zona del sistema (Europe/Madrid…) solo la usan las pruebas.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: clocksZones },
+      },
+      {
+        title: "4. El horario de verano, en el código",
+        text: "Las reglas calculan el domingo del cambio con un calendario propio, sin zonas del sistema, para que la app funcione igual en Windows. Al comprobarlas apareció una excepción real: Cuba se quedó en el horario de verano en noviembre de 2026.",
+        code: { file: "Form1.cpp", text: clocksRules },
+      },
+      {
+        title: "5. Comprobado contra el sistema",
+        text: "La prueba interna (DMS_CLOCKS_SELFTEST) compara, para los 39 países y cada 3 horas de 2025 a 2027, la hora de la app con la de la base de zonas del sistema: 341 640 horas, todas iguales. Así se encontró la excepción de Cuba.",
+        code: { file: "Form1.cpp", text: clocksTest },
+      },
+      {
+        title: "6. Las horas en la barra de menús",
+        text: "El título del icono son las banderas (dos letras regionales en Unicode) con su hora; se rehace cada segundo y el menú solo cuando cambia. Como en el monitor de sitios, el icono se hace desde C++ con el runtime de Objective-C y la app sigue viva en la barra con Fl::wait.",
+        code: { file: "Form1.cpp", text: clocksBar },
       },
     ],
   },
@@ -549,6 +662,66 @@ const en: Record<string, DemoMade> = {
         title: "6. Staying alive without a window",
         text: "Fl::run ends when no window is left. When minimized to the bar, the app hides the window, leaves the Dock and waits for events with Fl::wait, like a dialog does, until you open the window again or choose Quit. Its tests (DMS_WEBMON_SELFTEST and DMS_WEBMON_UITEST) check addresses, curl, states, saving, the menu and the interface without opening windows.",
         code: { file: "Form1.cpp", text: webmonLoop },
+      },
+    ],
+  },
+  cpp_clocks: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window, the country list, the format, the buttons, the status bar and the one-second timer; the code in Form1.cpp works out each country's time, draws the dials and puts the times in the macOS menu bar.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The clock cards; its close button hides it in the menu bar." },
+        { name: "Menu1", kind: "Menu", text: "File (Minimize to the bar, Back to the default clocks, Quit) and Help." },
+        { name: "Tick", kind: "Timer", text: "Every 1000 ms: the hands, the time in the bar and the menu." },
+        { name: "Top", kind: "Frame", text: "The top strip." },
+        { name: "Zone", kind: "Combobox", text: "The 39 countries to add (Spain, Argentina, Venezuela, Dominican Republic, Cuba…)." },
+        { name: "BtnAdd", kind: "Button", text: "Adds the chosen country." },
+        { name: "Format", kind: "Combobox", text: "24 or 12 hours (Format_select)." },
+        { name: "BtnBar", kind: "Button", text: "Minimize to the menu bar." },
+        { name: "Board", kind: "Frame", text: "Where the code draws the cards with the dials (a custom Fl_Widget)." },
+        { name: "Status", kind: "StatusBar", text: "The local time, with seconds, and how many clocks there are." },
+      ],
+      apis: [
+        "The calendar in the code (Howard Hinnant's day algorithms): each country's time without relying on the system's time zones",
+        "Daylight saving rules: European Union, United States, Cuba, Chile, Australia and New Zealand",
+        "setenv(\"TZ\") and tzset (tests only): the system's time zone database, to check the rules",
+        "Objective-C runtime (objc_msgSend): NSStatusItem with the flags and times, and its NSMenu",
+        "fl_draw, fl_pie and fl_line (FLTK): the dials and hands",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top, a Combobox with the countries, the Add button, another Combobox with the format and the bar button; below, a Frame for the cards and a StatusBar; plus a Menu and a one-second Timer.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) has each component and the virtual methods BtnAdd_click, BtnBar_click, Format_select, Tick_timer and Menu1_click, which Form1 overrides in Form1.cpp.",
+        shot: "generated",
+      },
+      {
+        title: "3. The countries and their rules",
+        text: "Each country has its normal UTC offset and, if it changes in summer, its rule. Spain, Argentina, Venezuela, the Dominican Republic and Cuba come by default; the system zone (Europe/Madrid…) is only used by the tests.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: clocksZones },
+      },
+      {
+        title: "4. Daylight saving, in the code",
+        text: "The rules find the Sunday of the change with their own calendar, without system time zones, so the app works the same on Windows. Checking them revealed a real exception: Cuba stayed on summer time in November 2026.",
+        code: { file: "Form1.cpp", text: clocksRules },
+      },
+      {
+        title: "5. Checked against the system",
+        text: "The internal test (DMS_CLOCKS_SELFTEST) compares, for the 39 countries and every 3 hours from 2025 to 2027, the app's time with the system's time zone database: 341,640 hours, all equal. That is how the Cuba exception was found.",
+        code: { file: "Form1.cpp", text: clocksTest },
+      },
+      {
+        title: "6. The times in the menu bar",
+        text: "The icon's title is the flags (two Unicode regional letters) with their time; it is rebuilt every second and the menu only when it changes. As in the website monitor, the icon is made from C++ with the Objective-C runtime and the app stays alive in the bar with Fl::wait.",
+        code: { file: "Form1.cpp", text: clocksBar },
       },
     ],
   },

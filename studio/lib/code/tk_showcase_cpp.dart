@@ -13,6 +13,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppWifi(t),
   tkCppConsole(t),
   tkCppWebmon(t),
+  tkCppClocks(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

@@ -65,6 +65,7 @@ Hechos
 72. Docker en la barra de menús (Pascal): un icono en la barra de estado de la Mac con los contenedores en marcha, desde donde se abren sus URL o se paran; ejemplo del estudio y demo, con «Cómo se hizo» (código y capturas del IDE) en su página | ✅ |
 73. Lanzador de apps en la barra de menús: un icono en la barra de estado con las apps de su propia carpeta para abrirlas rápido, con iconos, favoritas, recientes y buscador; y el icono de la barra ya no es un cuadrado (también en la de Docker) | ✅ |
 71. Monitor de URLs en C++: revisa cada pocos minutos si los sitios están en línea, lo guarda en una base de datos y vive en la barra de menús de macOS (añadir sitios, cada 2 min configurable, minimizar a la barra de estado y seguir los sitios desde su menú) | ✅ |
+77. Relojes del mundo en la barra de estado: la hora de varios países, configurable (por defecto España, Argentina, Venezuela, República Dominicana y Cuba) | ✅ |
 
 Trabajando
 =========
@@ -78,5 +79,5 @@ Pendiente
 74. Demos: «Cómo se hizo» en la página de cada demo, con fragmentos del código y capturas del IDE (hecho en la de Docker; falta el resto) | ⏳ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ⏳ |
 76. Grabador de pantalla para hacer vídeos de YouTube | ⏳ |
-77. Relojes del mundo en la barra de estado: la hora de varios países, configurable (por defecto España, Argentina, Venezuela, República Dominicana y Cuba) | ⏳ |
 78. MyWhatsapp: lee los mensajes de WhatsApp y, con la IA de Claude o ChatGPT, propone respuestas según el contexto de la conversación | ⏳ |
+79. Monitor de sitios: escáner de puertos de cada sitio desde el propio monitor | ⏳ |

@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,11 +437,11 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_next.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart
 msgid "Añadir"
 msgstr "Add"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -3345,6 +3345,308 @@ msgstr "Calculator in C++ with FLTK: every button calls its method."
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr "The calculator as a native C++ app with FLTK: the same design, with the code in C++."
 
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "12 horas (a. m./p. m.)"
+msgstr "12 hours (AM/PM)"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "24 horas"
+msgstr "24 hours"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Abrir los relojes…"
+msgstr "Open the clocks…"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Acerca de Relojes del mundo"
+msgstr "About World Clocks"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Alemania · Berlín"
+msgstr "Germany · Berlin"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Aquí son las {0} · {1} relojes"
+msgstr "Here it is {0} · {1} clocks"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Aquí: {0} · {1}"
+msgstr "Here: {0} · {1}"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Argentina · Buenos Aires"
+msgstr "Argentina · Buenos Aires"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Australia · Sídney"
+msgstr "Australia · Sydney"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Añada un país con la lista de arriba."
+msgstr "Add a country with the list above."
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Bolivia · La Paz"
+msgstr "Bolivia · La Paz"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Brasil · São Paulo"
+msgstr "Brazil · São Paulo"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid ""
+"Cada tarjeta es la hora de un país, con su esfera (oscura de noche), la fecha y la diferencia con su hora. Añada países con la lista de arriba, ordénelos con las flechas y quite los que no quiera.\n"
+"\n"
+"«En la barra» pone esa hora en la barra de menús, con su bandera; el menú del icono enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n"
+"\n"
+"Cerrar la ventana la esconde: los relojes siguen en la barra hasta que elija Salir."
+msgstr ""
+"Each card is the time in a country, with its dial (dark at night), the date and the difference with your time. Add countries with the list above, order them with the arrows and remove the ones you don’t want.\n"
+"\n"
+"“In the bar” puts that time in the menu bar, with its flag; the icon’s menu shows them all. Daylight saving changes (Europe, United States, Cuba, Chile, Australia and New Zealand) are worked out automatically.\n"
+"\n"
+"Closing the window hides it: the clocks stay in the menu bar until you choose Quit."
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Canadá · Toronto"
+msgstr "Canada · Toronto"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Chile · Santiago"
+msgstr "Chile · Santiago"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "China · Pekín"
+msgstr "China · Beijing"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Colombia · Bogotá"
+msgstr "Colombia · Bogotá"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Costa Rica · San José"
+msgstr "Costa Rica · San José"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Cuba · La Habana"
+msgstr "Cuba · Havana"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr "How it works"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Ecuador · Guayaquil"
+msgstr "Ecuador · Guayaquil"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "El Salvador · San Salvador"
+msgstr "El Salvador · San Salvador"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Emiratos Árabes · Dubái"
+msgstr "United Arab Emirates · Dubai"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "En la barra"
+msgstr "In the bar"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "España · Canarias"
+msgstr "Spain · Canary Islands"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "España · Madrid"
+msgstr "Spain · Madrid"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Estados Unidos · Chicago"
+msgstr "United States · Chicago"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Estados Unidos · Los Ángeles"
+msgstr "United States · Los Angeles"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Estados Unidos · Miami"
+msgstr "United States · Miami"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Estados Unidos · Nueva York"
+msgstr "United States · New York"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid "Formato"
+msgstr "Format"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Formato de 24 horas"
+msgstr "24-hour format"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Francia · París"
+msgstr "France · Paris"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Guatemala · Guatemala"
+msgstr "Guatemala · Guatemala City"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Honduras · Tegucigalpa"
+msgstr "Honduras · Tegucigalpa"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "India · Bombay"
+msgstr "India · Mumbai"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Italia · Roma"
+msgstr "Italy · Rome"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Japón · Tokio"
+msgstr "Japan · Tokyo"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "La hora de varios países en la barra de menús, nativa en C++ con FLTK: por defecto España, Argentina, Venezuela, República Dominicana y Cuba, con su esfera, la fecha, la diferencia horaria y el horario de verano de cada país."
+msgstr "The time in several countries in the menu bar, native in C++ with FLTK: Spain, Argentina, Venezuela, the Dominican Republic and Cuba by default, with their dial, date, time difference and each country’s daylight saving time."
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Las esferas y las horas de cada país las dibuja el código de Form1.cpp"
+msgstr "The dials and times of each country are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart lib/ui/bottom_panel.dart
+msgid "Minimizar"
+msgstr "Minimize"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "Minimizar a la barra de menús"
+msgstr "Minimize to the menu bar"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "México · Ciudad de México"
+msgstr "Mexico · Mexico City"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Nicaragua · Managua"
+msgstr "Nicaragua · Managua"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Nueva Zelanda · Auckland"
+msgstr "New Zealand · Auckland"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Panamá · Panamá"
+msgstr "Panama · Panama City"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Paraguay · Asunción"
+msgstr "Paraguay · Asunción"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "País"
+msgstr "Country"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Perú · Lima"
+msgstr "Peru · Lima"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Portugal · Lisboa"
+msgstr "Portugal · Lisbon"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Puerto Rico · San Juan"
+msgstr "Puerto Rico · San Juan"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Quitar"
+msgstr "Remove"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Reino Unido · Londres"
+msgstr "United Kingdom · London"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Relojes del mundo"
+msgstr "World Clocks"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Relojes del mundo (C++)"
+msgstr "World Clocks (C++)"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Relojes del mundo en C++ con FLTK: la hora de varios países en la barra de menús, con el horario de verano de cada uno."
+msgstr "World Clocks in C++ with FLTK: the time in several countries in the menu bar, with each one’s daylight saving time."
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "República Dominicana · Santo Domingo"
+msgstr "Dominican Republic · Santo Domingo"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "UTC · Hora universal"
+msgstr "UTC · Universal time"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, la lista de países, los botones y el reloj se diseñaron en el Diseñador del estudio; las esferas se dibujan en código, las reglas del horario de verano van en el código y la barra de menús se hace desde C++ con el runtime de Objective-C."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, its menu, the country list, the buttons and the timer were designed in the studio’s Designer; the dials are drawn in code, the daylight saving rules are in the code and the menu bar is made from C++ with the Objective-C runtime."
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Uruguay · Montevideo"
+msgstr "Uruguay · Montevideo"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Venezuela · Caracas"
+msgstr "Venezuela · Caracas"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Volver a los relojes de siempre"
+msgstr "Back to the default clocks"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "a. m."
+msgstr "AM"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "ayer"
+msgstr "yesterday"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "dom,lun,mar,mié,jue,vie,sáb"
+msgstr "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
+
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_sites.dart
+msgid "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic"
+msgstr "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "mañana"
+msgstr "tomorrow"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "misma hora"
+msgstr "same time"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "p. m."
+msgstr "PM"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "{0} {1} {2}"
+msgstr "{0} {2} {1}"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "☀ De día"
+msgstr "☀ Daytime"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "☾ De noche"
+msgstr "☾ Night"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "✓ En la barra"
+msgstr "✓ In the bar"
+
 #: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
@@ -3447,10 +3749,6 @@ msgstr "Console · help"
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Ctrl+Espacio"
 msgstr "Ctrl+Space"
-
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cómo funciona"
-msgstr "How it works"
 
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Detener la cola"
@@ -3588,10 +3886,6 @@ msgstr "Next tab"
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Quitada de las guardadas: {0}"
 msgstr "Removed from saved: {0}"
-
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Quitar"
-msgstr "Remove"
 
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Se ejecutan de una en una en la pestaña elegida."
@@ -6744,14 +7038,6 @@ msgstr "It is back"
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "La lista de sitios con su historial la dibuja el código de Form1.cpp"
 msgstr "The list of sites with their history is drawn by the code in Form1.cpp"
-
-#: lib/code/tk_showcase_cpp_webmon.dart lib/ui/bottom_panel.dart
-msgid "Minimizar"
-msgstr "Minimize"
-
-#: lib/code/tk_showcase_cpp_webmon.dart
-msgid "Minimizar a la barra de menús"
-msgstr "Minimize to the menu bar"
 
 #: lib/code/tk_showcase_cpp_webmon.dart
 msgid "Monitor de sitios web"
@@ -10570,10 +10856,6 @@ msgid "Ya hay una cuenta con ese correo."
 msgstr "There is already an account with that email."
 
 #: lib/code/tk_showcase_sites.dart
-msgid "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic"
-msgstr "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec"
-
-#: lib/code/tk_showcase_sites.dart
 msgid "{0} entradas"
 msgstr "{0} posts"
 
@@ -11280,10 +11562,6 @@ msgstr "Joint stereo"
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "Fin de la lista."
 msgstr "End of the playlist."
-
-#: lib/code/tk_showcase_util_mp3_player.dart
-msgid "Formato"
-msgstr "Format"
 
 #: lib/code/tk_showcase_util_mp3_player.dart
 msgid "Guardar la lista M3U"

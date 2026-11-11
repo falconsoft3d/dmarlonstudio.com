@@ -220,6 +220,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Cada sitio, su menú", text: "Desde el submenú de cada sitio lo abre en el navegador, lo comprueba ya, lo pausa o vuelve a la ventana; también ve su disponibilidad y desde cuándo está en línea o caído. Cuando un sitio se cae o vuelve, macOS le avisa." },
     ],
   },
+  cpp_clocks: {
+    intro:
+      "La hora de varios países siempre a la vista, en la barra de menús, hecha en C++ con FLTK y diseñada en el estudio: por defecto España, Argentina, Venezuela, República Dominicana y Cuba, y la puede cambiar.",
+    steps: [
+      { title: "Sus relojes en la barra", text: "Al abrirla, la hora de España aparece en la barra de menús con su bandera; el menú del icono enseña todos los relojes con la hora, si es mañana o ayer allí, y la diferencia con la suya. Haga clic en un país del menú para ponerlo o quitarlo de la barra." },
+      { title: "Elija los países", text: "En la ventana, cada país es una tarjeta con su esfera, que se oscurece de noche, la fecha y la diferencia horaria. Añada otros con la lista de arriba (hay 39), ordénelos con las flechas y quite los que sobren; elija el formato de 24 o de 12 horas." },
+      { title: "El horario de verano, solo", text: "La app sabe cuándo cambia la hora en cada país (Europa, Estados Unidos, Cuba, Chile, Australia, Nueva Zelanda) y lo calcula sin depender del sistema. Cierre la ventana y los relojes siguen en la barra hasta que elija Salir." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -514,6 +523,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Add your sites", text: "Type an address (example.com is enough) and, if you like, a name, and press Add or Enter. The monitor checks it right away and then every 2 minutes; change the interval in “Check every” (1 to 30 minutes)." },
       { title: "Follow them from the menu bar", text: "Close the window or press “Minimize to the menu bar”: the app leaves the Dock and a globe stays with how many sites are up (a triangle if one fails). Its menu shows each site with its status and the next check." },
       { title: "Each site, its menu", text: "From each site's submenu you open it in the browser, check it now, pause it or go back to the window; you also see its uptime and how long it has been up or down. When a site goes down or comes back, macOS lets you know." },
+    ],
+  },
+  cpp_clocks: {
+    intro:
+      "The time in several countries always in sight, in the menu bar, made in C++ with FLTK and designed in the studio: Spain, Argentina, Venezuela, the Dominican Republic and Cuba by default, and you can change them.",
+    steps: [
+      { title: "Your clocks in the bar", text: "When it opens, the time in Spain appears in the menu bar with its flag; the icon's menu shows every clock with its time, whether it is tomorrow or yesterday there, and the difference with yours. Click a country in the menu to put it in the bar or take it out." },
+      { title: "Choose the countries", text: "In the window, each country is a card with its dial, which goes dark at night, the date and the time difference. Add others with the list above (there are 39), order them with the arrows and remove the ones you don't need; choose 24- or 12-hour format." },
+      { title: "Daylight saving, automatically", text: "The app knows when the clocks change in each country (Europe, United States, Cuba, Chile, Australia, New Zealand) and works it out without relying on the system. Close the window and the clocks stay in the bar until you choose Quit." },
     ],
   },
   domino: {

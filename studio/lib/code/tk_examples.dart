@@ -43,6 +43,8 @@ part 'tk_showcase_pascal_launcher.dart';
 part 'tk_showcase_pascal_launcher_code.dart';
 part 'tk_showcase_cpp_webmon.dart';
 part 'tk_showcase_cpp_webmon_code.dart';
+part 'tk_showcase_cpp_clocks.dart';
+part 'tk_showcase_cpp_clocks_code.dart';
 part 'tk_showcase_console.dart';
 part 'tk_showcase_animals.dart';
 part 'tk_showcase_flutter.dart';

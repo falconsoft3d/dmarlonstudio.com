@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.123 — 2026-11-11
+
+- **MyWhatsapp 1.0.26: las cifras del panel llevan a sus chats.** Un clic en «Mensajes recibidos», «Enviados» o «Chats activos» filtra la lista con los chats activos en ese periodo; en «Responde en» o «Por responder ahora», con los que esperan su respuesta; en «Sin respuesta», con los que no le contestan (el panel sigue a la vista); «Tareas pendientes» abre las tareas, «Leads abiertos» el CRM, y un nombre de «Quién más le escribe» abre su chat.
+- **MyWhatsapp: el análisis de la IA se desplaza.** El texto del análisis del panel (y el de «Valorar a esta persona») se desplaza con la rueda o el trackpad dentro de su tarjeta, con una barrita que dice por dónde va.
+- **MyWhatsapp: el modo ocupado, también solo para un contacto.** En un chat, «⋯ › 🔕 Ocupado con este contacto…» elige uno de sus modos solo para esa persona: si le escribe después, se le contesta solo (una vez), y a los demás no se les envía nada (salvo que también tenga un modo general activo; con los dos, ese contacto recibe el suyo). Sale en la cabecera del chat («🔕 En una reunión»; un clic lo cambia o lo quita) y se recuerda al volver a abrir la app.
+- Probado: las pruebas internas (a quién se contesta con un modo solo para un contacto; guardarlo y leerlo) y la de la interfaz (cada cifra del panel y adónde lleva, el análisis largo que se desplaza, activar el modo para un contacto, verlo en la cabecera y quitarlo, y por el puente de prueba: si ese contacto no escribe no se envía nada, y si escribe se le contesta solo a él).
+
 ## 1.0.122 — 2026-11-11
 
 - **MyWhatsapp 1.0.25: el panel de sus mensajes, con IA.** El botón «📊», en la fila de Tareas, abre un panel con las cifras de los últimos 7 o 30 días: mensajes recibidos y enviados, chats activos, lo que tarda en responder (el tiempo típico —la mediana— y la media, en chats individuales), los chats por responder ahora y sin respuesta, las tareas pendientes y los leads abiertos con su importe; debajo, los mensajes por día (recibidos y enviados), a qué hora le escriben y quién más le escribe. Se calcula en otro hilo con recuentos sobre la base de WhatsApp Desktop, sin leer ningún mensaje, y cada mensaje se cuenta una vez aunque WhatsApp Desktop lo guarde repetido. «✨ Análisis con IA» manda solo esas cifras y los nombres de los chats (nunca un mensaje) y devuelve tres conclusiones, tres recomendaciones y una alerta si hace falta.

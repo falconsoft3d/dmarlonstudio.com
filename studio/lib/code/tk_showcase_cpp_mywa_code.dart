@@ -1526,6 +1526,21 @@ void merge_msgs(std::vector<Msg>& base, const std::vector<Msg>& extra) {
   }
   std::stable_sort(base.begin(), base.end(), [](const Msg& a, const Msg& b) { return a.t < b.t; });
 }
+// El modo ocupado solo para algunos contactos: jid → (modo, desde cuándo).
+using BusyFor = std::map<std::string, std::pair<std::string, long long>>;
+std::string busy_for_text(const BusyFor& bf) {
+  std::string o;
+  for (const auto& kv : bf) o += (o.empty() ? "" : ";") + kv.first + "|" + kv.second.first + "|" + std::to_string(kv.second.second);
+  return o;
+}
+BusyFor busy_for_parse(const std::string& s) {
+  BusyFor bf;
+  for (const auto& part : split(s, ';')) {
+    auto f = split(part, '|');
+    if (f.size() == 3 && !f[0].empty() && !f[1].empty()) bf[f[0]] = {f[1], std::atoll(f[2].c_str())};
+  }
+  return bf;
+}
 long long live_id(const std::string& jid) {
   return -1000000 - (long long)(std::hash<std::string>{}(jid) % 1000000000ULL);
 }
@@ -1850,6 +1865,17 @@ std::vector<int> busy_targets(const std::vector<Chat>& chats, long long since, c
     if (c.group || c.archived || c.last_mine || c.jid.empty() || c.last_t <= since) continue;
     if (c.jid.find("@s.whatsapp.net") == std::string::npos) continue;
     if (done.count(c.jid)) continue;
+    out.push_back(i);
+  }
+  return out;
+}
+// Los de un modo solo para ellos: el chat de cada uno, si escribió después de activarlo.
+std::vector<int> busy_for_targets(const std::vector<Chat>& chats, const BusyFor& bf, const std::map<std::string, bool>& done) {
+  std::vector<int> out;
+  for (int i = 0; i < (int)chats.size(); i++) {
+    const Chat& c = chats[(size_t)i];
+    auto it = bf.find(c.jid);
+    if (it == bf.end() || c.last_mine || c.last_t <= it->second.second || done.count(c.jid)) continue;
     out.push_back(i);
   }
   return out;
@@ -2662,7 +2688,9 @@ public:
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
   long long now = 0;                          // 0: la hora de verdad
   // Los filtros de arriba y los archivados (aparte, como en WhatsApp).
-  enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED, F_LABEL };
+  enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED, F_LABEL, F_ACTIVE };
+  long long active_since = 0;   // con F_ACTIVE: los que tuvieron mensajes desde entonces
+  int active_days = 7;
   int mode = F_ALL;
   const LabelSet* labels = nullptr;
   std::string label_filter;   // con F_LABEL: el id de la etiqueta
@@ -2681,10 +2709,12 @@ public:
     if (m == F_TODO) return !c.last_mine && c.last_t >= t - 3 * 86400;   // me escribieron (3 días) y no contesté
     if (m == F_WAITING) return c.last_mine;                                // escribí yo y no contestaron
     if (m == F_LABEL) return labels && labels->has(c.jid, label_filter);
+    if (m == F_ACTIVE) return c.last_t >= active_since;
     return true;
   }
   // «Por responder (3 días)  13»: el nombre del filtro y cuántos chats tiene.
   std::string filter_label(int m) const {
+    if (m == F_ACTIVE) return fmt(tx::F_ACTIVE, {std::to_string(active_days)}) + "  " + std::to_string(count(m));
     if (m == F_LABEL) {
       const Label* lb = labels ? labels->find(label_filter) : nullptr;
       return "🏷 " + (lb ? lb->name : std::string("?")) + "  " + std::to_string(count(m));
@@ -3168,6 +3198,7 @@ public:
   std::vector<Lead>* leads = nullptr;
   bool crm_mode = false;
   std::string chat_stage;
+  std::string chat_busy;   // el modo ocupado solo para este contacto ("" si no)
   std::vector<std::pair<std::string, int>> chat_labels;   // las etiquetas del chat abierto (nombre y color)
   // Acciones: 60 lead nuevo, 61 abrir su chat, 62 etapa anterior, 63 siguiente, 64 borrarlo, 65 la etapa (cabecera).
   void draw_crm() {
@@ -3257,6 +3288,34 @@ public:
   int dash_waiting = 0, dash_noreply = 0, dash_tasks = 0, dash_leads = 0;
   double dash_leads_value = 0;
   std::string dash_ai;
+  // Los textos largos (el análisis y la valoración) se desplazan con la rueda dentro de su tarjeta.
+  int text_scroll = 0, text_content = 0;
+  Hit text_box{0, 0, 0, 0, 0, 0};
+  // Escribe [text] en la caja (x, y, w, h), desplazado, con una barrita a la derecha si no cabe.
+  void scroll_text(const std::string& text, int bx, int by, int bw, int bh, int line_h) {
+    const Theme& T = th();
+    auto lines = wrap(text, bw - 26);
+    text_content = (int)lines.size() * line_h + 10;
+    int max_scroll = std::max(0, text_content - bh);
+    text_scroll = std::max(0, std::min(text_scroll, max_scroll));
+    text_box = {bx, by, bw, bh, 0, max_scroll};
+    fl_push_clip(bx, by, bw, bh);
+    fl_color(rgb(T.text));
+    int yy = by + line_h - 4 - text_scroll;
+    for (const auto& l : lines) {
+      if (yy > by - line_h && yy < by + bh + line_h) fl_draw(l.c_str(), bx, yy);
+      yy += line_h;
+    }
+    fl_pop_clip();
+    if (max_scroll > 0) {
+      int th2 = std::max(24, bh * bh / text_content);
+      int ty = by + (bh - th2) * text_scroll / max_scroll;
+      fl_color(rgb(T.card_line));
+      fl_rounded_rectf(bx + bw - 6, by, 5, bh, 2);
+      fl_color(rgb(T.muted));
+      fl_rounded_rectf(bx + bw - 6, ty, 5, th2, 2);
+    }
+  }
   void draw_dash() {
     const Theme& T = th();
     const int head = 60;
@@ -3300,7 +3359,9 @@ public:
     int gap = 10, cw = (w() - 24 - gap * 3) / 4, ch = 74, cy = y() + head + 12;
     for (size_t i = 0; i < cards.size(); i++) {
       int cx = x() + 12 + (int)(i % 4) * (cw + gap), yy = cy + (int)(i / 4) * (ch + gap);
-      round_box(cx, yy, cw, ch, 10, rgb(T.card), rgb(T.card_line));
+      bool hot = (int)hits.size() == hover;
+      round_box(cx, yy, cw, ch, 10, hot ? rgb(T.dark ? 0x202c33 : 0xf5f6f6) : rgb(T.card), hot ? rgb(cards[i].color) : rgb(T.card_line));
+      hits.push_back({cx, yy, cw, ch, 74, (int)i});   // un clic: sus chats
       fl_color(rgb(cards[i].color));
       fl_rectf(cx + 10, yy + 12, 4, ch - 24);
       fl_font(FL_HELVETICA, 12);
@@ -3389,6 +3450,7 @@ public:
         int bw = (int)((rw - 28) * t.second / (double)mx);
         fl_color(rgb(T.dark ? 0x0a332c : 0xd9fdd3));
         fl_rectf(rx2 + 14, yy, bw, 18);
+        hits.push_back({rx2 + 14, yy, rw - 28, 18, 75, (int)(&t - &dash.top[0])});   // un clic: su chat
         fl_font(FL_HELVETICA, 11);
         fl_color(rgb(T.text));
         fl_draw(fit(t.first, rw - 80).c_str(), rx2 + 18, yy + 13);
@@ -3406,15 +3468,8 @@ public:
       fl_draw(tx::DASH_AI_TITLE, lx + 14, ay + 22);
       fl_font(FL_HELVETICA_BOLD, 12);
       button(lx + w() - 24 - 14 - ((int)fl_width("✕") + 20), ay + 8, "✕", 73, -1, rgb(T.text), rgb(T.card));
-      fl_push_clip(lx, ay + 30, w() - 24, ah - 34);
       fl_font(FL_HELVETICA, 13);
-      fl_color(rgb(T.text));
-      int yy = ay + 48;
-      for (const auto& l : wrap(dash_ai, w() - 24 - 28)) {
-        fl_draw(l.c_str(), lx + 14, yy);
-        yy += 19;
-      }
-      fl_pop_clip();
+      scroll_text(dash_ai, lx + 14, ay + 34, w() - 24 - 22, ah - 42, 19);
     }
   }
   // La valoración de una persona por la IA, en una tarjeta encima del chat.
@@ -3427,7 +3482,7 @@ public:
     int cw = std::min(720, w() - 60), cx = x() + (w() - cw) / 2, cy = y() + 30;
     fl_font(FL_HELVETICA, 15);
     auto lines = wrap(insight, cw - 48);
-    int chh = std::min(h() - 60, 110 + (int)lines.size() * 22);
+    int chh = std::min(h() - 60, 110 + (int)lines.size() * 22);   // si no cabe: se desplaza con la rueda
     round_box(cx, cy, cw, chh, 14, rgb(T.card), rgb(T.card_line));
     fl_font(FL_HELVETICA_BOLD, 17);
     fl_color(rgb(T.text));
@@ -3437,15 +3492,8 @@ public:
     button(bx, cy + 16, "✕", 34, -1, rgb(T.text), rgb(T.card));
     bx -= 8 + (int)fl_width(tx::COPY) + 20;
     button(bx, cy + 16, tx::COPY, 35, -1, rgb(T.text), rgb(T.card));
-    fl_push_clip(cx, cy + 60, cw, chh - 70);
     fl_font(FL_HELVETICA, 15);
-    fl_color(rgb(T.text));
-    int ly = cy + 80;
-    for (const auto& l : lines) {
-      fl_draw(l.c_str(), cx + 24, ly);
-      ly += 22;
-    }
-    fl_pop_clip();
+    scroll_text(insight, cx + 24, cy + 62, cw - 34, chh - 72, 22);
   }
   // El visor: una foto en grande, encima de todo ("" si está cerrado).
   std::string viewer, viewer_title;
@@ -3894,6 +3942,13 @@ public:
     rx -= 8 + (int)fl_width(tx::ADD_TASK) + 20;
     button(rx, y() + 17, tx::ADD_TASK, 5, -1, rgb(T.text), rgb(T.card));
     rx -= 8;
+    // El modo ocupado solo para este contacto (un clic lo cambia o lo quita).
+    if (!chat_busy.empty()) {
+      std::string bl = "🔕 " + chat_busy;
+      rx -= (int)fl_width(bl.c_str()) + 20;
+      button(rx, y() + 17, bl.c_str(), 66, -1, rgb(0x111b21), rgb(0xf59e0b));
+      rx -= 8;
+    }
     // Si el chat está en el CRM: su etapa (un clic la cambia).
     if (!chat_stage.empty()) {
       std::string sl = "💼 " + chat_stage;
@@ -4103,6 +4158,11 @@ public:
         }
         return 0;
       case FL_MOUSEWHEEL:
+        if ((dash_mode || !insight.empty()) && text_box.w > 0 && Fl::event_inside(text_box.x, text_box.y, text_box.w, text_box.h)) {
+          text_scroll = std::max(0, std::min(text_scroll + Fl::event_dy() * 30, text_box.idx));
+          redraw();
+          return 1;
+        }
         if (tasks_mode) {
           task_scroll = std::max(0, std::min(task_scroll + Fl::event_dy() * 30, std::max(0, task_content - (h() - 72))));
           redraw();
@@ -4857,6 +4917,13 @@ int selftest() {
     std::map<std::string, bool> done = {{"5@s.whatsapp.net", true}};   // ya contestado: no
     auto t = busy_targets(cs, 100, done);
     chk(t.size() == 1 && t[0] == 0, "modo ocupado: a quién se contesta");
+    BusyFor bf = {{"4@s.whatsapp.net", {"Reunión", 100}}, {"1@s.whatsapp.net", {"Reunión", 300}}};
+    cs[3].last_mine = false;
+    auto tf = busy_for_targets(cs, bf, {});
+    chk(tf.size() == 1 && tf[0] == 3, "modo ocupado solo para un contacto: solo él (y si escribió después)");
+    auto back_bf = busy_for_parse(busy_for_text(bf));
+    chk(back_bf.size() == 2 && back_bf["4@s.whatsapp.net"].first == "Reunión" && back_bf["4@s.whatsapp.net"].second == 100,
+        "modo para un contacto: guardar y leer");
   }
   // Traducir: las claves y la respuesta de la IA.
   {
@@ -4943,7 +5010,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.25";
+const char* const MYWA_VERSION = "1.0.26";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -5340,6 +5407,7 @@ public:
   std::string busy;
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
+  wa::BusyFor busy_for;   // el modo ocupado solo para algunos contactos
   // El bloqueo con PIN: el resumen guardado, si está bloqueada, tras cuántos minutos
   // sin tocarla se bloquea sola (0: nunca) y cuándo se tocó por última vez.
   wa::LockView* lock_view = nullptr;
@@ -5644,6 +5712,7 @@ public:
         else if (l == "compact=1") compact = true;
         else if (wa::starts(l, "lock_after=")) lock_after = std::atoi(l.c_str() + 11);
         else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
+        else if (wa::starts(l, "busy_for=")) busy_for = wa::busy_for_parse(l.substr(9));
         else if (wa::starts(l, "busy_done=")) {
           for (const auto& j : wa::split(l.substr(10), ','))
             if (!j.empty()) busy_done[j] = true;
@@ -5670,6 +5739,7 @@ public:
                                         "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
+                                        "\nbusy_for=" + wa::busy_for_text(busy_for) +
                                         (compact ? "\ncompact=1" : "") + "\nlock_after=" + std::to_string(lock_after) +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
@@ -5783,6 +5853,7 @@ public:
   void refresh() {
     list->tasks_pending = wa::tasks_pending(tasks);
     view->chat_labels.clear();
+    view->chat_busy = current >= 0 && busy_for.count(chats[(size_t)current].jid) ? busy_for[chats[(size_t)current].jid].first : "";
     if (current >= 0)
       for (const auto* l : labels.of(chats[(size_t)current].jid)) view->chat_labels.push_back({l->name, l->color});
     {
@@ -6165,14 +6236,56 @@ public:
     m.ai = want_ai;
     return true;
   }
+  // El modo ocupado solo para este contacto: elegir el modo o quitarlo.
+  void busy_for_menu() {
+    if (current < 0) return;
+    const wa::Chat& c = chats[(size_t)current];
+    if (c.group || wa::phone_of(c.jid).empty()) {
+      say(tx::CONTACT_ONLY_PEOPLE);
+      return;
+    }
+    std::string now_mode = busy_for.count(c.jid) ? busy_for[c.jid].first : "";
+    std::vector<std::string> items;
+    for (const auto& m : busy_modes) items.push_back((m.name == now_mode ? "✓ " : "    ") + m.name + (m.ai ? "  ✨" : ""));
+    if (!now_mode.empty()) items.push_back(tx::BUSY_FOR_OFF);
+    int r = choose(items);
+    if (r < 0) return;
+    if (r >= (int)busy_modes.size()) {
+      busy_for.erase(c.jid);
+      say(tx::BUSY_OFF_DONE);
+    } else {
+      busy_for[c.jid] = {busy_modes[(size_t)r].name, now_t()};
+      busy_done.erase(c.jid);   // le contestará la próxima vez que escriba
+      if (send_mode == wa::S_NONE && !demo) say(tx::BUSY_NEEDS_SEND);
+      else say(wa::fmt(tx::BUSY_FOR_ON, {busy_modes[(size_t)r].name, c.name}));
+    }
+    save_settings();
+    refresh();
+  }
   // Con un modo activo: a quien escribió (en privado) desde entonces, su mensaje, una vez.
+  const wa::BusyMode* mode_named(const std::string& name) const {
+    for (const auto& m : busy_modes)
+      if (m.name == name) return &m;
+    return nullptr;
+  }
   void busy_reply() {
-    const wa::BusyMode* m = busy_mode();
-    if (!m || send_mode == wa::S_NONE) return;
+    if (send_mode == wa::S_NONE) return;
     if (send_mode == wa::S_LINKED && !linked) return;
+    // A quién: con el modo general, a todos los que escriban; y a los que tienen un modo solo para ellos.
+    std::vector<std::pair<int, const wa::BusyMode*>> todo;
+    std::set<std::string> seen;
+    for (int i : wa::busy_for_targets(chats, busy_for, busy_done))
+      if (const wa::BusyMode* m = mode_named(busy_for[chats[(size_t)i].jid].first)) {
+        todo.push_back({i, m});
+        seen.insert(chats[(size_t)i].jid);
+      }
+    if (const wa::BusyMode* g = busy_mode())
+      for (int i : wa::busy_targets(chats, busy_since, busy_done))
+        if (!seen.count(chats[(size_t)i].jid) && !busy_for.count(chats[(size_t)i].jid)) todo.push_back({i, g});
     bool any = false;
-    for (int i : wa::busy_targets(chats, busy_since, busy_done)) {
-      wa::Chat c = chats[(size_t)i];
+    for (const auto& t : todo) {
+      const wa::BusyMode* m = t.second;
+      wa::Chat c = chats[(size_t)t.first];
       busy_done[c.jid] = true;   // y se guarda: al volver a abrir la app no se repite
       any = true;
       std::string& key = ai.provider == wa::P_OPENAI ? ai.openai_key : ai.claude_key;
@@ -6602,6 +6715,40 @@ public:
     f->view->dash = d->k;
     f->refresh();
   }
+  // Las cifras llevan a sus chats: la lista de la izquierda, filtrada (o las tareas, el CRM o un chat).
+  void dash_click(int act, int k) {
+    if (act == 75) {
+      if (k < 0 || k >= (int)view->dash.top.size()) return;
+      std::string name = view->dash.top[(size_t)k].first;
+      for (int i = 0; i < (int)chats.size(); i++)
+        if (chats[(size_t)i].name == name || chats[(size_t)i].jid == name) {
+          list->mode = wa::ChatList::F_ALL;
+          pick(i);
+          return;
+        }
+      say(tx::FORWARD_NONE);
+      return;
+    }
+    if (k == 6) {
+      open_tasks();
+      return;
+    }
+    if (k == 7) {
+      open_crm();
+      return;
+    }
+    if (k <= 2) {
+      list->mode = wa::ChatList::F_ACTIVE;
+      list->active_days = view->dash.days;
+      list->active_since = now_t() - view->dash.days * 86400LL;
+    } else if (k <= 4) {
+      list->mode = wa::ChatList::F_TODO;
+    } else {
+      list->mode = wa::ChatList::F_WAITING;
+    }
+    list->scroll = 0;
+    say(wa::fmt(tx::DASH_LIST, {list->filter_label(list->mode)}));
+  }
   void dash_analyze() {
     if (!view->dash.ok || view->dash_busy) return;
     if (!demo && !ai_ready()) return;
@@ -6623,6 +6770,7 @@ public:
     Form1* f = self();
     if (!f || f->view->dash_ai.empty()) return;
     f->view->dash_ai = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->view->text_scroll = 0;
     f->refresh();
   }
   // ---- el CRM: el tablero, los leads y su etapa desde el chat
@@ -6866,6 +7014,7 @@ public:
     Form1* f = self();
     if (!f || f->current < 0 || f->chats[(size_t)f->current].jid != d->jid || f->view->insight.empty()) return;
     f->view->insight = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->view->text_scroll = 0;
     f->refresh();
   }
 
@@ -6939,7 +7088,7 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::LABELS_MENU, tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::LABELS_MENU, tx::CRM_MENU, tx::ADD_CONTACT, tx::PERSON_EVAL, tx::BUSY_FOR_MENU, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
@@ -6959,7 +7108,11 @@ public:
       evaluate_person();
       return;
     }
-    r -= 4;
+    if (r == 4) {
+      busy_for_menu();
+      return;
+    }
+    r -= 5;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -7436,8 +7589,16 @@ public:
       status_act(act, k);
       return;
     }
+    if (act == 66) {
+      busy_for_menu();
+      return;
+    }
     if (act >= 60 && act <= 65) {
       crm_act(act, k);
+      return;
+    }
+    if (act == 74 || act == 75) {
+      dash_click(act, k);
       return;
     }
     if (act >= 70 && act <= 73) {
@@ -8460,13 +8621,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 4; };   // «Limpiar el chat»
+      choose = [](const std::vector<std::string>&) { return 5; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 5; };   // «Deshacer la limpieza»
+      choose = [](const std::vector<std::string>&) { return 6; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -8513,6 +8674,23 @@ public:
         return true;
       };
     }
+    // «⋯ › 🔕 Ocupado con este contacto»: elegirlo, verlo en la cabecera y quitarlo.
+    {
+      pick(0);
+      int st = 0;
+      choose = [&st](const std::vector<std::string>&) { return st++ == 0 ? 4 : 0; };   // «🔕 …» → «En una reunión»
+      chat_menu();
+      refresh();
+      render_to("");
+      bool chipb = false;
+      for (const auto& h : view->hits) chipb = chipb || h.act == 66;
+      chk(busy_for.count(chats[0].jid) && busy_for[chats[0].jid].first == tx::BUSY_MEETING && view->chat_busy == tx::BUSY_MEETING && chipb,
+          "ocupado solo con este contacto (y en la cabecera)");
+      choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Desactivar para este contacto»
+      option_act(66, -1);
+      chk(!busy_for.count(chats[0].jid) && view->chat_busy.empty(), "quitarlo");
+      choose = [](const std::vector<std::string>&) { return -1; };
+    }
     // El panel: abrirlo, las cifras de la app, 30 días y el análisis con IA.
     {
       render_to("");
@@ -8542,8 +8720,45 @@ public:
       bool closeb = false;
       for (const auto& h : view->hits) closeb = closeb || h.act == 73;
       chk(view->dash_ai.find("Laura") != std::string::npos && closeb, "el análisis de la IA, en el panel");
+      // Un análisis largo: se desplaza con la rueda dentro de su tarjeta.
+      std::string longtext;
+      for (int i = 0; i < 40; i++) longtext += "• Línea " + std::to_string(i + 1) + " del análisis.\n";
+      view->dash_ai = "x";
+      dash_ai_done(new DashAiDone{longtext, ""});
+      render_to("");
+      Fl::e_x = view->text_box.x + 10;
+      Fl::e_y = view->text_box.y + 10;
+      Fl::e_dy = 5;
+      view->handle(FL_MOUSEWHEEL);
+      Fl::e_dy = 0;
+      chk(view->text_box.idx > 0 && view->text_scroll > 0, "el análisis largo se desplaza");
+      view->dash_ai = "• Contesta rápido a Laura.";
       option_act(73, -1);
       chk(view->dash_ai.empty(), "cerrar el análisis");
+      // Las cifras llevan a sus chats.
+      render_to("");
+      auto click_card = [&](int act, int idx) {
+        for (const auto& h : view->hits)
+          if (h.act == act && h.idx == idx) {
+            Fl::e_x = h.x + 8;
+            Fl::e_y = h.y + 8;
+            view->handle(FL_PUSH);
+            return true;
+          }
+        return false;
+      };
+      chk(click_card(74, 4) && list->mode == wa::ChatList::F_TODO && view->dash_mode, "«Por responder» filtra la lista (y el panel sigue)");
+      chk(click_card(74, 5) && list->mode == wa::ChatList::F_WAITING, "«Sin respuesta» filtra la lista");
+      chk(click_card(74, 2) && list->mode == wa::ChatList::F_ACTIVE && list->count(wa::ChatList::F_ACTIVE) >= 1, "«Chats activos» filtra la lista");
+      chk(click_card(74, 6) && view->tasks_mode, "«Tareas pendientes» abre las tareas");
+      open_dash(7);
+      render_to("");
+      chk(click_card(74, 7) && view->crm_mode, "«Leads abiertos» abre el CRM");
+      open_dash(7);
+      render_to("");
+      chk(click_card(75, 0) && current >= 0 && chats[(size_t)current].name == tx::DEMO_LAURA, "quien más escribe: abre su chat");
+      list->mode = wa::ChatList::F_ALL;
+      open_dash(7);
       std::string data = wa::kpis_text(view->dash, 3, 1, 2, 4, 6600);
       chk(data.find("412") != std::string::npos && data.find(tx::DEMO_LAURA) != std::string::npos, "lo que se manda a la IA: solo cifras y nombres");
       pick(0);
@@ -8933,6 +9148,25 @@ public:
       busy_modes.pop_back();
       busy.clear();
       busy_since = 0;
+      // Solo para un contacto: «Nuevo» escribió; con el modo solo para él, se le contesta; a otro, no.
+      {
+        int nuevo = -1;
+        for (int i = 0; i < (int)chats.size(); i++)
+          if (chats[(size_t)i].name == "Nuevo") nuevo = i;
+        busy_done.clear();
+        busy_for.clear();
+        busy_for["34600111222@s.whatsapp.net"] = {tx::BUSY_MEETING, 1794365150};   // Laura: no ha escrito después
+        size_t before_p = pending.size();
+        busy_reply();
+        chk(pending.size() == before_p, "modo para un contacto: si no escribe, nada (y a los demás tampoco)");
+        if (nuevo >= 0) {
+          busy_for["34677000000@s.whatsapp.net"] = {tx::BUSY_MEETING, 1794365150};
+          busy_reply();
+          chk(pending.size() == before_p + 1 && busy_done.count("34677000000@s.whatsapp.net"), "modo para un contacto: solo a él");
+        }
+        busy_for.clear();
+        busy_done.clear();
+      }
       // Publicar un estado por el puente (con la confirmación).
       open_status();
       confirm = [](const std::string&) { return true; };

@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.26 — Las cifras del panel llevan a sus chats; el análisis se desplaza; el modo ocupado, también solo para un contacto.\n"
 "1.0.25 — Panel con las cifras de sus mensajes (por día, por hora, quién más le escribe, lo que tarda en responder) y su análisis con IA.\n"
 "1.0.24 — Etiquetas: las suyas y las de WhatsApp, en la lista, en el chat y como filtro.\n"
 "1.0.23 — CRM: los leads en un tablero por etapas, enlazados a sus chats. La ficha del contacto, como en Odoo. Los datos se editan en una sola ventana.\n"
@@ -6793,6 +6794,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.26 — The dashboard's figures take you to their chats; the analysis scrolls; busy mode, also just for one contact.\n"
 "1.0.25 — A dashboard with your messages' figures (per day, per hour, who writes most, how long you take to reply) and its AI analysis.\n"
 "1.0.24 — Labels: yours and WhatsApp's, in the list, in the chat and as a filter.\n"
 "1.0.23 — CRM: leads on a board by stage, linked to their chats. The contact card, like in Odoo. Data is edited in a single window.\n"
@@ -6866,6 +6868,10 @@ msgstr "Open an exported WhatsApp chat"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Acerca de MyWhatsapp"
 msgstr "About MyWhatsapp"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Activos en {0} días"
+msgstr "Active in {0} days"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Actualizar los chats"
@@ -7135,6 +7141,10 @@ msgstr "On holiday"
 msgid "Desactivar el modo ocupado"
 msgstr "Turn busy mode off"
 
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Desactivar para este contacto"
+msgstr "Turn off for this contact"
+
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/github_dialog.dart
 msgid "Desconectar"
 msgstr "Disconnect"
@@ -7254,6 +7264,10 @@ msgstr "In the CRM: {0}"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En el teléfono: WhatsApp › Ajustes › Dispositivos vinculados › Vincular un dispositivo, y apunte la cámara a este código."
 msgstr "On the phone: WhatsApp › Settings › Linked devices › Link a device, and point the camera at this code."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "En la lista: {0}"
+msgstr "In the list: {0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "En una reunión"
@@ -7711,13 +7725,13 @@ msgid ""
 "\n"
 "Al cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n"
 "\n"
-"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
+"Modo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Desde un chat, «⋯ › 🔕 Ocupado con este contacto…» lo activa solo para esa persona. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n"
 "\n"
 "Estados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
 "\n"
-"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Panel: el botón «📊» (en la fila de Tareas) enseña las cifras de los últimos 7 o 30 días (recibidos, enviados, chats activos, lo que tarda en responder, por responder, tareas y leads), los mensajes por día y por hora y quién más le escribe; se calcula con recuentos, sin leer ningún mensaje, y «✨ Análisis con IA» manda solo esas cifras. Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). Panel: el botón «📊» (en la fila de Tareas) enseña las cifras de los últimos 7 o 30 días (recibidos, enviados, chats activos, lo que tarda en responder, por responder, tareas y leads), los mensajes por día y por hora y quién más le escribe; se calcula con recuentos, sin leer ningún mensaje, y «✨ Análisis con IA» manda solo esas cifras. Un clic en una cifra lleva a sus chats (la lista se filtra) o abre las tareas, el CRM o el chat de quien más le escribe. Etiquetas: «⋯ › 🏷 Etiquetas…» pone o quita las suyas (o crea una, con su color); las de WhatsApp también salen (las cambia el teléfono). Se ven en la cabecera del chat, como bolitas en la lista y como filtro en el desplegable. CRM: el botón «💼» (en la fila de Tareas) abre un tablero con los leads por etapas (nuevo, contactado, propuesta, negociación, ganado y perdido), con su importe; ◀ ▶ los mueven y un clic abre su chat. Desde un chat, «⋯ › 💼 CRM…» lo añade o le cambia la etapa, que sale en la cabecera. En «⋯», «👤 Ficha del contacto…» abre su ficha, como en Odoo (persona o empresa, empresa, puesto, dirección, NIF, teléfonos, correo, web, título, etiquetas y notas), en una sola ventana; con su casilla se guarda también en Contactos (y por iCloud, en el teléfono). Y «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7733,13 +7747,13 @@ msgstr ""
 "\n"
 "When you close the window, MyWhatsapp stays in the menu bar, with how many chats are waiting for a reply (someone wrote in the last 3 days and you didn't answer) and a menu with them; also in File › Hide in the menu bar.\n"
 "\n"
-"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
+"Busy mode (File › Busy mode…): pick one (or create your own, each with its message) and whoever writes to you privately gets that message automatically, once. From a chat, “⋯ › 🔕 Busy with this contact…” turns it on just for that person. If the mode is “✨ Let the AI reply”, the AI writes the reply from the conversation, with its text as the instruction.\n"
 "\n"
 "Statuses: the “🎨 Statuses” row opens a Canva-style designer (templates, title, text, footer, emoji and photo; “✨ With AI” writes it for you). “⬇ Save image” saves it at 1080×1920 and “📤 Publish” posts it as a WhatsApp status (with WhatsApp linked by QR).\n"
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
-"File › PIN lock… sets a 4-digit PIN: the app opens locked, Cmd+L locks it and it locks itself after a few minutes without use (a screen lock: it doesn't encrypt anything). Dashboard: the “📊” button (in the Tasks row) shows the figures for the last 7 or 30 days (received, sent, active chats, how long you take to reply, to answer, tasks and leads), messages per day and per hour and who writes to you most; it's computed with counts, without reading any message, and “✨ AI analysis” sends only those figures. Labels: “⋯ › 🏷 Labels…” adds or removes yours (or creates one, with its colour); WhatsApp's own also show (the phone changes them). They appear in the chat header, as dots in the list and as a filter in the dropdown. CRM: the “💼” button (in the Tasks row) opens a board with the leads by stage (new, contacted, proposal, negotiation, won and lost), with their amount; ◀ ▶ move them and a click opens their chat. From a chat, “⋯ › 💼 CRM…” adds it or changes its stage, which shows in the header. In “⋯”, “👤 Contact card…” opens their card, like in Odoo (person or company, company, job, address, tax ID, phones, email, website, title, tags and notes), in a single window; with its checkbox it is also saved in Contacts (and, through iCloud, on the phone). And “✨ Assess this person”: the AI reads the conversation and suggests how to treat them. Help › What's new: what's new in each version.\n"
+"File › PIN lock… sets a 4-digit PIN: the app opens locked, Cmd+L locks it and it locks itself after a few minutes without use (a screen lock: it doesn't encrypt anything). Dashboard: the “📊” button (in the Tasks row) shows the figures for the last 7 or 30 days (received, sent, active chats, how long you take to reply, to answer, tasks and leads), messages per day and per hour and who writes to you most; it's computed with counts, without reading any message, and “✨ AI analysis” sends only those figures. Clicking a figure takes you to its chats (the list is filtered) or opens the tasks, the CRM or the chat of whoever writes to you most. Labels: “⋯ › 🏷 Labels…” adds or removes yours (or creates one, with its colour); WhatsApp's own also show (the phone changes them). They appear in the chat header, as dots in the list and as a filter in the dropdown. CRM: the “💼” button (in the Tasks row) opens a board with the leads by stage (new, contacted, proposal, negotiation, won and lost), with their amount; ◀ ▶ move them and a click opens their chat. From a chat, “⋯ › 💼 CRM…” adds it or changes its stage, which shows in the header. In “⋯”, “👤 Contact card…” opens their card, like in Odoo (person or company, company, job, address, tax ID, phones, email, website, title, tags and notes), in a single window; with its checkbox it is also saved in Contacts (and, through iCloud, on the phone). And “✨ Assess this person”: the AI reads the conversation and suggests how to treat them. Help › What's new: what's new in each version.\n"
 "\n"
 "Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
 
@@ -8334,6 +8348,10 @@ msgid "¡Sí, está disponible! Podemos enviarla a Roma en una semana."
 msgstr "Yes, it is available! We can ship it to Rome in a week."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "«{0}» solo para {1}: si le escribe, se le contesta solo"
+msgstr "“{0}” only for {1}: if they write to you, they get an automatic reply"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "¿Borrar «{0}» del CRM?"
 msgstr "Delete “{0}” from the CRM?"
 
@@ -8514,6 +8532,10 @@ msgstr "🔎 Find another chat…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🔕 Ocupado"
 msgstr "🔕 Busy"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "🔕 Ocupado con este contacto…"
+msgstr "🔕 Busy with this contact…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "🖼 Foto…"

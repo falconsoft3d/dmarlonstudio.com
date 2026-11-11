@@ -6694,6 +6694,10 @@ msgid "Aquí no se puede leer WhatsApp Desktop"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Archivados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó, ¿te gusta?"
 msgstr ""
 
@@ -6746,6 +6750,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Como el sistema"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Con tareas"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7108,6 +7116,10 @@ msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Por responder (3 días)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Presupuesto cocina.pdf"
 msgstr ""
 
@@ -7129,6 +7141,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sin respuesta"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
@@ -7161,6 +7177,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tema claro"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -13594,10 +13614,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todo enviado"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Todos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart

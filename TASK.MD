@@ -78,6 +78,8 @@ Hechos
 83. MyWhatsapp: chatear en otro idioma con IA (original y traducido de lo que recibo y de lo que envío; idioma detectado o elegido) | ✅ |
 107. MyWhatsapp: la bandera del país y la hora local del contacto en la cabecera del chat | ✅ |
 108. MyWhatsapp: ver los stickers (WebP) como imagen | ✅ |
+106. MyWhatsapp: filtros predefinidos junto a la búsqueda (todos, con tareas, sin responder en 3 días, los que no me respondieron) | ✅ |
+109. MyWhatsapp: los chats archivados, aparte, como en WhatsApp («📦 Archivados») | ✅ |
 
 Trabajando
 =========
@@ -109,5 +111,3 @@ Pendiente
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |
 104. MyWhatsapp: un CRM como las tareas, para seguir leads; desde el chat abierto, vincularlo o cambiarle la etapa | ⏳ |
 105. MyWhatsapp: diseñador de estados de WhatsApp al estilo Canva, con ayuda de la IA | ⏳ |
-106. MyWhatsapp: filtros predefinidos junto a la búsqueda (todos, con tareas, sin responder en 3 días, los que no me respondieron) | ⏳ |
-109. MyWhatsapp: los chats archivados, aparte, como en WhatsApp («📦 Archivados») | ⏳ |

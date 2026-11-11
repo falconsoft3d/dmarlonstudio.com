@@ -320,6 +320,8 @@ struct Chat {
   int unread = 0;
   bool group = false;
   bool live = false;   // llegó por el puente (no está en WhatsApp Desktop)
+  bool archived = false;    // archivado en WhatsApp
+  bool last_mine = false;   // el último mensaje lo escribí yo
   std::vector<Msg> msgs;   // los últimos, del más antiguo al más nuevo
 };
 // La fecha de WhatsApp (segundos desde el 1 de enero de 2001) → Unix.
@@ -626,7 +628,9 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
       "IFNULL((SELECT p.ZPATH FROM ZWAPROFILEPICTUREITEM p WHERE p.ZJID = s.ZCONTACTJID AND p.ZPATH IS NOT NULL LIMIT 1), ''), "
       "IFNULL((SELECT m.ZMESSAGETYPE FROM ZWAMESSAGE m WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), 0), "
       "IFNULL((SELECT IFNULL(i.ZTITLE, '') FROM ZWAMESSAGE m LEFT JOIN ZWAMEDIAITEM i ON i.ZMESSAGE = m.Z_PK "
-      "WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), '') "
+      "WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), ''), "
+      "IFNULL(s.ZARCHIVED, 0), "
+      "IFNULL((SELECT m.ZISFROMME FROM ZWAMESSAGE m WHERE m.ZCHATSESSION = s.Z_PK ORDER BY m.ZMESSAGEDATE DESC LIMIT 1), 0) "
       "FROM ZWACHATSESSION s WHERE IFNULL(s.ZREMOVED,0)=0 AND IFNULL(s.ZHIDDEN,0)=0 "
       "AND s.ZCONTACTJID NOT LIKE '%status%' AND s.ZLASTMESSAGEDATE IS NOT NULL "
       "ORDER BY s.ZLASTMESSAGEDATE DESC";
@@ -644,6 +648,8 @@ bool load_chats(const std::string& path, std::vector<Chat>& out, std::string& er
     c.last_t = apple_time(q.column_double(st, 3));
     c.last = col(st, 4);
     c.unread = (int)q.column_int64(st, 5);
+    c.archived = q.column_int64(st, 9) != 0;
+    c.last_mine = q.column_int64(st, 10) != 0;
     int last_kind = (int)q.column_int64(st, 7);
     std::string last_title = col(st, 8);
     if (last_kind == K_IMAGE || last_kind == K_VIDEO || last_kind == K_AUDIO || last_kind == K_DOC || last_kind == K_GIF ||
@@ -1358,6 +1364,7 @@ Chat live_chat(const std::string& jid, const LiveChat& lc) {
   if (!c.msgs.empty()) {
     c.last = preview_of(c.msgs.back());
     c.last_t = c.msgs.back().t;
+    c.last_mine = c.msgs.back().mine;
   }
   return c;
 }
@@ -1929,9 +1936,30 @@ public:
   bool tasks_selected = false;
   const std::vector<Task>* tasks = nullptr;   // para la bolita de los chats con tareas
   long long now = 0;                          // 0: la hora de verdad
+  // Los filtros de arriba y los archivados (aparte, como en WhatsApp).
+  enum { F_ALL, F_TASKS, F_TODO, F_WAITING, F_ARCHIVED };
+  int mode = F_ALL;
+  static const int chips_h = 70;
+  std::function<void()> on_mode;
+  bool passes(const Chat& c, int m) const {
+    if (m == F_ARCHIVED) return c.archived;
+    if (c.archived) return false;
+    long long t = now ? now : (long long)now_s();
+    if (m == F_TASKS) return tasks && oldest_task(*tasks, c.jid) != 0;
+    if (m == F_TODO) return !c.last_mine && c.last_t >= t - 3 * 86400;   // me escribieron (3 días) y no contesté
+    if (m == F_WAITING) return c.last_mine;                                // escribí yo y no contestaron
+    return true;
+  }
+  int count(int m) const {
+    int n = 0;
+    if (chats)
+      for (const auto& c : *chats) n += passes(c, m) ? 1 : 0;
+    return n;
+  }
   ChatList(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
 
   bool visible_chat(const Chat& c) const {
+    if (!passes(c, mode)) return false;
     return filter.empty() || lower(c.name).find(lower(filter)) != std::string::npos ||
            lower(c.last).find(lower(filter)) != std::string::npos;
   }
@@ -1941,9 +1969,55 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.list));
     fl_rectf(x(), y(), w(), h());
-    int Y = y() - scroll;
+    // Arriba, fijos: los filtros (dos filas), con cuántos chats hay en cada uno.
+    {
+      fl_color(rgb(T.list));
+      fl_rectf(x(), y(), w(), chips_h);
+      struct Chip {
+        int mode;
+        const char* text;
+      };
+      const Chip rows[2][3] = {{{F_ALL, tx::F_ALL}, {F_TASKS, tx::F_TASKS}, {-1, nullptr}},
+                               {{F_TODO, tx::F_TODO}, {F_WAITING, tx::F_WAITING}, {-1, nullptr}}};
+      for (int r = 0; r < 2; r++) {
+        int cx = x() + 12, cy = y() + 4 + r * 32;
+        for (int k = 0; k < 3 && rows[r][k].text; k++) {
+          const Chip& ch = rows[r][k];
+          std::string label = ch.text;
+          if (ch.mode != F_ALL) label += "  " + std::to_string(count(ch.mode));
+          fl_font(FL_HELVETICA_BOLD, 12);
+          int cw = (int)fl_width(label.c_str()) + 24;
+          bool on = mode == ch.mode;
+          bool hot = (int)hits.size() == hover;
+          fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+          fl_rounded_rectf(cx, cy, cw, 26, 13);
+          fl_color(on ? rgb(T.accent) : rgb(T.muted));
+          fl_draw(label.c_str(), cx, cy, cw, 26, FL_ALIGN_CENTER);
+          hits.push_back({cx, cy, cw, 26, 2, ch.mode});
+          cx += cw + 8;
+        }
+      }
+      fl_color(rgb(T.line));
+      fl_line(x(), y() + chips_h - 1, x() + w(), y() + chips_h - 1);
+    }
+    fl_push_clip(x(), y() + chips_h, w(), h() - chips_h);
+    int Y = y() + chips_h - scroll;
+    // En los archivados: la fila para volver.
+    if (mode == F_ARCHIVED) {
+      const int rh = 48;
+      unsigned row = (int)hits.size() == hover ? T.hover : T.list;
+      fl_color(rgb(row));
+      fl_rectf(x(), Y, w(), rh);
+      hits.push_back({x(), Y, w(), rh, 4, -1});
+      fl_font(FL_HELVETICA_BOLD, 14);
+      fl_color(rgb(T.accent));
+      fl_draw((std::string("←  ") + tx::ARCHIVED).c_str(), x() + 20, Y + 30);
+      fl_color(rgb(T.line));
+      fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
+      Y += rh;
+    }
     // Arriba, la fila de las tareas (no sale al buscar).
-    if (filter.empty()) {
+    if (filter.empty() && mode != F_ARCHIVED) {
       const int rh = 56;
       unsigned row = tasks_selected ? T.sel : (int)hits.size() == hover ? T.hover : T.list;
       fl_color(rgb(row));
@@ -1963,6 +2037,28 @@ public:
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
+      // Y la de los archivados, si hay.
+      int archived = count(F_ARCHIVED);
+      if (archived > 0 && mode == F_ALL) {
+        const int ah = 46;
+        unsigned r2 = (int)hits.size() == hover ? T.hover : T.list;
+        fl_color(rgb(r2));
+        fl_rectf(x(), Y, w(), ah);
+        hits.push_back({x(), Y, w(), ah, 3, -1});
+        fl_font(FL_HELVETICA, 18);
+        fl_color(rgb(T.muted));
+        fl_draw("📦", x() + 24, Y + 30);
+        fl_font(FL_HELVETICA_BOLD, 14);
+        fl_color(rgb(T.text));
+        fl_draw(tx::ARCHIVED, x() + 68, Y + 28);
+        fl_font(FL_HELVETICA, 12);
+        fl_color(rgb(T.accent));
+        std::string n = std::to_string(archived);
+        fl_draw(n.c_str(), x() + w() - 14 - (int)fl_width(n.c_str()), Y + 28);
+        fl_color(rgb(T.line));
+        fl_line(x(), Y + ah - 1, x() + w(), Y + ah - 1);
+        Y += ah;
+      }
     }
     if (chats)
       for (size_t i = 0; i < chats->size(); i++) {
@@ -1970,8 +2066,7 @@ public:
         if (!visible_chat(c)) continue;
         int k = (int)i, rh = 68;
         // Solo se dibujan las que se ven (puede haber cientos).
-        if (Y + rh < y() || Y > y() + h()) {
-          hits.push_back({x(), Y, w(), rh, 0, k});
+        if (Y + rh < y() + chips_h || Y > y() + h()) {
           Y += rh;
           continue;
         }
@@ -2017,7 +2112,8 @@ public:
         fl_line(x() + 68, Y + rh - 1, x() + w(), Y + rh - 1);
         Y += rh;
       }
-    content_h = Y + scroll - y();
+    content_h = Y + scroll - (y() + chips_h);
+    fl_pop_clip();
     fl_pop_clip();
   }
   int handle(int e) override {
@@ -2039,12 +2135,18 @@ public:
           if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
             if (h.act == 1) {
               if (on_tasks) on_tasks();
+            } else if (h.act == 2 || h.act == 3 || h.act == 4) {
+              // Un filtro, los archivados o volver de ellos.
+              mode = h.act == 2 ? h.idx : h.act == 3 ? F_ARCHIVED : F_ALL;
+              scroll = 0;
+              if (on_mode) on_mode();
+              redraw();
             } else if (on_pick) on_pick(h.idx);
             break;
           }
         return 1;
       case FL_MOUSEWHEEL:
-        scroll = std::max(0, std::min(scroll + Fl::event_dy() * 30, std::max(0, content_h - h())));
+        scroll = std::max(0, std::min(scroll + Fl::event_dy() * 30, std::max(0, content_h - (h() - chips_h))));
         redraw();
         return 1;
     }
@@ -2719,6 +2821,8 @@ std::vector<Chat> demo_chats(long long now) {
     }
     c.last = c.msgs.back().text;
     c.last_t = c.msgs.back().t;
+    c.last_mine = c.msgs.back().mine;
+    c.archived = std::string(d.name) == tx::DEMO_JAVI;   // uno archivado, para la demo
     out.push_back(c);
   }
   // Retratos dibujados para tres contactos, una foto en el chat de Laura y
@@ -2833,7 +2937,7 @@ int selftest() {
     char* err = nullptr;
     q.exec(db,
            "CREATE TABLE ZWACHATSESSION (Z_PK INTEGER PRIMARY KEY, ZPARTNERNAME VARCHAR, ZCONTACTJID VARCHAR, "
-           "ZLASTMESSAGEDATE TIMESTAMP, ZLASTMESSAGETEXT VARCHAR, ZUNREADCOUNT INTEGER, ZREMOVED INTEGER, ZHIDDEN INTEGER);"
+           "ZLASTMESSAGEDATE TIMESTAMP, ZLASTMESSAGETEXT VARCHAR, ZUNREADCOUNT INTEGER, ZREMOVED INTEGER, ZHIDDEN INTEGER, ZARCHIVED INTEGER);"
            "CREATE TABLE ZWAMESSAGE (Z_PK INTEGER PRIMARY KEY, ZCHATSESSION INTEGER, ZISFROMME INTEGER, ZTEXT VARCHAR, "
            "ZMESSAGEDATE TIMESTAMP, ZPUSHNAME VARCHAR, ZMESSAGETYPE INTEGER, ZGROUPMEMBER INTEGER, ZSTANZAID VARCHAR);"
            "CREATE TABLE ZWAGROUPMEMBER (Z_PK INTEGER PRIMARY KEY, ZMEMBERJID VARCHAR, ZFIRSTNAME VARCHAR);"
@@ -2846,9 +2950,9 @@ int selftest() {
            "INSERT INTO ZWAMESSAGE VALUES (6,1,0,NULL,800000120,NULL,8,NULL,NULL);"
            "INSERT INTO ZWAMEDIAITEM VALUES (1,6,'Media/x/factura.pdf','factura.pdf',123456);"
            "INSERT INTO ZWAMESSAGE VALUES (7,1,0,NULL,800000130,NULL,1,NULL,NULL);"
-           "INSERT INTO ZWACHATSESSION VALUES (1,'Laura','34600111222@s.whatsapp.net',800000100,'Genial',2,0,0);"
-           "INSERT INTO ZWACHATSESSION VALUES (2,'Familia','1203@g.us',800000200,'Hola',0,0,0);"
-           "INSERT INTO ZWACHATSESSION VALUES (3,'','status@broadcast',800000300,'x',0,0,0);"
+           "INSERT INTO ZWACHATSESSION VALUES (1,'Laura','34600111222@s.whatsapp.net',800000100,'Genial',2,0,0,0);"
+           "INSERT INTO ZWACHATSESSION VALUES (2,'Familia','1203@g.us',800000200,'Hola',0,0,0,1);"
+           "INSERT INTO ZWACHATSESSION VALUES (3,'','status@broadcast',800000300,'x',0,0,0,0);"
            "INSERT INTO ZWAMESSAGE VALUES (1,1,0,'¿Mañana?',800000000,NULL,0,NULL,NULL);"
            "INSERT INTO ZWAMESSAGE VALUES (2,1,1,'Sí',800000050,NULL,0,NULL,NULL);"
            "INSERT INTO ZWAMESSAGE VALUES (3,1,0,'Genial',800000100,NULL,0,NULL,'S3');"
@@ -2873,7 +2977,8 @@ int selftest() {
     std::vector<Chat> chats;
     std::string error;
     chk(load_chats(path, chats, error) && chats.size() == 2 && chats[0].name == "Familia" && chats[0].group &&
-            chats[1].unread == 2 && chats[1].last_t == 800000100 + 978307200LL,
+            chats[1].unread == 2 && chats[1].last_t == 800000100 + 978307200LL && chats[0].archived && !chats[1].archived &&
+            !chats[1].last_mine,
         "chats de la base de datos");
     Chat& l = chats[1];
     l.group = false;
@@ -3341,6 +3446,7 @@ public:
       }
     };
     list->on_tasks = [] { if (self()) self()->open_tasks(); };
+    list->on_mode = [] { if (self()) self()->refresh(); };
     // Buscar en el chat: el campo va en la cabecera (lo coloca la vista).
     find_input = new Fl_Input(ChatArea->x() + 300, ChatArea->y() + 16, 220, 28);
     find_input->textsize(13);
@@ -3521,6 +3627,7 @@ public:
           if (last.t > c.last_t) {
             c.last = wa::preview_of(last);
             c.last_t = last.t;
+            c.last_mine = last.mine;
           }
         }
       if (!found) fresh.push_back(wa::live_chat(kv.first, kv.second));
@@ -4428,7 +4535,7 @@ public:
     render_to("");
     // Clic de verdad en el tercer chat.
     for (const auto& h : list->hits)
-      if (h.idx == 2) {
+      if (h.act == 0 && h.idx == 2) {
         Fl::e_x = h.x + 20;
         Fl::e_y = h.y + 20;
         list->handle(FL_PUSH);
@@ -4438,8 +4545,40 @@ public:
     // Buscar.
     list->filter = "fam";
     render_to("");
-    chk(list->hits.size() == 1, "buscar chats");
+    int found = 0;
+    for (const auto& h : list->hits) found += h.act == 0 ? 1 : 0;
+    chk(found == 1, "buscar chats");
     list->filter.clear();
+    // Los filtros y los archivados (Javi está archivado en la demo).
+    {
+      render_to("");
+      auto click_chip = [&](int act, int idx) {
+        for (const auto& h : list->hits)
+          if (h.act == act && h.idx == idx) {
+            Fl::e_x = h.x + 4;
+            Fl::e_y = h.y + 4;
+            Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
+            list->handle(FL_PUSH);
+            render_to("");
+            return true;
+          }
+        return false;
+      };
+      auto shown = [&] {
+        std::vector<std::string> v;
+        for (const auto& h : list->hits)
+          if (h.act == 0) v.push_back(chats[(size_t)h.idx].name);
+        return v;
+      };
+      chk(list->count(wa::ChatList::F_ARCHIVED) == 1 && shown().size() == 5, "los archivados, fuera de la lista");
+      chk(click_chip(3, -1) && list->mode == wa::ChatList::F_ARCHIVED && shown().size() == 1 && shown()[0] == tx::DEMO_JAVI,
+          "abrir los archivados");
+      chk(click_chip(4, -1) && list->mode == wa::ChatList::F_ALL, "volver de los archivados");
+      chk(click_chip(2, wa::ChatList::F_TASKS) && shown().size() == 2, "filtro: con tareas");
+      chk(click_chip(2, wa::ChatList::F_TODO) && shown().size() == 4, "filtro: por responder (3 días)");
+      chk(click_chip(2, wa::ChatList::F_WAITING) && shown().size() == 1 && shown()[0] == tx::DEMO_MOM, "filtro: sin respuesta");
+      chk(click_chip(2, wa::ChatList::F_ALL) && shown().size() == 5, "filtro: todos");
+    }
     // Las sugerencias: «Usar» las pasa al borrador.
     options = {"Uno", "Dos", "Tres"};
     render_to("");

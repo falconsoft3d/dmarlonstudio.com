@@ -6774,6 +6774,10 @@ msgid "Aquí no se puede leer WhatsApp Desktop"
 msgstr "WhatsApp Desktop cannot be read here"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Archivados"
+msgstr "Archived"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Así quedó, ¿te gusta?"
 msgstr "Here it is, do you like it?"
 
@@ -6830,6 +6834,10 @@ msgstr "AI keys…"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Como el sistema"
 msgstr "Like the system"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Con tareas"
+msgstr "With tasks"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Conectando con WhatsApp…"
@@ -7210,6 +7218,10 @@ msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
 msgstr "We can do Thursday morning or Saturday from 10 to 2"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Por responder (3 días)"
+msgstr "To answer (3 days)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Presupuesto cocina.pdf"
 msgstr "Kitchen quote.pdf"
 
@@ -7232,6 +7244,10 @@ msgstr "Pick up grandma on Sunday at 1 pm"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Se cerró la conexión con WhatsApp"
 msgstr "The connection to WhatsApp was closed"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Sin respuesta"
+msgstr "No answer"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Sin resultados"
@@ -7264,6 +7280,10 @@ msgstr "Task created: {0}"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tema claro"
 msgstr "Light theme"
+
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Todos"
+msgstr "All"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Token de acceso de la API de WhatsApp (déjelo vacío para no cambiarlo):"
@@ -13834,10 +13854,6 @@ msgstr ""
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todo enviado"
 msgstr "Everything sent"
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Todos"
-msgstr "All"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Todos en Odoo"

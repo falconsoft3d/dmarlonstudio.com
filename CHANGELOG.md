@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.105 — 2026-11-11
+
+- **MyWhatsapp: los chats archivados, aparte.** Los chats que archivó en WhatsApp (`ZARCHIVED`) ya no se mezclan con los demás: quedan detrás de una fila «📦 Archivados» con cuántos hay, como en WhatsApp, y «← Archivados» vuelve a la lista.
+- **MyWhatsapp: filtros predefinidos en la lista.** Encima de los chats, fijos: «Todos», «Con tareas» (los que tienen tareas pendientes), «Por responder (3 días)» (le escribieron en los últimos 3 días y el último mensaje no es suyo) y «Sin respuesta» (escribió usted y no le han contestado), cada uno con cuántos chats tiene.
+- Probado: la consulta con una base inventada que tiene un chat archivado, y la prueba de la interfaz con clics en cada filtro, en los archivados y en volver.
+
 ## 1.0.104 — 2026-11-11
 
 - **MyWhatsapp: chatear en otro idioma con IA.** «🌐 Traducir», en la cabecera de cada chat, elige el idioma del contacto: «Detectar el idioma» o uno concreto (inglés, castellano, portugués, francés, italiano, alemán, chino, árabe o ruso), y queda guardado para ese contacto. Debajo de cada mensaje recibido sale su traducción a su idioma; al enviar, lo que escribe se traduce al idioma del otro y se envía traducido, y en su bocadillo ve lo enviado con su original debajo. Las traducciones las hace la IA elegida (Claude o ChatGPT) por tandas, con un JSON con el idioma detectado y una traducción por mensaje, y se guardan en `traducciones.jsonl` para no pedirlas otra vez. La primera vez avisa de que esos mensajes se envían a la IA.

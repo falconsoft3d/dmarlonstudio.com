@@ -3397,13 +3397,13 @@ msgstr "Brazil · São Paulo"
 msgid ""
 "Cada tarjeta es la hora de un país, con su esfera (oscura de noche), la fecha y la diferencia con su hora. Añada países con la lista de arriba, ordénelos con las flechas y quite los que no quiera.\n"
 "\n"
-"«En la barra» pone esa hora en la barra de menús, con su bandera; el menú del icono enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n"
+"La barra de menús enseña su hora (📍) y, al lado, la de los países que marque con «En la barra» o con un clic en el menú del icono, que enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n"
 "\n"
 "Cerrar la ventana la esconde: los relojes siguen en la barra hasta que elija Salir."
 msgstr ""
 "Each card is the time in a country, with its dial (dark at night), the date and the difference with your time. Add countries with the list above, order them with the arrows and remove the ones you don’t want.\n"
 "\n"
-"“In the bar” puts that time in the menu bar, with its flag; the icon’s menu shows them all. Daylight saving changes (Europe, United States, Cuba, Chile, Australia and New Zealand) are worked out automatically.\n"
+"The menu bar shows your time (📍) and, next to it, the time in the countries you mark with “In the bar” or with a click in the icon’s menu, which shows them all. Daylight saving changes (Europe, United States, Cuba, Chile, Australia and New Zealand) are worked out automatically.\n"
 "\n"
 "Closing the window hides it: the clocks stay in the menu bar until you choose Quit."
 
@@ -3522,6 +3522,10 @@ msgstr "Minimize"
 #: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "Minimizar a la barra de menús"
 msgstr "Minimize to the menu bar"
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Mostrar mi hora en la barra"
+msgstr "Show my time in the bar"
 
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "México · Ciudad de México"

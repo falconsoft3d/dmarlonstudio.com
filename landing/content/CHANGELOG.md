@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.95 — 2026-11-11
+
+- **Relojes del mundo: su hora y, al lado, la del país que marque.** La barra de menús empieza con su hora (📍) y sigue con la de los países marcados, con su bandera: «📍 17:02   🇨🇺 12:02»; los que tienen su misma hora no se repiten. Se marca con un clic en el país del menú del icono o con «En la barra» en su tarjeta; por defecto, el primer país de la lista con otra hora. «Mostrar mi hora en la barra» (en el menú del icono y en Archivo) la quita o la pone. Si venía de la versión anterior con solo su propia hora marcada, se marca también el primer país con otra hora.
+
 ## 1.0.94 — 2026-11-11
 
 - **Monitor de sitios web: escáner de puertos.** Cada sitio tiene ahora el botón **Puertos** (y «Escanear puertos» en su menú de la barra, que avisa con el resultado): resuelve su servidor y prueba a la vez los 33 puertos habituales (SSH, web, correo, DNS, bases de datos, Docker, RDP, VNC, Odoo 8069 y 8072…) con conexiones TCP no bloqueantes y un tiempo máximo, en otro hilo. Bajo el sitio salen los abiertos, con su servicio, y en ámbar los que no conviene tener abiertos a internet, con el consejo de cerrarlos o limitarlos a sus IP; «Volver a escanear» lo repite. Está pensado para servidores propios o con permiso, y así lo dice. Probado: la prueba interna abre un puerto en este equipo y comprueba que sale abierto y que uno cerrado no, y que un servidor que no existe da error; la prueba de la interfaz abre y cierra la zona de puertos; y un escaneo de verdad de este equipo encontró justo los puertos de la lista que estaban escuchando.

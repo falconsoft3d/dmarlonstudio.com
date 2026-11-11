@@ -17,6 +17,7 @@ TkExample tkCppClocks(String Function(String) t) {
 
   lines.add(mFile);
   item('BAR', t(markTr('Minimizar a la barra de menús')), mFile);
+  item('HERE', t(markTr('Mostrar mi hora en la barra')), mFile);
   item('RESET', t(markTr('Volver a los relojes de siempre')), mFile);
   lines.add('  -');
   item('QUIT', t(markTr('Salir')), mFile);
@@ -71,7 +72,7 @@ TkExample tkCppClocks(String Function(String) t) {
     'ZONE_NAMES': zones.join('|'),
     'HOW_TEXT': t(
       markTr(
-        'Cada tarjeta es la hora de un país, con su esfera (oscura de noche), la fecha y la diferencia con su hora. Añada países con la lista de arriba, ordénelos con las flechas y quite los que no quiera.\n\n«En la barra» pone esa hora en la barra de menús, con su bandera; el menú del icono enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n\nCerrar la ventana la esconde: los relojes siguen en la barra hasta que elija Salir.',
+        'Cada tarjeta es la hora de un país, con su esfera (oscura de noche), la fecha y la diferencia con su hora. Añada países con la lista de arriba, ordénelos con las flechas y quite los que no quiera.\n\nLa barra de menús enseña su hora (📍) y, al lado, la de los países que marque con «En la barra» o con un clic en el menú del icono, que enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n\nCerrar la ventana la esconde: los relojes siguen en la barra hasta que elija Salir.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -91,6 +92,7 @@ TkExample tkCppClocks(String Function(String) t) {
     'NIGHT': t(markTr('☾ De noche')),
     'HERE': t(markTr('Aquí: {0} · {1}')),
     'FORMAT_24': t(markTr('Formato de 24 horas')),
+    'SHOW_HERE': t(markTr('Mostrar mi hora en la barra')),
     'FMT_24': t(markTr('24 horas')),
     'FMT_12': t(markTr('12 horas (a. m./p. m.)')),
     'TO_BAR': t(markTr('Minimizar a la barra de menús')),

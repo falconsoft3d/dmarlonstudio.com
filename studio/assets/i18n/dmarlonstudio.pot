@@ -3363,7 +3363,7 @@ msgstr ""
 msgid ""
 "Cada tarjeta es la hora de un país, con su esfera (oscura de noche), la fecha y la diferencia con su hora. Añada países con la lista de arriba, ordénelos con las flechas y quite los que no quiera.\n"
 "\n"
-"«En la barra» pone esa hora en la barra de menús, con su bandera; el menú del icono enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n"
+"La barra de menús enseña su hora (📍) y, al lado, la de los países que marque con «En la barra» o con un clic en el menú del icono, que enseña todas. Los cambios de horario de verano (Europa, Estados Unidos, Cuba, Chile, Australia y Nueva Zelanda) se calculan solos.\n"
 "\n"
 "Cerrar la ventana la esconde: los relojes siguen en la barra hasta que elija Salir."
 msgstr ""
@@ -3482,6 +3482,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "Minimizar a la barra de menús"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_clocks.dart
+msgid "Mostrar mi hora en la barra"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart

@@ -256,13 +256,16 @@ for (int i = 0; i < ZONE_N; i++) {
 
 const clocksBar = `std::string bar_title(const Settings& s, long long t) {
   std::string o;
+  int here = local_offset_min(t);
+  if (s.show_here) o = "📍 " + time_text(clock_at(t, here), s.h24);
   for (const auto& k : s.clocks) {
     if (!contains(s.in_bar, k)) continue;
     int i = zone_index(k);
+    if (s.show_here && offset_min(i, t) == here) continue;
     if (!o.empty()) o += "   ";
     o += flag(i) + " " + time_text(clock_at(t, offset_min(i, t)), s.h24);
   }
-  return o;   // «🇪🇸 17:02   🇨🇺 12:02»
+  return o;   // «📍 17:02   🇨🇺 12:02»
 }`;
 
 const webmonScan = `// Todos los puertos a la vez: conexiones no bloqueantes y un select.
@@ -508,7 +511,7 @@ const es: Record<string, DemoMade> = {
       },
       {
         title: "6. Las horas en la barra de menús",
-        text: "El título del icono son las banderas (dos letras regionales en Unicode) con su hora; se rehace cada segundo y el menú solo cuando cambia. Como en el monitor de sitios, el icono se hace desde C++ con el runtime de Objective-C y la app sigue viva en la barra con Fl::wait.",
+        text: "El título del icono es su hora (📍) y, al lado, la de los países marcados, con su bandera (dos letras regionales en Unicode); los que tienen su misma hora no se repiten; se rehace cada segundo y el menú solo cuando cambia. Como en el monitor de sitios, el icono se hace desde C++ con el runtime de Objective-C y la app sigue viva en la barra con Fl::wait.",
         code: { file: "Form1.cpp", text: clocksBar },
       },
     ],
@@ -745,7 +748,7 @@ const en: Record<string, DemoMade> = {
       },
       {
         title: "6. The times in the menu bar",
-        text: "The icon's title is the flags (two Unicode regional letters) with their time; it is rebuilt every second and the menu only when it changes. As in the website monitor, the icon is made from C++ with the Objective-C runtime and the app stays alive in the bar with Fl::wait.",
+        text: "The icon's title is your time (📍) and, next to it, the marked countries' times with their flag (two Unicode regional letters); those with your same time are not repeated; it is rebuilt every second and the menu only when it changes. As in the website monitor, the icon is made from C++ with the Objective-C runtime and the app stays alive in the bar with Fl::wait.",
         code: { file: "Form1.cpp", text: clocksBar },
       },
     ],

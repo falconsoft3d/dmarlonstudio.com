@@ -288,31 +288,55 @@ struct Settings {
   std::vector<std::string> clocks;
   std::vector<std::string> in_bar;
   bool h24 = true;
+  bool show_here = true;   // la hora de este equipo, la primera en la barra
 };
-Settings defaults() {
+// Por defecto, en la barra: su hora y la del primer país con otra hora.
+Settings defaults(long long t) {
   Settings s;
   for (const char* k : DEFAULTS) s.clocks.push_back(k);
-  s.in_bar = {"ES"};
+  int here = local_offset_min(t);
+  for (const auto& k : s.clocks)
+    if (offset_min(zone_index(k), t) != here) {
+      s.in_bar.push_back(k);
+      break;
+    }
   return s;
 }
 std::string serialize(const Settings& s) {
   std::string o = "h24=" + std::string(s.h24 ? "1" : "0") + "\n";
+  o += "here=" + std::string(s.show_here ? "1" : "0") + "\n";
   for (const auto& k : s.clocks) o += "clock=" + k + "\n";
   for (const auto& k : s.in_bar) o += "bar=" + k + "\n";
   return o;
 }
-Settings parse(const std::string& text) {
+Settings parse(const std::string& text, long long t) {
   Settings s;
-  bool any = false;
+  bool any = false, has_here = false;
   for (const auto& l : split(text, '\n')) {
     if (l.rfind("h24=", 0) == 0) s.h24 = l.substr(4) != "0";
+    else if (l.rfind("here=", 0) == 0) { s.show_here = l.substr(5) != "0"; has_here = true; }
     else if (l.rfind("clock=", 0) == 0 && zone_index(l.substr(6)) >= 0) { s.clocks.push_back(l.substr(6)); any = true; }
     else if (l.rfind("bar=", 0) == 0 && zone_index(l.substr(4)) >= 0) s.in_bar.push_back(l.substr(4));
   }
   if (!any) {
-    Settings d = defaults();
+    Settings d = defaults(t);
     d.h24 = s.h24;
+    d.show_here = s.show_here;
     return d;
+  }
+  // Un archivo de antes de «su hora en la barra»: si solo tenía marcados
+  // países con la hora de aquí, se marca también el primero con otra hora.
+  if (!has_here) {
+    int here = local_offset_min(t);
+    bool other = false;
+    for (const auto& k : s.in_bar)
+      if (offset_min(zone_index(k), t) != here) other = true;
+    if (!other)
+      for (const auto& k : s.clocks)
+        if (offset_min(zone_index(k), t) != here) {
+          s.in_bar.push_back(k);
+          break;
+        }
   }
   return s;
 }
@@ -348,12 +372,16 @@ bool write_file(const std::string& path, const std::string& data) {
   return std::fclose(f) == 0 && ok;
 }
 
-// ---- el texto de la barra: «🇪🇸 17:02  🇨🇺 11:02»
+// ---- el texto de la barra: su hora y, al lado, la de los países marcados
+// («📍 17:02   🇨🇺 12:02»); los que tienen su misma hora no se repiten.
 std::string bar_title(const Settings& s, long long t) {
   std::string o;
+  int here = local_offset_min(t);
+  if (s.show_here) o = "📍 " + time_text(clock_at(t, here), s.h24);
   for (const auto& k : s.clocks) {
     if (!contains(s.in_bar, k)) continue;
     int i = zone_index(k);
+    if (s.show_here && offset_min(i, t) == here) continue;
     if (!o.empty()) o += "   ";
     o += flag(i) + " " + time_text(clock_at(t, offset_min(i, t)), s.h24);
   }
@@ -367,7 +395,7 @@ struct MenuEntry {
   bool enabled = true, checked = false, sep = false;
   std::vector<MenuEntry> sub;
 };
-enum Act { A_BAR = 1, A_WINDOW = 100, A_TO_BAR = 101, A_H24 = 102, A_QUIT = 103 };
+enum Act { A_BAR = 1, A_WINDOW = 100, A_TO_BAR = 101, A_H24 = 102, A_QUIT = 103, A_HERE = 104 };
 inline int tag(int act, int i) { return act * 1000 + i; }
 
 std::vector<MenuEntry> bar_menu(const Settings& s, long long t, bool window_shown) {
@@ -393,6 +421,11 @@ std::vector<MenuEntry> bar_menu(const Settings& s, long long t, bool window_show
     m.push_back(e);
   }
   m.push_back(sep);
+  MenuEntry mine;
+  mine.title = tx::SHOW_HERE;
+  mine.tag = tag(A_HERE, 0);
+  mine.checked = s.show_here;
+  m.push_back(mine);
   MenuEntry h;
   h.title = tx::FORMAT_24;
   h.tag = tag(A_H24, 0);
@@ -637,18 +670,39 @@ int selftest() {
   chk(diff_text(-300) == "−5 h" && diff_text(330) == "+5 h 30 min" && diff_text(0) == tx::SAME_TIME, "diferencias");
   chk(flag(zone_index("ES")) == "🇪🇸", "bandera");
   // Ajustes.
-  Settings s = defaults();
-  chk(s.clocks.size() == 5 && s.clocks[4] == "CU" && s.in_bar.size() == 1, "por defecto");
+  Settings s = defaults(winter);
+  chk(s.clocks.size() == 5 && s.clocks[4] == "CU" && s.in_bar.size() == 1 && s.show_here, "por defecto");
+  // En la barra, por defecto, el primer país con otra hora que la de aquí.
+  chk(offset_min(zone_index(s.in_bar[0]), winter) != local_offset_min(winter), "por defecto, otro país");
   s.h24 = false;
-  s.in_bar.push_back("CU");
-  Settings r = parse(serialize(s));
-  chk(!r.h24 && r.clocks == s.clocks && r.in_bar == s.in_bar, "guardar y leer");
-  chk(parse("").clocks.size() == 5, "sin archivo, los de siempre");
-  chk(parse("clock=XX\nclock=JP\n").clocks.size() == 1, "países que no existen");
+  s.in_bar = {"ES", "CU"};
+  Settings r = parse(serialize(s), winter);
+  chk(!r.h24 && r.show_here && r.clocks == s.clocks && r.in_bar == s.in_bar, "guardar y leer");
+  chk(parse("", winter).clocks.size() == 5, "sin archivo, los de siempre");
+  chk(parse("clock=XX\nclock=JP\n", winter).clocks.size() == 1, "países que no existen");
+  {
+    // El archivo de la versión anterior (sin «here=»), con la hora de aquí marcada.
+    std::string here_key;
+    for (int i = 0; i < ZONE_N && here_key.empty(); i++)
+      if (offset_min(i, winter) == local_offset_min(winter)) here_key = ZONES[i].key;
+    if (!here_key.empty()) {
+      Settings old = parse("h24=1\nclock=" + here_key + "\nclock=CU\nbar=" + here_key + "\n", winter);
+      bool cu = offset_min(zone_index("CU"), winter) != local_offset_min(winter);
+      chk(!cu || contains(old.in_bar, "CU"), "archivo antiguo: otro país marcado");
+    }
+  }
+  r.h24 = true;
   std::string bt = bar_title(r, winter);
-  chk(bt.find("🇪🇸") != std::string::npos && bt.find("🇨🇺") != std::string::npos, "título de la barra");
+  std::string here_t = time_text(clock_at(winter, local_offset_min(winter)), true);
+  chk(bt.rfind("📍 " + here_t, 0) == 0, "su hora primero");
+  chk(bt.find("🇨🇺 " + time_text(clock_at(winter, -300), true)) != std::string::npos, "Cuba al lado");
+  // España solo si su hora no es la de aquí (no se repite).
+  bool es_same = offset_min(zone_index("ES"), winter) == local_offset_min(winter);
+  chk((bt.find("🇪🇸") == std::string::npos) == es_same, "su misma hora no se repite");
+  r.show_here = false;
+  chk(bar_title(r, winter).find("📍") == std::string::npos && bar_title(r, winter).find("🇪🇸") != std::string::npos, "sin su hora");
   auto menu = bar_menu(r, winter, false);
-  chk(menu.size() == 2 + 5 + 4 && menu[2].checked && !menu[3].checked && menu[6].checked, "menú de la barra");
+  chk(menu.size() == 2 + 5 + 5 && menu[2].checked && !menu[3].checked && menu[6].checked && !menu[8].checked, "menú de la barra");
   int checked = 0;
   int bad = compare_with_system(checked);
   std::printf("zonas: %d horas comparadas con el sistema, %d distintas\n", checked, bad);
@@ -848,7 +902,7 @@ public:
   std::string data_file() const { return wc::config_dir() + "/clocks.txt"; }
   void load() {
     std::string text;
-    set = wc::read_file(data_file(), text) ? wc::parse(text) : wc::defaults();
+    set = wc::read_file(data_file(), text) ? wc::parse(text, now()) : wc::defaults(now());
     Format->index(set.h24 ? 0 : 1);
   }
   void save() {
@@ -930,6 +984,11 @@ public:
         save();
         refresh();
         break;
+      case wc::A_HERE:
+        set.show_here = !set.show_here;
+        save();
+        refresh();
+        break;
       case wc::A_WINDOW: from_bar(); break;
       case wc::A_TO_BAR: to_bar(); break;
       case wc::A_QUIT: quit(); break;
@@ -968,8 +1027,9 @@ public:
   void Tick_timer() override { refresh(); }
   void Menu1_click(const std::string& item) override {
     if (item == tx::MP_BAR) to_bar();
+    else if (item == tx::MP_HERE) bar_act(wc::tag(wc::A_HERE, 0));
     else if (item == tx::MP_RESET) {
-      set = wc::defaults();
+      set = wc::defaults(now());
       save();
       refresh();
     } else if (item == tx::MP_QUIT) quit();
@@ -997,8 +1057,8 @@ public:
     demo = true;
     setup();
     size(W, H);
-    set = wc::defaults();
-    set.in_bar = {"ES", "CU"};
+    set = wc::defaults(fixed_now = wc::days_from_civil(2026, 11, 11) * 86400 + 16 * 3600 + 2 * 60 + 24);
+    set.in_bar = {"CU"};
     Format->index(0);
     // El 11 de noviembre de 2026 a las 17:02:24 en España.
     fixed_now = wc::days_from_civil(2026, 11, 11) * 86400 + 16 * 3600 + 2 * 60 + 24;

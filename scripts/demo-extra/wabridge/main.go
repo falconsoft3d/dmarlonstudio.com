@@ -9,6 +9,7 @@
 //	puente → app: {"ev":"qr","png":"/…/qr.png"}  {"ev":"ready","me":"…"}
 //	              {"ev":"msg",…}  {"ev":"chat","jid":"…","name":"…"}
 //	              {"ev":"sent","id":"r1","ok":true}  {"ev":"logged_out"}  {"ev":"error","text":"…"}
+//	              {"ev":"locked"} (otro puente ya usa esta cuenta)
 //
 // Los mensajes también se guardan en <dir>/mensajes.jsonl (solo los lee el
 // usuario) para que la app los tenga al abrirse otra vez.
@@ -450,6 +451,21 @@ func main() {
 	}
 	os.MkdirAll(*dir, 0o700)
 	b := &bridge{dir: *dir}
+	// Un solo puente por cuenta: si otro aún se está cerrando, se le espera un poco.
+	var unlock func()
+	for try := 0; ; try++ {
+		ok, u := lockSession(filepath.Join(*dir, "wabridge.lock"))
+		if ok {
+			unlock = u
+			break
+		}
+		if try >= 30 {
+			b.emit(map[string]any{"ev": "locked"})
+			os.Exit(3)
+		}
+		time.Sleep(500 * time.Millisecond)
+	}
+	defer unlock()
 	if f, err := os.OpenFile(filepath.Join(*dir, "mensajes.jsonl"), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o600); err == nil {
 		b.store = f
 		defer f.Close()
@@ -500,6 +516,24 @@ func main() {
 		b.fail("%v", err)
 		os.Exit(1)
 	}
+	// Al terminar: desconectarse, pero sin quedarse colgado más de 3 segundos.
+	var once sync.Once
+	quit := func() {
+		once.Do(func() {
+			done := make(chan struct{})
+			go func() {
+				b.cli.Disconnect()
+				close(done)
+			}()
+			select {
+			case <-done:
+			case <-time.After(3 * time.Second):
+			}
+			unlock()
+			os.Exit(0)
+		})
+	}
+	watchParent(quit)
 	// Las órdenes de la app; si la app se cierra (stdin acaba), el puente también.
 	in := bufio.NewScanner(os.Stdin)
 	in.Buffer(make([]byte, 1<<20), 1<<24)
@@ -509,7 +543,7 @@ func main() {
 			go b.handle(c)
 		}
 	}
-	b.cli.Disconnect()
+	quit()
 }
 
 func runSelftest() int {
@@ -544,6 +578,14 @@ func runSelftest() int {
 	msg := fileMessage(kDoc, "application/pdf", "informe.pdf", "", whatsmeow.UploadResponse{URL: "u", FileLength: 9})
 	check(msg.GetDocumentMessage().GetFileName() == "informe.pdf" && msg.GetDocumentMessage().GetFileLength() == 9, "mensaje de un documento")
 	check(safeName("3EB0/../x") == "3EB0x", "nombre de archivo seguro")
+	lockPath := filepath.Join(os.TempDir(), fmt.Sprintf("wabridge-selftest-%d.lock", os.Getpid()))
+	ok1, u1 := lockSession(lockPath)
+	ok2, _ := lockSession(lockPath)
+	u1()
+	ok3, u3 := lockSession(lockPath)
+	u3()
+	os.Remove(lockPath)
+	check(ok1 && !ok2 && ok3, "un solo puente por cuenta")
 	if fails == 0 {
 		fmt.Println("selftest ok")
 		return 0

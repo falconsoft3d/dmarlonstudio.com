@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.127 — 2026-11-11
+
+- MyWhatsapp 1.0.30: el chat con la IA (🤖 Asistente) tiene barra de desplazamiento vertical: se arrastra o se pulsa para saltar.
+- MyWhatsapp: las respuestas de la IA salen en texto plano: si la IA escribe en Markdown (**negrita**, # títulos, tablas, listas con «-»), la app lo limpia y las listas salen con «•». También en el análisis del panel y en «Valorar a esta persona». Y al asistente se le pide texto plano.
+- MyWhatsapp: la conexión con WhatsApp (el puente) se cierra siempre con la app: si la app muere sin avisar, el puente lo nota y se desconecta; nunca hay dos conectados a la misma cuenta (un candado del sistema), y si lo hubiera, la app lo dice. La tubería con el puente ya no la heredan otros procesos (curl).
+
 ## 1.0.126 — 2026-11-11
 
 - MyWhatsapp 1.0.29: **🤖 Asistente**, en la barra de apps: un chat con la IA sobre sus chats («¿qué chats tengo sin responder desde hace 3 días?», «¿qué hago con @juan?»). Cada pregunta lleva un resumen de los chats recientes (por responder, etiquetas, tareas, etapa del CRM) y, con @nombre, esa conversación con su ficha, su lead y sus tareas; con Claude puede buscar en la web.

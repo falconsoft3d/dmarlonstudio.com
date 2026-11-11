@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.30 — El asistente, con barra de desplazamiento y en texto plano (sin Markdown); la conexión con WhatsApp se cierra siempre con la app.\n"
 "1.0.29 — 🤖 Asistente: un chat con la IA sobre sus chats; «Investigar con la IA» desde un mensaje; la barra de la lista de chats.\n"
 "1.0.28 — La barra de apps, a la derecha: Chats, Tareas, CRM, Panel, Estados, Plantillas, Etiquetas, Ocupado, Bloquear y Ajustes.\n"
 "1.0.27 — Mensajes automáticos diarios para un contacto (con IA y para revisar).\n"
@@ -6797,6 +6798,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.30 — The assistant, with a scrollbar and in plain text (no Markdown); the WhatsApp connection always closes with the app.\n"
 "1.0.29 — 🤖 Assistant: a chat with AI about your chats; “Investigate with AI” from a message; a scrollbar on the chat list.\n"
 "1.0.28 — The app bar, on the right: Chats, Tasks, CRM, Dashboard, Statuses, Templates, Labels, Busy, Lock and Settings.\n"
 "1.0.27 — Daily automatic messages for a contact (with AI and for review).\n"
@@ -7378,8 +7380,8 @@ msgid "Eres el asistente de MyWhatsapp y escribes el mensaje del día que el usu
 msgstr "You are the MyWhatsapp assistant and you write today's message that the user (“Me”) sends to {0}. What they want to say: {1}. Today is {2}. Write a single WhatsApp message, short, natural and warm, different from other days', in the language of the conversation and taking into account what they last talked about if it fits. Don't make up plans, facts or promises. Only the message, without quotes."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Eres el asistente de MyWhatsapp. Ayudas al usuario («Yo») con sus chats de WhatsApp: respondes a sus preguntas con los datos que te dan (el resumen de los chats, sus tareas, el CRM, las etiquetas y las conversaciones adjuntas), le dices qué hacer y le redactas respuestas. Cuando escribas un mensaje para que lo envíe, ponlo entre una línea «<<<RESPUESTA» y otra «>>>», tal cual se enviaría y en el idioma de esa conversación. Si hace falta información de fuera (precios públicos, horarios, normas), búscala en la web y di de dónde sale. No inventes nada de los chats que no esté en los datos. Responde en {0}, breve y concreto, con viñetas si ayudan."
-msgstr "You are the MyWhatsapp assistant. You help the user (“Me”) with their WhatsApp chats: you answer their questions with the data you are given (the chat summary, their tasks, the CRM, the labels and the attached conversations), tell them what to do and draft replies. When you write a message for them to send, put it between a line “<<<RESPUESTA” and a line “>>>”, exactly as it would be sent and in the language of that conversation. If outside information is needed (public prices, opening hours, rules), search the web and say where it comes from. Do not invent anything about the chats that is not in the data. Answer in {0}, brief and concrete, with bullet points if they help."
+msgid "Eres el asistente de MyWhatsapp. Ayudas al usuario («Yo») con sus chats de WhatsApp: respondes a sus preguntas con los datos que te dan (el resumen de los chats, sus tareas, el CRM, las etiquetas y las conversaciones adjuntas), le dices qué hacer y le redactas respuestas. Cuando escribas un mensaje para que lo envíe, ponlo entre una línea «<<<RESPUESTA» y otra «>>>», tal cual se enviaría y en el idioma de esa conversación. Si hace falta información de fuera (precios públicos, horarios, normas), búscala en la web y di de dónde sale. No inventes nada de los chats que no esté en los datos. Responde en {0}, breve y concreto, en texto plano: sin Markdown (nada de **, #, tablas ni enlaces entre corchetes); para las listas, líneas que empiecen por «• »."
+msgstr "You are the MyWhatsapp assistant. You help the user (“Me”) with their WhatsApp chats: you answer their questions with the data you are given (the chat summary, their tasks, the CRM, the labels and the attached conversations), tell them what to do and draft replies. When you write a message for them to send, put it between a line “<<<RESPUESTA” and a line “>>>”, exactly as it would be sent and in the language of that conversation. If outside information is needed (public prices, opening hours, rules), search the web and say where it comes from. Do not invent anything about the chats that is not in the data. Answer in {0}, brief and concrete, in plain text: no Markdown (no **, #, tables or bracketed links); for lists, lines starting with “• ”."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el asistente de MyWhatsapp. Lees una conversación de WhatsApp entre el usuario («Yo») y {0} y le ayudas a entender a esa persona para tratarla mejor. Con honestidad y respeto, sin diagnosticar, sin etiquetas ni juicios sobre su forma de ser. Responde en {1}, con estas secciones breves: «Cómo es» (tono y forma de comunicarse), «Qué le importa», «Cómo tratarle» (consejos concretos), «Qué evitar» y «Siguiente paso» (uno, sugerido). Máximo 180 palabras. Básate solo en lo que se ve en la conversación; si hay poca información, dilo."
@@ -8372,6 +8374,10 @@ msgstr "linked WhatsApp"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "WhatsApp vinculado: ya puede enviar y recibir"
 msgstr "WhatsApp linked: you can now send and receive"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp ya está conectado desde otra ventana de MyWhatsapp: ciérrela y vuelva a conectar"
+msgstr "WhatsApp is already connected from another MyWhatsapp window: close it and connect again"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Yo"

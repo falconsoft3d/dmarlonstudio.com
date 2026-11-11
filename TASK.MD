@@ -108,6 +108,8 @@ Hechos
 120. MyWhatsapp: barra de apps a la derecha (CRM, panel, etc.) | ✅ |
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas; desde un mensaje de un cliente, investigarlo con la IA para responderle | ✅ |
 121. MyWhatsapp: barra de desplazamiento en la lista de contactos de la izquierda | ✅ |
+122. MyWhatsapp: barra de desplazamiento en el chat con la IA y respuestas sin Markdown (texto plano) | ✅ |
+123. MyWhatsapp: la conexión con WhatsApp (el puente) se cierra siempre con la app y nunca hay dos a la vez | ✅ |
 
 Trabajando
 =========

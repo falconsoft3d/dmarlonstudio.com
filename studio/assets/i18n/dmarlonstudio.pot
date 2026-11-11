@@ -6687,6 +6687,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.30 — El asistente, con barra de desplazamiento y en texto plano (sin Markdown); la conexión con WhatsApp se cierra siempre con la app.\n"
 "1.0.29 — 🤖 Asistente: un chat con la IA sobre sus chats; «Investigar con la IA» desde un mensaje; la barra de la lista de chats.\n"
 "1.0.28 — La barra de apps, a la derecha: Chats, Tareas, CRM, Panel, Estados, Plantillas, Etiquetas, Ocupado, Bloquear y Ajustes.\n"
 "1.0.27 — Mensajes automáticos diarios para un contacto (con IA y para revisar).\n"
@@ -7254,7 +7255,7 @@ msgid "Eres el asistente de MyWhatsapp y escribes el mensaje del día que el usu
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
-msgid "Eres el asistente de MyWhatsapp. Ayudas al usuario («Yo») con sus chats de WhatsApp: respondes a sus preguntas con los datos que te dan (el resumen de los chats, sus tareas, el CRM, las etiquetas y las conversaciones adjuntas), le dices qué hacer y le redactas respuestas. Cuando escribas un mensaje para que lo envíe, ponlo entre una línea «<<<RESPUESTA» y otra «>>>», tal cual se enviaría y en el idioma de esa conversación. Si hace falta información de fuera (precios públicos, horarios, normas), búscala en la web y di de dónde sale. No inventes nada de los chats que no esté en los datos. Responde en {0}, breve y concreto, con viñetas si ayudan."
+msgid "Eres el asistente de MyWhatsapp. Ayudas al usuario («Yo») con sus chats de WhatsApp: respondes a sus preguntas con los datos que te dan (el resumen de los chats, sus tareas, el CRM, las etiquetas y las conversaciones adjuntas), le dices qué hacer y le redactas respuestas. Cuando escribas un mensaje para que lo envíe, ponlo entre una línea «<<<RESPUESTA» y otra «>>>», tal cual se enviaría y en el idioma de esa conversación. Si hace falta información de fuera (precios públicos, horarios, normas), búscala en la web y di de dónde sale. No inventes nada de los chats que no esté en los datos. Responde en {0}, breve y concreto, en texto plano: sin Markdown (nada de **, #, tablas ni enlaces entre corchetes); para las listas, líneas que empiecen por «• »."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -8215,6 +8216,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "WhatsApp vinculado: ya puede enviar y recibir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "WhatsApp ya está conectado desde otra ventana de MyWhatsapp: ciérrela y vuelva a conectar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart

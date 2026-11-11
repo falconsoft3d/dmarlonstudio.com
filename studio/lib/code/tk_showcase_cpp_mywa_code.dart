@@ -1029,6 +1029,82 @@ std::string openai_turns_body(const std::string& model, const std::string& syste
   for (const auto& t : turns) m += std::string(",{\"role\":") + (t.user ? "\"user\"" : "\"assistant\"") + ",\"content\":" + jstr(t.text) + "}";
   return "{\"model\":" + jstr(model) + ",\"messages\":[" + m + "]}";
 }
+// La IA a veces escribe en Markdown (**negrita**, # títulos, tablas): aquí se dibuja texto, así que
+// se pasa a texto plano y las listas, a «• ».
+std::string plain_text(const std::string& md) {
+  auto inline_clean = [](std::string l) {
+    std::string o;
+    for (size_t i = 0; i < l.size(); i++) {
+      if (l.compare(i, 2, "**") == 0 || l.compare(i, 2, "__") == 0) {
+        i++;
+        continue;
+      }
+      if (l[i] == '*' || l[i] == '`') continue;
+      // [texto](enlace) → texto (enlace)
+      if (l[i] == '[') {
+        size_t close = l.find("](", i);
+        size_t end = close == std::string::npos ? close : l.find(')', close);
+        if (end != std::string::npos && l.find('\n', i) > end) {
+          o += l.substr(i + 1, close - i - 1) + " (" + l.substr(close + 2, end - close - 2) + ")";
+          i = end;
+          continue;
+        }
+      }
+      o += l[i];
+    }
+    return o;
+  };
+  std::string out;
+  bool blank = false;
+  size_t pos = 0;
+  while (pos <= md.size()) {
+    size_t nl = md.find('\n', pos);
+    if (nl == std::string::npos) nl = md.size();
+    std::string l = md.substr(pos, nl - pos);
+    pos = nl + 1;
+    if (!l.empty() && l.back() == '\r') l.pop_back();
+    size_t ind = l.find_first_not_of(" \t");
+    std::string body = ind == std::string::npos ? "" : l.substr(ind);
+    std::string pad = ind == std::string::npos ? "" : l.substr(0, ind);
+    if (body.rfind("<<<", 0) == 0 || body == ">>>") {   // las marcas de las respuestas, tal cual
+      out += body + "\n";
+      blank = false;
+      continue;
+    }
+    // Las rayas (---, ***) y la línea de debajo de la cabecera de una tabla: fuera.
+    if (!body.empty() && body.find_first_not_of("-*_= ") == std::string::npos && body.size() >= 3) continue;
+    if (!body.empty() && body.find('|') != std::string::npos && body.find_first_not_of("|:- ") == std::string::npos) continue;
+    size_t h = 0;
+    while (h < body.size() && body[h] == '#') h++;
+    if (h > 0 && h <= 6 && h < body.size() && body[h] == ' ') body = body.substr(h + 1);
+    else if (body.size() > 2 && (body[0] == '-' || body[0] == '*' || body[0] == '+') && body[1] == ' ') body = "• " + body.substr(2);
+    else if (body.size() > 2 && body[0] == '>' && body[1] == ' ') body = body.substr(2);
+    // Una fila de tabla: | a | b | → a · b
+    if (!body.empty() && body[0] == '|') {
+      std::string row, cell;
+      for (char c : body.substr(1)) {
+        if (c == '|') {
+          cell = trim(cell);
+          if (!cell.empty()) row += (row.empty() ? "" : " · ") + cell;
+          cell.clear();
+        } else cell += c;
+      }
+      cell = trim(cell);
+      if (!cell.empty()) row += (row.empty() ? "" : " · ") + cell;
+      body = row;
+    }
+    body = inline_clean(body);
+    if (trim(body).empty()) {
+      if (!blank && !out.empty()) out += "\n";
+      blank = true;
+      continue;
+    }
+    blank = false;
+    out += pad + body + "\n";
+  }
+  while (!out.empty() && out.back() == '\n') out.pop_back();
+  return out;
+}
 // Las respuestas listas que la IA marca entre <<<RESPUESTA y >>>: (el texto sin ellas, las respuestas).
 std::pair<std::string, std::vector<std::string>> split_replies(const std::string& text) {
   std::vector<std::string> replies;
@@ -2117,6 +2193,9 @@ public:
       close(in[1]);
       return false;
     }
+    // Ya mismo, antes del fork: si otro hilo lanza curl en este momento, que no herede la tubería
+    // (la tendría abierta y el puente no se enteraría de que la app se cerró). dup2 la deja abierta en el hijo.
+    for (int fd : {in[0], in[1], out[0], out[1]}) fcntl(fd, F_SETFD, FD_CLOEXEC);
     pid_t pid = fork();
     if (pid < 0) {
       for (int fd : {in[0], in[1], out[0], out[1]}) close(fd);
@@ -3748,6 +3827,31 @@ public:
   std::vector<Turn> assist;
   std::string assist_target;   // con quién ayuda ("" si en general)
   int assist_scroll = 1 << 30, assist_content = 0;
+  // La barra de desplazamiento del asistente (se arrastra o se pulsa para saltar).
+  int assist_grab = -1;
+  struct VBar {
+    int x, y, w, h, thumb_y, thumb_h, max;
+  };
+  bool assist_bar(VBar& b) const {
+    const int head = 60;
+    int view = h() - head;
+    if (!assist_mode || assist_content <= view || view <= 40) return false;
+    b.w = 12;
+    b.x = x() + w() - b.w - 2;
+    b.y = y() + head + 4;
+    b.h = view - 8;
+    b.thumb_h = std::max(30, (int)((long long)b.h * view / assist_content));
+    b.max = assist_content - view;
+    b.thumb_y = b.y + (int)((long long)(b.h - b.thumb_h) * std::max(0, std::min(assist_scroll, b.max)) / b.max);
+    return true;
+  }
+  void assist_bar_to(int ey) {
+    VBar b;
+    if (!assist_bar(b)) return;
+    int ty = std::max(0, std::min(ey - assist_grab - b.y, b.h - b.thumb_h));
+    assist_scroll = b.h > b.thumb_h ? (int)((long long)ty * b.max / (b.h - b.thumb_h)) : 0;
+    redraw();
+  }
   std::vector<std::string> assist_replies;
   void draw_assist() {
     const Theme& T = th();
@@ -3782,7 +3886,7 @@ public:
       return;
     }
     // Los turnos, de arriba abajo (con la rueda se sube y se baja).
-    int bw_max = std::min(640, (int)(w() * 0.78));
+    int bw_max = std::min(640, (int)(w() * 0.78) - 16);
     struct Block {
       bool user;
       std::vector<std::string> lines;
@@ -3849,6 +3953,13 @@ public:
       Y += b.h + 12;
     }
     fl_pop_clip();
+    VBar vb;
+    if (assist_bar(vb)) {
+      fl_color(rgb(T.dark ? 0x202c33 : 0xe4e2dc));
+      fl_rounded_rectf(vb.x + 2, vb.y, vb.w - 4, vb.h, 4);
+      fl_color(rgb(assist_grab >= 0 ? T.text : T.muted));
+      fl_rounded_rectf(vb.x + 2, vb.thumb_y, vb.w - 4, vb.thumb_h, 4);
+    }
   }
   // La valoración de una persona por la IA, en una tarjeta encima del chat.
   std::string insight, insight_title;
@@ -4499,6 +4610,14 @@ public:
         return 1;
       case FL_PUSH: {
         bool right = Fl::event_button() == FL_RIGHT_MOUSE;
+        VBar vb;
+        if (!right && assist_bar(vb) && Fl::event_x() >= vb.x - 4 && Fl::event_y() >= vb.y && Fl::event_y() < vb.y + vb.h) {
+          bool on_thumb = Fl::event_y() >= vb.thumb_y && Fl::event_y() < vb.thumb_y + vb.thumb_h;
+          assist_grab = on_thumb ? Fl::event_y() - vb.thumb_y : vb.thumb_h / 2;
+          if (!on_thumb) assist_bar_to(Fl::event_y());
+          redraw();
+          return 1;
+        }
         for (const auto& h : hits)
           if (Fl::event_inside(h.x, h.y, h.w, h.h) && on_act && (h.act == 6) == right) {
             on_act(h.act, h.idx);
@@ -4523,6 +4642,10 @@ public:
         return 1;
       }
       case FL_DRAG: {
+        if (assist_grab >= 0) {
+          assist_bar_to(Fl::event_y());
+          return 1;
+        }
         if (!selecting) return 1;
         Pos p;
         if (pos_at(Fl::event_x(), Fl::event_y(), false, p)) {
@@ -4533,6 +4656,10 @@ public:
       }
       case FL_RELEASE:
         selecting = false;
+        if (assist_grab >= 0) {
+          assist_grab = -1;
+          redraw();
+        }
         return 1;
       case FL_KEYBOARD:
       case FL_SHORTCUT:
@@ -5257,6 +5384,10 @@ int selftest() {
     cs[1].name = "Ana";
     auto mc = mentioned_chats("¿Qué hago con @juan que no me responde? y @ana", cs);
     chk(mc.size() == 2 && mc[0] == 0 && mc[1] == 1 && mentioned_chats("sin arrobas", cs).empty(), "asistente: los chats con @");
+    std::string pt = plain_text("## Resumen\n\n**Laura** espera *respuesta*.\n- Uno\n* Dos\n---\n| Chat | Días |\n|---|---|\n| Ana | 3 |\n"
+                                "Mira [esto](https://x.es) y `code`.\n<<<RESPUESTA\nHola **Ana**\n>>>");
+    chk(pt == "Resumen\n\nLaura espera respuesta.\n• Uno\n• Dos\nChat · Días\nAna · 3\nMira esto (https://x.es) y code.\n<<<RESPUESTA\nHola Ana\n>>>",
+        "la IA en texto plano (sin Markdown)");
     bool ok2 = false;
     Json b2 = parse_json(claude_turns_body("S", {{true, "Hola"}, {false, "¿Sí?"}, {true, "Busca"}}, true), &ok2);
     chk(ok2 && b2["messages"].a.size() == 3 && b2["messages"][1]["role"].str() == "assistant" &&
@@ -5454,7 +5585,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.29";
+const char* const MYWA_VERSION = "1.0.30";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -7313,6 +7444,7 @@ public:
     refresh();
   }
   // ---- el asistente: un chat con la IA sobre sus chats (y para investigar un mensaje)
+  bool bridge_locked = false;   // el puente no arrancó: otro ya usa la cuenta
   std::string assist_jid;   // el chat con el que ayuda
   bool warned_assist = false;
   void open_assist() {
@@ -7422,7 +7554,7 @@ public:
     Form1* f = self();
     if (!f) return;
     f->view->assist_busy = false;
-    std::string t = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    std::string t = d->error.empty() && !d->text.empty() ? wa::plain_text(d->text) : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
     f->view->assist.push_back({false, t});
     f->view->assist_scroll = 1 << 30;
     f->refresh();
@@ -7604,7 +7736,7 @@ public:
     std::unique_ptr<DashAiDone> d(static_cast<DashAiDone*>(p));
     Form1* f = self();
     if (!f || f->view->dash_ai.empty()) return;
-    f->view->dash_ai = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->view->dash_ai = d->error.empty() && !d->text.empty() ? wa::plain_text(d->text) : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
     f->view->text_scroll = 0;
     f->refresh();
   }
@@ -7849,7 +7981,7 @@ public:
     std::unique_ptr<PersonDone> d(static_cast<PersonDone*>(p));
     Form1* f = self();
     if (!f || f->current < 0 || f->chats[(size_t)f->current].jid != d->jid || f->view->insight.empty()) return;
-    f->view->insight = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->view->insight = d->error.empty() && !d->text.empty() ? wa::plain_text(d->text) : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
     f->view->text_scroll = 0;
     f->refresh();
   }
@@ -8776,9 +8908,13 @@ public:
       say(tx::LOGGED_OUT);
     } else if (ev == "error") {
       say(wa::fmt(tx::ERR_SEND_WHY, {j["text"].str()}));
+    } else if (ev == "locked") {
+      bridge_locked = true;
+      say(tx::BRIDGE_LOCKED);
     } else if (ev == "exit") {
       linked = false;
-      if (send_mode == wa::S_LINKED) say(tx::BRIDGE_STOPPED);
+      if (send_mode == wa::S_LINKED && !bridge_locked) say(tx::BRIDGE_STOPPED);
+      bridge_locked = false;
     }
     refresh();
   }
@@ -9677,6 +9813,31 @@ public:
       bool use = false;
       for (const auto& h : view->hits) use = use || h.act == 81;
       chk(!view->assist_busy && view->assist.size() == 2 && view->assist_replies.size() == 1 && use, "la respuesta, con una respuesta lista");
+      // Una respuesta larga (y en Markdown): la barra de desplazamiento; arrastrarla arriba y abajo.
+      {
+        std::string longer = "## Chats por responder\n";
+        for (int k = 0; k < 40; k++) longer += "- **Chat " + std::to_string(k) + "**: esperando respuesta.\n";
+        assist_done(new AssistDone{longer, ""});
+        render_to("");
+        wa::ChatView::VBar vb;
+        bool has = view->assist_bar(vb);
+        bool plain = view->assist.back().text.find("**") == std::string::npos && view->assist.back().text.find("## ") == std::string::npos &&
+                     view->assist.back().text.find("• Chat 3: esperando") != std::string::npos;
+        int at_end = view->assist_scroll;
+        Fl::e_x = vb.x + 5;
+        Fl::e_y = vb.thumb_y + 5;
+        view->handle(FL_PUSH);
+        Fl::e_y = vb.y - 100;
+        view->handle(FL_DRAG);
+        view->handle(FL_RELEASE);
+        int top = view->assist_scroll;
+        Fl::e_y = vb.y + vb.h - 2;
+        view->handle(FL_PUSH);
+        view->handle(FL_RELEASE);
+        chk(has && plain && at_end == vb.max && top == 0 && view->assist_scroll == vb.max && view->assist_grab < 0,
+            "el asistente: sin Markdown y con barra de desplazamiento (arrastrar y pulsar)");
+        view->assist.pop_back();
+      }
       // Desde un mensaje de un cliente (clic derecho › Investigar con la IA).
       pick(2);
       int last_in = -1;
@@ -10109,6 +10270,10 @@ public:
       chmod(sh.c_str(), 0700);
       pick(0);
       send_mode = wa::S_LINKED;
+      // Si otro puente ya usa la cuenta: se dice así (y no «se cerró la conexión»).
+      on_bridge("{\"ev\":\"locked\"}");
+      on_bridge("{\"ev\":\"exit\"}");
+      chk(message == tx::BRIDGE_LOCKED && !bridge_locked, "otro puente ya usa la cuenta: el aviso");
       chk(bridge.start(sh, dir), "arrancar el puente");
       for (int i = 0; i < 100 && !linked; i++) Fl::wait(0.05);
       chk(linked, "puente vinculado");

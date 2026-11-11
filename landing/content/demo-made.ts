@@ -466,6 +466,20 @@ std::string claude_turns_body(const std::string& system, const std::vector<Turn>
 // Las respuestas listas van entre «<<<RESPUESTA» y «>>>»: cada una, una tarjeta con
 // «Usar como respuesta», que la deja en el borrador del chat del cliente.
 auto sp = split_replies(text);   // {el texto, las respuestas}`;
+const mywaColors = `// Encima del tema claro u oscuro: el color de la app, el fondo y los bocadillos ("" = del color de la app).
+void apply_colors(const std::string& accent, const std::string& chat, const std::string& bubbles) {
+  Theme& t = th();
+  const Palette& a = palettes()[(size_t)palette_index(accent)];
+  const Palette& b = palettes()[(size_t)palette_index(bubbles.empty() ? accent : bubbles)];
+  const ChatBg& c = chat_backgrounds()[(size_t)chat_bg_index(chat)];
+  t.accent = t.dark ? a.accent_d : a.accent;
+  t.button = t.dark ? a.button_d : a.button;
+  t.soft = t.dark ? a.soft_d : a.soft;
+  t.out = t.dark ? b.out_d : b.out;
+  t.out_line = t.dark ? b.out_d : b.out_line;
+  t.chat = t.dark ? c.dark : c.light;
+}`;
+
 const mywaTranslate = `// Lo recibido: una tanda de mensajes a la IA, que devuelve JSON con el idioma
 // y una traducción por mensaje; se guardan y no se vuelven a pedir.
 std::thread([s, jid, sys, usr, keys, n] {
@@ -876,6 +890,11 @@ const es: Record<string, DemoMade> = {
         text: "«🤖 Asistente», en la barra de apps, es un chat con la IA sobre sus chats. Cada pregunta lleva un resumen de los 60 chats más recientes (nombre, fecha, el principio del último mensaje, si espera respuesta, etiquetas, tareas y etapa del CRM) y, si nombra a alguien con @, su conversación, su ficha, su lead y sus tareas. El clic derecho sobre un mensaje de un cliente, «🤖 Investigar con la IA», abre el asistente con ese chat y ese mensaje. Con Claude, la petición lleva la herramienta de búsqueda en la web, por si hace falta algo de fuera; las respuestas listas se marcan entre «<<<RESPUESTA» y «>>>». Allí, Enter nunca envía nada por WhatsApp; las pruebas lo comprueban.",
         code: { file: "Form1.cpp", text: mywaAssist },
       },
+      {
+        title: "14. Los colores de la app",
+        text: "Ver › Colores… (o ⚙️ Ajustes) abre una sola ficha con el tema, el color de la app, el fondo del chat y el de sus mensajes. Cada color es una paleta con su versión clara y oscura: el tema pone la base y apply_colors cambia encima el acento, los botones, lo resaltado, los bocadillos y el fondo. Los colores con significado (la edad de las tareas, las etapas del CRM, las etiquetas) no cambian. La prueba de la interfaz rellena la ficha, comprueba los colores en oscuro, que se guardan y que «Volver a los colores de siempre» los deja como estaban.",
+        code: { file: "Form1.cpp", text: mywaColors },
+      },
     ],
   },
 };
@@ -1274,6 +1293,11 @@ const en: Record<string, DemoMade> = {
         title: "13. The assistant: investigating a message",
         text: "“🤖 Assistant”, in the app bar, is a chat with AI about your chats. Each question carries a summary of the 60 most recent chats (name, date, the start of the last message, whether it awaits a reply, labels, tasks and CRM stage) and, if you mention someone with @, their conversation, card, lead and tasks. Right-clicking a client's message, “🤖 Investigate with AI”, opens the assistant with that chat and that message. With Claude, the request carries the web search tool in case outside information is needed; ready replies are marked between “<<<RESPUESTA” and “>>>”. There, Enter never sends anything over WhatsApp; the tests check it.",
         code: { file: "Form1.cpp", text: mywaAssist },
+      },
+      {
+        title: "14. The app colours",
+        text: "View › Colours… (or ⚙️ Settings) opens a single sheet with the theme, the app colour, the chat background and that of your messages. Each colour is a palette with a light and a dark version: the theme sets the base and apply_colors changes the accent, buttons, highlights, bubbles and background on top. Colours with a meaning (task age, CRM stages, labels) don't change. The interface test fills in the sheet, checks the colours in dark mode, that they are saved and that “Back to the usual colours” restores them.",
+        code: { file: "Form1.cpp", text: mywaColors },
       },
     ],
   },

@@ -4598,7 +4598,7 @@ msgstr "Size:"
 msgid "Tamaño: {0}"
 msgstr "Size: {0}"
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Tema"
 msgstr "Theme"
 
@@ -6080,7 +6080,7 @@ msgstr "Bicubic (smoother)"
 msgid "Bilineal"
 msgstr "Bilinear"
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Blanco"
 msgstr "White"
 
@@ -6767,6 +6767,7 @@ msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 N
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.31 — Colores de la app (Ver › Colores… o ⚙️ Ajustes): el color, el fondo del chat y sus mensajes, en claro y en oscuro.\n"
 "1.0.30 — El asistente, con barra de desplazamiento y en texto plano (sin Markdown); la conexión con WhatsApp se cierra siempre con la app.\n"
 "1.0.29 — 🤖 Asistente: un chat con la IA sobre sus chats; «Investigar con la IA» desde un mensaje; la barra de la lista de chats.\n"
 "1.0.28 — La barra de apps, a la derecha: Chats, Tareas, CRM, Panel, Estados, Plantillas, Etiquetas, Ocupado, Bloquear y Ajustes.\n"
@@ -6798,6 +6799,7 @@ msgid ""
 "1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
 "1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
 msgstr ""
+"1.0.31 — App colours (View › Colours… or ⚙️ Settings): the colour, the chat background and your messages, in light and dark.\n"
 "1.0.30 — The assistant, with a scrollbar and in plain text (no Markdown); the WhatsApp connection always closes with the app.\n"
 "1.0.29 — 🤖 Assistant: a chat with AI about your chats; “Investigate with AI” from a message; a scrollbar on the chat list.\n"
 "1.0.28 — The app bar, on the right: Chats, Tasks, CRM, Dashboard, Statuses, Templates, Labels, Busy, Lock and Settings.\n"
@@ -6942,6 +6944,10 @@ msgstr "Help me reply to this message from {0}: “{1}”. Look into whatever is
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Azul"
 msgstr "Blue"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Azul suave"
+msgstr "Soft blue"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Añadido desde MyWhatsapp"
@@ -7092,8 +7098,28 @@ msgid "Cliente"
 msgstr "Customer"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Clásico (beis)"
+msgstr "Classic (beige)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cocina completa · Carlos"
 msgstr "Full kitchen · Carlos"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Color de la app"
+msgstr "App colour"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Colores de la app"
+msgstr "App colours"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Colores guardados"
+msgstr "Colours saved"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Colores…"
+msgstr "Colours…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Como el sistema"
@@ -7192,6 +7218,10 @@ msgstr "Monday to Friday"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "De vacaciones"
 msgstr "On holiday"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Del color de la app"
+msgstr "Same as the app colour"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Desactivar el modo ocupado"
@@ -7526,6 +7556,10 @@ msgid "Fines de semana"
 msgstr "Weekends"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Fondo del chat"
+msgstr "Chat background"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Formal"
 msgstr "Formal"
 
@@ -7548,6 +7582,10 @@ msgstr "Thank you"
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Gris"
 msgstr "Gray"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Gris claro"
+msgstr "Light gray"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Guardar también en Contactos (y en el iPhone, por iCloud)"
@@ -7780,6 +7818,10 @@ msgstr ""
 "{0}"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Mis mensajes"
+msgstr "My messages"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Modelo de OpenAI"
 msgstr "OpenAI model"
 
@@ -7831,7 +7873,7 @@ msgid ""
 "\n"
 "Para enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo (o arrástrelo al chat). Sus mensajes llevan los ✓ de WhatsApp: ✓ enviado, ✓✓ entregado y ✓✓ en azul, leído. «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n"
 "\n"
-"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»).\n"
+"En la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»). Ver › Colores… (o ⚙️ Ajustes) elige el tema, el color de la app, el fondo del chat y el de sus mensajes, en una sola ficha.\n"
 "\n"
 "«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n"
 "\n"
@@ -7853,7 +7895,7 @@ msgstr ""
 "\n"
 "To send: type in the draft and press “Send ➤” or Enter (Shift+Enter for a new line); “📎 Attach” sends a file (or drag it onto the chat). Your messages carry WhatsApp's ticks: ✓ sent, ✓✓ delivered and blue ✓✓, read. “✨ Improve” suggests your message improved by the AI and “Aa Fix” fixes its spelling (Cmd+Z undoes it).\n"
 "\n"
-"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it, forwards it to another chat or turns it into a task. “⋯”, in the header, clears the chat (only in MyWhatsapp; it can be undone). “📋 Templates” inserts a saved message ({nombre} becomes the contact's name). In View, the sidebar folds to just the photos (or with « / »).\n"
+"In the conversation: the wheel scrolls up to older messages (they load by themselves); drag over the text to select it and Cmd+C to copy it (double-click: the whole message); “🔍 Search” or Cmd+F searches the whole chat, with ▲ ▼ (or Enter) to go from one to the next. Right-clicking a message copies it, forwards it to another chat or turns it into a task. “⋯”, in the header, clears the chat (only in MyWhatsapp; it can be undone). “📋 Templates” inserts a saved message ({nombre} becomes the contact's name). In View, the sidebar folds to just the photos (or with « / »). View › Colours… (or ⚙️ Settings) chooses the theme, the app colour, the chat background and that of your messages, in one sheet.\n"
 "\n"
 "“🌐 Translate”, in the header, lets you chat in another language: each received message shows its translation below and, when you send, what you write is translated into the other person's language (detected or chosen: each contact's language is remembered); your bubble shows what was sent and your original.\n"
 "\n"
@@ -8224,6 +8266,10 @@ msgid "Rosa"
 msgstr "Pink"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Rosa suave"
+msgstr "Soft pink"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Salir de MyWhatsapp"
 msgstr "Quit MyWhatsapp"
 
@@ -8344,12 +8390,20 @@ msgid "Verde"
 msgstr "Green"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Verde suave"
+msgstr "Soft green"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Vincular WhatsApp"
 msgstr "Link WhatsApp"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Vincular con QR"
 msgstr "Link with QR"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Volver a los colores de siempre"
+msgstr "Back to the usual colours"
 
 #: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Vídeo"
@@ -17007,7 +17061,7 @@ msgstr "Settings"
 msgid "Bases de datos"
 msgstr "Databases"
 
-#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/settings_screen.dart
 msgid "Claro"
 msgstr "Light"
 
@@ -17027,7 +17081,7 @@ msgstr "Editor"
 msgid "FTP"
 msgstr "FTP"
 
-#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/settings_screen.dart
 msgid "Oscuro"
 msgstr "Dark"
 

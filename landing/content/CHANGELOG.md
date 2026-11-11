@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.128 — 2026-11-11
+
+- MyWhatsapp 1.0.31: **colores de la app** (Ver › Colores… o ⚙️ Ajustes): una sola ficha con el tema (claro, oscuro o como el sistema), el color de la app (verde, azul, morado, naranja, rosa o gris), el fondo del chat (clásico, blanco, gris, azul, verde o rosa suave) y el color de sus mensajes. Cada color tiene su versión clara y oscura; «Volver a los colores de siempre» lo deja como estaba. Los colores con significado (la edad de las tareas, las etapas del CRM, las etiquetas) no cambian.
+- Web: el paso 14 de «Cómo se hizo» de MyWhatsapp (los colores).
+
 ## 1.0.127 — 2026-11-11
 
 - MyWhatsapp 1.0.30: el chat con la IA (🤖 Asistente) tiene barra de desplazamiento vertical: se arrastra o se pulsa para saltar.

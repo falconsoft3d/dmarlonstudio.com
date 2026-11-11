@@ -2308,7 +2308,9 @@ struct Theme {
   bool dark = false;
   unsigned list = 0xffffff, sel = 0xe9edef, hover = 0xf5f6f6, text = 0x111b21, muted = 0x667781, line = 0xe9edef,
            chat = 0xefeae2, in = 0xffffff, in_line = 0xe2ddd5, out = 0xd9fdd3, out_line = 0xc5e8bd, panel = 0xf0f2f5,
-           card = 0xffffff, card_line = 0xd1d7db, input = 0xffffff, accent = 0x1fa855;
+           card = 0xffffff, card_line = 0xd1d7db, input = 0xffffff, accent = 0x1fa855,
+           button = 0x25d366,   // los botones grandes (Enviar, Sugerir)
+           soft = 0xd9fdd3;     // lo elegido (un filtro, una tarjeta resaltada)
 };
 Theme& th() {
   static Theme t;
@@ -2321,8 +2323,59 @@ void set_dark(bool dark) {
     t.list = 0x111b21; t.sel = 0x2a3942; t.hover = 0x202c33; t.text = 0xe9edef; t.muted = 0x8696a0; t.line = 0x222d34;
     t.chat = 0x0b141a; t.in = 0x202c33; t.in_line = 0x202c33; t.out = 0x005c4b; t.out_line = 0x005c4b; t.panel = 0x202c33;
     t.card = 0x111b21; t.card_line = 0x2a3942; t.input = 0x2a3942; t.accent = 0x00a884;
+    t.button = 0x00a884; t.soft = 0x0a332c;
   }
   th() = t;
+}
+// Los colores de la app (Ver › Colores…): el color, el fondo del chat y sus bocadillos, en claro y en oscuro.
+struct Palette {
+  const char* key;
+  unsigned accent, button, soft, out, out_line;   // claro
+  unsigned accent_d, button_d, soft_d, out_d;     // oscuro
+};
+const std::vector<Palette>& palettes() {
+  static const std::vector<Palette> p = {
+      {"green", 0x1fa855, 0x25d366, 0xd9fdd3, 0xd9fdd3, 0xc5e8bd, 0x00a884, 0x00a884, 0x0a332c, 0x005c4b},
+      {"blue", 0x1d6fd8, 0x2f8cff, 0xdbeafe, 0xdbeafe, 0xbfd8f7, 0x4ea1ff, 0x2b7de9, 0x0c2a4a, 0x144d7a},
+      {"purple", 0x7c3aed, 0x8b5cf6, 0xede9fe, 0xede9fe, 0xd8cdfb, 0xa78bfa, 0x7c3aed, 0x2a1f4a, 0x4c2f8f},
+      {"orange", 0xc2410c, 0xf97316, 0xffedd5, 0xffedd5, 0xfbd5aa, 0xfb923c, 0xea580c, 0x3a220a, 0x7a3a10},
+      {"pink", 0xdb2777, 0xec4899, 0xfce7f3, 0xfce7f3, 0xf8c8e0, 0xf472b6, 0xdb2777, 0x3d1530, 0x7a1f52},
+      {"gray", 0x475569, 0x64748b, 0xe2e8f0, 0xe2e8f0, 0xcbd5e1, 0x94a3b8, 0x475569, 0x1e293b, 0x334155},
+  };
+  return p;
+}
+struct ChatBg {
+  const char* key;
+  unsigned light, dark;
+};
+const std::vector<ChatBg>& chat_backgrounds() {
+  static const std::vector<ChatBg> b = {{"classic", 0xefeae2, 0x0b141a}, {"white", 0xffffff, 0x111b21},
+                                        {"gray", 0xf0f2f5, 0x1b2329},    {"blue", 0xe8f1fb, 0x0d1b2a},
+                                        {"green", 0xeaf6ee, 0x0b1f17},   {"pink", 0xfbeef4, 0x1f0f17}};
+  return b;
+}
+int palette_index(const std::string& key) {
+  for (size_t i = 0; i < palettes().size(); i++)
+    if (key == palettes()[i].key) return (int)i;
+  return 0;
+}
+int chat_bg_index(const std::string& key) {
+  for (size_t i = 0; i < chat_backgrounds().size(); i++)
+    if (key == chat_backgrounds()[i].key) return (int)i;
+  return 0;
+}
+// Encima del tema claro u oscuro: el color de la app, el fondo y los bocadillos ("" = del color de la app).
+void apply_colors(const std::string& accent, const std::string& chat, const std::string& bubbles) {
+  Theme& t = th();
+  const Palette& a = palettes()[(size_t)palette_index(accent)];
+  const Palette& b = palettes()[(size_t)palette_index(bubbles.empty() ? accent : bubbles)];
+  const ChatBg& c = chat_backgrounds()[(size_t)chat_bg_index(chat)];
+  t.accent = t.dark ? a.accent_d : a.accent;
+  t.button = t.dark ? a.button_d : a.button;
+  t.soft = t.dark ? a.soft_d : a.soft;
+  t.out = t.dark ? b.out_d : b.out;
+  t.out_line = t.dark ? b.out_d : b.out_line;
+  t.chat = t.dark ? c.dark : c.light;
 }
 // ¿Está macOS en modo oscuro?
 bool system_dark() {
@@ -3080,7 +3133,7 @@ public:
       int cw = (int)fl_width(label.c_str()) + 26;
       bool on = mode != F_ALL && mode != F_ARCHIVED;
       bool hot = (int)hits.size() == hover;
-      fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+      fl_color(on ? rgb(T.soft) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
       fl_rounded_rectf(x() + 12, cy, cw, 28, 14);
       fl_color(on ? rgb(T.accent) : rgb(T.text));
       fl_draw(label.c_str(), x() + 12, cy, cw, 28, FL_ALIGN_CENTER);
@@ -3148,7 +3201,7 @@ public:
         int pw = (int)fl_width(label.c_str()) + 22;
         px -= pw;
         bool hot = (int)hits.size() == hover;
-        fl_color(on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
+        fl_color(on ? rgb(T.soft) : hot ? rgb(T.hover) : rgb(T.dark ? 0x202c33 : 0xf0f2f5));
         fl_rounded_rectf(px, Y + 13, pw, 30, 15);
         fl_color(on ? rgb(T.accent) : rgb(T.text));
         fl_draw(label.c_str(), px, Y + 13, pw, 30, FL_ALIGN_CENTER);
@@ -3321,7 +3374,7 @@ public:
     const int ch = 58;
     bool hot = (int)hits.size() == hover;
     if (on || hot || orange) {
-      fl_color(orange ? rgb(0xf59e0b) : on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : rgb(T.hover));
+      fl_color(orange ? rgb(0xf59e0b) : on ? rgb(T.soft) : rgb(T.hover));
       fl_rounded_rectf(x0 + 6, y0 + 3, w() - 12, ch - 6, 10);
     }
     fl_font(FL_HELVETICA, 20);
@@ -3797,7 +3850,7 @@ public:
       for (const auto& t : dash.top) {
         if (yy + 18 > ty + ph - hh - 10) break;
         int bw = (int)((rw - 28) * t.second / (double)mx);
-        fl_color(rgb(T.dark ? 0x0a332c : 0xd9fdd3));
+        fl_color(rgb(T.soft));
         fl_rectf(rx2 + 14, yy, bw, 18);
         hits.push_back({rx2 + 14, yy, rw - 28, 18, 75, (int)(&t - &dash.top[0])});   // un clic: su chat
         fl_font(FL_HELVETICA, 11);
@@ -3937,7 +3990,7 @@ public:
       // Las respuestas listas: en su tarjeta, con «Usar como respuesta».
       for (size_t r = 0; r < b.replies.size(); r++) {
         int rh = 40 + (int)b.replies[r].size() * 19;
-        round_box(bx + 12, ty - 8, bw - 24, rh, 8, rgb(T.dark ? 0x0a332c : 0xeefcf0), rgb(T.accent));
+        round_box(bx + 12, ty - 8, bw - 24, rh, 8, rgb(T.soft), rgb(T.accent));
         fl_font(FL_HELVETICA, 14);
         fl_color(rgb(T.text));
         int ry = ty + 12;
@@ -4003,7 +4056,7 @@ public:
     bx -= 8 + (int)fl_width(tx::OPEN_EXTERNAL) + 20;
     if (!starts(viewer, "demo:")) button(bx, y() + 15, tx::OPEN_EXTERNAL, 31, -1, rgb(0xe9edef), rgb(0x2a3942));
     bx -= 8 + (int)fl_width(tx::DOWNLOAD) + 20;
-    button(bx, y() + 15, tx::DOWNLOAD, 30, -1, rgb(0x111b21), rgb(T.dark ? 0x00a884 : 0x25d366));
+    button(bx, y() + 15, tx::DOWNLOAD, 30, -1, rgb(0x111b21), rgb(T.button));
     fl_font(FL_HELVETICA_BOLD, 14);
     fl_color(rgb(0xe9edef));
     fl_draw(fit(viewer_title, bx - x() - 40).c_str(), x() + 20, y() + 34);
@@ -4121,7 +4174,7 @@ public:
     int w = (int)fl_width(text) + 20, h = 26;
     bool hot = (int)hits.size() == hover;
     hits.push_back({x, y, w, h, act, idx});
-    round_box(x, y, w, h, 13, hot ? rgb(th().dark ? 0x005c4b : 0xd9fdd3) : fill, rgb(th().card_line));
+    round_box(x, y, w, h, 13, hot ? rgb(th().soft) : fill, rgb(th().card_line));
     fl_color(fg);
     fl_draw(text, x, y, w, h, FL_ALIGN_CENTER);
     return x + w;
@@ -5585,7 +5638,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.30";
+const char* const MYWA_VERSION = "1.0.31";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -5744,7 +5797,7 @@ bool run_form(const std::string& title, std::vector<FormField>& fields, const ch
   int result = 0;
   Fl_Button cancel(W - pad - 260, H - 48, 120, 34, tx::BTN_CANCEL);
   Fl_Button ok(W - pad - 130, H - 48, 130, 34, ok_label);
-  ok.color(rgb(T.dark ? 0x00a884 : 0x25d366));
+  ok.color(rgb(T.button));
   ok.labelcolor(T.dark ? rgb(0x111b21) : FL_WHITE);
   ok.labelfont(FL_HELVETICA_BOLD);
   struct Ctx {
@@ -6254,6 +6307,7 @@ public:
     bool dark = theme == "dark" || (theme == "system" && wa::system_dark());
     shown_dark = dark;
     wa::set_dark(dark);
+    wa::apply_colors(color_accent, color_chat, color_bubbles);
     const wa::Theme& T = wa::th();
     Fl_Color panel = wa::rgb(T.panel), text = wa::rgb(T.text), muted = wa::rgb(T.muted), input = wa::rgb(T.input);
     Fl::background((uchar)(T.panel >> 16), (uchar)(T.panel >> 8), (uchar)T.panel);
@@ -6279,8 +6333,8 @@ public:
     }
     Menu1->color(panel);
     Menu1->textcolor(text);
-    BtnSuggest->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
-    BtnSend->color(wa::rgb(dark ? 0x00a884 : 0x25d366));
+    BtnSuggest->color(wa::rgb(T.button));
+    BtnSend->color(wa::rgb(T.button));
     for (Fl_Widget* b : {(Fl_Widget*)BtnAttach, (Fl_Widget*)BtnImprove, (Fl_Widget*)BtnFix, (Fl_Widget*)BtnTemplates}) {
       b->color(input);
       b->labelcolor(text);
@@ -6314,6 +6368,14 @@ public:
         else if (wa::starts(l, "busy=")) busy = l.substr(5);
         else if (l == "compact=1") compact = true;
         else if (l == "warned_assist=1") warned_assist = true;
+        else if (wa::starts(l, "colors=")) {
+          // colors=acento,fondo,bocadillos
+          std::string v = l.substr(7);
+          size_t a = v.find(','), b = a == std::string::npos ? a : v.find(',', a + 1);
+          color_accent = v.substr(0, a);
+          if (a != std::string::npos) color_chat = v.substr(a + 1, b == std::string::npos ? std::string::npos : b - a - 1);
+          if (b != std::string::npos) color_bubbles = v.substr(b + 1);
+        }
         else if (wa::starts(l, "lock_after=")) lock_after = std::atoi(l.c_str() + 11);
         else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
         else if (wa::starts(l, "busy_for=")) busy_for = wa::busy_for_parse(l.substr(9));
@@ -6344,7 +6406,8 @@ public:
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
                                         "\nbusy_for=" + wa::busy_for_text(busy_for) +
-                                        (compact ? "\ncompact=1" : "") + (warned_assist ? "\nwarned_assist=1" : "") + "\nlock_after=" + std::to_string(lock_after) +
+                                        (compact ? "\ncompact=1" : "") + (warned_assist ? "\nwarned_assist=1" : "") +
+                                        "\ncolors=" + color_accent + "," + color_chat + "," + color_bubbles + "\nlock_after=" + std::to_string(lock_after) +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -7445,6 +7508,48 @@ public:
   }
   // ---- el asistente: un chat con la IA sobre sus chats (y para investigar un mensaje)
   bool bridge_locked = false;   // el puente no arrancó: otro ya usa la cuenta
+  // ---- los colores de la app (Ver › Colores…), en una sola ficha
+  std::string color_accent = "green", color_chat = "classic", color_bubbles;
+  void colors_form() {
+    const char* accents[] = {tx::COLOR_GREEN, tx::COLOR_BLUE, tx::COLOR_PURPLE, tx::COLOR_ORANGE, tx::COLOR_PINK, tx::COLOR_GRAY};
+    const char* bgs[] = {tx::BG_CLASSIC, tx::BG_WHITE, tx::BG_GRAY, tx::BG_BLUE, tx::BG_GREEN, tx::BG_PINK};
+    const char* themes[] = {tx::THEME_LIGHT, tx::THEME_DARK, tx::THEME_SYSTEM};
+    const char* theme_keys[] = {"light", "dark", "system"};
+    std::vector<std::string> acc(std::begin(accents), std::end(accents)), bg(std::begin(bgs), std::end(bgs)),
+        th(std::begin(themes), std::end(themes)), bub = {tx::BUBBLES_SAME};
+    for (auto* a : accents) bub.push_back(a);
+    std::string cur_theme = th[0];
+    for (int k = 0; k < 3; k++)
+      if (theme == theme_keys[k]) cur_theme = th[(size_t)k];
+    std::vector<wa::FormField> fs = {
+        {"theme", tx::COLORS_THEME, cur_theme, 3, 0, th},
+        {"accent", tx::COLORS_ACCENT, acc[(size_t)wa::palette_index(color_accent)], 3, 1, acc},
+        {"chat", tx::COLORS_CHAT, bg[(size_t)wa::chat_bg_index(color_chat)], 3, 0, bg},
+        {"bubbles", tx::COLORS_BUBBLES, color_bubbles.empty() ? bub[0] : bub[(size_t)wa::palette_index(color_bubbles) + 1], 3, 1, bub},
+        {"reset", tx::COLORS_RESET, "", 4, 2, {}},
+    };
+    if (!form(tx::COLORS_TITLE, fs, tx::BTN_SAVE)) return;
+    auto idx = [](const std::vector<std::string>& v, const std::string& x) {
+      for (size_t i = 0; i < v.size(); i++)
+        if (v[i] == x) return (int)i;
+      return 0;
+    };
+    if (wa::form_value(fs, "reset") == "1") {
+      color_accent = "green";
+      color_chat = "classic";
+      color_bubbles.clear();
+    } else {
+      color_accent = wa::palettes()[(size_t)idx(acc, wa::form_value(fs, "accent"))].key;
+      color_chat = wa::chat_backgrounds()[(size_t)idx(bg, wa::form_value(fs, "chat"))].key;
+      int bi = idx(bub, wa::form_value(fs, "bubbles"));
+      color_bubbles = bi == 0 ? "" : wa::palettes()[(size_t)bi - 1].key;
+    }
+    theme = theme_keys[idx(th, wa::form_value(fs, "theme"))];
+    save_settings();
+    apply_theme();
+    refresh();
+    say(tx::COLORS_SAVED);
+  }
   std::string assist_jid;   // el chat con el que ayuda
   bool warned_assist = false;
   void open_assist() {
@@ -7629,7 +7734,8 @@ public:
   }
   // ⚙️ Ajustes: lo que antes estaba repartido por los menús.
   void settings_menu() {
-    std::vector<std::string> items = {tx::MP_AI, tx::MP_CONNECT, tx::MP_PIN, tx::MP_LIGHT, tx::MP_DARK, tx::MP_SYSTEM, tx::MP_COMPACT};
+    std::vector<std::string> items = {tx::MP_AI,   tx::MP_CONNECT, tx::MP_PIN,    tx::MP_COLORS,
+                                      tx::MP_LIGHT, tx::MP_DARK,    tx::MP_SYSTEM, tx::MP_COMPACT};
     int r = choose(items);
     if (r < 0) return;
     Menu1_click(items[(size_t)r]);
@@ -9040,6 +9146,7 @@ public:
     else if (item == tx::MP_LIGHT) set_theme("light");
     else if (item == tx::MP_DARK) set_theme("dark");
     else if (item == tx::MP_SYSTEM) set_theme("system");
+    else if (item == tx::MP_COLORS) colors_form();
     else if (item == tx::MP_BAR) close_clicked();
     else if (item == tx::MP_QUIT) {
       quit();
@@ -9224,8 +9331,23 @@ public:
         assist_done(new AssistDone{tx::DEMO_ASSIST_AI, ""});
         render_to(dir + "/assist.png");
         option_act(82, -1);
+        say("");
         break;
       }
+    // Otros colores: morado con el fondo azul suave; y su ficha.
+    color_accent = "purple";
+    color_chat = "blue";
+    apply_theme();
+    pick(0);
+    render_to(dir + "/colors.png");
+    form = wa::run_form;
+    wa::form_shot() = dir + "/colors_form.png";
+    colors_form();
+    wa::form_shot().clear();
+    color_accent = "green";
+    color_chat = "classic";
+    theme = "light";
+    apply_theme();
     // La ficha del contacto (como en Odoo), dibujada sin enseñarse.
     pick(0);
     form = wa::run_form;
@@ -9785,7 +9907,57 @@ public:
         return -1;
       };
       rail_pick(101);
-      chk(ss == 7, "⚙️ Ajustes: sus siete opciones");
+      chk(ss == 8, "⚙️ Ajustes: sus ocho opciones");
+      // Los colores: una ficha con el tema, el color, el fondo y los bocadillos; se guardan y se aplican.
+      {
+        auto old_form = form;
+        std::vector<std::string> seen_keys;
+        form = [&seen_keys](const std::string&, std::vector<wa::FormField>& fs, const char*) {
+          for (auto& f : fs) {
+            seen_keys.push_back(f.key);
+            if (f.key == "accent") f.value = tx::COLOR_PURPLE;
+            if (f.key == "chat") f.value = tx::BG_BLUE;
+            if (f.key == "bubbles") f.value = tx::COLOR_GRAY;
+            if (f.key == "theme") f.value = tx::THEME_DARK;
+          }
+          return true;
+        };
+        Menu1_click(tx::MP_COLORS);
+        const wa::Palette& pu = wa::palettes()[2];
+        const wa::Palette& gr = wa::palettes()[5];
+        bool applied = wa::th().dark && wa::th().accent == pu.accent_d && wa::th().button == pu.button_d && wa::th().out == gr.out_d &&
+                       wa::th().chat == 0x0d1b2a && BtnSend->color() == wa::rgb(pu.button_d);
+        std::string saved;
+        {
+          // En la demo no se guarda nada: aquí sí, en la carpeta de la prueba (DMS_MYWA_CONFIG).
+          bool was_demo = demo;
+          demo = false;
+          save_settings();
+          demo = was_demo;
+          std::ifstream in(settings_file());
+          std::stringstream ss2;
+          ss2 << in.rdbuf();
+          saved = ss2.str();
+        }
+        color_accent = color_chat = color_bubbles = "";
+        load_settings();
+        chk(seen_keys.size() == 5 && applied && saved.find("colors=purple,blue,gray") != std::string::npos && color_accent == "purple" &&
+                color_chat == "blue" && color_bubbles == "gray" && message == tx::COLORS_SAVED,
+            "los colores: una ficha, aplicados (en oscuro) y guardados");
+        render_to("");
+        form = [](const std::string&, std::vector<wa::FormField>& fs, const char*) {
+          for (auto& f : fs) {
+            if (f.key == "reset") f.value = "1";
+            if (f.key == "theme") f.value = tx::THEME_LIGHT;
+          }
+          return true;
+        };
+        Menu1_click(tx::MP_COLORS);
+        chk(color_accent == "green" && color_chat == "classic" && color_bubbles.empty() && !wa::th().dark && wa::th().accent == 0x1fa855 &&
+                wa::th().out == 0xd9fdd3 && wa::th().chat == 0xefeae2,
+            "los colores: volver a los de siempre");
+        form = old_form;
+      }
       choose = [](const std::vector<std::string>&) { return -1; };
     }
     // El asistente: preguntar, la respuesta con una respuesta lista, usarla; y desde un mensaje de un cliente.

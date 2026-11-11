@@ -2960,9 +2960,6 @@ public:
       };
       int archived = count(F_ARCHIVED);
       if (archived > 0 && mode == F_ALL) pill("📦 " + std::to_string(archived), 3, false);
-      pill("🎨", 7, status_selected);
-      pill("💼", 10, crm_selected);
-      pill("📊", 11, dash_selected);
       fl_color(rgb(T.line));
       fl_line(x(), Y + rh - 1, x() + w(), Y + rh - 1);
       Y += rh;
@@ -3089,6 +3086,86 @@ public:
 };
 
 // La conversación (bocadillos) y, debajo, las respuestas que propone la IA.
+// La barra de apps (a la derecha): las partes de MyWhatsapp, una debajo de otra.
+class AppRail : public Fl_Widget {
+public:
+  struct Item {
+    const char* icon;
+    const char* label;
+  };
+  std::vector<Item> items, bottom;   // arriba y abajo
+  int active = -1;                   // la abierta (índice en items)
+  bool busy_on = false;              // «Ocupado» en naranja
+  int hover = -1;
+  std::vector<Hit> hits;
+  std::function<void(int)> on_pick;  // 0.. arriba; 100.. abajo
+  AppRail(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
+  void cell(int x0, int y0, const Item& it, int act, bool on, bool orange) {
+    const Theme& T = th();
+    const int ch = 58;
+    bool hot = (int)hits.size() == hover;
+    if (on || hot || orange) {
+      fl_color(orange ? rgb(0xf59e0b) : on ? rgb(T.dark ? 0x0a332c : 0xd9fdd3) : rgb(T.hover));
+      fl_rounded_rectf(x0 + 6, y0 + 3, w() - 12, ch - 6, 10);
+    }
+    fl_font(FL_HELVETICA, 20);
+    fl_color(rgb(T.text));
+    fl_draw(it.icon, x0, y0 + 6, w(), 28, FL_ALIGN_CENTER);
+    fl_font(on ? FL_HELVETICA_BOLD : FL_HELVETICA, 10);
+    fl_color(orange ? rgb(0x111b21) : on ? rgb(T.accent) : rgb(T.muted));
+    fl_draw(it.label, x0 + 2, y0 + 34, w() - 4, 16, FL_ALIGN_CENTER | FL_ALIGN_CLIP);
+    hits.push_back({x0, y0, w(), ch, act, 0});
+  }
+  void draw() override {
+    hits.clear();
+    const Theme& T = th();
+    fl_color(rgb(T.panel));
+    fl_rectf(x(), y(), w(), h());
+    fl_color(rgb(T.card_line));
+    fl_line(x(), y(), x(), y() + h());
+    int yy = y() + 8;
+    for (size_t i = 0; i < items.size(); i++) {
+      bool orange = busy_on && std::string(items[i].icon) == "🔕";
+      cell(x(), yy, items[i], (int)i, (int)i == active, orange);
+      yy += 60;
+    }
+    int by = y() + h() - 8 - 60 * (int)bottom.size();
+    for (size_t i = 0; i < bottom.size(); i++) {
+      if (by > yy) cell(x(), by, bottom[i], 100 + (int)i, false, false);
+      by += 60;
+    }
+  }
+  int handle(int e) override {
+    switch (e) {
+      case FL_ENTER: return 1;
+      case FL_MOVE: {
+        int i = -1;
+        for (int k = 0; k < (int)hits.size(); k++)
+          if (Fl::event_inside(hits[(size_t)k].x, hits[(size_t)k].y, hits[(size_t)k].w, hits[(size_t)k].h)) i = k;
+        if (i != hover) {
+          hover = i;
+          redraw();
+        }
+        if (window()) window()->cursor(i >= 0 ? FL_CURSOR_HAND : FL_CURSOR_DEFAULT);
+        return 1;
+      }
+      case FL_LEAVE:
+        hover = -1;
+        if (window()) window()->cursor(FL_CURSOR_DEFAULT);
+        redraw();
+        return 1;
+      case FL_PUSH:
+        for (const auto& h : hits)
+          if (Fl::event_inside(h.x, h.y, h.w, h.h)) {
+            if (on_pick) on_pick(h.act);
+            return 1;
+          }
+        return 1;
+    }
+    return Fl_Widget::handle(e);
+  }
+};
+
 class ChatView : public Fl_Widget {
 public:
   Chat* chat = nullptr;
@@ -5105,7 +5182,7 @@ int selftest() {
 
 // La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
 // cambio y sus novedades salen en Ayuda › Novedades.
-const char* const MYWA_VERSION = "1.0.27";
+const char* const MYWA_VERSION = "1.0.28";
 
 // ============================================================ el bloqueo con PIN
 // Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
@@ -5513,6 +5590,8 @@ public:
   // El bloqueo con PIN: el resumen guardado, si está bloqueada, tras cuántos minutos
   // sin tocarla se bloquea sola (0: nunca) y cuándo se tocó por última vez.
   wa::LockView* lock_view = nullptr;
+  wa::AppRail* rail = nullptr;
+  static const int rail_w = 72;
   std::vector<Fl_Widget*> hidden_by_lock;   // lo que se escondió al bloquear
   std::string pin_saved;
   bool locked = false;
@@ -5631,6 +5710,19 @@ public:
     list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
     list->on_filter = [] { if (self()) self()->filter_menu(); };
     copy_label((std::string(tx::APP) + " " + MYWA_VERSION).c_str());
+    // La barra de apps, a la derecha: el chat y el panel de abajo se estrechan para dejarle sitio.
+    {
+      int ry = Side->y(), rh = Status->y() - Side->y();
+      ChatArea->resize(ChatArea->x(), ChatArea->y(), w() - rail_w - ChatArea->x(), ChatArea->h());
+      AiBar->resize(AiBar->x(), AiBar->y(), w() - rail_w - AiBar->x(), AiBar->h());
+      Fl_Group::current(nullptr);
+      rail = new wa::AppRail(w() - rail_w, ry, rail_w, rh);
+      rail->items = {{"💬", tx::APP_CHATS},  {"✅", tx::TASKS_TITLE}, {"💼", tx::CRM_TITLE},   {"📊", tx::APP_DASH},
+                     {"🎨", tx::STATUS_TITLE}, {"📋", tx::APP_TEMPLATES}, {"🏷", tx::APP_LABELS}, {"🔕", tx::APP_BUSY}};
+      rail->bottom = {{"🔒", tx::APP_LOCK}, {"⚙️", tx::APP_SETTINGS}};
+      rail->on_pick = [](int i) { if (self()) self()->rail_pick(i); };
+      add(rail);
+    }
     // El bloqueo: encima de todo (el último de la ventana).
     Fl_Group::current(nullptr);
     lock_view = new wa::LockView(0, 0, w(), h());
@@ -5923,9 +6015,11 @@ public:
     apply_translations(c);
     request_translations();
   }
+  int last_chat = -1;   // el último chat abierto (para volver desde la barra de apps)
   void pick(int i) {
     if (i < 0 || i >= (int)chats.size()) return;
     current = i;
+    last_chat = i;
     list->selected = i;
     list->tasks_selected = false;
     list->status_selected = false;
@@ -5961,6 +6055,11 @@ public:
     refresh();
   }
   void refresh() {
+    if (rail) {
+      rail->active = view->tasks_mode ? 1 : view->crm_mode ? 2 : view->dash_mode ? 3 : view->status_mode ? 4 : 0;
+      rail->busy_on = !busy.empty();
+      rail->redraw();
+    }
     list->tasks_pending = wa::tasks_pending(tasks);
     view->chat_labels.clear();
     view->chat_busy = current >= 0 && busy_for.count(chats[(size_t)current].jid) ? busy_for[chats[(size_t)current].jid].first : "";
@@ -6934,6 +7033,37 @@ public:
     save_labels();
     refresh();
   }
+  // ---- la barra de apps
+  void rail_pick(int i) {
+    if (locked) return;
+    switch (i) {
+      case 0: {   // los chats: el que estaba abierto (o el primero)
+        list->mode = list->mode == wa::ChatList::F_ARCHIVED ? wa::ChatList::F_ALL : list->mode;
+        int keep = last_chat >= 0 && last_chat < (int)chats.size() ? last_chat : (chats.empty() ? -1 : 0);
+        if (keep >= 0) pick(keep);
+        return;
+      }
+      case 1: open_tasks(); return;
+      case 2: open_crm(); return;
+      case 3: open_dash(view->dash.days); return;
+      case 4: open_status(); return;
+      case 5: templates_menu(); return;
+      case 6: filter_menu(); return;
+      case 7: busy_menu(); return;
+      case 100:   // bloquear (o poner un PIN)
+        if (pin_saved.empty()) pin_menu();
+        else lock_now();
+        return;
+      case 101: settings_menu(); return;
+    }
+  }
+  // ⚙️ Ajustes: lo que antes estaba repartido por los menús.
+  void settings_menu() {
+    std::vector<std::string> items = {tx::MP_AI, tx::MP_CONNECT, tx::MP_PIN, tx::MP_LIGHT, tx::MP_DARK, tx::MP_SYSTEM, tx::MP_COMPACT};
+    int r = choose(items);
+    if (r < 0) return;
+    Menu1_click(items[(size_t)r]);
+  }
   // ---- el panel: las cifras de los mensajes (en otro hilo) y el análisis con IA
   void open_dash(int days) {
     current = -1;
@@ -7320,8 +7450,8 @@ public:
     if (c) Search->hide();
     else Search->show();
     int nx = Side->x() + sw;
-    ChatArea->resize(nx, ChatArea->y(), w() - nx, ChatArea->h());
-    AiBar->resize(nx, AiBar->y(), w() - nx, AiBar->h());
+    ChatArea->resize(nx, ChatArea->y(), w() - rail_w - nx, ChatArea->h());
+    AiBar->resize(nx, AiBar->y(), w() - rail_w - nx, AiBar->h());
     save_settings();
     redraw();
   }
@@ -8808,14 +8938,7 @@ public:
     // Los estados: abrir el diseñador, cambiar la plantilla y el título, nuevo, guardar la imagen.
     {
       render_to("");
-      for (const auto& h : list->hits)
-        if (h.act == 7) {
-          Fl::e_x = h.x + 10;
-          Fl::e_y = h.y + 10;
-          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
-          list->handle(FL_PUSH);
-          break;
-        }
+      rail_pick(4);   // desde la barra de apps
       chk(view->status_mode && list->status_selected && view->design == 1, "abrir los estados");
       render_to("");
       int swatches = 0, thumbs = 0;
@@ -9006,17 +9129,38 @@ public:
       chk(!busy_for.count(chats[0].jid) && view->chat_busy.empty(), "quitarlo");
       choose = [](const std::vector<std::string>&) { return -1; };
     }
-    // El panel: abrirlo, las cifras de la app, 30 días y el análisis con IA.
+    // La barra de apps: sus partes, clicables, y la abierta resaltada.
     {
       render_to("");
-      for (const auto& h : list->hits)
-        if (h.act == 11) {
+      chk(rail && rail->visible() && rail->x() + rail->w() == w() && ChatArea->x() + ChatArea->w() == rail->x() &&
+              AiBar->x() + AiBar->w() == rail->x(),
+          "la barra de apps, a la derecha (el chat y el panel de abajo, a su izquierda)");
+      int cells = (int)rail->hits.size();
+      chk(cells == 10, "la barra de apps: ocho apps y dos abajo");
+      for (const auto& h : rail->hits)
+        if (h.act == 2) {
           Fl::e_x = h.x + 5;
           Fl::e_y = h.y + 5;
           Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
-          list->handle(FL_PUSH);
+          rail->handle(FL_PUSH);
           break;
         }
+      chk(view->crm_mode && rail->active == 2, "la barra de apps: el CRM (resaltado)");
+      rail_pick(0);
+      chk(!view->crm_mode && current >= 0 && rail->active == 0, "la barra de apps: volver a los chats");
+      int ss = 0;
+      choose = [&ss](const std::vector<std::string>& items) {
+        ss = (int)items.size();
+        return -1;
+      };
+      rail_pick(101);
+      chk(ss == 7, "⚙️ Ajustes: sus siete opciones");
+      choose = [](const std::vector<std::string>&) { return -1; };
+    }
+    // El panel: abrirlo, las cifras de la app, 30 días y el análisis con IA.
+    {
+      render_to("");
+      rail_pick(3);   // desde la barra de apps
       chk(view->dash_mode && list->dash_selected && view->dash.ok && view->dash_tasks == wa::tasks_pending(tasks) &&
               view->dash_waiting == (int)wa::to_answer(chats, now_t()).size(),
           "abrir el panel (con las tareas y los por responder)");
@@ -9122,14 +9266,7 @@ public:
     // El CRM: el tablero, mover un lead, crear uno desde un chat y cambiar su etapa.
     {
       render_to("");
-      for (const auto& h : list->hits)
-        if (h.act == 10) {
-          Fl::e_x = h.x + 5;
-          Fl::e_y = h.y + 5;
-          Fl::e_keysym = FL_Button + FL_LEFT_MOUSE;
-          list->handle(FL_PUSH);
-          break;
-        }
+      rail_pick(2);   // desde la barra de apps
       chk(view->crm_mode && list->crm_selected, "abrir el CRM");
       render_to("");
       int cards = 0;

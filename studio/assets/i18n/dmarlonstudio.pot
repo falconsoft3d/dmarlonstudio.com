@@ -1309,7 +1309,7 @@ msgstr ""
 msgid "Pago confirmado"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Panel"
 msgstr ""
 
@@ -6687,6 +6687,7 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
+"1.0.28 — La barra de apps, a la derecha: Chats, Tareas, CRM, Panel, Estados, Plantillas, Etiquetas, Ocupado, Bloquear y Ajustes.\n"
 "1.0.27 — Mensajes automáticos diarios para un contacto (con IA y para revisar).\n"
 "1.0.26 — Las cifras del panel llevan a sus chats; el análisis se desplaza; el modo ocupado, también solo para un contacto.\n"
 "1.0.25 — Panel con las cifras de sus mensajes (por día, por hora, quién más le escribe, lo que tarda en responder) y su análisis con IA.\n"
@@ -6828,6 +6829,10 @@ msgid "Barra lateral compacta (solo las fotos)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Bloquear"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Bloquear ahora (Cmd+L)"
 msgstr ""
 
@@ -6897,6 +6902,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "ChatGPT (OpenAI)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Chats"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7777,6 +7786,10 @@ msgid "Nuevo modo ocupado"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Ocupado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ocupado: {0}"
 msgstr ""
 
@@ -7851,6 +7864,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Pie"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Plantillas"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -16549,7 +16566,7 @@ msgstr ""
 msgid "API"
 msgstr ""
 
-#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/settings_screen.dart
 msgid "Ajustes"
 msgstr ""
 

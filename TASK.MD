@@ -105,6 +105,7 @@ Hechos
 102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ✅ |
 94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ✅ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ✅ |
+120. MyWhatsapp: barra de apps a la derecha (CRM, panel, etc.) | ✅ |
 
 Trabajando
 =========

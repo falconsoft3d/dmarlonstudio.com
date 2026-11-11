@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.125 — 2026-11-11
+
+- **MyWhatsapp 1.0.28: la barra de apps, a la derecha.** Una columna con cada parte de MyWhatsapp, con su icono y su nombre: 💬 Chats (vuelve al último chat), ✅ Tareas, 💼 CRM, 📊 Panel, 🎨 Estados, 📋 Plantillas, 🏷 Etiquetas (el filtro) y 🔕 Ocupado (en naranja si hay un modo activo); abajo, 🔒 Bloquear (o poner el PIN) y ⚙️ Ajustes (las claves de la IA, conectar WhatsApp, el PIN, el tema y la barra lateral compacta). La abierta sale resaltada. El chat y el panel de abajo se estrechan para dejarle sitio, y la barra se queda a la derecha al ensanchar la ventana. Los botones 📊 💼 🎨 de la fila de Tareas pasan a la barra (📦 Archivados se queda).
+- Probado con la prueba de la interfaz: la barra a la derecha del chat y del panel, sus diez botones, abrir el CRM (resaltado), volver a los chats y las opciones de Ajustes; las pruebas del diseñador, el panel y el CRM se abren ahora desde la barra.
+
 ## 1.0.124 — 2026-11-11
 
 - **MyWhatsapp 1.0.27: mensajes automáticos diarios.** En un chat, «⋯ › 📅 Mensaje automático…» abre una ficha: activo, la hora (08:30), los días (todos, de lunes a viernes o fines de semana), qué decirle («Desearle buen día con cariño»), «✨ Que lo escriba la IA» (un mensaje distinto cada día, según lo último que hablaron; si no, se envía el texto tal cual) y «Revisar antes de enviar». A su hora, se envía (por el puente o la API oficial) o, para revisar (o sin WhatsApp conectado), se deja como respuesta propuesta en el chat («Enviar» / «Usar») y se avisa en la barra de menús («📅 Revisar el mensaje para Laura»). Sale una vez al día, y solo en las dos horas siguientes a su hora: si la app estaba cerrada, ese día se salta (nada de «buenos días» por la tarde). El chat lleva «📅 08:30» en la cabecera. Se guardan en `programados.jsonl`.

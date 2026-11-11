@@ -21,6 +21,7 @@ TkExample tkCppMywa(String Function(String) t) {
   item('AI', t(markTr('Claves de la IA…')), mFile);
   item('BUSY', t(markTr('Modo ocupado…')), mFile);
   item('BAR', t(markTr('Esconder en la barra de menús')), mFile);
+  item('PIN', t(markTr('Bloqueo con PIN…')), mFile);
   lines.add('  -');
   item('CONNECT', t(markTr('Conectar WhatsApp para enviar…')), mFile);
   item('DISCONNECT', t(markTr('Desconectar WhatsApp')), mFile);
@@ -36,13 +37,14 @@ TkExample tkCppMywa(String Function(String) t) {
   item('COMPACT', t(markTr('Barra lateral compacta (solo las fotos)')), mView);
   lines.add(mHelp);
   item('HOW', t(markTr('Cómo funciona')), mHelp);
+  item('NEWS', t(markTr('Novedades')), mHelp);
   item('ABOUT', t(markTr('Acerca de MyWhatsapp')), mHelp);
   final texts = <String, String>{
     'APP': app,
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo (o arrástrelo al chat). «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»).\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nAl cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n\nModo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n\nEstados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
+        'MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n\nElija un chat, si quiere escriba qué quiere decir y el estilo, y pulse «Sugerir respuestas». Claude (Anthropic) o ChatGPT (OpenAI) leen los últimos mensajes de ese chat y proponen tres respuestas. «Enviar» la manda, «Usar» la pasa al borrador para retocarla y «Copiar» la copia.\n\nPara enviar: escriba en el borrador y pulse «Enviar ➤» o Enter (Mayúsculas+Enter para otra línea); «📎 Adjuntar» manda un archivo (o arrástrelo al chat). «✨ Mejorar» le propone su mensaje mejorado por la IA y «Aa Corregir» le corrige la ortografía (Cmd+Z lo deshace).\n\nEn la conversación: la rueda sube a los mensajes antiguos (se cargan solos); arrastre sobre el texto para seleccionarlo y Cmd+C para copiarlo (doble clic: el mensaje entero); «🔍 Buscar» o Cmd+F busca en todo el chat, con ▲ ▼ (o Enter) para ir de uno a otro. El clic derecho sobre un mensaje lo copia, lo reenvía a otro chat o lo convierte en tarea. «⋯», en la cabecera, limpia el chat (solo en MyWhatsapp; se puede deshacer). «📋 Plantillas» inserta un mensaje guardado ({nombre} se cambia por el del contacto). En Ver, la barra lateral se pliega a solo las fotos (o con «« / »»).\n\n«🌐 Traducir», en la cabecera, chatea en otro idioma: debajo de cada mensaje recibido sale su traducción y, al enviar, lo que escribe se traduce al idioma del otro (detectado o elegido: el idioma de cada contacto queda guardado); en su bocadillo ve lo enviado y su original.\n\nAl cerrar la ventana, MyWhatsapp sigue en la barra de menús, con cuántos chats esperan respuesta (le escribieron en los últimos 3 días y no contestó) y un menú con ellos; también en Archivo › Esconder en la barra de menús.\n\nModo ocupado (Archivo › Modo ocupado…): elija uno (o cree los suyos, cada uno con su mensaje) y a quien le escriba en privado se le contesta solo con ese mensaje, una vez. Si el modo es «✨ Que conteste la IA», la IA escribe la respuesta según la conversación, con su texto como instrucción.\n\nEstados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n\nTareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n\nArchivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). En «⋯», «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n\nLas claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -220,6 +222,35 @@ TkExample tkCppMywa(String Function(String) t) {
     'BAR_BUSY': t(markTr('Modo ocupado:')),
     'BAR_TASKS': t(markTr('✅ Tareas pendientes: {0}')),
     'DROP_HERE': t(markTr('📎 Suelte para enviar a {0}')),
+    'LOCKED': t(markTr('MyWhatsapp está bloqueado')),
+    'LOCK_HINT': t(markTr('Escriba su PIN de 4 cifras')),
+    'PIN_WRONG': t(markTr('PIN incorrecto')),
+    'PIN_SET': t(markTr('Poner un PIN…')),
+    'PIN_LOCK_NOW': t(markTr('Bloquear ahora (Cmd+L)')),
+    'PIN_CHANGE': t(markTr('Cambiar el PIN…')),
+    'PIN_AFTER': t(markTr('Bloquear sola tras {0} min sin usarla')),
+    'PIN_NEVER': t(markTr('No bloquear sola')),
+    'PIN_REMOVE': t(markTr('Quitar el PIN…')),
+    'PIN_ASK': t(markTr('El PIN nuevo (4 cifras):')),
+    'PIN_ASK_AGAIN': t(markTr('Repita el PIN:')),
+    'PIN_ASK_CURRENT': t(markTr('El PIN de ahora:')),
+    'PIN_BAD': t(markTr('El PIN son 4 cifras')),
+    'PIN_MISMATCH': t(markTr('Los dos PIN no son iguales')),
+    'PIN_DONE': t(markTr('PIN puesto: la app se abrirá bloqueada')),
+    'PIN_REMOVED': t(markTr('PIN quitado')),
+    'PERSON_EVAL': t(markTr('✨ Valorar a esta persona')),
+    'PERSON_TITLE': t(markTr('✨ Cómo es {0} y cómo tratarle')),
+    'PERSON_THINKING': t(markTr('La IA está leyendo la conversación…')),
+    'PROMPT_PERSON': t(
+      markTr(
+        'Eres el asistente de MyWhatsapp. Lees una conversación de WhatsApp entre el usuario («Yo») y {0} y le ayudas a entender a esa persona para tratarla mejor. Con honestidad y respeto, sin diagnosticar, sin etiquetas ni juicios sobre su forma de ser. Responde en {1}, con estas secciones breves: «Cómo es» (tono y forma de comunicarse), «Qué le importa», «Cómo tratarle» (consejos concretos), «Qué evitar» y «Siguiente paso» (uno, sugerido). Máximo 180 palabras. Básate solo en lo que se ve en la conversación; si hay poca información, dilo.',
+      ),
+    ),
+    'WHATS_NEW': t(
+      markTr(
+        '1.0.19 — Versión propia y novedades, bloqueo con PIN y «✨ Valorar a esta persona».\n1.0.18 — Arrastrar archivos al chat, lista más compacta, barra plegable, reenviar, limpiar un chat y plantillas.\n1.0.17 — Diseñar y publicar estados (con IA).\n1.0.16 — El modo ocupado, a mano en la barra de menús y en la lista.\n1.0.15 — «Por responder» arreglado; «✨ Mejorar» y «Aa Corregir».\n1.0.14 — Respuestas automáticas con IA.\n1.0.13 — En la barra de menús, con los chats por responder.\n1.0.12 — Modos ocupado.\n1.0.11 — La foto del contacto, en grande.\n1.0.10 — Las fotos se abren en grande, con Descargar.\n1.0.9 — Filtros y archivados aparte.\n1.0.8 — Chatear en otro idioma, bandera y hora local, stickers.\n1.0.7 — Seleccionar y buscar en el chat; bolitas por edad; sin repetidos.\n1.0.6 — Tareas desde un chat.\n1.0.5 — Enviar (botón y Enter), adjuntos, API oficial o QR; nombres en los grupos.\n1.0.4 — El resumen de cada chat se lee bien.\n1.0.3 — Fotos de perfil en .jpg.\n1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT.',
+      ),
+    ),
     'DROP_CONFIRM_ONE': t(markTr('¿Enviar este archivo a {0}?')),
     'DROP_CONFIRM': t(markTr('¿Enviar {0} archivos a {1}?')),
     'BUSY_CHIP': t(markTr('🔕 Ocupado')),

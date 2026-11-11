@@ -94,6 +94,9 @@ Hechos
 90. MyWhatsapp: limpiar un chat | ✅ |
 97. MyWhatsapp: plantillas de mensajes para enviar | ✅ |
 117. MyWhatsapp: arrastrar archivos al chat para enviarlos | ✅ |
+99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ✅ |
+100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ✅ |
+95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ✅ |
 
 Trabajando
 =========
@@ -109,10 +112,7 @@ Pendiente
 84. MiniLang: app en la barra de estado para aprender idiomas con juegos (inspirada en Duolingo); los idiomas son paquetes que se instalan; empezar por inglés hasta un nivel alto | ⏳ |
 87. MyWhatsapp: crear contactos en el teléfono desde un chat (Contactos de macOS, que se sincronizan con el iPhone por iCloud) | ⏳ |
 94. MyWhatsapp: panel con los KPI importantes de mis mensajes de WhatsApp, con IA | ⏳ |
-95. MyWhatsapp: que la IA valore a una persona según lo que hablamos y proponga cómo tratarla | ⏳ |
 96. MyWhatsapp: auto mensajes: marcar un contacto, qué decirle y a qué hora, y la IA escribe un saludo bien pensado cada día | ⏳ |
-99. MyWhatsapp: su propio control de versiones (desde la 1.0.1), con lo que mejora en cada una | ⏳ |
-100. MyWhatsapp: bloquear la pantalla con un PIN de 4 dígitos | ⏳ |
 101. MyWhatsapp: varios números de teléfono (cuentas) en pestañas | ⏳ |
 102. MyWhatsapp: etiquetar contactos y ver las etiquetas que les puse en WhatsApp | ⏳ |
 103. MyWhatsapp: chat con la IA sobre mis chats (p. ej. «los chats sin responder en 3 días», «qué hago con @juan que no me responde») y que proponga más cosas | ⏳ |

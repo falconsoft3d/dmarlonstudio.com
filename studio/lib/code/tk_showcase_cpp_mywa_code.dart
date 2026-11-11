@@ -22,6 +22,7 @@ const _mywaIncludes = r'''#include <algorithm>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Image_Surface.H>
 #include <FL/Fl_Input.H>
+#include <FL/Fl_Secret_Input.H>
 #include <FL/Fl_Menu_Item.H>
 #include <FL/Fl_BMP_Image.H>
 #include <FL/Fl_JPEG_Image.H>
@@ -2674,6 +2675,36 @@ public:
       fl_draw(fit(pn, std::max(40, cx + cw - nb - 10)).c_str(), nb + 10, cy + 18);
     }
   }
+  // La valoración de una persona por la IA, en una tarjeta encima del chat.
+  std::string insight, insight_title;
+  // Acciones: 34 cerrarla, 35 copiarla.
+  void draw_insight() {
+    const Theme& T = th();
+    fl_color(rgb(T.chat));
+    fl_rectf(x(), y(), w(), h());
+    int cw = std::min(720, w() - 60), cx = x() + (w() - cw) / 2, cy = y() + 30;
+    fl_font(FL_HELVETICA, 15);
+    auto lines = wrap(insight, cw - 48);
+    int chh = std::min(h() - 60, 110 + (int)lines.size() * 22);
+    round_box(cx, cy, cw, chh, 14, rgb(T.card), rgb(T.card_line));
+    fl_font(FL_HELVETICA_BOLD, 17);
+    fl_color(rgb(T.text));
+    fl_draw(fit(insight_title, cw - 200).c_str(), cx + 24, cy + 36);
+    fl_font(FL_HELVETICA_BOLD, 12);
+    int bx = cx + cw - 24 - ((int)fl_width("✕") + 20);
+    button(bx, cy + 16, "✕", 34, -1, rgb(T.text), rgb(T.card));
+    bx -= 8 + (int)fl_width(tx::COPY) + 20;
+    button(bx, cy + 16, tx::COPY, 35, -1, rgb(T.text), rgb(T.card));
+    fl_push_clip(cx, cy + 60, cw, chh - 70);
+    fl_font(FL_HELVETICA, 15);
+    fl_color(rgb(T.text));
+    int ly = cy + 80;
+    for (const auto& l : lines) {
+      fl_draw(l.c_str(), cx + 24, ly);
+      ly += 22;
+    }
+    fl_pop_clip();
+  }
   // El visor: una foto en grande, encima de todo ("" si está cerrado).
   std::string viewer, viewer_title;
   ChatView(int X, int Y, int W, int H) : Fl_Widget(X, Y, W, H) {}
@@ -2911,7 +2942,8 @@ public:
     fl_push_clip(x(), y(), w(), h());
     fl_color(rgb(T.chat));
     fl_rectf(x(), y(), w(), h());
-    if ((tasks_mode || status_mode || !chat || !viewer.empty()) && find_input && find_input->visible()) find_input->hide();
+    if ((tasks_mode || status_mode || !chat || !viewer.empty() || !insight.empty()) && find_input && find_input->visible())
+      find_input->hide();
     if (!viewer.empty()) {
       draw_viewer();
       fl_pop_clip();
@@ -2919,6 +2951,11 @@ public:
     }
     if (status_mode) {
       draw_status_view();
+      fl_pop_clip();
+      return;
+    }
+    if (!insight.empty() && chat) {
+      draw_insight();
       fl_pop_clip();
       return;
     }
@@ -3237,7 +3274,7 @@ public:
             on_act(h.act, h.idx);
             return 1;
           }
-        if (right || tasks_mode || status_mode || !chat || !viewer.empty()) return 1;
+        if (right || tasks_mode || status_mode || !chat || !viewer.empty() || !insight.empty()) return 1;
         // Seleccionar texto: se empieza sobre una línea; doble clic, el mensaje entero.
         Fl::focus(this);
         Pos p;
@@ -3989,6 +4026,67 @@ int selftest() {
 
 }  // namespace wa
 
+// La versión de MyWhatsapp (la suya, aparte de la del estudio): sube con cada
+// cambio y sus novedades salen en Ayuda › Novedades.
+const char* const MYWA_VERSION = "1.0.19";
+
+// ============================================================ el bloqueo con PIN
+// Tapa toda la ventana: un candado, el nombre y el campo del PIN (4 cifras).
+namespace wa {
+class LockView : public Fl_Group {
+public:
+  Fl_Secret_Input* pin;
+  std::string hint;
+  std::function<void(const std::string&)> on_try;
+  LockView(int X, int Y, int W, int H) : Fl_Group(X, Y, W, H) {
+    pin = new Fl_Secret_Input(X + W / 2 - 80, Y + H / 2 + 20, 160, 40);
+    pin->textsize(24);
+    pin->maximum_size(4);
+    pin->when(FL_WHEN_ENTER_KEY_ALWAYS | FL_WHEN_CHANGED);
+    pin->callback([](Fl_Widget* w, void*) {
+      auto* lv = static_cast<LockView*>(w->parent());
+      std::string v = static_cast<Fl_Input*>(w)->value();
+      if (lv->on_try && (v.size() == 4 || Fl::event_key() == FL_Enter)) lv->on_try(v);
+    });
+    end();
+  }
+  void resize(int X, int Y, int W, int H) override {
+    Fl_Widget::resize(X, Y, W, H);
+    pin->resize(X + W / 2 - 80, Y + H / 2 + 20, 160, 40);
+  }
+  void draw() override {
+    const Theme& T = th();
+    fl_color(rgb(T.chat));
+    fl_rectf(x(), y(), w(), h());
+    fl_font(FL_HELVETICA, 64);
+    fl_color(rgb(T.text));
+    fl_draw("🔒", x(), y() + h() / 2 - 150, w(), 80, FL_ALIGN_CENTER);
+    fl_font(FL_HELVETICA_BOLD, 20);
+    fl_draw(tx::LOCKED, x(), y() + h() / 2 - 60, w(), 30, FL_ALIGN_CENTER);
+    fl_font(FL_HELVETICA, 14);
+    fl_color(rgb(T.muted));
+    fl_draw(hint.empty() ? tx::LOCK_HINT : hint.c_str(), x(), y() + h() / 2 - 26, w(), 30, FL_ALIGN_CENTER);
+    pin->color(rgb(T.input));
+    pin->textcolor(rgb(T.text));
+    draw_children();
+  }
+  // Mientras está, nada de lo de debajo recibe el ratón.
+  int handle(int e) override {
+    int r = Fl_Group::handle(e);
+    if (e == FL_PUSH || e == FL_RELEASE || e == FL_DRAG || e == FL_MOUSEWHEEL || e == FL_MOVE || e == FL_ENTER) return 1;
+    return r;
+  }
+};
+// El PIN se guarda resumido (con el Llavero): basta para comprobarlo.
+std::string pin_hash(const std::string& pin) { return "v1:" + fnv("dms-mywhatsapp-pin|" + pin); }
+bool pin_ok(const std::string& pin) {
+  if (pin.size() != 4) return false;
+  for (char c : pin)
+    if (c < '0' || c > '9') return false;
+  return true;
+}
+}  // namespace wa
+
 // ============================================================ la barra de menús
 // En macOS, un NSStatusItem hecho desde C++ con el runtime de Objective-C
 // (objc_msgSend): el icono de los mensajes, cuántos chats esperan respuesta
@@ -4122,6 +4220,9 @@ struct StatusAiDone {   // el estado que propone la IA
   long long id;
   std::string text, error;
 };
+struct PersonDone {   // la valoración de una persona por la IA
+  std::string jid, text, error;
+};
 struct DraftDone {   // lo que escribo, mejorado o corregido por la IA
   bool fix;
   std::string original, text, error;
@@ -4170,6 +4271,13 @@ public:
   std::string busy;
   long long busy_since = 0;
   std::map<std::string, bool> busy_done;
+  // El bloqueo con PIN: el resumen guardado, si está bloqueada, tras cuántos minutos
+  // sin tocarla se bloquea sola (0: nunca) y cuándo se tocó por última vez.
+  wa::LockView* lock_view = nullptr;
+  std::string pin_saved;
+  bool locked = false;
+  int lock_after = 5;
+  double last_touch = 0;
   // La barra lateral plegada, los chats limpiados (hasta cuándo) y las plantillas.
   bool compact = false;
   std::map<std::string, long long> cleared;
@@ -4263,6 +4371,13 @@ public:
     list->on_status = [] { if (self()) self()->open_status(); };
     list->on_compact = [] { if (self()) self()->set_compact(!self()->compact); };
     list->on_filter = [] { if (self()) self()->filter_menu(); };
+    copy_label((std::string(tx::APP) + " " + MYWA_VERSION).c_str());
+    // El bloqueo: encima de todo (el último de la ventana).
+    Fl_Group::current(nullptr);
+    lock_view = new wa::LockView(0, 0, w(), h());
+    lock_view->hide();
+    add(lock_view);
+    lock_view->on_try = [](const std::string& v) { if (self()) self()->try_pin(v); };
     view->on_drop = [](const std::string& t) { if (self()) self()->drop_files(t); };
     // Al ensanchar la ventana, en el panel de abajo crece el borrador.
     AiBar->resizable(Draft);
@@ -4299,6 +4414,13 @@ public:
   }
   static int dispatch(int e, Fl_Window* w) {
     Form1* f = self();
+    if (f && (e == FL_PUSH || e == FL_KEYBOARD || e == FL_MOUSEWHEEL)) f->last_touch = wa::now_s();
+    // Bloqueada: ni atajos ni nada, solo el campo del PIN.
+    if (f && f->locked) return Fl::handle_(e, w);
+    if (f && e == FL_KEYBOARD && (Fl::event_state() & FL_COMMAND) && Fl::event_key() == 'l' && !f->pin_saved.empty()) {
+      f->lock_now();
+      return 1;
+    }
     // Soltar archivos sobre el borrador: se envían (en vez de pegar sus rutas).
     if (f && e == FL_PASTE && Fl::event_text() && Fl::belowmouse() == f->Draft &&
         !wa::dropped_files(std::string(Fl::event_text(), (size_t)Fl::event_length())).empty()) {
@@ -4357,6 +4479,10 @@ public:
     // Vinculado antes: el puente vuelve a conectar con la sesión guardada.
     if (send_mode == wa::S_LINKED) start_bridge();
     if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
+    // Con PIN, la app se abre bloqueada.
+    pin_saved = wa::key_get("pin");
+    if (!pin_saved.empty()) lock_now();
+    last_touch = wa::now_s();
     refresh();
     update_bar();
   }
@@ -4425,6 +4551,7 @@ public:
         else if (wa::starts(l, "theme=")) theme = l.substr(6);
         else if (wa::starts(l, "busy=")) busy = l.substr(5);
         else if (l == "compact=1") compact = true;
+        else if (wa::starts(l, "lock_after=")) lock_after = std::atoi(l.c_str() + 11);
         else if (wa::starts(l, "busy_since=")) busy_since = std::atoll(l.c_str() + 11);
         else if (wa::starts(l, "busy_done=")) {
           for (const auto& j : wa::split(l.substr(10), ','))
@@ -4452,7 +4579,7 @@ public:
                                         "\ntheme=" + theme + "\nsend=" + std::to_string(send_mode) +
                                         "\ncloud_phone=" + cloud.phone_id + "\nbusy=" + busy +
                                         "\nbusy_since=" + std::to_string(busy_since) + "\nbusy_done=" + busy_done_text() +
-                                        (compact ? "\ncompact=1" : "") +
+                                        (compact ? "\ncompact=1" : "") + "\nlock_after=" + std::to_string(lock_after) +
                                         (warned ? "\nwarned=1" : "") + "\n");
   }
 
@@ -4543,6 +4670,7 @@ public:
     view->asked_more = false;
     view->clear_selection();
     view->viewer.clear();
+    view->insight.clear();
     msg_limit = 60;
     close_find();
     options.clear();
@@ -4723,7 +4851,7 @@ public:
     out.push_back({"", 0, true});
     out.push_back({waiting ? wa::fmt(tx::BAR_WAITING, {std::to_string(waiting)}) : std::string(tx::BAR_NONE), 0, false});
     bar_jids.clear();
-    for (size_t k = 0; k < ids.size() && k < 15; k++) {
+    for (size_t k = 0; k < ids.size() && k < 15 && !locked; k++) {   // bloqueada: sin nombres
       const wa::Chat& c = chats[(size_t)ids[k]];
       std::string last = c.last;
       for (auto& ch : last)
@@ -4751,7 +4879,7 @@ public:
     if (!bar::available()) return;
     int waiting = 0;
     auto entries = bar_entries(waiting);
-    std::string sig = std::to_string(waiting) + "|" + std::to_string(wa::tasks_pending(tasks)) + "|" + busy;
+    std::string sig = std::to_string(waiting) + "|" + std::to_string(wa::tasks_pending(tasks)) + "|" + busy + (locked ? "|L" : "");
     for (const auto& e : entries) sig += "|" + e.title;
     if (sig == bar_sig) return;   // nada nuevo: no se rehace el menú
     bar_sig = sig;
@@ -4776,6 +4904,7 @@ public:
     }
     if (in_bar) from_bar();
     else bar::dock(true);
+    if (locked) return;   // bloqueada: solo se enseña la ventana (con el candado)
     if (t == 4) {
       open_tasks();
       return;
@@ -5128,6 +5257,123 @@ public:
     for (const auto& f : files) send_draft(f);   // el borrador va de pie con el primero
     return true;
   }
+  // ---- el bloqueo con PIN
+  void lock_now() {
+    if (pin_saved.empty()) return;
+    locked = true;
+    lock_view->hint.clear();
+    lock_view->resize(0, 0, w(), h());
+    lock_view->show();
+    lock_view->pin->value("");
+    if (shown()) lock_view->pin->take_focus();
+    else Fl::focus(lock_view->pin);
+    update_bar();
+    redraw();
+  }
+  void try_pin(const std::string& v) {
+    if (!locked) return;
+    if (wa::pin_hash(v) == pin_saved) {
+      locked = false;
+      lock_view->hide();
+      last_touch = wa::now_s();
+      update_bar();
+      redraw();
+      return;
+    }
+    if (v.size() >= 4) {
+      lock_view->hint = tx::PIN_WRONG;
+      lock_view->pin->value("");
+      lock_view->redraw();
+    }
+  }
+  // Pedir un PIN nuevo dos veces; "" si no se completa.
+  std::string ask_new_pin() {
+    std::string a, b;
+    if (!ask_text(tx::PIN_ASK, a)) return "";
+    a = wa::trim(a);
+    if (!wa::pin_ok(a)) {
+      say(tx::PIN_BAD);
+      return "";
+    }
+    if (!ask_text(tx::PIN_ASK_AGAIN, b) || wa::trim(b) != a) {
+      say(tx::PIN_MISMATCH);
+      return "";
+    }
+    return a;
+  }
+  void pin_menu() {
+    std::vector<std::string> items;
+    std::vector<int> acts;
+    if (pin_saved.empty()) {
+      items.push_back(tx::PIN_SET);
+      acts.push_back(1);
+    } else {
+      items.push_back(tx::PIN_LOCK_NOW);
+      acts.push_back(2);
+      items.push_back(tx::PIN_CHANGE);
+      acts.push_back(1);
+      for (int m : {1, 5, 15, 0}) {
+        items.push_back((lock_after == m ? "✓ " : "    ") + (m ? wa::fmt(tx::PIN_AFTER, {std::to_string(m)}) : std::string(tx::PIN_NEVER)));
+        acts.push_back(100 + m);
+      }
+      items.push_back(tx::PIN_REMOVE);
+      acts.push_back(3);
+    }
+    int r = choose(items);
+    if (r < 0 || r >= (int)acts.size()) return;
+    int a = acts[(size_t)r];
+    if (a == 1) {
+      std::string p = ask_new_pin();
+      if (p.empty()) return;
+      pin_saved = wa::pin_hash(p);
+      wa::key_set("pin", pin_saved);
+      say(tx::PIN_DONE);
+    } else if (a == 2) {
+      lock_now();
+    } else if (a == 3) {
+      std::string p;
+      if (!ask_text(tx::PIN_ASK_CURRENT, p) || wa::pin_hash(wa::trim(p)) != pin_saved) {
+        say(tx::PIN_WRONG);
+        return;
+      }
+      pin_saved.clear();
+      wa::key_set("pin", "");
+      say(tx::PIN_REMOVED);
+    } else if (a >= 100) {
+      lock_after = a - 100;
+      save_settings();
+    }
+  }
+  // ---- valorar a una persona: la IA lee la conversación y propone cómo tratarla
+  void evaluate_person() {
+    if (current < 0) return;
+    if (!demo && !ai_ready()) return;
+    wa::Chat c = chats[(size_t)current];
+    if (c.id > 0 && from_db && !demo) {
+      std::string error;
+      wa::load_messages(wa::db_path(), c, 120, error);
+    }
+    view->insight_title = wa::fmt(tx::PERSON_TITLE, {c.name});
+    view->insight = tx::PERSON_THINKING;
+    refresh();
+    if (demo) return;
+    wa::AiSettings s = ai;
+    std::string sys = wa::fmt(tx::PROMPT_PERSON, {c.name, tx::MY_LANGUAGE});
+    if (!wa::trim(ai.about).empty()) sys += "\n\n" + wa::fmt(tx::PROMPT_ABOUT, {wa::trim(ai.about)});
+    std::string usr = wa::fmt(tx::PROMPT_USER, {c.name, wa::transcript(c, 120)}), jid = c.jid;
+    std::thread([s, sys, usr, jid] {
+      wa::AiText r = wa::ai_ask(s, sys, usr);
+      Fl::awake(person_done, new PersonDone{jid, wa::trim(r.text), r.error});
+    }).detach();
+  }
+  static void person_done(void* p) {
+    std::unique_ptr<PersonDone> d(static_cast<PersonDone*>(p));
+    Form1* f = self();
+    if (!f || f->current < 0 || f->chats[(size_t)f->current].jid != d->jid || f->view->insight.empty()) return;
+    f->view->insight = d->error.empty() && !d->text.empty() ? d->text : (d->error.empty() ? std::string(tx::ERR_AI_ANSWER) : d->error);
+    f->refresh();
+  }
+
   // ---- el desplegable de los filtros
   void filter_menu() {
     const int modes[] = {wa::ChatList::F_ALL, wa::ChatList::F_TASKS, wa::ChatList::F_TODO, wa::ChatList::F_WAITING};
@@ -5184,10 +5430,15 @@ public:
   void chat_menu() {
     if (current < 0) return;
     std::string jid = chats[(size_t)current].jid;
-    std::vector<std::string> items = {tx::CLEAR_CHAT};
+    std::vector<std::string> items = {tx::PERSON_EVAL, tx::CLEAR_CHAT};
     bool was = cleared.count(jid) > 0;
     if (was) items.push_back(tx::UNCLEAR_CHAT);
     int r = choose(items);
+    if (r == 0) {
+      evaluate_person();
+      return;
+    }
+    r--;
     if (r == 0) {
       if (!confirm(tx::CLEAR_CONFIRM)) return;
       cleared[jid] = wa::wall_s();
@@ -5631,6 +5882,16 @@ public:
       chat_menu();
       return;
     }
+    if (act == 34) {
+      view->insight.clear();
+      refresh();
+      return;
+    }
+    if (act == 35) {
+      Fl::copy(view->insight.c_str(), (int)view->insight.size(), 1);
+      say(tx::COPIED);
+      return;
+    }
     if (act >= 40 && act <= 52) {
       status_act(act, k);
       return;
@@ -6035,16 +6296,21 @@ public:
       if (current >= 0 && chats[(size_t)current].msgs.size() != before) options.clear();
     }
     busy_reply();
+    // Sin tocarla unos minutos: se bloquea sola.
+    if (!locked && !pin_saved.empty() && lock_after > 0 && wa::now_s() - last_touch > lock_after * 60.0) lock_now();
     refresh();
     update_bar();
   }
   void Menu1_click(const std::string& item) override {
+    if (locked && item != tx::MP_QUIT) return;
     if (item == tx::MP_RELOAD) reload();
     else if (item == tx::MP_IMPORT) import_export();
     else if (item == tx::MP_AI) settings_dialog();
     else if (item == tx::MP_CONNECT) connect_dialog();
     else if (item == tx::MP_TASKS) open_tasks();
     else if (item == tx::MP_COMPACT) set_compact(!compact);
+    else if (item == tx::MP_PIN) pin_menu();
+    else if (item == tx::MP_NEWS) fl_message("%s", (std::string(tx::APP) + " " + MYWA_VERSION + "\n\n" + tx::WHATS_NEW).c_str());
     else if (item == tx::MP_BUSY) busy_menu();
     else if (item == tx::MP_DISCONNECT) disconnect();
     else if (item == tx::MP_LIGHT) set_theme("light");
@@ -6054,7 +6320,7 @@ public:
     else if (item == tx::MP_QUIT) {
       quit();
     } else if (item == tx::MP_HOW) fl_message("%s", tx::HOW_TEXT);
-    else if (item == tx::MP_ABOUT) fl_message("%s", tx::ABOUT_TEXT);
+    else if (item == tx::MP_ABOUT) fl_message("%s", (std::string(tx::APP) + " " + MYWA_VERSION + "\n\n" + tx::ABOUT_TEXT).c_str());
   }
 
   // ---- capturas y pruebas sin ventana
@@ -6561,13 +6827,13 @@ public:
       // Limpiar el chat (solo aquí) y deshacerlo.
       size_t before = chats[0].msgs.size();
       confirm = [](const std::string&) { return true; };
-      choose = [](const std::vector<std::string>&) { return 0; };
+      choose = [](const std::vector<std::string>&) { return 1; };   // «Limpiar el chat»
       chat_menu();
       render_to("");
       int bubbles = 0;
       for (const auto& h : view->hits) bubbles += h.act == 6 ? 1 : 0;
       chk(view->hidden_before > 0 && bubbles == 0 && chats[0].msgs.size() == before && message == tx::CLEARED, "limpiar el chat");
-      choose = [](const std::vector<std::string>&) { return 1; };
+      choose = [](const std::vector<std::string>&) { return 2; };   // «Deshacer la limpieza»
       chat_menu();
       render_to("");
       bubbles = 0;
@@ -6578,6 +6844,55 @@ public:
         io = io.empty() ? "Tarea nueva" : io;
         return true;
       };
+    }
+    // El PIN: ponerlo, bloquear, uno malo, el bueno y quitarlo.
+    {
+      std::vector<std::string> ans = {"1234", "1234"};
+      size_t an = 0;
+      ask_text = [&ans, &an](const char*, std::string& io) {
+        io = ans[an++ % ans.size()];
+        return true;
+      };
+      choose = [](const std::vector<std::string>&) { return 0; };   // «Poner un PIN…»
+      pin_menu();
+      chk(pin_saved == wa::pin_hash("1234") && pin_saved != "1234", "poner un PIN (guardado resumido)");
+      lock_now();
+      chk(locked && lock_view->visible(), "bloquear");
+      int bar_w = 0;
+      auto be = bar_entries(bar_w);
+      bool names = false;
+      for (const auto& e : be) names = names || (e.tag >= 100 && e.tag < 200);
+      chk(!names, "bloqueada: la barra no enseña los chats");
+      try_pin("9999");
+      chk(locked && lock_view->hint == tx::PIN_WRONG, "un PIN malo no abre");
+      try_pin("1234");
+      chk(!locked && !lock_view->visible(), "el PIN bueno abre");
+      ans = {"1234"};
+      an = 0;
+      choose = [](const std::vector<std::string>& items) { return (int)items.size() - 1; };   // «Quitar el PIN»
+      pin_menu();
+      chk(pin_saved.empty(), "quitar el PIN");
+      chk(!wa::pin_ok("12a4") && !wa::pin_ok("123") && wa::pin_ok("0007"), "un PIN: 4 cifras");
+      choose = [](const std::vector<std::string>&) { return -1; };
+      ask_text = [](const char*, std::string& io) {
+        io = io.empty() ? "Tarea nueva" : io;
+        return true;
+      };
+    }
+    // Valorar a una persona: la tarjeta de la IA, encima del chat.
+    {
+      pick(0);
+      choose = [](const std::vector<std::string>&) { return 0; };   // «✨ Valorar a esta persona»
+      chat_menu();
+      chk(view->insight == tx::PERSON_THINKING, "valorar: pensando");
+      person_done(new PersonDone{chats[0].jid, "Cercana y práctica. Trátala con calma.", ""});
+      render_to("");
+      bool closeb = false;
+      for (const auto& h : view->hits) closeb = closeb || h.act == 34;
+      chk(view->insight.find("Cercana") == 0 && closeb, "valorar: la tarjeta");
+      option_act(34, -1);
+      chk(view->insight.empty(), "cerrar la valoración");
+      choose = [](const std::vector<std::string>&) { return -1; };
     }
     // El visor: la foto en grande, descargarla y cerrarlo.
     {

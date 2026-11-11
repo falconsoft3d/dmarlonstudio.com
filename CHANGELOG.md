@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.116 — 2026-11-11
+
+- **MyWhatsapp tiene su propia versión: la 1.0.19.** Va en el título de la ventana y en Acerca de, y Ayuda › Novedades enseña lo nuevo de cada versión, de la 1.0.1 (leer los chats y proponer respuestas) a esta. Sube con cada cambio de la app, aparte de la versión del estudio.
+- **MyWhatsapp: bloqueo con PIN de 4 cifras.** Archivo › Bloqueo con PIN… pone el PIN (dos veces; se guarda resumido en el Llavero, nunca tal cual). Con PIN, la app se abre bloqueada; Cmd+L la bloquea al momento, y se bloquea sola tras 1, 5 o 15 minutos sin usarla (o nunca). Bloqueada, un candado tapa toda la ventana, no responden los atajos ni los menús (salvo Salir) y el menú de la barra de menús no enseña los nombres de los chats. Es un bloqueo de pantalla: no cifra los datos. Para quitarlo pide el PIN de ahora.
+- **MyWhatsapp: «✨ Valorar a esta persona».** En el botón «⋯» de la cabecera: la IA lee los últimos mensajes del chat y responde, con respeto y sin etiquetas, cómo es esa persona al comunicarse, qué le importa, cómo tratarle, qué evitar y un siguiente paso; sale en una tarjeta sobre el chat, con «Copiar». Avisa la primera vez de que la conversación se envía a la IA.
+- Probado con la prueba de la interfaz: poner el PIN, bloquear (la barra sin nombres), un PIN malo, el bueno, quitarlo, y la tarjeta de la valoración.
+
 ## 1.0.115 — 2026-11-11
 
 - **MyWhatsapp: arrastrar archivos al chat para enviarlos.** Al arrastrar archivos desde el Finder sobre la conversación, se resalta con «📎 Suelte para enviar a …»; al soltarlos, pregunta («¿Enviar 2 archivos a Laura?», con sus nombres) y los envía (lo escrito en el borrador va de pie con el primero). Soltarlos sobre el borrador también los envía, en vez de pegar sus rutas. Entiende las rutas tal cual y como `file://` con espacios codificados, y no envía carpetas.

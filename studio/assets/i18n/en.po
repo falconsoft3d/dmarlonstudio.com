@@ -1297,7 +1297,7 @@ msgstr "Notifications"
 msgid "Notificaciones y privacidad"
 msgstr "Notifications and privacy"
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart
 msgid "Novedades"
 msgstr "News"
 
@@ -6758,6 +6758,48 @@ msgid "1 Cielo (azul claro), 2 Atardecer (naranja y rosa), 3 Menta (verde suave)
 msgstr "1 Sky (light blue), 2 Sunset (orange and pink), 3 Mint (soft green), 4 Night (dark), 5 Paper (cream, sober), 6 Offer (yellow and red), 7 WhatsApp (green)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid ""
+"1.0.19 — Versión propia y novedades, bloqueo con PIN y «✨ Valorar a esta persona».\n"
+"1.0.18 — Arrastrar archivos al chat, lista más compacta, barra plegable, reenviar, limpiar un chat y plantillas.\n"
+"1.0.17 — Diseñar y publicar estados (con IA).\n"
+"1.0.16 — El modo ocupado, a mano en la barra de menús y en la lista.\n"
+"1.0.15 — «Por responder» arreglado; «✨ Mejorar» y «Aa Corregir».\n"
+"1.0.14 — Respuestas automáticas con IA.\n"
+"1.0.13 — En la barra de menús, con los chats por responder.\n"
+"1.0.12 — Modos ocupado.\n"
+"1.0.11 — La foto del contacto, en grande.\n"
+"1.0.10 — Las fotos se abren en grande, con Descargar.\n"
+"1.0.9 — Filtros y archivados aparte.\n"
+"1.0.8 — Chatear en otro idioma, bandera y hora local, stickers.\n"
+"1.0.7 — Seleccionar y buscar en el chat; bolitas por edad; sin repetidos.\n"
+"1.0.6 — Tareas desde un chat.\n"
+"1.0.5 — Enviar (botón y Enter), adjuntos, API oficial o QR; nombres en los grupos.\n"
+"1.0.4 — El resumen de cada chat se lee bien.\n"
+"1.0.3 — Fotos de perfil en .jpg.\n"
+"1.0.2 — Todos los chats, fotos de perfil, adjuntos y tema oscuro.\n"
+"1.0.1 — Lee los chats y propone respuestas con Claude o ChatGPT."
+msgstr ""
+"1.0.19 — Its own version and what's new, PIN lock and “✨ Assess this person”.\n"
+"1.0.18 — Drag files onto the chat, a more compact list, foldable sidebar, forwarding, clearing a chat and templates.\n"
+"1.0.17 — Design and publish statuses (with AI).\n"
+"1.0.16 — Busy mode at hand in the menu bar and in the list.\n"
+"1.0.15 — “To answer” fixed; “✨ Improve” and “Aa Fix”.\n"
+"1.0.14 — Automatic replies with AI.\n"
+"1.0.13 — In the menu bar, with the chats to answer.\n"
+"1.0.12 — Busy modes.\n"
+"1.0.11 — The contact's photo, large.\n"
+"1.0.10 — Photos open large, with Download.\n"
+"1.0.9 — Filters and archived chats apart.\n"
+"1.0.8 — Chat in another language, flag and local time, stickers.\n"
+"1.0.7 — Select and search in the chat; dots by age; no duplicates.\n"
+"1.0.6 — Tasks from a chat.\n"
+"1.0.5 — Send (button and Enter), attachments, official API or QR; names in groups.\n"
+"1.0.4 — Each chat's summary reads properly.\n"
+"1.0.3 — Profile photos in .jpg.\n"
+"1.0.2 — All chats, profile photos, attachments and dark theme.\n"
+"1.0.1 — Reads the chats and suggests replies with Claude or ChatGPT."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "A la izquierda están sus chats de WhatsApp Desktop. Elija uno y pulse «Sugerir respuestas»."
 msgstr "Your WhatsApp Desktop chats are on the left. Pick one and press “Suggest replies”."
 
@@ -6836,6 +6878,18 @@ msgid "Barra lateral compacta (solo las fotos)"
 msgstr "Compact sidebar (photos only)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Bloquear ahora (Cmd+L)"
+msgstr "Lock now (Cmd+L)"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Bloquear sola tras {0} min sin usarla"
+msgstr "Lock itself after {0} min without use"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Bloqueo con PIN…"
+msgstr "PIN lock…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Borrar un modo…"
 msgstr "Delete a mode…"
 
@@ -6850,6 +6904,10 @@ msgstr "Short"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Buenas, ¿tenéis el presupuesto de la cocina?"
 msgstr "Hi, do you have the quote for the kitchen?"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Cambiar el PIN…"
+msgstr "Change the PIN…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Cariñoso"
@@ -6994,6 +7052,18 @@ msgid "Editar una plantilla…"
 msgstr "Edit a template…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El PIN de ahora:"
+msgstr "The current PIN:"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El PIN nuevo (4 cifras):"
+msgstr "The new PIN (4 digits):"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "El PIN son 4 cifras"
+msgstr "The PIN is 4 digits"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "El mensaje que se contesta solo a quien le escriba:"
 msgstr "The message automatically sent to whoever writes to you:"
 
@@ -7072,6 +7142,10 @@ msgstr ""
 "Write a single short, natural WhatsApp reply to the last message, in the language of the conversation: say they can't answer right now (with what the user said) and, if it fits, that they'll reply later. Don't make up facts, don't promise anything and don't answer specific questions on their behalf. Only the message, without quotes."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Eres el asistente de MyWhatsapp. Lees una conversación de WhatsApp entre el usuario («Yo») y {0} y le ayudas a entender a esa persona para tratarla mejor. Con honestidad y respeto, sin diagnosticar, sin etiquetas ni juicios sobre su forma de ser. Responde en {1}, con estas secciones breves: «Cómo es» (tono y forma de comunicarse), «Qué le importa», «Cómo tratarle» (consejos concretos), «Qué evitar» y «Siguiente paso» (uno, sugerido). Máximo 180 palabras. Básate solo en lo que se ve en la conversación; si hay poca información, dilo."
+msgstr "You are the MyWhatsapp assistant. You read a WhatsApp conversation between the user (“Me”) and {0} and help them understand that person in order to treat them better. Honestly and respectfully, without diagnosing, labelling or judging their personality. Reply in {1}, with these short sections: “What they're like” (tone and way of communicating), “What matters to them”, “How to treat them” (concrete advice), “What to avoid” and “Next step” (one, suggested). 180 words at most. Base it only on what the conversation shows; if there is little information, say so."
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Eres el asistente de MyWhatsapp. Mejora el mensaje de WhatsApp que el usuario («Yo») quiere enviar: más claro, natural y bien escrito, en el mismo idioma, con el mismo tono y la misma intención, sin añadir datos ni alargarlo de más. Ten en cuenta la conversación. Responde solo con el mensaje mejorado, sin comillas ni explicaciones."
 msgstr "You are the MyWhatsapp assistant. Improve the WhatsApp message the user (“Me”) wants to send: clearer, natural and well written, in the same language, with the same tone and the same intent, without adding facts or making it much longer. Take the conversation into account. Reply only with the improved message, without quotes or explanations."
 
@@ -7112,6 +7186,10 @@ msgstr "Write your message here"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Escriba el mensaje en el borrador"
 msgstr "Type the message in the draft"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Escriba su PIN de 4 cifras"
+msgstr "Type your 4-digit PIN"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Ese adjunto no está descargado en este equipo: no se puede reenviar"
@@ -7234,6 +7312,10 @@ msgid "La API oficial no envía a grupos; use el modo vinculado (QR)"
 msgstr "The official API does not send to groups; use linked mode (QR)"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "La IA está leyendo la conversación…"
+msgstr "The AI is reading the conversation…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "La IA no devolvió respuestas"
 msgstr "The AI returned no replies"
 
@@ -7288,6 +7370,10 @@ msgstr "What the user wants to say: {0}"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Lo terminamos hoy y se lo envío"
 msgstr "We’ll finish it today and send it to you"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Los dos PIN no son iguales"
+msgstr "The two PINs don't match"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Mamá"
@@ -7348,6 +7434,10 @@ msgid "MyWhatsapp en C++ con FLTK: lee sus chats de WhatsApp y propone respuesta
 msgstr "MyWhatsapp in C++ with FLTK: it reads your WhatsApp chats and suggests replies with Claude or ChatGPT based on the conversation."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "MyWhatsapp está bloqueado"
+msgstr "MyWhatsapp is locked"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid ""
 "MyWhatsapp lee sus chats de WhatsApp Desktop (en el Mac, sin cambiar nada; la primera vez, macOS le pedirá permiso) o un chat exportado con «Exportar chat», y le propone respuestas con IA.\n"
 "\n"
@@ -7366,6 +7456,8 @@ msgid ""
 "Estados: la fila «🎨 Estados» abre un diseñador al estilo Canva (plantillas, título, texto, pie, emoji y foto; «✨ Con IA» lo escribe por usted). «⬇ Guardar imagen» lo guarda en 1080×1920 y «📤 Publicar» lo publica como estado de WhatsApp (con WhatsApp vinculado por QR).\n"
 "\n"
 "Tareas: «+ Tarea» en la cabecera de un chat (o clic derecho sobre un mensaje) crea una tarea enlazada a ese chat; la fila «Tareas», arriba de la lista, las enseña para marcarlas como hechas, volver a su chat o borrarlas. La bolita de cada pendiente dice cuánto lleva: verde (menos de 24 h), naranja (más de 24 h) o roja (más de 72 h). La primera vez elija cómo conectar WhatsApp: con la API oficial de WhatsApp Business (un número de empresa de Meta) o como dispositivo vinculado con un código QR, igual que WhatsApp Web (no es oficial: WhatsApp puede bloquear la cuenta).\n"
+"\n"
+"Archivo › Bloqueo con PIN… pone un PIN de 4 cifras: la app se abre bloqueada, Cmd+L la bloquea y se bloquea sola tras unos minutos sin usarla (un bloqueo de pantalla: no cifra nada). En «⋯», «✨ Valorar a esta persona»: la IA lee la conversación y propone cómo tratarle. Ayuda › Novedades: lo nuevo de cada versión.\n"
 "\n"
 "Las claves se guardan en el Llavero de macOS. Solo se envían a la IA los mensajes del chat abierto, y solo cuando lo pide."
 msgstr ""
@@ -7387,6 +7479,8 @@ msgstr ""
 "\n"
 "Tasks: “+ Task” in a chat header (or right-clicking a message) creates a task linked to that chat; the “Tasks” row, at the top of the list, shows them to mark them done, go back to their chat or delete them. Each pending one's dot says how long it has been waiting: green (under 24 h), orange (over 24 h) or red (over 72 h). The first time, choose how to connect WhatsApp: with the official WhatsApp Business API (a Meta business number) or as a linked device with a QR code, just like WhatsApp Web (not official: WhatsApp may ban the account).\n"
 "\n"
+"File › PIN lock… sets a 4-digit PIN: the app opens locked, Cmd+L locks it and it locks itself after a few minutes without use (a screen lock: it doesn't encrypt anything). In “⋯”, “✨ Assess this person”: the AI reads the conversation and suggests how to treat them. Help › What's new: what's new in each version.\n"
+"\n"
 "Keys are stored in the macOS Keychain. Only the open chat's messages are sent to the AI, and only when you ask."
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -7396,6 +7490,10 @@ msgstr "Nothing to answer 🎉"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Natural"
 msgstr "Natural"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "No bloquear sola"
+msgstr "Don't lock by itself"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No encuentro SQLite en el sistema"
@@ -7482,6 +7580,18 @@ msgid "Original:"
 msgstr "Original:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PIN incorrecto"
+msgstr "Wrong PIN"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PIN puesto: la app se abrirá bloqueada"
+msgstr "PIN set: the app will open locked"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "PIN quitado"
+msgstr "PIN removed"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "PLANTILLA"
 msgstr "TEMPLATE"
 
@@ -7518,6 +7628,10 @@ msgid "Podemos el jueves por la mañana o el sábado de 10 a 14"
 msgstr "We can do Thursday morning or Saturday from 10 to 2"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Poner un PIN…"
+msgstr "Set a PIN…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Por responder (3 días)"
 msgstr "To answer (3 days)"
 
@@ -7542,6 +7656,10 @@ msgid "Publicando el estado…"
 msgstr "Publishing the status…"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Quitar el PIN…"
+msgstr "Remove the PIN…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Quitar la foto"
 msgstr "Remove photo"
 
@@ -7564,6 +7682,10 @@ msgstr "Forwarded to {0}"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Reenviar…"
 msgstr "Forward…"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "Repita el PIN:"
+msgstr "Repeat the PIN:"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "Salir de MyWhatsapp"
@@ -7876,6 +7998,10 @@ msgid "✨ Con IA"
 msgstr "✨ With AI"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Cómo es {0} y cómo tratarle"
+msgstr "✨ What {0} is like and how to treat them"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ La IA está diseñando su estado…"
 msgstr "✨ The AI is designing your status…"
 
@@ -7890,6 +8016,10 @@ msgstr "✨ Let the AI reply (this text is its instruction)"
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ Sugerir respuestas"
 msgstr "✨ Suggest replies"
+
+#: lib/code/tk_showcase_cpp_mywa.dart
+msgid "✨ Valorar a esta persona"
+msgstr "✨ Assess this person"
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "✨ {0} está escribiendo tres respuestas…"

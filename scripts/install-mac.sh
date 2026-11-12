@@ -1,5 +1,6 @@
 #!/bin/sh
-# Compila DMarlon Studio (release), la instala en /Applications y la reinicia.
+# Compila DMarlon Studio (release), la instala en /Applications (y en
+# demos-local, junto a las demos) y la reinicia.
 # Uso: sh scripts/install-mac.sh
 set -e
 cd "$(dirname "$0")/../studio"
@@ -11,4 +12,9 @@ rm -rf "/Applications/DMarlon Studio.app"
 ditto "$APP" "/Applications/DMarlon Studio.app"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "/Applications/DMarlon Studio.app"
 open "/Applications/DMarlon Studio.app"
+# También junto a las demos en local (demos-local), al día con cada versión.
+if [ -d ../demos-local ]; then
+  rm -rf "../demos-local/DMarlon Studio.app"
+  ditto "$APP" "../demos-local/DMarlon Studio.app"
+fi
 echo "DMarlon Studio $(cat ../VERSION) instalada y abierta."

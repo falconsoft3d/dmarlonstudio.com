@@ -34,6 +34,7 @@ const demos = {
   cpp_mywa: ['message-circle-heart', '#4ade80', '#128c4a'],
   cpp_minilang: ['languages', '#818cf8', '#3f3fd1'],
   cpp_pass: ['shield-check', '#60a5fa', '#1e3a8a'],
+  pascal_opend: ['pen-tool', '#34d399', '#0b7a5c'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],
   disk_usage: ['hard-drive', '#5ac8fa', '#1f7fd6'],

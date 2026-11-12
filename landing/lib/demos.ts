@@ -38,6 +38,7 @@ export const DEMO_SEEDS = [
   "pascal_malecon",
   "pascal_docker",
   "pascal_launcher",
+  "pascal_opend",
   "cpp_webmon",
   "cpp_clocks",
   "cpp_recorder",

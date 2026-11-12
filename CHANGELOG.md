@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.135 — 2026-11-12
+
+- Nueva demo: **OpenD++ (Pascal)**, un editor de diseño de interfaces en Object Pascal con Lazarus, inspirado en las herramientas de diseño colaborativo pero con otra distribución: las herramientas en una columna a la izquierda, el inspector a su lado, las capas, la biblioteca y los comentarios a la derecha, y las páginas como pestañas arriba, con reglas y barra de estado.
+- OpenD++: marcos con 16 tamaños de dispositivo (teléfono, tableta, escritorio, redes y presentaciones), rectángulos, elipses, líneas, flechas, polígonos, estrellas, pluma con curvas (y edición de sus puntos), texto con fuente, tamaño, interlineado, espaciado y alineación, e imágenes como relleno de cualquier forma. Grupos, marcos que recortan, componentes con instancias (con sus textos cambiados y «Separar la instancia»), diseño automático en fila o columna con hueco, margen y abrazar el contenido, guías inteligentes con distancias, alinear y repartir, orden de capas, ocultar y bloquear, estilos de color, varias páginas, comentarios con chinchetas, deshacer y rehacer, copiar y pegar, y guardar y abrir diseños .opend.
+- OpenD++: modo Prototipo (arrastrar una capa hasta otra pantalla, con animación disolver, deslizar o empujar, y Presentar a pantalla completa), modo Código (el CSS y el Flutter de cada capa y las medidas entre capas), exportar a PNG (1x a 4x, con transparencia) y SVG, y tema claro y oscuro.
+- OpenD++: menú **IA**: copia (o guarda) una plantilla JSON con las instrucciones, el formato y un ejemplo para pedirle un diseño a ChatGPT, Claude u otra IA; su respuesta se pega en OpenD++ (o con ⌘V en el lienzo) y se crean las páginas, los marcos, los componentes, las instancias y los enlaces del prototipo. También copia la selección como JSON para pedir cambios.
+- OpenD++: todo se dibuja con un rasterizador propio en Pascal (cobertura exacta por píxel, transparencias, degradados, sombras con desenfoque, texto e imágenes), nítido en Retina. En español y en inglés, con sus pruebas internas sin ventana y las capturas dibujadas por la propia app.
+- Web: la página de la demo con su guía, sus capturas y «Cómo se hizo» (6 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.134 — 2026-11-11
 
 - MyWhatsapp 1.0.33: **modo consola**. Archivo › Abrir el modo consola abre la Terminal con `MyWhatsapp --console` (también se puede escribir a mano): la misma app, sin ventana, con todo. Ve los chats y los que esperan respuesta, abre uno y lee sus mensajes (numerados), busca, escribe y envía (también archivos, arrastrándolos a la terminal), reenvía, pide respuestas a la IA, las mejora o corrige, traduce, pregunta al asistente e investiga un mensaje, y lleva tareas, CRM, panel de cifras, etiquetas, ficha, mensajes diarios, modo ocupado, plantillas, estados, varios números, el PIN y las claves. Las órdenes valen en español y en inglés («ayuda» / «help»).

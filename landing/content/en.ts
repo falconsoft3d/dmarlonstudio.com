@@ -101,6 +101,7 @@ export const en: Content = {
       { seed: "pascal_malecon", name: "Under the Shadow of the Malecón (Pascal)", text: "An investigation adventure in Havana in 2026 with 256-colour VGA pixel art, drawn in code with Lazarus." },
       { seed: "pascal_docker", name: "Docker in the Menu Bar (Pascal)", text: "Your Docker containers in a menu bar icon: open their addresses, stop or restart them, with Lazarus." },
       { seed: "pascal_launcher", name: "App Launcher (Pascal)", text: "The apps in its folder in a menu bar icon, with their icons, favorites and search, with Lazarus." },
+      { seed: "pascal_opend", name: "OpenD++ (Pascal)", text: "UI design editor: components, prototypes, CSS and Flutter, PNG and SVG, and AI-made designs in JSON, with Lazarus." },
       { seed: "cpp_webmon", name: "Website Monitor (C++)", text: "Checks every few minutes whether your websites answer, with history, and lives in the menu bar, with FLTK." },
       { seed: "cpp_clocks", name: "World Clocks (C++)", text: "The time in several countries in the menu bar, with their dial and each one's daylight saving time, with FLTK." },
       { seed: "cpp_recorder", name: "Screen Recorder (C++)", text: "Records the screen or a 16:9 area for YouTube, with microphone and clicks, and keeps the videos with their thumbnail." },

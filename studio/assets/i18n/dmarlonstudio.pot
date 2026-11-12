@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Bolsa de valores web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Borrar"
 msgstr ""
 
@@ -505,7 +505,7 @@ msgstr ""
 msgid "Conversor de unidades"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_windows.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_windows.dart
 msgid "Correo"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -641,7 +641,7 @@ msgstr ""
 msgid "Iniciar"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
 msgid "Inicio"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Notas"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr ""
 
@@ -769,7 +769,7 @@ msgstr ""
 msgid "Reiniciado"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_investor.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Reiniciar"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Tareas web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Teléfono"
 msgstr ""
 
@@ -809,7 +809,7 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr ""
 
@@ -849,7 +849,7 @@ msgstr ""
 msgid "Acción no válida: {0}"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_model.dart
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Botón"
 msgstr ""
 
@@ -909,7 +909,7 @@ msgstr ""
 msgid "Icono"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
 msgid "Imagen"
 msgstr ""
 
@@ -929,7 +929,7 @@ msgstr ""
 msgid "Lista"
 msgstr ""
 
-#: lib/code/tk_flutter.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_flutter.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Margen"
 msgstr ""
 
@@ -937,7 +937,7 @@ msgstr ""
 msgid "Progreso"
 msgstr ""
 
-#: lib/code/tk_flutter.dart
+#: lib/code/tk_flutter.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Relleno"
 msgstr ""
 
@@ -993,7 +993,7 @@ msgstr ""
 msgid "Bienvenida"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Bienvenido"
 msgstr ""
 
@@ -1053,7 +1053,7 @@ msgstr ""
 msgid "Confirmar el pago"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr ""
 
@@ -1121,7 +1121,7 @@ msgstr ""
 msgid "En Perfil → Ajustes → Privacidad."
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_sites.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
 msgid "Entrar"
 msgstr ""
 
@@ -1161,7 +1161,7 @@ msgstr ""
 msgid "Escriba un mensaje"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Esta semana"
 msgstr ""
 
@@ -1197,7 +1197,7 @@ msgstr ""
 msgid "Hace 5 minutos"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Hola, Ana"
 msgstr ""
 
@@ -1309,7 +1309,7 @@ msgstr ""
 msgid "Pago confirmado"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Panel"
 msgstr ""
 
@@ -1809,7 +1809,7 @@ msgstr ""
 msgid "Fuente de datos"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Grupo"
 msgstr ""
 
@@ -1897,7 +1897,7 @@ msgstr ""
 msgid "Marcada"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Marco"
 msgstr ""
 
@@ -1989,7 +1989,7 @@ msgstr ""
 msgid "Por defecto"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Posición"
 msgstr ""
 
@@ -2511,7 +2511,7 @@ msgstr ""
 msgid "Abrir un archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Abrir…"
 msgstr ""
 
@@ -2591,11 +2591,11 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
 msgid "Cortar"
 msgstr ""
 
@@ -2611,7 +2611,7 @@ msgstr ""
 msgid "Datos simulados: no son cotizaciones reales."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Deshacer"
 msgstr ""
 
@@ -2627,7 +2627,7 @@ msgstr ""
 msgid "Elija la cita que quiere eliminar."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Eliminar"
 msgstr ""
 
@@ -2671,7 +2671,7 @@ msgstr ""
 msgid "Gráfico de líneas"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardar como…"
 msgstr ""
 
@@ -2727,7 +2727,7 @@ msgstr ""
 msgid "Pausa"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
 msgid "Pegar"
 msgstr ""
 
@@ -2743,7 +2743,7 @@ msgstr ""
 msgid "Puntos: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Rehacer"
 msgstr ""
 
@@ -2759,7 +2759,7 @@ msgstr ""
 msgid "Récord: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Seleccionar todo"
 msgstr ""
 
@@ -2767,7 +2767,7 @@ msgstr ""
 msgid "Sin conexión: tipos aproximados de reserva, no para operaciones reales."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Sin título"
 msgstr ""
 
@@ -2919,7 +2919,7 @@ msgstr ""
 msgid "Reiniciar la vista"
 msgstr ""
 
-#: lib/code/tk_showcase_3d.dart
+#: lib/code/tk_showcase_3d.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Sólido"
 msgstr ""
 
@@ -2999,7 +2999,7 @@ msgstr ""
 msgid "Traducir al inglés"
 msgstr ""
 
-#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_web_domino.dart
+#: lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_web_domino.dart
 msgid "Usted"
 msgstr ""
 
@@ -3392,7 +3392,7 @@ msgstr ""
 msgid "Cuba · La Habana"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr ""
 
@@ -3873,7 +3873,7 @@ msgstr ""
 msgid "Vaciar la cola"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr ""
 
@@ -4079,7 +4079,7 @@ msgstr ""
 msgid "Atributos:"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Atrás"
 msgstr ""
 
@@ -4244,7 +4244,7 @@ msgstr ""
 msgid "Escriba un nombre para el marcador."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Escritorio"
 msgstr ""
 
@@ -4769,7 +4769,7 @@ msgctxt "flight"
 msgid "Destino"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Duración"
 msgstr ""
 
@@ -5924,7 +5924,7 @@ msgstr ""
 msgid "Acerca de Editor de imágenes"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Acercar"
 msgstr ""
 
@@ -5945,7 +5945,7 @@ msgstr ""
 msgid "Ajuste el marco y pulse Intro (o doble clic) para recortar · Esc cancela · C"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Alejar"
 msgstr ""
 
@@ -6055,7 +6055,7 @@ msgstr ""
 msgid "Calidad"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Capa"
 msgstr ""
 
@@ -6079,7 +6079,7 @@ msgstr ""
 msgid "Capa «{0}» en {1}, {2}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Capas"
 msgstr ""
 
@@ -6091,7 +6091,7 @@ msgstr ""
 msgid "Clic: color frontal · Alt+clic: color de fondo · I"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Color"
 msgstr ""
 
@@ -6115,7 +6115,7 @@ msgstr ""
 msgid "Copiado (también en el portapapeles del sistema)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Cuadrícula de píxeles"
 msgstr ""
 
@@ -6127,7 +6127,7 @@ msgstr ""
 msgid "Código (hex.)"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Degradado"
 msgstr ""
 
@@ -6175,7 +6175,7 @@ msgstr ""
 msgid "Eliminar capa"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Elipse"
 msgstr ""
 
@@ -6199,7 +6199,7 @@ msgstr ""
 msgid "Filtro"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Fondo"
 msgstr ""
 
@@ -6255,7 +6255,7 @@ msgstr ""
 msgid "Hallar bordes"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Hay cambios sin guardar. ¿Descartarlos?"
 msgstr ""
 
@@ -6334,7 +6334,7 @@ msgstr ""
 msgid "Mostrar capa"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Mover"
 msgstr ""
 
@@ -6471,7 +6471,7 @@ msgstr ""
 msgid "Radial"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Radio"
 msgstr ""
 
@@ -6484,7 +6484,7 @@ msgstr ""
 msgid "Recortar a la selección"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Rectángulo"
 msgstr ""
 
@@ -6556,7 +6556,7 @@ msgstr ""
 msgid "Tamaño de lienzo…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Tamaño real (100 %)"
 msgstr ""
 
@@ -7799,7 +7799,7 @@ msgstr ""
 msgid "Documento"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Días"
 msgstr ""
 
@@ -8173,7 +8173,7 @@ msgstr ""
 msgid "Gracias"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/theme.dart
 msgid "Gris"
 msgstr ""
 
@@ -8225,7 +8225,7 @@ msgstr ""
 msgid "Horario de atención"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "IA"
 msgstr ""
 
@@ -9852,7 +9852,7 @@ msgstr ""
 msgid "Generador de contraseñas…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_pass.dart
+#: lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Guardado"
 msgstr ""
 
@@ -13645,6 +13645,806 @@ msgstr ""
 msgid "…Aunque, entre tú y yo, al puerto no entra nadie sin pase. Ni yo, sin tres papeles firmados."
 msgstr ""
 
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "AL HACER CLIC"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "ANIMACIÓN"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Abrazar el contenido"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Abrir el ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Abrir un diseño"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Acerca de OpenD++"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Agrupar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ancho automático"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "App móvil"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Arrastre para dibujar un marco o elija un tamaño de dispositivo a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Arrastre para dibujar · Mayús: en ángulos de 45°"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Arrastre para dibujar · Mayús: proporcionado · ⌥: desde el centro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Arrastre para moverse por el lienzo (también con la barra espaciadora)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Atajos del teclado"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Auto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Aún no hay componentes. Elija unas capas y use Objeto › Crear un componente (⌥⌘K)."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "BORRADOR"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Biblioteca"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Bienvenido de nuevo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Bloquear o desbloquear"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Botón principal"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "COLORES DEL DOCUMENTO"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "COMPONENTES"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Centro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Colocar una imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Colocar una imagen…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
+msgid "Comentario"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Comentario resuelto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
+msgid "Comentarios"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Comienzo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Componente"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Componente creado: está en la Biblioteca"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Componente principal: sus instancias lo siguen"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Conectado con «%s»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Consejo: arrastre el círculo + de la capa hasta otro marco para conectarlos."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Copiado"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Copiar como CSS"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Copiar como JSON para la IA"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/code_studio.dart
+msgid "Copiar el código"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Copiar la plantilla JSON para la IA"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Copiar la selección como JSON"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Crear un componente"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Crear un estilo con este color"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+msgid "Código"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Código copiado"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Degradado lineal"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Dentro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Desagrupar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Desarrollo · desde las 09:02"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Deshecho"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Deslizar a la derecha"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Deslizar a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Deslizar hacia arriba"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Discontinuo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseñar con IA (JSON)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
+msgid "Diseño"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseño JSON (*.json)|*.json"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseño automático"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseño importado: %d capas de primer nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseño · desde las 08:41"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Diseños de OpenD++ (*.opend)|*.opend"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Disolver"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Duplicar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "ENTRADA"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Editando los puntos · doble clic en un punto: curva o esquina · Esc termina"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
+msgid "Editar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "El JSON no trae ninguna pantalla"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "El editor (lienzo, herramientas, inspector y capas) lo dibuja el código de Form1.pas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "El equipo hoy"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elegir una imagen…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija antes alguna capa"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija un marco de móvil o de escritorio (F), dibuje formas (R, O, L, P) y escriba (T). Con Mayús+A ponga diseño automático, con ⌥⌘K haga un componente y en Prototipo conecte las pantallas para presentarlas. ¿Prefiere que lo haga una IA? Menú IA › Copiar la plantilla JSON."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija una capa para ver su CSS o su Flutter · pase el ratón sobre otra para medir"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija una capa para ver su código. Pase el ratón por encima de otra para ver las distancias."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija una capa y arrastre el círculo azul hasta la pantalla a la que debe llevar. Después, Presentar."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija una capa y arrastre su círculo hasta otro marco para conectarlos"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Elija una imagen para colocarla"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Empujar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "En la oficina · Madrid"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Encajar la imagen entera"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Enmarcar la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
+msgid "Enviar al fondo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Enviar atrás"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Eres un diseñador de interfaces. Crea el diseño que te pido y responde SOLO con un JSON con esta misma estructura (pages › frames › children), sin explicaciones. Usa medidas en píxeles: móvil 390×844, escritorio 1440×1024. Las coordenadas x e y de cada capa son relativas a su marco. Usa componentes para lo que se repite (botones, tarjetas) e instancias con overrides para cambiar sus textos. Conecta las pantallas con link para el prototipo. Sustituye el ejemplo por tu diseño. Lo que quiero:"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Escribiendo · Esc termina · ⌘A elige todo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Este es un diseño de OpenD++. Cámbialo como te pido y responde SOLO con el JSON con la misma estructura."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Estilos de color"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Estrella"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Exportado: %s"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Exportar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Exportar la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Exportar la selección…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Flecha"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Formas, degradados, trazados y sombras para la nueva marca"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Fuera"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Girado"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Guardar el diseño"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Guardar la plantilla JSON"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Guardar la plantilla JSON…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid ""
+"Herramientas: V mover · H mano · F marco · R rectángulo · O elipse · L línea · Mayús+L flecha · P pluma · T texto · C comentario.\n"
+"\n"
+"Capas: ⌘G agrupar · ⇧⌘G desagrupar · ⌥⌘G enmarcar · Mayús+A diseño automático · ⌥⌘K componente · ⌘D duplicar · ⌘] y ⌘[ orden · ⇧⌘H ocultar · ⇧⌘L bloquear · flechas mover (Mayús: 10).\n"
+"\n"
+"Ver: ⌘+ y ⌘− zoom · Mayús+0 100 % · Mayús+1 todo · Mayús+2 la selección · espacio + arrastrar para moverse · ⌘ + rueda para el zoom.\n"
+"\n"
+"Elegir: clic · Mayús+clic añade · ⌘+clic dentro de grupos · doble clic entra · Intro elige los hijos · Esc el padre · Tab el siguiente · ⌥ medir distancias."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/budget_screen.dart
+msgid "Hoy"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Hueco"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ideas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid ""
+"Imagen PNG (*.png)|*.png\n"
+"Dibujo SVG (*.svg)|*.svg"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Importar un diseño JSON"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Importar un diseño JSON…"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Imágenes (*.png, *.jpg, *.jpeg, *.bmp)|*.png;*.jpg;*.jpeg;*.bmp"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Imán (guías inteligentes)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Iniciar sesión"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Insignia"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Instancia"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Instancia de «%s»"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Instantánea"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Interacción"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ir a"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Jue"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Jueves, 12 de noviembre"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid ""
+"La plantilla JSON para la IA está en el portapapeles.\n"
+"\n"
+"1. Péguela en ChatGPT, Claude u otra IA y añada al final lo que quiere (por ejemplo: «una app de reservas de pádel con 4 pantallas»).\n"
+"2. Copie el JSON que le responda.\n"
+"3. Vuelva aquí y use IA › Pegar un diseño JSON (o ⌘V en el lienzo).\n"
+"\n"
+"OpenD++ crea las páginas, los marcos, los componentes y las conexiones del prototipo."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "La página está vacía. Elija un marco (F) en la columna de herramientas y arrástrelo en el lienzo, o pegue un diseño JSON de la IA."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "La selección está en el portapapeles como JSON para la IA"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Lados"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Logo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Lun"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Línea"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Mano"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Mar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Marcar la salida"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Marque su entrada y su salida en un toque, esté donde esté."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Mié"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Modo código"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Modo diseño"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Modo prototipo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Mostrar u ocultar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/dev_tools.dart
+msgid "Ninguno"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No encuentro un diseño JSON válido. Copie solo la respuesta de la IA (el JSON)."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No es un diseño de OpenD++"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No hay comentarios abiertos. Use la herramienta Comentario (C) y pulse en el lienzo."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No hay ningún marco que presentar en esta página"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No se pudo abrir la imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "No se pudo guardar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Objeto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Onda"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "OpenD++ (Pascal)"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid ""
+"OpenD++ es un editor de diseño de interfaces. A la izquierda están las herramientas y, a su lado, el inspector con las propiedades de lo elegido; a la derecha, las capas, los componentes y los comentarios; arriba, las páginas, el modo (diseño, prototipo o código) y Presentar.\n"
+"\n"
+"Dibuje un marco con un tamaño de dispositivo, añada formas, texto e imágenes, agrúpelas, haga componentes y ponga diseño automático. En Prototipo conecte las pantallas y pulse Presentar para probarlas. En Código verá el CSS y el Flutter de cada capa. Exporte a PNG y SVG.\n"
+"\n"
+"El menú IA copia una plantilla JSON para pedirle un diseño a una IA y luego importarlo aquí."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid ""
+"OpenD++ · una demo de DMarlon Studio hecha en Object Pascal con Lazarus.\n"
+"\n"
+"El menú, el reloj y los diálogos de abrir, guardar e importar se diseñaron en el Diseñador del estudio. Todo lo demás (el lienzo, las herramientas, el inspector y las capas) lo dibuja el código de Form1.pas con su propio rasterizador: suavizado, transparencias, degradados, sombras, texto e imágenes."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "OpenD++: un editor de diseño de interfaces en Pascal con Lazarus, con su propio motor de dibujo, componentes, prototipos y exportar a PNG y SVG."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "PANTALLA INICIAL"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pantalla inicial"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Para empezar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pegar un diseño JSON"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Plantilla JSON copiada"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pluma"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Polígono"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Presentar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Prototipo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse en el lienzo para dejar un comentario"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse en las zonas activas para navegar · pulse fuera para verlas · Esc vuelve al editor"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse para elegir, arrastre para mover · doble clic entra en grupos y textos · ⌘ elige lo de dentro · ⌥ mide distancias"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse para escribir (ancho automático) o arrastre para una caja de texto"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse para poner puntos, arrastre para curvas · pulse el primero para cerrar · Intro termina"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Pulse un componente para poner una instancia: si cambia el principal, cambian todas."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Puntas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_inspector.dart
+msgid "Página"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/diagrams.dart
+msgid "Quitar la conexión"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Recortar el contenido"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Redes y presentaciones"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Reglas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Rehecho"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Resolver"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Separar"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Separar la instancia"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Siga poniendo puntos · Intro o Esc terminan · el primer punto cierra la forma"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Sin estilos todavía. Cree uno con + o desde el relleno de una capa."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Sol"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Sombra"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Tableta"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Tarde"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Tema claro u oscuro"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Tinta"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Traer adelante"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/tk_designer.dart
+msgid "Traer al frente"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Trazado"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Trazo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Un editor de diseño de interfaces en Object Pascal con Lazarus: marcos de móvil y escritorio, formas, pluma, texto e imágenes, capas, componentes con instancias, diseño automático, guías inteligentes, prototipos que se presentan, el código CSS y Flutter de cada capa y exportar a PNG y SVG, con las herramientas en otro sitio."
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ventas · llega 10 min tarde"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ver la selección"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Ver todo"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Verde marca"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Vie"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "Volver al editor"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "capas"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "¿No tiene cuenta? Pídala a su empresa"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "¿Olvidó su contraseña?"
+msgstr ""
+
+#: lib/code/tk_showcase_pascal_opend.dart
+msgid "¿Probamos el botón con más contraste?"
+msgstr ""
+
 #: lib/code/tk_showcase_reports.dart
 msgid "Exportar a Excel…"
 msgstr ""
@@ -13868,15 +14668,7 @@ msgid "Cambiar"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
-msgid "Comentario"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
 msgid "Comentario eliminado."
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Comentarios"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -13961,10 +14753,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Devolución fácil"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart lib/ui/screens/dev_tools.dart
-msgid "Editar"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -14546,10 +15334,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Comprimidos"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
-msgid "Código"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
@@ -16481,10 +17265,6 @@ msgid "Añadir un sello de texto…"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "BORRADOR"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Carta"
 msgstr ""
 
@@ -16514,10 +17294,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Documentos PDF"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Duplicar"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -17359,10 +18135,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Los horarios no tienen servicio hoy en {0}."
-msgstr ""
-
-#: lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Línea"
 msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart
@@ -18355,10 +19127,6 @@ msgstr ""
 msgid "Herramienta"
 msgstr ""
 
-#: lib/ui/screens/budget_screen.dart
-msgid "Hoy"
-msgstr ""
-
 #: lib/ui/screens/budget_screen.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Llamadas"
 msgstr ""
@@ -19011,10 +19779,6 @@ msgstr ""
 msgid "Contraer todo"
 msgstr ""
 
-#: lib/ui/screens/code_studio.dart
-msgid "Copiar el código"
-msgstr ""
-
 #: lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
 msgid "Copiar la salida"
 msgstr ""
@@ -19264,10 +20028,6 @@ msgid "Modificar datos"
 msgstr ""
 
 #: lib/ui/screens/dev_tools.dart
-msgid "Ninguno"
-msgstr ""
-
-#: lib/ui/screens/dev_tools.dart
 msgid "Nueva conexión"
 msgstr ""
 
@@ -19503,10 +20263,6 @@ msgstr ""
 
 #: lib/ui/screens/diagrams.dart
 msgid "Pulse → junto a la figura para conectarla con otra."
-msgstr ""
-
-#: lib/ui/screens/diagrams.dart
-msgid "Quitar la conexión"
 msgstr ""
 
 #: lib/ui/screens/diagrams.dart
@@ -20176,10 +20932,6 @@ msgid "Diseñe ventanas de escritorio con tkinter arrastrando componentes, como 
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
-msgid "Diseño"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
 msgid "Ejecutar (F9)"
 msgstr ""
 
@@ -20225,10 +20977,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Entrar (F7)"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Enviar al fondo"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -20505,10 +21253,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
 msgid "Tk {0} es antiguo y no respeta los colores del diseño. {1}"
-msgstr ""
-
-#: lib/ui/screens/tk_designer.dart
-msgid "Traer al frente"
 msgstr ""
 
 #: lib/ui/screens/tk_designer.dart
@@ -20917,10 +21661,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart
 msgid "No escriba tokens ni contraseñas aquí: guárdelos como variables en el módulo API (Variables) y ponga su nombre en «Variable con el token o la clave». En la URL y las cabeceras, {{nombre}} usa esas variables al ejecutar."
-msgstr ""
-
-#: lib/ui/screens/tk_inspector.dart
-msgid "Página"
 msgstr ""
 
 #: lib/ui/screens/tk_inspector.dart

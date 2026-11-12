@@ -211,6 +211,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Favoritas y recientes", text: "La estrella de cada app en el panel la pone entre las favoritas, que van arriba del menú junto a las seis últimas que abrió. Si copia o borra una app de la carpeta, la lista se pone al día sola." },
     ],
   },
+  pascal_opend: {
+    intro:
+      "Un editor de diseño de interfaces hecho en Object Pascal con Lazarus y diseñado en el estudio, con las herramientas en otro sitio: a la izquierda, una columna de herramientas y el inspector; a la derecha, las capas, la biblioteca y los comentarios; arriba, las páginas, el modo y Presentar. Abre con un diseño de ejemplo.",
+    steps: [
+      { title: "Diseñe con formas, texto y color", text: "Elija un marco con tamaño de móvil, tableta o escritorio (F) y dibuje rectángulos, elipses, polígonos, estrellas, líneas o trazados con la pluma; escriba con T. El inspector cambia la posición, el tamaño, el giro, las esquinas, el relleno (color, degradado o imagen), el trazo y la sombra, con su selector de color y los estilos del documento. Agrupe (⌘G), haga componentes (⌥⌘K) y ponga diseño automático (Mayús+A)." },
+      { title: "Conecte las pantallas y preséntelas", text: "En el modo Prototipo, elija una capa y arrastre su círculo hasta otra pantalla: la flecha queda dibujada y en el inspector elige la animación (disolver, deslizar, empujar). Presentar abre la pantalla inicial a pantalla completa y cada clic en una zona activa lleva a la siguiente." },
+      { title: "Del diseño al código (o de la IA al diseño)", text: "El modo Código enseña el CSS y el Flutter de la capa elegida y las distancias a la que tenga debajo del ratón. Exporte a PNG o SVG. Y el menú IA copia una plantilla JSON: péguela en una IA con lo que quiere y pegue su respuesta en OpenD++ para tener el diseño con sus pantallas, componentes y enlaces." },
+    ],
+  },
   cpp_webmon: {
     intro:
       "Un monitor de sitios web nativo en C++ con FLTK, diseñado en el estudio: comprueba cada pocos minutos si sus webs contestan y le enseña su estado, su tiempo de respuesta y su historial, desde la ventana o desde la barra de menús.",
@@ -550,6 +559,15 @@ const en: Record<string, DemoGuide> = {
       { title: "The apps in its folder, in the bar", text: "When it opens, an icon appears in the menu bar (not in the Dock). Its menu is short: favorites and recent apps at the top, and every app in its folder in the “All apps” submenu, each with its icon and the name the Finder shows; one click opens it." },
       { title: "Search from the keyboard", text: "“Search…” opens the panel: type part of the name, accents and case don't matter. Apps with a word starting that way come first; the arrow keys choose and Enter opens." },
       { title: "Favorites and recent", text: "The star on each app in the panel makes it a favorite; favorites go at the top of the menu with the last six you opened. If you copy or delete an app in the folder, the list updates itself." },
+    ],
+  },
+  pascal_opend: {
+    intro:
+      "A UI design editor made in Object Pascal with Lazarus and designed in the studio, with the tools somewhere else: on the left, a tool column and the inspector; on the right, the layers, the library and the comments; at the top, the pages, the mode and Present. It opens with a sample design.",
+    steps: [
+      { title: "Design with shapes, text and color", text: "Pick a frame with a phone, tablet or desktop size (F) and draw rectangles, ellipses, polygons, stars, lines or paths with the pen; type with T. The inspector changes position, size, rotation, corners, fill (color, gradient or image), stroke and shadow, with its color picker and the document's styles. Group (⌘G), make components (⌥⌘K) and add auto layout (Shift+A)." },
+      { title: "Connect the screens and present them", text: "In Prototype mode, select a layer and drag its circle to another screen: the arrow is drawn and in the inspector you choose the animation (dissolve, slide, push). Present opens the starting screen full window and each click on a hotspot takes you to the next one." },
+      { title: "From design to code (or from AI to design)", text: "Code mode shows the CSS and Flutter of the selected layer and the distances to the one under the mouse. Export to PNG or SVG. And the AI menu copies a JSON template: paste it into an AI with what you want and paste its answer into OpenD++ to get the design with its screens, components and links." },
     ],
   },
   cpp_webmon: {

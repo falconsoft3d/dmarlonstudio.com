@@ -155,6 +155,89 @@ begin
     Act('open'#9 + L[0].Path);
 end;`;
 
+// ---- OpenD++ (Pascal): fragmentos de Form1.pas
+const opendRaster = `{ Acumula el área con signo de un tramo (como font-rs): al sumar cada fila
+  sale la cobertura exacta de cada píxel, con la regla de no-cero. }
+procedure AccLine(var C: TCov; X0, Y0, X1, Y1: Double);
+// …
+  while y < yEnd do
+  begin
+    ls := y * C.Stride;
+    dy := Min(y + 1, Y1) - Max(y, Y0);
+    xnext := x + dxdy * dy;
+    d := dy * dir;
+    // … el tramo reparte su área entre los píxeles que cruza
+  end;
+
+{ Pinta la cobertura con la pintura Src: color, degradado, imagen o texto. }
+procedure Composite(const C: TCov; const Src: TPaintSrc; Alpha: Double; DX: Integer = 0; DY: Integer = 0);
+// …
+      case Src.Kind of
+        pkLinear: col := Mix(Src.C1, Src.C2, t);
+        pkImage: col := SampleImg(Src.Img, q.X, q.Y, Src.Clamp);
+        pkMask: cov := cov * SampleMask(Src.Mask, q.X, q.Y);
+      end;
+      BlendPx(Surf.P[py * Surf.W + px], col, cov * Alpha);`;
+
+const opendDraw = `procedure DrawNodeAt(N: TNode; const PM: TMat; Op: Double; Ov: TStringList);
+begin
+  if not N.Visible then Exit;
+  a := Op * N.Opacity;
+  if N.Kind = kGroup then
+  begin
+    for i := 0 to N.Count - 1 do DrawNodeAt(N.Kid(i), PM, a, Ov);
+    Exit;
+  end;
+  M := MatMul(PM, LocalMat(N));       // posición y giro de la capa
+  if N.Kind = kInstance then
+  begin
+    DrawInstance(N, M, a);            // dibuja los hijos del componente
+    Exit;
+  end;
+  P := XfPoly(Outline(N, MatScale(M)), M);
+  if N.ShOn then ShadowPolys(PP, WithA(N.ShColor, a), N.ShX * sc, N.ShY * sc, N.ShBlur * sc);
+  if N.Kind = kText then DrawTextNode(N, M, a, Ov)
+  else if N.Fill.Vis then FillPolys(PP, PaintOf(N.Fill, M, N.W, N.H), a);
+  if N.Clip then Surf.Clip := ClipRectOf(PP);   // un marco recorta lo de dentro
+  for i := 0 to N.Count - 1 do DrawNodeAt(N.Kid(i), M, a, Ov);
+  StrokeNode(N, N, P, M, a);
+end;`;
+
+const opendLayout = `{ Coloca los hijos de un marco con diseño automático. }
+procedure Relayout(F: TNode);
+begin
+  pos := F.Pad;
+  for i := 0 to F.Count - 1 do
+  begin
+    k := F.Kid(i);
+    if F.Layout = 1 then
+    begin
+      MoveNode(k, pos - k.X, 0);
+      pos := pos + k.W + F.Gap;
+      cross := Max(cross, k.H);
+    end
+    else
+    begin
+      MoveNode(k, 0, pos - k.Y);
+      pos := pos + k.H + F.Gap;
+      cross := Max(cross, k.W);
+    end;
+  end;
+  if F.Hug then
+    if F.Layout = 1 then F.W := pos - F.Gap + F.Pad else F.H := pos - F.Gap + F.Pad;
+end;`;
+
+const opendJson = `{ Lee un diseño en JSON (el de la plantilla, aunque venga con texto alrededor). }
+function ImportJson(const Txt: string; out Msg: string): Boolean;
+// …
+  a := Pos('{', s);                     // quita lo que la IA escribe alrededor
+  while (b > a) and not (s[b] in ['}', ']']) do Dec(b);
+  data := GetJSON(Copy(s, a, b - a + 1));
+  // … cada página, sus marcos y sus capas
+  JNode(TJSONObject(arr[j]), pg.Root, 0, 0);
+  ResolvePending;   // enlaces del prototipo e instancias, por nombre
+  NormalizeAll;     // textos, grupos y diseño automático`;
+
 // ---- Monitor de sitios web (C++): fragmentos de Form1.cpp
 const webmonCurl = `std::string curl_config(const std::string& url) {
   std::string c = "url = " + curl_quote(url) + "\\n";
@@ -909,6 +992,65 @@ const es: Record<string, DemoMade> = {
       },
     ],
   },
+  pascal_opend: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino Pascal (Lazarus): el Diseñador pone la ventana con su menú, el reloj y los diálogos de abrir, guardar, colocar imágenes y exportar; todo lo demás (el lienzo, la columna de herramientas, el inspector, las capas y la presentación) lo dibuja el código de Form1.pas con un rasterizador propio, igual en macOS que en Windows.",
+    tech: {
+      language: "Object Pascal (Free Pascal 3.2)",
+      target: "Escritorio con Lazarus (LCL): destino Pascal del estudio, compilado con lazbuild para macOS (Cocoa) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La ventana del editor (1360 × 840, se puede agrandar)." },
+        { name: "Menu1", kind: "Menu", text: "Archivo, Editar, Objeto, Ver, IA y Ayuda; los atajos (⌘Z, ⌘G, ⌥⌘K…) se ponen desde el código." },
+        { name: "Tick", kind: "Timer", text: "Cada 33 ms: el cursor del texto y las animaciones del prototipo (sin nada que mover, no dibuja)." },
+        { name: "DlgOpen / DlgSave", kind: "OpenDialog / SaveDialog", text: "Abrir y guardar diseños .opend." },
+        { name: "DlgImage", kind: "OpenDialog", text: "Colocar una imagen (PNG, JPG o BMP) o ponerla de relleno." },
+        { name: "DlgExport", kind: "SaveDialog", text: "Exportar la selección a PNG (1x a 4x) o SVG." },
+        { name: "DlgJson / DlgJsonSave", kind: "OpenDialog / SaveDialog", text: "Importar el diseño JSON de la IA y guardar la plantilla." },
+        { name: "Stage", kind: "Frame", text: "Donde el código pone un TPaintBox con todo el editor." },
+        { name: "StageHint", kind: "Label", text: "Solo se ve en el Diseñador." },
+      ],
+      apis: [
+        "Un rasterizador propio en Pascal: cobertura exacta por píxel (suavizado), transparencias, degradados, imágenes, sombras con desenfoque y trazos dentro, centrados o fuera",
+        "TBitmap y TLazIntfImage (LCL): el texto se dibuja una vez como máscara y se guarda; el resultado se copia a la ventana a la escala de la pantalla Retina",
+        "fpjson y jsonparser (FCL): la plantilla JSON para la IA, importar sus diseños y exportar la selección",
+        "TFPWriterPNG y base64 (FCL): exportar a PNG con transparencia y a SVG con las imágenes dentro",
+        "Clipbrd (LCL): copiar y pegar capas, código CSS o Flutter y JSON",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino Pascal (Lazarus): un Menu con sus seis menús, un Timer, seis diálogos y un Frame que ocupa la ventana. Los textos del menú y de la app se traducen con el resto del ejemplo: en inglés sale la misma app en inglés.",
+        shot: "design",
+      },
+      {
+        title: "2. La clase que genera el estudio",
+        text: "design.pas trae Menu1, Tick, los diálogos y Stage, y los métodos virtuales Menu1_click y Tick_timer; Form1.pas los sobrescribe y crea dentro de Stage un TPaintBox donde se dibuja todo.",
+        shot: "generated",
+      },
+      {
+        title: "3. Un rasterizador propio",
+        text: "La LCL no tiene transparencias ni suavizado en todas partes, así que OpenD++ pinta en su propia memoria: cada forma se convierte en polígonos, se calcula cuánto cubre cada píxel (el mismo método que usan las fuentes) y se mezcla con su color, degradado, imagen o la máscara de un texto. Así sale igual en macOS y Windows, y la misma función exporta a PNG.",
+        shot: "code",
+        code: { file: "Form1.pas", text: opendRaster },
+      },
+      {
+        title: "4. Las capas: marcos, grupos y componentes",
+        text: "El documento es un árbol de capas con sus coordenadas respecto a su marco. Cada capa se dibuja con su matriz (posición y giro), su sombra, su relleno y su trazo; los marcos recortan lo de dentro y una instancia dibuja los hijos de su componente, con los textos que se cambiaron en ella.",
+        code: { file: "Form1.pas", text: opendDraw },
+      },
+      {
+        title: "5. Diseño automático y guías inteligentes",
+        text: "Un marco con diseño automático coloca a sus hijos en fila o en columna, con su hueco y su margen, y puede abrazar el contenido. Al mover, las guías inteligentes alinean bordes y centros con las capas vecinas y enseñan la distancia al marco; deshacer guarda el documento antes de cada cambio.",
+        code: { file: "Form1.pas", text: opendLayout },
+      },
+      {
+        title: "6. Diseños hechos por una IA",
+        text: "El menú IA copia una plantilla JSON con las instrucciones, el formato y un ejemplo (páginas, marcos, componentes, instancias, diseño automático y enlaces del prototipo). Se pega en ChatGPT, Claude u otra IA con lo que se quiere, y su respuesta se pega en OpenD++ (o con ⌘V en el lienzo). Las pruebas internas (DMS_OPEND_SELFTEST=1) importan la plantilla y comprueban el rasterizador, guardar y abrir, deshacer, agrupar, las instancias, el CSS y la presentación; las capturas de esta página las dibuja la propia app (DMS_OPEND_SHOT).",
+        code: { file: "Form1.pas", text: opendJson },
+      },
+    ],
+  },
   cpp_webmon: {
     intro:
       "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con sus campos, el intervalo, los botones, la barra de estado y el reloj; el código de Form1.cpp comprueba los sitios con curl, dibuja la lista con su historial y pone el icono en la barra de menús de macOS.",
@@ -1457,6 +1599,65 @@ const en: Record<string, DemoMade> = {
         title: "6. Search and keyboard",
         text: "As you type, apps with a word starting that way come first (“co” → Console, Currency converter) and then those that only contain it. The arrow keys choose and Enter opens. Its own tests (DMS_LAUNCHER_SELFTEST=1) create fake apps and check search, favorites, the menu with 16-point icons and the panel.",
         code: { file: "Form1.pas", text: launcherSearch },
+      },
+    ],
+  },
+  pascal_opend: {
+    intro:
+      "It was made in DMarlon Studio with the Pascal (Lazarus) target: the Designer provides the window with its menu, the timer and the dialogs to open, save, place images and export; everything else (the canvas, the tool column, the inspector, the layers and the presentation) is drawn by the code in Form1.pas with its own rasterizer, the same on macOS and Windows.",
+    tech: {
+      language: "Object Pascal (Free Pascal 3.2)",
+      target: "Desktop with Lazarus (LCL): the studio's Pascal target, built with lazbuild for macOS (Cocoa) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The editor window (1360 × 840, resizable)." },
+        { name: "Menu1", kind: "Menu", text: "File, Edit, Object, View, AI and Help; the shortcuts (⌘Z, ⌘G, ⌥⌘K…) are set from the code." },
+        { name: "Tick", kind: "Timer", text: "Every 33 ms: the text caret and the prototype animations (with nothing to move, it does not draw)." },
+        { name: "DlgOpen / DlgSave", kind: "OpenDialog / SaveDialog", text: "Open and save .opend designs." },
+        { name: "DlgImage", kind: "OpenDialog", text: "Place an image (PNG, JPG or BMP) or use it as a fill." },
+        { name: "DlgExport", kind: "SaveDialog", text: "Export the selection to PNG (1x to 4x) or SVG." },
+        { name: "DlgJson / DlgJsonSave", kind: "OpenDialog / SaveDialog", text: "Import the AI's JSON design and save the template." },
+        { name: "Stage", kind: "Frame", text: "Where the code places a TPaintBox with the whole editor." },
+        { name: "StageHint", kind: "Label", text: "Only visible in the Designer." },
+      ],
+      apis: [
+        "Its own rasterizer in Pascal: exact per-pixel coverage (antialiasing), transparency, gradients, images, blurred shadows and inside, center or outside strokes",
+        "TBitmap and TLazIntfImage (LCL): text is drawn once as a mask and cached; the result is copied to the window at the Retina screen scale",
+        "fpjson and jsonparser (FCL): the JSON template for the AI, importing its designs and exporting the selection",
+        "TFPWriterPNG and base64 (FCL): export to PNG with transparency and to SVG with the images embedded",
+        "Clipbrd (LCL): copy and paste layers, CSS or Flutter code and JSON",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the Pascal (Lazarus) target: a Menu with its six menus, a Timer, six dialogs and a Frame filling the window. The menu and app texts are translated with the rest of the example: in English you get the same app in English.",
+        shot: "design",
+      },
+      {
+        title: "2. The class the studio generates",
+        text: "design.pas has Menu1, Tick, the dialogs and Stage, and the virtual methods Menu1_click and Tick_timer; Form1.pas overrides them and creates a TPaintBox inside Stage where everything is drawn.",
+        shot: "generated",
+      },
+      {
+        title: "3. Its own rasterizer",
+        text: "The LCL does not have transparency and antialiasing everywhere, so OpenD++ paints in its own memory: each shape becomes polygons, it works out how much of each pixel they cover (the same method fonts use) and blends it with its color, gradient, image or a text mask. So it looks the same on macOS and Windows, and the same function exports to PNG.",
+        shot: "code",
+        code: { file: "Form1.pas", text: opendRaster },
+      },
+      {
+        title: "4. The layers: frames, groups and components",
+        text: "The document is a tree of layers with coordinates relative to their frame. Each layer is drawn with its matrix (position and rotation), its shadow, its fill and its stroke; frames clip what is inside and an instance draws its component's children, with the texts changed in it.",
+        code: { file: "Form1.pas", text: opendDraw },
+      },
+      {
+        title: "5. Auto layout and smart guides",
+        text: "A frame with auto layout places its children in a row or column, with gap and padding, and can hug its contents. When moving, the smart guides align edges and centers with neighbouring layers and show the distance to the frame; undo saves the document before each change.",
+        code: { file: "Form1.pas", text: opendLayout },
+      },
+      {
+        title: "6. Designs made by an AI",
+        text: "The AI menu copies a JSON template with the instructions, the format and an example (pages, frames, components, instances, auto layout and prototype links). Paste it into ChatGPT, Claude or another AI with what you want, and paste its answer back into OpenD++ (or with ⌘V on the canvas). The built-in tests (DMS_OPEND_SELFTEST=1) import the template and check the rasterizer, saving and opening, undo, grouping, instances, CSS and the presentation; the screenshots on this page are drawn by the app itself (DMS_OPEND_SHOT).",
+        code: { file: "Form1.pas", text: opendJson },
       },
     ],
   },

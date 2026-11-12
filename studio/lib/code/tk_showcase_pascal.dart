@@ -10,6 +10,7 @@ List<TkExample> tkPascalExamples(String Function(String) t) => [
   tkPascalMalecon(t),
   tkPascalDocker(t),
   tkPascalLauncher(t),
+  tkPascalOpenD(t),
 ];
 
 TkExample _pascalCalculator(String Function(String) t) {

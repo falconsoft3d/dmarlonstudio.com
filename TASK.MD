@@ -116,6 +116,7 @@ Hechos
 124. MiniLang: que el curso de inglés enseñe como mínimo 10.000 palabras | ✅ |
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ✅ |
 125. MyWhatsapp: modo consola (`--console`) para hacerlo todo desde la terminal | ✅ |
+137. OpenD++ (Pascal): editor de diseño inspirado en Figma con las mismas funciones y otra posición de las herramientas, con modo claro y oscuro, español e inglés, y un menú IA con una plantilla JSON para que la IA haga el diseño y luego importarlo | ✅ |
 
 Trabajando
 =========

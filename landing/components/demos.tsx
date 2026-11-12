@@ -284,6 +284,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un icono en la barra de menús con las aplicaciones de la carpeta donde lo deja (por ejemplo, junto a estas demos), cada una con su icono: las favoritas y las recientes arriba, y un panel con buscador para abrirlas con el teclado. En macOS, para Apple Silicon.",
         shows: ["Object Pascal con Lazarus: TTrayIcon y un menú con el icono de cada app", "Los iconos y los nombres los da el sistema (NSWorkspace), como en el Finder", "Búsqueda sin acentos, favoritas con estrella y recientes guardadas"],
       },
+      pascal_opend: {
+        name: "OpenD++ (Pascal)",
+        text: "Un editor de diseño de interfaces al estilo de las herramientas de diseño colaborativo, pero con otra distribución: las herramientas en una columna a la izquierda, el inspector a su lado y las capas, la biblioteca y los comentarios a la derecha. Marcos con tamaños de móvil, tableta y escritorio, formas, pluma con curvas, texto, imágenes, grupos, componentes con instancias, diseño automático, guías inteligentes, estilos de color, prototipos que se presentan, el CSS y el Flutter de cada capa, exportar a PNG y SVG, tema claro y oscuro, y un menú IA con una plantilla JSON para que una IA le haga el diseño y luego importarlo. En macOS, para Apple Silicon.",
+        shows: ["Object Pascal con Lazarus, diseñada en el estudio", "Su propio rasterizador: suavizado, transparencias, degradados, sombras e imágenes", "Diseño, prototipo y código; exportar a PNG, SVG y JSON para la IA"],
+      },
       cpp_webmon: {
         name: "Monitor de sitios web (C++)",
         text: "Añada las direcciones de sus webs y el monitor comprueba cada 2 minutos (o el intervalo que elija) si contestan: el código, el tiempo de respuesta, la disponibilidad y un historial en barras. Cierre la ventana y sigue en la barra de menús, con un menú para abrir, comprobar o pausar cada sitio; si uno se cae, macOS le avisa. Y un escáner de puertos de cada servidor, que marca los que no conviene abrir a internet. En macOS, para Apple Silicon.",
@@ -551,6 +556,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A menu bar icon with the apps in the folder where you put it (for example, next to these demos), each with its icon: favorites and recent ones at the top, and a panel with a search box to open them from the keyboard. On macOS, for Apple Silicon.",
         shows: ["Object Pascal with Lazarus: TTrayIcon and a menu with each app's icon", "The icons and names come from the system (NSWorkspace), as in the Finder", "Accent-insensitive search, starred favorites and saved recent apps"],
       },
+      pascal_opend: {
+        name: "OpenD++ (Pascal)",
+        text: "A UI design editor in the style of collaborative design tools, but with a different layout: the tools in a column on the left, the inspector next to them and the layers, library and comments on the right. Phone, tablet and desktop frames, shapes, a pen with curves, text, images, groups, components with instances, auto layout, smart guides, color styles, prototypes you can present, the CSS and Flutter of each layer, PNG and SVG export, light and dark theme, and an AI menu with a JSON template so an AI can make the design for you and you import it. On macOS, for Apple Silicon.",
+        shows: ["Object Pascal with Lazarus, designed in the studio", "Its own rasterizer: antialiasing, transparency, gradients, shadows and images", "Design, prototype and code; export to PNG, SVG and JSON for the AI"],
+      },
       cpp_webmon: {
         name: "Website Monitor (C++)",
         text: "Add your websites and the monitor checks every 2 minutes (or the interval you choose) whether they answer: the status code, response time, uptime and a bar history. Close the window and it stays in the menu bar, with a menu to open, check or pause each site; if one goes down, macOS lets you know. Plus a port scanner for each server, which flags the ones that should not be open to the internet. On macOS, for Apple Silicon.",
@@ -662,6 +672,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_malecon: { icon: "lazarus", label: "Pascal · Lazarus" },
   pascal_docker: { icon: "lazarus", label: "Pascal · Lazarus" },
   pascal_launcher: { icon: "lazarus", label: "Pascal · Lazarus" },
+  pascal_opend: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_webmon: { icon: "cpp", label: "C++ · FLTK" },
   cpp_clocks: { icon: "cpp", label: "C++ · FLTK" },
   cpp_recorder: { icon: "cpp", label: "C++ · FLTK" },

@@ -1,6 +1,8 @@
 import { Blocks, Code2, Package } from "lucide-react";
 import { DemoDownloads } from "@/components/demo-downloads";
 import { DemoFilter } from "@/components/demo-filter";
+import { DemoPreview, type PreviewLabels } from "@/components/demo-preview";
+import { GUIDES } from "@/content/demo-guides";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TechChip } from "@/components/tech-chip";
@@ -691,6 +693,28 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   next_flights: { icon: "next", label: "Next.js · API" },
 };
 
+/** Los títulos de los tres pasos de la guía de una demo (los pies de sus capturas). */
+const stepsOf = (lang: Lang, seed: string) => GUIDES[lang][seed]?.steps.map((s) => s.title) ?? [];
+
+const PREVIEW: Record<Lang, PreviewLabels> = {
+  es: {
+    prev: "Demo anterior",
+    next: "Demo siguiente",
+    close: "Cerrar",
+    open: "Ver cómo funciona",
+    demo: "La demo",
+    hint: "← → para pasar de demo · ↑ ↓ para las capturas · Esc para cerrar",
+  },
+  en: {
+    prev: "Previous demo",
+    next: "Next demo",
+    close: "Close",
+    open: "See how it works",
+    demo: "The demo",
+    hint: "← → to switch demos · ↑ ↓ for the screenshots · Esc to close",
+  },
+};
+
 /** Una sección de demos (escritorio, móvil o web) con su rejilla de tarjetas. */
 function DemoSection({
   id,
@@ -727,12 +751,14 @@ function DemoCard({
   tech,
   d,
   shows,
+  steps,
   children,
 }: {
   id: string;
   href: string;
   how: string;
   image: string;
+  steps: string[];
   icon: TargetIcon;
   tech: string;
   d: DemoText;
@@ -741,7 +767,15 @@ function DemoCard({
 }) {
   return (
     <li id={id} data-demo-lang={icon} className="flex scroll-mt-28 flex-col overflow-hidden rounded-xl border border-line bg-canvas shadow-sm">
-      <a href={href} className="group relative block aspect-[16/10] overflow-hidden border-b border-line bg-ide-panel">
+      <a
+        href={href}
+        data-preview={image.replace(/\.jpg$/, "")}
+        data-preview-title={d.name}
+        data-preview-text={d.text}
+        data-preview-tech={tech}
+        data-preview-steps={JSON.stringify(steps)}
+        className="group relative block aspect-[16/10] cursor-zoom-in overflow-hidden border-b border-line bg-ide-panel"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}
@@ -831,6 +865,7 @@ export function Demos({ lang }: { lang: Lang }) {
               href={demoPath(lang, seed)}
               how={x.how2}
               image={demoImage(seed, lang)}
+              steps={stepsOf(lang, seed)}
               icon={DESKTOP_TECH[seed]?.icon ?? "python"}
               tech={DESKTOP_TECH[seed]?.label ?? x.tech}
               d={x.items[seed]}
@@ -845,7 +880,7 @@ export function Demos({ lang }: { lang: Lang }) {
           {MOBILE_SEEDS.map((seed) => {
             const d = x.mobileItems[seed];
             return (
-              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} icon="flutter" tech="Flutter" d={d} shows={x.shows}>
+              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} steps={stepsOf(lang, seed)} icon="flutter" tech="Flutter" d={d} shows={x.shows}>
                 <div className="mt-5 grid grid-cols-2 gap-2">
                   <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryPhone} close={x.close} newTab={x.newTab} phone />
                   <a
@@ -866,7 +901,7 @@ export function Demos({ lang }: { lang: Lang }) {
             const d = x.webItems[seed];
             const tech = WEB_TECH[seed];
             return (
-              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} icon={tech.icon} tech={tech.label} d={d} shows={x.shows}>
+              <DemoCard key={seed} id={seed} href={demoPath(lang, seed)} how={x.how2} image={demoImage(seed, lang)} steps={stepsOf(lang, seed)} icon={tech.icon} tech={tech.label} d={d} shows={x.shows}>
                 <div className="mt-5 grid">
                   <LiveDemo url={liveUrl(seed, lang)} title={d.name} label={x.tryWeb} close={x.close} newTab={x.newTab} phone={false} />
                 </div>
@@ -899,6 +934,7 @@ export function Demos({ lang }: { lang: Lang }) {
           </div>
         </section>
       </main>
+      <DemoPreview labels={PREVIEW[lang]} />
       <SiteFooter lang={lang} t={t} />
     </>
   );

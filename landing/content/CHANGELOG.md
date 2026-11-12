@@ -3,6 +3,11 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.136 — 2026-11-12
+
+- Web, página de demos: al pulsar la captura de una demo se abre una **vista previa** a pantalla completa con sus cuatro capturas (la demo y los tres pasos de su guía, con su título), su descripción y el enlace a su página. Con las flechas (o ← → del teclado, o deslizando en el móvil) se pasa a la demo anterior o a la siguiente; ↑ ↓ cambian de captura y Esc la cierra. Respeta el filtro por lenguaje y ⌘/Ctrl + clic sigue abriendo la página de la demo.
+- La dirección lleva la demo que se está viendo (`/demos?ver=pascal_opend`), para compartirla.
+
 ## 1.0.135 — 2026-11-12
 
 - Nueva demo: **OpenD++ (Pascal)**, un editor de diseño de interfaces en Object Pascal con Lazarus, inspirado en las herramientas de diseño colaborativo pero con otra distribución: las herramientas en una columna a la izquierda, el inspector a su lado, las capas, la biblioteca y los comentarios a la derecha, y las páginas como pestañas arriba, con reglas y barra de estado.

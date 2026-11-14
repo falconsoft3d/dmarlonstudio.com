@@ -3,6 +3,14 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.145 — 2026-11-14
+
+- Nueva demo web: **PSIQUE**, los **20 tests de personalidad** más usados en una sola página, con preguntas propias (226) inspiradas en los modelos de psicología más conocidos:
+  - Los cinco grandes (OCEAN), el tipo de personalidad de 4 letras (con nombres propios para los 16 tipos), el eneagrama con su ala, el estilo DISC, la autoestima, la inteligencia emocional, el estilo de apego, los lenguajes del amor, la satisfacción con la vida, el estrés percibido, el optimismo, la perseverancia (grit), la mentalidad de crecimiento, la empatía, la resiliencia, el estilo de aprendizaje, las inteligencias múltiples, los intereses vocacionales (RIASEC), la tríada oscura y la asertividad.
+  - Una pregunta cada vez (ratón, dedo o teclas 1 a 5), con ítems directos e inversos, y el resultado de cada test explicado con barras por dimensión.
+  - **Su perfil**: un resumen en pocas palabras, sus claves, el radar de los cinco grandes, el bienestar y una **tarjeta para compartir** en PNG (descargar, compartir o copiar el texto).
+  - Orientativo, no es un diagnóstico; las respuestas se guardan solo en el navegador. En español y en inglés, y adaptada al móvil.
+
 ## 1.0.144 — 2026-11-14
 
 - Nueva demo: **Visor BC3 (C++)**, un visor nativo con FLTK de presupuestos de obra en el formato de intercambio **FIEBDC-3 (.bc3)** que exportan Presto, Arquímedes y casi todos los programas de mediciones:

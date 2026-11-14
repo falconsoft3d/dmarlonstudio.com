@@ -126,6 +126,7 @@ Hechos
 141. 20pdf: suite con las 20 herramientas de PDF (Word, Excel y PowerPoint a y desde PDF, PDF a imagen, editar, marcas de agua, numerar, rotar, anotar, unir, dividir, organizar, extraer, proteger, desbloquear, firmar, censurar, comprimir y OCR) | ✅ |
 145. Juego web RUTA PELIGROSA para conductores de cargas peligrosas de Argentina: 10 misiones, 100 pruebas con su ley y diploma para compartir | ✅ |
 146. Visor BC3 (FIEBDC-3) en C++: árbol de capítulos, partidas y descompuestos, mediciones, textos, precios recalculados, resumen y CSV | ✅ |
+147. App web PSIQUE: los 20 tests de personalidad más usados y un perfil final para compartir | ✅ |
 
 Trabajando
 =========
@@ -135,7 +136,6 @@ Trabajando
 
 Pendiente
 =========
-147. App web con los 20 test psicológicos más usados que, al final, le da su personalidad | ⏳ |
 126. MyWhatsapp IA: auto-contexto (la IA resume qué pide el cliente y rellena «Qué quiere decir») | ⏳ |
 127. MyWhatsapp IA: base de conocimiento local (precios, stock, FAQ, PDF) que la IA consulta antes de responder | ⏳ |
 128. MyWhatsapp IA: las tres respuestas con estilos distintos (directa, comercial, técnica) y traducción de lo que propone la IA al idioma del cliente | ⏳ |

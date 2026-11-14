@@ -128,6 +128,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un juego de ruta para que los conductores de cargas peligrosas de Argentina aprendan la ley manejando una cisterna: 10 misiones por rutas reales (RN 9, RN 22, RN 7, RN 40…) y 100 pruebas. Algunas se responden (paneles naranjas, números de riesgo, documentación, equipamiento, emergencias) y otras se superan al volante: 80 km/h con carga peligrosa, 60 en las travesías, 20 en pasos a nivel y escuelas, luces bajas, sin adelantar con doble línea y detenerse en el control. Cada pregunta cita su ley y al final entrega un diploma para compartir.",
         shows: ["HTML, JavaScript y Canvas, en una sola página", "100 pruebas con su fuente: Ley 24.449, Ley 27.714, Decreto 779/95, Res. 195/97 y Disp. ANSV 56/2025", "Estilo de juego de mundo abierto: minimapa, estrellas de infracción y misiones", "Diploma final en PNG para descargar o compartir"],
       },
+      html_psique: {
+        name: "PSIQUE · 20 tests de personalidad (web)",
+        text: "Los 20 tests de personalidad más usados en una sola web: los cinco grandes, el tipo de 4 letras, el eneagrama, DISC, el estilo de apego, la inteligencia emocional, la autoestima, el estrés, la resiliencia, los lenguajes del amor, los intereses vocacionales (RIASEC), las inteligencias múltiples y más. Una pregunta cada vez, el resultado de cada test explicado y, al final, su perfil completo con un resumen, un radar de rasgos y una tarjeta para compartir. Preguntas propias, orientativas: no es un diagnóstico.",
+        shows: ["HTML, CSS y JavaScript, en una sola página", "20 tests y 226 preguntas, en español y en inglés", "Perfil final con radar y tarjeta en PNG para compartir", "Las respuestas se quedan en el navegador"],
+      },
       next_world: {
         name: "El mundo en directo (Next.js)",
         text: "Un mapa del mundo con los aviones, los barcos y los trenes que se mueven ahora mismo, con datos públicos de OpenSky, Fintraffic, Renfe y VR. Corre en su propio servidor de Next.js, que descarga y junta los datos; la web los dibuja y se actualiza sola.",
@@ -439,6 +444,11 @@ const TEXT: Record<Lang, DemosText> = {
         name: "RUTA PELIGROSA · Dangerous goods (web)",
         text: "A road game for dangerous goods drivers in Argentina to learn the law while driving a tanker: 10 missions on real routes (RN 9, RN 22, RN 7, RN 40…) and 100 tests. Some are answered (orange panels, hazard numbers, documents, equipment, emergencies) and others are passed at the wheel: 80 km/h with dangerous goods, 60 through towns, 20 at level crossings and schools, dipped lights, no overtaking on a double line and stopping at the check. Every question cites its law and at the end you get a diploma to share.",
         shows: ["HTML, JavaScript and Canvas, in a single page", "100 tests with their source: Law 24,449, Law 27,714, Decree 779/95, Res. 195/97 and ANSV Prov. 56/2025", "Open-world game style: minimap, offence stars and missions", "Final diploma as a PNG to download or share"],
+      },
+      html_psique: {
+        name: "PSIQUE · 20 personality tests (web)",
+        text: "The 20 most used personality tests in one website: the Big Five, the 4-letter type, the Enneagram, DISC, attachment style, emotional intelligence, self-esteem, stress, resilience, love languages, career interests (RIASEC), multiple intelligences and more. One question at a time, each test’s result explained and, at the end, your full profile with a summary, a trait radar and a card to share. Our own questions, a guide only: not a diagnosis.",
+        shows: ["HTML, CSS and JavaScript, in a single page", "20 tests and 226 questions, in Spanish and English", "Final profile with a radar and a PNG card to share", "Answers stay in the browser"],
       },
       next_world: {
         name: "Live World Map (Next.js)",
@@ -775,6 +785,7 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   html_domino: { icon: "html", label: "HTML · Canvas" },
   html_architect: { icon: "html", label: "HTML · Canvas" },
   html_ruta: { icon: "html", label: "HTML · Canvas" },
+  html_psique: { icon: "html", label: "HTML · CSS · JS" },
   next_world: { icon: "next", label: "Next.js · API" },
   next_speed: { icon: "next", label: "Next.js · API" },
   next_flights: { icon: "next", label: "Next.js · API" },

@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PSIQUE · 20 tests de personalidad</title>
+<meta name="description" content="Los 20 tests de personalidad más usados (cinco grandes, tipo de 4 letras, eneagrama, DISC, apego…) y un perfil final para compartir.">
+<style>
+:root { --bg: #f6f5ff; --panel: #ffffff; --ink: #1e1b4b; --muted: #6b7280; --line: #e5e7f0; --accent: #6366f1; --accent2: #ec4899; --soft: #eef2ff; }
+@media (prefers-color-scheme: dark) { :root { --bg: #0f0d1f; --panel: #1a1730; --ink: #eef0ff; --muted: #a3a6c2; --line: #2c2847; --soft: #25214a; } }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+body::before { content: ''; position: fixed; inset: -20vh -20vw auto auto; width: 70vw; height: 70vh; background: radial-gradient(closest-side, rgba(99,102,241,.18), transparent); pointer-events: none; z-index: -1; }
+header { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.hin { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding: 10px 16px; }
+#hHome { all: unset; cursor: pointer; display: flex; align-items: baseline; gap: 10px; }
+.logo { font-weight: 900; font-size: 22px; letter-spacing: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+#hTag { color: var(--muted); font-size: 14px; }
+.sp { flex: 1; }
+#hProg { font-size: 14px; color: var(--muted); white-space: nowrap; } #hProg b { color: var(--ink); }
+.hbar { height: 3px; background: var(--line); } #hBar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .4s; }
+button { font: inherit; color: inherit; }
+.btn { white-space: nowrap; border: 1px solid var(--line); background: var(--panel); padding: 10px 18px; border-radius: 999px; cursor: pointer; font-weight: 600; transition: transform .1s, box-shadow .2s; }
+.btn:hover { box-shadow: 0 6px 18px rgba(99,102,241,.18); }
+.btn:active { transform: scale(.98); }
+.btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #fff; border: 0; }
+.btn.ghost { background: transparent; }
+.btn.small { padding: 7px 14px; font-size: 14px; }
+.btn:disabled { opacity: .4; cursor: default; }
+.link { all: unset; cursor: pointer; color: var(--accent); font-weight: 600; }
+main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 60px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; align-items: center; }
+.row.between { justify-content: space-between; }
+.hero { padding: 26px 0 10px; max-width: 760px; }
+.hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.08; margin: 0 0 12px; letter-spacing: -.5px; }
+.hero p { color: var(--muted); font-size: 18px; margin: 0; }
+.note { color: var(--muted); font-size: 14px !important; margin-top: 16px !important; padding: 10px 14px; background: var(--soft); border-radius: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-top: 26px; }
+.card { position: relative; text-align: left; display: flex; flex-direction: column; gap: 3px; padding: 18px 16px 16px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); cursor: pointer; overflow: hidden; transition: transform .15s, box-shadow .2s; }
+.card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--c); }
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(30,27,75,.12); }
+.card .num { position: absolute; top: 12px; right: 14px; font-size: 13px; color: var(--muted); font-weight: 700; }
+.card .ic { font-size: 30px; }
+.card b { font-size: 17px; line-height: 1.2; margin-top: 4px; }
+.card small { color: var(--muted); font-size: 13px; }
+.card .meta { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.card .chip { margin-top: 8px; align-self: flex-start; font-size: 13px; font-weight: 700; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); padding: 4px 10px; border-radius: 999px; }
+.card.done { border-color: color-mix(in srgb, var(--c) 45%, var(--line)); }
+.tbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--muted); font-weight: 600; flex-wrap: wrap; }
+.test { max-width: 760px; margin: 0 auto; }
+.qprog { height: 8px; border-radius: 99px; background: var(--line); margin: 18px 0 22px; overflow: hidden; } .qprog div { height: 100%; background: var(--c); transition: width .25s; }
+.qn { color: var(--muted); font-size: 14px; margin: 0; font-weight: 600; }
+.qt { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.2; margin: 8px 0 26px; min-height: 2.4em; }
+.opts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.opt { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--panel); cursor: pointer; font-size: 14px; font-weight: 600; text-align: center; transition: border-color .15s, background .15s, transform .1s; }
+.opt kbd { font: 700 13px system-ui; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--soft); color: var(--muted); }
+.opt:hover { border-color: var(--c); } .opt.sel { border-color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); } .opt.sel kbd { background: var(--c); color: #fff; }
+.hint { color: var(--muted); font-size: 13px; max-width: 70%; text-align: right; }
+@media (max-width: 700px) { .hin { gap: 8px; padding: 8px 12px; } .logo { font-size: 18px; letter-spacing: 2px; } #hProg span { display: none; } .btn.small { padding: 6px 11px; font-size: 13px; } .opts { grid-template-columns: 1fr; } .opt { flex-direction: row; justify-content: flex-start; padding: 13px 14px; text-align: left; } .hint { display: none; } #hTag { display: none; } }
+.result, .profile { max-width: 900px; margin: 0 auto; }
+.rcard { background: var(--panel); border: 1px solid var(--line); border-radius: 22px; padding: 22px; margin-top: 16px; }
+.rcard h3 { margin: 14px 0 8px; font-size: 18px; } .rcard h3:first-child { margin-top: 0; }
+.big { font-size: clamp(48px, 9vw, 86px); font-weight: 900; line-height: 1; letter-spacing: -1px; } .big.small { font-size: clamp(26px, 4vw, 38px); line-height: 1.15; margin-bottom: 10px; }
+.bar { margin: 12px 0 4px; } .bl { display: flex; justify-content: space-between; font-weight: 600; font-size: 15px; } .bl b { color: var(--muted); }
+.bt { position: relative; height: 10px; border-radius: 99px; background: var(--line); margin-top: 5px; overflow: hidden; } .bt div { height: 100%; border-radius: 99px; transition: width .6s; }
+.bt.two div { position: absolute; top: 0; } .dt { color: var(--muted); margin: 4px 0 12px; font-size: 15px; }
+.pair { display: grid; grid-template-columns: 28px 1fr 28px; align-items: center; gap: 10px; margin: 16px 0 2px; } .pair b { text-align: center; font-size: 20px; color: var(--muted); } .pair b.on { color: var(--c); }
+.pair small { grid-column: 1 / -1; text-align: center; color: var(--muted); margin-top: -2px; }
+.quad { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; } .quad span { padding: 12px; border-radius: 12px; background: var(--soft); text-align: center; color: var(--muted); font-weight: 600; } .quad span.on { background: var(--c); color: #fff; }
+.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } @media (max-width: 800px) { .pgrid { grid-template-columns: 1fr; } }
+.pgrid .rcard { margin-top: 16px; }
+.story { font-size: 17px; line-height: 1.6; }
+.keys { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .keys div { background: var(--soft); border-radius: 14px; padding: 10px 12px; } .keys small { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; } .keys b { font-size: 15px; }
+canvas#radar { width: 100%; height: auto; display: block; }
+canvas#card { width: min(100%, 420px); height: auto; display: block; margin: 0 auto; border-radius: 18px; box-shadow: 0 18px 50px rgba(30,27,75,.35); }
+footer { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 30px; }
+</style>
+</head>
+<body>
+<header><div class="hin"><button id="hHome"><span class="logo">PSIQUE</span><span id="hTag"></span></button><span class="sp"></span><span id="hProg"></span><button class="btn small" id="hProfile"></button><button class="btn small ghost" id="hLang"></button></div><div class="hbar"><div id="hBar"></div></div></header>
+<main id="main"></main>
+<footer>PSIQUE · DMarlon Studio</footer>
+<script>
+// ---- PSIQUE: los 20 tests. Preguntas propias, inspiradas en los modelos más usados.
+// Cada ítem: [dimensión, +1 directo / -1 inverso, español, inglés].
+// Escala de 1 a 5: de «Totalmente en desacuerdo» a «Totalmente de acuerdo» (o de «Nunca» a «Muy a menudo»).
+
+const SCALES = {
+  agree: [['Totalmente en desacuerdo', 'En desacuerdo', 'Ni de acuerdo ni en desacuerdo', 'De acuerdo', 'Totalmente de acuerdo'],
+    ['Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree']],
+  freq: [['Nunca', 'Casi nunca', 'A veces', 'A menudo', 'Muy a menudo'], ['Never', 'Almost never', 'Sometimes', 'Fairly often', 'Very often']],
+};
+
+const TESTS = [];
+
+TESTS.push({ id: 'big5', icon: '🌊', color: '#6366f1', kind: 'dims', scale: 'agree',
+  name: ['Los cinco grandes (OCEAN)', 'The Big Five (OCEAN)'], model: ['Modelo de los cinco factores', 'Five-Factor Model'],
+  about: ['El modelo de personalidad con más respaldo científico: apertura, responsabilidad, extraversión, amabilidad y estabilidad emocional.', 'The personality model with the most scientific support: openness, conscientiousness, extraversion, agreeableness and emotional stability.'],
+  dims: { O: ['Apertura', 'Openness'], C: ['Responsabilidad', 'Conscientiousness'], E: ['Extraversión', 'Extraversion'], A: ['Amabilidad', 'Agreeableness'], N: ['Estabilidad emocional', 'Emotional stability'] },
+  text: {
+    O: ['Curiosa, imaginativa y abierta a ideas, arte y experiencias nuevas.', 'Curious, imaginative and open to ideas, art and new experiences.', 'Práctica y con los pies en la tierra: prefiere lo conocido y probado.', 'Practical and down to earth: you prefer the known and proven.'],
+    C: ['Organizada, constante y fiable: termina lo que empieza.', 'Organised, steady and reliable: you finish what you start.', 'Flexible y espontánea; los planes y el orden le pesan.', 'Flexible and spontaneous; plans and order feel heavy.'],
+    E: ['Sociable y enérgica: la gente le carga las pilas.', 'Sociable and energetic: people recharge you.', 'Reservada: recupera la energía a solas o con pocos.', 'Reserved: you recharge alone or with a few people.'],
+    A: ['Cálida, cooperadora y confiada con los demás.', 'Warm, cooperative and trusting with others.', 'Directa y competitiva: dice lo que piensa aunque incomode.', 'Direct and competitive: you say what you think even if it stings.'],
+    N: ['Serena: los contratiempos le afectan poco y se recupera rápido.', 'Calm: setbacks barely shake you and you bounce back fast.', 'Sensible a la presión: las preocupaciones le pesan más.', 'Sensitive to pressure: worries weigh more on you.'],
+  },
+  items: [
+    ['E', 1, 'Me siento cómodo/a siendo el centro de atención.', 'I feel comfortable being the centre of attention.'],
+    ['A', 1, 'Me intereso de verdad por los problemas de los demás.', 'I am genuinely interested in other people’s problems.'],
+    ['C', 1, 'Tengo mis cosas ordenadas y sé dónde está cada una.', 'I keep my things in order and know where everything is.'],
+    ['N', -1, 'Me preocupo por muchas cosas.', 'I worry about many things.'],
+    ['O', 1, 'Me encanta pensar en ideas abstractas y teorías.', 'I love thinking about abstract ideas and theories.'],
+    ['E', -1, 'En las reuniones prefiero quedarme en segundo plano.', 'At gatherings I prefer to stay in the background.'],
+    ['A', -1, 'A veces soy frío/a con la gente.', 'I am sometimes cold towards people.'],
+    ['C', -1, 'Dejo las tareas para el último momento.', 'I leave tasks until the last minute.'],
+    ['N', 1, 'Mantengo la calma cuando las cosas se complican.', 'I stay calm when things get complicated.'],
+    ['O', -1, 'El arte y la poesía me dicen poco.', 'Art and poetry don’t say much to me.'],
+    ['E', 1, 'Empiezo conversaciones con desconocidos con facilidad.', 'I easily start conversations with strangers.'],
+    ['A', 1, 'Me gusta ayudar aunque no gane nada a cambio.', 'I like helping even when I get nothing in return.'],
+    ['C', 1, 'Cumplo los plazos que me pongo.', 'I meet the deadlines I set myself.'],
+    ['N', -1, 'Mi estado de ánimo cambia con facilidad.', 'My mood changes easily.'],
+    ['O', 1, 'Busco experiencias, comidas y lugares que no conozco.', 'I look for experiences, foods and places I don’t know.'],
+    ['E', -1, 'Necesito mucho tiempo a solas para recuperarme.', 'I need a lot of time alone to recharge.'],
+    ['A', -1, 'Me cuesta perdonar cuando alguien me falla.', 'I find it hard to forgive when someone lets me down.'],
+    ['C', 1, 'Planifico antes de ponerme a trabajar.', 'I plan before I start working.'],
+    ['N', 1, 'Rara vez me siento triste o desanimado/a.', 'I rarely feel sad or down.'],
+    ['O', 1, 'Tengo una imaginación muy viva.', 'I have a vivid imagination.'],
+  ] });
+
+TESTS.push({ id: 'type', icon: '🧭', color: '#0ea5e9', kind: 'type', scale: 'agree',
+  name: ['Tipo de personalidad de 4 letras', '4-letter personality type'], model: ['Tipos psicológicos de Jung', 'Jung’s psychological types'],
+  about: ['Cuatro preferencias: de dónde saca su energía (E/I), cómo percibe (S/N), cómo decide (T/F) y cómo se organiza (J/P).', 'Four preferences: where you get energy (E/I), how you perceive (S/N), how you decide (T/F) and how you organise (J/P).'],
+  dims: { EI: ['Introversión – Extraversión', 'Introversion – Extraversion'], SN: ['Sensación – Intuición', 'Sensing – Intuition'], TF: ['Pensamiento – Sentimiento', 'Thinking – Feeling'], JP: ['Juicio – Percepción', 'Judging – Perceiving'] },
+  items: [
+    ['EI', 1, 'Pienso mejor hablando en voz alta con otros.', 'I think best by talking out loud with others.'],
+    ['EI', -1, 'Prefiero una conversación profunda con una persona a una fiesta grande.', 'I prefer a deep talk with one person to a big party.'],
+    ['EI', 1, 'Tras un día social me siento con más energía, no menos.', 'After a social day I feel more energised, not less.'],
+    ['EI', -1, 'Reflexiono mucho antes de compartir lo que pienso.', 'I reflect a lot before sharing what I think.'],
+    ['SN', -1, 'Confío más en los hechos concretos que en las corazonadas.', 'I trust concrete facts more than hunches.'],
+    ['SN', 1, 'Me fijo más en el significado y las posibilidades que en los detalles.', 'I notice meanings and possibilities more than details.'],
+    ['SN', -1, 'Prefiero instrucciones paso a paso.', 'I prefer step-by-step instructions.'],
+    ['SN', 1, 'Me aburre hacer las cosas siempre de la misma manera.', 'Doing things the same way every time bores me.'],
+    ['TF', -1, 'Al decidir, la lógica pesa más que cómo se sentirá la gente.', 'When deciding, logic weighs more than how people will feel.'],
+    ['TF', 1, 'Cuido mucho la armonía del grupo al tomar decisiones.', 'I care a lot about group harmony when making decisions.'],
+    ['TF', -1, 'Prefiero una verdad incómoda a una mentira amable.', 'I prefer an uncomfortable truth to a kind lie.'],
+    ['TF', 1, 'Me pongo fácilmente en el lugar de los demás antes de opinar.', 'I easily put myself in others’ shoes before giving an opinion.'],
+    ['JP', -1, 'Me gusta tener el plan cerrado con antelación.', 'I like having the plan settled in advance.'],
+    ['JP', 1, 'Prefiero dejar opciones abiertas y decidir sobre la marcha.', 'I prefer to keep options open and decide as I go.'],
+    ['JP', -1, 'Termino el trabajo antes de divertirme.', 'I finish work before having fun.'],
+    ['JP', 1, 'Las listas de tareas me agobian más que ayudarme.', 'To-do lists stress me more than they help.'],
+  ] });
+
+TESTS.push({ id: 'ennea', icon: '✳️', color: '#a855f7', kind: 'dims', scale: 'agree', top: 1,
+  name: ['Eneagrama', 'Enneagram'], model: ['Los nueve tipos del eneagrama', 'The nine Enneagram types'],
+  about: ['Nueve tipos según lo que más le mueve por dentro: hacer lo correcto, ser querido, lograr, ser auténtico, entender, estar seguro, disfrutar, controlar o estar en paz.', 'Nine types according to what drives you inside: being right, being loved, achieving, being authentic, understanding, being safe, enjoying, being in control or being at peace.'],
+  dims: { 1: ['1 · Perfeccionista', '1 · Perfectionist'], 2: ['2 · Ayudador', '2 · Helper'], 3: ['3 · Triunfador', '3 · Achiever'], 4: ['4 · Individualista', '4 · Individualist'], 5: ['5 · Investigador', '5 · Investigator'], 6: ['6 · Leal', '6 · Loyalist'], 7: ['7 · Entusiasta', '7 · Enthusiast'], 8: ['8 · Desafiador', '8 · Challenger'], 9: ['9 · Pacificador', '9 · Peacemaker'] },
+  text: {
+    1: ['Busca hacer las cosas bien y mejorar el mundo; su reto es la autocrítica.', 'You seek to do things right and improve the world; your challenge is self-criticism.'],
+    2: ['Generoso y atento a los demás; su reto es cuidarse también a sí mismo.', 'Generous and attentive to others; your challenge is caring for yourself too.'],
+    3: ['Orientado a metas y a dar lo mejor; su reto es no confundir valer con lograr.', 'Goal-driven and eager to excel; your challenge is not to confuse worth with achievement.'],
+    4: ['Sensible, creativo y auténtico; su reto es no quedarse en lo que falta.', 'Sensitive, creative and authentic; your challenge is not to dwell on what is missing.'],
+    5: ['Observador y curioso, necesita entender; su reto es salir de la cabeza.', 'Observant and curious, you need to understand; your challenge is getting out of your head.'],
+    6: ['Leal y previsor, anticipa los riesgos; su reto es confiar más.', 'Loyal and prepared, you anticipate risks; your challenge is trusting more.'],
+    7: ['Alegre y lleno de planes; su reto es quedarse cuando algo se pone difícil.', 'Cheerful and full of plans; your challenge is staying when things get hard.'],
+    8: ['Fuerte, directo y protector; su reto es mostrar su lado vulnerable.', 'Strong, direct and protective; your challenge is showing your vulnerable side.'],
+    9: ['Tranquilo y conciliador; su reto es no borrarse para evitar el conflicto.', 'Easy-going and conciliatory; your challenge is not erasing yourself to avoid conflict.'],
+  },
+  items: [
+    ['1', 1, 'Me molesta mucho cuando algo no está bien hecho.', 'It bothers me a lot when something isn’t done properly.'],
+    ['1', 1, 'Tengo una voz interior que me corrige a menudo.', 'I have an inner voice that often corrects me.'],
+    ['2', 1, 'Me siento bien cuando los demás me necesitan.', 'I feel good when others need me.'],
+    ['2', 1, 'Me cuesta decir que no a quien me pide ayuda.', 'I find it hard to say no to someone asking for help.'],
+    ['3', 1, 'Me importa mucho tener éxito y que se note.', 'Being successful, and having it show, matters a lot to me.'],
+    ['3', 1, 'Me adapto a lo que se espera de mí para causar buena impresión.', 'I adapt to what is expected of me to make a good impression.'],
+    ['4', 1, 'Siento que soy diferente a la mayoría de la gente.', 'I feel I am different from most people.'],
+    ['4', 1, 'Vivo mis emociones con mucha intensidad.', 'I experience my emotions very intensely.'],
+    ['5', 1, 'Necesito entender algo a fondo antes de actuar.', 'I need to understand something thoroughly before acting.'],
+    ['5', 1, 'Protejo mucho mi tiempo y mi espacio personal.', 'I guard my time and personal space closely.'],
+    ['6', 1, 'Suelo pensar en lo que podría salir mal.', 'I tend to think about what could go wrong.'],
+    ['6', 1, 'La lealtad es de lo que más valoro en una persona.', 'Loyalty is one of the things I value most in a person.'],
+    ['7', 1, 'Siempre tengo planes nuevos y emocionantes en la cabeza.', 'I always have new, exciting plans in my head.'],
+    ['7', 1, 'Evito quedarme mucho tiempo en emociones tristes.', 'I avoid staying long in sad emotions.'],
+    ['8', 1, 'Me gusta tener el control de las situaciones.', 'I like being in control of situations.'],
+    ['8', 1, 'Defiendo con fuerza a quien considero débil o tratado injustamente.', 'I strongly defend those who are weak or treated unfairly.'],
+    ['9', 1, 'Haría casi cualquier cosa por evitar un conflicto.', 'I would do almost anything to avoid a conflict.'],
+    ['9', 1, 'Me adapto fácilmente a lo que quieren los demás.', 'I easily go along with what others want.'],
+  ] });
+
+TESTS.push({ id: 'disc', icon: '🎯', color: '#ef4444', kind: 'dims', scale: 'agree', top: 1,
+  name: ['Estilo de comportamiento DISC', 'DISC behaviour style'], model: ['Modelo DISC de Marston', 'Marston’s DISC model'],
+  about: ['Cómo actúa con los demás y ante los retos: Dominancia, Influencia, eStabilidad o Cumplimiento.', 'How you act with others and with challenges: Dominance, Influence, Steadiness or Conscientiousness.'],
+  dims: { D: ['Dominancia', 'Dominance'], I: ['Influencia', 'Influence'], S: ['Estabilidad', 'Steadiness'], C: ['Cumplimiento', 'Conscientiousness'] },
+  text: {
+    D: ['Decidido y orientado a resultados: va al grano y asume retos.', 'Decisive and results-driven: you get to the point and take on challenges.'],
+    I: ['Entusiasta y persuasivo: contagia energía y conecta con la gente.', 'Enthusiastic and persuasive: you spread energy and connect with people.'],
+    S: ['Paciente y constante: da estabilidad y apoyo al equipo.', 'Patient and steady: you bring stability and support to the team.'],
+    C: ['Preciso y analítico: cuida la calidad y los datos.', 'Precise and analytical: you care about quality and data.'],
+  },
+  items: [
+    ['D', 1, 'Tomo decisiones rápidas, aunque no tenga toda la información.', 'I make quick decisions, even without all the information.'],
+    ['D', 1, 'Me motivan los retos difíciles y la competencia.', 'Tough challenges and competition motivate me.'],
+    ['D', 1, 'Prefiero dirigir a que me dirijan.', 'I prefer leading to being led.'],
+    ['I', 1, 'Me resulta fácil convencer a la gente de mis ideas.', 'I find it easy to win people over to my ideas.'],
+    ['I', 1, 'Disfruto animando a un grupo.', 'I enjoy energising a group.'],
+    ['I', 1, 'Hago amigos con rapidez.', 'I make friends quickly.'],
+    ['S', 1, 'Prefiero un ritmo tranquilo y previsible.', 'I prefer a calm, predictable pace.'],
+    ['S', 1, 'Escucho con paciencia antes de responder.', 'I listen patiently before answering.'],
+    ['S', 1, 'Los cambios bruscos me incomodan.', 'Sudden changes make me uncomfortable.'],
+    ['C', 1, 'Reviso los detalles para evitar errores.', 'I check the details to avoid mistakes.'],
+    ['C', 1, 'Me gusta seguir normas y procedimientos claros.', 'I like following clear rules and procedures.'],
+    ['C', 1, 'Antes de decidir, busco datos que lo respalden.', 'Before deciding, I look for data to back it up.'],
+  ] });
+
+TESTS.push({ id: 'esteem', icon: '🌱', color: '#22c55e', kind: 'total', scale: 'agree',
+  name: ['Autoestima', 'Self-esteem'], model: ['Inspirado en la escala de Rosenberg', 'Inspired by the Rosenberg scale'],
+  about: ['Cómo se valora a sí mismo/a en general.', 'How you value yourself overall.'],
+  bands: [[40, 'Autoestima baja', 'Low self-esteem', 'Tiende a ser duro/a consigo mismo/a. Hablar con alguien de confianza o un profesional puede ayudar a verse con más justicia.', 'You tend to be hard on yourself. Talking to someone you trust or a professional can help you see yourself more fairly.'],
+    [70, 'Autoestima media', 'Medium self-esteem', 'Se valora en general, aunque a veces duda de sí mismo/a.', 'You value yourself overall, although you sometimes doubt yourself.'],
+    [101, 'Autoestima alta', 'High self-esteem', 'Se acepta y se valora: una buena base para afrontar retos.', 'You accept and value yourself: a good base for facing challenges.']],
+  items: [
+    ['T', 1, 'En general, estoy satisfecho/a conmigo mismo/a.', 'On the whole, I am satisfied with myself.'],
+    ['T', -1, 'A veces siento que no valgo para nada.', 'At times I feel I am no good at all.'],
+    ['T', 1, 'Creo que tengo buenas cualidades.', 'I think I have good qualities.'],
+    ['T', 1, 'Puedo hacer las cosas tan bien como la mayoría.', 'I can do things as well as most people.'],
+    ['T', -1, 'Siento que no tengo mucho de lo que estar orgulloso/a.', 'I feel I don’t have much to be proud of.'],
+    ['T', -1, 'A veces me siento inútil.', 'Sometimes I feel useless.'],
+    ['T', 1, 'Siento que soy una persona valiosa, al menos tanto como otras.', 'I feel I am a person of worth, at least as much as others.'],
+    ['T', -1, 'Me gustaría respetarme más.', 'I wish I respected myself more.'],
+    ['T', -1, 'Tiendo a pensar que soy un fracaso.', 'I tend to think I am a failure.'],
+    ['T', 1, 'Tengo una actitud positiva hacia mí mismo/a.', 'I have a positive attitude towards myself.'],
+  ] });
+
+TESTS.push({ id: 'ei', icon: '💗', color: '#ec4899', kind: 'dims', scale: 'agree',
+  name: ['Inteligencia emocional', 'Emotional intelligence'], model: ['Modelo de Salovey y Mayer', 'Salovey and Mayer’s model'],
+  about: ['Percibir, entender y regular las emociones propias y ajenas.', 'Perceiving, understanding and regulating your own and others’ emotions.'],
+  dims: { P: ['Percibir emociones', 'Perceiving emotions'], U: ['Comprenderlas', 'Understanding them'], R: ['Regularlas', 'Regulating them'], S: ['Habilidad social', 'Social skill'] },
+  text: {
+    P: ['Nota enseguida lo que siente usted y lo que sienten los demás.', 'You quickly notice what you and others feel.', 'A veces se le escapa lo que siente o lo que sienten otros.', 'Sometimes what you or others feel slips past you.'],
+    U: ['Entiende de dónde vienen sus emociones y cómo cambian.', 'You understand where your emotions come from and how they change.', 'Le cuesta ponerle nombre y causa a lo que siente.', 'You find it hard to name and explain what you feel.'],
+    R: ['Sabe calmarse y animarse cuando hace falta.', 'You know how to calm and cheer yourself up when needed.', 'Las emociones fuertes le arrastran con facilidad.', 'Strong emotions carry you away easily.'],
+    S: ['Maneja bien las relaciones y los conflictos.', 'You handle relationships and conflicts well.', 'Las situaciones sociales tensas le cuestan.', 'Tense social situations are hard for you.'],
+  },
+  items: [
+    ['P', 1, 'Me doy cuenta de lo que siento en cada momento.', 'I am aware of what I feel at each moment.'],
+    ['P', 1, 'Noto el estado de ánimo de alguien sin que me lo diga.', 'I can tell someone’s mood without them telling me.'],
+    ['P', -1, 'A menudo no sé bien qué estoy sintiendo.', 'I often don’t really know what I am feeling.'],
+    ['U', 1, 'Sé qué situaciones me ponen nervioso/a o triste.', 'I know which situations make me nervous or sad.'],
+    ['U', 1, 'Entiendo por qué la gente reacciona como reacciona.', 'I understand why people react the way they do.'],
+    ['U', -1, 'Mis cambios de humor me pillan por sorpresa.', 'My mood swings take me by surprise.'],
+    ['R', 1, 'Cuando me enfado, sé calmarme antes de actuar.', 'When I get angry, I can calm down before acting.'],
+    ['R', 1, 'Encuentro la forma de animarme cuando estoy bajo/a.', 'I find ways to cheer myself up when I’m down.'],
+    ['R', -1, 'Digo cosas en caliente de las que luego me arrepiento.', 'I say things in the heat of the moment that I later regret.'],
+    ['S', 1, 'Sé decir las cosas difíciles sin herir.', 'I can say difficult things without hurting.'],
+    ['S', 1, 'Ayudo a otros a calmarse cuando están alterados.', 'I help others calm down when they are upset.'],
+    ['S', -1, 'Los conflictos con otros me desbordan.', 'Conflicts with others overwhelm me.'],
+  ] });
+
+TESTS.push({ id: 'attach', icon: '🤝', color: '#f97316', kind: 'attach', scale: 'agree',
+  name: ['Estilo de apego', 'Attachment style'], model: ['Teoría del apego en adultos', 'Adult attachment theory'],
+  about: ['Cómo se vincula en las relaciones cercanas, según la ansiedad y la evitación.', 'How you bond in close relationships, according to anxiety and avoidance.'],
+  dims: { ANX: ['Ansiedad en la relación', 'Relationship anxiety'], AVO: ['Evitación de la cercanía', 'Avoidance of closeness'] },
+  styles: {
+    secure: ['Seguro', 'Secure', 'Se siente cómodo/a con la cercanía y con la independencia; confía y se deja querer.', 'You are comfortable with closeness and independence; you trust and let yourself be loved.'],
+    anxious: ['Ansioso', 'Anxious', 'Desea mucha cercanía y teme perderla; necesita confirmación del cariño.', 'You want a lot of closeness and fear losing it; you need reassurance of affection.'],
+    avoidant: ['Evitativo', 'Avoidant', 'Valora mucho su independencia y la intimidad le cuesta.', 'You value your independence highly and intimacy is hard for you.'],
+    fearful: ['Temeroso', 'Fearful', 'Desea la cercanía, pero también la teme: se acerca y se aleja.', 'You want closeness but also fear it: you come close and pull away.'],
+  },
+  items: [
+    ['ANX', 1, 'Me preocupa que mi pareja o mis amigos dejen de quererme.', 'I worry that my partner or friends will stop caring about me.'],
+    ['ANX', 1, 'Necesito que me confirmen a menudo que me quieren.', 'I often need to be told I am loved.'],
+    ['ANX', 1, 'Si alguien tarda en contestarme, pienso que pasa algo.', 'If someone is slow to reply, I think something is wrong.'],
+    ['ANX', -1, 'Rara vez temo que me abandonen.', 'I rarely fear being abandoned.'],
+    ['ANX', 1, 'Me afecta mucho cuando alguien cercano se distancia.', 'It affects me a lot when someone close pulls away.'],
+    ['ANX', -1, 'Me siento seguro/a de lo que los demás sienten por mí.', 'I feel sure about what others feel for me.'],
+    ['AVO', 1, 'Me incomoda que alguien quiera estar muy cerca de mí.', 'I feel uncomfortable when someone wants to be very close to me.'],
+    ['AVO', 1, 'Prefiero no depender de nadie.', 'I prefer not to depend on anyone.'],
+    ['AVO', 1, 'Me cuesta abrirme y contar lo que siento.', 'I find it hard to open up and share what I feel.'],
+    ['AVO', -1, 'Me resulta fácil pedir ayuda a las personas cercanas.', 'I find it easy to ask close people for help.'],
+    ['AVO', 1, 'Cuando una relación se vuelve seria, tiendo a alejarme.', 'When a relationship gets serious, I tend to pull away.'],
+    ['AVO', -1, 'Me siento cómodo/a compartiendo mis sentimientos.', 'I feel comfortable sharing my feelings.'],
+  ] });
+
+TESTS.push({ id: 'love', icon: '💌', color: '#f43f5e', kind: 'dims', scale: 'agree', top: 1,
+  name: ['Lenguajes del amor', 'Love languages'], model: ['Los cinco lenguajes del amor', 'The five love languages'],
+  about: ['Cómo se siente más querido/a: palabras, tiempo, regalos, actos de servicio o contacto físico.', 'How you feel most loved: words, time, gifts, acts of service or physical touch.'],
+  dims: { W: ['Palabras de afirmación', 'Words of affirmation'], T: ['Tiempo de calidad', 'Quality time'], G: ['Regalos', 'Receiving gifts'], A: ['Actos de servicio', 'Acts of service'], P: ['Contacto físico', 'Physical touch'] },
+  text: {
+    W: ['Le llegan los elogios sinceros y un «te quiero» dicho a tiempo.', 'Sincere praise and a timely “I love you” reach you.'],
+    T: ['Lo que más valora es la atención plena y el tiempo compartido.', 'What you value most is full attention and shared time.'],
+    G: ['Un detalle pensado para usted le dice «me acordé de ti».', 'A thoughtful gift says “I thought of you”.'],
+    A: ['Siente el cariño cuando alguien le echa una mano de verdad.', 'You feel loved when someone truly lends you a hand.'],
+    P: ['Un abrazo o una caricia le dicen más que mil palabras.', 'A hug or a caress says more than a thousand words to you.'],
+  },
+  items: [
+    ['W', 1, 'Me encanta que me digan lo que valoran de mí.', 'I love being told what people value in me.'],
+    ['W', 1, 'Una crítica dura me hiere más que a la mayoría.', 'Harsh criticism hurts me more than most.'],
+    ['W', 1, 'Guardo mensajes cariñosos para releerlos.', 'I keep loving messages to read again.'],
+    ['T', 1, 'Me siento querido/a cuando alguien deja el móvil y me escucha.', 'I feel loved when someone puts the phone down and listens.'],
+    ['T', 1, 'Prefiero un paseo juntos a un regalo caro.', 'I prefer a walk together to an expensive gift.'],
+    ['T', 1, 'Me duele que cancelen planes conmigo.', 'It hurts when plans with me are cancelled.'],
+    ['G', 1, 'Un regalo pensado para mí me emociona mucho.', 'A gift chosen for me moves me a lot.'],
+    ['G', 1, 'Recuerdo quién me regaló cada cosa.', 'I remember who gave me each thing.'],
+    ['G', 1, 'Me gusta que me traigan un detalle de un viaje.', 'I like being brought a little something from a trip.'],
+    ['A', 1, 'Que alguien haga una tarea por mí me dice mucho.', 'Someone doing a chore for me says a lot.'],
+    ['A', 1, 'Valoro más los hechos que las palabras.', 'I value deeds more than words.'],
+    ['A', 1, 'Me siento querido/a cuando me ayudan sin pedirlo.', 'I feel loved when I’m helped without asking.'],
+    ['P', 1, 'Los abrazos me hacen sentir cerca de alguien.', 'Hugs make me feel close to someone.'],
+    ['P', 1, 'Me gusta ir de la mano o sentarme cerca.', 'I like holding hands or sitting close.'],
+    ['P', 1, 'Una mano en el hombro me consuela mucho.', 'A hand on my shoulder comforts me a lot.'],
+  ] });
+
+TESTS.push({ id: 'swls', icon: '☀️', color: '#eab308', kind: 'total', scale: 'agree',
+  name: ['Satisfacción con la vida', 'Satisfaction with life'], model: ['Inspirado en la escala de Diener', 'Inspired by Diener’s scale'],
+  about: ['Cuánto se acerca su vida a la que desea.', 'How close your life is to the one you want.'],
+  bands: [[35, 'Poco satisfecho/a', 'Dissatisfied', 'Hay aspectos importantes que no le convencen. Identificar uno pequeño que pueda cambiar ya es un buen comienzo.', 'Important things don’t satisfy you. Finding one small thing you can change is a good start.'],
+    [65, 'Bastante satisfecho/a', 'Fairly satisfied', 'Su vida va bien en lo general, con cosas que mejorar.', 'Your life is going well overall, with things to improve.'],
+    [101, 'Muy satisfecho/a', 'Very satisfied', 'Siente que su vida se parece mucho a la que quiere.', 'You feel your life is very close to the one you want.']],
+  items: [
+    ['T', 1, 'En casi todo, mi vida se acerca a mi ideal.', 'In most ways my life is close to my ideal.'],
+    ['T', 1, 'Las condiciones de mi vida son excelentes.', 'The conditions of my life are excellent.'],
+    ['T', 1, 'Estoy satisfecho/a con mi vida.', 'I am satisfied with my life.'],
+    ['T', 1, 'Hasta ahora he conseguido las cosas importantes que quiero.', 'So far I have got the important things I want.'],
+    ['T', 1, 'Si volviera a nacer, cambiaría muy poco de mi vida.', 'If I lived my life over, I would change almost nothing.'],
+  ] });
+
+TESTS.push({ id: 'stress', icon: '🌡️', color: '#64748b', kind: 'total', scale: 'freq', invert: 1,
+  name: ['Estrés percibido', 'Perceived stress'], model: ['Inspirado en la escala de Cohen', 'Inspired by Cohen’s scale'],
+  about: ['Cuánto estrés ha sentido durante el último mes.', 'How much stress you have felt during the last month.'],
+  bands: [[35, 'Estrés bajo', 'Low stress', 'Siente que controla bien lo que le pasa.', 'You feel you handle what happens to you well.'],
+    [65, 'Estrés moderado', 'Moderate stress', 'Hay presión, pero la va llevando. Descansar, moverse y hablarlo ayuda.', 'There is pressure, but you are coping. Rest, exercise and talking help.'],
+    [101, 'Estrés alto', 'High stress', 'Lleva una carga grande. Si le dura o le desborda, pida ayuda a alguien de confianza o a un profesional de la salud.', 'You are carrying a heavy load. If it lasts or overwhelms you, ask someone you trust or a health professional for help.']],
+  items: [
+    ['T', 1, 'En el último mes, ¿se ha sentido alterado/a por algo inesperado?', 'In the last month, have you been upset by something unexpected?'],
+    ['T', 1, '¿Ha sentido que no controlaba lo importante de su vida?', 'Have you felt unable to control the important things in your life?'],
+    ['T', 1, '¿Se ha sentido nervioso/a o estresado/a?', 'Have you felt nervous or stressed?'],
+    ['T', -1, '¿Ha sentido confianza en poder resolver sus problemas?', 'Have you felt confident about handling your problems?'],
+    ['T', -1, '¿Ha sentido que las cosas le iban bien?', 'Have you felt that things were going your way?'],
+    ['T', 1, '¿Ha sentido que no podía con todo lo que tenía que hacer?', 'Have you felt you could not cope with everything you had to do?'],
+    ['T', -1, '¿Ha podido controlar las irritaciones de su vida?', 'Have you been able to control irritations in your life?'],
+    ['T', -1, '¿Ha sentido que lo tenía todo bajo control?', 'Have you felt on top of things?'],
+    ['T', 1, '¿Se ha enfadado por cosas que escapaban a su control?', 'Have you been angered by things outside your control?'],
+    ['T', 1, '¿Ha sentido que las dificultades se acumulaban tanto que no podía superarlas?', 'Have you felt difficulties piling up so high you could not overcome them?'],
+  ] });
+
+TESTS.push({ id: 'optimism', icon: '🌈', color: '#14b8a6', kind: 'total', scale: 'agree',
+  name: ['Optimismo', 'Optimism'], model: ['Inspirado en el test de orientación vital (LOT-R)', 'Inspired by the Life Orientation Test (LOT-R)'],
+  about: ['Si espera, en general, que le pasen cosas buenas.', 'Whether you generally expect good things to happen to you.'],
+  bands: [[40, 'Más bien pesimista', 'Rather pessimistic', 'Tiende a esperar lo peor. Ensayar a buscar también lo que puede salir bien equilibra la mirada.', 'You tend to expect the worst. Practising looking for what might go well balances your view.'],
+    [70, 'Realista', 'Realistic', 'Mezcla esperanza y prudencia según la situación.', 'You mix hope and caution depending on the situation.'],
+    [101, 'Optimista', 'Optimistic', 'Confía en que las cosas saldrán bien, y eso le ayuda a intentarlo.', 'You trust things will turn out well, and that helps you try.']],
+  items: [
+    ['T', 1, 'En tiempos difíciles, suelo esperar lo mejor.', 'In uncertain times, I usually expect the best.'],
+    ['T', -1, 'Si algo puede salirme mal, me saldrá mal.', 'If something can go wrong for me, it will.'],
+    ['T', 1, 'Soy optimista sobre mi futuro.', 'I am optimistic about my future.'],
+    ['T', -1, 'Casi nunca espero que las cosas me salgan como quiero.', 'I hardly ever expect things to go my way.'],
+    ['T', 1, 'Creo que me pasarán más cosas buenas que malas.', 'I believe more good things than bad will happen to me.'],
+    ['T', -1, 'Rara vez cuento con que me ocurra algo bueno.', 'I rarely count on good things happening to me.'],
+  ] });
+
+TESTS.push({ id: 'grit', icon: '⛰️', color: '#b45309', kind: 'total', scale: 'agree',
+  name: ['Perseverancia (grit)', 'Perseverance (grit)'], model: ['Inspirado en la escala de grit de Duckworth', 'Inspired by Duckworth’s grit scale'],
+  about: ['Pasión y constancia con las metas a largo plazo.', 'Passion and perseverance for long-term goals.'],
+  bands: [[40, 'Poca constancia', 'Low grit', 'Le cuesta sostener metas largas; elegir una sola y dividirla en pasos cortos ayuda.', 'Long goals are hard to sustain; choosing just one and splitting it into short steps helps.'],
+    [70, 'Constancia media', 'Medium grit', 'Persevera en lo que le importa, aunque a veces cambia de rumbo.', 'You persevere in what matters, although you sometimes change course.'],
+    [101, 'Mucha constancia', 'High grit', 'No se rinde fácilmente y sostiene sus metas durante años.', 'You don’t give up easily and keep your goals for years.']],
+  items: [
+    ['T', -1, 'Las ideas nuevas me distraen de las anteriores.', 'New ideas distract me from previous ones.'],
+    ['T', 1, 'Los contratiempos no me desaniman.', 'Setbacks don’t discourage me.'],
+    ['T', -1, 'Me obsesiono con un proyecto un tiempo y luego pierdo el interés.', 'I get obsessed with a project for a while and then lose interest.'],
+    ['T', 1, 'Soy muy trabajador/a.', 'I am a hard worker.'],
+    ['T', -1, 'Me pongo una meta y luego cambio a otra distinta.', 'I set a goal and later switch to a different one.'],
+    ['T', 1, 'Termino lo que empiezo.', 'I finish whatever I begin.'],
+    ['T', -1, 'Me cuesta mantener el interés en proyectos que duran meses.', 'I find it hard to stay interested in projects that take months.'],
+    ['T', 1, 'He superado obstáculos para lograr algo importante.', 'I have overcome obstacles to achieve something important.'],
+  ] });
+
+TESTS.push({ id: 'mindset', icon: '🧠', color: '#8b5cf6', kind: 'total', scale: 'agree',
+  name: ['Mentalidad de crecimiento', 'Growth mindset'], model: ['Teorías implícitas de Dweck', 'Dweck’s implicit theories'],
+  about: ['Si cree que la inteligencia y el talento se pueden desarrollar.', 'Whether you believe intelligence and talent can be developed.'],
+  bands: [[40, 'Mentalidad fija', 'Fixed mindset', 'Tiende a pensar que las capacidades vienen dadas. Ver los errores como información cambia mucho.', 'You tend to think abilities are given. Seeing mistakes as information changes a lot.'],
+    [70, 'Mentalidad mixta', 'Mixed mindset', 'En unas áreas cree que se puede mejorar y en otras no tanto.', 'In some areas you believe you can improve and in others not so much.'],
+    [101, 'Mentalidad de crecimiento', 'Growth mindset', 'Cree que con esfuerzo y buenas estrategias se puede aprender casi todo.', 'You believe that with effort and good strategies almost anything can be learned.']],
+  items: [
+    ['T', -1, 'Uno tiene cierta inteligencia y no puede cambiarla mucho.', 'You have a certain intelligence and can’t change it much.'],
+    ['T', 1, 'Con práctica, cualquiera puede mejorar bastante en casi todo.', 'With practice, anyone can get much better at almost anything.'],
+    ['T', -1, 'Si algo me cuesta, seguramente no tengo talento para ello.', 'If something is hard for me, I probably have no talent for it.'],
+    ['T', 1, 'Los errores me enseñan qué tengo que cambiar.', 'Mistakes teach me what I need to change.'],
+    ['T', 1, 'Me gustan los retos que me obligan a aprender.', 'I like challenges that force me to learn.'],
+    ['T', -1, 'Las críticas a mi trabajo me parecen ataques.', 'Criticism of my work feels like an attack.'],
+  ] });
+
+TESTS.push({ id: 'empathy', icon: '🫶', color: '#db2777', kind: 'dims', scale: 'agree',
+  name: ['Empatía', 'Empathy'], model: ['Empatía cognitiva y afectiva', 'Cognitive and affective empathy'],
+  about: ['Entender lo que otros piensan (cognitiva) y sentir con ellos (afectiva).', 'Understanding what others think (cognitive) and feeling with them (affective).'],
+  dims: { CG: ['Empatía cognitiva', 'Cognitive empathy'], AF: ['Empatía afectiva', 'Affective empathy'] },
+  text: {
+    CG: ['Entiende muy bien el punto de vista de los demás.', 'You understand others’ points of view very well.', 'A veces le cuesta ver las cosas desde fuera.', 'Sometimes you find it hard to see things from outside.'],
+    AF: ['Siente con intensidad lo que sienten los demás.', 'You strongly feel what others feel.', 'Mantiene cierta distancia emocional con el dolor ajeno.', 'You keep some emotional distance from others’ pain.'],
+  },
+  items: [
+    ['CG', 1, 'Antes de criticar, intento entender las razones del otro.', 'Before criticising, I try to understand the other person’s reasons.'],
+    ['CG', 1, 'Adivino con facilidad qué piensa alguien.', 'I can easily guess what someone is thinking.'],
+    ['CG', -1, 'Me cuesta entender por qué alguien se ofende.', 'I find it hard to understand why someone gets offended.'],
+    ['CG', 1, 'En una discusión, puedo explicar bien la postura contraria.', 'In an argument, I can explain the opposite view well.'],
+    ['CG', -1, 'No suelo pensar en cómo verán los demás mis palabras.', 'I don’t usually think about how others will take my words.'],
+    ['AF', 1, 'Me afecta ver sufrir a alguien, aunque no lo conozca.', 'It affects me to see someone suffer, even a stranger.'],
+    ['AF', 1, 'Me contagio de la alegría de los demás.', 'I catch other people’s joy.'],
+    ['AF', -1, 'Las desgracias ajenas no me suelen conmover.', 'Other people’s misfortunes don’t usually move me.'],
+    ['AF', 1, 'Me emociono con películas o historias tristes.', 'Sad films or stories move me.'],
+    ['AF', 1, 'Siento la necesidad de consolar a quien lo pasa mal.', 'I feel the need to comfort someone who is struggling.'],
+  ] });
+
+TESTS.push({ id: 'resil', icon: '🪨', color: '#0d9488', kind: 'total', scale: 'agree',
+  name: ['Resiliencia', 'Resilience'], model: ['Inspirado en la escala breve de resiliencia', 'Inspired by the Brief Resilience Scale'],
+  about: ['Su capacidad de recuperarse después de una dificultad.', 'Your ability to bounce back after a difficulty.'],
+  bands: [[40, 'Resiliencia baja', 'Low resilience', 'Las dificultades le cuestan tiempo en superarse. Apoyarse en otros y cuidar el descanso ayuda a recuperarse.', 'Difficulties take you time to get over. Leaning on others and resting well help you recover.'],
+    [70, 'Resiliencia media', 'Medium resilience', 'Se recupera de los golpes, aunque algunos le duran.', 'You recover from blows, although some last a while.'],
+    [101, 'Resiliencia alta', 'High resilience', 'Se levanta rápido tras los golpes y aprende de ellos.', 'You get up quickly after setbacks and learn from them.']],
+  items: [
+    ['T', 1, 'Me recupero rápido después de un mal momento.', 'I bounce back quickly after hard times.'],
+    ['T', -1, 'Me cuesta superar los acontecimientos estresantes.', 'I have a hard time getting through stressful events.'],
+    ['T', 1, 'No tardo mucho en recuperarme de algo estresante.', 'It doesn’t take me long to recover from a stressful event.'],
+    ['T', -1, 'Me cuesta volver a estar bien cuando algo sale mal.', 'It is hard for me to snap back when something bad happens.'],
+    ['T', 1, 'Suelo salir adelante de las dificultades sin grandes problemas.', 'I usually come through difficult times with little trouble.'],
+    ['T', -1, 'Tardo mucho en superar los contratiempos de mi vida.', 'I take a long time to get over setbacks in my life.'],
+  ] });
+
+TESTS.push({ id: 'learn', icon: '📚', color: '#2563eb', kind: 'dims', scale: 'agree', top: 1,
+  name: ['Estilo de aprendizaje', 'Learning style'], model: ['Visual, auditivo, lectoescritor y kinestésico', 'Visual, aural, read/write and kinaesthetic'],
+  about: ['Por qué canal prefiere recibir la información nueva.', 'Through which channel you prefer to take in new information.'],
+  dims: { V: ['Visual', 'Visual'], A: ['Auditivo', 'Aural'], R: ['Lectura y escritura', 'Read/write'], K: ['Kinestésico', 'Kinaesthetic'] },
+  text: {
+    V: ['Aprende mejor con esquemas, mapas, colores y diagramas.', 'You learn best with charts, maps, colours and diagrams.'],
+    A: ['Aprende mejor escuchando, explicando y debatiendo.', 'You learn best by listening, explaining and discussing.'],
+    R: ['Aprende mejor leyendo, tomando apuntes y haciendo listas.', 'You learn best by reading, taking notes and making lists.'],
+    K: ['Aprende mejor haciendo, probando y con ejemplos reales.', 'You learn best by doing, trying and with real examples.'],
+  },
+  items: [
+    ['V', 1, 'Recuerdo mejor algo si lo veo en un gráfico o esquema.', 'I remember something better if I see it in a chart or diagram.'],
+    ['V', 1, 'Para orientarme prefiero un mapa a unas indicaciones habladas.', 'To find my way I prefer a map to spoken directions.'],
+    ['V', 1, 'Subrayo con colores para estudiar.', 'I highlight in colours to study.'],
+    ['A', 1, 'Aprendo mucho escuchando pódcast o explicaciones.', 'I learn a lot from podcasts or explanations.'],
+    ['A', 1, 'Repito las cosas en voz alta para recordarlas.', 'I repeat things out loud to remember them.'],
+    ['A', 1, 'Entiendo mejor un tema cuando lo hablo con alguien.', 'I understand a topic better when I talk it through.'],
+    ['R', 1, 'Tomo apuntes detallados aunque tenga las diapositivas.', 'I take detailed notes even if I have the slides.'],
+    ['R', 1, 'Prefiero un manual escrito a un vídeo.', 'I prefer a written manual to a video.'],
+    ['R', 1, 'Hago listas para organizar lo que aprendo.', 'I make lists to organise what I learn.'],
+    ['K', 1, 'Aprendo haciendo, aunque me equivoque.', 'I learn by doing, even if I make mistakes.'],
+    ['K', 1, 'Me cuesta estar quieto/a mucho rato en clase.', 'I find it hard to sit still for long in class.'],
+    ['K', 1, 'Entiendo mejor con un ejemplo práctico que con la teoría.', 'I understand better with a practical example than with theory.'],
+  ] });
+
+TESTS.push({ id: 'mi', icon: '🎨', color: '#f59e0b', kind: 'dims', scale: 'agree', top: 2,
+  name: ['Inteligencias múltiples', 'Multiple intelligences'], model: ['Teoría de Howard Gardner', 'Howard Gardner’s theory'],
+  about: ['Ocho formas de ser inteligente: con las palabras, los números, el espacio, el cuerpo, la música, la gente, uno mismo y la naturaleza.', 'Eight ways of being smart: with words, numbers, space, body, music, people, yourself and nature.'],
+  dims: { LIN: ['Lingüística', 'Linguistic'], LOG: ['Lógico-matemática', 'Logical-mathematical'], ESP: ['Espacial', 'Spatial'], COR: ['Corporal', 'Bodily'], MUS: ['Musical', 'Musical'], INTER: ['Interpersonal', 'Interpersonal'], INTRA: ['Intrapersonal', 'Intrapersonal'], NAT: ['Naturalista', 'Naturalist'] },
+  text: {
+    LIN: ['Se le dan bien las palabras: leer, escribir y contar historias.', 'You are good with words: reading, writing and storytelling.'],
+    LOG: ['Disfruta con los números, los patrones y la lógica.', 'You enjoy numbers, patterns and logic.'],
+    ESP: ['Piensa en imágenes y se orienta en el espacio con facilidad.', 'You think in pictures and find your way around easily.'],
+    COR: ['Aprende con el cuerpo: deporte, baile, manualidades.', 'You learn with your body: sport, dance, crafts.'],
+    MUS: ['Tiene oído para el ritmo, la melodía y los sonidos.', 'You have an ear for rhythm, melody and sounds.'],
+    INTER: ['Entiende a la gente y trabaja bien en equipo.', 'You understand people and work well in teams.'],
+    INTRA: ['Se conoce bien: sabe lo que siente y lo que quiere.', 'You know yourself well: what you feel and what you want.'],
+    NAT: ['Le atraen la naturaleza, los animales y las plantas.', 'You are drawn to nature, animals and plants.'],
+  },
+  items: [
+    ['LIN', 1, 'Disfruto leyendo y escribiendo.', 'I enjoy reading and writing.'],
+    ['LIN', 1, 'Me salen las palabras justas para explicar algo.', 'The right words come to me to explain something.'],
+    ['LOG', 1, 'Me gustan los acertijos, la lógica y los números.', 'I like puzzles, logic and numbers.'],
+    ['LOG', 1, 'Busco la causa de las cosas de forma ordenada.', 'I look for the cause of things in an orderly way.'],
+    ['ESP', 1, 'Me imagino con facilidad cómo quedaría algo en 3D.', 'I easily picture how something would look in 3D.'],
+    ['ESP', 1, 'Dibujo o garabateo mientras pienso.', 'I draw or doodle while I think.'],
+    ['COR', 1, 'Se me dan bien los deportes o las manualidades.', 'I am good at sports or crafts.'],
+    ['COR', 1, 'Necesito moverme para pensar bien.', 'I need to move to think well.'],
+    ['MUS', 1, 'Recuerdo canciones con facilidad.', 'I remember songs easily.'],
+    ['MUS', 1, 'Noto enseguida cuando una nota está desafinada.', 'I notice right away when a note is out of tune.'],
+    ['INTER', 1, 'La gente acude a mí para pedir consejo.', 'People come to me for advice.'],
+    ['INTER', 1, 'Disfruto trabajando en grupo.', 'I enjoy working in a group.'],
+    ['INTRA', 1, 'Dedico tiempo a pensar en mis metas y valores.', 'I spend time thinking about my goals and values.'],
+    ['INTRA', 1, 'Sé bien cuáles son mis puntos fuertes y débiles.', 'I know my strengths and weaknesses well.'],
+    ['NAT', 1, 'Me encanta estar en el campo o en la montaña.', 'I love being in the countryside or the mountains.'],
+    ['NAT', 1, 'Reconozco plantas, árboles o animales.', 'I can recognise plants, trees or animals.'],
+  ] });
+
+TESTS.push({ id: 'riasec', icon: '🧰', color: '#16a34a', kind: 'dims', scale: 'agree', top: 3,
+  name: ['Intereses vocacionales', 'Career interests'], model: ['Modelo RIASEC de Holland', 'Holland’s RIASEC model'],
+  about: ['Seis tipos de intereses que orientan qué trabajos le pueden llenar.', 'Six types of interests that point to which jobs may fulfil you.'],
+  dims: { R: ['Realista', 'Realistic'], I: ['Investigador', 'Investigative'], A: ['Artístico', 'Artistic'], S: ['Social', 'Social'], E: ['Emprendedor', 'Enterprising'], C: ['Convencional', 'Conventional'] },
+  text: {
+    R: ['Trabajar con las manos, herramientas, máquinas o al aire libre.', 'Working with your hands, tools, machines or outdoors.'],
+    I: ['Investigar, analizar y resolver problemas complejos.', 'Researching, analysing and solving complex problems.'],
+    A: ['Crear, diseñar y expresarse con libertad.', 'Creating, designing and expressing yourself freely.'],
+    S: ['Ayudar, enseñar y cuidar a las personas.', 'Helping, teaching and caring for people.'],
+    E: ['Liderar, vender y poner en marcha proyectos.', 'Leading, selling and starting projects.'],
+    C: ['Organizar, ordenar datos y seguir procesos claros.', 'Organising, handling data and following clear processes.'],
+  },
+  items: [
+    ['R', 1, 'Me gustaría reparar aparatos o construir cosas.', 'I would like to repair devices or build things.'],
+    ['R', 1, 'Prefiero un trabajo al aire libre a una oficina.', 'I prefer outdoor work to an office.'],
+    ['I', 1, 'Me gustaría hacer experimentos o investigar.', 'I would like to do experiments or research.'],
+    ['I', 1, 'Disfruto resolviendo problemas difíciles de cabeza.', 'I enjoy solving hard problems in my head.'],
+    ['A', 1, 'Me gustaría diseñar, escribir, actuar o componer.', 'I would like to design, write, act or compose.'],
+    ['A', 1, 'Necesito libertad para crear a mi manera.', 'I need freedom to create my own way.'],
+    ['S', 1, 'Me gustaría enseñar o cuidar a otras personas.', 'I would like to teach or care for others.'],
+    ['S', 1, 'Me llena ayudar a alguien a resolver un problema.', 'Helping someone solve a problem fulfils me.'],
+    ['E', 1, 'Me gustaría dirigir un equipo o un negocio.', 'I would like to run a team or a business.'],
+    ['E', 1, 'Disfruto convenciendo y negociando.', 'I enjoy persuading and negotiating.'],
+    ['C', 1, 'Me gusta llevar cuentas, archivos y datos en orden.', 'I like keeping accounts, files and data in order.'],
+    ['C', 1, 'Prefiero tareas con instrucciones claras.', 'I prefer tasks with clear instructions.'],
+  ] });
+
+TESTS.push({ id: 'dark', icon: '🕶️', color: '#334155', kind: 'dims', scale: 'agree', invert: 1,
+  name: ['Tríada oscura', 'Dark triad'], model: ['Maquiavelismo, narcisismo y psicopatía subclínica', 'Machiavellianism, narcissism and subclinical psychopathy'],
+  about: ['Tres rasgos «oscuros» que todos tenemos en alguna medida. Puntuar algo es normal; no es un diagnóstico.', 'Three “dark” traits we all have to some degree. Scoring some is normal; this is not a diagnosis.'],
+  dims: { MAC: ['Maquiavelismo', 'Machiavellianism'], NAR: ['Narcisismo', 'Narcissism'], PSY: ['Impulsividad fría', 'Callous impulsivity'] },
+  text: {
+    MAC: ['Estratégico/a: calcula sus movimientos y sabe usar la influencia.', 'Strategic: you calculate your moves and know how to use influence.', 'Juega limpio y prefiere la transparencia.', 'You play fair and prefer transparency.'],
+    NAR: ['Le gusta destacar y ser admirado/a.', 'You like to stand out and be admired.', 'Discreto/a: no necesita ser el centro.', 'Modest: you don’t need to be the centre.'],
+    PSY: ['Busca emociones fuertes y a veces no mide las consecuencias.', 'You seek thrills and sometimes don’t weigh the consequences.', 'Prudente y considerado/a con el efecto de sus actos.', 'Careful and mindful of the effect of your actions.'],
+  },
+  items: [
+    ['MAC', 1, 'Es mejor no contar todos tus planes a los demás.', 'It is better not to tell others all your plans.'],
+    ['MAC', 1, 'Sé cómo usar a las personas adecuadas para lograr algo.', 'I know how to use the right people to get things done.'],
+    ['MAC', -1, 'Creo que la honestidad es siempre la mejor estrategia.', 'I believe honesty is always the best policy.'],
+    ['MAC', 1, 'Guardo información que algún día me puede venir bien.', 'I keep information that might be useful to me someday.'],
+    ['NAR', 1, 'Me gusta ser el centro de atención.', 'I like being the centre of attention.'],
+    ['NAR', 1, 'Sé que soy especial; me lo dicen a menudo.', 'I know I am special; people often tell me so.'],
+    ['NAR', -1, 'Me incomoda que me elogien en público.', 'Being praised in public makes me uncomfortable.'],
+    ['NAR', 1, 'Me merezco más reconocimiento del que recibo.', 'I deserve more recognition than I get.'],
+    ['PSY', 1, 'Me atraen las situaciones peligrosas.', 'Dangerous situations attract me.'],
+    ['PSY', 1, 'Digo cosas hirientes sin pensármelo mucho.', 'I say hurtful things without thinking much.'],
+    ['PSY', -1, 'Me siento mal cuando hago daño a alguien.', 'I feel bad when I hurt someone.'],
+    ['PSY', 1, 'Actúo primero y pienso después.', 'I act first and think later.'],
+  ] });
+
+TESTS.push({ id: 'assert', icon: '🗣️', color: '#0891b2', kind: 'total', scale: 'agree',
+  name: ['Asertividad', 'Assertiveness'], model: ['Estilos de comunicación', 'Communication styles'],
+  about: ['Si defiende lo que piensa y necesita respetando a los demás.', 'Whether you stand up for what you think and need while respecting others.'],
+  bands: [[40, 'Más bien pasivo/a', 'Rather passive', 'Le cuesta decir que no o pedir lo que necesita. Empezar por peticiones pequeñas entrena la asertividad.', 'You find it hard to say no or ask for what you need. Starting with small requests trains assertiveness.'],
+    [70, 'Asertividad media', 'Medium assertiveness', 'Se defiende en muchas situaciones, aunque en algunas se calla o se excede.', 'You stand up for yourself in many situations, though in some you stay silent or overdo it.'],
+    [101, 'Asertivo/a', 'Assertive', 'Dice lo que piensa con claridad y respeto.', 'You say what you think clearly and respectfully.']],
+  items: [
+    ['T', 1, 'Sé decir que no sin sentirme culpable.', 'I can say no without feeling guilty.'],
+    ['T', -1, 'Me callo mi opinión para evitar discusiones.', 'I keep my opinion to myself to avoid arguments.'],
+    ['T', 1, 'Pido lo que necesito de forma clara.', 'I ask clearly for what I need.'],
+    ['T', 1, 'Si algo me molesta, lo digo con calma.', 'If something bothers me, I say so calmly.'],
+    ['T', -1, 'Me cuesta devolver un producto defectuoso.', 'I find it hard to return a faulty product.'],
+    ['T', 1, 'Acepto los elogios sin quitarles importancia.', 'I accept compliments without brushing them off.'],
+    ['T', -1, 'Hago cosas que no quiero por no decepcionar.', 'I do things I don’t want to so as not to disappoint.'],
+    ['T', 1, 'Puedo expresar desacuerdo con mi jefe o profesor.', 'I can disagree with my boss or teacher.'],
+  ] });
+
+// Nombres propios de los 16 tipos (no son los de ninguna marca).
+const TYPE_NAMES = {
+  INTJ: ['Estratega', 'Strategist'], INTP: ['Pensador', 'Thinker'], ENTJ: ['Director', 'Director'], ENTP: ['Innovador', 'Innovator'],
+  INFJ: ['Visionario', 'Visionary'], INFP: ['Idealista', 'Idealist'], ENFJ: ['Mentor', 'Mentor'], ENFP: ['Inspirador', 'Inspirer'],
+  ISTJ: ['Guardián', 'Guardian'], ISFJ: ['Cuidador', 'Caretaker'], ESTJ: ['Organizador', 'Organiser'], ESFJ: ['Anfitrión', 'Host'],
+  ISTP: ['Mecánico', 'Mechanic'], ISFP: ['Artista', 'Artist'], ESTP: ['Dinámico', 'Go-getter'], ESFP: ['Animador', 'Showman'],
+};
+const TYPE_TEXT = {
+  I: ['recarga energía hacia dentro', 'recharges inward'], E: ['recarga energía con la gente', 'recharges with people'],
+  S: ['se fija en lo concreto', 'focuses on the concrete'], N: ['se fija en las posibilidades', 'focuses on possibilities'],
+  T: ['decide con la cabeza', 'decides with the head'], F: ['decide con el corazón', 'decides with the heart'],
+  J: ['prefiere planificar', 'prefers to plan'], P: ['prefiere improvisar', 'prefers to improvise'],
+};
+
+// ---- PSIQUE: la app
+'use strict';
+const PAGE_LANG = document.documentElement.lang === 'en' ? 'en' : 'es';
+let lang = PAGE_LANG;
+const L = () => (lang === 'en' ? 1 : 0);
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const UI = {
+  es: {
+    tag: '20 tests de personalidad', profile: 'Mi perfil', other: 'English', done: 'completados', start: 'Empezar', cont: 'Seguir con el siguiente',
+    hero: 'Conózcase con los 20 tests de personalidad más usados', heroSub: 'Los cinco grandes, el tipo de 4 letras, el eneagrama, DISC, el apego, la inteligencia emocional, los intereses vocacionales… Al terminar, su perfil completo, listo para compartir.',
+    disc: 'Preguntas propias, inspiradas en los modelos de psicología más conocidos. Es orientativo y para conocerse mejor: no es un diagnóstico ni sustituye a un profesional. Sus respuestas se quedan en este navegador.',
+    q: 'preguntas', min: 'min', redo: 'Repetir', next: 'Siguiente test', back: 'Tests', prev: 'Anterior', question: 'Pregunta {0} de {1}',
+    result: 'Su resultado', allTests: 'Todos los tests', seeProfile: 'Ver mi perfil', inspired: 'Inspirado en', main: 'Resultado principal',
+    profTitle: 'Su perfil de personalidad', profEmpty: 'Todavía no ha hecho ningún test. Empiece por los cinco grandes: es el más completo.', profPartial: 'Lleva {0} de 20 tests. Cuantos más haga, más completo será su perfil.',
+    traits: 'Rasgos (los cinco grandes)', keys: 'Sus claves', wellbeing: 'Bienestar y fortalezas', summary: 'En pocas palabras',
+    share: 'Compartir', download: 'Descargar imagen', copy: 'Copiar texto', copied: '¡Copiado!', reset: 'Borrar mis respuestas', resetQ: '¿Borrar todas sus respuestas?',
+    mid: 'En el término medio entre los dos extremos.', wing: 'con ala {0}', tie: 'empatado con', shareText: 'Mi perfil en PSIQUE: {0}. ¿Y el tuyo?',
+    cardTitle: 'MI PERFIL DE PERSONALIDAD', cardFoot: 'Orientativo · no es un diagnóstico', tests20: '{0} de 20 tests',
+    k_type: 'Tipo', k_ennea: 'Eneagrama', k_disc: 'DISC', k_attach: 'Apego', k_love: 'Lenguaje del amor', k_riasec: 'Código vocacional', k_mi: 'Inteligencias', k_learn: 'Aprende mejor',
+    high: 'alto', low: 'bajo', medium: 'medio',
+    s_big5: 'Su personalidad combina {0}, {1} y {2}.', s_type: 'Su tipo es {0} ({1}): {2}.', s_ennea: 'En el eneagrama se reconoce en el {0}: {1}', s_disc: 'Con los demás, su estilo es de {0}.', s_love: 'Se siente más querido/a con {0}.', s_riasec: 'Le pueden llenar los trabajos de perfil {0}.', s_attach: 'En las relaciones, su apego es {0}.',
+    adj: { O: ['curiosidad', 'sentido práctico'], C: ['constancia', 'espontaneidad'], E: ['sociabilidad', 'reserva'], A: ['calidez', 'franqueza'], N: ['serenidad', 'sensibilidad'] },
+  },
+  en: {
+    tag: '20 personality tests', profile: 'My profile', other: 'Español', done: 'completed', start: 'Start', cont: 'Continue with the next one',
+    hero: 'Get to know yourself with the 20 most used personality tests', heroSub: 'The Big Five, the 4-letter type, the Enneagram, DISC, attachment, emotional intelligence, career interests… At the end, your full profile, ready to share.',
+    disc: 'Our own questions, inspired by the best-known psychology models. It is a guide to know yourself better: not a diagnosis and no substitute for a professional. Your answers stay in this browser.',
+    q: 'questions', min: 'min', redo: 'Redo', next: 'Next test', back: 'Tests', prev: 'Back', question: 'Question {0} of {1}',
+    result: 'Your result', allTests: 'All tests', seeProfile: 'See my profile', inspired: 'Inspired by', main: 'Main result',
+    profTitle: 'Your personality profile', profEmpty: 'You haven’t taken any test yet. Start with the Big Five: it is the most complete.', profPartial: 'You have done {0} of 20 tests. The more you take, the fuller your profile.',
+    traits: 'Traits (the Big Five)', keys: 'Your keys', wellbeing: 'Wellbeing and strengths', summary: 'In a nutshell',
+    share: 'Share', download: 'Download image', copy: 'Copy text', copied: 'Copied!', reset: 'Erase my answers', resetQ: 'Erase all your answers?',
+    mid: 'Right in the middle between both ends.', wing: 'wing {0}', tie: 'tied with', shareText: 'My PSIQUE profile: {0}. What’s yours?',
+    cardTitle: 'MY PERSONALITY PROFILE', cardFoot: 'A guide · not a diagnosis', tests20: '{0} of 20 tests',
+    k_type: 'Type', k_ennea: 'Enneagram', k_disc: 'DISC', k_attach: 'Attachment', k_love: 'Love language', k_riasec: 'Career code', k_mi: 'Intelligences', k_learn: 'Learns best',
+    high: 'high', low: 'low', medium: 'medium',
+    s_big5: 'Your personality combines {0}, {1} and {2}.', s_type: 'Your type is {0} ({1}): {2}.', s_ennea: 'In the Enneagram you recognise yourself in {0}: {1}', s_disc: 'With others, your style is {0}.', s_love: 'You feel most loved through {0}.', s_riasec: 'You may find fulfilment in {0} jobs.', s_attach: 'In relationships, your attachment is {0}.',
+    adj: { O: ['curiosity', 'practicality'], C: ['perseverance', 'spontaneity'], E: ['sociability', 'reserve'], A: ['warmth', 'frankness'], N: ['calm', 'sensitivity'] },
+  },
+};
+const t = (k) => UI[lang][k];
+const f = (s, ...a) => s.replace(/\{(\d)\}/g, (_, i) => a[+i]);
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+const byId = Object.fromEntries(TESTS.map((x) => [x.id, x]));
+
+// ---- estado (en este navegador)
+let S = { answers: {} };
+try { const j = JSON.parse(localStorage.getItem('psique_v1') || 'null'); if (j && j.answers) S = j; } catch (e) {}
+const save = () => { try { localStorage.setItem('psique_v1', JSON.stringify(S)); } catch (e) {} };
+const isDone = (id) => { const a = S.answers[id]; return !!a && a.length === byId[id].items.length && a.every((v) => v >= 1 && v <= 5); };
+const doneCount = () => TESTS.filter((x) => isDone(x.id)).length;
+
+// ---- puntuación
+function score(test, ans) {
+  const sum = {}, n = {};
+  test.items.forEach(([d, sign], i) => {
+    const v = ans[i]; if (!(v >= 1)) return;
+    const s = sign > 0 ? v : 6 - v;
+    sum[d] = (sum[d] || 0) + s; n[d] = (n[d] || 0) + 1;
+  });
+  const pct = {};
+  for (const d in sum) pct[d] = Math.round(((sum[d] / n[d] - 1) / 4) * 100);
+  const r = { pct };
+  if (test.kind === 'total') {
+    r.total = pct.T;
+    r.band = test.bands.find((b) => r.total < b[0]) || test.bands[test.bands.length - 1];
+  } else if (test.kind === 'type') {
+    const p = pct;
+    r.code = (p.EI >= 50 ? 'E' : 'I') + (p.SN >= 50 ? 'N' : 'S') + (p.TF >= 50 ? 'F' : 'T') + (p.JP >= 50 ? 'P' : 'J');
+  } else if (test.kind === 'attach') {
+    const a = pct.ANX >= 50, v = pct.AVO >= 50;
+    r.style = a && v ? 'fearful' : a ? 'anxious' : v ? 'avoidant' : 'secure';
+  } else {
+    r.rank = Object.keys(test.dims).sort((x, y) => (pct[y] ?? 0) - (pct[x] ?? 0));
+  }
+  return r;
+}
+const resultOf = (id) => (isDone(id) ? score(byId[id], S.answers[id]) : null);
+// La frase corta del resultado principal (para las tarjetas y el perfil).
+function headline(id) {
+  const x = byId[id], r = resultOf(id);
+  if (!r) return '';
+  if (x.kind === 'total') return `${r.band[1 + L()]} · ${r.total}%`;
+  if (x.kind === 'type') return `${r.code} · ${TYPE_NAMES[r.code][L()]}`;
+  if (x.kind === 'attach') return x.styles[r.style][L()];
+  if (id === 'ennea') return `${x.dims[r.rank[0]][L()]} · ${f(t('wing'), wingOf(r))}`;
+  if (id === 'riasec') return r.rank.slice(0, 3).join('') + ' · ' + r.rank.slice(0, 3).map((k) => x.dims[k][L()]).join(', ');
+  if (x.top) return r.rank.slice(0, x.top).map((k) => x.dims[k][L()]).join(' + ');
+  // Las dos dimensiones más altas.
+  return r.rank.slice(0, 2).map((k) => `${x.dims[k][L()]} ${r.pct[k]}%`).join(' · ');
+}
+// El ala del eneagrama: el tipo vecino (n-1 o n+1) con más puntos.
+function wingOf(r) {
+  const n = +r.rank[0], a = n === 1 ? 9 : n - 1, b = n === 9 ? 1 : n + 1;
+  return (r.pct[a] ?? 0) >= (r.pct[b] ?? 0) ? a : b;
+}
+
+// ---- navegación por #ruta
+function go(h) { if (location.hash !== h) location.hash = h; else route(); }
+addEventListener('hashchange', route);
+let cur = { id: null, i: 0 };
+function route() {
+  const h = location.hash.slice(1).split('/');
+  window.scrollTo(0, 0);
+  if (h[1] === 'test' && byId[h[2]]) return showTest(h[2]);
+  if (h[1] === 'result' && byId[h[2]] && isDone(h[2])) return showResult(h[2]);
+  if (h[1] === 'profile') return showProfile();
+  showHome();
+}
+function frame(html) { $('#main').innerHTML = html; header(); }
+function header() {
+  $('#hTag').textContent = t('tag');
+  $('#hProfile').textContent = t('profile');
+  $('#hLang').textContent = t('other');
+  const n = doneCount();
+  $('#hProg').innerHTML = `<b>${n}</b>/20 <span>${t('done')}</span>`;
+  $('#hBar').style.width = `${(n / 20) * 100}%`;
+  document.documentElement.lang = lang;
+}
+
+// ---- inicio: las 20 tarjetas
+function showHome() {
+  const next = TESTS.find((x) => !isDone(x.id));
+  frame(`
+    <section class="hero">
+      <h1>${esc(t('hero'))}</h1>
+      <p>${esc(t('heroSub'))}</p>
+      <div class="row">${next ? `<button class="btn primary" data-go="#/test/${next.id}">${doneCount() ? esc(t('cont')) : esc(t('start'))} →</button>` : ''}<button class="btn" data-go="#/profile">${esc(t('seeProfile'))}</button></div>
+      <p class="note">${esc(t('disc'))}</p>
+    </section>
+    <section class="grid">${TESTS.map((x, i) => {
+      const d = isDone(x.id), mins = Math.max(1, Math.round(x.items.length * 8 / 60));
+      return `<button class="card ${d ? 'done' : ''}" style="--c:${x.color}" data-go="#/${d ? 'result' : 'test'}/${x.id}">
+        <span class="num">${i + 1}</span><span class="ic">${x.icon}</span>
+        <b>${esc(x.name[L()])}</b><small>${esc(x.model[L()])}</small>
+        <span class="meta">${x.items.length} ${t('q')} · ~${mins} ${t('min')}</span>
+        ${d ? `<span class="chip">✓ ${esc(headline(x.id))}</span>` : ''}
+      </button>`;
+    }).join('')}</section>`);
+}
+
+// ---- un test: una pregunta cada vez
+function showTest(id) {
+  const x = byId[id];
+  if (!S.answers[id] || S.answers[id].length !== x.items.length) S.answers[id] = new Array(x.items.length).fill(0);
+  if (cur.id !== id) { cur = { id, i: Math.max(0, S.answers[id].findIndex((v) => !v)) }; if (cur.i < 0) cur.i = 0; }
+  renderQ();
+}
+function renderQ() {
+  const x = byId[cur.id], i = cur.i, a = S.answers[cur.id], opts = SCALES[x.scale][L()];
+  frame(`
+    <section class="test" style="--c:${x.color}">
+      <div class="tbar"><button class="link" data-go="#/">← ${esc(t('back'))}</button><span>${x.icon} ${esc(x.name[L()])}</span></div>
+      <div class="qprog"><div style="width:${(i / x.items.length) * 100}%"></div></div>
+      <p class="qn">${esc(f(t('question'), i + 1, x.items.length))}</p>
+      <h2 class="qt">${esc(x.items[i][2 + L()])}</h2>
+      <div class="opts">${opts.map((o, k) => `<button class="opt ${a[i] === k + 1 ? 'sel' : ''}" data-v="${k + 1}"><kbd>${k + 1}</kbd><span>${esc(o)}</span></button>`).join('')}</div>
+      <div class="row between"><button class="btn ghost" id="qPrev" ${i === 0 ? 'disabled' : ''}>← ${esc(t('prev'))}</button><span class="hint">${esc(x.about[L()])}</span></div>
+    </section>`);
+  document.querySelectorAll('.opt').forEach((b) => b.addEventListener('click', () => pick(+b.dataset.v)));
+  $('#qPrev').addEventListener('click', () => { if (cur.i > 0) { cur.i--; renderQ(); } });
+}
+function pick(v) {
+  const x = byId[cur.id];
+  S.answers[cur.id][cur.i] = v; save();
+  const btn = document.querySelector(`.opt[data-v="${v}"]`); if (btn) btn.classList.add('sel');
+  setTimeout(() => {
+    if (cur.i + 1 < x.items.length) { cur.i++; renderQ(); }
+    else { const id = cur.id; cur = { id: null, i: 0 }; go(`#/result/${id}`); }
+  }, 160);
+}
+addEventListener('keydown', (e) => {
+  if (!location.hash.startsWith('#/test/') || !cur.id) return;
+  if (/^[1-5]$/.test(e.key)) pick(+e.key);
+  else if (e.key === 'ArrowLeft' && cur.i > 0) { cur.i--; renderQ(); }
+});
+
+// ---- el resultado de un test
+function bar(label, pct, color, left) {
+  return `<div class="bar"><div class="bl"><span>${esc(label)}</span><b>${pct}%</b></div><div class="bt">${left ? `<i class="mid"></i>` : ''}<div style="width:${pct}%;background:${color}"></div></div></div>`;
+}
+function dimText(x, k, p) {
+  const tx = x.text && x.text[k];
+  if (!tx) return '';
+  if (tx.length === 2) return tx[L()];
+  return p >= 55 ? tx[L()] : p < 45 ? tx[2 + L()] : t('mid');
+}
+function showResult(id) {
+  const x = byId[id], r = resultOf(id), idx = TESTS.indexOf(x), next = TESTS.slice(idx + 1).concat(TESTS.slice(0, idx)).find((y) => !isDone(y.id));
+  let body = '';
+  if (x.kind === 'total') {
+    body = `<div class="big" style="color:${x.color}">${r.total}%</div><h3>${esc(r.band[1 + L()])}</h3><p>${esc(r.band[3 + L()])}</p>${bar(x.name[L()], r.total, x.color)}`;
+  } else if (x.kind === 'type') {
+    const pairs = [['EI', 'E', 'I'], ['SN', 'N', 'S'], ['TF', 'F', 'T'], ['JP', 'P', 'J']];
+    body = `<div class="big" style="color:${x.color}">${r.code}</div><h3>${esc(TYPE_NAMES[r.code][L()])}</h3>
+      <p>${esc(cap(r.code.split('').map((c) => TYPE_TEXT[c][L()]).join(', ')))}.</p>
+      ${pairs.map(([k, hi, lo]) => { const p = r.pct[k]; const w = p >= 50 ? hi : lo; return `<div class="pair"><b class="${w === lo ? 'on' : ''}">${lo}</b><div class="bt two"><div style="left:50%;width:${Math.abs(p - 50)}%;${p < 50 ? `transform:translateX(-100%);` : ''}background:${x.color}"></div></div><b class="${w === hi ? 'on' : ''}">${hi}</b><small>${esc(x.dims[k][L()])}</small></div>`; }).join('')}`;
+  } else if (x.kind === 'attach') {
+    const st = x.styles[r.style];
+    body = `<div class="big" style="color:${x.color}">${esc(st[L()])}</div><p>${esc(st[2 + L()])}</p>${bar(x.dims.ANX[L()], r.pct.ANX, x.color)}${bar(x.dims.AVO[L()], r.pct.AVO, x.color)}
+      <div class="quad">${['anxious', 'fearful', 'secure', 'avoidant'].map((k) => `<span class="${k === r.style ? 'on' : ''}">${esc(x.styles[k][L()])}</span>`).join('')}</div>`;
+  } else {
+    const keys = x.top ? r.rank : Object.keys(x.dims);
+    const main = x.top ? `<div class="big small" style="color:${x.color}">${esc(headline(id))}</div>` : '';
+    body = main + keys.map((k) => `${bar(x.dims[k][L()], r.pct[k], x.color)}${(!x.top || keys.indexOf(k) < (x.top || 9)) ? `<p class="dt">${esc(dimText(x, k, r.pct[k]))}</p>` : ''}`).join('');
+  }
+  frame(`
+    <section class="result" style="--c:${x.color}">
+      <div class="tbar"><button class="link" data-go="#/">← ${esc(t('allTests'))}</button><span>${x.icon} ${esc(x.name[L()])}</span></div>
+      <p class="qn">${esc(t('result'))} · ${esc(t('inspired'))}: ${esc(x.model[L()])}</p>
+      <div class="rcard">${body}</div>
+      <div class="row">${next ? `<button class="btn primary" data-go="#/test/${next.id}">${esc(t('next'))}: ${next.icon} ${esc(next.name[L()])} →</button>` : ''}<button class="btn" data-go="#/profile">${esc(t('seeProfile'))}</button><button class="btn ghost" id="redo">${esc(t('redo'))}</button></div>
+    </section>`);
+  $('#redo').addEventListener('click', () => { delete S.answers[id]; save(); cur = { id: null, i: 0 }; go(`#/test/${id}`); });
+}
+
+// ---- el perfil: todo junto
+function profileData() {
+  const d = { n: doneCount(), keys: [], well: [], sentences: [] };
+  const big = resultOf('big5');
+  if (big) {
+    d.big = big.pct;
+    const order = Object.keys(big.pct).sort((a, b) => Math.abs(big.pct[b] - 50) - Math.abs(big.pct[a] - 50)).slice(0, 3);
+    const words = order.map((k) => t('adj')[k][big.pct[k] >= 50 ? 0 : 1]);
+    d.sentences.push(f(t('s_big5'), ...words));
+  }
+  const ty = resultOf('type');
+  if (ty) { d.type = ty.code; d.keys.push([t('k_type'), `${ty.code} · ${TYPE_NAMES[ty.code][L()]}`]); d.sentences.push(f(t('s_type'), ty.code, TYPE_NAMES[ty.code][L()], ty.code.split('').map((c) => TYPE_TEXT[c][L()]).join(', '))); }
+  const en = resultOf('ennea');
+  if (en) { const x = byId.ennea; d.keys.push([t('k_ennea'), `${x.dims[en.rank[0]][L()]} (${f(t('wing'), wingOf(en))})`]); d.sentences.push(f(t('s_ennea'), x.dims[en.rank[0]][L()], x.text[en.rank[0]][L()])); }
+  const di = resultOf('disc');
+  if (di) { const x = byId.disc; d.keys.push([t('k_disc'), x.dims[di.rank[0]][L()]]); d.sentences.push(f(t('s_disc'), x.dims[di.rank[0]][L()].toLowerCase())); }
+  const at = resultOf('attach');
+  if (at) { const s = byId.attach.styles[at.style][L()]; d.keys.push([t('k_attach'), s]); d.sentences.push(f(t('s_attach'), s.toLowerCase())); }
+  const lo = resultOf('love');
+  if (lo) { const s = byId.love.dims[lo.rank[0]][L()]; d.keys.push([t('k_love'), s]); d.sentences.push(f(t('s_love'), s.toLowerCase())); }
+  const ri = resultOf('riasec');
+  if (ri) { const x = byId.riasec, c = ri.rank.slice(0, 3); d.keys.push([t('k_riasec'), `${c.join('')} · ${c.map((k) => x.dims[k][L()]).join(', ')}`]); d.sentences.push(f(t('s_riasec'), c.map((k) => x.dims[k][L()].toLowerCase()).join(', '))); }
+  const mi = resultOf('mi');
+  if (mi) d.keys.push([t('k_mi'), mi.rank.slice(0, 2).map((k) => byId.mi.dims[k][L()]).join(' + ')]);
+  const le = resultOf('learn');
+  if (le) d.keys.push([t('k_learn'), byId.learn.dims[le.rank[0]][L()]]);
+  for (const id of ['esteem', 'swls', 'optimism', 'resil', 'grit', 'mindset', 'assert', 'stress']) {
+    const r = resultOf(id); if (r) d.well.push([byId[id], r.total, r.band[1 + L()]]);
+  }
+  for (const id of ['ei', 'empathy', 'dark']) {
+    const r = resultOf(id); if (!r) continue;
+    const vals = Object.values(r.pct), avg = Math.round(vals.reduce((a, b) => a + b, 0) / vals.length);
+    d.well.push([byId[id], avg, avg >= 60 ? t('high') : avg < 40 ? t('low') : t('medium')]);
+  }
+  return d;
+}
+function showProfile() {
+  const d = profileData();
+  frame(`
+    <section class="profile">
+      <div class="tbar"><button class="link" data-go="#/">← ${esc(t('allTests'))}</button><span>✨ ${esc(t('profTitle'))}</span></div>
+      ${d.n === 0 ? `<div class="rcard"><p>${esc(t('profEmpty'))}</p><button class="btn primary" data-go="#/test/big5">${esc(t('start'))} →</button></div>` : `
+      ${d.n < 20 ? `<p class="note">${esc(f(t('profPartial'), d.n))}</p>` : ''}
+      <div class="pgrid">
+        <div class="rcard"><h3>${esc(t('summary'))}</h3><p class="story">${d.sentences.map(esc).join(' ')}</p>
+          ${d.keys.length ? `<h3>${esc(t('keys'))}</h3><div class="keys">${d.keys.map(([k, v]) => `<div><small>${esc(k)}</small><b>${esc(v)}</b></div>`).join('')}</div>` : ''}</div>
+        <div class="rcard">${d.big ? `<h3>${esc(t('traits'))}</h3><canvas id="radar" width="520" height="440"></canvas>` : ''}
+          ${d.well.length ? `<h3>${esc(t('wellbeing'))}</h3>${d.well.map(([x, p, lab]) => bar(`${x.icon} ${x.name[L()]} · ${lab}`, p, x.color)).join('')}` : ''}</div>
+      </div>
+      <div class="rcard"><canvas id="card" width="1080" height="1350"></canvas>
+        <div class="row"><button class="btn primary" id="pShare">${esc(t('share'))}</button><button class="btn" id="pDown">${esc(t('download'))}</button><button class="btn ghost" id="pCopy">${esc(t('copy'))}</button><button class="btn ghost" id="pReset">${esc(t('reset'))}</button></div></div>`}
+    </section>`);
+  if (d.n === 0) return;
+  if (d.big) radar($('#radar'), d.big, 520, 440, false);
+  drawCard($('#card'), d);
+  const text = () => f(t('shareText'), [d.type, ...d.keys.slice(1, 4).map((k) => k[1])].filter(Boolean).join(' · ') || `${d.n}/20`);
+  const blob = () => new Promise((res) => $('#card').toBlob(res, 'image/png'));
+  $('#pDown').addEventListener('click', async () => { const b = await blob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'psique-perfil.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); });
+  $('#pShare').addEventListener('click', async () => {
+    try {
+      const file = new File([await blob()], 'psique-perfil.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) return await navigator.share({ files: [file], title: 'PSIQUE', text: text() });
+      if (navigator.share) return await navigator.share({ title: 'PSIQUE', text: text(), url: location.href.split('#')[0] });
+    } catch (e) { if (e && e.name === 'AbortError') return; }
+    $('#pDown').click();
+  });
+  $('#pCopy').addEventListener('click', async () => { try { await navigator.clipboard.writeText(`${text()} ${location.href.split('#')[0]}`); $('#pCopy').textContent = t('copied'); } catch (e) {} });
+  $('#pReset').addEventListener('click', () => { if (confirm(t('resetQ'))) { S = { answers: {} }; save(); go('#/'); } });
+}
+
+// ---- dibujo: el radar de los cinco grandes y la tarjeta para compartir
+function radar(cv, p, W, H, onDark) {
+  const g = cv.getContext('2d'), keys = ['O', 'C', 'E', 'A', 'N'], dims = byId.big5.dims;
+  const cx = W / 2, cy = H / 2 + 6, R = Math.min(W, H) * 0.29;
+  g.clearRect(0, 0, W, H);
+  const pt = (i, r) => [cx + Math.cos(-Math.PI / 2 + (i * 2 * Math.PI) / 5) * r, cy + Math.sin(-Math.PI / 2 + (i * 2 * Math.PI) / 5) * r];
+  g.strokeStyle = onDark ? 'rgba(255,255,255,.22)' : 'rgba(100,116,139,.3)'; g.lineWidth = 1;
+  for (const k of [0.25, 0.5, 0.75, 1]) { g.beginPath(); keys.forEach((_, i) => g.lineTo(...pt(i, R * k))); g.closePath(); g.stroke(); }
+  keys.forEach((_, i) => { g.beginPath(); g.moveTo(cx, cy); g.lineTo(...pt(i, R)); g.stroke(); });
+  const grad = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R); grad.addColorStop(0, 'rgba(99,102,241,.55)'); grad.addColorStop(1, 'rgba(236,72,153,.55)');
+  g.fillStyle = grad; g.strokeStyle = '#6366f1'; g.lineWidth = 3;
+  g.beginPath(); keys.forEach((k, i) => g.lineTo(...pt(i, R * Math.max(0.04, p[k] / 100)))); g.closePath(); g.fill(); g.stroke();
+  g.font = `600 ${Math.round(W / 34)}px system-ui, -apple-system, Segoe UI, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+  keys.forEach((k, i) => {
+    const [x, y] = pt(i, R + W / 11);
+    g.fillStyle = onDark ? '#fff' : getComputedStyle(document.body).getPropertyValue('--ink') || '#111';
+    g.fillText(dims[k][L()], x, y - W / 70);
+    g.fillStyle = onDark ? '#c7d2fe' : '#6366f1'; g.fillText(`${p[k]}%`, x, y + W / 36);
+  });
+}
+function drawCard(cv, d) {
+  const g = cv.getContext('2d'), W = 1080, H = 1350;
+  const bg = g.createLinearGradient(0, 0, W, H); bg.addColorStop(0, '#1e1b4b'); bg.addColorStop(0.55, '#4c1d95'); bg.addColorStop(1, '#831843');
+  g.fillStyle = bg; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 26; i++) { g.fillStyle = `rgba(255,255,255,${0.02 + (i % 4) * 0.008})`; g.beginPath(); g.arc((i * 263) % W, (i * 419) % H, 40 + ((i * 37) % 120), 0, 7); g.fill(); }
+  g.textAlign = 'center'; g.fillStyle = '#c7d2fe'; g.font = '600 34px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillText(t('cardTitle'), W / 2, 110);
+  g.fillStyle = '#fff'; g.font = '800 64px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillText('PSIQUE', W / 2, 185);
+  let y = 300;
+  if (d.type) {
+    g.font = '900 150px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillStyle = '#fde68a'; g.fillText(d.type, W / 2, y + 40);
+    g.font = '600 46px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillStyle = '#fff'; g.fillText(TYPE_NAMES[d.type][L()], W / 2, y + 110); y += 170;
+  }
+  if (d.big) {
+    const c = document.createElement('canvas'); c.width = 680; c.height = 420; radar(c, d.big, 680, 420, true);
+    g.drawImage(c, (W - 680) / 2, y - 10); y += 420;
+  }
+  const keys = d.keys.filter((k) => k[0] !== t('k_type')).slice(0, 6);
+  const cw = 470, chh = 88;
+  keys.forEach(([k, v], i) => {
+    const x = i % 2 ? W / 2 + 10 : W / 2 - 10 - cw, yy = y + Math.floor(i / 2) * (chh + 12);
+    g.fillStyle = 'rgba(255,255,255,.12)'; roundRect(g, x, yy, cw, chh, 22); g.fill();
+    g.textAlign = 'left'; g.fillStyle = '#c7d2fe'; g.font = '600 24px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillText(k.toUpperCase(), x + 26, yy + 33);
+    g.fillStyle = '#fff'; g.font = '700 30px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillText(fitText(g, v, cw - 52), x + 26, yy + 68);
+  });
+  g.textAlign = 'center'; g.fillStyle = 'rgba(255,255,255,.75)'; g.font = '500 28px system-ui, -apple-system, Segoe UI, sans-serif';
+  g.fillText(`${f(t('tests20'), d.n)} · ${t('cardFoot')}`, W / 2, H - 90);
+  g.fillStyle = '#fde68a'; g.font = '600 28px system-ui, -apple-system, Segoe UI, sans-serif'; g.fillText('dmarlonstudio.com', W / 2, H - 46);
+}
+function roundRect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function fitText(g, s, w) { if (g.measureText(s).width <= w) return s; while (s && g.measureText(s + '…').width > w) s = s.slice(0, -1); return s + '…'; }
+
+// ---- arranque
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { e.preventDefault(); go(b.dataset.go); } });
+$('#hLang').addEventListener('click', () => { lang = lang === 'es' ? 'en' : 'es'; route(); });
+$('#hProfile').addEventListener('click', () => go('#/profile'));
+$('#hHome').addEventListener('click', () => go('#/'));
+// Para las pruebas y las capturas: responder un test entero con un patrón.
+window.PS = { TESTS, S, score, resultOf, headline, profileData, go, fill(id, fn) { S.answers[id] = byId[id].items.map((it, i) => fn(it, i)); save(); }, reset() { S.answers = {}; save(); } };
+route();
+
+</script>
+</body>
+</html>

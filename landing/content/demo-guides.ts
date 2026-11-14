@@ -411,6 +411,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Gane el diploma", text: "Cada infracción suma una estrella (con cinco, el control lo retiene) y los choques restan puntos. Al terminar las 10 misiones escriba su nombre: el diploma sale en PNG para descargar o compartir, con el repaso de las pruebas falladas. Es un juego educativo: no reemplaza el curso obligatorio." },
     ],
   },
+  html_psique: {
+    intro:
+      "Una web en HTML, CSS y JavaScript, sin servidor: 20 tests de personalidad con preguntas propias, inspiradas en los modelos de psicología más conocidos, y un perfil final que lo junta todo.",
+    steps: [
+      { title: "Elija un test", text: "En la portada están los 20, con cuántas preguntas tienen y cuánto se tarda. «Empezar» le lleva al primero que no haya hecho; puede hacerlos en el orden que quiera y dejar uno a medias." },
+      { title: "Responda", text: "Una afirmación cada vez: elija de «Totalmente en desacuerdo» a «Totalmente de acuerdo» (con el ratón, el dedo o las teclas 1 a 5). Al terminar ve su resultado explicado, con barras por dimensión." },
+      { title: "Vea su perfil", text: "«Mi perfil» junta todo: un resumen en pocas palabras, sus claves (tipo, eneagrama, DISC, apego, código vocacional…), el radar de los cinco grandes y su bienestar. Descargue o comparta la tarjeta. Es orientativo, no un diagnóstico, y sus respuestas no salen de su navegador." },
+    ],
+  },
   next_world: {
     intro: "Una web de Next.js con servidor, hecha con el editor de pantallas: el código de la app termina en una línea // @server y lo que sigue se ejecuta en el servidor. Allí se descargan los aviones de OpenSky, los barcos del AIS del Báltico (Fintraffic) y los trenes de Renfe Cercanías y VR; la web solo llama a server.datos() cada 30 segundos y los dibuja en un Lienzo.",
     steps: [
@@ -831,6 +840,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Drive", text: "▲ or W speeds up and ▼ or S brakes: the speed holds by itself. ◀ ▶ changes lane and L turns on the lights. On a phone, with the buttons at the bottom. The minimap shows the tests and the destination; the speedometer, each stretch’s limit." },
       { title: "Drive through the markers", text: "The yellow markers are theory tests: orange panels, hazard numbers, classes, documents, equipment and emergencies. Answer with the mouse or 1-4; the faster, the more points. Driving tests are passed by keeping to 80 km/h, the town limits, level crossings, the double line and the roadside check." },
       { title: "Earn the diploma", text: "Each offence adds a star (with five, the check holds you) and crashes cost points. After the 10 missions, type your name: the diploma comes out as a PNG to download or share, with a review of the tests you failed. It is an educational game: it does not replace the mandatory course." },
+    ],
+  },
+  html_psique: {
+    intro:
+      "A website in HTML, CSS and JavaScript, with no server: 20 personality tests with our own questions, inspired by the best-known psychology models, and a final profile that brings everything together.",
+    steps: [
+      { title: "Pick a test", text: "The home page lists all 20, with how many questions each has and how long it takes. “Start” takes you to the first one you haven’t done; you can take them in any order and leave one halfway." },
+      { title: "Answer", text: "One statement at a time: choose from “Strongly disagree” to “Strongly agree” (with the mouse, your finger or the keys 1 to 5). At the end you see your result explained, with bars per dimension." },
+      { title: "See your profile", text: "“My profile” brings it all together: a short summary, your keys (type, Enneagram, DISC, attachment, career code…), the Big Five radar and your wellbeing. Download or share the card. It is a guide, not a diagnosis, and your answers never leave your browser." },
     ],
   },
   next_world: {

@@ -283,6 +283,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Déjela en la barra de menús", text: "Al cerrar la ventana, la app sigue en la barra de menús con lo gastado hoy y se actualiza sola cada 15 minutos. Su menú enseña la semana y el mes, los últimos 7 días con una barrita cada uno y el gasto por modelo; desde ahí se cambia el origen o lo que se ve. En Ajustes ponga un presupuesto mensual y le avisará al pasarlo; Archivo › Exportar a CSV… guarda todo para una hoja de cálculo." },
     ],
   },
+  pascal_travel: {
+    intro:
+      "Un planificador de viajes en Object Pascal con Lazarus, diseñado en el estudio, que le pide el plan a Claude Code y lo convierte en una imagen o un dosier listos para compartir.",
+    steps: [
+      { title: "Cuente su viaje", text: "Escriba el origen y el destino, elija los días, el ritmo (tranquilo, normal o intenso), el presupuesto y lo que le interesa (historia, arte, gastronomía, naturaleza, vida nocturna o viajar con niños), y pulse «✨ Preparar el plan con Claude Code». Claude Code tiene que estar instalado y con la sesión iniciada en su equipo." },
+      { title: "Claude Code prepara el plan", text: "En medio minuto o dos llega el plan: cómo llegar desde su origen, la mejor época, el presupuesto por día y, cada día, entre 3 y 5 lugares que existen de verdad, en orden, con la hora, una descripción, un consejo y dónde comer. Mientras trabaja, el botón sirve para cancelarlo." },
+      { title: "Imagen vertical o dosier", text: "Con «Imagen vertical» verá el plan en 1080 × 1920, para el móvil o las historias; con «Dosier (PDF)», una portada, una página por día y los consejos. «Guardar…» lo guarda como PNG o PDF, y en Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -640,6 +649,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Choose where the data comes from", text: "With “Local Claude Code logs”, the app reads what Claude Code keeps on your computer (~/.claude/projects): it works with any plan, Pro and Max too, and the cost is what those tokens would cost with the API. The first time it reads everything (several gigabytes, in a few seconds); after that, only what's new. With “Admin API”, enter an sk-ant-admin key from your Claude Console organization in Settings and you'll see each person's estimated cost, sessions, lines, commits and PRs." },
       { title: "Read the heatmap", text: "Each square is a day of the last year: the greener, the more usage. At the top, today, the last 7 days, the month (with your budget bar) and the year, and your streak of days in a row. Change “View” to switch from cost to tokens or sessions, and “Period” for the tables by model and by project. Hover over a day or click one (or a bar of the last 30 days) to see its details." },
       { title: "Keep it in the menu bar", text: "When you close the window, the app stays in the menu bar with today's spend and refreshes by itself every 15 minutes. Its menu shows the week and the month, the last 7 days with a little bar each and the spend by model; from there you can change the source or what is shown. In Settings set a monthly budget and it will warn you when you go over it; File › Export to CSV… saves everything for a spreadsheet." },
+    ],
+  },
+  pascal_travel: {
+    intro:
+      "A trip planner in Object Pascal with Lazarus, designed in the studio, that asks Claude Code for the plan and turns it into an image or a dossier ready to share.",
+    steps: [
+      { title: "Describe your trip", text: "Enter the origin and destination, choose the days, the pace (relaxed, normal or packed), the budget and your interests (history, art, food, nature, nightlife or travelling with children), and click “✨ Prepare the plan with Claude Code”. Claude Code must be installed and signed in on your computer." },
+      { title: "Claude Code prepares the plan", text: "In half a minute or two the plan arrives: how to get there from your origin, the best time to go, the budget per day and, for each day, 3 to 5 places that really exist, in order, with the time, a description, a tip and where to eat. While it works, the button cancels it." },
+      { title: "Vertical image or dossier", text: "With “Vertical image” you see the plan at 1080 × 1920, for your phone or stories; with “Dossier (PDF)”, a cover, one page per day and the tips. “Save…” saves it as PNG or PDF, and in File you can save the plan (JSON) to open it another day without asking for it again." },
     ],
   },
   domino: {

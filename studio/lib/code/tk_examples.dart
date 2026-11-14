@@ -43,6 +43,8 @@ part 'tk_showcase_pascal_launcher.dart';
 part 'tk_showcase_pascal_launcher_code.dart';
 part 'tk_showcase_pascal_opend.dart';
 part 'tk_showcase_pascal_opend_code.dart';
+part 'tk_showcase_pascal_travel.dart';
+part 'tk_showcase_pascal_travel_code.dart';
 part 'tk_showcase_cpp_webmon.dart';
 part 'tk_showcase_cpp_webmon_code.dart';
 part 'tk_showcase_cpp_clocks.dart';

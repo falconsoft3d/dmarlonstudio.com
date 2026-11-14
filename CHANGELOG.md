@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.138 — 2026-11-14
+
+- Nueva demo: **Plan de viaje (Pascal)**, un planificador de viajes en Object Pascal con Lazarus que trabaja con **Claude Code**: con el origen, el destino, los días, el ritmo, el presupuesto y lo que le interesa, le pide a Claude Code (la orden `claude -p` con un esquema JSON, en otro hilo y con la opción de cancelar) un plan por los lugares interesantes del destino, día a día y en orden, con la hora, una descripción, un consejo y dónde comer, además de cómo llegar, la mejor época, el presupuesto y consejos.
+- El plan se ve y se guarda como **imagen vertical** (1080 × 1920, para el móvil o las historias; se mide antes de dibujar para que quepa todo con el mayor detalle posible) o como **dosier en PDF** (portada, una página por día con su línea de tiempo y los consejos), hecho con fpPDF con las páginas en JPEG (menos de 1 MB). El plan también se guarda y se abre en JSON, y trae un ejemplo (Madrid → Lisboa, 3 días).
+- Probado de verdad con Claude Code (Madrid → Oporto, 2 días, en unos 40 segundos) y en inglés (la app pide el plan en el idioma de la interfaz).
+- Web: la página de la demo con su guía, sus capturas y «Cómo se hizo» (6 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.137 — 2026-11-14
 
 - Nueva demo: **Uso de Claude Code (C++)**, su uso de Claude Code día a día en una app nativa en C++ con FLTK: los tokens, lo que cuestan y las sesiones en un **mapa de calor como el de GitHub** (un cuadrado por día del último año, en cuatro tonos), con las cifras de hoy, los últimos 7 días, el mes y el año, la racha de días seguidos, las barras de los últimos 30 días por modelo y las tablas por modelo y por proyecto. Ver coste, tokens o sesiones; pasar el ratón o pulsar un día enseña su detalle (entrada, salida, caché, sesiones, mensajes y modelos).

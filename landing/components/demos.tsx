@@ -326,6 +326,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Cuánto usa Claude Code, día a día: los tokens, lo que cuestan y las sesiones en un mapa de calor como el de GitHub (un cuadrado por día del último año), con las cifras de hoy, la semana, el mes y el año, la racha, las barras de los últimos 30 días y el reparto por modelo y por proyecto. Lee los registros que Claude Code guarda en el equipo (sirve con cualquier plan, también Pro y Max: el coste es lo que costaría con la API) o la API de Claude Code Analytics con una clave de administrador. Al cerrarla se queda en la barra de menús con lo gastado hoy y avisa si pasa su presupuesto del mes. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Lee gigas de registros JSONL una sola vez y luego solo lo nuevo", "Los precios de cada modelo de Claude, con la caché y el modo rápido", "La API de Claude Code Analytics (Admin API) con curl", "El mapa de calor, las barras y las tablas dibujados en código", "La barra de menús de macOS con el runtime de Objective-C"],
       },
+      pascal_travel: {
+        name: "Plan de viaje (Pascal)",
+        text: "Escriba de dónde sale, adónde va y cuántos días tiene, con su ritmo, su presupuesto y lo que le interesa: Claude Code prepara un plan por los lugares interesantes del destino, día a día y en un orden que tiene sentido, con la hora, una descripción, un consejo y dónde comer. La app lo dibuja como una imagen vertical para el móvil (1080 × 1920) o como un dosier en PDF con portada, una página por día y consejos. Hace falta tener Claude Code instalado. En macOS, para Apple Silicon.",
+        shows: ["Object Pascal con Lazarus, diseñada en el estudio", "Claude Code desde la app: «claude -p» con un esquema JSON", "La imagen y las páginas dibujadas en el lienzo", "El PDF con fpPDF, sin bibliotecas de fuera"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -603,6 +608,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "How much you use Claude Code, day by day: tokens, what they cost and sessions in a GitHub-style heatmap (one square per day of the last year), with the figures for today, the week, the month and the year, the streak, bars for the last 30 days and the split by model and by project. It reads the logs Claude Code keeps on your computer (it works with any plan, Pro and Max too: the cost is what it would cost with the API) or the Claude Code Analytics API with an admin key. When closed it stays in the menu bar with today's spend and warns you if you go over your monthly budget. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Reads gigabytes of JSONL logs once, then only what's new", "Each Claude model's prices, with caching and fast mode", "The Claude Code Analytics API (Admin API) with curl", "The heatmap, bars and tables drawn in code", "The macOS menu bar through the Objective-C runtime"],
       },
+      pascal_travel: {
+        name: "Trip Planner (Pascal)",
+        text: "Enter where you're leaving from, where you're going and how many days you have, with your pace, budget and interests: Claude Code prepares a plan through the destination's interesting places, day by day and in an order that makes sense, with the time, a description, a tip and where to eat. The app draws it as a vertical image for your phone (1080 × 1920) or a PDF dossier with a cover, one page per day and tips. Claude Code must be installed. On macOS, for Apple Silicon.",
+        shows: ["Object Pascal with Lazarus, designed in the studio", "Claude Code from the app: “claude -p” with a JSON schema", "The image and the pages drawn on the canvas", "The PDF with fpPDF, no outside libraries"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -692,6 +702,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_minilang: { icon: "cpp", label: "C++ · FLTK" },
   cpp_pass: { icon: "cpp", label: "C++ · FLTK" },
   cpp_ccusage: { icon: "cpp", label: "C++ · FLTK" },
+  pascal_travel: { icon: "lazarus", label: "Pascal · Lazarus" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

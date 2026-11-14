@@ -59,6 +59,7 @@ const demos = [
   'cpp_minilang',
   'cpp_pass',
   'cpp_ccusage',
+  'pascal_travel',
   'domino',
 ];
 

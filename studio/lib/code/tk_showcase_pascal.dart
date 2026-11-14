@@ -11,6 +11,7 @@ List<TkExample> tkPascalExamples(String Function(String) t) => [
   tkPascalDocker(t),
   tkPascalLauncher(t),
   tkPascalOpenD(t),
+  tkPascalTravel(t),
 ];
 
 TkExample _pascalCalculator(String Function(String) t) {

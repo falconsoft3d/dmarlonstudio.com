@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -1073,7 +1073,7 @@ msgstr "Key figures and progress."
 msgid "Clientes nuevos"
 msgstr "New customers"
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Compras"
 msgstr "Purchase"
 
@@ -3421,7 +3421,7 @@ msgstr "Cost"
 msgid "Crear una clave…"
 msgstr "Create a key…"
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -3745,7 +3745,7 @@ msgstr ""
 "\n"
 "When you close the window, the app stays in the menu bar with today's spend; its menu shows the week, the month, the last 7 days and the spend by model."
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Ver"
 msgstr "View"
 
@@ -3889,7 +3889,7 @@ msgstr "{0} in the last year"
 msgid "{0} día"
 msgstr "{0} day"
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_wifi.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_travel.dart
 msgid "{0} días"
 msgstr "{0} days"
 
@@ -4083,7 +4083,7 @@ msgstr "United States · Miami"
 msgid "Estados Unidos · Nueva York"
 msgstr "United States · New York"
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Formato"
 msgstr "Format"
 
@@ -6239,7 +6239,7 @@ msgstr "Computer name"
 msgid "Nombre del modelo"
 msgstr "Model name"
 
-#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_train_monitor.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Normal"
 msgstr "Normal"
 
@@ -8541,7 +8541,7 @@ msgstr "Design a WhatsApp status and publish it"
 msgid "Documento"
 msgstr "Document"
 
-#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart
 msgid "Días"
 msgstr "Days"
 
@@ -15293,6 +15293,367 @@ msgstr "Forgot your password?"
 msgid "¿Probamos el botón con más contraste?"
 msgstr "Shall we try the button with more contrast?"
 
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "1 día"
+msgstr "1 day"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Abrir un plan…"
+msgstr "Open a plan…"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Acerca de Plan de viaje"
+msgstr "About Trip Planner"
+
+#: lib/code/tk_showcase_pascal_travel.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Alto"
+msgstr "Height"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Arte y museos"
+msgstr "Art and museums"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Barrio"
+msgstr "Neighbourhood"
+
+#: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Cancelado"
+msgstr "Cancelled"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Claude Code está preparando su viaje a {0}…"
+msgstr "Claude Code is preparing your trip to {0}…"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Claude Code ha contestado algo que no es un plan. Pruebe otra vez."
+msgstr "Claude Code answered something that isn't a plan. Try again."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Claude Code no pudo hacerlo: {0}"
+msgstr "Claude Code couldn't do it: {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Claude Code prepara el plan con lugares que existen de verdad. Revise horarios y precios antes de ir."
+msgstr "Claude Code prepares the plan with places that really exist. Check opening hours and prices before you go."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Comida"
+msgstr "Food"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Con niños"
+msgstr "With children"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Consejo:"
+msgstr "Tip:"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Consejos para el viaje"
+msgstr "Travel tips"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Cuándo ir"
+msgstr "When to go"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Cómo llegar"
+msgstr "Directions"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Cómo llegar: {0} · {1}"
+msgstr "Getting there: {0} · {1}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgctxt "trip"
+msgid "Destino"
+msgstr "Destination"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Dosier (PDF)"
+msgstr "Dossier (PDF)"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Dosier en PDF|*.pdf"
+msgstr "PDF dossier|*.pdf"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Dosier {0}"
+msgstr "Dossier {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Día {0}"
+msgstr "Day {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Económico"
+msgstr "Budget"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "El itinerario"
+msgstr "The itinerary"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid ""
+"Eres un guía de viajes con mucha experiencia. Prepara un plan de viaje de {0} días a {1} para alguien que sale de {2}. Le interesa: {3}. Ritmo: {4}. Presupuesto: {5}.\n"
+"Para cada día, entre 3 y 5 lugares interesantes que existan de verdad, en un orden que tenga sentido para moverse, con la hora aproximada (HH:MM), una descripción de una o dos frases y un consejo práctico; y en «food», qué y dónde comer ese día (sin empezar por «Para comer»). El «title» de cada día, sin «Día 1». En «getting_there», cómo ir desde el origen (medio, duración aproximada y un consejo). En «best_time», la mejor época. En «budget», una estimación por persona y día. En «tips», 4 o 5 consejos útiles para ese destino. En «title», un título corto y en «subtitle», una frase que invite a ir. Escribe todo en español, con frases cortas y claras."
+msgstr ""
+"You are a very experienced travel guide. Prepare a {0}-day trip plan to {1} for someone travelling from {2}. Interests: {3}. Pace: {4}. Budget: {5}.\n"
+"For each day, 3 to 5 interesting places that really exist, in an order that makes sense for getting around, with the approximate time (HH:MM), a one- or two-sentence description and a practical tip; and in “food”, what and where to eat that day (without starting with “To eat”). Each day's “title” without “Day 1”. In “getting_there”, how to get there from the origin (mode, approximate duration and a tip). In “best_time”, the best time of year. In “budget”, an estimate per person per day. In “tips”, 4 or 5 useful tips for that destination. In “title”, a short title and in “subtitle”, a sentence that makes you want to go. Write everything in English, in short, clear sentences."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid ""
+"Escriba de dónde sale y adónde va, cuántos días tiene, su ritmo, su presupuesto y lo que le interesa, y pulse «Preparar el plan con Claude Code». La app le pide a Claude Code (la orden «claude» de su equipo) un plan con los lugares interesantes del destino, día a día y en un orden que tiene sentido, con la hora, una descripción, un consejo y dónde comer.\n"
+"\n"
+"El plan se ve de dos formas (elíjala en «Formato»):\n"
+"• Imagen vertical: 1080 × 1920, para el móvil o las historias.\n"
+"• Dosier (PDF): una portada con cómo llegar, cuándo ir y el presupuesto, una página por día y los consejos.\n"
+"\n"
+"«Guardar…» guarda la imagen (PNG) o el dosier (PDF). En Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo.\n"
+"\n"
+"Hace falta tener Claude Code instalado y con la sesión iniciada. Mientras Claude prepara el plan (suele tardar entre medio minuto y dos minutos), el botón sirve para cancelarlo."
+msgstr ""
+"Enter where you are leaving from and where you are going, how many days you have, your pace, your budget and your interests, and click “Prepare the plan with Claude Code”. The app asks Claude Code (the “claude” command on your computer) for a plan with the destination's interesting places, day by day and in an order that makes sense, with the time, a description, a tip and where to eat.\n"
+"\n"
+"The plan can be seen in two ways (choose in “Format”):\n"
+"• Vertical image: 1080 × 1920, for your phone or stories.\n"
+"• Dossier (PDF): a cover with how to get there, when to go and the budget, one page per day and the tips.\n"
+"\n"
+"“Save…” saves the image (PNG) or the dossier (PDF). In File you can save the plan (JSON) to open it another day without asking for it again.\n"
+"\n"
+"You need Claude Code installed and signed in. While Claude prepares the plan (it usually takes between half a minute and two minutes), the button cancels it."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Escriba el origen y el destino del viaje."
+msgstr "Enter the origin and destination of the trip."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Ese archivo no es un plan de viaje."
+msgstr "That file isn't a trip plan."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Gastronomía"
+msgstr "Food and drink"
+
+#: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_reports.dart lib/ui/screens/dev_tools.dart
+msgid "Guardado en {0}"
+msgstr "Saved to {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Guardar el plan…"
+msgstr "Save the plan…"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Guardar la imagen o el dosier…"
+msgstr "Save the image or the dossier…"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Guardar…"
+msgstr "Save…"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Hecho con Plan de viaje · DMarlon Studio y Claude Code"
+msgstr "Made with Trip Planner · DMarlon Studio and Claude Code"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Historia y monumentos"
+msgstr "History and monuments"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Imagen PNG|*.png"
+msgstr "PNG image|*.png"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Imagen vertical"
+msgstr "Vertical image"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Intenso"
+msgstr "Packed"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "La imagen vertical y las páginas del dosier las dibuja el código de Form1.pas"
+msgstr "The vertical image and the dossier pages are drawn by the code in Form1.pas"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Le interesa"
+msgstr "Interests"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Listo: {0}, {1} (en {2} s)"
+msgstr "Ready: {0}, {1} (in {2} s)"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Lo ha preparado Claude Code con lugares que existen de verdad. Horarios, precios y aperturas cambian: compruébelos antes de ir."
+msgstr "Claude Code prepared it with places that really exist. Opening hours and prices change: check them before you go."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Lugar"
+msgstr "Place"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Medio"
+msgstr "Medium"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Mercado"
+msgstr "Market"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Mirador"
+msgstr "Viewpoint"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Monumento"
+msgstr "Monument"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Museo"
+msgstr "Museum"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Naturaleza"
+msgstr "Nature"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "No encuentro Claude Code en este equipo (la orden «claude»). ¿Abrir la página para instalarlo?"
+msgstr "I can't find Claude Code on this computer (the “claude” command). Open the page to install it?"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "No se ha podido guardar: {0}"
+msgstr "It couldn't be saved: {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Noche"
+msgstr "Night"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgctxt "trip"
+msgid "Origen"
+msgstr "From"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Para comer"
+msgstr "Where to eat"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Para comer: {0}"
+msgstr "To eat: {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Plan de viaje"
+msgstr "Trip Planner"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Plan de viaje (JSON)|*.json"
+msgstr "Trip plan (JSON)|*.json"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Plan de viaje (Pascal)"
+msgstr "Trip Planner (Pascal)"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Plan de viaje: con un origen, un destino y unos días, Claude Code prepara el plan por los lugares interesantes y la app lo dibuja como imagen vertical o dosier en PDF, en Pascal con Lazarus."
+msgstr "Trip Planner: with an origin, a destination and a number of days, Claude Code prepares the plan through the interesting places and the app draws it as a vertical image or a PDF dossier, in Pascal with Lazarus."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Plan {0}"
+msgstr "Plan {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Playa"
+msgstr "Beach"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Preparar el plan con Claude Code"
+msgstr "Prepare the plan with Claude Code"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgctxt "trip"
+msgid "Presupuesto"
+msgstr "Budget"
+
+#: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Ritmo"
+msgstr "Pace"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Sobre este plan"
+msgstr "About this plan"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Su viaje"
+msgstr "Your trip"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Templo"
+msgstr "Temple"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Tranquilo"
+msgstr "Relaxed"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Un ejemplo: escriba su origen y su destino y pulse «Preparar el plan con Claude Code»"
+msgstr "An example: enter your origin and destination and click “Prepare the plan with Claude Code”"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Un planificador de viajes en Object Pascal con Lazarus: con el origen, el destino y los días, Claude Code prepara un plan por los lugares interesantes del destino y la app lo dibuja como una imagen vertical para el móvil o un dosier en PDF."
+msgstr "A trip planner in Object Pascal with Lazarus: with the origin, the destination and the days, Claude Code prepares a plan through the destination's interesting places and the app draws it as a vertical image for your phone or a PDF dossier."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Una demo de DMarlon Studio hecha en Object Pascal con Lazarus. La ventana, su menú y los campos se diseñaron en el Diseñador del estudio; el código de Form1.pas llama a Claude Code («claude -p» con un esquema JSON) en otro hilo, lee el plan con fpjson, dibuja la imagen y las páginas en el lienzo y hace el PDF con fpPDF."
+msgstr "A DMarlon Studio demo made in Object Pascal with Lazarus. The window, its menu and the fields were designed in the studio's Designer; the code in Form1.pas calls Claude Code (“claude -p” with a JSON schema) on another thread, reads the plan with fpjson, draws the image and the pages on the canvas and makes the PDF with fpPDF."
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Ver el ejemplo"
+msgstr "Show the example"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Vida nocturna"
+msgstr "Nightlife"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "desde {0}"
+msgstr "from {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "imagen de 1080 × 1920"
+msgstr "1080 × 1920 image"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "un poco de todo"
+msgstr "a bit of everything"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{\"title\":\"Lisboa en tres días\",\"subtitle\":\"Tranvías, miradores y pastéis de nata en la ciudad de las siete colinas.\",\"destination\":\"Lisboa\",\"country\":\"Portugal\",\"origin\":\"Madrid\",\"getting_there\":{\"mode\":\"Avión\",\"duration\":\"1 h 20 min\",\"tip\":\"Hay muchos vuelos al día desde Madrid; el metro lleva del aeropuerto al centro en 25 minutos.\"},\"best_time\":\"De marzo a junio y de septiembre a octubre: buen tiempo y menos gente que en verano.\",\"budget\":\"Unos 90 a 120 € por persona y día sin el alojamiento: comida, transporte y entradas.\",\"days\":[{\"title\":\"Baixa y Alfama\",\"theme\":\"El corazón de la ciudad y su barrio más antiguo\",\"food\":\"Bacalhau à Brás en una tasca de Alfama, y fado por la noche.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Praça do Comércio\",\"kind\":\"monument\",\"description\":\"La gran plaza junto al Tajo, abierta al río por el Arco da Rua Augusta.\",\"tip\":\"Suba al mirador del arco para ver la Baixa desde arriba.\"},{\"time\":\"11:00\",\"name\":\"Sé de Lisboa\",\"kind\":\"religious\",\"description\":\"La catedral más antigua de la ciudad, del siglo XII, con aire de fortaleza.\",\"tip\":\"El tranvía 28 pasa por la puerta: fotografíelo en la curva.\"},{\"time\":\"12:30\",\"name\":\"Miradouro de Santa Luzia\",\"kind\":\"viewpoint\",\"description\":\"Azulejos, buganvillas y los tejados de Alfama hasta el río.\",\"tip\":\"Al lado está el de Portas do Sol, aún más amplio.\"},{\"time\":\"16:00\",\"name\":\"Castelo de São Jorge\",\"kind\":\"monument\",\"description\":\"El castillo en lo alto de la colina, con murallas y las mejores vistas al atardecer.\",\"tip\":\"Compre la entrada en línea para no hacer cola.\"}]},{\"title\":\"Belém\",\"theme\":\"Los descubrimientos, el río y el dulce más famoso\",\"food\":\"Pastéis de nata recién hechos y, para cenar, sardinas a la brasa.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Mosteiro dos Jerónimos\",\"kind\":\"religious\",\"description\":\"Un monasterio manuelino con un claustro de piedra labrada que deja sin palabras.\",\"tip\":\"Llegue a la apertura: a media mañana hay mucha cola.\"},{\"time\":\"11:30\",\"name\":\"Pastéis de Belém\",\"kind\":\"food\",\"description\":\"La pastelería que hace los pastéis de nata desde 1837, con canela y azúcar.\",\"tip\":\"Para llevar va más rápido; dentro hay salones grandes.\"},{\"time\":\"12:30\",\"name\":\"Torre de Belém\",\"kind\":\"monument\",\"description\":\"La torre que vigilaba la entrada del Tajo, símbolo de la época de los descubrimientos.\",\"tip\":\"Pasee por la orilla hasta el Padrão dos Descobrimentos.\"},{\"time\":\"15:00\",\"name\":\"MAAT\",\"kind\":\"museum\",\"description\":\"El museo de arte, arquitectura y tecnología, con un tejado ondulado que se puede pisar.\",\"tip\":\"La vista del puente 25 de Abril desde el tejado es gratis.\"}]},{\"title\":\"Chiado, Bairro Alto y LX Factory\",\"theme\":\"Librerías, mercados y la Lisboa creativa\",\"food\":\"Un almuerzo en el Time Out Market y una ginjinha antes de cenar.\",\"stops\":[{\"time\":\"10:00\",\"name\":\"Livraria Bertrand\",\"kind\":\"shopping\",\"description\":\"La librería abierta más antigua del mundo, en la elegante Rua Garrett del Chiado.\",\"tip\":\"Pida el sello del libro que compre: lo marcan como recuerdo.\"},{\"time\":\"11:30\",\"name\":\"Miradouro de São Pedro de Alcântara\",\"kind\":\"viewpoint\",\"description\":\"Un jardín mirador con el castillo enfrente y la Baixa a sus pies.\",\"tip\":\"Baje al Chiado en el Elevador da Glória.\"},{\"time\":\"13:00\",\"name\":\"Time Out Market\",\"kind\":\"market\",\"description\":\"El antiguo mercado de la Ribeira, con puestos de los mejores cocineros de la ciudad.\",\"tip\":\"Vaya antes de las 13:00 para encontrar mesa.\"},{\"time\":\"16:30\",\"name\":\"LX Factory\",\"kind\":\"neighborhood\",\"description\":\"Una antigua fábrica llena de tiendas, talleres, cafés y arte urbano.\",\"tip\":\"El domingo hay mercado; no se pierda la librería Ler Devagar.\"}]}],\"tips\":[\"Compre una tarjeta Viva Viagem: vale para el metro, los tranvías y los elevadores.\",\"Lleve calzado cómodo: Lisboa es de cuestas y de adoquines que resbalan.\",\"El tranvía 28 se llena: cójalo a primera hora o en la parada de Martim Moniz.\",\"Muchos museos cierran los lunes; revise los horarios antes de ir.\",\"Pida el agua del grifo y pruebe el vino verde con el pescado.\"]}"
+msgstr "{\"title\":\"Lisbon in three days\",\"subtitle\":\"Trams, viewpoints and pastéis de nata in the city of seven hills.\",\"destination\":\"Lisbon\",\"country\":\"Portugal\",\"origin\":\"Madrid\",\"getting_there\":{\"mode\":\"Plane\",\"duration\":\"1 h 20 min\",\"tip\":\"There are many daily flights from Madrid; the metro takes you from the airport to the centre in 25 minutes.\"},\"best_time\":\"March to June and September to October: good weather and fewer crowds than in summer.\",\"budget\":\"About €90 to €120 per person per day without accommodation: food, transport and tickets.\",\"days\":[{\"title\":\"Baixa and Alfama\",\"theme\":\"The heart of the city and its oldest quarter\",\"food\":\"Bacalhau à Brás in an Alfama tasca, and fado in the evening.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Praça do Comércio\",\"kind\":\"monument\",\"description\":\"The great square by the Tagus, opening onto the river through the Arco da Rua Augusta.\",\"tip\":\"Climb to the arch's viewpoint to see the Baixa from above.\"},{\"time\":\"11:00\",\"name\":\"Sé de Lisboa\",\"kind\":\"religious\",\"description\":\"The city's oldest cathedral, from the 12th century, built like a fortress.\",\"tip\":\"Tram 28 passes the door: photograph it on the bend.\"},{\"time\":\"12:30\",\"name\":\"Miradouro de Santa Luzia\",\"kind\":\"viewpoint\",\"description\":\"Tiles, bougainvillea and the rooftops of Alfama down to the river.\",\"tip\":\"Next to it is Portas do Sol, even wider.\"},{\"time\":\"16:00\",\"name\":\"Castelo de São Jorge\",\"kind\":\"monument\",\"description\":\"The castle on top of the hill, with walls and the best sunset views.\",\"tip\":\"Buy your ticket online to skip the queue.\"}]},{\"title\":\"Belém\",\"theme\":\"The discoveries, the river and the most famous pastry\",\"food\":\"Fresh pastéis de nata and, for dinner, grilled sardines.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Mosteiro dos Jerónimos\",\"kind\":\"religious\",\"description\":\"A Manueline monastery with a carved stone cloister that leaves you speechless.\",\"tip\":\"Arrive at opening time: by mid-morning the queue is long.\"},{\"time\":\"11:30\",\"name\":\"Pastéis de Belém\",\"kind\":\"food\",\"description\":\"The bakery that has made pastéis de nata since 1837, with cinnamon and sugar.\",\"tip\":\"Takeaway is faster; inside there are large rooms.\"},{\"time\":\"12:30\",\"name\":\"Torre de Belém\",\"kind\":\"monument\",\"description\":\"The tower that guarded the mouth of the Tagus, a symbol of the age of discovery.\",\"tip\":\"Walk along the river to the Padrão dos Descobrimentos.\"},{\"time\":\"15:00\",\"name\":\"MAAT\",\"kind\":\"museum\",\"description\":\"The museum of art, architecture and technology, with a wavy roof you can walk on.\",\"tip\":\"The view of the 25 de Abril bridge from the roof is free.\"}]},{\"title\":\"Chiado, Bairro Alto and LX Factory\",\"theme\":\"Bookshops, markets and creative Lisbon\",\"food\":\"Lunch at the Time Out Market and a ginjinha before dinner.\",\"stops\":[{\"time\":\"10:00\",\"name\":\"Livraria Bertrand\",\"kind\":\"shopping\",\"description\":\"The oldest operating bookshop in the world, on Chiado's elegant Rua Garrett.\",\"tip\":\"Ask them to stamp the book you buy as a souvenir.\"},{\"time\":\"11:30\",\"name\":\"Miradouro de São Pedro de Alcântara\",\"kind\":\"viewpoint\",\"description\":\"A garden viewpoint with the castle opposite and the Baixa below.\",\"tip\":\"Ride down to the Chiado on the Elevador da Glória.\"},{\"time\":\"13:00\",\"name\":\"Time Out Market\",\"kind\":\"market\",\"description\":\"The old Ribeira market, with stalls from the city's best chefs.\",\"tip\":\"Go before 1 pm to find a table.\"},{\"time\":\"16:30\",\"name\":\"LX Factory\",\"kind\":\"neighborhood\",\"description\":\"An old factory full of shops, workshops, cafés and street art.\",\"tip\":\"There's a market on Sundays; don't miss the Ler Devagar bookshop.\"}]}],\"tips\":[\"Get a Viva Viagem card: it works on the metro, trams and lifts.\",\"Wear comfortable shoes: Lisbon is all hills and slippery cobblestones.\",\"Tram 28 gets packed: take it early or at the Martim Moniz stop.\",\"Many museums close on Mondays; check opening hours before you go.\",\"Ask for tap water and try vinho verde with fish.\"]}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{0} / {1}"
+msgstr "{0} / {1}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{0} páginas"
+msgstr "{0} pages"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{0} · suele tardar entre medio minuto y dos minutos"
+msgstr "{0} · it usually takes between half a minute and two minutes"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{0}, {1}"
+msgstr "{0}, {1}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "■ Cancelar"
+msgstr "■ Cancel"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "✨ Preparar el plan con Claude Code"
+msgstr "✨ Prepare the plan with Claude Code"
+
 #: lib/code/tk_showcase_reports.dart
 msgid "Exportar a Excel…"
 msgstr "Export to Excel…"
@@ -15308,10 +15669,6 @@ msgstr "Export the table to PDF or Excel with the PDF report and Excel report co
 #: lib/code/tk_showcase_reports.dart
 msgid "Generado el {0} · {1} productos · {2} unidades"
 msgstr "Generated on {0} · {1} products · {2} units"
-
-#: lib/code/tk_showcase_reports.dart lib/ui/screens/dev_tools.dart
-msgid "Guardado en {0}"
-msgstr "Saved to {0}"
 
 #: lib/code/tk_showcase_reports.dart
 msgid "Informes"
@@ -17122,10 +17479,6 @@ msgstr "Changes to customer: %s"
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cambios pendientes de enviar y registro"
 msgstr "Changes waiting to be sent, and log"
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_train_monitor.dart
-msgid "Cancelado"
-msgstr "Cancelled"
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cancelados"
@@ -19108,10 +19461,6 @@ msgstr "Delay"
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Retraso: {0} · {1}"
 msgstr "Delay: {0} · {1}"
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Ritmo"
-msgstr "Pace"
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Seguimiento de trenes"
@@ -22324,10 +22673,6 @@ msgstr "On tap"
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Al tocar (x, y: dónde)"
 msgstr "On tap (x, y: where)"
-
-#: lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Alto"
-msgstr "Height"
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "Alto fijo (opcional)"

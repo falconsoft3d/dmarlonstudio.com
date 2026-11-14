@@ -42,6 +42,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   cpp_minilang: { icon: "cpp", label: "C++ · FLTK" },
   cpp_pass: { icon: "cpp", label: "C++ · FLTK" },
   cpp_ccusage: { icon: "cpp", label: "C++ · FLTK" },
+  pascal_travel: { icon: "lazarus", label: "Pascal · Lazarus" },
   domino: { icon: "python", label: "Python · tkinter" },
   pascal_calculator: { icon: "lazarus", label: "Pascal · Lazarus" },
   console_animals: { icon: "console", label: "Python" },

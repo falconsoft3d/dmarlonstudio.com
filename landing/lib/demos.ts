@@ -46,6 +46,7 @@ export const DEMO_SEEDS = [
   "cpp_minilang",
   "cpp_pass",
   "cpp_ccusage",
+  "pascal_travel",
   "domino",
 ] as const;
 

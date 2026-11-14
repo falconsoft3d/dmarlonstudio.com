@@ -1040,6 +1040,97 @@ const ccBar = `std::string bar_title(const Rows& rows, int today, int m) {
     if (quitting) quit_now();
   }`;
 
+// ---- Plan de viaje (Pascal): fragmentos de Form1.pas
+const trClaude = `    P.Executable := Exe;
+    P.Parameters.Add('-p');
+    P.Parameters.Add('--output-format');
+    P.Parameters.Add('json');
+    P.Parameters.Add('--no-session-persistence');
+    P.Parameters.Add('--tools=');   // sin herramientas: solo escribe el plan
+    P.Parameters.Add('--json-schema');
+    P.Parameters.Add(SCHEMA);
+    P.Options := [poUsePipes];
+    P.ShowWindow := swoHide;`;
+
+const trParse = `function ParseClaude(const Output: string; out P: TPlan; out Err: string): Boolean;
+var
+  D, S: TJSONData;
+  O: TJSONObject;
+begin
+  P := Default(TPlan);
+  Err := '';
+  Result := False;
+  try
+    D := GetJSON(Output);
+  except
+    Err := tx_ERR_ANSWER;
+    Exit;
+  end;
+  try
+    if not (D is TJSONObject) then begin Err := tx_ERR_ANSWER; Exit; end;
+    O := TJSONObject(D);
+    if O.Get('is_error', False) then
+    begin
+      Err := Fmt(tx_ERR_CLAUDE, [Str(O, 'result')]);
+      Exit;
+    end;
+    S := O.Find('structured_output');
+    if S is TJSONObject then Result := ParsePlan(TJSONObject(S), P)
+    else Result := ParsePlanText(Str(O, 'result'), P);
+    if not Result then Err := tx_ERR_ANSWER;
+  finally
+    D.Free;
+  end;
+end;`;
+
+const trFit = `procedure RenderPoster(Cv: TCanvas; const P: TPlan);
+var
+  Level: Integer;
+  Sc: Double;
+begin
+  for Level := 0 to 2 do
+  begin
+    Sc := 1;
+    while (Sc > 0.79) and (DrawPoster(Cv, P, Level, Sc, False) > PH - 170) do Sc := Sc - 0.04;
+    if DrawPoster(Cv, P, Level, Sc, False) <= PH - 170 then
+    begin
+      DrawPoster(Cv, P, Level, Sc, True);
+      Exit;
+    end;
+  end;
+  Sc := 0.8;
+  while (Sc > 0.5) and (DrawPoster(Cv, P, 2, Sc, False) > PH - 170) do Sc := Sc - 0.04;
+  DrawPoster(Cv, P, 2, Sc, True);
+end;`;
+
+const trPdf = `    Doc.Options := [poUseRawJPEG];   // el origen, abajo a la izquierda: la imagen ocupa la página entera
+    Doc.DefaultPaperType := ptA4;
+    Doc.DefaultUnitOfMeasure := uomMillimeters;
+    Doc.Infos.Title := P.Title;
+    Doc.Infos.Producer := 'DMarlon Studio';
+    Doc.StartDocument;
+    Sec := Doc.Sections.AddSection;
+    for i := 0 to PageCount(P) - 1 do
+    begin
+      B := NewBitmap(AW, AH);
+      J := TJPEGImage.Create;
+      try
+        RenderPage(B.Canvas, P, i);
+        J.CompressionQuality := 88;
+        J.Assign(B);
+        Tmp := GetTempDir + 'dms-viaje-' + IntToStr(GetProcessID) + '-' + IntToStr(i) + '.jpg';
+        J.SaveToFile(Tmp);
+      finally
+        J.Free;
+        B.Free;
+      end;
+      ix := Doc.Images.AddFromFile(Tmp, False);
+      DeleteFile(Tmp);
+      Pg := Doc.Pages.AddPage;
+      Sec.AddPage(Pg);
+      Pg.DrawImage(0, 0, 210.0, 297.0, ix);
+    end;`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -1712,6 +1803,65 @@ const es: Record<string, DemoMade> = {
         title: "8. En la barra de menús",
         text: "El icono de la barra de menús es un NSStatusItem hecho desde C++ con objc_msgSend: lo gastado hoy junto al icono y un menú con la semana, el mes, los últimos 7 días y el gasto por modelo. Al cerrar la ventana, la app sale del Dock y sigue en la barra, leyendo cada 15 minutos.",
         code: { file: "Form1.cpp", text: ccBar },
+      },
+    ],
+  },
+  pascal_travel: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino Pascal (Lazarus): el Diseñador pone la ventana con su menú, el panel de la izquierda con los campos, los combos, las casillas, las opciones y los botones, el reloj y la barra de estado; el código de Form1.pas llama a Claude Code, lee el plan y dibuja la imagen vertical y las páginas del dosier.",
+    tech: {
+      language: "Object Pascal (Free Pascal)",
+      target: "Escritorio con Lazarus (LCL): destino Pascal del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "El panel de la izquierda y la vista previa." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (preparar, guardar, abrir y guardar el plan, el ejemplo), Ver (imagen o dosier) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Mientras Claude Code trabaja: el tiempo que lleva." },
+        { name: "Origin / Dest", kind: "Entry", text: "El origen y el destino; Enter en el destino prepara el plan (Dest_enter)." },
+        { name: "Days / Pace / Budget", kind: "Combobox", text: "Los días (1 a 14), el ritmo y el presupuesto." },
+        { name: "ChkHistory… ChkKids", kind: "Checkbutton", text: "Lo que le interesa: van al encargo para Claude." },
+        { name: "RadImage / RadDossier", kind: "Radiobutton", text: "Imagen vertical o dosier en PDF (RadImage_click, RadDossier_click)." },
+        { name: "BtnPlan / BtnSave", kind: "Button", text: "Preparar el plan (o cancelarlo) y guardarlo." },
+        { name: "Stage", kind: "Frame", text: "Donde el código pone la vista previa (un TPaintBox)." },
+        { name: "Status", kind: "StatusBar", text: "El plan que se ve, el tiempo que tardó o el error." },
+      ],
+      apis: [
+        "Claude Code: «claude -p --output-format json --json-schema …» con TProcess, en un TThread",
+        "fpjson y jsonparser para leer el plan (structured_output)",
+        "El lienzo de la LCL (TBitmap) para la imagen de 1080 × 1920 y las páginas A4",
+        "fpPDF (fcl-pdf) para el dosier, con las páginas en JPEG",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino Pascal (Lazarus): a la izquierda, un Frame blanco con dos Entry (origen y destino), tres Combobox (días, ritmo y presupuesto), seis Checkbutton con los intereses, dos Radiobutton para el formato y dos Button; a la derecha, otro Frame (Stage) para la vista previa, el Menu, el Timer y la StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase TFormDesign (pestaña «Pascal generado») crea cada componente y declara los métodos virtuales BtnPlan_click, BtnSave_click, RadImage_click, RadDossier_click, Dest_enter, Tick_timer y Menu1_click; TForm1 los rellena.",
+        shot: "generated",
+      },
+      {
+        title: "3. Claude Code desde la app",
+        text: "El encargo (el origen, el destino, los días y lo demás) va a «claude -p» por la entrada estándar, en otro hilo. Con --json-schema, Claude Code responde con un objeto que sigue el esquema del plan; --tools= le quita las herramientas (solo escribe) y --no-session-persistence no guarda la sesión.",
+        shot: "code",
+        code: { file: "Form1.pas", text: trClaude },
+      },
+      {
+        title: "4. Leer el plan",
+        text: "La respuesta de «--output-format json» trae el plan ya validado en structured_output (o como texto en result) y, si algo falla, is_error con el motivo. Se lee con fpjson; los títulos de los días se limpian («Día 1: …») porque el número ya lo pone la app.",
+        code: { file: "Form1.pas", text: trParse },
+      },
+      {
+        title: "5. Una imagen vertical en la que todo quepa",
+        text: "La imagen mide 1080 × 1920. Se mide antes de dibujar: con las descripciones en dos líneas, en una o sin ellas, y con la letra un poco más pequeña si hace falta; se dibuja con el mayor detalle que quepa. Un plan de dos días lleva todo; uno de siete, lo justo.",
+        code: { file: "Form1.pas", text: trFit },
+      },
+      {
+        title: "6. El dosier en PDF",
+        text: "Cada página A4 se dibuja en el lienzo a 150 ppp (portada, una por día y los consejos), se guarda en JPEG y fpPDF la mete tal cual en el PDF (poUseRawJPEG): un dosier de cinco páginas pesa menos de 1 MB y se ve igual en cualquier lector.",
+        code: { file: "Form1.pas", text: trPdf },
       },
     ],
   },
@@ -2389,6 +2539,65 @@ const en: Record<string, DemoMade> = {
         title: "8. In the menu bar",
         text: "The menu bar icon is an NSStatusItem made from C++ with objc_msgSend: today's spend next to the icon and a menu with the week, the month, the last 7 days and the spend by model. When you close the window, the app leaves the Dock and stays in the bar, reading every 15 minutes.",
         code: { file: "Form1.cpp", text: ccBar },
+      },
+    ],
+  },
+  pascal_travel: {
+    intro:
+      "It was made in DMarlon Studio with the Pascal (Lazarus) target: the Designer provides the window with its menu, the left panel with the fields, combo boxes, check boxes, options and buttons, the timer and the status bar; the code in Form1.pas calls Claude Code, reads the plan and draws the vertical image and the dossier pages.",
+    tech: {
+      language: "Object Pascal (Free Pascal)",
+      target: "Desktop with Lazarus (LCL): the studio's Pascal target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The left panel and the preview." },
+        { name: "Menu1", kind: "Menu", text: "File (prepare, save, open and save the plan, the example), View (image or dossier) and Help." },
+        { name: "Tick", kind: "Timer", text: "While Claude Code works: how long it has taken." },
+        { name: "Origin / Dest", kind: "Entry", text: "The origin and destination; Enter in the destination prepares the plan (Dest_enter)." },
+        { name: "Days / Pace / Budget", kind: "Combobox", text: "The days (1 to 14), the pace and the budget." },
+        { name: "ChkHistory… ChkKids", kind: "Checkbutton", text: "Your interests: they go into the request for Claude." },
+        { name: "RadImage / RadDossier", kind: "Radiobutton", text: "Vertical image or PDF dossier (RadImage_click, RadDossier_click)." },
+        { name: "BtnPlan / BtnSave", kind: "Button", text: "Prepare the plan (or cancel it) and save it." },
+        { name: "Stage", kind: "Frame", text: "Where the code puts the preview (a TPaintBox)." },
+        { name: "Status", kind: "StatusBar", text: "The plan shown, how long it took or the error." },
+      ],
+      apis: [
+        "Claude Code: “claude -p --output-format json --json-schema …” with TProcess, in a TThread",
+        "fpjson and jsonparser to read the plan (structured_output)",
+        "The LCL canvas (TBitmap) for the 1080 × 1920 image and the A4 pages",
+        "fpPDF (fcl-pdf) for the dossier, with the pages as JPEG",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the Pascal (Lazarus) target: on the left, a white Frame with two Entries (origin and destination), three Comboboxes (days, pace and budget), six Checkbuttons with the interests, two Radiobuttons for the format and two Buttons; on the right, another Frame (Stage) for the preview, the Menu, the Timer and the StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The TFormDesign class (“Generated Pascal” tab) creates each component and declares the virtual methods BtnPlan_click, BtnSave_click, RadImage_click, RadDossier_click, Dest_enter, Tick_timer and Menu1_click; TForm1 fills them in.",
+        shot: "generated",
+      },
+      {
+        title: "3. Claude Code from the app",
+        text: "The request (origin, destination, days and the rest) goes to “claude -p” through standard input, on another thread. With --json-schema, Claude Code answers with an object that follows the plan's schema; --tools= removes its tools (it only writes) and --no-session-persistence doesn't keep the session.",
+        shot: "code",
+        code: { file: "Form1.pas", text: trClaude },
+      },
+      {
+        title: "4. Reading the plan",
+        text: "The “--output-format json” answer carries the plan already validated in structured_output (or as text in result) and, if something fails, is_error with the reason. It is read with fpjson; day titles are cleaned (“Day 1: …”) because the app already adds the number.",
+        code: { file: "Form1.pas", text: trParse },
+      },
+      {
+        title: "5. A vertical image where everything fits",
+        text: "The image is 1080 × 1920. It is measured before drawing: with descriptions on two lines, on one or without them, and with slightly smaller type if needed; it is drawn with the most detail that fits. A two-day plan gets everything; a seven-day one, just the essentials.",
+        code: { file: "Form1.pas", text: trFit },
+      },
+      {
+        title: "6. The PDF dossier",
+        text: "Each A4 page is drawn on the canvas at 150 dpi (cover, one per day and the tips), saved as JPEG and fpPDF puts it into the PDF as is (poUseRawJPEG): a five-page dossier weighs less than 1 MB and looks the same in any reader.",
+        code: { file: "Form1.pas", text: trPdf },
       },
     ],
   },

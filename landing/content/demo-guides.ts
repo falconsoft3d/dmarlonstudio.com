@@ -328,6 +328,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Compruebe, busque y exporte", text: "El visor recalcula cada precio con su descomposición (porcentajes, auxiliares y costes indirectos) y avisa si no coincide con el archivo. El resumen enseña los totales con gastos generales, beneficio e IVA y en qué se va el dinero. Busque por código o texto (Intro, el siguiente) y exporte capítulos y partidas a CSV." },
     ],
   },
+  cpp_tower: {
+    intro:
+      "Una torre de control nativa en C++ con FLTK, diseñada en el estudio, para ver de un vistazo todas las sesiones de Claude Code abiertas en su equipo: en VS Code, en la terminal o en otros editores. No hay que configurar nada.",
+    steps: [
+      { title: "Vea todas sus sesiones", text: "Cada sesión es una fila con el proyecto, de qué va, la rama y el modelo, y lo que hace ahora mismo («Ejecuta…», «Edita…», «Espera a 2 subagentes»). El color dice el estado: trabajando, te pregunta, te espera, en reposo o cerrada. Con tareas, el robot avanza hacia la meta; sin ellas, la barra es la última hora de trabajo." },
+      { title: "Abra el detalle", text: "Pulse una fila para ver las tareas hechas y por hacer (o los últimos pasos y los archivos que ha tocado), los subagentes y en qué está cada uno, la última orden y la respuesta, los tokens, el coste y el contexto. Desde ahí, abra la carpeta en VS Code, copie «claude --resume» o abra la app en el puerto donde la prueba." },
+      { title: "Que los agentes informen", text: "Con «Agentes…» copie las instrucciones y péguelas en Claude Code: cada agente envía su avance (hechas, pendientes, tarea y url) al servidor local de la torre y sale como otra fila. Al cerrar la ventana, la torre se queda en la barra de menús con las sesiones que trabajan y le avisa cuando una termina o le pregunta algo." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -757,6 +766,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Open a budget", text: "Press “Open” and pick a .bc3, drag it onto the tree or press “Example” to see a home renovation. It reads the 850, 437 and ANSI character sets, so accents come out right." },
       { title: "Browse the tree", text: "On the left, the budget with its chapters and items, each with its amount; open an item to see its breakdown. When you pick something, its header appears at the top (unit, quantity, price and amount) and four tabs below: breakdown, measurements, text and specifications, and the summary." },
       { title: "Check, search and export", text: "The viewer recalculates every price from its breakdown (percentages, auxiliary items and indirect costs) and warns if it doesn't match the file. The summary shows the totals with overheads, profit and VAT and where the money goes. Search by code or text (Enter, the next one) and export chapters and items to CSV." },
+    ],
+  },
+  cpp_tower: {
+    intro:
+      "A native control tower in C++ with FLTK, designed in the studio, to see at a glance every Claude Code session open on your computer: in VS Code, in the terminal or in other editors. There is nothing to set up.",
+    steps: [
+      { title: "See all your sessions", text: "Each session is a row with the project, what it is about, the branch and the model, and what it is doing right now (“Runs…”, “Edits…”, “Waiting for 2 subagents”). The color tells the state: working, asks you, waiting for you, idle or closed. With tasks, the robot heads for the finish line; without them, the bar is the last hour of work." },
+      { title: "Open the details", text: "Click a row to see the tasks done and to do (or the last steps and the files it changed), the subagents and what each one is doing, the last prompt and the answer, the tokens, the cost and the context. From there, open the folder in VS Code, copy “claude --resume” or open the app on the port where it is being tested." },
+      { title: "Let agents report", text: "With “Agents…” copy the instructions and paste them into Claude Code: each agent sends its progress (done, to do, task and url) to the tower's local server and shows up as another row. When you close the window, the tower stays in the menu bar with the sessions that are working and lets you know when one finishes or asks you something." },
     ],
   },
   domino: {

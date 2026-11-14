@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.146 — 2026-11-14
+
+- Nueva demo: **Torre de control (C++)**, una app nativa con FLTK para ver todas las sesiones de **Claude Code** abiertas en el equipo (en VS Code, en la terminal o en otros editores), sin configurar nada:
+  - Lee lo que Claude Code deja en `~/.claude`: `sessions/` dice qué sesiones están abiertas y si trabajan o esperan; el `.jsonl` de cada conversación (y de sus subagentes) da el título, la última orden, la herramienta que usa ahora, las tareas, los archivos que ha tocado y los tokens. Se lee en otro hilo y, después de la primera vez, solo lo nuevo, cada dos segundos.
+  - Una fila por sesión, como la torre de control web: el proyecto, de qué va, la rama y el modelo; «AHORA» con lo que hace («Ejecuta…», «Edita…», «Espera a 2 subagentes»); el estado (trabajando, te pregunta, te espera, en reposo o cerrada); un robot que avanza hacia la meta con las tareas o, sin ellas, la última hora de trabajo; los subagentes que siguen; y «PROBANDO EN» con el puerto donde prueba la app.
+  - El detalle de cada fila: tareas hechas y por hacer (o los últimos pasos y los archivos), los subagentes con su paso actual, la orden y la respuesta, órdenes, herramientas, errores, tokens, coste con la API y contexto; botones para abrir la carpeta en VS Code, copiar «claude --resume» o abrir la app.
+  - Los agentes pueden informar de su avance con un POST a un servidor local (solo en 127.0.0.1) con el mismo JSON de la torre de control web (agente, rol, estado, tarea, url, hechas y pendientes); «Agentes…» copia las instrucciones para Claude.
+  - Filtro (solo las abiertas, las últimas 24 h o 7 días), orden (actividad, estado, proyecto) y búsqueda al escribir; al cerrar, se queda en la barra de menús de macOS con las que trabajan y avisa cuando una termina o pregunta algo. En español y en inglés.
+
 ## 1.0.145 — 2026-11-14
 
 - Nueva demo web: **PSIQUE**, los **20 tests de personalidad** más usados en una sola página, con preguntas propias (226) inspiradas en los modelos de psicología más conocidos:

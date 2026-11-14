@@ -366,6 +366,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un visor de presupuestos de obra en el formato FIEBDC-3 (.bc3) que exportan Presto, Arquímedes y casi todos los programas de mediciones. Enseña el árbol del presupuesto con capítulos, partidas y descompuestos (mano de obra, maquinaria, materiales, auxiliares y porcentajes), las mediciones con sus subtotales y fórmulas, los textos y el pliego, y un resumen con los totales, el desglose por naturaleza y las partidas mayores. Recalcula los precios y avisa si no cuadran con el archivo. Busca, exporta a CSV y trae un ejemplo.",
         shows: ["C++17 con FLTK, diseñado en el estudio", "Los registros ~V, ~K, ~C, ~D, ~T, ~M y ~L, en 850, 437 o ANSI", "Porcentajes con máscara, auxiliares y costes indirectos", "Probado con archivos BC3 de verdad"],
       },
+      cpp_tower: {
+        name: "Torre de control (C++)",
+        text: "Todas las sesiones de Claude Code abiertas en su equipo (en VS Code, en la terminal o en otros editores) en una torre de control: una fila por sesión con lo que hace ahora, si trabaja, le espera o le pregunta algo, sus tareas con un robot que avanza hacia la meta, sus subagentes y dónde prueba la app. El detalle enseña los últimos pasos, los archivos, la orden, la respuesta, los tokens y el coste, y abre la carpeta en VS Code. Los agentes pueden informar de su avance a un servidor local. Vive en la barra de menús y avisa cuando una sesión termina.",
+        shows: ["C++17 con FLTK, diseñado en el estudio", "Lee ~/.claude sin configurar nada: solo lo nuevo, cada dos segundos", "Servidor local para los informes de los agentes", "Barra de menús de macOS con avisos"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -683,6 +688,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A viewer for construction budgets in the FIEBDC-3 (.bc3) format exported by Presto, Arquímedes and almost every Spanish quantity surveying program. It shows the budget tree with chapters, items and breakdowns (labour, machinery, materials, auxiliary items and percentages), the measurements with their subtotals and formulas, the texts and specifications, and a summary with the totals, the cost breakdown by type and the largest items. It recalculates the prices and warns if they don't match the file. It searches, exports to CSV and comes with a sample.",
         shows: ["C++17 with FLTK, designed in the studio", "The ~V, ~K, ~C, ~D, ~T, ~M and ~L records, in 850, 437 or ANSI", "Masked percentages, auxiliary items and indirect costs", "Tested with real BC3 files"],
       },
+      cpp_tower: {
+        name: "Control Tower (C++)",
+        text: "Every Claude Code session open on your computer (in VS Code, in the terminal or in other editors) in a control tower: one row per session with what it is doing now, whether it is working, waiting for you or asking you something, its tasks with a robot heading for the finish line, its subagents and where it is testing the app. The details show the last steps, the files, the prompt, the answer, the tokens and the cost, and open the folder in VS Code. Agents can report their progress to a local server. It lives in the menu bar and lets you know when a session finishes.",
+        shows: ["C++17 with FLTK, designed in the studio", "Reads ~/.claude with no setup: only what is new, every two seconds", "Local server for agents' reports", "macOS menu bar with notifications"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -776,6 +786,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_radio: { icon: "cpp", label: "C++ · FLTK" },
   cpp_blocks: { icon: "cpp", label: "C++ · FLTK" },
   cpp_bc3: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_tower: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

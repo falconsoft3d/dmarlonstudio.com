@@ -39,6 +39,7 @@ const demos = {
   cpp_radio: ['radio', '#f472b6', '#6d28d9'],
   cpp_blocks: ['blocks', '#22d3ee', '#7c3aed'],
   cpp_bc3: ['construction', '#fbbf24', '#b45309'],
+  cpp_tower: ['tower-control', '#4ade80', '#15803d'],
   pascal_opend: ['pen-tool', '#34d399', '#0b7a5c'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],

@@ -127,6 +127,7 @@ Hechos
 145. Juego web RUTA PELIGROSA para conductores de cargas peligrosas de Argentina: 10 misiones, 100 pruebas con su ley y diploma para compartir | ✅ |
 146. Visor BC3 (FIEBDC-3) en C++: árbol de capítulos, partidas y descompuestos, mediciones, textos, precios recalculados, resumen y CSV | ✅ |
 147. App web PSIQUE: los 20 tests de personalidad más usados y un perfil final para compartir | ✅ |
+148. App local en C++ para monitorear todas las sesiones de VS Code con Claude: Torre de control con lo que hace cada sesión, sus tareas, subagentes, informes de los agentes y la barra de menús | ✅ |
 
 Trabajando
 =========

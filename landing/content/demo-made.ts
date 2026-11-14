@@ -1447,6 +1447,153 @@ const bcItem = `  int draw_item_content(int render) override {
     return X + W;
   }`;
 
+// ---- Torre de control (C++): fragmentos de Form1.cpp
+const twSettle = `void settle(Session& s, double now) {
+  if (!s.open) {
+    s.state = ST_CLOSED;
+    return;
+  }
+  const Step* pend = s.pending();
+  std::string st = lower(s.status);
+  bool waiting_input = has(st, "wait") || has(st, "permission") || has(st, "input") || has(st, "block");
+  if (!s.ask.empty() || waiting_input) s.state = ST_ASK;
+  else if (s.api_error && st != "busy") s.state = ST_ERROR;
+  else if (st == "busy" || (st.empty() && (pend || s.ended < s.turn) && now - s.mtime < 300)) s.state = ST_WORK;
+  else if (now - std::max({s.ended, s.last, s.status_t}) > 30 * 60) s.state = ST_IDLE;
+  else s.state = ST_WAIT;
+  // Al esperar, nada está en marcha (si se interrumpió, quedan pasos sin cerrar).
+  if (s.state == ST_WAIT || s.state == ST_IDLE)
+    for (auto& x : s.steps)
+      if (x.st == 0 && x.name != "Agent" && x.name != "Task") x.st = 1;
+}`;
+
+const twScan = `if (registry) {
+  for (const auto& name : list_dir(reg)) {
+    if (!ends(name, ".json")) continue;
+    std::string text;
+    Json j;
+    if (!read_file(reg + "/" + name, text) || !parse_json(text, j)) continue;
+    int pid = (int)j["pid"].num();
+    std::string id = j["sessionId"].str();
+    if (id.empty() || !pid_alive(pid) || open_ids.count(id)) continue;
+    open_ids.insert(id);
+    std::string cwd = j["cwd"].str();
+    std::string file = find_file(id, cwd);
+    Session s;
+    if (!file.empty()) {
+      Parse& p = parse_of(file, id);
+      p.s.open = true;
+      p.s.file = file;
+      p.s.pid = pid;
+      p.s.status = j["status"].str();
+      p.s.status_t = j["statusUpdatedAt"].num() / 1000.0;
+      p.s.name = j["name"].str();
+      if (!cwd.empty()) p.s.cwd = cwd;
+      if (p.s.entry.empty()) p.s.entry = j["entrypoint"].str();
+      if (p.s.first == 0) p.s.first = j["startedAt"].num() / 1000.0;
+      subagents(p.s, now);
+      s = fill(p, now);`;
+
+const twRead = `void read_new(const std::string& path, Parse& p) {
+  FileInfo fi = stat_of(path);
+  if (fi.size < 0) return;
+  if (fi.size < p.off) {
+    Parse fresh;
+    fresh.s.id = p.s.id;
+    p = std::move(fresh);
+  }
+  p.s.mtime = fi.mtime;
+  if (fi.size == p.off) return;
+  FILE* f = fl_fopen(path.c_str(), "rb");
+  if (!f) return;
+#ifdef _WIN32
+  _fseeki64(f, p.off, SEEK_SET);
+#else
+  fseeko(f, (off_t)p.off, SEEK_SET);
+#endif
+  std::vector<char> buf(1 << 20);
+  size_t n;
+  while ((n = std::fread(buf.data(), 1, buf.size(), f)) > 0) {
+    p.off += (long long)n;
+    size_t a = 0;
+    for (size_t i = 0; i < n; i++) {
+      if (buf[i] != '\\n') continue;
+      if (p.rest.empty()) {
+        if (i - a < (8u << 20)) parse_line(std::string(buf.data() + a, i - a), p);
+      } else {
+        p.rest.append(buf.data() + a, i - a);
+        if (p.rest.size() < (8u << 20)) parse_line(p.rest, p);
+        p.rest.clear();
+      }
+      a = i + 1;
+    }
+    if (a < n && p.rest.size() < (16u << 20)) p.rest.append(buf.data() + a, n - a);
+  }
+  std::fclose(f);
+}`;
+
+const twTokens = `  // Los tokens, una vez por mensaje (Claude Code escribe un registro por bloque).
+  std::string mid = m["id"].str();
+  const Json& u = m["usage"];
+  if (u.t == Json::OBJ && (mid.empty() || p.msgs.insert(mid).second)) {
+    double in = u["input_tokens"].num(), out = u["output_tokens"].num(), cr = u["cache_read_input_tokens"].num(),
+           cw = u["cache_creation_input_tokens"].num();
+    s.in += in;
+    s.out += out;
+    s.cr += cr;
+    s.cw += cw;
+    Price pr = price_of(model.empty() ? s.model : model);
+    s.cost += (in * pr.in + cw * pr.cw + cr * pr.cr + out * pr.out) / 1e6;
+    if (in + cr + cw > 0) s.ctx = in + cr + cw;
+  }`;
+
+const twPost = `if (method != "POST" && method != "PUT") return reply(405, "Method Not Allowed", "{\\"ok\\":false}");
+(void)path;
+Report r;
+std::string err = parse_report(body, r, now_t());
+if (!err.empty()) return reply(400, "Bad Request", "{\\"ok\\":false,\\"error\\":" + jq(err) + "}");
+{
+  std::lock_guard<std::mutex> g(mu);
+  put_report(reports, r);
+}
+if (on_report) on_report(r);
+return reply(200, "OK", "{\\"ok\\":true}");`;
+
+const twRobot = `void robot(int cx, int by, unsigned col, int state, double phase) {
+  bool work = state == ST_WORK;
+  int dy = work ? (int)std::lround(std::sin(phase * 2.4) * 2) : 0;
+  int y = by + dy;
+  Fl_Color c = state == ST_CLOSED || state == ST_IDLE ? mix(col, BG, 0.55) : rgb(col);
+  fl_color(c);
+  fl_line(cx, y - 25, cx, y - 21);
+  fl_pie(cx - 2, y - 28, 5, 5, 0, 360);
+  fl_rounded_rectf(cx - 11, y - 21, 22, 14, 4);
+  fl_rectf(cx - 7, y - 6, 14, 5);
+  fl_rectf(cx - 6, y - 1, 4, 3);
+  fl_rectf(cx + 2, y - 1, 4, 3);
+  // Los ojos: abiertos al trabajar, rayas al esperar, cruces con error.
+  fl_color(state == ST_ERROR || state == ST_BLOCKED ? rgb(0xffd7d5) : work && std::fmod(phase, 3.2) < 3.0 ? rgb(0xffffff) : rgb(0x1f1f23));
+  if (state == ST_ERROR || state == ST_BLOCKED) {
+    fl_line(cx - 7, y - 17, cx - 3, y - 13);
+    fl_line(cx - 3, y - 17, cx - 7, y - 13);
+    fl_line(cx + 3, y - 17, cx + 7, y - 13);
+    fl_line(cx + 7, y - 17, cx + 3, y - 13);
+  } else if (work || state == ST_ASK || state == ST_DONE) {
+    fl_rectf(cx - 7, y - 16, 4, 4);
+    fl_rectf(cx + 3, y - 16, 4, 4);
+  } else {
+    fl_rectf(cx - 7, y - 14, 4, 2);
+    fl_rectf(cx + 3, y - 14, 4, 2);
+  }
+  if (state == ST_ASK) {   // un bocadillo con «?»
+    fl_color(rgb(0xf0883e));
+    fl_rounded_rectf(cx + 10, y - 38, 16, 14, 4);
+    fl_color(rgb(0x18181b));
+    fl_font(FL_HELVETICA_BOLD, 11);
+    fl_draw("?", cx + 15, y - 27);
+  }
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2400,6 +2547,74 @@ const es: Record<string, DemoMade> = {
         title: "6. ¿Los costes indirectos van dentro?",
         text: "Unos programas dejan el CI del registro ~K dentro de cada partida y otros no. El visor calcula el total de las dos maneras y se queda con la que cuadra con el importe del archivo; si nada cuadra, lo avisa en la cabecera.",
         code: { file: "Form1.cpp", text: bcCi },
+      },
+    ],
+  },
+  cpp_tower: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la barra con el filtro, el orden, la búsqueda, la casilla de avisos y los botones, el marco donde van las filas, la barra de estado, el menú y el reloj de cada segundo; el código de Form1.cpp lee las sesiones de Claude Code en otro hilo, dibuja las filas con su robot, abre el servidor de los agentes y pone el icono en la barra de menús.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La torre de control: lee las sesiones, pinta las filas, avisa y vive en la barra de menús." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (actualizar, instrucciones para los agentes, barra de menús, salir), Ver (qué sesiones, abrir y cerrar el detalle) y Ayuda." },
+        { name: "Filter, Sort", kind: "Combobox", text: "Solo las abiertas, las de las últimas 24 h o las de 7 días; y el orden: actividad, estado o proyecto." },
+        { name: "Search", kind: "Entry", text: "Busca al escribir en el proyecto, el título, la rama, el modelo y lo que hace ahora." },
+        { name: "Notify", kind: "Checkbutton", text: "Avisar cuando una sesión que trabajaba termina o pregunta algo." },
+        { name: "BtnAgents, BtnBar", kind: "Button", text: "Las instrucciones para los agentes y minimizar a la barra de menús." },
+        { name: "Board", kind: "Frame", text: "Donde el código pone un Fl_Scroll con las filas dibujadas." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo, los relojes de las filas." },
+        { name: "Status", kind: "StatusBar", text: "La carpeta de Claude Code, la hora de la última lectura y la dirección del servidor de los agentes." },
+      ],
+      apis: [
+        "Los archivos de Claude Code: ~/.claude/sessions/<pid>.json (las abiertas, ocupadas o esperando) y los .jsonl de cada conversación y de sus subagentes",
+        "Un hilo que lee cada dos segundos solo lo nuevo de cada archivo y avisa a la ventana con Fl::awake",
+        "Un servidor HTTP mínimo con sockets en 127.0.0.1 para los informes de los agentes (POST, GET y DELETE)",
+        "NSStatusItem y NSMenu desde C++ con el runtime de Objective-C; osascript para los avisos de macOS",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba un Frame oscuro con los combos Filter y Sort, la búsqueda (Entry), la casilla Notify y dos botones; debajo, el Frame Board para las filas; la barra de estado, el Menu y un Timer de un segundo.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae los widgets y los métodos virtuales Filter_select, Sort_select, Search_enter, Notify_click, BtnAgents_click, BtnBar_click, Tick_timer y Menu1_click; Form1 los sobrescribe y pone dentro de Board el Fl_Scroll con las filas.",
+        shot: "generated",
+      },
+      {
+        title: "3. Qué sesiones están abiertas",
+        text: "Claude Code deja un archivo por sesión abierta en ~/.claude/sessions con su proceso, su carpeta y si está ocupada («busy») o esperando («idle»). Si el proceso sigue vivo, se busca su conversación en ~/.claude/projects (la carpeta es la ruta con «-» en lugar de «/» y «.»).",
+        shot: "code",
+        code: { file: "Form1.cpp", text: twScan },
+      },
+      {
+        title: "4. Leer solo lo nuevo",
+        text: "Las conversaciones pesan decenas de megas. Cada archivo se lee una vez y se guarda hasta dónde se llegó; cada dos segundos solo se leen las líneas nuevas. La primera lectura de un día entero tarda unos segundos; las siguientes, milisegundos.",
+        code: { file: "Form1.cpp", text: twRead },
+      },
+      {
+        title: "5. Los tokens, una vez por mensaje",
+        text: "Claude Code escribe un registro por cada bloque de la respuesta (el texto y cada herramienta), todos con el mismo uso de tokens. Para no contarlos dos veces se guarda el id de cada mensaje; el coste se estima con el precio de cada modelo en la API.",
+        code: { file: "Form1.cpp", text: twTokens },
+      },
+      {
+        title: "6. Trabaja, te espera o te pregunta",
+        text: "El estado sale del registro (ocupada o esperando) y de la conversación: una pregunta sin contestar (AskUserQuestion o un plan para aprobar) es «Te pregunta»; un turno terminado, «Te espera»; más de 30 minutos sin nada, «En reposo».",
+        code: { file: "Form1.cpp", text: twSettle },
+      },
+      {
+        title: "7. Los informes de los agentes",
+        text: "Un servidor que solo escucha en 127.0.0.1 recibe un POST con el mismo JSON que la torre de control web (agente, rol, estado, tarea, url, hechas y pendientes, también con las claves en inglés). Cada informe sustituye al anterior del mismo agente y sale como otra fila.",
+        code: { file: "Form1.cpp", text: twPost },
+      },
+      {
+        title: "8. El robot de cada fila",
+        text: "Las filas se dibujan con fl_draw: el robot se mueve arriba y abajo mientras trabaja, cierra los ojos al esperar, lleva un bocadillo con «?» si te pregunta y ojos en cruz si hay un error. Con tareas va hacia la meta; sin ellas, hacia «ahora» en la última hora de trabajo.",
+        code: { file: "Form1.cpp", text: twRobot },
       },
     ],
   },
@@ -3358,6 +3573,74 @@ const en: Record<string, DemoMade> = {
         title: "6. Are indirect costs included?",
         text: "Some programs leave the ~K record's indirect costs inside each item and others don't. The viewer works out the total both ways and keeps the one that matches the file's amount; if nothing matches, the header says so.",
         code: { file: "Form1.cpp", text: bcCi },
+      },
+    ],
+  },
+  cpp_tower: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the bar with the filter, sort order, search, notification check box and buttons, the frame for the rows, the status bar, the menu and the one-second timer; the code in Form1.cpp reads the Claude Code sessions on another thread, draws the rows with their robot, opens the agents server and puts the icon in the menu bar.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The control tower: reads the sessions, paints the rows, notifies and lives in the menu bar." },
+        { name: "Menu1", kind: "Menu", text: "File (refresh, instructions for agents, menu bar, quit), View (which sessions, expand and collapse details) and Help." },
+        { name: "Filter, Sort", kind: "Combobox", text: "Only open ones, the last 24 h or 7 days; and the order: activity, state or project." },
+        { name: "Search", kind: "Entry", text: "Searches as you type in the project, title, branch, model and what it is doing now." },
+        { name: "Notify", kind: "Checkbutton", text: "Notify when a session that was working finishes or asks something." },
+        { name: "BtnAgents, BtnBar", kind: "Button", text: "The instructions for agents and minimize to the menu bar." },
+        { name: "Board", kind: "Frame", text: "Where the code puts an Fl_Scroll with the drawn rows." },
+        { name: "Tick", kind: "Timer", text: "Every second, the clocks of the rows." },
+        { name: "Status", kind: "StatusBar", text: "The Claude Code folder, the time of the last read and the agents server address." },
+      ],
+      apis: [
+        "Claude Code's files: ~/.claude/sessions/<pid>.json (the open ones, busy or idle) and the .jsonl of each conversation and its subagents",
+        "A thread that reads only what is new in each file every two seconds and tells the window with Fl::awake",
+        "A minimal HTTP server with sockets on 127.0.0.1 for the agents' reports (POST, GET and DELETE)",
+        "NSStatusItem and NSMenu from C++ with the Objective-C runtime; osascript for macOS notifications",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top a dark Frame with the Filter and Sort combo boxes, the search (Entry), the Notify check box and two buttons; below, the Board Frame for the rows; the status bar, the Menu and a one-second Timer.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) has the widgets and the virtual methods Filter_select, Sort_select, Search_enter, Notify_click, BtnAgents_click, BtnBar_click, Tick_timer and Menu1_click; Form1 overrides them and puts the Fl_Scroll with the rows inside Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Which sessions are open",
+        text: "Claude Code leaves one file per open session in ~/.claude/sessions with its process, its folder and whether it is busy or idle. If the process is still alive, its conversation is looked up in ~/.claude/projects (the folder is the path with “-” instead of “/” and “.”).",
+        shot: "code",
+        code: { file: "Form1.cpp", text: twScan },
+      },
+      {
+        title: "4. Read only what is new",
+        text: "Conversations weigh tens of megabytes. Each file is read once and the position reached is kept; every two seconds only the new lines are read. The first read of a whole day takes a few seconds; the next ones, milliseconds.",
+        code: { file: "Form1.cpp", text: twRead },
+      },
+      {
+        title: "5. Tokens, once per message",
+        text: "Claude Code writes one record per block of the answer (the text and each tool), all with the same token usage. To avoid counting them twice, the id of each message is kept; the cost is estimated with each model's API price.",
+        code: { file: "Form1.cpp", text: twTokens },
+      },
+      {
+        title: "6. Working, waiting for you or asking you",
+        text: "The state comes from the registry (busy or idle) and from the conversation: an unanswered question (AskUserQuestion or a plan to approve) is “Asks you”; a finished turn, “Waiting for you”; more than 30 minutes with nothing, “Idle”.",
+        code: { file: "Form1.cpp", text: twSettle },
+      },
+      {
+        title: "7. Reports from agents",
+        text: "A server that only listens on 127.0.0.1 receives a POST with the same JSON as the web control tower (agente, rol, estado, tarea, url, hechas and pendientes, or the English keys). Each report replaces the previous one from the same agent and shows up as another row.",
+        code: { file: "Form1.cpp", text: twPost },
+      },
+      {
+        title: "8. The robot in each row",
+        text: "The rows are drawn with fl_draw: the robot bobs up and down while working, closes its eyes when waiting, has a “?” speech bubble when it asks you and crossed eyes on an error. With tasks it heads for the finish line; without them, towards “now” in the last hour of work.",
+        code: { file: "Form1.cpp", text: twRobot },
       },
     ],
   },

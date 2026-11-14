@@ -63,6 +63,8 @@ part 'tk_showcase_cpp_blocks.dart';
 part 'tk_showcase_cpp_blocks_code.dart';
 part 'tk_showcase_cpp_bc3.dart';
 part 'tk_showcase_cpp_bc3_code.dart';
+part 'tk_showcase_cpp_tower.dart';
+part 'tk_showcase_cpp_tower_code.dart';
 part 'tk_showcase_cpp_mywa.dart';
 part 'tk_showcase_cpp_mywa_code.dart';
 part 'tk_showcase_console.dart';

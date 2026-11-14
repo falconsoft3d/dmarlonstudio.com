@@ -64,6 +64,7 @@ const demos = [
   'cpp_radio',
   'cpp_blocks',
   'cpp_bc3',
+  'cpp_tower',
   'domino',
 ];
 

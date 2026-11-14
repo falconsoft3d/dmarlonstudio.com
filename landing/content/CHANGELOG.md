@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.137 — 2026-11-14
+
+- Nueva demo: **Uso de Claude Code (C++)**, su uso de Claude Code día a día en una app nativa en C++ con FLTK: los tokens, lo que cuestan y las sesiones en un **mapa de calor como el de GitHub** (un cuadrado por día del último año, en cuatro tonos), con las cifras de hoy, los últimos 7 días, el mes y el año, la racha de días seguidos, las barras de los últimos 30 días por modelo y las tablas por modelo y por proyecto. Ver coste, tokens o sesiones; pasar el ratón o pulsar un día enseña su detalle (entrada, salida, caché, sesiones, mensajes y modelos).
+- Dos orígenes: los **registros locales** de Claude Code (`~/.claude/projects`, sirve con cualquier plan, también Pro y Max; el coste es lo que costaría con la API, con los precios de cada modelo, la caché de 5 minutos y de 1 hora y el modo rápido) y la **API de Claude Code Analytics** (`/v1/organizations/usage_report/claude_code`) con una clave de administrador, que da además las líneas, los commits y las PR de cada persona. Los registros se leen una vez, sin copiar las líneas, y luego solo lo nuevo; cada mensaje se cuenta una vez. Comprobado con 7,6 GB de registros reales (10 s la primera vez) contra un cálculo aparte en Python: los mismos mensajes y el mismo coste.
+- Vive en la **barra de menús** de macOS con lo gastado hoy y un menú con la semana, el mes, los últimos 7 días y el gasto por modelo; se actualiza sola cada 15 minutos. Presupuesto mensual con aviso al pasarlo, exportar a CSV y ajustes (la clave se guarda solo para su usuario y va a curl en un archivo, no en la línea de órdenes).
+- Web: la página de la demo con su guía, sus capturas y «Cómo se hizo» (8 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.136 — 2026-11-12
 
 - Web, página de demos: al pulsar la captura de una demo se abre una **vista previa** a pantalla completa con sus cuatro capturas (la demo y los tres pasos de su guía, con su título), su descripción y el enlace a su página. Con las flechas (o ← → del teclado, o deslizando en el móvil) se pasa a la demo anterior o a la siguiente; ↑ ↓ cambian de captura y Esc la cierra. Respeta el filtro por lenguaje y ⌘/Ctrl + clic sigue abriendo la página de la demo.

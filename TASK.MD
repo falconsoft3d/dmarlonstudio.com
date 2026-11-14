@@ -117,6 +117,7 @@ Hechos
 75. DMarlonPass en C++ basado en KeePass, con la seguridad compatible con KeePass (KDBX 4: AES-256/ChaCha20, Argon2, HMAC-SHA-256) | ✅ |
 125. MyWhatsapp: modo consola (`--console`) para hacerlo todo desde la terminal | ✅ |
 137. OpenD++ (Pascal): editor de diseño inspirado en Figma con las mismas funciones y otra posición de las herramientas, con modo claro y oscuro, español e inglés, y un menú IA con una plantilla JSON para que la IA haga el diseño y luego importarlo | ✅ |
+138. Uso de Claude Code en C++: gráfico estilo GitHub y de importes, con los registros o la API, y que se minimiza a la barra de estado | ✅ |
 
 Trabajando
 =========
@@ -126,6 +127,8 @@ Trabajando
 
 Pendiente
 =========
+139. App en Pascal: con origen, destino y cantidad de días, prepara una imagen vertical o un dosier con el plan de viaje por los lugares interesantes del destino, con la IA de Claude Code | ⏳ |
+140. App en C++ con estilo de mesa de radio que use las radios online | ⏳ |
 126. MyWhatsapp IA: auto-contexto (la IA resume qué pide el cliente y rellena «Qué quiere decir») | ⏳ |
 127. MyWhatsapp IA: base de conocimiento local (precios, stock, FAQ, PDF) que la IA consulta antes de responder | ⏳ |
 128. MyWhatsapp IA: las tres respuestas con estilos distintos (directa, comercial, técnica) y traducción de lo que propone la IA al idioma del cliente | ⏳ |

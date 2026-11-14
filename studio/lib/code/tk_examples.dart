@@ -53,6 +53,8 @@ part 'tk_showcase_cpp_minilang.dart';
 part 'tk_showcase_cpp_minilang_code.dart';
 part 'tk_showcase_cpp_pass.dart';
 part 'tk_showcase_cpp_pass_code.dart';
+part 'tk_showcase_cpp_ccusage.dart';
+part 'tk_showcase_cpp_ccusage_code.dart';
 part 'tk_showcase_cpp_mywa.dart';
 part 'tk_showcase_cpp_mywa_code.dart';
 part 'tk_showcase_console.dart';

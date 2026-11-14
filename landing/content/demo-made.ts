@@ -883,6 +883,163 @@ for (const Country* k : chat_countries(*chat)) {
   sub += "   ·   " + flag_of(k->iso) + (tm.empty() ? "" : " " + fmt(tx::LOCAL_TIME, {tm}));
 }`;
 
+// ---- Uso de Claude Code (C++): fragmentos de Form1.cpp
+const ccLite = `bool parse_log_line(const char* b, const char* e, LogMsg& m) {
+  Lite j(b, e);
+  double cc = 0, c5 = -1, c1 = -1;
+  bool ok = j.object([&](const std::string& k) {
+    if (k == "type") return j.str(&m.type);
+    if (k == "timestamp") return j.str(&m.ts);
+    if (k == "sessionId") return j.str(&m.session);
+    if (k == "requestId") return j.str(&m.request);
+    if (k == "cwd") return j.str(&m.cwd);
+    if (k != "message") return false;
+    return j.object([&](const std::string& mk) {
+      if (mk == "id") return j.str(&m.id);
+      if (mk == "model") return j.str(&m.model);
+      if (mk != "usage") return false;
+      m.usage = true;
+      return j.object([&](const std::string& uk) {
+        if (uk == "input_tokens") return j.number(&m.t.in);
+        if (uk == "output_tokens") return j.number(&m.t.out);
+        if (uk == "cache_read_input_tokens") return j.number(&m.t.cr);
+        if (uk == "cache_creation_input_tokens") return j.number(&cc);
+        if (uk == "speed") return j.str(&m.speed);
+        if (uk != "cache_creation") return false;
+        return j.object([&](const std::string& ck) {
+          if (ck == "ephemeral_5m_input_tokens") return j.number(&c5);
+          if (ck == "ephemeral_1h_input_tokens") return j.number(&c1);
+          return false;
+        });
+      });
+    });
+  });
+  if (!ok) return false;
+  if (c5 < 0 && c1 < 0) m.t.w5 = cc;
+  else {
+    m.t.w1 = std::max(0.0, c1);
+    m.t.w5 = c5 >= 0 ? c5 : std::max(0.0, cc - m.t.w1);
+  }
+  return true;
+}`;
+
+const ccScan = `void count_line(const char* b, const char* e, const std::string& folder, LocalCache& c, ScanStats& st) {
+  std::string_view sv(b, (size_t)(e - b));
+  if (sv.find("\"usage\"") == std::string_view::npos || sv.find("\"assistant\"") == std::string_view::npos) return;
+  LogMsg m;
+  if (!parse_log_line(b, e, m) || m.type != "assistant" || !m.usage) return;
+  if (!starts(m.model, "claude")) return;   // «<synthetic>»: avisos de Claude Code, sin coste
+  long long t = parse_iso(m.ts);
+  if (t < 0) return;
+  if (!m.id.empty() && !c.seen.insert(hash64("m:" + m.id + ":" + m.request)).second) return;
+  int day = local_day(t);
+  Agg a;
+  a.t = m.t;
+  a.cost = cost_of(m.model, m.t, m.speed == "fast");
+  a.msgs = 1;
+  if (!m.session.empty() && c.seen.insert(hash64("s:" + m.session + ":" + std::to_string(day))).second) a.sessions = 1;
+  c.rows[{day, m.model, project_name(m.cwd, folder)}].add(a);
+  c.msgs++;
+  st.msgs++;
+}`;
+
+const ccPrice = `Price price_of(const std::string& model, double prompt_tokens = 0) {
+  std::string m = lower(model);
+  auto is = [&](const char* k) { return m.find(k) != std::string::npos; };
+  if (is("fable-5-2") || is("mythos-5-2")) return {8, 10, 16, 0.20, 40};
+  if (is("fable-5-1") || is("mythos-5-1")) return {10, 12.5, 20, 0.25, 50};
+  if (is("fable") || is("mythos")) return {10, 12.5, 20, 1, 50};
+  if (is("opus-5-5")) return {4, 5, 8, 0.20, 20};
+  if (is("opus-4-1") || is("opus-4-0") || is("opus-4-2025") || m == "claude-opus-4" || is("3-opus"))
+    return {15, 18.75, 30, 1.5, 75};
+  if (is("opus")) return {5, 6.25, 10, 0.5, 25};   // Opus 5, 4.8, 4.7, 4.6 y 4.5
+  if (is("sonnet-5-5")) return {2, 2.5, 4, 0.10, 10};
+  if (is("sonnet-5")) return {2, 2.5, 4, 0.20, 10};
+  if (is("sonnet")) return {3, 3.75, 6, 0.30, 15};
+  if (is("haiku-5-5")) {
+    if (prompt_tokens > 100000) return {0.5, 0.625, 1, 0.05, 2.5};
+    return {0.10, 0.125, 0.20, 0.01, 0.50};
+  }
+  if (is("haiku-4-5")) return {1, 1.25, 2, 0.10, 5};
+  if (is("haiku-3-5") || is("3-5-haiku")) return {0.8, 1, 1.6, 0.08, 4};
+  if (is("haiku")) return {0.25, 0.3, 0.5, 0.03, 1.25};
+  return {3, 3.75, 6, 0.30, 15};
+}`;
+
+const ccApi = `bool fetch_day(const std::string& key, int day, Rows& rows, std::string& err, int& code) {
+  std::vector<std::string> hdr = {"x-api-key: " + trim(key), std::string("anthropic-version: ") + API_VERSION,
+                                  "Accept: application/json"};
+  std::string page;
+  for (int k = 0; k < 50; k++) {
+    std::string url = api_base() + "/v1/organizations/usage_report/claude_code?starting_at=" + iso_day(day) + "&limit=1000";
+    if (!page.empty()) url += "&page=" + url_encode(page);
+    Http h = http_get(url, hdr);
+    code = h.code;
+    if (h.code != 200) {
+      err = api_error(h);
+      return false;
+    }
+    bool more = false;
+    std::string next;
+    if (!parse_report(h.body, rows, next, more)) {
+      err = tx::ERR_BAD_ANSWER;
+      return false;
+    }
+    if (!more || next.empty()) return true;
+    page = next;
+  }
+  return true;
+}`;
+
+const ccHeat = `    int start = today - weekday(today) - (cols - 1) * 7;
+    std::vector<double> vals;
+    double sum = 0;
+    int active = 0;
+    for (int d = start; d <= today; d++) {
+      Agg a = day_agg(d);
+      double v = ::cu::metric(a, metric);
+      vals.push_back(v);
+      sum += v;
+      if (a.active()) active++;
+    }
+    auto q = quartiles(vals);
+    // …
+    for (int c = 0; c < cols; c++)
+      for (int r = 0; r < 7; r++) {
+        int d = start + c * 7 + r;
+        if (d > today) break;
+        int cx = gx + c * step, cy = gy + r * step;
+        fl_color(rgb(HEAT[level(::cu::metric(day_agg(d), metric), q)]));
+        fl_rounded_rectf(cx, cy, cell, cell, 3);
+        if (d == selected) {
+          fl_color(rgb(0x1f2937));
+          fl_line_style(FL_SOLID, 2);
+          fl_rounded_rect(cx - 1, cy - 1, cell + 2, cell + 2, 3);
+          fl_line_style(0);
+        }
+        hits.push_back({cx - 1, cy - 1, step, step, d});
+      }`;
+
+const ccBar = `std::string bar_title(const Rows& rows, int today, int m) {
+  double v = metric(total(rows, today, today), m);
+  if (m == M_TOKENS) return " " + tokens(v);
+  if (m == M_SESSIONS) return " " + num(v, 0);
+  return " " + money(v);
+}
+
+  void to_bar() {
+    if (!bar::available()) { iconize(); return; }
+    if (in_bar) return;
+    save_settings();
+    in_bar = true;
+    hide();
+    bar::dock(false);
+    refresh();
+    // Sin ventanas, Fl::run terminaría: aquí sigue la app (como un diálogo).
+    while (in_bar && !quitting) Fl::wait(1e20);
+    if (quitting) quit_now();
+  }`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -1488,6 +1645,73 @@ const es: Record<string, DemoMade> = {
         title: "8. Bloquear sin dejar rastro",
         text: "Al bloquear (a mano, con ⌘L o tras 5 minutos sin uso) se borra con ceros todo lo descifrado y la clave, de forma que el compilador no se lo salte; el portapapeles se vacía a los 20 segundos. Los archivos se escriben aparte y luego se renombran, con permisos solo para usted.",
         code: { file: "Form1.cpp", text: psLock },
+      },
+    ],
+  },
+  cpp_ccusage: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con su menú, la barra de arriba (el origen, lo que se ve, el periodo y los botones), el reloj y la barra de estado; el código de Form1.cpp lee los registros de Claude Code o llama a la API de administración, calcula lo que cuesta cada mensaje y dibuja el panel con el mapa de calor.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "El panel: las cifras, el mapa de calor, las barras y las tablas." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (actualizar, exportar a CSV, ajustes, barra de menús, salir), Ver (coste, tokens, sesiones) y Ayuda (cómo funciona y los precios)." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: la barra de estado, la medianoche y, cada 15 minutos, otra lectura." },
+        { name: "Source / Metric / Period", kind: "Combobox", text: "De dónde salen los datos, qué se mide y el periodo de las tablas (Source_select, Metric_select, Period_select)." },
+        { name: "BtnRefresh / BtnSettings / BtnBar", kind: "Button", text: "Actualizar ahora, los ajustes y minimizar a la barra de menús." },
+        { name: "Board", kind: "Frame", text: "Donde el código pone el panel (un Fl_Widget propio que se dibuja entero)." },
+        { name: "Status", kind: "StatusBar", text: "El origen, la hora de la última lectura y cuánto falta para la próxima, o cómo va la lectura." },
+      ],
+      apis: [
+        "Los registros de Claude Code: un .jsonl por sesión en ~/.claude/projects, con el uso de cada respuesta",
+        "La API de Claude Code Analytics (/v1/organizations/usage_report/claude_code) con una clave de administrador, por curl",
+        "Los precios de la API de Anthropic por modelo: entrada, caché de 5 minutos y de 1 hora, lectura de la caché, salida y modo rápido",
+        "NSStatusItem y NSMenu desde C++ con el runtime de Objective-C (objc_msgSend)",
+        "Fl::awake para que los hilos que leen y bajan avisen a la ventana",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba, un Frame con tres Combobox (Origen, Ver y Periodo) y tres botones; debajo, otro Frame (Board) para el panel, el Menu, el Timer de un segundo y la StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales Source_select, Metric_select, Period_select, BtnRefresh_click, BtnSettings_click, BtnBar_click, Tick_timer y Menu1_click; Form1 los rellena y pone el panel dentro de Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Leer gigas sin copiarlos",
+        text: "Los registros pesan gigas, y casi todo es el texto de las conversaciones. Cada línea se recorre sin copiarla: se leen solo las claves que interesan (el tipo, la fecha, la sesión, el modelo y el uso) y el resto se salta. Así, un texto que contenga «\"usage\"» no engaña: solo cuenta el uso de verdad, el del mensaje.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: ccLite },
+      },
+      {
+        title: "4. Cada mensaje, una vez",
+        text: "Claude Code escribe la misma respuesta en varias líneas (una por trozo) y a veces en varios archivos: cada mensaje se cuenta una vez por su id y el de la petición. De cada archivo se recuerda hasta dónde se leyó, así que la siguiente lectura solo trae lo nuevo; una línea a medias se deja para la próxima vez. Comprobado con los registros de verdad contra un cálculo aparte en Python: los mismos mensajes y el mismo coste.",
+        code: { file: "Form1.cpp", text: ccScan },
+      },
+      {
+        title: "5. Lo que cuesta cada modelo",
+        text: "El coste se calcula con el precio de cada modelo por millón de tokens: la entrada, la escritura en la caché de 5 minutos y de 1 hora, la lectura de la caché y la salida; el modo rápido cuesta el doble y Haiku 5.5 cambia de precio con más de 100.000 tokens de entrada. Con un plan Pro o Max no se paga así: es lo que costaría con la API.",
+        code: { file: "Form1.cpp", text: ccPrice },
+      },
+      {
+        title: "6. La API de Claude Code Analytics",
+        text: "Con el origen «API de administración», la app pide cada día a /v1/organizations/usage_report/claude_code con su clave sk-ant-admin, página a página, en otro hilo. La clave va en un archivo de configuración de curl que solo lee usted, no en la línea de órdenes. Los días cerrados se guardan; hoy y ayer se vuelven a pedir.",
+        code: { file: "Form1.cpp", text: ccApi },
+      },
+      {
+        title: "7. El mapa de calor",
+        text: "Como en GitHub: 53 columnas de semanas, de lunes a domingo, y cuatro tonos de verde según los cuartiles de los días con uso. Cada casilla se apunta para el ratón: al pasar por encima sale el día con sus cifras y al pulsarla, su detalle a la derecha.",
+        code: { file: "Form1.cpp", text: ccHeat },
+      },
+      {
+        title: "8. En la barra de menús",
+        text: "El icono de la barra de menús es un NSStatusItem hecho desde C++ con objc_msgSend: lo gastado hoy junto al icono y un menú con la semana, el mes, los últimos 7 días y el gasto por modelo. Al cerrar la ventana, la app sale del Dock y sigue en la barra, leyendo cada 15 minutos.",
+        code: { file: "Form1.cpp", text: ccBar },
       },
     ],
   },
@@ -2098,6 +2322,73 @@ const en: Record<string, DemoMade> = {
         title: "8. Locking without a trace",
         text: "On lock (by hand, with ⌘L or after 5 minutes without use) everything decrypted and the key are overwritten with zeros in a way the compiler cannot skip; the clipboard clears after 20 seconds. Files are written aside and then renamed, with permissions only for you.",
         code: { file: "Form1.cpp", text: psLock },
+      },
+    ],
+  },
+  cpp_ccusage: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its menu, the top bar (the source, what is shown, the period and the buttons), the timer and the status bar; the code in Form1.cpp reads the Claude Code logs or calls the Admin API, works out what each message costs and draws the dashboard with the heatmap.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The dashboard: the figures, the heatmap, the bars and the tables." },
+        { name: "Menu1", kind: "Menu", text: "File (refresh, export to CSV, settings, menu bar, quit), View (cost, tokens, sessions) and Help (how it works and the prices)." },
+        { name: "Tick", kind: "Timer", text: "Every second: the status bar, midnight and, every 15 minutes, another read." },
+        { name: "Source / Metric / Period", kind: "Combobox", text: "Where the data comes from, what is measured and the period of the tables (Source_select, Metric_select, Period_select)." },
+        { name: "BtnRefresh / BtnSettings / BtnBar", kind: "Button", text: "Refresh now, the settings and minimize to the menu bar." },
+        { name: "Board", kind: "Frame", text: "Where the code puts the dashboard (its own Fl_Widget, drawn entirely in code)." },
+        { name: "Status", kind: "StatusBar", text: "The source, the time of the last read and how long until the next, or how the read is going." },
+      ],
+      apis: [
+        "The Claude Code logs: one .jsonl per session in ~/.claude/projects, with the usage of each response",
+        "The Claude Code Analytics API (/v1/organizations/usage_report/claude_code) with an admin key, through curl",
+        "Anthropic API prices per model: input, 5-minute and 1-hour cache, cache reads, output and fast mode",
+        "NSStatusItem and NSMenu from C++ with the Objective-C runtime (objc_msgSend)",
+        "Fl::awake so the threads that read and download notify the window",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top, a Frame with three Comboboxes (Source, View and Period) and three buttons; below, another Frame (Board) for the dashboard, the Menu, a one-second Timer and the StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) has each component and the virtual methods Source_select, Metric_select, Period_select, BtnRefresh_click, BtnSettings_click, BtnBar_click, Tick_timer and Menu1_click; Form1 fills them in and puts the dashboard inside Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Reading gigabytes without copying them",
+        text: "The logs weigh gigabytes, and almost all of it is the text of the conversations. Each line is walked through without copying it: only the keys that matter are read (the type, the date, the session, the model and the usage) and the rest is skipped. So a text that contains «\"usage\"» can't fool it: only the real usage, the message's, counts.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: ccLite },
+      },
+      {
+        title: "4. Each message, once",
+        text: "Claude Code writes the same response on several lines (one per chunk) and sometimes in several files: each message is counted once by its id and its request's. For each file it remembers how far it read, so the next read only brings what's new; a half-written line is left for next time. Checked against the real logs with a separate calculation in Python: the same messages and the same cost.",
+        code: { file: "Form1.cpp", text: ccScan },
+      },
+      {
+        title: "5. What each model costs",
+        text: "The cost uses each model's price per million tokens: input, 5-minute and 1-hour cache writes, cache reads and output; fast mode costs twice as much and Haiku 5.5 changes price above 100,000 input tokens. With a Pro or Max plan you don't pay this way: it's what it would cost with the API.",
+        code: { file: "Form1.cpp", text: ccPrice },
+      },
+      {
+        title: "6. The Claude Code Analytics API",
+        text: "With the “Admin API” source, the app asks /v1/organizations/usage_report/claude_code for each day with your sk-ant-admin key, page by page, on another thread. The key goes in a curl config file that only you can read, not on the command line. Closed days are kept; today and yesterday are asked for again.",
+        code: { file: "Form1.cpp", text: ccApi },
+      },
+      {
+        title: "7. The heatmap",
+        text: "Like GitHub's: 53 columns of weeks, Monday to Sunday, and four shades of green by the quartiles of the days with usage. Each square is recorded for the mouse: hovering shows the day with its figures and clicking shows its details on the right.",
+        code: { file: "Form1.cpp", text: ccHeat },
+      },
+      {
+        title: "8. In the menu bar",
+        text: "The menu bar icon is an NSStatusItem made from C++ with objc_msgSend: today's spend next to the icon and a menu with the week, the month, the last 7 days and the spend by model. When you close the window, the app leaves the Dock and stays in the bar, reading every 15 minutes.",
+        code: { file: "Form1.cpp", text: ccBar },
       },
     ],
   },

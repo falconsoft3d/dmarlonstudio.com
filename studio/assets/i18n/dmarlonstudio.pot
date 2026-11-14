@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -1389,7 +1389,7 @@ msgstr ""
 msgid "Tema oscuro"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart
 msgid "Todo"
 msgstr ""
 
@@ -1477,7 +1477,7 @@ msgstr ""
 msgid "¿Qué busca?"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_ccusage.dart lib/ui/screens/budget_screen.dart
 msgid "Últimos 30 días"
 msgstr ""
 
@@ -2799,47 +2799,47 @@ msgstr ""
 msgid "Ventas mensuales de tres productos: elegir el año, ocultar series, líneas, áreas o barras, y un modo en vivo."
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "abr"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "ago"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "dic"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "ene"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "feb"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "jul"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "jun"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "mar"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "may"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "nov"
 msgstr ""
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart
 msgid "oct"
 msgstr ""
 
@@ -3311,6 +3311,596 @@ msgstr ""
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid ","
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_minilang.dart
+msgid "."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "API de administración (Admin API)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Abrir la ventana…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Acerca de Uso de Claude Code"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_next_world.dart
+msgid "Actualizando…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Actualizar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Actualizar ahora"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Actualizar cada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Ajustes guardados"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Ajustes…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Bajando de la API: día {0} de {1}…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Bajando los datos de la API…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Caché: escritura {0} · lectura {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Carpeta de los registros de Claude Code (vacío: la de siempre)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Clave de administrador de la API (opcional)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/budget_screen.dart
+msgid "Coste"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Crear una clave…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Demasiadas peticiones (429): se volverá a intentar en la próxima actualización"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Día a día"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Días que se bajan de la API"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid ""
+"Dólares por millón de tokens: entrada · escritura en la caché (5 min / 1 h) · lectura de la caché · salida.\n"
+"\n"
+"Fable 5.2: 8 · 10 / 16 · 0,20 · 40\n"
+"Fable 5.1: 10 · 12,50 / 20 · 0,25 · 50\n"
+"Opus 5.5: 4 · 5 / 8 · 0,20 · 20\n"
+"Opus 5 y 4.5 a 4.8: 5 · 6,25 / 10 · 0,50 · 25\n"
+"Sonnet 5.5: 2 · 2,50 / 4 · 0,10 · 10\n"
+"Sonnet 5: 2 · 2,50 / 4 · 0,20 · 10\n"
+"Sonnet 4.x: 3 · 3,75 / 6 · 0,30 · 15\n"
+"Haiku 5.5: 0,10 · 0,125 / 0,20 · 0,01 · 0,50 (con más de 100.000 tokens de entrada, cinco veces más)\n"
+"Haiku 4.5: 1 · 1,25 / 2 · 0,10 · 5\n"
+"\n"
+"El modo rápido cuesta el doble. Son los precios de la API de Anthropic (noviembre de 2026). Con un plan Pro o Max no se paga así: es lo que costaría ese uso con la API."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "El panel (cifras, mapa de calor, barras y tablas) lo dibuja el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "El presupuesto debe ser un número, como 200 o 150,50"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "El uso de Claude Code nativo en C++ con FLTK: tokens, coste y sesiones de cada día en un mapa de calor como el de GitHub, por modelo y por proyecto, desde los registros del equipo o la API de administración, y en la barra de menús con lo gastado hoy."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
+msgid "Elegir…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Entrada {0} · salida {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Error {0} de la API: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Este año"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Este mes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Este mes lleva {0}: ha pasado su presupuesto de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Este mes: {0} de {1} ({2} %)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Este mes: {0} · {1} tokens"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Exportado a {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Exportar a CSV…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Falta la clave de administrador"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Guardado. Ojo: la clave no parece de administrador (sk-ant-admin…) y la API la rechazará"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/budget_screen.dart
+msgid "Hoy"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Hoy: {0} · {1} tokens"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API de Claude Code Analytics necesita una clave sk-ant-admin… de su organización de Claude Console. Póngala en Archivo › Ajustes…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API ha contestado algo que no se entiende"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API no contesta"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API no está disponible para esta organización (404)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API no tiene uso de Claude Code"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La API solo cuenta el uso con cuentas de la API de su organización, no el de los planes Pro o Max: para ese, use los registros locales."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La clave no tiene permiso (403): use una clave de administrador de la organización"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La clave no vale (401): hace falta una clave de administrador (sk-ant-admin…)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "La primera vez se leen todos (pueden ser varios gigas); después, solo lo nuevo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Leyendo los registros de Claude Code: {0} de {1}…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Leyendo los registros de Claude Code…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Menos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart lib/ui/bottom_panel.dart
+msgid "Minimizar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "Minimizar a la barra de menús"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Más"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "No encuentro curl"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "No existe la carpeta {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "No hay registros de Claude Code en este equipo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "No se ha podido guardar el archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Origen"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pos.dart
+msgid "Otros"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Para usar la API, ponga su clave de administrador en Archivo › Ajustes…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Periodo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Por defecto: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/ui/screens/budget_screen.dart
+msgid "Por modelo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Por modelo, este mes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Por persona"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Por proyecto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Precios que se usan"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Presupuesto de Claude Code"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Presupuesto mensual (dólares)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Pulse un día para ver su detalle"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Racha"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Registros locales de Claude Code"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Récord: {0} días seguidos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Se buscan en {0}. Si los tiene en otra carpeta, elíjala en Archivo › Ajustes…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Sesiones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Sin nombre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Sin proyecto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Sin uso en este periodo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Sin uso este día"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Solo para el origen «API de administración». Se crea en Claude Console › Ajustes › Admin keys y empieza por sk-ant-admin. Se guarda en este equipo, solo para su usuario. No sirve para planes Pro o Max: para esos, use los registros locales."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Tokens"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, los combos, los botones y el reloj se diseñaron en el Diseñador del estudio; el panel (las cifras, el mapa de calor, las barras y las tablas) se dibuja en el código de Form1.cpp. Los registros se leen en otro hilo, la API se llama con curl y el icono de la barra de menús se hace desde C++ con el runtime de Objective-C. No es una app de Anthropic."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Uso de Claude Code"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Uso de Claude Code (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Uso de Claude Code en C++ con FLTK: los tokens, el coste y las sesiones de cada día en un mapa de calor como el de GitHub, desde los registros de Claude Code o la API de administración, y en la barra de menús."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid ""
+"Uso de Claude Code le enseña cuánto usa Claude Code: los tokens, lo que cuestan y las sesiones de cada día, en un mapa de calor como el de GitHub (un cuadrado por día del último año: cuanto más oscuro, más uso), con las cifras de hoy, la semana, el mes y el año, y el reparto por modelo y por proyecto.\n"
+"\n"
+"Los datos salen de dos sitios (elíjalo en «Origen»):\n"
+"• Registros locales: lo que Claude Code guarda en su equipo (~/.claude/projects). Sirve con cualquier plan, también Pro y Max. El coste es lo que costarían esos tokens con la API, con el precio de cada modelo.\n"
+"• API de administración: la API de Claude Code Analytics de Anthropic, con una clave de administrador (sk-ant-admin…) de su organización de Claude Console. Da el coste estimado, las sesiones, las líneas, los commits y las PR de cada persona. No incluye el uso con planes Pro, Max, Team o Enterprise.\n"
+"\n"
+"Se actualiza solo cada 15 minutos (cámbielo en Ajustes). Pulse un día del mapa o una barra para ver su detalle. En Ajustes también puede poner un presupuesto mensual: la app le avisa al pasarlo.\n"
+"\n"
+"Al cerrar la ventana, la app se queda en la barra de menús con lo gastado hoy; su menú enseña la semana, el mes, los últimos 7 días y el gasto por modelo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Ver"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "abril"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "agosto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "diciembre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "do"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "domingo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "enero"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "febrero"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "ju"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "jueves"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "julio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "junio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "lu"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "lunes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "ma"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "martes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "marzo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "mayo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "mi"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "miércoles"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "noviembre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "octubre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "sept"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "septiembre"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "sá"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "sábado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "vi"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "viernes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "y {0} más…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} $"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} % del presupuesto de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} GB"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} M"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} MB"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} del último año"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} día"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_wifi.dart
+msgid "{0} días"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} k"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} kB"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} mil M"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} min"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} sesiones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} sesión"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} tokens"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart
+msgid "{0} {1} {2}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} · +{1} −{2} líneas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} · actualizado a las {1} · el próximo, en {2}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} · {1} días con uso"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0} · {1} mensajes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0}, {1} de {2} de {3}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "{0}, últimos 30 días"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Últimos 7 días"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Últimos 7 días: {0} · {1} tokens"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "12 horas (a. m./p. m.)"
 msgstr ""
@@ -3392,10 +3982,6 @@ msgstr ""
 msgid "Cuba · La Habana"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cómo funciona"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "Ecuador · Guayaquil"
 msgstr ""
@@ -3474,14 +4060,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "Las esferas y las horas de cada país las dibuja el código de Form1.cpp"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart lib/ui/bottom_panel.dart
-msgid "Minimizar"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_webmon.dart
-msgid "Minimizar a la barra de menús"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
@@ -3597,10 +4175,6 @@ msgid "p. m."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
-msgid "{0} {1} {2}"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_clocks.dart
 msgid "☀ De día"
 msgstr ""
 
@@ -3610,10 +4184,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "✓ En la barra"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
-msgid ","
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_console.dart
@@ -3873,10 +4443,6 @@ msgstr ""
 msgid "Vaciar la cola"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart
-msgid "Ver"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Ver → Mostrar la cola: escriba órdenes, pulse Añadir y después Ejecutar la cola. Van de una en una, cada una cuando termina la anterior."
 msgstr ""
@@ -4047,10 +4613,6 @@ msgstr ""
 msgid "Acerca del Explorador de archivos"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Actualizar"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Adelante"
 msgstr ""
@@ -4113,10 +4675,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Cambiar nombre"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
@@ -5868,10 +6426,6 @@ msgstr ""
 msgid "{0} libres"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart
-msgid "{0} min"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_hardware.dart
 msgid "{0} núcleos"
 msgstr ""
@@ -6651,10 +7205,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_image_editor.dart
 msgid "Ángulo"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_minilang.dart
-msgid "."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_minilang.dart
@@ -8551,10 +9101,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
 msgid "No encuentro WhatsApp Desktop en este equipo. Conecte WhatsApp (Archivo › Conectar WhatsApp para enviar…) para ver y enviar mensajes, o abra un chat exportado (Archivo › Importar un chat exportado…)."
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart
-msgid "No encuentro curl"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_mywa.dart
@@ -11520,14 +12066,6 @@ msgid "{0} de 4 (minúsculas, mayúsculas, números y símbolos)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_wifi.dart
-msgid "{0} día"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_wifi.dart
-msgid "{0} días"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_wifi.dart
 msgid "{0} graves · {1} importantes · {2} mejoras"
 msgstr ""
 
@@ -12554,10 +13092,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_next_world.dart
 msgid "Actualizado hace {} s"
-msgstr ""
-
-#: lib/code/tk_showcase_next_world.dart
-msgid "Actualizando…"
 msgstr ""
 
 #: lib/code/tk_showcase_next_world.dart
@@ -14052,10 +14586,6 @@ msgid ""
 "Elegir: clic · Mayús+clic añade · ⌘+clic dentro de grupos · doble clic entra · Intro elige los hijos · Esc el padre · Tab el siguiente · ⌥ medir distancias."
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_opend.dart lib/ui/screens/budget_screen.dart
-msgid "Hoy"
-msgstr ""
-
 #: lib/code/tk_showcase_pascal_opend.dart
 msgid "Hueco"
 msgstr ""
@@ -15344,10 +15874,6 @@ msgstr ""
 msgid "Elegir la carpeta…"
 msgstr ""
 
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
-msgid "Elegir…"
-msgstr ""
-
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Elija la carpeta que quiere analizar"
 msgstr ""
@@ -15398,10 +15924,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "No se pudo mover a la Papelera: {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pos.dart
-msgid "Otros"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
@@ -16348,10 +16870,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Conéctese para ver los conceptos de este presupuesto."
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/budget_screen.dart
-msgid "Coste"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -18995,7 +19513,7 @@ msgstr ""
 msgid "API"
 msgstr ""
 
-#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/settings_screen.dart
+#: lib/main.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/ui/screens/settings_screen.dart
 msgid "Ajustes"
 msgstr ""
 
@@ -19141,10 +19659,6 @@ msgstr ""
 
 #: lib/ui/screens/budget_screen.dart
 msgid "Por herramienta"
-msgstr ""
-
-#: lib/ui/screens/budget_screen.dart
-msgid "Por modelo"
 msgstr ""
 
 #: lib/ui/screens/budget_screen.dart

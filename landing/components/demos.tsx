@@ -321,6 +321,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un gestor de contraseñas compatible con KeePass y KeePassXC: abre su base de datos .kdbx de siempre y la guarda en el mismo formato (KDBX 4) con AES-256 o ChaCha20 y Argon2d, Argon2id o AES-KDF, contraseña maestra y, si quiere, archivo de clave. Grupos, entradas con historial, papelera, búsqueda, generador de contraseñas, revisión de seguridad (débiles, repetidas, viejas), copiar con el portapapeles que se vacía solo y bloqueo automático. Toda la criptografía está escrita en el código, sin bibliotecas, y probada con KeePassXC. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "KDBX 4 compatible con KeePass y KeePassXC", "AES-256, ChaCha20, Argon2 y HMAC-SHA-256 sin bibliotecas", "Probada con keepassxc-cli y pykeepass en los dos sentidos"],
       },
+      cpp_ccusage: {
+        name: "Uso de Claude Code (C++)",
+        text: "Cuánto usa Claude Code, día a día: los tokens, lo que cuestan y las sesiones en un mapa de calor como el de GitHub (un cuadrado por día del último año), con las cifras de hoy, la semana, el mes y el año, la racha, las barras de los últimos 30 días y el reparto por modelo y por proyecto. Lee los registros que Claude Code guarda en el equipo (sirve con cualquier plan, también Pro y Max: el coste es lo que costaría con la API) o la API de Claude Code Analytics con una clave de administrador. Al cerrarla se queda en la barra de menús con lo gastado hoy y avisa si pasa su presupuesto del mes. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "Lee gigas de registros JSONL una sola vez y luego solo lo nuevo", "Los precios de cada modelo de Claude, con la caché y el modo rápido", "La API de Claude Code Analytics (Admin API) con curl", "El mapa de calor, las barras y las tablas dibujados en código", "La barra de menús de macOS con el runtime de Objective-C"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -593,6 +598,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A password manager compatible with KeePass and KeePassXC: it opens your usual .kdbx database and saves it in the same format (KDBX 4) with AES-256 or ChaCha20 and Argon2d, Argon2id or AES-KDF, a master password and, if you like, a key file. Groups, entries with history, recycle bin, search, password generator, security review (weak, reused, old), copying with a self-clearing clipboard and automatic locking. All the cryptography is written in the code, without libraries, and tested with KeePassXC. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "KDBX 4 compatible with KeePass and KeePassXC", "AES-256, ChaCha20, Argon2 and HMAC-SHA-256 without libraries", "Tested with keepassxc-cli and pykeepass in both directions"],
       },
+      cpp_ccusage: {
+        name: "Claude Code Usage (C++)",
+        text: "How much you use Claude Code, day by day: tokens, what they cost and sessions in a GitHub-style heatmap (one square per day of the last year), with the figures for today, the week, the month and the year, the streak, bars for the last 30 days and the split by model and by project. It reads the logs Claude Code keeps on your computer (it works with any plan, Pro and Max too: the cost is what it would cost with the API) or the Claude Code Analytics API with an admin key. When closed it stays in the menu bar with today's spend and warns you if you go over your monthly budget. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "Reads gigabytes of JSONL logs once, then only what's new", "Each Claude model's prices, with caching and fast mode", "The Claude Code Analytics API (Admin API) with curl", "The heatmap, bars and tables drawn in code", "The macOS menu bar through the Objective-C runtime"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -681,6 +691,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_mywa: { icon: "cpp", label: "C++ · FLTK" },
   cpp_minilang: { icon: "cpp", label: "C++ · FLTK" },
   cpp_pass: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_ccusage: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

@@ -274,6 +274,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Revisión y bloqueo", text: "La revisión de seguridad enseña las contraseñas débiles, repetidas, vacías o que llevan más de un año sin cambiar; el generador hace otras nuevas a su medida. Con ⌘L o tras 5 minutos sin usarla, la base de datos se bloquea y se borra de la memoria todo lo descifrado." },
     ],
   },
+  cpp_ccusage: {
+    intro:
+      "El uso de Claude Code en un panel nativo en C++ con FLTK, diseñado en el estudio: cuánto usa, cuánto cuesta y cuándo, de un vistazo y desde la barra de menús.",
+    steps: [
+      { title: "Elija de dónde salen los datos", text: "Con «Registros locales de Claude Code», la app lee lo que Claude Code guarda en su equipo (~/.claude/projects): sirve con cualquier plan, también Pro y Max, y el coste es lo que costarían esos tokens con la API. La primera vez lee todo (varios gigas, en unos segundos); después, solo lo nuevo. Con «API de administración», ponga en Ajustes una clave sk-ant-admin de su organización de Claude Console y verá el coste estimado, las sesiones, las líneas, los commits y las PR de cada persona." },
+      { title: "Lea el mapa de calor", text: "Cada cuadrado es un día del último año: cuanto más verde, más uso. Arriba, hoy, los últimos 7 días, el mes (con la barra de su presupuesto) y el año, y la racha de días seguidos. Cambie «Ver» para pasar del coste a los tokens o a las sesiones, y «Periodo» para las tablas por modelo y por proyecto. Pase el ratón por un día o pulse uno (o una barra de los últimos 30 días) para ver su detalle." },
+      { title: "Déjela en la barra de menús", text: "Al cerrar la ventana, la app sigue en la barra de menús con lo gastado hoy y se actualiza sola cada 15 minutos. Su menú enseña la semana y el mes, los últimos 7 días con una barrita cada uno y el gasto por modelo; desde ahí se cambia el origen o lo que se ve. En Ajustes ponga un presupuesto mensual y le avisará al pasarlo; Archivo › Exportar a CSV… guarda todo para una hoja de cálculo." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -622,6 +631,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Create or open your database", text: "Create a new database with a master password (and, if you like, a key file): choose the cipher (AES-256 or ChaCha20) and how long it takes to open, which is what protects it. Or open the .kdbx file you already use with KeePass or KeePassXC: DMarlonPass saves it in the same format and you can keep using it with them." },
       { title: "Your passwords, at hand", text: "On the left, the groups; in the middle, the entries; on the right, the selected one, with its username, password, website and notes. Copy with one click (the clipboard clears after 20 seconds), show the password with 👁 or open the website. “+ Entry” suggests a strong password, and when you edit, the previous version stays in the history." },
       { title: "Review and locking", text: "The security review shows passwords that are weak, reused, empty or unchanged for more than a year; the generator makes new ones to your liking. With ⌘L or after 5 minutes without use, the database locks and everything decrypted is wiped from memory." },
+    ],
+  },
+  cpp_ccusage: {
+    intro:
+      "Claude Code usage in a native C++ dashboard with FLTK, designed in the studio: how much you use, how much it costs and when, at a glance and from the menu bar.",
+    steps: [
+      { title: "Choose where the data comes from", text: "With “Local Claude Code logs”, the app reads what Claude Code keeps on your computer (~/.claude/projects): it works with any plan, Pro and Max too, and the cost is what those tokens would cost with the API. The first time it reads everything (several gigabytes, in a few seconds); after that, only what's new. With “Admin API”, enter an sk-ant-admin key from your Claude Console organization in Settings and you'll see each person's estimated cost, sessions, lines, commits and PRs." },
+      { title: "Read the heatmap", text: "Each square is a day of the last year: the greener, the more usage. At the top, today, the last 7 days, the month (with your budget bar) and the year, and your streak of days in a row. Change “View” to switch from cost to tokens or sessions, and “Period” for the tables by model and by project. Hover over a day or click one (or a bar of the last 30 days) to see its details." },
+      { title: "Keep it in the menu bar", text: "When you close the window, the app stays in the menu bar with today's spend and refreshes by itself every 15 minutes. Its menu shows the week and the month, the last 7 days with a little bar each and the spend by model; from there you can change the source or what is shown. In Settings set a monthly budget and it will warn you when you go over it; File › Export to CSV… saves everything for a spreadsheet." },
     ],
   },
   domino: {

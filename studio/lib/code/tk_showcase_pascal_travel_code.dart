@@ -61,7 +61,7 @@ type
     procedure SetPlan(const P: TPlan; Sample: Boolean);
     procedure Say(const T: string);
     procedure StartPlan;
-    procedure SaveAs;
+    procedure SaveAs(AsPages: Boolean = False);
     procedure OpenPlan;
     procedure SavePlan;
     function Dossier: Boolean;
@@ -991,6 +991,31 @@ begin
   end;
 end;
 
+{ El dosier en imágenes: una PNG por página («<base> - página 1.png»…).
+  Devuelve los archivos escritos. }
+function WritePages(const P: TPlan; const FileName: string): TStringArray;
+var
+  B: TBitmap;
+  Base, F: string;
+  i: Integer;
+begin
+  Result := nil;
+  Base := ChangeFileExt(FileName, '');
+  B := NewBitmap(AW, AH);
+  try
+    for i := 0 to PageCount(P) - 1 do
+    begin
+      RenderPage(B.Canvas, P, i);
+      F := Fmt(tx_PAGE_FILE, [Base, IntToStr(i + 1)]) + '.png';
+      SavePNG(B, F);
+      SetLength(Result, Length(Result) + 1);
+      Result[High(Result)] := F;
+    end;
+  finally
+    B.Free;
+  end;
+end;
+
 // ------------------------------------------------------------ la vista previa
 { La vista previa en R: la imagen vertical entera, o las páginas una
   debajo de otra (desplazadas [Scroll] píxeles). }
@@ -1265,6 +1290,31 @@ begin
     B.Free;
   end;
   Check(PageCount(P) = 5, 'páginas del dosier');
+  // El dosier en imágenes: una PNG por página.
+  with TStringList.Create do
+  try
+    AddStrings(WritePages(P, GetTempDir + 'dms-viaje-test.png'));
+    Check(Count = 5, 'cinco imágenes');
+    if Count = 5 then
+    begin
+      Check(FileExists(Strings[0]) and FileExists(Strings[4]) and (Pos('1', ExtractFileName(Strings[0])) > 0), 'las imágenes existen');
+      B := TBitmap.Create;
+      try
+        with TPortableNetworkGraphic.Create do
+        try
+          LoadFromFile(Strings[1]);
+          Check((Width = AW) and (Height = AH), 'tamaño de la página');
+        finally
+          Free;
+        end;
+      finally
+        B.Free;
+      end;
+    end;
+    for k := 0 to Count - 1 do DeleteFile(Strings[k]);
+  finally
+    Free;
+  end;
   // El hilo, como en la ventana: termina, avisa y se libera solo (con /bin/echo
   // en lugar de claude: escribe los argumentos, entre ellos --json-schema).
   {$IFNDEF WINDOWS}
@@ -1547,7 +1597,7 @@ begin
 end;
 
 { Guarda la imagen (PNG) o el dosier (PDF), según el formato elegido. }
-procedure TForm1.SaveAs;
+procedure TForm1.SaveAs(AsPages: Boolean);
 var
   D: TSaveDialog;
   N: string;
@@ -1555,9 +1605,16 @@ begin
   D := TSaveDialog.Create(nil);
   try
     N := StringReplace(Plan.Dest, ' ', '-', [rfReplaceAll]);
-    if Dossier then
+    if Dossier and AsPages then
     begin
-      D.Filter := tx_FILTER_PDF;
+      D.Filter := tx_FILTER_PAGES;
+      D.DefaultExt := 'png';
+      D.FileName := Fmt(tx_FILE_DOSSIER, [N]) + '.png';
+    end
+    else if Dossier then
+    begin
+      // En PDF o en imágenes (una por página), según el tipo que se elija.
+      D.Filter := tx_FILTER_PDF + '|' + tx_FILTER_PAGES;
       D.DefaultExt := 'pdf';
       D.FileName := Fmt(tx_FILE_DOSSIER, [N]) + '.pdf';
     end
@@ -1570,9 +1627,18 @@ begin
     D.Options := D.Options + [ofOverwritePrompt];
     if not D.Execute then Exit;
     try
-      if Dossier then WritePDF(Plan, D.FileName)
-      else SavePNG(Poster, D.FileName);
-      Say(Fmt(tx_SAVED, [D.FileName]));
+      if Dossier and (AsPages or (D.FilterIndex = 2) or SameText(ExtractFileExt(D.FileName), '.png')) then
+        Say(Fmt(tx_SAVED_PAGES, [IntToStr(Length(WritePages(Plan, D.FileName))), ExtractFilePath(D.FileName)]))
+      else if Dossier then
+      begin
+        WritePDF(Plan, D.FileName);
+        Say(Fmt(tx_SAVED, [D.FileName]));
+      end
+      else
+      begin
+        SavePNG(Poster, D.FileName);
+        Say(Fmt(tx_SAVED, [D.FileName]));
+      end;
     except
       on E: Exception do MessageDlg(Fmt(tx_SAVE_FAILED, [E.Message]), mtError, [mbOK], 0);
     end;
@@ -1669,6 +1735,12 @@ procedure TForm1.Menu1_click(const Item: string);
 begin
   if Item = tx_MP_PLAN then StartPlan
   else if Item = tx_MP_SAVE then SaveAs
+  else if Item = tx_MP_SAVE_PAGES then
+  begin
+    RadDossier.Checked := True;
+    RadDossier_click;
+    SaveAs(True);
+  end
   else if Item = tx_MP_SAVE_JSON then SavePlan
   else if Item = tx_MP_OPEN_JSON then OpenPlan
   else if Item = tx_MP_SAMPLE then

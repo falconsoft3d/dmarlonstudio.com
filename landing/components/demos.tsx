@@ -341,6 +341,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Emisoras de internet de todo el mundo en una mesa de mezclas: seis canales con su fader, ▶ y silencio (pueden sonar varias a la vez, cada una a su volumen), pads de colores que buscan emisoras por género, una pantalla con lo que suena en cada canal, REC que graba la emisora, y mandos de volumen general, fundido al cambiar de emisora y apagado automático. Las emisoras son de Radio Browser. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñada en el estudio", "Radio Browser: una base de datos abierta de radios", "Lo que suena, con los metadatos ICY de la emisora", "AVPlayer de macOS desde C++ con el runtime de Objective-C", "La mesa entera dibujada en código"],
       },
+      cpp_blocks: {
+        name: "Bloques Neón (C++)",
+        text: "Un juego de bloques que caen, rápido y con mucho brillo: siete piezas, las tres siguientes, la reserva, la pieza fantasma, caída rápida, combos y filas seguidas que dan más puntos, y niveles que aceleran cada 10 filas. Todo en una ciudad de neón de noche, con destellos y chispas al limpiar filas, el texto grande que salta y la pantalla que tiembla con cuatro filas a la vez. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñado en el estudio", "60 fotogramas por segundo con el Timer del diseño", "La ciudad, los bloques de cristal y las chispas, dibujados en código", "Sonidos del sistema de macOS y el récord guardado"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -633,6 +638,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Internet stations from all over the world on a mixing desk: six channels with their fader, ▶ and mute (several can play at once, each at its own volume), colour pads that find stations by genre, a screen with what is playing on each channel, REC to record the station, and knobs for master volume, fade when changing station and a sleep timer. The stations come from Radio Browser. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "Radio Browser: an open database of radio stations", "What's playing, from the station's ICY metadata", "macOS AVPlayer from C++ through the Objective-C runtime", "The whole desk drawn in code"],
       },
+      cpp_blocks: {
+        name: "Neon Blocks (C++)",
+        text: "A fast, shiny falling-blocks game: seven pieces, the next three, hold, ghost piece, hard drop, combos and back-to-back lines for more points, and levels that speed up every 10 lines. All in a neon city at night, with flashes and sparks when lines clear, big popping text and the screen shaking on four lines at once. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "60 frames per second with the design's Timer", "The city, glass blocks and sparks, drawn in code", "macOS system sounds and the saved best score"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -724,6 +734,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_ccusage: { icon: "cpp", label: "C++ · FLTK" },
   pascal_travel: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_radio: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_blocks: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

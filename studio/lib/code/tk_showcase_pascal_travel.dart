@@ -30,6 +30,7 @@ TkExample tkPascalTravel(String Function(String) t) {
   lines.add(mFile);
   item('PLAN', t(markTr('Preparar el plan con Claude Code')), mFile);
   item('SAVE', t(markTr('Guardar la imagen o el dosier…')), mFile);
+  item('SAVE_PAGES', t(markTr('Guardar el dosier en imágenes…')), mFile);
   lines.add('  -');
   item('OPEN_JSON', t(markTr('Abrir un plan…')), mFile);
   item('SAVE_JSON', t(markTr('Guardar el plan…')), mFile);
@@ -73,7 +74,7 @@ TkExample tkPascalTravel(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'Escriba de dónde sale y adónde va, cuántos días tiene, su ritmo, su presupuesto y lo que le interesa, y pulse «Preparar el plan con Claude Code». La app le pide a Claude Code (la orden «claude» de su equipo) un plan con los lugares interesantes del destino, día a día y en un orden que tiene sentido, con la hora, una descripción, un consejo y dónde comer.\n\nEl plan se ve de dos formas (elíjala en «Formato»):\n• Imagen vertical: 1080 × 1920, para el móvil o las historias.\n• Dosier (PDF): una portada con cómo llegar, cuándo ir y el presupuesto, una página por día y los consejos.\n\n«Guardar…» guarda la imagen (PNG) o el dosier (PDF). En Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo.\n\nHace falta tener Claude Code instalado y con la sesión iniciada. Mientras Claude prepara el plan (suele tardar entre medio minuto y dos minutos), el botón sirve para cancelarlo.',
+        'Escriba de dónde sale y adónde va, cuántos días tiene, su ritmo, su presupuesto y lo que le interesa, y pulse «Preparar el plan con Claude Code». La app le pide a Claude Code (la orden «claude» de su equipo) un plan con los lugares interesantes del destino, día a día y en un orden que tiene sentido, con la hora, una descripción, un consejo y dónde comer.\n\nEl plan se ve de dos formas (elíjala en «Formato»):\n• Imagen vertical: 1080 × 1920, para el móvil o las historias.\n• Dosier (PDF): una portada con cómo llegar, cuándo ir y el presupuesto, una página por día y los consejos.\n\n«Guardar…» guarda la imagen (PNG) o el dosier, en PDF o en imágenes (una PNG por página). En Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo.\n\nHace falta tener Claude Code instalado y con la sesión iniciada. Mientras Claude prepara el plan (suele tardar entre medio minuto y dos minutos), el botón sirve para cancelarlo.',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -172,6 +173,9 @@ TkExample tkPascalTravel(String Function(String) t) {
     'POSTER_SIZE': t(markTr('imagen de 1080 × 1920')),
     'FILTER_PDF': t(markTr('Dosier en PDF|*.pdf')),
     'FILTER_PNG': t(markTr('Imagen PNG|*.png')),
+    'FILTER_PAGES': t(markTr('Páginas del dosier en imágenes PNG|*.png')),
+    'PAGE_FILE': t(markTr('{0} - página {1}')),
+    'SAVED_PAGES': t(markTr('Guardadas {0} imágenes en {1}')),
     'FILTER_JSON': t(markTr('Plan de viaje (JSON)|*.json')),
     'FILE_DOSSIER': t(markTr('Dosier {0}')),
     'FILE_IMAGE': t(markTr('Plan {0}')),

@@ -1208,6 +1208,79 @@ const rdSearch = `std::string search_url(const std::string& tag, const std::stri
   return u;
 }`;
 
+// ---- Bloques Neón (C++): fragmentos de Form1.cpp
+const nbBag = `  void bag_fill() {
+    while (queue.size() < 7) {
+      int bag[PIECES] = {0, 1, 2, 3, 4, 5, 6};
+      for (int i = PIECES - 1; i > 0; i--) std::swap(bag[i], bag[rnd() % (uint32_t)(i + 1)]);
+      for (int k : bag) queue.push_back(k);
+    }
+  }`;
+
+const nbRotate = `  bool rotate(int dir) {
+    if (over || paused || cur.kind == 1) return false;
+    static const Cell KICKS[] = {{0, 0}, {-1, 0}, {1, 0}, {0, -1}, {-2, 0}, {2, 0}, {-1, -1}, {1, -1}};
+    Piece p = cur;
+    p.rot = (p.rot + dir + 4) % 4;
+    for (const Cell& k : KICKS) {
+      Piece q = p;
+      q.x += k.x;
+      q.y += k.y;
+      if (fits(q)) {
+        cur = q;
+        touch();
+        return true;
+      }
+    }
+    return false;
+  }`;
+
+const nbLock = `    c.lines = (int)c.rows.size();
+    if (c.lines > 0) {
+      static const int BASE[5] = {0, 100, 300, 500, 800};
+      combo++;
+      int pts = BASE[c.lines] * level;
+      if (c.lines == 4 && last_quad) {
+        pts = pts * 3 / 2;   // dos de cuatro seguidas: la mitad más
+        c.b2b = true;
+      }
+      last_quad = c.lines == 4;
+      pts += 50 * combo * level;
+      c.points = pts;
+      c.combo = combo;
+      score += pts;
+      int before = level;
+      lines += c.lines;
+      level = std::max(start_level, 1 + lines / 10);
+      c.level_up = level > before;
+    } else {
+      combo = -1;
+    }`;
+
+const nbKeys = `  void frame(double dt) {
+    arena->now += dt;
+    arena->advance(dt);
+    if (arena->mode == 1 && !game.paused && !game.over) {
+      if (held) {
+        das_t += dt;
+        while (das_t > 0.17) {   // tras 0,17 s, una columna cada 0,05 s
+          if (!game.shift(held)) break;
+          das_t -= 0.05;
+        }
+      }
+      if (soft) {
+        soft_t += dt;
+        while (soft_t > 0.04) {
+          soft_t -= 0.04;
+          game.soft_drop();
+        }
+      }
+      cleared(game.step(dt));
+      if (game.over) finished();
+    }
+    arena->redraw();
+  }`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -1996,6 +2069,58 @@ const es: Record<string, DemoMade> = {
         title: "6. Fundidos y medidores",
         text: "Diez veces por segundo, el volumen de cada canal se acerca al que pide su fader por el general (o a cero si está en silencio), a la velocidad del mando de fundido; la emisora que se cambia se va apagando. Los medidores de la pantalla enseñan ese volumen.",
         code: { file: "Form1.cpp", text: rdFade },
+      },
+    ],
+  },
+  cpp_blocks: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con su menú y un Timer de 16 ms (60 fotogramas por segundo); el código de Form1.cpp lleva el juego entero y lo dibuja todo, de la ciudad a las chispas.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "El juego: el pozo, los paneles, la ciudad y los efectos." },
+        { name: "Menu1", kind: "Menu", text: "Juego (nueva partida, pausa, sonido, salir) y Ayuda (controles y acerca de)." },
+        { name: "Tick", kind: "Timer", text: "Cada 16 ms: la caída, las teclas sostenidas, las chispas y el dibujo." },
+        { name: "Board", kind: "Frame", text: "Donde el código pone el juego (un Fl_Widget propio que recibe el teclado)." },
+      ],
+      apis: [
+        "FLTK: fl_draw para todo el dibujo y FL_KEYBOARD / FL_KEYUP para el teclado",
+        "Sin bibliotecas de juegos: la lógica, las colisiones y la puntuación en el código",
+        "afplay con los sonidos del sistema de macOS",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): un Frame (Board) que ocupa la ventana, el Menu y un Timer de 16 ms. Nada más: el resto se dibuja.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae el Frame y los métodos virtuales Tick_timer y Menu1_click; Form1 pone el juego dentro de Board y lo mueve con el reloj.",
+        shot: "generated",
+      },
+      {
+        title: "3. La bolsa de siete",
+        text: "Las piezas no salen al azar sin más: se mete una de cada en una bolsa, se baraja y se sacan; cuando se acaba, otra bolsa. Así nunca pasa mucho sin la pieza larga.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: nbBag },
+      },
+      {
+        title: "4. Girar con rebote",
+        text: "Al girar, si la pieza choca con la pared o con otros bloques, se prueba a empujarla una o dos columnas (o una fila arriba) antes de rendirse: es lo que deja girar pegado a la pared.",
+        code: { file: "Form1.cpp", text: nbRotate },
+      },
+      {
+        title: "5. Puntos, combos y niveles",
+        text: "Al fijar la pieza se quitan las filas llenas: 100, 300, 500 u 800 puntos por el nivel, la mitad más si son dos de cuatro seguidas y un extra por combo. Cada 10 filas sube el nivel y la caída se acelera.",
+        code: { file: "Form1.cpp", text: nbLock },
+      },
+      {
+        title: "6. Teclas que se sostienen",
+        text: "La repetición del teclado del sistema no vale para jugar: el juego guarda qué flecha está pulsada (FL_KEYBOARD y FL_KEYUP) y, en cada fotograma, la mueve sola tras 0,17 s, una columna cada 0,05 s.",
+        code: { file: "Form1.cpp", text: nbKeys },
       },
     ],
   },
@@ -2789,6 +2914,58 @@ const en: Record<string, DemoMade> = {
         title: "6. Fades and meters",
         text: "Ten times a second, each channel's volume moves towards its fader times the master (or zero if muted), at the speed of the fade knob; the station being replaced fades away. The screen's meters show that volume.",
         code: { file: "Form1.cpp", text: rdFade },
+      },
+    ],
+  },
+  cpp_blocks: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its menu and a 16 ms Timer (60 frames per second); the code in Form1.cpp holds the whole game and draws everything, from the city to the sparks.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The game: the well, the panels, the city and the effects." },
+        { name: "Menu1", kind: "Menu", text: "Game (new game, pause, sound, quit) and Help (controls and about)." },
+        { name: "Tick", kind: "Timer", text: "Every 16 ms: falling, held keys, sparks and drawing." },
+        { name: "Board", kind: "Frame", text: "Where the code puts the game (its own Fl_Widget that receives the keyboard)." },
+      ],
+      apis: [
+        "FLTK: fl_draw for all the drawing and FL_KEYBOARD / FL_KEYUP for the keyboard",
+        "No game libraries: the logic, collisions and scoring are in the code",
+        "afplay with the macOS system sounds",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: a Frame (Board) filling the window, the Menu and a 16 ms Timer. Nothing else: the rest is drawn.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) has the Frame and the virtual methods Tick_timer and Menu1_click; Form1 puts the game inside Board and moves it with the timer.",
+        shot: "generated",
+      },
+      {
+        title: "3. The seven-bag",
+        text: "Pieces don't just come out at random: one of each goes into a bag, it is shuffled and they are drawn; when it runs out, another bag. So you never go long without the long piece.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: nbBag },
+      },
+      {
+        title: "4. Rotating with kicks",
+        text: "When rotating, if the piece hits the wall or other blocks, it tries pushing it one or two columns (or one row up) before giving up: that's what lets you rotate against the wall.",
+        code: { file: "Form1.cpp", text: nbRotate },
+      },
+      {
+        title: "5. Points, combos and levels",
+        text: "When the piece locks, full lines are removed: 100, 300, 500 or 800 points times the level, half as much again for two fours in a row and an extra per combo. Every 10 lines the level goes up and falling speeds up.",
+        code: { file: "Form1.cpp", text: nbLock },
+      },
+      {
+        title: "6. Held keys",
+        text: "The system's key repeat isn't good for playing: the game remembers which arrow is held (FL_KEYBOARD and FL_KEYUP) and, each frame, moves it by itself after 0.17 s, one column every 0.05 s.",
+        code: { file: "Form1.cpp", text: nbKeys },
       },
     ],
   },

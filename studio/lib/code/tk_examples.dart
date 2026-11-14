@@ -59,6 +59,8 @@ part 'tk_showcase_cpp_ccusage.dart';
 part 'tk_showcase_cpp_ccusage_code.dart';
 part 'tk_showcase_cpp_radio.dart';
 part 'tk_showcase_cpp_radio_code.dart';
+part 'tk_showcase_cpp_blocks.dart';
+part 'tk_showcase_cpp_blocks_code.dart';
 part 'tk_showcase_cpp_mywa.dart';
 part 'tk_showcase_cpp_mywa_code.dart';
 part 'tk_showcase_console.dart';

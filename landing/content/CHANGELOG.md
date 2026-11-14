@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.141 — 2026-11-14
+
+- Nueva demo: **Bloques Neón (C++)**, un juego de bloques que caen en C++ con FLTK, con nombre y aspecto propios: las siete piezas con su bolsa de siete, las tres siguientes, la reserva, la pieza fantasma, giros con rebote en las paredes, caída rápida y suave, combos, dos de cuatro filas seguidas, niveles que aceleran cada 10 filas, la meta del nivel y el récord guardado. Una ciudad de neón de noche dibujada en código, bloques de cristal, destellos y chispas al limpiar filas, el texto grande que salta («¡CUATRO FILAS!», «COMBO x6») y la pantalla que tiembla; teclas sostenidas a su ritmo, pausa y sonidos del sistema en macOS.
+- **Plan de viaje: el dosier también se guarda en imágenes**, una PNG por página («Dosier Lisboa - página 1.png»…): al guardar el dosier se elige PDF o imágenes, y en Archivo está «Guardar el dosier en imágenes…».
+- Web: la página de Bloques Neón con su guía, sus capturas y «Cómo se hizo» (6 pasos con el código), su tarjeta, su icono y su línea en el manual; la guía de Plan de viaje lo cuenta.
+
 ## 1.0.140 — 2026-11-14
 
 - Web, demos: nueva demo web **ARCHITECT · El Despertar de los Pesos**, un juego educativo de redes neuronales que se juega en el navegador: cuatro misiones (sesgo de datos, pesos y activación, descenso de gradiente y overfitting) con la red 3 → 4 → 2 dibujada en vivo (sus pesos se cambian con un clic), las curvas de pérdida de entrenamiento y validación, el mapa del gradiente con su mínimo local y global, y una consola que explica cada época. Una sola página en HTML, JavaScript y Canvas, en español y en inglés, con su página de demo, su guía y sus capturas.

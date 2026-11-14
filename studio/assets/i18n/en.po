@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -2721,7 +2721,7 @@ msgstr "Amount"
 msgid "Intro para jugar otra vez"
 msgstr "Enter to play again"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Juego"
 msgstr "Game"
 
@@ -2753,11 +2753,11 @@ msgstr "Average 20"
 msgid "Máx. {0}  ·  Mín. {1}  ·  Vol. {2}"
 msgstr "High {0}  ·  Low {1}  ·  Vol. {2}"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_malecon.dart
 msgid "Nueva partida"
 msgstr "New game"
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Pausa"
 msgstr "Pause"
 
@@ -2893,7 +2893,7 @@ msgstr "{0}   ·   Line {1}, column {2}   ·   {3} characters"
 msgid "{0} contactos   ·   {1} citas próximas   ·   {2} hoy"
 msgstr "{0} contacts   ·   {1} upcoming appointments   ·   {2} today"
 
-#: lib/code/tk_showcase.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart
 msgid "¡Nuevo récord!"
 msgstr "New high score!"
 
@@ -3345,13 +3345,165 @@ msgstr "Calculator in C++ with FLTK: every button calls its method."
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr "The calculator as a native C++ app with FLTK: the same design, with the code in C++."
 
+#: lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_minilang.dart
+msgid "."
+msgstr ","
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "24H"
+msgstr "24H"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Acerca de Bloques Neón"
+msgstr "About Neon Blocks"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "BLOQUES"
+msgstr "NEON"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Bloques Neón"
+msgstr "Neon Blocks"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Bloques Neón (C++)"
+msgstr "Neon Blocks (C++)"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Bloques Neón en C++ con FLTK: piezas que caen, filas que se limpian, combos y una ciudad de neón, todo dibujado en código."
+msgstr "Neon Blocks in C++ with FLTK: falling pieces, lines that clear, combos and a neon city, all drawn in code."
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Bloques Neón es una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú y el reloj (60 veces por segundo) se diseñaron en el Diseñador del estudio; el juego, la ciudad de neón, los bloques de cristal, las chispas y los textos se dibujan en el código de Form1.cpp. Llene filas enteras para que desaparezcan: cuantas más a la vez y más seguidas, más puntos. Cada 10 filas sube el nivel."
+msgstr "Neon Blocks is a DMarlon Studio demo made in C++ with FLTK. The window, its menu and the timer (60 times a second) were designed in the studio's Designer; the game, the neon city, the glass blocks, the sparks and the texts are drawn in the code of Form1.cpp. Fill whole lines to make them disappear: the more at once and in a row, the more points. Every 10 lines the level goes up."
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "CAFÉ"
+msgstr "CAFÉ"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "CIUDAD"
+msgstr "CITY"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "COMBO x{0}"
+msgstr "COMBO x{0}"
+
+#: lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_racing.dart
+msgid "Controles"
+msgstr "Controls"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "El juego, la ciudad y los efectos los dibuja el código de Form1.cpp"
+msgstr "The game, the city and the effects are drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Esc o P para seguir"
+msgstr "Esc or P to continue"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "FILAS"
+msgstr "LINES"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "FIN DE LA PARTIDA"
+msgstr "GAME OVER"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "META"
+msgstr "GOAL"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "NEÓN"
+msgstr "BLOCKS"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "NIVEL"
+msgstr "LEVEL"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "NOCHE"
+msgstr "NIGHT"
+
+#: lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_racing.dart
+msgid "PAUSA"
+msgstr "PAUSED"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "PUNTOS"
+msgstr "SCORE"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Pulse Enter para jugar"
+msgstr "Press Enter to play"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "RESERVA"
+msgstr "HOLD"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "RÉCORD"
+msgstr "BEST"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "SEGUIDAS"
+msgstr "BACK TO BACK"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "SIGUIENTES"
+msgstr "NEXT"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Sonido sí / no"
+msgstr "Sound on / off"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "Un juego de bloques que caen nativo en C++ con FLTK: siete piezas, siguiente y reserva, pieza fantasma, combos, niveles que aceleran y efectos de neón en una ciudad de noche."
+msgstr "A native falling-blocks game in C++ with FLTK: seven pieces, next and hold, ghost piece, combos, levels that speed up and neon effects in a city at night."
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "{0} puntos"
+msgstr "{0} points"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "{0}/10"
+msgstr "{0}/10"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "¡CUATRO FILAS!"
+msgstr "FOUR LINES!"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "¡DOBLE!"
+msgstr "DOUBLE!"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "¡NIVEL {0}!"
+msgstr "LEVEL {0}!"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "¡TRIPLE!"
+msgstr "TRIPLE!"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid "¡UNA FILA!"
+msgstr "SINGLE!"
+
+#: lib/code/tk_showcase_cpp_blocks.dart
+msgid ""
+"← →  mover   ·   ↓  bajar más deprisa\n"
+"↑ o X  girar   ·   Z  girar al otro lado\n"
+"Espacio  dejarla caer   ·   C  guardarla\n"
+"Esc o P  pausa   ·   R  empezar otra vez"
+msgstr ""
+"← →  move   ·   ↓  drop faster\n"
+"↑ or X  rotate   ·   Z  rotate the other way\n"
+"Space  hard drop   ·   C  hold it\n"
+"Esc or P  pause   ·   R  start again"
+
 #: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr "."
-
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_minilang.dart
-msgid "."
-msgstr ","
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "API de administración (Admin API)"
@@ -10989,10 +11141,6 @@ msgid "Clasificación final"
 msgstr "Final classification"
 
 #: lib/code/tk_showcase_cpp_racing.dart
-msgid "Controles"
-msgstr "Controls"
-
-#: lib/code/tk_showcase_cpp_racing.dart
 msgid "DEL."
 msgstr "FRONT"
 
@@ -11035,10 +11183,6 @@ msgstr "Rider names"
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "Nueva carrera"
 msgstr "New race"
-
-#: lib/code/tk_showcase_cpp_racing.dart
-msgid "PAUSA"
-msgstr "PAUSED"
 
 #: lib/code/tk_showcase_cpp_racing.dart
 msgid "Piloto"
@@ -15656,7 +15800,7 @@ msgid ""
 "• Imagen vertical: 1080 × 1920, para el móvil o las historias.\n"
 "• Dosier (PDF): una portada con cómo llegar, cuándo ir y el presupuesto, una página por día y los consejos.\n"
 "\n"
-"«Guardar…» guarda la imagen (PNG) o el dosier (PDF). En Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo.\n"
+"«Guardar…» guarda la imagen (PNG) o el dosier, en PDF o en imágenes (una PNG por página). En Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo.\n"
 "\n"
 "Hace falta tener Claude Code instalado y con la sesión iniciada. Mientras Claude prepara el plan (suele tardar entre medio minuto y dos minutos), el botón sirve para cancelarlo."
 msgstr ""
@@ -15666,7 +15810,7 @@ msgstr ""
 "• Vertical image: 1080 × 1920, for your phone or stories.\n"
 "• Dossier (PDF): a cover with how to get there, when to go and the budget, one page per day and the tips.\n"
 "\n"
-"“Save…” saves the image (PNG) or the dossier (PDF). In File you can save the plan (JSON) to open it another day without asking for it again.\n"
+"“Save…” saves the image (PNG) or the dossier, as a PDF or as images (one PNG per page). In File you can save the plan (JSON) to open it another day without asking for it again.\n"
 "\n"
 "You need Claude Code installed and signed in. While Claude prepares the plan (it usually takes between half a minute and two minutes), the button cancels it."
 
@@ -15682,9 +15826,17 @@ msgstr "That file isn't a trip plan."
 msgid "Gastronomía"
 msgstr "Food and drink"
 
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Guardadas {0} imágenes en {1}"
+msgstr "{0} images saved in {1}"
+
 #: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_reports.dart lib/ui/screens/dev_tools.dart
 msgid "Guardado en {0}"
 msgstr "Saved to {0}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Guardar el dosier en imágenes…"
+msgstr "Save the dossier as images…"
 
 #: lib/code/tk_showcase_pascal_travel.dart
 msgid "Guardar el plan…"
@@ -15820,6 +15972,10 @@ msgctxt "trip"
 msgid "Presupuesto"
 msgstr "Budget"
 
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "Páginas del dosier en imágenes PNG|*.png"
+msgstr "Dossier pages as PNG images|*.png"
+
 #: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_train_monitor.dart
 msgid "Ritmo"
 msgstr "Pace"
@@ -15875,6 +16031,10 @@ msgstr "a bit of everything"
 #: lib/code/tk_showcase_pascal_travel.dart
 msgid "{\"title\":\"Lisboa en tres días\",\"subtitle\":\"Tranvías, miradores y pastéis de nata en la ciudad de las siete colinas.\",\"destination\":\"Lisboa\",\"country\":\"Portugal\",\"origin\":\"Madrid\",\"getting_there\":{\"mode\":\"Avión\",\"duration\":\"1 h 20 min\",\"tip\":\"Hay muchos vuelos al día desde Madrid; el metro lleva del aeropuerto al centro en 25 minutos.\"},\"best_time\":\"De marzo a junio y de septiembre a octubre: buen tiempo y menos gente que en verano.\",\"budget\":\"Unos 90 a 120 € por persona y día sin el alojamiento: comida, transporte y entradas.\",\"days\":[{\"title\":\"Baixa y Alfama\",\"theme\":\"El corazón de la ciudad y su barrio más antiguo\",\"food\":\"Bacalhau à Brás en una tasca de Alfama, y fado por la noche.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Praça do Comércio\",\"kind\":\"monument\",\"description\":\"La gran plaza junto al Tajo, abierta al río por el Arco da Rua Augusta.\",\"tip\":\"Suba al mirador del arco para ver la Baixa desde arriba.\"},{\"time\":\"11:00\",\"name\":\"Sé de Lisboa\",\"kind\":\"religious\",\"description\":\"La catedral más antigua de la ciudad, del siglo XII, con aire de fortaleza.\",\"tip\":\"El tranvía 28 pasa por la puerta: fotografíelo en la curva.\"},{\"time\":\"12:30\",\"name\":\"Miradouro de Santa Luzia\",\"kind\":\"viewpoint\",\"description\":\"Azulejos, buganvillas y los tejados de Alfama hasta el río.\",\"tip\":\"Al lado está el de Portas do Sol, aún más amplio.\"},{\"time\":\"16:00\",\"name\":\"Castelo de São Jorge\",\"kind\":\"monument\",\"description\":\"El castillo en lo alto de la colina, con murallas y las mejores vistas al atardecer.\",\"tip\":\"Compre la entrada en línea para no hacer cola.\"}]},{\"title\":\"Belém\",\"theme\":\"Los descubrimientos, el río y el dulce más famoso\",\"food\":\"Pastéis de nata recién hechos y, para cenar, sardinas a la brasa.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Mosteiro dos Jerónimos\",\"kind\":\"religious\",\"description\":\"Un monasterio manuelino con un claustro de piedra labrada que deja sin palabras.\",\"tip\":\"Llegue a la apertura: a media mañana hay mucha cola.\"},{\"time\":\"11:30\",\"name\":\"Pastéis de Belém\",\"kind\":\"food\",\"description\":\"La pastelería que hace los pastéis de nata desde 1837, con canela y azúcar.\",\"tip\":\"Para llevar va más rápido; dentro hay salones grandes.\"},{\"time\":\"12:30\",\"name\":\"Torre de Belém\",\"kind\":\"monument\",\"description\":\"La torre que vigilaba la entrada del Tajo, símbolo de la época de los descubrimientos.\",\"tip\":\"Pasee por la orilla hasta el Padrão dos Descobrimentos.\"},{\"time\":\"15:00\",\"name\":\"MAAT\",\"kind\":\"museum\",\"description\":\"El museo de arte, arquitectura y tecnología, con un tejado ondulado que se puede pisar.\",\"tip\":\"La vista del puente 25 de Abril desde el tejado es gratis.\"}]},{\"title\":\"Chiado, Bairro Alto y LX Factory\",\"theme\":\"Librerías, mercados y la Lisboa creativa\",\"food\":\"Un almuerzo en el Time Out Market y una ginjinha antes de cenar.\",\"stops\":[{\"time\":\"10:00\",\"name\":\"Livraria Bertrand\",\"kind\":\"shopping\",\"description\":\"La librería abierta más antigua del mundo, en la elegante Rua Garrett del Chiado.\",\"tip\":\"Pida el sello del libro que compre: lo marcan como recuerdo.\"},{\"time\":\"11:30\",\"name\":\"Miradouro de São Pedro de Alcântara\",\"kind\":\"viewpoint\",\"description\":\"Un jardín mirador con el castillo enfrente y la Baixa a sus pies.\",\"tip\":\"Baje al Chiado en el Elevador da Glória.\"},{\"time\":\"13:00\",\"name\":\"Time Out Market\",\"kind\":\"market\",\"description\":\"El antiguo mercado de la Ribeira, con puestos de los mejores cocineros de la ciudad.\",\"tip\":\"Vaya antes de las 13:00 para encontrar mesa.\"},{\"time\":\"16:30\",\"name\":\"LX Factory\",\"kind\":\"neighborhood\",\"description\":\"Una antigua fábrica llena de tiendas, talleres, cafés y arte urbano.\",\"tip\":\"El domingo hay mercado; no se pierda la librería Ler Devagar.\"}]}],\"tips\":[\"Compre una tarjeta Viva Viagem: vale para el metro, los tranvías y los elevadores.\",\"Lleve calzado cómodo: Lisboa es de cuestas y de adoquines que resbalan.\",\"El tranvía 28 se llena: cójalo a primera hora o en la parada de Martim Moniz.\",\"Muchos museos cierran los lunes; revise los horarios antes de ir.\",\"Pida el agua del grifo y pruebe el vino verde con el pescado.\"]}"
 msgstr "{\"title\":\"Lisbon in three days\",\"subtitle\":\"Trams, viewpoints and pastéis de nata in the city of seven hills.\",\"destination\":\"Lisbon\",\"country\":\"Portugal\",\"origin\":\"Madrid\",\"getting_there\":{\"mode\":\"Plane\",\"duration\":\"1 h 20 min\",\"tip\":\"There are many daily flights from Madrid; the metro takes you from the airport to the centre in 25 minutes.\"},\"best_time\":\"March to June and September to October: good weather and fewer crowds than in summer.\",\"budget\":\"About €90 to €120 per person per day without accommodation: food, transport and tickets.\",\"days\":[{\"title\":\"Baixa and Alfama\",\"theme\":\"The heart of the city and its oldest quarter\",\"food\":\"Bacalhau à Brás in an Alfama tasca, and fado in the evening.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Praça do Comércio\",\"kind\":\"monument\",\"description\":\"The great square by the Tagus, opening onto the river through the Arco da Rua Augusta.\",\"tip\":\"Climb to the arch's viewpoint to see the Baixa from above.\"},{\"time\":\"11:00\",\"name\":\"Sé de Lisboa\",\"kind\":\"religious\",\"description\":\"The city's oldest cathedral, from the 12th century, built like a fortress.\",\"tip\":\"Tram 28 passes the door: photograph it on the bend.\"},{\"time\":\"12:30\",\"name\":\"Miradouro de Santa Luzia\",\"kind\":\"viewpoint\",\"description\":\"Tiles, bougainvillea and the rooftops of Alfama down to the river.\",\"tip\":\"Next to it is Portas do Sol, even wider.\"},{\"time\":\"16:00\",\"name\":\"Castelo de São Jorge\",\"kind\":\"monument\",\"description\":\"The castle on top of the hill, with walls and the best sunset views.\",\"tip\":\"Buy your ticket online to skip the queue.\"}]},{\"title\":\"Belém\",\"theme\":\"The discoveries, the river and the most famous pastry\",\"food\":\"Fresh pastéis de nata and, for dinner, grilled sardines.\",\"stops\":[{\"time\":\"09:30\",\"name\":\"Mosteiro dos Jerónimos\",\"kind\":\"religious\",\"description\":\"A Manueline monastery with a carved stone cloister that leaves you speechless.\",\"tip\":\"Arrive at opening time: by mid-morning the queue is long.\"},{\"time\":\"11:30\",\"name\":\"Pastéis de Belém\",\"kind\":\"food\",\"description\":\"The bakery that has made pastéis de nata since 1837, with cinnamon and sugar.\",\"tip\":\"Takeaway is faster; inside there are large rooms.\"},{\"time\":\"12:30\",\"name\":\"Torre de Belém\",\"kind\":\"monument\",\"description\":\"The tower that guarded the mouth of the Tagus, a symbol of the age of discovery.\",\"tip\":\"Walk along the river to the Padrão dos Descobrimentos.\"},{\"time\":\"15:00\",\"name\":\"MAAT\",\"kind\":\"museum\",\"description\":\"The museum of art, architecture and technology, with a wavy roof you can walk on.\",\"tip\":\"The view of the 25 de Abril bridge from the roof is free.\"}]},{\"title\":\"Chiado, Bairro Alto and LX Factory\",\"theme\":\"Bookshops, markets and creative Lisbon\",\"food\":\"Lunch at the Time Out Market and a ginjinha before dinner.\",\"stops\":[{\"time\":\"10:00\",\"name\":\"Livraria Bertrand\",\"kind\":\"shopping\",\"description\":\"The oldest operating bookshop in the world, on Chiado's elegant Rua Garrett.\",\"tip\":\"Ask them to stamp the book you buy as a souvenir.\"},{\"time\":\"11:30\",\"name\":\"Miradouro de São Pedro de Alcântara\",\"kind\":\"viewpoint\",\"description\":\"A garden viewpoint with the castle opposite and the Baixa below.\",\"tip\":\"Ride down to the Chiado on the Elevador da Glória.\"},{\"time\":\"13:00\",\"name\":\"Time Out Market\",\"kind\":\"market\",\"description\":\"The old Ribeira market, with stalls from the city's best chefs.\",\"tip\":\"Go before 1 pm to find a table.\"},{\"time\":\"16:30\",\"name\":\"LX Factory\",\"kind\":\"neighborhood\",\"description\":\"An old factory full of shops, workshops, cafés and street art.\",\"tip\":\"There's a market on Sundays; don't miss the Ler Devagar bookshop.\"}]}],\"tips\":[\"Get a Viva Viagem card: it works on the metro, trams and lifts.\",\"Wear comfortable shoes: Lisbon is all hills and slippery cobblestones.\",\"Tram 28 gets packed: take it early or at the Martim Moniz stop.\",\"Many museums close on Mondays; check opening hours before you go.\",\"Ask for tap water and try vinho verde with fish.\"]}"
+
+#: lib/code/tk_showcase_pascal_travel.dart
+msgid "{0} - página {1}"
+msgstr "{0} - page {1}"
 
 #: lib/code/tk_showcase_pascal_travel.dart
 msgid "{0} / {1}"

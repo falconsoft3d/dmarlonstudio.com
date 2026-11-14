@@ -121,6 +121,8 @@ Hechos
 139. App en Pascal: con origen, destino y cantidad de días, prepara una imagen vertical o un dosier con el plan de viaje por los lugares interesantes del destino, con la IA de Claude Code | ✅ |
 140. App en C++ con estilo de mesa de radio que use las radios online | ✅ |
 142. Demo web «ARCHITECT // El Despertar de los Pesos»: el juego educativo de redes neuronales (sesgo, pesos, descenso de gradiente y overfitting) en la web de demos | ✅ |
+143. Juego de bloques que caen en C++ (del estilo de Tetris, con nombre y aspecto propios), divertido: siguiente pieza, reserva, combos, niveles y efectos de neón | ✅ |
+144. Plan de viaje: descargar el dosier también en imágenes separadas | ✅ |
 
 Trabajando
 =========
@@ -131,7 +133,6 @@ Trabajando
 Pendiente
 =========
 141. 20pdf: suite con las 20 herramientas de PDF (Word, Excel y PowerPoint a y desde PDF, PDF a imagen, editar, marcas de agua, numerar, rotar, anotar, unir, dividir, organizar, extraer, proteger, desbloquear, firmar, censurar, comprimir y OCR) | ⏳ |
-143. Juego de bloques que caen en C++ (del estilo de Tetris, con nombre y aspecto propios), divertido: siguiente pieza, reserva, combos, niveles y efectos de neón | ⏳ |
 126. MyWhatsapp IA: auto-contexto (la IA resume qué pide el cliente y rellena «Qué quiere decir») | ⏳ |
 127. MyWhatsapp IA: base de conocimiento local (precios, stock, FAQ, PDF) que la IA consulta antes de responder | ⏳ |
 128. MyWhatsapp IA: las tres respuestas con estilos distintos (directa, comercial, técnica) y traducción de lo que propone la IA al idioma del cliente | ⏳ |

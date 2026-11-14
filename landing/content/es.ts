@@ -107,6 +107,7 @@ export const es: Content = {
       { seed: "cpp_recorder", name: "Grabador de pantalla (C++)", text: "Graba la pantalla o una zona de 16:9 para YouTube, con micrófono y clics, y guarda los vídeos con su miniatura." },
       { seed: "cpp_mywa", name: "MyWhatsapp (C++)", text: "Lee sus chats de WhatsApp y propone respuestas con Claude o ChatGPT según la conversación." },
       { seed: "cpp_minilang", name: "MiniLang (C++)", text: "Aprende idiomas con juegos cortos desde la barra de menús: elegir, ordenar, unir parejas, escribir y escuchar, con racha y repaso; 10.000 palabras de inglés, de A1 a C2." },
+      { seed: "cpp_blocks", name: "Bloques Neón (C++)", text: "Bloques que caen en una ciudad de neón: siguiente, reserva, combos, niveles y chispas al limpiar filas." },
       { seed: "cpp_radio", name: "Mesa de radio (C++)", text: "Emisoras de todo el mundo en seis canales con faders, pads por género, lo que suena y grabación." },
       { seed: "pascal_travel", name: "Plan de viaje (Pascal)", text: "Con el origen, el destino y los días, Claude Code prepara el plan por los lugares interesantes y la app lo dibuja como imagen vertical o dosier en PDF." },
       { seed: "cpp_ccusage", name: "Uso de Claude Code (C++)", text: "Su uso de Claude Code en un mapa de calor como el de GitHub: tokens, coste y sesiones por día, modelo y proyecto, desde la barra de menús." },

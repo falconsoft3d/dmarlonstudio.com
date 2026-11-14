@@ -107,6 +107,7 @@ export const en: Content = {
       { seed: "cpp_recorder", name: "Screen Recorder (C++)", text: "Records the screen or a 16:9 area for YouTube, with microphone and clicks, and keeps the videos with their thumbnail." },
       { seed: "cpp_mywa", name: "MyWhatsapp (C++)", text: "Reads your WhatsApp chats and suggests replies with Claude or ChatGPT based on the conversation." },
       { seed: "cpp_minilang", name: "MiniLang (C++)", text: "Learn languages with short games from the menu bar: choose, order, match pairs, write and listen, with a streak and reviews; 10,000 Spanish words, from A1 to C2." },
+      { seed: "cpp_radio", name: "Radio Desk (C++)", text: "Stations from all over the world on six channels with faders, genre pads, what is playing and recording." },
       { seed: "pascal_travel", name: "Trip Planner (Pascal)", text: "With the origin, destination and days, Claude Code plans the interesting places and the app draws it as a vertical image or a PDF dossier." },
       { seed: "cpp_ccusage", name: "Claude Code Usage (C++)", text: "Your Claude Code usage in a GitHub-style heatmap: tokens, cost and sessions per day, model and project, from the menu bar." },
       { seed: "cpp_pass", name: "DMarlonPass (C++)", text: "A KeePass-compatible password manager: opens and saves .kdbx with AES-256 or ChaCha20 and Argon2, without libraries." },

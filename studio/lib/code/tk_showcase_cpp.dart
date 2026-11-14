@@ -19,6 +19,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppMiniLang(t),
   tkCppPass(t),
   tkCppCcUsage(t),
+  tkCppRadio(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

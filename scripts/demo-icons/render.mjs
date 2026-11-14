@@ -36,6 +36,7 @@ const demos = {
   cpp_pass: ['shield-check', '#60a5fa', '#1e3a8a'],
   cpp_ccusage: ['chart-column', '#f0a07e', '#b4482a'],
   pascal_travel: ['map', '#4fd1c5', '#0b5f6b'],
+  cpp_radio: ['radio', '#f472b6', '#6d28d9'],
   pascal_opend: ['pen-tool', '#34d399', '#0b7a5c'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],

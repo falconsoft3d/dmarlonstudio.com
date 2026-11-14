@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.139 — 2026-11-14
+
+- Nueva demo: **Mesa de radio (C++)**, emisoras de internet de todo el mundo en una mesa de mezclas nativa en C++ con FLTK: seis canales con su fader, ▶ y silencio (pueden sonar varias a la vez, cada una a su volumen), pads de colores en dos bancos que buscan emisoras por género en **Radio Browser** (también por nombre y por país), una pantalla con lo que suena en cada canal (metadatos ICY) y el tiempo en el aire, la rueda para sintonizar, REC que graba la emisora tal como llega (en Música › Mesa de radio) y mandos de volumen general, fundido al cambiar de emisora y apagado automático.
+- Suena con AVPlayer en macOS (AVFoundation desde C++ con el runtime de Objective-C, un reproductor por canal) y con ffplay en Windows y Linux. Probado de verdad: la búsqueda, lo que suena en emisoras reales y AVPlayer sonando.
+- **Plan de viaje: arreglado que se quedara colgado sin terminar el plan.** Al acabar Claude Code, la app liberaba el hilo de trabajo dentro de su propio aviso de fin y la ventana se quedaba esperando para siempre; ahora el hilo se libera solo, hay una prueba de ese camino y, si Claude Code no contesta en 8 minutos, se cancela.
+- Web: la página de la Mesa de radio con su guía, sus capturas y «Cómo se hizo» (6 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.138 — 2026-11-14
 
 - Nueva demo: **Plan de viaje (Pascal)**, un planificador de viajes en Object Pascal con Lazarus que trabaja con **Claude Code**: con el origen, el destino, los días, el ritmo, el presupuesto y lo que le interesa, le pide a Claude Code (la orden `claude -p` con un esquema JSON, en otro hilo y con la opción de cancelar) un plan por los lugares interesantes del destino, día a día y en orden, con la hora, una descripción, un consejo y dónde comer, además de cómo llegar, la mejor época, el presupuesto y consejos.

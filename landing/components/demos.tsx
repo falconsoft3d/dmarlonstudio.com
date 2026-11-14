@@ -331,6 +331,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Escriba de dónde sale, adónde va y cuántos días tiene, con su ritmo, su presupuesto y lo que le interesa: Claude Code prepara un plan por los lugares interesantes del destino, día a día y en un orden que tiene sentido, con la hora, una descripción, un consejo y dónde comer. La app lo dibuja como una imagen vertical para el móvil (1080 × 1920) o como un dosier en PDF con portada, una página por día y consejos. Hace falta tener Claude Code instalado. En macOS, para Apple Silicon.",
         shows: ["Object Pascal con Lazarus, diseñada en el estudio", "Claude Code desde la app: «claude -p» con un esquema JSON", "La imagen y las páginas dibujadas en el lienzo", "El PDF con fpPDF, sin bibliotecas de fuera"],
       },
+      cpp_radio: {
+        name: "Mesa de radio (C++)",
+        text: "Emisoras de internet de todo el mundo en una mesa de mezclas: seis canales con su fader, ▶ y silencio (pueden sonar varias a la vez, cada una a su volumen), pads de colores que buscan emisoras por género, una pantalla con lo que suena en cada canal, REC que graba la emisora, y mandos de volumen general, fundido al cambiar de emisora y apagado automático. Las emisoras son de Radio Browser. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "Radio Browser: una base de datos abierta de radios", "Lo que suena, con los metadatos ICY de la emisora", "AVPlayer de macOS desde C++ con el runtime de Objective-C", "La mesa entera dibujada en código"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -613,6 +618,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Enter where you're leaving from, where you're going and how many days you have, with your pace, budget and interests: Claude Code prepares a plan through the destination's interesting places, day by day and in an order that makes sense, with the time, a description, a tip and where to eat. The app draws it as a vertical image for your phone (1080 × 1920) or a PDF dossier with a cover, one page per day and tips. Claude Code must be installed. On macOS, for Apple Silicon.",
         shows: ["Object Pascal with Lazarus, designed in the studio", "Claude Code from the app: “claude -p” with a JSON schema", "The image and the pages drawn on the canvas", "The PDF with fpPDF, no outside libraries"],
       },
+      cpp_radio: {
+        name: "Radio Desk (C++)",
+        text: "Internet stations from all over the world on a mixing desk: six channels with their fader, ▶ and mute (several can play at once, each at its own volume), colour pads that find stations by genre, a screen with what is playing on each channel, REC to record the station, and knobs for master volume, fade when changing station and a sleep timer. The stations come from Radio Browser. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "Radio Browser: an open database of radio stations", "What's playing, from the station's ICY metadata", "macOS AVPlayer from C++ through the Objective-C runtime", "The whole desk drawn in code"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -703,6 +713,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_pass: { icon: "cpp", label: "C++ · FLTK" },
   cpp_ccusage: { icon: "cpp", label: "C++ · FLTK" },
   pascal_travel: { icon: "lazarus", label: "Pascal · Lazarus" },
+  cpp_radio: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

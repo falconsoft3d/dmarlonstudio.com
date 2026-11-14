@@ -1131,6 +1131,83 @@ const trPdf = `    Doc.Options := [poUseRawJPEG];   // el origen, abajo a la izq
       Pg.DrawImage(0, 0, 210.0, 297.0, ix);
     end;`;
 
+// ---- Mesa de radio (C++): fragmentos de Form1.cpp
+const rdIcy = `Icy parse_icy(const std::string& data) {
+  Icy r;
+  size_t pos = 0;
+  std::string block;
+  // Las cabeceras (puede haber varias si hubo redirecciones): la última manda.
+  while (pos < data.size() && (data.compare(pos, 5, "HTTP/") == 0 || data.compare(pos, 4, "ICY ") == 0)) {
+    size_t e = data.find("\r\n\r\n", pos);
+    if (e == std::string::npos) return r;
+    block = data.substr(pos, e - pos);
+    pos = e + 4;
+  }
+  if (block.empty()) return r;
+  r.name = header_value(block, "icy-name");
+  r.metaint = std::atoi(header_value(block, "icy-metaint").c_str());
+  if (r.metaint <= 0 || pos + (size_t)r.metaint >= data.size()) return r;
+  size_t m = pos + (size_t)r.metaint;
+  size_t len = (unsigned char)data[m] * 16u;
+  std::string meta = data.substr(m + 1, std::min(len, data.size() - m - 1));
+  size_t a = meta.find("StreamTitle='");
+  if (a != std::string::npos) {
+    a += 13;
+    size_t b = meta.find("';", a);
+    r.title = trim(meta.substr(a, b == std::string::npos ? std::string::npos : b - a));
+    r.ok = true;
+  }
+  return r;
+}`;
+
+const rdPlayer = `  void open(const std::string& url) {
+    close();
+    url_ = url;
+#ifdef __APPLE__
+    if (av_ready()) {
+      id u = msg(cls("NSURL"), "URLWithString:", nsstr(url));
+      if (u) p_ = msg(msg(cls("AVPlayer"), "alloc"), "initWithURL:", u);
+      if (p_) {
+        msg<void, float>(p_, "setVolume:", (float)vol_);
+        msg<void>(p_, "play");
+      }
+      return;
+    }
+#endif
+    restart();
+  }`;
+
+const rdFade = `  void step(double dt) {
+    double rate = m.fade > 0 ? dt / m.fade : 1.0;
+    for (int i = 0; i < rd::CH_N; i++) {
+      double t = rd::target_gain(m, i);
+      double& g = m.gain[i];
+      g = g < t ? std::min(t, g + rate) : std::max(t, g - rate);
+      if (live) {
+        players[i]->volume(g);
+        players[i]->tick();
+      }
+    }
+    for (auto it = dying.begin(); it != dying.end();) {
+      it->second -= rate;
+      if (it->second <= 0) {
+        it->first->close();
+        it = dying.erase(it);
+      } else {
+        it->first->volume(it->second);
+        ++it;
+      }
+    }
+  }`;
+
+const rdSearch = `std::string search_url(const std::string& tag, const std::string& name, const std::string& country) {
+  std::string u = api_base() + "/json/stations/search?order=votes&reverse=true&limit=60&hidebroken=true";
+  if (!tag.empty()) u += "&tag=" + url_encode(tag);
+  if (!name.empty()) u += "&name=" + url_encode(name);
+  if (!country.empty()) u += "&countrycode=" + url_encode(country);
+  return u;
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -1862,6 +1939,63 @@ const es: Record<string, DemoMade> = {
         title: "6. El dosier en PDF",
         text: "Cada página A4 se dibuja en el lienzo a 150 ppp (portada, una por día y los consejos), se guarda en JPEG y fpPDF la mete tal cual en el PDF (poUseRawJPEG): un dosier de cinco páginas pesa menos de 1 MB y se ve igual en cualquier lector.",
         code: { file: "Form1.pas", text: trPdf },
+      },
+    ],
+  },
+  cpp_radio: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la ventana con su menú, la barra de búsqueda (el campo, el país y el botón), el reloj y la barra de estado; el código de Form1.cpp dibuja la mesa entera, busca en Radio Browser, lee lo que suena y hace sonar cada canal.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "La mesa: pantalla, mandos, canales y pads." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (grabar, carpeta de grabaciones), Canales (sonar, silenciar, vaciar, parar todo) y Ayuda." },
+        { name: "Tick", kind: "Timer", text: "Diez veces por segundo: los fundidos, los medidores, el apagado y, cada 20 s, lo que suena." },
+        { name: "Search / BtnSearch", kind: "Entry / Button", text: "Buscar emisoras por su nombre (Search_enter, BtnSearch_click)." },
+        { name: "Country", kind: "Combobox", text: "El país de las emisoras (Country_select)." },
+        { name: "Board", kind: "Frame", text: "Donde el código pone la mesa (un Fl_Widget propio)." },
+        { name: "Status", kind: "StatusBar", text: "El canal elegido, lo que suena y la grabación." },
+      ],
+      apis: [
+        "Radio Browser (api.radio-browser.info): una base de datos abierta de emisoras, por curl",
+        "Los metadatos ICY de Shoutcast e Icecast (Icy-MetaData: 1, StreamTitle)",
+        "AVPlayer (AVFoundation) desde C++ con el runtime de Objective-C, uno por canal",
+        "ffplay (FFmpeg) en Windows y Linux",
+        "curl también para grabar la emisora tal como llega",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK) y la ventana oscura: arriba, un Frame con el Entry de búsqueda, el Combobox del país y el botón; debajo, otro Frame (Board) para la mesa, el Menu, un Timer de 100 ms y la StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae cada componente y los métodos virtuales Search_enter, BtnSearch_click, Country_select, Tick_timer y Menu1_click; Form1 los rellena y pone la mesa dentro de Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Buscar emisoras",
+        text: "Cada pad de género busca en Radio Browser por su etiqueta (jazz, rock, news…), las más votadas primero y solo las que funcionan; con un país, solo las de ese país. La respuesta es JSON y se queda con las que tienen una dirección de audio válida.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: rdSearch },
+      },
+      {
+        title: "4. Lo que suena",
+        text: "Cada 20 segundos, para los canales que suenan, se piden unos segundos de la emisora con «Icy-MetaData: 1»: el servidor intercala cada icy-metaint bytes un bloque con StreamTitle='Artista - Tema'. Probado con emisoras de verdad.",
+        code: { file: "Form1.cpp", text: rdIcy },
+      },
+      {
+        title: "5. Seis reproductores a la vez",
+        text: "En macOS cada canal es un AVPlayer de AVFoundation, que se carga al vuelo y se usa desde C++ con objc_msgSend: initWithURL:, play, pause y setVolume:, cada uno con su volumen. En Windows y Linux, ffplay.",
+        code: { file: "Form1.cpp", text: rdPlayer },
+      },
+      {
+        title: "6. Fundidos y medidores",
+        text: "Diez veces por segundo, el volumen de cada canal se acerca al que pide su fader por el general (o a cero si está en silencio), a la velocidad del mando de fundido; la emisora que se cambia se va apagando. Los medidores de la pantalla enseñan ese volumen.",
+        code: { file: "Form1.cpp", text: rdFade },
       },
     ],
   },
@@ -2598,6 +2732,63 @@ const en: Record<string, DemoMade> = {
         title: "6. The PDF dossier",
         text: "Each A4 page is drawn on the canvas at 150 dpi (cover, one per day and the tips), saved as JPEG and fpPDF puts it into the PDF as is (poUseRawJPEG): a five-page dossier weighs less than 1 MB and looks the same in any reader.",
         code: { file: "Form1.pas", text: trPdf },
+      },
+    ],
+  },
+  cpp_radio: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the window with its menu, the search bar (the field, the country and the button), the timer and the status bar; the code in Form1.cpp draws the whole desk, searches Radio Browser, reads what is playing and plays each channel.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The desk: screen, knobs, channels and pads." },
+        { name: "Menu1", kind: "Menu", text: "File (record, recordings folder), Channels (play, mute, clear, stop all) and Help." },
+        { name: "Tick", kind: "Timer", text: "Ten times a second: fades, meters, the sleep timer and, every 20 s, what is playing." },
+        { name: "Search / BtnSearch", kind: "Entry / Button", text: "Find stations by name (Search_enter, BtnSearch_click)." },
+        { name: "Country", kind: "Combobox", text: "The stations' country (Country_select)." },
+        { name: "Board", kind: "Frame", text: "Where the code puts the desk (its own Fl_Widget)." },
+        { name: "Status", kind: "StatusBar", text: "The selected channel, what is playing and the recording." },
+      ],
+      apis: [
+        "Radio Browser (api.radio-browser.info): an open database of stations, through curl",
+        "Shoutcast and Icecast ICY metadata (Icy-MetaData: 1, StreamTitle)",
+        "AVPlayer (AVFoundation) from C++ through the Objective-C runtime, one per channel",
+        "ffplay (FFmpeg) on Windows and Linux",
+        "curl also to record the station as it arrives",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target and a dark window: at the top, a Frame with the search Entry, the country Combobox and the button; below, another Frame (Board) for the desk, the Menu, a 100 ms Timer and the StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) has each component and the virtual methods Search_enter, BtnSearch_click, Country_select, Tick_timer and Menu1_click; Form1 fills them in and puts the desk inside Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Finding stations",
+        text: "Each genre pad searches Radio Browser by its tag (jazz, rock, news…), most voted first and only working ones; with a country, only that country's. The answer is JSON, and only stations with a valid audio address are kept.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: rdSearch },
+      },
+      {
+        title: "4. What's playing",
+        text: "Every 20 seconds, for the channels that are playing, a few seconds of the station are requested with “Icy-MetaData: 1”: every icy-metaint bytes the server inserts a block with StreamTitle='Artist - Title'. Tested with real stations.",
+        code: { file: "Form1.cpp", text: rdIcy },
+      },
+      {
+        title: "5. Six players at once",
+        text: "On macOS each channel is an AVFoundation AVPlayer, loaded on the fly and used from C++ with objc_msgSend: initWithURL:, play, pause and setVolume:, each with its own volume. On Windows and Linux, ffplay.",
+        code: { file: "Form1.cpp", text: rdPlayer },
+      },
+      {
+        title: "6. Fades and meters",
+        text: "Ten times a second, each channel's volume moves towards its fader times the master (or zero if muted), at the speed of the fade knob; the station being replaced fades away. The screen's meters show that volume.",
+        code: { file: "Form1.cpp", text: rdFade },
       },
     ],
   },

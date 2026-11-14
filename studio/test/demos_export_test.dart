@@ -60,6 +60,7 @@ const demos = [
   'cpp_pass',
   'cpp_ccusage',
   'pascal_travel',
+  'cpp_radio',
   'domino',
 ];
 

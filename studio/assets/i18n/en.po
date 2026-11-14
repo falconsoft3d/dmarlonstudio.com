@@ -421,7 +421,7 @@ msgstr "Open a note"
 msgid "Acerca de"
 msgstr "About"
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr "File"
 
@@ -437,7 +437,7 @@ msgstr "Self-employed"
 msgid "Avisar por"
 msgstr "Notify by"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr "Help"
 
@@ -461,7 +461,7 @@ msgstr "Clear"
 msgid "Borrar todo"
 msgstr "Clear all"
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr "Search"
 
@@ -805,7 +805,7 @@ msgstr "Reset"
 msgid "Rellene servidor, base, usuario y clave."
 msgstr "Fill in server, database, user and key."
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr "Exit"
 
@@ -3421,7 +3421,7 @@ msgstr "Cost"
 msgid "Crear una clave…"
 msgstr "Create a key…"
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr "How it works"
 
@@ -3905,7 +3905,7 @@ msgstr "{0} kB"
 msgid "{0} mil M"
 msgstr "{0} B"
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_webmon.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_webmon.dart
 msgid "{0} min"
 msgstr "{0} min"
 
@@ -9971,7 +9971,7 @@ msgstr "Italian"
 msgid "macOS pide permiso para leer los datos de WhatsApp: acéptelo, o dé acceso en Ajustes del Sistema › Privacidad y seguridad. También puede importar un chat exportado."
 msgstr "macOS asks for permission to read WhatsApp’s data: accept it, or grant access in System Settings › Privacy & Security. You can also import an exported chat."
 
-#: lib/code/tk_showcase_cpp_mywa.dart
+#: lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_radio.dart
 msgid "no"
 msgstr "no"
 
@@ -11143,6 +11143,272 @@ msgstr ""
 "\n"
 "Brake before the tight bends: if you go in too fast, the bike runs wide onto the grass. Off the track you lose speed, and hitting a tree or a grandstand means a crash."
 
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "6 canales · emisoras de todo el mundo"
+msgstr "6 channels · stations from all over the world"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "APAGADO"
+msgstr "SLEEP"
+
+#: lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart
+msgid "Abrir la carpeta de grabaciones"
+msgstr "Open the recordings folder"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Acerca de Mesa de radio"
+msgstr "About Radio Desk"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Alemania"
+msgstr "Germany"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Apagado automático: buenas noches"
+msgstr "Sleep timer: good night"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Argentina"
+msgstr "Argentina"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Bandas sonoras"
+msgstr "Soundtracks"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Buscando emisoras…"
+msgstr "Looking for stations…"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Buscar emisoras"
+msgstr "Find stations"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "CANALES"
+msgstr "CHANNELS"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Canal vacío"
+msgstr "Empty channel"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Canal vacío: pulse un pad de género y elija una emisora"
+msgstr "Empty channel: press a genre pad and choose a station"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Canal {0}"
+msgstr "Channel {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_wifi.dart
+msgid "Canales"
+msgstr "Channels"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Clásica"
+msgstr "Classical"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Colombia"
+msgstr "Colombia"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Conectando…"
+msgstr "Connecting…"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Cuba"
+msgstr "Cuba"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "EMISORAS"
+msgstr "STATIONS"
+
+#: lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
+msgid "Electrónica"
+msgstr "Electronics"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Elija un canal, pulse un pad de género y elija una emisora"
+msgstr "Choose a channel, press a genre pad and choose a station"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Escriba el nombre de una emisora"
+msgstr "Type the name of a station"
+
+#: lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_next_world.dart
+msgid "España"
+msgstr "Spain"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Estados Unidos"
+msgstr "United States"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "FUNDIDO"
+msgstr "FADE"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Francia"
+msgstr "France"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Grabación guardada en {0}"
+msgstr "Recording saved to {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Grabar o parar la grabación"
+msgstr "Record or stop recording"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Italia"
+msgstr "Italy"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "La grabación se ha parado: {0}"
+msgstr "The recording stopped: {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "La mesa (pantalla, mandos, faders y pads) la dibuja el código de Form1.cpp"
+msgstr "The desk (screen, knobs, faders and pads) is drawn by the code in Form1.cpp"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Latina"
+msgstr "Latin"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "MESA DE RADIO"
+msgstr "RADIO DESK"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Mesa de radio"
+msgstr "Radio Desk"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Mesa de radio (C++)"
+msgstr "Radio Desk (C++)"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Mesa de radio en C++ con FLTK: emisoras de internet en seis canales con faders, pads de géneros, lo que suena y grabación."
+msgstr "Radio Desk in C++ with FLTK: internet stations on six channels with faders, genre pads, what is playing and recording."
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid ""
+"Mesa de radio pone emisoras de internet en seis canales, como una mesa de mezclas: cada canal tiene su emisora, su fader (el volumen), ▶ para que suene y M para silenciarlo. Pueden sonar varias a la vez, cada una a su volumen.\n"
+"\n"
+"Para llenar un canal: elíjalo con su pad de color, pulse un pad de género (Jazz, Rock, Noticias…; con ‹ › hay otro banco) o busque por nombre arriba, y en la pantalla pulse dos veces una emisora (o gire la rueda verde y púlsela). Las emisoras vienen de Radio Browser, una base de datos abierta de radios de todo el mundo; el país se elige arriba.\n"
+"\n"
+"La pantalla enseña lo que suena en cada canal (si la emisora lo manda) y el tiempo en el aire. Los mandos: el volumen general, el fundido al cambiar de emisora y el apagado automático (de 5 a 120 minutos). REC graba la emisora del canal elegido, tal como llega, en la carpeta Música.\n"
+"\n"
+"En macOS suena con el sistema; en Windows y Linux hace falta ffplay (de FFmpeg)."
+msgstr ""
+"Radio Desk puts internet stations on six channels, like a mixing desk: each channel has its station, its fader (the volume), ▶ to play it and M to mute it. Several can play at once, each at its own volume.\n"
+"\n"
+"To fill a channel: choose it with its colour pad, press a genre pad (Jazz, Rock, News…; ‹ › gives another bank) or search by name at the top, and double-click a station on the screen (or turn the green wheel and press it). The stations come from Radio Browser, an open database of radio stations from all over the world; choose the country at the top.\n"
+"\n"
+"The screen shows what is playing on each channel (if the station sends it) and the time on air. The knobs: the master volume, the fade when changing station and the sleep timer (5 to 120 minutes). REC records the selected channel's station, as it arrives, in the Music folder.\n"
+"\n"
+"On macOS it plays through the system; on Windows and Linux you need ffplay (from FFmpeg)."
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "México"
+msgstr "Mexico"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "No se ha podido empezar a grabar (¿falta curl?)"
+msgstr "Recording couldn't start (is curl missing?)"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "No se puede llegar a Radio Browser: ¿hay internet?"
+msgstr "Radio Browser can't be reached: is there internet?"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "No se puede oír: pruebe otra emisora"
+msgstr "It can't be played: try another station"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Noticias"
+msgstr "News"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Para oír las emisoras en este sistema hace falta ffplay (de FFmpeg)"
+msgstr "To hear the stations on this system you need ffplay (from FFmpeg)"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Parar todo"
+msgstr "Stop all"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Radio Browser ha contestado con un error ({0})"
+msgstr "Radio Browser answered with an error ({0})"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Reino Unido"
+msgstr "United Kingdom"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "SINTONIZAR"
+msgstr "TUNE"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Silenciar el canal"
+msgstr "Mute the channel"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Sin emisoras: pulse un pad o busque arriba"
+msgstr "No stations: press a pad or search above"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Sonar o pausar el canal"
+msgstr "Play or pause the channel"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Todos los países"
+msgstr "All countries"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, la búsqueda y el reloj se diseñaron en el Diseñador del estudio; la mesa (la pantalla, los mandos, los faders y los pads) se dibuja en el código de Form1.cpp. Las emisoras son de Radio Browser (radio-browser.info), se buscan con curl y suenan con AVPlayer en macOS (desde C++ con el runtime de Objective-C) o con ffplay."
+msgstr "A DMarlon Studio demo made in C++ with FLTK. The window, its menu, the search and the timer were designed in the studio's Designer; the desk (the screen, knobs, faders and pads) is drawn in the code of Form1.cpp. The stations come from Radio Browser (radio-browser.info), are searched with curl and play with AVPlayer on macOS (from C++ with the Objective-C runtime) or with ffplay."
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Una mesa de radio nativa en C++ con FLTK: seis canales con emisoras de internet de todo el mundo, faders para mezclarlas, pads de colores por género, lo que suena en cada una, grabación y apagado automático."
+msgstr "A native radio desk in C++ with FLTK: six channels with internet stations from all over the world, faders to mix them, colour pads by genre, what is playing on each one, recording and a sleep timer."
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "VOLUMEN"
+msgstr "VOLUME"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "Vaciar el canal"
+msgstr "Clear the channel"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "banco {0}"
+msgstr "bank {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "grabando en {0}"
+msgstr "recording to {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "grabar"
+msgstr "record"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "se apaga en {0}"
+msgstr "off in {0}"
+
+#: lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_webmon.dart
+msgid "{0} s"
+msgstr "{0} s"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "{0} · {1} emisoras · doble clic para el canal {2}"
+msgstr "{0} · {1} stations · double-click for channel {2}"
+
+#: lib/code/tk_showcase_cpp_radio.dart
+msgid "{0}, en el canal {1}"
+msgstr "{0}, on channel {1}"
+
 #: lib/code/tk_showcase_cpp_recorder.dart
 msgid "1 minuto (Shorts)"
 msgstr "1 minute (Shorts)"
@@ -11178,10 +11444,6 @@ msgstr "Move to Trash"
 #: lib/code/tk_showcase_cpp_recorder.dart
 msgid "Abrir la carpeta"
 msgstr "Open the folder"
-
-#: lib/code/tk_showcase_cpp_recorder.dart
-msgid "Abrir la carpeta de grabaciones"
-msgstr "Open the recordings folder"
 
 #: lib/code/tk_showcase_cpp_recorder.dart
 msgid "Acerca del Grabador de pantalla"
@@ -11616,10 +11878,6 @@ msgid "{0} ms"
 msgstr "{0} ms"
 
 #: lib/code/tk_showcase_cpp_webmon.dart
-msgid "{0} s"
-msgstr "{0} s"
-
-#: lib/code/tk_showcase_cpp_webmon.dart
 msgid "{0} sitios · {1} en línea"
 msgstr "{0} sites · {1} up"
 
@@ -11747,10 +12005,6 @@ msgstr "Each network is a hill: its width is its channel's and its height, the s
 #: lib/code/tk_showcase_cpp_wifi.dart
 msgid "Canal"
 msgstr "Channel"
-
-#: lib/code/tk_showcase_cpp_wifi.dart
-msgid "Canales"
-msgstr "Channels"
 
 #: lib/code/tk_showcase_cpp_wifi.dart
 msgid "Caracteres"
@@ -12839,10 +13093,6 @@ msgstr "Wrong email or password."
 msgid "El carrito está vacío."
 msgstr "Your cart is empty."
 
-#: lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_web_next.dart
-msgid "Electrónica"
-msgstr "Electronics"
-
 #: lib/code/tk_showcase_flutter_store.dart
 msgid "Entre para comprar"
 msgstr "Sign in to shop"
@@ -13442,10 +13692,6 @@ msgstr "Live world map: planes, ships and trains from public APIs on a map. The 
 #: lib/code/tk_showcase_next_world.dart
 msgid "En tierra"
 msgstr "On the ground"
-
-#: lib/code/tk_showcase_next_world.dart
-msgid "España"
-msgstr "Spain"
 
 #: lib/code/tk_showcase_next_world.dart
 msgid "Europa"

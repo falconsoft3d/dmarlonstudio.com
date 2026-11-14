@@ -292,6 +292,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Imagen vertical o dosier", text: "Con «Imagen vertical» verá el plan en 1080 × 1920, para el móvil o las historias; con «Dosier (PDF)», una portada, una página por día y los consejos. «Guardar…» lo guarda como PNG o PDF, y en Archivo puede guardar el plan (JSON) para abrirlo otro día sin volver a pedirlo." },
     ],
   },
+  cpp_radio: {
+    intro:
+      "Una mesa de radio nativa en C++ con FLTK, diseñada en el estudio: emisoras de internet de todo el mundo en seis canales que se mezclan como en una mesa de verdad.",
+    steps: [
+      { title: "Llene los canales", text: "Elija un canal con su pad de color y pulse un pad de género (Noticias, Pop, Rock, Jazz, Clásica…; con ‹ › hay un segundo banco) o busque una emisora por su nombre, en todos los países o en uno. En la pantalla, doble clic en una emisora (o gire la rueda verde y púlsela) y empieza a sonar en ese canal." },
+      { title: "Mézclelas", text: "Cada canal tiene su fader, ▶ para sonar o pausar y M para silenciarlo: pueden sonar varias emisoras a la vez, cada una a su volumen. La pantalla enseña lo que suena en cada canal (artista y tema, si la emisora lo manda) con su medidor, y los mandos ajustan el volumen general, el fundido al cambiar de emisora y el apagado automático." },
+      { title: "Grabe lo que suena", text: "REC graba la emisora del canal elegido, tal como llega, en la carpeta Música › Mesa de radio; vuelva a pulsarlo para parar. La mesa recuerda sus canales y sus emisoras para la próxima vez." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -658,6 +667,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Describe your trip", text: "Enter the origin and destination, choose the days, the pace (relaxed, normal or packed), the budget and your interests (history, art, food, nature, nightlife or travelling with children), and click “✨ Prepare the plan with Claude Code”. Claude Code must be installed and signed in on your computer." },
       { title: "Claude Code prepares the plan", text: "In half a minute or two the plan arrives: how to get there from your origin, the best time to go, the budget per day and, for each day, 3 to 5 places that really exist, in order, with the time, a description, a tip and where to eat. While it works, the button cancels it." },
       { title: "Vertical image or dossier", text: "With “Vertical image” you see the plan at 1080 × 1920, for your phone or stories; with “Dossier (PDF)”, a cover, one page per day and the tips. “Save…” saves it as PNG or PDF, and in File you can save the plan (JSON) to open it another day without asking for it again." },
+    ],
+  },
+  cpp_radio: {
+    intro:
+      "A native radio desk in C++ with FLTK, designed in the studio: internet stations from all over the world on six channels that you mix like on a real desk.",
+    steps: [
+      { title: "Fill the channels", text: "Choose a channel with its colour pad and press a genre pad (News, Pop, Rock, Jazz, Classical…; ‹ › gives a second bank) or search for a station by name, in all countries or in one. On the screen, double-click a station (or turn the green wheel and press it) and it starts playing on that channel." },
+      { title: "Mix them", text: "Each channel has its fader, ▶ to play or pause and M to mute it: several stations can play at once, each at its own volume. The screen shows what is playing on each channel (artist and title, if the station sends it) with its meter, and the knobs set the master volume, the fade when changing station and the sleep timer." },
+      { title: "Record what's playing", text: "REC records the selected channel's station, as it arrives, in the Music › Radio Desk folder; press it again to stop. The desk remembers its channels and stations for next time." },
     ],
   },
   domino: {

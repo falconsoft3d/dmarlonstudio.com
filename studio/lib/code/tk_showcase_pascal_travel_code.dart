@@ -1045,6 +1045,20 @@ begin
 end;
 
 // ============================================================ capturas y pruebas
+type
+  { Para probar el hilo como lo usa la ventana. }
+  TJobProbe = class
+    Done: Boolean;
+    Output: string;
+    procedure JobDone(Sender: TObject);
+  end;
+
+procedure TJobProbe.JobDone(Sender: TObject);
+begin
+  Output := TClaudeJob(Sender).Output;
+  Done := True;
+end;
+
 { Un campo como los de la ventana, para las capturas. }
 procedure FakeField(Cv: TCanvas; X, Y, W: Integer; const L, V: string);
 begin
@@ -1189,6 +1203,7 @@ var
   F: TFileStream;
   D: TJSONData;
   JS: TJSONString;
+  k: Integer;
   procedure Check(Ok: Boolean; const What: string);
   begin
     if not Ok then
@@ -1250,6 +1265,30 @@ begin
     B.Free;
   end;
   Check(PageCount(P) = 5, 'páginas del dosier');
+  // El hilo, como en la ventana: termina, avisa y se libera solo (con /bin/echo
+  // en lugar de claude: escribe los argumentos, entre ellos --json-schema).
+  {$IFNDEF WINDOWS}
+  with TJobProbe.Create do
+  try
+    with TClaudeJob.Create(True) do
+    begin
+      FreeOnTerminate := True;
+      Exe := '/bin/echo';
+      Prompt := '';
+      OnTerminate := @JobDone;
+      Start;
+    end;
+    k := 0;
+    while (not Done) and (k < 100) do
+    begin
+      CheckSynchronize(100);
+      Inc(k);
+    end;
+    Check(Done and (Pos('--json-schema', Output) > 0), 'el hilo de Claude termina y avisa');
+  finally
+    Free;
+  end;
+  {$ENDIF}
   Pdf := GetTempDir + 'dms-viaje-test.pdf';
   WritePDF(P, Pdf);
   Check(FileExists(Pdf), 'PDF escrito');
@@ -1462,7 +1501,9 @@ begin
   if Likes = '' then Likes := tx_LIKE_ALL;
   StopJob := False;
   Job := TClaudeJob.Create(True);
-  Job.FreeOnTerminate := False;
+  // Se libera solo al terminar: liberarlo en su OnTerminate dejaría la
+  // ventana esperando al hilo y el hilo a la ventana (la app se colgaba).
+  Job.FreeOnTerminate := True;
   Job.Exe := Exe;
   Job.Prompt := BuildPrompt(Trim(Origin.Text), Trim(Dest.Text), Days.ItemIndex + 1, Likes, Pace.Text, Budget.Text);
   Job.OnTerminate := @JobDone;
@@ -1479,14 +1520,17 @@ end;
 procedure TForm1.JobDone(Sender: TObject);
 var
   P: TPlan;
-  Err: string;
+  Err, Out_, JobErr: string;
   secs: Integer;
 begin
+  Out_ := TClaudeJob(Sender).Output;
+  JobErr := TClaudeJob(Sender).Error;
+  Job := nil;
   Busy := False;
   Tick.Enabled := False;
   BtnPlan.Caption := tx_BTN_PLAN;
   secs := Round((Now - Started) * 86400);
-  if ParseClaude(Job.Output, P, Err) then
+  if ParseClaude(Out_, P, Err) then
   begin
     P.Origin := Trim(Origin.Text);
     SetPlan(P, False);
@@ -1494,14 +1538,12 @@ begin
   end
   else
   begin
-    if Job.Error = tx_CANCELLED then Err := tx_CANCELLED
-    else if (Trim(Job.Output) = '') and (Trim(Job.Error) <> '') then Err := Fmt(tx_ERR_CLAUDE, [Trim(Job.Error)]);
+    if JobErr = tx_CANCELLED then Err := tx_CANCELLED
+    else if (Trim(Out_) = '') and (Trim(JobErr) <> '') then Err := Fmt(tx_ERR_CLAUDE, [Trim(JobErr)]);
     Say(Err);
     Box.Invalidate;
     if Err <> tx_CANCELLED then MessageDlg(Err, mtError, [mbOK], 0);
   end;
-  Job.Free;
-  Job := nil;
 end;
 
 { Guarda la imagen (PNG) o el dosier (PDF), según el formato elegido. }
@@ -1592,6 +1634,7 @@ end;
 
 procedure TForm1.Tick_timer;
 begin
+  if Busy and ((Now - Started) * 86400 > 480) then StopJob := True;
   Box.Invalidate;
 end;
 

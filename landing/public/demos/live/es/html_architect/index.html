@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARCHITECT // El Despertar de los Pesos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-base: #070a0f;
+      --bg-panel: #0c1017;
+      --bg-elevated: #121822;
+      --border-line: #1f2937;
+      --border-bright: #334155;
+      --accent-green: #13EB5B;
+      --accent-blue: #166CC8;
+      --accent-warn: #f59e0b;
+      --accent-danger: #ef4444;
+      --text-main: #e2e8f0;
+      --text-dim: #7c8b9e;
+    }
+
+    * {
+      box-sizing: border-box;
+      border-radius: 2px !important;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-bright);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-blue);
+    }
+
+    /* Technical Range Slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #1e293b;
+      outline: none;
+      border: 1px solid #334155;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 16px;
+      background: var(--accent-blue);
+      cursor: pointer;
+      border: 1px solid #60a5fa;
+      transition: background 0.15s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: var(--accent-green);
+      border-color: #86efac;
+    }
+
+    .btn-tech {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: all 0.15s ease;
+      border: 1px solid var(--border-bright);
+      cursor: pointer;
+    }
+    .btn-tech:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: rgba(22, 108, 200, 0.2);
+      border-color: var(--accent-blue);
+      color: #93c5fd;
+    }
+    .btn-primary:hover {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-success {
+      background: rgba(19, 235, 91, 0.14);
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+    .btn-success:hover {
+      background: var(--accent-green);
+      color: #041309;
+      font-weight: 700;
+    }
+
+    .btn-neutral {
+      background: var(--bg-elevated);
+      color: var(--text-dim);
+    }
+    .btn-neutral:hover {
+      border-color: var(--text-main);
+      color: var(--text-main);
+    }
+
+    .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(31, 41, 55, 0.28) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(31, 41, 55, 0.28) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .scanline {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(19, 235, 91, 0.02) 50%,
+        rgba(19, 235, 91, 0.02)
+      );
+      background-size: 100% 4px;
+    }
+
+    .level-tab.active {
+      background: rgba(22, 108, 200, 0.25);
+      border-color: var(--accent-blue);
+      color: #ffffff;
+      box-shadow: inset 0 -2px 0 var(--accent-green);
+    }
+    .level-tab.completed {
+      border-color: rgba(19, 235, 91, 0.5);
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-[#166CC8] selection:text-white">
+
+  <!-- TOP COMMAND HEADER & MISSION SELECTOR -->
+  <header class="bg-[#090d14] border-b border-[#1f2937] px-3 py-2 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 z-20">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-3 h-3 bg-[#13EB5B] shadow-[0_0_8px_#13EB5B]"></div>
+        <div>
+          <h1 class="font-mono-tech text-sm md:text-base font-bold tracking-wider text-white">
+            ARCHITECT <span class="text-[#166CC8]">//</span> <span class="text-[#13EB5B]">NEXUS-CORE v2.4</span>
+          </h1>
+          <p class="font-mono-tech text-[10px] text-[#7c8b9e] uppercase tracking-widest">
+            Estación de Ingeniería de Redes Neuronales
+          </p>
+        </div>
+      </div>
+
+      <!-- Mobile quick status -->
+      <div class="lg:hidden font-mono-tech text-xs px-2 py-1 border border-[#1f2937] bg-[#0c1017]">
+        EPOCH: <span id="mobileEpoch" class="text-[#13EB5B]">0</span>
+      </div>
+    </div>
+
+    <!-- Mission Selector Bar -->
+    <nav class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" aria-label="Selector de Misiones">
+      <button onclick="selectLevel(1)" id="lvlBtn1" class="level-tab active px-2.5 py-1.5 border border-[#1f2937] bg-[#0c1017] text-left transition">
+        <div class="flex items-center justify-between font-mono-tech text-[10px] text-[#7c8b9e]">
+          <span>LVL 01</span>
+          <span id="badge1" class="text-[#166CC8]">ACTIVO</span>
+        </div>
+        <div class="text-xs font-semibold truncate text-slate-200">Sesgo de Datos (Bias)</div>
+      </button>
+
+      <button onclick="selectLevel(2)" id="lvlBtn2" class="level-tab px-2.5 py-1.5 border border-[#1f2937] bg-[#0c1017] text-left transition">
+        <div class="flex items-center justify-between font-mono-tech text-[10px] text-[#7c8b9e]">
+          <span>LVL 02</span>
+          <span id="badge2" class="text-slate-500">LISTO</span>
+        </div>
+        <div class="text-xs font-semibold truncate text-slate-200">Pesos y Activación</div>
+      </button>
+
+      <button onclick="selectLevel(3)" id="lvlBtn3" class="level-tab px-2.5 py-1.5 border border-[#1f2937] bg-[#0c1017] text-left transition">
+        <div class="flex items-center justify-between font-mono-tech text-[10px] text-[#7c8b9e]">
+          <span>LVL 03</span>
+          <span id="badge3" class="text-slate-500">LISTO</span>
+        </div>
+        <div class="text-xs font-semibold truncate text-slate-200">Descenso de Gradiente</div>
+      </button>
+
+      <button onclick="selectLevel(4)" id="lvlBtn4" class="level-tab px-2.5 py-1.5 border border-[#1f2937] bg-[#0c1017] text-left transition">
+        <div class="flex items-center justify-between font-mono-tech text-[10px] text-[#7c8b9e]">
+          <span>LVL 04</span>
+          <span id="badge4" class="text-slate-500">LISTO</span>
+        </div>
+        <div class="text-xs font-semibold truncate text-slate-200">Riesgo de Overfitting</div>
+      </button>
+    </nav>
+  </header>
+
+  <!-- MISSION BRIEFING STRIP -->
+  <section class="bg-[#0c1017] border-b border-[#1f2937] px-3 py-2 flex flex-col md:flex-row md:items-center justify-between gap-2">
+    <div class="flex items-start md:items-center gap-2.5">
+      <span class="font-mono-tech text-[11px] px-2 py-0.5 bg-[#166CC8]/20 border border-[#166CC8] text-[#60a5fa] shrink-0">
+        OBJETIVO
+      </span>
+      <p id="missionDesc" class="text-xs sm:text-sm text-slate-300 leading-snug">
+        Equilibra la diversidad del Dataset (manzanas rojas vs. verdes/peras) para eliminar el sesgo de confirmación antes de validar en producción.
+      </p>
+    </div>
+    <div class="flex items-center gap-3 shrink-0 font-mono-tech text-xs">
+      <div class="px-2 py-1 bg-[#070a0f] border border-[#1f2937]">
+        META VAL: <span id="missionTarget" class="text-[#13EB5B] font-bold">&ge; 88%</span>
+      </div>
+      <div id="missionStatusBox" class="px-2 py-1 bg-[#070a0f] border border-[#334155] text-slate-400">
+        EN PROCESO
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN 3-COLUMN SPLIT-SCREEN WORKSPACE DOCK -->
+  <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#1f2937]">
+
+    <!-- LEFT PANEL: DATASET (BIAS) & HYPERPARAMETERS -->
+    <aside class="lg:col-span-3 bg-[#0c1017] p-3 flex flex-col justify-between gap-4">
+      <div class="space-y-4">
+        <!-- Section 1: Dataset & Bias -->
+        <div class="border border-[#1f2937] bg-[#090d14] p-3">
+          <div class="flex items-center justify-between border-b border-[#1f2937] pb-1.5 mb-2.5">
+            <h2 class="font-mono-tech text-xs font-bold uppercase tracking-wider text-[#166CC8]">
+              01 // Dataset &amp; Sesgo (Bias)
+            </h2>
+            <span id="biasStatusTag" class="font-mono-tech text-[10px] px-1.5 py-0.5 bg-red-950/60 border border-red-700 text-red-400">
+              SESGO ALTO
+            </span>
+          </div>
+
+          <div class="space-y-2.5">
+            <div>
+              <div class="flex justify-between font-mono-tech text-[11px] mb-1">
+                <span class="text-slate-300">Muestras Rojas (Clase A)</span>
+                <span id="redSamplesVal" class="text-[#13EB5B]">90%</span>
+              </div>
+              <input type="range" id="diversitySlider" min="10" max="90" value="10" oninput="updateDatasetDiversity(this.value)" />
+              <div class="flex justify-between font-mono-tech text-[10px] text-[#7c8b9e] mt-1">
+                <span>Solo Rojas</span>
+                <span>50/50 Óptimo</span>
+                <span>Solo Verdes</span>
+              </div>
+            </div>
+
+            <!-- Visual Sample Distribution Bar -->
+            <div class="pt-1">
+              <div class="flex justify-between font-mono-tech text-[10px] text-slate-400 mb-1">
+                <span>Distribución de Tensores</span>
+                <span id="greenSamplesVal">Verdes/Peras: 10%</span>
+              </div>
+              <div class="w-full h-2.5 bg-[#070a0f] border border-[#334155] flex overflow-hidden">
+                <div id="barClassA" class="bg-[#166CC8] h-full transition-all duration-200" style="width: 90%"></div>
+                <div id="barClassB" class="bg-[#13EB5B] h-full transition-all duration-200" style="width: 10%"></div>
+              </div>
+            </div>
+
+            <!-- Noise Filter Toggle (Relevant for Level 2 & 4) -->
+            <div class="pt-1 border-t border-[#1f2937] flex items-center justify-between">
+              <label for="noiseToggle" class="font-mono-tech text-[11px] text-slate-300 cursor-pointer">
+                Ruido en Etiquetas (Data Noise)
+              </label>
+              <button id="noiseToggle" onclick="toggleNoise()" class="font-mono-tech text-[10px] px-2 py-0.5 border border-[#334155] bg-[#121822] text-amber-400">
+                ACTIVO (25%)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Hyperparameters -->
+        <div class="border border-[#1f2937] bg-[#090d14] p-3">
+          <div class="flex items-center justify-between border-b border-[#1f2937] pb-1.5 mb-2.5">
+            <h2 class="font-mono-tech text-xs font-bold uppercase tracking-wider text-[#166CC8]">
+              02 // Hiperparámetros
+            </h2>
+            <span class="font-mono-tech text-[10px] text-[#7c8b9e]">SGD-OPT</span>
+          </div>
+
+          <div class="space-y-3">
+            <!-- Learning Rate -->
+            <div>
+              <div class="flex justify-between font-mono-tech text-[11px] mb-1">
+                <span class="text-slate-300">Tasa Aprendizaje (LR)</span>
+                <span id="lrDisplay" class="text-[#13EB5B] font-bold">0.15</span>
+              </div>
+              <input type="range" id="lrSlider" min="0.01" max="0.95" step="0.01" value="0.15" oninput="updateLR(this.value)" />
+              <div class="flex justify-between font-mono-tech text-[10px] text-[#7c8b9e] mt-1">
+                <span>0.01 (Lento)</span>
+                <span>0.25 (Ideal)</span>
+                <span>0.95 (Caos)</span>
+              </div>
+            </div>
+
+            <!-- Regularization / Complexity -->
+            <div>
+              <div class="flex justify-between font-mono-tech text-[11px] mb-1">
+                <span class="text-slate-300">Regularización L2</span>
+                <span id="regDisplay" class="text-slate-300">0.00</span>
+              </div>
+              <input type="range" id="regSlider" min="0" max="0.5" step="0.05" value="0" oninput="updateReg(this.value)" />
+            </div>
+
+            <!-- Telemetry Readout -->
+            <div class="grid grid-cols-2 gap-1.5 pt-1 font-mono-tech text-[11px]">
+              <div class="bg-[#070a0f] border border-[#1f2937] p-1.5">
+                <div class="text-[9px] text-[#7c8b9e]">ÉPOCAS (EPOCHS)</div>
+                <div id="epochCount" class="text-sm font-bold text-white">0</div>
+              </div>
+              <div class="bg-[#070a0f] border border-[#1f2937] p-1.5">
+                <div class="text-[9px] text-[#7c8b9e]">FUNCIÓN PÉRDIDA</div>
+                <div id="lossValueDisplay" class="text-sm font-bold text-amber-400">0.842</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Execution Controls -->
+      <div class="border border-[#1f2937] bg-[#090d14] p-3 space-y-2">
+        <div class="font-mono-tech text-[10px] uppercase tracking-wider text-[#7c8b9e] mb-1">
+          03 // Control de Ejecución
+        </div>
+
+        <div class="grid grid-cols-2 gap-1.5">
+          <button onclick="trainStep(1)" class="btn-tech btn-primary py-2 px-2 font-semibold">
+            +1 Epoch
+          </button>
+          <button id="autoTrainBtn" onclick="toggleAutoTrain()" class="btn-tech btn-primary py-2 px-2 font-semibold">
+            Auto-Entrenar
+          </button>
+        </div>
+
+        <button onclick="validateProduction()" class="btn-tech btn-success w-full py-2.5 px-3 font-bold tracking-wider">
+          ▶ Validar en Producción
+        </button>
+
+        <button onclick="resetSimulation()" class="btn-tech btn-neutral w-full py-1.5 px-2">
+          Reiniciar Pesos &amp; Estado
+        </button>
+      </div>
+    </aside>
+
+    <!-- CENTER PANEL: INTERACTIVE NEURAL NETWORK & LIVE LOG CONSOLE -->
+    <section class="lg:col-span-5 bg-[#070a0f] flex flex-col justify-between">
+      <!-- Top Neural Toolbar -->
+      <div class="bg-[#0c1017] border-b border-[#1f2937] px-3 py-2 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="font-mono-tech text-xs font-bold text-white uppercase">Arquitectura Sináptica</span>
+          <span class="font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#121822] border border-[#334155] text-[#13EB5B]">
+            3 &rarr; 4 &rarr; 2
+          </span>
+        </div>
+        <div class="font-mono-tech text-[10px] text-[#7c8b9e]">
+          Clic en una conexión para ajustar <span class="text-white">Peso (Weight)</span>
+        </div>
+      </div>
+
+      <!-- Interactive Neural Network Canvas -->
+      <div class="relative flex-1 min-h-[300px] sm:min-h-[350px] grid-bg scanline">
+        <canvas id="nnCanvas"></canvas>
+
+        <!-- Weight Inspector Floating HUD -->
+        <div id="weightHud" class="hidden absolute top-3 right-3 bg-[#0c1017]/95 border border-[#166CC8] p-2.5 w-52 shadow-lg z-10">
+          <div class="flex justify-between items-center border-b border-[#1f2937] pb-1 mb-2">
+            <span id="selectedConnLabel" class="font-mono-tech text-[11px] font-bold text-[#13EB5B]">W[0,0]</span>
+            <button onclick="closeWeightHud()" class="font-mono-tech text-xs text-slate-400 hover:text-white">✕</button>
+          </div>
+          <div class="flex justify-between font-mono-tech text-[11px] mb-1">
+            <span class="text-slate-300">Valor Peso:</span>
+            <span id="selectedWeightVal" class="text-white font-bold">+0.50</span>
+          </div>
+          <input type="range" id="manualWeightSlider" min="-1.5" max="1.5" step="0.05" value="0.5" oninput="setManualWeight(this.value)" />
+          <p class="font-mono-tech text-[9px] text-[#7c8b9e] mt-1.5">
+            Verde = excitación (+) | Azul/Gris = inhibición (-)
+          </p>
+        </div>
+
+        <!-- Legend Bottom Bar -->
+        <div class="absolute bottom-2 left-2 right-2 flex flex-wrap justify-between items-center gap-2 px-2.5 py-1 bg-[#0c1017]/90 border border-[#1f2937] font-mono-tech text-[10px]">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1"><span class="w-2.5 h-1 bg-[#13EB5B] inline-block"></span> Peso Positivo (+)</span>
+            <span class="flex items-center gap-1"><span class="w-2.5 h-1 bg-[#166CC8] inline-block"></span> Peso Negativo (-)</span>
+          </div>
+          <div class="text-slate-400">
+            Señal Activa: <span id="signalPulseStatus" class="text-[#13EB5B]">ESTABLE</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Live Terminal Log -->
+      <div class="h-44 bg-[#090d14] border-t border-[#1f2937] flex flex-col">
+        <div class="px-3 py-1 bg-[#0c1017] border-b border-[#1f2937] flex items-center justify-between">
+          <span class="font-mono-tech text-[10px] font-bold uppercase tracking-wider text-slate-300">
+            Consola de Diagnóstico &amp; Telemetría IA
+          </span>
+          <button onclick="clearLogs()" class="font-mono-tech text-[10px] text-[#7c8b9e] hover:text-white">
+            LIMPIAR
+          </button>
+        </div>
+        <div id="logContainer" class="flex-1 p-2.5 overflow-y-auto font-mono-tech text-[11px] space-y-1.5 leading-relaxed">
+          <!-- Logs injected dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: LOSS CURVES, OVERFITTING MONITOR & GRADIENT DESCENT -->
+    <aside class="lg:col-span-4 bg-[#0c1017] p-3 flex flex-col justify-between gap-3">
+      
+      <!-- Chart 1: Loss Function & Overfitting (Train vs Validation) -->
+      <div class="border border-[#1f2937] bg-[#090d14] p-2.5 flex-1 flex flex-col min-h-[220px]">
+        <div class="flex items-center justify-between border-b border-[#1f2937] pb-1.5 mb-2">
+          <div>
+            <h3 class="font-mono-tech text-xs font-bold uppercase text-white">
+              Curva de Pérdida &amp; Generalización
+            </h3>
+            <p class="font-mono-tech text-[10px] text-[#7c8b9e]">Train Loss vs. Validation Loss (Detector Overfitting)</p>
+          </div>
+          <span id="overfitAlert" class="hidden font-mono-tech text-[10px] px-1.5 py-0.5 bg-red-950 border border-red-500 text-red-400 animate-pulse">
+            ¡OVERFITTING!
+          </span>
+        </div>
+
+        <div class="relative flex-1 min-h-[140px] bg-[#070a0f] border border-[#1f2937]">
+          <canvas id="lossCanvas"></canvas>
+        </div>
+
+        <!-- Metrics Footer -->
+        <div class="grid grid-cols-2 gap-2 mt-2 font-mono-tech text-[11px]">
+          <div class="flex items-center justify-between bg-[#070a0f] border border-[#1f2937] px-2 py-1">
+            <span class="text-[#13EB5B]">● Precisión Train:</span>
+            <span id="trainAccDisplay" class="font-bold text-white">52.0%</span>
+          </div>
+          <div class="flex items-center justify-between bg-[#070a0f] border border-[#1f2937] px-2 py-1">
+            <span class="text-[#166CC8]">● Precisión Val:</span>
+            <span id="valAccDisplay" class="font-bold text-white">48.0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart 2: Interactive Gradient Descent Visualizer -->
+      <div class="border border-[#1f2937] bg-[#090d14] p-2.5 flex-1 flex flex-col min-h-[220px]">
+        <div class="flex items-center justify-between border-b border-[#1f2937] pb-1.5 mb-2">
+          <div>
+            <h3 class="font-mono-tech text-xs font-bold uppercase text-white">
+              Espacio de Descenso de Gradiente
+            </h3>
+            <p class="font-mono-tech text-[10px] text-[#7c8b9e]">Topología de Error: Mínimo Local vs. Mínimo Global</p>
+          </div>
+          <span id="gdStateTag" class="font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#121822] border border-[#334155] text-[#13EB5B]">
+            EN RUTA
+          </span>
+        </div>
+
+        <div class="relative flex-1 min-h-[140px] bg-[#070a0f] border border-[#1f2937]">
+          <canvas id="gdCanvas"></canvas>
+        </div>
+
+        <div class="mt-2 font-mono-tech text-[10px] text-[#7c8b9e] flex justify-between items-center">
+          <span>Posición Explorador: <strong id="gdPosText" class="text-slate-200">-0.75</strong></span>
+          <span>Objetivo Global: <strong class="text-[#13EB5B]">+0.42</strong></span>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- PRODUCTION VALIDATION MODAL (Replaces alert) -->
+  <div id="resultModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-[#0c1017] border-2 border-[#166CC8] max-w-lg w-full p-5 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#1f2937] pb-3 mb-4">
+        <div class="flex items-center gap-2">
+          <div id="modalIndicator" class="w-3 h-3 bg-[#13EB5B]"></div>
+          <h2 id="modalTitle" class="font-mono-tech text-sm font-bold uppercase tracking-wider text-white">
+            INFORME DE DESPLIEGUE EN PRODUCCIÓN
+          </h2>
+        </div>
+        <button onclick="closeModal()" class="font-mono-tech text-slate-400 hover:text-white text-sm">✕</button>
+      </div>
+
+      <div id="modalBody" class="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="mt-5 pt-3 border-t border-[#1f2937] flex justify-end gap-2">
+        <button onclick="closeModal()" class="btn-tech btn-neutral px-4 py-2">
+          Volver al Laboratorio
+        </button>
+        <button id="nextLevelBtn" onclick="advanceNextLevel()" class="btn-tech btn-success px-4 py-2 font-bold">
+          Siguiente Misión &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * ARCHITECT: EL DESPERTAR DE LOS PESOS
+     * Motor educativo interactivo de Redes Neuronales, Sesgo, Gradiente y Overfitting.
+     */
+
+    // --- ESTADO GLOBAL DE LA SIMULACIÓN ---
+    const state = {
+      level: 1,
+      completedLevels: new Set(),
+      epoch: 0,
+      autoTrainInterval: null,
+      
+      // Parámetros del Dataset
+      diversity: 10, // 50 = perfectamente equilibrado (50% Rojas / 50% Verdes)
+      hasNoise: true,
+
+      // Hiperparámetros
+      learningRate: 0.15,
+      regularization: 0.0,
+
+      // Métricas en tiempo real
+      trainLoss: 0.85,
+      valLoss: 0.88,
+      trainAcc: 52.0,
+      valAcc: 48.0,
+      lossHistory: [], // { epoch, trainLoss, valLoss }
+
+      // Descenso de gradiente (1D non-convex landscape: x in [-1, 1])
+      // Mínimo local alrededor de x = -0.45, Mínimo global en x = 0.42
+      gdX: -0.78,
+      gdHistory: [-0.78],
+      gdStatus: 'EN RUTA',
+
+      // Arquitectura Red Neuronal (3 -> 4 -> 2)
+      inputLabels: ['COLOR', 'FORMA', 'TEXTURA'],
+      hiddenLabels: ['H1', 'H2', 'H3', 'H4'],
+      outputLabels: ['MANZANA', 'PERA/OTRO'],
+      weightsIH: [], // 3x4 matriz
+      weightsHO: [], // 4x2 matriz
+      activationsIn: [0.8, 0.6, 0.4],
+      activationsHid: [0.5, 0.5, 0.5, 0.5],
+      activationsOut: [0.5, 0.5],
+      selectedEdge: null, // { layer: 'IH'|'HO', i, j }
+      edgeHitboxes: [],
+      pulsePhase: 0
+    };
+
+    // Definición pedagógica de los 4 niveles
+    const MISSIONS = {
+      1: {
+        title: "Sesgo de Datos (Bias)",
+        desc: "El dataset actual tiene 90% manzanas rojas. Si entrenas así, la IA sufrirá sesgo de confirmación. Equilibra la diversidad cerca del 50/50, entrena unas épocas y valida.",
+        targetText: "VAL ≥ 85% | SESGO < 15%",
+        initDiversity: 10,
+        initNoise: false,
+        initLR: 0.20,
+        initReg: 0.0,
+        initGdX: 0.25
+      },
+      2: {
+        title: "Pesos y Activación Sináptica",
+        desc: "El dataset tiene ruido sensorial. Ajusta manualmente conexiones clave en la red (clic en los cables) o entrena para fortalecer las rutas de Color y Forma frente al ruido.",
+        targetText: "VAL ≥ 86% | SINAPSIS ACTIVAS",
+        initDiversity: 50,
+        initNoise: true,
+        initLR: 0.22,
+        initReg: 0.05,
+        initGdX: 0.15
+      },
+      3: {
+        title: "Descenso de Gradiente",
+        desc: "Observa el panel inferior derecho: el explorador está atrapado antes de una colina (mínimo local). Ajusta el Learning Rate para cruzar al mínimo global (+0.42) sin salirte del mapa.",
+        targetText: "MÍNIMO GLOBAL (+0.42 ± 0.12)",
+        initDiversity: 50,
+        initNoise: false,
+        initLR: 0.04, // Demasiado bajo inicialmente: se atasca en mínimo local
+        initReg: 0.0,
+        initGdX: -0.78
+      },
+      4: {
+        title: "El Peligro del Overfitting",
+        desc: "Con datos ruidosos y sin regularización, entrenar demasiadas épocas hará que la IA memorice el ruido: Train Loss bajará, pero Val Loss subirá. Usa Early Stopping (detén a tiempo) o Regularización L2.",
+        targetText: "VAL ≥ 84% SIN OVERFITTING",
+        initDiversity: 50,
+        initNoise: true,
+        initLR: 0.28,
+        initReg: 0.0,
+        initGdX: 0.20
+      }
+    };
+
+    // --- INICIALIZACIÓN ---
+    window.onload = function () {
+      initWeights();
+      selectLevel(1);
+      setupCanvasInteractions();
+      window.addEventListener('resize', resizeAllCanvases);
+      resizeAllCanvases();
+      requestAnimationFrame(renderLoop);
+    };
+
+    function initWeights() {
+      state.weightsIH = Array.from({ length: 3 }, () =>
+        Array.from({ length: 4 }, () => +(Math.random() * 1.2 - 0.6).toFixed(2))
+      );
+      state.weightsHO = Array.from({ length: 4 }, () =>
+        Array.from({ length: 2 }, () => +(Math.random() * 1.2 - 0.6).toFixed(2))
+      );
+      forwardPass();
+    }
+
+    // --- SELECTOR DE NIVELES ---
+    function selectLevel(lvl) {
+      stopAutoTrain();
+      state.level = lvl;
+      const m = MISSIONS[lvl];
+
+      // Actualizar botones superiores
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`lvlBtn${i}`);
+        const badge = document.getElementById(`badge${i}`);
+        btn.classList.remove('active');
+        if (state.completedLevels.has(i)) {
+          btn.classList.add('completed');
+          badge.textContent = 'SUPERADO';
+          badge.className = 'text-[#13EB5B] font-bold';
+        } else if (i === lvl) {
+          badge.textContent = 'ACTIVO';
+          badge.className = 'text-[#166CC8] font-bold';
+        } else {
+          badge.textContent = 'LISTO';
+          badge.className = 'text-slate-500';
+        }
+      }
+      document.getElementById(`lvlBtn${lvl}`).classList.add('active');
+
+      // Aplicar configuración inicial del nivel
+      document.getElementById('missionDesc').textContent = m.desc;
+      document.getElementById('missionTarget').textContent = m.targetText;
+      
+      state.diversity = m.initDiversity;
+      document.getElementById('diversitySlider').value = m.initDiversity;
+      updateDatasetDiversity(m.initDiversity, true);
+
+      state.hasNoise = m.initNoise;
+      updateNoiseUI();
+
+      state.learningRate = m.initLR;
+      document.getElementById('lrSlider').value = m.initLR;
+      updateLR(m.initLR, true);
+
+      state.regularization = m.initReg;
+      document.getElementById('regSlider').value = m.initReg;
+      updateReg(m.initReg, true);
+
+      resetSimulation(true);
+      state.gdX = m.initGdX;
+      state.gdHistory = [m.initGdX];
+
+      clearLogs();
+      addLog(`MISIÓN 0${lvl} CARGADA: ${m.title}`, 'info');
+      addLog(m.desc, 'system');
+    }
+
+    // --- CONTROLES DEL PANEL IZQUIERDO ---
+    function updateDatasetDiversity(val, silent = false) {
+      state.diversity = parseInt(val, 10);
+      const redPct = 100 - state.diversity;
+      const greenPct = state.diversity;
+
+      document.getElementById('redSamplesVal').textContent = `${redPct}%`;
+      document.getElementById('greenSamplesVal').textContent = `Verdes/Peras: ${greenPct}%`;
+      document.getElementById('barClassA').style.width = `${redPct}%`;
+      document.getElementById('barClassB').style.width = `${greenPct}%`;
+
+      const biasDiff = Math.abs(50 - state.diversity);
+      const tag = document.getElementById('biasStatusTag');
+      if (biasDiff <= 10) {
+        tag.textContent = 'EQUILIBRADO';
+        tag.className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#13EB5B]/15 border border-[#13EB5B] text-[#13EB5B]';
+      } else if (biasDiff <= 25) {
+        tag.textContent = 'SESGO MODERADO';
+        tag.className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-amber-950/60 border border-amber-600 text-amber-400';
+      } else {
+        tag.textContent = 'SESGO ALTO';
+        tag.className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-red-950/60 border border-red-700 text-red-400';
+      }
+
+      if (!silent && state.epoch > 0) {
+        addLog(`Dataset actualizado (${redPct}% A / ${greenPct}% B). Re-entrena para que los pesos absorban la nueva distribución.`, 'warn');
+      }
+    }
+
+    function toggleNoise() {
+      state.hasNoise = !state.hasNoise;
+      updateNoiseUI();
+      addLog(`Ruido en etiquetas ${state.hasNoise ? 'ACTIVADO (25% muestras corruptas)' : 'DESACTIVADO (Datos limpios)'}.`, 'system');
+    }
+
+    function updateNoiseUI() {
+      const btn = document.getElementById('noiseToggle');
+      if (state.hasNoise) {
+        btn.textContent = 'ACTIVO (25%)';
+        btn.className = 'font-mono-tech text-[10px] px-2 py-0.5 border border-amber-600 bg-amber-950/40 text-amber-400';
+      } else {
+        btn.textContent = 'DESACTIVADO';
+        btn.className = 'font-mono-tech text-[10px] px-2 py-0.5 border border-[#334155] bg-[#121822] text-slate-400';
+      }
+    }
+
+    function updateLR(val, silent = false) {
+      state.learningRate = parseFloat(val);
+      document.getElementById('lrDisplay').textContent = state.learningRate.toFixed(2);
+      if (!silent) {
+        if (state.learningRate > 0.65) {
+          addLog(`ALERTA LR=${state.learningRate.toFixed(2)}: Pasos demasiado grandes. Riesgo de divergencia en el gradiente.`, 'warn');
+        } else if (state.learningRate < 0.08) {
+          addLog(`AVISO LR=${state.learningRate.toFixed(2)}: Tasa muy conservadora. Puede quedar atrapada en un mínimo local.`, 'system');
+        }
+      }
+    }
+
+    function updateReg(val, silent = false) {
+      state.regularization = parseFloat(val);
+      document.getElementById('regDisplay').textContent = state.regularization.toFixed(2);
+      if (!silent && state.regularization > 0) {
+        addLog(`Regularización L2 ajustada a ${state.regularization.toFixed(2)}. Penalizando pesos extremos para evitar Overfitting.`, 'info');
+      }
+    }
+
+    // --- MOTOR DE ENTRENAMIENTO (EPOCH STEP) ---
+    function lossLandscape(x) {
+      // Función no convexa con mínimo local en ~ -0.45 y mínimo global en ~ +0.42
+      return 0.45 * Math.pow(x, 2) + 0.24 * Math.sin(5.2 * x) - 0.18 * x + 0.32;
+    }
+
+    function lossGradient(x) {
+      // Derivada analítica aproximada de lossLandscape
+      return 0.90 * x + 0.24 * 5.2 * Math.cos(5.2 * x) - 0.18;
+    }
+
+    function trainStep(steps = 1) {
+      for (let s = 0; s < steps; s++) {
+        state.epoch++;
+
+        // 1. Actualizar Descenso de Gradiente
+        const grad = lossGradient(state.gdX);
+        // Pequeña inercia/impulso si LR es moderado-alto para permitir escapar mínimos locales
+        const stepSize = state.learningRate * grad;
+        state.gdX = state.gdX - stepSize;
+
+        // Comprobar divergencia o convergencia
+        if (Math.abs(state.gdX) > 1.15) {
+          state.gdX = Math.sign(state.gdX) * 1.12;
+          state.gdStatus = 'DIVERGENCIA (LR ALTO)';
+          document.getElementById('gdStateTag').textContent = '¡DIVERGENCIA!';
+          document.getElementById('gdStateTag').className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-red-950 border border-red-500 text-red-400';
+        } else if (Math.abs(state.gdX - 0.42) < 0.12) {
+          state.gdStatus = 'MÍNIMO GLOBAL';
+          document.getElementById('gdStateTag').textContent = 'MÍNIMO GLOBAL';
+          document.getElementById('gdStateTag').className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#13EB5B]/20 border border-[#13EB5B] text-[#13EB5B]';
+        } else if (Math.abs(stepSize) < 0.015 && state.gdX < 0) {
+          state.gdStatus = 'ATASCADO (MÍN. LOCAL)';
+          document.getElementById('gdStateTag').textContent = 'MÍNIMO LOCAL';
+          document.getElementById('gdStateTag').className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-amber-950 border border-amber-500 text-amber-400';
+        } else {
+          state.gdStatus = 'DESCENDIENDO';
+          document.getElementById('gdStateTag').textContent = 'DESCENDIENDO';
+          document.getElementById('gdStateTag').className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#121822] border border-[#334155] text-[#60a5fa]';
+        }
+
+        state.gdHistory.push(state.gdX);
+        if (state.gdHistory.length > 25) state.gdHistory.shift();
+
+        // 2. Actualizar Pesos Sinápticos simulando retropropagación
+        const effectiveLR = Math.min(state.learningRate, 0.55);
+        const decay = 1 - state.regularization * 0.08;
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 4; j++) {
+            // Tendencia hacia patrón útil (Color y Forma positivos)
+            const targetW = (i < 2 ? 0.85 : -0.35) * ((j % 2 === 0) ? 1 : -0.7);
+            state.weightsIH[i][j] = +(state.weightsIH[i][j] * decay + effectiveLR * 0.18 * (targetW - state.weightsIH[i][j])).toFixed(2);
+          }
+        }
+        for (let j = 0; j < 4; j++) {
+          for (let k = 0; k < 2; k++) {
+            const targetW = ((j + k) % 2 === 0) ? 0.9 : -0.65;
+            state.weightsHO[j][k] = +(state.weightsHO[j][k] * decay + effectiveLR * 0.18 * (targetW - state.weightsHO[j][k])).toFixed(2);
+          }
+        }
+
+        // 3. Calcular Pérdida de Entrenamiento y Validación (Sesgo + Gradiente + Overfitting)
+        const biasPenalty = Math.abs(50 - state.diversity) / 50; // 0 (óptimo) a 0.8 (sesgado)
+        const gdDistance = Math.min(1.0, Math.abs(state.gdX - 0.42));
+        const lrInstability = state.learningRate > 0.65 ? (state.learningRate - 0.65) * 1.4 : 0;
+
+        // Train loss siempre tiende a bajar si LR no es caótico
+        const baseTrainLoss = 0.12 + 0.68 * Math.exp(-state.epoch * (0.08 + effectiveLR * 0.25)) + gdDistance * 0.22 + lrInstability;
+        state.trainLoss = Math.max(0.04, Math.min(1.4, baseTrainLoss));
+
+        // Overfitting: ocurre cuando hay ruido, baja regularización y demasiadas épocas (> 14)
+        let overfitPenalty = 0;
+        if (state.hasNoise && state.epoch > 12) {
+          const excessEpochs = state.epoch - 12;
+          const regShield = Math.max(0.15, 1 - state.regularization * 1.8);
+          overfitPenalty = excessEpochs * 0.032 * regShield;
+        }
+
+        state.valLoss = Math.max(0.08, Math.min(1.5, state.trainLoss + biasPenalty * 0.48 + overfitPenalty));
+
+        // Convertir pérdidas a precisión porcentual legible
+        state.trainAcc = Math.max(25, Math.min(99.4, 98 - state.trainLoss * 55));
+        state.valAcc = Math.max(20, Math.min(97.5, 96 - state.valLoss * 56));
+
+        state.lossHistory.push({
+          epoch: state.epoch,
+          trainLoss: state.trainLoss,
+          valLoss: state.valLoss
+        });
+        if (state.lossHistory.length > 40) state.lossHistory.shift();
+
+        // Actualizar UI numérica
+        forwardPass();
+        updateMetricsUI();
+
+        // Mensajes pedagógicos contextuales en consola
+        if (state.epoch % 3 === 0 || steps === 1) {
+          logEpochInsight(overfitPenalty, biasPenalty);
+        }
+      }
+    }
+
+    function logEpochInsight(overfitPenalty, biasPenalty) {
+      if (state.learningRate > 0.65) {
+        addLog(`[Epoch ${state.epoch}] ¡Inestabilidad! LR=${state.learningRate.toFixed(2)} hace rebotar el gradiente (Loss: ${state.trainLoss.toFixed(3)}).`, 'error');
+      } else if (overfitPenalty > 0.22) {
+        addLog(`[Epoch ${state.epoch}] ALERTA OVERFITTING: El modelo memorizó el ruido (Train ${state.trainAcc.toFixed(1)}% vs Val ${state.valAcc.toFixed(1)}%). ¡Detén el entrenamiento o sube Regularización L2!`, 'error');
+      } else if (state.gdStatus === 'ATASCADO (MÍN. LOCAL)' && state.epoch >= 4) {
+        addLog(`[Epoch ${state.epoch}] Gradiente estancado en mínimo local (x=${state.gdX.toFixed(2)}). Aumenta el Learning Rate para cruzar la colina.`, 'warn');
+      } else if (biasPenalty > 0.35 && state.epoch >= 3) {
+        addLog(`[Epoch ${state.epoch}] Train Loss baja (${state.trainLoss.toFixed(3)}), pero el SESGO en los datos impide generalizar en validación.`, 'warn');
+      } else {
+        addLog(`[Epoch ${state.epoch}] Pesos ajustados. Train Acc: ${state.trainAcc.toFixed(1)}% | Val Acc: ${state.valAcc.toFixed(1)}% | Gradiente x=${state.gdX.toFixed(2)}`, 'success');
+      }
+    }
+
+    function forwardPass() {
+      // Simula activaciones propagándose de Input -> Hidden -> Output
+      const t = Date.now() * 0.002;
+      state.activationsIn = [
+        0.75 + 0.15 * Math.sin(t),
+        0.65 + 0.15 * Math.cos(t * 0.8),
+        state.hasNoise ? 0.55 + 0.35 * Math.sin(t * 3.1) : 0.20
+      ];
+
+      for (let j = 0; j < 4; j++) {
+        let sum = 0;
+        for (let i = 0; i < 3; i++) {
+          sum += state.activationsIn[i] * state.weightsIH[i][j];
+        }
+        // ReLU / Sigmoid visual
+        state.activationsHid[j] = 1 / (1 + Math.exp(-sum * 1.5));
+      }
+
+      for (let k = 0; k < 2; k++) {
+        let sum = 0;
+        for (let j = 0; j < 4; j++) {
+          sum += state.activationsHid[j] * state.weightsHO[j][k];
+        }
+        state.activationsOut[k] = 1 / (1 + Math.exp(-sum * 1.5));
+      }
+    }
+
+    function updateMetricsUI() {
+      document.getElementById('epochCount').textContent = state.epoch;
+      document.getElementById('mobileEpoch').textContent = state.epoch;
+      document.getElementById('lossValueDisplay').textContent = state.valLoss.toFixed(3);
+      document.getElementById('trainAccDisplay').textContent = `${state.trainAcc.toFixed(1)}%`;
+      document.getElementById('valAccDisplay').textContent = `${state.valAcc.toFixed(1)}%`;
+      document.getElementById('gdPosText').textContent = (state.gdX >= 0 ? '+' : '') + state.gdX.toFixed(2);
+
+      const overfitAlert = document.getElementById('overfitAlert');
+      if (state.trainAcc - state.valAcc > 14 && state.epoch > 8) {
+        overfitAlert.classList.remove('hidden');
+      } else {
+        overfitAlert.classList.add('hidden');
+      }
+    }
+
+    function toggleAutoTrain() {
+      const btn = document.getElementById('autoTrainBtn');
+      if (state.autoTrainInterval) {
+        stopAutoTrain();
+      } else {
+        btn.textContent = '⏸ Detener';
+        btn.classList.add('bg-[#166CC8]', 'text-white');
+        addLog('Ciclo de entrenamiento continuo iniciado...', 'info');
+        state.autoTrainInterval = setInterval(() => {
+          trainStep(1);
+        }, 650);
+      }
+    }
+
+    function stopAutoTrain() {
+      if (state.autoTrainInterval) {
+        clearInterval(state.autoTrainInterval);
+        state.autoTrainInterval = null;
+      }
+      const btn = document.getElementById('autoTrainBtn');
+      if (btn) {
+        btn.textContent = 'Auto-Entrenar';
+        btn.classList.remove('bg-[#166CC8]', 'text-white');
+      }
+    }
+
+    function resetSimulation(silent = false) {
+      stopAutoTrain();
+      state.epoch = 0;
+      state.lossHistory = [];
+      state.trainLoss = 0.85;
+      state.valLoss = 0.88;
+      state.trainAcc = 52.0;
+      state.valAcc = 48.0;
+      state.gdX = MISSIONS[state.level].initGdX;
+      state.gdHistory = [state.gdX];
+      document.getElementById('gdStateTag').textContent = 'EN RUTA';
+      document.getElementById('gdStateTag').className = 'font-mono-tech text-[10px] px-1.5 py-0.5 bg-[#121822] border border-[#334155] text-[#13EB5B]';
+      initWeights();
+      updateMetricsUI();
+      if (!silent) {
+        addLog('Pesos reiniciados a valores aleatorios iniciales. Listo para nuevo experimento.', 'system');
+      }
+    }
+
+    // --- VALIDACIÓN EN PRODUCCIÓN (EVALUACIÓN DE MISIÓN) ---
+    function validateProduction() {
+      stopAutoTrain();
+      const lvl = state.level;
+      let passed = false;
+      let diagnosis = '';
+      let metricsSummary = `
+        <div class="grid grid-cols-3 gap-2 font-mono-tech text-xs bg-[#070a0f] border border-[#1f2937] p-2.5 my-2">
+          <div><span class="text-[#7c8b9e] block text-[10px]">PRECISIÓN VAL</span><strong class="text-[#13EB5B]">${state.valAcc.toFixed(1)}%</strong></div>
+          <div><span class="text-[#7c8b9e] block text-[10px]">PÉRDIDA VAL</span><strong class="text-white">${state.valLoss.toFixed(3)}</strong></div>
+          <div><span class="text-[#7c8b9e] block text-[10px]">ÉPOCAS</span><strong class="text-[#60a5fa]">${state.epoch}</strong></div>
+        </div>
+      `;
+
+      if (lvl === 1) {
+        const biasDiff = Math.abs(50 - state.diversity);
+        if (state.epoch < 3) {
+          diagnosis = 'El modelo aún no ha sido entrenado suficientes épocas. Ejecuta al menos 4-6 épocas tras equilibrar los datos.';
+        } else if (biasDiff > 15) {
+          diagnosis = `Fallo por SESGO DE CONFIRMACIÓN: Tu dataset sigue desequilibrado (${100 - state.diversity}% vs ${state.diversity}%). En producción, la IA clasificó las peras y manzanas verdes como errores.`;
+        } else if (state.valAcc >= 84) {
+          passed = true;
+          diagnosis = '¡Excelente! Al equilibrar el dataset (50/50) y entrenar la red, el modelo generalizó correctamente sin sesgo hacia un único color.';
+        } else {
+          diagnosis = 'El dataset está equilibrado, pero necesitas entrenar algunas épocas más para reducir la pérdida de validación.';
+        }
+      } else if (lvl === 2) {
+        const strongWeights = state.weightsIH.flat().filter(w => Math.abs(w) > 0.65).length;
+        if (state.epoch < 3 && strongWeights < 4) {
+          diagnosis = 'Las conexiones sinápticas aún son débiles frente al ruido sensorial. Entrena la red o haz clic en las conexiones para reforzar los pesos positivos.';
+        } else if (state.valAcc >= 84) {
+          passed = true;
+          diagnosis = '¡Sinapsis calibradas! Los pesos positivos amplificaron las características reales (Color y Forma) y filtraron el ruido de entrada.';
+        } else {
+          diagnosis = 'El ruido sigue afectando la salida. Continúa entrenando o ajusta manualmente los pesos inhibidores.';
+        }
+      } else if (lvl === 3) {
+        const distGlobal = Math.abs(state.gdX - 0.42);
+        if (distGlobal <= 0.13) {
+          passed = true;
+          diagnosis = `¡Convergencia perfecta! Con un Learning Rate adecuado (${state.learningRate.toFixed(2)}), el descenso de gradiente superó el mínimo local y alcanzó el mínimo global (+0.42).`;
+        } else if (state.gdX < 0) {
+          diagnosis = `El explorador quedó atrapado en un MÍNIMO LOCAL (x=${state.gdX.toFixed(2)}). Sube el Learning Rate (ej. 0.25 - 0.35) y reinicia para darle impulso suficiente.`;
+        } else {
+          diagnosis = `El gradiente osciló demasiado lejos del mínimo global (x=${state.gdX.toFixed(2)}). Reduce ligeramente el Learning Rate para estabilizar el descenso.`;
+        }
+      } else if (lvl === 4) {
+        const gap = state.trainAcc - state.valAcc;
+        if (state.epoch < 4) {
+          diagnosis = 'Entrena el modelo durante unas 8-12 épocas y detente justo antes de que la curva azul de validación empiece a empeorar.';
+        } else if (gap > 14) {
+          diagnosis = `¡OVERFITTING DETECTADO! Entrenaste demasiadas épocas (${state.epoch}) con datos ruidosos. La IA memorizó los ejemplos (Train ${state.trainAcc.toFixed(1)}%) pero falló en el mundo real (Val ${state.valAcc.toFixed(1)}%). Reinicia y aplica Early Stopping o Regularización L2.`;
+        } else if (state.valAcc >= 82) {
+          passed = true;
+          diagnosis = `¡Punto dulce alcanzado! Detuviste el entrenamiento en la época ${state.epoch} (Early Stopping) con una brecha mínima entre entrenamiento y validación.`;
+        } else {
+          diagnosis = 'Aún puedes extraer más aprendizaje antes de que aparezca el sobreajuste. Entrena 2 o 3 épocas más con precaución.';
+        }
+      }
+
+      // Mostrar Modal
+      const modal = document.getElementById('resultModal');
+      const indicator = document.getElementById('modalIndicator');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      const nextBtn = document.getElementById('nextLevelBtn');
+
+      if (passed) {
+        state.completedLevels.add(lvl);
+        document.getElementById(`badge${lvl}`).textContent = 'SUPERADO';
+        document.getElementById(`badge${lvl}`).className = 'text-[#13EB5B] font-bold';
+        document.getElementById('missionStatusBox').textContent = 'COMPLETADO';
+        document.getElementById('missionStatusBox').className = 'px-2 py-1 bg-[#13EB5B]/20 border border-[#13EB5B] text-[#13EB5B] font-bold';
+
+        indicator.className = 'w-3 h-3 bg-[#13EB5B] shadow-[0_0_8px_#13EB5B]';
+        title.textContent = `DESPLIEGUE EXITOSO // MISIÓN 0${lvl} SUPERADA`;
+        body.innerHTML = `${metricsSummary}<p class="text-[#13EB5B] font-medium">${diagnosis}</p>`;
+        nextBtn.classList.remove('hidden');
+        nextBtn.textContent = lvl < 4 ? 'Siguiente Misión →' : 'Reiniciar Campaña';
+        addLog(`VALIDACIÓN EXITOSA: Misión 0${lvl} completada.`, 'success');
+      } else {
+        indicator.className = 'w-3 h-3 bg-red-500 shadow-[0_0_8px_#ef4444]';
+        title.textContent = `FALLO EN PRODUCCIÓN // REVISAR ARQUITECTURA`;
+        body.innerHTML = `${metricsSummary}<p class="text-amber-300">${diagnosis}</p>`;
+        nextBtn.classList.add('hidden');
+        addLog(`VALIDACIÓN FALLIDA: ${diagnosis}`, 'error');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('resultModal').classList.add('hidden');
+    }
+
+    function advanceNextLevel() {
+      closeModal();
+      const next = state.level < 4 ? state.level + 1 : 1;
+      selectLevel(next);
+    }
+
+    // --- CONSOLA DE LOGS ---
+    function addLog(msg, type = 'system') {
+      const container = document.getElementById('logContainer');
+      const entry = document.createElement('div');
+      const now = new Date();
+      const timeStr = `${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+      let colorClass = 'text-slate-300';
+      let prefix = 'SYS';
+      if (type === 'success') { colorClass = 'text-[#13EB5B]'; prefix = 'OK '; }
+      if (type === 'warn') { colorClass = 'text-amber-400'; prefix = 'WRN'; }
+      if (type === 'error') { colorClass = 'text-red-400'; prefix = 'ERR'; }
+      if (type === 'info') { colorClass = 'text-[#60a5fa]'; prefix = 'INF'; }
+
+      entry.className = `${colorClass} border-l-2 pl-2 border-current/40`;
+      entry.innerHTML = `<span class="text-[#7c8b9e]">[${timeStr}]</span> <span class="font-bold">[${prefix}]</span> ${msg}`;
+      container.appendChild(entry);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function clearLogs() {
+      document.getElementById('logContainer').innerHTML = '';
+    }
+
+    // --- INTERACCIÓN DIRECTA CON PESOS DE LA RED NEURONAL ---
+    function setupCanvasInteractions() {
+      const canvas = document.getElementById('nnCanvas');
+      
+      const handleSelect = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        let closest = null;
+        let minDist = 16; // tolerancia en píxeles
+
+        for (const edge of state.edgeHitboxes) {
+          const d = pointToSegmentDistance(x, y, edge.x1, edge.y1, edge.x2, edge.y2);
+          if (d < minDist) {
+            minDist = d;
+            closest = edge;
+          }
+        }
+
+        if (closest) {
+          state.selectedEdge = { layer: closest.layer, i: closest.i, j: closest.j };
+          const w = closest.layer === 'IH'
+            ? state.weightsIH[closest.i][closest.j]
+            : state.weightsHO[closest.i][closest.j];
+
+          document.getElementById('selectedConnLabel').textContent =
+            `${closest.layer}[${closest.i}→${closest.j}]`;
+          document.getElementById('selectedWeightVal').textContent = (w >= 0 ? '+' : '') + w.toFixed(2);
+          document.getElementById('manualWeightSlider').value = w;
+          document.getElementById('weightHud').classList.remove('hidden');
+        }
+      };
+
+      canvas.addEventListener('click', (e) => handleSelect(e.clientX, e.clientY));
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) {
+          handleSelect(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+    }
+
+    function setManualWeight(val) {
+      if (!state.selectedEdge) return;
+      const w = parseFloat(val);
+      const { layer, i, j } = state.selectedEdge;
+      if (layer === 'IH') {
+        state.weightsIH[i][j] = w;
+      } else {
+        state.weightsHO[i][j] = w;
+      }
+      document.getElementById('selectedWeightVal').textContent = (w >= 0 ? '+' : '') + w.toFixed(2);
+      forwardPass();
+      // Pequeña mejora directa en precisión si refuerza rutas útiles
+      if (w > 0.5 && state.level === 2) {
+        state.valAcc = Math.min(92, state.valAcc + 1.8);
+        state.trainAcc = Math.min(94, state.trainAcc + 1.8);
+        updateMetricsUI();
+      }
+    }
+
+    function closeWeightHud() {
+      state.selectedEdge = null;
+      document.getElementById('weightHud').classList.add('hidden');
+    }
+
+    function pointToSegmentDistance(px, py, x1, y1, x2, y2) {
+      const l2 = (x2 - x1) ** 2 + (y2 - y1) ** 2;
+      if (l2 === 0) return Math.hypot(px - x1, py - y1);
+      let t = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / l2;
+      t = Math.max(0, Math.min(1, t));
+      return Math.hypot(px - (x1 + t * (x2 - x1)), py - (y1 + t * (y2 - y1)));
+    }
+
+    // --- RENDERIZADO DE CANVAS (RED NEURONAL, LOSS Y GRADIENTE) ---
+    function resizeAllCanvases() {
+      ['nnCanvas', 'lossCanvas', 'gdCanvas'].forEach(id => {
+        const c = document.getElementById(id);
+        if (!c || !c.parentElement) return;
+        const rect = c.parentElement.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        c.width = rect.width * dpr;
+        c.height = rect.height * dpr;
+        const ctx = c.getContext('2d');
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      });
+    }
+
+    function renderLoop() {
+      state.pulsePhase = (state.pulsePhase + 0.015) % 1;
+      forwardPass();
+      drawNeuralNetwork();
+      drawLossChart();
+      drawGradientDescent();
+      requestAnimationFrame(renderLoop);
+    }
+
+    function drawNeuralNetwork() {
+      const canvas = document.getElementById('nnCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      const padX = Math.max(54, w * 0.14);
+      const colX = [padX, w * 0.5, w - padX];
+      const topPad = 36;
+      const botPad = 42;
+      const usableH = h - topPad - botPad;
+
+      const getNodesY = (count) => {
+        return Array.from({ length: count }, (_, idx) =>
+          topPad + ((idx + 0.5) / count) * usableH
+        );
+      };
+
+      const inY = getNodesY(3);
+      const hidY = getNodesY(4);
+      const outY = getNodesY(2);
+
+      state.edgeHitboxes = [];
+
+      // Dibujar conexiones Input -> Hidden
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+          const weight = state.weightsIH[i][j];
+          const isSelected = state.selectedEdge && state.selectedEdge.layer === 'IH' && state.selectedEdge.i === i && state.selectedEdge.j === j;
+          drawSynapse(ctx, colX[0], inY[i], colX[1], hidY[j], weight, state.activationsIn[i], isSelected);
+          state.edgeHitboxes.push({ layer: 'IH', i, j, x1: colX[0], y1: inY[i], x2: colX[1], y2: hidY[j] });
+        }
+      }
+
+      // Dibujar conexiones Hidden -> Output
+      for (let j = 0; j < 4; j++) {
+        for (let k = 0; k < 2; k++) {
+          const weight = state.weightsHO[j][k];
+          const isSelected = state.selectedEdge && state.selectedEdge.layer === 'HO' && state.selectedEdge.i === j && state.selectedEdge.j === k;
+          drawSynapse(ctx, colX[1], hidY[j], colX[2], outY[k], weight, state.activationsHid[j], isSelected);
+          state.edgeHitboxes.push({ layer: 'HO', i: j, j: k, x1: colX[1], y1: hidY[j], x2: colX[2], y2: outY[k] });
+        }
+      }
+
+      // Etiquetas de Capas superiores
+      ctx.font = '600 10px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#7c8b9e';
+      ctx.textAlign = 'center';
+      ctx.fillText('CAPA ENTRADA', colX[0], 18);
+      ctx.fillText('CAPA OCULTA', colX[1], 18);
+      ctx.fillText('SALIDA', colX[2], 18);
+
+      // Dibujar Nodos Entrada
+      inY.forEach((y, i) => {
+        drawNode(ctx, colX[0], y, state.activationsIn[i], state.inputLabels[i], '#166CC8', 'left');
+      });
+
+      // Dibujar Nodos Ocultos
+      hidY.forEach((y, j) => {
+        drawNode(ctx, colX[1], y, state.activationsHid[j], state.hiddenLabels[j], '#13EB5B', 'bottom');
+      });
+
+      // Dibujar Nodos Salida
+      outY.forEach((y, k) => {
+        const val = state.activationsOut[k];
+        drawNode(ctx, colX[2], y, val, `${state.outputLabels[k]} (${Math.round(val * 100)}%)`, '#13EB5B', 'right');
+      });
+    }
+
+    function drawSynapse(ctx, x1, y1, x2, y2, weight, signal, isSelected) {
+      const mag = Math.min(1.5, Math.abs(weight));
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = isSelected ? 4 : Math.max(0.8, mag * 2.6);
+
+      if (isSelected) {
+        ctx.strokeStyle = '#ffffff';
+      } else if (weight >= 0) {
+        ctx.strokeStyle = `rgba(19, 235, 91, ${0.22 + mag * 0.48})`;
+      } else {
+        ctx.strokeStyle = `rgba(22, 108, 200, ${0.22 + mag * 0.48})`;
+      }
+      ctx.stroke();
+
+      // Pulso de datos viajando por la sinapsis si el peso es relevante
+      if (mag > 0.25) {
+        const px = x1 + (x2 - x1) * state.pulsePhase;
+        const py = y1 + (y2 - y1) * state.pulsePhase;
+        ctx.fillStyle = weight >= 0 ? '#13EB5B' : '#60a5fa';
+        ctx.fillRect(px - 2, py - 2, 4, 4);
+      }
+    }
+
+    function drawNode(ctx, x, y, activation, label, accentColor, labelPos) {
+      const size = 14;
+      // Caja exterior nítida (estilo terminal)
+      ctx.fillStyle = '#090d14';
+      ctx.strokeStyle = activation > 0.55 ? '#13EB5B' : accentColor;
+      ctx.lineWidth = 1.8;
+      ctx.fillRect(x - size, y - size, size * 2, size * 2);
+      ctx.strokeRect(x - size, y - size, size * 2, size * 2);
+
+      // Núcleo interno proporcional a la activación
+      const inner = Math.max(3, (size - 4) * activation);
+      ctx.fillStyle = activation > 0.55 ? 'rgba(19, 235, 91, 0.35)' : 'rgba(22, 108, 200, 0.35)';
+      ctx.fillRect(x - inner, y - inner, inner * 2, inner * 2);
+
+      // Valor numérico dentro del nodo
+      ctx.font = '700 9px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(activation.toFixed(1), x, y);
+
+      // Etiqueta
+      ctx.font = '600 9.5px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#cbd5e1';
+      if (labelPos === 'left') {
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x, y + size + 11);
+      } else if (labelPos === 'right') {
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x, y + size + 11);
+      } else {
+        ctx.textAlign = 'center';
+        ctx.fillText(label, x, y + size + 10);
+      }
+    }
+
+    // --- GRÁFICA DE LOSS FUNCTION & OVERFITTING ---
+    function drawLossChart() {
+      const canvas = document.getElementById('lossCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      const pad = { top: 14, right: 14, bottom: 20, left: 32 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      // Grid horizontal
+      ctx.strokeStyle = '#1f2937';
+      ctx.lineWidth = 1;
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#7c8b9e';
+      ctx.textAlign = 'right';
+
+      for (let i = 0; i <= 4; i++) {
+        const y = pad.top + (plotH * i) / 4;
+        const val = (1.2 * (4 - i) / 4).toFixed(1);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(w - pad.right, y);
+        ctx.stroke();
+        ctx.fillText(val, pad.left - 4, y + 3);
+      }
+
+      if (state.lossHistory.length < 2) {
+        ctx.fillStyle = '#7c8b9e';
+        ctx.textAlign = 'center';
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillText('Ejecuta +1 Epoch para graficar curva de pérdida', w / 2, h / 2);
+        return;
+      }
+
+      const maxLoss = 1.2;
+      const count = state.lossHistory.length;
+
+      // Curva Train Loss (Verde #13EB5B)
+      ctx.beginPath();
+      ctx.strokeStyle = '#13EB5B';
+      ctx.lineWidth = 2;
+      state.lossHistory.forEach((pt, idx) => {
+        const x = pad.left + (idx / Math.max(1, count - 1)) * plotW;
+        const y = pad.top + plotH - (Math.min(maxLoss, pt.trainLoss) / maxLoss) * plotH;
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Curva Validation Loss (Azul #166CC8 o Rojo si sube por Overfitting)
+      const lastPt = state.lossHistory[count - 1];
+      const isOverfit = lastPt.valLoss - lastPt.trainLoss > 0.25 && state.epoch > 8;
+
+      ctx.beginPath();
+      ctx.strokeStyle = isOverfit ? '#ef4444' : '#166CC8';
+      ctx.lineWidth = 2;
+      state.lossHistory.forEach((pt, idx) => {
+        const x = pad.left + (idx / Math.max(1, count - 1)) * plotW;
+        const y = pad.top + plotH - (Math.min(maxLoss, pt.valLoss) / maxLoss) * plotH;
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+
+      // Leyenda interna
+      ctx.font = '9px "JetBrains Mono", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#13EB5B';
+      ctx.fillText('— Train Loss', pad.left + 6, pad.top + 10);
+      ctx.fillStyle = isOverfit ? '#ef4444' : '#60a5fa';
+      ctx.fillText(isOverfit ? '— Val Loss (OVERFIT)' : '— Val Loss', pad.left + 84, pad.top + 10);
+    }
+
+    // --- VISUALIZADOR DE DESCENSO DE GRADIENTE ---
+    function drawGradientDescent() {
+      const canvas = document.getElementById('gdCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.clientWidth;
+      const h = canvas.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      const pad = { top: 16, right: 16, bottom: 20, left: 16 };
+      const plotW = w - pad.left - pad.right;
+      const plotH = h - pad.top - pad.bottom;
+
+      const mapX = (val) => pad.left + ((val + 1.1) / 2.2) * plotW;
+      const mapY = (lossVal) => pad.top + plotH - Math.min(1, Math.max(0, (lossVal - 0.1) / 0.9)) * plotH;
+
+      // Dibujar terreno montañoso (Curva de pérdida)
+      ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const vx = -1.1 + (2.2 * i) / 100;
+        const vy = lossLandscape(vx);
+        const px = mapX(vx);
+        const py = mapY(vy);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.strokeStyle = '#166CC8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Relleno sutil bajo el terreno
+      ctx.lineTo(mapX(1.1), h - pad.bottom);
+      ctx.lineTo(mapX(-1.1), h - pad.bottom);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(22, 108, 200, 0.10)';
+      ctx.fill();
+
+      // Marcar Mínimo Local (-0.45) y Mínimo Global (+0.42)
+      const localX = mapX(-0.45);
+      const localY = mapY(lossLandscape(-0.45));
+      ctx.fillStyle = '#f59e0b';
+      ctx.font = '8.5px "JetBrains Mono", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('MÍN. LOCAL', localX, localY + 14);
+
+      const globalX = mapX(0.42);
+      const globalY = mapY(lossLandscape(0.42));
+      ctx.fillStyle = '#13EB5B';
+      ctx.fillText('MÍN. GLOBAL', globalX, globalY + 14);
+
+      // Rastro histórico de saltos del gradiente
+      if (state.gdHistory.length > 1) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+        ctx.setLineDash([3, 3]);
+        state.gdHistory.forEach((hx, idx) => {
+          const px = mapX(hx);
+          const py = mapY(lossLandscape(hx));
+          if (idx === 0) ctx.moveTo(px, py);
+          else ctx.lineTo(px, py);
+        });
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Bola / Explorador actual
+      const curX = mapX(state.gdX);
+      const curY = mapY(lossLandscape(state.gdX));
+
+      ctx.fillStyle = '#13EB5B';
+      ctx.shadowColor = '#13EB5B';
+      ctx.shadowBlur = 10;
+      ctx.fillRect(curX - 5, curY - 5, 10, 10);
+      ctx.shadowBlur = 0;
+
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(curX - 5, curY - 5, 10, 10);
+    }
+  </script>
+</body>
+</html>

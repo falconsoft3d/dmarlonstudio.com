@@ -118,6 +118,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "El dominó de la mesa de cuatro, ahora en el navegador: una pantalla con un Lienzo que dibuja la mesa y recibe los toques. En el móvil, mejor en horizontal.",
         shows: ["El componente Lienzo del editor de pantallas", "Toda la partida en un app.js normal y corriente", "Sin instalar nada: se juega aquí mismo"],
       },
+      html_architect: {
+        name: "ARCHITECT · El Despertar de los Pesos (web)",
+        text: "Un juego educativo para entender cómo aprende una red neuronal, en cuatro misiones: equilibrar un conjunto de datos sesgado, ajustar los pesos de las conexiones (haciendo clic en ellas), elegir la tasa de aprendizaje para que el descenso de gradiente salga de un mínimo local y parar a tiempo antes del sobreajuste. Con la red dibujada en vivo, las curvas de pérdida, el mapa del gradiente y una consola que explica cada época. Se juega en el navegador.",
+        shows: ["HTML, JavaScript y Canvas, en una sola página", "Una red 3 → 4 → 2 con sus pesos y activaciones en vivo", "Sesgo, pesos, descenso de gradiente y overfitting", "Tailwind para el diseño, sin servidor"],
+      },
       next_world: {
         name: "El mundo en directo (Next.js)",
         text: "Un mapa del mundo con los aviones, los barcos y los trenes que se mueven ahora mismo, con datos públicos de OpenSky, Fintraffic, Renfe y VR. Corre en su propio servidor de Next.js, que descarga y junta los datos; la web los dibuja y se actualiza sola.",
@@ -404,6 +409,11 @@ const TEXT: Record<Lang, DemosText> = {
         name: "Double-Nine Dominoes (web)",
         text: "The four-player dominoes, now in the browser: one screen with a Canvas that draws the table and receives the taps. On a phone, landscape works best.",
         shows: ["The screen editor's Canvas component", "The whole game in a plain app.js", "Nothing to install: play it right here"],
+      },
+      html_architect: {
+        name: "ARCHITECT · The Awakening of the Weights (web)",
+        text: "An educational game to understand how a neural network learns, in four missions: balance a biased dataset, adjust the connection weights (by clicking them), choose the learning rate so gradient descent escapes a local minimum, and stop in time before overfitting. With the network drawn live, the loss curves, the gradient map and a console that explains each epoch. Played in the browser.",
+        shows: ["HTML, JavaScript and Canvas, in a single page", "A 3 → 4 → 2 network with live weights and activations", "Bias, weights, gradient descent and overfitting", "Tailwind for the design, no server"],
       },
       next_world: {
         name: "Live World Map (Next.js)",
@@ -721,6 +731,7 @@ const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
   react_store: { icon: "react", label: "React · Vite" },
   vue_store: { icon: "vue", label: "Vue · Vite" },
   html_domino: { icon: "html", label: "HTML · Canvas" },
+  html_architect: { icon: "html", label: "HTML · Canvas" },
   next_world: { icon: "next", label: "Next.js · API" },
   next_speed: { icon: "next", label: "Next.js · API" },
   next_flights: { icon: "next", label: "Next.js · API" },

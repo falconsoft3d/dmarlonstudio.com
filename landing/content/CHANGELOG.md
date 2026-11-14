@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.140 — 2026-11-14
+
+- Web, demos: nueva demo web **ARCHITECT · El Despertar de los Pesos**, un juego educativo de redes neuronales que se juega en el navegador: cuatro misiones (sesgo de datos, pesos y activación, descenso de gradiente y overfitting) con la red 3 → 4 → 2 dibujada en vivo (sus pesos se cambian con un clic), las curvas de pérdida de entrenamiento y validación, el mapa del gradiente con su mínimo local y global, y una consola que explica cada época. Una sola página en HTML, JavaScript y Canvas, en español y en inglés, con su página de demo, su guía y sus capturas.
+
 ## 1.0.139 — 2026-11-14
 
 - Nueva demo: **Mesa de radio (C++)**, emisoras de internet de todo el mundo en una mesa de mezclas nativa en C++ con FLTK: seis canales con su fader, ▶ y silencio (pueden sonar varias a la vez, cada una a su volumen), pads de colores en dos bancos que buscan emisoras por género en **Radio Browser** (también por nombre y por país), una pantalla con lo que suena en cada canal (metadatos ICY) y el tiempo en el aire, la rueda para sintonizar, REC que graba la emisora tal como llega (en Música › Mesa de radio) y mandos de volumen general, fundido al cambiar de emisora y apagado automático.

@@ -366,6 +366,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Dominó o tranque", text: "Al acabar la mano salen las fichas que quedaban y los tantos de cada pareja; la partida es a 100. Arriba, el botón de recargar empieza otra y el del ojo enseña las fichas de todos." },
     ],
   },
+  html_architect: {
+    intro:
+      "Un laboratorio de redes neuronales en el navegador, hecho como una sola página web en HTML y JavaScript con Canvas: cuatro misiones que enseñan, jugando, por qué una IA aprende bien o mal.",
+    steps: [
+      { title: "Corrija el sesgo", text: "En la misión 1 el conjunto de datos tiene un 90 % de manzanas rojas. Mueva el control de muestras hasta cerca del 50/50, pulse «+1 Epoch» unas cuantas veces (o «Auto-Entrenar») y «Validar en Producción»: si la red generaliza, supera la misión." },
+      { title: "Toque los pesos y el aprendizaje", text: "En la red del centro, haga clic en una conexión para cambiar su peso (verde suma, azul resta). En la misión 3, la bola del mapa de abajo a la derecha está atrapada en un mínimo local: suba la tasa de aprendizaje para que salte la colina hasta el mínimo global, sin pasarse." },
+      { title: "Pare a tiempo", text: "En la misión 4, con datos ruidosos, entrenar de más hace que la red memorice el ruido: la curva de validación sube mientras la de entrenamiento baja. Pare antes (early stopping) o suba la regularización L2, y valide. La consola de abajo explica cada época." },
+    ],
+  },
   next_world: {
     intro: "Una web de Next.js con servidor, hecha con el editor de pantallas: el código de la app termina en una línea // @server y lo que sigue se ejecuta en el servidor. Allí se descargan los aviones de OpenSky, los barcos del AIS del Báltico (Fintraffic) y los trenes de Renfe Cercanías y VR; la web solo llama a server.datos() cada 30 segundos y los dibuja en un Lienzo.",
     steps: [
@@ -741,6 +750,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Tap a tile", text: "You play with Yuniel (opposite) against Mayelín and Osmany. On your turn, the tiles you can play light up: tap one. The rivals play by themselves and whoever can't play passes." },
       { title: "Pick the end", text: "If a tile fits both ends, two golden arrows appear: tap the one you want. The line turns at the edge and the table fits the size of the window." },
       { title: "Domino or blocked game", text: "When the hand ends you see the tiles that were left and each partnership's points; the game is to 100. At the top, the reload button starts another one and the eye shows everyone's tiles." },
+    ],
+  },
+  html_architect: {
+    intro:
+      "A neural network lab in the browser, built as a single web page in HTML and JavaScript with Canvas: four missions that teach, through play, why an AI learns well or badly.",
+    steps: [
+      { title: "Fix the bias", text: "In mission 1 the dataset is 90% red apples. Move the samples slider close to 50/50, press “+1 Epoch” a few times (or “Auto-Train”) and “Validate in Production”: if the network generalizes, you pass the mission." },
+      { title: "Touch the weights and the learning", text: "In the network in the middle, click a connection to change its weight (green adds, blue subtracts). In mission 3, the ball on the bottom-right map is trapped in a local minimum: raise the learning rate so it jumps the hill to the global minimum, without overshooting." },
+      { title: "Stop in time", text: "In mission 4, with noisy data, training too long makes the network memorize the noise: the validation curve goes up while the training one goes down. Stop earlier (early stopping) or raise L2 regularization, and validate. The console at the bottom explains each epoch." },
     ],
   },
   next_world: {

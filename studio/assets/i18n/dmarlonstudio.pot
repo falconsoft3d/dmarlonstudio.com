@@ -381,7 +381,7 @@ msgid ""
 "// También ShowMessage(texto), Ask(pregunta), Close y NumToStr(número)."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart
 msgid "Abrir"
 msgstr ""
 
@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -433,7 +433,7 @@ msgstr ""
 msgid "Borrar todo"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/code_find_panel.dart lib/ui/screens/code_studio.dart
 msgid "Buscar"
 msgstr ""
 
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Calculadora web"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
 msgid "Cantidad"
 msgstr ""
 
@@ -685,7 +685,7 @@ msgstr ""
 msgid "Lista de tareas que se guarda en un archivo de su carpeta."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_pass.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_pass.dart
 msgid "Longitud"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -1397,7 +1397,7 @@ msgstr ""
 msgid "Todo lo que necesita, en un solo lugar"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/ui/screens/budget_screen.dart
 msgid "Total"
 msgstr ""
 
@@ -2679,7 +2679,7 @@ msgstr ""
 msgid "Guardar el archivo de texto"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_web.dart
 msgid "Importe"
 msgstr ""
 
@@ -3311,8 +3311,413 @@ msgstr ""
 msgid "La calculadora como aplicación nativa en C++ con FLTK: el mismo diseño, con el código en C++."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_minilang.dart
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "%"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid ","
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_minilang.dart
 msgid "."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "ARCHIVO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "AUX"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Abra un archivo .bc3 (FIEBDC-3) con «Abrir», arrástrelo sobre el árbol o pruebe el ejemplo: una reforma de vivienda con capítulos, partidas, descompuestos y mediciones."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Abra un presupuesto .bc3 o el ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_pascal_opend.dart
+msgid "Abrir el ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Abrir todos los capítulos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Abrir un presupuesto BC3"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Abrir un presupuesto…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Acerca del Visor BC3"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Altura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Anchura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Beneficio industrial ({0} %)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Busque por código o por texto; Intro pasa al siguiente resultado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "CANTIDAD"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "CAP"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Capítulo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Cerrar los capítulos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
+msgid "Comentario"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_sites.dart
+msgid "Contenido"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Costes indirectos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
+msgid "Código"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Descomposición"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Ejecución material"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Ejecución por contrata"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Ejemplo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "El archivo declara costes indirectos del {0} %, ya incluidos en los precios."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "El archivo dice {0}; calculado: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "El archivo indica un total de {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "El archivo no tiene conceptos de FIEBDC-3 (registros ~C)."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "El árbol, la cabecera, las tablas y el resumen los crea el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Este concepto no tiene descomposición: su precio viene del archivo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Este concepto no tiene líneas de medición."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Este concepto no tiene texto descriptivo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Exportar CSV"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_ccusage.dart
+msgid "Exportar a CSV…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Exportar el presupuesto a CSV"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid "Formato"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Gastos generales ({0} %)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "IMPORTE"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "IVA ({0} %)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Juego de caracteres"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "LAS PARTIDAS DE MAYOR IMPORTE"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Los costes indirectos del archivo ({0} %) se suman al precio de cada partida: así cuadra con sus totales."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "MAQ"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "MAT"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgctxt "bc3"
+msgid "MO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Mano de obra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Maquinaria"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Material"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Materiales"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Mediciones"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Medios auxiliares y porcentajes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Ningún presupuesto abierto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_util_train_monitor.dart
+msgid "Nivel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "No se encontró «{0}»"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "No se pudo leer o escribir el archivo {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "PART"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "PRECIO"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "PRES"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Parcial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Partida"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Partida auxiliar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Partidas sin descomponer"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Porcentaje"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
+msgid "Precio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgctxt "bc3"
+msgid "Presupuesto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Presupuesto exportado a {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Presupuestos FIEBDC-3|*.bc3;*.BC3"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Programa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Propietario"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "RES"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Residuo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Residuos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Resultado {0} de {1} (Intro: el siguiente)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgctxt "bc3"
+msgid "Resumen"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Resumen del presupuesto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgctxt "bc3"
+msgid "Resumen del presupuesto"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Sin clasificar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Subtotal acumulado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Subtotal parcial"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "TOTALES"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Texto y pliego"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Total con IVA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Total medición"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "UNIDAD"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgctxt "bc3"
+msgid "Ud"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Uds"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Un porcentaje se aplica a las líneas anteriores de la descomposición cuyo código empieza como el suyo antes del %."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Un visor nativo en C++ con FLTK de presupuestos FIEBDC-3 (.bc3): árbol de capítulos, partidas y descompuestos, mediciones, textos, totales recalculados, desglose por naturaleza y exportación a CSV."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Ver"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Visor BC3"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Visor BC3 (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Visor BC3 en C++ con FLTK: abre presupuestos FIEBDC-3 con sus capítulos, partidas, descompuestos, mediciones y textos, y recalcula los precios."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "Visor BC3 es una demo de DMarlon Studio hecha en C++ con FLTK. Abre presupuestos en el formato de intercambio FIEBDC-3 (.bc3) que exportan Presto, Arquímedes, Menfis, TCQ y la mayoría de programas de mediciones: capítulos, partidas, descompuestos, mediciones, textos y pliegos. Recalcula los precios a partir de las descomposiciones (con los porcentajes y los costes indirectos) y avisa si no cuadran con el archivo. Solo lee: no cambia nada."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "ejemplo-reforma.bc3"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "{0} conceptos · {1} capítulos · {2} partidas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "¿EN QUÉ SE VA EL DINERO?"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_bc3.dart
+msgid "—"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_blocks.dart
@@ -3463,10 +3868,6 @@ msgid ""
 "Esc o P  pausa   ·   R  empezar otra vez"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
-msgid ","
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "API de administración (Admin API)"
 msgstr ""
@@ -3614,10 +4015,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "Exportado a {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_ccusage.dart
-msgid "Exportar a CSV…"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
@@ -3835,10 +4232,6 @@ msgid ""
 "Se actualiza solo cada 15 minutos (cámbielo en Ajustes). Pulse un día del mapa o una barra para ver su detalle. En Ajustes también puede poner un presupuesto mensual: la app le avisa al pasarlo.\n"
 "\n"
 "Al cerrar la ventana, la app se queda en la barra de menús con lo gastado hoy; su menú enseña la semana, el mes, los últimos 7 días y el gasto por modelo."
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart
-msgid "Ver"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
@@ -4168,10 +4561,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
 msgid "Estados Unidos · Nueva York"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_mp3_player.dart
-msgid "Formato"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_clocks.dart
@@ -5602,10 +5991,6 @@ msgstr ""
 #: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_next_flights.dart
 msgctxt "flight"
 msgid "Origen"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_reports.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_investor.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart
-msgid "Precio"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_util_investor.dart
@@ -14571,10 +14956,6 @@ msgid "Abrazar el contenido"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
-msgid "Abrir el ejemplo"
-msgstr ""
-
-#: lib/code/tk_showcase_pascal_opend.dart
 msgid "Abrir un diseño"
 msgstr ""
 
@@ -14662,10 +15043,6 @@ msgstr ""
 msgid "Colocar una imagen…"
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart
-msgid "Comentario"
-msgstr ""
-
 #: lib/code/tk_showcase_pascal_opend.dart
 msgid "Comentario resuelto"
 msgstr ""
@@ -14728,10 +15105,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
 msgid "Crear un estilo con este color"
-msgstr ""
-
-#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_studio.dart lib/ui/screens/tk_designer.dart
-msgid "Código"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
@@ -15964,10 +16337,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
 msgid "Comunidad"
-msgstr ""
-
-#: lib/code/tk_showcase_sites.dart
-msgid "Contenido"
 msgstr ""
 
 #: lib/code/tk_showcase_sites.dart
@@ -18418,10 +18787,6 @@ msgid "Cancelados"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Capítulo"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cliente %d de Odoo, al día."
 msgstr ""
 
@@ -18867,14 +19232,6 @@ msgid "Los capítulos van en el primer nivel del presupuesto."
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Mano de obra"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Material"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Mismo nivel"
 msgstr ""
 
@@ -18985,10 +19342,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Pagado"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Partida"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pascal_odoo.dart
@@ -20296,10 +20649,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart
 msgid "Mapa de la línea · {0}"
-msgstr ""
-
-#: lib/code/tk_showcase_util_train_monitor.dart
-msgid "Nivel"
 msgstr ""
 
 #: lib/code/tk_showcase_util_train_monitor.dart

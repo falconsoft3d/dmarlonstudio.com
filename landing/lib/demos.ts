@@ -50,6 +50,7 @@ export const DEMO_SEEDS = [
   "pascal_travel",
   "cpp_radio",
   "cpp_blocks",
+  "cpp_bc3",
   "domino",
 ] as const;
 

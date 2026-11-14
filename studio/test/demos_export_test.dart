@@ -63,6 +63,7 @@ const demos = [
   'pascal_travel',
   'cpp_radio',
   'cpp_blocks',
+  'cpp_bc3',
   'domino',
 ];
 

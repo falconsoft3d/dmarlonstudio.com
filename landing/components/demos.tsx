@@ -356,6 +356,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Un juego de bloques que caen, rápido y con mucho brillo: siete piezas, las tres siguientes, la reserva, la pieza fantasma, caída rápida, combos y filas seguidas que dan más puntos, y niveles que aceleran cada 10 filas. Todo en una ciudad de neón de noche, con destellos y chispas al limpiar filas, el texto grande que salta y la pantalla que tiembla con cuatro filas a la vez. En macOS, para Apple Silicon.",
         shows: ["C++17 con FLTK, diseñado en el estudio", "60 fotogramas por segundo con el Timer del diseño", "La ciudad, los bloques de cristal y las chispas, dibujados en código", "Sonidos del sistema de macOS y el récord guardado"],
       },
+      cpp_bc3: {
+        name: "Visor BC3 (C++)",
+        text: "Un visor de presupuestos de obra en el formato FIEBDC-3 (.bc3) que exportan Presto, Arquímedes y casi todos los programas de mediciones. Enseña el árbol del presupuesto con capítulos, partidas y descompuestos (mano de obra, maquinaria, materiales, auxiliares y porcentajes), las mediciones con sus subtotales y fórmulas, los textos y el pliego, y un resumen con los totales, el desglose por naturaleza y las partidas mayores. Recalcula los precios y avisa si no cuadran con el archivo. Busca, exporta a CSV y trae un ejemplo.",
+        shows: ["C++17 con FLTK, diseñado en el estudio", "Los registros ~V, ~K, ~C, ~D, ~T, ~M y ~L, en 850, 437 o ANSI", "Porcentajes con máscara, auxiliares y costes indirectos", "Probado con archivos BC3 de verdad"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -663,6 +668,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "A fast, shiny falling-blocks game: seven pieces, the next three, hold, ghost piece, hard drop, combos and back-to-back lines for more points, and levels that speed up every 10 lines. All in a neon city at night, with flashes and sparks when lines clear, big popping text and the screen shaking on four lines at once. On macOS, for Apple Silicon.",
         shows: ["C++17 with FLTK, designed in the studio", "60 frames per second with the design's Timer", "The city, glass blocks and sparks, drawn in code", "macOS system sounds and the saved best score"],
       },
+      cpp_bc3: {
+        name: "BC3 Viewer (C++)",
+        text: "A viewer for construction budgets in the FIEBDC-3 (.bc3) format exported by Presto, Arquímedes and almost every Spanish quantity surveying program. It shows the budget tree with chapters, items and breakdowns (labour, machinery, materials, auxiliary items and percentages), the measurements with their subtotals and formulas, the texts and specifications, and a summary with the totals, the cost breakdown by type and the largest items. It recalculates the prices and warns if they don't match the file. It searches, exports to CSV and comes with a sample.",
+        shows: ["C++17 with FLTK, designed in the studio", "The ~V, ~K, ~C, ~D, ~T, ~M and ~L records, in 850, 437 or ANSI", "Masked percentages, auxiliary items and indirect costs", "Tested with real BC3 files"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -755,6 +765,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   pascal_travel: { icon: "lazarus", label: "Pascal · Lazarus" },
   cpp_radio: { icon: "cpp", label: "C++ · FLTK" },
   cpp_blocks: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_bc3: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

@@ -319,6 +319,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Suba de nivel", text: "Cada 10 filas sube el nivel y las piezas caen más deprisa; la meta le dice cuánto falta. Esc o P pausa la partida. Su récord se queda guardado y la ciudad brilla igual en español y en inglés." },
     ],
   },
+  cpp_bc3: {
+    intro:
+      "Un visor de presupuestos FIEBDC-3 (.bc3), nativo en C++ con FLTK y diseñado en el estudio. Solo lee: no cambia el archivo.",
+    steps: [
+      { title: "Abra un presupuesto", text: "Pulse «Abrir» y elija un .bc3, arrástrelo sobre el árbol o pulse «Ejemplo» para ver una reforma de vivienda. Lee los juegos de caracteres 850, 437 y ANSI, así que los acentos salen bien." },
+      { title: "Recorra el árbol", text: "A la izquierda, el presupuesto con sus capítulos y partidas, cada uno con su importe; abra una partida para ver sus descompuestos. Al elegir algo, arriba sale su cabecera (unidad, cantidad, precio e importe) y abajo cuatro pestañas: descomposición, mediciones, texto y pliego, y el resumen." },
+      { title: "Compruebe, busque y exporte", text: "El visor recalcula cada precio con su descomposición (porcentajes, auxiliares y costes indirectos) y avisa si no coincide con el archivo. El resumen enseña los totales con gastos generales, beneficio e IVA y en qué se va el dinero. Busque por código o texto (Intro, el siguiente) y exporte capítulos y partidas a CSV." },
+    ],
+  },
   domino: {
     intro:
       "Dominó cubano de doble 9 hecho en Python con tkinter y diseñado en el estudio: una mesa de cuatro con usted y su compañero (Yuniel, enfrente) contra Mayelín y Osmany, que juega la computadora. Las fichas, la mesa y la cadena se dibujan en un lienzo.",
@@ -730,6 +739,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Start playing", text: "Press Enter (or click the well). Move the piece with ← →, rotate it with ↑ or X (Z the other way), drop it faster with ↓ and drop it at once with Space. The shadow shows where it will land; top right, the next three." },
       { title: "Clear lines and chain them", text: "Each full line disappears with a flash. The more at once, the more points: four at a time is best, and two fours in a row are worth half as much again. If you clear with consecutive pieces, the combo adds up. With C you keep a piece on hold to use later." },
       { title: "Level up", text: "Every 10 lines the level goes up and pieces fall faster; the goal tells you how many are left. Esc or P pauses the game. Your best score is saved." },
+    ],
+  },
+  cpp_bc3: {
+    intro:
+      "A viewer for FIEBDC-3 (.bc3) budgets, native in C++ with FLTK and designed in the studio. It only reads: it doesn't change the file.",
+    steps: [
+      { title: "Open a budget", text: "Press “Open” and pick a .bc3, drag it onto the tree or press “Example” to see a home renovation. It reads the 850, 437 and ANSI character sets, so accents come out right." },
+      { title: "Browse the tree", text: "On the left, the budget with its chapters and items, each with its amount; open an item to see its breakdown. When you pick something, its header appears at the top (unit, quantity, price and amount) and four tabs below: breakdown, measurements, text and specifications, and the summary." },
+      { title: "Check, search and export", text: "The viewer recalculates every price from its breakdown (percentages, auxiliary items and indirect costs) and warns if it doesn't match the file. The summary shows the totals with overheads, profit and VAT and where the money goes. Search by code or text (Enter, the next one) and export chapters and items to CSV." },
     ],
   },
   domino: {

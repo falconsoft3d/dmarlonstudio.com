@@ -21,6 +21,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppCcUsage(t),
   tkCppRadio(t),
   tkCppBlocks(t),
+  tkCppBc3(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

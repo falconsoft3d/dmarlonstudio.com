@@ -1357,6 +1357,96 @@ const p20Stamp = `def stamp(writer_page, w, h, draw):
     ov = overlay_page(w + ox, h + oy, lambda c: (c.translate(ox, oy), draw(c, w, h)))
     writer_page.merge_page(ov)`;
 
+// ---- Visor BC3 (C++): fragmentos de Form1.cpp
+const bcDecode = `inline std::string decode(const std::string& raw, const std::string& charset) {
+  std::string cs = upper(trim(charset));
+  bool any = false;
+  if (cs == "UTF-8" || cs == "UTF8") return raw;
+  // Si ya viene en UTF-8 (con acentos), se respeta.
+  if (valid_utf8(raw, any) && any) return raw;
+  const char* const* t = CP850;
+  if (cs == "ANSI" || cs == "1252" || cs == "CP1252" || cs == "WINDOWS-1252") t = CP1252;
+  else if (cs == "437") t = CP437;
+  std::string o;
+  o.reserve(raw.size() + raw.size() / 8);
+  for (unsigned char c : raw) {
+    if (c < 128) o += (char)c;
+    else o += t[c - 128];
+  }
+  return o;
+}`;
+
+const bcPercent = `      if (l.kind == K_PERCENT) {
+        // El código antes del % es la máscara: se aplica a las líneas anteriores que empiezan así.
+        std::string mask = k.code.substr(0, k.code.find('%'));
+        double base = 0;
+        for (auto& p : out)
+          if (p.code.compare(0, mask.size(), mask) == 0) base += p.amount;
+        l.price = base;
+        l.amount = round2(base * q);`;
+
+const bcMeasure = `inline void compute(Measure& m) {
+  double total = 0, since = 0;
+  for (auto& l : m.lines) {
+    double v[4] = {0, 0, 0, 0};
+    bool present[4];
+    for (int k = 0; k < 4; k++) present[k] = num(l.f[k], v[k]);
+    l.has = false;
+    if (l.type == 1) { l.partial = since; l.has = true; since = 0; continue; }
+    if (l.type == 2) { l.partial = total; l.has = true; continue; }
+    if (l.type == 3) {
+      double r;
+      if (eval(l.comment, v, r)) { l.partial = r; l.has = true; }
+    } else {
+      double r = 1;
+      for (int k = 0; k < 4; k++)
+        if (present[k]) { r *= v[k]; l.has = true; }
+      l.partial = l.has ? r : 0;
+    }
+    if (l.has) { total += l.partial; since += l.partial; }
+  }
+  m.computed = total;
+}`;
+
+const bcCi = `  // El CI del ~K: ¿va dentro de los precios de las partidas? Se elige lo que cuadra con el archivo.
+  const Concept* r = b.get(b.root);
+  if (b.ci > 0 && r && r->has_price) {
+    b.ci_mode = false;
+    b.clear_memo();
+    double without = b.total(b.root);
+    b.ci_mode = true;
+    b.clear_memo();
+    double with = b.total(b.root);
+    b.ci_mode = std::fabs(with - r->price) < std::fabs(without - r->price);
+  }`;
+
+const bcItem = `  int draw_item_content(int render) override {
+    int X = label_x(), Y = label_y(), W = label_w() - Fl::scrollbar_size() - 2, H = label_h();
+    if (!render) return X + W;
+    const Budget* b = budget;
+    fl_color(drawbgcolor());
+    fl_rectf(X, Y, W, H);
+    Fl_Color fg = is_selected() ? FL_WHITE : INK;
+    badge(X + 2, Y + (H - 16) / 2, 40, 16, kind);
+    int x = X + 50;
+    fl_font(FL_HELVETICA_BOLD, 13);
+    std::string am = kind == K_PERCENT || !b ? "" : money(amount, b->currency);
+    int aw = am.empty() ? 0 : (int)fl_width(am.c_str()) + 14;
+    fl_color(fg);
+    fl_draw(code.c_str(), x, Y, W, H, FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+    int cw = (int)fl_width(code.c_str()) + 10;
+    const Concept* cc = b ? b->get(code) : nullptr;
+    fl_font(kind == K_CHAPTER || kind == K_ROOT ? FL_HELVETICA_BOLD : FL_HELVETICA, 13);
+    fl_color(is_selected() ? FL_WHITE : kind == K_CHAPTER || kind == K_ROOT ? INK : 0x33415500);
+    if (cc) fl_draw(fit(cc->summary, X + W - x - cw - aw).c_str(), x + cw, Y, W, H, FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
+    if (!am.empty()) {
+      fl_font(kind == K_CHAPTER || kind == K_ROOT ? FL_HELVETICA_BOLD : FL_HELVETICA, 13);
+      fl_color(is_selected() ? FL_WHITE : kind == K_CHAPTER || kind == K_ROOT ? ACCENT : MUTED);
+      fl_draw(am.c_str(), X, Y, W - 8, H, FL_ALIGN_RIGHT | FL_ALIGN_INSIDE);
+    }
+    return X + W;
+  }`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2255,6 +2345,61 @@ const es: Record<string, DemoMade> = {
         title: "6. OCR con el texto en su sitio",
         text: "Cada página escaneada se pinta a 300 ppp y Vision de macOS reconoce las líneas con sus recuadros. Cada línea se escribe invisible (modo de texto 3) y estirada a su ancho: el PDF se ve igual, pero se puede buscar y copiar.",
         code: { file: "app.py", text: p20Ocr },
+      },
+    ],
+  },
+  cpp_bc3: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la barra con la búsqueda y los botones, los dos marcos del árbol y del detalle, la barra de estado, el menú y los diálogos de abrir y guardar; el código de Form1.cpp lee el formato FIEBDC-3, calcula los precios y crea el árbol, las tablas y el resumen.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "El visor: carga el .bc3, llena el árbol y enseña el detalle." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (abrir, ejemplo, exportar, salir), Ver (buscar, abrir y cerrar capítulos, resumen) y Ayuda." },
+        { name: "Search", kind: "Entry", text: "La búsqueda por código o texto; Intro pasa al siguiente resultado." },
+        { name: "BtnOpen, BtnSample, BtnExport", kind: "Button", text: "Abrir un .bc3, abrir el ejemplo y exportar a CSV." },
+        { name: "TreeHost, DetailHost", kind: "Frame", text: "Donde el código pone el árbol (Fl_Tree) y el detalle (cabecera, Fl_Tabs y tablas)." },
+        { name: "DlgOpen, DlgSave", kind: "OpenDialog / SaveDialog", text: "Los diálogos nativos para elegir el .bc3 y el CSV." },
+        { name: "Status", kind: "StatusBar", text: "El archivo, el formato, el programa, los conceptos y el total." },
+      ],
+      apis: [
+        "FLTK: Fl_Tree con nodos propios (Fl_Tree_Item::draw_item_content), Fl_Table_Row, Fl_Tabs y Fl_Text_Display",
+        "El formato FIEBDC-3 leído en el código, sin bibliotecas: registros, juegos de caracteres y cálculos",
+        "fl_open_callback: abrir un .bc3 desde el Finder; arrastrar y soltar sobre el árbol",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba un Frame con el título, la búsqueda (Entry) y tres botones; debajo, dos Frames para el árbol y el detalle; la barra de estado, el Menu y los diálogos de abrir y guardar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae los widgets y los métodos virtuales Search_enter, BtnOpen_click, BtnSample_click, BtnExport_click y Menu1_click; Form1 crea dentro de los marcos el Fl_Tree, las pestañas y las tablas.",
+        shot: "generated",
+      },
+      {
+        title: "3. Los acentos de cada programa",
+        text: "FIEBDC-3 dice en el registro ~V su juego de caracteres: 850 (el de por defecto), 437 o ANSI. Se pasa todo a UTF-8 con una tabla por juego; si el archivo ya viene en UTF-8, se respeta.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: bcDecode },
+      },
+      {
+        title: "4. Porcentajes con máscara",
+        text: "Un concepto con % (medios auxiliares, herramientas…) no tiene precio propio: se aplica a las líneas anteriores de la descomposición. Lo que va antes del % es una máscara: «MO%AUX» solo suma las líneas cuyo código empieza por «MO».",
+        code: { file: "Form1.cpp", text: bcPercent },
+      },
+      {
+        title: "5. Mediciones con subtotales y fórmulas",
+        text: "Cada línea de medición multiplica las unidades, la longitud, la anchura y la altura que traiga. El tipo 1 es un subtotal parcial, el 2 uno acumulado y el 3 una fórmula con a, b, c y d, que evalúa un pequeño analizador.",
+        code: { file: "Form1.cpp", text: bcMeasure },
+      },
+      {
+        title: "6. ¿Los costes indirectos van dentro?",
+        text: "Unos programas dejan el CI del registro ~K dentro de cada partida y otros no. El visor calcula el total de las dos maneras y se queda con la que cuadra con el importe del archivo; si nada cuadra, lo avisa en la cabecera.",
+        code: { file: "Form1.cpp", text: bcCi },
       },
     ],
   },
@@ -3158,6 +3303,61 @@ const en: Record<string, DemoMade> = {
         title: "6. OCR with text in place",
         text: "Each scanned page is rendered at 300 dpi and macOS Vision recognizes the lines with their boxes. Each line is written invisibly (text mode 3) and stretched to its width: the PDF looks the same, but can be searched and copied.",
         code: { file: "app.py", text: p20Ocr },
+      },
+    ],
+  },
+  cpp_bc3: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the bar with the search and the buttons, the two frames for the tree and the detail, the status bar, the menu and the open and save dialogs; the code in Form1.cpp reads the FIEBDC-3 format, calculates the prices and builds the tree, the tables and the summary.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The viewer: loads the .bc3, fills the tree and shows the detail." },
+        { name: "Menu1", kind: "Menu", text: "File (open, sample, export, quit), View (search, expand and collapse chapters, summary) and Help." },
+        { name: "Search", kind: "Entry", text: "Search by code or text; Enter jumps to the next result." },
+        { name: "BtnOpen, BtnSample, BtnExport", kind: "Button", text: "Open a .bc3, open the sample and export to CSV." },
+        { name: "TreeHost, DetailHost", kind: "Frame", text: "Where the code puts the tree (Fl_Tree) and the detail (header, Fl_Tabs and tables)." },
+        { name: "DlgOpen, DlgSave", kind: "OpenDialog / SaveDialog", text: "The native dialogs to pick the .bc3 and the CSV." },
+        { name: "Status", kind: "StatusBar", text: "The file, format, program, concepts and total." },
+      ],
+      apis: [
+        "FLTK: Fl_Tree with its own items (Fl_Tree_Item::draw_item_content), Fl_Table_Row, Fl_Tabs and Fl_Text_Display",
+        "The FIEBDC-3 format read in code, no libraries: records, character sets and calculations",
+        "fl_open_callback: open a .bc3 from the Finder; drag and drop onto the tree",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top a Frame with the title, the search (Entry) and three buttons; below, two Frames for the tree and the detail; the status bar, the Menu and the open and save dialogs.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) has the widgets and the virtual methods Search_enter, BtnOpen_click, BtnSample_click, BtnExport_click and Menu1_click; Form1 creates the Fl_Tree, the tabs and the tables inside the frames.",
+        shot: "generated",
+      },
+      {
+        title: "3. Each program's accents",
+        text: "FIEBDC-3 states its character set in the ~V record: 850 (the default), 437 or ANSI. Everything is converted to UTF-8 with one table per set; if the file is already UTF-8, it is kept.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: bcDecode },
+      },
+      {
+        title: "4. Masked percentages",
+        text: "A concept with % (auxiliary means, tools…) has no price of its own: it applies to the previous lines of the breakdown. What comes before the % is a mask: “MO%AUX” only adds the lines whose code starts with “MO”.",
+        code: { file: "Form1.cpp", text: bcPercent },
+      },
+      {
+        title: "5. Measurements with subtotals and formulas",
+        text: "Each measurement line multiplies the units, length, width and height it has. Type 1 is a partial subtotal, 2 a running one and 3 a formula with a, b, c and d, evaluated by a small parser.",
+        code: { file: "Form1.cpp", text: bcMeasure },
+      },
+      {
+        title: "6. Are indirect costs included?",
+        text: "Some programs leave the ~K record's indirect costs inside each item and others don't. The viewer works out the total both ways and keeps the one that matches the file's amount; if nothing matches, the header says so.",
+        code: { file: "Form1.cpp", text: bcCi },
       },
     ],
   },

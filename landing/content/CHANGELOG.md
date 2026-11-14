@@ -3,6 +3,16 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.144 — 2026-11-14
+
+- Nueva demo: **Visor BC3 (C++)**, un visor nativo con FLTK de presupuestos de obra en el formato de intercambio **FIEBDC-3 (.bc3)** que exportan Presto, Arquímedes y casi todos los programas de mediciones:
+  - Lee los registros ~V, ~K, ~C, ~D, ~Y, ~T, ~M y ~L, en los juegos de caracteres 850, 437 y ANSI (y UTF-8), con registros partidos en varias líneas, sinónimos y referencias a capítulos sin el «#».
+  - Un árbol con el presupuesto, los capítulos y subcapítulos, las partidas y sus descompuestos (mano de obra, maquinaria, materiales, auxiliares y porcentajes), cada uno con su insignia e importe; las ramas se llenan al abrirlas.
+  - Para cada concepto: cabecera con unidad, cantidad, precio e importe; la descomposición (clic en una línea para bajar a ella), las mediciones con subtotales parciales, acumulados y fórmulas, y el texto con el pliego de condiciones.
+  - Recalcula los precios con sus reglas: porcentajes con máscara («MO%AUX» solo sobre la mano de obra), partidas auxiliares, redondeo al céntimo y los costes indirectos del ~K (se usa la forma que cuadra con el archivo); si un precio no coincide con el del archivo, lo avisa. Probado con archivos BC3 reales de otros programas.
+  - Resumen del presupuesto: datos del archivo, ejecución material, gastos generales, beneficio industrial, ejecución por contrata e IVA, en qué se va el dinero (mano de obra, maquinaria, materiales…) y las partidas de mayor importe.
+  - Búsqueda por código o texto (sin acentos; Intro pasa al siguiente), exportación de capítulos y partidas a CSV, arrastrar y soltar, abrir desde el Finder y un presupuesto de ejemplo (reforma de vivienda). En español y en inglés.
+
 ## 1.0.143 — 2026-11-14
 
 - Nueva demo web: **RUTA PELIGROSA**, un juego de ruta para que los conductores de cargas peligrosas de Argentina aprendan la ley manejando una cisterna, con estilo de juego de mundo abierto (minimapa, estrellas de infracción, misiones) y nombres propios:

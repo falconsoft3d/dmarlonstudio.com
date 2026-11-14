@@ -48,6 +48,7 @@ const demos = {
   notepad: ['notebook-pen', '#fcd34d', '#d9a400'],
   pascal_odoo: ['database-backup', '#a2708a', '#5a3a52'],
   pdf_editor: ['file-text', '#ff6b6b', '#c81e1e'],
+  pdf20: ['files', '#fb7185', '#7c2d12'],
   port_scanner: ['radar', '#2dd4bf', '#0b7f79'],
   pos: ['shopping-cart', '#60a5fa', '#1d4ed8'],
   train_monitor: ['train-front', '#4b5d7a', '#1c2a44'],

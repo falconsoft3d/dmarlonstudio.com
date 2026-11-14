@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -809,11 +809,11 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
+#: lib/code/tk_examples.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/screens/dev_tools.dart lib/ui/screens/project_browser.dart
 msgid "Tipo"
 msgstr ""
 
@@ -1937,7 +1937,7 @@ msgstr ""
 msgid "Ninguna"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Nombre del archivo"
 msgstr ""
 
@@ -1961,7 +1961,7 @@ msgstr ""
 msgid "Orden"
 msgstr ""
 
-#: lib/code/tk_model.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Orientación"
 msgstr ""
 
@@ -1989,7 +1989,7 @@ msgstr ""
 msgid "Por defecto"
 msgstr ""
 
-#: lib/code/tk_model.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_model.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Posición"
 msgstr ""
 
@@ -3463,7 +3463,7 @@ msgid ""
 "Esc o P  pausa   ·   R  empezar otra vez"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid ","
 msgstr ""
 
@@ -3535,7 +3535,7 @@ msgstr ""
 msgid "Crear una clave…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_pascal_odoo.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Cómo funciona"
 msgstr ""
 
@@ -3580,7 +3580,7 @@ msgstr ""
 msgid "El uso de Claude Code nativo en C++ con FLTK: tokens, coste y sesiones de cada día en un mapa de calor como el de GitHub, por modelo y por proyecto, desde los registros del equipo o la API de administración, y en la barra de menús con lo gastado hoy."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
 msgid "Elegir…"
 msgstr ""
 
@@ -4170,7 +4170,7 @@ msgstr ""
 msgid "Estados Unidos · Nueva York"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_mp3_player.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_mp3_player.dart
 msgid "Formato"
 msgstr ""
 
@@ -4250,7 +4250,7 @@ msgstr ""
 msgid "Puerto Rico · San Juan"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr ""
 
@@ -4805,7 +4805,7 @@ msgstr ""
 msgid "Añadir marcador…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Bajar"
 msgstr ""
 
@@ -5022,7 +5022,7 @@ msgstr ""
 msgid "Imagen {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Imágenes"
 msgstr ""
 
@@ -5214,7 +5214,7 @@ msgstr ""
 msgid "Solo lectura"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Subir"
 msgstr ""
 
@@ -5226,7 +5226,7 @@ msgstr ""
 msgid "Sí"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Tamaño"
 msgstr ""
 
@@ -6392,7 +6392,7 @@ msgstr ""
 msgid "Reposo del equipo tras"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_hardware.dart
+#: lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Resolución"
 msgstr ""
 
@@ -6793,7 +6793,7 @@ msgstr ""
 msgid "Clic: color frontal · Alt+clic: color de fondo · I"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Color"
 msgstr ""
 
@@ -6877,7 +6877,7 @@ msgstr ""
 msgid "Eliminar capa"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Elipse"
 msgstr ""
 
@@ -7186,7 +7186,7 @@ msgstr ""
 msgid "Recortar a la selección"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
+#: lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Rectángulo"
 msgstr ""
 
@@ -7455,7 +7455,7 @@ msgstr ""
 msgid "Escucha y escribe lo que oyes"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_minilang.dart
+#: lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Español"
 msgstr ""
 
@@ -7507,7 +7507,7 @@ msgstr ""
 msgid "Importar un paquete…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_minilang.dart
+#: lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Inglés"
 msgstr ""
 
@@ -15062,7 +15062,7 @@ msgstr ""
 msgid "Lun"
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Línea"
 msgstr ""
 
@@ -15546,7 +15546,7 @@ msgstr ""
 msgid "Lo ha preparado Claude Code con lugares que existen de verdad. Horarios, precios y aperturas cambian: compruébelos antes de ir."
 msgstr ""
 
-#: lib/code/tk_showcase_pascal_travel.dart
+#: lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart
 msgid "Lugar"
 msgstr ""
 
@@ -16179,7 +16179,7 @@ msgstr ""
 msgid "La página se genera al abrirla (form_create)."
 msgstr ""
 
-#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Las contraseñas no coinciden."
 msgstr ""
 
@@ -16555,6 +16555,924 @@ msgstr ""
 msgid "← Volver al inicio"
 msgstr ""
 
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid " y {0} más"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "(hoja vacía)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-anotado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-censurado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-comprimido"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-editado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-extracto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-firmado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-girado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-marca"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-numerado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-ocr"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-ordenado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-protegido"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "-sin-clave"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "180°"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "20pdf"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "20pdf es una demo de DMarlon Studio hecha en Python con tkinter: la ventana se diseñó en el Diseñador del estudio y las 20 herramientas están en su código, con pypdf, pypdfium2, reportlab, python-docx, openpyxl, python-pptx, pdfminer.six y pyHanko, y Vision de macOS para el OCR."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "90° a la derecha"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "90° a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Abajo a la derecha"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Abajo a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Abajo en el centro"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/ui/screens/code_studio.dart
+msgid "Abrir carpeta"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Abrir la carpeta de resultados"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Acerca de 20pdf"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Al hacer clic"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Anotar y dibujar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Apaisada"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Archivo ({0})"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart
+msgid "Archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Archivos ({0})"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Arrastre recuadros sobre lo que quiere censurar o escriba las palabras que hay que buscar."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Arriba a la derecha"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Arriba a la izquierda"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Arriba en el centro"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Automática"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añada notas adhesivas, resaltados, rectángulos, elipses, líneas y textos como anotaciones del PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añada primero los archivos."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añada un archivo con el botón «Añadir…» para verlo aquí"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añade la numeración («Página 3 de 10») arriba o abajo y, si quiere, un encabezado o un pie con su texto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añadir archivos…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Añadir la marca de agua"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_mp3_player.dart
+msgid "Añadir…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Borrar el dibujo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "CONFIDENCIAL"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "CONVERSIÓN"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Cada N páginas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Cada página en su archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Censurar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Censurar información"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Cifra el PDF con AES-256: una contraseña para abrirlo y permisos para imprimir, copiar o modificar."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Clic en la página: dónde va la firma visible. Si no, abajo a la izquierda de la página que se vea."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Clic en las miniaturas para elegirlas; muévalas, gírelas o elimínelas con los botones de las opciones."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Clic: poner el texto o la imagen. Arrastrar: tapar con un recuadro blanco (para cambiar lo que pone)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Clic: una nota adhesiva. Arrastrar: resaltado, rectángulo, elipse, línea o texto (según el tipo)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Compresión"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Comprimir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Comprimir PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Con el texto editable"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Confirme que tiene permiso para quitar la contraseña."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Conforme"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Contraseña (si tiene)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Contraseña de permisos (opcional)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Contraseña del PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Contraseña para abrirlo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Conversor"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convertir a PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convertir a PowerPoint"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convertir a Word"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convertir a imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convierte documentos de Word (.docx) en PDF. Con LibreOffice instalado, idéntico al original; si no, con el conversor propio, que respeta títulos, negritas, listas, tablas e imágenes."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convierte las hojas de un Excel (.xlsx) en tablas limpias dentro de un PDF: cabecera de color, filas alternas, celdas unidas y la página apaisada si no cabe."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convierte las páginas de un PDF en imágenes de alta resolución (72, 150 o 300 ppp), todas o las que diga."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Convierte un PDF en una presentación (.pptx): cada página es una diapositiva exacta con su texto en las notas, o con el texto en cuadros editables."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Correo (opcional)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Desbloquear"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Desbloquear PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Deshacer el último"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Diapositivas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Dividir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Dividir PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Documentos PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Documentos de Word"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "EDICIÓN"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Editar texto e imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Elija al menos una página."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid ""
+"Elija una herramienta a la izquierda, añada sus archivos (o arrástrelos con Archivo › Añadir archivos…), ajuste las opciones y pulse el botón de abajo. El resultado se guarda junto al original (o en la carpeta que elija), sin tocar el archivo de partida.\n"
+"\n"
+"En Editar, Anotar, Censurar y Firmar se trabaja sobre la vista previa: haga clic para poner un texto, una nota o la firma, y arrastre para dibujar un recuadro. En Organizar, haga clic en las miniaturas para elegirlas y use los botones de las opciones.\n"
+"\n"
+"Todo se hace en su equipo: ningún archivo sale a internet. El OCR usa el reconocimiento de texto del Mac."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Elija una herramienta y añada sus archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Eliminar las elegidas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Empezar en"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "En diagonal"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Encabezado o pie"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Escriba la contraseña nueva."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Escriba texto nuevo, ponga imágenes o tape lo que quiera cambiar, directamente sobre la página."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Escribir texto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Esta herramienta solo usa archivos {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Este PDF no tiene firmas digitales."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Exactas (texto en las notas)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Excel a PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Extraer"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Extraer páginas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Faltan paquetes de Python: {0}. Instálelos con: {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firma"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firma dibujada"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firma digital verificable (PAdES) con un certificado propio que la app crea la primera vez, visible en la página con su firma dibujada. También verifica las firmas de un PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid ""
+"Firmado digitalmente por %(signer)s\n"
+"Fecha: %(ts)s"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firmado digitalmente por {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firmante"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firmar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Firmar PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Fuerte (más pequeño)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Gira 90°, 180° o 270° todas las páginas o las que diga: para escaneos de lado o del revés."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Giro"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guarda las páginas que elija en un PDF nuevo, o cada una en su propio archivo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guardar el PDF ordenado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guardar en: la carpeta del archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guardar en: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guardar las anotaciones"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Guardar los cambios"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Hecho: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Hojas de Excel"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Idioma del texto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Insertar una página en blanco"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "La contraseña de «{0}» no es correcta."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Las páginas «{0}» no existen (el PDF tiene {1})"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "LibreOffice si está; si no, el propio"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Ligera (más calidad)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Logotipo (en vez del texto)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Marca de agua"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Marque primero en la vista previa lo que quiere hacer."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Media"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Motivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Mover después  ▶"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "N"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "NO íntegra: se ha cambiado después de firmarla"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "No entiendo las páginas «{0}» (escriba algo como 1-3, 5)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "No hay nada que censurar: ni recuadros ni palabras encontradas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "No se ha podido: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Nombre del firmante"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Nota adhesiva (clic)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Numerar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Numerar páginas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "OCR (texto en escaneos)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "OPTIMIZACIÓN"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "ORGANIZACIÓN"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Opacidad (%)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_windows.dart
+msgid "Opciones"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Ordene, gire, elimine o inserte páginas en blanco viendo las miniaturas; con varios PDF, sus páginas se juntan."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Organizar páginas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "PDF a JPG / PNG"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "PDF a PowerPoint"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "PDF a Word"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "PDF ordenado: {0} páginas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Palabras a censurar (separadas por comas)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Para el OCR en este sistema hace falta Tesseract y pytesseract."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Para el OCR hace falta el paquete pyobjc-framework-Vision."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Para unir hacen falta al menos dos PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Permitir copiar el texto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Permitir imprimir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Permitir modificarlo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Pone un texto o un logotipo semitransparente en todas las páginas, en diagonal o recto."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Poner una imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Por tramos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Proteger"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Proteger con contraseña"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Página {0} de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Página {n} de {total}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Páginas (vacío: todas)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Quita la contraseña de un PDF del que usted conoce la clave y tiene permiso para hacerlo."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Quitar todos los archivos"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Reconoce el texto de las páginas escaneadas y lo añade invisible en su sitio: el PDF se ve igual, pero se puede buscar y copiar."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Reconocer el texto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Recto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Reduce el tamaño: vuelve a comprimir las imágenes y el contenido y quita lo repetido."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Repítala"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Resaltado"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Revisar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Rotar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Rotar páginas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "SEGURIDAD Y FIRMA"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Saca el texto de un PDF a un Word (.docx) que se puede editar, con sus títulos, tamaños y negritas; las páginas escaneadas van como imagen."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Separa un PDF en varios: uno por página, cada N páginas o por los tramos que diga."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Sin número en la portada"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Solo tapar (arrastrando)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "También las páginas que ya tienen texto"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Tape con negro datos confidenciales (marcando recuadros o buscando palabras): se borran de verdad del archivo, no solo se tapan."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Tengo permiso para quitar la contraseña"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Texto nuevo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Trabajando…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Trabajando… {0} de {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Tramos (separados por ;)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Una página por archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Una suite de PDF con 20 herramientas en Python con tkinter: convertir de y a Word, Excel, PowerPoint e imágenes, editar, marcas de agua, numerar, rotar, anotar, unir, dividir, organizar, extraer, proteger, desbloquear, firmar, censurar, comprimir y OCR."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Une varios PDF en uno solo, en el orden de la lista (súbalos o bájelos con Subir y Bajar)."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Unir"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Unir PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Verificar las firmas de un PDF…"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Vertical"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Vista previa"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Volver a empezar"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Word a PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "certificado de confianza"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "certificado desconocido (no es de este equipo)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "el conversor propio"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "la carpeta del archivo"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "pág."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "unido"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid ""
+"{0}\n"
+"{1} · {2}\n"
+"{3}"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} PDF protegidos con AES-256."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} PDF sin contraseña."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} PDF unidos: {1} páginas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} anotaciones añadidas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} archivos creados."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} cambios aplicados."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} documentos convertidos (con {1})."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} imágenes a {1} ppp."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} líneas de texto reconocidas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} páginas extraídas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} páginas · {1} elegidas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0} zonas censuradas en {1} páginas."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0}: de {1} a {2} (−{3} %)"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "{0}: la vista previa es solo para PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "«{0}» tiene contraseña: escríbala en las opciones."
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "Íntegra: no se ha cambiado desde que se firmó"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "↻  Girar las elegidas"
+msgstr ""
+
+#: lib/code/tk_showcase_util_20pdf.dart
+msgid "◀  Mover antes"
+msgstr ""
+
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid " (sin permiso)"
 msgstr ""
@@ -16581,10 +17499,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
 msgid "Aquí verá el mapa de lo que ocupa la carpeta."
-msgstr ""
-
-#: lib/code/tk_showcase_util_disk_usage.dart
-msgid "Archivos"
 msgstr ""
 
 #: lib/code/tk_showcase_util_disk_usage.dart
@@ -17129,10 +18043,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_web.dart
 msgid "Añadir canciones"
-msgstr ""
-
-#: lib/code/tk_showcase_util_mp3_player.dart
-msgid "Añadir…"
 msgstr ""
 
 #: lib/code/tk_showcase_util_mp3_player.dart
@@ -18548,10 +19458,6 @@ msgid "Dividir por páginas…"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Documentos PDF"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Editor de PDF"
 msgstr ""
 
@@ -18601,10 +19507,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Girar a la izquierda"
-msgstr ""
-
-#: lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Giro"
 msgstr ""
 
 #: lib/code/tk_showcase_util_pdf_editor.dart
@@ -19951,10 +20853,6 @@ msgid "Nueva nota"
 msgstr ""
 
 #: lib/code/tk_showcase_windows.dart
-msgid "Opciones"
-msgstr ""
-
-#: lib/code/tk_showcase_windows.dart
 msgid "Opciones (modal)…"
 msgstr ""
 
@@ -20980,10 +21878,6 @@ msgstr ""
 
 #: lib/ui/screens/code_studio.dart
 msgid "Abra un archivo para preguntar sobre él."
-msgstr ""
-
-#: lib/ui/screens/code_studio.dart
-msgid "Abrir carpeta"
 msgstr ""
 
 #: lib/ui/screens/code_studio.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart

@@ -121,6 +121,7 @@ export const manualEs: Manual = {
                 ["**Tienda web**", "Tienda de electrónica: ofertas, carrito, cuentas, pago simulado, «Mi cuenta» y panel de ventas y stock"],
                 ["**Contactos de Odoo / ERPSqlite** (web)", "Conectarse a un Odoo por XML-RPC"],
                 ["**Editor de PDF**", "Un paquete de pip (`pypdf`): girar, ordenar, unir, extraer y dividir páginas, sello de texto, contraseña y deshacer"],
+                ["**20pdf**", "Una suite de PDF en Python con tkinter con 20 herramientas: Word, Excel y PowerPoint a y desde PDF (python-docx, openpyxl, python-pptx, pdfminer.six y reportlab; con LibreOffice, Word idéntico), PDF a imágenes (pypdfium2), editar, marca de agua, numerar, rotar, anotar, unir, dividir, organizar con miniaturas y extraer (pypdf), proteger con AES-256, desbloquear, firma PAdES verificable (pyHanko, certificado propio y firma dibujada), censura de verdad (las páginas tocadas pasan a imagen), comprimir y OCR (Vision de macOS) con el texto invisible en su sitio."],
                 ["**Espacio en disco**", "Análisis en segundo plano sin congelar la ventana: árbol de carpetas, archivos más grandes y totales por tipo"],
                 ["**Escáner de puertos**", "Red con sockets y muchas conexiones en paralelo, con progreso y exportación a CSV"],
                 ["**Inversor de bolsa (demo)**", "Precios simulados en vivo, compra y venta con comisión, cartera guardada y gráfico"],

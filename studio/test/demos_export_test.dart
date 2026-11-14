@@ -31,6 +31,7 @@ const demos = [
   'calculator',
   'notepad',
   'pdf_editor',
+  'pdf20',
   'disk_usage',
   'port_scanner',
   'investor',

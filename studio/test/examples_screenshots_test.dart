@@ -99,6 +99,7 @@ const carousel = [
   'vue_store',
   'go_store',
   'pdf_editor',
+  'pdf20',
   'disk_usage',
   'port_scanner',
   'investor',
@@ -110,7 +111,7 @@ const carousel = [
 
 /// Los ejemplos con «Cómo se hizo» en su página de demo: también la pestaña
 /// Código (<ejemplo>-code.png) y la del código generado (<ejemplo>-generated.png).
-const made = {'pascal_docker', 'pascal_launcher', 'cpp_webmon', 'cpp_clocks', 'cpp_recorder', 'cpp_mywa', 'cpp_minilang', 'cpp_pass', 'pascal_opend', 'cpp_ccusage', 'pascal_travel', 'cpp_radio', 'cpp_blocks'};
+const made = {'pascal_docker', 'pascal_launcher', 'cpp_webmon', 'cpp_clocks', 'cpp_recorder', 'cpp_mywa', 'cpp_minilang', 'cpp_pass', 'pascal_opend', 'cpp_ccusage', 'pascal_travel', 'cpp_radio', 'cpp_blocks', 'pdf20'};
 
 /// DMS_SEEDS=a,b: solo esas capturas.
 final _only = (Platform.environment['DMS_SEEDS'] ?? '')

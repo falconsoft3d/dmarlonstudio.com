@@ -129,6 +129,7 @@ export const es: Content = {
       { seed: "go_store", name: "Tienda web (Go)", text: "Un servidor en Go con API REST que guarda los pedidos." },
       { seed: "pos", name: "Punto de venta", text: "Un TPV al estilo del de Odoo: teclado, cobro, ticket y ventas en SQLite." },
       { seed: "investor", name: "Inversor de bolsa (demo)", text: "Compra y venta con precios simulados en vivo, cartera y gráfico." },
+      { seed: "pdf20", name: "20pdf", text: "Las 20 herramientas de PDF: convertir, editar, unir, proteger, firmar, censurar, comprimir y OCR." },
       { seed: "pdf_editor", name: "Editor de PDF", text: "Girar, ordenar, unir, dividir y proteger PDF con pypdf." },
       { seed: "disk_usage", name: "Espacio en disco", text: "Qué ocupa cada carpeta y los archivos más grandes, sin congelar la ventana." },
       { seed: "port_scanner", name: "Escáner de puertos", text: "Conexiones TCP en paralelo con progreso y exportación a CSV." },

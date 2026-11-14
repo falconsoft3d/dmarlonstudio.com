@@ -129,6 +129,7 @@ export const en: Content = {
       { seed: "go_store", name: "Web shop (Go)", text: "A Go server with a REST API that saves the orders." },
       { seed: "pos", name: "Point of sale", text: "A POS in the style of Odoo's: keypad, payment, receipt and sales in SQLite." },
       { seed: "investor", name: "Stock investor (demo)", text: "Buying and selling with live simulated prices, a portfolio and a chart." },
+      { seed: "pdf20", name: "20pdf", text: "The 20 PDF tools: convert, edit, merge, protect, sign, redact, compress and OCR." },
       { seed: "pdf_editor", name: "PDF editor", text: "Rotate, reorder, merge, split and protect PDFs with pypdf." },
       { seed: "disk_usage", name: "Disk space", text: "What each folder takes up and the largest files, without freezing the window." },
       { seed: "port_scanner", name: "Port scanner", text: "Parallel TCP connections with progress and CSV export." },

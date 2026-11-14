@@ -13,7 +13,8 @@ compilan una vez por idioma y los dos ejecutables van juntos. Queda en
 <salida>/<ejemplo>-<macOS|Windows>.zip y, con DMS_APPS_OUT=<carpeta>, la
 aplicación también en esa carpeta (para probarla en local). Los paquetes de
 pip que necesite una demo los declara su código con una línea
-`REQUIRES = ["paquete", ...]`.
+`REQUIRES = ["paquete", ...]` (y los que van enteros, con sus datos, con
+`COLLECT = ["paquete", ...]`).
 
   python3 scripts/build_demos.py <entrada> <salida> [ejemplo ...]
 """
@@ -31,7 +32,7 @@ from pathlib import Path
 
 MAC = sys.platform == "darwin"
 # Paquetes con binarios que no se publican como universal2 en macOS.
-NATIVE = {"pygame"}
+NATIVE = {"pygame", "pypdfium2", "cryptography", "pyobjc-framework-Vision"}
 WIN = sys.platform == "win32"
 OS = "macOS" if MAC else "Windows" if WIN else "Linux"
 
@@ -104,6 +105,18 @@ def requires(app: Path):
     return ast.literal_eval(m.group(1)) if m else []
 
 
+def collect(app: Path):
+    """Los paquetes que van enteros, con sus datos (plantillas, tipos de letra…):
+    la línea COLLECT = [...] del código (PyInstaller --collect-all)."""
+    m = re.search(r"^COLLECT = (\[.*?\])", app.read_text(encoding="utf-8"), re.M)
+    return ast.literal_eval(m.group(1)) if m else []
+
+
+def base_names(packages):
+    """«pyobjc-framework-Vision; sys_platform == "darwin"» → «pyobjc-framework-Vision»."""
+    return {re.split(r"[;<>=! \[]", p, maxsplit=1)[0].strip() for p in packages}
+
+
 def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Path:
     """tkinter: los dos programas (app_es.py y app_en.py) y el lanzador
     (app.py), en una sola compilación de PyInstaller."""
@@ -116,6 +129,7 @@ def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Pa
     out = work / "dist"
     ico = icon(seed, work)
     packages = sorted({p for lang in LANGS for p in requires(work / f"app_{lang}.py")})
+    whole = sorted({p for lang in LANGS for p in collect(work / f"app_{lang}.py")})
     if packages:
         run([sys.executable, "-m", "pip", "install", *packages], work)
     run(
@@ -124,10 +138,11 @@ def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Pa
             "--windowed", "--name", name,
             "--hidden-import", "app_es", "--hidden-import", "app_en", "--paths", ".",
             *(["--icon", ico] if ico else []),
+            *[arg for pkg in whole for arg in ("--collect-all", pkg)],
             # En CI (Python de python.org): una sola .app para Apple Silicon e
             # Intel, salvo con paquetes nativos que no traen las dos (pygame).
             *(["--target-arch", "universal2"] if MAC and os.environ.get("DMS_UNIVERSAL") == "1"
-              and not NATIVE.intersection(packages) else []),
+              and not NATIVE.intersection(base_names(packages)) else []),
             "app.py",
         ],
         work,

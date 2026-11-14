@@ -191,6 +191,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Gire, borre, ordene y una páginas; extraiga, divida, edite los datos del documento y protéjalo con contraseña.",
         shows: ["Paquetes de pip (pypdf) dentro de la app", "Barra de herramientas y lista de páginas", "Deshacer y guardar como"],
       },
+      pdf20: {
+        name: "20pdf",
+        text: "Una suite de PDF con 20 herramientas en una sola app: Word, Excel y PowerPoint a y desde PDF, PDF a imágenes, editar texto e imágenes, marca de agua, numerar, rotar, anotar, unir, dividir, organizar con miniaturas, extraer, proteger con contraseña (AES-256), desbloquear, firma digital verificable, censurar de verdad, comprimir y OCR. Todo en su equipo, sin subir archivos a internet. En macOS, para Apple Silicon.",
+        shows: ["Python con tkinter, diseñada en el estudio", "pypdf, pypdfium2, reportlab, python-docx, openpyxl, python-pptx y pdfminer.six", "Firma PAdES con pyHanko y un certificado propio", "OCR con el reconocimiento de texto de macOS (Vision)"],
+      },
       disk_usage: {
         name: "Espacio en disco",
         text: "Un mapa del disco con lo que ocupa cada carpeta y cada archivo, por tipos; vea dónde está o mándelo a la Papelera.",
@@ -487,6 +492,11 @@ const TEXT: Record<Lang, DemosText> = {
         name: "PDF editor",
         text: "Rotate, delete, reorder and merge pages; extract, split, edit the document details and protect it with a password.",
         shows: ["pip packages (pypdf) inside the app", "Toolbar and page list", "Undo and save as"],
+      },
+      pdf20: {
+        name: "20pdf",
+        text: "A PDF suite with 20 tools in one app: Word, Excel and PowerPoint to and from PDF, PDF to images, edit text and images, watermark, page numbers, rotate, annotate, merge, split, organize with thumbnails, extract, password protection (AES-256), unlock, verifiable digital signature, real redaction, compress and OCR. Everything on your computer, no uploads. On macOS, for Apple Silicon.",
+        shows: ["Python with tkinter, designed in the studio", "pypdf, pypdfium2, reportlab, python-docx, openpyxl, python-pptx and pdfminer.six", "PAdES signing with pyHanko and your own certificate", "OCR with macOS text recognition (Vision)"],
       },
       disk_usage: {
         name: "Disk space",

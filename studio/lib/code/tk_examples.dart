@@ -73,6 +73,8 @@ part 'tk_showcase_web_next.dart';
 part 'tk_showcase_windows.dart';
 part 'tk_showcase_util_investor.dart';
 part 'tk_showcase_util_pdf_editor.dart';
+part 'tk_showcase_util_20pdf.dart';
+part 'tk_showcase_util_20pdf_code.dart';
 part 'tk_showcase_util_disk_usage.dart';
 part 'tk_showcase_util_port_scanner.dart';
 part 'tk_showcase_util_pos.dart';
@@ -207,6 +209,7 @@ List<TkExample> tkExamples(String Function(String) t) => [
   _reports(t),
   _aiTexts(t),
   tkUtilPdfEditor(t),
+  tkUtil20pdf(t),
   tkUtilDiskUsage(t),
   tkUtilPortScanner(t),
   tkUtilInvestor(t),

@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.142 — 2026-11-14
+
+- Nueva demo: **20pdf**, una suite de PDF con **20 herramientas** en Python con tkinter, todo en el equipo y sin subir nada a internet:
+  - Conversión: Word a PDF (con LibreOffice si está; si no, el conversor propio con títulos, negritas, listas, tablas e imágenes), PDF a Word, Excel a PDF (tablas limpias), PDF a JPG/PNG (72 a 300 ppp) y PDF a PowerPoint (diapositivas exactas o con el texto editable).
+  - Edición: escribir texto, poner imágenes o tapar sobre la página; marca de agua de texto o logotipo; numeración con encabezado o pie; rotar páginas; notas, resaltados, rectángulos, elipses, líneas y textos como anotaciones.
+  - Organización: unir, dividir (por página, cada N o por tramos), organizar con miniaturas (mover, girar, eliminar, páginas en blanco) y extraer.
+  - Seguridad: proteger con AES-256 y permisos, desbloquear (con la clave y el permiso), **firma digital PAdES verificable** con pyHanko y un certificado propio (con la firma dibujada) y verificación de firmas, y **censura de verdad** (por recuadros o buscando palabras: lo de debajo desaparece del archivo).
+  - Optimización: comprimir (imágenes y contenido) y **OCR** con Vision de macOS, con el texto invisible en su sitio para buscar y copiar.
+- Probado con archivos de verdad: las 20 herramientas, la ventana (organizar, editar y censurar desde la vista previa) y el arranque; la app empaquetada lleva una autoprueba (`DMS_20PDF_SELFTEST=1`). Arreglado que la primera compilación se cerrara al abrirla (la vista previa medía 1 píxel al arrancar).
+- Demos de Python: `COLLECT = [...]` en el código mete paquetes enteros con sus datos (plantillas, certificados) en la app, y `REQUIRES` acepta condiciones de sistema (`; sys_platform == "darwin"`).
+- Web: la página de 20pdf con su guía, sus capturas (resultados reales de las herramientas) y «Cómo se hizo» (6 pasos con el código), su tarjeta, su icono y su línea en el manual.
+
 ## 1.0.141 — 2026-11-14
 
 - Nueva demo: **Bloques Neón (C++)**, un juego de bloques que caen en C++ con FLTK, con nombre y aspecto propios: las siete piezas con su bolsa de siete, las tres siguientes, la reserva, la pieza fantasma, giros con rebote en las paredes, caída rápida y suave, combos, dos de cuatro filas seguidas, niveles que aceleran cada 10 filas, la meta del nivel y el récord guardado. Una ciudad de neón de noche dibujada en código, bloques de cristal, destellos y chispas al limpiar filas, el texto grande que salta («¡CUATRO FILAS!», «COMBO x6») y la pantalla que tiembla; teclas sostenidas a su ritmo, pausa y sonidos del sistema en macOS.

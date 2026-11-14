@@ -62,6 +62,7 @@ export const EXAMPLE_TECH: Record<string, { icon: TargetIcon; label: string }> =
   vue_store: { icon: "vue", label: "Vue · Vite" },
   go_store: { icon: "go", label: "Go" },
   pdf_editor: { icon: "python", label: "Python · tkinter" },
+  pdf20: { icon: "python", label: "Python · tkinter" },
   disk_usage: { icon: "python", label: "Python · tkinter" },
   port_scanner: { icon: "python", label: "Python · tkinter" },
   investor: { icon: "python", label: "Python · tkinter" },

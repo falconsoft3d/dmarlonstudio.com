@@ -35,6 +35,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Datos, sellos y contraseña", text: "Elija varias páginas para extraerlas a otro PDF o dividirlas, ponga un sello de texto, cambie el título y el autor, y proteja el documento con contraseña." },
     ],
   },
+  pdf20: {
+    intro:
+      "Una suite de PDF con 20 herramientas en Python con tkinter, diseñada en el estudio: convertir, editar, organizar, proteger y optimizar sus PDF sin salir de su equipo.",
+    steps: [
+      { title: "Elija la herramienta y sus archivos", text: "A la izquierda, las 20 herramientas en cinco grupos. Elija una, pulse «Añadir…» y escoja los archivos (Word, Excel o PDF según la herramienta). Con varios, el orden de la lista es el que se usa al unir u organizar; súbalos o bájelos con Subir y Bajar." },
+      { title: "Trabaje sobre la vista previa", text: "En Editar, Anotar, Censurar y Firmar, haga clic en la página para poner un texto, una nota o la firma, y arrastre para dibujar un recuadro. En Organizar, elija miniaturas y muévalas, gírelas o elimínelas. Las opciones de cada herramienta están debajo de los archivos." },
+      { title: "Guárdelo", text: "Pulse el botón grande: el resultado se guarda junto al original (o en la carpeta que elija) sin tocar el archivo de partida, y la barra de estado dice lo que se ha hecho. La firma se puede verificar después, también en otros lectores de PDF." },
+    ],
+  },
   disk_usage: {
     intro:
       "Un analizador de disco con un mapa al estilo de WinDirStat: cada rectángulo es un archivo, tan grande como lo que ocupa y del color de su tipo. Para encontrar en segundos qué llena el disco.",
@@ -434,6 +443,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Open a PDF", text: "The list shows each page with its size, rotation and first words; on the right, the full text of the selected page." },
       { title: "Rotate, move or delete pages", text: "The toolbar acts on the selected pages. Everything stays in memory (with Undo) until you press Save." },
       { title: "Details, stamps and password", text: "Select several pages to extract them to another PDF or split them, add a text stamp, change the title and author, and protect the document with a password." },
+    ],
+  },
+  pdf20: {
+    intro:
+      "A PDF suite with 20 tools in Python with tkinter, designed in the studio: convert, edit, organize, protect and optimize your PDFs without leaving your computer.",
+    steps: [
+      { title: "Choose the tool and your files", text: "On the left, the 20 tools in five groups. Choose one, press “Add…” and pick the files (Word, Excel or PDF depending on the tool). With several, the list order is the one used to merge or organize; move them with Up and Down." },
+      { title: "Work on the preview", text: "In Edit, Annotate, Redact and Sign, click the page to place text, a note or the signature, and drag to draw a box. In Organize, select thumbnails and move, rotate or delete them. Each tool's options are below the files." },
+      { title: "Save it", text: "Press the big button: the result is saved next to the original (or in the folder you choose) without touching the source file, and the status bar tells you what was done. The signature can be verified later, in other PDF readers too." },
     ],
   },
   disk_usage: {

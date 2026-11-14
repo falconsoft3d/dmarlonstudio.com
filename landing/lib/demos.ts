@@ -18,6 +18,7 @@ export const DEMO_SEEDS = [
   "calculator",
   "notepad",
   "pdf_editor",
+  "pdf20",
   "disk_usage",
   "port_scanner",
   "investor",

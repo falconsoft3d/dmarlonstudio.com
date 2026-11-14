@@ -1281,6 +1281,82 @@ const nbKeys = `  void frame(double dt) {
     arena->redraw();
   }`;
 
+// ---- 20pdf (Python): fragmentos de app.py
+const p20Redact = `def redact(files, outdir, opts, progress=None):
+    """Censurar de verdad: las páginas tocadas se vuelven imagen con los
+    recuadros en negro, así lo de debajo desaparece del archivo."""
+    src = files[0]
+    password = opts.get("password", "")
+    reader = open_reader(src, password)
+    boxes = {}
+    for b in opts.get("boxes", []):
+        boxes.setdefault(b["page"], []).append((b["x0"], b["y0"], b["x1"], b["y1"]))
+    for n, bs in find_text_boxes(src, opts.get("terms", []), password).items():
+        boxes.setdefault(n, []).extend(bs)
+    if not boxes:
+        raise ValueError(T("NO_REDACTIONS"))
+    dpi = int(opts.get("dpi", 200))
+    writer = PdfWriter()
+    for n, page in enumerate(reader.pages):
+        if n not in boxes:
+            writer.add_page(page)
+            continue
+        w, h = page_size(page)
+        img = render(src, n, dpi / 72.0, password).convert("RGB")
+        d = ImageDraw.Draw(img)
+        sx, sy = img.width / w, img.height / h
+        for (x0, y0, x1, y1) in boxes[n]:
+            d.rectangle([x0 * sx, (h - y1) * sy, x1 * sx, (h - y0) * sy], fill=(0, 0, 0))
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=88)
+        buf.seek(0)
+        writer.add_page(overlay_page(w, h, lambda c: c.drawImage(ImageReader(buf), 0, 0, w, h)))
+    writer.add_metadata({"/Producer": "20pdf"})
+    out = free_path(os.path.join(outdir, stem(src) + T("SUFFIX_REDACT") + ".pdf"))
+    write(writer, out)
+    return result([out], T("DONE_REDACT", sum(len(v) for v in boxes.values()), len(boxes)))`;
+
+const p20Sign = `    signer = signers.SimpleSigner.load_pkcs12(p12, passphrase=None)
+    src = files[0]
+    page = int(opts.get("page", 0))
+    box = opts.get("box") or (36, 36, 236, 106)
+    style_args = dict(stamp_text=T("SIGN_STAMP"), border_width=1,
+                      text_box_style=ph_text.TextBoxStyle(font_size=9))
+    if opts.get("drawing") and os.path.exists(opts["drawing"]):
+        style_args["background"] = images.PdfImage(opts["drawing"])
+        style_args["background_opacity"] = 0.9
+    out = free_path(os.path.join(outdir, stem(src) + T("SUFFIX_SIGNED") + ".pdf"))
+    with open(src, "rb") as inf:
+        w = IncrementalPdfFileWriter(inf)
+        field = "Firma%d" % int(time.time())
+        fields.append_signature_field(w, sig_field_spec=fields.SigFieldSpec(field, on_page=page, box=tuple(box)))
+        meta = signers.PdfSignatureMetadata(field_name=field, reason=opts.get("reason") or None,
+                                            location=opts.get("location") or None, name=name)
+        pdf_signer = signers.PdfSigner(meta, signer=signer, stamp_style=TextStampStyle(**style_args))
+        with open(out, "wb") as outf:
+            pdf_signer.sign_pdf(w, output=outf)`;
+
+const p20Ocr = `            def draw(c, w, h, words=words):
+                for (text, x, y, bw, bh) in words:
+                    size = max(4, bh * h * 0.85)
+                    tw = stringWidth(text, "Helvetica", size) or 1
+                    t = c.beginText()
+                    t.setTextRenderMode(3)   # invisible
+                    t.setFont("Helvetica", size)
+                    t.setHorizScale(max(10, min(400, bw * w / tw * 100)))
+                    t.setTextOrigin(x * w, y * h + bh * h * 0.15)
+                    t.textOut(text)
+                    c.drawText(t)`;
+
+const p20Stamp = `def stamp(writer_page, w, h, draw):
+    """Dibuja encima de una página (con su giro pasado al contenido)."""
+    if writer_page.get("/Rotate", 0):
+        writer_page.transfer_rotation_to_content()
+        w, h = page_size(writer_page)
+    ox, oy = float(writer_page.mediabox.left), float(writer_page.mediabox.bottom)
+    ov = overlay_page(w + ox, h + oy, lambda c: (c.translate(ox, oy), draw(c, w, h)))
+    writer_page.merge_page(ov)`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2121,6 +2197,64 @@ const es: Record<string, DemoMade> = {
         title: "6. Teclas que se sostienen",
         text: "La repetición del teclado del sistema no vale para jugar: el juego guarda qué flecha está pulsada (FL_KEYBOARD y FL_KEYUP) y, en cada fotograma, la mueve sola tras 0,17 s, una columna cada 0,05 s.",
         code: { file: "Form1.cpp", text: nbKeys },
+      },
+    ],
+  },
+  pdf20: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino Python (tkinter): el Diseñador pone la ventana con las 20 herramientas en etiquetas pulsables, la lista de archivos, el marco de las opciones, el Lienzo de la vista previa y los botones; el código de app.py lleva las 20 herramientas, cada una una función que se puede probar sin ventana.",
+    tech: {
+      language: "Python 3",
+      target: "Escritorio con tkinter: destino Python del estudio, una app para macOS y Windows (con PyInstaller)",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "Las herramientas a la izquierda, los archivos y opciones en el centro y la vista previa a la derecha." },
+        { name: "BtnT1 … BtnT20", kind: "Label", text: "Las 20 herramientas: etiquetas pulsables de colores (BtnT1_click…)." },
+        { name: "Files", kind: "Listbox", text: "Los archivos elegidos, en orden (Files_select)." },
+        { name: "Opts", kind: "Frame", text: "Donde el código pone las opciones de cada herramienta." },
+        { name: "Preview", kind: "Canvas", text: "La vista previa: clic y arrastre para poner textos, notas, recuadros o la firma (Preview_mouse_down, Preview_drag, Preview_mouse_up)." },
+        { name: "BtnRun", kind: "Button", text: "Hacerlo (en otro hilo)." },
+        { name: "Status", kind: "StatusBar", text: "Lo que se está haciendo y lo que salió." },
+      ],
+      apis: [
+        "pypdf: unir, dividir, girar, anotar, cifrar con AES-256, comprimir",
+        "pypdfium2: pintar las páginas (vista previa, imágenes, censura)",
+        "reportlab: lo que se dibuja encima (marcas, números, textos) y Word/Excel a PDF",
+        "python-docx, openpyxl, python-pptx y pdfminer.six: Word, Excel y PowerPoint",
+        "pyHanko: firma PAdES y su verificación",
+        "Vision de macOS (pyobjc): el OCR",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino Python (tkinter): un Frame oscuro con 20 Label pulsables en cinco grupos, un Listbox para los archivos, un Frame para las opciones, un Canvas para la vista previa con sus eventos de ratón, los botones y la StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «Python generado») crea cada componente y enlaza sus eventos con los métodos de Form1: BtnT1_click a BtnT20_click, Files_select, Preview_mouse_down, Preview_drag, Preview_mouse_up, BtnRun_click…",
+        shot: "generated",
+      },
+      {
+        title: "3. Dibujar encima de una página",
+        text: "Marcas de agua, números, textos y el OCR usan el mismo truco: se dibuja con reportlab una página transparente del mismo tamaño y pypdf la funde con la original. Si la página está girada, antes se pasa el giro al contenido.",
+        shot: "code",
+        code: { file: "app.py", text: p20Stamp },
+      },
+      {
+        title: "4. Censurar de verdad",
+        text: "Tapar con un recuadro negro no basta: el texto seguiría debajo. Las páginas tocadas se pintan como imagen con pypdfium2, se rellenan los recuadros y la página pasa a ser esa imagen; lo de debajo desaparece del archivo. Las palabras se buscan con pdfminer.six, letra a letra.",
+        code: { file: "app.py", text: p20Redact },
+      },
+      {
+        title: "5. Firma digital verificable",
+        text: "La primera vez se crea un certificado propio (RSA de 2048 bits) que se guarda solo para el usuario; pyHanko firma el PDF en PAdES con un sello visible y la firma dibujada. La verificación comprueba que nada ha cambiado desde que se firmó.",
+        code: { file: "app.py", text: p20Sign },
+      },
+      {
+        title: "6. OCR con el texto en su sitio",
+        text: "Cada página escaneada se pinta a 300 ppp y Vision de macOS reconoce las líneas con sus recuadros. Cada línea se escribe invisible (modo de texto 3) y estirada a su ancho: el PDF se ve igual, pero se puede buscar y copiar.",
+        code: { file: "app.py", text: p20Ocr },
       },
     ],
   },
@@ -2966,6 +3100,64 @@ const en: Record<string, DemoMade> = {
         title: "6. Held keys",
         text: "The system's key repeat isn't good for playing: the game remembers which arrow is held (FL_KEYBOARD and FL_KEYUP) and, each frame, moves it by itself after 0.17 s, one column every 0.05 s.",
         code: { file: "Form1.cpp", text: nbKeys },
+      },
+    ],
+  },
+  pdf20: {
+    intro:
+      "It was made in DMarlon Studio with the Python (tkinter) target: the Designer provides the window with the 20 tools as clickable labels, the file list, the options frame, the preview Canvas and the buttons; the code in app.py holds the 20 tools, each a function that can be tested without a window.",
+    tech: {
+      language: "Python 3",
+      target: "Desktop with tkinter: the studio's Python target, an app for macOS and Windows (with PyInstaller)",
+      components: [
+        { name: "Form1", kind: "Window", text: "The tools on the left, files and options in the middle and the preview on the right." },
+        { name: "BtnT1 … BtnT20", kind: "Label", text: "The 20 tools: clickable colored labels (BtnT1_click…)." },
+        { name: "Files", kind: "Listbox", text: "The chosen files, in order (Files_select)." },
+        { name: "Opts", kind: "Frame", text: "Where the code puts each tool's options." },
+        { name: "Preview", kind: "Canvas", text: "The preview: click and drag to place text, notes, boxes or the signature (Preview_mouse_down, Preview_drag, Preview_mouse_up)." },
+        { name: "BtnRun", kind: "Button", text: "Do it (on another thread)." },
+        { name: "Status", kind: "StatusBar", text: "What is being done and what came out." },
+      ],
+      apis: [
+        "pypdf: merge, split, rotate, annotate, AES-256 encryption, compression",
+        "pypdfium2: page rendering (preview, images, redaction)",
+        "reportlab: what is drawn on top (marks, numbers, text) and Word/Excel to PDF",
+        "python-docx, openpyxl, python-pptx and pdfminer.six: Word, Excel and PowerPoint",
+        "pyHanko: PAdES signing and verification",
+        "macOS Vision (pyobjc): OCR",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the Python (tkinter) target: a dark Frame with 20 clickable Labels in five groups, a Listbox for the files, a Frame for the options, a Canvas for the preview with its mouse events, the buttons and the StatusBar.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated Python” tab) creates each component and binds its events to Form1's methods: BtnT1_click to BtnT20_click, Files_select, Preview_mouse_down, Preview_drag, Preview_mouse_up, BtnRun_click…",
+        shot: "generated",
+      },
+      {
+        title: "3. Drawing on top of a page",
+        text: "Watermarks, numbers, text and OCR use the same trick: reportlab draws a transparent page of the same size and pypdf merges it with the original. If the page is rotated, the rotation is moved into the content first.",
+        shot: "code",
+        code: { file: "app.py", text: p20Stamp },
+      },
+      {
+        title: "4. Real redaction",
+        text: "A black box on top isn't enough: the text would still be underneath. Affected pages are rendered as images with pypdfium2, the boxes are filled and the page becomes that image; what was underneath disappears from the file. Words are found with pdfminer.six, letter by letter.",
+        code: { file: "app.py", text: p20Redact },
+      },
+      {
+        title: "5. Verifiable digital signature",
+        text: "The first time, the app creates its own certificate (2048-bit RSA) stored for the user only; pyHanko signs the PDF as PAdES with a visible stamp and the drawn signature. Verification checks that nothing changed since it was signed.",
+        code: { file: "app.py", text: p20Sign },
+      },
+      {
+        title: "6. OCR with text in place",
+        text: "Each scanned page is rendered at 300 dpi and macOS Vision recognizes the lines with their boxes. Each line is written invisibly (text mode 3) and stretched to its width: the PDF looks the same, but can be searched and copied.",
+        code: { file: "app.py", text: p20Ocr },
       },
     ],
   },

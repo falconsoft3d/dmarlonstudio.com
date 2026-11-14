@@ -124,6 +124,7 @@ Hechos
 143. Juego de bloques que caen en C++ (del estilo de Tetris, con nombre y aspecto propios), divertido: siguiente pieza, reserva, combos, niveles y efectos de neón | ✅ |
 144. Plan de viaje: descargar el dosier también en imágenes separadas | ✅ |
 141. 20pdf: suite con las 20 herramientas de PDF (Word, Excel y PowerPoint a y desde PDF, PDF a imagen, editar, marcas de agua, numerar, rotar, anotar, unir, dividir, organizar, extraer, proteger, desbloquear, firmar, censurar, comprimir y OCR) | ✅ |
+145. Juego web RUTA PELIGROSA para conductores de cargas peligrosas de Argentina: 10 misiones, 100 pruebas con su ley y diploma para compartir | ✅ |
 
 Trabajando
 =========
@@ -133,8 +134,8 @@ Trabajando
 
 Pendiente
 =========
-145. Juego web (demo) para que los conductores de cargas peligrosas de Argentina aprendan las leyes (Ley 24.449, Decreto 779/95 Anexo S, Res. ST 195/97, LINTI…), con estilo de simulador en ruta | ⏳ |
 146. Visor de archivos BC3 (FIEBDC-3) en C++: el presupuesto con sus nodos (capítulos, partidas, descompuestos), precios, mediciones y textos | ⏳ |
+147. App web con los 20 test psicológicos más usados que, al final, le da su personalidad | ⏳ |
 126. MyWhatsapp IA: auto-contexto (la IA resume qué pide el cliente y rellena «Qué quiere decir») | ⏳ |
 127. MyWhatsapp IA: base de conocimiento local (precios, stock, FAQ, PDF) que la IA consulta antes de responder | ⏳ |
 128. MyWhatsapp IA: las tres respuestas con estilos distintos (directa, comercial, técnica) y traducción de lo que propone la IA al idioma del cliente | ⏳ |

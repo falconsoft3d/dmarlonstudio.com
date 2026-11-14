@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.143 — 2026-11-14
+
+- Nueva demo web: **RUTA PELIGROSA**, un juego de ruta para que los conductores de cargas peligrosas de Argentina aprendan la ley manejando una cisterna, con estilo de juego de mundo abierto (minimapa, estrellas de infracción, misiones) y nombres propios:
+  - **10 misiones** por rutas reales (Campana → Rosario por la RN 9, Bahía Blanca → Neuquén por la RN 22, Luján de Cuyo → San Luis por la RN 7, San Juan → Jáchal por la RN 40…), cada una con su carga (nafta, gasoil, GLP, ácido sulfúrico, explosivos, amoníaco, GNC, sodio), su paisaje y su hora del día (atardecer y noche con las luces de verdad).
+  - **100 pruebas**: 70 teóricas (paneles naranjas, números de riesgo, clases, documentación del art. 35 del Anexo S, equipamiento, manipuleo, cantidades exentas, emergencias, alcohol cero, capacitación de la Disp. ANSV 56/2025) y 30 de manejo (80 km/h con carga peligrosa, 60 en las travesías urbanas, 20 en pasos a nivel y escuelas, luces bajas en ruta nacional, no adelantar con doble línea y detenerse en el control).
+  - Cada respuesta explica la norma y **cita su fuente** (Ley 24.449, Ley 27.714, Decreto 779/95, Res. 195/97, Disp. ANSV 56/2025).
+  - Al final, un **diploma para compartir** en PNG (descargar, compartir o copiar el texto), con la puntuación, el rango y el repaso de las pruebas falladas. Es un juego educativo, sin validez oficial.
+  - En español y en inglés, con controles táctiles en el móvil.
+
 ## 1.0.142 — 2026-11-14
 
 - Nueva demo: **20pdf**, una suite de PDF con **20 herramientas** en Python con tkinter, todo en el equipo y sin subir nada a internet:

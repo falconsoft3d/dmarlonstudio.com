@@ -2,7 +2,7 @@ name: dmarlon_studio
 description: "DMarlon Studio: IDE visual para crear aplicaciones de Python (tkinter y Flask) y, más adelante, Electron."
 publish_to: 'none'
 
-version: 1.0.142+141
+version: 1.0.143+142
 
 environment:
   sdk: ^3.10.3

@@ -393,6 +393,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Pare a tiempo", text: "En la misión 4, con datos ruidosos, entrenar de más hace que la red memorice el ruido: la curva de validación sube mientras la de entrenamiento baja. Pare antes (early stopping) o suba la regularización L2, y valide. La consola de abajo explica cada época." },
     ],
   },
+  html_ruta: {
+    intro:
+      "Un juego de ruta en el navegador, hecho como una sola página web en HTML y JavaScript con Canvas: usted maneja una cisterna por 10 rutas argentinas y supera 100 pruebas sobre la ley de cargas peligrosas. Cada respuesta explica la norma y cita su fuente.",
+    steps: [
+      { title: "Maneje", text: "▲ o W acelera y ▼ o S frena: la velocidad se mantiene sola. ◀ ▶ cambia de carril y L enciende las luces. En el móvil, con los botones de abajo. El minimapa marca las pruebas y el destino; el velocímetro, el límite de cada tramo." },
+      { title: "Pase por los marcadores", text: "Los marcadores amarillos son pruebas teóricas: paneles naranjas, números de riesgo, clases, documentación, equipamiento y emergencias. Responda con el ratón o con 1-4; cuanto antes, más puntos. Las pruebas de manejo se superan respetando los 80 km/h, las travesías, los pasos a nivel, la doble línea y el control de ruta." },
+      { title: "Gane el diploma", text: "Cada infracción suma una estrella (con cinco, el control lo retiene) y los choques restan puntos. Al terminar las 10 misiones escriba su nombre: el diploma sale en PNG para descargar o compartir, con el repaso de las pruebas falladas. Es un juego educativo: no reemplaza el curso obligatorio." },
+    ],
+  },
   next_world: {
     intro: "Una web de Next.js con servidor, hecha con el editor de pantallas: el código de la app termina en una línea // @server y lo que sigue se ejecuta en el servidor. Allí se descargan los aviones de OpenSky, los barcos del AIS del Báltico (Fintraffic) y los trenes de Renfe Cercanías y VR; la web solo llama a server.datos() cada 30 segundos y los dibuja en un Lienzo.",
     steps: [
@@ -795,6 +804,15 @@ const en: Record<string, DemoGuide> = {
       { title: "Fix the bias", text: "In mission 1 the dataset is 90% red apples. Move the samples slider close to 50/50, press “+1 Epoch” a few times (or “Auto-Train”) and “Validate in Production”: if the network generalizes, you pass the mission." },
       { title: "Touch the weights and the learning", text: "In the network in the middle, click a connection to change its weight (green adds, blue subtracts). In mission 3, the ball on the bottom-right map is trapped in a local minimum: raise the learning rate so it jumps the hill to the global minimum, without overshooting." },
       { title: "Stop in time", text: "In mission 4, with noisy data, training too long makes the network memorize the noise: the validation curve goes up while the training one goes down. Stop earlier (early stopping) or raise L2 regularization, and validate. The console at the bottom explains each epoch." },
+    ],
+  },
+  html_ruta: {
+    intro:
+      "A road game in the browser, built as a single web page in HTML and JavaScript with Canvas: you drive a tanker on 10 Argentine routes and pass 100 tests on the dangerous goods law. Each answer explains the rule and cites its source.",
+    steps: [
+      { title: "Drive", text: "▲ or W speeds up and ▼ or S brakes: the speed holds by itself. ◀ ▶ changes lane and L turns on the lights. On a phone, with the buttons at the bottom. The minimap shows the tests and the destination; the speedometer, each stretch’s limit." },
+      { title: "Drive through the markers", text: "The yellow markers are theory tests: orange panels, hazard numbers, classes, documents, equipment and emergencies. Answer with the mouse or 1-4; the faster, the more points. Driving tests are passed by keeping to 80 km/h, the town limits, level crossings, the double line and the roadside check." },
+      { title: "Earn the diploma", text: "Each offence adds a star (with five, the check holds you) and crashes cost points. After the 10 missions, type your name: the diploma comes out as a PNG to download or share, with a review of the tests you failed. It is an educational game: it does not replace the mandatory course." },
     ],
   },
   next_world: {

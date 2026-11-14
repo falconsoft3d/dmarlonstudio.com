@@ -1,0 +1,1298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RUTA PELIGROSA · Dangerous goods in Argentina</title>
+<meta name="description" content="Educational game: 10 missions and 100 tests on carrying dangerous goods by road in Argentina, with a final diploma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --o: #f28c1b; --y: #ffd600; --g: #7ee07e; --r: #ff4d4d; --ink: #0b0d10; --panel: rgba(8,10,14,.88); }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0d10; color: #fff; font-family: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; user-select: none; }
+canvas#game { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; transition: filter .3s; }
+.anton { font-family: Anton, Impact, sans-serif; letter-spacing: .5px; }
+button { font: inherit; color: inherit; cursor: pointer; }
+/* ---- HUD ---- */
+.hud { display: none; }
+body.driving .hud { display: block; }
+#hTL { position: fixed; left: 16px; top: 14px; max-width: min(46vw, 420px); text-shadow: 0 2px 3px #000; }
+#hMission { font: 26px Anton, Impact, sans-serif; line-height: 1; }
+#hRoute { font-size: 17px; font-weight: 600; opacity: .9; margin-top: 3px; }
+#hCargo { display: flex; align-items: center; gap: 8px; margin-top: 7px; font-size: 15px; font-weight: 600; }
+#hTR { position: fixed; right: 16px; top: 12px; text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+#hScore { font: 40px Anton, Impact, sans-serif; color: var(--g); -webkit-text-stroke: 2px #000; paint-order: stroke; line-height: 1; letter-spacing: 1px; }
+#hStars { display: flex; gap: 2px; justify-content: flex-end; margin-top: 4px; }
+#hStars i { font-style: normal; font-size: 26px; color: rgba(255,255,255,.18); -webkit-text-stroke: 1.5px #000; transition: color .2s, transform .2s; }
+#hStars i.on { color: #fff; transform: scale(1.12); animation: flash .5s infinite alternate; }
+@keyframes flash { to { color: #ffe680; } }
+#hTest { font-size: 17px; font-weight: 700; margin-top: 2px; text-shadow: 0 2px 3px #000; }
+#hLights { display: inline-block; margin-top: 4px; padding: 2px 8px; border-radius: 3px; font-size: 13px; font-weight: 800; background: rgba(0,0,0,.6); color: #888; letter-spacing: 1px; }
+#hLights.on { color: #9fd3ff; box-shadow: inset 0 0 0 1px #4aa3ff; }
+.opanel { display: inline-flex; flex-direction: column; background: var(--o); border: 3px solid #111; min-width: 74px; font: 21px Anton, Impact, sans-serif; color: #111; line-height: 1.08; }
+.opanel i { font-style: normal; text-align: center; padding: 1px 8px; }
+.opanel i + i { border-top: 3px solid #111; }
+.opanel.sm { min-width: 44px; font-size: 13px; border-width: 2px; }
+.opanel.sm i + i { border-top-width: 2px; }
+#obj { position: fixed; left: 50%; top: 14px; transform: translate(-50%, -20px); opacity: 0; transition: .35s; max-width: min(560px, 40vw); text-align: center; background: var(--panel); border-left: 4px solid #4aa3ff; padding: 8px 14px; pointer-events: none; }
+#obj.show { opacity: 1; transform: translate(-50%, 0); }
+#objT { font: 18px Anton, Impact, sans-serif; color: #9fd3ff; letter-spacing: 1px; text-transform: uppercase; }
+#objS { font-size: 17px; font-weight: 600; }
+#sub { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); width: min(720px, 56vw); text-align: center; opacity: 0; transition: opacity .3s; text-shadow: 0 2px 3px #000, 0 0 8px #000; font-size: 21px; font-weight: 600; pointer-events: none; }
+#sub.show { opacity: 1; }
+#subWho { color: var(--y); font-weight: 800; margin-right: 6px; }
+.toast { position: fixed; left: 50%; top: 30%; transform: translate(-50%, -50%) scale(.9); opacity: 0; transition: .3s; text-align: center; pointer-events: none; width: min(560px, 90vw); }
+.toast.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+#toastT { font: 44px Anton, Impact, sans-serif; -webkit-text-stroke: 2px #000; paint-order: stroke; letter-spacing: 1px; }
+#toastS { font-size: 19px; font-weight: 600; text-shadow: 0 2px 3px #000; margin-top: 2px; }
+.toast.ok #toastT { color: var(--g); } .toast.bad #toastT { color: var(--r); } .toast.info #toastT { color: #fff; font-size: 30px; }
+.banner { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0; transition: opacity .5s; background: linear-gradient(transparent 30%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.55) 60%, transparent 75%); }
+.banner.show { opacity: 1; }
+#bSmall { font: 26px Anton, Impact, sans-serif; color: var(--y); letter-spacing: 3px; }
+#bBig { font: clamp(46px, 9vw, 96px) Anton, Impact, sans-serif; font-style: italic; -webkit-text-stroke: 3px #000; paint-order: stroke; transform: rotate(-2deg); line-height: 1.05; text-align: center; }
+#bSub { font-size: 22px; font-weight: 600; margin-top: 6px; }
+.big { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0; transition: opacity .4s; }
+.big.show { opacity: 1; }
+#bigT { font: clamp(64px, 13vw, 150px) Anton, Impact, sans-serif; -webkit-text-stroke: 4px #000; paint-order: stroke; letter-spacing: 3px; }
+.big.crash #bigT { color: #c62828; } .big.held #bigT { color: #3d7bff; }
+#bigS { font-size: 22px; font-weight: 600; text-shadow: 0 2px 4px #000; text-align: center; padding: 0 20px; }
+/* Táctil */
+#touch { display: none; }
+@media (pointer: coarse) { body.driving #touch { display: block; } #sub { bottom: 120px; } }
+#touch button { position: fixed; bottom: calc(18px + env(safe-area-inset-bottom)); width: 64px; height: 64px; border-radius: 50%; border: 2px solid rgba(255,255,255,.5); background: rgba(0,0,0,.5); font-size: 24px; font-weight: 800; touch-action: none; }
+#tLeft { left: 16px; } #tRight { left: 92px; } #tDown { right: 92px; } #tUp { right: 16px; background: rgba(46,125,50,.6) !important; }
+#tLights { right: 168px; font-size: 13px !important; } #tPause { top: calc(118px + env(safe-area-inset-top)); bottom: auto !important; right: 16px; width: 40px !important; height: 40px !important; font-size: 15px !important; }
+/* ---- Pregunta ---- */
+#quiz { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(rgba(0,0,0,.35), rgba(0,0,0,.75)); backdrop-filter: saturate(.3) blur(2px); opacity: 0; pointer-events: none; transition: opacity .25s; padding: 16px; z-index: 5; }
+#quiz.show { opacity: 1; pointer-events: auto; }
+.card { width: min(760px, 100%); max-height: 100%; overflow: auto; background: var(--panel); border-top: 6px solid var(--o); box-shadow: 0 20px 60px rgba(0,0,0,.6); padding: 18px 22px 20px; }
+#qHead { font: 18px Anton, Impact, sans-serif; letter-spacing: 2px; color: var(--o); }
+#qText { font-size: 27px; font-weight: 700; line-height: 1.15; margin: 8px 0 12px; }
+.timer { height: 5px; background: rgba(255,255,255,.12); margin-bottom: 14px; } #qTimer { height: 100%; background: var(--y); transition: width .1s linear; }
+.opts { display: grid; gap: 8px; }
+.opts button { display: flex; align-items: center; gap: 12px; text-align: left; padding: 10px 12px; background: rgba(255,255,255,.07); border: 2px solid transparent; font-size: 20px; font-weight: 600; line-height: 1.15; transition: background .15s, border-color .15s; }
+.opts button:hover:not(:disabled) { background: #fff; color: #000; }
+.opts button kbd { font: 16px Anton, Impact, sans-serif; background: rgba(255,255,255,.15); min-width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 3px; flex: none; }
+.opts button:hover:not(:disabled) kbd { background: #000; color: #fff; }
+.opts button.right { border-color: var(--g); background: rgba(126,224,126,.18); }
+.opts button.wrongc { border-color: var(--r); background: rgba(255,77,77,.18); }
+.opts button:disabled { cursor: default; }
+.opts.panels { grid-template-columns: repeat(4, 1fr); }
+.opts.panels button { flex-direction: column; justify-content: center; padding: 12px 6px; }
+.opts.panels .opanel { font-size: 30px; min-width: 100px; }
+@media (max-width: 640px) { .opts.panels { grid-template-columns: repeat(2, 1fr); } #qText { font-size: 22px; } .opts button { font-size: 18px; } }
+.feed { display: none; margin-top: 14px; padding: 10px 14px; border-left: 4px solid; }
+.feed.show { display: block; } .feed.ok { border-color: var(--g); background: rgba(126,224,126,.08); } .feed.bad { border-color: var(--r); background: rgba(255,77,77,.08); }
+.feed b { font: 22px Anton, Impact, sans-serif; letter-spacing: 1px; } .feed.ok b { color: var(--g); } .feed.bad b { color: var(--r); }
+.feed p { margin: 4px 0; font-size: 18px; line-height: 1.25; } .feed small { font-size: 14px; opacity: .7; }
+.go { margin-top: 14px; float: right; background: var(--o); color: #000; border: 0; padding: 8px 22px; font: 20px Anton, Impact, sans-serif; letter-spacing: 1px; }
+/* ---- Pantallas ---- */
+.screen { position: fixed; inset: 0; display: none; z-index: 8; overflow: auto; }
+.screen.show { display: block; }
+#menu { background: linear-gradient(100deg, rgba(10,8,20,.92) 0%, rgba(10,8,20,.6) 45%, rgba(255,110,40,.12) 100%); }
+.menuIn { min-height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 40px clamp(20px, 7vw, 110px); max-width: 760px; }
+.logo { transform: rotate(-4deg); transform-origin: left; margin-bottom: 8px; }
+.logo span { display: block; font-family: Anton, Impact, sans-serif; line-height: .92; -webkit-text-stroke: 4px #000; paint-order: stroke; }
+.logo .l1 { font-size: clamp(54px, 10vw, 110px); color: #fff; }
+.logo .l2 { font-size: clamp(64px, 12.5vw, 140px); color: var(--o); font-style: italic; text-shadow: 6px 6px 0 #000; }
+#mTag { font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--y); margin: 6px 0 26px; }
+.mbtns { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.mbtns button { background: rgba(0,0,0,.55); border: 0; border-left: 5px solid var(--o); padding: 9px 22px 9px 16px; font: 26px Anton, Impact, sans-serif; letter-spacing: 1px; text-transform: uppercase; min-width: 300px; text-align: left; transition: .15s; }
+.mbtns button:hover, .mbtns button:focus-visible { background: #fff; color: #000; outline: none; padding-left: 24px; }
+.mbtns button.dim { opacity: .55; }
+#mProg { margin-top: 18px; font-size: 20px; min-height: 24px; } #mProg b { color: var(--g); }
+#mDisc { margin-top: 18px; font-size: 15px; opacity: .65; max-width: 560px; line-height: 1.3; }
+.inner { max-width: 900px; margin: 0 auto; padding: 34px 20px 50px; }
+.inner h2 { font: clamp(40px, 7vw, 64px) Anton, Impact, sans-serif; font-style: italic; margin: 0 0 18px; -webkit-text-stroke: 2px #000; paint-order: stroke; }
+#missions, #howto, #results { background: rgba(8,10,14,.93); }
+#msList { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.mcard { display: flex; gap: 12px; align-items: center; text-align: left; background: rgba(255,255,255,.06); border: 0; border-left: 4px solid var(--o); padding: 10px 12px; }
+.mcard:hover:not(:disabled) { background: rgba(255,255,255,.14); }
+.mcard em { font: 38px Anton, Impact, sans-serif; font-style: normal; color: var(--o); min-width: 40px; text-align: center; }
+.mcard span { flex: 1; display: flex; flex-direction: column; } .mcard b { font-size: 21px; } .mcard small { font-size: 15px; opacity: .75; }
+.mcard i { font-style: normal; font-weight: 800; color: var(--g); font-size: 16px; white-space: nowrap; }
+.mcard.lock { opacity: .4; cursor: default; border-color: #666; } .mcard.lock i { color: #aaa; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.btn { background: var(--o); color: #000; border: 0; padding: 9px 20px; font: 21px Anton, Impact, sans-serif; letter-spacing: 1px; }
+.btn.ghost { background: rgba(255,255,255,.1); color: #fff; }
+#howList { font-size: 21px; line-height: 1.35; padding-left: 22px; } #howList li { margin-bottom: 10px; } #howList b { color: var(--y); }
+#mpassed { background: linear-gradient(transparent, rgba(0,0,0,.75) 30%, rgba(0,0,0,.75) 70%, transparent); display: none; }
+#mpassed.show { display: flex; align-items: center; justify-content: center; }
+.mpIn { text-align: center; padding: 20px; }
+#mpTitle { font: clamp(52px, 10vw, 110px) Anton, Impact, sans-serif; font-style: italic; color: var(--y); -webkit-text-stroke: 4px #000; paint-order: stroke; transform: rotate(-2deg); text-shadow: 0 0 30px rgba(255,180,0,.45); }
+#mpSub { font-size: 24px; font-weight: 600; margin-bottom: 14px; }
+.stats { display: flex; gap: 28px; justify-content: center; margin: 10px 0 20px; flex-wrap: wrap; }
+.stats div { display: flex; flex-direction: column; } .stats b { font: 40px Anton, Impact, sans-serif; color: var(--g); } .stats span { font-size: 16px; text-transform: uppercase; letter-spacing: 2px; opacity: .8; }
+.mpIn .row { justify-content: center; }
+#rTitle { font: 26px Anton, Impact, sans-serif; letter-spacing: 3px; color: var(--y); }
+#rScore { font: clamp(80px, 16vw, 150px) Anton, Impact, sans-serif; color: var(--g); line-height: 1; -webkit-text-stroke: 3px #000; paint-order: stroke; } #rScore small { font-size: .4em; color: #fff; }
+#rRank { font-size: 32px; font-weight: 800; color: var(--o); text-transform: uppercase; letter-spacing: 2px; }
+#results .stats { justify-content: flex-start; }
+.dipWrap { margin-top: 14px; } canvas#dip { width: 100%; height: auto; display: block; box-shadow: 0 16px 50px rgba(0,0,0,.6); }
+label#rNameL { display: block; font-size: 18px; font-weight: 700; margin-top: 10px; }
+#rName { margin-top: 6px; width: min(420px, 100%); padding: 9px 12px; font: 600 21px 'Barlow Condensed', sans-serif; background: rgba(255,255,255,.08); color: #fff; border: 2px solid rgba(255,255,255,.2); outline: none; user-select: text; }
+#rName:focus { border-color: var(--o); }
+#rRevT { font: 30px Anton, Impact, sans-serif; margin: 34px 0 10px; }
+#rRev { list-style: none; padding: 0; display: grid; gap: 8px; }
+#rRev li { display: flex; gap: 12px; background: rgba(255,255,255,.05); padding: 10px 12px; border-left: 4px solid var(--r); }
+#rRev li.none { border-color: var(--g); font-size: 20px; }
+#rRev em { font: 26px Anton, Impact, sans-serif; font-style: normal; color: var(--r); min-width: 38px; }
+#rRev b { font-size: 19px; } #rRev p { margin: 3px 0; font-size: 17px; } #rRev p:first-of-type { color: var(--g); font-weight: 700; } #rRev .exp { opacity: .85; } #rRev small { opacity: .6; font-size: 14px; }
+#pause { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px; background: rgba(0,0,0,.6); z-index: 6; }
+#pause.show { display: flex; }
+#pT { font: 70px Anton, Impact, sans-serif; letter-spacing: 6px; }
+@media (max-width: 640px) {
+  #hTL { max-width: 58vw; } #hMission { font-size: 19px; } #hRoute { font-size: 14px; } #hCargo { font-size: 12px; }
+  #hScore { font-size: 28px; } #hStars i { font-size: 18px; } #hTest { font-size: 14px; }
+  #obj { top: auto; bottom: 200px; max-width: 92vw; } #sub { width: 92vw; font-size: 17px; }
+  .mbtns button { min-width: 0; width: 100%; font-size: 22px; } #toastT { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div class="hud">
+  <div id="hTL"><div id="hMission"></div><div id="hRoute"></div><div id="hCargo"></div></div>
+  <div id="hTR"><div id="hScore">0000000</div><div id="hStars"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div><div id="hTest"></div><span id="hLights">◉ LUCES</span></div>
+  <div id="obj"><div id="objT"></div><div id="objS"></div></div>
+  <div id="sub"><span id="subWho"></span><span id="subText"></span></div>
+  <div id="toast" class="toast"><div id="toastT"></div><div id="toastS"></div></div>
+  <div id="touch"><button id="tLeft">◀</button><button id="tRight">▶</button><button id="tDown">▼</button><button id="tUp">▲</button><button id="tLights">LUZ</button><button id="tPause">II</button></div>
+</div>
+<div id="banner" class="banner"><div id="bSmall"></div><div id="bBig"></div><div id="bSub"></div></div>
+<div id="big" class="big"><div id="bigT"></div><div id="bigS"></div></div>
+<span id="hTitleSafety" hidden></span>
+
+<div id="quiz"><div class="card">
+  <div id="qHead"></div><div id="qText"></div><div class="timer"><div id="qTimer"></div></div>
+  <div id="qOpts" class="opts"></div><div id="qFeed" class="feed"></div><button id="qGo" class="go"></button><div style="clear:both"></div>
+</div></div>
+
+<div id="pause"><div id="pT"></div><button id="pResume" class="btn"></button><button id="pQuit" class="btn ghost"></button></div>
+
+<div id="menu" class="screen"><div class="menuIn">
+  <div class="logo"><span class="l1">RUTA</span><span class="l2">PELIGROSA</span></div>
+  <div id="mTag"></div>
+  <div class="mbtns"><button id="bPlay"></button><button id="bMissions"></button><button id="bHow"></button><button id="bDiploma"></button><button id="bLang"></button></div>
+  <div id="mProg"></div><div id="mDisc"></div>
+</div></div>
+
+<div id="missions" class="screen"><div class="inner">
+  <h2 id="msTitle"></h2><div id="msList"></div>
+  <div class="row"><button id="msBack" class="btn" data-back></button><button id="msReset" class="btn ghost"></button></div>
+</div></div>
+
+<div id="howto" class="screen"><div class="inner">
+  <h2 id="howTitle"></h2><ul id="howList"></ul><div class="row"><button id="howBack" class="btn" data-back></button></div>
+</div></div>
+
+<div id="mpassed" class="screen"><div class="mpIn">
+  <div id="mpTitle"></div><div id="mpSub"></div><div id="mpStats" class="stats"></div>
+  <div class="row"><button id="mpNext" class="btn"></button><button id="mpMenu" class="btn ghost">Menú</button></div>
+</div></div>
+
+<div id="results" class="screen"><div class="inner">
+  <div id="rTitle"></div><div id="rScore"></div><div id="rRank"></div><div id="rStats" class="stats"></div>
+  <label id="rNameL" for="rName"></label><input id="rName" maxlength="40" autocomplete="name">
+  <div class="dipWrap"><canvas id="dip" width="1600" height="1130"></canvas></div>
+  <div class="row"><button id="rShare" class="btn"></button><button id="rDown" class="btn"></button><button id="rCopy" class="btn ghost"></button><button id="rMenu" class="btn ghost"></button></div>
+  <h3 id="rRevT"></h3><ul id="rRev"></ul>
+</div></div>
+
+<script>
+// ---- Datos del juego: fuentes, pruebas de manejo y las 10 misiones (100 pruebas) ----
+// Cada pregunta: es/en = [pregunta, respuesta correcta, incorrecta 1, 2, 3, explicación].
+// Cada panel: pan = [correcto, ...otros], es/en = [pregunta, explicación].
+
+const SRC = {
+  l51: ['Ley 24.449, art. 51 (velocidades máximas)', 'Law 24,449, sec. 51 (maximum speeds)'],
+  l52: ['Ley 24.449, art. 52 (límites mínimos)', 'Law 24,449, sec. 52 (minimum limits)'],
+  l47: ['Ley 24.449, art. 47 (uso de las luces)', 'Law 24,449, sec. 47 (use of lights)'],
+  l48: ['Ley 24.449, art. 48 (prohibiciones)', 'Law 24,449, sec. 48 (prohibitions)'],
+  alc: ['Ley 27.714 · art. 48 a) de la Ley 24.449 (alcohol cero)', 'Law 27,714 · sec. 48 a) of Law 24,449 (zero alcohol)'],
+  l40: ['Ley 24.449, art. 40 (requisitos para circular)', 'Law 24,449, sec. 40 (requirements to drive)'],
+  l41: ['Ley 24.449, art. 41 (prioridad de paso)', 'Law 24,449, sec. 41 (right of way)'],
+  l42: ['Ley 24.449, art. 42 (adelantamiento)', 'Law 24,449, sec. 42 (overtaking)'],
+  l59: ['Ley 24.449, art. 59 (obstáculos en la vía)', 'Law 24,449, sec. 59 (obstacles on the road)'],
+  l61: ['Ley 24.449, art. 61 (vehículos de emergencia)', 'Law 24,449, sec. 61 (emergency vehicles)'],
+  l65: ['Ley 24.449, art. 65 (obligaciones ante un accidente)', 'Law 24,449, sec. 65 (duties after an accident)'],
+  r195: ['Res. SOPyT 195/97 (normas técnicas para el transporte de mercancías peligrosas)', 'Res. SOPyT 195/97 (technical rules for carrying dangerous goods)'],
+  a35: ['Decreto 779/95, Anexo S, art. 35 (documentación a bordo)', 'Decree 779/95, Annex S, sec. 35 (documents on board)'],
+  code: ['Res. 195/97 · código numérico de riesgo (Manual INTI, 5.4)', 'Res. 195/97 · hazard number code (INTI manual, 5.4)'],
+  cls: ['Res. 195/97 · clases de mercancías peligrosas (Manual INTI, 7.4)', 'Res. 195/97 · dangerous goods classes (INTI manual, 7.4)'],
+  list: ['Res. 195/97 · listado de mercancías peligrosas', 'Res. 195/97 · dangerous goods list'],
+  sign: ['Res. 195/97 · paneles y rótulos de riesgo (Manual INTI, 6.5.2.2.2)', 'Res. 195/97 · orange panels and hazard labels (INTI manual, 6.5.2.2.2)'],
+  eq: ['Decreto 779/95, Anexo S · equipamiento obligatorio (Manual INTI, 6.5.2.2.4)', 'Decree 779/95, Annex S · mandatory equipment (INTI manual, 6.5.2.2.4)'],
+  exe: ['Decreto 779/95, Anexo S · cantidades exentas (Manual INTI, 5.5.4)', 'Decree 779/95, Annex S · exempt quantities (INTI manual, 5.5.4)'],
+  emg: ['Manual INTI de mercancías peligrosas · emergencias (6.5.2.5 a 6.5.2.7)', 'INTI dangerous goods manual · emergencies (6.5.2.5 to 6.5.2.7)'],
+  ctl: ['Decreto 779/95, Anexo S · fiscalización (Manual INTI, 6.5)', 'Decree 779/95, Annex S · roadside inspection (INTI manual, 6.5)'],
+  ansv: ['Disposición ANSV 56/2025 (formación del conductor)', 'ANSV Provision 56/2025 (driver training)'],
+};
+
+// Pruebas de manejo: se superan conduciendo. len = largo del tramo en metros.
+const DRV = {
+  lights: { len: 170, s: 'l47',
+    es: ['Luces bajas', 'Encendé las luces bajas: tecla L o el botón de luces.', 'En las rutas nacionales, las luces bajas o diurnas van siempre encendidas, de día y de noche.'],
+    en: ['Dipped headlights', 'Turn on your dipped headlights: the L key or the lights button.', 'On national routes, dipped or daytime lights must always be on, day and night.'] },
+  s80: { len: 330, lim: 80, s: 'l51',
+    es: ['Tramo rural', 'El cartel dice {sign}, pero llevás carga peligrosa: 80 km/h como máximo en este tramo.', 'En zona rural, semiautopista y autopista, el máximo para sustancias peligrosas es 80 km/h, diga lo que diga el cartel general.'],
+    en: ['Rural stretch', 'The sign says {sign}, but you carry dangerous goods: 80 km/h at most on this stretch.', 'In rural areas, on dual carriageways and motorways, the limit for dangerous goods is 80 km/h, whatever the general sign says.'] },
+  s60: { len: 290, lim: 60, s: 'l51',
+    es: ['Travesía urbana', 'La ruta atraviesa un pueblo: 60 km/h como máximo.', 'Cuando la ruta atraviesa una zona urbana, el máximo es 60 km/h, salvo que la señalización indique otra cosa.'],
+    en: ['Through a town', 'The route goes through a town: 60 km/h at most.', 'When a route goes through an urban area, the limit is 60 km/h unless signs say otherwise.'] },
+  rail: { len: 90, lim: 20, s: 'l51',
+    es: ['Paso a nivel', 'Paso a nivel sin barrera: 20 km/h como máximo hasta cruzar las vías.', 'En los pasos a nivel sin barrera ni semáforo, el máximo es 20 km/h. Y no se cruza si se acerca un tren (art. 48 k).'],
+    en: ['Level crossing', 'Level crossing without barriers: 20 km/h at most until you cross the tracks.', 'At level crossings without barriers or lights, the limit is 20 km/h. And you don’t cross if a train is coming (sec. 48 k).'] },
+  school: { len: 130, lim: 20, s: 'l51',
+    es: ['Zona escolar', 'Escuela en la ruta: 20 km/h como máximo.', 'Cerca de escuelas y lugares de gran afluencia de personas, mientras funcionan, el máximo es 20 km/h.'],
+    en: ['School zone', 'School on the route: 20 km/h at most.', 'Near schools and places with many people, while they are open, the limit is 20 km/h.'] },
+  nopass: { len: 210, s: 'l42',
+    es: ['Sin adelantar', 'Doble línea amarilla: no adelantes a la máquina agrícola hasta que termine el tramo.', 'No se adelanta en curvas, puentes, cimas ni encrucijadas: hay que esperar a tener visibilidad y vía libre.'],
+    en: ['No overtaking', 'Double yellow line: don’t overtake the farm vehicle until the stretch ends.', 'You don’t overtake on bends, bridges, hilltops or junctions: wait until you can see and the road is clear.'] },
+  stop: { len: 34, s: 'ctl',
+    es: ['Control de ruta', 'Control de ruta: frená y detenete por completo dentro del recuadro.', 'La autoridad de control examina los documentos de porte obligatorio, el equipamiento y la señalización del vehículo.'],
+    en: ['Roadside check', 'Roadside check: brake and come to a full stop inside the box.', 'Inspectors check the mandatory documents, the equipment and the vehicle’s hazard markings.'] },
+};
+
+const M = [
+  { name: ['Primer viaje', 'First run'], from: 'Campana', to: 'Rosario', road: 'RN 9', biome: 'pampa', tod: 'day', sign: 110, start: 'indus',
+    cargo: { un: '1203', hz: '33', cls: '3', name: ['Nafta (gasolina)', 'Petrol (gasoline)'] },
+    intro: ['Bienvenido a Fletes Ñandú. Hoy llevás nafta de la refinería de Campana a Rosario. Encendé las luces y nunca pases de 80. Los marcadores amarillos son pruebas: pasá por encima.',
+      'Welcome to Fletes Ñandú. Today you take petrol from the Campana refinery to Rosario. Turn your lights on and never go over 80. The yellow markers are tests: drive through them.'],
+    tests: [
+      { t: 'lights' },
+      { t: 'q', s: 'l51', es: ['En zona rural, ¿cuál es la velocidad máxima para un vehículo que transporta sustancias peligrosas?', '80 km/h', '90 km/h', '100 km/h', '110 km/h', 'La Ley de Tránsito fija 80 km/h para el transporte de sustancias peligrosas en zona rural, aunque el cartel general marque más.'],
+        en: ['In a rural area, what is the maximum speed for a vehicle carrying dangerous goods?', '80 km/h', '90 km/h', '100 km/h', '110 km/h', 'The Traffic Law sets 80 km/h for dangerous goods in rural areas, even if the general sign shows more.'] },
+      { t: 's80' },
+      { t: 'q', s: 'alc', es: ['¿Qué alcoholemia puede tener el conductor de la cisterna?', 'Cero: 0 mg por litro de sangre', 'Hasta 0,2 g por litro', 'Hasta 0,5 g por litro', 'Hasta 0,5 g por litro si no maneja de noche', 'Desde la Ley 27.714 (2023), el art. 48 a) prohíbe conducir cualquier vehículo con una alcoholemia superior a cero.'],
+        en: ['What blood alcohol level may the tanker driver have?', 'Zero: 0 mg per litre of blood', 'Up to 0.2 g per litre', 'Up to 0.5 g per litre', 'Up to 0.5 g per litre if not driving at night', 'Since Law 27,714 (2023), sec. 48 a) forbids driving any vehicle with a blood alcohol level above zero.'] },
+      { t: 'p', s: 'sign', pan: ['33/1203', '1203/33', '30/1202', '23/1075'], es: ['Llevás nafta (UN 1203). ¿Qué panel naranja corresponde?', 'Arriba va el número de riesgo (33: líquido muy inflamable) y abajo el número ONU (1203).'],
+        en: ['You carry petrol (UN 1203). Which orange panel is right?', 'The hazard number goes on top (33: highly flammable liquid) and the UN number below (1203).'] },
+      { t: 'q', s: 'r195', es: ['En el panel naranja, ¿qué número va arriba y cuál abajo?', 'Arriba el número de riesgo; abajo el número ONU', 'Arriba el número ONU; abajo el número de riesgo', 'Arriba la clase; abajo el peso de la carga', 'Arriba el teléfono de emergencia; abajo la patente', 'El panel de seguridad lleva el número de riesgo en la mitad superior y el número ONU de la mercancía en la inferior.'],
+        en: ['On the orange panel, which number goes on top and which below?', 'Hazard number on top; UN number below', 'UN number on top; hazard number below', 'Class on top; load weight below', 'Emergency phone on top; plate number below', 'The panel shows the hazard number in the top half and the UN number of the goods in the bottom half.'] },
+      { t: 's60' },
+      { t: 'q', s: 'code', es: ['¿Qué significa el número de riesgo 33?', 'Líquido muy inflamable (inflamación por debajo de 23 °C)', 'Gas inflamable', 'Líquido inflamable que no arde con el calor', 'Sustancia tóxica', 'La cifra repetida indica más intensidad: 33 es un líquido muy inflamable, como la nafta.'],
+        en: ['What does hazard number 33 mean?', 'Highly flammable liquid (flash point below 23 °C)', 'Flammable gas', 'Flammable liquid that does not burn with heat', 'Toxic substance', 'A repeated digit means more intensity: 33 is a highly flammable liquid, like petrol.'] },
+      { t: 'q', s: 'l40', es: ['¿Qué documentación general exige la Ley de Tránsito para circular?', 'Licencia, cédula del vehículo y comprobante de seguro vigente', 'Solo la licencia de conducir', 'La factura de compra del camión', 'El DNI del dueño de la carga', 'El art. 40 pide llevar la licencia, la cédula de identificación del vehículo y el comprobante del seguro en vigencia, además de matafuego y balizas.'],
+        en: ['What general documents does the Traffic Law require to drive?', 'Licence, vehicle registration card and valid insurance proof', 'Only the driving licence', 'The truck’s purchase invoice', 'The cargo owner’s ID', 'Sec. 40 requires the licence, the vehicle’s registration card and proof of valid insurance, plus a fire extinguisher and warning lights.'] },
+      { t: 'q', s: 'l51', es: ['En una semiautopista, ¿cuál es el máximo para sustancias peligrosas?', '80 km/h, como en zona rural', '100 km/h', '110 km/h', '120 km/h', 'En las semiautopistas rigen los mismos límites que en zona rural: 80 km/h para sustancias peligrosas.'],
+        en: ['On a dual carriageway, what is the limit for dangerous goods?', '80 km/h, as in rural areas', '100 km/h', '110 km/h', '120 km/h', 'Dual carriageways have the same limits as rural areas: 80 km/h for dangerous goods.'] },
+    ] },
+
+  { name: ['Viento patagónico', 'Patagonian wind'], from: 'Bahía Blanca', to: 'Neuquén', road: 'RN 22', biome: 'patag', tod: 'morning', sign: 110,
+    cargo: { un: '1202', hz: '30', cls: '3', name: ['Gasoil', 'Diesel'] },
+    intro: ['Gasoil para Neuquén por la RN 22. El viento del sur empuja la cisterna: manejá firme. Hoy repasamos los números de riesgo.',
+      'Diesel to Neuquén on RN 22. The southern wind pushes the tanker: keep a firm hand. Today we go over hazard numbers.'],
+    tests: [
+      { t: 'q', s: 'code', es: ['Llevás gasoil con número de riesgo 30. ¿Qué indica el 0?', 'Que el riesgo es simple: no hay un riesgo adicional', 'Que no es peligroso', 'Que la cisterna está vacía', 'Que el riesgo es máximo', 'Cuando el riesgo es simple, la cifra se acompaña con un cero: 30 es un líquido inflamable (inflamación entre 23 °C y 60,5 °C).'],
+        en: ['You carry diesel with hazard number 30. What does the 0 mean?', 'That the hazard is single: there is no extra hazard', 'That it is not dangerous', 'That the tank is empty', 'That the hazard is maximum', 'When the hazard is single, the digit is followed by a zero: 30 is a flammable liquid (flash point between 23 °C and 60.5 °C).'] },
+      { t: 's80' },
+      { t: 'p', s: 'sign', pan: ['30/1202', '33/1203', '1202/30', '80/1830'], es: ['Tu carga es gasoil (UN 1202). ¿Qué panel lleva la cisterna?', 'Arriba 30 (líquido inflamable) y abajo 1202, el número ONU del gasoil.'],
+        en: ['Your load is diesel (UN 1202). Which panel does the tanker carry?', '30 on top (flammable liquid) and 1202 below, the UN number for diesel.'] },
+      { t: 'q', s: 'code', es: ['¿Qué indica una cifra repetida, como en 33 o en 66?', 'Que ese riesgo es más intenso', 'Que hay dos cisternas', 'Que la carga es el doble', 'Que el panel está duplicado por error', 'La cantidad de veces que se repite una cifra da la intensidad del riesgo: 66 es muy tóxico; 33, muy inflamable.'],
+        en: ['What does a repeated digit mean, as in 33 or 66?', 'That this hazard is more intense', 'That there are two tanks', 'That the load is double', 'That the panel was duplicated by mistake', 'How many times a digit repeats gives the intensity of the hazard: 66 is very toxic; 33, highly flammable.'] },
+      { t: 'nopass', k: 'bridge' },
+      { t: 'q', s: 'code', es: ['¿Qué significa la letra X delante del número de riesgo?', 'Que la sustancia reacciona peligrosamente con el agua', 'Que la carga está exenta', 'Que la carga es extranjera', 'Que el riesgo es desconocido', 'La X va como prefijo: esa mercancía reacciona peligrosamente con el agua, así que nunca se usa agua.'],
+        en: ['What does the letter X before the hazard number mean?', 'That the substance reacts dangerously with water', 'That the load is exempt', 'That the load is foreign', 'That the hazard is unknown', 'The X goes as a prefix: those goods react dangerously with water, so water is never used.'] },
+      { t: 'q', s: 'code', es: ['En el número de riesgo, ¿qué significa la cifra 8?', 'Corrosividad', 'Radiactividad', 'Toxicidad', 'Efecto oxidante', 'Cada cifra es un riesgo: 2 gases, 3 líquidos inflamables, 4 sólidos inflamables, 5 oxidante, 6 tóxico, 7 radiactivo, 8 corrosivo, 9 reacción violenta.'],
+        en: ['In the hazard number, what does the digit 8 mean?', 'Corrosivity', 'Radioactivity', 'Toxicity', 'Oxidising effect', 'Each digit is a hazard: 2 gases, 3 flammable liquids, 4 flammable solids, 5 oxidising, 6 toxic, 7 radioactive, 8 corrosive, 9 violent reaction.'] },
+      { t: 'rail' },
+      { t: 'q', s: 'code', es: ['En el número de riesgo, ¿qué significa la cifra 6?', 'Toxicidad', 'Corrosividad', 'Inflamabilidad de sólidos', 'Gas a presión', 'El 6 indica toxicidad: 60 es una sustancia tóxica o nociva; 66, muy tóxica.'],
+        en: ['In the hazard number, what does the digit 6 mean?', 'Toxicity', 'Corrosivity', 'Flammability of solids', 'Gas under pressure', 'The 6 means toxicity: 60 is a toxic or harmful substance; 66, very toxic.'] },
+      { t: 'q', s: 'code', es: ['En el número de riesgo, ¿qué indica la cifra 2?', 'Emisión de gases por presión o por reacción química', 'Que es la segunda carga del día', 'Líquido inflamable', 'Sólido inflamable', 'El 2 avisa de la emisión de gases por la presión o por una reacción química: 20 es un gas inerte; 23, un gas inflamable.'],
+        en: ['In the hazard number, what does the digit 2 mean?', 'Gas released by pressure or chemical reaction', 'That it is the second load of the day', 'Flammable liquid', 'Flammable solid', 'The 2 warns of gas released by pressure or a chemical reaction: 20 is an inert gas; 23, a flammable gas.'] },
+    ] },
+
+  { name: ['Gas a la costa', 'Gas to the coast'], from: 'Ensenada', to: 'Mar del Plata', road: 'RN 2', biome: 'coast', tod: 'day', sign: 120,
+    cargo: { un: '1075', hz: '23', cls: '2.1', name: ['GLP (gas licuado)', 'LPG (liquefied gas)'] },
+    intro: ['GLP a Mar del Plata por la RN 2. Gas inflamable, clase 2. Más adelante hay un control de ruta: tené los papeles a mano.',
+      'LPG to Mar del Plata on RN 2. Flammable gas, class 2. There is a roadside check ahead: keep your papers at hand.'],
+    tests: [
+      { t: 'q', s: 'list', es: ['Tu carga es GLP (gas licuado de petróleo). ¿A qué clase pertenece?', 'Clase 2: gases', 'Clase 3: líquidos inflamables', 'Clase 4: sólidos inflamables', 'Clase 9: sustancias peligrosas diversas', 'El GLP es un gas inflamable: clase 2, división 2.1.'],
+        en: ['Your load is LPG (liquefied petroleum gas). Which class is it?', 'Class 2: gases', 'Class 3: flammable liquids', 'Class 4: flammable solids', 'Class 9: miscellaneous dangerous goods', 'LPG is a flammable gas: class 2, division 2.1.'] },
+      { t: 's80' },
+      { t: 'p', s: 'sign', pan: ['23/1075', '33/1075', '1075/23', '20/1971'], es: ['¿Qué panel corresponde al GLP (UN 1075)?', '23 es un gas inflamable y 1075 el número ONU de los gases de petróleo licuados.'],
+        en: ['Which panel is right for LPG (UN 1075)?', '23 is a flammable gas and 1075 is the UN number for liquefied petroleum gases.'] },
+      { t: 'q', s: 'code', es: ['¿Qué significa el número de riesgo 23?', 'Gas inflamable', 'Gas inerte', 'Líquido muy inflamable', 'Gas tóxico', 'El 2 es gas y el 3 inflamabilidad: 23 es un gas inflamable.'],
+        en: ['What does hazard number 23 mean?', 'Flammable gas', 'Inert gas', 'Highly flammable liquid', 'Toxic gas', 'The 2 is gas and the 3 flammability: 23 is a flammable gas.'] },
+      { t: 's60' },
+      { t: 'q', s: 'cls', es: ['¿Qué clase agrupa a los corrosivos?', 'Clase 8', 'Clase 6', 'Clase 5', 'Clase 1', 'Clases: 1 explosivos, 2 gases, 3 líquidos inflamables, 4 sólidos inflamables, 5 oxidantes, 6 tóxicos e infecciosos, 7 radiactivos, 8 corrosivos, 9 diversos.'],
+        en: ['Which class covers corrosives?', 'Class 8', 'Class 6', 'Class 5', 'Class 1', 'Classes: 1 explosives, 2 gases, 3 flammable liquids, 4 flammable solids, 5 oxidisers, 6 toxic and infectious, 7 radioactive, 8 corrosive, 9 miscellaneous.'] },
+      { t: 'q', s: 'sign', es: ['¿Cuál es el tamaño mínimo del panel naranja de seguridad?', '140 mm de alto por 350 mm de ancho, con borde negro de 10 mm', '100 × 100 mm', '250 × 250 mm', 'Ninguno: basta con que se lea', 'El panel es un rectángulo naranja de al menos 140 × 350 mm, con borde negro de 10 mm y cifras de 65 mm como mínimo.'],
+        en: ['What is the minimum size of the orange panel?', '140 mm high by 350 mm wide, with a 10 mm black border', '100 × 100 mm', '250 × 250 mm', 'None: it only has to be readable', 'The panel is an orange rectangle at least 140 × 350 mm, with a 10 mm black border and digits at least 65 mm high.'] },
+      { t: 'stop' },
+      { t: 'q', s: 'sign', es: ['¿Qué tamaño mínimo tiene el rótulo (la etiqueta) de riesgo del vehículo?', '250 × 250 mm', '100 × 100 mm', '140 × 350 mm', '500 × 500 mm', 'Los rótulos de riesgo miden al menos 250 × 250 mm y llevan el número de la clase con cifras de 25 mm como mínimo.'],
+        en: ['What is the minimum size of the vehicle’s hazard label (placard)?', '250 × 250 mm', '100 × 100 mm', '140 × 350 mm', '500 × 500 mm', 'Hazard placards are at least 250 × 250 mm and show the class number with digits at least 25 mm high.'] },
+      { t: 'q', s: 'sign', es: ['Una cisterna con una sola mercancía peligrosa, ¿dónde lleva los paneles naranjas?', 'En al menos dos lados opuestos, a la vista', 'Solo en el parabrisas', 'Solo adelante', 'Dentro de la cabina', 'Los paneles van en al menos dos lados opuestos de la unidad, en lugares visibles, y los rótulos en los dos costados y atrás.'],
+        en: ['A tanker with a single dangerous good: where do the orange panels go?', 'On at least two opposite sides, in view', 'Only on the windscreen', 'Only at the front', 'Inside the cab', 'Panels go on at least two opposite sides of the unit, where they can be seen, and the placards on both sides and the back.'] },
+    ] },
+
+  { name: ['La ruta del vino', 'The wine road'], from: 'Luján de Cuyo', to: 'San Luis', road: 'RN 7', biome: 'cuyo', tod: 'day', sign: 110,
+    cargo: { un: '1203', hz: '33', cls: '3', name: ['Nafta (gasolina)', 'Petrol (gasoline)'] },
+    intro: ['Nafta desde Luján de Cuyo a San Luis por la RN 7. En el control te van a pedir toda la documentación: vamos a repasarla.',
+      'Petrol from Luján de Cuyo to San Luis on RN 7. At the check they will ask for every document: let’s go over them.'],
+    tests: [
+      { t: 's80' },
+      { t: 'stop' },
+      { t: 'q', s: 'a35', es: ['¿Quién emite la declaración de carga que viaja con la mercancía?', 'El expedidor', 'El conductor', 'La aseguradora', 'El inspector del control', 'La declaración de carga, legible, la emite el expedidor, con los datos del producto peligroso.'],
+        en: ['Who issues the load declaration that travels with the goods?', 'The consignor', 'The driver', 'The insurer', 'The roadside inspector', 'The load declaration, legible, is issued by the consignor with the details of the dangerous product.'] },
+      { t: 'q', s: 'a35', es: ['¿En qué orden figura la mercancía en la declaración de carga?', 'Denominación para el transporte, clase o división y número ONU', 'Número ONU, precio y peso', 'Marca comercial, color y olor', 'Patente, chofer y destino', 'Va la denominación apropiada para el transporte, la clase o división (y el grupo de compatibilidad si es clase 1) y el número ONU, en ese orden.'],
+        en: ['In what order do the goods appear in the load declaration?', 'Proper shipping name, class or division and UN number', 'UN number, price and weight', 'Brand, colour and smell', 'Plate number, driver and destination', 'It shows the proper shipping name, the class or division (and the compatibility group for class 1) and the UN number, in that order.'] },
+      { t: 'q', s: 'a35', es: ['¿Qué son las «instrucciones escritas» que hay que llevar a bordo?', 'La ficha de intervención en caso de emergencia', 'El manual del camión', 'La hoja de ruta con los horarios', 'El contrato del flete', 'Las instrucciones escritas son las fichas de intervención, en previsión de cualquier accidente.'],
+        en: ['What are the “written instructions” to carry on board?', 'The emergency response sheet', 'The truck’s manual', 'The trip schedule', 'The freight contract', 'The written instructions are the emergency response sheets, in case of any accident.'] },
+      { t: 'nopass', k: 'curve' },
+      { t: 'q', s: 'a35', es: ['Si transportás a granel, ¿qué certificado del vehículo tenés que llevar?', 'El original del certificado de habilitación del vehículo y sus equipos', 'Una fotocopia simple del título', 'Ninguno: basta la licencia', 'El libre deuda de patentes', 'A granel hay que llevar el original del certificado de habilitación para mercancías peligrosas del vehículo y de los equipos.'],
+        en: ['If you carry in bulk, which vehicle certificate must you have?', 'The original approval certificate for the vehicle and its equipment', 'A plain copy of the title', 'None: the licence is enough', 'Proof of paid road tax', 'In bulk you must carry the original dangerous goods approval certificate for the vehicle and the equipment.'] },
+      { t: 'q', s: 'a35', es: ['¿Qué hay que llevar sobre el estado técnico del vehículo?', 'El documento de la revisión técnica obligatoria', 'El último ticket de combustible', 'Una foto de los neumáticos', 'Nada: lo revisan en el control', 'Se lleva el elemento o documento que prueba que el vehículo cumple con la revisión técnica obligatoria.'],
+        en: ['What must you carry about the vehicle’s technical condition?', 'The mandatory technical inspection document', 'The last fuel receipt', 'A photo of the tyres', 'Nothing: they check it at the stop', 'You carry the document proving the vehicle has passed the mandatory technical inspection.'] },
+      { t: 'q', s: 'a35', es: ['¿Cuándo pierde validez el certificado de habilitación del vehículo?', 'Si tuvo un accidente y no se lo volvió a inspeccionar después de repararlo', 'Al cambiar de conductor', 'Al cruzar a otra provincia', 'Al cumplir 10.000 km', 'También la pierde si se alteran sus características, si no aprueba la inspección o si no se inspecciona en las fechas fijadas.'],
+        en: ['When does the vehicle’s approval certificate stop being valid?', 'If it had an accident and was not inspected again after the repair', 'When the driver changes', 'When crossing into another province', 'After 10,000 km', 'It also lapses if its features are altered, if it fails inspection or if it is not inspected on the set dates.'] },
+      { t: 'q', s: 'ansv', es: ['¿Qué acredita la formación del conductor según la Disposición ANSV 56/2025?', 'El certificado del curso de capacitación básico obligatorio', 'Solo la licencia profesional común', 'Una constancia de la empresa', 'El recibo de sueldo', 'El conductor lleva el certificado del curso básico obligatorio; las LiNTI vigentes pasaron a ser certificados de formación en mercancías peligrosas.'],
+        en: ['What proves the driver’s training under ANSV Provision 56/2025?', 'The certificate of the mandatory basic training course', 'Only the ordinary professional licence', 'A note from the company', 'The payslip', 'The driver carries the mandatory basic course certificate; valid LiNTI cards became dangerous goods training certificates.'] },
+    ] },
+
+  { name: ['Ácido al norte', 'Acid up north'], from: 'Córdoba', to: 'Santiago del Estero', road: 'RN 9', biome: 'monte', tod: 'dusk', sign: 110,
+    cargo: { un: '1830', hz: '80', cls: '8', name: ['Ácido sulfúrico', 'Sulphuric acid'] },
+    intro: ['Ácido sulfúrico de Córdoba a Santiago del Estero por la RN 9. Cae la tarde: luces, y hoy revisamos el equipamiento.',
+      'Sulphuric acid from Córdoba to Santiago del Estero on RN 9. Evening is falling: lights on, and today we check the equipment.'],
+    tests: [
+      { t: 'lights' },
+      { t: 'p', s: 'sign', pan: ['80/1830', '1830/80', '88/1830', '30/1830'], es: ['Llevás ácido sulfúrico (UN 1830), un corrosivo. ¿Qué panel corresponde?', 'El 8 es corrosividad y el 0 indica riesgo simple: 80 arriba y 1830 abajo.'],
+        en: ['You carry sulphuric acid (UN 1830), a corrosive. Which panel is right?', 'The 8 is corrosivity and the 0 means a single hazard: 80 on top and 1830 below.'] },
+      { t: 's80' },
+      { t: 'q', s: 'eq', es: ['¿Cuántos calzos (calzas) como mínimo debe llevar el vehículo?', 'Dos', 'Uno', 'Ninguno', 'Uno por cada rueda', 'Un mínimo de dos calzos, de medidas apropiadas al peso del vehículo y al diámetro de las ruedas.'],
+        en: ['How many wheel chocks must the vehicle carry at least?', 'Two', 'One', 'None', 'One per wheel', 'At least two chocks, sized for the vehicle’s weight and the wheel diameter.'] },
+      { t: 'q', s: 'eq', es: ['¿Para quién debe haber equipo de protección individual (EPI)?', 'Para todos los miembros de la tripulación', 'Solo para el conductor', 'Solo si lo pide el cliente', 'Para nadie: queda en la planta', 'El equipamiento de protección individual es obligatorio para todos los miembros de la tripulación.'],
+        en: ['Who must have personal protective equipment (PPE)?', 'Every member of the crew', 'Only the driver', 'Only if the customer asks', 'Nobody: it stays at the plant', 'Personal protective equipment is mandatory for every member of the crew.'] },
+      { t: 'q', s: 'eq', es: ['¿Cómo deben estar los extintores?', 'Cargados, en plazo de validez, con marca de conformidad y bien sujetos', 'Pueden estar vacíos si están a la vista', 'Basta uno de cocina', 'Guardados dentro de la cisterna', 'Los extintores deben estar cargados, vigentes, con la marca de conformidad, con capacidad suficiente y bien sujetos al vehículo.'],
+        en: ['What condition must the fire extinguishers be in?', 'Charged, in date, with a conformity mark and well secured', 'They can be empty if visible', 'A kitchen one is enough', 'Stored inside the tank', 'Extinguishers must be charged, in date, with the conformity mark, big enough and well secured to the vehicle.'] },
+      { t: 'rail' },
+      { t: 'q', s: 'eq', es: ['¿Qué vehículos deben llevar registrador de las operaciones?', 'Los que transportan a granel', 'Todos los autos', 'Solo los de clase 1', 'Ninguno', 'El registrador de las operaciones es obligatorio solo para los vehículos que transportan a granel.'],
+        en: ['Which vehicles must carry an operations recorder?', 'Those carrying in bulk', 'All cars', 'Only class 1 vehicles', 'None', 'The operations recorder is mandatory only for vehicles carrying in bulk.'] },
+      { t: 'q', s: 'eq', es: ['¿Cuál de estos NO forma parte del equipamiento obligatorio?', 'Una radio para escuchar música', 'Un estuche de herramientas para reparaciones de emergencia', 'El conjunto de equipamientos para emergencia', 'Los extintores de incendio', 'Son obligatorios los extintores, las herramientas, el EPI, el conjunto para emergencias, los calzos y, a granel, el registrador.'],
+        en: ['Which of these is NOT part of the mandatory equipment?', 'A radio to listen to music', 'A toolkit for emergency repairs', 'The emergency equipment kit', 'Fire extinguishers', 'Mandatory: extinguishers, tools, PPE, the emergency kit, chocks and, in bulk, the recorder.'] },
+      { t: 'q', s: 'r195', es: ['Al cargar, el exterior de la cisterna quedó manchado con producto. ¿Puede salir?', 'No: está prohibido circular con el exterior contaminado', 'Sí, si es poca cantidad', 'Sí, de noche', 'Sí, si lleva el panel naranja', 'Las normas técnicas prohíben circular con el exterior del vehículo o del equipo contaminado con la mercancía peligrosa.'],
+        en: ['While loading, product spilled on the outside of the tank. Can you leave?', 'No: driving with a contaminated exterior is forbidden', 'Yes, if it is a little', 'Yes, at night', 'Yes, if it has the orange panel', 'The technical rules forbid driving with the outside of the vehicle or equipment contaminated with the dangerous goods.'] },
+    ] },
+
+  { name: ['La pampa sembrada', 'Sown pampas'], from: 'Pilar', to: 'Pergamino', road: 'RN 8', biome: 'pampa', tod: 'day', sign: 110,
+    cargo: { un: '2067', hz: '50', cls: '5.1', name: ['Fertilizante (nitrato de amonio)', 'Fertiliser (ammonium nitrate)'] },
+    intro: ['Fertilizante de nitrato de amonio de Pilar a Pergamino por la RN 8. Hoy toca carga, descarga y manipuleo.',
+      'Ammonium nitrate fertiliser from Pilar to Pergamino on RN 8. Today it is all about loading, unloading and handling.'],
+    tests: [
+      { t: 'q', s: 'code', es: ['El camión lleva el número de riesgo 50. ¿Qué significa?', 'Sustancia oxidante (comburente)', 'Gas inerte', 'Material radiactivo', 'Sustancia muy tóxica', 'El 5 es el efecto oxidante (comburente) y el 0, riesgo simple: 50 es una sustancia oxidante.'],
+        en: ['The truck shows hazard number 50. What does it mean?', 'Oxidising substance', 'Inert gas', 'Radioactive material', 'Very toxic substance', 'The 5 is the oxidising effect and the 0 a single hazard: 50 is an oxidising substance.'] },
+      { t: 's80' },
+      { t: 'q', s: 'cls', es: ['¿Qué clase agrupa a las sustancias oxidantes y los peróxidos orgánicos?', 'Clase 5', 'Clase 2', 'Clase 7', 'Clase 9', 'La clase 5 son las sustancias oxidantes (5.1) y los peróxidos orgánicos (5.2).'],
+        en: ['Which class covers oxidising substances and organic peroxides?', 'Class 5', 'Class 2', 'Class 7', 'Class 9', 'Class 5 is oxidising substances (5.1) and organic peroxides (5.2).'] },
+      { t: 'q', s: 'r195', es: ['Durante la carga y la descarga, ¿cómo debe estar el motor?', 'Detenido', 'En marcha para no perder aire', 'Acelerado', 'Da igual', 'Durante la carga y la descarga el motor del vehículo tiene que estar detenido.'],
+        en: ['During loading and unloading, how must the engine be?', 'Switched off', 'Running so it doesn’t lose air', 'Revving', 'It doesn’t matter', 'During loading and unloading the vehicle’s engine must be switched off.'] },
+      { t: 'school' },
+      { t: 'q', s: 'r195', es: ['¿Se puede fumar mientras se manipula la carga?', 'No: está prohibido fumar cerca de los bultos y usar luces a llama', 'Sí, al aire libre', 'Sí, con la ventanilla abierta', 'Solo el conductor', 'Durante el manipuleo está prohibido fumar en las proximidades de los embalajes y también usar iluminación a llama.'],
+        en: ['Can you smoke while handling the load?', 'No: smoking near the packages and naked-flame lights are forbidden', 'Yes, outdoors', 'Yes, with the window open', 'Only the driver', 'While handling, smoking near the packages is forbidden, and so is naked-flame lighting.'] },
+      { t: 'q', s: 'r195', es: ['¿Se pueden cargar juntas dos mercancías incompatibles entre sí?', 'No: está prohibido', 'Sí, separadas por una lona', 'Sí, si el viaje es corto', 'Sí, con permiso verbal del cliente', 'Está prohibido cargar en el mismo vehículo mercancías peligrosas incompatibles entre sí.'],
+        en: ['Can two mutually incompatible goods be loaded together?', 'No: it is forbidden', 'Yes, separated by a tarp', 'Yes, if the trip is short', 'Yes, with the customer’s spoken permission', 'Loading mutually incompatible dangerous goods in the same vehicle is forbidden.'] },
+      { t: 's60' },
+      { t: 'q', s: 'exe', es: ['¿Podés llevar en la cabina a alguien que no es de la tripulación?', 'No: rige la prohibición de llevar pasajeros', 'Sí, si usa cinturón', 'Sí, si es un familiar', 'Sí, de día', 'En el transporte de mercancías peligrosas está prohibido llevar pasajeros; solo queda eximido el transporte en cantidad exenta.'],
+        en: ['Can you take someone who is not crew in the cab?', 'No: carrying passengers is forbidden', 'Yes, if they wear a seat belt', 'Yes, if they are family', 'Yes, by day', 'Carrying passengers is forbidden when moving dangerous goods; only transport in exempt quantities is excused.'] },
+      { t: 'q', s: 'exe', es: ['Con una carga en «cantidad exenta», ¿qué equipamiento sigue siendo obligatorio?', 'Los extintores de incendio', 'Ninguno', 'Solo los paneles naranjas', 'El registrador de las operaciones', 'La cantidad exenta libera de paneles, rótulos, EPI y ficha de intervención, pero nunca de los extintores de incendio.'],
+        en: ['With a load in an “exempt quantity”, which equipment is still mandatory?', 'Fire extinguishers', 'None', 'Only the orange panels', 'The operations recorder', 'An exempt quantity frees you from panels, placards, PPE and the response sheet, but never from fire extinguishers.'] },
+    ] },
+
+  { name: ['Polvorín de montaña', 'Mountain powder keg'], from: 'San Juan', to: 'Jáchal', road: 'RN 40', biome: 'desert', tod: 'day', sign: 110,
+    cargo: { un: '1.1D', hz: '', cls: '1', name: ['Explosivos para minería', 'Mining explosives'] },
+    intro: ['Explosivos para la mina, de San Juan a Jáchal por la RN 40. Clase 1: cero descuidos y nada de paradas en los pueblos.',
+      'Explosives for the mine, from San Juan to Jáchal on RN 40. Class 1: zero mistakes and no stops in towns.'],
+    tests: [
+      { t: 'q', s: 'cls', es: ['¿Qué mercancías son de la clase 1?', 'Explosivos', 'Gases', 'Corrosivos', 'Radiactivos', 'La clase 1 son los explosivos; su rótulo lleva además el grupo de compatibilidad.'],
+        en: ['Which goods are class 1?', 'Explosives', 'Gases', 'Corrosives', 'Radioactive', 'Class 1 is explosives; their placard also shows the compatibility group.'] },
+      { t: 's80' },
+      { t: 'q', s: 'r195', es: ['Con explosivos (clase 1), ¿dónde se hacen las detenciones?', 'Lejos de los lugares habitados', 'En el centro del pueblo, para estar vigilado', 'En una estación de servicio', 'Donde uno quiera', 'Con la clase 1, las detenciones se hacen lejos de los lugares habitados.'],
+        en: ['With explosives (class 1), where do you stop?', 'Far from inhabited places', 'In the town centre, to be watched', 'At a petrol station', 'Wherever you like', 'With class 1, stops are made far from inhabited places.'] },
+      { t: 'nopass', k: 'curve' },
+      { t: 'q', s: 'r195', es: ['Si estacionan varios vehículos con explosivos, ¿qué distancia mínima los separa?', '50 metros', '5 metros', '10 metros', 'No hay mínimo', 'Los vehículos con explosivos estacionados deben quedar a 50 metros como mínimo unos de otros.'],
+        en: ['If several vehicles with explosives park, what minimum distance separates them?', '50 metres', '5 metres', '10 metres', 'There is no minimum', 'Parked vehicles carrying explosives must stay at least 50 metres from each other.'] },
+      { t: 'q', s: 'sign', es: ['Además del número de clase, ¿qué indica el rótulo de un explosivo?', 'El grupo de compatibilidad', 'El precio de la carga', 'El nombre del chofer', 'El año del camión', 'El rótulo lleva el número de clase o división y, para la clase 1, el grupo de compatibilidad, con cifras de 25 mm como mínimo.'],
+        en: ['Besides the class number, what does an explosives placard show?', 'The compatibility group', 'The price of the load', 'The driver’s name', 'The truck’s year', 'The placard shows the class or division and, for class 1, the compatibility group, with digits at least 25 mm high.'] },
+      { t: 's60' },
+      { t: 'q', s: 'ctl', es: ['¿Qué itinerario debe seguir el transporte?', 'El previsto, sin tramos ni estacionamientos restringidos', 'El más corto, aunque esté restringido', 'Cualquiera, si va de noche', 'El del GPS, sin mirar los carteles', 'El control verifica que se siga el itinerario previsto, sin usar tramos restringidos señalizados ni áreas de estacionamiento o parada restringidas.'],
+        en: ['Which route must the transport follow?', 'The planned one, without restricted stretches or parking', 'The shortest, even if restricted', 'Any, if it travels at night', 'The GPS one, ignoring the signs', 'Inspectors check that the planned route is followed, without restricted stretches or restricted parking or stopping areas.'] },
+      { t: 'q', s: 'l48', es: ['¿Cuándo se puede usar la bocina?', 'En caso de peligro o en zona rural', 'Para saludar', 'Siempre en la ciudad', 'Para apurar al de adelante', 'La ley prohíbe usar la bocina o señales acústicas, salvo en caso de peligro o en zona rural.'],
+        en: ['When may you use the horn?', 'In danger or in a rural area', 'To say hello', 'Always in town', 'To hurry the car ahead', 'The law forbids using the horn or sound signals, except in danger or in a rural area.'] },
+      { t: 'q', s: 'l42', es: ['¿Por qué lado se adelanta a otro vehículo?', 'Por la izquierda', 'Por la derecha', 'Por la banquina', 'Por cualquier lado', 'El adelantamiento se hace por la izquierda, avisando con destellos de las luces y la luz de giro.'],
+        en: ['On which side do you overtake another vehicle?', 'On the left', 'On the right', 'On the hard shoulder', 'Either side', 'You overtake on the left, warning with a flash of the headlights and the indicator.'] },
+    ] },
+
+  { name: ['Noche en los valles', 'Night in the valleys'], from: 'San Miguel de Tucumán', to: 'Salta', road: 'RN 9', biome: 'norte', tod: 'night', sign: 110,
+    cargo: { un: '1005', hz: '268', cls: '2.3', name: ['Amoníaco anhidro', 'Anhydrous ammonia'] },
+    intro: ['Amoníaco anhidro de Tucumán a Salta, de noche. Si pasa algo, el procedimiento de emergencia te salva la vida.',
+      'Anhydrous ammonia from Tucumán to Salta, at night. If anything happens, the emergency procedure saves your life.'],
+    tests: [
+      { t: 'lights' },
+      { t: 'q', s: 'code', es: ['Ves una cisterna con número de riesgo 268. ¿Qué lleva?', 'Un gas tóxico y corrosivo', 'Un líquido inflamable', 'Un sólido inflamable', 'Un material radiactivo', 'El 2 es gas, el 6 toxicidad y el 8 corrosividad: 268 es un gas tóxico y corrosivo.'],
+        en: ['You see a tanker with hazard number 268. What is it carrying?', 'A toxic, corrosive gas', 'A flammable liquid', 'A flammable solid', 'A radioactive material', 'The 2 is gas, the 6 toxicity and the 8 corrosivity: 268 is a toxic, corrosive gas.'] },
+      { t: 's80' },
+      { t: 'q', s: 'emg', es: ['Llegás a un accidente con una cisterna. ¿Cómo te acercás?', 'Con el viento a la espalda', 'Con el viento de frente', 'Corriendo', 'Por donde sale el humo', 'Hay que acercarse siempre con el viento a la espalda e identificar la mercancía a distancia, por el panel y el rótulo.'],
+        en: ['You reach an accident with a tanker. How do you approach?', 'With the wind at your back', 'Facing the wind', 'Running', 'Through the smoke', 'Always approach with the wind at your back and identify the goods from a distance, by the panel and the placard.'] },
+      { t: 'q', s: 'emg', es: ['Si no hay forma de saber qué mercancía lleva, ¿qué área se aísla?', 'Un radio de 800 metros en todas las direcciones', '50 metros hacia adelante', 'Solo el carril del camión', '100 metros hacia atrás', 'Si no se puede acceder a ninguna información sobre la mercancía, se aísla el área en todas las direcciones en un radio de 800 metros.'],
+        en: ['If there is no way to know what goods it carries, what area is isolated?', 'An 800-metre radius in every direction', '50 metres ahead', 'Only the truck’s lane', '100 metres behind', 'If no information about the goods can be found, the area is isolated in every direction within an 800-metre radius.'] },
+      { t: 'nopass', k: 'bridge' },
+      { t: 'q', s: 'emg', es: ['El panel lleva una X delante del número. Para apagar un fuego…', 'Nunca se usa agua', 'Se usa mucha agua', 'Se usa agua fría', 'Se usa agua con jabón', 'Nunca hay que usar agua en un vehículo cuyo número de riesgo lleve delante la letra X.'],
+        en: ['The panel has an X before the number. To put out a fire…', 'Never use water', 'Use plenty of water', 'Use cold water', 'Use soapy water', 'Never use water on a vehicle whose hazard number is preceded by the letter X.'] },
+      { t: 'q', s: 'emg', es: ['Si tu vehículo queda inmovilizado por un desperfecto, ¿qué hacés?', 'Aviso a las autoridades y sigo la ficha de intervención', 'Abro la cisterna para revisar', 'Sigo viaje despacio', 'Espero sin avisar a nadie', 'Ante un accidente o desperfecto que inmovilice el vehículo, el transportista informa a las autoridades y adopta las medidas de la ficha de intervención.'],
+        en: ['If your vehicle is stuck after a breakdown, what do you do?', 'Tell the authorities and follow the response sheet', 'Open the tank to check', 'Carry on slowly', 'Wait without telling anyone', 'After an accident or breakdown that immobilises the vehicle, the carrier informs the authorities and takes the steps in the response sheet.'] },
+      { t: 'q', s: 'emg', es: ['Un gas que se escapa no tiene olor. ¿Es seguro?', 'No: aunque no huela, puede ser nocivo', 'Sí: si no huele, es inofensivo', 'Sí, de noche', 'Sí, si hace frío', 'Hay que considerar siempre que los gases o vapores pueden ser nocivos, aunque sean inodoros.'],
+        en: ['A leaking gas has no smell. Is it safe?', 'No: even without a smell it can be harmful', 'Yes: no smell means harmless', 'Yes, at night', 'Yes, if it is cold', 'Always assume gases or vapours may be harmful, even if they have no smell.'] },
+      { t: 'q', s: 'emg', es: ['Cerca de un derrame inflamable, ¿qué hay que evitar?', 'Cualquier chispa, incluso arrancar el motor', 'Alejar a las personas', 'Avisar a los bomberos', 'Ponerse con el viento a la espalda', 'Hay que evitar cualquier tipo de chispa, incluso la del arranque y el funcionamiento del motor del vehículo.'],
+        en: ['Near a flammable spill, what must you avoid?', 'Any spark, even starting the engine', 'Moving people away', 'Calling the fire brigade', 'Standing with the wind at your back', 'Avoid any kind of spark, including starting and running the vehicle’s engine.'] },
+    ] },
+
+  { name: ['Vaca Muerta', 'Vaca Muerta'], from: 'Neuquén', to: 'Añelo', road: 'RP 7', biome: 'patag', tod: 'day', sign: 110,
+    cargo: { un: '1971', hz: '23', cls: '2.1', name: ['GNC (metano comprimido)', 'CNG (compressed methane)'] },
+    intro: ['GNC de Neuquén a Añelo por la RP 7, rumbo a Vaca Muerta. Hoy repasamos las reglas generales de tránsito.',
+      'CNG from Neuquén to Añelo on RP 7, towards Vaca Muerta. Today we go over the general traffic rules.'],
+    tests: [
+      { t: 'q', s: 'list', es: ['El GNC (metano comprimido, UN 1971) es de la clase…', '2.1: gas inflamable', '3: líquido inflamable', '8: corrosivo', '1: explosivo', 'El metano comprimido o gas natural comprimido (UN 1971) es de la división 2.1: gas inflamable.'],
+        en: ['CNG (compressed methane, UN 1971) belongs to class…', '2.1: flammable gas', '3: flammable liquid', '8: corrosive', '1: explosive', 'Compressed methane or compressed natural gas (UN 1971) is division 2.1: flammable gas.'] },
+      { t: 's80' },
+      { t: 'q', s: 'l41', es: ['En una encrucijada sin semáforo, ¿quién tiene prioridad?', 'El que cruza desde la derecha', 'El vehículo más grande', 'El que va más rápido', 'El que toca bocina', 'Hay que ceder siempre el paso al que cruza desde la derecha; esa prioridad es absoluta salvo las excepciones de la ley.'],
+        en: ['At a junction without lights, who has right of way?', 'Whoever crosses from the right', 'The biggest vehicle', 'The fastest one', 'Whoever honks', 'You always give way to whoever crosses from your right; that priority is absolute, save the exceptions in the law.'] },
+      { t: 's60' },
+      { t: 'q', s: 'l48', es: ['¿Podés usar el celular con la mano mientras manejás?', 'No: se prohíben los auriculares y los sistemas de operación manual continua', 'Sí, en ruta', 'Sí, a menos de 40 km/h', 'Sí, si es por trabajo', 'La ley prohíbe conducir usando auriculares y sistemas de comunicación de operación manual continua.'],
+        en: ['Can you use your phone in your hand while driving?', 'No: headphones and hand-held devices are forbidden', 'Yes, on the open road', 'Yes, below 40 km/h', 'Yes, if it is for work', 'The law forbids driving with headphones or communication systems that need continuous manual operation.'] },
+      { t: 'q', s: 'l65', es: ['Si participás en un accidente, ¿qué es obligatorio?', 'Detenerse, dar los datos de la licencia y del seguro y denunciar el hecho', 'Seguir viaje si no hay heridos', 'Solo sacar fotos', 'Pasar la carga a otro camión', 'Hay que detenerse de inmediato, dar los datos de la licencia y del seguro a la otra parte y a la autoridad, y denunciar el hecho.'],
+        en: ['If you are involved in an accident, what is mandatory?', 'Stop, give your licence and insurance details and report it', 'Carry on if nobody is hurt', 'Just take photos', 'Move the load to another truck', 'You must stop at once, give your licence and insurance details to the other party and the authority, and report it.'] },
+      { t: 'rail' },
+      { t: 'q', s: 'l61', es: ['Se acerca una ambulancia con sirena y balizas. ¿Qué hacés?', 'Le facilito el paso y no la sigo', 'La sigo para avanzar más rápido', 'Freno en seco en mi carril', 'Acelero para no estorbar', 'Los demás usuarios deben tomar las medidas necesarias para facilitar el paso de los vehículos de emergencia, y no pueden seguirlos.'],
+        en: ['An ambulance with siren and lights is coming. What do you do?', 'Let it through and don’t follow it', 'Follow it to go faster', 'Brake hard in my lane', 'Speed up to stay out of the way', 'Other road users must do what is needed to let emergency vehicles pass, and may not follow them.'] },
+      { t: 'q', s: 'l59', es: ['Tu camión queda detenido en la calzada. ¿Qué hay que poner de inmediato?', 'Las balizas reglamentarias', 'Ramas sobre el asfalto', 'Nada, si es de día', 'Una nota en el parabrisas', 'Un obstáculo en la vía se advierte, como mínimo, con la colocación inmediata de balizas reglamentarias.'],
+        en: ['Your truck is stopped on the carriageway. What must you put out at once?', 'The regulation warning triangles', 'Branches on the asphalt', 'Nothing, by day', 'A note on the windscreen', 'An obstacle on the road must be signalled at least by putting out the regulation warning devices at once.'] },
+      { t: 'q', s: 'l52', es: ['En una ruta (camino), ¿cuál es la velocidad mínima?', '40 km/h', '20 km/h', '60 km/h', 'No hay mínimo', 'En caminos y semiautopistas, el límite mínimo es 40 km/h; en zona urbana y autopistas, la mitad del máximo.'],
+        en: ['On a road (highway), what is the minimum speed?', '40 km/h', '20 km/h', '60 km/h', 'There is no minimum', 'On roads and dual carriageways the minimum is 40 km/h; in towns and on motorways, half of the maximum.'] },
+    ] },
+
+  { name: ['El gran final', 'The grand finale'], from: 'Dock Sud', to: 'Campana', road: 'RN 9 · Panamericana', biome: 'indus', tod: 'sunset', sign: 130,
+    cargo: { un: '1428', hz: 'X423', cls: '4.3', name: ['Sodio', 'Sodium'] },
+    intro: ['Último viaje: sodio del puerto de Dock Sud a Campana por la Panamericana. Ojo: con la X, nunca agua. ¡Que llegue ese diploma!',
+      'Last run: sodium from the port of Dock Sud to Campana on the Panamericana. Careful: with the X, never water. Let’s get that diploma!'],
+    tests: [
+      { t: 'q', s: 'code', es: ['La última carga lleva X423. ¿Qué significa?', 'Sólido que reacciona peligrosamente con el agua y emite gases inflamables', 'Líquido inflamable que se lava con agua', 'Gas inerte', 'Sustancia muy tóxica', 'X423 es un sólido que reacciona peligrosamente con el agua emitiendo gases inflamables: la X manda no usar agua.'],
+        en: ['The last load shows X423. What does it mean?', 'A solid that reacts dangerously with water, giving off flammable gas', 'A flammable liquid you wash off with water', 'An inert gas', 'A very toxic substance', 'X423 is a solid that reacts dangerously with water giving off flammable gases: the X means no water.'] },
+      { t: 'lights' },
+      { t: 'q', s: 'l51', es: ['En autopista, ¿cuál es el máximo para sustancias peligrosas?', '80 km/h', '100 km/h', '120 km/h', '130 km/h', 'En autopista rigen los límites de la zona rural: 80 km/h para sustancias peligrosas, aunque los autos puedan ir más rápido.'],
+        en: ['On a motorway, what is the limit for dangerous goods?', '80 km/h', '100 km/h', '120 km/h', '130 km/h', 'Motorways use the rural limits: 80 km/h for dangerous goods, even though cars may go faster.'] },
+      { t: 's80' },
+      { t: 'q', s: 'ansv', es: ['¿Qué pasó con las LiNTI vigentes con la Disposición ANSV 56/2025?', 'Pasaron a ser certificados de formación y conservan su vencimiento', 'Quedaron anuladas al día siguiente', 'Pasaron a valer para siempre', 'Se cambiaron por la licencia de moto', 'Las LiNTI vigentes se convirtieron en certificados de formación en mercancías peligrosas, con el mismo vencimiento.'],
+        en: ['What happened to valid LiNTI cards with ANSV Provision 56/2025?', 'They became training certificates and keep their expiry date', 'They were cancelled the next day', 'They became valid forever', 'They were swapped for a motorbike licence', 'Valid LiNTI cards became dangerous goods training certificates, with the same expiry date.'] },
+      { t: 'q', s: 'ansv', es: ['¿Cómo se prorroga la formación del conductor?', 'Con un curso de actualización periódico', 'Pagando una tasa, sin curso', 'No se prorroga nunca', 'Con una carta del empleador', 'La vigencia se prorroga aprobando un curso de actualización periódico.'],
+        en: ['How is the driver’s training renewed?', 'With a periodic refresher course', 'By paying a fee, with no course', 'It is never renewed', 'With a letter from the employer', 'Validity is extended by passing a periodic refresher course.'] },
+      { t: 'q', s: 'l48', es: ['¿Qué distancia hay que mantener con el vehículo de adelante?', 'La prudente, según la velocidad de marcha', 'Un metro', 'La mínima para que no se meta nadie', 'Cualquiera, con buenos frenos', 'La ley prohíbe conducir a una distancia del vehículo de adelante menor de la prudente, de acuerdo con la velocidad.'],
+        en: ['What distance must you keep from the vehicle ahead?', 'A safe one for your speed', 'One metre', 'The least, so nobody cuts in', 'Any, with good brakes', 'The law forbids driving closer to the vehicle ahead than is prudent for your speed.'] },
+      { t: 'stop' },
+      { t: 'q', s: 'l48', es: ['¿Podés circular con las cubiertas gastadas?', 'No: sin fallas y con la profundidad legal de los canales', 'Sí, si no llueve', 'Sí, en el eje trasero', 'Sí, hasta el próximo service', 'Está prohibido circular con cubiertas con fallas o sin la profundidad legal de los canales en la banda de rodamiento.'],
+        en: ['Can you drive on worn tyres?', 'No: no defects and the legal tread depth', 'Yes, if it is not raining', 'Yes, on the rear axle', 'Yes, until the next service', 'Driving on tyres with defects or without the legal tread depth is forbidden.'] },
+      { t: 'q', s: 'l47', es: ['En una ruta nacional, ¿cuándo van encendidas las luces bajas?', 'Siempre, haya o no luz de día', 'Solo de noche', 'Solo con lluvia', 'Solo en los túneles', 'En las rutas nacionales, las luces bajas o diurnas permanecen encendidas siempre, sin importar la luz natural ni la visibilidad.'],
+        en: ['On a national route, when must the dipped lights be on?', 'Always, daylight or not', 'Only at night', 'Only in rain', 'Only in tunnels', 'On national routes, dipped or daytime lights stay on at all times, whatever the daylight or visibility.'] },
+    ] },
+];
+
+// ---- RUTA PELIGROSA: el motor del juego ----
+'use strict';
+const PAGE_LANG = document.documentElement.lang === 'en' ? 'en' : 'es';
+let lang = PAGE_LANG;
+const L = () => (lang === 'en' ? 1 : 0);
+const $ = (id) => document.getElementById(id);
+
+const STR = {
+  es: {
+    tag: 'Cargas peligrosas · Argentina', play: 'Jugar', cont: 'Continuar viaje', missions: 'Misiones', how: 'Cómo se juega', diploma: 'Diploma', other: 'English',
+    back: 'Volver', mission: 'MISIÓN', test: 'PRUEBA', passed: 'PRUEBA SUPERADA', failed: 'PRUEBA FALLADA', mpassed: 'MISIÓN SUPERADA',
+    crash: 'SINIESTRO', held: 'RETENIDO', heldSub: 'Demasiadas infracciones: el control retiene el vehículo', crashSub: 'Chocaste. La cisterna queda detenida y se pierden puntos.',
+    next: 'Siguiente misión', menu: 'Menú', seeDip: 'Ver el diploma', theory: 'PRUEBA TEÓRICA', ident: 'IDENTIFICACIÓN', go: 'Continuar',
+    correct: '¡Correcto!', wrong: 'Incorrecto', timeout: 'Se acabó el tiempo', src: 'Fuente', safety: 'SEGURIDAD', route: 'RUTA', pts: 'PTS',
+    name: 'Tu nombre para el diploma', namePh: 'Nombre y apellido', download: 'Descargar PNG', share: 'Compartir', copy: 'Copiar texto', copied: '¡Copiado!',
+    review: 'Repaso: las pruebas que fallaste', none: 'No fallaste ninguna. Impecable.', pause: 'PAUSA', resume: 'Continuar', quit: 'Salir al menú',
+    reset: 'Empezar de cero', resetQ: '¿Borrar todo el progreso?', locked: 'Bloqueada', disp: 'RITA · DESPACHO', insp: 'INSPECTORA', okTests: 'pruebas', of: 'de',
+    cargo: 'Carga', start: 'Arrancá con ▲ o W', stopped: 'Control: documentación en orden. Buen viaje.', checkMiss: '¡Te pasaste el control!',
+    slow: '¡Bajá la velocidad! Con carga peligrosa no se pasa del límite.', lightsWarn: '¡Las luces! En ruta nacional van siempre encendidas.', passWarn: '¡No se adelanta con doble línea!',
+    dipNeed: 'Terminá las 10 misiones para ganar el diploma.', results: 'RESULTADO FINAL', points: 'Puntos', crashes: 'Siniestros', missionsDone: 'Misiones', date: 'Fecha',
+    dipTitle: 'DIPLOMA DE CONDUCTOR DE RUTA', dipGiven: 'Se otorga a', dipFor: 'por completar las 100 pruebas sobre el transporte de mercancías peligrosas por carretera en la República Argentina',
+    dipFoot: 'Juego educativo de DMarlon Studio · Sin validez oficial · No reemplaza el curso de capacitación obligatorio (Disp. ANSV 56/2025)',
+    shareText: 'Completé RUTA PELIGROSA: {n}/100 pruebas sobre cargas peligrosas en Argentina. ¿Te animás?', driver: 'Conductor/a',
+    disc: 'Juego educativo basado en la Ley 24.449, la Ley 27.714, el Decreto 779/95 (Anexo S), la Res. 195/97 y la Disposición ANSV 56/2025. No reemplaza el curso obligatorio.',
+    howTitle: 'Cómo se juega',
+    howText: [
+      '<b>▲ / W</b> acelera y <b>▼ / S</b> frena: la velocidad se mantiene sola (control de crucero). <b>◀ ▶</b> cambia de carril y <b>L</b> enciende las luces. <b>P</b> pausa.',
+      'Son <b>10 misiones</b> por rutas argentinas, con <b>10 pruebas</b> cada una: <b>100 pruebas</b> en total.',
+      'Los <b>marcadores amarillos</b> en la ruta son pruebas teóricas: pasá por encima y respondé con el ratón o con <b>1-4</b>. Cuanto antes, más puntos.',
+      'Las <b>pruebas de manejo</b> se superan manejando: respetar los 80 km/h con carga peligrosa, los 60 en las travesías urbanas, los 20 en pasos a nivel y escuelas, no adelantar con doble línea, llevar las luces y detenerse en el control.',
+      'Cada infracción suma una <b>estrella</b>. Con cinco, el control te retiene. Los choques son <b>siniestros</b> y restan puntos.',
+      'Al terminar las 10 misiones ganás un <b>diploma para compartir</b> con tu puntuación. Cada pregunta cita su ley.',
+    ],
+    ranks: ['Necesita repasar', 'Aprobado con lo justo', 'Conductor responsable', 'Conductor ejemplar', 'Maestro de la ruta'],
+    tests: 'pruebas', cleared: 'superadas',
+  },
+  en: {
+    tag: 'Dangerous goods · Argentina', play: 'Play', cont: 'Continue trip', missions: 'Missions', how: 'How to play', diploma: 'Diploma', other: 'Español',
+    back: 'Back', mission: 'MISSION', test: 'TEST', passed: 'TEST PASSED', failed: 'TEST FAILED', mpassed: 'MISSION PASSED',
+    crash: 'CRASHED', held: 'HELD', heldSub: 'Too many offences: the roadside check holds the vehicle', crashSub: 'You crashed. The tanker is stopped and you lose points.',
+    next: 'Next mission', menu: 'Menu', seeDip: 'See the diploma', theory: 'THEORY TEST', ident: 'IDENTIFICATION', go: 'Continue',
+    correct: 'Correct!', wrong: 'Wrong', timeout: 'Time is up', src: 'Source', safety: 'SAFETY', route: 'ROUTE', pts: 'PTS',
+    name: 'Your name for the diploma', namePh: 'Full name', download: 'Download PNG', share: 'Share', copy: 'Copy text', copied: 'Copied!',
+    review: 'Review: the tests you failed', none: 'You failed none. Flawless.', pause: 'PAUSED', resume: 'Resume', quit: 'Quit to menu',
+    reset: 'Start over', resetQ: 'Erase all progress?', locked: 'Locked', disp: 'RITA · DISPATCH', insp: 'INSPECTOR', okTests: 'tests', of: 'of',
+    cargo: 'Load', start: 'Pull away with ▲ or W', stopped: 'Check: papers in order. Have a good trip.', checkMiss: 'You drove past the check!',
+    slow: 'Slow down! With dangerous goods you never go over the limit.', lightsWarn: 'Your lights! On a national route they are always on.', passWarn: 'No overtaking on a double line!',
+    dipNeed: 'Finish the 10 missions to earn the diploma.', results: 'FINAL RESULT', points: 'Points', crashes: 'Crashes', missionsDone: 'Missions', date: 'Date',
+    dipTitle: 'ROAD DRIVER DIPLOMA', dipGiven: 'Awarded to', dipFor: 'for completing the 100 tests on carrying dangerous goods by road in Argentina',
+    dipFoot: 'Educational game by DMarlon Studio · Not an official document · Does not replace the mandatory training course (ANSV Prov. 56/2025)',
+    shareText: 'I finished RUTA PELIGROSA: {n}/100 tests on dangerous goods in Argentina. Up for it?', driver: 'Driver',
+    disc: 'Educational game based on Law 24,449, Law 27,714, Decree 779/95 (Annex S), Res. 195/97 and ANSV Provision 56/2025. It does not replace the mandatory course.',
+    howTitle: 'How to play',
+    howText: [
+      '<b>▲ / W</b> speeds up and <b>▼ / S</b> brakes: the speed holds by itself (cruise control). <b>◀ ▶</b> changes lane and <b>L</b> turns on the lights. <b>P</b> pauses.',
+      'There are <b>10 missions</b> on Argentine routes, with <b>10 tests</b> each: <b>100 tests</b> in all.',
+      'The <b>yellow markers</b> on the road are theory tests: drive through and answer with the mouse or <b>1-4</b>. The faster, the more points.',
+      'The <b>driving tests</b> are passed by driving: keep to 80 km/h with dangerous goods, 60 through towns, 20 at level crossings and schools, no overtaking on a double line, lights on and stop at the check.',
+      'Each offence adds a <b>star</b>. With five, the check holds you. Crashes cost points.',
+      'After the 10 missions you earn a <b>diploma to share</b> with your score. Every question cites its law.',
+    ],
+    ranks: ['Needs review', 'Just passed', 'Responsible driver', 'Model driver', 'Road master'],
+    tests: 'tests', cleared: 'passed',
+  },
+};
+const t = (k) => STR[lang][k];
+
+// ---- Utilidades ----
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let x = a; x = Math.imul(x ^ (x >>> 15), x | 1); x ^= x + Math.imul(x ^ (x >>> 7), x | 61); return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const fmt = (n) => Math.round(n).toLocaleString(lang === 'en' ? 'en-US' : 'es-AR');
+function rr(g, x, y, w, h, r) { r = Math.min(r, w / 2, h / 2); g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+// ---- Disposición de cada misión ----
+const GAP = 165;
+M.forEach((m, mi) => {
+  let d = 140; m.ev = []; m.seed = mi * 1.7 + 0.4;
+  m.tests.forEach((ts, i) => {
+    const e = { i, ts, n: mi * 10 + i + 1, state: 'pending' };
+    if (ts.t === 'q' || ts.t === 'p') { e.start = e.end = e.at = d; d += GAP; }
+    else { if (ts.t === 'stop') d += 110; e.start = d; e.end = d + DRV[ts.t].len; d = e.end + GAP; }
+    m.ev.push(e);
+  });
+  m.len = d + 90;
+});
+const TOTAL = M.reduce((a, m) => a + m.tests.length, 0);
+
+const BIOME = {
+  pampa: { g: '#5c8a37', s: ['#6a9a40', '#4f7b2f', '#77a84a'], tree: '#2e5a24', rows: '#6f9f44' },
+  coast: { g: '#76a052', s: ['#86ad60', '#679246', '#93b86c'], tree: '#3b6b32', lagoon: true },
+  patag: { g: '#b49a66', s: ['#a68c59', '#c2a874', '#9c8552'], tree: '#7e8a58', shrub: '#8a9466' },
+  cuyo: { g: '#c39f69', s: ['#b48f5a', '#cfae7a', '#a8854f'], tree: '#5e7a34', rows: '#6f8b3a' },
+  monte: { g: '#8e8a4c', s: ['#9a965a', '#7f7b42', '#a4a064'], tree: '#4a6a2c' },
+  desert: { g: '#cdb27c', s: ['#c0a46e', '#d8bf8c', '#b8995f'], tree: '#7d8a4e', shrub: '#9a9a62' },
+  norte: { g: '#9b5e3f', s: ['#8b5235', '#a86b4a', '#7f4a30'], tree: '#4e7a3a', cactus: true },
+  indus: { g: '#7c8076', s: ['#6f736a', '#888c82', '#666a61'], tree: '#3d5a33' },
+};
+
+// ---- Estado ----
+const S = {
+  screen: 'title', mi: 0, m: M[0], pd: 0, v: 0, x: 2, lane: 0, lights: false, brake: false,
+  stars: 0, starT: 0, starDecay: 0, safety: 100, mscore: 0, cars: [], spawnT: 2, slowT: 0, crash: 0, held: 0,
+  quiz: null, paused: false, attract: true, auto: false, banner: 0, sub: null, toast: null, obj: null, camX: 0, warnLights: false, t: 0,
+  mres: [], crashes: 0,
+};
+let P = { res: M.map(() => null), pts: M.map(() => 0), crashes: M.map(() => 0), name: '' };
+try { const j = JSON.parse(localStorage.getItem('hz_progress') || 'null'); if (j && Array.isArray(j.res) && j.res.length === M.length) P = Object.assign(P, j); } catch (e) {}
+function save() { try { localStorage.setItem('hz_progress', JSON.stringify(P)); } catch (e) {} }
+const doneCount = () => P.res.filter(Boolean).length;
+const passedTotal = () => P.res.reduce((a, r) => a + (r ? r.filter((x) => x && x.ok).length : 0), 0);
+const totalPts = () => P.pts.reduce((a, b) => a + b, 0);
+const nextMission = () => { const i = P.res.findIndex((r) => !r); return i < 0 ? M.length - 1 : i; };
+
+// ---- Lienzo ----
+const cv = $('game'), g = cv.getContext('2d');
+const dark = document.createElement('canvas'), dg = dark.getContext('2d');
+let W = 0, H = 0, DPR = 1, PX = 8, PL = 14, TY = 600;
+function resize() {
+  DPR = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+  cv.width = W * DPR; cv.height = H * DPR; dark.width = cv.width; dark.height = cv.height;
+  PX = H / 108; PL = clamp(W / 34, 10.5, 15); TY = H * 0.72;
+}
+addEventListener('resize', resize); resize();
+const groundCache = {};
+function groundPattern(b) {
+  if (groundCache[b]) return groundCache[b];
+  const B = BIOME[b], c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'), r = rng(b.length * 977);
+  x.fillStyle = B.g; x.fillRect(0, 0, 256, 256);
+  if (B.rows) { x.fillStyle = B.rows; for (let i = 0; i < 256; i += 16) x.fillRect(i, 0, 7, 256); }
+  for (let i = 0; i < 1400; i++) { x.fillStyle = B.s[i % 3]; x.globalAlpha = 0.35 + r() * 0.4; const s = 1 + r() * 3.5; x.fillRect(r() * 256, r() * 256, s, s * (1 + r())); }
+  x.globalAlpha = 1;
+  if (B.shrub) for (let i = 0; i < 40; i++) { x.fillStyle = B.shrub; x.beginPath(); x.arc(r() * 256, r() * 256, 2 + r() * 3, 0, 7); x.fill(); }
+  return (groundCache[b] = g.createPattern(c, 'repeat'));
+}
+
+// ---- Geometría de la ruta ----
+function curve(d) {
+  const m = S.m; let c = 7 * Math.sin(d / 300 + m.seed) + 4 * Math.sin(d / 127 + m.seed * 2.3);
+  for (const e of m.ev) {
+    if (e.ts.t === 'nopass' && e.ts.k === 'curve') { const u = (d - e.start + 50) / (e.end - e.start + 100); if (u > 0 && u < 1) c += 16 * Math.sin(u * Math.PI * 2) * Math.sin(u * Math.PI); }
+  }
+  return c;
+}
+const heading = (d) => Math.atan2((curve(d + 2) - curve(d - 2)) / 4 * PL, PX);
+const sy = (d) => TY - (d - S.pd) * PX;
+const sx = (d, lat) => W / 2 + (curve(d) + lat - S.camX) * PL;
+const LANE_R = 2, LANE_L = -2, HALF = 4, SHOULDER = 1.6;
+
+// Objetos fijos de la misión (árboles, postes, edificios), con semilla.
+function buildScenery(m, mi) {
+  const r = rng(mi * 131 + 7), sc = []; const B = BIOME[m.biome];
+  for (let d = -200; d < m.len + 200; d += 9 + r() * 22) {
+    const side = r() < 0.5 ? -1 : 1, lat = side * (8 + r() * 26);
+    if (B.cactus && r() < 0.5) sc.push({ k: 'cactus', d, lat }); else sc.push({ k: 'tree', d, lat, s: 0.7 + r() * 0.8 });
+  }
+  for (let d = 0; d < m.len + 200; d += 60) { sc.push({ k: 'post', d, lat: 6.3 }); sc.push({ k: 'post', d: d + 30, lat: -6.3 }); }
+  if (B.lagoon) for (let d = 300; d < m.len; d += 700 + r() * 400) sc.push({ k: 'lagoon', d, lat: (r() < 0.5 ? -1 : 1) * (26 + r() * 10), s: 1 + r() });
+  if (m.start === 'indus' || m.biome === 'indus') for (let d = -150; d < 120; d += 26) { sc.push({ k: 'tank', d, lat: -18 - r() * 6, s: 0.8 + r() * 0.5 }); sc.push({ k: 'tank', d: d + 12, lat: 17 + r() * 8, s: 0.8 + r() * 0.5 }); }
+  for (const e of m.ev) {
+    const k = e.ts.t;
+    if (k === 's60' || k === 'school') {
+      for (let d = e.start - 20; d < e.end + 20; d += 12 + r() * 10) for (const side of [-1, 1]) if (r() < 0.85) sc.push({ k: 'house', d, lat: side * (10 + r() * 6), w: 6 + r() * 6, h: 7 + r() * 5, c: ['#c96b4b', '#d9a066', '#8f6f5a', '#b04f3e', '#e0d2b8', '#6f8fa0'][Math.floor(r() * 6)] });
+      for (let d = e.start; d < e.end; d += 40) sc.push({ k: 'lamp', d, lat: 6.6 });
+      if (k === 'school') sc.push({ k: 'school', d: (e.start + e.end) / 2, lat: 15 });
+    }
+    if (k === 'stop') sc.push({ k: 'booth', d: e.start + 10, lat: 9 });
+  }
+  sc.sort((a, b) => a.d - b.d);
+  return sc;
+}
+
+// ---- Arranque de misiones ----
+function startMission(mi, attract) {
+  S.mi = mi; S.m = M[mi]; S.attract = !!attract; S.pd = attract ? 300 : 0; S.v = attract ? 72 : 0; S.x = LANE_R; S.lane = 0; S.lights = !!attract;
+  S.stars = 0; S.starT = 0; S.starDecay = 0; S.safety = 100; S.mscore = 0; S.cars = []; S.spawnT = 1.5; S.crash = 0; S.held = 0; S.quiz = null; S.paused = false;
+  S.mres = M[mi].tests.map(() => null); S.crashes = 0; S.warnLights = false; S.obj = null; S.toast = null; S.sub = null; S.t = 0;
+  S.m.ev.forEach((e) => { e.state = 'pending'; e.max = 0; e.fail = false; });
+  S.scenery = buildScenery(S.m, mi); S.camX = curve(S.pd) + S.x * 0.35;
+  if (!attract) {
+    S.screen = 'drive'; showScreen(null); hud(true);
+    banner(`${t('mission')} ${mi + 1}`, S.m.name[L()], `${S.m.road} · ${S.m.from} → ${S.m.to}`, 'start', 3.2);
+    say(t('disp'), S.m.intro[L()], 9);
+    setTimeout(() => { if (S.screen === 'drive' && S.v === 0 && !S.auto) toast(t('start'), '', 'info', 3); }, 3400);
+  }
+}
+
+// ---- Entrada ----
+const keys = {};
+addEventListener('keydown', (e) => {
+  if (S.screen === 'drive' && S.quiz) { quizKey(e); return; }
+  keys[e.code] = true;
+  if (S.screen !== 'drive') return;
+  if (e.code === 'ArrowLeft' || e.code === 'KeyA') setLane(1);
+  if (e.code === 'ArrowRight' || e.code === 'KeyD') setLane(0);
+  if (e.code === 'KeyL') toggleLights();
+  if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) e.preventDefault();
+});
+addEventListener('keyup', (e) => { keys[e.code] = false; });
+const touch = { up: false, down: false };
+function bindHold(id, k) {
+  const el = $(id); const on = (e) => { e.preventDefault(); touch[k] = true; }, off = () => { touch[k] = false; };
+  el.addEventListener('pointerdown', on); el.addEventListener('pointerup', off); el.addEventListener('pointerleave', off); el.addEventListener('pointercancel', off);
+}
+bindHold('tUp', 'up'); bindHold('tDown', 'down');
+$('tLeft').addEventListener('pointerdown', (e) => { e.preventDefault(); setLane(1); });
+$('tRight').addEventListener('pointerdown', (e) => { e.preventDefault(); setLane(0); });
+$('tLights').addEventListener('pointerdown', (e) => { e.preventDefault(); toggleLights(); });
+$('tPause').addEventListener('click', () => togglePause());
+function setLane(l) { if (S.crash > 0 || S.held > 0) return; S.lane = l; S.blink = 1.2; }
+function toggleLights() { S.lights = !S.lights; $('hLights').classList.toggle('on', S.lights); }
+function togglePause() {
+  if (S.screen !== 'drive' || S.quiz) return;
+  S.paused = !S.paused; $('pause').classList.toggle('show', S.paused);
+}
+
+// ---- Bucle ----
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (!S.paused && !S.quiz) update(dt); else if (S.quiz) quizTick(dt);
+  render(); requestAnimationFrame(frame);
+}
+
+function limitAt() {
+  for (const e of S.m.ev) if (e.state === 'active' && DRV[e.ts.t] && DRV[e.ts.t].lim) return DRV[e.ts.t].lim;
+  return 80;
+}
+function nextZone(ahead) {
+  for (const e of S.m.ev) if (e.state === 'pending' && DRV[e.ts.t] && e.start - S.pd < ahead) return e;
+  return null;
+}
+
+function autopilot(dt) {
+  S.lights = true; S.lane = 0;
+  let target = 76;
+  const act = S.m.ev.find((e) => e.state === 'active' && DRV[e.ts.t] && DRV[e.ts.t].lim);
+  if (act) target = DRV[act.ts.t].lim - 4;
+  for (const e of S.m.ev) {
+    if (e.state !== 'pending') continue;
+    const D = DRV[e.ts.t]; if (!D) continue;
+    const dist = e.start - S.pd; if (dist > 90) break;
+    if (D.lim) target = Math.min(target, D.lim - 4 + Math.max(0, dist - 8) * 1.1);
+    if (e.ts.t === 'stop') target = Math.min(target, Math.max(8, (e.start + 14 - S.pd) * 1.3));
+    break;
+  }
+  const stopE = S.m.ev.find((e) => e.ts.t === 'stop' && e.state === 'active');
+  if (stopE) target = S.pd < stopE.start + 12 ? Math.max(6, (stopE.start + 14 - S.pd) * 1.3) : 0;
+  for (const c of S.cars) if (c.dir > 0 && Math.abs(c.lat - S.x) < 2.6) { const gap = c.d - c.len / 2 - S.pd; if (gap > 0 && gap < 45) target = Math.min(target, c.v - 2 + (gap - 14) * 0.6); }
+  target = clamp(target, 0, 100);
+  if (S.v < target) S.v = Math.min(target, S.v + 24 * dt); else S.v = Math.max(target, S.v - 45 * dt);
+  S.brake = S.v > target + 1;
+}
+
+function update(dt) {
+  S.t += dt;
+  if (S.banner > 0) S.banner -= dt;
+  if (S.toast && (S.toast.t -= dt) <= 0) { S.toast = null; $('toast').classList.remove('show'); }
+  if (S.sub && (S.sub.t -= dt) <= 0) { S.sub = null; $('sub').classList.remove('show'); }
+  if (S.blink > 0) S.blink -= dt;
+  if (S.slowT > 0) { S.slowT -= dt; dt *= 0.18; if (S.slowT <= 0 && S.pendingQuiz) { openQuiz(S.pendingQuiz); S.pendingQuiz = null; return; } }
+  if (S.crash > 0) { S.crash -= dt; if (S.crash <= 0) { cv.style.filter = ''; $('big').classList.remove('show'); } return; }
+  if (S.held > 0) { S.held -= dt; if (S.held <= 0) { $('big').classList.remove('show'); } return; }
+
+  // Controles
+  if (S.attract || S.auto) autopilot(dt);
+  else {
+    const up = keys.ArrowUp || keys.KeyW || touch.up, dn = keys.ArrowDown || keys.KeyS || keys.Space || touch.down;
+    if (up) S.v += 21 * dt; if (dn) S.v -= 42 * dt; S.brake = !!dn;
+    S.v = clamp(S.v, 0, 100);
+  }
+  const tx = S.lane === 1 ? LANE_L : LANE_R; S.x += clamp(tx - S.x, -3.4 * dt, 3.4 * dt);
+  S.pd += (S.v / 3.6) * dt * 1.1;
+  S.camX += (curve(S.pd) + S.x * 0.35 - S.camX) * Math.min(1, dt * 4);
+
+  traffic(dt);
+  if (!S.attract) { events(dt); infractions(dt); if (S.pd >= S.m.len) missionComplete(); }
+  else if (S.pd > S.m.len - 200) { S.pd = 300; S.cars = []; }
+}
+
+// ---- Tráfico ----
+function addCar(o) { S.cars.push(Object.assign({ len: 4.6, wid: 1.9, color: '#d33', kind: 'car' }, o)); }
+const CAR_COLORS = ['#e8e8e8', '#2f6fd6', '#c62828', '#1b1b1b', '#9aa0a6', '#f2c230', '#2e7d32', '#7b3fa0'];
+function traffic(dt) {
+  const r = Math.random;
+  S.spawnT -= dt;
+  const inNoPass = S.m.ev.some((e) => e.ts.t === 'nopass' && e.state === 'active');
+  if (S.spawnT <= 0) {
+    S.spawnT = inNoPass ? 2 + r() * 2 : 4 + r() * 5;
+    const truck = r() < 0.3;
+    addCar({ d: S.pd + 150, lat: LANE_L, v: 70 + r() * 25, dir: -1, color: CAR_COLORS[Math.floor(r() * 8)], len: truck ? 12 : 4.6, wid: truck ? 2.5 : 1.9, kind: truck ? 'truck' : 'car' });
+    const z = nextZone(340), q = S.m.ev.find((e) => e.state === 'pending' && e.at !== undefined && e.at - S.pd < 200);
+    if (!z && !q && !S.attract && r() < 0.45 && !S.cars.some((c) => c.dir > 0)) addCar({ d: S.pd + 130, lat: LANE_R, v: 48, dir: 1, color: '#c9a227', len: 10, wid: 2.4, kind: 'truck', exit: S.pd + 330 });
+  }
+  // La máquina agrícola del tramo sin adelantar.
+  for (const e of S.m.ev) if (e.ts.t === 'nopass' && !e.tractor && e.start - S.pd < 110) { e.tractor = true; addCar({ d: e.start + 14, lat: LANE_R, v: 38, dir: 1, color: '#2e8b3a', len: 7, wid: 2.6, kind: 'tractor', exit: e.end + 6 }); }
+  for (const c of S.cars) {
+    if (c.exit && c.d > c.exit) { c.lat += 3 * dt; c.v = Math.max(20, c.v - 20 * dt); }
+    c.d += c.dir * (c.v / 3.6) * dt * 1.1;
+  }
+  S.cars = S.cars.filter((c) => c.d > S.pd - 80 && c.d < S.pd + 260 && c.lat < 10);
+  // Choques: el camión va de pd-18 a pd.
+  for (const c of S.cars) {
+    if (Math.abs(c.lat - S.x) < (c.wid + 2.5) / 2 * 0.92 && c.d + c.len / 2 > S.pd - 18 && c.d - c.len / 2 < S.pd) { crash(); break; }
+  }
+}
+function crash() {
+  if (S.attract) { S.cars = []; return; }
+  S.crash = 2.8; S.v = 0; S.lane = 0; S.x = LANE_R; S.crashes++; S.safety = Math.max(0, S.safety - 35); S.mscore -= 300;
+  S.cars = S.cars.filter((c) => Math.abs(c.d - S.pd) > 140);
+  cv.style.filter = 'grayscale(1) contrast(1.15) brightness(.8)';
+  bigText(t('crash'), t('crashSub'), 'crash');
+}
+
+// ---- Pruebas ----
+function events(dt) {
+  for (const e of S.m.ev) {
+    if (e.state === 'done') continue;
+    const k = e.ts.t, D = DRV[k];
+    if (!D) { if (S.pd >= e.at) { e.state = 'done'; S.slowT = 0.45; S.pendingQuiz = e; return; } continue; }
+    if (e.state === 'pending' && e.start - S.pd < 130 && !e.told) { e.told = true; S.obj = { e, title: D[lang][0], text: D[lang][1].replace('{sign}', S.m.sign) }; showObj(); }
+    if (e.state === 'pending' && S.pd >= e.start) { e.state = 'active'; e.max = S.v; if (k === 'lights' && S.lights) return pass(e); }
+    if (e.state !== 'active') continue;
+    e.max = Math.max(e.max, S.v);
+    if (D.lim && S.v > D.lim + 2 && !e.fail) { e.fail = true; addStar(1); fail(e); }
+    if (k === 'lights' && S.lights) return pass(e);
+    if (k === 'nopass' && S.x < 0 && !e.fail) { e.fail = true; addStar(2); say(t('disp'), t('passWarn'), 4); fail(e); }
+    if (k === 'stop' && S.v < 0.5 && S.pd <= e.end) { S.v = 0; } if (k === 'stop' && S.v === 0 && S.pd <= e.end) { say(t('insp'), t('stopped'), 4); return pass(e); }
+    if (S.pd >= e.end) {
+      if (k === 'stop') { addStar(2); say(t('disp'), t('checkMiss'), 4); fail(e); }
+      else if (k === 'lights') fail(e);
+      else if (!e.fail) pass(e);
+      e.state = 'done';
+    }
+  }
+}
+function pass(e) {
+  e.state = 'done'; S.mres[e.i] = { ok: true, pts: 150 }; S.mscore += 150;
+  toast(t('passed'), DRV[e.ts.t][lang][0] + ' · +150', 'ok', 2.6); hideObj(e);
+}
+function fail(e) {
+  e.state = 'done'; S.mres[e.i] = { ok: false, pts: 0 };
+  const D = DRV[e.ts.t]; toast(t('failed'), D[lang][2], 'bad', 5); hideObj(e);
+}
+function addStar(n) {
+  S.stars = Math.min(5, S.stars + n); S.starDecay = 0; S.safety = Math.max(0, S.safety - 8 * n); S.mscore -= 25 * n;
+  if (S.stars >= 5) { S.held = 3.2; S.v = 0; S.stars = 0; S.mscore -= 400; bigText(t('held'), t('heldSub'), 'held'); }
+}
+function infractions(dt) {
+  const lim = limitAt();
+  if (S.v > lim + 3) { S.starT += dt; if (S.starT > 2.5) { S.starT = 0; addStar(1); say(t('disp'), t('slow'), 4); } } else S.starT = Math.max(0, S.starT - dt);
+  const le = S.m.ev.find((e) => e.ts.t === 'lights');
+  const grace = le ? le.end : 220;
+  if (!S.lights && S.pd > grace && !S.warnLights) { S.warnLights = true; addStar(1); say(t('disp'), t('lightsWarn'), 4); }
+  S.starDecay += dt; if (S.stars > 0 && S.starDecay > 22) { S.stars--; S.starDecay = 0; }
+}
+
+function missionComplete() {
+  const ok = S.mres.filter((r) => r && r.ok).length;
+  const bonus = 200 + Math.round(S.safety * 3);
+  S.mscore += bonus; S.mscore = Math.max(0, S.mscore);
+  P.res[S.mi] = S.mres.map((r) => r || { ok: false, pts: 0 }); P.pts[S.mi] = S.mscore; P.crashes[S.mi] = S.crashes; save();
+  S.screen = 'passed'; S.attract = true; hud(false);
+  const last = doneCount() === M.length;
+  $('mpTitle').textContent = t('mpassed');
+  $('mpSub').textContent = `${S.m.from} → ${S.m.to}`;
+  $('mpStats').innerHTML = `<div><b>${ok}/10</b><span>${t('okTests')}</span></div><div><b>${fmt(S.mscore)}</b><span>${t('pts')}</span></div><div><b>${S.crashes}</b><span>${t('crashes')}</span></div>`;
+  $('mpNext').textContent = last ? t('seeDip') : t('next');
+  $('mpNext').onclick = () => { if (last) showResults(); else startMission(nextMission()); };
+  $('mpMenu').onclick = () => toMenu(); $('mpMenu').textContent = t('menu');
+  showScreen('mpassed');
+}
+
+// ---- Preguntas ----
+function openQuiz(e) {
+  const ts = e.ts, d = ts[lang];
+  let opts;
+  if (ts.t === 'q') opts = [1, 2, 3, 4].map((j) => ({ html: esc(d[j]), ok: j === 1 }));
+  else opts = ts.pan.map((p, j) => { const [a, b] = p.split('/'); return { html: `<span class="opanel"><i>${esc(a)}</i><i>${esc(b)}</i></span>`, ok: j === 0 }; });
+  const r = rng(e.n * 7919 + 3); for (let i = opts.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [opts[i], opts[j]] = [opts[j], opts[i]]; }
+  S.quiz = { e, opts, left: 20, answered: false };
+  $('qHead').textContent = `${t('test')} ${e.n} / ${TOTAL} · ${ts.t === 'p' ? t('ident') : t('theory')}`;
+  $('qText').textContent = d[0];
+  $('qOpts').className = ts.t === 'p' ? 'opts panels' : 'opts';
+  $('qOpts').innerHTML = opts.map((o, i) => `<button data-i="${i}"><kbd>${i + 1}</kbd><span>${o.html}</span></button>`).join('');
+  [...$('qOpts').children].forEach((b) => b.addEventListener('click', () => answer(+b.dataset.i)));
+  $('qFeed').className = 'feed'; $('qFeed').innerHTML = ''; $('qGo').style.display = 'none'; $('qTimer').style.width = '100%';
+  $('quiz').classList.add('show');
+  if (S.auto) { const ci = opts.findIndex((o) => o.ok); answer(S.autoWrong ? (ci + 1) % 4 : ci); closeQuiz(); }
+}
+function quizTick(dt) {
+  const q = S.quiz; if (!q || q.answered) return;
+  q.left -= dt; $('qTimer').style.width = `${clamp(q.left / 20, 0, 1) * 100}%`;
+  if (q.left <= 0) answer(-1);
+}
+function quizKey(e) {
+  const q = S.quiz; if (!q) return;
+  if (!q.answered && /^Digit[1-4]$|^Numpad[1-4]$/.test(e.code)) answer(+e.code.slice(-1) - 1);
+  else if (q.answered && (e.code === 'Enter' || e.code === 'Space')) { e.preventDefault(); closeQuiz(); }
+}
+function answer(i) {
+  const q = S.quiz; if (!q || q.answered) return; q.answered = true;
+  const e = q.e, ts = e.ts, d = ts[lang], ok = i >= 0 && q.opts[i].ok;
+  const pts = ok ? 100 + Math.round(50 * clamp(q.left / 20, 0, 1)) : 0;
+  S.mres[e.i] = { ok, pts }; S.mscore += pts;
+  [...$('qOpts').children].forEach((b, j) => { b.disabled = true; if (q.opts[j].ok) b.classList.add('right'); else if (j === i) b.classList.add('wrongc'); });
+  const exp = ts.t === 'q' ? d[5] : d[1];
+  $('qFeed').className = 'feed show ' + (ok ? 'ok' : 'bad');
+  $('qFeed').innerHTML = `<b>${ok ? t('correct') + ' +' + pts : i < 0 ? t('timeout') : t('wrong')}</b><p>${esc(exp)}</p><small>${t('src')}: ${esc(SRC[ts.s][L()])}</small>`;
+  $('qGo').style.display = ''; $('qGo').focus({ preventScroll: true });
+}
+function closeQuiz() { S.quiz = null; $('quiz').classList.remove('show'); }
+$('qGo').addEventListener('click', closeQuiz);
+
+// ---- HUD (DOM) ----
+function hud(on) {
+  document.body.classList.toggle('driving', on);
+  if (!on) { $('banner').classList.remove('show'); $('obj').classList.remove('show'); $('toast').classList.remove('show'); $('sub').classList.remove('show'); }
+  if (on) {
+    $('hMission').textContent = `${t('mission')} ${S.mi + 1} · ${S.m.name[L()]}`;
+    $('hRoute').textContent = `${S.m.road} · ${S.m.from} → ${S.m.to}`;
+    const c = S.m.cargo; $('hCargo').innerHTML = `<span class="opanel sm"><i>${esc(c.hz)}</i><i>${esc(c.hz ? c.un : '')}</i></span><span>${t('cargo')}: ${esc(c.name[L()])} · ${lang === 'en' ? 'class' : 'clase'} ${esc(c.cls)}</span>`;
+    $('hLights').classList.toggle('on', S.lights); $('hLights').textContent = lang === 'en' ? '◉ LIGHTS' : '◉ LUCES'; $('tLights').textContent = lang === 'en' ? 'LIGHT' : 'LUZ';
+  }
+}
+function hudTick() {
+  if (S.screen !== 'drive') return;
+  $('hScore').textContent = String(Math.max(0, Math.round(S.mscore + P.pts.reduce((a, b, i) => a + (i !== S.mi ? b : 0), 0)))).padStart(7, '0');
+  $('hLights').classList.toggle('on', S.lights);
+  const st = $('hStars').children; for (let i = 0; i < 5; i++) st[i].classList.toggle('on', i < S.stars);
+  const cur = S.m.ev.find((e) => e.state !== 'done') || S.m.ev[S.m.ev.length - 1];
+  $('hTest').textContent = `${t('test')} ${Math.min(TOTAL, cur.n)} / ${TOTAL}`;
+}
+function banner(small, big, sub, kind, secs) {
+  const b = $('banner'); b.className = 'banner ' + kind; $('bSmall').textContent = small; $('bBig').textContent = big; $('bSub').textContent = sub;
+  void b.offsetWidth; b.classList.add('show'); clearTimeout(banner.tm); banner.tm = setTimeout(() => b.classList.remove('show'), secs * 1000);
+}
+function bigText(txt, sub, kind) { const b = $('big'); b.className = 'big ' + kind; $('bigT').textContent = txt; $('bigS').textContent = sub; void b.offsetWidth; b.classList.add('show'); }
+function say(who, text, secs) { S.sub = { t: secs }; $('subWho').textContent = who; $('subText').textContent = text; $('sub').classList.add('show'); }
+function toast(title, text, kind, secs) { S.toast = { t: secs }; const el = $('toast'); el.className = 'toast ' + kind; $('toastT').textContent = title; $('toastS').textContent = text; void el.offsetWidth; el.classList.add('show'); }
+function showObj() { const o = S.obj; $('objT').textContent = o.title; $('objS').textContent = o.text; $('obj').classList.add('show'); }
+function hideObj(e) { if (S.obj && S.obj.e === e) { S.obj = null; $('obj').classList.remove('show'); } }
+
+// ---- Dibujo ----
+function render() {
+  g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  const m = S.m, B = BIOME[m.biome];
+  // Suelo
+  g.save(); g.fillStyle = groundPattern(m.biome);
+  const ox = ((-S.camX * PL) % 256 + 256) % 256, oy = ((S.pd * PX) % 256 + 256) % 256;
+  g.translate(ox - 256, oy - 256); g.fillRect(0, 0, W + 512, H + 512); g.restore();
+  const dTop = S.pd + (TY + 40) / PX, dBot = S.pd - (H - TY + 40) / PX;
+  // Agua de los puentes, lagunas y la zona industrial
+  for (const e of m.ev) if (e.ts.t === 'nopass' && e.ts.k === 'bridge' && e.end + 20 > dBot && e.start - 20 < dTop) {
+    const y1 = sy(e.end + 4), y2 = sy(e.start - 4);
+    g.fillStyle = '#2f6f8f'; g.fillRect(0, y1, W, y2 - y1);
+    g.fillStyle = 'rgba(255,255,255,.12)'; for (let y = y1 + 6; y < y2; y += 14) for (let x = ((S.t * 20) % 40) - 40; x < W; x += 40) g.fillRect(x, y, 18, 2);
+    g.fillStyle = '#c8b68a'; g.fillRect(0, y1 - 6, W, 6); g.fillRect(0, y2, W, 6);
+  }
+  for (const o of S.scenery) {
+    if (o.d < dBot - 30 || o.d > dTop + 30) continue;
+    if (o.k === 'lagoon') { g.fillStyle = '#3f86a3'; g.beginPath(); g.ellipse(sx(o.d, o.lat), sy(o.d), 9 * o.s * PL, 22 * o.s * PX, 0, 0, 7); g.fill(); }
+    else if (o.k === 'house') { const x = sx(o.d, o.lat), y = sy(o.d); g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(x - o.w * PL / 2 + 4, y - o.h * PX / 2 + 4, o.w * PL, o.h * PX); g.fillStyle = o.c; g.fillRect(x - o.w * PL / 2, y - o.h * PX / 2, o.w * PL, o.h * PX); g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(x - o.w * PL / 2, y - o.h * PX / 2, o.w * PL, o.h * PX / 2); }
+    else if (o.k === 'school') { const x = sx(o.d, o.lat), y = sy(o.d); g.fillStyle = '#f1e6c8'; g.fillRect(x - 8 * PL, y - 14 * PX, 16 * PL, 28 * PX); g.fillStyle = '#7aa6c2'; g.fillRect(x - 8 * PL, y - 14 * PX, 16 * PL, 6); g.fillStyle = '#4a7a3a'; g.fillRect(x - 6 * PL, y - 8 * PX, 12 * PL, 10 * PX); g.fillStyle = '#fff'; g.font = `bold ${Math.round(PL * 1.1)}px Barlow Condensed, sans-serif`; g.textAlign = 'center'; g.fillText(lang === 'en' ? 'SCHOOL' : 'ESCUELA', x, y + 10 * PX); }
+    else if (o.k === 'tank') { const x = sx(o.d, o.lat), y = sy(o.d), r = 3.2 * o.s * PL; g.fillStyle = 'rgba(0,0,0,.3)'; g.beginPath(); g.arc(x + 5, y + 5, r, 0, 7); g.fill(); g.fillStyle = '#d9dcd6'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.strokeStyle = '#9da19a'; g.lineWidth = 2; g.beginPath(); g.arc(x, y, r * 0.6, 0, 7); g.stroke(); }
+    else if (o.k === 'booth') { const x = sx(o.d, o.lat), y = sy(o.d); g.fillStyle = '#e6e6e6'; g.fillRect(x - 2 * PL, y - 3 * PX, 4 * PL, 6 * PX); g.fillStyle = '#1f4f9a'; g.fillRect(x - 2 * PL, y - 3 * PX, 4 * PL, 8); }
+  }
+  drawRoad(dBot, dTop);
+  // Marcas de las pruebas sobre el asfalto
+  for (const e of m.ev) {
+    if (e.state === 'done' && e.at !== undefined) continue;
+    if (e.start < dBot - 20 || e.start > dTop + 40) continue;
+    if (e.at !== undefined) drawMarker(e.at);
+    else drawZoneMarks(e);
+  }
+  for (const c of S.cars) drawCar(c);
+  drawTruck();
+  for (const o of S.scenery) {
+    if (o.d < dBot - 30 || o.d > dTop + 30) continue;
+    const x = sx(o.d, o.lat), y = sy(o.d);
+    if (o.k === 'tree') { const r = (1.8 + o.s * 1.4) * PL; g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.arc(x + r * 0.35, y + r * 0.35, r, 0, 7); g.fill(); g.fillStyle = B.tree; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.fillStyle = 'rgba(255,255,255,.12)'; g.beginPath(); g.arc(x - r * 0.3, y - r * 0.3, r * 0.55, 0, 7); g.fill(); }
+    else if (o.k === 'cactus') { g.strokeStyle = '#3f6e35'; g.lineWidth = PL * 0.55; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y - PX * 1.4); g.lineTo(x, y + PX * 1.4); g.moveTo(x - PL * 0.8, y - PX * 0.8); g.lineTo(x - PL * 0.8, y); g.lineTo(x, y); g.moveTo(x + PL * 0.8, y - PX * 1.1); g.lineTo(x + PL * 0.8, y + PX * 0.2); g.lineTo(x, y + PX * 0.2); g.stroke(); }
+    else if (o.k === 'post') { g.fillStyle = '#f4f4f4'; g.fillRect(x - 2, y - 2, 4, 4); g.fillStyle = '#e33'; g.fillRect(x - 2, y - 2, 4, 1.5); }
+    else if (o.k === 'lamp') { g.fillStyle = '#555'; g.fillRect(x - 2, y - 2, 4, 4); g.strokeStyle = '#555'; g.lineWidth = 2; g.beginPath(); g.moveTo(x, y); g.lineTo(x - PL * 1.6, y); g.stroke(); }
+  }
+  for (const e of m.ev) if (DRV[e.ts.t] && e.start - 30 < dTop && e.end + 30 > dBot) drawSigns(e);
+  timeOfDay();
+  if (S.screen === 'drive') { drawMinimap(); drawSpeedo(); hudTick(); }
+}
+
+function drawRoad(d0, d1) {
+  const step = 3; const lx = (d, lat) => sx(d, lat);
+  const strip = (a, b, color) => { g.fillStyle = color; g.beginPath(); for (let d = d0; d <= d1 + step; d += step) g.lineTo(lx(d, a), sy(d)); for (let d = d1 + step; d >= d0; d -= step) g.lineTo(lx(d, b), sy(d)); g.closePath(); g.fill(); };
+  strip(-HALF - SHOULDER - 0.6, HALF + SHOULDER + 0.6, 'rgba(0,0,0,.18)');
+  strip(-HALF - SHOULDER, HALF + SHOULDER, '#9c968a');
+  strip(-HALF, HALF, '#3b3e43');
+  // Desgaste de las ruedas
+  g.globalAlpha = 0.25; strip(LANE_R - 1.3, LANE_R - 0.7, '#2c2e32'); strip(LANE_R + 0.7, LANE_R + 1.3, '#2c2e32'); g.globalAlpha = 1;
+  const line = (lat, color, w, dash, from, to) => {
+    g.strokeStyle = color; g.lineWidth = w; g.setLineDash(dash ? [dash * PX, dash * PX * 1.3] : []); g.lineDashOffset = dash ? -((S.pd * PX) % (dash * PX * 2.3)) : 0;
+    g.beginPath(); for (let d = Math.max(d0, from); d <= Math.min(d1, to) + step; d += step) g.lineTo(lx(d, lat), sy(d)); g.stroke(); g.setLineDash([]);
+  };
+  line(-HALF + 0.15, '#f2f2f2', 2, 0, d0, d1); line(HALF - 0.15, '#f2f2f2', 2, 0, d0, d1);
+  // Línea central: discontinua, salvo en los tramos sin adelantar (doble amarilla).
+  const np = S.m.ev.filter((e) => e.ts.t === 'nopass').map((e) => [e.start - 25, e.end]);
+  let d = d0; const segs = [];
+  for (const [a, b] of np) { if (b < d0 || a > d1) continue; if (a > d) segs.push(['w', d, a]); segs.push(['y', Math.max(a, d0), Math.min(b, d1)]); d = Math.min(b, d1); }
+  segs.push(['w', d, d1]);
+  for (const [k, a, b] of segs) { if (k === 'w') line(0, '#f2f2f2', 2.2, 3, a, b); else { line(-0.18, '#f5c518', 2.2, 0, a, b); line(0.18, '#f5c518', 2.2, 0, a, b); } }
+  // Barandas de los puentes
+  for (const e of S.m.ev) if (e.ts.t === 'nopass' && e.ts.k === 'bridge') { line(-HALF - SHOULDER, '#d8d8d8', 4, 0, e.start - 4, e.end + 4); line(HALF + SHOULDER, '#d8d8d8', 4, 0, e.start - 4, e.end + 4); }
+}
+
+function drawMarker(at) {
+  const y = sy(at), x = sx(at, 0), pulse = 0.5 + 0.5 * Math.sin(S.t * 5);
+  const rx = (HALF + 0.6) * PL, ry = 2.4 * PX;
+  const gr = g.createLinearGradient(0, y - 46, 0, y); gr.addColorStop(0, 'rgba(255,214,0,0)'); gr.addColorStop(1, `rgba(255,214,0,${0.28 + 0.15 * pulse})`);
+  g.fillStyle = gr; g.fillRect(x - rx, y - 46, rx * 2, 46);
+  g.fillStyle = `rgba(255,214,0,${0.35 + 0.2 * pulse})`; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 7); g.fill();
+  g.strokeStyle = '#ffd600'; g.lineWidth = 3; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, 7); g.stroke();
+  g.fillStyle = '#111'; g.font = `900 ${Math.round(PX * 3.2)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('?', x, y - 22); g.fillStyle = '#ffd600'; g.fillText('?', x - 1.5, y - 23.5);
+}
+
+function paint(d, lat, text, size, color) { g.save(); g.translate(sx(d, lat), sy(d)); g.scale(1, 1.7); g.fillStyle = color || 'rgba(245,245,245,.85)'; g.font = `900 ${Math.round(size)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, 0, 0); g.restore(); }
+function drawZoneMarks(e) {
+  const k = e.ts.t, D = DRV[k];
+  if (D.lim) paint(e.start + 6, LANE_R, String(D.lim), PL * 2.2);
+  if (k === 'rail') {
+    const y = sy(e.end + 3); g.fillStyle = '#6d5a45'; for (let i = -12; i < 12; i++) g.fillRect(sx(e.end + 3, i * 1.6) - 3, y - 2.4 * PX, 6, 4.8 * PX);
+    g.strokeStyle = '#c9ced4'; g.lineWidth = 3; for (const o of [-1.2, 1.2]) { g.beginPath(); g.moveTo(0, sy(e.end + 3 + o)); g.lineTo(W, sy(e.end + 3 + o)); g.stroke(); }
+  }
+  if (k === 'school') { const y = sy((e.start + e.end) / 2); g.fillStyle = 'rgba(255,255,255,.9)'; for (let lat = -HALF + 0.5; lat < HALF; lat += 1.1) g.fillRect(sx((e.start + e.end) / 2, lat) - PL * 0.3, y - 2 * PX, PL * 0.6, 4 * PX); }
+  if (k === 'stop') {
+    const y1 = sy(e.end), y2 = sy(e.start); g.strokeStyle = '#fff'; g.lineWidth = 3; g.setLineDash([8, 6]);
+    g.strokeRect(sx(e.start, 0), y1, (HALF - 0.2) * PL, y2 - y1); g.setLineDash([]);
+    paint(e.start + 6, LANE_R, lang === 'en' ? 'STOP' : 'PARE', PL * 1.5, '#fff');
+    for (let d = e.start - 60; d < e.end; d += 8) { const x = sx(d, -0.1), y = sy(d); g.fillStyle = '#ff6f00'; g.beginPath(); g.moveTo(x, y - 6); g.lineTo(x - 4, y + 4); g.lineTo(x + 4, y + 4); g.fill(); }
+  }
+}
+function signDisc(x, y, r, text, ring) {
+  g.fillStyle = 'rgba(0,0,0,.3)'; g.beginPath(); g.arc(x + 3, y + 3, r, 0, 7); g.fill();
+  g.fillStyle = '#fff'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.strokeStyle = ring || '#d32f2f'; g.lineWidth = r * 0.22; g.beginPath(); g.arc(x, y, r * 0.86, 0, 7); g.stroke();
+  g.fillStyle = '#111'; g.font = `900 ${Math.round(r * (text.length > 2 ? 0.8 : 1))}px Barlow Condensed, Arial Narrow, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, x, y + 1);
+}
+function signDiamond(x, y, r, draw) {
+  g.save(); g.translate(x, y); g.fillStyle = 'rgba(0,0,0,.3)'; g.rotate(Math.PI / 4); g.fillRect(-r * 0.7 + 3, -r * 0.7 + 3, r * 1.4, r * 1.4);
+  g.fillStyle = '#f9c80e'; g.fillRect(-r * 0.7, -r * 0.7, r * 1.4, r * 1.4); g.strokeStyle = '#111'; g.lineWidth = 2; g.strokeRect(-r * 0.62, -r * 0.62, r * 1.24, r * 1.24); g.rotate(-Math.PI / 4); draw(r); g.restore();
+}
+function drawSigns(e) {
+  const k = e.ts.t, D = DRV[k], r = clamp(PL * 1.25, 13, 19);
+  const x = sx(e.start - 12, HALF + SHOULDER + 2.2), y = sy(e.start - 12);
+  if (k === 's80') signDisc(x, y, r, String(S.m.sign));
+  else if (D.lim) signDisc(x, y, r, String(D.lim));
+  if (k === 'rail') { signDiamond(x + r * 2.4, y, r, (r) => { g.fillStyle = '#111'; g.fillRect(-r * 0.5, -r * 0.15, r, r * 0.35); g.fillRect(-r * 0.35, -r * 0.4, r * 0.25, r * 0.3); }); const cx = sx(e.end, HALF + SHOULDER + 2), cy = sy(e.end); g.strokeStyle = '#fff'; g.lineWidth = 5; g.beginPath(); g.moveTo(cx - 10, cy - 10); g.lineTo(cx + 10, cy + 10); g.moveTo(cx + 10, cy - 10); g.lineTo(cx - 10, cy + 10); g.stroke(); g.strokeStyle = '#d32f2f'; g.lineWidth = 2; g.stroke(); }
+  if (k === 'school') signDiamond(x + r * 2.4, y, r, (r) => { g.fillStyle = '#111'; g.beginPath(); g.arc(-r * 0.2, -r * 0.25, r * 0.13, 0, 7); g.arc(r * 0.2, -r * 0.15, r * 0.11, 0, 7); g.fill(); g.fillRect(-r * 0.3, -r * 0.1, r * 0.18, r * 0.45); g.fillRect(r * 0.12, 0, r * 0.15, r * 0.38); });
+  if (k === 'nopass') { signDisc(x, y, r, '', '#d32f2f'); g.fillStyle = '#d32f2f'; g.fillRect(x - r * 0.45, y - r * 0.25, r * 0.35, r * 0.5); g.fillStyle = '#111'; g.fillRect(x + r * 0.1, y - r * 0.25, r * 0.35, r * 0.5); }
+  if (k === 'lights') { g.fillStyle = 'rgba(0,0,0,.3)'; g.fillRect(x - r * 1.4 + 3, y - r * 0.8 + 3, r * 2.8, r * 1.6); g.fillStyle = '#1f5fbf'; g.fillRect(x - r * 1.4, y - r * 0.8, r * 2.8, r * 1.6); g.fillStyle = '#fff'; g.font = `800 ${Math.round(r * 0.5)}px Barlow Condensed, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(lang === 'en' ? 'LIGHTS ON' : 'LUCES BAJAS', x, y - r * 0.18); g.fillText(lang === 'en' ? 'ALWAYS' : 'ENCENDIDAS', x, y + r * 0.35); }
+  if (k === 'stop') { const bx = sx(e.start - 100, HALF + SHOULDER + 2.5), by = sy(e.start - 100); g.fillStyle = '#1f4f9a'; g.fillRect(bx - r * 1.6, by - r * 0.7, r * 3.2, r * 1.4); g.fillStyle = '#fff'; g.font = `800 ${Math.round(r * 0.62)}px Barlow Condensed, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(lang === 'en' ? 'CHECK 100 m' : 'CONTROL 100 m', bx, by); const sx2 = sx(e.end, HALF + SHOULDER + 1.8), sy2 = sy(e.end); g.fillStyle = '#c62828'; g.beginPath(); for (let i = 0; i < 8; i++) { const a = Math.PI / 8 + i * Math.PI / 4; g.lineTo(sx2 + Math.cos(a) * r, sy2 + Math.sin(a) * r); } g.fill(); g.fillStyle = '#fff'; g.font = `900 ${Math.round(r * 0.55)}px Barlow Condensed, sans-serif`; g.fillText(lang === 'en' ? 'STOP' : 'PARE', sx2, sy2 + 1); const on = Math.sin(S.t * 8) > 0; g.fillStyle = on ? '#3d7bff' : '#ff3d3d'; g.beginPath(); g.arc(sx(e.start + 10, 9) - 2 * PL, sy(e.start + 10) - 3 * PX - 6, 4, 0, 7); g.fill(); }
+  if (D.lim || k === 'nopass') { const ex = sx(e.end + 4, HALF + SHOULDER + 2.2), ey = sy(e.end + 4); signDisc(ex, ey, r * 0.8, '', '#888'); g.strokeStyle = '#555'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(ex - r * 0.5, ey + r * 0.5); g.lineTo(ex + r * 0.5, ey - r * 0.5); g.stroke(); }
+}
+
+function vehicleFrame(d, lat, len, wid) { const x = sx(d, lat), y = sy(d), a = heading(d); return { x, y, a, L: len * PX, Wd: wid * PL }; }
+function drawCar(c) {
+  const f = vehicleFrame(c.d, c.lat, c.len, c.wid); g.save(); g.translate(f.x, f.y); g.rotate(f.a + (c.dir < 0 ? Math.PI : 0) + (c.exit && c.d > c.exit ? 0.35 : 0));
+  const L2 = f.L / 2, w = f.Wd;
+  g.fillStyle = 'rgba(0,0,0,.32)'; rr(g, -w / 2 + 4, -L2 + 4, w, f.L, 4); g.fill();
+  if (c.kind === 'tractor') {
+    g.fillStyle = '#111'; g.fillRect(-w / 2 - 3, L2 - f.L * 0.42, 6, f.L * 0.36); g.fillRect(w / 2 - 3, L2 - f.L * 0.42, 6, f.L * 0.36);
+    g.fillStyle = c.color; rr(g, -w / 2 + 3, -L2, w - 6, f.L, 4); g.fill(); g.fillStyle = '#1a1a1a'; g.fillRect(-w / 2 + 6, -L2 + f.L * 0.45, w - 12, f.L * 0.3);
+    g.fillStyle = Math.sin(S.t * 9) > 0 ? '#ffb300' : '#7a5600'; g.beginPath(); g.arc(0, -L2 + f.L * 0.6, 4, 0, 7); g.fill();
+  } else {
+    g.fillStyle = c.color; rr(g, -w / 2, -L2, w, f.L, c.kind === 'truck' ? 3 : 6); g.fill();
+    if (c.kind === 'truck') { g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(-w / 2, -L2 + f.L * 0.22, w, 2); g.fillStyle = '#e8e8e8'; g.fillRect(-w / 2 + 2, -L2 + f.L * 0.24, w - 4, f.L * 0.74); }
+    else { g.fillStyle = '#1d2a35'; rr(g, -w / 2 + 3, -L2 + f.L * 0.2, w - 6, f.L * 0.2, 3); g.fill(); rr(g, -w / 2 + 3, -L2 + f.L * 0.68, w - 6, f.L * 0.14, 3); g.fill(); g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(-w / 2 + 3, -L2 + f.L * 0.42, w - 6, f.L * 0.24); }
+    g.fillStyle = '#fff6c0'; g.fillRect(-w / 2 + 2, -L2, 4, 2); g.fillRect(w / 2 - 6, -L2, 4, 2);
+    g.fillStyle = '#d00'; g.fillRect(-w / 2 + 2, L2 - 2, 4, 2); g.fillRect(w / 2 - 6, L2 - 2, 4, 2);
+  }
+  g.restore();
+}
+function drawTruck() {
+  const len = 18, wid = 2.5, mid = S.pd - len / 2, x = sx(mid, S.x), y = sy(mid), a = heading(mid) + (S.lane === 1 ? -1 : 1) * Math.sign(Math.abs((S.lane ? LANE_L : LANE_R) - S.x) > 0.05 ? 1 : 0) * 0.08;
+  const Lp = len * PX, w = wid * PL, top = -Lp / 2, cabL = 2.9 * PX;
+  g.save(); g.translate(x, y); g.rotate(a);
+  g.fillStyle = 'rgba(0,0,0,.36)'; rr(g, -w / 2 + 6, top + 6, w, Lp, w / 2); g.fill();
+  // Cabina
+  const cg = g.createLinearGradient(-w / 2, 0, w / 2, 0); cg.addColorStop(0, '#9e1b1b'); cg.addColorStop(0.5, '#e03a2f'); cg.addColorStop(1, '#9e1b1b');
+  g.fillStyle = cg; rr(g, -w / 2, top, w, cabL, 6); g.fill();
+  g.fillStyle = '#162231'; rr(g, -w / 2 + 3, top + 3, w - 6, cabL * 0.32, 3); g.fill();
+  g.fillStyle = '#222'; g.fillRect(-w / 2 - 4, top + cabL * 0.35, 4, 6); g.fillRect(w / 2, top + cabL * 0.35, 4, 6);
+  g.fillStyle = S.lights ? '#fff9d0' : '#bbb'; g.fillRect(-w / 2 + 2, top - 1, 5, 3); g.fillRect(w / 2 - 7, top - 1, 5, 3);
+  // Cisterna
+  const tt = top + cabL + 0.5 * PX, tl = Lp - cabL - 0.5 * PX;
+  const tg = g.createLinearGradient(-w / 2, 0, w / 2, 0); tg.addColorStop(0, '#7d858e'); tg.addColorStop(0.35, '#eef2f5'); tg.addColorStop(0.6, '#c7ced5'); tg.addColorStop(1, '#6f7780');
+  g.fillStyle = tg; rr(g, -w / 2 + 1, tt, w - 2, tl, w / 2.2); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.18)'; g.lineWidth = 1.5; for (let i = 1; i < 5; i++) { const yy = tt + (tl * i) / 5; g.beginPath(); g.moveTo(-w / 2 + 2, yy); g.lineTo(w / 2 - 2, yy); g.stroke(); }
+  g.fillStyle = '#5b636b'; g.fillRect(-2, tt + 6, 4, tl - 12);
+  for (let i = 0; i < 3; i++) { g.fillStyle = '#4a5158'; g.beginPath(); g.arc(0, tt + tl * (0.2 + i * 0.3), w * 0.16, 0, 7); g.fill(); }
+  // Panel naranja atrás y luces traseras
+  g.fillStyle = '#f28c1b'; g.fillRect(-w * 0.3, top + Lp - 6, w * 0.6, 5); g.strokeStyle = '#111'; g.lineWidth = 1; g.strokeRect(-w * 0.3, top + Lp - 6, w * 0.6, 5);
+  g.fillStyle = S.brake ? '#ff2a2a' : '#8b0000'; g.fillRect(-w / 2 + 1, top + Lp - 3, 5, 3); g.fillRect(w / 2 - 6, top + Lp - 3, 5, 3);
+  if (S.blink > 0 && Math.sin(S.t * 14) > 0) { g.fillStyle = '#ffa000'; const sxn = S.lane === 1 ? -w / 2 - 2 : w / 2 - 3; g.fillRect(sxn, top + 2, 5, 5); g.fillRect(sxn, top + Lp - 7, 5, 5); }
+  if (S.lights) { const lg = g.createLinearGradient(0, top, 0, top - 22 * PX); lg.addColorStop(0, 'rgba(255,248,200,.22)'); lg.addColorStop(1, 'rgba(255,248,200,0)'); g.fillStyle = lg; g.beginPath(); g.moveTo(-w / 2, top); g.lineTo(-w * 1.3, top - 22 * PX); g.lineTo(w * 1.3, top - 22 * PX); g.lineTo(w / 2, top); g.fill(); }
+  g.restore();
+}
+
+function timeOfDay() {
+  const tod = S.m.tod;
+  if (tod === 'day') { g.fillStyle = 'rgba(255,190,90,.06)'; g.fillRect(0, 0, W, H); }
+  if (tod === 'morning') { g.fillStyle = 'rgba(140,190,255,.08)'; g.fillRect(0, 0, W, H); }
+  const darkA = tod === 'night' ? 0.74 : tod === 'dusk' ? 0.38 : tod === 'sunset' ? 0.22 : 0;
+  if (tod === 'dusk' || tod === 'sunset') { g.fillStyle = tod === 'dusk' ? 'rgba(255,110,40,.16)' : 'rgba(255,90,120,.13)'; g.fillRect(0, 0, W, H); }
+  if (darkA > 0) {
+    dg.setTransform(DPR, 0, 0, DPR, 0, 0); dg.globalCompositeOperation = 'source-over'; dg.clearRect(0, 0, W, H);
+    dg.fillStyle = `rgba(6,10,28,${darkA})`; dg.fillRect(0, 0, W, H); dg.globalCompositeOperation = 'destination-out';
+    const cone = (x, y, a, len, spread, power) => { dg.save(); dg.translate(x, y); dg.rotate(a); const gr = dg.createRadialGradient(0, 0, 4, 0, -len * 0.4, len); gr.addColorStop(0, `rgba(0,0,0,${power})`); gr.addColorStop(1, 'rgba(0,0,0,0)'); dg.fillStyle = gr; dg.beginPath(); dg.moveTo(-8, 0); dg.lineTo(-spread, -len); dg.lineTo(spread, -len); dg.lineTo(8, 0); dg.fill(); dg.restore(); };
+    const glow = (x, y, r, p) => { const gr = dg.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, `rgba(0,0,0,${p})`); gr.addColorStop(1, 'rgba(0,0,0,0)'); dg.fillStyle = gr; dg.beginPath(); dg.arc(x, y, r, 0, 7); dg.fill(); };
+    const fd = S.pd, tx = sx(fd, S.x), ty = sy(fd);
+    if (S.lights) cone(tx, ty, heading(fd), 34 * PX, 6 * PL, 0.95);
+    glow(sx(S.pd - 9, S.x), sy(S.pd - 9), 6 * PL, 0.45);
+    for (const c of S.cars) { const f = vehicleFrame(c.d, c.lat, c.len, c.wid); if (c.dir < 0) cone(f.x, f.y + f.L / 2, heading(c.d) + Math.PI, 26 * PX, 4 * PL, 0.85); else glow(f.x, f.y, 3 * PL, 0.4); }
+    for (const o of S.scenery) if (o.k === 'lamp' && Math.abs(o.d - S.pd) < 120) glow(sx(o.d, o.lat - 1.6), sy(o.d), 7 * PL, 0.75);
+    for (const e of S.m.ev) if (e.at !== undefined && e.state !== 'done' && Math.abs(e.at - S.pd) < 120) glow(sx(e.at, 0), sy(e.at), 7 * PL, 0.9);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(dark, 0, 0); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  // Viñeta
+  const vg = g.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.35, W / 2, H / 2, Math.max(W, H) * 0.75); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.45)');
+  g.fillStyle = vg; g.fillRect(0, 0, W, H);
+}
+
+function drawMinimap() {
+  const r = W < 600 ? 50 : 72, cx = 18 + r, cy = H - 48 - r - (W < 600 ? 70 : 0), k = r / 300;
+  g.save(); g.beginPath(); g.arc(cx, cy, r, 0, 7); g.fillStyle = 'rgba(18,26,22,.82)'; g.fill(); g.clip();
+  const B = BIOME[S.m.biome]; g.fillStyle = B.g; g.globalAlpha = 0.35; g.fillRect(cx - r, cy - r, r * 2, r * 2); g.globalAlpha = 1;
+  const oy = cy + r * 0.38, c0 = curve(S.pd);
+  const pt = (d) => [cx + (curve(d) - c0) * k * 3.2, oy - (d - S.pd) * k];
+  g.strokeStyle = '#d5d5d5'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath();
+  for (let d = S.pd - 160; d < Math.min(S.m.len, S.pd + 520); d += 8) { const [x, y] = pt(d); g.lineTo(x, y); } g.stroke();
+  for (const e of S.m.ev) {
+    if (e.state === 'done') continue;
+    if (DRV[e.ts.t]) { g.strokeStyle = '#4aa3ff'; g.lineWidth = 5; g.beginPath(); for (let d = e.start; d <= e.end; d += 6) { const [x, y] = pt(d); g.lineTo(x, y); } g.stroke(); }
+  }
+  const blip = (d, color, ch) => { let [x, y] = pt(d); const dx = x - cx, dy = y - cy, dl = Math.hypot(dx, dy); if (dl > r - 8) { x = cx + dx / dl * (r - 8); y = cy + dy / dl * (r - 8); } g.fillStyle = color; g.beginPath(); g.arc(x, y, 6, 0, 7); g.fill(); g.strokeStyle = '#000'; g.lineWidth = 1.5; g.stroke(); g.fillStyle = '#000'; g.font = 'bold 9px sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(ch, x, y + 0.5); };
+  const nq = S.m.ev.find((e) => e.state !== 'done' && e.at !== undefined); if (nq) blip(nq.at, '#ffd600', '?');
+  blip(S.m.len, '#ffd600', '★');
+  for (const c of S.cars) { const [x, y] = pt(c.d); g.fillStyle = c.kind === 'tractor' ? '#3c3' : '#e33'; g.fillRect(x - 2 + (c.lat - S.x) * k * 3, y - 2, 4, 4); }
+  g.fillStyle = '#fff'; g.beginPath(); g.moveTo(cx, oy - 9); g.lineTo(cx - 6, oy + 6); g.lineTo(cx, oy + 3); g.lineTo(cx + 6, oy + 6); g.closePath(); g.fill();
+  g.restore();
+  g.strokeStyle = 'rgba(0,0,0,.7)'; g.lineWidth = 3; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke();
+  // Barras: seguridad y avance
+  const bw = r * 2, bx = cx - r, by = cy + r + 8;
+  g.fillStyle = 'rgba(0,0,0,.6)'; g.fillRect(bx, by, bw, 14);
+  g.fillStyle = '#2a8f3a'; g.fillRect(bx + 2, by + 2, (bw / 2 - 3) * S.safety / 100, 10);
+  g.fillStyle = '#e09a1a'; g.fillRect(bx + bw / 2 + 1, by + 2, (bw / 2 - 3) * clamp(S.pd / S.m.len, 0, 1), 10);
+  g.fillStyle = 'rgba(255,255,255,.75)'; g.font = '700 9px Barlow Condensed, sans-serif'; g.textAlign = 'left'; g.textBaseline = 'top'; g.fillText(t('safety'), bx + 4, by + 16); g.textAlign = 'right'; g.fillText(t('route'), bx + bw - 3, by + 16);
+}
+function drawSpeedo() {
+  const small = W < 600, r = small ? 44 : 62, cx = W - 22 - r, cy = H - 34 - r - (small ? 70 : 0);
+  const a0 = Math.PI * 0.75, a1 = Math.PI * 2.25, va = (v) => a0 + (a1 - a0) * clamp(v / 120, 0, 1);
+  g.fillStyle = 'rgba(10,12,16,.78)'; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.fill();
+  g.lineWidth = 6; g.strokeStyle = 'rgba(255,255,255,.15)'; g.beginPath(); g.arc(cx, cy, r - 9, a0, a1); g.stroke();
+  const lim = limitAt(); g.strokeStyle = '#d32f2f'; g.beginPath(); g.arc(cx, cy, r - 9, va(lim), a1); g.stroke();
+  g.strokeStyle = S.v > lim + 2 ? '#ff5252' : '#7ee07e'; g.beginPath(); g.arc(cx, cy, r - 9, a0, va(S.v)); g.stroke();
+  g.fillStyle = '#fff'; g.font = `900 ${Math.round(r * 0.55)}px Anton, Impact, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(Math.round(S.v), cx, cy - 2);
+  g.font = `700 ${Math.round(r * 0.2)}px Barlow Condensed, sans-serif`; g.fillStyle = 'rgba(255,255,255,.7)'; g.fillText('km/h', cx, cy + r * 0.38);
+  if (small) signDisc(cx - r * 0.75, cy - r - 8, 17, String(lim)); else signDisc(cx - r - 30, cy + r * 0.45, 21, String(lim));
+}
+
+// ---- Pantallas ----
+function showScreen(id) { document.querySelectorAll('.screen').forEach((s) => s.classList.toggle('show', s.id === id)); }
+function toMenu() { S.screen = 'title'; S.paused = false; $('pause').classList.remove('show'); closeQuiz(); hud(false); cv.style.filter = ''; $('big').classList.remove('show'); startMission(nextMission(), true); showScreen('menu'); texts(); }
+function texts() {
+  document.documentElement.lang = lang;
+  $('mTag').textContent = t('tag');
+  $('bPlay').textContent = doneCount() > 0 && doneCount() < M.length ? `${t('cont')} · ${t('mission')} ${nextMission() + 1}` : t('play');
+  $('bMissions').textContent = t('missions'); $('bHow').textContent = t('how'); $('bDiploma').textContent = t('diploma'); $('bLang').textContent = t('other');
+  $('bDiploma').classList.toggle('dim', doneCount() < M.length);
+  $('mDisc').textContent = t('disc');
+  $('mProg').innerHTML = doneCount() ? `<b>${passedTotal()}</b>/${TOTAL} ${t('tests')} ${t('cleared')} · <b>${fmt(totalPts())}</b> ${t('pts')}` : '';
+  $('pT').textContent = t('pause'); $('pResume').textContent = t('resume'); $('pQuit').textContent = t('quit'); $('qGo').textContent = t('go');
+  $('hTitleSafety').textContent = '';
+}
+$('bPlay').onclick = () => { if (doneCount() === M.length) { P.res = M.map(() => null); P.pts = M.map(() => 0); P.crashes = M.map(() => 0); save(); } startMission(nextMission()); };
+$('bMissions').onclick = () => {
+  const open = nextMission();
+  $('msList').innerHTML = M.map((m, i) => {
+    const r = P.res[i], lock = i > open && !r, ok = r ? r.filter((x) => x.ok).length : 0;
+    return `<button class="mcard ${lock ? 'lock' : ''} ${r ? 'done' : ''}" data-i="${i}" ${lock ? 'disabled' : ''}><em>${i + 1}</em><span><b>${esc(m.name[L()])}</b><small>${esc(m.road)} · ${esc(m.from)} → ${esc(m.to)}</small><small>${esc(m.cargo.name[L()])}</small></span><i>${lock ? t('locked') : r ? `${ok}/10 · ${fmt(P.pts[i])}` : '—'}</i></button>`;
+  }).join('');
+  [...$('msList').children].forEach((b) => b.onclick = () => startMission(+b.dataset.i));
+  $('msTitle').textContent = t('missions'); $('msBack').textContent = t('back'); $('msReset').textContent = t('reset');
+  showScreen('missions');
+};
+$('msReset').onclick = () => { if (confirm(t('resetQ'))) { P = { res: M.map(() => null), pts: M.map(() => 0), crashes: M.map(() => 0), name: P.name }; save(); $('bMissions').onclick(); } };
+$('bHow').onclick = () => { $('howTitle').textContent = t('howTitle'); $('howList').innerHTML = t('howText').map((x) => `<li>${x}</li>`).join(''); $('howBack').textContent = t('back'); showScreen('howto'); };
+$('bDiploma').onclick = () => { if (doneCount() < M.length) { $('mProg').textContent = t('dipNeed'); return; } showResults(); };
+$('bLang').onclick = () => { lang = lang === 'es' ? 'en' : 'es'; texts(); };
+document.querySelectorAll('[data-back]').forEach((b) => b.onclick = () => toMenu());
+$('pResume').onclick = () => togglePause();
+$('pQuit').onclick = () => toMenu();
+
+// ---- Resultado final y diploma ----
+function rankOf(n) { return n >= 95 ? 4 : n >= 85 ? 3 : n >= 70 ? 2 : n >= 50 ? 1 : 0; }
+function showResults() {
+  S.screen = 'results'; hud(false);
+  const n = passedTotal();
+  $('rTitle').textContent = t('results'); $('rScore').innerHTML = `${n}<small>/100</small>`; $('rRank').textContent = t('ranks')[rankOf(n)];
+  $('rStats').innerHTML = `<div><b>${fmt(totalPts())}</b><span>${t('points')}</span></div><div><b>${P.crashes.reduce((a, b) => a + b, 0)}</b><span>${t('crashes')}</span></div><div><b>${doneCount()}/10</b><span>${t('missionsDone')}</span></div>`;
+  $('rNameL').textContent = t('name'); $('rName').placeholder = t('namePh'); $('rName').value = P.name || '';
+  $('rDown').textContent = t('download'); $('rShare').textContent = t('share'); $('rCopy').textContent = t('copy'); $('rMenu').textContent = t('menu');
+  // Repaso
+  const fails = [];
+  M.forEach((m, mi) => m.tests.forEach((ts, i) => { const r = P.res[mi] && P.res[mi][i]; if (r && !r.ok) fails.push({ mi, i, ts }); }));
+  $('rRevT').textContent = t('review');
+  $('rRev').innerHTML = fails.length ? fails.map(({ mi, i, ts }) => {
+    const n = mi * 10 + i + 1; let q, a, exp;
+    if (ts.t === 'q') { q = ts[lang][0]; a = ts[lang][1]; exp = ts[lang][5]; }
+    else if (ts.t === 'p') { q = ts[lang][0]; a = ts.pan[0]; exp = ts[lang][1]; }
+    else { const D = DRV[ts.t]; q = D[lang][0]; a = D[lang][1].replace('{sign}', M[mi].sign); exp = D[lang][2]; }
+    const s = SRC[ts.s || DRV[ts.t].s][L()];
+    return `<li><em>${n}</em><div><b>${esc(q)}</b><p>✓ ${esc(a)}</p><p class="exp">${esc(exp)}</p><small>${esc(s)}</small></div></li>`;
+  }).join('') : `<li class="none">${t('none')}</li>`;
+  drawDiploma(); showScreen('results');
+}
+$('rName').addEventListener('input', () => { P.name = $('rName').value.slice(0, 40); save(); drawDiploma(); });
+$('rMenu').onclick = () => toMenu();
+function dipData() { return { name: (P.name || '').trim() || t('driver'), n: passedTotal(), pts: totalPts(), crashes: P.crashes.reduce((a, b) => a + b, 0) }; }
+function drawDiploma() {
+  const c = $('dip'), x = c.getContext('2d'), Wd = 1600, Hd = 1130, d = dipData();
+  c.width = Wd; c.height = Hd;
+  const bg = x.createLinearGradient(0, 0, Wd, Hd); bg.addColorStop(0, '#141a22'); bg.addColorStop(0.55, '#1d2530'); bg.addColorStop(1, '#2a1a14'); x.fillStyle = bg; x.fillRect(0, 0, Wd, Hd);
+  // Sol de atardecer
+  const sun = x.createRadialGradient(Wd * 0.78, Hd * 0.2, 10, Wd * 0.78, Hd * 0.2, 520); sun.addColorStop(0, 'rgba(255,140,40,.35)'); sun.addColorStop(1, 'rgba(255,140,40,0)'); x.fillStyle = sun; x.fillRect(0, 0, Wd, Hd);
+  // Borde de franjas de peligro
+  x.save(); x.beginPath(); x.rect(0, 0, Wd, Hd); x.rect(34, 34, Wd - 68, Hd - 68); x.clip('evenodd');
+  x.fillStyle = '#f28c1b'; x.fillRect(0, 0, Wd, Hd); x.fillStyle = '#111'; for (let i = -Hd; i < Wd + Hd; i += 56) { x.beginPath(); x.moveTo(i, 0); x.lineTo(i + 28, 0); x.lineTo(i + 28 - Hd, Hd); x.lineTo(i - Hd, Hd); x.fill(); }
+  x.restore();
+  x.strokeStyle = '#d9b45a'; x.lineWidth = 3; x.strokeRect(56, 56, Wd - 112, Hd - 112);
+  const center = (txt, y, font, color, stroke) => { x.font = font; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; if (stroke) { x.lineWidth = stroke; x.strokeStyle = '#000'; x.lineJoin = 'round'; x.strokeText(txt, Wd / 2, y); } x.fillStyle = color; x.fillText(txt, Wd / 2, y); };
+  x.save(); x.translate(Wd / 2, 190); x.rotate(-0.03); x.translate(-Wd / 2, -190);
+  center('RUTA PELIGROSA', 200, 'italic 120px Anton, Impact, sans-serif', '#fff', 14); x.restore();
+  center(t('dipTitle'), 268, '600 40px Barlow Condensed, Arial Narrow, sans-serif', '#f2b541');
+  center(t('dipGiven'), 360, '600 34px Barlow Condensed, sans-serif', 'rgba(255,255,255,.75)');
+  let fs = 92; x.font = `${fs}px Anton, Impact, sans-serif`; while (x.measureText(d.name).width > Wd - 360 && fs > 40) { fs -= 4; x.font = `${fs}px Anton, Impact, sans-serif`; }
+  center(d.name, 458, `${fs}px Anton, Impact, sans-serif`, '#ffffff', 8);
+  x.fillStyle = '#f28c1b'; x.fillRect(Wd / 2 - 300, 482, 600, 4);
+  // Texto en dos líneas
+  x.font = '30px Barlow Condensed, sans-serif'; const words = t('dipFor').split(' '); let line = '', lines = [];
+  for (const w of words) { if (x.measureText(line + ' ' + w).width > 1000) { lines.push(line.trim()); line = w; } else line += ' ' + w; } lines.push(line.trim());
+  lines.forEach((l, i) => center(l, 540 + i * 38, '30px Barlow Condensed, sans-serif', 'rgba(255,255,255,.85)'));
+  // Puntuación
+  center(`${d.n}/100`, 760, '170px Anton, Impact, sans-serif', '#7ee07e', 12);
+  center(t('ranks')[rankOf(d.n)].toUpperCase(), 820, '600 44px Barlow Condensed, sans-serif', '#f2b541');
+  const stars = 1 + rankOf(d.n); x.font = '54px sans-serif'; x.textAlign = 'center';
+  for (let i = 0; i < 5; i++) { x.fillStyle = i < stars ? '#ffd600' : 'rgba(255,255,255,.18)'; x.fillText('★', Wd / 2 - 120 + i * 60, 890); }
+  const date = new Date().toLocaleDateString(lang === 'en' ? 'en-GB' : 'es-AR');
+  const row = [`${t('points')}: ${fmt(d.pts)}`, `${t('crashes')}: ${d.crashes}`, `${t('missionsDone')}: 10/10`, `${t('date')}: ${date}`].join('   ·   ');
+  center(row, 950, '600 30px Barlow Condensed, sans-serif', '#fff');
+  center(t('dipFoot'), 1030, '22px Barlow Condensed, sans-serif', 'rgba(255,255,255,.6)');
+  center('dmarlonstudio.com', 1062, '600 22px Barlow Condensed, sans-serif', '#f2b541');
+  // Panel naranja y rombo de clase como sellos
+  const panel = (px, py) => { x.fillStyle = '#f28c1b'; x.fillRect(px, py, 220, 180); x.strokeStyle = '#111'; x.lineWidth = 10; x.strokeRect(px + 5, py + 5, 210, 170); x.beginPath(); x.moveTo(px, py + 90); x.lineTo(px + 220, py + 90); x.stroke(); x.fillStyle = '#111'; x.font = '64px Anton, Impact, sans-serif'; x.textAlign = 'center'; x.fillText('33', px + 110, py + 78); x.fillText('1203', px + 110, py + 162); };
+  panel(130, 640);
+  x.save(); x.translate(Wd - 240, 730); x.rotate(Math.PI / 4); x.fillStyle = '#d32f2f'; x.fillRect(-90, -90, 180, 180); x.strokeStyle = '#fff'; x.lineWidth = 6; x.strokeRect(-80, -80, 160, 160); x.rotate(-Math.PI / 4);
+  x.fillStyle = '#fff'; x.beginPath(); x.moveTo(0, -70); x.bezierCurveTo(40, -30, 30, 0, 0, 20); x.bezierCurveTo(-30, 0, -40, -30, 0, -70); x.fill(); x.font = '56px Anton, Impact, sans-serif'; x.textAlign = 'center'; x.fillText('3', 0, 92); x.restore();
+}
+function dipBlob() { return new Promise((res) => $('dip').toBlob(res, 'image/png')); }
+$('rDown').onclick = async () => { const b = await dipBlob(); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = lang === 'en' ? 'ruta-peligrosa-diploma.png' : 'ruta-peligrosa-diploma.png'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 4000); };
+const shareText = () => t('shareText').replace('{n}', passedTotal());
+$('rShare').onclick = async () => {
+  try {
+    const b = await dipBlob(); const f = new File([b], 'ruta-peligrosa-diploma.png', { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: 'RUTA PELIGROSA', text: shareText() }); return; }
+    if (navigator.share) { await navigator.share({ title: 'RUTA PELIGROSA', text: shareText(), url: location.href }); return; }
+  } catch (e) { if (e && e.name === 'AbortError') return; }
+  $('rDown').onclick();
+};
+$('rCopy').onclick = async () => { try { await navigator.clipboard.writeText(`${shareText()} ${location.href}`); $('rCopy').textContent = t('copied'); setTimeout(() => ($('rCopy').textContent = t('copy')), 1800); } catch (e) {} };
+
+// ---- Pruebas automáticas (?auto=1) y API para las capturas ----
+window.HZ = {
+  _u: (dt) => update(dt), S, P, M, TOTAL, startMission, showResults, toMenu, openQuiz, answer, drawDiploma,
+  // Juega una misión entera sin dibujar: el piloto automático respeta todo y responde bien.
+  run(mi, opts = {}) {
+    S.auto = true; S.autoWrong = !!opts.wrong; startMission(mi); let steps = 0;
+    while (S.screen === 'drive' && steps < 200000) { if (S.quiz) closeQuiz(); update(1 / 30); steps++; if (opts.speeding && !S.quiz) { S.v = 95; } }
+    S.auto = false; return { screen: S.screen, res: P.res[mi], pts: P.pts[mi], crashes: P.crashes[mi], steps };
+  },
+};
+
+texts(); startMission(nextMission(), true); showScreen('menu');
+requestAnimationFrame(frame);
+
+</script>
+</body>
+</html>

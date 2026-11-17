@@ -723,28 +723,36 @@ void lock_now(bool keep_file) {
   refresh();
 }`;
 
-const mlCourse = `# Cada frase, con su palabra más rara: se entiende al llegar a ella.
-by_rank = defaultdict(list)
-for t, ws in vocab.items():
-    by_rank[max(rank[w] for w in ws)].append(t)
+const mlCourse = `# El programa de A1 a B1, en orden. Los títulos van en el idioma que ya se habla.
+CURRICULUM = {
+    "en": [
+        (0, G, "Saludos", "👋",
+         r"\\b(hello|hi|hey|good (morning|afternoon|evening|night)|goodbye|bye|how are you|welcome)\\b", None, 32),
+        (0, G, "Por favor y gracias", "🙏",
+         r"\\b(thanks|thank you|sorry|excuse me|you're welcome)\\b|^please\\b|, please\\b", None, 32),
+        (0, G, "Presentarse", "🙋",
+         r"\\b(my name|your name|i'm from|are you from|nice to meet|how old)\\b", None, 32),
+        (0, G, "El verbo to be: I am, you are", "🧍",
+         r"^(i am|i'm|you are|you're|he is|he's|she is|it is|we are|they are)\\b",
+         r"\\b(not|n't)\\b|\\?|\\b(am|is|are) \\w+ing\\b", 40),
+        (0, G, "To be: frases negativas", "🚫", r"\\b(am not|'m not|isn't|aren't)\\b", r"\\?", 36),
+        (0, G, "To be: preguntas", "❓", r"^(am|is|are) [a-z' ]+\\?$", None, 36),
+        (0, "t:numbers", None, None, None, None, 32),   # los temas de vocabulario
+        (0, "t:colors", None, None, None, None, 28),
+        (0, "t:family", None, None, None, None, 36),
+        # … el presente, can, there is, la ropa; en A2 el pasado y el futuro; en B1 los condicionales…
+    ],
+}
 
-def score(t):
-    n = len(t.split())
-    return (0 if 3 <= n <= 9 else 1, abs(n - 6), len(tr[t]) * -1, t)
-
-known, order, items = set(), [], []
-for r in range(len(rank)):
-    cands = sorted(by_rank.get(r, []), key=score)
-    if not cands:
-        continue
-    for t in cands[:2]:
-        new = sorted(vocab[t] - known, key=lambda w: rank[w])
-        for w in new:
-            known.add(w)
-            order.append(w)
-        items.append((t, tr[t], new))
-    if len(known) >= TARGET_WORDS:
-        break`;
+# Cada tema, con sus frases: una a una, las que traen las palabras nuevas justas
+# (una en A1, dos en A2, tres en B1), sin repetir mucho lo mismo, de las más usadas y cortas.
+while pool and len(picked) < n:
+    best = min(pool, key=lambda t: (abs(len(vocab[t] - known) - ideal) + uses[key_of[t]] // 3 + named[t],
+                                    top[t] // 300, abs(len(t.split()) - good), zlib.crc32(t.encode())))
+    pool.remove(best)
+    uses[key_of[best]] += 1
+    picked.append(best)
+    known |= vocab[best]`;
 
 const mlInstall = `// Instalar un idioma del catálogo: su paquete queda en la carpeta «paquetes».
 bool install(const std::string& target) {
@@ -2127,8 +2135,8 @@ const es: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: mlSpeak },
       },
       {
-        title: "8. Un curso de 10.000 palabras",
-        text: "El curso grande sale de Tatoeba, una colección libre de frases traducidas por personas (CC BY 2.0 FR). Un script de Python (scripts/demo-extra/minilang/build_course.py) cuenta lo que se usa cada palabra en dos millones de frases en inglés, deja fuera los nombres propios (los que quedan igual en la traducción, como Tom) y recorre las palabras de la más usada a la menos: para cada una toma una o dos frases que ya se entienden con ella. Así cada frase solo usa palabras vistas más la nueva. Cada unidad junta unas 25 palabras y el nivel (A1 a C2) sale de cuántas se llevan; el resultado es un paquete .json que va dentro de la app y se instala solo.",
+        title: "8. Un curso de 10.000 palabras, por temas",
+        text: "El curso grande sale de Tatoeba, una colección libre de frases traducidas por personas (CC BY 2.0 FR). Un script de Python (scripts/demo-extra/minilang/build_course.py) lo ordena como un curso de verdad. De A1 a B1 sigue un programa: saludos, por favor y gracias, presentarse, el verbo to be (y luego sus negativas y preguntas), los números, la familia, el presente, el pasado, el futuro, los condicionales… La gramática de cada tema se reconoce en la frase con una expresión regular y el vocabulario, por sus palabras en inglés; de las frases que encajan toma, una a una, las cortas que traen una, dos o tres palabras nuevas (según el nivel), sin repetir siempre lo mismo. De B2 a C2, hasta las 10.000 palabras, las enseña de la más usada a la menos (contadas en dos millones de frases, sin nombres propios) y agrupa sus frases por la gramática del nivel o por el campo de la palabra en WordNet: personas, lugares, comer y beber, sentimientos… El resultado es un paquete .json que va dentro de la app; si ya tenía el curso anterior, lo cambia solo.",
         code: { file: "build_course.py", text: mlCourse },
       },
     ],
@@ -3153,8 +3161,8 @@ const en: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: mlSpeak },
       },
       {
-        title: "8. A 10,000-word course",
-        text: "The big course comes from Tatoeba, a free collection of sentences translated by people (CC BY 2.0 FR). A Python script (scripts/demo-extra/minilang/build_course.py) counts how often each word is used across two million sentences, leaves out proper names (those that stay the same in the translation, like Tom) and walks the words from the most to the least used: for each one it takes one or two sentences that become understandable with it. So each sentence only uses words already seen plus the new one. Each unit gathers about 25 words and the level (A1 to C2) comes from how many you have learned; the result is a .json package shipped inside the app that installs itself.",
+        title: "8. A 10,000-word course, topic by topic",
+        text: "The big course comes from Tatoeba, a free collection of sentences translated by people (CC BY 2.0 FR). A Python script (scripts/demo-extra/minilang/build_course.py) orders it like a real course. From A1 to B1 it follows a syllabus: greetings, please and thank you, introducing yourself, the verb to be (then its negatives and questions), numbers, family, the present, the past, the future, conditionals… Each topic's grammar is recognised in the sentence with a regular expression and its vocabulary by its English words; from the sentences that fit it takes, one by one, the short ones that bring one, two or three new words (depending on the level), without repeating the same thing. From B2 to C2, up to 10,000 words, it teaches them from the most to the least used (counted across two million sentences, without proper names) and groups their sentences by the level's grammar or by the word's field in WordNet: people, places, eating and drinking, feelings… The result is a .json package shipped inside the app; if you already had the previous course, it swaps it by itself.",
         code: { file: "build_course.py", text: mlCourse },
       },
     ],

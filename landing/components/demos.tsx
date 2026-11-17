@@ -333,8 +333,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_minilang: {
         name: "MiniLang (C++)",
-        text: "Aprenda idiomas con juegos de unos minutos: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar (con la voz del Mac). Con vidas, experiencia, meta diaria, racha y un repaso que trae cada frase cuando toca. El curso de inglés enseña 10.000 palabras, de A1 a C2, en unas 19.000 frases reales de Tatoeba que solo usan palabras ya vistas, con prueba de nivel para saltar lo que ya sabe; francés, italiano, alemán y portugués son paquetes que se instalan, y se pueden importar otros. Al cerrarla sigue en la barra de menús con la racha y la lección siguiente. En macOS, para Apple Silicon.",
-        shows: ["C++17 con FLTK, diseñada en el estudio", "10.000 palabras con frases de Tatoeba (CC BY 2.0 FR)", "Los idiomas, paquetes .json que se instalan o se importan", "Repaso espaciado, erratas y acentos con la distancia de Levenshtein", "La voz del sistema (say) y la barra de menús de macOS"],
+        text: "Aprenda idiomas con juegos de unos minutos: elegir la traducción, ordenar las palabras, unir parejas, escribir y escuchar (con la voz del Mac). Con vidas, experiencia, meta diaria, racha y un repaso que trae cada frase cuando toca. El curso de inglés enseña 10.000 palabras, de A1 a C2, en unas 15.000 frases reales de Tatoeba y va por temas, como un curso de verdad (saludos, el verbo to be, los números, la familia, el presente, el pasado…), con prueba de nivel para saltar lo que ya sabe; francés, italiano, alemán y portugués son paquetes que se instalan, y se pueden importar otros. Al cerrarla sigue en la barra de menús con la racha y la lección siguiente. En macOS, para Apple Silicon.",
+        shows: ["C++17 con FLTK, diseñada en el estudio", "10.000 palabras por temas, con frases de Tatoeba (CC BY 2.0 FR)", "Los idiomas, paquetes .json que se instalan o se importan", "Repaso espaciado, erratas y acentos con la distancia de Levenshtein", "La voz del sistema (say) y la barra de menús de macOS"],
       },
       cpp_pass: {
         name: "DMarlonPass (C++)",
@@ -655,8 +655,8 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_minilang: {
         name: "MiniLang (C++)",
-        text: "Learn languages with games that take a few minutes: choose the translation, put the words in order, match pairs, write and listen (with the Mac's voice). With lives, XP, a daily goal, a streak and a review that brings each sentence back when it is due. The Spanish course teaches 10,000 words, from A1 to C2, in about 19,000 real sentences from Tatoeba that only use words you have already seen, with a placement test to skip what you already know; French, Italian, German and Portuguese are packages you install, and you can import others. When closed it stays in the menu bar with the streak and the next lesson. On macOS, for Apple Silicon.",
-        shows: ["C++17 with FLTK, designed in the studio", "10,000 words with sentences from Tatoeba (CC BY 2.0 FR)", "Languages as .json packages you install or import", "Spaced repetition, typos and accents with the Levenshtein distance", "The system voice (say) and the macOS menu bar"],
+        text: "Learn languages with games that take a few minutes: choose the translation, put the words in order, match pairs, write and listen (with the Mac's voice). With lives, XP, a daily goal, a streak and a review that brings each sentence back when it is due. The Spanish course teaches 10,000 words, from A1 to C2, in about 15,000 real sentences from Tatoeba, topic by topic like a real course (greetings, the verbs ser and estar, numbers, family, the present, the past…), with a placement test to skip what you already know; French, Italian, German and Portuguese are packages you install, and you can import others. When closed it stays in the menu bar with the streak and the next lesson. On macOS, for Apple Silicon.",
+        shows: ["C++17 with FLTK, designed in the studio", "10,000 words topic by topic, with sentences from Tatoeba (CC BY 2.0 FR)", "Languages as .json packages you install or import", "Spaced repetition, typos and accents with the Levenshtein distance", "The system voice (say) and the macOS menu bar"],
       },
       cpp_pass: {
         name: "DMarlonPass (C++)",

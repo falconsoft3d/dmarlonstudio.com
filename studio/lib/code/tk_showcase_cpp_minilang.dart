@@ -71,6 +71,7 @@ TkExample tkCppMiniLang(String Function(String) t) {
     'PACK_WORDS': t(markTr('Curso de {0} palabras, de A1 a {1}: {2} unidades, {3} frases.')),
     'PACK_CREDIT': t(markTr('Frases: {0}.')),
     'BIG_INSTALLED': t(markTr('Instalado «{0}»: {1} palabras, de A1 a C2. Tu progreso del otro curso sigue guardado.')),
+    'BIG_UPDATED': t(markTr('«{0}» ahora va por temas: saludos, el verbo to be, los números… Empieza por la primera unidad o haz la prueba de nivel; tu experiencia se queda.')),
     'UNIT_N': t(markTr('Unidad {0}')),
     'UNIT_TITLE': t(markTr('{0}. {1}')),
     'UNITS_RANGE': t(markTr('Unidades {0}–{1}')),

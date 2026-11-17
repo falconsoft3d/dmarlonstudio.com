@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.147 — 2026-11-17
+
+- MiniLang: el **curso de 10.000 palabras va por temas**, como un curso de verdad, en vez de por lo que se usa cada palabra («a, that, you…»):
+  - De A1 a B1, un programa en orden: saludos, por favor y gracias, presentarse, el verbo to be (y luego sus negativas y preguntas), this y that, los números, los colores, la familia, have y has, los posesivos, los días y la hora, la comida, la casa, el presente simple, do y does, las preguntas, can, there is, los gustos, la ropa, el cuerpo y el tiempo; en A2, el presente continuo, el pasado, el futuro, los comparativos, must y should, los viajes…; en B1, el presente perfecto, los condicionales, la pasiva, los relativos, los phrasal verbs, el estilo indirecto…
+  - Cada tema toma frases de Tatoeba que lo practican (la gramática se reconoce en la frase; el vocabulario, por sus palabras), cortas y con una, dos o tres palabras nuevas según el nivel, sin repetir siempre lo mismo y sin tacos.
+  - De B2 a C2, hasta las 10.000 palabras, las frases se agrupan por la gramática del nivel (pasado perfecto, tercer condicional, conectores…) o por el campo de la palabra que enseñan (personas y oficios, lugares, comer y beber, sentimientos…, según WordNet).
+  - En inglés, el curso de español va igual: greetings, the verbs ser and estar, negatives, questions, articles… Cada unidad lleva su icono.
+  - Si ya tenía instalado el curso anterior, la app lo cambia sola por el nuevo y lo avisa; como las unidades son otras, se empieza por la primera (o por la prueba de nivel) y la experiencia se queda.
+
 ## 1.0.146 — 2026-11-14
 
 - Nueva demo: **Torre de control (C++)**, una app nativa con FLTK para ver todas las sesiones de **Claude Code** abiertas en el equipo (en VS Code, en la terminal o en otros editores), sin configurar nada:

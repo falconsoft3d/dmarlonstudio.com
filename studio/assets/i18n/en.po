@@ -8333,6 +8333,10 @@ msgid "¡Repaso hecho!"
 msgstr "Review done!"
 
 #: lib/code/tk_showcase_cpp_minilang.dart
+msgid "«{0}» ahora va por temas: saludos, el verbo to be, los números… Empieza por la primera unidad o haz la prueba de nivel; tu experiencia se queda."
+msgstr "“{0}” now goes topic by topic: greetings, the verb to be, numbers… Start from the first unit or take the placement test; your XP stays."
+
+#: lib/code/tk_showcase_cpp_minilang.dart
 msgid "¿Quitar «{0}»? Tu progreso se guarda por si lo vuelves a instalar."
 msgstr "Remove “{0}”? Your progress is kept in case you install it again."
 

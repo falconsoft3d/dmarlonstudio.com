@@ -720,6 +720,7 @@ struct Pack {
   std::string id, target, source, name, flag;   // id: «en-es» (inglés para quien habla español)
   bool full = false;                            // el curso completo (A1–C1) o unos primeros pasos
   int words = 0;                                // las palabras que enseña (los cursos grandes)
+  int rev = 0;                                  // su versión: si la app trae una más nueva, se cambia
   std::string credit;                           // de dónde salen las frases
   std::vector<Unit> units;
   int item_count() const {
@@ -793,7 +794,7 @@ std::string join_alts(const std::vector<std::string>& v) {
 std::string pack_json(const Pack& p) {
   std::string o = "{\"minilang\":1,\"id\":" + jstr(p.id) + ",\"target\":" + jstr(p.target) + ",\"source\":" + jstr(p.source) +
                   ",\"name\":" + jstr(p.name) + ",\"flag\":" + jstr(p.flag) + ",\"full\":" + (p.full ? "true" : "false") +
-                  ",\"words\":" + std::to_string(p.words) + ",\"credit\":" + jstr(p.credit) + ",\"units\":[\n";
+                  ",\"rev\":" + std::to_string(p.rev) + ",\"words\":" + std::to_string(p.words) + ",\"credit\":" + jstr(p.credit) + ",\"units\":[\n";
   for (size_t k = 0; k < p.units.size(); k++) {
     const Unit& u = p.units[k];
     std::string ws;
@@ -834,6 +835,7 @@ bool parse_pack(const std::string& text, Pack& p, std::string& error) {
   for (char ch : jid) id_ok = id_ok && (std::islower((unsigned char)ch) || std::isdigit((unsigned char)ch) || ch == '-');
   if (id_ok) p.id = jid;
   p.words = std::max(0, (int)j["words"].n);
+  p.rev = std::max(0, (int)j["rev"].n);
   p.credit = j["credit"].s;
   p.name = j["name"].s.empty() ? std::string(lang_name(p.target)) : j["name"].s;
   if (p.name.empty()) p.name = p.target;
@@ -2258,10 +2260,12 @@ int selftest() {
       big.words += 4;
     }
     big.credit = "Tatoeba (tatoeba.org), CC BY 2.0 FR";
+    big.rev = 2;
     Pack again;
     chk(parse_pack(pack_json(big), again, error) && again.id == "en-es-10k" && again.units[0].lessons == 7 && again.units[1].lessons == 2 &&
-            again.units[14].section == 4 && again.units[3].words.size() == 4 && again.words == 60 && again.credit == big.credit,
-        "un curso grande: su id, sus lecciones, sus palabras y de dónde salen las frases");
+            again.units[14].section == 4 && again.units[3].words.size() == 4 && again.words == 60 && again.credit == big.credit &&
+            again.rev == 2,
+        "un curso grande: su id, su versión, sus lecciones, sus palabras y de dónde salen las frases");
     std::string other = pack_json(big);
     other.replace(other.find("en-es-10k"), 9, "xx-yy-zz9");
     chk(parse_pack(other, again, error) && again.id == "en-es", "un id que no es de esos idiomas: el de siempre");
@@ -2540,6 +2544,7 @@ public:
     load_bundled();
     // La primera vez: el idioma del curso completo (inglés, o español si la app está en inglés).
     if (packs.empty()) install(ml::ui_lang() == "es" ? "en" : "es");
+    update_bundled();
     // Un curso grande (10.000 palabras) que aún no se ofreció: se instala y se estudia ese.
     for (const auto& b : bundled) {
       std::string mark = "," + b.id + ",";
@@ -2583,6 +2588,28 @@ public:
       if (ml::read_file(dir + "/" + name, text) && ml::parse_pack(text, p, error) && p.source == ml::ui_lang()) bundled.push_back(p);
     }
     if (list) fl_filename_free_list(&list, n);
+  }
+  // Un curso grande que la app trae en una versión más nueva (por ejemplo, ordenado por temas):
+  // se cambia el instalado. Sus unidades ya no son las mismas, así que se empieza por la
+  // primera (o por la prueba de nivel); la experiencia se queda.
+  void update_bundled() {
+    for (const auto& b : bundled) {
+      int k = pack_index(b.id);
+      if (k < 0 || packs[(size_t)k].rev >= b.rev) continue;
+      if (!demo && !ml::write_file(ml::packs_dir() + "/" + b.id + ".json", ml::pack_json(b))) continue;
+      packs[(size_t)k] = b;
+      long long xp = 0;
+      auto it = progs.find(b.id);
+      std::string text;
+      if (it != progs.end()) xp = it->second.xp;
+      else if (!demo && ml::read_file(progress_file(b.id), text)) xp = ml::progress_parse(text, b.units.size()).xp;
+      ml::Progress fresh = ml::progress_parse("", b.units.size());
+      fresh.xp = xp;
+      progs[b.id] = fresh;
+      if (!demo) ml::write_file(progress_file(b.id), ml::progress_text(fresh));
+      message = ml::fmt(tx::BIG_UPDATED, {b.name});
+      message_until = ml::now_s() + 10;
+    }
   }
   bool install_pack(const ml::Pack& p) {
     if (pack_index(p.id) >= 0) return true;
@@ -3652,6 +3679,23 @@ public:
       bool seen12 = false;
       for (const auto& h : view->hits) seen12 = seen12 || (h.act == 1 && h.idx == 12);
       chk(view->scroll > 0 && seen12, "el inicio baja hasta la unidad por la que va");
+      // La app trae el curso en otra versión (otro orden): se cambia el instalado y se
+      // empieza por la primera unidad, con la experiencia de antes.
+      prog().xp = 120;
+      ml::Pack newer = bundled[0];
+      newer.rev = bundled[0].rev + 1;
+      std::reverse(newer.units.begin(), newer.units.end());
+      ml::write_file(dir + "/big.json", ml::pack_json(newer));
+      load_bundled();
+      update_bundled();
+      int nb = pack_index(big.id);
+      bool swapped = nb >= 0 && packs[(size_t)nb].rev == newer.rev && packs[(size_t)nb].units[0].title == newer.units[0].title;
+      use_pack(nb);
+      chk(swapped && prog().done(0) == 0 && prog().done(11) == 0 && prog().xp == 120 && message.find("Big") != std::string::npos,
+          "un curso más nuevo: cambia el instalado, de cero y con la experiencia");
+      message.clear();
+      update_bundled();
+      chk(pack()->rev == newer.rev && prog().xp == 120 && message.empty(), "y solo una vez");
     }
 #endif
     // La meta del día y la barra de menús.

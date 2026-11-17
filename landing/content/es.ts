@@ -106,7 +106,7 @@ export const es: Content = {
       { seed: "cpp_clocks", name: "Relojes del mundo (C++)", text: "La hora de varios países en la barra de menús, con su esfera y el horario de verano de cada uno, con FLTK." },
       { seed: "cpp_recorder", name: "Grabador de pantalla (C++)", text: "Graba la pantalla o una zona de 16:9 para YouTube, con micrófono y clics, y guarda los vídeos con su miniatura." },
       { seed: "cpp_mywa", name: "MyWhatsapp (C++)", text: "Lee sus chats de WhatsApp y propone respuestas con Claude o ChatGPT según la conversación." },
-      { seed: "cpp_minilang", name: "MiniLang (C++)", text: "Aprende idiomas con juegos cortos desde la barra de menús: elegir, ordenar, unir parejas, escribir y escuchar, con racha y repaso; 10.000 palabras de inglés, de A1 a C2." },
+      { seed: "cpp_minilang", name: "MiniLang (C++)", text: "Aprende idiomas con juegos cortos desde la barra de menús: elegir, ordenar, unir parejas, escribir y escuchar, con racha y repaso; 10.000 palabras de inglés por temas, de A1 a C2." },
       { seed: "cpp_tower", name: "Torre de control (C++)", text: "Todas las sesiones de Claude Code del equipo: qué hace cada una, si trabaja, espera o pregunta, sus tareas y subagentes, y los informes de los agentes." },
       { seed: "cpp_bc3", name: "Visor BC3 (C++)", text: "Presupuestos FIEBDC-3: capítulos, partidas, descompuestos, mediciones, textos y totales recalculados." },
       { seed: "cpp_blocks", name: "Bloques Neón (C++)", text: "Bloques que caen en una ciudad de neón: siguiente, reserva, combos, niveles y chispas al limpiar filas." },

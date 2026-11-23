@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.155 — 2026-11-23
+
+- Demos: ya compilan todas las de Windows y las de Python de macOS. Las de Pascal en macOS vuelven a salir para la arquitectura que se pueda (el FPC de Homebrew solo trae el compilador de Apple Silicon): el script volvía a probar con la otra, pero desde la 1.0.152 el error llega con otro tipo y ya no lo recogía.
+
 ## 1.0.154 — 2026-11-23
 
 - Demos (GitHub Actions), siguiente ronda de lo que enseñan los avisos:

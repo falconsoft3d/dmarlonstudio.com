@@ -373,7 +373,7 @@ def pascal_binary(d: Path, name: str):
     for cpu, arch in (("aarch64", "arm64"), ("x86_64", "x86_64")):
         try:
             run([lazbuild(), *lazarus_dir(), "--build-mode=Default", "--ws=cocoa", f"--cpu={cpu}", "app.lpi"], d)
-        except subprocess.CalledProcessError:
+        except (subprocess.CalledProcessError, RuntimeError):  # run() lanza RuntimeError con la salida
             print(f"aviso: no se pudo compilar para {arch}", flush=True)
             continue
         sh.move(d / "app", d / f"app-{arch}")
@@ -597,7 +597,7 @@ def go_extra(seed: str, dest: Path, archs: list) -> bool:
         else:
             subprocess.run([go, "build", "-trimpath", "-ldflags", "-s -w", "-o", str(dest / f"{name}.exe"), "."],
                            cwd=src, env={**env, "GOOS": "windows", "GOARCH": "amd64"}, check=True)
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, RuntimeError):  # run() lanza RuntimeError con la salida
         print(f"aviso: no compila {name}; {seed} va sin él", flush=True)
         return False
     return True

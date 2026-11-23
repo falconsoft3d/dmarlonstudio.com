@@ -131,6 +131,7 @@ Hechos
 149. MiniLang: el curso ordenado por temas (saludos, verbo to be, números, familia, presente, pasado…) | ✅ |
 150. App en C++ (DMarlon Studio) para macOS y Windows que baja cada día, o con la secuencia elegida, los respaldos de las bases de datos de community.sh a la carpeta elegida, minimizada en la barra | ✅ |
 151. Respaldos de community.sh: cada hora (y cada 2, 3, 4 h) y eliminar los respaldos tras N días (3 por defecto) | ✅ |
+152. Respaldos de community.sh: también servidores Ubuntu por SSH, con clave o contraseña (pg_dump), e historial de cada respaldo | ✅ |
 
 Trabajando
 =========

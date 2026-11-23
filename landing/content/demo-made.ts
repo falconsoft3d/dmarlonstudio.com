@@ -1742,6 +1742,18 @@ const cbTray = `LRESULT CALLBACK proc(HWND h, UINT m, WPARAM w, LPARAM l) {
   return DefWindowProcW(h, m, w, l);
 }`;
 
+const cbSsh = `void backup_ssh(const Job& job, const JobItem& it, const Post& post, const std::atomic<bool>& cancel);
+void run_job(const Job& job, const Post& post, const std::atomic<bool>& cancel) {
+  for (const auto& it : job.items) {
+    if (cancel) break;
+    if (it.src > 0) backup_ssh(job, it, post, cancel);
+    else backup_one(job, it.id, it.name, post, cancel);
+  }
+  Ev e;
+  e.kind = EV_DONE;
+  post(e);
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2790,6 +2802,7 @@ const es: Record<string, DemoMade> = {
         "curl (el de macOS y el de Windows 10 y posteriores) con un archivo de configuración que solo lee el usuario; un hilo que avisa a la ventana con Fl::awake",
         "NSStatusItem y NSMenu desde C++ con el runtime de Objective-C; en Windows, Shell_NotifyIconW, TrackPopupMenu y sus globos",
         "Abrir al iniciar sesión: un LaunchAgent en macOS y la clave Run del registro en Windows",
+        "ssh (el de macOS y el cliente OpenSSH de Windows) con pg_dump y psql en el servidor; SSH_ASKPASS para las contraseñas",
       ],
     },
     steps: [
@@ -2833,6 +2846,11 @@ const es: Record<string, DemoMade> = {
         title: "8. Junto al reloj de Windows",
         text: "En macOS es un NSStatusItem, como en el monitor de sitios. En Windows, una ventana escondida recibe los clics del icono de Shell_NotifyIcon y abre el mismo menú con TrackPopupMenu; si el Explorador se reinicia (TaskbarCreated), el icono vuelve.",
         code: { file: "Form1.cpp", text: cbTray },
+      },
+      {
+        title: "9. Servidores Linux por SSH",
+        text: "Cada base de PostgreSQL de un servidor se vuelca con pg_dump por SSH directamente a un archivo del equipo (formato custom, comprimido), como el usuario postgres: si se entra como root u otro usuario, con sudo -n. Con contraseña, ssh la pide al programa de SSH_ASKPASS, que la lee de un archivo que solo lee el usuario y se borra al terminar. El archivo solo se queda si empieza por PGDMP.",
+        code: { file: "Form1.cpp", text: cbSsh },
       },
     ],
   },
@@ -3886,6 +3904,7 @@ const en: Record<string, DemoMade> = {
         "curl (the one in macOS and in Windows 10 and later) with a config file only the user can read; a thread that tells the window with Fl::awake",
         "NSStatusItem and NSMenu from C++ with the Objective-C runtime; on Windows, Shell_NotifyIconW, TrackPopupMenu and its balloons",
         "Open at login: a LaunchAgent on macOS and the registry Run key on Windows",
+        "ssh (the macOS one and the Windows OpenSSH client) with pg_dump and psql on the server; SSH_ASKPASS for passwords",
       ],
     },
     steps: [
@@ -3929,6 +3948,11 @@ const en: Record<string, DemoMade> = {
         title: "8. Next to the Windows clock",
         text: "On macOS it is an NSStatusItem, as in the website monitor. On Windows, a hidden window receives the clicks on the Shell_NotifyIcon icon and opens the same menu with TrackPopupMenu; if Explorer restarts (TaskbarCreated), the icon comes back.",
         code: { file: "Form1.cpp", text: cbTray },
+      },
+      {
+        title: "9. Linux servers over SSH",
+        text: "Each PostgreSQL database of a server is dumped with pg_dump over SSH straight into a file on the computer (custom format, compressed), as the postgres user: when logging in as root or another user, with sudo -n. With a password, ssh asks the SSH_ASKPASS program for it, which reads it from a file only the user can read and is deleted when done. The file is only kept if it starts with PGDMP.",
+        code: { file: "Form1.cpp", text: cbSsh },
       },
     ],
   },

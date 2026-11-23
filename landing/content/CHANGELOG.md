@@ -3,6 +3,15 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.150 — 2026-11-23
+
+- Respaldos de community.sh (C++): **servidores Linux por SSH**. Con «Servidores SSH…» se añaden servidores (Ubuntu, Debian…) con su nombre, dirección, puerto, usuario y cómo se entra: con una **clave SSH** (sin contraseña; la de ~/.ssh o un archivo) o con una **contraseña**, que se guarda en el Llavero de macOS (en Windows, en un archivo que solo lee el usuario). «Probar la conexión» dice cuántas bases tiene o qué falla.
+  - Las bases de PostgreSQL de cada servidor salen en la misma lista que las instancias del panel, con su tamaño, y se respaldan con la misma secuencia, la misma carpeta (servidor › base) y el mismo «Eliminar tras N días»: cada una se vuelca con **pg_dump** (formato custom) por SSH directamente a un archivo `.dump`, que solo se queda si empieza por `PGDMP`.
+  - En el servidor se usa PostgreSQL como postgres: entrando como root o postgres, o con un usuario con sudo sin contraseña para postgres. Con contraseña, ssh la lee con SSH_ASKPASS de un archivo temporal que solo lee el usuario. La huella de cada servidor se guarda la primera vez en un known_hosts propio.
+  - Errores explicados: clave o contraseña que no valen, servidor que no contesta, huella cambiada, usuario sin permiso para PostgreSQL, servidor sin PostgreSQL, volcado vacío y falta del programa ssh.
+- **Historial** (Archivo › Ver el historial): cada respaldo apunta lo que bajó y lo que falló, y por qué. El aviso del final se calcula con cómo ha quedado cada uno y nombra el primero que falló («9 bajados · 1 con errores (bim17: …)»).
+- Probado: sus pruebas internas, la de la interfaz (añadir, validar, probar y quitar servidores), la compilación para Windows con MinGW y, contra un servidor Ubuntu 24.04 de verdad con PostgreSQL 16 (en un contenedor), con clave, con contraseña, con un usuario sin permiso, con una contraseña y una clave que no valen y con el servidor apagado; el volcado se restaura con sus filas.
+
 ## 1.0.149 — 2026-11-23
 
 - Respaldos de community.sh (C++):

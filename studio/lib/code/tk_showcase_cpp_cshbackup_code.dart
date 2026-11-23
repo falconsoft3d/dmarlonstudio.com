@@ -3,7 +3,8 @@ part of 'tk_examples.dart';
 // El código en C++ de los respaldos de community.sh
 // (tk_showcase_cpp_cshbackup.dart): va tal cual en Form1.cpp, después de los
 // textos (namespace tx).
-const _cshbkIncludes = r'''#include <atomic>
+const _cshbkIncludes = r'''#include <algorithm>
+#include <atomic>
 #include <cctype>
 #include <chrono>
 #include <cstdint>
@@ -18,6 +19,7 @@ const _cshbkIncludes = r'''#include <atomic>
 #include <utility>
 #include <vector>
 #include <FL/Fl_Image_Surface.H>
+#include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Native_File_Chooser.H>
 #include <FL/Fl_PNG_Image.H>
 #include <FL/fl_ask.H>
@@ -58,6 +60,8 @@ const _cshbkCode = r'''
 //   GET  /api/backups/<id>/download/         el archivo
 // Las peticiones las hace curl (lo traen macOS y Windows 10 y posteriores)
 // en otro hilo; el token va en un archivo temporal que solo lee el usuario.
+// También servidores Linux (Ubuntu…) por SSH, con clave o contraseña: cada
+// base de datos de PostgreSQL se vuelca con pg_dump a un archivo del equipo.
 namespace cb {
 
 inline int imax(int a, int b) { return a > b ? a : b; }
@@ -276,7 +280,9 @@ enum State { B_IDLE = 0, B_QUEUED, B_CREATING, B_LISTING, B_DOWNLOADING, B_OK, B
 
 struct Inst {
   int id = 0;
-  std::string name, version, status;
+  int src = 0;   // 0: el panel; si no, el id del servidor SSH
+  std::string name, version, status;   // en un servidor: la base, el servidor y usuario@host
+  std::string rel;   // su carpeta, dentro de la de los respaldos (y su clave en los bajados)
   bool on = true;   // se respalda
   // El último respaldo en el panel.
   int cloud_id = 0;
@@ -699,18 +705,36 @@ std::string http_error(const Resp& r, bool writing) {
 
 // ------------------------------------------------------------ el respaldo
 // Lo que el hilo de los respaldos cuenta a la ventana.
-enum EvKind { EV_STATE = 1, EV_CLOUD, EV_LOCAL, EV_DONE, EV_INSTANCES };
+enum EvKind { EV_STATE = 1, EV_CLOUD, EV_LOCAL, EV_DONE, EV_INSTANCES, EV_TEST };
 struct Ev {
-  int kind = 0, id = 0, state = 0, cloud_id = 0;
+  int kind = 0, id = 0, state = 0, cloud_id = 0, src = 0;
   std::string error, file, date, part;
   long long size = 0, total = 0;
   bool fs = false;
   std::vector<Inst> list;
 };
+// Un servidor Linux con PostgreSQL al que se entra por SSH, con una clave
+// (sin contraseña: la de ~/.ssh o un archivo) o con una contraseña.
+struct Server {
+  int id = 0;
+  std::string name, host, user = "root", key;
+  int port = 22;
+  bool password = false;
+  std::string secret;   // la contraseña, solo en memoria (se guarda en el Llavero)
+};
+std::string server_label(const Server& s) {
+  return s.user + "@" + s.host + (s.port != 22 ? ":" + std::to_string(s.port) : "");
+}
+struct JobItem {
+  int id = 0;
+  std::string name;
+  int src = 0;
+};
 struct Job {
   std::string base, token, folder;
   bool fresh = false, fs = false;
-  std::vector<std::pair<int, std::string>> insts;
+  std::vector<JobItem> items;
+  std::vector<Server> servers;   // con su contraseña
 };
 using Post = std::function<void(const Ev&)>;
 
@@ -728,6 +752,7 @@ void backup_one(const Job& job, int id, const std::string& name, const Post& pos
     e.error = err;
     post(e);
   };
+  if (job.token.empty()) { state(B_ERROR, tx::NEED_TOKEN); return; }
   Req base;
   base.base = job.base;
   base.token = job.token;
@@ -834,10 +859,12 @@ void backup_one(const Job& job, int id, const std::string& name, const Post& pos
   done.size = got;
   post(done);
 }
+void backup_ssh(const Job& job, const JobItem& it, const Post& post, const std::atomic<bool>& cancel);
 void run_job(const Job& job, const Post& post, const std::atomic<bool>& cancel) {
-  for (const auto& p : job.insts) {
+  for (const auto& it : job.items) {
     if (cancel) break;
-    backup_one(job, p.first, p.second, post, cancel);
+    if (it.src > 0) backup_ssh(job, it, post, cancel);
+    else backup_one(job, it.id, it.name, post, cancel);
   }
   Ev e;
   e.kind = EV_DONE;
@@ -911,6 +938,7 @@ struct Settings {
   int every = 24, hour = 3, wday = 0, days = 3;
   bool fresh = false, fs = false, login = false;
   long long next_run = 0, last_run = 0;
+  std::vector<Server> servers;
 };
 std::string serialize(const Settings& s, const std::vector<Inst>& insts) {
   std::string o;
@@ -920,17 +948,22 @@ std::string serialize(const Settings& s, const std::vector<Inst>& insts) {
   o += "days\t" + std::to_string(s.days) + "\n";
   o += std::string("fresh\t") + (s.fresh ? "1" : "0") + "\nfs\t" + (s.fs ? "1" : "0") + "\nlogin\t" + (s.login ? "1" : "0") + "\n";
   o += "next\t" + std::to_string(s.next_run) + "\nlast\t" + std::to_string(s.last_run) + "\n";
+  for (const auto& v : s.servers)
+    o += "server\t" + std::to_string(v.id) + "\t" + clean(v.name) + "\t" + clean(v.host) + "\t" + std::to_string(v.port) + "\t" +
+         clean(v.user) + "\t" + (v.password ? "1" : "0") + "\t" + clean(v.key) + "\n";
   for (const auto& i : insts) {
     int st = (i.state == B_OK || i.state == B_SKIPPED || i.state == B_ERROR) ? i.state : B_IDLE;
     o += "inst\t" + std::to_string(i.id) + "\t" + clean(i.name) + "\t" + clean(i.version) + "\t" + clean(i.status) + "\t" +
          (i.on ? "1" : "0") + "\t" + std::to_string(st) + "\t" + clean(i.error) + "\t" + clean(i.local_file) + "\t" +
          std::to_string(i.local_t) + "\t" + std::to_string(i.local_size) + "\t" + clean(i.cloud_file) + "\t" +
-         clean(i.cloud_date) + "\t" + std::to_string(i.cloud_size) + "\t" + (i.cloud_fs ? "1" : "0") + "\n";
+         clean(i.cloud_date) + "\t" + std::to_string(i.cloud_size) + "\t" + (i.cloud_fs ? "1" : "0") + "\t" +
+         std::to_string(i.src) + "\n";
   }
   return o;
 }
 void parse_settings(const std::string& text, Settings& s, std::vector<Inst>& insts) {
   insts.clear();
+  s.servers.clear();
   for (const auto& line : split(text, '\n')) {
     auto f = split(line, '\t');
     if (f.size() < 2) continue;
@@ -950,6 +983,17 @@ void parse_settings(const std::string& text, Settings& s, std::vector<Inst>& ins
     else if (k == "login") s.login = f[1] == "1";
     else if (k == "next") s.next_run = to_ll(f[1]);
     else if (k == "last") s.last_run = to_ll(f[1]);
+    else if (k == "server" && f.size() >= 8) {
+      Server v;
+      v.id = (int)to_ll(f[1]);
+      v.name = f[2];
+      v.host = f[3];
+      v.port = imin(imax((int)to_ll(f[4]), 1), 65535);
+      v.user = f[5];
+      v.password = f[6] == "1";
+      v.key = f[7];
+      if (v.id > 0 && !v.host.empty()) s.servers.push_back(v);
+    }
     else if (k == "inst" && f.size() >= 15) {
       Inst i;
       i.id = (int)to_ll(f[1]);
@@ -966,7 +1010,8 @@ void parse_settings(const std::string& text, Settings& s, std::vector<Inst>& ins
       i.cloud_date = f[12];
       i.cloud_size = to_ll(f[13]);
       i.cloud_fs = f[14] == "1";
-      if (i.id > 0) insts.push_back(i);
+      if (f.size() >= 16) i.src = (int)to_ll(f[15]);
+      if (i.id != 0) insts.push_back(i);
     }
   }
 }
@@ -983,10 +1028,36 @@ std::vector<Inst> merge(const std::vector<Inst>& old, const std::vector<Inst>& f
         n.name = f.name;
         n.version = f.version;
         n.status = f.status;
+        if (f.src > 0) n.cloud_size = f.cloud_size;   // el tamaño de la base en el servidor
         break;
       }
     out.push_back(n);
   }
+  return out;
+}
+// Lo que llega de una fuente (0: el panel; si no, un servidor) sustituye lo
+// de esa fuente, con lo que ya se sabía de cada una; lo demás no se toca. El
+// panel va primero y cada servidor, junto.
+std::vector<Inst> merge_src(const std::vector<Inst>& old, const std::vector<Inst>& fresh, int src) {
+  std::vector<Inst> mine, out;
+  for (const auto& o : old)
+    if (o.src == src) mine.push_back(o);
+  std::vector<Inst> merged = merge(mine, fresh);
+  for (auto& m : merged) m.src = src;
+  bool placed = false;
+  for (const auto& o : old) {
+    if (o.src == src) {
+      if (!placed) out.insert(out.end(), merged.begin(), merged.end());
+      placed = true;
+      continue;
+    }
+    if (!placed && src == 0) {
+      out.insert(out.end(), merged.begin(), merged.end());
+      placed = true;
+    }
+    out.push_back(o);
+  }
+  if (!placed) out.insert(out.end(), merged.begin(), merged.end());
   return out;
 }
 
@@ -998,36 +1069,57 @@ std::string sh_quote(const std::string& s) {
   for (char c : s) q += c == '\'' ? std::string("'\\''") : std::string(1, c);
   return q + "'";
 }
-std::string token_get() {
+const char* const TOKEN_SERVICE = "community.sh token";
+std::string server_service(int id) { return "community.sh ssh " + std::to_string(id); }
+std::string secret_file(const std::string& service) {
+  return join(config_dir(), service == TOKEN_SERVICE ? std::string("token.key") : safe_name(service) + ".key");
+}
+std::string secret_get(const std::string& service) {
 #ifdef __APPLE__
   if (!testing()) {
-    FILE* p = popen("/usr/bin/security find-generic-password -a dmarlon-cshbackup -s 'community.sh token' -w 2>/dev/null", "r");
+    std::string cmd = "/usr/bin/security find-generic-password -a dmarlon-cshbackup -s " + sh_quote(service) + " -w 2>/dev/null";
+    FILE* p = popen(cmd.c_str(), "r");
     if (!p) return "";
     char buf[512];
     std::string out;
     size_t n;
     while ((n = std::fread(buf, 1, sizeof buf, p)) > 0) out.append(buf, n);
     pclose(p);
-    return trim(out);
+    if (!out.empty() && out.back() == '\n') out.pop_back();
+    return out;
   }
 #endif
   std::string v;
-  read_file(join(config_dir(), "token.key"), v);
-  return trim(v);
+  read_file(secret_file(service), v);
+  if (!v.empty() && v.back() == '\n') v.pop_back();
+  return v;
 }
-void token_set(const std::string& value) {
+void secret_set(const std::string& service, const std::string& value) {
   fl_make_path(config_dir().c_str());
 #ifdef __APPLE__
   if (!testing()) {
-    std::string cmd = "/usr/bin/security add-generic-password -U -a dmarlon-cshbackup -s 'community.sh token' -w " +
+    std::string cmd = "/usr/bin/security add-generic-password -U -a dmarlon-cshbackup -s " + sh_quote(service) + " -w " +
                       sh_quote(value) + " >/dev/null 2>&1";
     int r = std::system(cmd.c_str());
     (void)r;
     return;
   }
 #endif
-  write_private(join(config_dir(), "token.key"), value);
+  write_private(secret_file(service), value);
 }
+void secret_del(const std::string& service) {
+#ifdef __APPLE__
+  if (!testing()) {
+    std::string cmd = "/usr/bin/security delete-generic-password -a dmarlon-cshbackup -s " + sh_quote(service) + " >/dev/null 2>&1";
+    int r = std::system(cmd.c_str());
+    (void)r;
+    return;
+  }
+#endif
+  fl_unlink(secret_file(service).c_str());
+}
+std::string token_get() { return trim(secret_get(TOKEN_SERVICE)); }
+void token_set(const std::string& value) { secret_set(TOKEN_SERVICE, value); }
 
 // ------------------------------------------------------------ el sistema
 std::string exe_path() {
@@ -1149,6 +1241,24 @@ void open_folder(const std::string& path) {
   }
 #endif
 }
+// Abre un archivo con su programa (el historial, con el editor de textos).
+void open_file(const std::string& path) {
+#ifdef _WIN32
+  ShellExecuteW(nullptr, L"open", wide(path).c_str(), nullptr, nullptr, SW_SHOWNORMAL);
+#else
+#ifdef __APPLE__
+  const char* tool = "/usr/bin/open";
+#else
+  const char* tool = "xdg-open";
+#endif
+  pid_t pid;
+  std::string p = path;
+  char* argv[] = {(char*)tool, (char*)p.c_str(), nullptr};
+  if (posix_spawnp(&pid, tool, nullptr, nullptr, argv, environ) == 0) {
+    std::thread([pid] { int st; waitpid(pid, &st, 0); }).detach();
+  }
+#endif
+}
 // Un aviso del sistema en macOS (en Windows, el globo del icono: bar::notify).
 void notify_mac(const std::string& title, const std::string& text) {
 #ifdef __APPLE__
@@ -1165,6 +1275,302 @@ void notify_mac(const std::string& title, const std::string& text) {
   (void)title;
   (void)text;
 #endif
+}
+
+// ------------------------------------------------------------ SSH
+// En el servidor, PostgreSQL se usa como el usuario postgres: si ya se entra
+// como postgres, directamente; si no (root o un usuario con permiso), con
+// «sudo -n -u postgres», que no pide contraseña o falla.
+const char* const PG_RUN =
+    "R() { if [ \"$(id -un)\" = postgres ]; then \"$@\"; else sudo -n -u postgres \"$@\"; fi; }; cd /tmp && ";
+std::string remote_list() {
+  return std::string(PG_RUN) +
+         "R psql -X -A -t -F '|' -c \"select datname, pg_database_size(datname) from pg_database "
+         "where datallowconn and not datistemplate and datname <> 'postgres' order by 1\"";
+}
+std::string remote_dump(const std::string& db) { return std::string(PG_RUN) + "R pg_dump -Fc " + sh_quote(db); }
+
+// Un id estable (negativo) para una base de un servidor.
+int ssh_id(int src, const std::string& db) {
+  unsigned h = 2166136261u;
+  for (unsigned char c : db) h = (h ^ c) * 16777619u;
+  return -(src * 1000000 + (int)(h % 999983u) + 1);
+}
+// «tienda|8130371» por línea → las bases del servidor.
+std::vector<Inst> parse_db_list(const std::string& out, const Server& s) {
+  std::vector<Inst> v;
+  for (const auto& line : split(out, '\n')) {
+    std::string l = trim(line);
+    size_t bar = l.rfind('|');
+    if (l.empty() || bar == std::string::npos || bar == 0) continue;
+    Inst in;
+    in.src = s.id;
+    in.name = l.substr(0, bar);
+    in.id = ssh_id(s.id, in.name);
+    in.version = s.name;
+    in.status = server_label(s);
+    in.cloud_size = to_ll(l.substr(bar + 1));
+    v.push_back(in);
+  }
+  return v;
+}
+
+std::string ssh_program() {
+#ifdef _WIN32
+  return "ssh.exe";
+#else
+  return access("/usr/bin/ssh", X_OK) == 0 ? "/usr/bin/ssh" : "ssh";
+#endif
+}
+// Los argumentos de ssh (sin el programa) para entrar en [s] y ejecutar
+// [remote]. La huella de cada servidor se guarda la primera vez en un
+// known_hosts propio; si cambia, ssh no entra.
+std::vector<std::string> ssh_args(const Server& s, const std::string& remote) {
+  std::vector<std::string> a = {"-p", std::to_string(s.port), "-o", "ConnectTimeout=15", "-o", "ServerAliveInterval=30",
+                                "-o", "ServerAliveCountMax=4", "-o", "StrictHostKeyChecking=accept-new",
+                                "-o", "UserKnownHostsFile=\"" + join(config_dir(), "known_hosts") + "\"", "-o", "LogLevel=ERROR"};
+  if (s.password) {
+    for (const char* o : {"PreferredAuthentications=password,keyboard-interactive", "PubkeyAuthentication=no", "NumberOfPasswordPrompts=1"}) {
+      a.push_back("-o");
+      a.push_back(o);
+    }
+  } else {
+    a.push_back("-o");
+    a.push_back("BatchMode=yes");
+    if (!trim(s.key).empty()) {
+      a.push_back("-i");
+      a.push_back(trim(s.key));
+      a.push_back("-o");
+      a.push_back("IdentitiesOnly=yes");
+    }
+  }
+  a.push_back(s.user + "@" + s.host);
+  a.push_back(remote);
+  return a;
+}
+#ifdef _WIN32
+// Un argumento de la línea de órdenes de Windows, entre comillas si hace falta.
+std::wstring win_arg(const std::wstring& a) {
+  if (!a.empty() && a.find_first_of(L" \t\"") == std::wstring::npos) return a;
+  std::wstring o = L"\"";
+  size_t bs = 0;
+  for (wchar_t c : a) {
+    if (c == L'\\') { bs++; continue; }
+    if (c == L'"') {
+      o.append(bs * 2 + 1, L'\\');
+      o += c;
+      bs = 0;
+      continue;
+    }
+    o.append(bs, L'\\');
+    bs = 0;
+    o += c;
+  }
+  o.append(bs * 2, L'\\');
+  return o + L"\"";
+}
+#endif
+// La app como SSH_ASKPASS en Windows: ssh la abre y lee la contraseña de su
+// salida (en macOS y Linux lo hace un guion de una línea).
+int askpass(const std::string& file) {
+  std::string pw;
+  read_file(file, pw);
+  if (pw.empty() || pw.back() != '\n') pw += "\n";
+#ifdef _WIN32
+  DWORD n = 0;
+  WriteFile(GetStdHandle(STD_OUTPUT_HANDLE), pw.data(), (DWORD)pw.size(), &n, nullptr);
+#else
+  std::fwrite(pw.data(), 1, pw.size(), stdout);
+#endif
+  return 0;
+}
+
+struct Run {
+  int code = -1;   // el código de salida de ssh (-1: no se pudo abrir)
+  std::string out, err;
+};
+// Ejecuta ssh: la salida va a [out_file] (si se da) o a Run::out. Con
+// contraseña, ssh la pide al programa de SSH_ASKPASS, que la lee de un
+// archivo que solo lee el usuario y que se borra al terminar.
+Run run_ssh(const Server& s, const std::string& remote, const std::string& out_file) {
+  Run r;
+  std::string dir = config_dir();
+  fl_make_path(dir.c_str());
+  std::string tag = std::to_string(now_t()) + "-" + std::to_string(counter()++);
+  std::string errf = join(dir, "ssh-" + tag + ".err"), pwf, askf;
+  if (s.password) {
+    pwf = join(dir, "ssh-" + tag + ".pw");
+    if (!write_private(pwf, s.secret + "\n")) {
+      r.err = fmt(tx::E_FOLDER, {dir});
+      return r;
+    }
+  }
+  std::vector<std::string> args = ssh_args(s, remote);
+#ifdef _WIN32
+  std::wstring cmd = win_arg(wide(ssh_program()));
+  for (const auto& a : args) cmd += L" " + win_arg(wide(a));
+  SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, TRUE};
+  HANDLE out = INVALID_HANDLE_VALUE, rd = nullptr;
+  if (!out_file.empty()) {
+    out = CreateFileW(wide(out_file).c_str(), GENERIC_WRITE, FILE_SHARE_READ, &sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+  } else if (CreatePipe(&rd, &out, &sa, 0)) {
+    SetHandleInformation(rd, HANDLE_FLAG_INHERIT, 0);
+  }
+  HANDLE err = CreateFileW(wide(errf).c_str(), GENERIC_WRITE, FILE_SHARE_READ, &sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+  HANDLE nul = CreateFileW(L"NUL", GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, &sa, OPEN_EXISTING, 0, nullptr);
+  if (s.password) {
+    SetEnvironmentVariableW(L"SSH_ASKPASS", wide(exe_path()).c_str());
+    SetEnvironmentVariableW(L"SSH_ASKPASS_REQUIRE", L"force");
+    SetEnvironmentVariableW(L"DISPLAY", L":0");
+    SetEnvironmentVariableW(L"DMS_CSHBK_ASKPASS", wide(pwf).c_str());
+  }
+  STARTUPINFOW si{};
+  si.cb = sizeof(si);
+  si.dwFlags = STARTF_USESTDHANDLES;
+  si.hStdInput = nul;
+  si.hStdOutput = out;
+  si.hStdError = err;
+  PROCESS_INFORMATION pi{};
+  BOOL ok = out != INVALID_HANDLE_VALUE && err != INVALID_HANDLE_VALUE &&
+            CreateProcessW(nullptr, &cmd[0], nullptr, nullptr, TRUE, CREATE_NO_WINDOW, nullptr, nullptr, &si, &pi);
+  if (s.password) {
+    for (const wchar_t* v : {L"SSH_ASKPASS", L"SSH_ASKPASS_REQUIRE", L"DISPLAY", L"DMS_CSHBK_ASKPASS"}) SetEnvironmentVariableW(v, nullptr);
+  }
+  if (out != INVALID_HANDLE_VALUE) CloseHandle(out);
+  if (err != INVALID_HANDLE_VALUE) CloseHandle(err);
+  if (nul != INVALID_HANDLE_VALUE) CloseHandle(nul);
+  if (ok) {
+    if (rd) {
+      char buf[8192];
+      DWORD n = 0;
+      while (ReadFile(rd, buf, sizeof buf, &n, nullptr) && n > 0) r.out.append(buf, n);
+    }
+    WaitForSingleObject(pi.hProcess, INFINITE);
+    DWORD code = 255;
+    GetExitCodeProcess(pi.hProcess, &code);
+    r.code = (int)code;
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+  }
+  if (rd) CloseHandle(rd);
+#else
+  std::string cmd;
+  if (s.password) {
+    askf = join(dir, "ssh-" + tag + ".sh");
+    write_private(askf, "#!/bin/sh\ncat " + sh_quote(pwf) + "\n");
+    chmod(askf.c_str(), 0700);
+    cmd = "SSH_ASKPASS=" + sh_quote(askf) + " SSH_ASKPASS_REQUIRE=force DISPLAY=:0 ";
+  }
+  cmd += sh_quote(ssh_program());
+  for (const auto& a : args) cmd += " " + sh_quote(a);
+  cmd += " </dev/null 2>" + sh_quote(errf);
+  if (!out_file.empty()) cmd += " >" + sh_quote(out_file);
+  FILE* p = popen(cmd.c_str(), "r");
+  if (p) {
+    char buf[8192];
+    size_t n;
+    while ((n = std::fread(buf, 1, sizeof buf, p)) > 0) r.out.append(buf, n);
+    int st = pclose(p);
+    r.code = WIFEXITED(st) ? (WEXITSTATUS(st) == 127 ? -1 : WEXITSTATUS(st)) : -1;
+  }
+#endif
+  read_file(errf, r.err, 65536);
+  fl_unlink(errf.c_str());
+  if (!pwf.empty()) fl_unlink(pwf.c_str());
+  if (!askf.empty()) fl_unlink(askf.c_str());
+  return r;
+}
+// Lo que salió mal, en palabras: entrar, sudo, PostgreSQL…
+std::string ssh_error(const Run& r, const Server& s) {
+  std::string e = lower(r.err);
+  auto has = [&](const char* w) { return e.find(w) != std::string::npos; };
+  if (r.code == -1 && trim(r.err).empty()) return tx::E_NO_SSH;
+  if (has("remote host identification has changed") || has("host key verification failed")) return tx::E_SSH_HOSTKEY;
+  if (has("permission denied (") || has("too many authentication failures")) return s.password ? tx::E_SSH_PASSWORD : tx::E_SSH_KEY;
+  std::string last;
+  for (const auto& l : split(r.err, '\n'))
+    if (!trim(l).empty()) last = trim(l);
+  if (has("could not resolve hostname") || has("connection refused") || has("timed out") || has("no route to host") ||
+      has("network is unreachable") || has("connection closed by") || has("connection reset"))
+    return fmt(tx::E_SSH_CONNECT, {starts(last, "ssh: ") ? last.substr(5) : last});
+  if (has("sudo: a password is required") || has("sudo: a terminal is required") || has("not in the sudoers") ||
+      has("is not allowed to execute") || has("may not run sudo") || has("sudo: command not found") || has("sudo: not found"))
+    return fmt(tx::E_SSH_SUDO, {s.user});
+  if ((has("psql") || has("pg_dump")) && (has("command not found") || has("not found")))
+    return tx::E_SSH_NO_PG;
+  if (!last.empty()) {
+    for (const char* pre : {"pg_dump: error: ", "psql: error: ", "pg_dump: ", "psql: "})
+      if (starts(last, pre)) last = last.substr(std::strlen(pre));
+    return last.size() > 200 ? last.substr(0, 200) + "…" : last;
+  }
+  return fmt(tx::E_SSH_EXIT, {std::to_string(r.code)});
+}
+// Las bases de datos de un servidor (al conectar y al probarlo).
+Ev fetch_dbs(const Server& s, int kind) {
+  Ev e;
+  e.kind = kind;
+  e.src = s.id;
+  if (s.password && s.secret.empty()) {
+    e.error = s.name + ": " + tx::E_SSH_NO_PASSWORD;
+    return e;
+  }
+  Run r = run_ssh(s, remote_list(), "");
+  if (r.code != 0) e.error = s.name + ": " + ssh_error(r, s);
+  else e.list = parse_db_list(r.out, s);
+  return e;
+}
+// Una base de un servidor: pg_dump por SSH directamente a un archivo.
+void backup_ssh(const Job& job, const JobItem& it, const Post& post, const std::atomic<bool>& cancel) {
+  auto state = [&](int st, const std::string& err) {
+    Ev e;
+    e.kind = EV_STATE;
+    e.id = it.id;
+    e.state = st;
+    e.error = err;
+    post(e);
+  };
+  const Server* s = nullptr;
+  for (const auto& v : job.servers)
+    if (v.id == it.src) s = &v;
+  if (!s) { state(B_ERROR, tx::E_SSH_GONE); return; }
+  if (s->password && s->secret.empty()) { state(B_ERROR, tx::E_SSH_NO_PASSWORD); return; }
+  std::string dir = join(join(job.folder, safe_name(s->name)), safe_name(it.name));
+  fl_make_path(dir.c_str());
+  if (!fl_filename_isdir(dir.c_str())) { state(B_ERROR, fmt(tx::E_FOLDER, {dir})); return; }
+  struct tm v = local(now_t());
+  char stamp[32];
+  std::strftime(stamp, sizeof stamp, "%Y%m%d_%H%M%S", &v);
+  std::string dest = join(dir, safe_name(it.name) + "_" + stamp + ".dump");
+  std::string part = dest + ".part";
+  Ev d;
+  d.kind = EV_STATE;
+  d.id = it.id;
+  d.state = B_DOWNLOADING;
+  d.part = part;
+  post(d);
+  Run r = run_ssh(*s, remote_dump(it.name), part);
+  if (cancel) { fl_unlink(part.c_str()); return; }
+  std::string head;
+  read_file(part, head, 5);
+  long long got = file_size(part);
+  if (r.code != 0 || got < 5 || head.compare(0, 5, "PGDMP") != 0) {
+    fl_unlink(part.c_str());
+    state(B_ERROR, r.code == 0 ? std::string(tx::E_SSH_BAD_DUMP) : ssh_error(r, *s));
+    return;
+  }
+  fl_unlink(dest.c_str());
+  if (fl_rename(part.c_str(), dest.c_str()) != 0) {
+    fl_unlink(part.c_str());
+    state(B_ERROR, fmt(tx::E_RENAME, {dest}));
+    return;
+  }
+  Ev done;
+  done.kind = EV_LOCAL;
+  done.id = it.id;
+  done.state = B_OK;
+  done.file = dest;
+  done.size = got;
+  post(done);
 }
 
 // ------------------------------------------------------------ el menú de la barra
@@ -1235,7 +1641,7 @@ std::vector<MenuEntry> bar_menu(const std::vector<Inst>& insts, bool running, in
     if (!x.on) continue;
     shown++;
     MenuEntry e;
-    e.title = x.name + "  ·  " + short_state(x, now);
+    e.title = (x.src ? x.name + " (" + x.version + ")" : x.name) + "  ·  " + short_state(x, now);
     e.dot = x.state;
     e.sub.push_back(act_entry(tx::BAR_GET, tag(A_GET, i)));
     e.sub.push_back(act_entry(tx::BAR_OPEN_FOLDER, tag(A_FOLDER_ONE, i)));
@@ -1379,11 +1785,19 @@ public:
         fl_draw(fit(in.name, col_cloud - left - 70).c_str(), left + 52, yy + 32);
         fl_font(FL_HELVETICA, 12);
         fl_color(rgb(0x64748b));
-        std::string sub = in.version.empty() ? in.status : fmt(tx::STATE_SUB, {in.version, in.status});
+        std::string sub = in.src ? fmt(tx::SSH_SUB, {in.version, in.status})
+                                 : in.version.empty() ? in.status : fmt(tx::STATE_SUB, {in.version, in.status});
         fl_draw(fit(sub, col_cloud - left - 70).c_str(), left + 52, yy + 54);
         // en el panel
         int cw = col_local - col_cloud - 20;
-        if (in.cloud_file.empty()) {
+        if (in.src) {   // una base de un servidor: se vuelca al respaldar
+          fl_font(FL_HELVETICA, 13);
+          fl_color(rgb(0x1f2937));
+          fl_draw(fit(tx::SSH_CLOUD, cw).c_str(), col_cloud, yy + 32);
+          fl_font(FL_HELVETICA, 12);
+          fl_color(rgb(0x64748b));
+          fl_draw(fit(fmt(tx::SSH_CLOUD_SIZE, {human(in.cloud_size)}), cw).c_str(), col_cloud, yy + 54);
+        } else if (in.cloud_file.empty()) {
           fl_font(FL_HELVETICA, 13);
           fl_color(rgb(0x94a3b8));
           fl_draw("—", col_cloud, yy + 32);
@@ -1482,6 +1896,19 @@ std::vector<Inst> demo_insts(long long now) {
   add(23, "academia", "18.0", B_OK, 27 * 3600, 431LL * 1024 * 1024, "academia_20261122_030320.zip", true);
   v[3].cloud_fs = false;
   v[1].cloud_fs = true;
+  Server sv;
+  sv.id = 1;
+  sv.name = "ubuntu-oficina";
+  sv.host = "192.0.2.10";
+  sv.user = "root";
+  for (const auto& d : parse_db_list("erp_produccion|1460000000\nnominas|212000000\n", sv)) {
+    Inst i = d;
+    i.state = B_OK;
+    i.local_t = now - 3 * 3600;
+    i.local_size = d.cloud_size / 4;
+    i.local_file = std::string("/Users/demo/Documents/") + tx::DEFAULT_FOLDER + "/ubuntu-oficina/" + d.name + "/" + d.name + "_20261123_030512.dump";
+    v.push_back(i);
+  }
   return v;
 }
 
@@ -1635,10 +2062,78 @@ int selftest() {
     if (e.dot >= 0) sites++;
     if (e.tag == tag(A_RUN, 0)) runs++;
   }
-  chk(sites == 4 && runs == 1, "menú del icono");
+  chk(sites == 6 && runs == 1, "menú del icono");
   chk(tag(A_TO_BAR, 999) < 65536, "acciones de Windows");
   auto m2 = bar_menu(insts, true, 2, 4, s1, t0, t0);
   chk(menu_key(m) != menu_key(m2), "el menú cambia al respaldar");
+  // SSH: los argumentos, las órdenes en el servidor y los errores
+  Server sk;
+  sk.id = 3;
+  sk.name = "oficina";
+  sk.host = "10.0.0.5";
+  sk.port = 2222;
+  sk.user = "keyuser";
+  sk.key = "/Users/x/.ssh/id ed25519";
+  auto ak = ssh_args(sk, "echo hola");
+  auto has_arg = [&](const std::vector<std::string>& v, const std::string& a) {
+    for (const auto& x : v)
+      if (x == a) return true;
+    return false;
+  };
+  chk(ak.size() > 6 && ak[0] == "-p" && ak[1] == "2222" && ak.back() == "echo hola" && ak[ak.size() - 2] == "keyuser@10.0.0.5", "ssh: puerto, usuario y orden");
+  chk(has_arg(ak, "BatchMode=yes") && has_arg(ak, "/Users/x/.ssh/id ed25519") && has_arg(ak, "IdentitiesOnly=yes") &&
+          has_arg(ak, "StrictHostKeyChecking=accept-new"), "ssh con clave");
+  bool kh = false;
+  for (const auto& x : ak) kh = kh || (starts(x, "UserKnownHostsFile=\"") && ends(x, "known_hosts\""));
+  chk(kh, "known_hosts propio, entre comillas");
+  Server sp = sk;
+  sp.password = true;
+  sp.key.clear();
+  auto apw = ssh_args(sp, "x");
+  chk(has_arg(apw, "PubkeyAuthentication=no") && !has_arg(apw, "BatchMode=yes") && !has_arg(apw, "-i"), "ssh con contraseña");
+  chk(remote_dump("mi base's") == std::string(PG_RUN) + "R pg_dump -Fc 'mi base'\\''s'", "pg_dump con el nombre entre comillas");
+  chk(remote_list().find("pg_database_size") != std::string::npos && remote_list().find("sudo -n -u postgres") != std::string::npos, "listar las bases");
+  auto dbs = parse_db_list("tienda|8130371\nerp|7500000\n\nraro|x|12\n", sk);
+  chk(dbs.size() == 3 && dbs[0].name == "tienda" && dbs[0].cloud_size == 8130371 && dbs[2].name == "raro|x" && dbs[0].src == 3 &&
+          dbs[0].version == "oficina" && dbs[0].status == "keyuser@10.0.0.5:2222", "las bases del servidor");
+  chk(dbs[0].id < 0 && dbs[0].id == ssh_id(3, "tienda") && ssh_id(3, "tienda") != ssh_id(4, "tienda") && ssh_id(3, "erp") != ssh_id(3, "tienda"), "ids de las bases");
+  Run rr;
+  rr.code = 255;
+  rr.err = "keyuser@10.0.0.5: Permission denied (publickey,password).\n";
+  chk(ssh_error(rr, sk) == tx::E_SSH_KEY && ssh_error(rr, sp) == tx::E_SSH_PASSWORD, "error: no entra");
+  rr.err = "ssh: Could not resolve hostname nada.example: nodename nor servname provided, or not known\n";
+  chk(ssh_error(rr, sk) == fmt(tx::E_SSH_CONNECT, {"Could not resolve hostname nada.example: nodename nor servname provided, or not known"}), "error: sin servidor");
+  rr.code = 1;
+  rr.err = "sudo: a password is required\n";
+  chk(ssh_error(rr, sk) == fmt(tx::E_SSH_SUDO, {"keyuser"}), "error: sudo");
+  rr.err = "bash: line 1: psql: command not found\n";
+  chk(ssh_error(rr, sk) == tx::E_SSH_NO_PG, "error: sin PostgreSQL");
+  rr.err = "pg_dump: error: connection to server failed: FATAL:  database \"x\" does not exist\n";
+  chk(ssh_error(rr, sk) == "connection to server failed: FATAL:  database \"x\" does not exist", "error de pg_dump");
+  rr.code = -1;
+  rr.err.clear();
+  chk(ssh_error(rr, sk) == tx::E_NO_SSH, "sin ssh");
+  // los servidores en los ajustes y las bases junto a las instancias
+  Settings ss;
+  ss.servers = {sk, sp};
+  ss.servers[1].id = 4;
+  ss.servers[1].name = "con\tclave";
+  Settings ss2;
+  std::vector<Inst> si2;
+  std::vector<Inst> all = demo_insts(1000000);
+  parse_settings(serialize(ss, all), ss2, si2);
+  chk(ss2.servers.size() == 2 && ss2.servers[0].port == 2222 && ss2.servers[0].key == sk.key && !ss2.servers[0].password &&
+          ss2.servers[1].password && ss2.servers[1].name == "con clave" && ss2.servers[1].secret.empty(), "servidores guardados (sin la contraseña)");
+  chk(si2.size() == all.size() && si2.back().src == 1 && si2.back().id == all.back().id, "bases guardadas");
+  std::vector<Inst> panel = {all[0], all[1]};
+  for (auto& x : panel) x.src = 0;
+  std::vector<Inst> mixed = merge_src(panel, parse_db_list("a|1\nb|2\n", sk), 3);
+  chk(mixed.size() == 4 && mixed[0].src == 0 && mixed[2].src == 3, "las bases, después del panel");
+  mixed[2].on = false;
+  mixed = merge_src(mixed, parse_db_list("a|5\nc|3\n", sk), 3);
+  chk(mixed.size() == 4 && mixed[2].name == "a" && !mixed[2].on && mixed[2].cloud_size == 5 && mixed[3].name == "c", "al volver a listar el servidor");
+  mixed = merge_src(mixed, {panel[1]}, 0);
+  chk(mixed.size() == 3 && mixed[0].src == 0 && mixed[1].src == 3, "al volver a conectar el panel");
   if (!f) std::printf("selftest ok\n");
   return f ? 1 : 0;
 }
@@ -1666,7 +2161,7 @@ int live_test(const std::string& base_raw) {
   job.fresh = fl_getenv("DMS_CSHBK_FRESH") != nullptr;
   const char* only = fl_getenv("DMS_CSHBK_INSTANCE");
   for (const auto& i : e.list)
-    if (!only || i.name == only) job.insts.push_back({i.id, i.name});
+    if (!only || i.name == only) job.items.push_back({i.id, i.name, 0});
   int ok = 0, bad = 0;
   std::atomic<bool> cancel{false};
   run_job(job, [&](const Ev& x) {
@@ -1677,6 +2172,52 @@ int live_test(const std::string& base_raw) {
   }, cancel);
   std::printf("live ok=%d errores=%d\n", ok, bad);
   return ok > 0 ? 0 : 1;
+}
+
+// De verdad, contra un servidor: DMS_CSHBK_SSH=usuario@host:puerto
+// [DMS_CSHBK_SSH_KEY=archivo | DMS_CSHBK_SSH_PASS=contraseña] DMS_CSHBK_OUT=carpeta.
+// Lista sus bases y las vuelca todas (o DMS_CSHBK_INSTANCE).
+int live_ssh(const std::string& target) {
+  const char* out = fl_getenv("DMS_CSHBK_OUT");
+  size_t at = target.find('@'), colon = target.rfind(':');
+  if (!out || at == std::string::npos) {
+    std::printf("FAIL faltan DMS_CSHBK_SSH=usuario@host[:puerto] o DMS_CSHBK_OUT\n");
+    return 1;
+  }
+  Server s;
+  s.id = 7;
+  s.user = target.substr(0, at);
+  s.host = colon != std::string::npos && colon > at ? target.substr(at + 1, colon - at - 1) : target.substr(at + 1);
+  if (colon != std::string::npos && colon > at) s.port = (int)to_ll(target.substr(colon + 1));
+  s.name = "prueba " + s.host;
+  if (const char* k = fl_getenv("DMS_CSHBK_SSH_KEY")) s.key = k;
+  if (const char* pw = fl_getenv("DMS_CSHBK_SSH_PASS")) {
+    s.password = true;
+    s.secret = pw;
+  }
+  Ev e = fetch_dbs(s, EV_INSTANCES);
+  if (!e.error.empty()) {
+    std::printf("error al listar: %s\n", e.error.c_str());
+    return 2;
+  }
+  std::printf("bases:");
+  for (const auto& d : e.list) std::printf(" %s(%lld)", d.name.c_str(), d.cloud_size);
+  std::printf("\n");
+  Job job;
+  job.folder = out;
+  job.servers.push_back(s);
+  const char* only = fl_getenv("DMS_CSHBK_INSTANCE");
+  for (const auto& d : e.list)
+    if (!only || d.name == only) job.items.push_back({d.id, d.name, s.id});
+  if (only && job.items.empty()) job.items.push_back({ssh_id(s.id, only), only, s.id});
+  int ok = 0, bad = 0;
+  std::atomic<bool> cancel{false};
+  run_job(job, [&](const Ev& x) {
+    if (x.kind == EV_STATE && x.state == B_ERROR) { bad++; std::printf("error: %s\n", x.error.c_str()); }
+    if (x.kind == EV_LOCAL) { ok++; std::printf("volcada: %s (%lld)\n", x.file.c_str(), x.size); }
+  }, cancel);
+  std::printf("live ssh ok=%d errores=%d\n", ok, bad);
+  return bad ? 3 : 0;
 }
 
 }  // namespace cb
@@ -1941,7 +2482,9 @@ public:
   std::string token;
   bool connected = false, connecting = false, running = false;
   bool in_bar = false, quitting = false, live = true;
-  int run_total = 0, run_done = 0, run_ok = 0, run_bad = 0;
+  int run_total = 0, run_done = 0, run_ok = 0, run_bad = 0, pending = 0;
+  std::vector<int> run_ids;           // lo que se respalda ahora
+  std::vector<std::string> log_mem;   // el historial en las pruebas
   std::shared_ptr<std::atomic<bool>> cancel = std::make_shared<std::atomic<bool>>(false);
   std::string message, bar_key;
   long long message_until = 0, last_prune = 0;
@@ -1952,6 +2495,9 @@ public:
   }
 
   Form1() {
+    // ssh la abre como SSH_ASKPASS (en Windows) para leer una contraseña.
+    if (const char* pw = fl_getenv("DMS_CSHBK_ASKPASS")) std::exit(cb::askpass(pw));
+    if (const char* t = fl_getenv("DMS_CSHBK_SSH")) std::exit(cb::live_ssh(t));
     if (fl_getenv("DMS_CSHBK_SELFTEST")) std::exit(cb::selftest());
     if (const char* u = fl_getenv("DMS_CSHBK_LIVE")) std::exit(cb::live_test(u));
     if (fl_getenv("DMS_CSHBK_UITEST")) { set_fonts(); std::exit(ui_test()); }
@@ -2011,7 +2557,7 @@ public:
     load();
     if (bar::create()) bar::handler() = [](int t) { if (self()) self()->bar_act(t); };
     else BtnBar->copy_label(tx::MINIMIZE);
-    if (!token.empty() && !st.base.empty()) connect(false);
+    if ((!token.empty() && !st.base.empty()) || !st.servers.empty()) connect(false);
     refresh();
     if (cb::started_iconic() && bar::available())
       Fl::add_timeout(0.4, [](void*) { if (self()) self()->to_bar(); });
@@ -2027,6 +2573,7 @@ public:
     if (cb::read_file(got_file(), text)) got = cb::parse_got(text);
     if (st.folder.empty()) st.folder = cb::default_folder();
     token = cb::token_get();
+    fix_rel();
     show_settings();
     // Un respaldo que tocaba con el equipo apagado: dentro de un minuto.
     long long now = cb::now_t();
@@ -2078,18 +2625,59 @@ public:
     }
     return true;
   }
+  // El panel (si hay token) y cada servidor SSH, cada uno en su hilo.
   void connect(bool from_button) {
-    if (from_button && !read_fields()) return;
-    if (connecting) return;
+    if (from_button) {
+      std::string t = cb::trim(Token->value());
+      if ((!t.empty() || st.servers.empty()) && !read_fields()) return;
+    }
+    bool panel = !token.empty() && !st.base.empty();
+    if (!panel && st.servers.empty()) { say(tx::NEED_TOKEN); return; }
+    if (pending > 0) return;
+    pending = (panel ? 1 : 0) + (int)st.servers.size();
     connecting = true;
     say(tx::CONNECTING);
     if (!live) return;
-    std::string b = st.base, t = token;
-    std::thread([b, t] {
-      auto* e = new cb::Ev(cb::fetch_instances(b, t));
+    if (panel) {
+      std::string b = st.base, t = token;
+      std::thread([b, t] {
+        auto* e = new cb::Ev(cb::fetch_instances(b, t));
+        Fl::awake(on_event, e);
+      }).detach();
+    }
+    for (const auto& v : st.servers) fetch_server(v, cb::EV_INSTANCES);
+  }
+  // Las bases de un servidor (la contraseña se lee del Llavero en el hilo).
+  void fetch_server(cb::Server v, int kind) {
+    std::thread([v, kind]() mutable {
+      if (v.password && v.secret.empty()) v.secret = cb::secret_get(cb::server_service(v.id));
+      auto* e = new cb::Ev(cb::fetch_dbs(v, kind));
       Fl::awake(on_event, e);
     }).detach();
   }
+  std::string server_name(int src) const {
+    for (const auto& v : st.servers)
+      if (v.id == src) return v.name;
+    return "";
+  }
+  // La carpeta de cada uno (y su clave en los bajados): la instancia del
+  // panel, o «servidor/base». Las bases de un servidor quitado se van.
+  void fix_rel() {
+    std::vector<cb::Inst> keep;
+    for (auto& in : insts) {
+      if (in.src) {
+        std::string n = server_name(in.src);
+        if (n.empty()) continue;
+        in.version = n;
+        in.rel = cb::safe_name(n) + cb::SEP + cb::safe_name(in.name);
+      } else {
+        in.rel = cb::safe_name(in.name);
+      }
+      keep.push_back(in);
+    }
+    insts = keep;
+  }
+  static std::string display(const cb::Inst& in) { return in.src ? in.name + " (" + in.version + ")" : in.name; }
 
   // ---- respaldar
   int index_of(int id) const {
@@ -2098,7 +2686,7 @@ public:
     return -1;
   }
   bool ready() {
-    if (token.empty()) { say(tx::NEED_TOKEN); return false; }
+    if (token.empty() && st.servers.empty()) { say(tx::NEED_TOKEN); return false; }
     if (cb::trim(st.folder).empty()) { say(tx::NEED_FOLDER); return false; }
     return true;
   }
@@ -2117,23 +2705,29 @@ public:
     job.folder = st.folder;
     job.fresh = st.fresh;
     job.fs = st.fs;
+    job.servers = st.servers;
+    run_ids.clear();
     for (int i = 0; i < (int)insts.size(); i++) {
       cb::Inst& in = insts[(size_t)i];
       if (only >= 0 ? i != only : !in.on) continue;
       in.state = cb::B_QUEUED;
       in.error.clear();
-      job.insts.push_back({in.id, in.name});
+      job.items.push_back({in.id, in.name, in.src});
+      run_ids.push_back(in.id);
     }
-    if (job.insts.empty()) { say(tx::NONE_SELECTED); save(); refresh(); return; }
+    if (job.items.empty()) { say(tx::NONE_SELECTED); save(); refresh(); return; }
     running = true;
-    run_total = (int)job.insts.size();
+    run_total = (int)job.items.size();
     run_done = run_ok = run_bad = 0;
     cancel->store(false);
+    log_line(cb::fmt(tx::LOG_START, {std::to_string(run_total)}));
     save();
     refresh();
     if (!live) return;
     auto flag = cancel;
-    std::thread([job, flag] {
+    std::thread([job, flag]() mutable {
+      for (auto& v : job.servers)
+        if (v.password) v.secret = cb::secret_get(cb::server_service(v.id));
       cb::run_job(job, [](const cb::Ev& e) { Fl::awake(on_event, new cb::Ev(e)); }, *flag);
     }).detach();
   }
@@ -2146,12 +2740,36 @@ public:
     int i = index_of(e.id);
     switch (e.kind) {
       case cb::EV_INSTANCES:
-        connecting = false;
-        if (!e.error.empty()) { say(e.error); break; }
-        connected = true;
-        insts = cb::merge(insts, e.list);
-        say(cb::fmt(tx::CONNECTED, {std::to_string(insts.size())}));
+        if (pending > 0) pending--;
+        connecting = pending > 0;
+        if (!e.error.empty()) {
+          say(e.error);
+          log_line(cb::fmt(tx::LOG_CONNECT_ERR, {e.error}));
+          break;
+        }
+        if (e.src == 0) connected = true;
+        insts = cb::merge_src(insts, e.list, e.src);
+        fix_rel();
+        say(e.src == 0 ? cb::fmt(tx::CONNECTED, {std::to_string(e.list.size())})
+                       : cb::fmt(tx::CONNECTED_SSH, {server_name(e.src), std::to_string(e.list.size())}));
         break;
+      case cb::EV_TEST: {
+        std::string m;
+        if (!e.error.empty()) m = e.error;
+        else if (e.list.empty()) m = tx::SV_TEST_NONE;
+        else {
+          std::string names;
+          for (size_t k = 0; k < e.list.size() && k < 5; k++) names += (k ? ", " : "") + e.list[k].name;
+          if (e.list.size() > 5) names += ", …";
+          m = cb::fmt(tx::SV_TEST_OK, {std::to_string(e.list.size()), names});
+        }
+        if (sw.note) {
+          sw.note->copy_label(m.c_str());
+          sw.note->labelcolor(e.error.empty() ? cb::rgb(0x15803d) : cb::rgb(0xb91c1c));
+          sw.note->redraw();
+        }
+        return;
+      }
       case cb::EV_STATE:
         if (i < 0) break;
         insts[(size_t)i].state = e.state;
@@ -2161,7 +2779,11 @@ public:
           insts[(size_t)i].total = e.total;
           insts[(size_t)i].got = 0;
         }
-        if (e.state == cb::B_ERROR) { run_done++; run_bad++; }
+        if (e.state == cb::B_ERROR) {
+          run_done++;
+          run_bad++;
+          log_line(cb::fmt(tx::LOG_ERR, {display(insts[(size_t)i]), e.error}));
+        }
         break;
       case cb::EV_CLOUD:
         if (i < 0) break;
@@ -2181,19 +2803,37 @@ public:
         in.local_t = now;
         run_done++;
         run_ok++;
-        cb::add_got(got, {in.name, e.file, now, e.size});
+        cb::add_got(got, {in.rel.empty() ? in.name : in.rel, e.file, now, e.size});
+        log_line(cb::fmt(tx::LOG_OK, {display(in), cb::base_name(e.file), cb::human(e.size)}));
         prune();
         break;
       }
-      case cb::EV_DONE:
+      case cb::EV_DONE: {
         running = false;
-        if (run_total > 0) {
-          std::string text = run_bad ? cb::fmt(tx::NOTIFY_ERRORS, {std::to_string(run_ok), std::to_string(run_bad)})
-                                     : cb::fmt(tx::NOTIFY_DONE, {std::to_string(run_ok)});
+        // El resumen sale de cómo ha quedado cada uno, con el primero que falló.
+        int ok = 0, bad = 0;
+        std::string first;
+        for (int id : run_ids) {
+          int k = index_of(id);
+          if (k < 0) continue;
+          const cb::Inst& in = insts[(size_t)k];
+          if (in.state == cb::B_OK || in.state == cb::B_SKIPPED) ok++;
+          else if (in.state == cb::B_ERROR) {
+            bad++;
+            if (first.empty()) first = display(in) + ": " + in.error;
+          }
+        }
+        if (!run_ids.empty()) {
+          if (first.size() > 160) first = first.substr(0, 160) + "…";
+          std::string text = bad ? cb::fmt(tx::NOTIFY_ERRORS_FIRST, {std::to_string(ok), std::to_string(bad), first})
+                                 : cb::fmt(tx::NOTIFY_DONE, {std::to_string(ok)});
           bar::notify(tx::NOTIFY_TITLE, text);
           say(text);
+          log_line(cb::fmt(tx::LOG_END, {std::to_string(ok), std::to_string(bad)}));
         }
+        run_ids.clear();
         break;
+      }
     }
     save();
     refresh();
@@ -2209,7 +2849,7 @@ public:
     long long now = cb::now_t();
     if (!message.empty() && now < message_until) return message;
     if (running) return cb::fmt(tx::RUNNING, {std::to_string(cb::imin(run_done + 1, run_total)), std::to_string(run_total)});
-    if (token.empty()) return tx::NO_CONFIG;
+    if (token.empty() && st.servers.empty()) return tx::NO_CONFIG;
     std::string s = cb::fmt(tx::HEAD, {std::to_string(insts.size()), std::to_string(cb::count_on(insts))});
     s += "  ·  " + cb::fmt(tx::NEXT, {cb::when(st.next_run, now)});
     s += "  ·  " + cb::fmt(tx::LAST, {cb::when(st.last_run, now)});
@@ -2301,9 +2941,236 @@ public:
     cb::Inst& in = insts[(size_t)idx];
     if (act == 0) in.on = !in.on;
     else if (act == 1) start_run(idx);
-    else if (act == 2 && live) cb::open_folder(cb::join(st.folder, cb::safe_name(in.name)));
+    else if (act == 2 && live) cb::open_folder(cb::join(st.folder, in.rel.empty() ? cb::safe_name(in.name) : in.rel));
     save();
     refresh();
+  }
+
+  // ---- el historial
+  // Cada respaldo deja aquí lo que bajó y lo que falló (y por qué).
+  std::string log_file() const { return cb::join(cb::config_dir(), "history.log"); }
+  void log_line(const std::string& line) {
+    if (!live) {
+      log_mem.push_back(line);
+      return;
+    }
+    struct tm v = cb::local(cb::now_t());
+    char b[32];
+    std::strftime(b, sizeof b, "%Y-%m-%d %H:%M:%S", &v);
+    std::string path = log_file();
+    fl_make_path(cb::config_dir().c_str());
+    if (cb::file_size(path) > 512 * 1024) {   // se queda con la segunda mitad
+      std::string old;
+      cb::read_file(path, old);
+      old = old.substr(old.size() / 2);
+      size_t nl = old.find('\n');
+      cb::write_file(path, nl == std::string::npos ? "" : old.substr(nl + 1));
+    }
+    if (FILE* f = fl_fopen(path.c_str(), "ab")) {
+      std::fprintf(f, "%s  %s\n", b, line.c_str());
+      std::fclose(f);
+    }
+  }
+  void show_log() {
+    if (!live) return;
+    if (cb::file_size(log_file()) < 0) log_line(tx::LOG_EMPTY);
+    cb::open_file(log_file());
+  }
+
+  // ---- los servidores SSH
+  // Una ventana con la lista de servidores y sus datos: nombre, dirección,
+  // puerto, usuario y cómo se entra (clave SSH o contraseña).
+  struct ServersWin {
+    Fl_Double_Window* win = nullptr;
+    Fl_Hold_Browser* list = nullptr;
+    Fl_Input *name = nullptr, *host = nullptr, *user = nullptr, *key = nullptr;
+    Fl_Int_Input* port = nullptr;
+    Fl_Choice* auth = nullptr;
+    Fl_Secret_Input* pass = nullptr;
+    Fl_Button *pick = nullptr, *del = nullptr;
+    Fl_Box* note = nullptr;
+    int sel = -1;   // el servidor que se edita (-1: uno nuevo)
+  } sw;
+  void sv_build() {
+    if (sw.win) return;
+    auto* w = new Fl_Double_Window(780, 470, tx::SV_TITLE);
+    w->color(cb::rgb(0xf4f6f9));
+    w->begin();
+    auto* help = new Fl_Box(16, 10, 748, 46, tx::SV_HELP);
+    help->align(FL_ALIGN_INSIDE | FL_ALIGN_LEFT | FL_ALIGN_TOP | FL_ALIGN_WRAP);
+    help->labelsize(12);
+    help->labelcolor(cb::rgb(0x4b5563));
+    sw.list = new Fl_Hold_Browser(16, 64, 250, 334);
+    sw.list->callback([](Fl_Widget*, void*) { if (self()) self()->sv_load(self()->sw.list->value() - 1); });
+    const int x = 410, wd = 354;
+    sw.name = new Fl_Input(x, 64, wd, 28, tx::SV_NAME);
+    sw.host = new Fl_Input(x, 98, wd, 28, tx::SV_HOST);
+    sw.port = new Fl_Int_Input(x, 132, 90, 28, tx::SV_PORT);
+    sw.user = new Fl_Input(x, 166, wd, 28, tx::SV_USER);
+    sw.auth = new Fl_Choice(x, 200, wd, 28, tx::SV_AUTH);
+    sw.auth->add(tx::SV_AUTH_KEY);
+    sw.auth->add(tx::SV_AUTH_PW);
+    sw.auth->callback([](Fl_Widget*, void*) { if (self()) self()->sv_auth_changed(); });
+    sw.key = new Fl_Input(x, 234, wd - 100, 28, tx::SV_KEY);
+    sw.key->tooltip(tx::SV_KEY_HINT);
+    sw.pick = new Fl_Button(x + wd - 92, 234, 92, 28, tx::SV_PICK);
+    sw.pick->callback([](Fl_Widget*, void*) { if (self()) self()->sv_pick(); });
+    sw.pass = new Fl_Secret_Input(x, 234, wd, 28, tx::SV_PASS);
+    sw.note = new Fl_Box(282, 274, 482, 120);
+    sw.note->align(FL_ALIGN_INSIDE | FL_ALIGN_LEFT | FL_ALIGN_TOP | FL_ALIGN_WRAP);
+    sw.note->labelsize(13);
+    auto* b_new = new Fl_Button(16, 418, 120, 32, tx::SV_NEW);
+    b_new->callback([](Fl_Widget*, void*) { if (self()) self()->sv_load(-1); });
+    sw.del = new Fl_Button(146, 418, 120, 32, tx::SV_DEL);
+    sw.del->callback([](Fl_Widget*, void*) { if (self()) self()->sv_delete(); });
+    auto* b_test = new Fl_Button(410, 418, 170, 32, tx::SV_TEST);
+    b_test->callback([](Fl_Widget*, void*) { if (self()) self()->sv_test(); });
+    auto* b_save = new Fl_Button(590, 418, 90, 32, tx::SV_SAVE);
+    b_save->color(cb::rgb(0x2563eb));
+    b_save->labelcolor(FL_WHITE);
+    b_save->labelfont(FL_HELVETICA_BOLD);
+    b_save->callback([](Fl_Widget*, void*) { if (self()) self()->sv_save(); });
+    auto* b_close = new Fl_Button(690, 418, 74, 32, tx::SV_CLOSE);
+    b_close->callback([](Fl_Widget*, void*) { if (self()) self()->sw.win->hide(); });
+    w->end();
+    w->set_modal();
+    sw.win = w;
+  }
+  void sv_fill() {
+    sw.list->clear();
+    for (const auto& v : st.servers) sw.list->add((v.name + "  —  " + cb::server_label(v)).c_str());
+    if (sw.sel >= 0 && sw.sel < (int)st.servers.size()) sw.list->value(sw.sel + 1);
+  }
+  void sv_load(int i) {
+    sw.sel = (i >= 0 && i < (int)st.servers.size()) ? i : -1;
+    cb::Server v;
+    if (sw.sel >= 0) v = st.servers[(size_t)sw.sel];
+    sw.name->value(v.name.c_str());
+    sw.host->value(v.host.c_str());
+    sw.port->value(std::to_string(v.port).c_str());
+    sw.user->value(v.user.c_str());
+    sw.key->value(v.key.c_str());
+    sw.pass->value("");
+    sw.auth->value(v.password ? 1 : 0);
+    if (sw.sel >= 0) sw.del->activate();
+    else sw.del->deactivate();
+    if (sw.sel < 0) sw.list->deselect();
+    sv_auth_changed();
+    sw.note->labelcolor(cb::rgb(0x4b5563));
+    sw.note->copy_label(sw.sel >= 0 && v.password ? tx::SV_PASS_KEEP : st.servers.empty() ? tx::SV_EMPTY : "");
+  }
+  void sv_auth_changed() {
+    bool pw = sw.auth->value() == 1;
+    if (pw) {
+      sw.key->hide();
+      sw.pick->hide();
+      sw.pass->show();
+    } else {
+      sw.key->show();
+      sw.pick->show();
+      sw.pass->hide();
+    }
+    if (sw.win) sw.win->redraw();
+  }
+  void sv_pick() {
+    Fl_Native_File_Chooser ch;
+    ch.type(Fl_Native_File_Chooser::BROWSE_FILE);
+    ch.title(tx::SV_KEY);
+#ifdef _WIN32
+    const char* h = fl_getenv("USERPROFILE");
+#else
+    const char* h = fl_getenv("HOME");
+#endif
+    std::string dir = cb::join(h ? h : ".", ".ssh");
+    ch.directory(dir.c_str());
+    if (ch.show() == 0 && ch.filename()) sw.key->value(ch.filename());
+  }
+  // Los datos de la ventana; "" si valen, o lo que falta.
+  std::string sv_read(cb::Server& v) {
+    v.host = cb::trim(sw.host->value());
+    v.name = cb::clean(sw.name->value());
+    if (v.name.empty()) v.name = v.host;
+    v.user = cb::trim(sw.user->value());
+    v.key = cb::trim(sw.key->value());
+    v.password = sw.auth->value() == 1;
+    int port = std::atoi(sw.port->value());
+    if (v.host.empty() || v.host.find(' ') != std::string::npos) return tx::SV_ERR_HOST;
+    if (port < 1 || port > 65535) return tx::SV_ERR_PORT;
+    v.port = port;
+    if (v.user.empty() || v.user.find(' ') != std::string::npos) return tx::SV_ERR_USER;
+    v.secret = sw.pass->value();
+    if (v.password && v.secret.empty()) {
+      if (sw.sel >= 0 && st.servers[(size_t)sw.sel].password) v.secret = cb::secret_get(cb::server_service(st.servers[(size_t)sw.sel].id));
+      if (v.secret.empty()) return tx::SV_ERR_PASS;
+    }
+    return "";
+  }
+  void sv_save() {
+    cb::Server v;
+    std::string err = sv_read(v);
+    if (!err.empty()) {
+      sw.note->labelcolor(cb::rgb(0xb91c1c));
+      sw.note->copy_label(err.c_str());
+      return;
+    }
+    bool typed = sw.pass->value()[0] != 0;
+    if (sw.sel >= 0) {
+      v.id = st.servers[(size_t)sw.sel].id;
+      st.servers[(size_t)sw.sel] = v;
+    } else {
+      int id = 1;
+      for (const auto& x : st.servers) id = cb::imax(id, x.id + 1);
+      v.id = id;
+      st.servers.push_back(v);
+      sw.sel = (int)st.servers.size() - 1;
+    }
+    std::string svc = cb::server_service(v.id);
+    if (live && v.password && typed) cb::secret_set(svc, v.secret);
+    if (live && !v.password) cb::secret_del(svc);
+    st.servers[(size_t)sw.sel].secret.clear();
+    fix_rel();
+    save();
+    sv_fill();
+    sw.pass->value("");
+    sw.note->labelcolor(cb::rgb(0x15803d));
+    sw.note->copy_label(cb::fmt(tx::SV_SAVED, {v.name}).c_str());
+    if (live) {
+      pending++;
+      connecting = true;
+      fetch_server(v, cb::EV_INSTANCES);
+    }
+    refresh();
+  }
+  void sv_delete() {
+    if (sw.sel < 0) return;
+    cb::Server v = st.servers[(size_t)sw.sel];
+    if (live && fl_choice("%s", tx::BTN_NO, tx::BTN_YES, nullptr, cb::fmt(tx::SV_ASK_DEL, {v.name}).c_str()) != 1) return;
+    st.servers.erase(st.servers.begin() + sw.sel);
+    if (live) cb::secret_del(cb::server_service(v.id));
+    fix_rel();   // sus bases se van de la lista (lo ya bajado se queda en la carpeta)
+    save();
+    sv_fill();
+    sv_load(-1);
+    refresh();
+  }
+  void sv_test() {
+    cb::Server v;
+    std::string err = sv_read(v);
+    sw.note->labelcolor(cb::rgb(0x4b5563));
+    if (!err.empty()) {
+      sw.note->labelcolor(cb::rgb(0xb91c1c));
+      sw.note->copy_label(err.c_str());
+      return;
+    }
+    v.id = sw.sel >= 0 ? st.servers[(size_t)sw.sel].id : 999;
+    sw.note->copy_label(cb::fmt(tx::SV_TESTING, {cb::server_label(v)}).c_str());
+    if (live) fetch_server(v, cb::EV_TEST);
+  }
+  void servers_dialog() {
+    sv_build();
+    sv_fill();
+    sv_load(sw.sel >= 0 ? sw.sel : st.servers.empty() ? -1 : 0);
+    sw.win->show();
   }
 
   // ---- borrar los antiguos
@@ -2341,6 +3208,7 @@ public:
 
   // ---- eventos del diseño
   void BtnConnect_click() override { connect(true); }
+  void BtnServers_click() override { servers_dialog(); }
   void PanelUrl_enter() override { connect(true); }
   void Token_enter() override { connect(true); }
   void BtnFolder_click() override {
@@ -2404,6 +3272,8 @@ public:
   void Menu1_click(const std::string& item) override {
     if (item == tx::MP_RUN) BtnRun_click();
     else if (item == tx::MP_FOLDER) BtnOpen_click();
+    else if (item == tx::MP_SERVERS) servers_dialog();
+    else if (item == tx::MP_LOG) show_log();
     else if (item == tx::MP_BAR) to_bar();
     else if (item == tx::MP_QUIT) quit();
     else if (item == tx::MP_HOW) fl_message("%s", tx::HOW_TEXT);
@@ -2432,6 +3302,12 @@ public:
     size(W, H);
     long long now = cb::now_t();
     insts = cb::demo_insts(now);
+    cb::Server sv;   // el de las bases de ejemplo
+    sv.id = 1;
+    sv.name = "ubuntu-oficina";
+    sv.host = "192.0.2.10";
+    st.servers = {sv};
+    fix_rel();
     connected = true;
     token = "csh_demo_token_0000000000";
     st.base = "https://communitysh.xyz";
@@ -2567,6 +3443,27 @@ public:
     message.clear();
     refresh();
     render_to(dir + "/schedule.png");
+    // Los servidores SSH: el de la oficina, con la prueba de conexión.
+    sv_build();
+    sv_fill();
+    sv_load(0);
+    sw.note->labelcolor(cb::rgb(0x15803d));
+    sw.note->copy_label(cb::fmt(tx::SV_TEST_OK, {"2", "erp_produccion, nominas"}).c_str());
+    {
+      Fl_Window* w = sw.win;
+      Fl_Image_Surface surf(w->w(), w->h(), 0);
+      Fl_Surface_Device::push_current(&surf);
+      fl_color(w->color());
+      fl_rectf(0, 0, w->w(), w->h());
+      for (int i = 0; i < w->children(); i++) {
+        Fl_Widget* c = w->child(i);
+        if (c->visible()) surf.draw(c, c->x(), c->y());
+      }
+      Fl_RGB_Image* img = surf.image();
+      Fl_Surface_Device::pop_current();
+      fl_write_png((dir + "/servers.png").c_str(), img);
+      delete img;
+    }
     std::printf("shots ok %s\n", dir.c_str());
     return 0;
   }
@@ -2623,15 +3520,24 @@ public:
     chk(message == tx::BAD_URL, "dirección mala");
     PanelUrl->value("communitysh.xyz/");
     Token->value("");
+    auto servers = st.servers;
+    st.servers.clear();
     BtnConnect_click();
-    chk(st.base == "https://communitysh.xyz" && message == tx::NEED_TOKEN, "falta el token");
+    chk(st.base == "https://communitysh.xyz" && message == tx::NEED_TOKEN, "falta el token (sin servidores)");
+    st.servers = servers;
+    token.clear();
+    BtnConnect_click();
+    chk(connecting && pending == 1 && message == tx::CONNECTING, "sin token, solo los servidores");
+    pending = 0;
+    connecting = false;
     Token->value("csh_nuevo");
     BtnConnect_click();
-    chk(token == "csh_nuevo" && connecting && message == tx::CONNECTING, "conectar");
+    chk(token == "csh_nuevo" && connecting && pending == 2 && message == tx::CONNECTING, "conectar el panel y los servidores");
+    pending = 0;
     connecting = false;
     // marcar y respaldar
     render_to("");
-    chk(view->hits.size() >= insts.size() * 3, "dibujado");
+    chk(view->hits.size() >= 15, "dibujado");
     bool on3 = insts[3].on;
     for (const auto& h : view->hits)
       if (h.act == 0 && h.idx == 3) {
@@ -2686,13 +3592,15 @@ public:
     e.kind = cb::EV_DONE;
     apply(e);
     chk(!running && run_ok == 1 && run_bad == 1 && insts[0].local_file == "/nada/a.zip" && got.size() == 1, "terminado");
-    chk(message == cb::fmt(tx::NOTIFY_ERRORS, {"1", "1"}), "el resumen");
+    chk(message == cb::fmt(tx::NOTIFY_ERRORS_FIRST, {"1", "1", "crm-ventas: x"}), "el resumen, con el que falló");
+    chk(log_mem.size() >= 4 && log_mem.back() == cb::fmt(tx::LOG_END, {"1", "1"}) && log_mem[log_mem.size() - 2] == cb::fmt(tx::LOG_ERR, {"crm-ventas", "x"}),
+        "el historial");
     e = cb::Ev();
     e.kind = cb::EV_INSTANCES;
     e.list = {insts[2]};
     e.list[0].on = true;
     apply(e);
-    chk(insts.size() == 1 && insts[0].on && insts[0].state == cb::B_ERROR, "instancias nuevas del panel");
+    chk(insts.size() == 3 && insts[0].on && insts[0].state == cb::B_ERROR && insts[1].src == 1 && insts[2].src == 1, "instancias nuevas del panel (las bases se quedan)");
     // el menú del icono, de la barra
     bar_act(cb::tag(cb::A_GET, 0));
     chk(running && run_total == 1, "bajar desde el menú");
@@ -2700,7 +3608,49 @@ public:
     cb::Settings s2;
     std::vector<cb::Inst> i2;
     cb::parse_settings(cb::serialize(st, insts), s2, i2);
-    chk(s2.folder == st.folder && s2.every == cb::WEEK_H && s2.wday == 4 && s2.days == 0 && s2.login && i2.size() == 1, "guardado");
+    chk(s2.folder == st.folder && s2.every == cb::WEEK_H && s2.wday == 4 && s2.days == 0 && s2.login && i2.size() == 3 && s2.servers.size() == 1, "guardado");
+    // los servidores SSH: añadir, validar, probar y quitar
+    running = false;
+    sv_build();
+    sv_load(-1);
+    sw.host->value("");
+    sv_save();
+    chk(st.servers.size() == 1 && std::string(sw.note->label()) == tx::SV_ERR_HOST, "servidor sin dirección");
+    sw.host->value("10.1.2.3");
+    sw.port->value("70000");
+    sv_save();
+    chk(std::string(sw.note->label()) == tx::SV_ERR_PORT, "puerto malo");
+    sw.port->value("2222");
+    sw.user->value("deploy");
+    sw.auth->value(1);
+    sv_auth_changed();
+    chk(sw.pass->visible() && !sw.key->visible(), "con contraseña, el campo de la contraseña");
+    sv_save();
+    chk(std::string(sw.note->label()) == tx::SV_ERR_PASS, "falta la contraseña");
+    sw.pass->value("secreta");
+    sw.name->value("");
+    sv_save();
+    chk(st.servers.size() == 2 && st.servers[1].name == "10.1.2.3" && st.servers[1].id == 2 && st.servers[1].password && st.servers[1].port == 2222 &&
+            st.servers[1].secret.empty() && sw.list->size() == 2, "servidor guardado (la contraseña, aparte)");
+    cb::Ev t;
+    t.kind = cb::EV_TEST;
+    t.list = cb::parse_db_list("ventas|10\ncompras|20\n", st.servers[1]);
+    apply(t);
+    chk(std::string(sw.note->label()) == cb::fmt(tx::SV_TEST_OK, {"2", "ventas, compras"}), "probar la conexión");
+    cb::Ev l;
+    l.kind = cb::EV_INSTANCES;
+    l.src = 2;
+    l.list = t.list;
+    apply(l);
+    chk(insts.size() == 5 && insts[3].src == 2 && insts[3].rel == std::string("10.1.2.3") + cb::SEP + "ventas" && insts[3].version == "10.1.2.3",
+        "las bases del servidor nuevo");
+    for (auto& in : insts) in.on = in.src == 2;
+    BtnRun_click();
+    chk(running && run_total == 2 && run_ids.size() == 2, "respaldar las bases del servidor");
+    running = false;
+    sv_load(1);
+    sv_delete();
+    chk(st.servers.size() == 1 && insts.size() == 3 && sw.list->size() == 1, "quitar el servidor (y sus bases)");
     if (!f) std::printf("uitest ok\n");
     return f ? 1 : 0;
   }

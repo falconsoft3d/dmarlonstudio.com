@@ -121,6 +121,13 @@ void main() {
         'DMS_CSHBK_UITEST',
         'DMS_CSHBK_SHOT',
         'DMS_CSHBK_LIVE',
+        'DMS_CSHBK_SSH',
+        'DMS_CSHBK_ASKPASS',
+        'SSH_ASKPASS_REQUIRE=force',
+        'pg_dump -Fc',
+        'sudo -n -u postgres',
+        'StrictHostKeyChecking=accept-new',
+        'history.log',
       ]) {
         expect(code, contains(s), reason: s);
       }

@@ -19,6 +19,8 @@ TkExample tkCppCshBackup(String Function(String) t) {
   lines.add(mFile);
   item('RUN', t(markTr('Respaldar ahora')), mFile);
   item('FOLDER', t(markTr('Abrir la carpeta de respaldos')), mFile);
+  item('SERVERS', t(markTr('Servidores SSH…')), mFile);
+  item('LOG', t(markTr('Ver el historial')), mFile);
   lines.add('  -');
   item('BAR', t(markTr('Minimizar a la barra')), mFile);
   item('QUIT', t(markTr('Salir')), mFile);
@@ -31,7 +33,7 @@ TkExample tkCppCshBackup(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'Escriba la dirección de su panel de community.sh y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n\nElija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana), la hora (cada 2 horas desde las 03:00: 03:00, 05:00, 07:00…) y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n\nCon «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Eliminar» quita los respaldos bajados hace más de los días elegidos (3 por defecto); siempre se queda el último de cada instancia y solo se borra lo que bajó esta app.\n\nCerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora».',
+        'Escriba la dirección de su panel de community.sh y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n\nElija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana), la hora (cada 2 horas desde las 03:00: 03:00, 05:00, 07:00…) y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n\nCon «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Eliminar» quita los respaldos bajados hace más de los días elegidos (3 por defecto); siempre se queda el último de cada instancia y solo se borra lo que bajó esta app.\n\n«Servidores SSH…» añade servidores Linux (Ubuntu, Debian…) con PostgreSQL: se entra con una clave SSH o con una contraseña (que se guarda en el Llavero) y cada base de datos se vuelca con pg_dump a su carpeta, con la misma secuencia. Archivo › Ver el historial enseña lo que se bajó y lo que falló, y por qué.\n\nCerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora».',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -65,10 +67,10 @@ TkExample tkCppCshBackup(String Function(String) t) {
     'COL_LOCAL': t(markTr('EN ESTE EQUIPO')),
     'BTN_GET': t(markTr('Descargar')),
     'BTN_FOLDER': t(markTr('Carpeta')),
-    'EMPTY_TITLE': t(markTr('Conecte su panel de community.sh')),
+    'EMPTY_TITLE': t(markTr('Conecte su panel de community.sh o un servidor')),
     'EMPTY_HELP': t(
       markTr(
-        'Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura.',
+        'Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura. Para las bases de datos de un servidor Linux por SSH, pulse «Servidores SSH…».',
       ),
     ),
     'EMPTY_NO_INST_TITLE': t(markTr('Sin instancias')),
@@ -142,6 +144,93 @@ TkExample tkCppCshBackup(String Function(String) t) {
     'BAR_WINDOW': t(markTr('Abrir la ventana…')),
     'BAR_QUIT': t(markTr('Salir')),
     'MINIMIZE': t(markTr('Minimizar')),
+    'BTN_NO': t(markTr('No')),
+    'BTN_YES': t(markTr('Sí')),
+    'NOTIFY_ERRORS_FIRST': t(markTr('{0} bajados · {1} con errores ({2})')),
+    'LOG_START': t(markTr('Empieza el respaldo de {0}')),
+    'LOG_OK': t(markTr('✓ {0}: {1} ({2})')),
+    'LOG_ERR': t(markTr('✗ {0}: {1}')),
+    'LOG_END': t(markTr('Fin: {0} bajados, {1} con errores')),
+    'LOG_CONNECT_ERR': t(markTr('No se pudo conectar: {0}')),
+    'LOG_EMPTY': t(markTr('Historial de los respaldos')),
+    'CONNECTED_SSH': t(markTr('{0}: {1} bases de datos')),
+    'SSH_SUB': t(markTr('PostgreSQL · {0} · {1}')),
+    'SSH_CLOUD': t(markTr('Base de datos en el servidor')),
+    'SSH_CLOUD_SIZE': t(markTr('{0} · se vuelca con pg_dump')),
+    'E_NO_SSH': t(
+      markTr(
+        'No encuentro el programa ssh (en Windows: Configuración › Aplicaciones › Características opcionales › Cliente OpenSSH)',
+      ),
+    ),
+    'E_SSH_KEY': t(
+      markTr(
+        'El servidor no acepta la clave SSH: revise el usuario y el archivo de clave',
+      ),
+    ),
+    'E_SSH_PASSWORD': t(
+      markTr('El servidor no acepta el usuario o la contraseña'),
+    ),
+    'E_SSH_HOSTKEY': t(
+      markTr(
+        'La huella del servidor ha cambiado (¿lo ha reinstalado?): quítelo y vuelva a añadirlo',
+      ),
+    ),
+    'E_SSH_CONNECT': t(markTr('No se puede conectar con el servidor: {0}')),
+    'E_SSH_SUDO': t(
+      markTr(
+        'El usuario {0} no puede usar PostgreSQL: entre como root o postgres, o dele sudo sin contraseña para postgres',
+      ),
+    ),
+    'E_SSH_NO_PG': t(
+      markTr('El servidor no tiene PostgreSQL (psql o pg_dump)'),
+    ),
+    'E_SSH_BAD_DUMP': t(
+      markTr('El volcado de la base de datos llegó vacío o dañado'),
+    ),
+    'E_SSH_GONE': t(markTr('Ese servidor ya no está en la lista')),
+    'E_SSH_NO_PASSWORD': t(
+      markTr('Falta la contraseña del servidor: escríbala en Servidores SSH'),
+    ),
+    'E_SSH_EXIT': t(markTr('ssh terminó con el código {0}')),
+    'SV_TITLE': t(markTr('Servidores SSH')),
+    'SV_HELP': t(
+      markTr(
+        'Servidores Linux (Ubuntu, Debian…) con PostgreSQL: se entra por SSH y cada base de datos se vuelca con pg_dump a su carpeta de este equipo, con la misma secuencia. Entre como root o postgres, o con un usuario que tenga sudo sin contraseña para postgres.',
+      ),
+    ),
+    'SV_NAME': t(markTr('Nombre')),
+    'SV_HOST': t(markTr('Servidor')),
+    'SV_PORT': t(markTr('Puerto')),
+    'SV_USER': t(markTr('Usuario')),
+    'SV_AUTH': t(markTr('Entrar con')),
+    'SV_AUTH_KEY': t(markTr('Clave SSH (sin contraseña)')),
+    'SV_AUTH_PW': t(markTr('Contraseña')),
+    'SV_KEY': t(markTr('Archivo de clave')),
+    'SV_KEY_HINT': t(markTr('Vacío: las claves de ~/.ssh')),
+    'SV_PICK': t(markTr('Elegir…')),
+    'SV_PASS': t(markTr('Contraseña')),
+    'SV_PASS_KEEP': t(
+      markTr('Deje la contraseña en blanco para mantener la guardada.'),
+    ),
+    'SV_NEW': t(markTr('Nuevo')),
+    'SV_SAVE': t(markTr('Guardar')),
+    'SV_DEL': t(markTr('Quitar')),
+    'SV_TEST': t(markTr('Probar la conexión')),
+    'SV_CLOSE': t(markTr('Cerrar')),
+    'SV_SAVED': t(
+      markTr('Guardado: {0}. Sus bases de datos aparecen en la lista.'),
+    ),
+    'SV_TESTING': t(markTr('Probando {0}…')),
+    'SV_TEST_OK': t(markTr('Conectado: {0} bases de datos ({1})')),
+    'SV_TEST_NONE': t(markTr('Conectado, pero no hay bases de datos')),
+    'SV_ASK_DEL': t(
+      markTr('¿Quitar el servidor «{0}»? Lo ya bajado se queda en la carpeta.'),
+    ),
+    'SV_ERR_HOST': t(markTr('Escriba la dirección del servidor')),
+    'SV_ERR_PORT': t(markTr('El puerto va de 1 a 65535')),
+    'SV_ERR_USER': t(markTr('Escriba el usuario')),
+    'SV_ERR_PASS': t(markTr('Escriba la contraseña')),
+    'SV_EMPTY': t(markTr('Sin servidores: rellene los datos y pulse Guardar.')),
   };
   final consts = [
     for (final MapEntry(:key, :value) in texts.entries)
@@ -200,18 +289,18 @@ TkExample tkCppCshBackup(String Function(String) t) {
             'PanelUrl',
             106,
             12,
-            340,
+            300,
             30,
             {'font_size': 14},
             {'enter_key': 'PanelUrl_enter'},
           )..parent = 'Top',
-          lbl('LblToken', 462, 12, 60, 30, t(markTr('Token'))),
+          lbl('LblToken', 418, 12, 56, 30, t(markTr('Token'))),
           _w(
             'Password',
             'Token',
-            522,
+            474,
             12,
-            370,
+            252,
             30,
             {'font_size': 14},
             {'enter_key': 'Token_enter'},
@@ -219,9 +308,9 @@ TkExample tkCppCshBackup(String Function(String) t) {
           _w(
             'Button',
             'BtnConnect',
-            904,
+            738,
             12,
-            180,
+            150,
             30,
             {
               'text': t(markTr('Conectar')),
@@ -230,6 +319,16 @@ TkExample tkCppCshBackup(String Function(String) t) {
               'font_bold': true,
             },
             {'command': 'BtnConnect_click'},
+          )..parent = 'Top',
+          _w(
+            'Button',
+            'BtnServers',
+            898,
+            12,
+            186,
+            30,
+            {'text': t(markTr('Servidores SSH…'))},
+            {'command': 'BtnServers_click'},
           )..parent = 'Top',
           // Dónde se guardan.
           lbl('LblFolder', 16, 52, 90, 30, t(markTr('Guardar en'))),

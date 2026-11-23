@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "No se pudo consultar: {0}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
 msgid "Nombre"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 msgid "Notas"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart lib/ui/screens/diagrams.dart
 msgid "Nuevo"
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr ""
 msgid "Salir"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Servidor"
 msgstr ""
 
@@ -817,7 +817,7 @@ msgstr ""
 msgid "Tipo"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart
 msgid "Usuario"
 msgstr ""
 
@@ -1053,7 +1053,7 @@ msgstr ""
 msgid "Confirmar el pago"
 msgstr ""
 
-#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_flutter_templates.dart lib/code/tk_model.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_store.dart lib/code/tk_showcase_mail.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/ui/screens/dev_tools.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Contraseña"
 msgstr ""
 
@@ -3981,7 +3981,7 @@ msgstr ""
 msgid "El uso de Claude Code nativo en C++ con FLTK: tokens, coste y sesiones de cada día en un mapa de calor como el de GitHub, por modelo y por proyecto, desde los registros del equipo o la API de administración, y en la barra de menús con lo gastado hoy."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
+#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_file_renamer.dart lib/ui/screens/code_git.dart
 msgid "Elegir…"
 msgstr ""
 
@@ -4639,7 +4639,7 @@ msgstr ""
 msgid "Puerto Rico · San Juan"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
+#: lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/ui/attachment_chips.dart lib/ui/screens/code_git.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart
 msgid "Quitar"
 msgstr ""
 
@@ -4774,7 +4774,7 @@ msgid ""
 "Ver cambia la apariencia (diez, de Clásica a Papel) y el tamaño de la letra (⌘+ y ⌘−). Los programas a pantalla completa (vim, top) se ven de forma básica."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_tower.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_tower.dart lib/ui/code_find_panel.dart lib/ui/tk_launch.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_claude.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/diagrams.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_claude_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Cerrar"
 msgstr ""
 
@@ -5126,6 +5126,10 @@ msgid "Acerca de Respaldos de community.sh"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Archivo de clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh: cada hora, cada pocas horas, cada día o cada semana, en la carpeta que elija y borrando los de más de unos días, desde la barra de menús de macOS o junto al reloj de Windows."
 msgstr ""
 
@@ -5135,6 +5139,10 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Bajar ahora"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Base de datos en el servidor"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5150,6 +5158,18 @@ msgid "Carpeta para los respaldos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Clave SSH (sin contraseña)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Conectado, pero no hay bases de datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Conectado: {0} bases de datos ({1})"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Conectado: {0} instancias"
 msgstr ""
 
@@ -5162,11 +5182,15 @@ msgid "Conectar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Conecte su panel de community.sh"
+msgid "Conecte su panel de community.sh o un servidor"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Crear un respaldo nuevo antes de bajarlo"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Deje la contraseña en blanco para mantener la guardada."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
@@ -5214,11 +5238,27 @@ msgid "El panel pide esperar un poco: demasiadas peticiones"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El puerto va de 1 a 65535"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "El respaldo falló en el panel: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "El respaldo tarda demasiado en el panel"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El servidor no acepta el usuario o la contraseña"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El servidor no acepta la clave SSH: revise el usuario y el archivo de clave"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El servidor no tiene PostgreSQL (psql o pg_dump)"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5230,6 +5270,14 @@ msgid "El token no tiene permiso para los respaldos de esta instancia"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El usuario {0} no puede usar PostgreSQL: entre como root o postgres, o dele sudo sin contraseña para postgres"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "El volcado de la base de datos llegó vacío o dañado"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Elegir carpeta…"
 msgstr ""
 
@@ -5238,7 +5286,15 @@ msgid "Elija la carpeta donde guardar los respaldos"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Empieza el respaldo de {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "En cola"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Entrar con"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5246,7 +5302,15 @@ msgid "Esa dirección no vale: escriba algo como communitysh.xyz"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura."
+msgid "Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura. Para las bases de datos de un servidor Linux por SSH, pulse «Servidores SSH…»."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Escriba el usuario"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Escriba la contraseña"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5257,11 +5321,33 @@ msgid ""
 "\n"
 "Con «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Eliminar» quita los respaldos bajados hace más de los días elegidos (3 por defecto); siempre se queda el último de cada instancia y solo se borra lo que bajó esta app.\n"
 "\n"
+"«Servidores SSH…» añade servidores Linux (Ubuntu, Debian…) con PostgreSQL: se entra con una clave SSH o con una contraseña (que se guarda en el Llavero) y cada base de datos se vuelca con pg_dump a su carpeta, con la misma secuencia. Archivo › Ver el historial enseña lo que se bajó y lo que falló, y por qué.\n"
+"\n"
 "Cerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora»."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Escriba la dirección del servidor"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Ese servidor ya no está en la lista"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Falta el token: escríbalo arriba y pulse Conectar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Falta la contraseña del servidor: escríbala en Servidores SSH"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Fin: {0} bajados, {1} con errores"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Guardado: {0}. Sus bases de datos aparecen en la lista."
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_mywa.dart
@@ -5269,7 +5355,15 @@ msgid "Guardar en"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Historial de los respaldos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "INSTANCIA"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "La huella del servidor ha cambiado (¿lo ha reinstalado?): quítelo y vuelva a añadirlo"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5288,6 +5382,14 @@ msgstr ""
 msgid "Minimizar a la barra"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+msgid "No"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "No encuentro el programa ssh (en Windows: Configuración › Aplicaciones › Características opcionales › Cliente OpenSSH)"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "No he podido cambiar el inicio de sesión"
 msgstr ""
@@ -5304,8 +5406,16 @@ msgstr ""
 msgid "No se ha podido bajar"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_cshbackup.dart lib/dev/api_client.dart lib/dev/dev_client.dart
+msgid "No se pudo conectar: {0}"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "No se puede conectar con el panel: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "No se puede conectar con el servidor: {0}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5313,7 +5423,23 @@ msgid "Odoo {0} · {1}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "PostgreSQL · {0} · {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Probando {0}…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_mail.dart
+msgid "Probar la conexión"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Próximo respaldo: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_util_port_scanner.dart lib/ui/screens/dev_tools.dart
+msgid "Puerto"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5357,11 +5483,31 @@ msgid "Se abrirá al iniciar sesión, ya en la barra"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Servidores Linux (Ubuntu, Debian…) con PostgreSQL: se entra por SSH y cada base de datos se vuelca con pg_dump a su carpeta de este equipo, con la misma secuencia. Entre como root o postgres, o con un usuario que tenga sudo sin contraseña para postgres."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Servidores SSH"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Servidores SSH…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Sin conectar: escriba arriba el panel y su token"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Sin instancias"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Sin servidores: rellene los datos y pulse Guardar."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
+msgid "Sí"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5374,6 +5520,14 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, los campos y el reloj se diseñaron en el Diseñador del estudio; la lista se dibuja en código, la API del panel se llama con curl en otro hilo y el icono de la barra se hace con el runtime de Objective-C en macOS y con Shell_NotifyIcon en Windows."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Vacío: las claves de ~/.ssh"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Ver el historial"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
@@ -5473,6 +5627,10 @@ msgid "sin bajar"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "ssh terminó con el código {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "tras 1 día"
 msgstr ""
 
@@ -5509,6 +5667,10 @@ msgid "{0} bajados · {1} con errores"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "{0} bajados · {1} con errores ({2})"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "{0} instancias · {1} marcadas"
 msgstr ""
 
@@ -5517,11 +5679,31 @@ msgid "{0} respaldos bajados"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "{0} · se vuelca con pg_dump"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "{0}: {1} bases de datos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "¿Quitar el servidor «{0}»? Lo ya bajado se queda en la carpeta."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "ÚLTIMO RESPALDO EN EL PANEL"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Último: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "✓ {0}: {1} ({2})"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "✗ {0}: {1}"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart
@@ -5886,10 +6068,6 @@ msgstr ""
 msgid "Ningún elemento coincide con la búsqueda."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
-msgid "No"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "No se encuentra «{0}». Compruebe la ortografía e inténtelo de nuevo."
 msgstr ""
@@ -6028,10 +6206,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
 msgid "Subir un nivel"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
-msgid "Sí"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
@@ -14623,10 +14797,6 @@ msgid "Probando la conexión…"
 msgstr ""
 
 #: lib/code/tk_showcase_mail.dart
-msgid "Probar la conexión"
-msgstr ""
-
-#: lib/code/tk_showcase_mail.dart
 msgid "Pulse «Recibir» para traer los últimos mensajes."
 msgstr ""
 
@@ -21213,10 +21383,6 @@ msgstr ""
 msgid "Personalizado"
 msgstr ""
 
-#: lib/code/tk_showcase_util_port_scanner.dart lib/ui/screens/dev_tools.dart
-msgid "Puerto"
-msgstr ""
-
 #: lib/code/tk_showcase_util_port_scanner.dart
 msgid "Respuesta del servicio"
 msgstr ""
@@ -22514,10 +22680,6 @@ msgstr ""
 
 #: lib/dev/api_client.dart
 msgid "Indique la dirección."
-msgstr ""
-
-#: lib/dev/api_client.dart lib/dev/dev_client.dart
-msgid "No se pudo conectar: {0}"
 msgstr ""
 
 #: lib/dev/dev_client.dart

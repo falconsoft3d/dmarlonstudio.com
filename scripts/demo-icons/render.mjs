@@ -40,6 +40,7 @@ const demos = {
   cpp_blocks: ['blocks', '#22d3ee', '#7c3aed'],
   cpp_bc3: ['construction', '#fbbf24', '#b45309'],
   cpp_tower: ['tower-control', '#4ade80', '#15803d'],
+  cpp_cshbackup: ['hard-drive-download', '#2dd4bf', '#0f5f8a'],
   pascal_opend: ['pen-tool', '#34d399', '#0b7a5c'],
   domino: ['dices', '#3fbf6f', '#17602f'],
   currency: ['coins', '#ffc53d', '#e08e0b'],

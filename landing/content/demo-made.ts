@@ -1602,6 +1602,160 @@ const twRobot = `void robot(int cx, int by, unsigned col, int state, double phas
   }
 }`;
 
+const cbSlot = `long long next_slot(long long from, int freq, int hour, int wday) {
+  struct tm d = local(from);
+  d.tm_min = 0;
+  d.tm_sec = 0;
+  int step = freq == F_6H ? 6 : freq == F_12H ? 12 : 24;
+  for (int k = 0; k <= 24 * 8; k++) {
+    struct tm c = d;
+    c.tm_hour = d.tm_hour + k;
+    c.tm_isdst = -1;
+    time_t x = std::mktime(&c);
+    if ((long long)x <= from) continue;
+    struct tm v = local((long long)x);
+    if (v.tm_min != 0) continue;
+    int dh = ((v.tm_hour - hour) % 24 + 24) % 24;
+    if (dh % step != 0) continue;
+    if (freq == F_WEEK && (v.tm_wday + 6) % 7 != wday) continue;
+    return (long long)x;
+  }
+  return from + 86400;
+}`;
+
+const cbCurl = `std::string curl_config(const Req& r) {
+  std::string c = "url = " + curl_quote(r.base + r.path) + "\\n";
+  if (r.method != "GET") c += "request = " + curl_quote(r.method) + "\\n";
+  c += "header = " + curl_quote("Authorization: Bearer " + r.token) + "\\n";
+  c += "header = \\"Accept: application/json\\"\\n";
+  if (!r.data.empty() || r.method == "POST") c += "data = " + curl_quote(r.data) + "\\n";
+  c += "silent\\nshow-error\\nlocation\\nconnect-timeout = 15\\n";
+  if (r.max_time > 0) c += "max-time = " + std::to_string(r.max_time) + "\\n";
+  else c += "speed-limit = 1\\nspeed-time = 300\\n";   // una descarga parada se corta
+  c += "user-agent = \\"DMarlonStudio-CommunityBackups/1.0\\"\\n";
+  if (!r.out_file.empty()) c += "output = " + curl_quote(r.out_file) + "\\n";
+  c += "write-out = \\"\\\\n%{http_code}\\"\\n";
+  return c;
+}`;
+
+const cbFresh = `  if (job.fresh) {
+    state(B_CREATING, "");
+    Req q = base;
+    q.method = "POST";
+    q.path = "/api/instances/" + std::to_string(id) + "/backup/";
+    q.data = std::string("include_filestore=") + (job.fs ? "true" : "false");
+    Resp r = http(q);
+    if (r.code < 200 || r.code > 299) { state(B_ERROR, http_error(r, true)); return; }
+    J j;
+    long long task = parse_json(trim(r.body), j) ? j["task_id"].num() : 0;
+    if (task <= 0) { state(B_ERROR, tx::E_BAD_ANSWER); return; }
+    long long until = now_t() + 4 * 3600;
+    int fails = 0;
+    sleep_s(3, cancel);
+    while (!cancel) {
+      Req t = base;
+      t.path = "/api/tasks/" + std::to_string(task) + "/";
+      Resp a = http(t);
+      J tj;
+      if (a.code == 200 && parse_json(trim(a.body), tj)) {
+        fails = 0;
+        std::string st = tj["status"].str();
+        if (st == "done") break;
+        if (st == "failed") { state(B_ERROR, fmt(tx::E_TASK_FAILED, {task_error(tj)})); return; }
+      } else if (a.code == 401 || a.code == 403 || a.code == 404 || ++fails > 30) {
+        state(B_ERROR, http_error(a, false));
+        return;
+      }
+      if (now_t() > until) { state(B_ERROR, tx::E_TIMEOUT); return; }
+      sleep_s(10, cancel);
+    }
+    if (cancel) return;
+  }`;
+
+const cbDownload = `  std::string part = dest + ".part";
+  fl_unlink(part.c_str());
+  Ev d;
+  d.kind = EV_STATE;
+  d.id = id;
+  d.state = B_DOWNLOADING;
+  d.part = part;
+  d.total = b.size;
+  post(d);
+  Req g = base;
+  g.path = "/api/backups/" + std::to_string(b.id) + "/download/";
+  g.out_file = part;
+  g.max_time = 0;
+  Resp gr = http(g);
+  if (gr.code != 200) {
+    if (gr.code > 0) read_file(part, gr.body, 4096);   // el error del panel quedó en el archivo
+    fl_unlink(part.c_str());
+    state(B_ERROR, http_error(gr, false));
+    return;
+  }
+  long long got = file_size(part);
+  if (got < 0 || (b.size > 0 && got != b.size)) {
+    fl_unlink(part.c_str());
+    state(B_ERROR, fmt(tx::E_SIZE, {human(got < 0 ? 0 : got), human(b.size)}));
+    return;
+  }
+  fl_unlink(dest.c_str());
+  if (fl_rename(part.c_str(), dest.c_str()) != 0) {
+    fl_unlink(part.c_str());
+    state(B_ERROR, fmt(tx::E_RENAME, {dest}));
+    return;
+  }
+  done.state = B_OK;
+  done.size = got;
+  post(done);`;
+
+const cbKeep = `std::vector<std::string> add_got(std::vector<Got>& g, const Got& x, int keep) {
+  for (size_t i = 0; i < g.size();)
+    if (g[i].path == x.path) g.erase(g.begin() + (long)i);
+    else i++;
+  g.push_back(x);
+  std::vector<std::string> drop;
+  if (keep <= 0) return drop;
+  std::vector<size_t> mine;
+  for (size_t i = 0; i < g.size(); i++)
+    if (g[i].inst == x.inst) mine.push_back(i);
+  // del más nuevo al más antiguo
+  for (size_t a = 0; a < mine.size(); a++)
+    for (size_t b = a + 1; b < mine.size(); b++)
+      if (g[mine[b]].t > g[mine[a]].t) std::swap(mine[a], mine[b]);
+  std::vector<size_t> gone;
+  for (size_t k = (size_t)keep; k < mine.size(); k++) {
+    drop.push_back(g[mine[k]].path);
+    gone.push_back(mine[k]);
+  }
+  std::vector<Got> rest;
+  for (size_t i = 0; i < g.size(); i++) {
+    bool out = false;
+    for (size_t k : gone) out = out || k == i;
+    if (!out) rest.push_back(g[i]);
+  }
+  g = rest;
+  return drop;
+}`;
+
+const cbTray = `LRESULT CALLBACK proc(HWND h, UINT m, WPARAM w, LPARAM l) {
+  Tray& t = tray();
+  if (m == WM_TRAY) {
+    if (l == WM_LBUTTONUP || l == WM_RBUTTONUP || l == WM_CONTEXTMENU) popup();
+    else if (l == WM_LBUTTONDBLCLK && handler()) handler()(cb::tag(cb::A_WINDOW, 0));
+    return 0;
+  }
+  if (m == WM_COMMAND && HIWORD(w) == 0) {
+    int tg = (int)LOWORD(w);
+    if (tg && handler()) handler()(tg);
+    return 0;
+  }
+  if (t.created_msg && m == t.created_msg) {   // el Explorador se reinició
+    add_icon();
+    return 0;
+  }
+  return DefWindowProcW(h, m, w, l);
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2623,6 +2777,76 @@ const es: Record<string, DemoMade> = {
         title: "8. El robot de cada fila",
         text: "Las filas se dibujan con fl_draw: el robot se mueve arriba y abajo mientras trabaja, cierra los ojos al esperar, lleva un bocadillo con «?» si te pregunta y ojos en cruz si hay un error. Con tareas va hacia la meta; sin ellas, hacia «ahora» en la última hora de trabajo.",
         code: { file: "Form1.cpp", text: twRobot },
+      },
+    ],
+  },
+  cpp_cshbackup: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone los campos del panel, el token y la carpeta, los combos de la secuencia y de cuántos conservar, las casillas, los botones, el marco de la lista, la barra de estado, el menú y el reloj de cada segundo; el código de Form1.cpp llama a la API del panel con curl en otro hilo, dibuja la lista y pone el icono en la barra de menús de macOS y en el área de notificación de Windows.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "Los respaldos: conecta con el panel, programa, baja y vive en la barra." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (respaldar ahora, abrir la carpeta, minimizar a la barra, salir) y Ayuda." },
+        { name: "PanelUrl, Token", kind: "Entry, Password", text: "La dirección del panel y el token personal (csh_…), que se guarda en el Llavero de macOS." },
+        { name: "Folder, BtnFolder, BtnOpen", kind: "Entry, Button", text: "La carpeta de los respaldos, elegida con el diálogo de carpetas del sistema, y abrirla." },
+        { name: "Every, At, Day", kind: "Combobox", text: "La secuencia: cada 6 o 12 horas, cada día o cada semana; la hora y, si es semanal, el día." },
+        { name: "Keep", kind: "Combobox", text: "Cuántos conservar de cada instancia: 3, 7, 14, 30 o todos." },
+        { name: "Fresh, Filestore, Login", kind: "Checkbutton", text: "Pedir un respaldo nuevo al panel, con los adjuntos o no, y abrir al iniciar sesión." },
+        { name: "BtnConnect, BtnRun, BtnBar", kind: "Button", text: "Conectar, respaldar ahora y minimizar a la barra." },
+        { name: "Board", kind: "Frame", text: "Donde el código dibuja la lista de instancias con su progreso." },
+        { name: "Tick", kind: "Timer", text: "Cada segundo: el progreso de las descargas y, cuando toca, el respaldo." },
+        { name: "Status", kind: "StatusBar", text: "Cuántas instancias, el próximo respaldo y el último." },
+      ],
+      apis: [
+        "La API REST de community.sh con un token personal: GET /api/instances/, POST /api/instances/<id>/backup/, GET /api/tasks/<id>/, GET /api/backups/?instance=… y /api/backups/<id>/download/",
+        "curl (el de macOS y el de Windows 10 y posteriores) con un archivo de configuración que solo lee el usuario; un hilo que avisa a la ventana con Fl::awake",
+        "NSStatusItem y NSMenu desde C++ con el runtime de Objective-C; en Windows, Shell_NotifyIconW, TrackPopupMenu y sus globos",
+        "Abrir al iniciar sesión: un LaunchAgent en macOS y la clave Run del registro en Windows",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba un Frame con el panel y el token, la carpeta, la secuencia (tres Combobox), cuántos conservar, tres casillas y los botones; debajo, el Frame Board para la lista; la barra de estado, el Menu y un Timer de un segundo.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae los widgets y los métodos virtuales BtnConnect_click, Every_select, At_select, Day_select, Keep_select, Fresh_click, Login_click, BtnRun_click, Tick_timer y Menu1_click; Form1 los sobrescribe y pone dentro de Board la lista dibujada.",
+        shot: "generated",
+      },
+      {
+        title: "3. La secuencia",
+        text: "La próxima vez se busca hora a hora desde ahora: a la hora en punto elegida y cada 6, 12 o 24 horas desde ella o, si es semanal, el día elegido. Con mktime, los cambios de hora de verano no la mueven. Si el equipo estaba apagado a esa hora, se respalda un minuto después de abrirse.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: cbSlot },
+      },
+      {
+        title: "4. curl con el token",
+        text: "C++ no trae cliente HTTP: cada petición es curl con un archivo de configuración (url, método, la cabecera Authorization: Bearer y dónde guardar), escrito con permisos 0600 y borrado al terminar, así el token no sale en la lista de procesos. La última línea es el código HTTP.",
+        code: { file: "Form1.cpp", text: cbCurl },
+      },
+      {
+        title: "5. Un respaldo nuevo en el panel",
+        text: "Con la casilla marcada, un POST pide el respaldo (con o sin adjuntos) y el panel contesta con una tarea; se pregunta por ella cada 10 segundos hasta que termina o falla. Un token de solo lectura no puede: el panel contesta 403 y la app lo explica.",
+        code: { file: "Form1.cpp", text: cbFresh },
+      },
+      {
+        title: "6. Bajar sin quedarse a medias",
+        text: "Se baja a un .part con su progreso en la lista (el reloj mira cuánto lleva) y solo cuando el tamaño coincide con el del panel se le da su nombre. Si ya estaba bajado con el mismo tamaño, no se vuelve a bajar.",
+        code: { file: "Form1.cpp", text: cbDownload },
+      },
+      {
+        title: "7. Conservar los últimos",
+        text: "La app apunta cada archivo que baja. Al bajar uno nuevo, de esa instancia quedan los N más recientes y se borran los demás: nunca un archivo que no haya bajado ella.",
+        code: { file: "Form1.cpp", text: cbKeep },
+      },
+      {
+        title: "8. Junto al reloj de Windows",
+        text: "En macOS es un NSStatusItem, como en el monitor de sitios. En Windows, una ventana escondida recibe los clics del icono de Shell_NotifyIcon y abre el mismo menú con TrackPopupMenu; si el Explorador se reinicia (TaskbarCreated), el icono vuelve.",
+        code: { file: "Form1.cpp", text: cbTray },
       },
     ],
   },
@@ -3649,6 +3873,76 @@ const en: Record<string, DemoMade> = {
         title: "8. The robot in each row",
         text: "The rows are drawn with fl_draw: the robot bobs up and down while working, closes its eyes when waiting, has a “?” speech bubble when it asks you and crossed eyes on an error. With tasks it heads for the finish line; without them, towards “now” in the last hour of work.",
         code: { file: "Form1.cpp", text: twRobot },
+      },
+    ],
+  },
+  cpp_cshbackup: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the panel, token and folder fields, the schedule and keep combos, the checkboxes, the buttons, the list frame, the status bar, the menu and the one-second timer; the code in Form1.cpp calls the panel's API with curl on another thread, draws the list and puts the icon in the macOS menu bar and the Windows notification area.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "The backups: connects to the panel, schedules, downloads and lives in the bar." },
+        { name: "Menu1", kind: "Menu", text: "File (back up now, open the folder, minimize to the bar, quit) and Help." },
+        { name: "PanelUrl, Token", kind: "Entry, Password", text: "The panel address and the personal token (csh_…), kept in the macOS Keychain." },
+        { name: "Folder, BtnFolder, BtnOpen", kind: "Entry, Button", text: "The backups folder, chosen with the system folder dialog, and opening it." },
+        { name: "Every, At, Day", kind: "Combobox", text: "The schedule: every 6 or 12 hours, every day or every week; the time and, if weekly, the day." },
+        { name: "Keep", kind: "Combobox", text: "How many to keep per instance: 3, 7, 14, 30 or all." },
+        { name: "Fresh, Filestore, Login", kind: "Checkbutton", text: "Ask the panel for a new backup, with the attachments or not, and open at login." },
+        { name: "BtnConnect, BtnRun, BtnBar", kind: "Button", text: "Connect, back up now and minimize to the bar." },
+        { name: "Board", kind: "Frame", text: "Where the code draws the list of instances with their progress." },
+        { name: "Tick", kind: "Timer", text: "Every second: the download progress and, when it is time, the backup." },
+        { name: "Status", kind: "StatusBar", text: "How many instances, the next backup and the last one." },
+      ],
+      apis: [
+        "The community.sh REST API with a personal token: GET /api/instances/, POST /api/instances/<id>/backup/, GET /api/tasks/<id>/, GET /api/backups/?instance=… and /api/backups/<id>/download/",
+        "curl (the one in macOS and in Windows 10 and later) with a config file only the user can read; a thread that tells the window with Fl::awake",
+        "NSStatusItem and NSMenu from C++ with the Objective-C runtime; on Windows, Shell_NotifyIconW, TrackPopupMenu and its balloons",
+        "Open at login: a LaunchAgent on macOS and the registry Run key on Windows",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top a Frame with the panel and token, the folder, the schedule (three Combobox), how many to keep, three checkboxes and the buttons; below, the Board Frame for the list; the status bar, the Menu and a one-second Timer.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (“Generated C++” tab) brings the widgets and the virtual methods BtnConnect_click, Every_select, At_select, Day_select, Keep_select, Fresh_click, Login_click, BtnRun_click, Tick_timer and Menu1_click; Form1 overrides them and puts the drawn list inside Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. The schedule",
+        text: "The next time is searched hour by hour from now: at the chosen hour sharp and every 6, 12 or 24 hours from it or, if weekly, on the chosen day. With mktime, daylight saving changes don't move it. If the computer was off at that time, it backs up a minute after opening.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: cbSlot },
+      },
+      {
+        title: "4. curl with the token",
+        text: "C++ has no HTTP client: each request is curl with a config file (url, method, the Authorization: Bearer header and where to save), written with 0600 permissions and deleted when done, so the token never shows in the process list. The last line is the HTTP code.",
+        code: { file: "Form1.cpp", text: cbCurl },
+      },
+      {
+        title: "5. A new backup on the panel",
+        text: "With the box ticked, a POST asks for the backup (with or without attachments) and the panel answers with a task; it is checked every 10 seconds until it finishes or fails. A read-only token can't: the panel answers 403 and the app explains it.",
+        code: { file: "Form1.cpp", text: cbFresh },
+      },
+      {
+        title: "6. Downloading without half files",
+        text: "It downloads to a .part with its progress in the list (the timer checks how much is there) and only when the size matches the panel's does it get its name. If it was already downloaded with the same size, it is not downloaded again.",
+        code: { file: "Form1.cpp", text: cbDownload },
+      },
+      {
+        title: "7. Keeping the latest",
+        text: "The app records every file it downloads. When a new one arrives, that instance keeps the N most recent and the others are deleted: never a file it did not download.",
+        code: { file: "Form1.cpp", text: cbKeep },
+      },
+      {
+        title: "8. Next to the Windows clock",
+        text: "On macOS it is an NSStatusItem, as in the website monitor. On Windows, a hidden window receives the clicks on the Shell_NotifyIcon icon and opens the same menu with TrackPopupMenu; if Explorer restarts (TaskbarCreated), the icon comes back.",
+        code: { file: "Form1.cpp", text: cbTray },
       },
     ],
   },

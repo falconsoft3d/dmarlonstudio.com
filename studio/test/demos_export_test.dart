@@ -65,6 +65,7 @@ const demos = [
   'cpp_blocks',
   'cpp_bc3',
   'cpp_tower',
+  'cpp_cshbackup',
   'domino',
 ];
 

@@ -129,6 +129,7 @@ Hechos
 147. App web PSIQUE: los 20 tests de personalidad más usados y un perfil final para compartir | ✅ |
 148. App local en C++ para monitorear todas las sesiones de VS Code con Claude: Torre de control con lo que hace cada sesión, sus tareas, subagentes, informes de los agentes y la barra de menús | ✅ |
 149. MiniLang: el curso ordenado por temas (saludos, verbo to be, números, familia, presente, pasado…) | ✅ |
+150. App en C++ (DMarlon Studio) para macOS y Windows que baja cada día, o con la secuencia elegida, los respaldos de las bases de datos de community.sh a la carpeta elegida, minimizada en la barra | ✅ |
 
 Trabajando
 =========

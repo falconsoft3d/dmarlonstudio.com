@@ -23,6 +23,7 @@ List<TkExample> tkCppExamples(String Function(String) t) => [
   tkCppBlocks(t),
   tkCppBc3(t),
   tkCppTower(t),
+  tkCppCshBackup(t),
 ];
 
 TkExample _cppCalculator(String Function(String) t) {

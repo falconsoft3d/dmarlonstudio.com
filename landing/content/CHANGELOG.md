@@ -3,6 +3,18 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.148 — 2026-11-23
+
+- Nueva demo: **Respaldos de community.sh (C++)**, una app nativa con FLTK para macOS y Windows que baja a su equipo los respaldos de las instancias de Odoo de su panel de **community.sh**:
+  - Se conecta con la dirección del panel y un **token personal** (en el panel: Ajustes › API › Crear token) por la API REST del panel; el token se guarda en el Llavero de macOS y va a curl en un archivo que solo lee el usuario.
+  - Las instancias del panel salen en una lista con su último respaldo en el panel (archivo, fecha, tamaño y si lleva adjuntos) y lo que hay en el equipo; se marcan las que se quieren respaldar.
+  - **La secuencia se elige**: cada 6 o 12 horas, cada día o cada semana, a la hora en punto que se quiera y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, respalda en cuanto vuelve.
+  - **La carpeta se elige** (con el diálogo de carpetas del sistema o escribiéndola), con una subcarpeta por instancia, y se **conservan los últimos** 3, 7, 14, 30 o todos: solo se borran los archivos que bajó la propia app.
+  - Con «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y la app sigue su tarea hasta que termina; sin ella, se baja el último que ya tenga (basta un token de solo lectura).
+  - Cada archivo se baja a un `.part` con su progreso y solo se queda si el tamaño coincide con el del panel; lo que ya estaba bajado no se vuelve a bajar. Los errores se explican (token caducado o de solo lectura, panel caído, sin respaldos…).
+  - Vive en la **barra de menús de macOS** (NSStatusItem) y en el **área de notificación de Windows** (Shell_NotifyIcon, con su menú y sus globos): el próximo respaldo, el último, cada instancia con «Bajar ahora» y «Abrir su carpeta», y «Respaldar ahora». Avisa al terminar y puede abrirse al iniciar sesión, ya en la barra (LaunchAgent en macOS, la clave Run en Windows). En español y en inglés.
+  - Probado: sus pruebas internas (el JSON del panel, la secuencia, los ajustes, conservar los últimos, curl y los errores), la de la interfaz sin ventana y, contra un panel de community.sh de verdad en local, la lista de instancias, el respaldo más reciente, uno nuevo con su tarea, la descarga idéntica byte a byte, el que ya estaba, el token de solo lectura, el token malo y el panel apagado.
+
 ## 1.0.147 — 2026-11-17
 
 - MiniLang: el **curso de 10.000 palabras va por temas**, como un curso de verdad, en vez de por lo que se usa cada palabra («a, that, you…»):

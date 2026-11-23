@@ -52,6 +52,7 @@ export const DEMO_SEEDS = [
   "cpp_blocks",
   "cpp_bc3",
   "cpp_tower",
+  "cpp_cshbackup",
   "domino",
 ] as const;
 

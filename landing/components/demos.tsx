@@ -371,6 +371,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Todas las sesiones de Claude Code abiertas en su equipo (en VS Code, en la terminal o en otros editores) en una torre de control: una fila por sesión con lo que hace ahora, si trabaja, le espera o le pregunta algo, sus tareas con un robot que avanza hacia la meta, sus subagentes y dónde prueba la app. El detalle enseña los últimos pasos, los archivos, la orden, la respuesta, los tokens y el coste, y abre la carpeta en VS Code. Los agentes pueden informar de su avance a un servidor local. Vive en la barra de menús y avisa cuando una sesión termina.",
         shows: ["C++17 con FLTK, diseñado en el estudio", "Lee ~/.claude sin configurar nada: solo lo nuevo, cada dos segundos", "Servidor local para los informes de los agentes", "Barra de menús de macOS con avisos"],
       },
+      cpp_cshbackup: {
+        name: "Respaldos de community.sh (C++)",
+        text: "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh, con la secuencia que elija: cada 6 o 12 horas, cada día o cada semana, a la hora que quiera. Se guardan en la carpeta que elija, cada instancia en la suya, y se conservan los últimos (3, 7, 14, 30 o todos). Puede pedir al panel un respaldo nuevo antes de bajarlo, con o sin los adjuntos. Vive en la barra de menús de macOS y junto al reloj de Windows, avisa al terminar y se abre al iniciar sesión.",
+        shows: ["C++17 con FLTK, diseñado en el estudio", "La API REST del panel con un token personal y curl", "Barra de menús de macOS y área de notificación de Windows", "Si el equipo estaba apagado, respalda al volver"],
+      },
       domino: {
         name: "Dominó doble 9",
         text: "Dominó cubano en una mesa de cuatro: usted y su compañero contra dos rivales de la computadora, 10 fichas cada uno, pasar cuando no se lleva, dominó y tranque, y partida a 100 o a 200 tantos.",
@@ -693,6 +698,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Every Claude Code session open on your computer (in VS Code, in the terminal or in other editors) in a control tower: one row per session with what it is doing now, whether it is working, waiting for you or asking you something, its tasks with a robot heading for the finish line, its subagents and where it is testing the app. The details show the last steps, the files, the prompt, the answer, the tokens and the cost, and open the folder in VS Code. Agents can report their progress to a local server. It lives in the menu bar and lets you know when a session finishes.",
         shows: ["C++17 with FLTK, designed in the studio", "Reads ~/.claude with no setup: only what is new, every two seconds", "Local server for agents' reports", "macOS menu bar with notifications"],
       },
+      cpp_cshbackup: {
+        name: "community.sh Backups (C++)",
+        text: "Downloads the backups of the Odoo instances of your community.sh panel to your computer on the schedule you choose: every 6 or 12 hours, every day or every week, at the time you want. They go into the folder you choose, each instance in its own, and the latest ones are kept (3, 7, 14, 30 or all). It can ask the panel for a new backup before downloading it, with or without the attachments. It lives in the macOS menu bar and next to the Windows clock, lets you know when it is done and opens at login.",
+        shows: ["C++17 with FLTK, designed in the studio", "The panel's REST API with a personal token and curl", "macOS menu bar and Windows notification area", "If the computer was off, it backs up when it is back"],
+      },
       domino: {
         name: "Double-Nine Dominoes",
         text: "Cuban dominoes at a table of four: you and your partner against two computer rivals, 10 tiles each, passing when you can't play, domino and blocked games, and a game to 100 or 200 points.",
@@ -787,6 +797,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_blocks: { icon: "cpp", label: "C++ · FLTK" },
   cpp_bc3: { icon: "cpp", label: "C++ · FLTK" },
   cpp_tower: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_cshbackup: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {

@@ -373,7 +373,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_cshbackup: {
         name: "Respaldos de community.sh (C++)",
-        text: "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh, con la secuencia que elija: cada 6 o 12 horas, cada día o cada semana, a la hora que quiera. Se guardan en la carpeta que elija, cada instancia en la suya, y se conservan los últimos (3, 7, 14, 30 o todos). Puede pedir al panel un respaldo nuevo antes de bajarlo, con o sin los adjuntos. Vive en la barra de menús de macOS y junto al reloj de Windows, avisa al terminar y se abre al iniciar sesión.",
+        text: "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh, con la secuencia que elija: cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana, a la hora que quiera. Se guardan en la carpeta que elija, cada instancia en la suya, y se borran pasados unos días (3 por defecto; el último de cada instancia siempre se queda). Puede pedir al panel un respaldo nuevo antes de bajarlo, con o sin los adjuntos. Vive en la barra de menús de macOS y junto al reloj de Windows, avisa al terminar y se abre al iniciar sesión.",
         shows: ["C++17 con FLTK, diseñado en el estudio", "La API REST del panel con un token personal y curl", "Barra de menús de macOS y área de notificación de Windows", "Si el equipo estaba apagado, respalda al volver"],
       },
       domino: {
@@ -700,7 +700,7 @@ const TEXT: Record<Lang, DemosText> = {
       },
       cpp_cshbackup: {
         name: "community.sh Backups (C++)",
-        text: "Downloads the backups of the Odoo instances of your community.sh panel to your computer on the schedule you choose: every 6 or 12 hours, every day or every week, at the time you want. They go into the folder you choose, each instance in its own, and the latest ones are kept (3, 7, 14, 30 or all). It can ask the panel for a new backup before downloading it, with or without the attachments. It lives in the macOS menu bar and next to the Windows clock, lets you know when it is done and opens at login.",
+        text: "Downloads the backups of the Odoo instances of your community.sh panel to your computer on the schedule you choose: every hour, every 2, 3, 4, 6 or 12 hours, every day or every week, at the time you want. They go into the folder you choose, each instance in its own, and are deleted after a few days (3 by default; the latest one of each instance always stays). It can ask the panel for a new backup before downloading it, with or without the attachments. It lives in the macOS menu bar and next to the Windows clock, lets you know when it is done and opens at login.",
         shows: ["C++17 with FLTK, designed in the studio", "The panel's REST API with a personal token and curl", "macOS menu bar and Windows notification area", "If the computer was off, it backs up when it is back"],
       },
       domino: {

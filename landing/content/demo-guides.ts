@@ -341,8 +341,8 @@ const es: Record<string, DemoGuide> = {
     intro:
       "Una app nativa en C++ con FLTK, diseñada en el estudio, que baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh. Se queda en la barra de menús (en Windows, junto al reloj) y trabaja sola.",
     steps: [
-      { title: "Conecte su panel", text: "Escriba la dirección del panel (por ejemplo, communitysh.xyz) y un token personal: en el panel, Ajustes › API › Crear token. Pulse «Conectar» y aparecen sus instancias con su último respaldo; marque las que quiere bajar. El token se guarda en el Llavero de macOS." },
-      { title: "Elija la carpeta y la secuencia", text: "En «Guardar en» escriba o elija la carpeta: cada instancia va en su subcarpeta. Arriba elija cada cuánto (cada 6 o 12 horas, cada día o cada semana), a qué hora y, si es semanal, qué día, y cuántos respaldos conservar. Si el equipo estaba apagado a esa hora, se respalda al volver." },
+      { title: "Conecte su panel", text: "Escriba la dirección del panel (por ejemplo, communitysh.xyz) y un token personal: en el panel, Configuración › API › Generar token. Pulse «Conectar» y aparecen sus instancias con su último respaldo; marque las que quiere bajar. El token se guarda en el Llavero de macOS." },
+      { title: "Elija la carpeta y la secuencia", text: "En «Guardar en» escriba o elija la carpeta: cada instancia va en su subcarpeta. Arriba elija cada cuánto (cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana), a qué hora y, si es semanal, qué día, y tras cuántos días se eliminan (3 por defecto; el último de cada instancia siempre se queda). Si el equipo estaba apagado a esa hora, se respalda al volver." },
       { title: "Déjela en la barra", text: "Con «Crear un respaldo nuevo», el panel hace uno antes de bajarlo (con o sin los adjuntos); sin ella, se baja el último que ya tenga. «Respaldar ahora» lo hace en el momento y «Descargar» en cada fila, solo esa. Cierre la ventana: sigue en la barra con el próximo respaldo, el progreso y cada instancia, y le avisa al terminar." },
     ],
   },
@@ -790,8 +790,8 @@ const en: Record<string, DemoGuide> = {
     intro:
       "A native app in C++ with FLTK, designed in the studio, that downloads the backups of the Odoo instances of your community.sh panel to your computer. It stays in the menu bar (on Windows, next to the clock) and works on its own.",
     steps: [
-      { title: "Connect your panel", text: "Type the panel address (for example, communitysh.xyz) and a personal token: in the panel, Settings › API › Create token. Press “Connect” and your instances appear with their latest backup; tick the ones you want to download. The token is kept in the macOS Keychain." },
-      { title: "Choose the folder and the schedule", text: "In “Save to” type or choose the folder: each instance goes into its own subfolder. Above, choose how often (every 6 or 12 hours, every day or every week), at what time and, if weekly, which day, and how many backups to keep. If the computer was off at that time, it backs up when it is back." },
+      { title: "Connect your panel", text: "Type the panel address (for example, communitysh.xyz) and a personal token: in the panel, Settings › API › Generate token. Press “Connect” and your instances appear with their latest backup; tick the ones you want to download. The token is kept in the macOS Keychain." },
+      { title: "Choose the folder and the schedule", text: "In “Save to” type or choose the folder: each instance goes into its own subfolder. Above, choose how often (every hour, every 2, 3, 4, 6 or 12 hours, every day or every week), at what time and, if weekly, which day, and after how many days they are deleted (3 by default; the latest one of each instance always stays). If the computer was off at that time, it backs up when it is back." },
       { title: "Leave it in the bar", text: "With “Make a new backup”, the panel makes one before it is downloaded (with or without the attachments); without it, the latest one it already has is downloaded. “Back up now” does it right away and “Download” on each row, only that one. Close the window: it stays in the bar with the next backup, the progress and each instance, and lets you know when it is done." },
     ],
   },

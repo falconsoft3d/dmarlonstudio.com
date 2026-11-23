@@ -2661,7 +2661,7 @@ msgstr "Classic text editor with menus, open and save, undo and a status bar wit
 msgid "Elija la cita que quiere eliminar."
 msgstr "Choose the appointment to delete."
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/project_browser.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Eliminar"
 msgstr "Delete"
 
@@ -5210,8 +5210,8 @@ msgid "Acerca de Respaldos de community.sh"
 msgstr "About community.sh Backups"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh: cada 6 o 12 horas, cada día o cada semana a la hora que elija, en la carpeta que elija y conservando los últimos, desde la barra de menús de macOS o junto al reloj de Windows."
-msgstr "Downloads the backups of the Odoo instances of your community.sh panel to your computer: every 6 or 12 hours, every day or every week at the time you choose, into the folder you choose and keeping the latest ones, from the macOS menu bar or next to the Windows clock."
+msgid "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh: cada hora, cada pocas horas, cada día o cada semana, en la carpeta que elija y borrando los de más de unos días, desde la barra de menús de macOS o junto al reloj de Windows."
+msgstr "Downloads the backups of the Odoo instances of your community.sh panel to your computer: every hour, every few hours, every day or every week, into the folder you choose and deleting those older than a few days, from the macOS menu bar or next to the Windows clock."
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Bajado {0} · {1}"
@@ -5248,10 +5248,6 @@ msgstr "Connect"
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Conecte su panel de community.sh"
 msgstr "Connect your community.sh panel"
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Conservar"
-msgstr "Keep"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Crear un respaldo nuevo antes de bajarlo"
@@ -5334,24 +5330,24 @@ msgid "Esa dirección no vale: escriba algo como communitysh.xyz"
 msgstr "That address is not valid: type something like communitysh.xyz"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Escriba arriba la dirección del panel y un token personal (en el panel: Ajustes › API › Crear token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura."
-msgstr "Type the panel address and a personal token above (in the panel: Settings › API › Create token) and press Connect. To make new backups, the token can't be read-only."
+msgid "Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura."
+msgstr "Type the panel address and a personal token above (in the panel: Settings › API › Generate token) and press Connect. To make new backups, the token can't be read-only."
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid ""
-"Escriba la dirección de su panel de community.sh y un token personal (en el panel: Ajustes › API › Crear token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n"
+"Escriba la dirección de su panel de community.sh y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n"
 "\n"
-"Elija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada 6 o 12 horas, cada día o cada semana), la hora y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n"
+"Elija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana), la hora (cada 2 horas desde las 03:00: 03:00, 05:00, 07:00…) y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n"
 "\n"
-"Con «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Conservar» borra los más antiguos de cada instancia, solo los que bajó esta app.\n"
+"Con «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Eliminar» quita los respaldos bajados hace más de los días elegidos (3 por defecto); siempre se queda el último de cada instancia y solo se borra lo que bajó esta app.\n"
 "\n"
 "Cerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora»."
 msgstr ""
-"Type the address of your community.sh panel and a personal token (in the panel: Settings › API › Create token) and press Connect: your instances appear. Tick the ones you want to back up.\n"
+"Type the address of your community.sh panel and a personal token (in the panel: Settings › API › Generate token) and press Connect: your instances appear. Tick the ones you want to back up.\n"
 "\n"
-"Choose the folder to keep them in (each instance in its own subfolder), how often (every 6 or 12 hours, every day or every week), the time and, if weekly, the day. If the computer was off or asleep at that time, the backup runs when it is back.\n"
+"Choose the folder to keep them in (each instance in its own subfolder), how often (every hour, every 2, 3, 4, 6 or 12 hours, every day or every week), the time (every 2 hours from 03:00: 03:00, 05:00, 07:00…) and, if weekly, the day. If the computer was off or asleep at that time, the backup runs when it is back.\n"
 "\n"
-"With “Make a new backup”, the panel makes one right then (with or without the attachments) and it is downloaded; without it, the latest one the panel already has is downloaded (a read-only token is enough). “Keep” deletes the oldest ones of each instance, only those this app downloaded.\n"
+"With “Make a new backup”, the panel makes one right then (with or without the attachments) and it is downloaded; without it, the latest one the panel already has is downloaded (a read-only token is enough). “Delete” removes the backups downloaded more than the chosen number of days ago (3 by default); the latest one of each instance always stays and only what this app downloaded is deleted.\n"
 "\n"
 "Closing the window hides it: it stays in the menu bar (on Windows, next to the clock), with the next backup, each instance and “Back up now”."
 
@@ -5500,12 +5496,28 @@ msgid "cada 12 horas"
 msgstr "every 12 hours"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "cada 2 horas"
+msgstr "every 2 hours"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "cada 3 horas"
+msgstr "every 3 hours"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "cada 4 horas"
+msgstr "every 4 hours"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "cada 6 horas"
 msgstr "every 6 hours"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "cada día"
 msgstr "every day"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "cada hora"
+msgstr "every hour"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "cada semana"
@@ -5526,22 +5538,6 @@ msgstr "on"
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "hoy {0}"
 msgstr "today {0}"
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "los 14 últimos"
-msgstr "the last 14"
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "los 3 últimos"
-msgstr "the last 3"
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "los 30 últimos"
-msgstr "the last 30"
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "los 7 últimos"
-msgstr "the last 7"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "lun,mar,mié,jue,vie,sáb,dom"
@@ -5568,8 +5564,28 @@ msgid "sin bajar"
 msgstr "not downloaded"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "todos"
-msgstr "all"
+msgid "tras 1 día"
+msgstr "after 1 day"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "tras 14 días"
+msgstr "after 14 days"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "tras 2 días"
+msgstr "after 2 days"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "tras 3 días"
+msgstr "after 3 days"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "tras 30 días"
+msgstr "after 30 days"
+
+#: lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "tras 7 días"
+msgstr "after 7 days"
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "{0} % · {1} de {2}"

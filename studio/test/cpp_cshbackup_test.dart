@@ -175,4 +175,40 @@ void main() {
     },
     timeout: const Timeout(Duration(minutes: 4)),
   );
+
+  // La parte de Windows (la bandeja, el registro, curl.exe) no se compila en
+  // macOS: con MinGW (brew install mingw-w64) se comprueba que compila.
+  test(
+    'Windows: compila con MinGW (sin avisos)',
+    () async {
+      const gxx = 'x86_64-w64-mingw32-g++';
+      final which = await Process.run('which', [gxx]);
+      final cfg = TkCppTools.fltkConfig();
+      if (which.exitCode != 0 || cfg == null) {
+        return markTestSkipped('Sin MinGW o sin FLTK.');
+      }
+      final inc = (await Process.run(cfg, [
+        '--includedir',
+      ])).stdout.toString().trim();
+      final tmp = await Directory.systemTemp.createTemp('dms_cshbk_win_');
+      addTearDown(() => tmp.delete(recursive: true));
+      for (final f in TkCpp.files(e.design, e.code).entries) {
+        File(p.join(tmp.path, f.key)).writeAsStringSync(f.value);
+      }
+      final r = await Process.run(gxx, [
+        '-std=c++17',
+        '-fsyntax-only',
+        '-Wall',
+        '-I$inc',
+        'main.cpp',
+      ], workingDirectory: tmp.path);
+      expect(r.exitCode, 0, reason: '${r.stderr}');
+      expect(
+        '${r.stderr}',
+        isNot(matches(RegExp(r'Form1\.cpp:\d+:\d+: (warning|error)'))),
+        reason: '${r.stderr}',
+      );
+    },
+    timeout: const Timeout(Duration(minutes: 2)),
+  );
 }

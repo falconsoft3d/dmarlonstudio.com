@@ -3,6 +3,13 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.149 — 2026-11-23
+
+- Respaldos de community.sh (C++):
+  - **Más frecuencias**: cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana. Cada hora va en punto (la hora de inicio no cuenta); cada 2 a 12 horas se cuentan desde la hora elegida (cada 2 horas desde las 03:00: 03:00, 05:00, 07:00…). La frecuencia se guarda en horas y los ajustes de la 1.0.148 se leen bien.
+  - **Eliminar tras N días**, 3 por defecto (1, 2, 3, 7, 14 o 30 días, o nunca), en lugar de conservar los N últimos: cada hora, al bajar uno y al cambiar los días se borran los bajados hace más de esos días. Siempre se queda el más reciente de cada instancia (si el panel deja de contestar, no se queda sin ninguno) y solo se borra lo que bajó la app.
+  - La ayuda y la pantalla de inicio dicen dónde se crea el token con los nombres del panel: **Configuración › API › Generar token**. La app se descarga también desde la web de community.sh (communitysh.xyz) y desde su menú Backups.
+
 ## 1.0.148 — 2026-11-23
 
 - Nueva demo: **Respaldos de community.sh (C++)**, una app nativa con FLTK para macOS y Windows que baja a su equipo los respaldos de las instancias de Odoo de su panel de **community.sh**:

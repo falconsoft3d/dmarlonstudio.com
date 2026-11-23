@@ -1602,11 +1602,11 @@ const twRobot = `void robot(int cx, int by, unsigned col, int state, double phas
   }
 }`;
 
-const cbSlot = `long long next_slot(long long from, int freq, int hour, int wday) {
+const cbSlot = `long long next_slot(long long from, int every, int hour, int wday) {
   struct tm d = local(from);
   d.tm_min = 0;
   d.tm_sec = 0;
-  int step = freq == F_6H ? 6 : freq == F_12H ? 12 : 24;
+  int step = every >= 24 ? 24 : (every < 1 ? 1 : every);
   for (int k = 0; k <= 24 * 8; k++) {
     struct tm c = d;
     c.tm_hour = d.tm_hour + k;
@@ -1617,7 +1617,7 @@ const cbSlot = `long long next_slot(long long from, int freq, int hour, int wday
     if (v.tm_min != 0) continue;
     int dh = ((v.tm_hour - hour) % 24 + 24) % 24;
     if (dh % step != 0) continue;
-    if (freq == F_WEEK && (v.tm_wday + 6) % 7 != wday) continue;
+    if (every == WEEK_H && (v.tm_wday + 6) % 7 != wday) continue;
     return (long long)x;
   }
   return from + 86400;
@@ -1708,30 +1708,16 @@ const cbDownload = `  std::string part = dest + ".part";
   done.size = got;
   post(done);`;
 
-const cbKeep = `std::vector<std::string> add_got(std::vector<Got>& g, const Got& x, int keep) {
-  for (size_t i = 0; i < g.size();)
-    if (g[i].path == x.path) g.erase(g.begin() + (long)i);
-    else i++;
-  g.push_back(x);
+const cbKeep = `std::vector<std::string> prune_got(std::vector<Got>& g, long long now, int days) {
   std::vector<std::string> drop;
-  if (keep <= 0) return drop;
-  std::vector<size_t> mine;
-  for (size_t i = 0; i < g.size(); i++)
-    if (g[i].inst == x.inst) mine.push_back(i);
-  // del más nuevo al más antiguo
-  for (size_t a = 0; a < mine.size(); a++)
-    for (size_t b = a + 1; b < mine.size(); b++)
-      if (g[mine[b]].t > g[mine[a]].t) std::swap(mine[a], mine[b]);
-  std::vector<size_t> gone;
-  for (size_t k = (size_t)keep; k < mine.size(); k++) {
-    drop.push_back(g[mine[k]].path);
-    gone.push_back(mine[k]);
-  }
+  if (days <= 0) return drop;
   std::vector<Got> rest;
   for (size_t i = 0; i < g.size(); i++) {
-    bool out = false;
-    for (size_t k : gone) out = out || k == i;
-    if (!out) rest.push_back(g[i]);
+    bool newest = true;
+    for (size_t k = 0; k < g.size(); k++)
+      if (k != i && g[k].inst == g[i].inst && (g[k].t > g[i].t || (g[k].t == g[i].t && k > i))) newest = false;
+    if (!newest && now - g[i].t > (long long)days * 86400) drop.push_back(g[i].path);
+    else rest.push_back(g[i]);
   }
   g = rest;
   return drop;
@@ -2791,8 +2777,8 @@ const es: Record<string, DemoMade> = {
         { name: "Menu1", kind: "Menu", text: "Archivo (respaldar ahora, abrir la carpeta, minimizar a la barra, salir) y Ayuda." },
         { name: "PanelUrl, Token", kind: "Entry, Password", text: "La dirección del panel y el token personal (csh_…), que se guarda en el Llavero de macOS." },
         { name: "Folder, BtnFolder, BtnOpen", kind: "Entry, Button", text: "La carpeta de los respaldos, elegida con el diálogo de carpetas del sistema, y abrirla." },
-        { name: "Every, At, Day", kind: "Combobox", text: "La secuencia: cada 6 o 12 horas, cada día o cada semana; la hora y, si es semanal, el día." },
-        { name: "Keep", kind: "Combobox", text: "Cuántos conservar de cada instancia: 3, 7, 14, 30 o todos." },
+        { name: "Every, At, Day", kind: "Combobox", text: "La secuencia: cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana; la hora y, si es semanal, el día." },
+        { name: "Keep", kind: "Combobox", text: "Eliminar los bajados tras 1, 2, 3 (por defecto), 7, 14 o 30 días, o nunca." },
         { name: "Fresh, Filestore, Login", kind: "Checkbutton", text: "Pedir un respaldo nuevo al panel, con los adjuntos o no, y abrir al iniciar sesión." },
         { name: "BtnConnect, BtnRun, BtnBar", kind: "Button", text: "Conectar, respaldar ahora y minimizar a la barra." },
         { name: "Board", kind: "Frame", text: "Donde el código dibuja la lista de instancias con su progreso." },
@@ -2809,7 +2795,7 @@ const es: Record<string, DemoMade> = {
     steps: [
       {
         title: "1. La ventana en el Diseñador",
-        text: "Un proyecto con destino C++ (FLTK): arriba un Frame con el panel y el token, la carpeta, la secuencia (tres Combobox), cuántos conservar, tres casillas y los botones; debajo, el Frame Board para la lista; la barra de estado, el Menu y un Timer de un segundo.",
+        text: "Un proyecto con destino C++ (FLTK): arriba un Frame con el panel y el token, la carpeta, la secuencia (tres Combobox), tras cuántos días eliminarlos, tres casillas y los botones; debajo, el Frame Board para la lista; la barra de estado, el Menu y un Timer de un segundo.",
         shot: "design",
       },
       {
@@ -2819,7 +2805,7 @@ const es: Record<string, DemoMade> = {
       },
       {
         title: "3. La secuencia",
-        text: "La próxima vez se busca hora a hora desde ahora: a la hora en punto elegida y cada 6, 12 o 24 horas desde ella o, si es semanal, el día elegido. Con mktime, los cambios de hora de verano no la mueven. Si el equipo estaba apagado a esa hora, se respalda un minuto después de abrirse.",
+        text: "La próxima vez se busca hora a hora desde ahora: a la hora en punto elegida y cada 1, 2, 3, 4, 6, 12 o 24 horas desde ella (todas dividen el día, así que las horas se repiten cada día) o, si es semanal, el día elegido. Con mktime, los cambios de hora de verano no la mueven. Si el equipo estaba apagado a esa hora, se respalda un minuto después de abrirse.",
         shot: "code",
         code: { file: "Form1.cpp", text: cbSlot },
       },
@@ -2839,8 +2825,8 @@ const es: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: cbDownload },
       },
       {
-        title: "7. Conservar los últimos",
-        text: "La app apunta cada archivo que baja. Al bajar uno nuevo, de esa instancia quedan los N más recientes y se borran los demás: nunca un archivo que no haya bajado ella.",
+        title: "7. Eliminar los antiguos",
+        text: "La app apunta cada archivo que baja y cuándo. Al bajar uno, al cambiar los días y cada hora, borra los de más días de los elegidos (3 por defecto), salvo el más reciente de cada instancia: si el panel deja de contestar, no se queda sin ninguno. Nunca borra un archivo que no haya bajado ella.",
         code: { file: "Form1.cpp", text: cbKeep },
       },
       {
@@ -3887,8 +3873,8 @@ const en: Record<string, DemoMade> = {
         { name: "Menu1", kind: "Menu", text: "File (back up now, open the folder, minimize to the bar, quit) and Help." },
         { name: "PanelUrl, Token", kind: "Entry, Password", text: "The panel address and the personal token (csh_…), kept in the macOS Keychain." },
         { name: "Folder, BtnFolder, BtnOpen", kind: "Entry, Button", text: "The backups folder, chosen with the system folder dialog, and opening it." },
-        { name: "Every, At, Day", kind: "Combobox", text: "The schedule: every 6 or 12 hours, every day or every week; the time and, if weekly, the day." },
-        { name: "Keep", kind: "Combobox", text: "How many to keep per instance: 3, 7, 14, 30 or all." },
+        { name: "Every, At, Day", kind: "Combobox", text: "The schedule: every hour, every 2, 3, 4, 6 or 12 hours, every day or every week; the time and, if weekly, the day." },
+        { name: "Keep", kind: "Combobox", text: "Delete the downloaded ones after 1, 2, 3 (default), 7, 14 or 30 days, or never." },
         { name: "Fresh, Filestore, Login", kind: "Checkbutton", text: "Ask the panel for a new backup, with the attachments or not, and open at login." },
         { name: "BtnConnect, BtnRun, BtnBar", kind: "Button", text: "Connect, back up now and minimize to the bar." },
         { name: "Board", kind: "Frame", text: "Where the code draws the list of instances with their progress." },
@@ -3905,7 +3891,7 @@ const en: Record<string, DemoMade> = {
     steps: [
       {
         title: "1. The window in the Designer",
-        text: "A project with the C++ (FLTK) target: at the top a Frame with the panel and token, the folder, the schedule (three Combobox), how many to keep, three checkboxes and the buttons; below, the Board Frame for the list; the status bar, the Menu and a one-second Timer.",
+        text: "A project with the C++ (FLTK) target: at the top a Frame with the panel and token, the folder, the schedule (three Combobox), after how many days to delete them, three checkboxes and the buttons; below, the Board Frame for the list; the status bar, the Menu and a one-second Timer.",
         shot: "design",
       },
       {
@@ -3915,7 +3901,7 @@ const en: Record<string, DemoMade> = {
       },
       {
         title: "3. The schedule",
-        text: "The next time is searched hour by hour from now: at the chosen hour sharp and every 6, 12 or 24 hours from it or, if weekly, on the chosen day. With mktime, daylight saving changes don't move it. If the computer was off at that time, it backs up a minute after opening.",
+        text: "The next time is searched hour by hour from now: at the chosen hour sharp and every 1, 2, 3, 4, 6, 12 or 24 hours from it (they all divide the day, so the hours repeat every day) or, if weekly, on the chosen day. With mktime, daylight saving changes don't move it. If the computer was off at that time, it backs up a minute after opening.",
         shot: "code",
         code: { file: "Form1.cpp", text: cbSlot },
       },
@@ -3935,8 +3921,8 @@ const en: Record<string, DemoMade> = {
         code: { file: "Form1.cpp", text: cbDownload },
       },
       {
-        title: "7. Keeping the latest",
-        text: "The app records every file it downloads. When a new one arrives, that instance keeps the N most recent and the others are deleted: never a file it did not download.",
+        title: "7. Deleting the old ones",
+        text: "The app records every file it downloads and when. When one arrives, when the days change and every hour, it deletes those older than the chosen days (3 by default), except the most recent of each instance: if the panel stops answering, it is never left without one. It never deletes a file it did not download.",
         code: { file: "Form1.cpp", text: cbKeep },
       },
       {

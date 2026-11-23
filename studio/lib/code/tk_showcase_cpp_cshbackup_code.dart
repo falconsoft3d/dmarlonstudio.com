@@ -455,19 +455,27 @@ std::string iso_date(const std::string& iso) {
 }
 
 // ------------------------------------------------------------ la secuencia
-// Cada 6 o 12 horas (contadas desde la hora elegida), cada día o cada semana
-// el día elegido, siempre a la hora en punto. Si el equipo estaba apagado o
-// dormido a esa hora, el respaldo se hace en cuanto vuelve.
-enum Freq { F_6H = 0, F_12H = 1, F_DAY = 2, F_WEEK = 3 };
-const int FREQ_N = 4;
-const int KEEP[] = {3, 7, 14, 30, 0};   // 0: todos
-const int KEEP_N = 5;
+// Cada hora, cada 2, 3, 4, 6 o 12 horas (contadas desde la hora elegida),
+// cada día o cada semana el día elegido, siempre a la hora en punto. Si el
+// equipo estaba apagado o dormido a esa hora, el respaldo se hace en cuanto
+// vuelve. Se guarda en horas (168: cada semana).
+const int EVERY_H[] = {1, 2, 3, 4, 6, 12, 24, 168};
+const int EVERY_N = 8;
+const int WEEK_H = 168;
+int every_index(int hours) {
+  for (int i = 0; i < EVERY_N; i++)
+    if (EVERY_H[i] == hours) return i;
+  return 6;   // cada día
+}
+// Borrar los bajados tras N días (0: nunca); 3 por defecto.
+const int DAYS[] = {1, 2, 3, 7, 14, 30, 0};
+const int DAYS_N = 7;
 
-long long next_slot(long long from, int freq, int hour, int wday) {
+long long next_slot(long long from, int every, int hour, int wday) {
   struct tm d = local(from);
   d.tm_min = 0;
   d.tm_sec = 0;
-  int step = freq == F_6H ? 6 : freq == F_12H ? 12 : 24;
+  int step = every >= 24 ? 24 : (every < 1 ? 1 : every);
   for (int k = 0; k <= 24 * 8; k++) {
     struct tm c = d;
     c.tm_hour = d.tm_hour + k;
@@ -478,7 +486,7 @@ long long next_slot(long long from, int freq, int hour, int wday) {
     if (v.tm_min != 0) continue;
     int dh = ((v.tm_hour - hour) % 24 + 24) % 24;
     if (dh % step != 0) continue;
-    if (freq == F_WEEK && (v.tm_wday + 6) % 7 != wday) continue;
+    if (every == WEEK_H && (v.tm_wday + 6) % 7 != wday) continue;
     return (long long)x;
   }
   return from + 86400;
@@ -872,32 +880,26 @@ std::vector<Got> parse_got(const std::string& text) {
   }
   return out;
 }
-// Añade un archivo bajado y devuelve los que sobran de esa instancia (los
-// más antiguos pasada la cantidad que se conserva; keep 0: todos).
-std::vector<std::string> add_got(std::vector<Got>& g, const Got& x, int keep) {
+// Apunta un archivo bajado (el mismo archivo no cuenta dos veces).
+void add_got(std::vector<Got>& g, const Got& x) {
   for (size_t i = 0; i < g.size();)
     if (g[i].path == x.path) g.erase(g.begin() + (long)i);
     else i++;
   g.push_back(x);
+}
+// Los bajados hace más de [days] días (0: nunca se borran), que se quitan de
+// la lista. El más reciente de cada instancia se queda siempre, aunque sea
+// antiguo: si el panel deja de contestar, no se queda sin ninguno.
+std::vector<std::string> prune_got(std::vector<Got>& g, long long now, int days) {
   std::vector<std::string> drop;
-  if (keep <= 0) return drop;
-  std::vector<size_t> mine;
-  for (size_t i = 0; i < g.size(); i++)
-    if (g[i].inst == x.inst) mine.push_back(i);
-  // del más nuevo al más antiguo
-  for (size_t a = 0; a < mine.size(); a++)
-    for (size_t b = a + 1; b < mine.size(); b++)
-      if (g[mine[b]].t > g[mine[a]].t) std::swap(mine[a], mine[b]);
-  std::vector<size_t> gone;
-  for (size_t k = (size_t)keep; k < mine.size(); k++) {
-    drop.push_back(g[mine[k]].path);
-    gone.push_back(mine[k]);
-  }
+  if (days <= 0) return drop;
   std::vector<Got> rest;
   for (size_t i = 0; i < g.size(); i++) {
-    bool out = false;
-    for (size_t k : gone) out = out || k == i;
-    if (!out) rest.push_back(g[i]);
+    bool newest = true;
+    for (size_t k = 0; k < g.size(); k++)
+      if (k != i && g[k].inst == g[i].inst && (g[k].t > g[i].t || (g[k].t == g[i].t && k > i))) newest = false;
+    if (!newest && now - g[i].t > (long long)days * 86400) drop.push_back(g[i].path);
+    else rest.push_back(g[i]);
   }
   g = rest;
   return drop;
@@ -906,7 +908,7 @@ std::vector<std::string> add_got(std::vector<Got>& g, const Got& x, int keep) {
 // ------------------------------------------------------------ los ajustes
 struct Settings {
   std::string base = "https://communitysh.xyz", folder;
-  int freq = F_DAY, hour = 3, wday = 0, keep = 7;
+  int every = 24, hour = 3, wday = 0, days = 3;
   bool fresh = false, fs = false, login = false;
   long long next_run = 0, last_run = 0;
 };
@@ -914,8 +916,8 @@ std::string serialize(const Settings& s, const std::vector<Inst>& insts) {
   std::string o;
   o += "base\t" + clean(s.base) + "\n";
   o += "folder\t" + clean(s.folder) + "\n";
-  o += "freq\t" + std::to_string(s.freq) + "\nhour\t" + std::to_string(s.hour) + "\nwday\t" + std::to_string(s.wday) + "\n";
-  o += "keep\t" + std::to_string(s.keep) + "\n";
+  o += "every\t" + std::to_string(s.every) + "\nhour\t" + std::to_string(s.hour) + "\nwday\t" + std::to_string(s.wday) + "\n";
+  o += "days\t" + std::to_string(s.days) + "\n";
   o += std::string("fresh\t") + (s.fresh ? "1" : "0") + "\nfs\t" + (s.fs ? "1" : "0") + "\nlogin\t" + (s.login ? "1" : "0") + "\n";
   o += "next\t" + std::to_string(s.next_run) + "\nlast\t" + std::to_string(s.last_run) + "\n";
   for (const auto& i : insts) {
@@ -935,10 +937,14 @@ void parse_settings(const std::string& text, Settings& s, std::vector<Inst>& ins
     const std::string& k = f[0];
     if (k == "base") s.base = f[1];
     else if (k == "folder") s.folder = f[1];
-    else if (k == "freq") s.freq = imin(imax((int)to_ll(f[1]), 0), FREQ_N - 1);
+    else if (k == "every") s.every = EVERY_H[every_index((int)to_ll(f[1]))];
+    else if (k == "freq") {   // la 1.0.148: 0 cada 6 h, 1 cada 12 h, 2 cada día, 3 cada semana
+      const int old[] = {6, 12, 24, WEEK_H};
+      s.every = old[imin(imax((int)to_ll(f[1]), 0), 3)];
+    }
     else if (k == "hour") s.hour = imin(imax((int)to_ll(f[1]), 0), 23);
     else if (k == "wday") s.wday = imin(imax((int)to_ll(f[1]), 0), 6);
-    else if (k == "keep") s.keep = imax((int)to_ll(f[1]), 0);
+    else if (k == "days") s.days = imax((int)to_ll(f[1]), 0);
     else if (k == "fresh") s.fresh = f[1] == "1";
     else if (k == "fs") s.fs = f[1] == "1";
     else if (k == "login") s.login = f[1] == "1";
@@ -1556,34 +1562,49 @@ int selftest() {
   base_tm.tm_isdst = -1;
   long long t0 = (long long)std::mktime(&base_tm);
   auto at = [](long long t) { struct tm v = local(t); return std::to_string(v.tm_mday) + " " + hhmm(v); };
-  chk(at(next_slot(t0, F_DAY, 3, 0)) == "24 03:00", "cada día a las 3");
-  chk(at(next_slot(t0, F_DAY, 23, 0)) == "23 23:00", "cada día a las 23");
-  chk(at(next_slot(t0, F_12H, 3, 0)) == "23 15:00", "cada 12 h desde las 3");
-  chk(at(next_slot(t0, F_6H, 3, 0)) == "23 15:00", "cada 6 h desde las 3");
-  chk(at(next_slot(t0, F_6H, 11, 0)) == "23 11:00", "cada 6 h desde las 11");
-  chk(at(next_slot(t0, F_WEEK, 3, 0)) == "30 03:00", "cada semana el lunes");
-  chk(at(next_slot(t0, F_WEEK, 3, 2)) == "25 03:00", "cada semana el miércoles");
-  chk(at(next_slot(t0, F_WEEK, 12, 0)) == "23 12:00", "cada semana, hoy más tarde");
-  long long s1 = next_slot(t0, F_DAY, 3, 0);
-  chk(next_slot(s1, F_DAY, 3, 0) - s1 >= 23 * 3600 && next_slot(s1, F_DAY, 3, 0) - s1 <= 25 * 3600, "la siguiente, otro día");
+  chk(at(next_slot(t0, 24, 3, 0)) == "24 03:00", "cada día a las 3");
+  chk(at(next_slot(t0, 24, 23, 0)) == "23 23:00", "cada día a las 23");
+  chk(at(next_slot(t0, 12, 3, 0)) == "23 15:00", "cada 12 h desde las 3");
+  chk(at(next_slot(t0, 6, 3, 0)) == "23 15:00", "cada 6 h desde las 3");
+  chk(at(next_slot(t0, 6, 11, 0)) == "23 11:00", "cada 6 h desde las 11");
+  chk(at(next_slot(t0, 1, 3, 0)) == "23 11:00", "cada hora");
+  chk(at(next_slot(next_slot(t0, 1, 3, 0), 1, 3, 0)) == "23 12:00", "cada hora, la siguiente");
+  chk(at(next_slot(t0, 2, 3, 0)) == "23 11:00", "cada 2 h desde las 3");
+  chk(at(next_slot(t0, 2, 4, 0)) == "23 12:00", "cada 2 h desde las 4");
+  chk(at(next_slot(t0, 3, 3, 0)) == "23 12:00", "cada 3 h desde las 3");
+  chk(at(next_slot(t0, 4, 3, 0)) == "23 11:00", "cada 4 h desde las 3");
+  chk(at(next_slot(t0, WEEK_H, 3, 0)) == "30 03:00", "cada semana el lunes");
+  chk(at(next_slot(t0, WEEK_H, 3, 2)) == "25 03:00", "cada semana el miércoles");
+  chk(at(next_slot(t0, WEEK_H, 12, 0)) == "23 12:00", "cada semana, hoy más tarde");
+  long long s1 = next_slot(t0, 24, 3, 0);
+  chk(next_slot(s1, 24, 3, 0) - s1 >= 23 * 3600 && next_slot(s1, 24, 3, 0) - s1 <= 25 * 3600, "la siguiente, otro día");
+  chk(every_index(1) == 0 && every_index(WEEK_H) == EVERY_N - 1 && every_index(5) == 6, "las frecuencias");
   chk(when(t0 + 3600, t0) == fmt(tx::TODAY, {"11:30"}) && when(s1, t0) == fmt(tx::TOMORROW, {"03:00"}) && when(0, t0) == tx::NEVER, "cuándo");
   // los bajados: solo se conservan los N últimos de cada instancia
   std::vector<Got> g;
-  chk(add_got(g, {"a", "/r/a/1.zip", 100, 1}, 2).empty(), "conservar 1");
-  chk(add_got(g, {"b", "/r/b/1.zip", 150, 1}, 2).empty(), "otra instancia");
-  chk(add_got(g, {"a", "/r/a/2.zip", 200, 1}, 2).empty(), "conservar 2");
-  auto drop = add_got(g, {"a", "/r/a/3.zip", 300, 1}, 2);
-  chk(drop.size() == 1 && drop[0] == "/r/a/1.zip" && g.size() == 3, "se borra el más antiguo");
-  chk(add_got(g, {"a", "/r/a/3.zip", 400, 1}, 2).empty() && g.size() == 3, "el mismo archivo no cuenta dos veces");
-  chk(parse_got(serialize_got(g)).size() == 3 && parse_got(serialize_got(g))[0].path == g[0].path, "guardar los bajados");
-  chk(add_got(g, {"a", "/r/a/4.zip", 500, 1}, 0).empty(), "conservar todos");
+  const long long D = 86400, now0 = 100 * D;
+  add_got(g, {"a", "/r/a/1.zip", now0 - 5 * D, 1});
+  add_got(g, {"a", "/r/a/2.zip", now0 - 4 * D, 1});
+  add_got(g, {"a", "/r/a/3.zip", now0 - 2 * D, 1});
+  add_got(g, {"b", "/r/b/1.zip", now0 - 9 * D, 1});   // el único de b: se queda
+  add_got(g, {"a", "/r/a/3.zip", now0 - 1 * D, 1});   // otra vez el mismo
+  chk(g.size() == 4, "el mismo archivo no cuenta dos veces");
+  chk(parse_got(serialize_got(g)).size() == 4 && parse_got(serialize_got(g))[0].path == g[0].path, "guardar los bajados");
+  std::vector<Got> g2 = g;
+  chk(prune_got(g2, now0, 0).empty() && g2.size() == 4, "nunca se borran");
+  g2 = g;
+  auto drop = prune_got(g2, now0, 3);
+  chk(drop.size() == 2 && drop[0] == "/r/a/1.zip" && drop[1] == "/r/a/2.zip" && g2.size() == 2, "se borran los de más de 3 días");
+  g2 = g;
+  drop = prune_got(g2, now0 + 30 * D, 1);
+  chk(drop.size() == 2 && g2.size() == 2 && g2[0].path == "/r/b/1.zip" && g2[1].path == "/r/a/3.zip", "siempre queda el último de cada instancia");
   // los ajustes
   Settings st;
   st.folder = "/tmp/x y";
-  st.freq = F_WEEK;
+  st.every = WEEK_H;
   st.hour = 22;
   st.wday = 4;
-  st.keep = 14;
+  st.days = 14;
   st.fresh = true;
   st.next_run = 1234;
   auto insts = demo_insts(1000000);
@@ -1593,7 +1614,7 @@ int selftest() {
   Settings s2;
   std::vector<Inst> i2;
   parse_settings(serialize(st, insts), s2, i2);
-  chk(s2.folder == st.folder && s2.freq == F_WEEK && s2.hour == 22 && s2.wday == 4 && s2.keep == 14 && s2.fresh && !s2.fs &&
+  chk(s2.folder == st.folder && s2.every == WEEK_H && s2.hour == 22 && s2.wday == 4 && s2.days == 14 && s2.fresh && !s2.fs &&
           s2.next_run == 1234, "ajustes");
   chk(i2.size() == insts.size() && !i2[3].on && i2[1].cloud_fs && i2[4].state == B_ERROR && i2[4].error == "malo con tab" &&
           i2[0].local_size == insts[0].local_size, "instancias guardadas");
@@ -1865,7 +1886,7 @@ bool create() {
   t.nid.uCallbackMessage = WM_TRAY;
   std::wstring exe = cb::wide(cb::exe_path());
   HICON icon = ExtractIconW(inst, exe.c_str(), 0);
-  if ((UINT_PTR)icon <= 1) icon = LoadIconW(nullptr, IDI_APPLICATION);
+  if ((UINT_PTR)icon <= 1) icon = LoadIconW(nullptr, MAKEINTRESOURCEW(32512));   // IDI_APPLICATION
   t.nid.hIcon = icon;
   copy_w(t.nid.szTip, 128, tx::APP);
   add_icon();
@@ -1923,7 +1944,7 @@ public:
   int run_total = 0, run_done = 0, run_ok = 0, run_bad = 0;
   std::shared_ptr<std::atomic<bool>> cancel = std::make_shared<std::atomic<bool>>(false);
   std::string message, bar_key;
-  long long message_until = 0;
+  long long message_until = 0, last_prune = 0;
 
   static Form1*& self() {
     static Form1* f = nullptr;
@@ -2009,26 +2030,32 @@ public:
     show_settings();
     // Un respaldo que tocaba con el equipo apagado: dentro de un minuto.
     long long now = cb::now_t();
-    if (st.next_run <= 0) st.next_run = cb::next_slot(now, st.freq, st.hour, st.wday);
+    if (st.next_run <= 0) st.next_run = cb::next_slot(now, st.every, st.hour, st.wday);
     else if (st.next_run <= now) st.next_run = now + 60;
   }
   void show_settings() {
     PanelUrl->value(st.base.c_str());
     Token->value(token.c_str());
     Folder->value(st.folder.c_str());
-    Every->index(st.freq);
+    Every->index(cb::every_index(st.every));
     At->index(st.hour);
     Day->index(st.wday);
-    int k = 1;
-    for (int i = 0; i < cb::KEEP_N; i++)
-      if (cb::KEEP[i] == st.keep) k = i;
+    int k = 2;   // 3 días
+    for (int i = 0; i < cb::DAYS_N; i++)
+      if (cb::DAYS[i] == st.days) k = i;
     Keep->index(k);
     Fresh->checked(st.fresh);
     Filestore->checked(st.fs);
     Filestore->enabled(st.fresh);
     Login->checked(st.login);
-    Day->enabled(st.freq == cb::F_WEEK);
-    LblDay->enabled(st.freq == cb::F_WEEK);
+    schedule_widgets();
+  }
+  // «a las» no cuenta cada hora; «el» (el día) solo cada semana.
+  void schedule_widgets() {
+    At->enabled(st.every != 1);
+    LblAt->enabled(st.every != 1);
+    Day->enabled(st.every == cb::WEEK_H);
+    LblDay->enabled(st.every == cb::WEEK_H);
   }
   void save() {
     if (!live) return;   // las capturas y las pruebas no guardan nada
@@ -2080,7 +2107,7 @@ public:
     if (running) { say(tx::ALREADY_RUNNING_JOB); return; }
     long long now = cb::now_t();
     if (only < 0) {
-      st.next_run = cb::next_slot(now, st.freq, st.hour, st.wday);
+      st.next_run = cb::next_slot(now, st.every, st.hour, st.wday);
       st.last_run = now;
     }
     if (!ready()) { save(); refresh(); return; }
@@ -2154,8 +2181,8 @@ public:
         in.local_t = now;
         run_done++;
         run_ok++;
-        for (const auto& path : cb::add_got(got, {in.name, e.file, now, e.size}, st.keep))
-          if (path != e.file) fl_unlink(path.c_str());
+        cb::add_got(got, {in.name, e.file, now, e.size});
+        prune();
         break;
       }
       case cb::EV_DONE:
@@ -2279,14 +2306,26 @@ public:
     refresh();
   }
 
+  // ---- borrar los antiguos
+  // Los bajados hace más de los días elegidos (solo los que bajó la app; el
+  // último de cada instancia se queda). Al bajar uno, al cambiar los días y
+  // cada hora.
+  void prune() {
+    last_prune = cb::now_t();
+    auto drop = cb::prune_got(got, last_prune, st.days);
+    if (!live) return;
+    for (const auto& path : drop) fl_unlink(path.c_str());
+    if (!drop.empty()) save();
+  }
+
   // ---- la secuencia y las opciones
   void schedule_changed() {
-    st.freq = cb::imax(Every->index(), 0);
+    int k = Every->index();
+    st.every = cb::EVERY_H[k >= 0 && k < cb::EVERY_N ? k : 6];
     st.hour = cb::imax(At->index(), 0);
     st.wday = cb::imax(Day->index(), 0);
-    Day->enabled(st.freq == cb::F_WEEK);
-    LblDay->enabled(st.freq == cb::F_WEEK);
-    st.next_run = cb::next_slot(cb::now_t(), st.freq, st.hour, st.wday);
+    schedule_widgets();
+    st.next_run = cb::next_slot(cb::now_t(), st.every, st.hour, st.wday);
     save();
     say(cb::fmt(tx::SCHEDULE_SET, {cb::when(st.next_run, cb::now_t())}));
   }
@@ -2322,7 +2361,8 @@ public:
   void Day_select() override { schedule_changed(); }
   void Keep_select() override {
     int k = Keep->index();
-    if (k >= 0 && k < cb::KEEP_N) st.keep = cb::KEEP[k];
+    if (k >= 0 && k < cb::DAYS_N) st.days = cb::DAYS[k];
+    prune();
     save();
   }
   void Fresh_click() override {
@@ -2353,6 +2393,7 @@ public:
   void Tick_timer() override {
     long long now = cb::now_t();
     if (!running && !token.empty() && st.next_run > 0 && now >= st.next_run) start_run();
+    if (!running && now - last_prune >= 3600) prune();
     for (auto& in : insts)
       if (in.state == cb::B_DOWNLOADING && !in.part.empty()) {
         long long n = cb::file_size(in.part);
@@ -2399,12 +2440,12 @@ public:
 #else
     st.folder = std::string("/Users/demo/Documents/") + tx::DEFAULT_FOLDER;
 #endif
-    st.freq = cb::F_DAY;
+    st.every = 24;
     st.hour = 3;
-    st.keep = 7;
+    st.days = 3;
     st.fresh = true;
     st.last_run = now - 3 * 3600;
-    st.next_run = cb::next_slot(now, st.freq, st.hour, st.wday);
+    st.next_run = cb::next_slot(now, st.every, st.hour, st.wday);
     show_settings();
     message.clear();
     refresh();
@@ -2519,7 +2560,7 @@ public:
     insts = cb::demo_insts(cb::now_t());
     insts[4].state = cb::B_ERROR;
     insts[4].error = tx::E_READONLY;
-    Every->index(cb::F_WEEK);
+    Every->index(cb::EVERY_N - 1);
     At->index(22);
     Day->index(6);
     schedule_changed();
@@ -2539,13 +2580,18 @@ public:
       }
     };
     // la secuencia
-    Every->index(cb::F_12H);
+    Every->index(0);
+    Every_select();
+    chk(st.every == 1 && !At->active() && !Day->active(), "cada hora");
+    struct tm nh = cb::local(st.next_run);
+    chk(nh.tm_min == 0 && st.next_run > cb::now_t() && st.next_run <= cb::now_t() + 3600, "la próxima, dentro de una hora");
+    Every->index(5);
     At->index(5);
     Every_select();
-    chk(st.freq == cb::F_12H && st.hour == 5 && !Day->active(), "cada 12 horas");
+    chk(st.every == 12 && st.hour == 5 && At->active() && !Day->active(), "cada 12 horas");
     struct tm nx = cb::local(st.next_run);
     chk(nx.tm_min == 0 && (nx.tm_hour == 5 || nx.tm_hour == 17) && st.next_run > cb::now_t(), "la próxima, cada 12 horas");
-    Every->index(cb::F_WEEK);
+    Every->index(cb::EVERY_N - 1);
     Every_select();
     Day->index(4);
     Day_select();
@@ -2559,9 +2605,9 @@ public:
     Folder_enter();
     chk(st.folder == "/tmp/mis respaldos" && message == tx::NEED_FOLDER, "carpeta vacía");
     // conservar y opciones
-    Keep->index(4);
+    Keep->index(cb::DAYS_N - 1);
     Keep_select();
-    chk(st.keep == 0, "conservar todos");
+    chk(st.days == 0, "no borrar nunca");
     Fresh->checked(false);
     Fresh_click();
     chk(!st.fresh && !Filestore->active(), "sin respaldo nuevo, sin adjuntos");
@@ -2654,7 +2700,7 @@ public:
     cb::Settings s2;
     std::vector<cb::Inst> i2;
     cb::parse_settings(cb::serialize(st, insts), s2, i2);
-    chk(s2.folder == st.folder && s2.freq == cb::F_WEEK && s2.wday == 4 && s2.keep == 0 && s2.login && i2.size() == 1, "guardado");
+    chk(s2.folder == st.folder && s2.every == cb::WEEK_H && s2.wday == 4 && s2.days == 0 && s2.login && i2.size() == 1, "guardado");
     if (!f) std::printf("uitest ok\n");
     return f ? 1 : 0;
   }

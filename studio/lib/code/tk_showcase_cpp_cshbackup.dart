@@ -2,9 +2,9 @@ part of 'tk_examples.dart';
 
 // ------------------------------------------- respaldos de community.sh (C++)
 /// Baja a este equipo los respaldos de las instancias de Odoo de un panel de
-/// community.sh, con la secuencia que se elija (cada 6 o 12 horas, cada día
-/// o cada semana, a una hora), a la carpeta que se elija y conservando los N
-/// últimos. Vive en la barra de menús de macOS y en el área de notificación
+/// community.sh, con la secuencia que se elija (cada hora, cada 2, 3, 4, 6 o
+/// 12 horas, cada día o cada semana, a una hora), a la carpeta que se elija y
+/// borrando los de más de N días (3 por defecto). Vive en la barra de menús de macOS y en el área de notificación
 /// de Windows. En C++17 con FLTK; las peticiones a la API del panel, con curl.
 TkExample tkCppCshBackup(String Function(String) t) {
   final app = t(markTr('Respaldos de community.sh'));
@@ -31,7 +31,7 @@ TkExample tkCppCshBackup(String Function(String) t) {
     ...paths,
     'HOW_TEXT': t(
       markTr(
-        'Escriba la dirección de su panel de community.sh y un token personal (en el panel: Ajustes › API › Crear token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n\nElija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada 6 o 12 horas, cada día o cada semana), la hora y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n\nCon «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Conservar» borra los más antiguos de cada instancia, solo los que bajó esta app.\n\nCerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora».',
+        'Escriba la dirección de su panel de community.sh y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar: aparecen sus instancias. Marque las que quiere respaldar.\n\nElija la carpeta donde guardarlos (cada instancia, en su subcarpeta), la frecuencia (cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana), la hora (cada 2 horas desde las 03:00: 03:00, 05:00, 07:00…) y, si es semanal, el día. Si el equipo estaba apagado o dormido a esa hora, el respaldo se hace al volver.\n\nCon «Crear un respaldo nuevo», el panel hace uno en ese momento (con o sin los adjuntos) y se baja; sin marcarla, se baja el último que ya tenga el panel (un token de solo lectura basta). «Eliminar» quita los respaldos bajados hace más de los días elegidos (3 por defecto); siempre se queda el último de cada instancia y solo se borra lo que bajó esta app.\n\nCerrar la ventana la esconde: sigue en la barra de menús (en Windows, junto al reloj), con el próximo respaldo, cada instancia y «Respaldar ahora».',
       ),
     ),
     'ABOUT_TEXT': t(
@@ -68,7 +68,7 @@ TkExample tkCppCshBackup(String Function(String) t) {
     'EMPTY_TITLE': t(markTr('Conecte su panel de community.sh')),
     'EMPTY_HELP': t(
       markTr(
-        'Escriba arriba la dirección del panel y un token personal (en el panel: Ajustes › API › Crear token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura.',
+        'Escriba arriba la dirección del panel y un token personal (en el panel: Configuración › API › Generar token) y pulse Conectar. Para crear respaldos nuevos, el token no puede ser de solo lectura.',
       ),
     ),
     'EMPTY_NO_INST_TITLE': t(markTr('Sin instancias')),
@@ -274,6 +274,10 @@ TkExample tkCppCshBackup(String Function(String) t) {
             30,
             {
               'items': [
+                t(markTr('cada hora')),
+                t(markTr('cada 2 horas')),
+                t(markTr('cada 3 horas')),
+                t(markTr('cada 4 horas')),
                 t(markTr('cada 6 horas')),
                 t(markTr('cada 12 horas')),
                 t(markTr('cada día')),
@@ -308,7 +312,7 @@ TkExample tkCppCshBackup(String Function(String) t) {
             },
             {'select': 'Day_select'},
           )..parent = 'Top',
-          lbl('LblKeep', 596, 92, 80, 30, t(markTr('Conservar'))),
+          lbl('LblKeep', 596, 92, 80, 30, t(markTr('Eliminar'))),
           _w(
             'Combobox',
             'Keep',
@@ -318,13 +322,15 @@ TkExample tkCppCshBackup(String Function(String) t) {
             30,
             {
               'items': [
-                t(markTr('los 3 últimos')),
-                t(markTr('los 7 últimos')),
-                t(markTr('los 14 últimos')),
-                t(markTr('los 30 últimos')),
-                t(markTr('todos')),
+                t(markTr('tras 1 día')),
+                t(markTr('tras 2 días')),
+                t(markTr('tras 3 días')),
+                t(markTr('tras 7 días')),
+                t(markTr('tras 14 días')),
+                t(markTr('tras 30 días')),
+                t(markTr('nunca')),
               ].join('\n'),
-              'text': t(markTr('los 7 últimos')),
+              'text': t(markTr('tras 3 días')),
             },
             {'select': 'Keep_select'},
           )..parent = 'Top',
@@ -415,7 +421,7 @@ $_cshbkCode''';
     t(markTr('Respaldos de community.sh (C++)')),
     t(
       markTr(
-        'Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh: cada 6 o 12 horas, cada día o cada semana a la hora que elija, en la carpeta que elija y conservando los últimos, desde la barra de menús de macOS o junto al reloj de Windows.',
+        'Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh: cada hora, cada pocas horas, cada día o cada semana, en la carpeta que elija y borrando los de más de unos días, desde la barra de menús de macOS o junto al reloj de Windows.',
       ),
     ),
     design,

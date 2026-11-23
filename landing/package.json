@@ -1,6 +1,6 @@
 {
   "name": "dmarlonstudio-landing",
-  "version": "1.0.150",
+  "version": "1.0.151",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "lucide-react": "^1.57.0",
-    "next": "16.4.1",
+    "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "simple-icons": "^16.36.0"
@@ -23,7 +23,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.4.1",
+    "eslint-config-next": "16.4.6",
     "shiki": "^3.13.0",
     "tailwindcss": "^4",
     "typescript": "^5"

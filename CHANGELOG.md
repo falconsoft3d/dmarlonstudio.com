@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.151 — 2026-11-23
+
+- Web: **Next.js 16.4.1 → 16.4.6** (y eslint-config-next), que corrige tres avisos de seguridad de gravedad media: fugas de la caché entre parámetros de ruta con `use cache` (GHSA-mfr8-8qww-v76h, GHSA-vc7v-qv4w-wrv8) y un salto del rechazo de SVG en la optimización de imágenes (GHSA-7qx7-33qx-rqx2). `npm audit` sin vulnerabilidades; la web compila, pasa TypeScript y ESLint y sus páginas responden igual.
+
 ## 1.0.150 — 2026-11-23
 
 - Respaldos de community.sh (C++): **servidores Linux por SSH**. Con «Servidores SSH…» se añaden servidores (Ubuntu, Debian…) con su nombre, dirección, puerto, usuario y cómo se entra: con una **clave SSH** (sin contraseña; la de ~/.ssh o un archivo) o con una **contraseña**, que se guarda en el Llavero de macOS (en Windows, en un archivo que solo lee el usuario). «Probar la conexión» dice cuántas bases tiene o qué falla.

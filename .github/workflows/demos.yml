@@ -54,6 +54,7 @@ jobs:
           git clone --depth 1 --branch lazarus_4_8 https://gitlab.com/freepascal.org/lazarus/lazarus.git "$RUNNER_TEMP/lazarus"
           make -C "$RUNNER_TEMP/lazarus" lazbuild
           echo "LAZBUILD=$RUNNER_TEMP/lazarus/lazbuild" >> "$GITHUB_ENV"
+          echo "LAZARUS_DIR=$RUNNER_TEMP/lazarus" >> "$GITHUB_ENV"
       - name: Lazarus (Windows)
         if: runner.os == 'Windows'
         continue-on-error: true

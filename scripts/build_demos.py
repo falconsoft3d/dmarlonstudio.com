@@ -140,6 +140,20 @@ def base_names(packages):
     return {re.split(r"[;<>=! \[]", p, maxsplit=1)[0].strip() for p in packages}
 
 
+def pil_blocks_universal() -> bool:
+    """Pillow ya no publica ruedas universal2 para macOS: si el Python de la compilación lo tiene y no es
+    universal, PyInstaller no puede hacer una .app universal2 de ninguna demo que lo arrastre (también
+    de rebote, como pypdf). Entonces las demos de Python salen para la arquitectura del runner."""
+    try:
+        import PIL
+    except ImportError:
+        return False
+    for so in Path(PIL.__file__).parent.glob("_imaging*.so"):
+        archs = subprocess.run(["lipo", "-archs", str(so)], capture_output=True, text=True).stdout.split()
+        return not {"arm64", "x86_64"} <= set(archs)
+    return False
+
+
 def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Path:
     """tkinter: los dos programas (app_es.py y app_en.py) y el lanzador
     (app.py), en una sola compilación de PyInstaller."""
@@ -168,7 +182,7 @@ def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Pa
             # En CI (Python de python.org): una sola .app para Apple Silicon e
             # Intel, salvo con paquetes nativos que no traen las dos (pygame).
             *(["--target-arch", "universal2"] if MAC and os.environ.get("DMS_UNIVERSAL") == "1"
-              and not NATIVE.intersection(base_names(packages)) else []),
+              and not NATIVE.intersection(base_names(packages)) and not pil_blocks_universal() else []),
             "app.py",
         ],
         work,
@@ -283,6 +297,12 @@ def notarize(apps):
         raise SystemExit(f"Apple no notarizó: {', '.join(failed)}")
 
 
+def lazarus_dir() -> list:
+    """--lazarusdir si Lazarus está fuera de su sitio (en CI se compila de su código)."""
+    d = os.environ.get("LAZARUS_DIR")
+    return [f"--lazarusdir={d}"] if d else []
+
+
 def lazbuild() -> str:
     """lazbuild: el de LAZBUILD, el del PATH o el de una instalación normal."""
     import shutil as sh
@@ -347,12 +367,12 @@ def pascal_binary(d: Path, name: str):
     Devuelve (ejecutable, arquitecturas)."""
     import shutil as sh
     if not MAC:
-        run([lazbuild(), "--build-mode=Default", "app.lpi"], d)
+        run([lazbuild(), *lazarus_dir(), "--build-mode=Default", "app.lpi"], d)
         return d / "app.exe", set()
     built = []
     for cpu, arch in (("aarch64", "arm64"), ("x86_64", "x86_64")):
         try:
-            run([lazbuild(), "--build-mode=Default", "--ws=cocoa", f"--cpu={cpu}", "app.lpi"], d)
+            run([lazbuild(), *lazarus_dir(), "--build-mode=Default", "--ws=cocoa", f"--cpu={cpu}", "app.lpi"], d)
         except subprocess.CalledProcessError:
             print(f"aviso: no se pudo compilar para {arch}", flush=True)
             continue

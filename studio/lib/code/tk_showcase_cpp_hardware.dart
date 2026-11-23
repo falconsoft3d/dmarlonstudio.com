@@ -261,7 +261,7 @@ TkExample tkCppHardware(String Function(String) t) {
     'MEM_WIRED': tc(markTrc('hardware', 'Fija')),
     'MEM_COMPRESSED': t(markTr('Comprimida')),
     'MEM_CACHED': t(markTr('Archivos en caché')),
-    'MEM_FREE': t(markTr('Libre')),
+    'MEM_FREE_LABEL': t(markTr('Libre')),
     'MEM_SWAP': t(markTr('Intercambio: {0} de {1}')),
     'DISKS_NOW': t(markTr('Espacio en los discos')),
     'NET_NOW': t(markTr('Tráfico de red ahora')),
@@ -489,6 +489,9 @@ const _hardwareIncludes = r'''#include <algorithm>
 #include <FL/fl_draw.H>
 #include <FL/fl_utf8.h>
 #ifdef _WIN32
+#ifndef NOMINMAX   // que windows.h no defina min/max (rompen std::max)
+#define NOMINMAX
+#endif
 #include <windows.h>
 #else
 #include <sys/stat.h>

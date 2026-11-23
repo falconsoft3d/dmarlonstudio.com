@@ -4357,12 +4357,12 @@ public:
         }
         // Los botones, de derecha a izquierda.
         fl_font(FL_HELVETICA_BOLD, 12);
-        int bx = x() + w() - 32 - ((int)fl_width(tx::DELETE) + 20);
+        int bx = x() + w() - 32 - ((int)fl_width(tx::DEL_LABEL) + 20);
         if (!t.jid.empty()) bx -= (int)fl_width(tx::OPEN_CHAT) + 20 + 6;
         int text_w = bx - (x() + 66) - 12;
         int b2 = bx;
         if (!t.jid.empty()) b2 = button(b2, Y + 16, tx::OPEN_CHAT, 11, k, rgb(T.text), rgb(T.card)) + 6;
-        button(b2, Y + 16, tx::DELETE, 12, k, rgb(T.text), rgb(T.card));
+        button(b2, Y + 16, tx::DEL_LABEL, 12, k, rgb(T.text), rgb(T.card));
         fl_font(FL_HELVETICA, 14);
         fl_color(t.done ? rgb(T.muted) : rgb(T.text));
         std::string title = fit(t.title, text_w);

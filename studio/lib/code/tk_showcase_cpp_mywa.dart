@@ -247,7 +247,7 @@ TkExample tkCppMywa(String Function(String) t) {
     'TASK_FROM': t(markTr('de {0} · {1}')),
     'TASK_NO_CHAT': t(markTr('Ese chat ya no está en la lista')),
     'OPEN_CHAT': t(markTr('Abrir el chat')),
-    'DELETE': t(markTr('Borrar')),
+    'DEL_LABEL': t(markTr('Borrar')),
     'DEMO_T1': t(markTr('Confirmar a Laura la entrega del sábado')),
     'DEMO_T2': t(markTr('Mandar a Carlos el presupuesto de la cocina')),
     'DEMO_T3': t(markTr('Recoger a la abuela el domingo a las 13')),

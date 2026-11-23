@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.154 — 2026-11-23
+
+- Demos (GitHub Actions), siguiente ronda de lo que enseñan los avisos:
+  - Windows: **Grabador de pantalla** y **MyWhatsapp** (`DELETE` es una macro de winnt.h), **Explorador de archivos** (`M_PI`), **Inspector del equipo** (`min`/`max` y `MEM_FREE` de windows.h) y **DMarlonPass** (MinGW no declara `rand_s`: ahora el azar criptográfico de Windows con RtlGenRandom) compilan; comprobado con MinGW y con sus pruebas.
+  - macOS: Pillow ya no publica ruedas universal2, así que las demos de Python salen para Apple Silicon cuando el Python de la compilación lo trae; las de Pascal reciben la carpeta de Lazarus (`--lazarusdir`).
+
 ## 1.0.153 — 2026-11-23
 
 - Demos (compilación en GitHub Actions), con los errores que ya enseña la 1.0.152:

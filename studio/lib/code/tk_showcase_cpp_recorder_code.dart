@@ -554,7 +554,7 @@ public:
       bx = button(bx, by, tx::FINDER, 2, k, rgb(0x1f2937)) + 6;
       bx = button(bx, by, tx::YOUTUBE, 3, k, rgb(0xdc2626)) + 6;
       fl_font(FL_HELVETICA_BOLD, 12);
-      button(cx + CW - 12 - ((int)fl_width(tx::DELETE) + 20), by, tx::DELETE, 4, k, rgb(0x6b7280));
+      button(cx + CW - 12 - ((int)fl_width(tx::DEL_LABEL) + 20), by, tx::DEL_LABEL, 4, k, rgb(0x6b7280));
     }
     int rows = ((int)clips->size() + cols - 1) / cols;
     content_h = G + rows * (CH + G);

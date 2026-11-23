@@ -69,7 +69,7 @@ TkExample tkCppRecorder(String Function(String) t) {
     'BTN_YES': t(markTr('Sí')),
     'FINDER': t(markTr('Mostrar')),
     'YOUTUBE': t(markTr('Subir a YouTube')),
-    'DELETE': t(markTr('A la Papelera')),
+    'DEL_LABEL': t(markTr('A la Papelera')),
     'YOUTUBE_HINT': t(
       markTr(
         'YouTube está abierto en el navegador: arrastre el vídeo desde el Finder a la página de subida.',

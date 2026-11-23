@@ -34,6 +34,11 @@ const _passIncludes = r'''#include <algorithm>
 #include <FL/fl_utf8.h>
 #ifndef _WIN32
 #include <sys/stat.h>
+#else
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
 #endif
 ''';
 
@@ -915,10 +920,11 @@ void random_bytes(uint8_t* p, size_t n) {
 #ifdef __APPLE__
   arc4random_buf(p, n);
 #elif defined(_WIN32)
-  for (size_t i = 0; i < n; i++) {
-    unsigned int v = 0;
-    rand_s(&v);
-    p[i] = (uint8_t)v;
+  // RtlGenRandom (SystemFunction036, de advapi32): el azar criptográfico de Windows, también en MinGW
+  typedef BOOLEAN(WINAPI * GenRandom)(PVOID, ULONG);
+  static GenRandom gen = (GenRandom)(void*)GetProcAddress(LoadLibraryA("advapi32.dll"), "SystemFunction036");
+  if (!gen || !gen(p, (ULONG)n)) {
+    for (size_t i = 0; i < n; i++) p[i] = (uint8_t)(std::rand() & 0xff);
   }
 #else
   FILE* f = std::fopen("/dev/urandom", "rb");

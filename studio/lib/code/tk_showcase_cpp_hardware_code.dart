@@ -2295,7 +2295,7 @@ public:
       used += p.v;
     }
     int lx = c.x + 16, ly = c.y + 118;
-    parts.push_back({std::max(0.0, L.mem_total - used), 0xe2e6ee, tx::MEM_FREE});
+    parts.push_back({std::max(0.0, L.mem_total - used), 0xe2e6ee, tx::MEM_FREE_LABEL});
     for (const auto& p : parts) {
       rbox({lx, ly - 10, 12, 12}, p.c);
       std::string s = std::string(p.name) + " " + bytes(p.v, true);

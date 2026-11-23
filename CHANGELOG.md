@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.152 — 2026-11-23
+
+- Demos: la compilación de las demos (GitHub Actions) fallaba entera desde la 1.0.47 (6 de noviembre) y la release «demos» no se actualizaba, así que las demos nuevas no tenían descarga. Ahora una demo que no compila no deja sin publicar a las demás: se avisa en el resumen del trabajo con las últimas líneas de su error y se sigue con la siguiente; la release sale con las que compilan (y falla solo si no compila ninguna).
+
 ## 1.0.151 — 2026-11-23
 
 - Web: **Next.js 16.4.1 → 16.4.6** (y eslint-config-next), que corrige tres avisos de seguridad de gravedad media: fugas de la caché entre parámetros de ruta con `use cache` (GHSA-mfr8-8qww-v76h, GHSA-vc7v-qv4w-wrv8) y un salto del rechazo de SVG en la optimización de imágenes (GHSA-7qx7-33qx-rqx2). `npm audit` sin vulnerabilidades; la web compila, pasa TypeScript y ESLint y sus páginas responden igual.

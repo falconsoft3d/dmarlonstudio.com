@@ -37,9 +37,26 @@ WIN = sys.platform == "win32"
 OS = "macOS" if MAC else "Windows" if WIN else "Linux"
 
 
+def tail(text: str, lines: int = 25) -> str:
+    return "\n".join((text or "").strip().splitlines()[-lines:])
+
+
 def run(cmd, cwd):
+    """Ejecuta una orden enseñando su salida; si falla, el error lleva sus
+    últimas líneas (para el aviso de GitHub de esa demo)."""
     print("$", " ".join(str(c) for c in cmd), flush=True)
-    subprocess.run([str(c) for c in cmd], cwd=cwd, check=True, shell=WIN)
+    r = subprocess.run([str(c) for c in cmd], cwd=cwd, shell=WIN, capture_output=True, text=True, errors="replace")
+    sys.stdout.write(r.stdout or "")
+    sys.stdout.write(r.stderr or "")
+    sys.stdout.flush()
+    if r.returncode != 0:
+        raise RuntimeError(f"{Path(str(cmd[0])).name} terminó con {r.returncode}\n{tail((r.stdout or '') + (r.stderr or ''))}")
+
+
+def gh_error(title: str, message: str):
+    """Un aviso de error en GitHub Actions (sale en el resumen del trabajo)."""
+    msg = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+    print(f"::error title={title}::{msg}", flush=True)
 
 
 def zip_dir(src: Path, dest: Path):
@@ -455,7 +472,10 @@ def cpp_binary(d: Path, name: str):
         cmd = ["c++", "-std=c++17", "-O2", *cflags, "main.cpp", "-o", "app", *ldflags,
                "-framework", "CoreFoundation"]
         print("$", " ".join(cmd), flush=True)
-        subprocess.run(cmd, cwd=d, check=True, env=env)
+        r = subprocess.run(cmd, cwd=d, env=env, capture_output=True, text=True, errors="replace")
+        sys.stdout.write((r.stdout or "") + (r.stderr or ""))
+        if r.returncode != 0:
+            raise RuntimeError(f"{name}: no compila\n{tail((r.stdout or '') + (r.stderr or ''))}")
         # Nada de Homebrew dentro: si quedara alguna biblioteca suya, se avisa.
         deps = subprocess.run(["otool", "-L", d / "app"], capture_output=True, text=True).stdout
         for line in deps.splitlines()[1:]:
@@ -472,15 +492,22 @@ def cpp_binary(d: Path, name: str):
     static = base + "-static $(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32 -lws2_32"
     shared = base + "$(fltk-config --use-images --ldflags) -lshell32 -lole32 -luuid -ladvapi32 -lws2_32"
 
+    errors = []
+
     def sh_run(script):
         print("$", script, flush=True)
-        return subprocess.run([str(bash), "-lc", script], cwd=d, env=env).returncode
+        r = subprocess.run([str(bash), "-lc", script], cwd=d, env=env, capture_output=True, text=True, errors="replace")
+        sys.stdout.write((r.stdout or "") + (r.stderr or ""))
+        sys.stdout.flush()
+        if r.returncode != 0:
+            errors.append(tail((r.stdout or "") + (r.stderr or "")))
+        return r.returncode
 
     dlls = []
     if sh_run(static) != 0:
         print("aviso: no se pudo enlazar estático; se copian las DLL de MSYS2", flush=True)
         if sh_run(shared) != 0:
-            raise SystemExit(f"{name}: no compila")
+            raise RuntimeError(f"{name}: no compila\n" + "\n".join(errors))
         listing = subprocess.run([str(bash), "-lc", "ldd app.exe"], cwd=d, env=env, capture_output=True, text=True).stdout
         for line in listing.splitlines():
             m = re.search(r"=> (/ucrt64/bin/\S+\.dll)", line)
@@ -617,7 +644,7 @@ def main():
     for meta in sorted(src.glob("*/*/demo.json")):
         demo = json.loads(meta.read_text(encoding="utf-8"))
         demos.setdefault(demo["seed"], {})[demo["lang"]] = (meta.parent, demo)
-    built = []
+    built, failed = [], []
     for seed, langs in sorted(demos.items()):
         if only and seed not in only:
             continue
@@ -628,12 +655,19 @@ def main():
         titles = {lang: langs[lang][1]["name"] for lang in LANGS}
         name, kind = safe(titles["es"]), langs["es"][1].get("kind")
         print(f"\n== {seed} (es + en) ==", flush=True)
-        if kind == "pascal":
-            result = pascal_demo(dirs, name, titles, seed)
-        elif kind == "cpp":
-            result = cpp_demo(dirs, name, titles, seed)
-        else:
-            result = python_demo(dirs, src / "_both" / seed, name, titles, seed)
+        # Una demo que no compila no deja a las demás sin publicar: se avisa
+        # (con las últimas líneas del error) y se sigue con la siguiente.
+        try:
+            if kind == "pascal":
+                result = pascal_demo(dirs, name, titles, seed)
+            elif kind == "cpp":
+                result = cpp_demo(dirs, name, titles, seed)
+            else:
+                result = python_demo(dirs, src / "_both" / seed, name, titles, seed)
+        except (Exception, SystemExit) as e:
+            failed.append(seed)
+            gh_error(f"Demo {seed} ({OS})", f"{type(e).__name__}: {e}")
+            continue
         built.append((result, out / f"{seed}-{OS}.zip"))
     notarize([r for r, _ in built if r.suffix == ".app"])
     for result, dest in built:
@@ -648,6 +682,10 @@ def main():
             else:
                 sh.copytree(result, target, symlinks=True)
     print(f"\n{len(built)} demos en {out}")
+    if failed:
+        print(f"no compilaron ({len(failed)}): {', '.join(failed)}", flush=True)
+    if not built:
+        raise SystemExit("ninguna demo compiló")
 
 
 if __name__ == "__main__":

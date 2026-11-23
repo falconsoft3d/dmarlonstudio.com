@@ -1,2 +1,2 @@
 /// Versión del estudio (la misma que pubspec.yaml).
-const appVersion = '1.0.152';
+const appVersion = '1.0.153';

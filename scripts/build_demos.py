@@ -31,6 +31,12 @@ import zipfile
 from pathlib import Path
 
 MAC = sys.platform == "darwin"
+# La consola de Windows (cp1252) no escribe todo lo que sacan los compiladores.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
 # Paquetes con binarios que no se publican como universal2 en macOS.
 NATIVE = {"pygame", "pypdfium2", "cryptography", "pyobjc-framework-Vision"}
 WIN = sys.platform == "win32"
@@ -156,6 +162,9 @@ def python_demo(src: dict, work: Path, name: str, titles: dict, seed: str) -> Pa
             "--hidden-import", "app_es", "--hidden-import", "app_en", "--paths", ".",
             *(["--icon", ico] if ico else []),
             *[arg for pkg in whole for arg in ("--collect-all", pkg)],
+            # Pillow 12 trae su módulo AVIF solo para una arquitectura: con
+            # universal2 PyInstaller lo rechaza. Las demos no leen AVIF.
+            "--exclude-module", "PIL._avif", "--exclude-module", "PIL.AvifImagePlugin",
             # En CI (Python de python.org): una sola .app para Apple Silicon e
             # Intel, salvo con paquetes nativos que no traen las dos (pygame).
             *(["--target-arch", "universal2"] if MAC and os.environ.get("DMS_UNIVERSAL") == "1"

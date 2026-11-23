@@ -3,6 +3,12 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.153 — 2026-11-23
+
+- Demos (compilación en GitHub Actions), con los errores que ya enseña la 1.0.152:
+  - Windows: **Relojes del mundo** (MinGW no define `M_PI`), **Visor BC3** (`near` es una macro de windows.h) y **Torre de control** (`ST_BLOCKED` también) vuelven a compilar; comprobado con MinGW. La salida del script va en UTF-8 (la consola de Windows rompía con algunos caracteres).
+  - macOS: **Editor PDF** y **Dominó** (PyInstaller universal2 rechazaba el módulo AVIF de Pillow 12, que solo viene para una arquitectura: se excluye, las demos no leen AVIF) y las de **Pascal** (el cask de Lazarus de Homebrew está desactivado desde el 1 de septiembre: ahora FPC de Homebrew y lazbuild de Lazarus 4.8 compilado de su código).
+
 ## 1.0.152 — 2026-11-23
 
 - Demos: la compilación de las demos (GitHub Actions) fallaba entera desde la 1.0.47 (6 de noviembre) y la release «demos» no se actualizaba, así que las demos nuevas no tenían descarga. Ahora una demo que no compila no deja sin publicar a las demás: se avisa en el resumen del trabajo con las últimas líneas de su error y se sigue con la siguiente; la release sale con las que compilan (y falla solo si no compila ninguna).

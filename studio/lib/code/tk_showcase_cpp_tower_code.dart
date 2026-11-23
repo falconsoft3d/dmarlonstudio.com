@@ -612,7 +612,7 @@ double context_window(const std::string& model, double used) {
 }
 
 // ============================================================ las sesiones
-enum State { ST_WORK, ST_ASK, ST_WAIT, ST_IDLE, ST_CLOSED, ST_ERROR, ST_DONE, ST_BLOCKED };
+enum State { ST_WORK, ST_ASK, ST_WAIT, ST_IDLE, ST_CLOSED, ST_ERROR, ST_DONE, ST_STUCK };
 // Un paso: una herramienta que ha usado (Bash, Edit, Read…).
 struct Step {
   std::string id, name, what;
@@ -1154,7 +1154,7 @@ int report_state(const std::string& s0) {
   std::string s = fold(s0);
   if (has(s, "trabaj") || has(s, "work") || has(s, "run") || has(s, "progres")) return ST_WORK;
   if (has(s, "esper") || has(s, "wait") || has(s, "idle")) return ST_WAIT;
-  if (has(s, "bloque") || has(s, "block")) return ST_BLOCKED;
+  if (has(s, "bloque") || has(s, "block")) return ST_STUCK;
   if (has(s, "termin") || has(s, "hech") || has(s, "done") || has(s, "finish") || has(s, "complet")) return ST_DONE;
   if (has(s, "error") || has(s, "fall") || has(s, "fail")) return ST_ERROR;
   return ST_WORK;
@@ -1454,7 +1454,7 @@ const char* state_label(int st) {
     case ST_IDLE: return tx::ST_IDLE;
     case ST_ERROR: return tx::ST_ERROR;
     case ST_DONE: return tx::ST_DONE;
-    case ST_BLOCKED: return tx::ST_BLOCKED;
+    case ST_STUCK: return tx::ST_STUCK;
     default: return tx::ST_CLOSED;
   }
 }
@@ -1466,7 +1466,7 @@ unsigned state_color(int st) {
     case ST_IDLE: return 0x8b949e;
     case ST_ERROR: return 0xf85149;
     case ST_DONE: return 0x58a6ff;
-    case ST_BLOCKED: return 0xf85149;
+    case ST_STUCK: return 0xf85149;
     default: return 0x6e7681;
   }
 }
@@ -1613,7 +1613,7 @@ std::vector<Card> cards_of(const std::vector<Session>& ss, const std::vector<Rep
   auto rank = [](const Card& c) {
     switch (c.state) {
       case ST_ASK: return 0;
-      case ST_ERROR: case ST_BLOCKED: return 1;
+      case ST_ERROR: case ST_STUCK: return 1;
       case ST_WORK: return 2;
       case ST_WAIT: return 3;
       case ST_DONE: return 4;
@@ -1725,8 +1725,8 @@ void robot(int cx, int by, unsigned col, int state, double phase) {
   fl_rectf(cx - 6, y - 1, 4, 3);
   fl_rectf(cx + 2, y - 1, 4, 3);
   // Los ojos: abiertos al trabajar, rayas al esperar, cruces con error.
-  fl_color(state == ST_ERROR || state == ST_BLOCKED ? rgb(0xffd7d5) : work && std::fmod(phase, 3.2) < 3.0 ? rgb(0xffffff) : rgb(0x1f1f23));
-  if (state == ST_ERROR || state == ST_BLOCKED) {
+  fl_color(state == ST_ERROR || state == ST_STUCK ? rgb(0xffd7d5) : work && std::fmod(phase, 3.2) < 3.0 ? rgb(0xffffff) : rgb(0x1f1f23));
+  if (state == ST_ERROR || state == ST_STUCK) {
     fl_line(cx - 7, y - 17, cx - 3, y - 13);
     fl_line(cx - 3, y - 17, cx - 7, y - 13);
     fl_line(cx + 3, y - 17, cx + 7, y - 13);

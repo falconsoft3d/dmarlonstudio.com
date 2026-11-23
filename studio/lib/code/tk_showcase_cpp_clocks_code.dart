@@ -4,6 +4,9 @@ part of 'tk_examples.dart';
 // va tal cual en Form1.cpp, después de los textos (namespace tx).
 const _clocksIncludes = r'''#include <algorithm>
 #include <cmath>
+#ifndef M_PI   // MinGW (Windows) no lo define sin _USE_MATH_DEFINES
+#define M_PI 3.14159265358979323846
+#endif
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>

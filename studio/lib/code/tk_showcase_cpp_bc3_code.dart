@@ -887,23 +887,23 @@ inline int selftest() {
   auto chk = [&](bool ok, const std::string& what) {
     if (!ok) { std::printf("FAIL %s\n", what.c_str()); f++; }
   };
-  auto near = [](double a, double b) { return std::fabs(a - b) < 0.005; };
+  auto close_to = [](double a, double b) { return std::fabs(a - b) < 0.005; };
   std::string err;
   // El ejemplo: totales calculados = los que trae el archivo.
   Budget b;
   chk(parse(SAMPLE, b, err), "ejemplo: " + err);
   chk(b.root == "REF24##", "raíz del ejemplo");
-  chk(near(b.total(b.root), 6646.70), "total del ejemplo " + std::to_string(b.total(b.root)));
-  chk(near(b.total("02#"), 1049.51) && near(b.total("04#"), 1818.53) && near(b.total("04.2#"), 1317.63), "capítulos y subcapítulos");
-  chk(near(b.sum("ALB010"), 18.43) && near(b.unit("ALB010"), 18.43), "partida con auxiliar y porcentajes");
-  chk(near(b.sum("A02A080"), 82.75), "auxiliar");
+  chk(close_to(b.total(b.root), 6646.70), "total del ejemplo " + std::to_string(b.total(b.root)));
+  chk(close_to(b.total("02#"), 1049.51) && close_to(b.total("04#"), 1818.53) && close_to(b.total("04.2#"), 1317.63), "capítulos y subcapítulos");
+  chk(close_to(b.sum("ALB010"), 18.43) && close_to(b.unit("ALB010"), 18.43), "partida con auxiliar y porcentajes");
+  chk(close_to(b.sum("A02A080"), 82.75), "auxiliar");
   const Measure* me = b.measure("02#", "ALB010");
-  chk(me && me->lines.size() == 4 && near(me->computed, 15.94) && me->lines[2].type == 1 && near(me->lines[2].partial, 14.17), "medición con subtotal y fórmula");
-  chk(me && me->lines[3].type == 3 && near(me->lines[3].partial, 1.77), "fórmula A*B*D-2");
+  chk(me && me->lines.size() == 4 && close_to(me->computed, 15.94) && me->lines[2].type == 1 && close_to(me->lines[2].partial, 14.17), "medición con subtotal y fórmula");
+  chk(me && me->lines[3].type == 3 && close_to(me->lines[3].partial, 1.77), "fórmula A*B*D-2");
   auto ls = b.lines("ALB010");
   chk(ls.size() == 6 && ls[4].kind == K_PERCENT && ls[5].kind == K_PERCENT, "líneas de porcentaje");
   double mo = ls.size() == 6 ? ls[0].amount + ls[1].amount : 0;
-  chk(ls.size() == 6 && near(ls[4].price, mo), "base de O01%HM");
+  chk(ls.size() == 6 && close_to(ls[4].price, mo), "base de O01%HM");
   chk(b.kind_in("02#", b.root) == K_CHAPTER && b.kind_in("ALB010", "02#") == K_UNIT && b.kind_in("A02A080", "ALB010") == K_AUX && b.kind_in("O01OA030", "ALB010") == K_LABOR && b.kind_in("P01LH020", "ALB010") == K_MATERIAL && b.kind_in("M11HV120", "DEM010") == K_MACHINE && b.kind_in("GR010", "RES020") == K_WASTE, "tipos");
   chk(!b.ci_mode && b.charset == "UTF-8" && b.version == "FIEBDC-3/2016", "cabecera");
   chk(b.get("ALB010")->pliego.size() == 2 && b.sections["EJE"] == "Ejecución", "pliego");
@@ -913,7 +913,7 @@ inline int selftest() {
   double s = 0;
   for (double v : acc) s += v;
   chk(std::fabs(s - b.total(b.root)) < 1.0, "el desglose suma el total " + std::to_string(s));
-  chk(acc[C_LABOR] > 0 && acc[C_MATERIAL] > 0 && acc[C_MACHINE] > 0 && near(acc[C_UNDEC], 420), "desglose por naturaleza");
+  chk(acc[C_LABOR] > 0 && acc[C_MATERIAL] > 0 && acc[C_MACHINE] > 0 && close_to(acc[C_UNDEC], 420), "desglose por naturaleza");
   std::set<std::string> ch, it;
   b.count(b.root, ch, it);
   chk(ch.size() == 8 && it.size() == 18, "capítulos y partidas: " + std::to_string(ch.size()) + " " + std::to_string(it.size()));
@@ -940,19 +940,19 @@ inline int selftest() {
 ~C|MT01|m3|Material|50.00\|01012026\|3|
 ~C|MO%AUX|%|Medios auxiliares|1\|\|0|
 )", c, err), "CI: " + err);
-  chk(c.root == "T01##" && c.ci_mode && near(c.ci, 5), "CI dentro de las partidas");
-  chk(near(c.total(c.root), 953.40) && near(c.sum("UO01"), 90.80), "totales con CI");
+  chk(c.root == "T01##" && c.ci_mode && close_to(c.ci, 5), "CI dentro de las partidas");
+  chk(close_to(c.total(c.root), 953.40) && close_to(c.sum("UO01"), 90.80), "totales con CI");
   // Registros partidos en varias líneas, factor vacío y medición en otra línea.
   Budget d;
   chk(parse("~C|R##||Root|22.4||0|\n~D|R##\n|A\\\\2\n\\B\\\\1\n\\|\n~C|A||a|10||0|\n~C|B||b|2.4||0|\n~M|R##\\A|1\\|2|\n\\Linea\\2\\\\\\\\|\n", d, err), "registros partidos");
-  chk(near(d.total("R##"), 22.4) && d.kind_in("A", "R##") == K_UNIT, "factor vacío = 1");
+  chk(close_to(d.total("R##"), 22.4) && d.kind_in("A", "R##") == K_UNIT, "factor vacío = 1");
   const Measure* md = d.measure("R##", "A");
-  chk(md && md->lines.size() == 1 && md->lines[0].comment == "Linea" && near(md->computed, 2), "medición partida en líneas");
+  chk(md && md->lines.size() == 1 && md->lines[0].comment == "Linea" && close_to(md->computed, 2), "medición partida en líneas");
   // Referencias sin el # del capítulo (como exportan algunos programas).
   Budget k;
   chk(parse("~C|O##||Obra|60||0|\n~D|O##|C1\\1\\1\\|\n~C|C1#||Cap|60||0|\n~D|C1|E1\\1\\4\\|\n~M|C1\\E1|1\\|4|\\Uno\\4\\\\\\\\|\n~C|E1|u|E|15||0|\n", k, err), "sin #: " + err);
   chk(k.c.count("C1") == 0 && k.get("C1#") && k.get("O##")->kids[0].code == "C1#" && k.get("C1#")->kids.size() == 1, "C1 es C1#");
-  chk(near(k.total(k.root), 60) && k.measure("C1#", "E1") != nullptr, "totales y mediciones sin #");
+  chk(close_to(k.total(k.root), 60) && k.measure("C1#", "E1") != nullptr, "totales y mediciones sin #");
   // Ciclos: no se cuelga.
   Budget e;
   chk(parse("~C|X||x|||0|\n~D|X|Y\\1\\1\\|\n~D|Y|X\\1\\1\\|\n", e, err), "ciclo");
@@ -968,8 +968,8 @@ inline int selftest() {
   chk(parse(std::string("~V|x|FIEBDC-3/2002|x||ANSI|\n~C|E01|m2|DEMOLICI\xD3N|3.47||0|\n"), g, err) && g.get("E01")->summary == "DEMOLICI\xC3\x93N", "ANSI en el archivo");
   // Fórmulas y números.
   double v[4] = {4, 2.5, 0, 2}, r = 0;
-  chk(eval("A*B-2", v, r) && near(r, 8), "fórmula");
-  chk(eval("(a+b)*d^2", v, r) && near(r, 26), "fórmula con potencia");
+  chk(eval("A*B-2", v, r) && close_to(r, 8), "fórmula");
+  chk(eval("(a+b)*d^2", v, r) && close_to(r, 26), "fórmula con potencia");
   chk(!eval("2*", v, r) && !eval("x+1", v, r), "fórmula mal escrita");
   chk(number(1234567.891) == "1" + std::string(tx::THOUSANDS) + "234" + tx::THOUSANDS + "567" + tx::DECIMAL + "89", "miles");
   chk(qty(17.445) == "17" + std::string(tx::DECIMAL) + "445" && qty(2.5) == "2" + std::string(tx::DECIMAL) + "50", "cantidades");

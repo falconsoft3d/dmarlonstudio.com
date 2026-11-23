@@ -47,10 +47,13 @@ jobs:
       - name: Lazarus (macOS)
         if: runner.os == 'macOS'
         continue-on-error: true
+        # El cask de Lazarus de Homebrew está desactivado (no pasa Gatekeeper,
+        # 2026-09-01): FPC de Homebrew y lazbuild compilado de su código.
         run: |
           brew install fpc
-          brew install --cask lazarus
-          echo "LAZBUILD=/Applications/Lazarus/lazbuild" >> "$GITHUB_ENV"
+          git clone --depth 1 --branch lazarus_4_8 https://gitlab.com/freepascal.org/lazarus/lazarus.git "$RUNNER_TEMP/lazarus"
+          make -C "$RUNNER_TEMP/lazarus" lazbuild
+          echo "LAZBUILD=$RUNNER_TEMP/lazarus/lazbuild" >> "$GITHUB_ENV"
       - name: Lazarus (Windows)
         if: runner.os == 'Windows'
         continue-on-error: true

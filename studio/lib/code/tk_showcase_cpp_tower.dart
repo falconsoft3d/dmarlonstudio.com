@@ -90,7 +90,7 @@ TkExample tkCppTower(String Function(String) t) {
     'ST_CLOSED': t(markTr('Cerrada')),
     'ST_ERROR': t(markTr('Error')),
     'ST_DONE': t(markTr('Terminado')),
-    'ST_BLOCKED': t(markTr('Bloqueado')),
+    'ST_STUCK': t(markTr('Bloqueado')),
     'NO_SIGNAL': t(markTr('Sin señal')),
     'IN_VSCODE': t(markTr('VS Code')),
     'IN_TERMINAL': t(markTr('Terminal')),

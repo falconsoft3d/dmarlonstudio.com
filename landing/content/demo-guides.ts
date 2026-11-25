@@ -337,6 +337,15 @@ const es: Record<string, DemoGuide> = {
       { title: "Que los agentes informen", text: "Con «Agentes…» copie las instrucciones y péguelas en Claude Code: cada agente envía su avance (hechas, pendientes, tarea y url) al servidor local de la torre y sale como otra fila. Al cerrar la ventana, la torre se queda en la barra de menús con las sesiones que trabajan y le avisa cuando una termina o le pregunta algo." },
     ],
   },
+  cpp_capture: {
+    intro:
+      "Una app nativa en C++ con FLTK, diseñada en el estudio, que vive en la barra de menús como una cámara: captura la pantalla, la marca y junta las capturas con su comentario en un PDF o en un prompt para pegar en un asistente.",
+    steps: [
+      { title: "Capture", text: "Pulse la cámara de la barra de menús (en Windows, junto al reloj) o use ⌃⌥⌘4 para un área, ⌃⌥⌘5 para una ventana y ⌃⌥⌘3 para la pantalla, desde cualquier app (en Windows, Ctrl+Alt+Mayús+4, 5 y 3). En macOS es la captura del sistema: con la barra espaciadora pasa de área a ventana y Esc cancela. Se guarda en Imágenes › Captura y prompt." },
+      { title: "Márquela y coméntela", text: "La captura se abre para marcarla: lápiz, resaltador, flecha, línea, rectángulo, óvalo, texto, números de paso, pixelar datos (contraseñas, correos) y recortar, en seis colores y tres grosores, con deshacer y rehacer. Con Mayúsculas, las líneas van a 45°. «Vista Previa» la abre con las herramientas de marcado de macOS. Escriba qué quiere en el comentario y pulse «Añadir al PDF»." },
+      { title: "PDF o prompt", text: "Arriba escriba el prompt general. «Exportar el PDF…» hace una portada con él y una página por captura con su comentario; con «Comentarios editables», se pueden reescribir en Vista Previa o Acrobat. «Copiar el prompt» copia el texto con la ruta de cada imagen, listo para pegar en Claude Code u otro asistente. Cierre la ventana: la cámara sigue en la barra." },
+    ],
+  },
   cpp_cshbackup: {
     intro:
       "Una app nativa en C++ con FLTK, diseñada en el estudio, que baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh. Se queda en la barra de menús (en Windows, junto al reloj) y trabaja sola.",
@@ -784,6 +793,15 @@ const en: Record<string, DemoGuide> = {
       { title: "See all your sessions", text: "Each session is a row with the project, what it is about, the branch and the model, and what it is doing right now (“Runs…”, “Edits…”, “Waiting for 2 subagents”). The color tells the state: working, asks you, waiting for you, idle or closed. With tasks, the robot heads for the finish line; without them, the bar is the last hour of work." },
       { title: "Open the details", text: "Click a row to see the tasks done and to do (or the last steps and the files it changed), the subagents and what each one is doing, the last prompt and the answer, the tokens, the cost and the context. From there, open the folder in VS Code, copy “claude --resume” or open the app on the port where it is being tested." },
       { title: "Let agents report", text: "With “Agents…” copy the instructions and paste them into Claude Code: each agent sends its progress (done, to do, task and url) to the tower's local server and shows up as another row. When you close the window, the tower stays in the menu bar with the sessions that are working and lets you know when one finishes or asks you something." },
+    ],
+  },
+  cpp_capture: {
+    intro:
+      "A native app in C++ with FLTK, designed in the studio, that lives in the menu bar as a camera: it captures the screen, marks it up and gathers the captures with their comments into a PDF or a prompt to paste into an assistant.",
+    steps: [
+      { title: "Capture", text: "Click the camera in the menu bar (on Windows, next to the clock) or use ⌃⌥⌘4 for an area, ⌃⌥⌘5 for a window and ⌃⌥⌘3 for the screen, from any app (on Windows, Ctrl+Alt+Shift+4, 5 and 3). On macOS it is the system capture: the space bar switches from area to window and Esc cancels. It is saved in Pictures › Capture & Prompt." },
+      { title: "Mark it up and comment", text: "The capture opens to mark it up: pen, highlighter, arrow, line, rectangle, oval, text, step numbers, pixelate data (passwords, emails) and crop, in six colours and three widths, with undo and redo. With Shift, lines snap to 45°. “Preview” opens it with the macOS markup tools. Write what you want in the comment and press “Add to the PDF”." },
+      { title: "PDF or prompt", text: "At the top, write the general prompt. “Export the PDF…” makes a cover with it and one page per capture with its comment; with “Editable comments”, they can be rewritten in Preview or Acrobat. “Copy the prompt” copies the text with the path of each image, ready to paste into Claude Code or another assistant. Close the window: the camera stays in the bar." },
     ],
   },
   cpp_cshbackup: {

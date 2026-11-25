@@ -393,7 +393,7 @@ msgstr ""
 msgid "Acerca de"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_mp3_player.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart lib/ui/screens/dev_tools.dart
 msgid "Archivo"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgstr ""
 msgid "Avisar por"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Ayuda"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Decimales"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Edición"
 msgstr ""
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Guardado: {0} ({1}), avisar por: {2}"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter_templates.dart lib/code/tk_showcase.dart lib/code/tk_showcase_chrome.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_flutter_cloud.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_web.dart lib/code/tk_showcase_windows.dart lib/ui/screens/budget_screen.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/settings_screen.dart lib/ui/screens/tk_designer.dart
 msgid "Guardar"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "Rellene servidor, base, usuario y clave."
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
+#: lib/code/tk_examples.dart lib/code/tk_showcase.dart lib/code/tk_showcase_animals.dart lib/code/tk_showcase_cpp_bc3.dart lib/code/tk_showcase_cpp_blocks.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_racing.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_domino.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_malecon.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_sites.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_web.dart
 msgid "Salir"
 msgstr ""
 
@@ -809,7 +809,7 @@ msgstr ""
 msgid "Temperatura"
 msgstr ""
 
-#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
+#: lib/code/tk_examples.dart lib/code/tk_flutter.dart lib/code/tk_model.dart lib/code/tk_showcase.dart lib/code/tk_showcase_ai.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_flutter_designer.dart
 msgid "Texto"
 msgstr ""
 
@@ -2591,7 +2591,7 @@ msgstr ""
 msgid "Convierte divisas con los tipos del BCE leídos de una API en segundo plano, con tabla de reserva sin conexión."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_pascal_opend.dart lib/ui/widgets.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/mcp_settings.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_help_panel.dart
 msgid "Copiar"
 msgstr ""
 
@@ -2611,7 +2611,7 @@ msgstr ""
 msgid "Datos simulados: no son cotizaciones reales."
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_file_renamer.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_designer.dart
 msgid "Deshacer"
 msgstr ""
 
@@ -2671,7 +2671,7 @@ msgstr ""
 msgid "Gráfico de líneas"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_electron.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_pdf_editor.dart
 msgid "Guardar como…"
 msgstr ""
 
@@ -2743,7 +2743,7 @@ msgstr ""
 msgid "Puntos: {0}"
 msgstr ""
 
-#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
+#: lib/code/tk_showcase.dart lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_pascal_opend.dart
 msgid "Rehacer"
 msgstr ""
 
@@ -3868,6 +3868,388 @@ msgid ""
 "Esc o P  pausa   ·   R  empezar otra vez"
 msgstr ""
 
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "(sin comentario)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "-marcada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Abierta en Vista Previa: ⇧⌘A muestra sus herramientas de marcado. Lo que guarde allí entra en el PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Abrir la carpeta de capturas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Abrir la ventana"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Abrir una imagen…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Acerca de Captura y prompt"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Actualizada la captura {0} del PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Actualizar en el PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Arrastre para elegir el área · Esc para cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Añade el stock disponible junto al coste."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Añadida al PDF como captura {0}."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Añadir al PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Bajar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Borrar las marcas"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura cancelada."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura guardada en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura y prompt"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura y prompt (C++)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura y prompt en C++ con FLTK: una cámara en la barra de menús que captura la pantalla, la marca y la junta en un PDF comentado o en un prompt."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura y prompt ya está abierta: búsquela en la barra de menús (en Windows, junto al reloj)."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Captura {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturar la pantalla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturar un área"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturar una ventana"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturas del PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturas para el prompt"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capturas {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid ""
+"Capture con los botones Área, Ventana o Pantalla, desde el icono de la cámara de la barra de menús (en Windows, junto al reloj) o con ⌃⌥⌘4, ⌃⌥⌘5 y ⌃⌥⌘3 (en Windows, Ctrl+Alt+Mayús+4, 5 y 3). En macOS, en un área, la barra espaciadora cambia a ventana; Esc cancela.\n"
+"\n"
+"La captura se abre aquí para marcarla: lápiz (P), resaltador (H), flecha (A), línea (L), rectángulo (R), óvalo (O), texto (T), números de paso (N), pixelar datos (B) y recortar (C). Con Mayúsculas, las líneas van a 45° y los rectángulos son cuadrados. «Vista Previa» la abre con las herramientas de marcado de macOS.\n"
+"\n"
+"Escriba qué quiere en «Comentario» y pulse «Añadir al PDF». Arriba, el prompt general. «Exportar el PDF…» hace una portada con el prompt y una página por captura con su comentario (si marca «Comentarios editables», se pueden reescribir en el PDF). «Copiar el prompt» copia el texto con la ruta de cada imagen, listo para pegar en un asistente.\n"
+"\n"
+"Cerrar la ventana la esconde en la barra: la cámara sigue ahí."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Capture la pantalla para empezar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Comentario / prompt"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Comentario / prompt de esta captura"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Comentarios editables en el PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Copiar el prompt"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Copiar la imagen"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Corrige el formulario de producto de mi ERP según las capturas. Mantén el estilo de la interfaz."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Ctrl+Alt+Mayús+{0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart
+msgid "Cómo funciona"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "El código de barras no debe verse en esta vista: ocúltalo."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "El lienzo de marcas lo dibuja el código de Form1.cpp"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "El precio de venta debe mostrarse con impuestos incluidos (22,39 €)."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Exportar el PDF…"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Fino"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_pascal_opend.dart
+msgid "Flecha"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Grueso"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Guardar la imagen marcada"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Imagen copiada al portapapeles."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Imagen marcada guardada en {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Imagen: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
+msgid "Imágenes"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_flutter_desktop.dart
+msgid "Inventario"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Limpiador industrial 5 L"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Lista. {0} capturas en el PDF."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Lápiz"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
+msgid "Línea"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_pascal_travel.dart
+msgid "Medio"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_cshbackup.dart
+msgid "Minimizar a la barra"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "No se encuentra la imagen:"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "No se pudo abrir la imagen {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "No se pudo capturar la pantalla. En macOS, dé permiso en Ajustes del Sistema › Privacidad y seguridad › Grabación de pantalla."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "No se pudo escribir el PDF {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "No se pudo guardar {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pdf_editor.dart
+msgid "Nº"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "PDF creado: {0}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Pantalla"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Pixelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Precio sin impuestos"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Productos   Operaciones   Informes   Configuración"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Prompt / instrucciones generales"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Prompt copiado al portapapeles ({0} capturas)."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Prompt general (portada del PDF)"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Pulse sobre una ventana · Esc para cancelar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Pulse Área, Ventana o Pantalla, o use ⌃⌥⌘4 desde cualquier app. También puede soltar aquí una imagen."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Quitar del PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Recorte"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Rect."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Resaltar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
+msgid "Subir"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid ""
+"Tipo de producto|Bienes\n"
+"Precio de venta|18,50 €\n"
+"Impuesto de venta|21 %\n"
+"Coste|9,20 €\n"
+"Categoría|Químicos / Limpieza\n"
+"Referencia|LIM-005\n"
+"Código de barras|8437000000057"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Todavía no hay nada que exportar."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Una cámara en la barra de menús: captura un área, una ventana o la pantalla, la marca con flechas, rectángulos, texto, números o pixelado y la junta con su comentario en un PDF o en un prompt para pegar en un asistente."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Una demo de DMarlon Studio hecha en C++ con FLTK. La ventana, su menú, la barra de herramientas y el panel se diseñaron en el Diseñador del estudio; el lienzo de marcas se dibuja en código, el PDF se escribe a mano (sin bibliotecas) y el icono de la barra se hace con el runtime de Objective-C en macOS y con Shell_NotifyIcon en Windows."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
+msgid "Vaciar"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Vaciar la sesión"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Ventana"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Vista Previa"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "{0} capturas en el PDF"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "{0} capturas · {1}"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "¿Vaciar la sesión? Se quitan las capturas y los comentarios del PDF; las imágenes siguen en su carpeta."
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Área"
+msgstr ""
+
+#: lib/code/tk_showcase_cpp_capture.dart
+msgid "Óvalo"
+msgstr ""
+
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "API de administración (Admin API)"
 msgstr ""
@@ -3916,10 +4298,6 @@ msgstr ""
 msgid "Caché: escritura {0} · lectura {1}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_flutter_desktop.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_util_pdf_editor.dart lib/code/tk_showcase_util_pos.dart lib/code/tk_showcase_windows.dart lib/ui/app_icons.dart lib/ui/icon_ai.dart lib/ui/tk_launch.dart lib/ui/widgets.dart lib/ui/screens/code_git.dart lib/ui/screens/code_studio.dart lib/ui/screens/dev_tools.dart lib/ui/screens/diagrams.dart lib/ui/screens/tk_debug_panel.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_flutter_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Cancelar"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "Carpeta de los registros de Claude Code (vacío: la de siempre)"
 msgstr ""
@@ -3934,10 +4312,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
 msgid "Crear una clave…"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_ccusage.dart lib/code/tk_showcase_cpp_clocks.dart lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_flights.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_mywa.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_radio.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_tower.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_cpp_wifi.dart lib/code/tk_showcase_next_world.dart lib/code/tk_showcase_pascal_docker.dart lib/code/tk_showcase_pascal_launcher.dart lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_pascal_travel.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pascal_odoo.dart
-msgid "Cómo funciona"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_ccusage.dart
@@ -4972,10 +5346,6 @@ msgstr ""
 msgid "Una demo de DMarlon Studio: una consola hecha en C++17 con FLTK {0} (Fl_Terminal) y un pseudoterminal. La ventana, el panel de la cola y el menú se diseñaron en el Diseñador del estudio; las pestañas, la cola y las apariencias están en el código de Form1.cpp."
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_console.dart lib/code/tk_showcase_util_pascal_odoo.dart lib/code/tk_showcase_web.dart
-msgid "Vaciar"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_console.dart
 msgid "Vaciar la cola"
 msgstr ""
@@ -5376,10 +5746,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart
 msgid "Marque al menos una instancia"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_cshbackup.dart
-msgid "Minimizar a la barra"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_cshbackup.dart lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_hardware.dart lib/code/tk_showcase_cpp_minilang.dart lib/code/tk_showcase_cpp_pass.dart lib/code/tk_showcase_cpp_recorder.dart lib/code/tk_showcase_cpp_webmon.dart lib/code/tk_showcase_windows.dart
@@ -5795,10 +6161,6 @@ msgstr ""
 msgid "Añadir marcador…"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Bajar"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Barra de marcadores"
 msgstr ""
@@ -6012,10 +6374,6 @@ msgstr ""
 msgid "Imagen {0}"
 msgstr ""
 
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_cpp_image_editor.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/ui/screens/tk_designer.dart lib/ui/screens/tk_inspector.dart
-msgid "Imágenes"
-msgstr ""
-
 #: lib/code/tk_showcase_cpp_explorer.dart
 msgid "Invertir la selección"
 msgstr ""
@@ -6198,10 +6556,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart lib/ui/screens/code_studio.dart
 msgid "Solo lectura"
-msgstr ""
-
-#: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_disk_usage.dart lib/code/tk_showcase_util_pdf_editor.dart lib/ui/screens/github_dialog.dart lib/ui/screens/tk_flutter_designer.dart
-msgid "Subir"
 msgstr ""
 
 #: lib/code/tk_showcase_cpp_explorer.dart lib/code/tk_showcase_util_disk_usage.dart
@@ -14549,10 +14903,6 @@ msgid "Guantes de trabajo"
 msgstr ""
 
 #: lib/code/tk_showcase_flutter_desktop.dart
-msgid "Inventario"
-msgstr ""
-
-#: lib/code/tk_showcase_flutter_desktop.dart
 msgid "Inventario (Flutter escritorio)"
 msgstr ""
 
@@ -16605,10 +16955,6 @@ msgid "Exportar la selección…"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
-msgid "Flecha"
-msgstr ""
-
-#: lib/code/tk_showcase_pascal_opend.dart
 msgid "Formas, degradados, trazados y sombras para la nueva marca"
 msgstr ""
 
@@ -16738,10 +17084,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
 msgid "Lun"
-msgstr ""
-
-#: lib/code/tk_showcase_pascal_opend.dart lib/code/tk_showcase_util_20pdf.dart lib/code/tk_showcase_util_train_monitor.dart lib/ui/screens/tk_debug_panel.dart
-msgid "Línea"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_opend.dart
@@ -17229,10 +17571,6 @@ msgid "Lugar"
 msgstr ""
 
 #: lib/code/tk_showcase_pascal_travel.dart
-msgid "Medio"
-msgstr ""
-
-#: lib/code/tk_showcase_pascal_travel.dart
 msgid "Mercado"
 msgstr ""
 
@@ -17484,10 +17822,6 @@ msgstr ""
 
 #: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pascal_odoo.dart
 msgid "Mejores clientes"
-msgstr ""
-
-#: lib/code/tk_showcase_shop.dart lib/code/tk_showcase_util_pdf_editor.dart
-msgid "Nº"
 msgstr ""
 
 #: lib/code/tk_showcase_shop.dart
@@ -25280,10 +25614,6 @@ msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart
 msgid "PANTALLAS"
-msgstr ""
-
-#: lib/ui/screens/tk_flutter_designer.dart
-msgid "Pantalla"
 msgstr ""
 
 #: lib/ui/screens/tk_flutter_designer.dart

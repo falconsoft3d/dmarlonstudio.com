@@ -49,6 +49,8 @@ part 'tk_showcase_cpp_webmon.dart';
 part 'tk_showcase_cpp_webmon_code.dart';
 part 'tk_showcase_cpp_cshbackup.dart';
 part 'tk_showcase_cpp_cshbackup_code.dart';
+part 'tk_showcase_cpp_capture.dart';
+part 'tk_showcase_cpp_capture_code.dart';
 part 'tk_showcase_cpp_clocks.dart';
 part 'tk_showcase_cpp_clocks_code.dart';
 part 'tk_showcase_cpp_recorder.dart';

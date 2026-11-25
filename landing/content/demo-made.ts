@@ -1754,6 +1754,128 @@ void run_job(const Job& job, const Post& post, const std::atomic<bool>& cancel) 
   post(e);
 }`;
 
+// ---- Captura y prompt (C++): fragmentos de Form1.cpp
+const cpCapture = `pid_t start(int mode, const std::string& file) {
+  std::vector<std::string> a = {"/usr/sbin/screencapture"};
+  if (mode == AREA) a.push_back("-i");
+  else if (mode == WINDOW) a.insert(a.end(), {"-i", "-W"});
+  a.push_back(file);
+  return cp::spawn(a);
+}
+bool finished(pid_t pid) {
+  int st;
+  pid_t r = waitpid(pid, &st, WNOHANG);
+  return r == pid || r < 0;
+}`;
+
+const cpBar = `bool create() {
+  Pool pool;
+  id sb = msg(cls("NSStatusBar"), "systemStatusBar");
+  if (!sb) return false;
+  id it = msg<id, double>(sb, "statusItemWithLength:", -2.0);   // NSSquareStatusItemLength
+  if (!it) return false;
+  msg(it, "retain");
+  item() = it;
+  id b = msg(it, "button");
+  id img = nullptr;
+  if (class_getClassMethod((Class)objc_getClass("NSImage"), sel_registerName("imageWithSystemSymbolName:accessibilityDescription:")))
+    img = msg<id, id, id>(cls("NSImage"), "imageWithSystemSymbolName:accessibilityDescription:", str("camera.fill"), str(tx::APP));
+  if (b && img) {
+    msg<void, BOOL>(img, "setTemplate:", YES);
+    msg<void, id>(b, "setImage:", img);
+  } else if (b) {
+    msg<void, id>(b, "setTitle:", str("◉"));
+  }
+  if (b) msg<void, id>(b, "setToolTip:", str(tx::APP));
+  hotkeys();
+  return true;`;
+
+const cpHotkeys = `bool hotkeys() {
+  void* h = dlopen("/System/Library/Frameworks/Carbon.framework/Carbon", RTLD_LAZY);
+  if (!h) return false;
+  typedef void* (*TargetFn)();
+  typedef int32_t (*InstallFn)(void*, HandlerFn, unsigned long, const EvType*, void*, void**);
+  typedef int32_t (*RegisterFn)(uint32_t, uint32_t, HkId, void*, uint32_t, void**);
+  auto app_target = (TargetFn)dlsym(h, "GetApplicationEventTarget");
+  auto install = (InstallFn)dlsym(h, "InstallEventHandler");
+  auto reg = (RegisterFn)dlsym(h, "RegisterEventHotKey");
+  get_param() = (GetParamFn)dlsym(h, "GetEventParameter");
+  if (!app_target || !install || !reg || !get_param()) return false;
+  void* t = app_target();
+  EvType spec{0x6B657962 /* 'keyb' */, 5 /* kEventHotKeyPressed */};
+  if (install(t, on_hotkey, 1, &spec, nullptr, nullptr) != 0) return false;
+  const uint32_t mods = 0x100 | 0x800 | 0x1000;   // cmd, option, control
+  const struct { uint32_t code; int act; } keys[] = {{0x15, A_AREA}, {0x17, A_WINDOW}, {0x14, A_SCREEN}};
+  bool ok = true;
+  for (const auto& k : keys) {
+    void* ref = nullptr;
+    ok = reg(k.code, mods, HkId{0x444D4350 /* 'DMCP' */, (uint32_t)k.act}, t, 0, &ref) == 0 && ok;
+  }
+  return ok;
+}`;
+
+const cpMark = `    case T_MARK: {
+      std::vector<Pt> dev;
+      for (const auto& p : sh.pts) dev.push_back({v.X(p.x), v.Y(p.y)});
+      Raster r = raster_stroke(dev, sh.width * 2.2 * v.s, sh.color, 0.38);
+      if (!r.px.empty()) {
+        Fl_RGB_Image img(r.px.data(), r.w, r.h, 4);
+        img.draw(r.x, r.y);
+      }
+      break;
+    }`;
+
+const cpPng = `bool png_chunks(const std::string& d, Png& out) {
+  static const char sig[] = "\\x89PNG\\r\\n\\x1a\\n";
+  if (d.size() < 33 || d.compare(0, 8, sig, 8) != 0) return false;
+  size_t i = 8;
+  bool rgb8 = false;
+  out = Png{};
+  while (i + 12 <= d.size()) {
+    unsigned len = be32(d, i);
+    std::string type = d.substr(i + 4, 4);
+    if (i + 12 + len > d.size()) return false;
+    if (type == "IHDR" && len >= 13) {
+      out.w = (int)be32(d, i + 8);
+      out.h = (int)be32(d, i + 12);
+      rgb8 = d[i + 16] == 8 && d[i + 17] == 2 && d[i + 20] == 0;
+    } else if (type == "IDAT") {
+      out.idat.append(d, i + 8, len);
+    } else if (type == "IEND") {
+      break;
+    }
+    i += 12 + len;
+  }
+  return rgb8 && out.w > 0 && out.h > 0 && !out.idat.empty();
+}`;
+
+const cpField = `    if (pdf_image(e.path, tmp, png)) {
+      int im = pdf.reserve();
+      pdf.set(im, Pdf::stream(" /Type /XObject /Subtype /Image /Width " + std::to_string(png.w) + " /Height " +
+                                  std::to_string(png.h) +
+                                  " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /FlateDecode"
+                                  " /DecodeParms << /Predictor 15 /Colors 3 /BitsPerComponent 8 /Columns " +
+                                  std::to_string(png.w) + " >>",
+                              png.idat));
+      double k = std::min(aw / png.w, ah / png.h), w = png.w * k, h = png.h * k;
+      double x = ax + (aw - w) / 2, y = ay + (ah - h) / 2;
+      c += "q " + num(w) + " 0 0 " + num(h) + " " + num(x) + " " + num(y) + " cm /Im0 Do Q\\n";
+      c += "0.8 0.8 0.83 RG 0.5 w " + num(x) + " " + num(y) + " " + num(w) + " " + num(h) + " re S\\n";
+      xobj = "/Im0 " + ref(im);`;
+
+const cpOverlay = `bool pick(const cp::Img& full, int mode, const std::vector<cp::Box>& wins, cp::Box& out) {
+  int X, Y, W, H;
+  Fl::screen_xywh(X, Y, W, H, 0);
+  Overlay o(full, mode, wins, X, Y, W, H);
+  o.set_modal();
+  o.show();
+  o.take_focus();
+  while (o.shown() && !o.done) Fl::wait(0.1);
+  o.hide();
+  if (o.ok) out = o.result;
+  return o.ok;
+}`;
+
 const es: Record<string, DemoMade> = {
   pascal_docker: {
     intro:
@@ -2775,6 +2897,72 @@ const es: Record<string, DemoMade> = {
         title: "8. El robot de cada fila",
         text: "Las filas se dibujan con fl_draw: el robot se mueve arriba y abajo mientras trabaja, cierra los ojos al esperar, lleva un bocadillo con «?» si te pregunta y ojos en cruz si hay un error. Con tareas va hacia la meta; sin ellas, hacia «ahora» en la última hora de trabajo.",
         code: { file: "Form1.cpp", text: twRobot },
+      },
+    ],
+  },
+  cpp_capture: {
+    intro:
+      "Se hizo en DMarlon Studio con el destino C++ (FLTK): el Diseñador pone la barra de herramientas (capturar, las diez herramientas, deshacer, los colores y el grosor), el marco del lienzo, el panel con el prompt general, la lista de capturas del PDF, el comentario y sus botones, la barra de estado y el menú; el código de Form1.cpp dibuja el lienzo de marcas, captura la pantalla, escribe el PDF a mano y pone la cámara en la barra de menús de macOS y junto al reloj de Windows.",
+    tech: {
+      language: "C++17",
+      target: "Escritorio con FLTK 1.4: destino C++ del estudio, una app nativa para macOS (Apple Silicon e Intel) y Windows",
+      components: [
+        { name: "Form1", kind: "Ventana", text: "Captura y prompt: el lienzo, el panel del PDF y la cámara de la barra." },
+        { name: "Menu1", kind: "Menu", text: "Archivo (capturar, abrir, guardar, copiar, exportar el PDF, copiar el prompt, minimizar a la barra), Edición (deshacer, rehacer, borrar las marcas) y Ayuda." },
+        { name: "BtnArea, BtnWindow, BtnScreen", kind: "Button", text: "Capturar un área, una ventana o la pantalla entera." },
+        { name: "ToolPen … ToolCrop", kind: "Button", text: "Las diez herramientas: lápiz, resaltador, flecha, línea, rectángulo, óvalo, texto, números de paso, pixelar y recortar (también con P, H, A, L, R, O, T, N, B y C)." },
+        { name: "BtnUndo, BtnRedo", kind: "Button", text: "Deshacer y rehacer las marcas (⌘Z y ⇧⌘Z)." },
+        { name: "Color1 … Color6, Size", kind: "Button, Combobox", text: "Los seis colores y el grosor del trazo y de la letra (fino, medio, grueso)." },
+        { name: "Board", kind: "Frame", text: "Donde el código pone el lienzo que dibuja la captura y sus marcas." },
+        { name: "Prompt, Comment", kind: "Text", text: "El prompt general (la portada del PDF) y el comentario de cada captura." },
+        { name: "Shots, BtnUp, BtnDown, BtnRemove", kind: "Listbox, Button", text: "Las capturas del PDF con su comentario: elegir una la abre para seguir marcándola; subir, bajar y quitar." },
+        { name: "BtnAdd, BtnSave, BtnCopy, BtnPreview", kind: "Button", text: "Añadir al PDF (o actualizar), guardar la imagen marcada, copiarla y abrirla en Vista Previa." },
+        { name: "Editable, BtnPdf, BtnPrompt", kind: "Checkbutton, Button", text: "Comentarios editables en el PDF, exportarlo y copiar el prompt." },
+        { name: "Status", kind: "StatusBar", text: "Dónde se guardó cada cosa y cuántas capturas hay en el PDF." },
+      ],
+      apis: [
+        "screencapture de macOS (la captura del sistema, con área y ventana) lanzado con posix_spawn; en Windows, BitBlt de GDI y EnumWindows para las ventanas",
+        "NSStatusItem y NSMenu desde C++ con el runtime de Objective-C; los atajos globales con RegisterEventHotKey (Carbon, con dlsym); en Windows, Shell_NotifyIconW y RegisterHotKey",
+        "Fl_Image_Surface para la imagen final, Fl_Copy_Surface para el portapapeles y fl_write_png para guardarla",
+        "Un PDF escrito a mano: Helvetica con WinAnsi, las imágenes en PNG tal cual (FlateDecode con /Predictor 15) y un AcroForm con campos de texto de varias líneas",
+      ],
+    },
+    steps: [
+      {
+        title: "1. La ventana en el Diseñador",
+        text: "Un proyecto con destino C++ (FLTK): arriba un Frame con los botones de capturar, las diez herramientas, deshacer y rehacer, seis botones de color y el Combobox del grosor; a la izquierda, el Frame Board para el lienzo; a la derecha, otro Frame con el prompt general (Text), la lista de capturas (Listbox), el comentario (Text) y sus botones; la barra de estado y el Menu.",
+        shot: "design",
+      },
+      {
+        title: "2. El código que genera el estudio",
+        text: "La clase FormDesign (pestaña «C++ generado») trae los widgets y los métodos virtuales BtnArea_click, ToolArrow_click, Color1_click, Size_select, Shots_select, BtnAdd_click, BtnPdf_click, Menu1_click…; Form1 los sobrescribe y pone dentro de Board el lienzo de marcas.",
+        shot: "generated",
+      },
+      {
+        title: "3. Capturar con la herramienta del sistema",
+        text: "En macOS se lanza screencapture, la misma captura de ⇧⌘4: -i para elegir un área (la barra espaciadora pasa a ventana) y -W para empezar por la ventana. La ventana se esconde para no salir en la foto y la app espera sin bloquearse, con Fl::wait, a que el proceso termine; si no hay archivo, se canceló con Esc.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: cpCapture },
+      },
+      {
+        title: "4. La cámara en la barra y los atajos",
+        text: "El icono es un NSStatusItem con el símbolo camera.fill, hecho desde C++ con objc_msgSend. Los atajos ⌃⌥⌘4, 5 y 3 funcionan desde cualquier app con RegisterEventHotKey: Carbon ya está cargado en toda app de Cocoa, así que se busca con dlsym y no hace falta enlazarlo.",
+        code: { file: "Form1.cpp", text: cpHotkeys },
+      },
+      {
+        title: "5. Un resaltador transparente",
+        text: "FLTK no dibuja líneas semitransparentes: el trazo del resaltador se rasteriza en una imagen RGBA (cápsulas con el borde suavizado) y se dibuja encima con su transparencia. Las mismas funciones dibujan el lienzo escalado y la imagen final a tamaño real con Fl_Image_Surface.",
+        code: { file: "Form1.cpp", text: cpMark },
+      },
+      {
+        title: "6. El PDF, a mano",
+        text: "Sin bibliotecas: los PNG ya van comprimidos con zlib y el PDF entiende esos datos con el predictor de PNG, así que se copian los bloques IDAT tal cual. Cada página lleva la imagen ajustada y el comentario como campo de formulario (/FT /Tx) con su aspecto, que se puede reescribir en Vista Previa o Acrobat.",
+        code: { file: "Form1.cpp", text: cpPng },
+      },
+      {
+        title: "7. Elegir el área en Windows",
+        text: "Windows no tiene un screencapture de línea de órdenes: se toma la pantalla con BitBlt y se abre encima una ventana sin bordes con esa imagen oscurecida, donde se arrastra el área o se pulsa una ventana (las de EnumWindows, de delante a atrás). Esc cancela.",
+        code: { file: "Form1.cpp", text: cpOverlay },
       },
     ],
   },
@@ -3877,6 +4065,72 @@ const en: Record<string, DemoMade> = {
         title: "8. The robot in each row",
         text: "The rows are drawn with fl_draw: the robot bobs up and down while working, closes its eyes when waiting, has a “?” speech bubble when it asks you and crossed eyes on an error. With tasks it heads for the finish line; without them, towards “now” in the last hour of work.",
         code: { file: "Form1.cpp", text: twRobot },
+      },
+    ],
+  },
+  cpp_capture: {
+    intro:
+      "It was made in DMarlon Studio with the C++ (FLTK) target: the Designer provides the toolbar (capture, the ten tools, undo, the colours and the width), the canvas frame, the panel with the general prompt, the list of captures in the PDF, the comment and its buttons, the status bar and the menu; the code in Form1.cpp draws the markup canvas, captures the screen, writes the PDF by hand and puts the camera in the macOS menu bar and next to the Windows clock.",
+    tech: {
+      language: "C++17",
+      target: "Desktop with FLTK 1.4: the studio's C++ target, a native app for macOS (Apple Silicon and Intel) and Windows",
+      components: [
+        { name: "Form1", kind: "Window", text: "Capture & Prompt: the canvas, the PDF panel and the camera in the bar." },
+        { name: "Menu1", kind: "Menu", text: "File (capture, open, save, copy, export the PDF, copy the prompt, minimize to the bar), Edit (undo, redo, clear the marks) and Help." },
+        { name: "BtnArea, BtnWindow, BtnScreen", kind: "Button", text: "Capture an area, a window or the whole screen." },
+        { name: "ToolPen … ToolCrop", kind: "Button", text: "The ten tools: pen, highlighter, arrow, line, rectangle, oval, text, step numbers, pixelate and crop (also with P, H, A, L, R, O, T, N, B and C)." },
+        { name: "BtnUndo, BtnRedo", kind: "Button", text: "Undo and redo the marks (⌘Z and ⇧⌘Z)." },
+        { name: "Color1 … Color6, Size", kind: "Button, Combobox", text: "The six colours and the width of the stroke and the text (thin, medium, thick)." },
+        { name: "Board", kind: "Frame", text: "Where the code puts the canvas that draws the capture and its marks." },
+        { name: "Prompt, Comment", kind: "Text", text: "The general prompt (the PDF cover) and the comment of each capture." },
+        { name: "Shots, BtnUp, BtnDown, BtnRemove", kind: "Listbox, Button", text: "The captures in the PDF with their comments: choosing one opens it to keep marking it; move up, move down and remove." },
+        { name: "BtnAdd, BtnSave, BtnCopy, BtnPreview", kind: "Button", text: "Add to the PDF (or update), save the marked image, copy it and open it in Preview." },
+        { name: "Editable, BtnPdf, BtnPrompt", kind: "Checkbutton, Button", text: "Editable comments in the PDF, export it and copy the prompt." },
+        { name: "Status", kind: "StatusBar", text: "Where each thing was saved and how many captures the PDF has." },
+      ],
+      apis: [
+        "macOS screencapture (the system capture, with area and window) launched with posix_spawn; on Windows, GDI BitBlt and EnumWindows for the windows",
+        "NSStatusItem and NSMenu from C++ with the Objective-C runtime; global shortcuts with RegisterEventHotKey (Carbon, via dlsym); on Windows, Shell_NotifyIconW and RegisterHotKey",
+        "Fl_Image_Surface for the final image, Fl_Copy_Surface for the clipboard and fl_write_png to save it",
+        "A hand-written PDF: Helvetica with WinAnsi, the images as PNG as they are (FlateDecode with /Predictor 15) and an AcroForm with multi-line text fields",
+      ],
+    },
+    steps: [
+      {
+        title: "1. The window in the Designer",
+        text: "A project with the C++ (FLTK) target: at the top a Frame with the capture buttons, the ten tools, undo and redo, six colour buttons and the width Combobox; on the left, the Board Frame for the canvas; on the right, another Frame with the general prompt (Text), the list of captures (Listbox), the comment (Text) and its buttons; the status bar and the Menu.",
+        shot: "design",
+      },
+      {
+        title: "2. The code the studio generates",
+        text: "The FormDesign class (the “Generated C++” tab) brings the widgets and the virtual methods BtnArea_click, ToolArrow_click, Color1_click, Size_select, Shots_select, BtnAdd_click, BtnPdf_click, Menu1_click…; Form1 overrides them and puts the markup canvas inside Board.",
+        shot: "generated",
+      },
+      {
+        title: "3. Capturing with the system tool",
+        text: "On macOS it runs screencapture, the same capture as ⇧⌘4: -i to choose an area (the space bar switches to window) and -W to start with the window. The window hides so it is not in the shot and the app waits without blocking, with Fl::wait, for the process to finish; if there is no file, it was cancelled with Esc.",
+        shot: "code",
+        code: { file: "Form1.cpp", text: cpCapture },
+      },
+      {
+        title: "4. The camera in the bar and the shortcuts",
+        text: "The icon is an NSStatusItem with the camera.fill symbol, made from C++ with objc_msgSend. The ⌃⌥⌘4, 5 and 3 shortcuts work from any app with RegisterEventHotKey: Carbon is already loaded in every Cocoa app, so it is looked up with dlsym and does not need to be linked.",
+        code: { file: "Form1.cpp", text: cpHotkeys },
+      },
+      {
+        title: "5. A transparent highlighter",
+        text: "FLTK does not draw semi-transparent lines: the highlighter stroke is rasterized into an RGBA image (capsules with a smoothed edge) and drawn on top with its transparency. The same functions draw the scaled canvas and the full-size final image with Fl_Image_Surface.",
+        code: { file: "Form1.cpp", text: cpMark },
+      },
+      {
+        title: "6. The PDF, by hand",
+        text: "No libraries: PNGs are already compressed with zlib and PDF understands that data with the PNG predictor, so the IDAT chunks are copied as they are. Each page carries the fitted image and the comment as a form field (/FT /Tx) with its appearance, which can be rewritten in Preview or Acrobat.",
+        code: { file: "Form1.cpp", text: cpPng },
+      },
+      {
+        title: "7. Choosing the area on Windows",
+        text: "Windows has no command-line screencapture: the screen is taken with BitBlt and a borderless window opens on top with that image darkened, where you drag the area or click a window (those from EnumWindows, front to back). Esc cancels.",
+        code: { file: "Form1.cpp", text: cpOverlay },
       },
     ],
   },

@@ -3,6 +3,10 @@
 Las versiones se llevan en el archivo `VERSION` y se cambian en todas partes
 con `node scripts/version.mjs <versión|patch|minor|major>`.
 
+## 1.0.156 — 2026-11-25
+
+- Nueva demo **Captura y prompt (C++)**: una cámara en la barra de menús de macOS (en Windows, junto al reloj) que captura un área, una ventana o la pantalla, también con ⌃⌥⌘4, ⌃⌥⌘5 y ⌃⌥⌘3 desde cualquier app (en Windows, Ctrl+Alt+Mayús), y la abre para marcarla con lápiz, resaltador, flecha, línea, rectángulo, óvalo, texto, números de paso, pixelado y recorte, con deshacer y rehacer. Cada captura lleva su comentario y va a un PDF con una portada para el prompt general y los comentarios como campos editables, o se copia como prompt con la ruta de cada imagen. El PDF se escribe a mano en C++ (las imágenes en PNG con su predictor y un AcroForm), sin bibliotecas. Con su página de demo (cómo funciona y cómo se hizo), capturas en español e inglés, icono y manual.
+
 ## 1.0.155 — 2026-11-23
 
 - Demos: ya compilan todas las de Windows y las de Python de macOS. Las de Pascal en macOS vuelven a salir para la arquitectura que se pueda (el FPC de Homebrew solo trae el compilador de Apple Silicon): el script volvía a probar con la otra, pero desde la 1.0.152 el error llega con otro tipo y ya no lo recogía.

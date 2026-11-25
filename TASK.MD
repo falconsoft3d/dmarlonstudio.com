@@ -132,6 +132,7 @@ Hechos
 150. App en C++ (DMarlon Studio) para macOS y Windows que baja cada día, o con la secuencia elegida, los respaldos de las bases de datos de community.sh a la carpeta elegida, minimizada en la barra | ✅ |
 151. Respaldos de community.sh: cada hora (y cada 2, 3, 4 h) y eliminar los respaldos tras N días (3 por defecto) | ✅ |
 152. Respaldos de community.sh: también servidores Ubuntu por SSH, con clave o contraseña (pg_dump), e historial de cada respaldo | ✅ |
+153. App en C++ (DMarlon Studio) que se minimiza en la barra como una cámara: captura la pantalla, la marca con herramientas como las de macOS, guarda la imagen y la mete en un PDF que se puede comentar como un prompt | ✅ |
 
 Trabajando
 =========

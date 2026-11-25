@@ -371,6 +371,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Todas las sesiones de Claude Code abiertas en su equipo (en VS Code, en la terminal o en otros editores) en una torre de control: una fila por sesión con lo que hace ahora, si trabaja, le espera o le pregunta algo, sus tareas con un robot que avanza hacia la meta, sus subagentes y dónde prueba la app. El detalle enseña los últimos pasos, los archivos, la orden, la respuesta, los tokens y el coste, y abre la carpeta en VS Code. Los agentes pueden informar de su avance a un servidor local. Vive en la barra de menús y avisa cuando una sesión termina.",
         shows: ["C++17 con FLTK, diseñado en el estudio", "Lee ~/.claude sin configurar nada: solo lo nuevo, cada dos segundos", "Servidor local para los informes de los agentes", "Barra de menús de macOS con avisos"],
       },
+      cpp_capture: {
+        name: "Captura y prompt (C++)",
+        text: "Una cámara en la barra de menús de macOS (en Windows, junto al reloj): captura un área, una ventana o la pantalla, también con ⌃⌥⌘4 desde cualquier app, y la abre para marcarla con lápiz, resaltador, flechas, rectángulos, óvalos, texto, números de paso, pixelado de datos y recorte. Cada captura lleva su comentario y va a un PDF con una portada para el prompt general, con los comentarios editables en el propio PDF, o se copia como prompt con la ruta de cada imagen, listo para pegar en un asistente.",
+        shows: ["C++17 con FLTK, diseñado en el estudio", "Barra de menús de macOS y atajos globales", "Marcas con deshacer, pixelado y recorte", "Un PDF escrito a mano con campos editables"],
+      },
       cpp_cshbackup: {
         name: "Respaldos de community.sh (C++)",
         text: "Baja a su equipo los respaldos de las instancias de Odoo de su panel de community.sh, con la secuencia que elija: cada hora, cada 2, 3, 4, 6 o 12 horas, cada día o cada semana, a la hora que quiera. Se guardan en la carpeta que elija, cada instancia en la suya, y se borran pasados unos días (3 por defecto; el último de cada instancia siempre se queda). Puede pedir al panel un respaldo nuevo antes de bajarlo, con o sin los adjuntos. También respalda las bases de PostgreSQL de sus servidores Linux por SSH (con clave o contraseña) con pg_dump. Guarda un historial de lo bajado y de lo que falló. Vive en la barra de menús de macOS y junto al reloj de Windows, avisa al terminar y se abre al iniciar sesión.",
@@ -698,6 +703,11 @@ const TEXT: Record<Lang, DemosText> = {
         text: "Every Claude Code session open on your computer (in VS Code, in the terminal or in other editors) in a control tower: one row per session with what it is doing now, whether it is working, waiting for you or asking you something, its tasks with a robot heading for the finish line, its subagents and where it is testing the app. The details show the last steps, the files, the prompt, the answer, the tokens and the cost, and open the folder in VS Code. Agents can report their progress to a local server. It lives in the menu bar and lets you know when a session finishes.",
         shows: ["C++17 with FLTK, designed in the studio", "Reads ~/.claude with no setup: only what is new, every two seconds", "Local server for agents' reports", "macOS menu bar with notifications"],
       },
+      cpp_capture: {
+        name: "Capture & Prompt (C++)",
+        text: "A camera in the macOS menu bar (on Windows, next to the clock): it captures an area, a window or the screen, also with ⌃⌥⌘4 from any app, and opens it to mark it up with pen, highlighter, arrows, rectangles, ovals, text, step numbers, data pixelation and crop. Each capture carries its comment and goes into a PDF with a cover for the general prompt, with the comments editable in the PDF itself, or it is copied as a prompt with the path of each image, ready to paste into an assistant.",
+        shows: ["C++17 with FLTK, designed in the studio", "macOS menu bar and global shortcuts", "Marks with undo, pixelation and crop", "A hand-written PDF with editable fields"],
+      },
       cpp_cshbackup: {
         name: "community.sh Backups (C++)",
         text: "Downloads the backups of the Odoo instances of your community.sh panel to your computer on the schedule you choose: every hour, every 2, 3, 4, 6 or 12 hours, every day or every week, at the time you want. They go into the folder you choose, each instance in its own, and are deleted after a few days (3 by default; the latest one of each instance always stays). It can ask the panel for a new backup before downloading it, with or without the attachments. It also backs up the PostgreSQL databases of your Linux servers over SSH (with a key or a password) with pg_dump. It keeps a history of what was downloaded and what failed. It lives in the macOS menu bar and next to the Windows clock, lets you know when it is done and opens at login.",
@@ -798,6 +808,7 @@ const DESKTOP_TECH: Partial<Record<string, { icon: TargetIcon; label: string }>>
   cpp_bc3: { icon: "cpp", label: "C++ · FLTK" },
   cpp_tower: { icon: "cpp", label: "C++ · FLTK" },
   cpp_cshbackup: { icon: "cpp", label: "C++ · FLTK" },
+  cpp_capture: { icon: "cpp", label: "C++ · FLTK" },
 };
 
 const WEB_TECH: Record<WebSeed, { icon: TargetIcon; label: string }> = {
